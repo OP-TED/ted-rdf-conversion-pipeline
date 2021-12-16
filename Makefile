@@ -6,6 +6,7 @@ build-open-semantic-search:
 	@ cd infra/open-semantic-search/ && ./build-deb
 	@ echo "Patch open-semantic-search configs"
 	@ cat infra/docker-compose-configs/open-semantic-search-compose-patch.yml > infra/open-semantic-search/docker-compose.yml
+	@ cd infra/open-semantic-search/ && docker-compose rm -fsv
 	@ cd infra/open-semantic-search/ && docker-compose build
 
 start-open-semantic-search:
@@ -15,4 +16,4 @@ start-open-semantic-search:
 
 stop-open-semantic-search:
 	@ echo "Stop open-semantic-search"
-	@ cd infra/open-semantic-search/ && docker-compose rm -fsv
+	@ cd infra/open-semantic-search/ && docker-compose down

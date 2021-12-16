@@ -2,7 +2,7 @@
 build-open-semantic-search:
 	@ echo "Build open-semantic-search"
 	@ cd infra && rm -rf open-semantic-search
-	@ cd infra && git clone https://github.com/opensemanticsearch/open-semantic-search.git
+	@ cd infra && git clone --recurse-submodules --remote-submodules https://github.com/opensemanticsearch/open-semantic-search.git
 	@ cd infra/open-semantic-search/ && ./build-deb
 	@ echo "Patch open-semantic-search configs"
 	@ cat infra/docker-compose-configs/open-semantic-search-compose-patch.yml > infra/open-semantic-search/docker-compose.yml

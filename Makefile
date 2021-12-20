@@ -19,14 +19,6 @@ stop-open-semantic-search:
 	@ cd infra/open-semantic-search/ && docker-compose down
 
 
-build-silk-service:
-	@ echo "Clone silk service"
-	@ echo "Patch silk service configs"
-	@ cat infra/docker-compose-configs/silk-compose-patch.yml > infra/silk/docker-compose.yml
-	@ echo "Build silk service"
-	@ cd infra/silk/ && docker-compose rm -fsv
-	@ cd infra/silk/ && docker-compose build
-
 start-silk-service:
 	@ echo "Start silk service"
 	@ cd infra/silk/ && docker-compose up

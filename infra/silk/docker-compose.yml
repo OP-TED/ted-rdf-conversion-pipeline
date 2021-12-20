@@ -1,0 +1,9 @@
+version: '3'
+services:
+  silk-framework:
+    container_name: silk-service
+    image: silkframework/silk-workbench:latest
+    volumes:
+      - ./:/opt/silk/workspace
+    ports:
+      - "8590:80"

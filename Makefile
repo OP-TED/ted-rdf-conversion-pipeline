@@ -21,7 +21,7 @@ stop-open-semantic-search:
 
 start-silk-service:
 	@ echo "Start silk service"
-	@ cd infra/silk/ && docker-compose up
+	@ cd infra/silk/ && docker-compose up -d
 
 stop-silk-service:
 	@ echo "Stop silk service"

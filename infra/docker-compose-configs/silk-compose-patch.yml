@@ -1,10 +1,10 @@
 version: '3'
 services:
   silk-framework:
-    container-name: silk-service
+    container_name: silk-service
     build:
       context: .
     volumes:
-      - .:/opt/silk/workspace
+      - ./:/opt/silk/workspace
     ports:
-      - "8590":"80"
+      - "8590:80"

@@ -1,5 +1,5 @@
 name: ted-sws
-version: latest
+version: master
 title: ted-sws documentation
 start_page: ROOT:index.adoc
 nav:

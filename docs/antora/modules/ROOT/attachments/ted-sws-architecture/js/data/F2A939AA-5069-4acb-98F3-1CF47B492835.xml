@@ -1,9 +1,0 @@
-tocTab[tocTab.length] = new Array("0.3.3:1", "", "status", "EARoot/EA3/EA3/EA230.htm", "175.png", "40", "0", "", "Logical diagram0","{71E54506-0848-481a-9E2A-BFA4581511BA}");
-tocTab[tocTab.length] = new Array("0.3.3:2", "", "«rdfsResource» assesed", "EARoot/EA3/EA3/EA233.htm", "25.png", "E322", "0", "", "Object0","{62AA2129-E989-41ee-B5B6-90E6CDFF206A}");
-tocTab[tocTab.length] = new Array("0.3.3:3", "", "«rdfsResource» normalised metadata", "EARoot/EA3/EA3/EA234.htm", "25.png", "E319", "0", "", "Object0","{D91BB7DA-A682-49d1-9FEF-14B484792F93}");
-tocTab[tocTab.length] = new Array("0.3.3:4", "", "«rdfsResource» packaged", "EARoot/EA3/EA3/EA235.htm", "25.png", "E321", "0", "", "Object0","{47AD38F3-FD81-4349-8665-4AAC15CAB688}");
-tocTab[tocTab.length] = new Array("0.3.3:5", "", "«rdfsClass» PipelineStatus", "EARoot/EA3/EA3/EA236.htm", "5.png", "E315", "0", "", "Class0","{1C37DD0C-EEA4-47e2-A4A2-474744F7CE1D}");
-tocTab[tocTab.length] = new Array("0.3.3:6", "", "«rdfsResource» publically accessible", "EARoot/EA3/EA3/EA237.htm", "25.png", "E324", "0", "", "Object0","{887EF5A4-4B33-4191-8473-9F652290E0B5}");
-tocTab[tocTab.length] = new Array("0.3.3:7", "", "«rdfsResource» published", "EARoot/EA3/EA3/EA238.htm", "25.png", "E323", "0", "", "Object0","{669B4445-D3BD-4ba0-9908-1DEA9A946825}");
-tocTab[tocTab.length] = new Array("0.3.3:8", "", "«rdfsResource» raw", "EARoot/EA3/EA3/EA239.htm", "25.png", "E318", "0", "", "Object0","{2593CC5A-575D-49d3-BED9-07AF08BD0E14}");
-tocTab[tocTab.length] = new Array("0.3.3:9", "", "«rdfsResource» transformed", "EARoot/EA3/EA3/EA240.htm", "25.png", "E320", "0", "", "Object0","{DBEE82CE-6FB8-499c-A999-8486CFEBE47E}");

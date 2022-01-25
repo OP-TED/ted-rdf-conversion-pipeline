@@ -1,0 +1,10 @@
+tocTab[tocTab.length] = new Array("0.2:1", "", "application layer - pipeline components", "EARoot/EA2/EA68.htm", "175.png", "23", "0", "", "Logical diagram0","{6A1DA5DC-1136-4317-BE38-35C55220AD8E}");
+tocTab[tocTab.length] = new Array("0.2.1", "1", "notice fetcher", "EARoot/EA2/EA1/EA91.htm", "4.png", "", "", "{928AE78A-5D86-4642-8801-867BD72E703E}", "Package");
+tocTab[tocTab.length] = new Array("0.2.2", "1", "metadata normaliser", "EARoot/EA2/EA2/EA103.htm", "4.png", "", "", "{EA723B26-5FF4-4904-8AFB-C14D964A846C}", "Package");
+tocTab[tocTab.length] = new Array("0.2.3", "1", "notice transformer", "EARoot/EA2/EA3/EA113.htm", "4.png", "", "", "{F9E73B5C-7455-4bcf-924C-BC89E4651AA1}", "Package");
+tocTab[tocTab.length] = new Array("0.2.4", "1", "transformation validator", "EARoot/EA2/EA4/EA125.htm", "4.png", "", "", "{57854639-71A8-44ec-A79A-AFF81F64951C}", "Package");
+tocTab[tocTab.length] = new Array("0.2.5", "1", "notice packager", "EARoot/EA2/EA5/EA142.htm", "4.png", "", "", "{DB8E7276-D765-48a9-9EB8-2A39C704F758}", "Package");
+tocTab[tocTab.length] = new Array("0.2.6", "1", "notice publisher", "EARoot/EA2/EA6/EA156.htm", "4.png", "", "", "{A61DF698-B8D2-4f77-AABB-DFC7DE988C9D}", "Package");
+tocTab[tocTab.length] = new Array("0.2.7", "1", "state & data manager", "EARoot/EA2/EA7/EA164.htm", "4.png", "", "", "{49DDDBEE-7B4F-4f8e-9CE7-13B5D2AE5127}", "Package");
+tocTab[tocTab.length] = new Array("0.2.8", "1", "state & data monitor", "EARoot/EA2/EA8/EA180.htm", "4.png", "", "", "{3E9C6CE4-27D2-4248-9C99-6DE6686BCF72}", "Package");
+tocTab[tocTab.length] = new Array("0.2.9", "1", "pipeline orchestrator", "EARoot/EA2/EA9/EA193.htm", "4.png", "", "", "{2366596C-E16C-4987-B68E-BA488EFF2A6A}", "Package");

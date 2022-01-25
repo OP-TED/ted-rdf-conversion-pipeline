@@ -1,0 +1,4 @@
+* <<index.adoc#, TED-SWS documentation>>
+
+* Architecture
+** link:{attachmentsdir}/ted-sws-architecture/index.html[Project architecture^]

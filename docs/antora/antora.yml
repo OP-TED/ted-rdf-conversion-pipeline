@@ -1,0 +1,6 @@
+name: ted-sws
+version: latest
+title: ted-sws documentation
+start_page: ROOT:index.adoc
+nav:
+- modules/ROOT/nav.adoc

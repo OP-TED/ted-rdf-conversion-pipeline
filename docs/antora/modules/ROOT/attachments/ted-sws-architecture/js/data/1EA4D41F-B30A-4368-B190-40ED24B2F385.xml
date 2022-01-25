@@ -1,0 +1,8 @@
+tocTab[tocTab.length] = new Array("0.1", "1", "business process (BPMN)", "EARoot/EA1/EA9.html", "31.png", "", "", "{2C6EFAE5-836A-4025-B7A6-59F5FF07A034}", "Package");
+tocTab[tocTab.length] = new Array("0.2", "1", "application layer - pipeline components", "EARoot/EA2/EA70.html", "31.png", "", "", "{98908C15-551B-49c6-A8FD-9A909B06757F}", "Package");
+tocTab[tocTab.length] = new Array("0.3", "1", "domain model", "EARoot/EA3/EA205.html", "31.png", "", "", "{FFFB9560-B40B-4d7f-A4E2-6B4F7D49A199}", "Package");
+tocTab[tocTab.length] = new Array("0.4", "1", "application layer - master data registry components", "EARoot/EA4/EA264.html", "31.png", "", "", "{EDB77615-1D8E-481a-97B8-C681A4FA1571}", "Package");
+tocTab[tocTab.length] = new Array("0.5", "1", "application layer - mapping development components", "EARoot/EA5/EA302.html", "31.png", "", "", "{309B4F3A-208F-4a8b-A27C-105DC4754E30}", "Package");
+tocTab[tocTab.length] = new Array("0.6", "1", "business layer", "EARoot/EA6/EA326.html", "31.png", "", "", "{95BC2FB6-348D-483e-AEFD-408F667BDBC8}", "Package");
+tocTab[tocTab.length] = new Array("0.7", "1", "stakeholders", "EARoot/EA7/EA329.html", "31.png", "", "", "{F1785262-0D3C-4fbb-8EA1-BC1FA55A9190}", "Package");
+tocTab[tocTab.length] = new Array("0.8", "1", "infra", "EARoot/EA8/EA338.html", "31.png", "", "", "{52920024-6118-41d7-B5F4-CE82043D70ED}", "Package");

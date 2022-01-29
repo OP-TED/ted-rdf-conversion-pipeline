@@ -1,0 +1,86 @@
+version: '3.2'
+
+# This Docker Compose file mainly hosts the ELK stack and some auxiliary services, such as Apache Tika
+
+services:
+  elasticsearch:
+    build:
+      context: elasticsearch
+      args:
+        ELK_VERSION: ${ELK_VERSION}
+    container_name: elk-${ENVIROMENT}
+    volumes:
+      - type: bind
+        source: ./elasticsearch/config/elasticsearch.yml
+        target: /usr/share/elasticsearch/config/elasticsearch.yml
+        read_only: true
+      - type: volume
+        source: elasticsearch
+        target: /usr/share/elasticsearch/data
+    environment:
+      ES_JAVA_OPTS: "-Xmx16G -Xms256m"
+      ELASTIC_PASSWORD: ${ELASTICSEARCH_PASSWORD:-changeme}
+      # Use single node discovery in order to disable production mode and avoid bootstrap checks.
+      # see: https://www.elastic.co/guide/en/elasticsearch/reference/current/bootstrap-checks.html
+      discovery.type: single-node
+    networks:
+      - elasticsearch
+
+  logstash:
+    build:
+      context: logstash
+      args:
+        ELK_VERSION: ${ELK_VERSION}
+    container_name: logstash-${ENVIROMENT}
+    volumes:
+      - type: bind
+        source: ./logstash/config/logstash.yml
+        target: /usr/share/logstash/config/logstash.yml
+        read_only: true
+      - type: bind
+        source: ./logstash/pipeline
+        target: /usr/share/logstash/pipeline
+        read_only: true
+    environment:
+      LS_JAVA_OPTS: "-Xmx256m -Xms256m"
+    networks:
+      - elasticsearch
+    depends_on:
+      - elasticsearch
+
+  kibana:
+    build:
+      context: kibana
+      args:
+        ELK_VERSION: ${ELK_VERSION}
+    container_name: kibana-${ENVIROMENT}
+    volumes:
+      - type: bind
+        source: ./kibana/config/kibana.yml
+        target: /usr/share/kibana/config/kibana.yml
+        read_only: true
+    networks:
+      - elasticsearch
+      - proxy-net
+    depends_on:
+      - elasticsearch
+    labels:
+      #### Labels define the behavior and rules of the traefik proxy for this container ####
+      - "traefik.enable=true" # <== Enable traefik to proxy this container
+      - "traefik.http.routers.${ENVIROMENT}-elk.rule=Host(`elk.${SUBDOMAIN}${DOMAIN}`)" # <== Your Domain Name goes here for the http rule
+      - "traefik.http.routers.${ENVIROMENT}-elk.entrypoints=web" # <== Defining the entrypoint for http, **ref: line 30
+      - "traefik.http.routers.${ENVIROMENT}-elk.middlewares=redirect@file" # <== This is a middleware to redirect to https
+      - "traefik.http.routers.${ENVIROMENT}-elk-secured.rule=Host(`elk.${SUBDOMAIN}${DOMAIN}`)" # <== Your Domain Name for the https rule
+      - "traefik.http.routers.${ENVIROMENT}-elk-secured.entrypoints=web-secured" # <== Defining entrypoint for https, **ref: line 31
+      - "traefik.http.routers.${ENVIROMENT}-elk-secured.tls.certresolver=mytlschallenge" # <== Defining certsresolvers for https
+
+networks:
+  elasticsearch:
+    internal: true
+  proxy-net:
+    external:
+      name: proxy-net
+
+volumes:
+  elasticsearch:
+

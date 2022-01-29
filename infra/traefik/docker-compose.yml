@@ -34,12 +34,12 @@ services:
       - --certificatesresolvers.mytlschallenge.acme.tlschallenge=true # <== Enable TLS-ALPN-01 to generate and renew ACME certs
       - --certificatesresolvers.mytlschallenge.acme.email=dragos.paun0000@gmail.com # <== Setting email for certs
       - --certificatesresolvers.mytlschallenge.acme.storage=/letsencrypt/acme.json # <== Defining acme file to store cert information
-#      - --certificatesresolvers.mytlschallenge.acme.caserver=https://acme-staging-v02.api.letsencrypt.org/directory
+      - --certificatesresolvers.mytlschallenge.acme.caserver=https://acme-staging-v02.api.letsencrypt.org/directory
     labels:
     #### Labels define the behavior and rules of the traefik proxy for this container ####
       - "traefik.enable=true" # <== Enable traefik on itself to view dashboard and assign subdomain to view it
 
-      - "traefik.http.routers.api.rule=Host(`monitor.ted-data.eu`)" # <== Setting the domain for the dashboard
+      - "traefik.http.routers.api.rule=Host(`monitor.${DOMAIN}`)" # <== Setting the domain for the dashboard
       - "traefik.http.routers.api.service=api@internal"
       - "traefik.http.routers.api.middlewares=auth"
       - "traefik.http.middlewares.auth.basicauth.users=admin:$$apr1$$PTMvJPGu$$PrhB1Rbu8eCY2.ElsfJre0"

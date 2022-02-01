@@ -1,4 +1,4 @@
-version: '3.2'
+version: '3.8'
 
 # This Docker Compose file mainly hosts the ELK stack and some auxiliary services, such as Apache Tika
 
@@ -77,10 +77,12 @@ services:
 networks:
   elasticsearch:
     internal: true
+    name: elk-${ENVIROMENT}
   proxy-net:
     external:
       name: proxy-net
 
 volumes:
   elasticsearch:
+    name: elk-${ENVIROMENT}
 

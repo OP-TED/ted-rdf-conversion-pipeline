@@ -23,6 +23,7 @@ services:
       - "traefik.http.routers.${ENVIROMENT}-agraph-secured.rule=Host(`agraph.${SUBDOMAIN}${DOMAIN}`)" # <== Your Domain Name for the https rule
       - "traefik.http.routers.${ENVIROMENT}-agraph-secured.entrypoints=web-secured" # <== Defining entrypoint for https, **ref: line 31
       - "traefik.http.routers.${ENVIROMENT}-agraph-secured.tls.certresolver=mytlschallenge" # <== Defining certsresolvers for https
+      - "traefik.http.services.${ENVIROMENT}-agraph-secured.loadbalancer.server.port=10035"
 
 
 volumes:

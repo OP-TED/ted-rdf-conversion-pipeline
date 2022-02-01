@@ -29,11 +29,11 @@ stop-traefik:
 
 start-portainer: build-externals
 	@ echo "$(BUILD_PRINT)Starting the Portainer services"
-	@ docker-compose --file ./infra/portainer/docker-compose.yml up -d
+	@ docker-compose --file ./infra/portainer/docker-compose.yml --env-file ${PROD_ENV_FILE} up -d
 
 stop-portainer:
 	@ echo "$(BUILD_PRINT)Stopping the Portainer services"
-	@ docker-compose --file ./infra/portainer/docker-compose.yml down
+	@ docker-compose --file ./infra/portainer/docker-compose.yml --env-file ${PROD_ENV_FILE} down
 
 start-server-services: | start-traefik start-portainer
 stop-server-services: | stop-traefik stop-portainer

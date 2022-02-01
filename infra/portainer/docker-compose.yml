@@ -6,8 +6,6 @@ services:
     container_name: portainer
     command: -H unix:///var/run/docker.sock
     restart: always
-    expose:
-      - 9000
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - portainer_data:/data
@@ -22,6 +20,7 @@ services:
       - "traefik.http.routers.portainer-secured.rule=Host(`portainer.${DOMAIN}`)" # <== Your Domain Name for the https rule
       - "traefik.http.routers.portainer-secured.entrypoints=web-secured" # <== Defining entrypoint for https, **ref: line 31
       - "traefik.http.routers.portainer-secured.tls.certresolver=mytlschallenge" # <== Defining certsresolvers for https
+      - "traefik.http.services.portainer-secured.loadbalancer.server.port=9000"
 
 volumes:
   portainer_data:

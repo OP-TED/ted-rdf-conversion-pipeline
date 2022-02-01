@@ -61,11 +61,11 @@ stop-airflow:
 
 start-allegro-graph: build-externals
 	@ echo "$(BUILD_PRINT)Starting Allegro-Graph servies"
-	@ docker-compose -p ${PRODUCTION} --file ./infra/allegro-graph/docker-compose.yaml --env-file ${PROD_ENV_FILE} up -d
+	@ docker-compose -p ${PRODUCTION} --file ./infra/allegro-graph/docker-compose.yml --env-file ${PROD_ENV_FILE} up -d
 
 stop-allegro-graph:
 	@ echo "$(BUILD_PRINT)Stoping Allegro-Graph services"
-	@ docker-compose -p ${PRODUCTION} --file ./infra/allegro-graph/docker-compose.yaml --env-file ${PROD_ENV_FILE} down
+	@ docker-compose -p ${PRODUCTION} --file ./infra/allegro-graph/docker-compose.yml --env-file ${PROD_ENV_FILE} down
 
 
 build-elasticsearch: build-externals
@@ -113,11 +113,11 @@ stop-airflow-staging:
 
 start-allegro-graph-staging: build-externals
 	@ echo "$(BUILD_PRINT)Starting Allegro-Graph servies"
-	@ docker-compose -p ${STAGING} --file ./infra/allegro-graph/docker-compose.yaml --env-file ${STAGING_ENV_FILE} up -d
+	@ docker-compose -p ${STAGING} --file ./infra/allegro-graph/docker-compose.yml --env-file ${STAGING_ENV_FILE} up -d
 
 stop-allegro-graph-staging:
 	@ echo "$(BUILD_PRINT)Stoping Allegro-Graph services"
-	@ docker-compose -p ${STAGING} --file ./infra/allegro-graph/docker-compose.yaml --env-file ${STAGING_ENV_FILE} down
+	@ docker-compose -p ${STAGING} --file ./infra/allegro-graph/docker-compose.yml --env-file ${STAGING_ENV_FILE} down
 
 start-elasticsearch-staging: build-externals
 	@ echo "$(BUILD_PRINT)Starting the Elasticsearch services"

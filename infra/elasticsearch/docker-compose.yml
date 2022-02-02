@@ -10,10 +10,8 @@ services:
         ELK_VERSION: ${ELK_VERSION}
     container_name: elk-${ENVIROMENT}
     ports:
-      - target: 9200
-        published: 9200
-        protocol: tcp
-        mode: host
+      - "9200:9200"
+      - "9300:9300"
     volumes:
       - type: bind
         source: ./elasticsearch/config/elasticsearch.yml

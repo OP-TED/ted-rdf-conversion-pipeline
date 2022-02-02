@@ -38,7 +38,7 @@
 #
 # Feel free to modify this file to suit your needs.
 ---
-version: '3.8'
+version: '3'
 x-airflow-common:
   &airflow-common
   # In order to add custom dependencies or upgrade provider packages you can use your extended image.
@@ -60,6 +60,7 @@ x-airflow-common:
     VAULT_TOKEN: ${VAULT_TOKEN}
     VAULT_ADDR: ${VAULT_ADDR}
   volumes:
+#    - ./config/airflow.cfg:/opt/airflow/airflow.cfg
     - ./.env:/opt/airflow/.env
     - ./dags:/opt/airflow/dags
     - ./logs:/opt/airflow/logs
@@ -77,6 +78,7 @@ x-airflow-common:
 services:
   postgres:
     image: postgres:13
+    container_name: postgres-airflow-${ENVIROMENT}
     environment:
       POSTGRES_USER: airflow
       POSTGRES_PASSWORD: airflow
@@ -93,6 +95,7 @@ services:
 
   redis:
     image: redis:latest
+    container_name: redis-airflow-${ENVIROMENT}
     expose:
       - 6379
     healthcheck:
@@ -106,32 +109,35 @@ services:
 
   airflow-webserver:
     <<: *airflow-common
+    container_name: airflow-webserver-${ENVIROMENT}
     command: webserver
-    healthcheck:
-      test: ["CMD", "curl", "--fail", "https://airflow.${SUBDOMAIN}${DOMAIN}/health"]
-      interval: 10s
-      timeout: 10s
-      retries: 5
     restart: unless-stopped
     networks:
       - airflow
       - proxy-net
-    depends_on:
-      <<: *airflow-common-depends-on
-      airflow-init:
-        condition: service_completed_successfully
     labels:
       #### Labels define the behavior and rules of the traefik proxy for this container ####
       - "traefik.enable=true" # <== Enable traefik to proxy this container
       - "traefik.http.routers.${ENVIROMENT}-airflow.rule=Host(`airflow.${SUBDOMAIN}${DOMAIN}`)" # <== Your Domain Name goes here for the http rule
       - "traefik.http.routers.${ENVIROMENT}-airflow.entrypoints=web" # <== Defining the entrypoint for http, **ref: line 30
-      - "traefik.http.routers.${ENVIROMENT}-airflow.middlewares=redirect@file" # <== This is a middleware to redirect to https
+
+      - "traefik.http.routers.airflow.middlewares=redirect@file" # <== This is a middleware to redirect to https
       - "traefik.http.routers.${ENVIROMENT}-airflow-secured.rule=Host(`airflow.${SUBDOMAIN}${DOMAIN}`)" # <== Your Domain Name for the https rule
       - "traefik.http.routers.${ENVIROMENT}-airflow-secured.entrypoints=web-secured" # <== Defining entrypoint for https, **ref: line 31
       - "traefik.http.routers.${ENVIROMENT}-airflow-secured.tls.certresolver=mytlschallenge" # <== Defining certsresolvers for https
+      - "traefik.http.services.${ENVIROMENT}-airflow-secured.loadbalancer.server.port=8080"
+
+    depends_on:
+      <<: *airflow-common-depends-on
+      airflow-init:
+        condition: service_completed_successfully
+
+
+
 
   airflow-scheduler:
     <<: *airflow-common
+    container_name: airflow-scheduler-${ENVIROMENT}
     command: scheduler
     healthcheck:
       test: ["CMD-SHELL", 'airflow jobs check --job-type SchedulerJob --hostname "$${HOSTNAME}"']
@@ -148,11 +154,10 @@ services:
 
   airflow-worker:
     <<: *airflow-common
+    container_name: airflow-worker-${ENVIROMENT}
     command: celery worker
     healthcheck:
-      test:
-        - "CMD-SHELL"
-        - 'celery --app airflow.executors.celery_executor.app inspect ping -d "celery@$${HOSTNAME}"'
+      test: ["CMD-SHELL",'celery --app airflow.executors.celery_executor.app inspect ping -d "celery@$${HOSTNAME}"']
       interval: 10s
       timeout: 10s
       retries: 5
@@ -171,6 +176,7 @@ services:
 
   airflow-triggerer:
     <<: *airflow-common
+    container_name: airflow-triggerer-${ENVIROMENT}
     command: triggerer
     healthcheck:
       test: ["CMD-SHELL", 'airflow jobs check --job-type TriggererJob --hostname "$${HOSTNAME}"']
@@ -281,12 +287,15 @@ services:
 
   flower:
     <<: *airflow-common
+    container_name: airflow-flower-${ENVIROMENT}
     command: celery flower
-    healthcheck:
-      test: ["CMD", "curl", "--fail", "https://airflow-flower.${SUBDOMAIN}${DOMAIN}/"]
-      interval: 10s
-      timeout: 10s
-      retries: 5
+#    ports:
+#      - 5555:5555
+#    healthcheck:
+#      test: ["CMD", "curl", "--fail", "https://airflow-flower.${SUBDOMAIN}${DOMAIN}/"]
+#      interval: 10s
+#      timeout: 10s
+#      retries: 5
     restart: unless-stopped
     networks:
       - airflow
@@ -295,15 +304,15 @@ services:
       <<: *airflow-common-depends-on
       airflow-init:
         condition: service_completed_successfully
-    labels:
-      #### Labels define the behavior and rules of the traefik proxy for this container ####
-      - "traefik.enable=true" # <== Enable traefik to proxy this container
-      - "traefik.http.routers.${ENVIROMENT}-airflow-flower.rule=Host(`airflow-flower.${SUBDOMAIN}${DOMAIN}`)" # <== Your Domain Name goes here for the http rule
-      - "traefik.http.routers.${ENVIROMENT}-airflow-flower.entrypoints=web" # <== Defining the entrypoint for http, **ref: line 30
-      - "traefik.http.routers.${ENVIROMENT}-airflow-flower.middlewares=redirect@file" # <== This is a middleware to redirect to https
-      - "traefik.http.routers.${ENVIROMENT}-airflow-flower-secured.rule=Host(`airflow-flower.${SUBDOMAIN}${DOMAIN}`)" # <== Your Domain Name for the https rule
-      - "traefik.http.routers.${ENVIROMENT}-airflow-flower-secured.entrypoints=web-secured" # <== Defining entrypoint for https, **ref: line 31
-      - "traefik.http.routers.${ENVIROMENT}-airflow-flower-secured.tls.certresolver=mytlschallenge" # <== Defining certsresolvers for https
+#    labels:
+#      #### Labels define the behavior and rules of the traefik proxy for this container ####
+#      - "traefik.enable=true" # <== Enable traefik to proxy this container
+#      - "traefik.http.routers.${ENVIROMENT}-airflow-flower.rule=Host(`airflow-flower.${SUBDOMAIN}${DOMAIN}`)" # <== Your Domain Name goes here for the http rule
+#      - "traefik.http.routers.${ENVIROMENT}-airflow-flower.entrypoints=web" # <== Defining the entrypoint for http, **ref: line 30
+#      - "traefik.http.routers.${ENVIROMENT}-airflow-flower.middlewares=redirect@file" # <== This is a middleware to redirect to https
+#      - "traefik.http.routers.${ENVIROMENT}-airflow-flower-secured.rule=Host(`airflow-flower.${SUBDOMAIN}${DOMAIN}`)" # <== Your Domain Name for the https rule
+#      - "traefik.http.routers.${ENVIROMENT}-airflow-flower-secured.entrypoints=web-secured" # <== Defining entrypoint for https, **ref: line 31
+#      - "traefik.http.routers.${ENVIROMENT}-airflow-flower-secured.tls.certresolver=mytlschallenge" # <== Defining certsresolvers for https
 
 
 volumes:

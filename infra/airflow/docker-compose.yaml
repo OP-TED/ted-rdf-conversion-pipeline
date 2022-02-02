@@ -289,13 +289,6 @@ services:
     <<: *airflow-common
     container_name: airflow-flower-${ENVIROMENT}
     command: celery flower
-#    ports:
-#      - 5555:5555
-#    healthcheck:
-#      test: ["CMD", "curl", "--fail", "https://airflow-flower.${SUBDOMAIN}${DOMAIN}/"]
-#      interval: 10s
-#      timeout: 10s
-#      retries: 5
     restart: unless-stopped
     networks:
       - airflow
@@ -304,15 +297,6 @@ services:
       <<: *airflow-common-depends-on
       airflow-init:
         condition: service_completed_successfully
-#    labels:
-#      #### Labels define the behavior and rules of the traefik proxy for this container ####
-#      - "traefik.enable=true" # <== Enable traefik to proxy this container
-#      - "traefik.http.routers.${ENVIROMENT}-airflow-flower.rule=Host(`airflow-flower.${SUBDOMAIN}${DOMAIN}`)" # <== Your Domain Name goes here for the http rule
-#      - "traefik.http.routers.${ENVIROMENT}-airflow-flower.entrypoints=web" # <== Defining the entrypoint for http, **ref: line 30
-#      - "traefik.http.routers.${ENVIROMENT}-airflow-flower.middlewares=redirect@file" # <== This is a middleware to redirect to https
-#      - "traefik.http.routers.${ENVIROMENT}-airflow-flower-secured.rule=Host(`airflow-flower.${SUBDOMAIN}${DOMAIN}`)" # <== Your Domain Name for the https rule
-#      - "traefik.http.routers.${ENVIROMENT}-airflow-flower-secured.entrypoints=web-secured" # <== Defining entrypoint for https, **ref: line 31
-#      - "traefik.http.routers.${ENVIROMENT}-airflow-flower-secured.tls.certresolver=mytlschallenge" # <== Defining certsresolvers for https
 
 
 volumes:

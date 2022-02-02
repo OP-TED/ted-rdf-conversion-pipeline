@@ -19,7 +19,7 @@ ent_search.listen_host: 0.0.0.0
 ent_search.external_url: http://localhost:3002
 
 # Elasticsearch URL and credentials
-elasticsearch.host: http://elasticsearch:9200
+elasticsearch.host: http://elk-prod:9200
 elasticsearch.username: elastic
 elasticsearch.password: changeme
 

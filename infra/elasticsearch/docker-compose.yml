@@ -9,8 +9,11 @@ services:
       args:
         ELK_VERSION: ${ELK_VERSION}
     container_name: elk-${ENVIROMENT}
-    expose:
-      - 9200
+    ports:
+      - target: 9200
+        published: 9200
+        protocol: tcp
+        mode: host
     volumes:
       - type: bind
         source: ./elasticsearch/config/elasticsearch.yml
@@ -56,6 +59,8 @@ services:
       args:
         ELK_VERSION: ${ELK_VERSION}
     container_name: kibana-${ENVIROMENT}
+    environment:
+      - "ELASTICSEARCH_HOSTS=http://elk-${ENVIROMENT}:9200"
     volumes:
       - type: bind
         source: ./kibana/config/kibana.yml

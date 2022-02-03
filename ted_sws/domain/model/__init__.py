@@ -11,18 +11,6 @@ from dataclasses import dataclass
 from enum import Enum
 
 
-@dataclass(frozen=True)
-class NoticeMetadata(dict, abc.ABC):
-    """
-        The metadata describe the notice through a defined set of properties.
-
-        This can be conceptualised as a set of Key-Values, with a predefined number of keys.
-    """
-
-    def __init__(self, *args, **kw):
-        super().__init__(*args, **kw)
-
-
 class NoticeStatus(Enum):
     """
         The status of the notice in the pipeline
@@ -41,6 +29,19 @@ class NoticeStatus(Enum):
     PUBLISHED = 60
     PUBLICLY_UNAVAILABLE = 63  # to be investigated if more fine-grained checks can be adopted
     PUBLICLY_AVAILABLE = 67  # forward status
+
+
+
+@dataclass(frozen=True)
+class NoticeMetadata(dict, abc.ABC):
+    """
+        The metadata describe the notice through a defined set of properties.
+
+        This can be conceptualised as a set of Key-Values, with a predefined number of keys.
+    """
+
+    def __init__(self, *args, **kw):
+        super().__init__(*args, **kw)
 
 
 class WorkExpression(abc.ABC):

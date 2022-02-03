@@ -8,8 +8,6 @@
 """ """
 import abc
 
-from ted_sws.model import Manifestation
-
 
 class RuleSet(abc.ABC):
     """
@@ -30,7 +28,3 @@ class NormalisationRuleSet(RuleSet):
     """
 
 
-class RDFManifestation(Manifestation):
-    """
-        Transformed manifestation in RDF format
-    """

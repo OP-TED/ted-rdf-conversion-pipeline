@@ -8,7 +8,7 @@
 """ """
 from dataclasses import dataclass
 
-from ted_sws.model import NoticeMetadata
+from ted_sws.domain.model import NoticeMetadata
 
 
 @dataclass(frozen=True)

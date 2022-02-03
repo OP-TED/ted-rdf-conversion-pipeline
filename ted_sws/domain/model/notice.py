@@ -6,26 +6,18 @@
 # Email: costezki.eugen@gmail.com 
 
 """
+    In this module we define necessary artifacts of the notice aggregate.
+    The main purpose is to provide top level access to a notice.
 
 """
 from __future__ import annotations
 
-from ted_sws.model import NoticeStatus, WorkExpression, Manifestation
-from ted_sws.model.metadata import OriginalMetadata, NormalisedMetadata
-from ted_sws.model.package import METSManifestation
-from ted_sws.model.transform import RDFManifestation
+from ted_sws.domain.model import NoticeStatus, WorkExpression
+from ted_sws.domain.model.manifestation import METSManifestation, RDFManifestation, XMLManifestation
+from ted_sws.domain.model.metadata import OriginalMetadata, NormalisedMetadata
 
 
-class XMLManifestation(Manifestation):
-    """
-        Original XML Notice manifestation as published on the TED website.
-    """
-
-    def __init__(self, object_data: bytes):
-        self.objectData = object_data
-
-
-class PipelineNotice(WorkExpression):
+class Notice(WorkExpression):
     """
         A TED notice in any of its forms across the TED-SWS pipeline. This class is conceptualised as a merger of Work
         and Expression in the FRBR class hierarchy and is connected to some of its Manifestations.
@@ -86,3 +78,5 @@ class PipelineNotice(WorkExpression):
     def packaged_content(self, packaged_content: METSManifestation):
         # TODO: add logic
         self._packaged_content = packaged_content
+
+

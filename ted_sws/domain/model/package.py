@@ -6,10 +6,5 @@
 # Email: costezki.eugen@gmail.com 
 
 """ """
-from ted_sws.model import Manifestation
 
 
-class METSManifestation(Manifestation):
-    """
-
-    """

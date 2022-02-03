@@ -6,8 +6,9 @@
 # Email: costezki.eugen@gmail.com 
 
 """ """
-from ted_sws.model.metadata import OriginalMetadata
-from ted_sws.model.notice import XMLManifestation, PipelineNotice
+from ted_sws.domain.model.metadata import OriginalMetadata
+from ted_sws.domain.model.notice import Notice
+from ted_sws.domain.model.manifestation import XMLManifestation
 
 
 def test_notice_creation():
@@ -17,8 +18,8 @@ def test_notice_creation():
     original_metadata = OriginalMetadata({"key1": "value1"})
     xml_manifestation: XMLManifestation(object_data=b"some bytes")
 
-    notice = PipelineNotice(ted_id=ted_id, source_url=source_url, original_metadata=original_metadata,
-                            xml_manifestation=xml_manifestation)
+    notice = Notice(ted_id=ted_id, source_url=source_url, original_metadata=original_metadata,
+                    xml_manifestation=xml_manifestation)
 
     assert notice.original_metadata == original_metadata
     assert notice.ted_id == ted_id

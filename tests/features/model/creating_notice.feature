@@ -15,4 +15,3 @@ Feature: Notice creation
     Then a new notice object is available
     And notice_metadata, xml_content, source_url and status are accessible
 
-  Scenario:

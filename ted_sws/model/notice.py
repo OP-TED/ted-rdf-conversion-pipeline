@@ -27,8 +27,8 @@ class XMLManifestation(Manifestation):
 
 class PipelineNotice(WorkExpression):
     """
-    A TED notice in any of its forms across the TED-SWS pipeline. This class is conceptualised as a merger of Work
-    and Expression in the FRBR class hierarchy and is connected to some of its Manifestations.
+        A TED notice in any of its forms across the TED-SWS pipeline. This class is conceptualised as a merger of Work
+        and Expression in the FRBR class hierarchy and is connected to some of its Manifestations.
     """
 
     def __init__(self, ted_id: str, source_url: str, original_metadata: OriginalMetadata,
@@ -57,7 +57,7 @@ class PipelineNotice(WorkExpression):
         return self._original_metadata
 
     @property
-    def embodied_xml_manifestation(self) -> XMLManifestation:
+    def xml_manifestation(self) -> XMLManifestation:
         return self._embodied_xml_manifestation
 
     @property

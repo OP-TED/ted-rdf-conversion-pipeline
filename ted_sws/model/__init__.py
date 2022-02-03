@@ -29,14 +29,18 @@ class NoticeStatus(Enum):
     """
     RAW = 10
     NORMALISED_METADATA = 20
-    INELIGIBLE_FOR_TRANSFORMATION = 27
+    INELIGIBLE_FOR_TRANSFORMATION = 23  # backlog status
+    ELIGIBLE_FOR_TRANSFORMATION = 27  # forward status
     TRANSFORMED = 30
-    ASSESSED_TRANSFORMATION = 40
-    INELIGIBLE_FOR_PACKAGING = 45
+    VALIDATED_TRANSFORMATION = 40
+    INELIGIBLE_FOR_PACKAGING = 43  # backlog status
+    ELIGIBLE_FOR_PACKAGING = 47  # forward status
     PACKAGED = 50
+    FAULTY_PACKAGE = 53  # backlog status
+    CORRECT_PACKAGE = 57  # forward status
     PUBLISHED = 60
-    PUBLICLY_AVAILABLE = 70
-    FAULTY_PACKAGING_OR_PUBLICATION = 47  # to be investigated if more fine-grained checks can be adopted
+    PUBLICLY_UNAVAILABLE = 63  # to be investigated if more fine-grained checks can be adopted
+    PUBLICLY_AVAILABLE = 67  # forward status
 
 
 class WorkExpression(abc.ABC):

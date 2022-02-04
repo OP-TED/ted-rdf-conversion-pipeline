@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 
-# conftest.py
-# Date:  29/01/2022
+# __init__.py
+# Date:  04/02/2022
 # Author: Eugeniu Costetchi
 # Email: costezki.eugen@gmail.com 
 

@@ -9,6 +9,8 @@
 import abc
 from dataclasses import dataclass
 from enum import Enum
+from schematics.models import Model
+from schematics.types import DictType, StringType
 
 
 class NoticeStatus(Enum):
@@ -31,27 +33,32 @@ class NoticeStatus(Enum):
     PUBLICLY_AVAILABLE = 67  # forward status
 
 
-
-@dataclass(frozen=True)
-class NoticeMetadata(dict, abc.ABC):
+class NoticeMetadata(Model):
     """
         The metadata describe the notice through a defined set of properties.
 
         This can be conceptualised as a set of Key-Values, with a predefined number of keys.
     """
+    metadata = DictType(field=StringType, required=True)
 
-    def __init__(self, *args, **kw):
-        super().__init__(*args, **kw)
+    def __str__(self):
+        return str(self.to_primitive())
+
+    @classmethod
+    def from_dict(cls, metadata_dict: dict):
+        new_notice = cls()
+        new_notice.metadata = metadata_dict
+        return new_notice
 
 
-class WorkExpression(abc.ABC):
+class WorkExpression(Model):
     """
         A Merger of Work and Expression FRBR classes.
     """
 
 
-class Manifestation(abc.ABC):
+class Manifestation(Model):
     """
         A manifestation that embodies a FRBR Work/Expression.
     """
-    object_data: bytes  # immutable object content
+    object_data = StringType(required=True)  # immutable object content

@@ -7,6 +7,7 @@
 
 """ """
 import abc
+import mimetypes
 from dataclasses import dataclass
 from enum import Enum
 from schematics.models import Model
@@ -15,7 +16,7 @@ from schematics.types import DictType, StringType
 
 class NoticeStatus(Enum):
     """
-        The status of the notice in the pipeline
+    The status of the notice in the pipeline
     """
     RAW = 10
     NORMALISED_METADATA = 20
@@ -33,22 +34,14 @@ class NoticeStatus(Enum):
     PUBLICLY_AVAILABLE = 67  # forward status
 
 
-class NoticeMetadata(Model):
+class ManifestationMimeType(Enum):
     """
-        The metadata describe the notice through a defined set of properties.
-
-        This can be conceptualised as a set of Key-Values, with a predefined number of keys.
+    MIME types for manifestations used in this application
     """
-    metadata = DictType(field=StringType, required=True)
-
-    def __str__(self):
-        return str(self.to_primitive())
-
-    @classmethod
-    def from_dict(cls, metadata_dict: dict):
-        new_notice = cls()
-        new_notice.metadata = metadata_dict
-        return new_notice
+    METS = "application/zip"
+    XML = "application/xml"
+    RDF = "application/rdf+xml"
+    TURTLE = "text/turtle"
 
 
 class WorkExpression(Model):
@@ -61,4 +54,22 @@ class Manifestation(Model):
     """
         A manifestation that embodies a FRBR Work/Expression.
     """
-    object_data = StringType(required=True)  # immutable object content
+    _object_data = StringType(required=True, default="", serialized_name="object_data")  # immutable object content
+
+    @property
+    def object_data(self):
+        return self._object_data
+
+    @object_data.setter
+    def object_data(self):
+        raise PermissionError("Field is immutable")
+
+    @classmethod
+    def new(cls, object_data):
+        result = cls()
+        result._object_data = object_data
+        return result
+
+    def __str__(self):
+        STR_LEN = 150  # constant
+        return f"/{str(self._object_data)[:STR_LEN]}" + ("..." if len(self._object_data) > STR_LEN else "") + "/"

@@ -1,0 +1,10 @@
+# development libraries
+tox
+tox-envreport
+tox-pytest-summary
+coverage
+pytest
+pytest-bdd
+pytest-cov
+pytest-subtests
+

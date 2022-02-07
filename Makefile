@@ -12,10 +12,10 @@ install:
 	@ pip install --upgrade pip
 	@ pip install -r requirements.dev.txt
 
-
 test:
 	@ echo -e "$(BUILD_PRINT)Testing ...$(END_BUILD_PRINT)"
 	@ pytest
+
 
 build-open-semantic-search:
 	@ echo -e "$(BUILD_PRINT)Build open-semantic-search$(END_BUILD_PRINT)"
@@ -26,6 +26,7 @@ build-open-semantic-search:
 	@ cat infra/docker-compose-configs/open-semantic-search-compose-patch.yml > infra/open-semantic-search/docker-compose.yml
 	@ cd infra/open-semantic-search/ && docker-compose rm -fsv
 	@ cd infra/open-semantic-search/ && docker-compose build
+
 
 start-open-semantic-search:
 	@ echo -e "$(BUILD_PRINT)Start open-semantic-search$(END_BUILD_PRINT)"
@@ -40,6 +41,7 @@ stop-open-semantic-search:
 start-silk-service:
 	@ echo -e "$(BUILD_PRINT)Start silk service$(END_BUILD_PRINT)"
 	@ cd infra/silk/ && docker-compose up -d
+
 
 stop-silk-service:
 	@ echo -e "$(BUILD_PRINT)Stop silk service$(END_BUILD_PRINT)"

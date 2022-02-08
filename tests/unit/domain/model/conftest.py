@@ -23,11 +23,19 @@ def fetched_notice_data():
     return ted_id, source_url, original_metadata, xml_manifestation
 
 
+@pytest.fixture
 def publicly_available_notice(fetched_notice_data):
     ted_id, source_url, original_metadata, xml_manifestation = fetched_notice_data
     notice = Notice(ted_id=ted_id, source_url=source_url, original_metadata=original_metadata,
                     xml_manifestation=xml_manifestation)
-    notice.rdf_manifestation = RDFManifestation(object_data="RDF manifestation content")
-    notice.mets_manifestation = METSManifestation(object_data="METS manifestation content")
-    notice.status = NoticeStatus.PUBLICLY_AVAILABLE
+    notice._rdf_manifestation = RDFManifestation(object_data="RDF manifestation content")
+    notice._mets_manifestation = METSManifestation(object_data="METS manifestation content")
+    notice._status = NoticeStatus.PUBLICLY_AVAILABLE
+    return notice
+
+
+@pytest.fixture
+def raw_notice(fetched_notice_data):
+    ted_id, source_url, original_metadata, xml_manifestation = fetched_notice_data
+    notice = Notice(ted_id=ted_id, xml_manifestation=xml_manifestation)
     return notice

@@ -16,7 +16,9 @@ from datetime import datetime
 from enum import Enum
 from typing import Optional
 
-from pydantic import BaseModel, Field
+from pydantic import Field
+
+from ted_sws.domain.model import PropertyBaseModel
 from ted_sws.domain.model.manifestation import METSManifestation, RDFManifestation, XMLManifestation
 
 
@@ -40,7 +42,7 @@ class NoticeStatus(Enum):
     PUBLICLY_AVAILABLE = 67  # forward status
 
 
-class WorkExpression(BaseModel):
+class WorkExpression(PropertyBaseModel):
     """
         A Merger of Work and Expression FRBR classes.
 
@@ -55,108 +57,100 @@ class WorkExpression(BaseModel):
             See: https://www.cosmicpython.com/book/chapter_11_external_events.html
     """
 
+    class Config:
+        underscore_attrs_are_private = True
+        validate_assignment = True
+        orm_mode = True
+
     created_at: datetime = datetime.now()
     version_number: int = 0
+    _status: NoticeStatus = NoticeStatus.RAW  # PrivateAttr(default=NoticeStatus.RAW)
+
+    @property
+    def status(self):
+        return self._status
+
+    def update_status_to(self, value):
+        """
+            This solution of non-standard setters on controlled fields is adopted until
+            the https://github.com/samuelcolvin/pydantic/issues/935 is solved.
+
+            Meanwhile we can adopt a transition logic (which is not the same as validation logic).
+        :param value:
+        :return:
+        """
+        self._status = value
 
 
 class Notice(WorkExpression):
     """
         A TED notice in any of its forms across the TED-SWS pipeline. This class is conceptualised as a merger of Work
         and Expression in the FRBR class hierarchy and is connected to some of its Manifestations.
+
+        :parameter original_metadata
+        Metadata (standard forms) extracted from TED.
+        When a notice is extracted from TED it is associated with metadata as currently organised by the TED website
+        in accordance to StandardForms. This shall be harmonised with future eForms, Cellar CDM model and possibly
+        the Legal Analysis Methodology (LAM).
+
+        :parameter normalised_metadata
+        Metadata harmonised by taking into consideration standard forms, eForms, Cellar CDM model
+        and possibly the Legal Analysis Methodology (LAM).
+
     """
-    class Config:
-        validate_assignment = True
-        orm_mode = True
 
     ted_id: str = Field(..., allow_mutation=False)
-    status: NoticeStatus = NoticeStatus.RAW
-    source_url: Optional[str]
 
-    original_metadata: Optional[dict]
-    normalised_metadata: Optional[dict]
+    source_url: Optional[str] = None
+
+    original_metadata: Optional[dict] = None
+    _normalised_metadata: Optional[dict] = None
 
     xml_manifestation: XMLManifestation = Field(..., allow_mutation=False)
-    rdf_manifestation: Optional[RDFManifestation] = None
-    mets_manifestation: Optional[METSManifestation] = None
+    _rdf_manifestation: Optional[RDFManifestation] = None
+    _mets_manifestation: Optional[METSManifestation] = None
 
+    @property
+    def normalised_metadata(self):
+        return self._normalised_metadata
 
-    # def __init__(self, ted_id: str = None, original_metadata: dict = None,
-    #              xml_manifestation: XMLManifestation = None, source_url: str = None, **kwargs):
-    #     super().__init__(**kwargs)
-    #     self._ted_id = ted_id
-    #     self._source_url = source_url
-    #     self._xml_manifestation = xml_manifestation
-    #     self._original_metadata = original_metadata
-    #
-    # @property
-    # def status(self) -> NoticeStatus:
-    #     return NoticeStatus[self._status]
-    #
-    # @property
-    # def ted_id(self) -> str:
-    #     return self._ted_id
-    #
-    # @property
-    # def source_url(self) -> str:
-    #     return self._source_url
-    #
-    # @property
-    # def original_metadata(self) -> dict:
-    #     """
-    #     Metadata (standard forms) extracted from TED.
-    #
-    #     When a notice is extracted from TED it is associated with metadata as currently organised by the TED website
-    #     in accordance to StandardForms. This shall be harmonised with future eForms, Cellar CDM model and possibly
-    #     the Legal Analysis Methodology (LAM).
-    #     :return:
-    #     """
-    #     return self._original_metadata
-    #
-    # @property
-    # def normalised_metadata(self) -> dict:
-    #     """
-    #     Metadata harmonised by taking into consideration standard forms, eForms, Cellar CDM model
-    #     and possibly the Legal Analysis Methodology (LAM).
-    #     :return:
-    #     """
-    #     return self._normalised_metadata
-    #
-    # @normalised_metadata.setter
-    # def normalised_metadata(self, normalised_metadata: dict):
-    #     """
-    #         Set notice normalised metadata.
-    #         If any future state data are available, erase them and reset the state.
-    #     :param normalised_metadata:
-    #     :return:
-    #     """
-    #     if self._normalised_metadata:
-    #         self._rdf_manifestation = None
-    #         self._mets_manifestation = None
-    #
-    #     self._normalised_metadata = normalised_metadata
-    #     self._status = NoticeStatus.NORMALISED_METADATA.name
-    #
-    # # @property
-    # # def xml_manifestation(self) -> XMLManifestation:
-    # #     return self._xml_manifestation
-    #
-    # @property
-    # def transformed_content(self) -> RDFManifestation:
-    #     return self._transformed_content
-    #
-    # @transformed_content.setter
-    # def transformed_content(self, transformed_content: bytes):
-    #     # TODO: add logic
-    #     self._transformed_content = transformed_content
-    #
-    # @property
-    # def mets_manifestation(self) -> METSManifestation:
-    #     return self._mets_manifestation
-    #
-    # @mets_manifestation.setter
-    # def packaged_content(self, packaged_content: METSManifestation):
-    #     # TODO: add logic
-    #     self._packaged_content = packaged_content
+    @property
+    def rdf_manifestation(self):
+        return self._rdf_manifestation
+
+    @property
+    def mets_manifestation(self):
+        return self._mets_manifestation
+
+    def add_normalised_metadata(self, normalised_metadata: dict):
+        """
+            Set notice normalised metadata.
+            If any future state data are available, erase them and reset the state.
+        :param normalised_metadata:
+        :return:
+        """
+        if self.normalised_metadata:
+            self._rdf_manifestation = None
+            self._mets_manifestation = None
+
+        self._normalised_metadata = normalised_metadata
+        self._status = NoticeStatus.NORMALISED_METADATA
+
+    def add_rdf_manifestation(self, rdf_manifestation: RDFManifestation):
+        """
+
+        :param rdf_manifestation:
+        :return:
+        """
+        self._rdf_manifestation = rdf_manifestation
+
+    def add_mets_manifestation(self, mets_manifestation: METSManifestation):
+        """
+
+        :param mets_manifestation:
+        :return:
+        """
+        self._mets_manifestation = mets_manifestation
 
     def __str__(self):
         return f"/Notice ({self.status.name}): {self.ted_id}/"

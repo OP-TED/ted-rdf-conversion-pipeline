@@ -14,4 +14,4 @@ def test_fake_ted_api():
     assert len(get_by_query) == 1
     assert isinstance(get_by_query, list)
     assert fake_document_search.get_by_id(document_id="ID")
-    assert isinstance(fake_document_search.get_by_id(document_id="ID"), str)
+    assert isinstance(fake_document_search.get_by_id(document_id="ID"), dict)

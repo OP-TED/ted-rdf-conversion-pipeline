@@ -11,7 +11,8 @@ DEFAULT_TED_API_URL = "https://ted.europa.eu/api/v2.0/notices/search"
 DEFAULT_TED_API_QUERY = {"pageSize": 100,
                          "pageNum": 1,
                          "scope": 3,
-                         "fields": ["CONTENT"]}
+                         "fields": ["AA", "AC", "CY", "DD", "DI", "DS", "DT", "MA", "NC", "ND", "OC", "OJ", "OL", "OY",
+                                    "PC", "PD", "PR", "RC", "RN", "RP", "TD", "TVH", "TVL", "TY", "CONTENT"]}
 
 
 def api_request_with_query(api_url: str, api_query: dict) -> dict:
@@ -42,7 +43,7 @@ class TedDocumentSearch(DocumentSearchABC):
         """
         self.ted_api_url = ted_api_url
 
-    def get_by_wildcard_date(self, wildcard_date: str) -> List[str]:
+    def get_by_wildcard_date(self, wildcard_date: str) -> List[dict]:
         """
         Method to get a documents content by passing a wildcard date
         :param wildcard_date:
@@ -53,7 +54,7 @@ class TedDocumentSearch(DocumentSearchABC):
 
         return self.get_by_query(query=query)
 
-    def get_by_range_date(self, start_date: date, end_date: date) -> List[str]:
+    def get_by_range_date(self, start_date: date, end_date: date) -> List[dict]:
         """
         Method to get a documents content by passing a date range
         :param start_date:
@@ -67,7 +68,7 @@ class TedDocumentSearch(DocumentSearchABC):
 
         return self.get_by_query(query=query)
 
-    def get_by_query(self, query: dict) -> List[str]:
+    def get_by_query(self, query: dict) -> List[dict]:
         """
         Method to get a documents content by passing a query to the API (json)
         :param query:
@@ -79,18 +80,20 @@ class TedDocumentSearch(DocumentSearchABC):
 
         documents_number = response_body["total"]
         result_pages = 1 + int(documents_number) // 100
-        documents_content = [result["content"] for result in response_body["results"]]
+        documents_content = response_body["results"]
 
         for page_number in range(2, result_pages + 1):
             query["pageNum"] = page_number
             response_body = api_request_with_query(api_url=self.ted_api_url, api_query=query)
-            documents_content += [result["content"] for result in response_body["results"]]
+            documents_content += response_body["results"]
+        decoded_documents_content = []
+        for document_content in documents_content:
+            document_content["content"] = base64.b64decode(document_content["content"]).decode(encoding="utf-8")
+            decoded_documents_content.append(document_content)
 
-        decoded_document_content = [base64.b64decode(document_content).decode(encoding="utf-8") for document_content in
-                                    documents_content]
-        return decoded_document_content
+        return decoded_documents_content
 
-    def get_by_id(self, document_id: str) -> str:
+    def get_by_id(self, document_id: str) -> dict:
         """
         Method to get a document content by passing an ID
         :param document_id:

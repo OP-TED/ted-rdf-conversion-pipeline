@@ -13,5 +13,5 @@ Feature: Notice creation
     And the XML content of the notice xml_content
     When a notice is instantiated
     Then a new notice object is available
-    And notice_metadata, xml_content, source_url and status are accessible
+    And notice_metadata, xml_content, source_url and status RAW are accessible
 

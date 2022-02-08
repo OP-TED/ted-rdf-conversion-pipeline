@@ -25,6 +25,3 @@ class XMLManifestation(Manifestation):
     """
         Original XML Notice manifestation as published on the TED website.
     """
-
-    def __init__(self, object_data: bytes):
-        self.objectData = object_data

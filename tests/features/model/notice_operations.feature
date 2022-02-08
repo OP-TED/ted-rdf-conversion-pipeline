@@ -5,7 +5,7 @@
 Feature: Notice state and content in the lifecycle process
 
   A notice accounts for its state and status in the process lifecycle
-  so that affordances are known and constraints are met
+  so that affordances are known and constraints are met.
 
   Scenario: add normalised metadata
     Given a notice

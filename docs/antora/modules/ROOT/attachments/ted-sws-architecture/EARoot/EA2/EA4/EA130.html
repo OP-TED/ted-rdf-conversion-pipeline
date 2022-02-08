@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<title>RDF fingerprinting functionality</title>
+<title>Notice eligibility checking functionality</title>
 <link href="../../../css/ea.css" rel="stylesheet" type="text/css" />
 <script>
 function initPage(src) {	
@@ -34,15 +34,15 @@ function nameClassifier(name, separator)
 <div class="pageHeader"></div>
 <div class="PageBody">
 	<div id="name_classifier" style="display: none;"></div>
-	<span class="ObjectTitle"><script type="text/javascript">document.write(nameClassifier("RDF fingerprinting functionality", " : "))</script>  : Public  &lt;&lt;ArchiMate_ApplicationFunction&gt;&gt; ApplicationFunction</span>
+	<span class="ObjectTitle"><script type="text/javascript">document.write(nameClassifier("Notice eligibility checking functionality", " : "))</script>  : Public  &lt;&lt;ArchiMate_ApplicationFunction&gt;&gt; ApplicationFunction</span>
 	<table border="0" cellpadding="0" cellspacing="0" class="ObjectDetails">
 		<tr>
 			<td width="15%" class="ObjectDetailsTopic">Created:</td>
-			<td width="85%" class="ObjectDetailsValue">15/12/2021 11:46:18</td>
+			<td width="85%" class="ObjectDetailsValue">14/12/2021 18:44:52</td>
 		</tr>
 		<tr>
 			<td class="ObjectDetailsTopic">Modified:</td>
-			<td class="ObjectDetailsValue">15/12/2021 11:46:45</td>
+			<td class="ObjectDetailsValue">16/12/2021 11:28:21</td>
 		</tr>
 		<tr style="height: 10px"><td colspan="2"></td></tr>
 		<tr>
@@ -87,14 +87,15 @@ function nameClassifier(name, separator)
 		</tr>
 		<tr id="adv00" style="display: none;">
 			<td class="ObjectDetailsTopic" style="padding-left: 18px;">UUID:</td>
-			<td class="ObjectDetailsValue">{207360C7-CE83-48a6-9AE7-E25F7F938F7E}</td>
+			<td class="ObjectDetailsValue">{1C7191F8-B6D1-4165-833D-FBBB6DD5FEAD}</td>
 		</tr>
 		<tr id="adv01" style="display: none;">
 			<td class="ObjectDetailsTopic" style="padding-left: 18px;">Appears In:</td>
-			<td class="ObjectDetailsValue"><a href="EA123.html">transformation validator</a></td>
+			<td class="ObjectDetailsValue"><a href="EA125.html">notice transformer</a></td>
 		</tr>
 	</table>
-	
+	<div class="ObjectDetailsNotes">It might be the case that notice metadata from the TED search is not sufficient to run the eligibility checks. &lt;br/&gt;</div>
+
 	<div class="TableGroup" id="TableGroup">
 		<ul class="ItemTitle">
 			<li onClick="parent.toggleItem('AssociationsFrom');" id="AssociationsFromTitle">Associations From</li>
@@ -110,7 +111,7 @@ function nameClassifier(name, separator)
 				</tr>
 				<tr>
 					<td width="40%" class="TableRow" valign="top">
-						<a href="EA136.html">«ArchiMate_ApplicationComponent» TED-RDF validator</a><br />
+						<a href="EA136.html">«ArchiMate_ApplicationComponent» XML to RDF transformer</a><br />
 						ApplicationComponent «ArchiMate_Assignment» 
 					</td>
 					<td width="30%" class="TableRow" valign="top">
@@ -124,8 +125,8 @@ function nameClassifier(name, separator)
 				</tr>
 				<tr>
 					<td class="TableRowBottomDashed"  colspan="3">
-						<div class="DetailsDivParent"><img src="../../../images/minus03.gif" align="absmiddle" id="DetailsImageLink641" onclick="parent.toggleDiv('detailsDIVLink641','DetailsImageLink641')" />Details:
-							<div id="detailsDIVLink641" class="DetailsDiv" >
+						<div class="DetailsDivParent"><img src="../../../images/minus03.gif" align="absmiddle" id="DetailsImageLink713" onclick="parent.toggleDiv('detailsDIVLink713','DetailsImageLink713')" />Details:
+							<div id="detailsDIVLink713" class="DetailsDiv" >
 							&nbsp;
 							</div>
 						</div>
@@ -172,14 +173,21 @@ function nameClassifier(name, separator)
 					<td width="40%" class="TableHeading">Notes</td>
 				</tr>
 				<tr>
-					<td width="30%" class="TableRow" valign="top"><a href="EA138.html">«ArchiMate_ApplicationService» Validation service (TED-RDF)</a></td>
+					<td width="30%" class="TableRow" valign="top"><a href="EA131.html">«ArchiMate_ApplicationService» Notice transformation service (XML2RDF)</a></td>
 					<td width="10%" class="TableRow" valign="top">ApplicationService</td>
 					<td width="10%" class="TableRow" valign="top">Dependency</td>
 					<td width="10%" class="TableRow" valign="top">To</td>
 					<td width="40%" class="TableRow" valign="top">&nbsp;</td>
 				</tr>
 				<tr>
-					<td width="30%" class="TableRow" valign="top"><a href="../EA3/EA120.html">«ArchiMate_DataObject» TED-RDF notice</a></td>
+					<td width="30%" class="TableRow" valign="top"><a href="EA128.html">«ArchiMate_DataObject» Eligibility decission rules</a></td>
+					<td width="10%" class="TableRow" valign="top">DataObject</td>
+					<td width="10%" class="TableRow" valign="top">Dependency</td>
+					<td width="10%" class="TableRow" valign="top">To</td>
+					<td width="40%" class="TableRow" valign="top">&nbsp;</td>
+				</tr>
+				<tr>
+					<td width="30%" class="TableRow" valign="top"><a href="../EA2/EA110.html">«ArchiMate_DataObject» Notice metadata</a></td>
 					<td width="10%" class="TableRow" valign="top">DataObject</td>
 					<td width="10%" class="TableRow" valign="top">Dependency</td>
 					<td width="10%" class="TableRow" valign="top">To</td>

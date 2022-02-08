@@ -7,13 +7,16 @@
 
 """ """
 import abc
+import mimetypes
 from dataclasses import dataclass
 from enum import Enum
+from schematics.models import Model
+from schematics.types import DictType, StringType
 
 
 class NoticeStatus(Enum):
     """
-        The status of the notice in the pipeline
+    The status of the notice in the pipeline
     """
     RAW = 10
     NORMALISED_METADATA = 20
@@ -31,27 +34,42 @@ class NoticeStatus(Enum):
     PUBLICLY_AVAILABLE = 67  # forward status
 
 
-
-@dataclass(frozen=True)
-class NoticeMetadata(dict, abc.ABC):
+class ManifestationMimeType(Enum):
     """
-        The metadata describe the notice through a defined set of properties.
-
-        This can be conceptualised as a set of Key-Values, with a predefined number of keys.
+    MIME types for manifestations used in this application
     """
+    METS = "application/zip"
+    XML = "application/xml"
+    RDF = "application/rdf+xml"
+    TURTLE = "text/turtle"
 
-    def __init__(self, *args, **kw):
-        super().__init__(*args, **kw)
 
-
-class WorkExpression(abc.ABC):
+class WorkExpression(Model):
     """
         A Merger of Work and Expression FRBR classes.
     """
 
 
-class Manifestation(abc.ABC):
+class Manifestation(Model):
     """
         A manifestation that embodies a FRBR Work/Expression.
     """
-    object_data: bytes  # immutable object content
+    _object_data = StringType(required=True, default="", serialized_name="object_data")  # immutable object content
+
+    @property
+    def object_data(self):
+        return self._object_data
+
+    @object_data.setter
+    def object_data(self):
+        raise PermissionError("Field is immutable")
+
+    @classmethod
+    def new(cls, object_data):
+        result = cls()
+        result._object_data = object_data
+        return result
+
+    def __str__(self):
+        STR_LEN = 150  # constant
+        return f"/{str(self._object_data)[:STR_LEN]}" + ("..." if len(self._object_data) > STR_LEN else "") + "/"

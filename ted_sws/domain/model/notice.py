@@ -43,6 +43,19 @@ class NoticeStatus(Enum):
     PUBLICLY_AVAILABLE = 67  # forward status
 
 
+NOTICE_STATE_MAP = {NoticeStatus.RAW: [NoticeStatus.NORMALISED_METADATA],
+                    NoticeStatus.NORMALISED_METADATA: [NoticeStatus.INELIGIBLE_FOR_TRANSFORMATION,
+                                                       NoticeStatus.ELIGIBLE_FOR_TRANSFORMATION],
+                    NoticeStatus.ELIGIBLE_FOR_TRANSFORMATION: [NoticeStatus.TRANSFORMED],
+                    NoticeStatus.TRANSFORMED: [NoticeStatus.VALIDATED_TRANSFORMATION],
+                    NoticeStatus.VALIDATED_TRANSFORMATION: [NoticeStatus.INELIGIBLE_FOR_PACKAGING,
+                                                            NoticeStatus.ELIGIBLE_FOR_PACKAGING],
+                    NoticeStatus.ELIGIBLE_FOR_PACKAGING: [NoticeStatus.PACKAGED],
+                    NoticeStatus.PACKAGED: [NoticeStatus.FAULTY_PACKAGE, NoticeStatus.CORRECT_PACKAGE],
+                    NoticeStatus.CORRECT_PACKAGE: [NoticeStatus.PUBLISHED],
+                    NoticeStatus.PUBLISHED: [NoticeStatus.PUBLICLY_AVAILABLE, NoticeStatus.PUBLICLY_UNAVAILABLE]}
+
+
 class WorkExpression(PropertyBaseModel):
     """
         A Merger of Work and Expression FRBR classes.
@@ -80,7 +93,11 @@ class WorkExpression(PropertyBaseModel):
         :param value:
         :return:
         """
-        self._status = value
+
+        if value in NOTICE_STATE_MAP[self._status]:
+            self._status = value
+        else:
+            raise Exception(f"Invalid transition from state {self._status} to state {value}")
 
 
 class Notice(WorkExpression):

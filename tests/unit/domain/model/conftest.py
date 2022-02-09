@@ -10,13 +10,14 @@
 import pytest
 
 from ted_sws.domain.model.manifestation import XMLManifestation, RDFManifestation, METSManifestation
+from ted_sws.domain.model.metadata import TEDMetadata
 from ted_sws.domain.model.notice import Notice, NoticeStatus
 
 
 @pytest.fixture
 def fetched_notice_data():
     ted_id = "ted_id1"
-    original_metadata = {"key1": "value1"}
+    original_metadata = TEDMetadata(**{"AA": "Value here"})
     xml_manifestation = XMLManifestation(object_data="XML manifestation content")
     return ted_id, original_metadata, xml_manifestation
 

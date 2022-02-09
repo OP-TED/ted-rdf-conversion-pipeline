@@ -20,6 +20,7 @@ from pydantic import Field
 
 from ted_sws.domain.model import PropertyBaseModel
 from ted_sws.domain.model.manifestation import METSManifestation, RDFManifestation, XMLManifestation
+from ted_sws.domain.model.metadata import TEDMetadata, NormalizedMetadata
 
 
 class NoticeStatus(Enum):
@@ -101,8 +102,8 @@ class Notice(WorkExpression):
 
     ted_id: str = Field(..., allow_mutation=False)
 
-    original_metadata: Optional[dict] = None
-    _normalised_metadata: Optional[dict] = None
+    original_metadata: Optional[TEDMetadata] = None
+    _normalised_metadata: Optional[NormalizedMetadata] = None
 
     xml_manifestation: XMLManifestation = Field(..., allow_mutation=False)
     _rdf_manifestation: Optional[RDFManifestation] = None
@@ -120,7 +121,7 @@ class Notice(WorkExpression):
     def mets_manifestation(self):
         return self._mets_manifestation
 
-    def set_normalised_metadata(self, normalised_metadata: dict):
+    def set_normalised_metadata(self, normalised_metadata: NormalizedMetadata):
         """
             Set notice normalised metadata.
             If any future state data are available, erase them and reset the state.

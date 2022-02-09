@@ -6,6 +6,8 @@
 # Email: costezki.eugen@gmail.com 
 
 """ """
+from typing import List
+
 from ted_sws.domain.model import PropertyBaseModel
 
 
@@ -35,17 +37,20 @@ class TEDMetadata(Metadata):
     MA: str = None
     NC: str = None
     ND: str = None
-    OC: str = None
+    OC: List[str] = None
     OJ: str = None
     OL: str = None
-    OY: str = None
-    PC: str = None
+    OY: List[str] = None
+    PC: List[str] = None
     PD: str = None
     PR: str = None
-    RC: str = None
-    RN: str = None
+    RC: List[str] = None
+    RN: int = None
     RP: str = None
     TD: str = None
     TVH: str = None
     TVL: str = None
     TY: str = None
+
+
+

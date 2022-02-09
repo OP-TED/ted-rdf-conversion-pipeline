@@ -37,6 +37,7 @@ class Spam(BaseModel):
     foo: Foo
     bars: List[Bar]
 
+
 def test_pydantic_1():
     external_data = {
         'id': '123',

@@ -101,8 +101,6 @@ class Notice(WorkExpression):
 
     ted_id: str = Field(..., allow_mutation=False)
 
-    source_url: Optional[str] = None
-
     original_metadata: Optional[dict] = None
     _normalised_metadata: Optional[dict] = None
 
@@ -122,7 +120,7 @@ class Notice(WorkExpression):
     def mets_manifestation(self):
         return self._mets_manifestation
 
-    def add_normalised_metadata(self, normalised_metadata: dict):
+    def set_normalised_metadata(self, normalised_metadata: dict):
         """
             Set notice normalised metadata.
             If any future state data are available, erase them and reset the state.
@@ -136,7 +134,7 @@ class Notice(WorkExpression):
         self._normalised_metadata = normalised_metadata
         self._status = NoticeStatus.NORMALISED_METADATA
 
-    def add_rdf_manifestation(self, rdf_manifestation: RDFManifestation):
+    def set_rdf_manifestation(self, rdf_manifestation: RDFManifestation):
         """
 
         :param rdf_manifestation:
@@ -144,7 +142,7 @@ class Notice(WorkExpression):
         """
         self._rdf_manifestation = rdf_manifestation
 
-    def add_mets_manifestation(self, mets_manifestation: METSManifestation):
+    def set_mets_manifestation(self, mets_manifestation: METSManifestation):
         """
 
         :param mets_manifestation:

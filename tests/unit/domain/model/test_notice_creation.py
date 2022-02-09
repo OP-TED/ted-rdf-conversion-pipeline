@@ -6,42 +6,54 @@
 # Email: costezki.eugen@gmail.com 
 
 """ """
-import pytest
+from pprint import pprint
 
-from ted_sws.domain.model import NoticeStatus
-from ted_sws.domain.model.manifestation import XMLManifestation
-from ted_sws.domain.model.notice import Notice
+import pytest
+from pydantic import ValidationError
+
+from ted_sws.domain.model.manifestation import XMLManifestation, Manifestation
+from ted_sws.domain.model.notice import Notice, NoticeStatus
+
+
+def test_manifestation_invalid_creation():
+    with pytest.raises(ValidationError):
+        m = XMLManifestation()
 
 
 def test_manifestation_creation():
     content = "the manifestation content"
-    m = XMLManifestation()
-    assert str(m) == "//"
-    assert m.object_data == ""
+    manifestation = XMLManifestation(object_data=content)
 
-    m = XMLManifestation.new(content)
-    assert m.object_data == content
-    assert content in str(m)
-
-    with pytest.raises(Exception):
-        XMLManifestation.new()
+    assert manifestation.object_data == content
+    assert content in str(manifestation)
 
 
 def test_notice_creation(fetched_notice_data):
     # no notice can be created without XML manifestation, original metadata or status
-    ted_id, source_url, original_metadata, xml_manifestation = fetched_notice_data
-
-    notice = Notice.new(ted_id=ted_id, source_url=source_url, original_metadata=original_metadata,
-                        xml_manifestation=xml_manifestation)
+    ted_id, original_metadata, xml_manifestation = fetched_notice_data
+    notice = Notice(ted_id=ted_id, original_metadata=original_metadata,
+                    xml_manifestation=xml_manifestation)
 
     assert notice.ted_id == ted_id
-    assert notice.source_url == source_url
     assert notice.original_metadata == original_metadata
-    assert notice.xml_manifestation == xml_manifestation
+    assert notice.xml_manifestation
     assert notice.status == NoticeStatus.RAW
 
-    assert all(item in ["ted_id", "source_url", "original_metadata", "xml_manifestation", "status"] for item in
-               notice.to_native().keys() ) is True
+    assert notice.ted_id in str(notice)
+    assert notice.status.name in str(notice)
 
+
+def test_notice_invalid_creation():
     with pytest.raises(Exception):
-        Notice.new()
+        notice = Notice()
+
+
+def test_notice_status_validation(publicly_available_notice):
+    publicly_available_notice.update_status_to(NoticeStatus.TRANSFORMED)
+    pprint(publicly_available_notice.dict())
+    pprint(publicly_available_notice.dict().keys())
+    publicly_available_notice._status = NoticeStatus.FAULTY_PACKAGE
+    pprint(publicly_available_notice.dict())
+
+    assert "status" in publicly_available_notice.dict().keys()
+    assert "_status" not in publicly_available_notice.dict().keys()

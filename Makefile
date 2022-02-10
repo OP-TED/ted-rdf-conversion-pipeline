@@ -45,6 +45,10 @@ test-all-parallel:
 	@ echo -e "$(BUILD_PRINT)Complete Testing ...$(END_BUILD_PRINT)"
 	@ tox -p
 
+test-all:
+	@ echo -e "$(BUILD_PRINT)Complete Testing ...$(END_BUILD_PRINT)"
+	@ tox
+
 build-externals:
 	@ echo "$(BUILD_PRINT)Creating the necessary volumes, networks and folders and setting the special rights"
 	@ docker network create proxy-net || true

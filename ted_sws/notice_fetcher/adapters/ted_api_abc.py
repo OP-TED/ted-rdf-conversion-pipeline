@@ -3,6 +3,12 @@ from datetime import date
 from typing import List
 
 
+class RequestAPI(abc.ABC):
+    """
+      This class is an abstract interface for requests to an API
+    """
+
+
 class DocumentSearchABC(abc.ABC):
     @abc.abstractmethod
     def get_by_id(self, document_id: str) -> dict:

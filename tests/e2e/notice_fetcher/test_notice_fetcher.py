@@ -1,14 +1,13 @@
 import datetime
 
 from ted_sws.domain.model.notice import Notice, NoticeStatus
-from ted_sws.notice_fetcher.adapters.ted_api import TedDocumentSearch
+from ted_sws.notice_fetcher.adapters.ted_api import TedDocumentSearch, TedRequestAPI
 from ted_sws.notice_fetcher.services.notice_fetcher import NoticeFetcher
-from tests.fakes.fake_ted_api import FakeRequestAPI
 
 
 def test_notice_fetcher_by_identifier():
     document_id = "067623-2022"
-    notice = NoticeFetcher(document_search=TedDocumentSearch(request_api=FakeRequestAPI())).get_notice_by_id(
+    notice = NoticeFetcher(document_search=TedDocumentSearch(request_api=TedRequestAPI())).get_notice_by_id(
         document_id=document_id)
 
     assert isinstance(notice, Notice)
@@ -23,7 +22,7 @@ def test_notice_fetcher_by_identifier():
 def test_notice_fetcher_by_search_query():
     query = {"q": "ND=[67623-2022]"}
 
-    notices = NoticeFetcher(document_search=TedDocumentSearch(request_api=FakeRequestAPI())).get_notices_by_query(
+    notices = NoticeFetcher(document_search=TedDocumentSearch(request_api=TedRequestAPI())).get_notices_by_query(
         query=query)
 
     assert isinstance(notices, list)
@@ -32,12 +31,12 @@ def test_notice_fetcher_by_search_query():
 
 
 def test_notice_fetcher_by_date_range():
-    notices = NoticeFetcher(document_search=TedDocumentSearch(request_api=FakeRequestAPI())).get_notices_by_date_range(
+    notices = NoticeFetcher(document_search=TedDocumentSearch(request_api=TedRequestAPI())).get_notices_by_date_range(
         start_date=datetime.date(2022, 2, 3),
         end_date=datetime.date(2022, 2, 3))
-    xml_text = "content here"
+    xml_text = "<NOTICE_DATA>"
 
     assert isinstance(notices, list)
-    assert len(notices) == 1
+    assert len(notices) == 95
     assert isinstance(notices[0], Notice)
     assert xml_text in notices[0].xml_manifestation.object_data

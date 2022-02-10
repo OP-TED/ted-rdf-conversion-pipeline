@@ -3,9 +3,9 @@ import json
 from datetime import date
 from typing import List
 
-import requests as requests
+import requests
 
-from ted_sws.notice_fetcher.adapters.ted_api_abc import DocumentSearchABC
+from ted_sws.notice_fetcher.adapters.ted_api_abc import DocumentSearchABC, RequestAPI
 
 DEFAULT_TED_API_URL = "https://ted.europa.eu/api/v2.0/notices/search"
 DEFAULT_TED_API_QUERY = {"pageSize": 100,
@@ -14,21 +14,22 @@ DEFAULT_TED_API_QUERY = {"pageSize": 100,
                          "fields": ["AA", "AC", "CY", "DD", "DI", "DS", "DT", "MA", "NC", "ND", "OC", "OJ", "OL", "OY",
                                     "PC", "PD", "PR", "RC", "RN", "RP", "TD", "TVH", "TVL", "TY", "CONTENT"]}
 
+class TedRequestAPI(RequestAPI):
 
-def api_request_with_query(api_url: str, api_query: dict) -> dict:
-    """
-    Method to make a post request to the API with a query (json). It will return the response body.
-    :param api_url:
-    :param api_query:
-    :return: dict
-    """
+    def __call__(self, api_url: str, api_query: dict) -> dict:
+        """
+            Method to make a post request to the API with a query (json). It will return the response body.
+            :param api_url:
+            :param api_query:
+            :return: dict
+        """
 
-    response = requests.post(api_url, json=api_query)
-    if response.ok:
-        response_content = json.loads(response.text)
-        return response_content
-    else:
-        raise Exception(f"The API call failed with: {response}")
+        response = requests.post(api_url, json=api_query)
+        if response.ok:
+            response_content = json.loads(response.text)
+            return response_content
+        else:
+            raise Exception(f"The API call failed with: {response}")
 
 
 class TedDocumentSearch(DocumentSearchABC):
@@ -36,11 +37,13 @@ class TedDocumentSearch(DocumentSearchABC):
     This class will fetch documents content
     """
 
-    def __init__(self, ted_api_url: str = DEFAULT_TED_API_URL):
+    def __init__(self, request_api: RequestAPI, ted_api_url: str = DEFAULT_TED_API_URL):
         """
         The constructor will take the API url as a parameter
+        :param request_api:
         :param ted_api_url:
         """
+        self.request_api = request_api
         self.ted_api_url = ted_api_url
 
     def get_by_wildcard_date(self, wildcard_date: str) -> List[dict]:
@@ -76,7 +79,7 @@ class TedDocumentSearch(DocumentSearchABC):
         """
         query.update(DEFAULT_TED_API_QUERY)
 
-        response_body = api_request_with_query(api_url=self.ted_api_url, api_query=query)
+        response_body = self.request_api(api_url=self.ted_api_url, api_query=query)
 
         documents_number = response_body["total"]
         result_pages = 1 + int(documents_number) // 100
@@ -84,10 +87,11 @@ class TedDocumentSearch(DocumentSearchABC):
 
         for page_number in range(2, result_pages + 1):
             query["pageNum"] = page_number
-            response_body = api_request_with_query(api_url=self.ted_api_url, api_query=query)
+            response_body = self.request_api(api_url=self.ted_api_url, api_query=query)
             documents_content += response_body["results"]
         decoded_documents_content = []
         for document_content in documents_content:
+            print(f"Document content: {document_content['content']}")
             document_content["content"] = base64.b64decode(document_content["content"]).decode(encoding="utf-8")
             decoded_documents_content.append(document_content)
 

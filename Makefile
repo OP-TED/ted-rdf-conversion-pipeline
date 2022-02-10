@@ -19,7 +19,7 @@ install: install-dev
 
 test:
 	@ echo -e "$(BUILD_PRINT)Testing ...$(END_BUILD_PRINT)"
-	@ pytest -s --html=report.html --self-contained-html
+	@ pytest
 
 
 build-open-semantic-search:

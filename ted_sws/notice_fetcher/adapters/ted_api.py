@@ -14,6 +14,7 @@ DEFAULT_TED_API_QUERY = {"pageSize": 100,
                          "fields": ["AA", "AC", "CY", "DD", "DI", "DS", "DT", "MA", "NC", "ND", "OC", "OJ", "OL", "OY",
                                     "PC", "PD", "PR", "RC", "RN", "RP", "TD", "TVH", "TVL", "TY", "CONTENT"]}
 
+
 class TedRequestAPI(RequestAPI):
 
     def __call__(self, api_url: str, api_query: dict) -> dict:
@@ -91,7 +92,6 @@ class TedDocumentSearch(DocumentSearchABC):
             documents_content += response_body["results"]
         decoded_documents_content = []
         for document_content in documents_content:
-            print(f"Document content: {document_content['content']}")
             document_content["content"] = base64.b64decode(document_content["content"]).decode(encoding="utf-8")
             decoded_documents_content.append(document_content)
 

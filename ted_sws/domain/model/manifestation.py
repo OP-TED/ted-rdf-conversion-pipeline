@@ -10,6 +10,7 @@ from enum import Enum
 
 from pydantic import BaseModel, Field
 
+
 class ManifestationMimeType(Enum):
     """
     MIME types for manifestations used in this application

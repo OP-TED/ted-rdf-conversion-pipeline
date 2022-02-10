@@ -69,11 +69,7 @@ setup(
     packages=packages,
     entry_points={
         "console_scripts": [
-            "rdfpipe = rdflib.tools.rdfpipe:main",
-            "csv2rdf = rdflib.tools.csv2rdf:main",
-            "rdf2dot = rdflib.tools.rdf2dot:main",
-            "rdfs2dot = rdflib.tools.rdfs2dot:main",
-            "rdfgraphisomorphism = rdflib.tools.graphisomorphism:main",
+            # "rdfpipe = rdflib.tools.rdfpipe:main", # inspired form rdflib, replace as needed
         ],
     },
     **kwargs,

@@ -48,12 +48,10 @@ def test_notice_invalid_creation():
         notice = Notice()
 
 
-def test_notice_status_validation(publicly_available_notice):
-    publicly_available_notice.update_status_to(NoticeStatus.TRANSFORMED)
-    # pprint(publicly_available_notice.dict())
-    # pprint(publicly_available_notice.dict().keys())
-    publicly_available_notice._status = NoticeStatus.FAULTY_PACKAGE
-    # pprint(publicly_available_notice.dict())
+def test_notice_status_validation(raw_notice):
+    raw_notice.update_status_to(NoticeStatus.NORMALISED_METADATA)
+    assert "status" in raw_notice.dict().keys()
+    assert "_status" not in raw_notice.dict().keys()
 
-    assert "status" in publicly_available_notice.dict().keys()
-    assert "_status" not in publicly_available_notice.dict().keys()
+
+

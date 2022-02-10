@@ -35,6 +35,6 @@ def publicly_available_notice(fetched_notice_data):
 
 @pytest.fixture
 def raw_notice(fetched_notice_data):
-    ted_id, source_url, original_metadata, xml_manifestation = fetched_notice_data
-    notice = Notice(ted_id=ted_id, xml_manifestation=xml_manifestation)
+    ted_id, original_metadata, xml_manifestation = fetched_notice_data
+    notice = Notice(ted_id=ted_id, xml_manifestation=xml_manifestation,original_metadata=original_metadata)
     return notice

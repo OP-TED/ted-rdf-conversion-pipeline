@@ -6,11 +6,16 @@ END_BUILD_PRINT = \e[0m
 #-----------------------------------------------------------------------------
 # PIP Install commands
 #-----------------------------------------------------------------------------
-
-install:
-	@ echo -e "$(BUILD_PRINT)Installing the requirements$(END_BUILD_PRINT)"
+install-dev:
+	@ echo -e "$(BUILD_PRINT)Installing the dev requirements$(END_BUILD_PRINT)"
 	@ pip install --upgrade pip
 	@ pip install -r requirements.dev.txt
+
+
+install: install-dev
+	@ echo -e "$(BUILD_PRINT)Installing the requirements$(END_BUILD_PRINT)"
+	@ pip install --upgrade pip
+	@ pip install -r requirements.txt
 
 test:
 	@ echo -e "$(BUILD_PRINT)Testing ...$(END_BUILD_PRINT)"

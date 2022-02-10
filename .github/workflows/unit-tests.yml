@@ -1,0 +1,38 @@
+name: Tests
+
+on:
+  push:
+    branches: [ feature/* ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  build:
+    name: pyTest
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v1
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.8
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade setuptools pip wheel
+        make install
+#    - name: Make envfile
+#      uses: SpicyPizza/create-envfile@v1
+#      with:
+#        envkey_VAULT_TOKEN: ${{ secrets.VAULT_TOKEN }}
+#        envkey_VAULT_ADDR: ${{ secrets.VAULT_ADDR }}
+    - name: Run unit tests
+      run: make test
+    - name: Upload coverage to Codecov
+      uses: codecov/codecov-action@v1
+      with:
+        token: ${{ secrets.CODECOV_TOKEN }}
+        file: coverage.xml
+        env_vars: OS,PYTHON
+        name: codecov-umbrella
+        fail_ci_if_error: true

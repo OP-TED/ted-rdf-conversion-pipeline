@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+				<!DOCTYPE rdf:RDF [ 
+				<!ENTITY % cellarEntities PUBLIC "-//PO-RESOURCE//ENTITIES CELLAR cdm model 1.0//EN" "/home/metaconv/metaconv_components/components/common/data/cellar_uris.ent">
+				%cellarEntities;
+				]>
+		<rdf:RDF xmlns:tdm="http://publications.europa.eu/ontology/tdm#"
+         xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+		   <tdm:stream rdf:about="&resource;distribution/196390_2016/196390_2016.rdf">
+		      <tdm:stream_name rdf:datatype="http://www.w3.org/2001/XMLSchema#string">196390_2016.rdf</tdm:stream_name>
+      <tdm:stream_format>
+         <tdm:format>
+            <tdm:format_designated_by_format_designation>
+               <tdm:format_designation>
+                  <tdm:format_designation_format_name rdf:datatype="http://www.w3.org/2001/XMLSchema#string">E_PROCUREMENT_ONTOLOGY</tdm:format_designation_format_name>
+               </tdm:format_designation>
+            </tdm:format_designated_by_format_designation>
+         </tdm:format>
+      </tdm:stream_format>
+		      <tdm:stream_label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">eProcurement notice 196390_2016</tdm:stream_label>
+      <tdm:stream_order rdf:datatype="http://www.w3.org/2001/XMLSchema#positiveInteger">1</tdm:stream_order>
+   </tdm:stream>
+</rdf:RDF>

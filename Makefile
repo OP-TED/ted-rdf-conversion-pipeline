@@ -28,6 +28,10 @@ install: install-dev
 	@ pip install --upgrade pip
 	@ pip install -r requirements.txt
 
+test:
+	@ echo -e "$(BUILD_PRINT)Testing ...$(END_BUILD_PRINT)"
+	@ pytest
+
 build-externals:
 	@ echo "$(BUILD_PRINT)Creating the necessary volumes, networks and folders and setting the special rights"
 	@ docker network create proxy-net || true
@@ -123,31 +127,71 @@ start-airflow-staging: build-externals
 	@ echo "$(BUILD_PRINT)Starting Airflow servies"
 	@ docker-compose -p ${STAGING} --file ./infra/airflow/docker-compose.yaml --env-file ${STAGING_ENV_FILE} up -d
 
-build-open-semantic-search:
-	@ echo "Build open-semantic-search"
-	@ cd infra && rm -rf open-semantic-search
-	@ cd infra && git clone --recurse-submodules --remote-submodules https://github.com/opensemanticsearch/open-semantic-search.git
-	@ cd infra/open-semantic-search/ && ./build-deb
-	@ echo "Patch open-semantic-search configs"
-	@ cat infra/docker-compose-configs/open-semantic-search-compose-patch.yml > infra/open-semantic-search/docker-compose.yml
-	@ cd infra/open-semantic-search/ && docker-compose rm -fsv
-	@ cd infra/open-semantic-search/ && docker-compose build
+stop-airflow-staging:
+	@ echo "$(BUILD_PRINT)Stoping Airflow services"
+	@ docker-compose -p ${STAGING} --file ./infra/airflow/docker-compose.yaml --env-file ${STAGING_ENV_FILE} down
 
-start-open-semantic-search:
-	@ echo "Start open-semantic-search"
-	@ cd infra/open-semantic-search/ && docker-compose up -d
+start-allegro-graph-staging: build-externals
+	@ echo "$(BUILD_PRINT)Starting Allegro-Graph servies"
+	@ docker-compose -p ${STAGING} --file ./infra/allegro-graph/docker-compose.yaml --env-file ${STAGING_ENV_FILE} up -d
+
+stop-allegro-graph-staging:
+	@ echo "$(BUILD_PRINT)Stoping Allegro-Graph services"
+	@ docker-compose -p ${STAGING} --file ./infra/allegro-graph/docker-compose.yaml --env-file ${STAGING_ENV_FILE} down
+
+start-elasticsearch-staging: build-externals
+	@ echo "$(BUILD_PRINT)Starting the Elasticsearch services"
+	@ docker-compose -p ${STAGING} --file ./infra/elasticsearch/docker-compose.yml --env-file ${STAGING_ENV_FILE} up -d
+
+stop-elasticsearch-staging:
+	@ echo "$(BUILD_PRINT)Stopping the Elasticsearch services"
+	@ docker-compose -p ${STAGING} --file ./infra/elasticsearch/docker-compose.yml --env-file ${STAGING_ENV_FILE} down
 
 
-stop-open-semantic-search:
-	@ echo "Stop open-semantic-search"
-	@ cd infra/open-semantic-search/ && docker-compose down
+start-minio-staging: build-externals
+	@ echo "$(BUILD_PRINT)Starting the Minio services"
+	@ docker-compose -p ${STAGING} --file ./infra/minio/docker-compose.yml --env-file ${STAGING_ENV_FILE} up -d
 
+stop-minio-staging:
+	@ echo "$(BUILD_PRINT)Stopping the Minio services"
+	@ docker-compose -p ${STAGING} --file ./infra/minio/docker-compose.yml --env-file ${STAGING_ENV_FILE} down
 
-start-silk-service:
-	@ echo "Start silk service"
-	@ cd infra/silk/ && docker-compose up -d
+start-mongo-staging: build-externals
+	@ echo "$(BUILD_PRINT)Starting the Minio services"
+	@ docker-compose -p ${STAGING} --file ./infra/mongo/docker-compose.yml --env-file ${STAGING_ENV_FILE} up -d
 
-stop-silk-service:
-	@ echo "Stop silk service"
-	@ cd infra/silk/ && docker-compose down
+stop-mongo-staging:
+	@ echo "$(BUILD_PRINT)Stopping the Minio services"
+	@ docker-compose -p ${STAGING} --file ./infra/mongo/docker-compose.yml --env-file ${STAGING_ENV_FILE} down
+
+start-project-staging-services: | start-airflow-staging start-elasticsearch-staging start-allegro-graph-staging start-minio-staging start-mongo-staging
+stop-project-staging-services: | stop-airflow-staging stop-elasticsearch-staging stop-allegro-graph-staging stop-minio-staging stop-mongo-staging
+
+#build-open-semantic-search:
+#	@ echo "Build open-semantic-search"
+#	@ cd infra && rm -rf open-semantic-search
+#	@ cd infra && git clone --recurse-submodules --remote-submodules https://github.com/opensemanticsearch/open-semantic-search.git
+#	@ cd infra/open-semantic-search/ && ./build-deb
+#	@ echo "Patch open-semantic-search configs"
+#	@ cat infra/docker-compose-configs/open-semantic-search-compose-patch.yml > infra/open-semantic-search/docker-compose.yml
+#	@ cd infra/open-semantic-search/ && docker-compose rm -fsv
+#	@ cd infra/open-semantic-search/ && docker-compose build
+#
+#start-open-semantic-search:
+#	@ echo "Start open-semantic-search"
+#	@ cd infra/open-semantic-search/ && docker-compose up -d
+#
+#
+#stop-open-semantic-search:
+#	@ echo "Stop open-semantic-search"
+#	@ cd infra/open-semantic-search/ && docker-compose down
+#
+#
+#start-silk-service:
+#	@ echo "Start silk service"
+#	@ cd infra/silk/ && docker-compose up -d
+#
+#stop-silk-service:
+#	@ echo "Stop silk service"
+#	@ cd infra/silk/ && docker-compose down
 

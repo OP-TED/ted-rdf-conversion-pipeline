@@ -14,6 +14,20 @@ STAGING_ENV_FILE := $(PROD_ENV_FILE).staging
 -include .env
 -include .env.staging
 
+#-----------------------------------------------------------------------------
+# PIP Install commands
+#-----------------------------------------------------------------------------
+install-dev:
+	@ echo -e "$(BUILD_PRINT)Installing the dev requirements$(END_BUILD_PRINT)"
+	@ pip install --upgrade pip
+	@ pip install -r requirements.dev.txt
+
+
+install: install-dev
+	@ echo -e "$(BUILD_PRINT)Installing the requirements$(END_BUILD_PRINT)"
+	@ pip install --upgrade pip
+	@ pip install -r requirements.txt
+
 build-externals:
 	@ echo "$(BUILD_PRINT)Creating the necessary volumes, networks and folders and setting the special rights"
 	@ docker network create proxy-net || true
@@ -91,22 +105,11 @@ stop-minio:
 	@ echo "$(BUILD_PRINT)Stopping the Minio services"
 	@ docker-compose -p ${PRODUCTION} --file ./infra/minio/docker-compose.yml --env-file ${PROD_ENV_FILE} down
 
-#-----------------------------------------------------------------------------
-# PIP Install commands
-#-----------------------------------------------------------------------------
-install-dev:
-	@ echo -e "$(BUILD_PRINT)Installing the dev requirements$(END_BUILD_PRINT)"
-	@ pip install --upgrade pip
-	@ pip install -r requirements.dev.txt
+
 start-mongo: build-externals
 	@ echo "$(BUILD_PRINT)Starting the Minio services"
 	@ docker-compose -p ${PRODUCTION} --file ./infra/mongo/docker-compose.yml --env-file ${PROD_ENV_FILE} up -d
 
-
-install: install-dev
-	@ echo -e "$(BUILD_PRINT)Installing the requirements$(END_BUILD_PRINT)"
-	@ pip install --upgrade pip
-	@ pip install -r requirements.txt
 stop-mongo:
 	@ echo "$(BUILD_PRINT)Stopping the Minio services"
 	@ docker-compose -p ${PRODUCTION} --file ./infra/mongo/docker-compose.yml --env-file ${PROD_ENV_FILE} down

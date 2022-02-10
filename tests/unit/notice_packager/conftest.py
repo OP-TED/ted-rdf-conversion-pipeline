@@ -12,7 +12,7 @@ import pytest
 
 @pytest.fixture()
 def sample_metadata():
-    return {}
+    return {"title": "no title here"}
 
 
 @pytest.fixture()

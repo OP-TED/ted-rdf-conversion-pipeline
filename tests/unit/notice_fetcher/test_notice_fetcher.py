@@ -23,7 +23,7 @@ def test_notice_fetcher_by_search_query(ted_document_search):
         query=query)
 
     assert isinstance(notices, list)
-    assert len(notices) == 1
+    assert len(notices) == 2
     assert isinstance(notices[0], Notice)
 
 
@@ -34,6 +34,6 @@ def test_notice_fetcher_by_date_range(ted_document_search):
     xml_text = "<NOTICE_DATA>"
 
     assert isinstance(notices, list)
-    assert len(notices) == 1
+    assert len(notices) == 2
     assert isinstance(notices[0], Notice)
     assert xml_text in notices[0].xml_manifestation.object_data

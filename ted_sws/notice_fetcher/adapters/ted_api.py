@@ -15,7 +15,7 @@ DEFAULT_TED_API_QUERY = {"pageSize": 100,
 
 class TedRequestAPI(RequestAPI):
 
-    def __call__(self, api_url: str, api_query: dict) -> dict:
+    def __call__(self, api_url: str , api_query: dict) -> dict:
         """
             Method to make a post request to the API with a query (json). It will return the response body.
             :param api_url:

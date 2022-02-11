@@ -6,7 +6,7 @@ from tests.fakes.fake_ted_api import FakeRequestAPI
 
 def test_ted_api():
     fake_ted = TedDocumentSearch(request_api=FakeRequestAPI())
-    xml_text = "content here"
+    xml_text = "<NOTICE_DATA>"
     notice_by_id = fake_ted.get_by_id(document_id="67623-2023")
     notice_by_date = fake_ted.get_by_range_date(start_date=date(2022, 2, 3), end_date=date(2022, 2, 3))
     notice_by_date_wildcard = fake_ted.get_by_wildcard_date(wildcard_date="20220203*")

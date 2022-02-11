@@ -2,9 +2,7 @@ import base64
 import json
 from datetime import date
 from typing import List
-
 import requests
-
 from ted_sws.notice_fetcher.adapters.ted_api_abc import DocumentSearchABC, RequestAPI
 
 DEFAULT_TED_API_URL = "https://ted.europa.eu/api/v2.0/notices/search"
@@ -91,7 +89,6 @@ class TedDocumentSearch(DocumentSearchABC):
             documents_content += response_body["results"]
         decoded_documents_content = []
         for document_content in documents_content:
-            print(f"Document content: {document_content['content']}")
             document_content["content"] = base64.b64decode(document_content["content"]).decode(encoding="utf-8")
             decoded_documents_content.append(document_content)
 

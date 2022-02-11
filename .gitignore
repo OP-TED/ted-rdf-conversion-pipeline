@@ -70,6 +70,7 @@ __pypackages__/
 celerybeat-schedule
 celerybeat.pid
 
+
 # SageMath parsed files
 *.sage.py
 
@@ -92,3 +93,6 @@ dmypy.json
 
 # pytype static type analyzer
 .pytype/
+
+
+junit_report.xml

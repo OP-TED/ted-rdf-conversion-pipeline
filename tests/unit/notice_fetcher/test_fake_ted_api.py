@@ -1,6 +1,6 @@
 import datetime
 
-from tests.unit.notice_fetcher.fake_ted_api import FakeTedDocumentSearch
+from tests.fakes.fake_ted_api import FakeTedDocumentSearch
 
 
 def test_fake_ted_api():

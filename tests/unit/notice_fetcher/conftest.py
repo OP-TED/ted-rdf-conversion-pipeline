@@ -1,8 +1,14 @@
+import base64
 import json
 import pathlib
 
+import pytest
 
-def get_api_response():
-    path = pathlib.Path(__file__).parent.parent.parent / "test_data" / "notices" / "2021-OJS237-623049.json"
-    return json.loads(path.read_text())
+from ted_sws.notice_fetcher.adapters.ted_api import TedDocumentSearch
+from tests.fakes.fake_ted_api import FakeRequestAPI
 
+
+
+@pytest.fixture
+def ted_document_search():
+    return TedDocumentSearch(request_api=FakeRequestAPI())

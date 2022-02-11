@@ -2,9 +2,7 @@ import base64
 import json
 from datetime import date
 from typing import List
-
 import requests
-
 from ted_sws.notice_fetcher.adapters.ted_api_abc import DocumentSearchABC, RequestAPI
 
 DEFAULT_TED_API_URL = "https://ted.europa.eu/api/v2.0/notices/search"

@@ -7,6 +7,15 @@ class RequestAPI(abc.ABC):
     """
       This class is an abstract interface for requests to an API
     """
+    @abc.abstractmethod
+    def __call__(self, api_url: str, api_query: dict) -> dict:
+        """
+            Method to make a post request to the API with a query (json). It will return the response body.
+            :param api_url:
+            :param api_query:
+            :return: dict
+        """
+
 
 
 class DocumentSearchABC(abc.ABC):

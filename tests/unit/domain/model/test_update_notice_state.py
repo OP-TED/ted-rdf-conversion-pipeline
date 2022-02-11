@@ -44,10 +44,9 @@ def test_setting_rdf_manifestation_downstream(raw_notice):
     assert raw_notice.mets_manifestation is None
 
 
-def test_setting_rdf_manifestation_upwnstream(publicly_available_notice):
+def test_setting_rdf_manifestation_upstream(publicly_available_notice):
     publicly_available_notice.set_rdf_manifestation(publicly_available_notice.rdf_manifestation)
     assert publicly_available_notice.status is NoticeStatus.PUBLICLY_AVAILABLE
-
 
     publicly_available_notice.set_rdf_manifestation(RDFManifestation(object_data="rdf data"))
     assert publicly_available_notice.status is NoticeStatus.TRANSFORMED

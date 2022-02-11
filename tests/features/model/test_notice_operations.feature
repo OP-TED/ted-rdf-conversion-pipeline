@@ -156,3 +156,4 @@ Feature: Notice state and content in the lifecycle process
       | availability | notice_status        |
       | true         | PUBLICLY_AVAILABLE   |
       | false        | PUBLICLY_UNAVAILABLE |
+

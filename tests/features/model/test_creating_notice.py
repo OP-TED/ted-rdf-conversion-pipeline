@@ -6,7 +6,7 @@ from ted_sws.domain.model.notice import Notice
 
 
 @scenario("test_creating_notice.feature", "Create a bare minimum notice")
-def test_Create_a_bare_minimum_notice():
+def test_create_a_bare_minimum_notice():
     pass
 
 

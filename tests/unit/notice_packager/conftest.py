@@ -9,9 +9,13 @@
 
 import pytest
 
+from tests import TEST_DATA_PATH
+
 
 @pytest.fixture()
 def sample_metadata():
+    possible_location = TEST_DATA_PATH / "notice_packager" / "metadata.json"
+    # do json load and return that
     return {"title": "no title here"}
 
 

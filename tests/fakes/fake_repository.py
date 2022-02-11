@@ -6,7 +6,7 @@ from ted_sws.domain.model.notice import Notice
 
 class FakeNoticeRepository(NoticeRepositoryABC):
     """
-
+       This fake repository is intended for storing Notice objects.
     """
 
     def __init__(self):
@@ -17,7 +17,7 @@ class FakeNoticeRepository(NoticeRepositoryABC):
 
     def add(self, notice: Notice):
         """
-
+            This method allows you to add notice objects to the repository.
         :param notice:
         :return:
         """
@@ -25,7 +25,7 @@ class FakeNoticeRepository(NoticeRepositoryABC):
 
     def get(self, reference) -> Notice:
         """
-
+            This method allows a notice to be obtained based on an identification reference.
         :param reference:
         :return:
         """
@@ -35,9 +35,9 @@ class FakeNoticeRepository(NoticeRepositoryABC):
         return None
 
 
-    def list(self) -> List[Notice]:
+    def list(self) -> List[str]:
         """
-
+            This method allows all records to be retrieved from the repository.
         :return:
         """
-        return [self.repository.values()]
+        return list(self.repository.keys())

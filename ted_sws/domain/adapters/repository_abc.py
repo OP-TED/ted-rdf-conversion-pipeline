@@ -30,7 +30,7 @@ class NoticeRepositoryABC(RepositoryABC):
         """
 
     @abc.abstractmethod
-    def list(self)->List[Notice]:
+    def list(self)->List[str]:
         """
             This method allows all records to be retrieved from the repository.
         :return:

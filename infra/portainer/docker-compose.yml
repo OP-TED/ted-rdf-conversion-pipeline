@@ -1,0 +1,32 @@
+version: '3'
+
+services:
+  portainer:
+    image: portainer/portainer-ce:latest
+    container_name: portainer
+    command: -H unix:///var/run/docker.sock
+    restart: always
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - portainer_data:/data
+    networks:
+      - proxy-net
+    labels:
+      #### Labels define the behavior and rules of the traefik proxy for this container ####
+      - "traefik.enable=true" # <== Enable traefik to proxy this container
+      - "traefik.http.routers.portainer.rule=Host(`portainer.${DOMAIN}`)" # <== Your Domain Name goes here for the http rule
+      - "traefik.http.routers.portainer.entrypoints=web" # <== Defining the entrypoint for http, **ref: line 30
+      - "traefik.http.routers.portainer.middlewares=redirect@file" # <== This is a middleware to redirect to https
+      - "traefik.http.routers.portainer-secured.rule=Host(`portainer.${DOMAIN}`)" # <== Your Domain Name for the https rule
+      - "traefik.http.routers.portainer-secured.entrypoints=web-secured" # <== Defining entrypoint for https, **ref: line 31
+      - "traefik.http.routers.portainer-secured.tls.certresolver=mytlschallenge" # <== Defining certsresolvers for https
+      - "traefik.http.services.portainer-secured.loadbalancer.server.port=9000"
+
+volumes:
+  portainer_data:
+
+
+networks:
+  proxy-net:
+    external:
+      name: proxy-net

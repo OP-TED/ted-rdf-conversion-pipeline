@@ -8,6 +8,8 @@
 """ """
 from typing import List
 
+from deepdiff import DeepDiff
+
 from ted_sws.domain.model import PropertyBaseModel
 
 
@@ -21,6 +23,7 @@ class NormalisedMetadata(Metadata):
     """
         Stores notice normalised metadata
     """
+    title: str = ""
 
 
 class TEDMetadata(Metadata):
@@ -51,6 +54,3 @@ class TEDMetadata(Metadata):
     TVH: str = None
     TVL: str = None
     TY: str = None
-
-
-

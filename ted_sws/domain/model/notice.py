@@ -120,7 +120,6 @@ class WorkExpression(PropertyBaseModel, abc.ABC):
         :param new_status:
         :return:
         """
-        pass
 
 
 class Notice(WorkExpression):
@@ -152,15 +151,15 @@ class Notice(WorkExpression):
     _mets_manifestation: Optional[METSManifestation] = None
 
     @property
-    def normalised_metadata(self):
+    def normalised_metadata(self) -> NormalisedMetadata:
         return self._normalised_metadata
 
     @property
-    def rdf_manifestation(self):
+    def rdf_manifestation(self) -> RDFManifestation:
         return self._rdf_manifestation
 
     @property
-    def mets_manifestation(self):
+    def mets_manifestation(self) -> METSManifestation:
         return self._mets_manifestation
 
     def set_normalised_metadata(self, normalised_metadata: NormalisedMetadata):
@@ -170,7 +169,7 @@ class Notice(WorkExpression):
         :param normalised_metadata:
         :return:
         """
-        if self.normalised_metadata is normalised_metadata:
+        if self.normalised_metadata == normalised_metadata:
             return
 
         self._normalised_metadata = normalised_metadata
@@ -183,7 +182,7 @@ class Notice(WorkExpression):
         :param rdf_manifestation:
         :return:
         """
-        if self.rdf_manifestation is rdf_manifestation:
+        if self.rdf_manifestation == rdf_manifestation:
             return
         self._rdf_manifestation = rdf_manifestation
         self.update_status_to(NoticeStatus.TRANSFORMED)
@@ -200,7 +199,7 @@ class Notice(WorkExpression):
         self._mets_manifestation = mets_manifestation
         self.update_status_to(NoticeStatus.PACKAGED)
 
-    def __str__(self):
+    def __str__(self) -> str:
         return f"/Notice ({self.status.name}): {self.ted_id}/"
 
     def update_status_to(self, new_status: NoticeStatus):

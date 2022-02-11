@@ -8,10 +8,11 @@
 """ """
 from pprint import pprint
 
+from deepdiff import DeepDiff
 import pytest
 from pydantic import ValidationError
 
-from ted_sws.domain.model.manifestation import XMLManifestation, Manifestation
+from ted_sws.domain.model.manifestation import XMLManifestation, Manifestation, ManifestationMimeType
 from ted_sws.domain.model.notice import Notice, NoticeStatus
 
 
@@ -53,5 +54,12 @@ def test_notice_status_validation(raw_notice):
     assert "status" in raw_notice.dict().keys()
     assert "_status" not in raw_notice.dict().keys()
 
+
+def test_notice_status_comparison():
+    with pytest.raises(ValueError):
+        assert NoticeStatus.RAW < ManifestationMimeType.TURTLE
+
+    with pytest.raises(ValueError):
+        assert NoticeStatus.RAW > ManifestationMimeType.TURTLE
 
 

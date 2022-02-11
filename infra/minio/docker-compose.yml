@@ -1,0 +1,39 @@
+version: '3.8'
+
+services:
+  minio:
+    image: minio/minio:RELEASE.2021-06-17T00-10-46Z
+    container_name: minio-${ENVIROMENT}
+    environment:
+      - MINIO_ACCESS_KEY=${MINIO_ACCESS_KEY}
+      - MINIO_SECRET_KEY=${MINIO_SECRET_KEY}
+    command:
+      server /data
+    volumes:
+      - s3-disk:/data
+    networks:
+      - minio
+      - proxy-net
+    labels:
+      #### Labels define the behavior and rules of the traefik proxy for this container ####
+      - "traefik.enable=true" # <== Enable traefik to proxy this container
+      - "traefik.http.routers.${ENVIROMENT}-minio.rule=Host(`minio.${SUBDOMAIN}${DOMAIN}`)" # <== Your Domain Name goes here for the http rule
+      - "traefik.http.routers.${ENVIROMENT}-minio.entrypoints=web" # <== Defining the entrypoint for http, **ref: line 30
+      - "traefik.http.routers.${ENVIROMENT}-minio.middlewares=redirect@file" # <== This is a middleware to redirect to https
+      - "traefik.http.routers.${ENVIROMENT}-minio-secured.rule=Host(`minio.${SUBDOMAIN}${DOMAIN}`)" # <== Your Domain Name for the https rule
+      - "traefik.http.routers.${ENVIROMENT}-minio-secured.entrypoints=web-secured" # <== Defining entrypoint for https, **ref: line 31
+      - "traefik.http.routers.${ENVIROMENT}-minio-secured.tls.certresolver=mytlschallenge" # <== Defining certsresolvers for https
+
+
+volumes:
+  s3-disk:
+    name: minio-${ENVIROMENT}
+
+
+networks:
+  minio:
+    internal: true
+    name: minio-${ENVIROMENT}
+  proxy-net:
+    external:
+      name: proxy-net

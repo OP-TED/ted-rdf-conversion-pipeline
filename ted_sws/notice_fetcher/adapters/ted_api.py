@@ -3,7 +3,7 @@ import json
 from datetime import date
 from typing import List
 import requests
-from ted_sws.notice_fetcher.adapters.ted_api_abc import DocumentSearchABC, RequestAPI
+from ted_sws.notice_fetcher.adapters.ted_api_abc import TedAPIAdapterABC, RequestAPI
 
 DEFAULT_TED_API_URL = "https://ted.europa.eu/api/v2.0/notices/search"
 DEFAULT_TED_API_QUERY = {"pageSize": 100,
@@ -30,7 +30,7 @@ class TedRequestAPI(RequestAPI):
             raise Exception(f"The API call failed with: {response}")
 
 
-class TedDocumentSearch(DocumentSearchABC):
+class TedAPIAdapter(TedAPIAdapterABC):
     """
     This class will fetch documents content
     """

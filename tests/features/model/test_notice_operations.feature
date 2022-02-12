@@ -15,25 +15,25 @@ Feature: Notice state and content in the lifecycle process
     And the notice status is NORMALISED_METADATA
 
   Scenario: overwrite normalised metadata
-    Given a notice
+    Given a notice eligible for transformation
     And normalised metadata
     And the notice already contains normalised metadata
     When normalised metadata is overwritten
     Then the notice object contains the new normalised metadata
     And the notice status is NORMALISED_METADATA
-    And notice contains no RDF manifestation
+    And normalised notice contains no RDF manifestation
     And notice contains no RDF validation
     And notice contains no METS manifestation
 
   Scenario: add RDF manifestation
-    Given a notice
+    Given a notice eligible for transformation
     And RDF manifestation
     When RDF manifestation is added
     Then the notice object contains the RDF manifestation
     And the notice status is TRANSFORMED
 
   Scenario: overwrite RDF manifestation
-    Given a notice
+    Given a notice eligible for transformation
     And RDF manifestation
     And the notice already contains an RDF manifestation
     When the RDF manifestation is overwritten
@@ -43,31 +43,31 @@ Feature: Notice state and content in the lifecycle process
     And notice contains no METS manifestation
 
   Scenario: add validation report for a transformation
-    Given a notice
+    Given a notice eligible for transformation
     And RDF validation report
     And the notice contains an RDF manifestation
     When RDF validation report is added
     Then the notice object contains the RDF validation report
-    And the notice status is VALIDATED_TRANSFORMATION
+    And the notice status is VALIDATED
     And notice contains no METS manifestation
 
   Scenario: cannot add a validation report when there is no transformation
     Given a notice
     And RDF validation report
     And the notice does not contains an RDF manifestation
-    When RDF validation report is added
-    Then an exception is raised
+    When RDF validation report is added an exception is raised
+
 
   Scenario: add METS manifestation
-    Given a notice
+    Given a packaging eligible notice
     And METS manifestation
     When METS manifestation is added
     Then the notice object contains the METS manifestation
     And the notice status is PACKAGED
 
   Scenario: overwrite METS manifestation
-    Given a notice
-    And RDF manifestation
+    Given a packaging eligible notice
+    And METS manifestation
     And the notice already contains an METS manifestation
     When METS manifestation is added
     Then the notice object contains the new METS manifestation

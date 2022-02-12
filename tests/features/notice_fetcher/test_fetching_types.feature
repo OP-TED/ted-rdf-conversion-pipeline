@@ -12,9 +12,7 @@ Feature: Multiple fetching types
 
   Scenario: Fetch a TED notice by search query
     Given a TED REST API download endpoint
-    And search result set
-    When the call to the API is made
-    Then notice(s) that match the search query result and their metadata are available
+    And search query
+    When the call to the search API is made
+    Then notices that match the search query result and their metadata are available
     And are stored
-
-

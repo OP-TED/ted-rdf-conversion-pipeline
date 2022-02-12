@@ -5,7 +5,7 @@ from typing import List
 from ted_sws.domain.model.manifestation import XMLManifestation
 from ted_sws.domain.model.metadata import TEDMetadata
 from ted_sws.domain.model.notice import Notice
-from ted_sws.notice_fetcher.adapters.ted_api_abc import DocumentSearchABC
+from ted_sws.notice_fetcher.adapters.ted_api_abc import TedAPIAdapterABC
 
 
 class NoticeFetcherABC(abc.ABC):
@@ -52,12 +52,12 @@ class NoticeFetcher(NoticeFetcherABC):
 
     """
 
-    def __init__(self, document_search : DocumentSearchABC):
+    def __init__(self, ted_api_adapter : TedAPIAdapterABC):
         """
 
-        :param document_search:
+        :param ted_api_adapter:
         """
-        self.document_search = document_search
+        self.ted_api_adapter = ted_api_adapter
 
     def __create_notice(self, notice_data: dict) -> Notice:
         """
@@ -79,7 +79,7 @@ class NoticeFetcher(NoticeFetcherABC):
         :param document_id:
         :return:
         """
-        document_result = self.document_search.get_by_id(document_id=document_id)
+        document_result = self.ted_api_adapter.get_by_id(document_id=document_id)
 
         return self.__create_notice(notice_data=document_result)
 
@@ -89,7 +89,7 @@ class NoticeFetcher(NoticeFetcherABC):
         :param query:
         :return:
         """
-        documents = self.document_search.get_by_query(query=query)
+        documents = self.ted_api_adapter.get_by_query(query=query)
         return [self.__create_notice(notice_data=document) for document in documents]
 
     def get_notices_by_date_range(self, start_date: date, end_date: date) -> List[Notice]:
@@ -99,7 +99,7 @@ class NoticeFetcher(NoticeFetcherABC):
         :param end_date:
         :return:
         """
-        documents = self.document_search.get_by_range_date(start_date=start_date, end_date=end_date)
+        documents = self.ted_api_adapter.get_by_range_date(start_date=start_date, end_date=end_date)
         return [self.__create_notice(notice_data=document) for document in documents]
 
     def get_notices_by_date_wild_card(self, wildcard_date: str) -> List[Notice]:
@@ -108,5 +108,5 @@ class NoticeFetcher(NoticeFetcherABC):
         :param wildcard_date:
         :return:
         """
-        documents = self.document_search.get_by_wildcard_date(wildcard_date=wildcard_date)
+        documents = self.ted_api_adapter.get_by_wildcard_date(wildcard_date=wildcard_date)
         return [self.__create_notice(notice_data=document) for document in documents]

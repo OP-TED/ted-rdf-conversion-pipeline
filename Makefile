@@ -1,10 +1,10 @@
-
 SHELL=/bin/bash -o pipefail
-BUILD_PRINT = STEP:
+BUILD_PRINT = \e[1;34mSTEP:
+END_BUILD_PRINT = \e[0m
 
 CURRENT_UID := $(shell id -u)
 export CURRENT_UID
-#This are constants used for make targets so we can start prod and staging services on the same machine
+# These are constants used for make targets so we can start prod and staging services on the same machine
 STAGING := staging
 PRODUCTION := prod
 PROD_ENV_FILE := .env
@@ -15,29 +15,47 @@ STAGING_ENV_FILE := $(PROD_ENV_FILE).staging
 -include .env.staging
 
 #-----------------------------------------------------------------------------
-# PIP Install commands
+# Dev commands
 #-----------------------------------------------------------------------------
-install-dev:
-	@ echo -e "$(BUILD_PRINT)Installing the dev requirements$(END_BUILD_PRINT)"
-	@ pip install --upgrade pip
-	@ pip install -r requirements.dev.txt
-
-
 install: install-dev
 	@ echo -e "$(BUILD_PRINT)Installing the requirements$(END_BUILD_PRINT)"
 	@ pip install --upgrade pip
 	@ pip install -r requirements.txt
 
-test:
-	@ echo -e "$(BUILD_PRINT)Testing ...$(END_BUILD_PRINT)"
-	@ pytest
+install-dev:
+	@ echo -e "$(BUILD_PRINT)Installing the dev requirements$(END_BUILD_PRINT)"
+	@ pip install --upgrade pip
+	@ pip install -r requirements.dev.txt
+
+test: test-unit
+
+test-unit:
+	@ echo -e "$(BUILD_PRINT)Unit Testing ...$(END_BUILD_PRINT)"
+	@ tox -e unit
+
+test-features:
+	@ echo -e "$(BUILD_PRINT)Gherkin Features Testing ...$(END_BUILD_PRINT)"
+	@ tox -e features
+
+test-e2e:
+	@ echo -e "$(BUILD_PRINT)End to End Testing ...$(END_BUILD_PRINT)"
+	@ tox -e e2e
+
+test-all-parallel:
+	@ echo -e "$(BUILD_PRINT)Complete Testing ...$(END_BUILD_PRINT)"
+	@ tox -p
+
+test-all:
+	@ echo -e "$(BUILD_PRINT)Complete Testing ...$(END_BUILD_PRINT)"
+	@ tox
 
 build-externals:
 	@ echo "$(BUILD_PRINT)Creating the necessary volumes, networks and folders and setting the special rights"
 	@ docker network create proxy-net || true
 
-
-#SERVER SERVICES
+#-----------------------------------------------------------------------------
+# SERVER SERVICES
+#-----------------------------------------------------------------------------
 start-traefik: build-externals
 	@ echo "$(BUILD_PRINT)Starting the Traefik services"
 	@ docker-compose --file ./infra/traefik/docker-compose.yml --env-file ${PROD_ENV_FILE} up -d
@@ -57,7 +75,9 @@ stop-portainer:
 start-server-services: | start-traefik start-portainer
 stop-server-services: | stop-traefik stop-portainer
 
-#PROJECT SERVICES
+#-----------------------------------------------------------------------------
+# PROJECT SERVICES
+#-----------------------------------------------------------------------------
 create-env-airflow:
 	@ echo "$(BUILD_PRINT) Create Airflow env"
 	@ mkdir -p infra/airflow/logs infra/airflow/plugins
@@ -65,37 +85,30 @@ create-env-airflow:
 	@ cd infra/airflow/ && ln -s -f ../../ted_sws
 	@ echo -e "AIRFLOW_UID=$(CURRENT_UID)" >infra/airflow/.env
 
+
 build-airflow: create-env-airflow build-externals
 	@ echo "$(BUILD_PRINT) Build Airflow services"
 	@ docker-compose -p ${PRODUCTION} --file ./infra/airflow/docker-compose.yaml --env-file ${PROD_ENV_FILE} build --no-cache --force-rm
 	@ docker-compose -p ${PRODUCTION} --file ./infra/airflow/docker-compose.yaml --env-file ${PROD_ENV_FILE} up -d --force-recreate
-
 start-airflow: build-externals
 	@ echo "$(BUILD_PRINT)Starting Airflow servies"
 	@ docker-compose -p ${PRODUCTION} --file ./infra/airflow/docker-compose.yaml --env-file ${PROD_ENV_FILE} up -d
-
 stop-airflow:
 	@ echo "$(BUILD_PRINT)Stoping Airflow services"
 	@ docker-compose -p ${PRODUCTION} --file ./infra/airflow/docker-compose.yaml --env-file ${PROD_ENV_FILE} down
-
 start-allegro-graph: build-externals
 	@ echo "$(BUILD_PRINT)Starting Allegro-Graph servies"
 	@ docker-compose -p ${PRODUCTION} --file ./infra/allegro-graph/docker-compose.yml --env-file ${PROD_ENV_FILE} up -d
-
 stop-allegro-graph:
 	@ echo "$(BUILD_PRINT)Stoping Allegro-Graph services"
 	@ docker-compose -p ${PRODUCTION} --file ./infra/allegro-graph/docker-compose.yml --env-file ${PROD_ENV_FILE} down
-
-
 build-elasticsearch: build-externals
 	@ echo "$(BUILD_PRINT) Build Elasticsearch services"
 	@ docker-compose -p ${PRODUCTION} --file ./infra/elasticsearch/docker-compose.yml --env-file ${PROD_ENV_FILE} build --no-cache --force-rm
 	@ docker-compose -p ${PRODUCTION} --file ./infra/elasticsearch/docker-compose.yml --env-file ${PROD_ENV_FILE} up -d --force-recreate
-
 start-elasticsearch: build-externals
 	@ echo "$(BUILD_PRINT)Starting the Elasticsearch services"
 	@ docker-compose -p ${PRODUCTION} --file ./infra/elasticsearch/docker-compose.yml --env-file ${PROD_ENV_FILE} up -d
-
 stop-elasticsearch:
 	@ echo "$(BUILD_PRINT)Stopping the Elasticsearch services"
 	@ docker-compose -p ${PRODUCTION} --file ./infra/elasticsearch/docker-compose.yml --env-file ${PROD_ENV_FILE} down
@@ -194,4 +207,3 @@ stop-project-staging-services: | stop-airflow-staging stop-elasticsearch-staging
 #stop-silk-service:
 #	@ echo "Stop silk service"
 #	@ cd infra/silk/ && docker-compose down
-

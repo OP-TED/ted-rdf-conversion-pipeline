@@ -12,9 +12,10 @@ DEFAULT_TED_API_QUERY = {"pageSize": 100,
                          "fields": ["AA", "AC", "CY", "DD", "DI", "DS", "DT", "MA", "NC", "ND", "OC", "OJ", "OL", "OY",
                                     "PC", "PD", "PR", "RC", "RN", "RP", "TD", "TVH", "TVL", "TY", "CONTENT"]}
 
+
 class TedRequestAPI(RequestAPI):
 
-    def __call__(self, api_url: str, api_query: dict) -> dict:
+    def __call__(self, api_url: str , api_query: dict) -> dict:
         """
             Method to make a post request to the API with a query (json). It will return the response body.
             :param api_url:

@@ -9,7 +9,6 @@ Feature: Notice creation
   Scenario: Create a bare minimum notice
     Given a TED identifier ted_identifier
     And original TED notice metadata notice_metadata
-    And the source URL source_url
     And the XML content of the notice xml_content
     When a notice is instantiated
     Then a new notice object is available

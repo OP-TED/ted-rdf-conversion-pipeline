@@ -1,10 +1,8 @@
-# development libraries
-tox
-tox-envreport
-tox-pytest-summary
-coverage
-pytest
-pytest-bdd
-pytest-cov
-pytest-subtests
-
+# Development libraries
+coverage~=6.3.1
+pytest~=7.0.0
+pytest-bdd~=5.0.0
+pytest-cov~=3.0.0
+pytest-subtests~=0.6.0
+tox~=3.24.5
+tox-pytest-summary~=0.1.2

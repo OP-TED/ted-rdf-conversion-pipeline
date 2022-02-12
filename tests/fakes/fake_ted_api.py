@@ -4,10 +4,11 @@ import pathlib
 from datetime import date
 from typing import List
 from ted_sws.notice_fetcher.adapters.ted_api_abc import DocumentSearchABC, RequestAPI
+from tests import TEST_DATA_PATH
 
 
 def get_fake_api_response() -> dict:
-    path = pathlib.Path(__file__).parent.parent / "test_data" / "notices" / "2021-OJS237-623049.json"
+    path = TEST_DATA_PATH / "notices" / "2021-OJS237-623049.json"
     return json.loads(path.read_text())
 
 

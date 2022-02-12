@@ -40,3 +40,15 @@ def test_notice_fetcher_by_date_range():
     assert len(notices) == 95
     assert isinstance(notices[0], Notice)
     assert xml_text in notices[0].xml_manifestation.object_data
+
+
+def test_notice_fetcher_by_date_wild_card():
+    notices = NoticeFetcher(
+        document_search=TedDocumentSearch(request_api=TedRequestAPI())).get_notices_by_date_wild_card(
+        wildcard_date="20220203*")
+    xml_text = "<NOTICE_DATA>"
+
+    assert isinstance(notices, list)
+    assert len(notices) == 95
+    assert isinstance(notices[0], Notice)
+    assert xml_text in notices[0].xml_manifestation.object_data

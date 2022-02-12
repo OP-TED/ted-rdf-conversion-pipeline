@@ -8,10 +8,11 @@
 """ """
 from pprint import pprint
 
+from deepdiff import DeepDiff
 import pytest
 from pydantic import ValidationError
 
-from ted_sws.domain.model.manifestation import XMLManifestation, Manifestation
+from ted_sws.domain.model.manifestation import XMLManifestation, Manifestation, ManifestationMimeType
 from ted_sws.domain.model.notice import Notice, NoticeStatus
 
 
@@ -48,10 +49,17 @@ def test_notice_invalid_creation():
         notice = Notice()
 
 
-def test_notice_status_validation(publicly_available_notice):
-    with pytest.raises(Exception):
-        publicly_available_notice.update_status_to(NoticeStatus.TRANSFORMED)
-        pprint(publicly_available_notice.dict())
-        pprint(publicly_available_notice.dict().keys())
-        publicly_available_notice._status = NoticeStatus.FAULTY_PACKAGE
-        pprint(publicly_available_notice.dict())
+def test_notice_status_validation(raw_notice):
+    raw_notice.update_status_to(NoticeStatus.NORMALISED_METADATA)
+    assert "status" in raw_notice.dict().keys()
+    assert "_status" not in raw_notice.dict().keys()
+
+
+def test_notice_status_comparison():
+    with pytest.raises(ValueError):
+        assert NoticeStatus.RAW < ManifestationMimeType.TURTLE
+
+    with pytest.raises(ValueError):
+        assert NoticeStatus.RAW > ManifestationMimeType.TURTLE
+
+

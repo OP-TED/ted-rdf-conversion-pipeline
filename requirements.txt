@@ -1,3 +1,4 @@
-# schematics==2.1.1
-pydantic==1.9.0
-requests==2.27.1
+# Project dependecies
+pydantic~=1.9.0
+requests~=2.27.1
+deepdiff~=5.7.0

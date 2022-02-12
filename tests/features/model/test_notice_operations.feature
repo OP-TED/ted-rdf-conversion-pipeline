@@ -125,12 +125,17 @@ Feature: Notice state and content in the lifecycle process
       | true     | CORRECT_PACKAGE |
       | false    | FAULTY_PACKAGE  |
 
-  Scenario: set METS package validity when package is missing
+  Scenario Outline: set METS package validity when package is missing
     Given a notice
     And package check result is <validity>
     And notice does not contains a METS package
     When the package validity is set
     Then an exception is raised
+
+    Examples:
+      | validity |
+      | true     |
+      | false    |
 
   Scenario: mark notice as published when package is available
     Given a notice
@@ -156,3 +161,4 @@ Feature: Notice state and content in the lifecycle process
       | availability | notice_status        |
       | true         | PUBLICLY_AVAILABLE   |
       | false        | PUBLICLY_UNAVAILABLE |
+

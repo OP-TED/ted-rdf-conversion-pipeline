@@ -14,12 +14,12 @@ def test_ted_api():
 
     assert xml_text in notice_by_id["content"]
     assert isinstance(notice_by_id, dict)
-    assert len(notice_by_date) == 1
-    assert len(notice_by_date_wildcard) == 1
+    assert len(notice_by_date) == 2
+    assert len(notice_by_date_wildcard) == 2
     assert isinstance(notice_by_date, list)
     assert isinstance(notice_by_date_wildcard, list)
     assert isinstance(notice_by_query, list)
     assert isinstance(notice_by_date[0], dict)
     assert isinstance(notice_by_date_wildcard[0], dict)
     assert isinstance(notice_by_query[0], dict)
-    assert len(notice_by_query) == 1
+    assert len(notice_by_query) == 2

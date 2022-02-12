@@ -8,6 +8,8 @@
 """ """
 
 from typing import TYPE_CHECKING
+
+from deepdiff import DeepDiff
 from pydantic import BaseModel
 
 if TYPE_CHECKING:
@@ -32,3 +34,13 @@ class PropertyBaseModel(BaseModel):
         self.__dict__.update({prop: getattr(self, prop) for prop in self.get_properties()})
 
         return super().dict(*args, **kwargs)
+
+    def __eq__(self, other) -> bool:
+        if not isinstance(other, self.__class__) or not other:
+            return False
+            # raise ValueError(f"Must compare objects of the same class {self.__class__}")
+        difference = DeepDiff(self.dict(), other.dict())
+        return not difference
+
+    def __ne__(self, other):
+        return not self.__eq__(other)

@@ -13,6 +13,11 @@ from ted_sws.domain.model.metadata import NormalisedMetadata
 from ted_sws.domain.model.notice import NoticeStatus, UnsupportedStatusTransition
 
 
+def test_updating_notice_invalid_sate(publicly_available_notice):
+    with pytest.raises(ValueError):
+        publicly_available_notice.update_status_to(None)
+
+
 def test_setting_normalised_metadata_upstream(publicly_available_notice):
     publicly_available_notice.set_normalised_metadata(publicly_available_notice.normalised_metadata)
     assert publicly_available_notice.status is NoticeStatus.PUBLICLY_AVAILABLE
@@ -74,3 +79,4 @@ def test_setting_mets_manifestation_upstream(publicly_available_notice):
 
     publicly_available_notice.set_mets_manifestation(METSManifestation(object_data="mets data"))
     assert publicly_available_notice.status is NoticeStatus.PACKAGED
+

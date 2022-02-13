@@ -7,7 +7,7 @@ from ted_sws.notice_fetcher.adapters.ted_api import TedAPIAdapter, TedRequestAPI
 from ted_sws.notice_fetcher.services.notice_fetcher import NoticeFetcher
 
 
-@scenario('notice_fetcher.feature', 'Fetch a TED notice')
+@scenario('test_notice_fetcher.feature', 'Fetch a TED notice')
 def test_fetch_a_ted_notice():
     """Fetch a TED notice"""
 
@@ -51,7 +51,7 @@ def step_impl(fake_notice_storage, notice_identifier):
     assert fake_notice_storage.get(reference=notice_identifier).xml_manifestation
 
 
-@scenario('notice_fetcher.feature', 'Fail to fetch a TED notice')
+@scenario('test_notice_fetcher.feature', 'Fail to fetch a TED notice')
 def test_fail_to_fetch_a_ted_notice():
     """Fail to fetch a TED notice"""
 

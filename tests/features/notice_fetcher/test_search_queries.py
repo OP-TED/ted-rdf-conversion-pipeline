@@ -6,7 +6,7 @@ from ted_sws.notice_fetcher.adapters.ted_api import TedAPIAdapter, TedRequestAPI
 from ted_sws.notice_fetcher.services.notice_fetcher import NoticeFetcher
 
 
-@scenario('search_queries.feature', 'Get all notices for the past period')
+@scenario('test_search_queries.feature', 'Get all notices for the past period')
 def test_get_notices_for_past_period():
     """Get all notices for the past period"""
 

@@ -10,6 +10,8 @@ from enum import Enum
 
 from pydantic import BaseModel, Field
 
+from ted_sws.domain.model import PropertyBaseModel
+
 
 class ManifestationMimeType(Enum):
     """
@@ -21,7 +23,7 @@ class ManifestationMimeType(Enum):
     TURTLE = "text/turtle"
 
 
-class Manifestation(BaseModel):
+class Manifestation(PropertyBaseModel):
     """
         A manifestation that embodies a FRBR Work/Expression.
     """
@@ -50,7 +52,14 @@ class METSManifestation(Manifestation):
     """
 
 
+class RDFValidationManifestation(Manifestation):
+    """
+        The validation report
+    """
+
+
 class RDFManifestation(Manifestation):
     """
         Transformed manifestation in RDF format
     """
+    validation: RDFValidationManifestation = None

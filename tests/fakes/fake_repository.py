@@ -34,7 +34,6 @@ class FakeNoticeRepository(NoticeRepositoryABC):
 
         return None
 
-
     def list(self) -> List[str]:
         """
             This method allows all records to be retrieved from the repository.

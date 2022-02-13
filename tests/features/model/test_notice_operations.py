@@ -4,48 +4,47 @@ from pytest_bdd import scenario, given, when, then, parsers
 from ted_sws.domain.model.manifestation import RDFManifestation, RDFValidationManifestation, METSManifestation
 from ted_sws.domain.model.metadata import NormalisedMetadata
 from ted_sws.domain.model.notice import NoticeStatus
+from tests.features import str2bool
 
 
-#
-# @scenario("test_notice_operations.feature", "add normalised metadata")
-# def test_add_normalised_metadata():
-#     pass
-#
-#
-# @scenario("test_notice_operations.feature", "overwrite normalised metadata")
-# def test_overwrite_normalised_metadata():
-#     pass
-#
-#
-# @scenario("test_notice_operations.feature", "add RDF manifestation")
-# def test_add_rdf_manifestation():
-#     pass
-#
-#
-# @scenario("test_notice_operations.feature", "overwrite RDF manifestation")
-# def test_overwrite_rdf_manifestation():
-#     pass
-#
-#
-# @scenario("test_notice_operations.feature", "add validation report for a transformation")
-# def test_add_validation_report_for_a_transformation():
-#     pass
-#
-#
-# @scenario("test_notice_operations.feature", "cannot add a validation report when there is no transformation")
-# def test_cannot_add_a_validation_report_when_there_is_no_transformation():
-#     pass
-#
-#
-# @scenario("test_notice_operations.feature", "add METS manifestation")
-# def test_add_mets_manifestation():
-#     pass
-#
-#
-# @scenario("test_notice_operations.feature", "overwrite METS manifestation")
-# def test_overwrite_mets_manifestation():
-#     pass
-#
+@scenario("test_notice_operations.feature", "add normalised metadata")
+def test_add_normalised_metadata():
+    pass
+
+
+@scenario("test_notice_operations.feature", "overwrite normalised metadata")
+def test_overwrite_normalised_metadata():
+    pass
+
+
+@scenario("test_notice_operations.feature", "add RDF manifestation")
+def test_add_rdf_manifestation():
+    pass
+
+
+@scenario("test_notice_operations.feature", "overwrite RDF manifestation")
+def test_overwrite_rdf_manifestation():
+    pass
+
+
+@scenario("test_notice_operations.feature", "add validation report for a transformation")
+def test_add_validation_report_for_a_transformation():
+    pass
+
+
+@scenario("test_notice_operations.feature", "cannot add a validation report when there is no transformation")
+def test_cannot_add_a_validation_report_when_there_is_no_transformation():
+    pass
+
+
+@scenario("test_notice_operations.feature", "add METS manifestation")
+def test_add_mets_manifestation():
+    pass
+
+
+@scenario("test_notice_operations.feature", "overwrite METS manifestation")
+def test_overwrite_mets_manifestation():
+    pass
 
 
 @scenario("test_notice_operations.feature", "set notice eligibility for transformation before transformation")
@@ -53,46 +52,39 @@ def test_set_notice_eligibility_for_transformation_before_transformation():
     pass
 
 
-#
-#
-# @scenario("test_notice_operations.feature", "set notice eligibility for transformation after transformation")
-# def test_set_notice_eligibility_for_transformation_after_transformation():
-#     pass
-#
-#
-# @scenario("test_notice_operations.feature", "set notice eligibility for packaging when validated")
-# def test_set_notice_eligibility_for_packaging_when_validated():
-#     pass
-#
-#
-# @scenario("test_notice_operations.feature", "set notice eligibility for packaging when not validated")
-# def test_set_notice_eligibility_for_packaging_when_not_validated():
-#     pass
-#
-#
-# @scenario("test_notice_operations.feature", "set METS package validity when package is available")
-# def test_set_mets_package_validity_when_package_is_available():
-#     pass
-#
-#
-# @scenario("test_notice_operations.feature", "set METS package validity when package is missing")
-# def test_set_mets_package_validity_when_package_is_missing():
-#     pass
-#
-#
-# @scenario("test_notice_operations.feature", "mark notice as published when package is available")
-# def test_mark_notice_as_published_when_package_is_available():
-#     pass
-#
-#
-# @scenario("test_notice_operations.feature", "mark notice as published when package is missing")
-# def test_mark_notice_as_published_when_package_is_missing():
-#     pass
-#
-#
-# @scenario("test_notice_operations.feature", "set notice public availability after publishing")
-# def test_set_notice_public_availability_after_publishing():
-#     pass
+@scenario("test_notice_operations.feature", "set notice eligibility for transformation after transformation")
+def test_set_notice_eligibility_for_transformation_after_transformation():
+    pass
+
+
+@scenario("test_notice_operations.feature", "set notice eligibility for packaging before packaging")
+def test_set_notice_eligibility_for_packaging_when_validated():
+    pass
+
+
+@scenario("test_notice_operations.feature", "set notice eligibility for packaging after packaging")
+def test_set_notice_eligibility_for_packaging_when_not_validated():
+    pass
+
+
+@scenario("test_notice_operations.feature", "set notice eligibility for publishing after packaging")
+def test_set_mets_package_validity_when_package_is_available():
+    pass
+
+
+@scenario("test_notice_operations.feature", "set notice eligibility for publishing after publishing")
+def test_set_mets_package_validity_when_package_is_missing():
+    pass
+
+
+@scenario("test_notice_operations.feature", "mark notice as published if eligible")
+def test_mark_notice_as_published_if_eligible():
+    pass
+
+
+@scenario("test_notice_operations.feature", "set notice public availability after publishing")
+def test_set_notice_public_availability_after_publishing():
+    pass
 
 
 # --------------------------------
@@ -261,14 +253,15 @@ def step_impl(packaging_eligible_notice, mets_manifestation):
     assert packaging_eligible_notice.mets_manifestation == mets_manifestation
 
 
-@given(parsers.parse("eligibility check result is {eligibility}"), target_fixture="eligibility")
+@given(parsers.parse("eligibility check result is {eligibility}"),
+       target_fixture="eligibility")
 def step_impl(eligibility):
-    return bool(eligibility)
+    return str2bool(eligibility)
 
 
 @given("the notice status is lower than TRANSFORMED")
 def step_impl(a_notice):
-    a_notice.update_status_to(NoticeStatus.ELIGIBLE_FOR_TRANSFORMATION)
+    a_notice.update_status_to(NoticeStatus.NORMALISED_METADATA)
 
 
 @when("eligibility for transformation is set")
@@ -281,69 +274,34 @@ def step_impl(a_notice, notice_status):
     assert a_notice.status == NoticeStatus[notice_status]
 
 
-@given("eligibility check result")
-def step_impl():
-    raise NotImplementedError(u'STEP: And eligibility check result')
-
-
 @given("the notice status is equal or greater than TRANSFORMED")
-def step_impl():
-    raise NotImplementedError(u'STEP: And the notice status is equal or greater than TRANSFORMED')
+def step_impl(a_notice):
+    a_notice.update_status_to(NoticeStatus.VALIDATED)
 
 
 @when("eligibility for packaging is set")
-def step_impl():
-    raise NotImplementedError(u'STEP: When eligibility for packaging is set')
-
-
-@given("the notice status is not VALIDATED_TRANSFORMATION")
-def step_impl():
-    raise NotImplementedError(u'STEP: And the notice status is not VALIDATED_TRANSFORMATION')
-
-
-@given("package check result is <validity>")
-def step_impl():
-    raise NotImplementedError(u'STEP: And package check result is <validity>')
+def step_impl(a_notice, eligibility):
+    a_notice.set_is_eligible_for_packaging(eligibility)
 
 
 @given("notice contains a METS package")
-def step_impl():
-    raise NotImplementedError(u'STEP: And notice contains a METS package')
+def step_impl(a_notice):
+    a_notice.update_status_to(NoticeStatus.PACKAGED)
 
 
 @when("the package validity is set")
-def step_impl():
-    raise NotImplementedError(u'STEP: When the package validity is set')
-
-
-@then("the status is <notice_status>")
-def step_impl():
-    raise NotImplementedError(u'STEP: Then the status is <notice_status>')
-
-
-@given("notice does not contains a METS package")
-def step_impl():
-    raise NotImplementedError(u'STEP: And notice does not contains a METS package')
+def step_impl(a_notice, eligibility):
+    a_notice.set_is_eligible_for_publishing(eligibility)
 
 
 @when("the notice is marked as published")
-def step_impl():
-    raise NotImplementedError(u'STEP: When the notice is marked as published')
-
-
-@given("public availability check result is <availability>")
-def step_impl():
-    raise NotImplementedError(u'STEP: And public availability check result is <availability>')
-
-
-@given("the notice status is equal or greater than PUBLISHED")
-def step_impl():
-    raise NotImplementedError(u'STEP: And the notice status is equal or greater than PUBLISHED')
+def step_impl(a_notice):
+    a_notice.mark_as_published()
 
 
 @when("public availability is set")
-def step_impl():
-    raise NotImplementedError(u'STEP: When public availability is set')
+def step_impl(a_notice, availability):
+    a_notice.set_is_publicly_available(availability)
 
 
 @given("a notice eligible for transformation", )
@@ -360,3 +318,29 @@ def step_impl(transformation_eligible_notice, rdf_validation):
 def step_impl(publicly_available_notice):
     publicly_available_notice.update_status_to(NoticeStatus.ELIGIBLE_FOR_PACKAGING)
     return publicly_available_notice
+
+
+@given("the notice is validated")
+def step_impl(a_notice):
+    a_notice.update_status_to(NoticeStatus.VALIDATED)
+
+
+@given("the notice is published")
+def step_impl(a_notice):
+    a_notice.update_status_to(NoticeStatus.PUBLISHED)
+
+
+@given("the notice is packaged")
+def step_impl(a_notice):
+    a_notice.update_status_to(NoticeStatus.PACKAGED)
+
+
+@then("the notice cannot be marked as published")
+def step_impl(a_notice):
+    with pytest.raises(Exception):
+        a_notice.mark_as_published()
+
+
+@given(parsers.parse("availability check result is {availability}"), target_fixture="availability")
+def step_impl(availability):
+    return str2bool(availability)

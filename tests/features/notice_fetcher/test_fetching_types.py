@@ -6,10 +6,17 @@ from ted_sws.notice_fetcher.adapters.ted_api import TedAPIAdapter, TedRequestAPI
 from ted_sws.notice_fetcher.services.notice_fetcher import NoticeFetcher
 
 
-@scenario('fetching_types.feature', 'Fetch a TED notice by identifier')
+@scenario('test_fetching_types.feature', 'Fetch a TED notice by identifier')
 def test_fetch_a_ted_notice_by_identifier():
     """fetching a ted notice by identifier"""
 
+
+@scenario('test_fetching_types.feature', 'Fetch a TED notice by search query')
+def test_fetch_a_ted_notice_by_query():
+    """fetching a ted notice by search query"""
+
+
+# STEP implementations
 
 @given("a TED REST API download endpoint", target_fixture="api_url")
 def step_impl(api_end_point):
@@ -44,11 +51,6 @@ def step_impl(api_call, fake_notice_storage):
 def step_impl(fake_notice_storage, identifier):
     # TODO replace fake notice storage with real one when it is available
     assert fake_notice_storage.get(reference=identifier)
-
-
-@scenario('fetching_types.feature', 'Fetch a TED notice by search query')
-def test_fetch_a_ted_notice_by_query():
-    """fetching a ted notice by search query"""
 
 
 @given("search query")

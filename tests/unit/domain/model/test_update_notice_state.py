@@ -112,3 +112,33 @@ def test_set_is_eligible_for_publishing(publicly_available_notice):
 
     publicly_available_notice.set_is_eligible_for_publishing(True)
     assert publicly_available_notice.status is NoticeStatus.ELIGIBLE_FOR_PUBLISHING
+
+
+def test_mark_as_published(publicly_available_notice):
+    publicly_available_notice.mark_as_published()
+    assert publicly_available_notice.status is NoticeStatus.PUBLICLY_AVAILABLE
+
+    publicly_available_notice.update_status_to(NoticeStatus.ELIGIBLE_FOR_PUBLISHING)
+    publicly_available_notice.mark_as_published()
+    assert publicly_available_notice.status is NoticeStatus.PUBLISHED
+
+    publicly_available_notice.update_status_to(NoticeStatus.INELIGIBLE_FOR_PUBLISHING)
+    with pytest.raises(UnsupportedStatusTransition):
+        publicly_available_notice.mark_as_published()
+
+
+def test_set_is_publicly_available(publicly_available_notice):
+    publicly_available_notice.set_is_publicly_available(True)
+    assert publicly_available_notice.status is NoticeStatus.PUBLICLY_AVAILABLE
+
+    publicly_available_notice.set_is_publicly_available(False)
+    assert publicly_available_notice.status is NoticeStatus.PUBLICLY_UNAVAILABLE
+
+    publicly_available_notice.update_status_to(NoticeStatus.PUBLISHED)
+    publicly_available_notice.set_is_publicly_available(True)
+    assert publicly_available_notice.status is NoticeStatus.PUBLICLY_AVAILABLE
+
+    publicly_available_notice.update_status_to(NoticeStatus.PACKAGED)
+    with pytest.raises(UnsupportedStatusTransition):
+        publicly_available_notice.set_is_publicly_available(True)
+

@@ -13,5 +13,5 @@ Feature: Fetch notices with search query
     Examples:
       | start      | end        | min  | max  |
       | 2021-01-06 | 2021-01-07 | 50   | 3000 |
-      | 2021-02-06 | 2021-02-09 | 3000 | 9000 |
+#      | 2021-02-06 | 2021-02-09 | 3000 | 9000 |
 

@@ -271,6 +271,25 @@ class Notice(WorkExpression):
             if self.status < NoticeStatus.ELIGIBLE_FOR_PUBLISHING:
                 self.update_status_to(NoticeStatus.ELIGIBLE_FOR_PUBLISHING)
 
+    def mark_as_published(self):
+        """
+            Mark a notice as published.
+        :return:
+        """
+        if self.status < NoticeStatus.PUBLISHED:
+            self.update_status_to(NoticeStatus.PUBLISHED)
+
+    def set_is_publicly_available(self, availability: bool):
+        """
+
+        :param availability:
+        :return:
+        """
+        if not availability:
+            self.update_status_to(NoticeStatus.PUBLICLY_UNAVAILABLE)
+        else:
+            self.update_status_to(NoticeStatus.PUBLICLY_AVAILABLE)
+
     def __str__(self) -> str:
         return f"/Notice ({self.status.name}): {self.ted_id}/"
 

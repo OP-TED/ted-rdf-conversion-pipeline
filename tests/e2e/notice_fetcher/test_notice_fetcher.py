@@ -44,7 +44,7 @@ def test_notice_fetcher_by_date_range():
 
 def test_notice_fetcher_by_date_wild_card():
     notices = NoticeFetcher(
-        document_search=TedDocumentSearch(request_api=TedRequestAPI())).get_notices_by_date_wild_card(
+        ted_api_adapter=TedAPIAdapter(request_api=TedRequestAPI())).get_notices_by_date_wild_card(
         wildcard_date="20220203*")
     xml_text = "<NOTICE_DATA>"
 

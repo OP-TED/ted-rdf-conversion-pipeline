@@ -26,9 +26,8 @@ def step_impl(start, end):
 @when("the call to the API is executed", target_fixture="api_call")
 def step_impl(dates):
     start_date, end_date = dates
-    return NoticeFetcher(ted_api_adapter=TedAPIAdapter(request_api=TedRequestAPI())).get_notices_by_date_range(
-        start_date=start_date,
-        end_date=end_date)
+    return NoticeFetcher(ted_api_adapter=TedAPIAdapter(request_api=TedRequestAPI())).fetch_notices_by_date_range(
+        start_date=start_date, end_date=end_date)
 
 
 @then("search result set is returned", target_fixture="search_result")

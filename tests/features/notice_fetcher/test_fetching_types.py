@@ -31,7 +31,7 @@ def step_impl(notice_identifier):
 @when("the call to the API is made", target_fixture="api_call")
 def step_impl(identifier, api_url):
     return NoticeFetcher(
-        ted_api_adapter=TedAPIAdapter(request_api=TedRequestAPI(), ted_api_url=api_url)).get_notice_by_id(
+        ted_api_adapter=TedAPIAdapter(request_api=TedRequestAPI(), ted_api_url=api_url)).fetch_notice_by_id(
         document_id=identifier)
 
 
@@ -61,7 +61,7 @@ def step_impl(notice_search_query):
 @when("the call to the search API is made", target_fixture="api_call")
 def step_impl(notice_search_query, api_end_point):
     return NoticeFetcher(
-        ted_api_adapter=TedAPIAdapter(request_api=TedRequestAPI(), ted_api_url=api_end_point)).get_notices_by_query(
+        ted_api_adapter=TedAPIAdapter(request_api=TedRequestAPI(), ted_api_url=api_end_point)).fetch_notices_by_query(
         query=notice_search_query)
 
 

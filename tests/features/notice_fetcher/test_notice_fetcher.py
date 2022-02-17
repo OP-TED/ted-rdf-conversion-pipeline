@@ -25,7 +25,7 @@ def step_impl(notice_search_query):
 @when("call to the API is made", target_fixture="api_call")
 def step_impl(notice_search_query, api_end_point):
     return NoticeFetcher(
-        ted_api_adapter=TedAPIAdapter(request_api=TedRequestAPI(), ted_api_url=api_end_point)).get_notices_by_query(
+        ted_api_adapter=TedAPIAdapter(request_api=TedRequestAPI(), ted_api_url=api_end_point)).fetch_notices_by_query(
         query=notice_search_query)
 
 
@@ -65,7 +65,7 @@ def step_impl(notice_incorrect_search_query):
 def step_impl(notice_incorrect_search_query, api_end_point):
     with pytest.raises(Exception) as e:
         NoticeFetcher(
-            ted_api_adapter=TedAPIAdapter(request_api=TedRequestAPI(), ted_api_url=api_end_point)).get_notices_by_query(
+            ted_api_adapter=TedAPIAdapter(request_api=TedRequestAPI(), ted_api_url=api_end_point)).fetch_notices_by_query(
             query=notice_incorrect_search_query)
     return e
 

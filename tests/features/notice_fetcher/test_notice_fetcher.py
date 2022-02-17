@@ -23,10 +23,11 @@ def step_impl(notice_search_query):
 
 
 @when("call to the API is made", target_fixture="api_call")
-def step_impl(notice_search_query, api_end_point):
-    return NoticeFetcher(
+def step_impl(notice_search_query, api_end_point, fake_notice_storage):
+    NoticeFetcher(notice_repository=fake_notice_storage,
         ted_api_adapter=TedAPIAdapter(request_api=TedRequestAPI(), ted_api_url=api_end_point)).fetch_notices_by_query(
         query=notice_search_query)
+    return [fake_notice_storage.get(reference=reference) for reference in fake_notice_storage.list()]
 
 
 @then("a notice and notice metadata is received from the API", target_fixture="fake_notice_storage")
@@ -62,9 +63,9 @@ def step_impl(notice_incorrect_search_query):
 
 
 @when("the call to the API is made", target_fixture="api_call_message")
-def step_impl(notice_incorrect_search_query, api_end_point):
+def step_impl(notice_incorrect_search_query, api_end_point,fake_notice_storage):
     with pytest.raises(Exception) as e:
-        NoticeFetcher(
+        NoticeFetcher(notice_repository=fake_notice_storage,
             ted_api_adapter=TedAPIAdapter(request_api=TedRequestAPI(), ted_api_url=api_end_point)).fetch_notices_by_query(
             query=notice_incorrect_search_query)
     return e

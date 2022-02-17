@@ -29,10 +29,11 @@ def step_impl(notice_identifier):
 
 
 @when("the call to the API is made", target_fixture="api_call")
-def step_impl(identifier, api_url):
-    return NoticeFetcher(
-        ted_api_adapter=TedAPIAdapter(request_api=TedRequestAPI(), ted_api_url=api_url)).fetch_notice_by_id(
+def step_impl(identifier, api_url, fake_notice_storage):
+    NoticeFetcher(notice_repository=fake_notice_storage,
+                  ted_api_adapter=TedAPIAdapter(request_api=TedRequestAPI(), ted_api_url=api_url)).fetch_notice_by_id(
         document_id=identifier)
+    return fake_notice_storage.get(reference=identifier)
 
 
 @then("a notice with that identifier and the notice metadata are available", target_fixture="fake_notice_storage")
@@ -59,10 +60,11 @@ def step_impl(notice_search_query):
 
 
 @when("the call to the search API is made", target_fixture="api_call")
-def step_impl(notice_search_query, api_end_point):
-    return NoticeFetcher(
+def step_impl(notice_search_query, api_end_point, fake_notice_storage):
+    NoticeFetcher(notice_repository=fake_notice_storage,
         ted_api_adapter=TedAPIAdapter(request_api=TedRequestAPI(), ted_api_url=api_end_point)).fetch_notices_by_query(
         query=notice_search_query)
+    return [fake_notice_storage.get(reference=reference) for reference in fake_notice_storage.list()]
 
 
 @then("notices that match the search query result and their metadata are available",

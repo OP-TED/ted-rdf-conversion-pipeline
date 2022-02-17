@@ -24,10 +24,12 @@ def step_impl(start, end):
 
 
 @when("the call to the API is executed", target_fixture="api_call")
-def step_impl(dates):
+def step_impl(dates, fake_notice_storage):
     start_date, end_date = dates
-    return NoticeFetcher(ted_api_adapter=TedAPIAdapter(request_api=TedRequestAPI())).fetch_notices_by_date_range(
+    NoticeFetcher(notice_repository=fake_notice_storage,
+        ted_api_adapter=TedAPIAdapter(request_api=TedRequestAPI())).fetch_notices_by_date_range(
         start_date=start_date, end_date=end_date)
+    return [fake_notice_storage.get(reference=reference) for reference in fake_notice_storage.list()]
 
 
 @then("search result set is returned", target_fixture="search_result")

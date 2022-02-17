@@ -6,8 +6,10 @@ from tests.fakes.fake_repository import FakeNoticeRepository
 
 def test_fake_notice_repository(ted_document_search):
     fake_notice_repository = FakeNoticeRepository()
-    notices = NoticeFetcher(ted_api_adapter=ted_document_search).fetch_notices_by_date_range(
+    NoticeFetcher(notice_repository=fake_notice_repository,
+                            ted_api_adapter=ted_document_search).fetch_notices_by_date_range(
         start_date=datetime.date(2022, 2, 3), end_date=datetime.date(2022, 2, 3))
+    notices = [fake_notice_repository.get(reference=reference) for reference in fake_notice_repository.list()]
     for notice in notices:
         fake_notice_repository.add(notice)
     for notice in notices:

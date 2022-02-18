@@ -14,7 +14,7 @@ from __future__ import annotations
 
 import abc
 from datetime import datetime
-from enum import Enum
+from enum import IntEnum
 from typing import Optional
 from functools import total_ordering
 
@@ -31,7 +31,7 @@ class UnsupportedStatusTransition(Exception):
 
 
 @total_ordering
-class NoticeStatus(Enum):
+class NoticeStatus(IntEnum):
     """
         The status of the notice in the pipeline
     """

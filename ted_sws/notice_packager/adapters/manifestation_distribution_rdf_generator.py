@@ -6,11 +6,11 @@
 # Email: kaleanych@gmail.com
 
 """ """
-from . import helper
+from . import tpl_generator
 
 TPL = 'manifestation_distribution_rdf.jinja2'
 
 
 def generate_tpl(data):
-    return helper.generate_tpl(TPL, data)
+    return tpl_generator.generate_tpl(TPL, data)
 

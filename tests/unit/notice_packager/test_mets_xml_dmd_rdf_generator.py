@@ -1,4 +1,4 @@
-from . import helper
+from . import tester
 from ted_sws.notice_packager.adapters import mets_xml_dmd_rdf_generator as tpl_generator
 
 TEST_TPL = "196390_2016-0.mets.xml.dmd.rdf"
@@ -43,7 +43,7 @@ def test_tpl_generator():
         }
     }
 
-    helper.test(tpl_generator, data, TEST_TPL)
+    tester.test(tpl_generator, data, TEST_TPL)
 
 
 

@@ -6,11 +6,11 @@
 # Email: kaleanych@gmail.com
 
 """ """
-from . import helper
+from . import tpl_generator
 
 TPL = 'mets2create_mets_xml.jinja2'
 
 
 def generate_tpl(data):
-    return helper.generate_tpl(TPL, data)
+    return tpl_generator.generate_tpl(TPL, data)
 

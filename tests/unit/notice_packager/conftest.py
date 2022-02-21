@@ -10,15 +10,11 @@
 import pytest
 
 from tests import TEST_DATA_PATH
+import json
 
 
 @pytest.fixture()
 def sample_metadata():
-    possible_location = TEST_DATA_PATH / "notice_packager" / "metadata.json"
-    # do json load and return that
-    return {"title": "no title here"}
+    return json.load((TEST_DATA_PATH / "notice_packager" / "metadata_template.json").open())
 
 
-@pytest.fixture()
-def sample_rdf():
-    return """...."""

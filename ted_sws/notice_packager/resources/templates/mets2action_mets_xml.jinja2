@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mets xmlns="http://www.loc.gov/METS/"
+      xmlns:xlink="http://www.w3.org/1999/xlink"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.loc.gov/METS/ cellar-mets.xsd"
+      TYPE="{{ notice.action.type }}"
+      PROFILE="http://publications.europa.eu/resource/mets/op-sip-profile_002">
+    <metsHdr {{ notice.action.type|upper }}DATE="{{ notice.action.date }}">
+        <metsDocumentID>{{ notice.id }}_mets2{{ notice.action.type }}</metsDocumentID>
+    </metsHdr>
+    <dmdSec ID="dmdSec01">
+        <mdRef MDTYPE="OTHER" LOCTYPE="URL" MIMETYPE="application/rdf+xml" OTHERMDTYPE="INSTANCE"
+               xlink:href="{{ notice.id }}-0.mets.xml.dmd.rdf"/>
+    </dmdSec>
+    <amdSec>
+        <techMD ID="techMDID001">
+            <mdRef MDTYPE="OTHER" LOCTYPE="URL" MIMETYPE="application/rdf+xml"
+                   OTHERMDTYPE="INSTANCE" xlink:href="techMDID001.tmd.rdf"/>
+        </techMD>
+    </amdSec>
+    <fileSec>
+        <fileGrp>
+            <file ID="file-001" MIMETYPE="application/rdf+xml"
+                  CHECKSUM="f9cdda52af5e532068547f0c91fcf186840bd088 " CHECKSUMTYPE="SHA-1">
+                <FLocat LOCTYPE="URL" xlink:href="{{ notice.id }}.rdf"/>
+            </file>
+        </fileGrp>
+    </fileSec>
+    <structMap ID="structMap01">
+        <div TYPE="work" CONTENTIDS="dataset:{{ notice.id }}" DMDID="dmdSec01" ID="w-01">
+            <div TYPE="expression" CONTENTIDS="expression:{{ notice.id }}"
+                 DMDID="dmdSec01" ID="e-01">
+                <div TYPE="manifestation"
+                     CONTENTIDS="distribution:{{ notice.id }}/{{ notice.id }}_rdf"
+                     DMDID="dmdSec01" ADMID="techMDID001" ID="m-001">
+                    <fptr
+                            CONTENTIDS="distribution:{{ notice.id }}/{{ notice.id }}.rdf"
+                            FILEID="file-001"/>
+                </div>
+            </div>
+        </div>
+    </structMap>
+    <behaviorSec>
+        <behavior BTYPE="sparql-load" STRUCTID="m-001">
+            <mechanism LOCTYPE="URL" LABEL="Sparql-load"
+                       xlink:href="cellar-mets:sparql-load-behavior?model=http%3A%2F%2Fdata.europa.eu%2Fa4g%2Fresource%2F2016%2F{{ notice.id }}"/>
+        </behavior>
+    </behaviorSec>
+</mets>

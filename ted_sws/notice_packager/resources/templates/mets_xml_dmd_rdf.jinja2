@@ -55,7 +55,7 @@
                 rdf:resource="&cellar-authority;language/{{ expression.expression_uses_language }}"/>
     </cdm:expression>
 
-    <cdm:manifestation_distribution rdf:about="&resource;distribution/{{ notice.id }}/{{ manifestation.manifestation_distribution_tpl }}">
+    <cdm:manifestation_distribution rdf:about="&resource;distribution/{{ notice.id }}/{{ notice.id }}_rdf">
         <cdm:manifestation_manifests_expression rdf:resource="&resource;expression/{{ notice.id }}"/>
         <cdm:manifestation_type rdf:datatype="http://www.w3.org/2001/XMLSchema#string">
             {{ manifestation.manifestation_type }}

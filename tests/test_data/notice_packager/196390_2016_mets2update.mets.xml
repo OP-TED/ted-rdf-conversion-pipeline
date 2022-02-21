@@ -3,10 +3,10 @@
     xmlns:xlink="http://www.w3.org/1999/xlink"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://www.loc.gov/METS/ cellar-mets.xsd" 
-    TYPE="create"
+    TYPE="update"
     PROFILE="http://publications.europa.eu/resource/mets/op-sip-profile_002">
-    <metsHdr CREATEDATE="2017-05-30T17:23:11.922+02:00">
-        <metsDocumentID>196390_2016_mets2create</metsDocumentID>
+    <metsHdr UPDATEDATE="2017-05-30T17:23:11.922+02:00">
+        <metsDocumentID>196390_2016_mets2update</metsDocumentID>
     </metsHdr>
     <dmdSec ID="dmdSec01">
         <mdRef MDTYPE="OTHER" LOCTYPE="URL" MIMETYPE="application/rdf+xml" OTHERMDTYPE="INSTANCE"

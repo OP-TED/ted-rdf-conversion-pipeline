@@ -54,3 +54,31 @@ class TEDMetadata(Metadata):
     TVH: str = None
     TVL: str = None
     TY: str = None
+
+
+class ExtractedTEDMetadata(Metadata):
+    """
+        Stores extracted metadata
+    """
+    title: str = None
+    notice_publication_number: str = None
+    publication_date: str = None
+    ojs_issue_number: str = None
+    city_of_buyer: str = None
+    name_of_buyer: str = None
+    original_language: str = None
+    country_of_buyer: str = None
+    type_of_buyer: str = None
+    eu_institution: str = None
+    document_sent_date: str = None
+    deadline_for_submission: str = None
+    type_of_contract: str = None
+    type_of_procedure: str = None
+    notice_type: str = None
+    regulation: str = None
+    type_of_bid: str = None
+    award_criteria: str = None
+    common_procurement: str = None
+    place_of_performance: str = None
+    internet_address: str = None
+    legal_basis_directive: str = None

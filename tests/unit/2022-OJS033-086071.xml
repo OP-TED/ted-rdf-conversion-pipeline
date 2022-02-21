@@ -1,0 +1,760 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TED_EXPORT xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xmlns="http://publications.europa.eu/resource/schema/ted/R2.0.8/publication"
+            xmlns:n2021="http://publications.europa.eu/resource/schema/ted/2021/nuts"
+            xsi:schemaLocation="http://publications.europa.eu/resource/schema/ted/R2.0.8/publication TED_EXPORT.xsd"
+            DOC_ID="086071-2022" EDITION="2022033">
+    <TECHNICAL_SECTION>
+        <RECEPTION_ID>22-084215-001</RECEPTION_ID>
+        <DELETION_DATE>20220314</DELETION_DATE>
+        <FORM_LG_LIST>FR</FORM_LG_LIST>
+        <COMMENTS>From Convertor</COMMENTS>
+    </TECHNICAL_SECTION>
+    <LINKS_SECTION>
+        <XML_SCHEMA_DEFINITION_LINK xlink:type="simple" xlink:href="https://ted.europa.eu" xlink:title="TED WEBSITE"/>
+        <OFFICIAL_FORMS_LINK xlink:type="simple" xlink:href="https://ted.europa.eu"/>
+        <FORMS_LABELS_LINK xlink:type="simple" xlink:href="https://ted.europa.eu"/>
+        <ORIGINAL_CPV_LINK xlink:type="simple" xlink:href="https://ted.europa.eu"/>
+        <ORIGINAL_NUTS_LINK xlink:type="simple" xlink:href="https://ted.europa.eu"/>
+    </LINKS_SECTION>
+    <CODED_DATA_SECTION>
+        <REF_OJS>
+            <COLL_OJ>S</COLL_OJ>
+            <NO_OJ>33</NO_OJ>
+            <DATE_PUB>20220216</DATE_PUB>
+        </REF_OJS>
+        <NOTICE_DATA>
+            <NO_DOC_OJS>2022/S 033-086071</NO_DOC_OJS>
+            <URI_LIST>
+                <URI_DOC LG="FR">https://ted.europa.eu/udl?uri=TED:NOTICE:086071-2022:TEXT:FR:HTML</URI_DOC>
+            </URI_LIST>
+            <LG_ORIG>FR</LG_ORIG>
+            <ISO_COUNTRY VALUE="FR"/>
+            <IA_URL_GENERAL>https://www.cea.fr</IA_URL_GENERAL>
+            <ORIGINAL_CPV CODE="45100000">Site preparation work</ORIGINAL_CPV>
+            <n2021:PERFORMANCE_NUTS CODE="FRC11">Côte-d’Or</n2021:PERFORMANCE_NUTS>
+            <VALUES_LIST/>
+        </NOTICE_DATA>
+        <CODIF_DATA>
+            <DS_DATE_DISPATCH>20220211</DS_DATE_DISPATCH>
+            <DT_DATE_FOR_SUBMISSION>20220314 16:00</DT_DATE_FOR_SUBMISSION>
+            <AA_AUTHORITY_TYPE CODE="6">Body governed by public law</AA_AUTHORITY_TYPE>
+            <TD_DOCUMENT_TYPE CODE="3">Contract notice</TD_DOCUMENT_TYPE>
+            <NC_CONTRACT_NATURE CODE="1">Works</NC_CONTRACT_NATURE>
+            <PR_PROC CODE="2">Restricted procedure</PR_PROC>
+            <RP_REGULATION CODE="4">European Union</RP_REGULATION>
+            <TY_TYPE_BID CODE="Z">Not specified</TY_TYPE_BID>
+            <AC_AWARD_CRIT CODE="2">The most economic tender</AC_AWARD_CRIT>
+            <MA_MAIN_ACTIVITIES CODE="8">Other</MA_MAIN_ACTIVITIES>
+            <HEADING>01117</HEADING>
+            <DIRECTIVE VALUE="2009/81/EC"/>
+        </CODIF_DATA>
+    </CODED_DATA_SECTION>
+    <TRANSLATION_SECTION>
+        <ML_TITLES>
+            <ML_TI_DOC LG="BG">
+                <TI_CY>Фpaнция</TI_CY>
+                <TI_TOWN>Arpajon</TI_TOWN>
+                <TI_TEXT>
+                    <P>Работи по подготовка на строителната площадка</P>
+                </TI_TEXT>
+            </ML_TI_DOC>
+            <ML_TI_DOC LG="CS">
+                <TI_CY>Francie</TI_CY>
+                <TI_TOWN>Arpajon</TI_TOWN>
+                <TI_TEXT>
+                    <P>Práce spojené s přípravou staveniště</P>
+                </TI_TEXT>
+            </ML_TI_DOC>
+            <ML_TI_DOC LG="DA">
+                <TI_CY>Frankrig</TI_CY>
+                <TI_TOWN>Arpajon</TI_TOWN>
+                <TI_TEXT>
+                    <P>Forberedelse af byggeplads</P>
+                </TI_TEXT>
+            </ML_TI_DOC>
+            <ML_TI_DOC LG="DE">
+                <TI_CY>Frankreich</TI_CY>
+                <TI_TOWN>Arpajon</TI_TOWN>
+                <TI_TEXT>
+                    <P>Baureifmachung</P>
+                </TI_TEXT>
+            </ML_TI_DOC>
+            <ML_TI_DOC LG="EL">
+                <TI_CY>Γαλλία</TI_CY>
+                <TI_TOWN>Arpajon</TI_TOWN>
+                <TI_TEXT>
+                    <P>Εργασίες προπαρασκευής εργοταξίων</P>
+                </TI_TEXT>
+            </ML_TI_DOC>
+            <ML_TI_DOC LG="EN">
+                <TI_CY>France</TI_CY>
+                <TI_TOWN>Arpajon</TI_TOWN>
+                <TI_TEXT>
+                    <P>Site preparation work</P>
+                </TI_TEXT>
+            </ML_TI_DOC>
+            <ML_TI_DOC LG="ES">
+                <TI_CY>Francia</TI_CY>
+                <TI_TOWN>Arpajon</TI_TOWN>
+                <TI_TEXT>
+                    <P>Trabajos de preparación del terreno</P>
+                </TI_TEXT>
+            </ML_TI_DOC>
+            <ML_TI_DOC LG="ET">
+                <TI_CY>Prantsusmaa</TI_CY>
+                <TI_TOWN>Arpajon</TI_TOWN>
+                <TI_TEXT>
+                    <P>Ehitusplatside ettevalmistustööd</P>
+                </TI_TEXT>
+            </ML_TI_DOC>
+            <ML_TI_DOC LG="FI">
+                <TI_CY>Ranska</TI_CY>
+                <TI_TOWN>Arpajon</TI_TOWN>
+                <TI_TEXT>
+                    <P>Rakennustyömaan valmistelutyöt</P>
+                </TI_TEXT>
+            </ML_TI_DOC>
+            <ML_TI_DOC LG="FR">
+                <TI_CY>France</TI_CY>
+                <TI_TOWN>Arpajon</TI_TOWN>
+                <TI_TEXT>
+                    <P>Travaux de préparation de chantier</P>
+                </TI_TEXT>
+            </ML_TI_DOC>
+            <ML_TI_DOC LG="GA">
+                <TI_CY>Fhrainc, an</TI_CY>
+                <TI_TOWN>Arpajon</TI_TOWN>
+                <TI_TEXT>
+                    <P>Site preparation work</P>
+                </TI_TEXT>
+            </ML_TI_DOC>
+            <ML_TI_DOC LG="HR">
+                <TI_CY>Francuska</TI_CY>
+                <TI_TOWN>Arpajon</TI_TOWN>
+                <TI_TEXT>
+                    <P>Radovi na pripremi gradilišta</P>
+                </TI_TEXT>
+            </ML_TI_DOC>
+            <ML_TI_DOC LG="HU">
+                <TI_CY>Franciaország</TI_CY>
+                <TI_TOWN>Arpajon</TI_TOWN>
+                <TI_TEXT>
+                    <P>Terep-előkészítő munkák</P>
+                </TI_TEXT>
+            </ML_TI_DOC>
+            <ML_TI_DOC LG="IT">
+                <TI_CY>Francia</TI_CY>
+                <TI_TOWN>Arpajon</TI_TOWN>
+                <TI_TEXT>
+                    <P>Lavori di preparazione del cantiere edile</P>
+                </TI_TEXT>
+            </ML_TI_DOC>
+            <ML_TI_DOC LG="LT">
+                <TI_CY>Prancūzija</TI_CY>
+                <TI_TOWN>Arpajon</TI_TOWN>
+                <TI_TEXT>
+                    <P>Statybvietės parengimo darbai</P>
+                </TI_TEXT>
+            </ML_TI_DOC>
+            <ML_TI_DOC LG="LV">
+                <TI_CY>Francija</TI_CY>
+                <TI_TOWN>Arpajon</TI_TOWN>
+                <TI_TEXT>
+                    <P>Būvlaukuma sagatavošana</P>
+                </TI_TEXT>
+            </ML_TI_DOC>
+            <ML_TI_DOC LG="MT">
+                <TI_CY>Franza</TI_CY>
+                <TI_TOWN>Arpajon</TI_TOWN>
+                <TI_TEXT>
+                    <P>Xogħol għall-preparazzjoni tas-sit</P>
+                </TI_TEXT>
+            </ML_TI_DOC>
+            <ML_TI_DOC LG="NL">
+                <TI_CY>Frankrijk</TI_CY>
+                <TI_TOWN>Arpajon</TI_TOWN>
+                <TI_TEXT>
+                    <P>Bouwrijp maken van terreinen</P>
+                </TI_TEXT>
+            </ML_TI_DOC>
+            <ML_TI_DOC LG="PL">
+                <TI_CY>Francja</TI_CY>
+                <TI_TOWN>Arpajon</TI_TOWN>
+                <TI_TEXT>
+                    <P>Przygotowanie terenu pod budowę</P>
+                </TI_TEXT>
+            </ML_TI_DOC>
+            <ML_TI_DOC LG="PT">
+                <TI_CY>França</TI_CY>
+                <TI_TOWN>Arpajon</TI_TOWN>
+                <TI_TEXT>
+                    <P>Preparação dos locais para construção</P>
+                </TI_TEXT>
+            </ML_TI_DOC>
+            <ML_TI_DOC LG="RO">
+                <TI_CY>Franţa</TI_CY>
+                <TI_TOWN>Arpajon</TI_TOWN>
+                <TI_TEXT>
+                    <P>Lucrări de pregătire a şantierului</P>
+                </TI_TEXT>
+            </ML_TI_DOC>
+            <ML_TI_DOC LG="SK">
+                <TI_CY>Francúzsko</TI_CY>
+                <TI_TOWN>Arpajon</TI_TOWN>
+                <TI_TEXT>
+                    <P>Príprava staveniska</P>
+                </TI_TEXT>
+            </ML_TI_DOC>
+            <ML_TI_DOC LG="SL">
+                <TI_CY>Francija</TI_CY>
+                <TI_TOWN>Arpajon</TI_TOWN>
+                <TI_TEXT>
+                    <P>Pripravljalna dela na gradbiščih</P>
+                </TI_TEXT>
+            </ML_TI_DOC>
+            <ML_TI_DOC LG="SV">
+                <TI_CY>Frankrike</TI_CY>
+                <TI_TOWN>Arpajon</TI_TOWN>
+                <TI_TEXT>
+                    <P>Förberedande anläggningsarbeten</P>
+                </TI_TEXT>
+            </ML_TI_DOC>
+        </ML_TITLES>
+        <ML_AA_NAMES>
+            <AA_NAME LG="FR">Commissariat à l'énergie atomique et aux énergies alternatives</AA_NAME>
+        </ML_AA_NAMES>
+    </TRANSLATION_SECTION>
+    <FORM_SECTION>
+        <CONTRACT_DEFENCE CATEGORY="ORIGINAL" FORM="17" LG="FR" VERSION="R2.0.8.S05.E01">
+            <FD_CONTRACT_DEFENCE CTYPE="WORKS">
+                <CONTRACTING_AUTHORITY_INFORMATION_DEFENCE>
+                    <NAME_ADDRESSES_CONTACT_CONTRACT>
+                        <CA_CE_CONCESSIONAIRE_PROFILE>
+                            <ORGANISATION>
+                                <OFFICIALNAME>Commissariat à l'énergie atomique et aux énergies alternatives
+                                </OFFICIALNAME>
+                            </ORGANISATION>
+                            <ADDRESS>centre DAM-Ile de France, DCG/SAPI/BPAM/Bâtiment U, Bruyères-le-Châtel</ADDRESS>
+                            <TOWN>ARPAJON cedex</TOWN>
+                            <POSTAL_CODE>91297</POSTAL_CODE>
+                            <COUNTRY VALUE="FR"/>
+                            <CONTACT_POINT>Pilla Cassandre-Anne</CONTACT_POINT>
+                            <ATTENTION>Pilla Cassandre-Anne</ATTENTION>
+                            <PHONE>+33 169267709</PHONE>
+                            <E_MAILS>
+                                <E_MAIL>cassandre-anne.pilla2@cea.fr</E_MAIL>
+                            </E_MAILS>
+                        </CA_CE_CONCESSIONAIRE_PROFILE>
+                        <INTERNET_ADDRESSES_CONTRACT>
+                            <URL_GENERAL>https://www.cea.fr</URL_GENERAL>
+                            <URL_BUYER>https://www.marches-publics.gouv.fr</URL_BUYER>
+                            <URL_PARTICIPATE>https://www.marches-publics.gouv.fr</URL_PARTICIPATE>
+                        </INTERNET_ADDRESSES_CONTRACT>
+                        <FURTHER_INFORMATION>
+                            <IDEM/>
+                        </FURTHER_INFORMATION>
+                        <SPECIFICATIONS_AND_ADDITIONAL_DOCUMENTS>
+                            <IDEM/>
+                        </SPECIFICATIONS_AND_ADDITIONAL_DOCUMENTS>
+                        <TENDERS_REQUESTS_APPLICATIONS_MUST_BE_SENT_TO>
+                            <IDEM/>
+                        </TENDERS_REQUESTS_APPLICATIONS_MUST_BE_SENT_TO>
+                    </NAME_ADDRESSES_CONTACT_CONTRACT>
+                    <TYPE_AND_ACTIVITIES_OR_CONTRACTING_ENTITY_AND_PURCHASING_ON_BEHALF>
+                        <TYPE_AND_ACTIVITIES>
+                            <TYPE_OF_CONTRACTING_AUTHORITY VALUE="BODY_PUBLIC"/>
+                            <TYPE_OF_ACTIVITY_OTHER VALUE="OTHER">Recherche</TYPE_OF_ACTIVITY_OTHER>
+                        </TYPE_AND_ACTIVITIES>
+                        <PURCHASING_ON_BEHALF>
+                            <PURCHASING_ON_BEHALF_NO/>
+                        </PURCHASING_ON_BEHALF>
+                    </TYPE_AND_ACTIVITIES_OR_CONTRACTING_ENTITY_AND_PURCHASING_ON_BEHALF>
+                </CONTRACTING_AUTHORITY_INFORMATION_DEFENCE>
+                <OBJECT_CONTRACT_INFORMATION_DEFENCE>
+                    <DESCRIPTION_CONTRACT_INFORMATION_DEFENCE>
+                        <TITLE_CONTRACT>
+                            <P>SAPI_Travaux préparatoires pour la construction d’un bâtiment technique</P>
+                        </TITLE_CONTRACT>
+                        <TYPE_CONTRACT_DEFENCE>
+                            <TYPE_CONTRACT VALUE="WORKS"/>
+                        </TYPE_CONTRACT_DEFENCE>
+                        <LOCATION_NUTS>
+                            <LOCATION>
+                                <P>CEA Valduc, 21120 Is-sur-Tille</P>
+                            </LOCATION>
+                            <n2021:NUTS CODE="FRC11"/>
+                        </LOCATION_NUTS>
+                        <SHORT_CONTRACT_DESCRIPTION>
+                            <P>Le présent avis de marché porte sur la réalisation des travaux préparatoires pour la
+                                construction future d’un bâtiment technique sur le centre du CEA de Valduc. Ces travaux
+                                comprennent la préparation de chantier, les missions géotechniques G3 et G5, les
+                                terrassements généraux, les travaux de Voiries, la fourniture et la pose de Réseaux
+                                Divers (VRD) ainsi que la fourniture de la base vie.
+                            </P>
+                        </SHORT_CONTRACT_DESCRIPTION>
+                        <CPV>
+                            <CPV_MAIN>
+                                <CPV_CODE CODE="45100000"/>
+                            </CPV_MAIN>
+                        </CPV>
+                        <SUBCONTRACTING>
+                            <INDICATE_ANY_SHARE VALUE="YES"/>
+                            <INDICATE_ANY_CHANGE VALUE="YES"/>
+                            <SUBCONTRACT_AWARD_PART VALUE="NO"/>
+                            <IDENTIFY_SUBCONTRACT VALUE="NO"/>
+                        </SUBCONTRACTING>
+                        <F17_DIVISION_INTO_LOTS>
+                            <DIV_INTO_LOT_NO/>
+                        </F17_DIVISION_INTO_LOTS>
+                        <ACCEPTED_VARIANTS VALUE="NO"/>
+                    </DESCRIPTION_CONTRACT_INFORMATION_DEFENCE>
+                    <QUANTITY_SCOPE>
+                        <NATURE_QUANTITY_SCOPE>
+                            <TOTAL_QUANTITY_OR_SCOPE>
+                                <P>Le marché « Travaux préparatoires », objet du présent avis, porte sur la réalisation
+                                    des travaux de terrassements généraux et de Voiries et Réseaux Divers (VRD) relatifs
+                                    aux travaux préparatoires comprenant :
+                                </P>
+                                <P>- La réalisation des terrassements généraux de la plateforme R2D2 et de la zone Bulle
+                                    Chantier,
+                                </P>
+                                <P>- La réalisation des terrassements des ouvrages de collecte et d’infiltration des
+                                    eaux pluviales,
+                                </P>
+                                <P>- La réalisation des ouvrages de rétention des eaux pollués, d’écrêtement et
+                                    d’infiltration des eaux pluviales,
+                                </P>
+                                <P>- L’aménagement de l’accès principal au chantier, mutualisé avec l’accès définitif à
+                                    l’installation, ainsi que l’aménagement de l’accès secondaire au chantier,
+                                </P>
+                                <P>- L’aménagement du parking de la zone Bulle Chantier,</P>
+                                <P>- Les signalisations et balisages,</P>
+                                <P>- L’amenée des réseaux nécessaires au chantier (réseaux secs CFI, CFO, et humides AEP
+                                    et eaux usées),
+                                </P>
+                                <P>- La mise en place d’armoires électriques d’interface,</P>
+                                <P>- L’amenée des réseaux définitifs de 1 ère phase (réseaux secs, CFI, CFO, et humides
+                                    AEP et eaux usées,
+                                </P>
+                                <P>- La mise en place d’un poste de garde et de ses équipements ainsi que des barrières
+                                    et portails d’accès,
+                                </P>
+                                <P>- La réalisation des contrôles et essais.</P>
+                                <P>De plus des investigations géophysiques et géotechniques sont également demandées,
+                                    elles comprennent :
+                                </P>
+                                <P>- Des reconnaissances géophysiques par microgravimétrie et géoradar sur la plateforme
+                                    du projet et en fond de fouille des blocs principaux,
+                                </P>
+                                <P>- Des forages de contrôle des anomalies détectées,</P>
+                                <P>- Des modélisations d’anomalies avant et après forages de contrôle,</P>
+                                <P>- Des propositions techniques de traitements adaptés en fonction des anomalies
+                                    détectées et résultats des forages de contrôle,
+                                </P>
+                                <P>- Le rebouchage des forages réalisés, le cas échéant.</P>
+                                <P>Ces investigations permettront de déterminer la présence de cavités et leur mode de
+                                    traitement, le cas échéant.
+                                </P>
+                            </TOTAL_QUANTITY_OR_SCOPE>
+                        </NATURE_QUANTITY_SCOPE>
+                        <OPTIONS>
+                            <OPTION_DESCRIPTION>
+                                <P>• Option 1 : Etude de la base vie autonome,</P>
+                                <P>• Option 2 : Une station de refoulement,</P>
+                                <P>• Option 3 : La fourniture de la base vie (bungalows et mobiliers, réseaux et
+                                    raccordements).
+                                </P>
+                                <P>• Option 4 : Un réseau d’assainissement des eaux usés définitif non réalisé en phase
+                                    Travaux Préparatoires,
+                                </P>
+                                <P>• Option 5 : L’étude, la fourniture et la mise en œuvre d’une micro-station de
+                                    traitement des eaux usées.
+                                </P>
+                            </OPTION_DESCRIPTION>
+                        </OPTIONS>
+                        <NO_RECURRENT_CONTRACT/>
+                    </QUANTITY_SCOPE>
+                    <PERIOD_WORK_DATE_STARTING>
+                        <MONTHS>7</MONTHS>
+                    </PERIOD_WORK_DATE_STARTING>
+                </OBJECT_CONTRACT_INFORMATION_DEFENCE>
+                <LEFTI_CONTRACT_DEFENCE>
+                    <CONTRACT_RELATING_CONDITIONS>
+                        <DEPOSITS_GUARANTEES_REQUIRED>
+                            <P>Garanties légales et contractuelles.</P>
+                        </DEPOSITS_GUARANTEES_REQUIRED>
+                        <MAIN_FINANCING_CONDITIONS>
+                            <P>- Financement sur fonds propres CEA ;</P>
+                            <P>- Conditions de règlement définies dans le Marché (échéancier de paiement) ;</P>
+                            <P>- Règlement par virement bancaire à 30 jours à compter de la date de réception de la
+                                facture, après livraison et
+                            </P>
+                            <P>acceptation des prestations conformément à l’échéancier de paiement.</P>
+                            <P>- L'unité monétaire utilisée est l'euro.</P>
+                            <P>- Les prix sont forfaitaires.</P>
+                        </MAIN_FINANCING_CONDITIONS>
+                        <LEGAL_FORM>
+                            <P>En cas de groupement, ce dernier doit revêtir la forme d’un groupement momentané
+                                d’entreprises (GME) solidaire ou à défaut d’un GME conjoint. En tout état de cause, le
+                                mandataire doit être solidaire de tous les membres du groupement.
+                            </P>
+                        </LEGAL_FORM>
+                        <EXISTENCE_OTHER_PARTICULAR_CONDITIONS>
+                            <P>CONDITIONS PARTICULIERES DE L’EXECUTION DU MARCHE :</P>
+                            <P>1ERE CONDITION</P>
+                            <P>Ce marché est un marché « Sensible » au sens de l’arrêté du 9 août 2021 portant
+                                approbation de l’instruction générale interministérielle n°1300 sur la protection du
+                                secret de la défense nationale.
+                            </P>
+                            <P>En conséquence, le dossier de candidature doit contenir sous enveloppe séparée</P>
+                            <P>- soit un avis sans réserve d’enquête administrative en cours de validité, ou le cas
+                                échéant une attestation d’une décision d’habilitation DGA en cours de validité (ou une
+                                attestation d’avis de sécurité en cas de changement d’autorité d’habilitation),
+                            </P>
+                            <P>- soit une demande d’enquête administrative de la personne morale (pour tout
+                                renseignement contacter l’OS centre de Valduc — tél. +33 380234681 — à l’adresse
+                                courriel vadirccg@cea.fr — CEA de Valduc — 21120 Is-sur-Tille en lui précisant la
+                                référence du dossier suivante N° SAGA),
+                            </P>
+                            <P>Les mêmes démarches doivent être engagées pour les entreprises associées, en cas de
+                                candidature en Groupement Momentané d’Entreprises ou des sous-traitants pressentis par
+                                les candidats audit marché.
+                            </P>
+                            <P>Ces documents devront parvenir au plus tard à la date limite de remise des candidatures
+                                mentionnée dans le présent avis. A défaut d’avoir fourni l’avis ou la copie de sa
+                                demande dans le délai imparti le candidat est réputé avoir renoncé à sa candidature.
+                            </P>
+                            <P>2EME CONDITION</P>
+                            <P>Le marché nécessite la divulgation d’informations et de supports, comportant la mention «
+                                Spécial France ». En conséquence, aucune candidature émise par une entreprise de droit
+                                étranger ne pourra être retenue. Ce marché porte la mention "Spécial France" et ne peut
+                                être réalisé que par du personnel de nationalité française, dans les conditions définies
+                                par le Plan contractuel de sécurité.
+                            </P>
+                            <P>3EME CONDITION</P>
+                            <P>En raison de la teneur de la prestation, il est précisé que le titulaire du marché, objet
+                                du présent avis, ne pourra se voir attribuer les marchés qui, par leur objet, seraient
+                                susceptibles de créer une situation de conflit d’intérêts au sens de l’article L2141-10
+                                du code de la commande publique.
+                            </P>
+                        </EXISTENCE_OTHER_PARTICULAR_CONDITIONS>
+                    </CONTRACT_RELATING_CONDITIONS>
+                    <F17_CONDITIONS_FOR_PARTICIPATION>
+                        <ECONOMIC_OPERATORS_PERSONAL_SITUATION>
+                            <P>1/ PRESENTATION DES CANDIDATURES :</P>
+                            <P>Les entreprises candidates doivent fournir à l’appui de leur candidature:</P>
+                            <P>— le formulaire DC1 (lettre de candidature et désignation du mandataire par ses
+                                co-traitants) ou équivalent.
+                            </P>
+                            <P>— le formulaire DC2 (Déclaration du candidat individuel ou du membre du groupement), ou
+                                équivalent.
+                            </P>
+                            <P>Les formulaires sont disponibles sur le site Internet du Ministère de l'Économie, de
+                                l'Industrie et de l'Emploi :
+                            </P>
+                            <P>http://www.economie.gouv.fr/daj/formulaires-declaration-du-candidat</P>
+                            <P>— la copie du ou des jugements prononcés s'il est en redressement judiciaire ou dans une
+                                procédure étrangère équivalente.
+                            </P>
+                            <P>— les attestations de régularité fiscales et sociales</P>
+                            <P>Il est interdit de cumuler les candidatures :</P>
+                            <P>- en tant que candidat individuel et membre d’un ou plusieurs groupements y compris en
+                                tant que mandataire ;
+                            </P>
+                            <P>- en tant que membre d’un groupement et mandataire d’un autre.</P>
+                            <P>2/Les entreprises nouvellement créées sont autorisées à présenter leur candidature. Si
+                                elles ne sont pas en mesure de produire certains des documents demandés dans le présent
+                                avis de marché, elles peuvent justifier de leurs capacités financières et
+                                professionnelles par d’autres moyens que ceux indiqués dans le présent avis et notamment
+                                par la présentation de titres ou de l’expérience professionnelle du ou de leurs
+                                responsables.
+                            </P>
+                        </ECONOMIC_OPERATORS_PERSONAL_SITUATION>
+                        <ECONOMIC_OPERATORS_PERSONAL_SITUATION_SUBCONTRACTORS>
+                            <P>Le recours à la sous-traitance sera effectué dans</P>
+                            <P>le cadre des dispositions du code de la commande</P>
+                            <P>publique et des dispositions applicables aux marchés</P>
+                            <P>publics de défense ou de sécurité. Le formulaire DC4</P>
+                            <P>est à compléter pour chaque demande d’acceptation</P>
+                            <P>de sous-traitant.</P>
+                        </ECONOMIC_OPERATORS_PERSONAL_SITUATION_SUBCONTRACTORS>
+                        <F17_ECONOMIC_FINANCIAL_CAPACITY>
+                            <EAF_CAPACITY_INFORMATION>
+                                <P>Un dossier de présentation du candidat, et le cas échéant de chaque co-traitant,
+                                    comprenant entre autres :
+                                </P>
+                                <P>- les caractéristiques de l’entreprise : statuts, forme juridique, composition du
+                                    capital, principaux actionnaires, participations, représentants engageant
+                                    l’entreprise, effectif total, dimensions, activités, organigramme ; pour information
+                                    un extrait-K-bis ou équivalent
+                                </P>
+                                <P>- une attestation d’assurance en cours de validité pour le candidat et chaque
+                                    co-traitant ;
+                                </P>
+                                <P>- le chiffre d’affaire global et le CA concernant les fournitures, services ou
+                                    travaux objet du marché, réalisés au cours des trois derniers exercices disponibles,
+                                    ainsi que le nombre total de salariés de l’entreprise candidate ;
+                                </P>
+                                <P>- les trois derniers bilans et comptes de résultat des opérateurs économiques pour
+                                    lesquels l’établissement des bilans est obligatoire en vertu de la loi;
+                                </P>
+                                <P>Lorsqu’il appartient à un groupe, une attestation certifiant de son autonomie
+                                    commerciale et de sa situation de concurrence vis-à-vis des autres entreprises du
+                                    groupe.
+                                </P>
+                            </EAF_CAPACITY_INFORMATION>
+                        </F17_ECONOMIC_FINANCIAL_CAPACITY>
+                        <F17_ECONOMIC_FINANCIAL_CAPACITY_SUBCONTRACTORS>
+                            <EAF_CAPACITY_INFORMATION>
+                                <P>Si le candidat recourt à la sous-traitance, il doit produire les mêmes renseignements
+                                    et documents concernant son/ses sous-traitants. En outre, pour justifier qu’il
+                                    dispose des capacités de ce(s) sous-traitant(s) pour l’exécution du marché, il
+                                    apporte la preuve par tout moyen approprié.
+                                </P>
+                                <P>La sous-traitance totale est interdite.</P>
+                            </EAF_CAPACITY_INFORMATION>
+                        </F17_ECONOMIC_FINANCIAL_CAPACITY_SUBCONTRACTORS>
+                        <TECHNICAL_CAPACITY_LEFTI>
+                            <T_CAPACITY_INFORMATION>
+                                <P>La sélection des candidats se fera sur les critères suivants :</P>
+                                <P>o expériences/compétences en interne ou en sous-traitance dans les domaines du
+                                    terrassement, du terrassement par explosif ou en déblais rocheux, de
+                                    l’assainissement, voiries, génie civil, ouvrages provisoires, réalisation d’études
+                                    géotechniques de type G3 et G5 ;
+                                </P>
+                                <P>o possession en interne ou en sous-traitance de moyens techniques et humains
+                                    nécessaires à l’exécution des travaux objet du marché et notamment des études et
+                                    travaux :
+                                </P>
+                                <P>de terrassements généraux</P>
+                                <P>de terrassements par utilisation d’explosifs ou d’engins propres aux terrassements en
+                                    déblais rocheux,
+                                </P>
+                                <P>de voiries,</P>
+                                <P>de génie civil,</P>
+                                <P>d’installation d’ouvrages provisoires,</P>
+                                <P>d’assainissements,</P>
+                                <P>de missions géotechniques de type G3 et G5 (y compris matériel d’ITV et imagerie des
+                                    parois géoréférencées) ;
+                                </P>
+                                <P>o capacité à réaliser les travaux dans un contexte intégrant des contraintes fortes
+                                    de management (organisation suivi et qualité) et de coordination de marché
+                                    (intégrant le cas échéant de la sous-traitance) ;
+                                </P>
+                                <P>o pertinence des pièces remises dans le cadre du dossier de candidature et demandés
+                                    dans le cadre de la consultation (CCT) :
+                                </P>
+                                <P>procédures de contrôle de profondeur d’investigation (calibration du zéro,
+                                    appréciations de la vitesse de propagation des ondes radar), ainsi que les
+                                    procédures de repérage des mesures sur les profils relativement aux mesures radar
+                                    associées à la mission G5 ;
+                                </P>
+                                <P>note préliminaire de conception des terrassements par utilisation d’explosifs
+                                    comprenant :
+                                </P>
+                                <P>• conception des tirs,</P>
+                                <P>• analyse des risques et contraintes,</P>
+                                <P>• plan de foration préliminaire,</P>
+                                <P>• plan de chargement et d’amorçage,</P>
+                                <P>• analyse comparative tirs/techniques alternatives (BRH, Fraise, Raboteuse minière,
+                                    rippage, dent de déroctage).
+                                </P>
+                                <P>L’atteinte de ces critères sera démontrée par les dossiers listés ci-après. Chaque
+                                    entreprise candidate (le mandataire et chacun des co-traitants dans le cadre d‘un
+                                    groupement) devra présenter :
+                                </P>
+                                <P>- l’organisation pressentie et le montage industriel pour ce type de prestation, avec
+                                    le cas échéant l’organisation au sein du groupement et/ou la démonstration de sa
+                                    capacité à maitriser la sous-traitance
+                                </P>
+                                <P>- les moyens humains identifiant à minima les profils types des intervenants
+                                    (qualifications, ancienneté, habilitations et diplômes, CV non nominatifs),
+                                </P>
+                                <P>- les moyens matériels ;</P>
+                                <P>- l’organisation et la qualité (procédures, assurance qualité, certifications ou
+                                    qualifications en cours de validité);
+                                </P>
+                                <P>- un dossier précis et détaillé des références ( au cours des 5 dernières années) de
+                                    l’entreprise et/ou de l’établissement susceptible d’intervenir, concernant des
+                                    opérations identiques ou pouvant être assimilées notamment en termes de technicité
+                                    et d’enjeu.
+                                </P>
+                                <P>- un dossier spécifique présentant les procédures et la note préliminaire décrites
+                                    ci-dessus.
+                                </P>
+                                <P>Devront notamment être précisés : la nature du projet, la date, le lieu d’exécution,
+                                    les références du client correspondant avec ses coordonnées postales et
+                                    téléphoniques ainsi que celles de la personne en charge du projet, un descriptif
+                                    précis des responsabilités exercées et des actions conduites par le candidat dans le
+                                    projet.
+                                </P>
+                            </T_CAPACITY_INFORMATION>
+                        </TECHNICAL_CAPACITY_LEFTI>
+                        <TECHNICAL_CAPACITY_LEFTI_SUBCONTRACTORS>
+                            <T_CAPACITY_INFORMATION>
+                                <P>Si le candidat recourt à la sous-traitance, il doit produire les mêmes documents
+                                    concernant ce sous-traitant. En outre, pour justifier qu’il dispose des capacités de
+                                    ce sous-traitant pour l’exécution du marché, il apporte la preuve par tout moyen
+                                    approprié.
+                                </P>
+                            </T_CAPACITY_INFORMATION>
+                        </TECHNICAL_CAPACITY_LEFTI_SUBCONTRACTORS>
+                    </F17_CONDITIONS_FOR_PARTICIPATION>
+                </LEFTI_CONTRACT_DEFENCE>
+                <PROCEDURE_DEFINITION_CONTRACT_NOTICE_DEFENCE>
+                    <TYPE_OF_PROCEDURE_DEFENCE>
+                        <TYPE_OF_PROCEDURE_DETAIL_FOR_CONTRACT_NOTICE_DEFENCE>
+                            <PT_RESTRICTED/>
+                        </TYPE_OF_PROCEDURE_DETAIL_FOR_CONTRACT_NOTICE_DEFENCE>
+                    </TYPE_OF_PROCEDURE_DEFENCE>
+                    <AWARD_CRITERIA_CONTRACT_NOTICE_INFORMATION>
+                        <AWARD_CRITERIA_DETAIL>
+                            <MOST_ECONOMICALLY_ADVANTAGEOUS_TENDER>
+                                <CRITERIA_STATED_IN_OTHER_DOCUMENT/>
+                            </MOST_ECONOMICALLY_ADVANTAGEOUS_TENDER>
+                        </AWARD_CRITERIA_DETAIL>
+                        <IS_ELECTRONIC_AUCTION_USABLE>
+                            <NO_USE_ELECTRONIC_AUCTION/>
+                        </IS_ELECTRONIC_AUCTION_USABLE>
+                    </AWARD_CRITERIA_CONTRACT_NOTICE_INFORMATION>
+                    <ADMINISTRATIVE_INFORMATION_CONTRACT_NOTICE_DEFENCE>
+                        <FILE_REFERENCE_NUMBER>
+                            <P>B22-00948</P>
+                        </FILE_REFERENCE_NUMBER>
+                        <PREVIOUS_PUBLICATION_INFORMATION_NOTICE_F17>
+                            <NO_PREVIOUS_PUBLICATION_EXISTS_F17/>
+                        </PREVIOUS_PUBLICATION_INFORMATION_NOTICE_F17>
+                        <RECEIPT_LIMIT_DATE>
+                            <DAY>14</DAY>
+                            <MONTH>03</MONTH>
+                            <YEAR>2022</YEAR>
+                            <TIME>16:00</TIME>
+                        </RECEIPT_LIMIT_DATE>
+                        <LANGUAGE>
+                            <LANGUAGE_EC VALUE="FR"/>
+                        </LANGUAGE>
+                    </ADMINISTRATIVE_INFORMATION_CONTRACT_NOTICE_DEFENCE>
+                </PROCEDURE_DEFINITION_CONTRACT_NOTICE_DEFENCE>
+                <COMPLEMENTARY_INFORMATION_CONTRACT_NOTICE>
+                    <NO_RECURRENT_PROCUREMENT/>
+                    <RELATES_TO_EU_PROJECT_NO/>
+                    <ADDITIONAL_INFORMATION>
+                        <P>La réglementation applicable à la présente procédure est définie par le code de la commande
+                            publique et les dispositions applicables aux marchés publics de défense ou de sécurité.
+                        </P>
+                        <P>1/ CONFIDENTIALITE ET MISE A DISPOSITION DU DOSSIER DE CONSULTATION DES ENTREPRISES</P>
+                        <P>1.1 / Afin de protéger la confidentialité de certaines informations, certains documents de la
+                            consultation seront mis à disposition des seuls candidats admis à soumissionner.
+                        </P>
+                        <P>1.2 / Documents DR :</P>
+                        <P>Les documents de la consultation contiennent des informations sensibles et font l'objet d'une
+                            mention particulière « Diffusion Restreinte », visant à garantir leur confidentialité. Afin
+                            de permettre l'envoi de ces documents (en phase offre) sous format informatique via la
+                            plateforme PLACE ou via support amovible (Clé USB, CD ROM), les candidats doivent retourner
+                            à l'appui de leur candidature le document « Engagement du Soumissionnaire en matière de
+                            protection de l’information de diffusion restreinte - déclinaison en règles de sécurité
+                            informatique » dûment signé. Dans le cas contraire, les documents sensibles ne pourront pas
+                            faire l'objet d'un envoi électronique et seront adressés sous format papier uniquement par
+                            courrier suivant les dispositions de l’IGI 1300 du 9.08.2021.
+                        </P>
+                        <P>2/ REMISE DES CANDIDATURES</P>
+                        <P>La candidature contiendra tous les éléments demandés dans le présent avis de marché. Tout
+                            dossier transmis incomplet pourra être écarté.
+                        </P>
+                        <P>Les candidatures peuvent être remises soit par voie électronique, soit par courrier.</P>
+                        <P>2.1/ Formalisme pour la remise de la candidature par voie électronique :</P>
+                        <P>a) Afin de répondre de façon électronique, les candidats doivent déposer leur candidature sur
+                            la plateforme de dématérialisation des marchés (https://www.marches-publics.gouv.fr) en
+                            suivant les étapes décrites dans le guide d’utilisation en ligne (rubrique "aide").
+                        </P>
+                        <P>b) Le candidat doit avoir au préalable fait l'acquisition d'un certificat électronique.
+                            Obtenir un certificat électronique prend plusieurs jours, voire plusieurs semaines.
+                        </P>
+                        <P>c) Envoi par le candidat de plusieurs réponses électroniques à un même avis de marché : le
+                            candidat peut remettre au CEA plusieurs réponses électroniques pour un même avis de marché,
+                            notamment en cas d’oubli, de correction, de complément, et ce avant la date limite de
+                            réponse telle que définie dans le présent avis de marché. Dans ce cas, le CEA ne prendra en
+                            compte que la dernière réponse reçue ; les envois précédents ne seront pas ouverts. En
+                            conséquence, le candidat prendra toutes les dispositions utiles pour envoyer un dossier
+                            complet à chaque réponse, dans les délais impartis.
+                        </P>
+                        <P>2.2/ Formalisme spécifique à la remise de candidature par courrier :</P>
+                        <P>La candidature sera établie en 2 exemplaires (1 original et 1 copie) et un exemplaire sur
+                            CD-ROM sous double enveloppe cachetée. L’enveloppe extérieure indique ;
+                        </P>
+                        <P>CEA/DAM — Île-de-France</P>
+                        <P>DCG/SAPI/BPAM– bâtiment U</P>
+                        <P>À l'attention de SAPI.BPAM</P>
+                        <P>«Travaux Préparatoires / NE PAS OUVRIR»</P>
+                        <P>Bruyères-le-Châtel / domaine du Rué</P>
+                        <P>91297 Arpajon Cedex,</P>
+                        <P>L'enveloppe intérieure comporte la mention « référence du dossier » et la dénomination
+                            sociale du soumissionnaire.
+                        </P>
+                        <P>La remise de cette double enveloppe se fait :</P>
+                        <P>*par courrier recommandé,</P>
+                        <P>*ou par envoi coursier, le pli doit être déposé à l’adresse indiquée ci-dessus (entre 9h et
+                            16h à la réception du centre)
+                        </P>
+                        <P>*dans le respect de la date et heure de remise des candidatures (telles que définies au
+                            IV.3.4).
+                        </P>
+                        <P>En cas de contradictions entre la version papier et la version électronique, la première
+                            prévaut, dans sa version originale
+                        </P>
+                    </ADDITIONAL_INFORMATION>
+                    <PROCEDURES_FOR_APPEAL>
+                        <APPEAL_PROCEDURE_BODY_RESPONSIBLE>
+                            <CONTACT_DATA_WITHOUT_RESPONSIBLE_NAME>
+                                <ORGANISATION>
+                                    <OFFICIALNAME>Tribunal administratif de Paris</OFFICIALNAME>
+                                </ORGANISATION>
+                                <ADDRESS>7 rue de Jouy</ADDRESS>
+                                <TOWN>Paris Cedex 04</TOWN>
+                                <POSTAL_CODE>75181</POSTAL_CODE>
+                                <COUNTRY VALUE="FR"/>
+                                <PHONE>+33 144594400</PHONE>
+                                <FAX>+33 144594646</FAX>
+                            </CONTACT_DATA_WITHOUT_RESPONSIBLE_NAME>
+                        </APPEAL_PROCEDURE_BODY_RESPONSIBLE>
+                        <LODGING_OF_APPEALS>
+                            <LODGING_OF_APPEALS_PRECISION>
+                                <P>Le référé précontractuel peut être introduit depuis le début de la procédure de
+                                    passation jusqu’à la signature du marché.
+                                </P>
+                                <P>Le référé contractuel peut être introduit dans les conditions des articles L.551-13
+                                    et suivants du Code de justice administrative.
+                                </P>
+                                <P>Le recours en contestation de la validité du marché par un tiers peut être intenté
+                                    dans un délai de deux mois à compter des mesures de publicité appropriées.
+                                </P>
+                            </LODGING_OF_APPEALS_PRECISION>
+                        </LODGING_OF_APPEALS>
+                        <LODGING_INFORMATION_FOR_SERVICE>
+                            <CONTACT_DATA_WITHOUT_RESPONSIBLE_NAME>
+                                <ORGANISATION>
+                                    <OFFICIALNAME>Tribunal administratif de Paris</OFFICIALNAME>
+                                </ORGANISATION>
+                                <ADDRESS>7 rue de Jouy</ADDRESS>
+                                <TOWN>Paris Cedex</TOWN>
+                                <POSTAL_CODE>75181</POSTAL_CODE>
+                                <COUNTRY VALUE="FR"/>
+                                <E_MAILS>
+                                    <E_MAIL>greffe.ta-paris@juradm.fr</E_MAIL>
+                                </E_MAILS>
+                                <PHONE>+33 144594400</PHONE>
+                                <FAX>+33 144594646</FAX>
+                            </CONTACT_DATA_WITHOUT_RESPONSIBLE_NAME>
+                        </LODGING_INFORMATION_FOR_SERVICE>
+                    </PROCEDURES_FOR_APPEAL>
+                    <NOTICE_DISPATCH_DATE>
+                        <DAY>11</DAY>
+                        <MONTH>02</MONTH>
+                        <YEAR>2022</YEAR>
+                    </NOTICE_DISPATCH_DATE>
+                </COMPLEMENTARY_INFORMATION_CONTRACT_NOTICE>
+            </FD_CONTRACT_DEFENCE>
+        </CONTRACT_DEFENCE>
+    </FORM_SECTION>
+</TED_EXPORT>

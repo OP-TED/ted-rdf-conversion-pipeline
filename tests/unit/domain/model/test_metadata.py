@@ -8,7 +8,7 @@
 """ """
 from deepdiff import DeepDiff
 
-from ted_sws.domain.model.metadata import TEDMetadata
+from ted_sws.domain.model.metadata import TEDMetadata, ExtractedTEDMetadata
 
 
 def test_metadata():
@@ -40,3 +40,9 @@ def test_metadata_equality():
     assert md1 == md2
     assert md1 != md3
     assert md2 != md3
+
+
+def test_extracted_metadata():
+    metadata = ExtractedTEDMetadata(**{"title": "Title here", "No_key": "Value"})
+    assert metadata.title == "Title here"
+    assert "No_key" not in metadata.dict().keys()

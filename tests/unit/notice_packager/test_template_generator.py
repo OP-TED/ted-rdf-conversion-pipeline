@@ -1,6 +1,8 @@
-from ted_sws.notice_packager.adapters import template_generator
-
 import re
+
+import pytest
+
+from ted_sws.notice_packager.adapters import template_generator
 from tests import TEST_DATA_PATH
 
 
@@ -39,3 +41,10 @@ def test_mets2update_mets_xml_generator(sample_metadata):
     sample_metadata["notice"]["action"]["type"] = "update"
     test_template = "196390_2016_mets2update.mets.xml"
     __test(template_generator.mets2action_mets_xml_generator, sample_metadata, test_template)
+
+
+def test_mets2wrong_action_mets_xml_generator(sample_metadata):
+    sample_metadata["notice"]["action"]["type"] = "wrong_action"
+    with pytest.raises(ValueError):
+        template_generator.mets2action_mets_xml_generator(sample_metadata)
+

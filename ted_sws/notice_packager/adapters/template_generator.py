@@ -13,6 +13,7 @@ from . import TEMPLATES
 
 ACCEPTED_ACTIONS = ["create", "update"]
 
+
 def __generate_template(template, data):
     template_render = TEMPLATES.get_template(template).render(data)
     return template_render
@@ -31,7 +32,7 @@ def tmd_rdf_generator(data):
 def mets2action_mets_xml_generator(data):
     action = data["notice"]["action"]["type"]
     if action not in ACCEPTED_ACTIONS:
-        raise Exception("No such action: " + action)
+        raise ValueError('No such action: %s' % action)
 
     template = 'mets2action_mets_xml.jinja2'
     return __generate_template(template, data)

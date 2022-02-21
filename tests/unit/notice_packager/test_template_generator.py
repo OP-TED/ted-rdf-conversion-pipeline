@@ -43,7 +43,7 @@ def test_mets2update_mets_xml_generator(sample_metadata):
     __test(template_generator.mets2action_mets_xml_generator, sample_metadata, test_template)
 
 
-def test_mets2wrong_action_mets_xml_generator(sample_metadata):
+def test_mets2action_mets_xml_generator_with_wrong_action(sample_metadata):
     sample_metadata["notice"]["action"]["type"] = "wrong_action"
     with pytest.raises(ValueError):
         template_generator.mets2action_mets_xml_generator(sample_metadata)

@@ -8,14 +8,14 @@
 """ """
 from deepdiff import DeepDiff
 
-from ted_sws.domain.model.metadata import TEDMetadata, ExtractedTEDMetadata
+from ted_sws.domain.model.metadata import TEDMetadata, NormalisedMetadata, ExtractedMetadata
 
 
 def test_metadata():
     metadata = TEDMetadata(**{"AA": "Value here", "No_key": "Value"})
     assert metadata.AA == "Value here"
     assert "No_key" not in metadata.dict().keys()
-
+    print(metadata.dict().keys())
 
 def test_dict_comparison():
     a1 = {'a': 1, 'a2': 1, "b": 2, "c": 3}
@@ -42,7 +42,15 @@ def test_metadata_equality():
     assert md2 != md3
 
 
-def test_extracted_metadata():
-    metadata = ExtractedTEDMetadata(**{"title": "Title here", "No_key": "Value"})
-    assert metadata.title == "Title here"
+def test_normalised_metadata():
+    metadata = NormalisedMetadata(**{"title": ["Title here"], "No_key": ["Value"]})
+    assert metadata.title == ["Title here"]
     assert "No_key" not in metadata.dict().keys()
+    assert "notice_publication_number" in metadata.dict().keys()
+
+
+def test_extracted_metadata():
+    metadata = ExtractedMetadata(**{"title": ["Title here"], "No_key": ["Value"]})
+    assert metadata.title == ["Title here"]
+    assert "No_key" not in metadata.dict().keys()
+    assert "notice_publication_number" in metadata.dict().keys()

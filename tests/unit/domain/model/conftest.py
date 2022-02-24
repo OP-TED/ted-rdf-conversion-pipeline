@@ -31,7 +31,7 @@ def publicly_available_notice(fetched_notice_data) -> Notice:
                     xml_manifestation=xml_manifestation)
     notice._rdf_manifestation = RDFManifestation(object_data="RDF manifestation content", validation=validation)
     notice._mets_manifestation = METSManifestation(object_data="METS manifestation content")
-    notice._normalised_metadata = NormalisedMetadata(title="a never known title")
+    notice._normalised_metadata = NormalisedMetadata(title=["a never known title"])
     notice._status = NoticeStatus.PUBLICLY_AVAILABLE
     return notice
 

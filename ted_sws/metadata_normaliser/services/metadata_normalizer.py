@@ -1,8 +1,8 @@
 import abc
 
-from ted_sws.domain.model.manifestation import XMLManifestation
 from ted_sws.domain.model.metadata import NormalisedMetadata
 from ted_sws.domain.model.notice import Notice
+from ted_sws.metadata_normaliser.services.extract_metadata import MetadataExtractor
 
 
 class MetadataNormalizerABC(abc.ABC):
@@ -20,16 +20,16 @@ class MetadataNormalizerABC(abc.ABC):
 
 class MetadataNormaliser(MetadataNormalizerABC):
     """
-
+        Metadata normaliser
     """
 
     def __init__(self, notice: Notice):
         self.notice = notice
 
-    def _extract_metadata(self, xml_manifestation: XMLManifestation) -> dict:
-        pass
-
     def normalise_metadata(self):
-        metadata = self._extract_metadata(xml_manifestation=self.notice)
-
-
+        """
+            Method that is normalising the metadata
+        :return:
+        """
+        metadata = MetadataExtractor(notice=self.notice).extract_metadata().dict()
+        self.notice.set_normalised_metadata(normalised_metadata=NormalisedMetadata(**metadata))

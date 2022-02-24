@@ -10,7 +10,12 @@ from ted_sws.notice_fetcher.adapters.ted_api import TedAPIAdapter
 from ted_sws.notice_fetcher.services.notice_fetcher import NoticeFetcher
 from tests import TEST_DATA_PATH
 from tests.fakes.fake_ted_api import FakeRequestAPI
+from tests.fakes.fake_repository import FakeNoticeRepository
 
+
+@pytest.fixture
+def notice_repository():
+    return FakeNoticeRepository()
 
 @pytest.fixture
 def ted_document_search():

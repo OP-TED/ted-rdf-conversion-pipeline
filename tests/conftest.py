@@ -23,10 +23,11 @@ def ted_document_search():
 
 
 @pytest.fixture
-def raw_notice(ted_document_search) -> Notice:
+def raw_notice(ted_document_search,notice_repository) -> Notice:
     document_id = "067623-2022"
-    return NoticeFetcher(ted_api_adapter=ted_document_search).get_notice_by_id(
+    NoticeFetcher(ted_api_adapter=ted_document_search,notice_repository=notice_repository).fetch_notice_by_id(
         document_id=document_id)
+    return notice_repository.get(reference=document_id)
 
 
 def read_notice(notice_file: str):

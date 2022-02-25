@@ -1,4 +1,3 @@
-import deepdiff
 import pytest
 
 from ted_sws.data_manager.adapters.notice_repository import NoticeRepository
@@ -15,11 +14,12 @@ def test_notice_repository_create(mongodb_client):
     notice = Notice(ted_id=NOTICE_TED_ID, original_metadata=TEDMetadata(**{"AA": "HEY HEY"}),
                     xml_manifestation=XMLManifestation(object_data="HELLO"))
     notice_repository.add(notice)
-    collection = notice_repository.collection
-    notice_result = collection.find_one({"ted_id": NOTICE_TED_ID})
-    new_notice = Notice(**notice_result)
-    assert notice_result
-    assert deepdiff.Delta(notice.dict(),notice_result)
+    result_notice = notice_repository.get(reference=NOTICE_TED_ID)
+    assert result_notice
+    assert result_notice.ted_id == NOTICE_TED_ID
+    result_notices = notice_repository.list()
+    assert result_notices
+    assert len(result_notices) == 1
     with pytest.raises(Exception):
         notice_repository.add(notice)
     mongodb_client.drop_database(NoticeRepository._database_name)

@@ -26,12 +26,12 @@ class NoticeRepositoryABC(RepositoryABC):
         """
             This method allows a notice to be obtained based on an identification reference.
         :param reference:
-        :return:
+        :return: Notice
         """
 
     @abc.abstractmethod
-    def list(self)->List[str]:
+    def list(self)->List[Notice]:
         """
             This method allows all records to be retrieved from the repository.
-        :return:
+        :return: list of notices
         """

@@ -31,7 +31,8 @@ jobs:
         envkey_VAULT_TOKEN: ${{ secrets.VAULT_TOKEN }}
         envkey_VAULT_ADDR: ${{ secrets.VAULT_ADDR }}
 
-    - run: ls -a
+    - name: list files
+      run: ls -a
     - name: Run unit tests
       run: make test
     - name: Upload coverage to Codecov

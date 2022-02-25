@@ -13,7 +13,6 @@ jobs:
     runs-on: self-hosted
 
     steps:
-      - uses: actions/checkout@v1
       - run: pwd
       - run: echo One last message
 

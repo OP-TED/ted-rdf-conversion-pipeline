@@ -2,10 +2,10 @@ name: Tests on server
 
 on:
   workflow_dispatch:
-  push:
-    branches: [ feature/* ]
-  pull_request:
-    branches: [ master ]
+#  push:
+#    branches: [ feature/* ]
+#  pull_request:
+#    branches: [ master ]
 
 jobs:
   build:
@@ -25,20 +25,20 @@ jobs:
 #      run: |
 #        python -m pip install --upgrade setuptools pip wheel
 #        make install
-#    - name: Make envfile
-#      uses: SpicyPizza/create-envfile@v1
-#      with:
-#        envkey_VAULT_TOKEN: ${{ secrets.VAULT_TOKEN }}
-#        envkey_VAULT_ADDR: ${{ secrets.VAULT_ADDR }}
+    - name: Make envfile
+      uses: SpicyPizza/create-envfile@v1
+      with:
+        envkey_VAULT_TOKEN: ${{ secrets.VAULT_TOKEN }}
+        envkey_VAULT_ADDR: ${{ secrets.VAULT_ADDR }}
 
-
-#    - name: Run unit tests
-#      run: make test
-#    - name: Upload coverage to Codecov
-#      uses: codecov/codecov-action@v1
-#      with:
-#        token: ${{ secrets.CODECOV_TOKEN }}
-#        file: coverage.xml
-#        env_vars: OS,PYTHON
-#        name: codecov-umbrella
-#        fail_ci_if_error: true
+    - run: ls -a
+    - name: Run unit tests
+      run: make test
+    - name: Upload coverage to Codecov
+      uses: codecov/codecov-action@v1
+      with:
+        token: ${{ secrets.CODECOV_TOKEN }}
+        file: coverage.xml
+        env_vars: OS,PYTHON
+        name: codecov-umbrella
+        fail_ci_if_error: true

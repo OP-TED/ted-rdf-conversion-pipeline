@@ -1,7 +1,10 @@
 from pymongo import MongoClient
 
+from ted_sws import config
+
+
 def test_mongodb_client():
-    uri = "KEY"
+    uri = config.MONGO_DB_AUTH_URL
     mongodb_client = MongoClient(uri)
     test_db  = mongodb_client['test']
     fruits_collection = test_db['fruits']

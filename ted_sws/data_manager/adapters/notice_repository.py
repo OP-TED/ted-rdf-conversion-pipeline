@@ -13,9 +13,9 @@ class NoticeRepository(NoticeRepositoryABC):
     _database_name = "notice_db"
 
 
-    def __init__(self,mongodb_client: MongoClient):
+    def __init__(self,mongodb_client: MongoClient, database_name: str = None):
         mongodb_client = mongodb_client
-        notice_db = mongodb_client[self._database_name]
+        notice_db = mongodb_client[database_name if database_name else self._database_name]
         self.collection = notice_db[self._collection_name]
 
     def add(self, notice: Notice):

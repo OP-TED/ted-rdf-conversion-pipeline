@@ -1,5 +1,6 @@
 from ted_sws.domain.model.metadata import ExtractedMetadata
-from ted_sws.metadata_normaliser.services import xpath_extract_data, xpath_extract_attributes
+from ted_sws.metadata_normaliser.services.xml_manifestation_metadata_extractor import extract_text_from_elements, \
+    extract_attribute_value_from_elements
 
 import xml.etree.ElementTree as ET
 
@@ -50,7 +51,7 @@ def test_xpath_extract_data(raw_notice):
     list_of_elements = doc_root.findall("epo:TRANSLATION_SECTION/epo:ML_TITLES/epo:ML_TI_DOC[@LG='EN']/",
                                         namespaces=namespace)
 
-    extracted_data = xpath_extract_data(elements=list_of_elements)
+    extracted_data = extract_text_from_elements(elements=list_of_elements)
 
     assert isinstance(extracted_data, list)
     assert "Germany" in extracted_data
@@ -61,7 +62,7 @@ def test_xpath_extract_attributes(raw_notice):
     namespace = {"epo": "http://publications.europa.eu/resource/schema/ted/R2.0.8/publication"}
     list_of_elements = doc_root.findall("epo:CODED_DATA_SECTION/epo:NOTICE_DATA/epo:ISO_COUNTRY", namespaces=namespace)
 
-    extracted_data = xpath_extract_attributes(elements=list_of_elements, attrib_key="VALUE")
+    extracted_data = extract_attribute_value_from_elements(elements=list_of_elements, attrib_key="VALUE")
 
     assert isinstance(extracted_data, list)
     assert "DE" in extracted_data

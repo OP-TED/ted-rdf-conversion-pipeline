@@ -1,9 +1,9 @@
-from ted_sws.domain.model.metadata import NormalisedMetadata
+from ted_sws.domain.model.metadata import NormalisedMetadata, ExtractedMetadata
 from ted_sws.domain.model.notice import Notice
 import xml.etree.ElementTree as ET
 from io import StringIO
 
-from ted_sws.metadata_normaliser.services import ExtractMetadata
+from ted_sws.metadata_normaliser.services.xml_manifestation_metadata_extractor import XMLManifestationMetadataExtractor
 
 
 class MetadataExtractor:
@@ -14,7 +14,7 @@ class MetadataExtractor:
     def __init__(self, notice: Notice):
         self.notice = notice
 
-    def extract_metadata(self) -> NormalisedMetadata:
+    def extract_metadata(self) -> ExtractedMetadata:
         """
         Method to extract metadata from xml manifestation
         :param self:
@@ -34,4 +34,4 @@ class MetadataExtractor:
         if "nuts" not in namespaces.keys():
             namespaces.update({"nuts": "no_nuts"})
 
-        return ExtractMetadata(manifestation_root=manifestation_root, namespaces=namespaces).to_metadata()
+        return XMLManifestationMetadataExtractor(manifestation_root=manifestation_root, namespaces=namespaces).to_metadata()

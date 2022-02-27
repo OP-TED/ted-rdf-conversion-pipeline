@@ -6,5 +6,6 @@ def test_metadata_extractor(raw_notice):
     notice = raw_notice
     MetadataNormaliser(notice=notice).normalise_metadata()
 
+
     assert notice.normalised_metadata
     assert notice.status == NoticeStatus.NORMALISED_METADATA

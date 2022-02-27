@@ -14,8 +14,14 @@ from tests.fakes.fake_repository import FakeNoticeRepository
 
 
 @pytest.fixture
+def notice_id():
+    return "067623-2022"
+
+
+@pytest.fixture
 def notice_repository():
     return FakeNoticeRepository()
+
 
 @pytest.fixture
 def ted_document_search():
@@ -23,9 +29,9 @@ def ted_document_search():
 
 
 @pytest.fixture
-def raw_notice(ted_document_search,notice_repository) -> Notice:
-    document_id = "067623-2022"
-    NoticeFetcher(ted_api_adapter=ted_document_search,notice_repository=notice_repository).fetch_notice_by_id(
+def raw_notice(ted_document_search, notice_repository, notice_id) -> Notice:
+    document_id = notice_id
+    NoticeFetcher(ted_api_adapter=ted_document_search, notice_repository=notice_repository).fetch_notice_by_id(
         document_id=document_id)
     return notice_repository.get(reference=document_id)
 

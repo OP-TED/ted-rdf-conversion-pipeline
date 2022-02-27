@@ -5,7 +5,7 @@ from ted_sws.domain.model.notice import Notice
 from ted_sws.metadata_normaliser.services.extract_metadata import MetadataExtractor
 
 
-class MetadataNormalizerABC(abc.ABC):
+class MetadataNormaliserABC(abc.ABC):
     """
     Abstract class for notice metadata normalising process
     """
@@ -18,7 +18,7 @@ class MetadataNormalizerABC(abc.ABC):
         """
 
 
-class MetadataNormaliser(MetadataNormalizerABC):
+class MetadataNormaliser(MetadataNormaliserABC):
     """
         Metadata normaliser
     """
@@ -32,4 +32,6 @@ class MetadataNormaliser(MetadataNormalizerABC):
         :return:
         """
         metadata = MetadataExtractor(notice=self.notice).extract_metadata().dict()
+        #TODO delete this when the nomalised meatdata strucuture is defined
+        metadata["title"] = " ".join(metadata["title"])
         self.notice.set_normalised_metadata(normalised_metadata=NormalisedMetadata(**metadata))

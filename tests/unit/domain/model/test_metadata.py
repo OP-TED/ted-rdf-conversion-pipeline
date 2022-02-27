@@ -43,10 +43,10 @@ def test_metadata_equality():
 
 
 def test_normalised_metadata():
-    metadata = NormalisedMetadata(**{"title": ["Title here"], "No_key": ["Value"]})
-    assert metadata.title == ["Title here"]
+    metadata = NormalisedMetadata(**{"title": "Title here", "No_key": "Value"})
+    assert metadata.title == "Title here"
     assert "No_key" not in metadata.dict().keys()
-    assert "notice_publication_number" in metadata.dict().keys()
+    assert "title" in metadata.dict().keys()
 
 
 def test_extracted_metadata():

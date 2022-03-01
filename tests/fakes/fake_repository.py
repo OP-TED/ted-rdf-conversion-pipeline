@@ -1,4 +1,4 @@
-from typing import List
+from typing import Iterator
 
 from ted_sws.domain.adapters.repository_abc import NoticeRepositoryABC
 from ted_sws.domain.model.notice import Notice
@@ -42,9 +42,9 @@ class FakeNoticeRepository(NoticeRepositoryABC):
 
         return None
 
-    def list(self) -> List[str]:
+    def list(self) -> Iterator[Notice]:
         """
             This method allows all records to be retrieved from the repository.
         :return:
         """
-        return list(self.repository.keys())
+        return list(self.repository.values())

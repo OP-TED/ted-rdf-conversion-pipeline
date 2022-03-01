@@ -1,8 +1,3 @@
-tocTab[tocTab.length] = new Array("0.1", "1", "business process (BPMN)", "EARoot/EA1/EA11.html", "31.png", "", "", "{2C6EFAE5-836A-4025-B7A6-59F5FF07A034}", "Package");
-tocTab[tocTab.length] = new Array("0.2", "1", "application layer - pipeline components", "EARoot/EA2/EA81.html", "31.png", "", "", "{98908C15-551B-49c6-A8FD-9A909B06757F}", "Package");
-tocTab[tocTab.length] = new Array("0.3", "1", "domain model", "EARoot/EA3/EA227.html", "31.png", "", "", "{FFFB9560-B40B-4d7f-A4E2-6B4F7D49A199}", "Package");
-tocTab[tocTab.length] = new Array("0.4", "1", "application layer - master data registry components", "EARoot/EA4/EA301.html", "31.png", "", "", "{EDB77615-1D8E-481a-97B8-C681A4FA1571}", "Package");
-tocTab[tocTab.length] = new Array("0.5", "1", "application layer - mapping development components", "EARoot/EA5/EA339.html", "31.png", "", "", "{309B4F3A-208F-4a8b-A27C-105DC4754E30}", "Package");
-tocTab[tocTab.length] = new Array("0.6", "1", "business layer - mapping artefacts", "EARoot/EA6/EA365.html", "34.png", "", "", "{07F3388E-88CB-4def-9A93-DDF6B85627A4}", "Package");
-tocTab[tocTab.length] = new Array("0.7", "1", "stakeholders", "EARoot/EA7/EA391.html", "31.png", "", "", "{F1785262-0D3C-4fbb-8EA1-BC1FA55A9190}", "Package");
-tocTab[tocTab.length] = new Array("0.8", "1", "infra", "EARoot/EA8/EA400.html", "31.png", "", "", "{52920024-6118-41d7-B5F4-CE82043D70ED}", "Package");
+tocTab[tocTab.length] = new Array("0.1", "1", "ted-sws", "EARoot/EA1/EA3.html", "31.png", "", "", "{CD520967-33ED-4a7d-8E47-CF781315D702}", "Package");
+tocTab[tocTab.length] = new Array("0.2", "1", "mapping workbench", "EARoot/EA2/EA349.html", "31.png", "", "", "{A2A6554A-4FA7-404b-9841-17BBC0211D84}", "Package");
+tocTab[tocTab.length] = new Array("0.3", "1", "master data registry", "EARoot/EA3/EA435.html", "31.png", "", "", "{15D1FD24-3281-4ec4-BBB3-F3884BDEB510}", "Package");

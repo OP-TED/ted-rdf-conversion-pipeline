@@ -1,0 +1,87 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>transformation and validation rules manager</title>
+<link href="../../../css/ea.css" rel="stylesheet" type="text/css" />
+<script>
+function initPage(src) {	
+	if(parent==this&&(this.location+"").indexOf('EARoot')!=-1)
+		document.location=(this.location+"").substring(0,(this.location+"").indexOf('EARoot'))+"index"+(this.location+"").substring((this.location+"").lastIndexOf('.'))+"?goto="+((this.location+"").substring((this.location+"").indexOf('EARoot')+7,(this.location+"").lastIndexOf('.')).replace(/\//g,':').replace(/EA/g,""));
+	else
+		parent.initPage(src);
+}
+
+function nameClassifier(name, separator)
+{
+  var str = name;
+  var classifierName;
+  var node = document.getElementById('name_classifier');
+  if(node != null)
+  {
+    classifierName = node.innerHTML;
+  }
+  if(classifierName != "")
+  {
+   str += separator + classifierName;
+  }
+  
+  return str;
+}
+</script>
+</head>
+<body onload="initPage(this);" class="Content">
+<div class="PageBody">
+	
+<img src="EA213.png" usemap="#EA213" border="0" />
+
+<MAP NAME="EA213">
+<area shape="rect" coords="125,10,274,63" href="EA232.html" target="_self">
+<area shape="rect" coords="263,95,368,153" href="EA219.html" target="_self">
+<area shape="rect" coords="534,173,617,243" href="EA231.html" target="_self">
+<area shape="rect" coords="147,255,252,313" href="EA229.html" target="_self">
+<area shape="rect" coords="386,258,476,311" href="../EA4/EA185.html" target="_self">
+<area shape="rect" coords="436,366,526,419" href="../EA4/EA181.html" target="_self">
+<area shape="rect" coords="307,366,413,419" href="../EA4/EA179.html" target="_self">
+<area shape="rect" coords="386,116,476,168" href="../EA3/EA162.html" target="_self">
+<area shape="rect" coords="386,182,476,234" href="../EA3/EA167.html" target="_self">
+<area shape="rect" coords="223,179,328,237" href="EA233.html" target="_self">
+<area shape="rect" coords="10,185,115,255" href="EA230.html" target="_self">
+</MAP>
+
+	<div class="ObjectTitle">transformation and validation rules manager : Application Layer diagram</div>
+	<table border="0" cellpadding="0" cellspacing="0" class="ObjectDetails">
+		<tr>
+			<td width="15%" class="ObjectDetailsTopic">Created:</td>
+			<td width="85%" class="ObjectDetailsValue">01/03/2022 20:09:31</td>
+		</tr>
+		<tr>
+			<td width="15%" class="ObjectDetailsTopic">Modified:</td>
+			<td width="85%" class="ObjectDetailsValue">01/03/2022 21:11:32</td>
+		</tr>
+		<tr style="padding-top: 10px;">
+			<td width="15%" class="ObjectDetailsTopic"><img src="../../../images/plus03.gif" align="absmiddle" id="proj" onclick="parent.toggleData(this.id)" />Project:</td>
+			<td width="85%" class="ObjectDetailsValue"></td>			
+		</tr>
+		<tr id="proj00" style="display: none;">
+			<td width="15%" class="ObjectDetailsTopic" style="padding-left: 18px;">Author:</td>
+			<td width="85%" class="ObjectDetailsValue">lps</td>
+		</tr>
+		<tr id="proj01" style="display: none;">
+			<td width="15%" class="ObjectDetailsTopic" style="padding-left: 18px;">Version:</td>
+			<td width="85%" class="ObjectDetailsValue">1.0</td>
+		</tr>
+		<tr>
+			<td width="15%" class="ObjectDetailsTopic"><img src="../../../images/plus03.gif" align="absmiddle" id="adv" onclick="parent.toggleData(this.id)" />Advanced:</td>
+			<td width="85%" class="ObjectDetailsValue"></td>			
+		</tr>
+		<tr id="adv00" style="display: none;">
+			<td width="15%" class="ObjectDetailsTopic" style="padding-left: 18px;">ID:</td>
+			<td width="85%" class="ObjectDetailsValue">{7D419102-07D4-4110-9ED5-8F8B7921F53C}</td>
+		</tr>
+	</table>
+	
+</div>
+ 
+</body>
+</html>

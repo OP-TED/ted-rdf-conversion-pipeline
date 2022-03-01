@@ -9,7 +9,7 @@ def test_fake_notice_repository(ted_document_search):
     NoticeFetcher(notice_repository=fake_notice_repository,
                             ted_api_adapter=ted_document_search).fetch_notices_by_date_range(
         start_date=datetime.date(2022, 2, 3), end_date=datetime.date(2022, 2, 3))
-    notices = [fake_notice_repository.get(reference=reference) for reference in fake_notice_repository.list()]
+    notices = list(fake_notice_repository.list())
     for notice in notices:
         fake_notice_repository.add(notice)
     for notice in notices:
@@ -18,7 +18,3 @@ def test_fake_notice_repository(ted_document_search):
         assert extracted_notice == notice
     extracted_notice = fake_notice_repository.get(reference="INVALID_REFERENCE")
     assert extracted_notice is None
-
-    extracted_notice_references = fake_notice_repository.list()
-    for notice in notices:
-        assert notice.ted_id in extracted_notice_references

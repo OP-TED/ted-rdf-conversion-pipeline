@@ -101,6 +101,7 @@ function nameClassifier(name, separator)
 			<li onClick="parent.toggleItem('FlowFrom');" id="FlowFromTitle">Flow From</li>
 			<li onClick="parent.toggleItem('TaggedVal');" id="TaggedValTitle">Tagged Values</li>
 			<li onClick="parent.toggleItem('CustomProperties');" id="CustomPropertiesTitle">Advanced</li>
+			<li onClick="parent.toggleItem('Links');" id="LinksTitle">Other Links</li>
 		</ul>
 		<div class="ItemBody" id="FlowToTable">
 			<table border="0" cellspacing="0" cellpadding="0" class="Table">
@@ -110,10 +111,10 @@ function nameClassifier(name, separator)
 				</tr>
 				<tr>
 					<td width="50%" class="TableRow" valign="top">
-						<a href="EA52.html">Package notice</a><br />
+						<a href="EA47.html">Store notice (XML/RDF) for analisys & future corrections</a><br />
 						Activity «SequenceFlow» 
 					</td>
-					<td width="50%" class="TableRow" valign="top">yes</td>					
+					<td width="50%" class="TableRow" valign="top">no</td>					
 				</tr>
 				<tr>
 					<td class="TableRowBottomDashed"  colspan="2">
@@ -125,10 +126,10 @@ function nameClassifier(name, separator)
 					</td>
 				</tr>				<tr>
 					<td width="50%" class="TableRow" valign="top">
-						<a href="EA47.html">Store notice (XML/RDF) for analisys & future corrections</a><br />
+						<a href="EA54.html">Package notice</a><br />
 						Activity «SequenceFlow» 
 					</td>
-					<td width="50%" class="TableRow" valign="top">no</td>					
+					<td width="50%" class="TableRow" valign="top">yes</td>					
 				</tr>
 				<tr>
 					<td class="TableRowBottomDashed"  colspan="2">
@@ -149,7 +150,7 @@ function nameClassifier(name, separator)
 				</tr>
 				<tr>
 					<td width="50%" class="TableRow" valign="top">
-						<a href="EA50.html">Validate resulting RDF</a><br />
+						<a href="EA51.html">Validate resulting RDF</a><br />
 						Activity «SequenceFlow» 
 					</td>
 					<td width="50%" class="TableRow" valign="top">&nbsp;</td>					
@@ -279,7 +280,26 @@ function nameClassifier(name, separator)
 
 
 			</table>
-		</div>	</div>
+		</div>		<div class="ItemBody" id="LinksTable">
+			<table align="center" border="0" cellspacing="0" cellpadding="0" class="Table">
+				<tr>
+					<td width="30%" class="TableHeading">Object</td>
+					<td width="10%" class="TableHeading">Type</td>
+					<td width="10%" class="TableHeading">Connection</td>
+					<td width="10%" class="TableHeading">Direction</td>
+					<td width="40%" class="TableHeading">Notes</td>
+				</tr>
+				<tr>
+					<td width="30%" class="TableRow" valign="top"><a href="EA52.html">«DataObject» Validation report</a></td>
+					<td width="10%" class="TableRow" valign="top">DataObject</td>
+					<td width="10%" class="TableRow" valign="top">Dependency</td>
+					<td width="10%" class="TableRow" valign="top">From</td>
+					<td width="40%" class="TableRow" valign="top">&nbsp;</td>
+				</tr>
+
+			</table>
+		</div>
+	</div>
 <div class="pageFooter"></div>
  
 </body>

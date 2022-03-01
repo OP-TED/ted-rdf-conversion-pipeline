@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<title>SPARQL test suite execution functionality</title>
+<title>transformation validator::SPARQL query</title>
 <link href="../../../css/ea.css" rel="stylesheet" type="text/css" />
 <script>
 function initPage(src) {	
@@ -34,15 +34,15 @@ function nameClassifier(name, separator)
 <div class="pageHeader"></div>
 <div class="PageBody">
 	<div id="name_classifier" style="display: none;"></div>
-	<span class="ObjectTitle"><script type="text/javascript">document.write(nameClassifier("SPARQL test suite execution functionality", " : "))</script>  : Public  &lt;&lt;ArchiMate_ApplicationFunction&gt;&gt; ApplicationFunction</span>
+	<span class="ObjectTitle"><script type="text/javascript">document.write(nameClassifier("SPARQL query", " : "))</script>  : Public  &lt;&lt;ArchiMate_DataObject&gt;&gt; DataObject</span>
 	<table border="0" cellpadding="0" cellspacing="0" class="ObjectDetails">
 		<tr>
 			<td width="15%" class="ObjectDetailsTopic">Created:</td>
-			<td width="85%" class="ObjectDetailsValue">15/12/2021 11:45:50</td>
+			<td width="85%" class="ObjectDetailsValue">15/12/2021 11:49:04</td>
 		</tr>
 		<tr>
 			<td class="ObjectDetailsTopic">Modified:</td>
-			<td class="ObjectDetailsValue">15/12/2021 11:56:45</td>
+			<td class="ObjectDetailsValue">15/12/2021 11:51:16</td>
 		</tr>
 		<tr style="height: 10px"><td colspan="2"></td></tr>
 		<tr>
@@ -87,11 +87,11 @@ function nameClassifier(name, separator)
 		</tr>
 		<tr id="adv00" style="display: none;">
 			<td class="ObjectDetailsTopic" style="padding-left: 18px;">UUID:</td>
-			<td class="ObjectDetailsValue">{2EBF094C-83A3-4cae-B442-EA8416915B6C}</td>
+			<td class="ObjectDetailsValue">{8300F51C-8D8F-4f7c-8CB4-154E1F89EA7C}</td>
 		</tr>
 		<tr id="adv01" style="display: none;">
 			<td class="ObjectDetailsTopic" style="padding-left: 18px;">Appears In:</td>
-			<td class="ObjectDetailsValue"><a href="EA137.html">transformation validator</a></td>
+			<td class="ObjectDetailsValue"><a href="../EA8/EA180.html">State & data manager</a>, <a href="EA139.html">transformation validator</a>, <a href="../../EA3/EA223.html">application layer tracing</a></td>
 		</tr>
 	</table>
 	
@@ -110,8 +110,8 @@ function nameClassifier(name, separator)
 				</tr>
 				<tr>
 					<td width="40%" class="TableRow" valign="top">
-						<a href="EA150.html">«ArchiMate_ApplicationComponent» TED-RDF validator</a><br />
-						ApplicationComponent «ArchiMate_Assignment» 
+						<a href="EA153.html">«ArchiMate_DataObject» Test suite specification</a><br />
+						DataObject «ArchiMate_Aggregation» 
 					</td>
 					<td width="30%" class="TableRow" valign="top">
 						<strong>Name:</strong> &nbsp;<br />
@@ -124,8 +124,8 @@ function nameClassifier(name, separator)
 				</tr>
 				<tr>
 					<td class="TableRowBottomDashed"  colspan="3">
-						<div class="DetailsDivParent"><img src="../../../images/minus03.gif" align="absmiddle" id="DetailsImageLink731" onclick="parent.toggleDiv('detailsDIVLink731','DetailsImageLink731')" />Details:
-							<div id="detailsDIVLink731" class="DetailsDiv" >
+						<div class="DetailsDivParent"><img src="../../../images/minus03.gif" align="absmiddle" id="DetailsImageLink733" onclick="parent.toggleDiv('detailsDIVLink733','DetailsImageLink733')" />Details:
+							<div id="detailsDIVLink733" class="DetailsDiv" >
 							&nbsp;
 							</div>
 						</div>
@@ -151,11 +151,6 @@ function nameClassifier(name, separator)
 			</tr>
 
 			<tr>
-				<td width="30%" class="TableRow">isReadOnly:</td>
-				<td width="70%" class="TableRow">false</td>
-			</tr>
-
-			<tr>
 				<td width="30%" class="TableRow">isFinalSpecialization:</td>
 				<td width="70%" class="TableRow">0</td>
 			</tr>
@@ -172,24 +167,38 @@ function nameClassifier(name, separator)
 					<td width="40%" class="TableHeading">Notes</td>
 				</tr>
 				<tr>
-					<td width="30%" class="TableRow" valign="top"><a href="../EA4/EA134.html">«ArchiMate_DataObject» TED-RDF notice</a></td>
-					<td width="10%" class="TableRow" valign="top">DataObject</td>
+					<td width="30%" class="TableRow" valign="top"><a href="../../EA3/EA4/EA278.html">«rdfsClass» SPARQLQuery</a></td>
+					<td width="10%" class="TableRow" valign="top">RDFClass</td>
 					<td width="10%" class="TableRow" valign="top">Dependency</td>
-					<td width="10%" class="TableRow" valign="top">To</td>
+					<td width="10%" class="TableRow" valign="top">From</td>
 					<td width="40%" class="TableRow" valign="top">&nbsp;</td>
 				</tr>
 				<tr>
-					<td width="30%" class="TableRow" valign="top"><a href="EA152.html">«ArchiMate_ApplicationService» Validation service (TED-RDF)</a></td>
-					<td width="10%" class="TableRow" valign="top">ApplicationService</td>
-					<td width="10%" class="TableRow" valign="top">Dependency</td>
-					<td width="10%" class="TableRow" valign="top">To</td>
+					<td width="30%" class="TableRow" valign="top"><a href="EA142.html">«ArchiMate_DataObject» Business question SPARQL query</a></td>
+					<td width="10%" class="TableRow" valign="top">DataObject</td>
+					<td width="10%" class="TableRow" valign="top">Generalization</td>
+					<td width="10%" class="TableRow" valign="top">From</td>
 					<td width="40%" class="TableRow" valign="top">&nbsp;</td>
 				</tr>
 				<tr>
-					<td width="30%" class="TableRow" valign="top"><a href="EA151.html">«ArchiMate_DataObject» Test suite specification</a></td>
+					<td width="30%" class="TableRow" valign="top"><a href="EA144.html">«ArchiMate_DataObject» Mapping rule SPARQL query (e.g. per-notice type)</a></td>
 					<td width="10%" class="TableRow" valign="top">DataObject</td>
+					<td width="10%" class="TableRow" valign="top">Generalization</td>
+					<td width="10%" class="TableRow" valign="top">From</td>
+					<td width="40%" class="TableRow" valign="top">&nbsp;</td>
+				</tr>
+				<tr>
+					<td width="30%" class="TableRow" valign="top"><a href="EA150.html">«ArchiMate_ApplicationFunction» SPARQL runner</a></td>
+					<td width="10%" class="TableRow" valign="top">ApplicationFunction</td>
 					<td width="10%" class="TableRow" valign="top">Dependency</td>
-					<td width="10%" class="TableRow" valign="top">To</td>
+					<td width="10%" class="TableRow" valign="top">From</td>
+					<td width="40%" class="TableRow" valign="top">&nbsp;</td>
+				</tr>
+				<tr>
+					<td width="30%" class="TableRow" valign="top"><a href="../EA8/EA195.html">«ArchiMate_ApplicationFunction» Test-uite management functionality</a></td>
+					<td width="10%" class="TableRow" valign="top">ApplicationFunction</td>
+					<td width="10%" class="TableRow" valign="top">Dependency</td>
+					<td width="10%" class="TableRow" valign="top">From</td>
 					<td width="40%" class="TableRow" valign="top">&nbsp;</td>
 				</tr>
 

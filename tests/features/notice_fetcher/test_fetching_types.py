@@ -28,30 +28,26 @@ def step_impl(notice_identifier):
     return notice_identifier
 
 
-@when("the call to the API is made", target_fixture="api_call")
-def step_impl(identifier, api_url, fake_notice_storage):
-    NoticeFetcher(notice_repository=fake_notice_storage,
+@when("the call to the API is made", target_fixture="notice_storage")
+def step_impl(identifier, api_url, notice_storage):
+    NoticeFetcher(notice_repository=notice_storage,
                   ted_api_adapter=TedAPIAdapter(request_api=TedRequestAPI(), ted_api_url=api_url)).fetch_notice_by_id(
         document_id=identifier)
-    return fake_notice_storage.get(reference=identifier)
+    return notice_storage
 
 
-@then("a notice with that identifier and the notice metadata are available", target_fixture="fake_notice_storage")
-def step_impl(api_call, fake_notice_storage):
-    # TODO remove target fixture and fake notice storage from this step when notice fetcher will have the
-    #  storage facility added
-    notice = api_call
+@then("a notice with that identifier and the notice metadata are available", target_fixture="notice_storage")
+def step_impl(identifier, notice_storage):
+    notice = notice_storage.get(reference=identifier)
     assert isinstance(notice, Notice)
     assert notice.original_metadata
     assert notice.xml_manifestation
-    fake_notice_storage.add(notice)
-    return fake_notice_storage
+    return notice_storage
 
 
 @then("are stored")
-def step_impl(fake_notice_storage, identifier):
-    # TODO replace fake notice storage with real one when it is available
-    assert fake_notice_storage.get(reference=identifier)
+def step_impl(notice_storage, identifier):
+    assert notice_storage.get(reference=identifier)
 
 
 @given("search query")
@@ -60,29 +56,25 @@ def step_impl(notice_search_query):
 
 
 @when("the call to the search API is made", target_fixture="api_call")
-def step_impl(notice_search_query, api_end_point, fake_notice_storage):
-    NoticeFetcher(notice_repository=fake_notice_storage,
-        ted_api_adapter=TedAPIAdapter(request_api=TedRequestAPI(), ted_api_url=api_end_point)).fetch_notices_by_query(
+def step_impl(notice_search_query, api_end_point, notice_storage):
+    NoticeFetcher(notice_repository=notice_storage,
+                  ted_api_adapter=TedAPIAdapter(request_api=TedRequestAPI(), ted_api_url=api_end_point)).fetch_notices_by_query(
         query=notice_search_query)
-    return [fake_notice_storage.get(reference=reference) for reference in fake_notice_storage.list()]
+    return list(notice_storage.list())
 
 
 @then("notices that match the search query result and their metadata are available",
-      target_fixture="fake_notice_storage")
-def step_impl(api_call, fake_notice_storage, notice_identifier):
-    # TODO remove target fixture and fake notice storage from this step when notice fetcher will have the
-    #  storage facility added
+      target_fixture="notice_storage")
+def step_impl(api_call, notice_storage, notice_identifier):
     assert len(api_call) == 1
     notice = api_call[0]
     assert isinstance(notice, Notice)
     assert notice.ted_id == notice_identifier
     assert notice.original_metadata
     assert notice.xml_manifestation
-    fake_notice_storage.add(notice)
-    return fake_notice_storage
+    return notice_storage
 
 
 @then("are stored")
-def step_impl(fake_notice_storage, notice_identifier):
-    # TODO replace fake notice storage with real one when it is available
-    assert fake_notice_storage.get(reference=notice_identifier)
+def step_impl(notice_storage, notice_identifier):
+    assert notice_storage.get(reference=notice_identifier)

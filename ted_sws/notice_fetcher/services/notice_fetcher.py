@@ -1,6 +1,5 @@
 import abc
 from datetime import date
-from typing import List
 
 from ted_sws.domain.adapters.repository_abc import NoticeRepositoryABC
 from ted_sws.domain.model.manifestation import XMLManifestation

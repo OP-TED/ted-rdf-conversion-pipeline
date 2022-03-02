@@ -2,7 +2,10 @@ from typing import List
 import xml.etree.ElementTree as ET
 from io import StringIO
 
-from ted_sws.domain.model.metadata import ExtractedMetadata
+from ted_sws.domain.model.manifestation import XMLManifestation
+from ted_sws.metadata_normaliser.model.metadata import ExtractedMetadata, LanguageTaggedString, CompositeTitle, \
+    EncodedValue
+from ted_sws.metadata_normaliser.services.xpath_registry import XpathRegistry
 
 
 def extract_text_from_element(element: ET.Element) -> str:
@@ -42,9 +45,11 @@ class XMLManifestationMetadataExtractor:
       Extracting metadata from xml manifestation
     """
 
-    def __init__(self, manifestation_root, namespaces):
-        self.manifestation_root = manifestation_root
-        self.namespaces = namespaces
+    def __init__(self, xml_manifestation: XMLManifestation):
+        self.xml_manifestation = xml_manifestation
+        self.manifestation_root = self._parse_manifestation()
+        self.namespaces = self._get_normalised_namespaces()
+        self.xpath_registry = XpathRegistry()
 
     @property
     def title(self):
@@ -245,3 +250,30 @@ class XMLManifestationMetadataExtractor:
         metadata.internet_address = self.internet_address
         metadata.legal_basis_directive = self.legal_basis_directive
         return metadata
+
+    def _parse_manifestation(self):
+        """
+        Parsing XML manifestation and getting the root
+        :return:
+        """
+        xml_manifestation_content = self.xml_manifestation.object_data
+        return ET.fromstring(xml_manifestation_content)
+
+    def _get_normalised_namespaces(self):
+        """
+        Get normalised namespaces from XML manifestation
+        :return:
+        """
+        namespaces = dict([node for _, node in ET.iterparse(source=StringIO(self.xml_manifestation.object_data),
+                                                            events=['start-ns'])])
+
+        namespaces["manifestation_ns"] = namespaces.pop("")
+
+        for key, value in namespaces.items():
+            if value.endswith("nuts"):
+                namespaces["nuts"] = namespaces.pop(key)
+
+        if "nuts" not in namespaces.keys():
+            namespaces.update({"nuts": "no_nuts"})
+
+        return namespaces

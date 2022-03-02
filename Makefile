@@ -81,8 +81,7 @@ stop-server-services: | stop-traefik stop-portainer
 create-env-airflow:
 	@ echo "$(BUILD_PRINT) Create Airflow env"
 	@ mkdir -p infra/airflow/logs infra/airflow/plugins
-#	@ cd infra/airflow/ && ln -s -f ../../dags && ln -s -f ../../ted_sws
-	@ cd infra/airflow/ && ln -s -f ../../ted_sws
+	@ cd infra/airflow/ && ln -s -f ../../dags && ln -s -f ../../ted_sws
 	@ echo -e "AIRFLOW_UID=$(CURRENT_UID)" >infra/airflow/.env
 
 

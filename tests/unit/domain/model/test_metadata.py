@@ -15,7 +15,6 @@ def test_metadata():
     metadata = TEDMetadata(**{"AA": "Value here", "No_key": "Value"})
     assert metadata.AA == "Value here"
     assert "No_key" not in metadata.dict().keys()
-    print(metadata.dict().keys())
 
 def test_dict_comparison():
     a1 = {'a': 1, 'a2': 1, "b": 2, "c": 3}

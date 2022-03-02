@@ -9,6 +9,18 @@ def test_extracted_metadata(notice_id):
     assert "country_of_buyer" in metadata.dict().keys()
 
 
+def test_dict_extracted_metadata(notice_id):
+    data_dict = {
+        "ojs_issue_number": "232452",
+        "city_of_buyer": [LanguageTaggedString("french", "fr"), LanguageTaggedString("english", "en")]
+    }
+    metadata = ExtractedMetadata(**data_dict)
+    filtered_metadata = {k: v for k, v in metadata.dict().items() if v is not None}
+    assert data_dict["city_of_buyer"] == metadata.dict()["city_of_buyer"]
+    assert data_dict["city_of_buyer"][0].text == metadata.city_of_buyer[0].text
+    assert data_dict == filtered_metadata
+
+
 def test_multilingual_string():
     title = LanguageTaggedString(text="This is a text", language="en")
 

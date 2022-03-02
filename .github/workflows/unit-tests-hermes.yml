@@ -16,7 +16,7 @@ jobs:
       - run: pwd
       - run: echo One las
 
-      #    - uses: actions/checkout@v1
+      - uses: actions/checkout@v1
       #    - name: Set up Python ${{ matrix.python-version }}
       #      uses: actions/setup-python@v2
       #      with:
@@ -33,12 +33,12 @@ jobs:
 
 
       - name: Run unit tests
-        run: make test
-#    - name: Upload coverage to Codecov
-#      uses: codecov/codecov-action@v1
-#      with:
-#        token: ${{ secrets.CODECOV_TOKEN }}
-#        file: coverage.xml
-#        env_vars: OS,PYTHON
-#        name: codecov-umbrella
-#        fail_ci_if_error: true
+        run: make test-all
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v1
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          file: coverage.xml
+          env_vars: OS,PYTHON
+          name: codecov-umbrella
+          fail_ci_if_error: true

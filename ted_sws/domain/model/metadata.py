@@ -8,8 +8,6 @@
 """ """
 from typing import List
 
-from deepdiff import DeepDiff
-
 from ted_sws.domain.model import PropertyBaseModel
 
 
@@ -17,34 +15,6 @@ class Metadata(PropertyBaseModel):
     """
         Unified interface for metadata
     """
-
-
-class ExtractedMetadata(Metadata):
-    """
-        Stores extracted metadata
-    """
-    title: List[str] = None
-    notice_publication_number: List[str] = None
-    publication_date: List[str] = None
-    ojs_issue_number: List[str] = None
-    city_of_buyer: List[str] = None
-    name_of_buyer: List[str] = None
-    original_language: List[str] = None
-    country_of_buyer: List[str] = None
-    type_of_buyer: List[str] = None
-    eu_institution: List[str] = None
-    document_sent_date: List[str] = None
-    deadline_for_submission: List[str] = None
-    type_of_contract: List[str] = None
-    type_of_procedure: List[str] = None
-    notice_type: List[str] = None
-    regulation: List[str] = None
-    type_of_bid: List[str] = None
-    award_criteria: List[str] = None
-    common_procurement: List[str] = None
-    place_of_performance: List[str] = None
-    internet_address: List[str] = None
-    legal_basis_directive: List[str] = None
 
 
 class NormalisedMetadata(Metadata):

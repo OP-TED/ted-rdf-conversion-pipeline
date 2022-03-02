@@ -1,7 +1,7 @@
 from pytest_bdd import scenario, given, when, then
 
-from ted_sws.domain.model.metadata import ExtractedMetadata
-from ted_sws.metadata_normaliser.services.extract_metadata import MetadataExtractor
+from ted_sws.metadata_normaliser.model.metadata import ExtractedMetadata
+from ted_sws.metadata_normaliser.services.xml_manifestation_metadata_extractor import XMLManifestationMetadataExtractor
 from ted_sws.notice_fetcher.adapters.ted_api import TedRequestAPI, TedAPIAdapter
 from ted_sws.notice_fetcher.services.notice_fetcher import NoticeFetcher
 
@@ -21,7 +21,7 @@ def step_impl(notice_identifier, api_end_point, fake_notice_storage):
 
 @when("the extracting process is executed", target_fixture="extracting_process")
 def step_impl(a_notice):
-    return MetadataExtractor(notice=a_notice).extract_metadata()
+    return XMLManifestationMetadataExtractor(xml_manifestation=a_notice.xml_manifestation).to_metadata()
 
 
 

@@ -50,23 +50,23 @@ class XMLManifestationMetadataExtractor:
     def title(self):
         title_translations = []
         title_elements = self.manifestation_root.findall(
-            "manifestation_ns:TRANSLATION_SECTION/manifestation_ns:ML_TITLES/",
+            self.xpath_registry.xpath_title_elements,
             namespaces=self.namespaces)
         for title in title_elements:
             language = title.find(".").attrib["LG"]
             title_country = LanguageTaggedString(
                 text=extract_text_from_element(
-                    element=title.find("manifestation_ns:TI_CY", namespaces=self.namespaces)),
+                    element=title.find(self.xpath_registry.xpath_title_country, namespaces=self.namespaces)),
                 language=language)
             title_city = LanguageTaggedString(
                 text=extract_text_from_element(
-                    element=title.find("manifestation_ns:TI_TOWN", namespaces=self.namespaces)),
+                    element=title.find(self.xpath_registry.xpath_title_town, namespaces=self.namespaces)),
                 language=language)
 
             title_text = LanguageTaggedString(
-                text=extract_text_from_element(element=title.find("manifestation_ns:TI_TEXT/manifestation_ns:P",
+                text=extract_text_from_element(element=title.find(self.xpath_registry.xpath_title_text_first,
                                                                   namespaces=self.namespaces)) or extract_text_from_element(
-                    element=title.find("manifestation_ns:TI_TEXT", namespaces=self.namespaces)),
+                    element=title.find(self.xpath_registry.xpath_title_text_second, namespaces=self.namespaces)),
                 language=language)
             title_translations.append(
                 CompositeTitle(title=title_text, title_city=title_city, title_country=title_country))
@@ -80,19 +80,19 @@ class XMLManifestationMetadataExtractor:
     @property
     def publication_date(self):
         return extract_text_from_element(element=self.manifestation_root.find(
-            "manifestation_ns:CODED_DATA_SECTION/manifestation_ns:REF_OJS/manifestation_ns:DATE_PUB",
+            self.xpath_registry.xpath_publication_date,
             namespaces=self.namespaces))
 
     @property
     def ojs_type(self):
         return extract_text_from_element(element=self.manifestation_root.find(
-            "manifestation_ns:CODED_DATA_SECTION/manifestation_ns:REF_OJS/manifestation_ns:COLL_OJ",
+            self.xpath_registry.xpath_ojs_type,
             namespaces=self.namespaces))
 
     @property
     def ojs_issue_number(self):
         return extract_text_from_element(element=self.manifestation_root.find(
-            "manifestation_ns:CODED_DATA_SECTION/manifestation_ns:REF_OJS/manifestation_ns:NO_OJ",
+            self.xpath_registry.xpath_ojs_issue_number,
             namespaces=self.namespaces))
 
     @property
@@ -102,7 +102,7 @@ class XMLManifestationMetadataExtractor:
     @property
     def name_of_buyer(self):
         buyer_name_elements = self.manifestation_root.findall(
-            "manifestation_ns:TRANSLATION_SECTION/manifestation_ns:ML_AA_NAMES/",
+            self.xpath_registry.xpath_name_of_buyer_elements,
             namespaces=self.namespaces)
 
         return [LanguageTaggedString(text=extract_text_from_element(element=buyer_name.find(".")),
@@ -117,84 +117,84 @@ class XMLManifestationMetadataExtractor:
     @property
     def country_of_buyer(self):
         return extract_attribute_from_element(element=self.manifestation_root.find(
-            "manifestation_ns:CODED_DATA_SECTION/manifestation_ns:NOTICE_DATA/manifestation_ns:ISO_COUNTRY",
+            self.xpath_registry.xpath_country_of_buyer,
             namespaces=self.namespaces), attrib_key="VALUE")
 
     @property
     def original_language(self):
         return extract_text_from_element(element=self.manifestation_root.find(
-            "manifestation_ns:CODED_DATA_SECTION/manifestation_ns:NOTICE_DATA/manifestation_ns:LG_ORIG",
+            self.xpath_registry.xpath_original_language,
             namespaces=self.namespaces))
 
     @property
     def document_sent_date(self):
         return extract_text_from_element(element=self.manifestation_root.find(
-            "manifestation_ns:CODED_DATA_SECTION/manifestation_ns:CODIF_DATA/manifestation_ns:DS_DATE_DISPATCH",
+            self.xpath_registry.xpath_document_sent_date,
             namespaces=self.namespaces))
 
     @property
     def type_of_buyer(self):
         return extract_code_and_value_from_element(element=self.manifestation_root.find(
-            "manifestation_ns:CODED_DATA_SECTION/manifestation_ns:CODIF_DATA/manifestation_ns:AA_AUTHORITY_TYPE",
+            self.xpath_registry.xpath_type_of_buyer,
             namespaces=self.namespaces))
 
     @property
     def deadline_for_submission(self):
         return extract_text_from_element(element=self.manifestation_root.find(
-            "manifestation_ns:CODED_DATA_SECTION/manifestation_ns:CODIF_DATA/manifestation_ns:DT_DATE_FOR_SUBMISSION",
+            self.xpath_registry.xpath_deadline_for_submission,
             namespaces=self.namespaces))
 
     @property
     def type_of_contract(self):
         return extract_code_and_value_from_element(element=self.manifestation_root.find(
-            "manifestation_ns:CODED_DATA_SECTION/manifestation_ns:CODIF_DATA/manifestation_ns:NC_CONTRACT_NATURE",
+            self.xpath_registry.xpath_type_of_contract,
             namespaces=self.namespaces))
 
     @property
     def type_of_procedure(self):
         return extract_code_and_value_from_element(element=self.manifestation_root.find(
-            "manifestation_ns:CODED_DATA_SECTION/manifestation_ns:CODIF_DATA/manifestation_ns:PR_PROC",
+            self.xpath_registry.xpath_type_of_procedure,
             namespaces=self.namespaces))
 
     @property
     def notice_type(self):
         return extract_code_and_value_from_element(element=self.manifestation_root.find(
-            "manifestation_ns:CODED_DATA_SECTION/manifestation_ns:CODIF_DATA/manifestation_ns:TD_DOCUMENT_TYPE",
+            self.xpath_registry.xpath_notice_type,
             namespaces=self.namespaces))
 
     @property
     def regulation(self):
         return extract_code_and_value_from_element(element=self.manifestation_root.find(
-            "manifestation_ns:CODED_DATA_SECTION/manifestation_ns:CODIF_DATA/manifestation_ns:RP_REGULATION",
+            self.xpath_registry.xpath_regulation,
             namespaces=self.namespaces))
 
     @property
     def type_of_bid(self):
         return extract_code_and_value_from_element(element=self.manifestation_root.find(
-            "manifestation_ns:CODED_DATA_SECTION/manifestation_ns:CODIF_DATA/manifestation_ns:TY_TYPE_BID",
+            self.xpath_registry.xpath_type_of_bid,
             namespaces=self.namespaces))
 
     @property
     def award_criteria(self):
         return extract_code_and_value_from_element(element=self.manifestation_root.find(
-            "manifestation_ns:CODED_DATA_SECTION/manifestation_ns:CODIF_DATA/manifestation_ns:AC_AWARD_CRIT",
+            self.xpath_registry.xpath_award_criteria,
             namespaces=self.namespaces))
 
     @property
     def common_procurement(self):
         common_procurement_elements = self.manifestation_root.findall(
-            "manifestation_ns:CODED_DATA_SECTION/manifestation_ns:NOTICE_DATA/manifestation_ns:ORIGINAL_CPV",
+            self.xpath_registry.xpath_common_procurement_elements,
             namespaces=self.namespaces)
         return [extract_code_and_value_from_element(element=element) for element in common_procurement_elements]
 
     @property
     def place_of_performance(self):
         place_of_performance_elements = self.manifestation_root.findall(
-            "manifestation_ns:CODED_DATA_SECTION/manifestation_ns:NOTICE_DATA/manifestation_ns:PERFORMANCE_NUTS",
+            self.xpath_registry.xpath_place_of_performance_first,
             namespaces=self.namespaces) or self.manifestation_root.findall(
-            "manifestation_ns:CODED_DATA_SECTION/manifestation_ns:NOTICE_DATA/nuts:PERFORMANCE_NUTS",
+            self.xpath_registry.xpath_place_of_performance_second,
             namespaces=self.namespaces) or self.manifestation_root.findall(
-            "manifestation_ns:CODED_DATA_SECTION/manifestation_ns:NOTICE_DATA/manifestation_ns:ORIGINAL_NUTS",
+            self.xpath_registry.xpath_place_of_performance_third,
             namespaces=self.namespaces)
 
         return [extract_code_and_value_from_element(element=element) for element in place_of_performance_elements]
@@ -202,19 +202,19 @@ class XMLManifestationMetadataExtractor:
     @property
     def internet_address(self):
         return extract_text_from_element(element=self.manifestation_root.find(
-            "manifestation_ns:CODED_DATA_SECTION/manifestation_ns:NOTICE_DATA/manifestation_ns:IA_URL_GENERAL",
+            self.xpath_registry.xpath_internet_address,
             namespaces=self.namespaces))
 
     @property
     def legal_basis_directive(self):
         return extract_attribute_from_element(element=self.manifestation_root.find(
-            "manifestation_ns:CODED_DATA_SECTION/manifestation_ns:CODIF_DATA/manifestation_ns:DIRECTIVE",
+            self.xpath_registry.xpath_legal_basis_directive_first,
             namespaces=self.namespaces), attrib_key="VALUE") or extract_attribute_from_element(
             element=self.manifestation_root.find(
-                "manifestation_ns:FORM_SECTION/*/manifestation_ns:LEGAL_BASIS",
+                self.xpath_registry.xpath_legal_basis_directive_second,
                 namespaces=self.namespaces), attrib_key="VALUE") or extract_text_from_element(
             element=self.manifestation_root.find(
-                "manifestation_ns:FORM_SECTION/*/manifestation_ns:LEGAL_BASIS_OTHER/manifestation_ns:P/manifestation_ns:FT",
+                self.xpath_registry.xpath_legal_basis_directive_third,
                 namespaces=self.namespaces))
 
     def to_metadata(self) -> ExtractedMetadata:

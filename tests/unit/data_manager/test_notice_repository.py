@@ -11,7 +11,6 @@ TEST_DB_NAME = 'test_db'
 
 def test_notice_repository_create(mongodb_client):
     mongodb_client.drop_database(TEST_DB_NAME)
-    print(mongodb_client.list_databases())
     notice_repository = NoticeRepository(mongodb_client=mongodb_client, database_name=TEST_DB_NAME)
     notice = Notice(ted_id=NOTICE_TED_ID, original_metadata=TEDMetadata(**{"AA": "Metadata"}),
                     xml_manifestation=XMLManifestation(object_data="HELLO"))

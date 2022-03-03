@@ -30,4 +30,4 @@ def test_notice_repository_create(mongodb_client):
     assert result_notice
     assert result_notice.ted_id == NOTICE_TED_ID
     assert result_notice.original_metadata.AA == "Updated metadata"
-    mongodb_client.drop_database(TEST_DB_NAME)
+    # mongodb_client.drop_database(TEST_DB_NAME)

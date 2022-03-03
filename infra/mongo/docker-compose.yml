@@ -2,7 +2,7 @@ version: "3.8"
 services:
   mongodb:
     image: mongo
-    container_name: mongodb-${ENVIROMENT}
+    container_name: mongodb-${ENVIRONMENT}
     environment:
         - MONGO_INITDB_ROOT_USERNAME=${MONGO_INITDB_ROOT_USERNAME}
         - MONGO_INITDB_ROOT_PASSWORD=${MONGO_INITDB_ROOT_PASSWORD}
@@ -11,10 +11,10 @@ services:
     networks:
       - mongodb-net
       - proxy-net
-#    ports:
-#      - 27017:27017
+    ports:
+      - ${MONGO_DB_PORT}:27017
     healthcheck:
-      test: echo 'db.runCommand("ping").ok' | mongo mongodb-${ENVIROMENT}:27017/test --quiet
+      test: echo 'db.runCommand("ping").ok' | mongo mongodb-${ENVIRONMENT}:${MONGO_DB_PORT}/test --quiet
       interval: 30s
       timeout: 10s
       retries: 3
@@ -23,7 +23,7 @@ services:
 
   mongo-express:
     image: mongo-express
-    container_name: mongo-express-${ENVIROMENT}
+    container_name: mongo-express-${ENVIRONMENT}
     environment:
       - ME_CONFIG_MONGODB_SERVER=${ME_CONFIG_MONGODB_SERVER}
       - ME_CONFIG_MONGODB_ENABLE_ADMIN=${ME_CONFIG_MONGODB_ENABLE_ADMIN}
@@ -40,10 +40,8 @@ services:
     networks:
       - mongodb-net
       - proxy-net
-#    ports:
-#      - 8081:8081
     healthcheck:
-      test: wget --quiet --tries=3 --spider http://${ME_CONFIG_BASICAUTH_USERNAME}:${ME_CONFIG_BASICAUTH_PASSWORD}@mongo-express-${ENVIROMENT}:8081 || exit 1
+      test: wget --quiet --tries=3 --spider http://${ME_CONFIG_BASICAUTH_USERNAME}:${ME_CONFIG_BASICAUTH_PASSWORD}@mongo-express-${ENVIRONMENT}:8081 || exit 1
       interval: 30s
       timeout: 10s
       retries: 3
@@ -51,22 +49,22 @@ services:
     labels:
       #### Labels define the behavior and rules of the traefik proxy for this container ####
       - "traefik.enable=true" # <== Enable traefik to proxy this container
-      - "traefik.http.routers.${ENVIROMENT}-mongo.rule=Host(`mongo.${SUBDOMAIN}${DOMAIN}`)" # <== Your Domain Name goes here for the http rule
-      - "traefik.http.routers.${ENVIROMENT}-mongo.entrypoints=web" # <== Defining the entrypoint for http, **ref: line 30
-      - "traefik.http.routers.${ENVIROMENT}-mongo.middlewares=redirect@file" # <== This is a middleware to redirect to https
-      - "traefik.http.routers.${ENVIROMENT}-mongo-secured.rule=Host(`mongo.${SUBDOMAIN}${DOMAIN}`)" # <== Your Domain Name for the https rule
-      - "traefik.http.routers.${ENVIROMENT}-mongo-secured.entrypoints=web-secured" # <== Defining entrypoint for https, **ref: line 31
-      - "traefik.http.routers.${ENVIROMENT}-mongo-secured.tls.certresolver=mytlschallenge" # <== Defining certsresolvers for https
+      - "traefik.http.routers.${ENVIRONMENT}-mongo.rule=Host(`mongo.${SUBDOMAIN}${DOMAIN}`)" # <== Your Domain Name goes here for the http rule
+      - "traefik.http.routers.${ENVIRONMENT}-mongo.entrypoints=web" # <== Defining the entrypoint for http, **ref: line 30
+      - "traefik.http.routers.${ENVIRONMENT}-mongo.middlewares=redirect@file" # <== This is a middleware to redirect to https
+      - "traefik.http.routers.${ENVIRONMENT}-mongo-secured.rule=Host(`mongo.${SUBDOMAIN}${DOMAIN}`)" # <== Your Domain Name for the https rule
+      - "traefik.http.routers.${ENVIRONMENT}-mongo-secured.entrypoints=web-secured" # <== Defining entrypoint for https, **ref: line 31
+      - "traefik.http.routers.${ENVIRONMENT}-mongo-secured.tls.certresolver=mytlschallenge" # <== Defining certsresolvers for https
 
 
 volumes:
   mongodb-data:
-    name: mongodb-data-${ENVIROMENT}
+    name: mongodb-data-${ENVIRONMENT}
 
 networks:
   mongodb-net:
     internal: true
-    name: mongodb-net-${ENVIROMENT}
+    name: mongodb-net-${ENVIRONMENT}
   proxy-net:
     external:
       name: proxy-net

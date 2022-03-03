@@ -30,7 +30,13 @@ jobs:
         with:
           envkey_VAULT_TOKEN: ${{ secrets.VAULT_TOKEN }}
           envkey_VAULT_ADDR: ${{ secrets.VAULT_ADDR }}
+          envkey_ENVIRONMENT: staging
+          envkey_DOMAIN: ted-data.eu
+          envkey_SUBDOMAIN: staging
+          file_name: .env.staging
 
+      - name: start-infra
+        run: make start-project-staging-services
 
       - name: Run unit tests
         run: make test-all
@@ -42,3 +48,6 @@ jobs:
           env_vars: OS,PYTHON
           name: codecov-umbrella
           fail_ci_if_error: true
+
+#      - name: start-infra
+#        run: make stop-project-staging-services

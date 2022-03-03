@@ -3,7 +3,7 @@ version: '3.8'
 services:
   agraph:
     image: franzinc/agraph:latest
-    container_name: agraph-${ENVIROMENT}
+    container_name: agraph-${ENVIRONMENT}
     shm_size: '1gb'
     environment:
       - AGRAPH_SUPER_USER=${AGRAPH_SUPER_USER}
@@ -17,26 +17,26 @@ services:
     labels:
       #### Labels define the behavior and rules of the traefik proxy for this container ####
       - "traefik.enable=true" # <== Enable traefik to proxy this container
-      - "traefik.http.routers.${ENVIROMENT}-agraph.rule=Host(`agraph.${SUBDOMAIN}${DOMAIN}`)" # <== Your Domain Name goes here for the http rule
-      - "traefik.http.routers.${ENVIROMENT}-agraph.entrypoints=web" # <== Defining the entrypoint for http, **ref: line 30
-      - "traefik.http.routers.${ENVIROMENT}-agraph.middlewares=redirect@file" # <== This is a middleware to redirect to https
-      - "traefik.http.routers.${ENVIROMENT}-agraph-secured.rule=Host(`agraph.${SUBDOMAIN}${DOMAIN}`)" # <== Your Domain Name for the https rule
-      - "traefik.http.routers.${ENVIROMENT}-agraph-secured.entrypoints=web-secured" # <== Defining entrypoint for https, **ref: line 31
-      - "traefik.http.routers.${ENVIROMENT}-agraph-secured.tls.certresolver=mytlschallenge" # <== Defining certsresolvers for https
-      - "traefik.http.services.${ENVIROMENT}-agraph-secured.loadbalancer.server.port=10035"
+      - "traefik.http.routers.${ENVIRONMENT}-agraph.rule=Host(`agraph.${SUBDOMAIN}${DOMAIN}`)" # <== Your Domain Name goes here for the http rule
+      - "traefik.http.routers.${ENVIRONMENT}-agraph.entrypoints=web" # <== Defining the entrypoint for http, **ref: line 30
+      - "traefik.http.routers.${ENVIRONMENT}-agraph.middlewares=redirect@file" # <== This is a middleware to redirect to https
+      - "traefik.http.routers.${ENVIRONMENT}-agraph-secured.rule=Host(`agraph.${SUBDOMAIN}${DOMAIN}`)" # <== Your Domain Name for the https rule
+      - "traefik.http.routers.${ENVIRONMENT}-agraph-secured.entrypoints=web-secured" # <== Defining entrypoint for https, **ref: line 31
+      - "traefik.http.routers.${ENVIRONMENT}-agraph-secured.tls.certresolver=mytlschallenge" # <== Defining certsresolvers for https
+      - "traefik.http.services.${ENVIRONMENT}-agraph-secured.loadbalancer.server.port=10035"
 
 
 volumes:
   agdata:
-    name: agraph-data-${ENVIROMENT}
+    name: agraph-data-${ENVIRONMENT}
   agconfig:
-    name: agraph-config-${ENVIROMENT}
+    name: agraph-config-${ENVIRONMENT}
 
 
 networks:
   agraph:
     internal: true
-    name: agraph-${ENVIROMENT}
+    name: agraph-${ENVIRONMENT}
   proxy-net:
     external:
       name: proxy-net

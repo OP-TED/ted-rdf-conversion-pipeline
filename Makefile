@@ -176,7 +176,8 @@ stop-mongo-staging:
 	@ echo "$(BUILD_PRINT)Stopping the Minio services"
 	@ docker-compose -p ${STAGING} --file ./infra/mongo/docker-compose.yml --env-file ${STAGING_ENV_FILE} down
 
-start-project-staging-services: | start-airflow-staging start-elasticsearch-staging start-allegro-graph-staging start-minio-staging start-mongo-staging
+#start-project-staging-services: | start-airflow-staging start-elasticsearch-staging start-allegro-graph-staging start-minio-staging start-mongo-staging
+start-project-staging-services: | start-mongo-staging
 stop-project-staging-services: | stop-airflow-staging stop-elasticsearch-staging stop-allegro-graph-staging stop-minio-staging stop-mongo-staging
 
 #build-open-semantic-search:

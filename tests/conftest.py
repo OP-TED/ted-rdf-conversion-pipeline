@@ -5,7 +5,6 @@ from tests.fakes.fake_repository import FakeNoticeRepository
 from tests.fakes.fake_ted_api import FakeRequestAPI
 
 
-
 @pytest.fixture
 def notice_repository():
     return FakeNoticeRepository()

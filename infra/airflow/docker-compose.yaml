@@ -65,7 +65,7 @@ x-airflow-common:
     - ./dags:/opt/airflow/dags
     - ./logs:/opt/airflow/logs
     - ./plugins:/opt/airflow/plugins
-    - ./ted_xml_2_rdf:/opt/airflow/ted_sws
+    - ./ted_sws:/opt/airflow/ted_sws
   user: "${AIRFLOW_UID:-50000}:0"
   command: bash -c "export PYTHONPATH='/opt/airflow/'"
   depends_on:

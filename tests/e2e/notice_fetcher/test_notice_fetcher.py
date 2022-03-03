@@ -22,7 +22,7 @@ def test_notice_fetcher_by_search_query(notice_repository, ted_document_search):
 
     NoticeFetcher(notice_repository=notice_repository, ted_api_adapter=ted_document_search).fetch_notices_by_query(
         query=query)
-    notices = [notice_repository.get(reference=reference) for reference in notice_repository.list()]
+    notices = list(notice_repository.list())
     assert isinstance(notices, list)
     assert len(notices) == 1
     assert isinstance(notices[0], Notice)
@@ -32,7 +32,7 @@ def test_notice_fetcher_by_date_range(notice_repository, ted_document_search):
     NoticeFetcher(notice_repository=notice_repository, ted_api_adapter=ted_document_search).fetch_notices_by_date_range(
         start_date=datetime.date(2022, 2, 3), end_date=datetime.date(2022, 2, 3))
     xml_text = "<NOTICE_DATA>"
-    notices = [notice_repository.get(reference=reference) for reference in notice_repository.list()]
+    notices = list(notice_repository.list())
     assert isinstance(notices, list)
     assert len(notices) == 95
     assert isinstance(notices[0], Notice)
@@ -44,7 +44,7 @@ def test_notice_fetcher_by_date_wild_card(notice_repository, ted_document_search
                   ted_api_adapter=ted_document_search).fetch_notices_by_date_wild_card(
         wildcard_date="20220203*")
     xml_text = "<NOTICE_DATA>"
-    notices = [notice_repository.get(reference=reference) for reference in notice_repository.list()]
+    notices = list(notice_repository.list())
     assert isinstance(notices, list)
     assert len(notices) == 95
     assert isinstance(notices[0], Notice)

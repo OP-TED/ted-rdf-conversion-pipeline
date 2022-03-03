@@ -11,6 +11,7 @@ TEST_DB_NAME = 'test_db'
 
 def test_notice_repository_create(mongodb_client):
     mongodb_client.drop_database(TEST_DB_NAME)
+    print(mongodb_client.list_databases())
     notice_repository = NoticeRepository(mongodb_client=mongodb_client, database_name=TEST_DB_NAME)
     notice = Notice(ted_id=NOTICE_TED_ID, original_metadata=TEDMetadata(**{"AA": "Metadata"}),
                     xml_manifestation=XMLManifestation(object_data="HELLO"))
@@ -30,4 +31,4 @@ def test_notice_repository_create(mongodb_client):
     assert result_notice
     assert result_notice.ted_id == NOTICE_TED_ID
     assert result_notice.original_metadata.AA == "Updated metadata"
-    # mongodb_client.drop_database(TEST_DB_NAME)
+    mongodb_client.drop_database(TEST_DB_NAME)

@@ -9,6 +9,7 @@ on:
 env:
   VAULT_TOKEN: ${{ secrets.VAULT_TOKEN }}
   VAULT_ADDR: ${{ secrets.VAULT_ADDR }}
+  ENVIRONMENT: staging
 jobs:
   build:
     name: pyTest

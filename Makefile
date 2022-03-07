@@ -207,7 +207,7 @@ staging-dotenv-file: guard-VAULT_ADDR guard-VAULT_TOKEN vault-installed
 	@ echo VAULT_TOKEN=${VAULT_TOKEN} >> .env.staging
 	@ echo DOMAIN=ted-data.eu >> .env.staging
 	@ echo ENVIRONMENT=staging >> .env.staging
-	@ echo SUBDOMAIN=staging >> .env.staging
+	@ echo SUBDOMAIN=staging. >> .env.staging
 	@ vault kv get -format="json" ted-staging/airflow | jq -r ".data.data | keys[] as \$$k | \"\(\$$k)=\(.[\$$k])\"" >> .env.staging
 	@ vault kv get -format="json" ted-staging/mongo-db | jq -r ".data.data | keys[] as \$$k | \"\(\$$k)=\(.[\$$k])\"" >> .env.staging
 

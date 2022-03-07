@@ -24,10 +24,13 @@ VaultSecretsStore.default_secret_mount = SECRET_MOUNT
 VaultSecretsStore.default_secret_paths = SECRET_PATHS
 
 
+
 class MongoDBConfig:
 
     @property
     def MONGO_DB_AUTH_URL(self) -> str:
+        print(SECRET_MOUNT)
+        print(f"bug_stefan={os.environ.get('VAULT_ADDR')}")
         return VaultAndEnvConfigResolver().config_resolve()
 
 

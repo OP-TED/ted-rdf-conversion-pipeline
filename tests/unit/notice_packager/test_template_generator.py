@@ -11,7 +11,7 @@ def __sanitize(s):
 
 
 def __test_template_generator(template):
-    path_to_test_template = TEST_DATA_PATH / "notice_packager" / template
+    path_to_test_template = TEST_DATA_PATH / "notice_packager" / "templates" / template
     return path_to_test_template.read_text()
 
 

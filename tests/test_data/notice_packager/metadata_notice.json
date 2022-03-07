@@ -1,37 +1,36 @@
 {
   "notice": {
     "id": "196390_2016",
-    "lang": ["en"]
+    "languages": ["en"]
   },
   "work": {
     "do_not_index": "true",
-    "work_date_document": "2021-08-01",
-    "work_created_by_agent": "PUBL",
-    "work_dataset_published_by_agent": "PUBL",
+    "date_document": "2021-08-01",
+    "created_by_agent": "PUBL",
+    "dataset_published_by_agent": "PUBL",
     "datetime_transmission": "2021-08-01T00:01:00",
-    "work_title": {
+    "title": {
       "en": "eProcurement notice 196390_2016"
     },
-    "work_date_creation": "2016-01-01",
-    "work_id": "http://data.europa.eu/a4g/resource/2016/196390_2016",
-    "work_dataset_version": "20160101-0",
-    "work_dataset_keyword": [
+    "date_creation": "2016-01-01",
+    "uri": "http://data.europa.eu/a4g/resource/2016/196390_2016",
+    "dataset_version": "20160101-0",
+    "dataset_keyword": [
       "eProcurement",
       "notice"
     ],
-    "work_dataset_has_frequency_publication_frequency": "OTHER"
+    "dataset_has_frequency_publication_frequency": "OTHER"
   },
   "expression": {
-    "expression_title": {
+    "title": {
       "en": "eProcurement notice 196390_2016"
     },
-    "expression_uses_language": "ENG"
+    "uses_language": "ENG"
   },
   "manifestation": {
-    "manifestation_distribution_tpl": "196390_2016_rdf",
-    "manifestation_type": "E_PROCUREMENT_ONTOLOGY",
-    "manifestation_date_publication": "2021-08-01",
-    "manifestation_distribution_has_status_distribution_status": "COMPLETED",
-    "manifestation_distribution_has_media_type_concept_media_type": "RDF"
+    "type": "E_PROCUREMENT_ONTOLOGY",
+    "date_publication": "2021-08-01",
+    "distribution_has_status_distribution_status": "COMPLETED",
+    "distribution_has_media_type_concept_media_type": "RDF"
   }
 }

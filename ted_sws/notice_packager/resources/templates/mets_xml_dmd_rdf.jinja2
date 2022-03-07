@@ -14,58 +14,58 @@
             {{ work.do_not_index }}
         </cdm:do_not_index>
         <cdm:work_date_document rdf:datatype="http://www.w3.org/2001/XMLSchema#date">
-            {{ work.work_date_document }}
+            {{ work.date_document }}
         </cdm:work_date_document>
-        <cdm:work_created_by_agent rdf:resource="&cellar-authority;corporate-body/{{ work.work_created_by_agent }}"/>
+        <cdm:work_created_by_agent rdf:resource="&cellar-authority;corporate-body/{{ work.created_by_agent }}"/>
         <cdm:work_dataset_published_by_agent
-                rdf:resource="&cellar-authority;corporate-body/{{ work.work_dataset_published_by_agent }}"/>
+                rdf:resource="&cellar-authority;corporate-body/{{ work.dataset_published_by_agent }}"/>
         <cdm:datetime_transmission rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">
             {{ work.datetime_transmission }}
         </cdm:datetime_transmission>
         <cdm:datetime_negotiation rdf:resource="http://publications.europa.eu/ontology/cdm#datetime_transmission"/>
 
-        {% for lang in notice.lang %}
-            <cdm:work_title xml:lang="{{ lang }}">{{ work.work_title[lang] }}</cdm:work_title>
+        {% for lang in notice.languages %}
+            <cdm:work_title xml:lang="{{ lang }}">{{ work.title[lang] }}</cdm:work_title>
         {% endfor %}
 
         <cdm:work_date_creation rdf:datatype="http://www.w3.org/2001/XMLSchema#date">
-            {{ work.work_date_creation }}
+            {{ work.date_creation }}
         </cdm:work_date_creation>
-        <cdm:work_id>{{ work.work_id }}</cdm:work_id>
-        <cdm:work_dataset_version>{{ work.work_dataset_version }}</cdm:work_dataset_version>
+        <cdm:work_id>{{ work.uri }}</cdm:work_id>
+        <cdm:work_dataset_version>{{ work.dataset_version }}</cdm:work_dataset_version>
         <cdm:work_dataset_has_type_concept_type_dataset
                 rdf:resource="http://publications.europa.eu/resource/authority/dataset-type/TEST_DATA"/>
 
-        {% for work_dataset_keyword in work.work_dataset_keyword %}
-            <cdm:work_dataset_keyword>{{ work_dataset_keyword }}</cdm:work_dataset_keyword>
+        {% for dataset_keyword in work.dataset_keyword %}
+            <cdm:work_dataset_keyword>{{ dataset_keyword }}</cdm:work_dataset_keyword>
         {% endfor %}
 
         <cdm:work_dataset_has_frequency_publication_frequency
-                rdf:resource="http://publications.europa.eu/resource/authority/frequency/{{ work.work_dataset_has_frequency_publication_frequency }}"/>
+                rdf:resource="http://publications.europa.eu/resource/authority/frequency/{{ work.dataset_has_frequency_publication_frequency }}"/>
     </cdm:work>
 
     <cdm:expression rdf:about="&resource;expression/{{ notice.id }}">
         <cdm:expression_belongs_to_work rdf:resource="&resource;dataset/{{ notice.id }}"/>
 
-        {% for lang in notice.lang %}
-            <cdm:expression_title xml:lang="{{ lang }}">{{ expression.expression_title[lang] }}</cdm:expression_title>
+        {% for lang in notice.languages %}
+            <cdm:expression_title xml:lang="{{ lang }}">{{ expression.title[lang] }}</cdm:expression_title>
         {% endfor %}
 
         <cdm:expression_uses_language
-                rdf:resource="&cellar-authority;language/{{ expression.expression_uses_language }}"/>
+                rdf:resource="&cellar-authority;language/{{ expression.uses_language }}"/>
     </cdm:expression>
 
     <cdm:manifestation_distribution rdf:about="&resource;distribution/{{ notice.id }}/{{ notice.id }}_rdf">
         <cdm:manifestation_manifests_expression rdf:resource="&resource;expression/{{ notice.id }}"/>
         <cdm:manifestation_type rdf:datatype="http://www.w3.org/2001/XMLSchema#string">
-            {{ manifestation.manifestation_type }}
+            {{ manifestation.type }}
         </cdm:manifestation_type>
         <cdm:manifestation_date_publication rdf:datatype="http://www.w3.org/2001/XMLSchema#date">
-            {{ manifestation.manifestation_date_publication }}
+            {{ manifestation.date_publication }}
         </cdm:manifestation_date_publication>
         <cdm:manifestation_distribution_has_status_distribution_status
-                rdf:resource="http://publications.europa.eu/resource/authority/dataset-status/{{ manifestation.manifestation_distribution_has_status_distribution_status }}"/>
+                rdf:resource="http://publications.europa.eu/resource/authority/dataset-status/{{ manifestation.distribution_has_status_distribution_status }}"/>
         <cdm:manifestation_distribution_has_media_type_concept_media_type
-                rdf:resource="http://publications.europa.eu/resource/authority/file-type/{{ manifestation.manifestation_distribution_has_media_type_concept_media_type }}"/>
+                rdf:resource="http://publications.europa.eu/resource/authority/file-type/{{ manifestation.distribution_has_media_type_concept_media_type }}"/>
     </cdm:manifestation_distribution>
 </rdf:RDF>

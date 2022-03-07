@@ -3,13 +3,13 @@ Feature: Notice metadata normalizer
   A fetched notice metadata should be normalized
 
   Scenario: Normalizing a notice metadata
-    Given a notice metadata
+    Given a notice
     And a normalizing process
     When the normalize process is executed
     Then a normalized notice metadata is available
 
   Scenario: Failing to normalize a notice metadata
-    Given a notice metadata
+    Given a notice
     And a normalizing process
     When the normalize process is executed
     And no normalized notice metadata is available

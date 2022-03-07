@@ -96,3 +96,5 @@ dmypy.json
 
 
 junit_report.xml
+venv_activation.sh
+infra/traefik/letsencrypt/acme.json

@@ -21,7 +21,8 @@ from functools import total_ordering
 from pydantic import Field
 
 from ted_sws.domain.model import PropertyBaseModel
-from ted_sws.domain.model.manifestation import METSManifestation, RDFManifestation, XMLManifestation
+from ted_sws.domain.model.manifestation import METSManifestation, RDFManifestation, XMLManifestation, \
+    RDFValidationManifestation
 from ted_sws.domain.model.metadata import TEDMetadata, NormalisedMetadata
 
 
@@ -43,8 +44,8 @@ class NoticeStatus(Enum):
     INELIGIBLE_FOR_PACKAGING = 43  # backlog status
     ELIGIBLE_FOR_PACKAGING = 47  # forward status
     PACKAGED = 50
-    FAULTY_PACKAGE = 53  # backlog status
-    CORRECT_PACKAGE = 57  # forward status
+    INELIGIBLE_FOR_PUBLISHING = 53  # backlog status
+    ELIGIBLE_FOR_PUBLISHING = 57  # forward status
     PUBLISHED = 60
     PUBLICLY_UNAVAILABLE = 63  # to be investigated if more fine-grained checks can be adopted
     PUBLICLY_AVAILABLE = 67  # forward status
@@ -72,10 +73,10 @@ NOTICE_STATUS_DOWNSTREAM_TRANSITION = {NoticeStatus.RAW: [NoticeStatus.NORMALISE
                                                                 NoticeStatus.ELIGIBLE_FOR_PACKAGING],
                                        NoticeStatus.INELIGIBLE_FOR_PACKAGING: [NoticeStatus.ELIGIBLE_FOR_PACKAGING],
                                        NoticeStatus.ELIGIBLE_FOR_PACKAGING: [NoticeStatus.PACKAGED],
-                                       NoticeStatus.PACKAGED: [NoticeStatus.FAULTY_PACKAGE,
-                                                               NoticeStatus.CORRECT_PACKAGE],
-                                       NoticeStatus.FAULTY_PACKAGE: [NoticeStatus.CORRECT_PACKAGE],
-                                       NoticeStatus.CORRECT_PACKAGE: [NoticeStatus.PUBLISHED],
+                                       NoticeStatus.PACKAGED: [NoticeStatus.INELIGIBLE_FOR_PUBLISHING,
+                                                               NoticeStatus.ELIGIBLE_FOR_PUBLISHING],
+                                       NoticeStatus.INELIGIBLE_FOR_PUBLISHING: [NoticeStatus.ELIGIBLE_FOR_PUBLISHING],
+                                       NoticeStatus.ELIGIBLE_FOR_PUBLISHING: [NoticeStatus.PUBLISHED],
                                        NoticeStatus.PUBLISHED: [NoticeStatus.PUBLICLY_AVAILABLE,
                                                                 NoticeStatus.PUBLICLY_UNAVAILABLE],
                                        NoticeStatus.PUBLICLY_UNAVAILABLE: [NoticeStatus.PUBLICLY_AVAILABLE],
@@ -162,6 +163,13 @@ class Notice(WorkExpression):
     def mets_manifestation(self) -> METSManifestation:
         return self._mets_manifestation
 
+    @property
+    def rdf_validation(self) -> RDFValidationManifestation:
+        if not self.rdf_manifestation:
+            return None
+
+        return self.rdf_manifestation.validation
+
     def set_normalised_metadata(self, normalised_metadata: NormalisedMetadata):
         """
             Add normalised metadata to the notice.
@@ -177,7 +185,7 @@ class Notice(WorkExpression):
 
     def set_rdf_manifestation(self, rdf_manifestation: RDFManifestation):
         """
-            Add an RDF manifestation to the notice.
+            Add an RDF manifestation to the notice. The RDF manifestation can have a validation but usually not yet.
             If METS package data are available, erase them and reset the state.
         :param rdf_manifestation:
         :return:
@@ -185,7 +193,26 @@ class Notice(WorkExpression):
         if self.rdf_manifestation == rdf_manifestation:
             return
         self._rdf_manifestation = rdf_manifestation
-        self.update_status_to(NoticeStatus.TRANSFORMED)
+        if not rdf_manifestation.validation:
+            self.update_status_to(NoticeStatus.TRANSFORMED)
+        else:
+            self.update_status_to(NoticeStatus.VALIDATED)
+
+    def set_rdf_validation(self, rdf_validation: RDFValidationManifestation):
+        """
+            Add an RDF validation result to the notice.
+            If METS package data are available, erase them and reset the state.
+        :param rdf_validation:
+        :return:
+        """
+        if not self.rdf_manifestation:
+            raise ValueError("Cannot set the RDF validation of a non-existent RDF manifestation")
+
+        if self.rdf_manifestation.validation == rdf_validation:
+            return
+
+        self._rdf_manifestation.validation = rdf_validation
+        self.update_status_to(NoticeStatus.VALIDATED)
 
     def set_mets_manifestation(self, mets_manifestation: METSManifestation):
         """
@@ -193,11 +220,75 @@ class Notice(WorkExpression):
         :param mets_manifestation:
         :return:
         """
+        if not self.rdf_manifestation:
+            raise ValueError("Cannot set the METS package of a non-existent RDF manifestation")
+
         if self.mets_manifestation is mets_manifestation:
             return
 
         self._mets_manifestation = mets_manifestation
         self.update_status_to(NoticeStatus.PACKAGED)
+
+    def set_is_eligible_for_transformation(self, eligibility: bool):
+        """
+            Marks the notice as being eligible or not for the transformation.
+            Perform the marking only if it is not already eligible.
+
+        :param eligibility:
+        :return:
+        """
+        if not eligibility:
+            self.update_status_to(NoticeStatus.INELIGIBLE_FOR_TRANSFORMATION)
+        else:
+            if self.status < NoticeStatus.ELIGIBLE_FOR_TRANSFORMATION:
+                self.update_status_to(NoticeStatus.ELIGIBLE_FOR_TRANSFORMATION)
+
+    def set_is_eligible_for_packaging(self, eligibility: bool):
+        """
+            Marks the notice as being eligible or not for the packaging.
+            Perform the marking only if it is not already eligible.
+
+        :param eligibility:
+        :return:
+        """
+        if not eligibility:
+            self.update_status_to(NoticeStatus.INELIGIBLE_FOR_PACKAGING)
+        else:
+            if self.status < NoticeStatus.ELIGIBLE_FOR_PACKAGING:
+                self.update_status_to(NoticeStatus.ELIGIBLE_FOR_PACKAGING)
+
+    def set_is_eligible_for_publishing(self, eligibility: bool):
+        """
+            Marks the notice as being eligible or not for the publishing.
+            Perform the marking only if it is not already eligible.
+
+        :param eligibility:
+        :return:
+        """
+        if not eligibility:
+            self.update_status_to(NoticeStatus.INELIGIBLE_FOR_PUBLISHING)
+        else:
+            if self.status < NoticeStatus.ELIGIBLE_FOR_PUBLISHING:
+                self.update_status_to(NoticeStatus.ELIGIBLE_FOR_PUBLISHING)
+
+    def mark_as_published(self):
+        """
+            Mark a notice as published.
+        :return:
+        """
+        if self.status < NoticeStatus.PUBLISHED:
+            self.update_status_to(NoticeStatus.PUBLISHED)
+
+    def set_is_publicly_available(self, availability: bool):
+        """
+
+        :param availability:
+        :return:
+        """
+        if not availability:
+            self.update_status_to(NoticeStatus.PUBLICLY_UNAVAILABLE)
+        else:
+            self.update_status_to(NoticeStatus.PUBLICLY_AVAILABLE)
 
     def __str__(self) -> str:
         return f"/Notice ({self.status.name}): {self.ted_id}/"

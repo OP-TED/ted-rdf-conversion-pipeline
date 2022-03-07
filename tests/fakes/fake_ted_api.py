@@ -3,9 +3,8 @@ import json
 import pathlib
 from datetime import date
 from typing import List
-from ted_sws.notice_fetcher.adapters.ted_api_abc import DocumentSearchABC, RequestAPI
+from ted_sws.notice_fetcher.adapters.ted_api_abc import TedAPIAdapterABC, RequestAPI
 from tests import TEST_DATA_PATH
-
 
 def get_fake_api_response() -> dict:
     path = TEST_DATA_PATH / "notices" / "2021-OJS237-623049.json"
@@ -27,7 +26,7 @@ class FakeRequestAPI(RequestAPI):
         return copy.deepcopy(get_fake_api_response())
 
 
-class FakeTedDocumentSearch(DocumentSearchABC):
+class FakeTedApiAdapter(TedAPIAdapterABC):
     """
 
     """
@@ -38,7 +37,7 @@ class FakeTedDocumentSearch(DocumentSearchABC):
         :param wildcard_date:
         :return:
         """
-        return [get_fake_api_response()]
+        return [notice_data for notice_data in get_fake_api_response()["results"]]
 
     def get_by_id(self, document_id: str) -> dict:
         """
@@ -46,7 +45,7 @@ class FakeTedDocumentSearch(DocumentSearchABC):
         :param document_id:
         :return:
         """
-        return get_fake_api_response()
+        return get_fake_api_response()["results"][0]
 
     def get_by_range_date(self, start_date: date, end_date: date) -> List[dict]:
         """
@@ -55,7 +54,7 @@ class FakeTedDocumentSearch(DocumentSearchABC):
         :param end_date:
         :return:
         """
-        return [get_fake_api_response()]
+        return [notice_data for notice_data in get_fake_api_response()["results"]]
 
     def get_by_query(self, query: dict) -> List[dict]:
         """
@@ -63,4 +62,4 @@ class FakeTedDocumentSearch(DocumentSearchABC):
         :param query:
         :return:
         """
-        return [get_fake_api_response()]
+        return [notice_data for notice_data in get_fake_api_response()["results"]]

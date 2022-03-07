@@ -13,11 +13,6 @@ services:
       - proxy-net
     ports:
       - ${MONGO_DB_PORT}:27017
-    healthcheck:
-      test: echo 'db.runCommand("ping").ok' | mongo mongodb-${ENVIRONMENT}:${MONGO_DB_PORT}/test --quiet
-      interval: 30s
-      timeout: 10s
-      retries: 3
     restart: unless-stopped
 
 

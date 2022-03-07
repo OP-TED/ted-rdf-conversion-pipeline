@@ -135,50 +135,103 @@ start-project-prod-services: | start-airflow start-elasticsearch start-allegro-g
 stop-project-prod-services: | stop-airflow stop-elasticsearch stop-allegro-graph stop-minio stop-mongo
 
 
-start-airflow-staging: build-externals
+start-airflow-staging: staging-dotenv-file build-externals
 	@ echo "$(BUILD_PRINT)Starting Airflow servies"
 	@ docker-compose -p ${STAGING} --file ./infra/airflow/docker-compose.yaml --env-file ${STAGING_ENV_FILE} up -d
 
-stop-airflow-staging:
+stop-airflow-staging: staging-dotenv-file
 	@ echo "$(BUILD_PRINT)Stoping Airflow services"
 	@ docker-compose -p ${STAGING} --file ./infra/airflow/docker-compose.yaml --env-file ${STAGING_ENV_FILE} down
 
-start-allegro-graph-staging: build-externals
+start-allegro-graph-staging: staging-dotenv-file build-externals
 	@ echo "$(BUILD_PRINT)Starting Allegro-Graph servies"
 	@ docker-compose -p ${STAGING} --file ./infra/allegro-graph/docker-compose.yaml --env-file ${STAGING_ENV_FILE} up -d
 
-stop-allegro-graph-staging:
+stop-allegro-graph-staging: staging-dotenv-file
 	@ echo "$(BUILD_PRINT)Stoping Allegro-Graph services"
 	@ docker-compose -p ${STAGING} --file ./infra/allegro-graph/docker-compose.yaml --env-file ${STAGING_ENV_FILE} down
 
-start-elasticsearch-staging: build-externals
+start-elasticsearch-staging: staging-dotenv-file build-externals
 	@ echo "$(BUILD_PRINT)Starting the Elasticsearch services"
 	@ docker-compose -p ${STAGING} --file ./infra/elasticsearch/docker-compose.yml --env-file ${STAGING_ENV_FILE} up -d
 
-stop-elasticsearch-staging:
+stop-elasticsearch-staging: staging-dotenv-file
 	@ echo "$(BUILD_PRINT)Stopping the Elasticsearch services"
 	@ docker-compose -p ${STAGING} --file ./infra/elasticsearch/docker-compose.yml --env-file ${STAGING_ENV_FILE} down
 
 
-start-minio-staging: build-externals
+start-minio-staging: staging-dotenv-file build-externals
 	@ echo "$(BUILD_PRINT)Starting the Minio services"
 	@ docker-compose -p ${STAGING} --file ./infra/minio/docker-compose.yml --env-file ${STAGING_ENV_FILE} up -d
 
-stop-minio-staging:
+stop-minio-staging: staging-dotenv-file
 	@ echo "$(BUILD_PRINT)Stopping the Minio services"
 	@ docker-compose -p ${STAGING} --file ./infra/minio/docker-compose.yml --env-file ${STAGING_ENV_FILE} down
 
-start-mongo-staging: build-externals
+start-mongo-staging: staging-dotenv-file build-externals
 	@ echo "$(BUILD_PRINT)Starting the Minio services"
 	@ docker-compose -p ${STAGING} --file ./infra/mongo/docker-compose.yml --env-file ${STAGING_ENV_FILE} up -d
 
-stop-mongo-staging:
+stop-mongo-staging: staging-dotenv-file
 	@ echo "$(BUILD_PRINT)Stopping the Minio services"
 	@ docker-compose -p ${STAGING} --file ./infra/mongo/docker-compose.yml --env-file ${STAGING_ENV_FILE} down
 
 #start-project-staging-services: | start-airflow-staging start-elasticsearch-staging start-allegro-graph-staging start-minio-staging start-mongo-staging
-start-project-staging-services: | start-mongo-staging
-stop-project-staging-services: | stop-airflow-staging stop-elasticsearch-staging stop-allegro-graph-staging stop-minio-staging stop-mongo-staging
+start-project-staging-services: | staging-dotenv-file start-mongo-staging
+stop-project-staging-services: | staging-dotenv-file stop-airflow-staging stop-mongo-staging
+
+
+start-dev-environment: dev-dotenv-file start-traefik start-mongo start-airflow
+stop-dev-environment: dev-dotenv-file stop-traefik stop-mongo stop-airflow
+
+#-----------------------------------------------------------------------------
+# VAULT SERVICES
+#-----------------------------------------------------------------------------
+# Testing whether an env variable is set or not
+guard-%:
+	@ if [ "${${*}}" = "" ]; then \
+        echo "$(BUILD_PRINT)Environment variable $* not set"; \
+        exit 1; \
+	fi
+
+# Testing that vault is installed
+vault-installed: #; @which vault1 > /dev/null
+	@ if ! hash vault 2>/dev/null; then \
+        echo "$(BUILD_PRINT)Vault is not installed, refer to https://www.vaultproject.io/downloads"; \
+        exit 1; \
+	fi
+# Get secrets in dotenv format
+staging-dotenv-file: guard-VAULT_ADDR guard-VAULT_TOKEN vault-installed
+	@ echo "$(BUILD_PRINT)Creating .env.staging file"
+	@ echo VAULT_ADDR=${VAULT_ADDR} > .env.staging
+	@ echo VAULT_TOKEN=${VAULT_TOKEN} >> .env.staging
+	@ echo DOMAIN=ted-data.eu >> .env.staging
+	@ echo ENVIRONMENT=staging >> .env.staging
+	@ echo SUBDOMAIN=staging >> .env.staging
+	@ vault kv get -format="json" ted-staging/airflow | jq -r ".data.data | keys[] as \$$k | \"\(\$$k)=\(.[\$$k])\"" >> .env.staging
+	@ vault kv get -format="json" ted-staging/mongo-db | jq -r ".data.data | keys[] as \$$k | \"\(\$$k)=\(.[\$$k])\"" >> .env.staging
+
+dev-dotenv-file: guard-VAULT_ADDR guard-VAULT_TOKEN vault-installed
+	@ echo "$(BUILD_PRINT)Create .env file"
+	@ echo VAULT_ADDR=${VAULT_ADDR} > .env
+	@ echo VAULT_TOKEN=${VAULT_TOKEN} >> .env
+	@ echo DOMAIN=localhost >> .env
+	@ echo ENVIRONMENT=staging >> .env
+	@ echo SUBDOMAIN= >> .env
+	@ vault kv get -format="json" ted-staging/airflow | jq -r ".data.data | keys[] as \$$k | \"\(\$$k)=\(.[\$$k])\"" >> .env
+	@ vault kv get -format="json" ted-staging/mongo-db | jq -r ".data.data | keys[] as \$$k | \"\(\$$k)=\(.[\$$k])\"" >> .env
+
+
+prod-dotenv-file: guard-VAULT_ADDR guard-VAULT_TOKEN vault-installed
+	@ echo "$(BUILD_PRINT)Create .env file"
+	@ echo VAULT_ADDR=${VAULT_ADDR} > .env
+	@ echo VAULT_TOKEN=${VAULT_TOKEN} >> .env
+	@ echo DOMAIN=ted-data.eu >> .env
+	@ echo ENVIRONMENT=prod >> .env
+	@ echo SUBDOMAIN= >> .env
+	@ vault kv get -format="json" ted-prod/airflow | jq -r ".data.data | keys[] as \$$k | \"\(\$$k)=\(.[\$$k])\"" >> .env
+	@ vault kv get -format="json" ted-prod/mongo-db | jq -r ".data.data | keys[] as \$$k | \"\(\$$k)=\(.[\$$k])\"" >> .env
+
 
 #build-open-semantic-search:
 #	@ echo "Build open-semantic-search"

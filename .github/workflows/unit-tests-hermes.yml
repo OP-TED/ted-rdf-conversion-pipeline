@@ -25,17 +25,19 @@ jobs:
       #      run: |
       #        python -m pip install --upgrade setuptools pip wheel
       #        make install
+#      - name: Make envfile
+#        uses: SpicyPizza/create-envfile@v1
+#        with:
+#          envkey_VAULT_TOKEN: ${{ secrets.VAULT_TOKEN }}
+#          envkey_VAULT_ADDR: ${{ secrets.VAULT_ADDR }}
+#          envkey_ENVIRONMENT: staging
+#          envkey_DOMAIN: ted-data.eu
+#          envkey_SUBDOMAIN: staging
+#          file_name: .env.staging
       - name: Make envfile
-        uses: SpicyPizza/create-envfile@v1
-        with:
-          envkey_VAULT_TOKEN: ${{ secrets.VAULT_TOKEN }}
-          envkey_VAULT_ADDR: ${{ secrets.VAULT_ADDR }}
-          envkey_ENVIRONMENT: staging
-          envkey_DOMAIN: ted-data.eu
-          envkey_SUBDOMAIN: staging
-          file_name: .env.staging
+        run: make staging-dotenv-file
 
-      - name: start-infra
+      - name: Start-infra
         run: make start-project-staging-services
 
       - name: Run unit tests

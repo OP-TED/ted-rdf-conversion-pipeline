@@ -17,8 +17,7 @@ jobs:
 
     steps:
       - run: pwd
-      - run: echo One las
-
+      - run: vault kv get ted-staging/mongo-db
       - uses: actions/checkout@v1
       #    - name: Set up Python ${{ matrix.python-version }}
       #      uses: actions/setup-python@v2

@@ -6,7 +6,9 @@ on:
     branches: [ feature/* ]
   pull_request:
     branches: [ master ]
-
+env:
+  VAULT_TOKEN: ${{ secrets.VAULT_TOKEN }}
+  VAULT_ADDR: ${{ secrets.VAULT_ADDR }}
 jobs:
   build:
     name: pyTest

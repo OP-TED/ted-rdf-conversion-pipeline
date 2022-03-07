@@ -34,6 +34,9 @@ jobs:
 #          envkey_DOMAIN: ted-data.eu
 #          envkey_SUBDOMAIN: staging
 #          file_name: .env.staging
+      - name: wtf
+        run: echo VAULT_ADDR=${VAULT_ADDR}
+
       - name: Make envfile
         run: make staging-dotenv-file
 

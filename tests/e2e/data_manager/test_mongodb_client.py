@@ -5,6 +5,7 @@ from ted_sws import config
 
 def test_mongodb_client():
     uri = config.MONGO_DB_AUTH_URL
+    print(f"MONGO URI is {uri}")
     mongodb_client = MongoClient(uri)
     mongodb_client.drop_database('test')
     test_db  = mongodb_client['test']

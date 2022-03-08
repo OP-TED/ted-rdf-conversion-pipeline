@@ -6,10 +6,12 @@ services:
     environment:
         - MONGO_INITDB_ROOT_USERNAME=${MONGO_INITDB_ROOT_USERNAME}
         - MONGO_INITDB_ROOT_PASSWORD=${MONGO_INITDB_ROOT_PASSWORD}
+    command: mongod --replSet "rs0" --bind_ip_all --port 27017
     volumes:
       - mongodb-data:/data/db
     networks:
       - mongodb-net
+      - proxy-net
     ports:
       - ${MONGO_DB_PORT}:27017
     restart: unless-stopped

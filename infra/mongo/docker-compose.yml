@@ -11,8 +11,8 @@ services:
     networks:
       - mongodb-net
       - proxy-net
-#    ports:
-#      - ${MONGO_DB_PORT}:27017
+    ports:
+      - ${MONGO_DB_PORT}:27017
     restart: unless-stopped
 
 

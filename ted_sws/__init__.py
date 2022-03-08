@@ -24,12 +24,15 @@ VaultSecretsStore.default_secret_mount = SECRET_MOUNT
 VaultSecretsStore.default_secret_paths = SECRET_PATHS
 
 
-
 class MongoDBConfig:
 
     @property
     def MONGO_DB_AUTH_URL(self) -> str:
         return VaultAndEnvConfigResolver().config_resolve()
+
+    @property
+    def MONGO_DB_PORT(self) -> int:
+        return int(VaultAndEnvConfigResolver().config_resolve())
 
 
 class TedConfigResolver(MongoDBConfig):

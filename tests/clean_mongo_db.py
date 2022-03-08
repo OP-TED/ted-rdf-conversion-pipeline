@@ -7,7 +7,8 @@ logger = getLogger(__name__)
 
 def clean_mongo_db():
     uri = config.MONGO_DB_AUTH_URL
-    if "staging" in uri:
+    port = config.MONGO_DB_PORT
+    if port == 27018:
         mongodb_client = MongoClient(uri)
         protected_databases = ['admin', 'config', 'local']
         existing_databases = mongodb_client.list_database_names()

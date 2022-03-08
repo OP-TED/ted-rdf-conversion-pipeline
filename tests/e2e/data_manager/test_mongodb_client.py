@@ -5,7 +5,7 @@ from ted_sws import config
 
 def test_mongodb_client():
     uri = config.MONGO_DB_AUTH_URL
-    mongodb_client = MongoClient(uri,port=config.MONGO_DB_PORT)
+    mongodb_client = MongoClient(uri)
     mongodb_client.drop_database('test')
     test_db = mongodb_client['test']
     fruits_collection = test_db['fruits']

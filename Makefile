@@ -96,6 +96,7 @@ stop-airflow:
 start-allegro-graph: build-externals
 	@ echo "$(BUILD_PRINT)Starting Allegro-Graph servies"
 	@ docker-compose -p ${ENVIRONMENT} --file ./infra/allegro-graph/docker-compose.yml --env-file ${ENV_FILE} up -d
+
 stop-allegro-graph:
 	@ echo "$(BUILD_PRINT)Stoping Allegro-Graph services"
 	@ docker-compose -p ${ENVIRONMENT} --file ./infra/allegro-graph/docker-compose.yml --env-file ${ENV_FILE} down
@@ -105,9 +106,11 @@ build-elasticsearch: build-externals
 	@ echo "$(BUILD_PRINT) Build Elasticsearch services"
 	@ docker-compose -p ${ENVIRONMENT} --file ./infra/elasticsearch/docker-compose.yml --env-file ${ENV_FILE} build --no-cache --force-rm
 	@ docker-compose -p ${ENVIRONMENT} --file ./infra/elasticsearch/docker-compose.yml --env-file ${ENV_FILE} up -d --force-recreate
+
 start-elasticsearch: build-externals
 	@ echo "$(BUILD_PRINT)Starting the Elasticsearch services"
 	@ docker-compose -p ${ENVIRONMENT} --file ./infra/elasticsearch/docker-compose.yml --env-file ${ENV_FILE} up -d
+
 stop-elasticsearch:
 	@ echo "$(BUILD_PRINT)Stopping the Elasticsearch services"
 	@ docker-compose -p ${ENVIRONMENT} --file ./infra/elasticsearch/docker-compose.yml --env-file ${ENV_FILE} down
@@ -131,11 +134,8 @@ stop-mongo:
 	@ docker-compose -p ${ENVIRONMENT} --file ./infra/mongo/docker-compose.yml --env-file ${ENV_FILE} down
 
 
-start-project-prod-services: | start-airflow start-elasticsearch start-allegro-graph start-minio start-mongo
-stop-project-prod-services: | stop-airflow stop-elasticsearch stop-allegro-graph stop-minio stop-mongo
-
-start-dev-environment: dev-dotenv-file start-traefik start-mongo start-airflow
-stop-dev-environment: dev-dotenv-file stop-traefik stop-mongo stop-airflow
+start-project-services: | start-airflow start-elasticsearch start-allegro-graph start-minio start-mongo
+stop-project-services: | stop-airflow stop-elasticsearch stop-allegro-graph stop-minio stop-mongo
 
 #-----------------------------------------------------------------------------
 # VAULT SERVICES
@@ -186,8 +186,8 @@ prod-dotenv-file: guard-VAULT_ADDR guard-VAULT_TOKEN vault-installed
 	@ vault kv get -format="json" ted-prod/mongo-db | jq -r ".data.data | keys[] as \$$k | \"\(\$$k)=\(.[\$$k])\"" >> .env
 
 
-clean-mongo-db:
-	@ export PYTHONPATH=$(PWD) && python ./tests/clean_mongo_db.py
+#clean-mongo-db:
+#	@ export PYTHONPATH=$(PWD) && python ./tests/clean_mongo_db.py
 
 
 #build-open-semantic-search:

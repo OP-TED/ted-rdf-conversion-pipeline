@@ -49,7 +49,7 @@ jobs:
         run: make test-all
 
       - name: Clean Mongo DB
-        run: clean-mongo-db
+        run: make clean-mongo-db
 #      - name: Upload coverage to Codecov
 #        uses: codecov/codecov-action@v1
 #        with:

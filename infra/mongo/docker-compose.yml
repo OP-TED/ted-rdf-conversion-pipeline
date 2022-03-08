@@ -6,24 +6,22 @@ services:
     environment:
         - MONGO_INITDB_ROOT_USERNAME=${MONGO_INITDB_ROOT_USERNAME}
         - MONGO_INITDB_ROOT_PASSWORD=${MONGO_INITDB_ROOT_PASSWORD}
-    command: mongod --replSet "rs0" --bind_ip_all --port 27017
     volumes:
       - mongodb-data:/data/db
     networks:
       - mongodb-net
-      - proxy-net
     ports:
       - ${MONGO_DB_PORT}:27017
     restart: unless-stopped
     labels:
-      - 'traefik.enable=true'
-      - 'traefik.tcp.routers.${ENVIRONMENT}-mongodb.entrypoints=mongo'
-      - 'traefik.tcp.routers.${ENVIRONMENT}-mongodb.service=mongodb-${ENVIRONMENT}'
-      - 'traefik.tcp.routers.${ENVIRONMENT}-mongodb.rule=HostSNI(`mongodb.${SUBDOMAIN}${DOMAIN}`)'
-      - 'traefik.tcp.routers.${ENVIRONMENT}-mongodb.tls=true'
+      - 'traefik.enable=false'
+#      - 'traefik.tcp.routers.${ENVIRONMENT}-mongodb.entrypoints=mongo'
+#      - 'traefik.tcp.routers.${ENVIRONMENT}-mongodb.service=mongodb-${ENVIRONMENT}'
+#      - 'traefik.tcp.routers.${ENVIRONMENT}-mongodb.rule=HostSNI(`mongodb.${SUBDOMAIN}${DOMAIN}`)'
+#      - 'traefik.tcp.routers.${ENVIRONMENT}-mongodb.tls=true'
 #      - 'traefik.tcp.routers.${ENVIRONMENT}-mongodb.certresolver=letsencrypt'
 #      - 'traefik.tcp.routers.${ENVIRONMENT}-mongodb.tls.domains[0].main=${SUBDOMAIN}${DOMAIN}'
-      - 'traefik.tcp.services.${ENVIRONMENT}-mongodb.loadbalancer.server.port=${MONGO_DB_PORT}'
+#      - 'traefik.tcp.services.${ENVIRONMENT}-mongodb.loadbalancer.server.port=${MONGO_DB_PORT}'
 
   mongo-express:
     image: mongo-express
@@ -67,7 +65,7 @@ volumes:
 
 networks:
   mongodb-net:
-    internal: true
+    internal: false
     name: mongodb-net-${ENVIRONMENT}
   proxy-net:
     external:

@@ -233,6 +233,9 @@ prod-dotenv-file: guard-VAULT_ADDR guard-VAULT_TOKEN vault-installed
 	@ vault kv get -format="json" ted-prod/mongo-db | jq -r ".data.data | keys[] as \$$k | \"\(\$$k)=\(.[\$$k])\"" >> .env
 
 
+
+
+
 #build-open-semantic-search:
 #	@ echo "Build open-semantic-search"
 #	@ cd infra && rm -rf open-semantic-search

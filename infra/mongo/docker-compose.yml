@@ -1,7 +1,7 @@
 version: "3.8"
 services:
   mongodb:
-    image: mongo:4.4
+    image: mongo
     container_name: mongodb-${ENVIRONMENT}
     environment:
         - MONGO_INITDB_ROOT_USERNAME=${MONGO_INITDB_ROOT_USERNAME}
@@ -17,7 +17,7 @@ services:
       - 'traefik.enable=false'
 
   mongo-express:
-    image: mongo-express:0.54.0
+    image: mongo-express
     container_name: mongo-express-${ENVIRONMENT}
     environment:
       - ME_CONFIG_MONGODB_SERVER=mongodb-${ENVIRONMENT}

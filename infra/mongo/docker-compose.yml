@@ -13,7 +13,15 @@ services:
     ports:
       - ${MONGO_DB_PORT}:27017
     restart: unless-stopped
-
+    labels:
+      - 'traefik.enable=true'
+      - 'traefik.tcp.routers.${ENVIRONMENT}-mongodb.entrypoints=mongodb-${ENVIRONMENT}'
+      - 'traefik.tcp.routers.${ENVIRONMENT}-mongodb.service=mongodb-${ENVIRONMENT}'
+      - 'traefik.tcp.routers.${ENVIRONMENT}-mongodb.rule=HostSNI(`mongo.${SUBDOMAIN}${DOMAIN}`)'
+      - 'traefik.tcp.routers.${ENVIRONMENT}-mongodb.tls=true'
+#      - 'traefik.tcp.routers.${ENVIRONMENT}-mongodb.certresolver=letsencrypt'
+#      - 'traefik.tcp.routers.${ENVIRONMENT}-mongodb.tls.domains[0].main=${SUBDOMAIN}${DOMAIN}'
+      - 'traefik.tcp.services.${ENVIRONMENT}-mongodb.loadbalancer.server.port=${MONGO_DB_PORT}'
 
   mongo-express:
     image: mongo-express
@@ -27,7 +35,6 @@ services:
       - ME_CONFIG_BASICAUTH_USERNAME=${ME_CONFIG_BASICAUTH_USERNAME}
       - ME_CONFIG_BASICAUTH_PASSWORD=${ME_CONFIG_BASICAUTH_PASSWORD}
 #      - ME_CONFIG_MONGODB_URL=${ME_CONFIG_MONGODB_URL}
-
     volumes:
       - mongodb-data:/data/db
     depends_on:

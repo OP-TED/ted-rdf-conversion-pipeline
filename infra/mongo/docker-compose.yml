@@ -10,7 +10,6 @@ services:
       - mongodb-data:/data/db
     networks:
       - mongodb-net
-      - proxy-net
     ports:
       - ${MONGO_DB_PORT}:27017
     restart: unless-stopped
@@ -20,13 +19,14 @@ services:
     image: mongo-express
     container_name: mongo-express-${ENVIRONMENT}
     environment:
-      - ME_CONFIG_MONGODB_SERVER=${ME_CONFIG_MONGODB_SERVER}
+      - ME_CONFIG_MONGODB_SERVER=mongodb-${ENVIRONMENT} # ${ME_CONFIG_MONGODB_SERVER}
       - ME_CONFIG_MONGODB_ENABLE_ADMIN=${ME_CONFIG_MONGODB_ENABLE_ADMIN}
       - ME_CONFIG_MONGODB_ADMINUSERNAME=${ME_CONFIG_MONGODB_ADMINUSERNAME}
       - ME_CONFIG_MONGODB_ADMINPASSWORD=${ME_CONFIG_MONGODB_ADMINPASSWORD}
+      - ME_CONFIG_MONGODB_PORT=${MONGO_DB_PORT}
       - ME_CONFIG_BASICAUTH_USERNAME=${ME_CONFIG_BASICAUTH_USERNAME}
       - ME_CONFIG_BASICAUTH_PASSWORD=${ME_CONFIG_BASICAUTH_PASSWORD}
-      - ME_CONFIG_MONGODB_URL=${ME_CONFIG_MONGODB_URL}
+#      - ME_CONFIG_MONGODB_URL=${ME_CONFIG_MONGODB_URL}
 
     volumes:
       - mongodb-data:/data/db

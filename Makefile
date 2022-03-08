@@ -54,19 +54,19 @@ build-externals:
 #-----------------------------------------------------------------------------
 start-traefik: build-externals
 	@ echo "$(BUILD_PRINT)Starting the Traefik services"
-	@ docker-compose --file ./infra/traefik/docker-compose.yml --env-file ${ENV_FILE} up -d
+	@ docker-compose -p common --file ./infra/traefik/docker-compose.yml --env-file ${ENV_FILE} up -d
 
 stop-traefik:
 	@ echo "$(BUILD_PRINT)Stopping the Traefik services"
-	@ docker-compose --file ./infra/traefik/docker-compose.yml --env-file ${ENV_FILE} down
+	@ docker-compose -p common --file ./infra/traefik/docker-compose.yml --env-file ${ENV_FILE} down
 
 start-portainer: build-externals
 	@ echo "$(BUILD_PRINT)Starting the Portainer services"
-	@ docker-compose --file ./infra/portainer/docker-compose.yml --env-file ${ENV_FILE} up -d
+	@ docker-compose -p common --file ./infra/portainer/docker-compose.yml --env-file ${ENV_FILE} up -d
 
 stop-portainer:
 	@ echo "$(BUILD_PRINT)Stopping the Portainer services"
-	@ docker-compose --file ./infra/portainer/docker-compose.yml --env-file ${ENV_FILE} down
+	@ docker-compose -p common --file ./infra/portainer/docker-compose.yml --env-file ${ENV_FILE} down
 
 start-server-services: | start-traefik start-portainer
 stop-server-services: | stop-traefik stop-portainer
@@ -91,12 +91,16 @@ start-airflow: build-externals
 stop-airflow:
 	@ echo "$(BUILD_PRINT)Stoping Airflow services"
 	@ docker-compose -p ${ENVIRONMENT} --file ./infra/airflow/docker-compose.yaml --env-file ${ENV_FILE} down
+
+#	------------------------
 start-allegro-graph: build-externals
 	@ echo "$(BUILD_PRINT)Starting Allegro-Graph servies"
 	@ docker-compose -p ${ENVIRONMENT} --file ./infra/allegro-graph/docker-compose.yml --env-file ${ENV_FILE} up -d
 stop-allegro-graph:
 	@ echo "$(BUILD_PRINT)Stoping Allegro-Graph services"
 	@ docker-compose -p ${ENVIRONMENT} --file ./infra/allegro-graph/docker-compose.yml --env-file ${ENV_FILE} down
+
+#	------------------------
 build-elasticsearch: build-externals
 	@ echo "$(BUILD_PRINT) Build Elasticsearch services"
 	@ docker-compose -p ${ENVIRONMENT} --file ./infra/elasticsearch/docker-compose.yml --env-file ${ENV_FILE} build --no-cache --force-rm

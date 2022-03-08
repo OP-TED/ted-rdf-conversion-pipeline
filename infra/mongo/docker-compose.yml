@@ -15,9 +15,9 @@ services:
     restart: unless-stopped
     labels:
       - 'traefik.enable=true'
-      - 'traefik.tcp.routers.${ENVIRONMENT}-mongodb.entrypoints=mongodb-${ENVIRONMENT}'
+      - 'traefik.tcp.routers.${ENVIRONMENT}-mongodb.entrypoints=mongo'
       - 'traefik.tcp.routers.${ENVIRONMENT}-mongodb.service=mongodb-${ENVIRONMENT}'
-      - 'traefik.tcp.routers.${ENVIRONMENT}-mongodb.rule=HostSNI(`mongo.${SUBDOMAIN}${DOMAIN}`)'
+      - 'traefik.tcp.routers.${ENVIRONMENT}-mongodb.rule=HostSNI(`mongodb.${SUBDOMAIN}${DOMAIN}`)'
       - 'traefik.tcp.routers.${ENVIRONMENT}-mongodb.tls=true'
 #      - 'traefik.tcp.routers.${ENVIRONMENT}-mongodb.certresolver=letsencrypt'
 #      - 'traefik.tcp.routers.${ENVIRONMENT}-mongodb.tls.domains[0].main=${SUBDOMAIN}${DOMAIN}'

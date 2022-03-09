@@ -255,8 +255,6 @@ services:
           echo
         fi
         exec /entrypoint airflow version
-#        mkdir -p /sources/logs /sources/dags /sources/plugins
-#        chown -R "${AIRFLOW_UID}:0" /sources/{logs,dags,plugins}
     # yamllint enable rule:line-length
     environment:
       <<: *airflow-common-env

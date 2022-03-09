@@ -7,6 +7,7 @@
 
 """ """
 
-def test_template_saver(sample_work):
+
+def test_template_saver(template_sample_metadata):
     ...
 

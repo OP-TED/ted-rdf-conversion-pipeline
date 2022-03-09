@@ -15,6 +15,7 @@ from ted_sws.metadata_normaliser.model.metadata import ExtractedMetadata
 from tempfile import TemporaryDirectory
 import base64
 
+
 ARCHIVE_NAME_FORMAT = "eProcurement_notice_{notice_id}.zip"
 FILE_METS_XML_FORMAT  = "{notice_id}-0.mets.xml.dmd.rdf"
 FILE_METS_ACTION_FORMAT = "{notice_id}_mets2{action}.mets.xml"

@@ -5,10 +5,12 @@
 # Author: Kolea PLESCO
 # Email: kalean.bl@gmail.com
 
+""" """
+
 from ted_sws.notice_packager.adapters.template_generator import TemplateGenerator
 from ted_sws.notice_packager.adapters.archiver import ArchiverFactory, ARCHIVE_ZIP_FORMAT
 from ted_sws.notice_packager.services.metadata_transformer import MetadataTransformer
-from ted_sws.domain.model.metadata import NormalisedMetadata
+from ted_sws.metadata_normaliser.model.metadata import ExtractedMetadata
 
 from tempfile import TemporaryDirectory
 import base64
@@ -19,9 +21,9 @@ FILE_METS_ACTION_FORMAT = "{notice_id}_mets2{action}.mets.xml"
 FILE_TMD_FORMAT = "techMDID001.tmd.rdf"
 
 
-def create_notice_package(normalised_metadata: NormalisedMetadata, save_to_file: bool = False):
+def create_notice_package(notice_metadata: ExtractedMetadata, save_to_file: bool = False):
     archiver = ArchiverFactory.get_archiver(ARCHIVE_ZIP_FORMAT)
-    metadata_transformer = MetadataTransformer(normalised_metadata)
+    metadata_transformer = MetadataTransformer(notice_metadata)
     template_metadata = metadata_transformer.template_metadata()
     template_generator = TemplateGenerator(template_metadata)
 

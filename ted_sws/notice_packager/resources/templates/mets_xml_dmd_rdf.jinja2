@@ -34,7 +34,7 @@
         <cdm:work_id>{{ work.uri }}</cdm:work_id>
         <cdm:work_dataset_version>{{ work.dataset_version }}</cdm:work_dataset_version>
         <cdm:work_dataset_has_type_concept_type_dataset
-                rdf:resource="http://publications.europa.eu/resource/authority/dataset-type/TEST_DATA"/>
+                rdf:resource="http://publications.europa.eu/resource/authority/dataset-type/{{ work.concept_type_dataset }}"/>
 
         {% for dataset_keyword in work.dataset_keyword %}
             <cdm:work_dataset_keyword>{{ dataset_keyword }}</cdm:work_dataset_keyword>

@@ -15,24 +15,25 @@ from typing import Dict
 
 
 class TemplateGenerator:
-    def __init__(self, data: Dict):
-        self.data = data
-
-    def __generate_template(self, template):
-        template_render = TEMPLATES.get_template(template).render(self.data)
+    @classmethod
+    def __generate_template(cls, template, data: Dict = None):
+        template_render = TEMPLATES.get_template(template).render(data)
         return template_render
 
-    def mets_xml_dmd_rdf_generator(self):
+    @classmethod
+    def mets_xml_dmd_rdf_generator(cls, data: Dict = None):
         template = 'mets_xml_dmd_rdf.jinja2'
-        return self.__generate_template(template)
+        return cls.__generate_template(template, data)
 
-    def tmd_rdf_generator(self):
+    @classmethod
+    def tmd_rdf_generator(cls, data: Dict = None):
         template = 'tmd_rdf.jinja2'
-        return self.__generate_template(template)
+        return cls.__generate_template(template, data)
 
-    def mets2action_mets_xml_generator(self):
-        action = self.data["notice"]["action"]["type"]
+    @classmethod
+    def mets2action_mets_xml_generator(cls, data: Dict = None):
+        action = data["notice"]["action"]["type"]
         validate_notice_action_type(action)
 
         template = 'mets2action_mets_xml.jinja2'
-        return self.__generate_template(template)
+        return cls.__generate_template(template, data)

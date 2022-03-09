@@ -43,7 +43,7 @@
     <behaviorSec>
         <behavior BTYPE="sparql-load" STRUCTID="m-001">
             <mechanism LOCTYPE="URL" LABEL="Sparql-load"
-                       xlink:href="cellar-mets:sparql-load-behavior?model={{ work.uri | urlencode }}"/>
+                       xlink:href="cellar-mets:sparql-load-behavior?model={{ work.uri | urlencode | replace("/", "%2F") }}"/>
         </behavior>
     </behaviorSec>
 </mets>

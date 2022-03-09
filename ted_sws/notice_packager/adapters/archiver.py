@@ -8,6 +8,7 @@
 """
 This module provides functionalities to archive templates, ready to be uploaded to Cellar
 """
+
 import abc
 import os
 from zipfile import ZipFile

@@ -61,7 +61,7 @@ x-airflow-common:
     VAULT_ADDR: ${VAULT_ADDR}
   volumes:
 #    - ./config/airflow.cfg:/opt/airflow/airflow.cfg
-    - ./.env:/opt/airflow/.env
+    - ${AIRFLOW_INFRA_FOLDER}/.env:/opt/airflow/.env
     - ${AIRFLOW_INFRA_FOLDER}/dags:/opt/airflow/dags
     - ${AIRFLOW_INFRA_FOLDER}/logs:/opt/airflow/logs
     - ${AIRFLOW_INFRA_FOLDER}/plugins:/opt/airflow/plugins

@@ -10,6 +10,9 @@ ENV_FILE := .env
 # include .env files if they exist
 -include .env
 
+PROJECT_PATH = $(shell pwd)
+AIRFLOW_INFRA_FOLDER ?= ${PROJECT_PATH}/.airflow
+
 #-----------------------------------------------------------------------------
 # Dev commands
 #-----------------------------------------------------------------------------
@@ -78,18 +81,18 @@ create-env-airflow:
 	@ echo -e "$(BUILD_PRINT) Create Airflow env $(END_BUILD_PRINT)"
 	@ echo -e "$(BUILD_PRINT) ${AIRFLOW_INFRA_FOLDER} ${ENVIRONMENT} $(END_BUILD_PRINT)"
 	@ mkdir -p ${AIRFLOW_INFRA_FOLDER}/logs ${AIRFLOW_INFRA_FOLDER}/plugins
-	# make symlinks to - ${AIRFLOW_INFRA_FOLDER/dags} and ${AIRFLOW_INFRA_FOLDER/ted_sws}
-	@ cd ${AIRFLOW_INFRA_FOLDER} && ln -s -f ${PROJECT_PATH}/dags && ln -s -f ${PROJECT_PATH}/ted_sws
-	@ echo -e "AIRFLOW_UID=$(CURRENT_UID)" >infra/airflow/.env
-
+	@ ln -s -f ${PROJECT_PATH}/dags ${AIRFLOW_INFRA_FOLDER}/dags
+	@ ln -s -f ${PROJECT_PATH}/ted_sws ${AIRFLOW_INFRA_FOLDER}/ted_sws
 
 build-airflow: guard-ENVIRONMENT create-env-airflow build-externals
 	@ echo -e "$(BUILD_PRINT) Build Airflow services $(END_BUILD_PRINT)"
 	@ docker-compose -p ${ENVIRONMENT} --file ./infra/airflow/docker-compose.yaml --env-file ${ENV_FILE} build --no-cache --force-rm
 	@ docker-compose -p ${ENVIRONMENT} --file ./infra/airflow/docker-compose.yaml --env-file ${ENV_FILE} up -d --force-recreate
+
 start-airflow: build-externals
 	@ echo -e "$(BUILD_PRINT)Starting Airflow servies $(END_BUILD_PRINT)"
 	@ docker-compose -p ${ENVIRONMENT} --file ./infra/airflow/docker-compose.yaml --env-file ${ENV_FILE} up -d
+
 stop-airflow:
 	@ echo -e "$(BUILD_PRINT)Stoping Airflow services $(END_BUILD_PRINT)"
 	@ docker-compose -p ${ENVIRONMENT} --file ./infra/airflow/docker-compose.yaml --env-file ${ENV_FILE} down
@@ -164,7 +167,6 @@ staging-dotenv-file: guard-VAULT_ADDR guard-VAULT_TOKEN vault-installed
 	@ echo ENVIRONMENT=staging >> .env
 	@ echo SUBDOMAIN=staging. >> .env
 	@ echo AIRFLOW_INFRA_FOLDER=~/airflow-infra/staging >> .env
-	@ echo PROJECT_PATH= ~/work/testing-dir/ted-sws/ted-sws >> .env
 	@ vault kv get -format="json" ted-staging/airflow | jq -r ".data.data | keys[] as \$$k | \"\(\$$k)=\(.[\$$k])\"" >> .env
 	@ vault kv get -format="json" ted-staging/mongo-db | jq -r ".data.data | keys[] as \$$k | \"\(\$$k)=\(.[\$$k])\"" >> .env
 
@@ -175,8 +177,7 @@ dev-dotenv-file: guard-VAULT_ADDR guard-VAULT_TOKEN vault-installed
 	@ echo DOMAIN=localhost >> .env
 	@ echo ENVIRONMENT=dev >> .env
 	@ echo SUBDOMAIN= >> .env
-	@ echo AIRFLOW_INFRA_FOLDER=./infra/airflow >> .env
-	@ echo PROJECT_PATH=../../ >> .env
+	@ echo AIRFLOW_INFRA_FOLDER=${AIRFLOW_INFRA_FOLDER} >> .env
 	@ vault kv get -format="json" ted-dev/airflow | jq -r ".data.data | keys[] as \$$k | \"\(\$$k)=\(.[\$$k])\"" >> .env
 	@ vault kv get -format="json" ted-dev/mongo-db | jq -r ".data.data | keys[] as \$$k | \"\(\$$k)=\(.[\$$k])\"" >> .env
 
@@ -189,7 +190,6 @@ prod-dotenv-file: guard-VAULT_ADDR guard-VAULT_TOKEN vault-installed
 	@ echo ENVIRONMENT=prod >> .env
 	@ echo SUBDOMAIN= >> .env
 	@ echo AIRFLOW_INFRA_FOLDER=~/airflow-infra/prod >> .env
-	@ echo PROJECT_PATH= ~/work/ted-sws >> .env
 	@ vault kv get -format="json" ted-prod/airflow | jq -r ".data.data | keys[] as \$$k | \"\(\$$k)=\(.[\$$k])\"" >> .env
 	@ vault kv get -format="json" ted-prod/mongo-db | jq -r ".data.data | keys[] as \$$k | \"\(\$$k)=\(.[\$$k])\"" >> .env
 

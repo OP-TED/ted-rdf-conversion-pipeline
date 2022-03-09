@@ -15,7 +15,7 @@ from mfy_data_core.adapters.vault_secrets_store import VaultSecretsStore
 dotenv.load_dotenv(verbose=True, override=True)
 
 SECRET_PATHS = ['mongo-db']
-SECRET_MOUNT = 'ted'
+SECRET_MOUNT = 'ted-dev'
 
 VaultSecretsStore.default_secret_mount = SECRET_MOUNT
 VaultSecretsStore.default_secret_paths = SECRET_PATHS

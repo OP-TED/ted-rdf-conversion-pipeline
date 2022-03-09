@@ -134,8 +134,8 @@ stop-mongo:
 	@ docker-compose -p ${ENVIRONMENT} --file ./infra/mongo/docker-compose.yml --env-file ${ENV_FILE} down
 
 
-start-project-services: | start-airflow start-elasticsearch start-allegro-graph start-minio start-mongo
-stop-project-services: | stop-airflow stop-elasticsearch stop-allegro-graph stop-minio stop-mongo
+start-project-services: | start-airflow start-mongo
+stop-project-services: | stop-airflow stop-mongo
 
 #-----------------------------------------------------------------------------
 # VAULT SERVICES
@@ -169,7 +169,7 @@ dev-dotenv-file: guard-VAULT_ADDR guard-VAULT_TOKEN vault-installed
 	@ echo VAULT_ADDR=${VAULT_ADDR} > .env
 	@ echo VAULT_TOKEN=${VAULT_TOKEN} >> .env
 	@ echo DOMAIN=localhost >> .env
-	@ echo ENVIRONMENT=staging >> .env
+	@ echo ENVIRONMENT=dev >> .env
 	@ echo SUBDOMAIN= >> .env
 	@ vault kv get -format="json" ted-dev/airflow | jq -r ".data.data | keys[] as \$$k | \"\(\$$k)=\(.[\$$k])\"" >> .env
 	@ vault kv get -format="json" ted-dev/mongo-db | jq -r ".data.data | keys[] as \$$k | \"\(\$$k)=\(.[\$$k])\"" >> .env

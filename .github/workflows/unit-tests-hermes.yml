@@ -22,13 +22,13 @@ jobs:
         run: make staging-dotenv-file
 
       - name: Start staging infra
-        run: make start-project-staging-services
+        run: make start-project-services
 
       - name: Run unit tests
         run: make test-all
 
-      - name: Clean Mongo DB
-        run: make clean-mongo-db
+#      - name: Clean Mongo DB
+#        run: make clean-mongo-db
 #      - name: Upload coverage to Codecov
 #        uses: codecov/codecov-action@v1
 #        with:

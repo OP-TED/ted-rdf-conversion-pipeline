@@ -76,9 +76,10 @@ stop-server-services: | stop-traefik stop-portainer
 #-----------------------------------------------------------------------------
 create-env-airflow:
 	@ echo -e "$(BUILD_PRINT) Create Airflow env $(END_BUILD_PRINT)"
-	@ mkdir -p infra/airflow/logs infra/airflow/plugins
+	@ echo -e "$(BUILD_PRINT) ${AIRFLOW_INFRA_FOLDER} ${ENVIRONMENT} $(END_BUILD_PRINT)"
+	@ mkdir -p ${AIRFLOW_INFRA_FOLDER}/logs ${AIRFLOW_INFRA_FOLDER}/plugins
 	# make symlinks to - ${AIRFLOW_INFRA_FOLDER/dags} and ${AIRFLOW_INFRA_FOLDER/ted_sws}
-	@ cd infra/airflow/ && ln -s -f ../../dags && ln -s -f ../../ted_sws
+	@ cd ${AIRFLOW_INFRA_FOLDER} && ln -s -f ${PROJECT_PATH}/dags && ln -s -f ${PROJECT_PATH}/ted_sws
 	@ echo -e "AIRFLOW_UID=$(CURRENT_UID)" >infra/airflow/.env
 
 
@@ -162,6 +163,8 @@ staging-dotenv-file: guard-VAULT_ADDR guard-VAULT_TOKEN vault-installed
 	@ echo DOMAIN=ted-data.eu >> .env
 	@ echo ENVIRONMENT=staging >> .env
 	@ echo SUBDOMAIN=staging. >> .env
+	@ echo AIRFLOW_INFRA_FOLDER=~/airflow-infra/staging >> .env
+	@ echo PROJECT_PATH= ~/work/testing-dir/ted-sws/ted-sws >> .env
 	@ vault kv get -format="json" ted-staging/airflow | jq -r ".data.data | keys[] as \$$k | \"\(\$$k)=\(.[\$$k])\"" >> .env
 	@ vault kv get -format="json" ted-staging/mongo-db | jq -r ".data.data | keys[] as \$$k | \"\(\$$k)=\(.[\$$k])\"" >> .env
 
@@ -172,6 +175,8 @@ dev-dotenv-file: guard-VAULT_ADDR guard-VAULT_TOKEN vault-installed
 	@ echo DOMAIN=localhost >> .env
 	@ echo ENVIRONMENT=dev >> .env
 	@ echo SUBDOMAIN= >> .env
+	@ echo AIRFLOW_INFRA_FOLDER=./infra/airflow >> .env
+	@ echo PROJECT_PATH=../../ >> .env
 	@ vault kv get -format="json" ted-dev/airflow | jq -r ".data.data | keys[] as \$$k | \"\(\$$k)=\(.[\$$k])\"" >> .env
 	@ vault kv get -format="json" ted-dev/mongo-db | jq -r ".data.data | keys[] as \$$k | \"\(\$$k)=\(.[\$$k])\"" >> .env
 
@@ -183,6 +188,8 @@ prod-dotenv-file: guard-VAULT_ADDR guard-VAULT_TOKEN vault-installed
 	@ echo DOMAIN=ted-data.eu >> .env
 	@ echo ENVIRONMENT=prod >> .env
 	@ echo SUBDOMAIN= >> .env
+	@ echo AIRFLOW_INFRA_FOLDER=~/airflow-infra/prod >> .env
+	@ echo PROJECT_PATH= ~/work/ted-sws >> .env
 	@ vault kv get -format="json" ted-prod/airflow | jq -r ".data.data | keys[] as \$$k | \"\(\$$k)=\(.[\$$k])\"" >> .env
 	@ vault kv get -format="json" ted-prod/mongo-db | jq -r ".data.data | keys[] as \$$k | \"\(\$$k)=\(.[\$$k])\"" >> .env
 

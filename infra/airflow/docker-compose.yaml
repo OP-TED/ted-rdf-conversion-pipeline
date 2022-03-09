@@ -62,10 +62,10 @@ x-airflow-common:
   volumes:
 #    - ./config/airflow.cfg:/opt/airflow/airflow.cfg
     - ./.env:/opt/airflow/.env
-    - ${AIRFLOW_INFRA_FOLDER/dags:-./dags}:/opt/airflow/dags
-    - ${AIRFLOW_INFRA_FOLDER/logs:-./logs}/logs/airflow:/opt/airflow/logs
-    - ${AIRFLOW_INFRA_FOLDER/plugins:-./plugins}:/opt/airflow/plugins
-    - ${AIRFLOW_INFRA_FOLDER/ted_sws:-./ted_sws}:/opt/airflow/ted_sws
+    - ${AIRFLOW_INFRA_FOLDER}/dags:/opt/airflow/dags
+    - ${AIRFLOW_INFRA_FOLDER}/logs:/opt/airflow/logs
+    - ${AIRFLOW_INFRA_FOLDER}/plugins:/opt/airflow/plugins
+    - ${AIRFLOW_INFRA_FOLDER}/ted_sws:/opt/airflow/ted_sws
   user: "${AIRFLOW_UID:-50000}:0"
   command: bash -c "export PYTHONPATH='/opt/airflow/'"
   depends_on:

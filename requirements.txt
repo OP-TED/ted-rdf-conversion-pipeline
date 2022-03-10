@@ -5,4 +5,4 @@ deepdiff~=5.7.0
 git+https://github.com/meaningfy-ws/mfy-data-core
 python-dotenv~=0.19.2
 pymongo~=4.0.1
-apache-airflow==2.2.3
+apache-airflow==2.2.4

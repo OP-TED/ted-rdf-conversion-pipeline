@@ -1,4 +1,4 @@
-FROM apache/airflow:2.2.3-python3.8
+FROM apache/airflow:2.2.4-python3.8
 
 # quick sudo
 USER root
@@ -14,4 +14,4 @@ COPY requirements-airflow.txt /opt/airflow
 WORKDIR /opt/airflow
 
 RUN pip install --upgrade pip
-RUN pip install --no-cache-dir -r requirements-airflow.txt #--constraint "https://raw.githubusercontent.com/apache/airflow/constraints-2.2.3/constraints-no-providers-3.8.txt"
+RUN pip install --no-cache-dir -r requirements-airflow.txt --constraint "https://raw.githubusercontent.com/apache/airflow/constraints-2.2.4/constraints-no-providers-3.8.txt"

@@ -4,10 +4,9 @@ sys.path = list(set(sys.path))
 import os
 os.chdir("/opt/airflow/")
 
+from dags import DEFAULT_DAG_ARGUMENTS
 from airflow.decorators import dag, task
 from airflow.operators.python import get_current_context
-from datetime import datetime, timedelta
-
 from airflow.operators.trigger_dagrun import TriggerDagRunOperator
 from pymongo import MongoClient
 
@@ -15,21 +14,6 @@ from ted_sws import config
 from ted_sws.data_manager.adapters.notice_repository import NoticeRepository
 from ted_sws.notice_fetcher.adapters.ted_api import TedAPIAdapter, TedRequestAPI
 from ted_sws.notice_fetcher.services.notice_fetcher import NoticeFetcher
-
-DEFAULT_DAG_ARGUMENTS = {
-    "owner": "airflow",
-    "depends_on_past": False,
-    "start_date": datetime.now(),
-    "email": ["info@meaningfy.ws"],
-    "email_on_failure": False,
-    "email_on_retry": False,
-    "retries": 0,
-    "retry_delay": timedelta(minutes=3600),
-    "schedule_interval": "@once",
-    "max_active_runs": 128,
-    "concurrency": 128,
-    "execution_timeout": timedelta(hours=24),
-}
 
 
 @dag(default_args=DEFAULT_DAG_ARGUMENTS, tags=['master', 'notice-fetcher'])

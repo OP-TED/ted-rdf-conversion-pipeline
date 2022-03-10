@@ -111,4 +111,3 @@ class PackagerMetadata(MetaMetadata):
     work: WorkMetadata = WorkMetadata()
     expression: ExpressionMetadata = ExpressionMetadata()
     manifestation: ManifestationMetadata = ManifestationMetadata()
-

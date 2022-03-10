@@ -23,4 +23,3 @@ def test_metadata_transformer(notice_sample_metadata: ExtractedMetadata):
     assert "work" in template_metadata
     assert "expression" in template_metadata
     assert "manifestation" in template_metadata
-

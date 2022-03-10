@@ -57,7 +57,3 @@ class ZipArchiver(ArchiverABC):
                     archive.write(file, os.path.basename(file))
             archive.close()
         return archive_name
-
-
-
-

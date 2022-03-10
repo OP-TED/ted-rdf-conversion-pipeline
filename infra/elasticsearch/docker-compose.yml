@@ -8,7 +8,7 @@ services:
       context: elasticsearch
       args:
         ELK_VERSION: ${ELK_VERSION}
-    container_name: elk-${ENVIROMENT}
+    container_name: elk-${ENVIRONMENT}
     ports:
       - "9200:9200"
       - "9300:9300"
@@ -34,7 +34,7 @@ services:
       context: logstash
       args:
         ELK_VERSION: ${ELK_VERSION}
-    container_name: logstash-${ENVIROMENT}
+    container_name: logstash-${ENVIRONMENT}
     volumes:
       - type: bind
         source: ./logstash/config/logstash.yml
@@ -56,9 +56,9 @@ services:
       context: kibana
       args:
         ELK_VERSION: ${ELK_VERSION}
-    container_name: kibana-${ENVIROMENT}
+    container_name: kibana-${ENVIRONMENT}
     environment:
-      - "ELASTICSEARCH_HOSTS=http://elk-${ENVIROMENT}:9200"
+      - "ELASTICSEARCH_HOSTS=http://elk-${ENVIRONMENT}:9200"
     volumes:
       - type: bind
         source: ./kibana/config/kibana.yml
@@ -72,23 +72,23 @@ services:
     labels:
       #### Labels define the behavior and rules of the traefik proxy for this container ####
       - "traefik.enable=true" # <== Enable traefik to proxy this container
-      - "traefik.http.routers.${ENVIROMENT}-elk.rule=Host(`elastic.${SUBDOMAIN}${DOMAIN}`)" # <== Your Domain Name goes here for the http rule
-      - "traefik.http.routers.${ENVIROMENT}-elk.entrypoints=web" # <== Defining the entrypoint for http, **ref: line 30
-      - "traefik.http.routers.${ENVIROMENT}-elk.middlewares=redirect@file" # <== This is a middleware to redirect to https
-      - "traefik.http.routers.${ENVIROMENT}-elk-secured.rule=Host(`elastic.${SUBDOMAIN}${DOMAIN}`)" # <== Your Domain Name for the https rule
-      - "traefik.http.routers.${ENVIROMENT}-elk-secured.entrypoints=web-secured" # <== Defining entrypoint for https, **ref: line 31
-      - "traefik.http.routers.${ENVIROMENT}-elk-secured.tls.certresolver=mytlschallenge" # <== Defining certsresolvers for https
-      - "traefik.http.services.${ENVIROMENT}-elk-secured.loadbalancer.server.port=5601"
+      - "traefik.http.routers.${ENVIRONMENT}-elk.rule=Host(`elastic.${SUBDOMAIN}${DOMAIN}`)" # <== Your Domain Name goes here for the http rule
+      - "traefik.http.routers.${ENVIRONMENT}-elk.entrypoints=web" # <== Defining the entrypoint for http, **ref: line 30
+      - "traefik.http.routers.${ENVIRONMENT}-elk.middlewares=redirect@file" # <== This is a middleware to redirect to https
+      - "traefik.http.routers.${ENVIRONMENT}-elk-secured.rule=Host(`elastic.${SUBDOMAIN}${DOMAIN}`)" # <== Your Domain Name for the https rule
+      - "traefik.http.routers.${ENVIRONMENT}-elk-secured.entrypoints=web-secured" # <== Defining entrypoint for https, **ref: line 31
+      - "traefik.http.routers.${ENVIRONMENT}-elk-secured.tls.certresolver=mytlschallenge" # <== Defining certsresolvers for https
+      - "traefik.http.services.${ENVIRONMENT}-elk-secured.loadbalancer.server.port=5601"
 
 networks:
   elasticsearch:
     internal: true
-    name: elk-${ENVIROMENT}
+    name: elk-${ENVIRONMENT}
   proxy-net:
     external:
       name: proxy-net
 
 volumes:
   elasticsearch:
-    name: elk-${ENVIROMENT}
+    name: elk-${ENVIRONMENT}
 

@@ -18,6 +18,7 @@ from ted_sws.notice_packager.model.metadata import ACTION_CREATE
 from tempfile import TemporaryDirectory
 from pathlib import Path
 import base64
+from typing import List
 
 ARCHIVE_NAME_FORMAT = "eProcurement_notice_{notice_id}.zip"
 FILE_METS_XML_FORMAT = "{notice_id}-0.mets.xml.dmd.rdf"
@@ -32,8 +33,8 @@ def __write_template_to_file(file_path, template_generator, template_metadata, m
         file.close()
 
 
-def create_notice_package(notice_metadata: ExtractedMetadata, action: str = ACTION_CREATE,
-                          save_to_file: bool = False) -> str:
+def create_notice_package(notice_metadata: ExtractedMetadata, additional_files: List[Path] = [],
+                          action: str = ACTION_CREATE, save_to_file: bool = False) -> str:
     archiver = ArchiverFactory.get_archiver(ARCHIVE_ZIP_FORMAT)
     metadata_transformer = MetadataTransformer(notice_metadata)
     template_metadata = metadata_transformer.template_metadata(action=action)
@@ -58,7 +59,7 @@ def create_notice_package(notice_metadata: ExtractedMetadata, action: str = ACTI
         file_mets_xml_dmd_rdf,
         file_tmd_rdf,
         file_mets2action_mets_xml
-    ]
+    ] + additional_files
 
     archive_name = ARCHIVE_NAME_FORMAT.format(notice_id=notice_id)
     archive_path = tmp_dir_path / archive_name

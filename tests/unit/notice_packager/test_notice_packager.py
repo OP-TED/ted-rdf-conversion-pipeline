@@ -24,7 +24,7 @@ def test_notice_packager(notice_sample_metadata):
 
 
 def test_notice_packager_with_create_action(notice_sample_metadata):
-    encoded_package_content = create_notice_package(notice_sample_metadata, ACTION_CREATE)
+    encoded_package_content = create_notice_package(notice_sample_metadata, action=ACTION_CREATE)
     assert encoded_package_content is not None
 
     raw_package_content = base64.b64decode(encoded_package_content)
@@ -32,7 +32,7 @@ def test_notice_packager_with_create_action(notice_sample_metadata):
 
 
 def test_notice_packager_with_update_action(notice_sample_metadata):
-    encoded_package_content = create_notice_package(notice_sample_metadata, ACTION_UPDATE)
+    encoded_package_content = create_notice_package(notice_sample_metadata, action=ACTION_UPDATE)
     assert encoded_package_content is not None
 
     raw_package_content = base64.b64decode(encoded_package_content)

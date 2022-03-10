@@ -6,9 +6,9 @@
 # Email: kalean.bl@gmail.com
 
 """
-This module provides template generators for all needed package templates,
-that must be uploaded.
+This module provides template generators for all needed package templates.
 """
+
 from . import TEMPLATES
 from ted_sws.notice_packager.model.metadata import validate_notice_action_type
 from typing import Dict

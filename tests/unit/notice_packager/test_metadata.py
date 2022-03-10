@@ -12,7 +12,7 @@ from ted_sws.notice_packager.model.metadata import PackagerMetadata, NoticeMetad
     ManifestationMetadata
 
 
-def test_validate_notice_metadata(template_sample_notice):
+def test_validate_notice(template_sample_notice):
     NoticeMetadata(**template_sample_notice)
 
 

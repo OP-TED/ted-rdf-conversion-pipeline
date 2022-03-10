@@ -6,7 +6,7 @@
 # Email: kalean.bl@gmail.com
 
 """
-This module provides transformers of notice metadata (original or normalized)
+This module provides transformers for notice metadata (original or normalized)
 into data structures needed to render the templates.
 This transformed metadata is what adapters expect.
 """

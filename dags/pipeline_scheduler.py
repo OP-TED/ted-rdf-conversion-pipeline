@@ -27,10 +27,11 @@ def pipeline_scheduler():
     @task
     def trigger_notice_fetcher():
         context = get_current_context()
+        fetch_time_filter = "WILD_CARD" #TODO: generate wild_card by current date
         TriggerDagRunOperator(
             task_id='trigger_worker_dag_1',
             trigger_dag_id="notice_fetcher_master",
-            conf={"fetch_time_filter": "hello STEFAN"}
+            conf={"fetch_time_filter": fetch_time_filter}
         ).execute(context = context['dag_run'])
 
     trigger_notice_fetcher()

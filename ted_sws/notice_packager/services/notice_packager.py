@@ -26,6 +26,12 @@ FILE_TMD_FORMAT = "techMDID001.tmd.rdf"
 FILE_OPEN_MODE = 'x'
 
 
+def __write_template_to_file(file_path, template_generator, template_metadata, mode: str = FILE_OPEN_MODE):
+    with open(file_path, mode) as file:
+        file.write(template_generator(template_metadata))
+        file.close()
+
+
 def create_notice_package(notice_metadata: ExtractedMetadata, action: str = ACTION_CREATE,
                           save_to_file: bool = False) -> str:
     archiver = ArchiverFactory.get_archiver(ARCHIVE_ZIP_FORMAT)
@@ -39,19 +45,14 @@ def create_notice_package(notice_metadata: ExtractedMetadata, action: str = ACTI
     tmp_dir_path = Path(tmp_dir.name)
 
     file_mets_xml_dmd_rdf = tmp_dir_path / FILE_METS_XML_FORMAT.format(notice_id=notice_id)
-    with open(file_mets_xml_dmd_rdf, FILE_OPEN_MODE) as file:
-        file.write(TemplateGenerator.mets_xml_dmd_rdf_generator(template_metadata))
-        file.close()
+    __write_template_to_file(file_mets_xml_dmd_rdf, TemplateGenerator.mets_xml_dmd_rdf_generator, template_metadata)
 
     file_tmd_rdf = tmp_dir_path / FILE_TMD_FORMAT.format()
-    with open(file_tmd_rdf, FILE_OPEN_MODE) as file:
-        file.write(TemplateGenerator.tmd_rdf_generator(template_metadata))
-        file.close()
+    __write_template_to_file(file_tmd_rdf, TemplateGenerator.tmd_rdf_generator, template_metadata)
 
     file_mets2action_mets_xml = tmp_dir_path / FILE_METS_ACTION_FORMAT.format(notice_id=notice_id, action=notice_action)
-    with open(file_mets2action_mets_xml, FILE_OPEN_MODE) as file:
-        file.write(TemplateGenerator.mets2action_mets_xml_generator(template_metadata))
-        file.close()
+    __write_template_to_file(file_mets2action_mets_xml, TemplateGenerator.mets2action_mets_xml_generator,
+                             template_metadata)
 
     files = [
         file_mets_xml_dmd_rdf,

@@ -13,7 +13,6 @@ from typing import Dict
 
 from tests import TEST_DATA_PATH
 
-from ted_sws.domain.model.manifestation import XMLManifestation
 from ted_sws.metadata_normaliser.model.metadata import ExtractedMetadata
 from ted_sws.metadata_normaliser.services.xml_manifestation_metadata_extractor import XMLManifestationMetadataExtractor
 
@@ -51,12 +50,10 @@ def template_sample_manifestation(template_sample_metadata) -> Dict:
 # notice_metadata START
 
 @pytest.fixture()
-def notice_sample_metadata() -> ExtractedMetadata:
-    notice_content = (TEST_DATA_PATH / "notice_packager" / "notice.xml").read_text(encoding="utf-8")
-    xml_manifestation = XMLManifestation(object_data=notice_content)
-    extracted_metadata = XMLManifestationMetadataExtractor(xml_manifestation=xml_manifestation).to_metadata()
+def notice_sample_metadata(notice_2018) -> ExtractedMetadata:
+    extracted_metadata = XMLManifestationMetadataExtractor(
+        xml_manifestation=notice_2018.xml_manifestation).to_metadata()
 
     return extracted_metadata
 
 # notice_metadata END
-

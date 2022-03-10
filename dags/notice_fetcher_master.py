@@ -44,7 +44,7 @@ def notice_fetcher_master():
             mongodb_client = MongoClient(config.MONGO_DB_AUTH_URL)
             NoticeFetcher(notice_repository=NoticeRepository(mongodb_client=mongodb_client),
                           ted_api_adapter=TedAPIAdapter(request_api=TedRequestAPI())).fetch_notices_by_date_wild_card(
-                wildcard_date="20220203*")
+                wildcard_date=key) #"20220203*"
         else:
             print(f"The key={key} is not present in context")
 

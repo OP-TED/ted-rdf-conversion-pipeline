@@ -83,7 +83,7 @@ class VaultConfigResolver(ConfigResolverABC):
         return value
 
 
-class VaultAndEnvConfigResolver(EnvConfigResolver):
+class VaultAndEnvConfigResolver(ConfigResolverABC):
     """
         This class aims to combine the search for configurations in Vault secrets and environmental variables.
     """
@@ -97,7 +97,7 @@ class VaultAndEnvConfigResolver(EnvConfigResolver):
             os.environ[config_name] = str(value)
             return value
         else:
-            value = super()._config_resolve(config_name, default_value)
+            value = EnvConfigResolver._config_resolve(config_name, default_value)
             logger.debug(
                 "[VAULT&ENV] Value of '" + str(config_name) + "' is " + str(value) + "(supplied default is '" + str(
                     default_value) + "')")

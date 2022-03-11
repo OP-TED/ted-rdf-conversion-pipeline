@@ -17,7 +17,6 @@ from tests.fakes.fake_repository import FakeNoticeRepository
 def notice_id():
     return "067623-2022"
 
-
 @pytest.fixture
 def notice_repository():
     return FakeNoticeRepository()

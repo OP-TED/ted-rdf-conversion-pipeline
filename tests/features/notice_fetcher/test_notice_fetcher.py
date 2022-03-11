@@ -22,34 +22,31 @@ def step_impl(notice_search_query):
     return notice_search_query
 
 
-@when("call to the API is made", target_fixture="api_call")
-def step_impl(notice_search_query, api_end_point, fake_notice_storage):
-    NoticeFetcher(notice_repository=fake_notice_storage,
-        ted_api_adapter=TedAPIAdapter(request_api=TedRequestAPI(), ted_api_url=api_end_point)).fetch_notices_by_query(
+@when("call to the API is made", target_fixture="notice_storage")
+def step_impl(notice_search_query, api_end_point, notice_storage):
+    NoticeFetcher(notice_repository=notice_storage,
+                  ted_api_adapter=TedAPIAdapter(request_api=TedRequestAPI(), ted_api_url=api_end_point)).fetch_notices_by_query(
         query=notice_search_query)
-    return [fake_notice_storage.get(reference=reference) for reference in fake_notice_storage.list()]
+    return notice_storage
 
 
-@then("a notice and notice metadata is received from the API", target_fixture="fake_notice_storage")
-def step_impl(api_call, fake_notice_storage):
-    # TODO remove target fixture and fake notice storage from this step when notice fetcher will have the
-    #  storage facility added
-    assert isinstance(api_call, list)
-    assert len(api_call) > 0
-    notice = api_call[0]
+@then("a notice and notice metadata is received from the API", target_fixture="notice_storage")
+def step_impl(notice_storage):
+    notices = list(notice_storage.list())
+    assert isinstance(notices, list)
+    assert len(notices) > 0
+    notice = notices[0]
     assert isinstance(notice, Notice)
     assert notice.xml_manifestation
     assert notice.original_metadata
-    fake_notice_storage.add(notice)
-    return fake_notice_storage
+    return notice_storage
 
 
 @then("the notice and notice metadata are stored")
-def step_impl(fake_notice_storage, notice_identifier):
-    # TODO replace fake notice storage with real one when it is available
-    assert fake_notice_storage.get(reference=notice_identifier)
-    assert fake_notice_storage.get(reference=notice_identifier).original_metadata
-    assert fake_notice_storage.get(reference=notice_identifier).xml_manifestation
+def step_impl(notice_storage, notice_identifier):
+    assert notice_storage.get(reference=notice_identifier)
+    assert notice_storage.get(reference=notice_identifier).original_metadata
+    assert notice_storage.get(reference=notice_identifier).xml_manifestation
 
 
 @scenario('test_notice_fetcher.feature', 'Fail to fetch a TED notice')
@@ -63,18 +60,17 @@ def step_impl(notice_incorrect_search_query):
 
 
 @when("the call to the API is made", target_fixture="api_call_message")
-def step_impl(notice_incorrect_search_query, api_end_point,fake_notice_storage):
+def step_impl(notice_incorrect_search_query, api_end_point, notice_storage):
     with pytest.raises(Exception) as e:
-        NoticeFetcher(notice_repository=fake_notice_storage,
-            ted_api_adapter=TedAPIAdapter(request_api=TedRequestAPI(), ted_api_url=api_end_point)).fetch_notices_by_query(
+        NoticeFetcher(notice_repository=notice_storage,
+                      ted_api_adapter=TedAPIAdapter(request_api=TedRequestAPI(), ted_api_url=api_end_point)).fetch_notices_by_query(
             query=notice_incorrect_search_query)
     return e
 
 
 @when("no notice or metadata is returned")
-def step_impl(fake_notice_storage, notice_identifier):
-    # TODO replace fake notice storage with real one when is available
-    assert fake_notice_storage.get(notice_identifier) is None
+def step_impl(notice_storage, notice_identifier):
+    assert notice_storage.get(notice_identifier) is None
 
 
 @then("an error message is received indicating the problem")

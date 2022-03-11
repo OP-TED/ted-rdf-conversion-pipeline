@@ -169,6 +169,7 @@ services:
     restart: unless-stopped
     networks:
       - airflow
+      - airflow-ext
     depends_on:
       <<: *airflow-common-depends-on
       airflow-init:
@@ -186,6 +187,7 @@ services:
     restart: unless-stopped
     networks:
       - airflow
+      - airflow-ext
     depends_on:
       <<: *airflow-common-depends-on
       airflow-init:
@@ -306,6 +308,10 @@ networks:
   airflow:
     internal: true
     name: airflow-${ENVIRONMENT}
+  networks:
+  airflow-ext:
+    external:
+      name: airflow-ext-${ENVIRONMENT}
   proxy-net:
     external:
       name: proxy-net

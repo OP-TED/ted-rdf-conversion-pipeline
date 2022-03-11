@@ -7,10 +7,12 @@
 
 """ """
 
+import pytest
 import base64
+import os
 from ted_sws.notice_packager.model.metadata import ACTION_CREATE, ACTION_UPDATE
-
 from ted_sws.notice_packager.services.notice_packager import create_notice_package
+from tests import TEST_DATA_PATH
 
 
 def test_notice_packager(notice_sample_metadata):
@@ -37,3 +39,76 @@ def test_notice_packager_with_update_action(notice_sample_metadata):
 
     raw_package_content = base64.b64decode(encoded_package_content)
     assert b'mets2update.mets.xml' in raw_package_content
+
+
+def test_notice_packager_with_wrong_input_data_type(notice_sample_metadata):
+    input_data = 123  # wrong input_data type
+    with pytest.raises(TypeError):
+        create_notice_package(input_data)
+
+
+def test_notice_packager_with_notice(notice_2018):
+    encoded_package_content = create_notice_package(notice_2018)
+    assert encoded_package_content is not None
+
+
+def test_notice_packager_with_notice_id():
+    notice_id = 'fake-notice-id'
+    encoded_package_content = create_notice_package(notice_id)
+    assert encoded_package_content is not None
+
+
+def test_notice_packager_with_extra_files(notice_2018):
+    encoded_package_content = create_notice_package(
+        notice_2018,
+        extra_files=[
+            TEST_DATA_PATH / "notice_packager" / "notice.xml"
+        ]
+    )
+    assert encoded_package_content is not None
+
+
+def test_notice_packager_with_rdf_content(notice_2018, rdf_content):
+    encoded_package_content = create_notice_package(
+        notice_2018,
+        rdf_content=base64.b64encode(bytes(rdf_content, 'utf-8'))
+    )
+    assert encoded_package_content is not None
+
+    encoded_package_content = create_notice_package(
+        notice_2018,
+        rdf_content=str(base64.b64encode(bytes(rdf_content, 'utf-8')), 'utf-8')
+    )
+    assert encoded_package_content is not None
+
+
+def test_notice_packager_with_save_to(notice_sample_metadata, rdf_content):
+    package_path = create_notice_package(
+        notice_sample_metadata,
+        save_to=TEST_DATA_PATH / "notice_packager" / "packages" / "fake-archive.zip"
+    )
+    assert os.path.exists(package_path)
+    os.remove(package_path)
+
+    package_path = create_notice_package(
+        notice_sample_metadata,
+        save_to=TEST_DATA_PATH / "notice_packager" / "packages"
+    )
+    assert os.path.exists(package_path)
+    os.remove(package_path)
+
+    package_path = create_notice_package(
+        notice_sample_metadata,
+        rdf_content=base64.b64encode(bytes(rdf_content, 'utf-8')),
+        save_to=TEST_DATA_PATH / "notice_packager" / "packages" / "fake-rdf.zip"
+    )
+    assert os.path.exists(package_path)
+    os.remove(package_path)
+
+    package_path = create_notice_package(
+        notice_sample_metadata,
+        save_to=""
+    )
+    assert package_path is not None
+
+

@@ -23,7 +23,7 @@ ARCHIVE_MODE_APPEND = 'a'
 ARCHIVE_MODE = ARCHIVE_MODE_WRITE
 
 PATH_TYPE = Union[Path, str]
-LIST_TYPE = Union[List[Path], List[str]]
+LIST_TYPE = List[PATH_TYPE]
 
 
 class ArchiverABC(abc.ABC):

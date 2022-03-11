@@ -1,4 +1,4 @@
-from typing import List
+from typing import Iterator
 
 from ted_sws.domain.adapters.repository_abc import NoticeRepositoryABC
 from ted_sws.domain.model.notice import Notice
@@ -23,6 +23,14 @@ class FakeNoticeRepository(NoticeRepositoryABC):
         """
         self.repository[notice.ted_id] = notice
 
+    def update(self, notice: Notice):
+        """
+            This method allows you to update notice objects to the repository.
+        :param notice:
+        :return:
+        """
+        self.repository[notice.ted_id] = notice
+
     def get(self, reference) -> Notice:
         """
             This method allows a notice to be obtained based on an identification reference.
@@ -34,9 +42,9 @@ class FakeNoticeRepository(NoticeRepositoryABC):
 
         return None
 
-    def list(self) -> List[str]:
+    def list(self) -> Iterator[Notice]:
         """
             This method allows all records to be retrieved from the repository.
         :return:
         """
-        return list(self.repository.keys())
+        return list(self.repository.values())

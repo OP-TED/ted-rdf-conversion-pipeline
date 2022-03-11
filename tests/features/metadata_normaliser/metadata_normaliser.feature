@@ -2,15 +2,30 @@
 Feature: Notice metadata normalizer
   A fetched notice metadata should be normalized
 
-  Scenario: Normalizing a notice metadata
+  Scenario Outline: Normalizing a notice metadata
     Given a notice
-    And a normalizing process
     When the normalize process is executed
-    Then a normalized notice metadata is available
+    Then a normalized notice <metadata> is <possibly> available
+    And the notice status is NORMALISED_METADATA
+    And normalised metadata is available
 
-  Scenario: Failing to normalize a notice metadata
-    Given a notice
-    And a normalizing process
-    When the normalize process is executed
-    And no normalized notice metadata is available
-    Then an error message is generated indicating the problem
+    Examples:
+      | metadata                  | possibly |
+      | title                     | True     |
+      | long_title                | True     |
+      | notice_publication_number | True     |
+      | publication_date          | True     |
+      | ojs_issue_number          | True     |
+      | ojs_type                  | True     |
+      | city_of_buyer             | False    |
+      | name_of_buyer             | False    |
+      | original_language         | False    |
+      | country_of_buyer          | False    |
+      | eu_institution            | False    |
+      | document_sent_date        | False    |
+      | deadline_for_submission   | False    |
+      | notice_type               | True     |
+      | form_type                 | True     |
+      | place_of_performance      | True     |
+      | legal_basis_directive     | True     |
+

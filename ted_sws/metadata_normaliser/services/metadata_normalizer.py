@@ -2,7 +2,31 @@ import abc
 
 from ted_sws.domain.model.metadata import NormalisedMetadata
 from ted_sws.domain.model.notice import Notice
+from ted_sws.metadata_normaliser.model.metadata import ExtractedMetadata
 from ted_sws.metadata_normaliser.services.xml_manifestation_metadata_extractor import XMLManifestationMetadataExtractor
+
+
+def normalise_notice(notice: Notice) -> Notice:
+    """
+        Given a notice object, normalise metadata and return the updated object
+    :param notice:
+    :return:
+    """
+    extracted_metadata = XMLManifestationMetadataExtractor(
+        xml_manifestation=notice.xml_manifestation).to_metadata()
+    normalised_metadata = ExtractedMetadataNormaliser(extracted_metadata).to_metadata()
+    notice.set_normalised_metadata(normalised_metadata)
+    return notice
+
+
+def normalise_notice_by_id(notice_id: str, notice_repository):
+    """
+        Given a notice id, find the notice in the database, normalise its metadata, and store the updated state.
+    :param notice_id:
+    :return:
+    """
+    # TODO:
+    # find
 
 
 class MetadataNormaliserABC(abc.ABC):
@@ -36,3 +60,17 @@ class MetadataNormaliser(MetadataNormaliserABC):
         # TODO delete this when the nomalised meatdata strucuture is defined
         metadata["title"] = metadata["title"][0]['title'].text
         self.notice.set_normalised_metadata(normalised_metadata=NormalisedMetadata(**metadata))
+
+
+class ExtractedMetadataNormaliser:
+
+    def __init__(self, extracted_metadata: ExtractedMetadata):
+        # TODO:
+        ...
+
+    def to_metadata(self) -> NormalisedMetadata:
+        """
+            Generate the normalised metadata
+        :return:
+        """
+        ...

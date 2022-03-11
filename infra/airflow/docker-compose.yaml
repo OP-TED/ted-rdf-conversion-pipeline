@@ -61,11 +61,11 @@ x-airflow-common:
     VAULT_ADDR: ${VAULT_ADDR}
   volumes:
 #    - ./config/airflow.cfg:/opt/airflow/airflow.cfg
-    - ./.env:/opt/airflow/.env
-    - ./dags:/opt/airflow/dags
-    - ./logs:/opt/airflow/logs
-    - ./plugins:/opt/airflow/plugins
-    - ./ted_xml_2_rdf:/opt/airflow/ted_sws
+    - ${AIRFLOW_INFRA_FOLDER}/.env:/opt/airflow/.env
+    - ${AIRFLOW_INFRA_FOLDER}/dags:/opt/airflow/dags
+    - ${AIRFLOW_INFRA_FOLDER}/logs:/opt/airflow/logs
+    - ${AIRFLOW_INFRA_FOLDER}/plugins:/opt/airflow/plugins
+    - ${AIRFLOW_INFRA_FOLDER}/ted_sws:/opt/airflow/ted_sws
   user: "${AIRFLOW_UID:-50000}:0"
   command: bash -c "export PYTHONPATH='/opt/airflow/'"
   depends_on:
@@ -78,7 +78,7 @@ x-airflow-common:
 services:
   postgres:
     image: postgres:13
-    container_name: postgres-airflow-${ENVIROMENT}
+    container_name: postgres-airflow-${ENVIRONMENT}
     environment:
       POSTGRES_USER: airflow
       POSTGRES_PASSWORD: airflow
@@ -95,7 +95,7 @@ services:
 
   redis:
     image: redis:latest
-    container_name: redis-airflow-${ENVIROMENT}
+    container_name: redis-airflow-${ENVIRONMENT}
     expose:
       - 6379
     healthcheck:
@@ -109,7 +109,7 @@ services:
 
   airflow-webserver:
     <<: *airflow-common
-    container_name: airflow-webserver-${ENVIROMENT}
+    container_name: airflow-webserver-${ENVIRONMENT}
     command: webserver
     restart: unless-stopped
     networks:
@@ -118,14 +118,14 @@ services:
     labels:
       #### Labels define the behavior and rules of the traefik proxy for this container ####
       - "traefik.enable=true" # <== Enable traefik to proxy this container
-      - "traefik.http.routers.${ENVIROMENT}-airflow.rule=Host(`airflow.${SUBDOMAIN}${DOMAIN}`)" # <== Your Domain Name goes here for the http rule
-      - "traefik.http.routers.${ENVIROMENT}-airflow.entrypoints=web" # <== Defining the entrypoint for http, **ref: line 30
+      - "traefik.http.routers.${ENVIRONMENT}-airflow.rule=Host(`airflow.${SUBDOMAIN}${DOMAIN}`)" # <== Your Domain Name goes here for the http rule
+      - "traefik.http.routers.${ENVIRONMENT}-airflow.entrypoints=web" # <== Defining the entrypoint for http, **ref: line 30
 
       - "traefik.http.routers.airflow.middlewares=redirect@file" # <== This is a middleware to redirect to https
-      - "traefik.http.routers.${ENVIROMENT}-airflow-secured.rule=Host(`airflow.${SUBDOMAIN}${DOMAIN}`)" # <== Your Domain Name for the https rule
-      - "traefik.http.routers.${ENVIROMENT}-airflow-secured.entrypoints=web-secured" # <== Defining entrypoint for https, **ref: line 31
-      - "traefik.http.routers.${ENVIROMENT}-airflow-secured.tls.certresolver=mytlschallenge" # <== Defining certsresolvers for https
-      - "traefik.http.services.${ENVIROMENT}-airflow-secured.loadbalancer.server.port=8080"
+      - "traefik.http.routers.${ENVIRONMENT}-airflow-secured.rule=Host(`airflow.${SUBDOMAIN}${DOMAIN}`)" # <== Your Domain Name for the https rule
+      - "traefik.http.routers.${ENVIRONMENT}-airflow-secured.entrypoints=web-secured" # <== Defining entrypoint for https, **ref: line 31
+      - "traefik.http.routers.${ENVIRONMENT}-airflow-secured.tls.certresolver=mytlschallenge" # <== Defining certsresolvers for https
+      - "traefik.http.services.${ENVIRONMENT}-airflow-secured.loadbalancer.server.port=8080"
 
     depends_on:
       <<: *airflow-common-depends-on
@@ -137,7 +137,7 @@ services:
 
   airflow-scheduler:
     <<: *airflow-common
-    container_name: airflow-scheduler-${ENVIROMENT}
+    container_name: airflow-scheduler-${ENVIRONMENT}
     command: scheduler
     healthcheck:
       test: ["CMD-SHELL", 'airflow jobs check --job-type SchedulerJob --hostname "$${HOSTNAME}"']
@@ -154,7 +154,7 @@ services:
 
   airflow-worker:
     <<: *airflow-common
-    container_name: airflow-worker-${ENVIROMENT}
+    container_name: airflow-worker-${ENVIRONMENT}
     command: celery worker
     healthcheck:
       test: ["CMD-SHELL",'celery --app airflow.executors.celery_executor.app inspect ping -d "celery@$${HOSTNAME}"']
@@ -176,7 +176,7 @@ services:
 
   airflow-triggerer:
     <<: *airflow-common
-    container_name: airflow-triggerer-${ENVIROMENT}
+    container_name: airflow-triggerer-${ENVIRONMENT}
     command: triggerer
     healthcheck:
       test: ["CMD-SHELL", 'airflow jobs check --job-type TriggererJob --hostname "$${HOSTNAME}"']
@@ -287,7 +287,7 @@ services:
 
   flower:
     <<: *airflow-common
-    container_name: airflow-flower-${ENVIROMENT}
+    container_name: airflow-flower-${ENVIRONMENT}
     command: celery flower
     restart: unless-stopped
     networks:
@@ -301,13 +301,13 @@ services:
 
 volumes:
   postgres-db-volume:
-    name: airflow-${ENVIROMENT}
+    name: airflow-${ENVIRONMENT}
 
 
 networks:
   airflow:
     internal: true
-    name: airflow-${ENVIROMENT}
+    name: airflow-${ENVIRONMENT}
   proxy-net:
     external:
       name: proxy-net

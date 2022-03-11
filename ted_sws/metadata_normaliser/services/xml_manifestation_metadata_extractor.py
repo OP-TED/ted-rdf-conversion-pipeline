@@ -1,4 +1,3 @@
-from typing import List
 import xml.etree.ElementTree as ET
 from io import StringIO
 
@@ -8,41 +7,9 @@ from ted_sws.metadata_normaliser.model.metadata import ExtractedMetadata, Langua
 from ted_sws.metadata_normaliser.services.xpath_registry import XpathRegistry
 
 
-def extract_text_from_element(element: ET.Element) -> str:
-    """
-    Extract text from an element in the XML structure
-    :param element:
-    :return: str
-    """
-    if element is not None:
-        return element.text
-
-
-def extract_attribute_from_element(element: ET.Element, attrib_key: str) -> str:
-    """
-    Extract attribute value from an element in the XML structure
-    :param element:
-    :param attrib_key:
-    :return:
-    """
-    if element is not None:
-        return element.attrib[attrib_key]
-
-
-def extract_code_and_value_from_element(element: ET.Element) -> EncodedValue:
-    """
-    Extract code attribute and text values from an element in the XML structure
-    :param element:
-    :return:
-    """
-    if element is not None:
-        return EncodedValue(code=extract_attribute_from_element(element=element, attrib_key="CODE"),
-                            value=extract_text_from_element(element=element))
-
-
 class XMLManifestationMetadataExtractor:
     """
-      Extracting metadata from xml manifestation
+      Extracts metadata from an XML manifestation.
     """
 
     def __init__(self, xml_manifestation: XMLManifestation):
@@ -277,3 +244,35 @@ class XMLManifestationMetadataExtractor:
             namespaces.update({"nuts": "no_nuts"})
 
         return namespaces
+
+
+def extract_text_from_element(element: ET.Element) -> str:
+    """
+    Extract text from an element in the XML structure
+    :param element:
+    :return: str
+    """
+    if element is not None:
+        return element.text
+
+
+def extract_attribute_from_element(element: ET.Element, attrib_key: str) -> str:
+    """
+    Extract attribute value from an element in the XML structure
+    :param element:
+    :param attrib_key:
+    :return:
+    """
+    if element is not None:
+        return element.attrib[attrib_key]
+
+
+def extract_code_and_value_from_element(element: ET.Element) -> EncodedValue:
+    """
+    Extract code attribute and text values from an element in the XML structure
+    :param element:
+    :return:
+    """
+    if element is not None:
+        return EncodedValue(code=extract_attribute_from_element(element=element, attrib_key="CODE"),
+                            value=extract_text_from_element(element=element))

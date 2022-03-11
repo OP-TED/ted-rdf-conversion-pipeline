@@ -1,6 +1,6 @@
 class XpathRegistry:
     """
-    Holds xpath's to the elements necessary to extract metadata from XML manifestation
+        Holds xpath's to the elements necessary to extract metadata from XML manifestation
     """
 
     @property

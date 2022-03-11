@@ -310,7 +310,7 @@ networks:
     name: airflow-${ENVIRONMENT}
   networks:
   airflow-ext:
-    external:
+    internal: false
       name: airflow-ext-${ENVIRONMENT}
   proxy-net:
     external:

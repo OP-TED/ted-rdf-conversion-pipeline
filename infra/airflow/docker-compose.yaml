@@ -169,6 +169,7 @@ services:
     restart: unless-stopped
     networks:
       - airflow
+      - airflow-ext
     depends_on:
       <<: *airflow-common-depends-on
       airflow-init:
@@ -186,6 +187,7 @@ services:
     restart: unless-stopped
     networks:
       - airflow
+      - airflow-ext
     depends_on:
       <<: *airflow-common-depends-on
       airflow-init:
@@ -254,8 +256,6 @@ services:
           echo "   https://airflow.apache.org/docs/apache-airflow/stable/start/docker.html#before-you-begin"
           echo
         fi
-        mkdir -p /sources/logs /sources/dags /sources/plugins
-        chown -R "${AIRFLOW_UID}:0" /sources/{logs,dags,plugins}
         exec /entrypoint airflow version
     # yamllint enable rule:line-length
     environment:
@@ -308,6 +308,10 @@ networks:
   airflow:
     internal: true
     name: airflow-${ENVIRONMENT}
+  networks:
+  airflow-ext:
+    internal: false
+    name: airflow-ext-${ENVIRONMENT}
   proxy-net:
     external:
       name: proxy-net

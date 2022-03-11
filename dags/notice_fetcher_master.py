@@ -15,7 +15,6 @@ from ted_sws.data_manager.adapters.notice_repository import NoticeRepository
 from ted_sws.notice_fetcher.adapters.ted_api import TedAPIAdapter, TedRequestAPI
 from ted_sws.notice_fetcher.services.notice_fetcher import NoticeFetcher
 
-
 @dag(default_args=DEFAULT_DAG_ARGUMENTS, tags=['master', 'notice-fetcher'])
 def notice_fetcher_master():
     @task
@@ -28,7 +27,7 @@ def notice_fetcher_master():
             mongodb_client = MongoClient(config.MONGO_DB_AUTH_URL)
             NoticeFetcher(notice_repository=NoticeRepository(mongodb_client=mongodb_client),
                           ted_api_adapter=TedAPIAdapter(request_api=TedRequestAPI())).fetch_notices_by_date_wild_card(
-                wildcard_date=key) #"20220203*"
+                wildcard_date=dag_conf[key]) #"20220203*"
         else:
             print(f"The key={key} is not present in context")
 
@@ -45,9 +44,10 @@ def notice_fetcher_master():
                 task_id=f'trigger_worker_dag_{notice.ted_id}',
                 trigger_dag_id="document_proc_pipeline",
                 conf={"notice_id": notice.ted_id}
-            ).execute(context=context['dag_run'])
+            ).execute(context=context)
 
     fetch_notice_from_ted()
+    trigger_document_proc_pipeline()
 
 
 etl_dag = notice_fetcher_master()

@@ -1,8 +1,16 @@
+import sys
+
+
+
+sys.path.append("/opt/airflow/")
+sys.path = list(set(sys.path))
+import os
+os.chdir("/opt/airflow/")
+
 from airflow.decorators import dag, task
 from airflow.operators.python import get_current_context
 
 from dags import DEFAULT_DAG_ARGUMENTS
-
 
 @dag(default_args=DEFAULT_DAG_ARGUMENTS, tags=['worker', 'pipeline'])
 def document_proc_pipeline():

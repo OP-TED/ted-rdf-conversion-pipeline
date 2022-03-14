@@ -30,7 +30,7 @@ class MetadataTransformer:
         return metadata
 
     @classmethod
-    def __normalize_value(cls, value: str) -> str:
+    def normalize_value(cls, value: str) -> str:
         return value.replace('-', NORM_SEP)
 
     @classmethod
@@ -45,7 +45,7 @@ class MetadataTransformer:
         metadata = PackagerMetadata()
 
         # NOTICE
-        metadata.notice.id = cls.__normalize_value(notice_metadata.notice_publication_number)
+        metadata.notice.id = cls.normalize_value(notice_metadata.notice_publication_number)
 
         # WORK
         metadata.work.uri = f"{BASE_WORK}{cls.__year(metadata)}/{metadata.notice.id}"

@@ -112,5 +112,3 @@ def test_notice_packager_with_save_to(notice_sample_metadata, rdf_content):
         save_to=""
     )
     assert package_path is not None
-
-

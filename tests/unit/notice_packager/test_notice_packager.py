@@ -69,15 +69,16 @@ def test_notice_packager_with_extra_files(notice_2018):
 
 
 def test_notice_packager_with_rdf_content(notice_2018, rdf_content):
+    encoded_rdf_content = base64.b64encode(bytes(rdf_content, 'utf-8'))
     encoded_package_content = create_notice_package(
         notice_2018,
-        rdf_content=base64.b64encode(bytes(rdf_content, 'utf-8'))
+        rdf_content=encoded_rdf_content
     )
     assert encoded_package_content is not None
 
     encoded_package_content = create_notice_package(
         notice_2018,
-        rdf_content=str(base64.b64encode(bytes(rdf_content, 'utf-8')), 'utf-8')
+        rdf_content=str(encoded_rdf_content, 'utf-8')
     )
     assert encoded_package_content is not None
 
@@ -97,9 +98,10 @@ def test_notice_packager_with_save_to(notice_sample_metadata, rdf_content):
     assert os.path.exists(package_path)
     os.remove(package_path)
 
+    encoded_rdf_content = base64.b64encode(bytes(rdf_content, 'utf-8'))
     package_path = create_notice_package(
         notice_sample_metadata,
-        rdf_content=base64.b64encode(bytes(rdf_content, 'utf-8')),
+        rdf_content=encoded_rdf_content,
         save_to=TEST_DATA_PATH / "notice_packager" / "packages" / "fake-rdf.zip"
     )
     assert os.path.exists(package_path)

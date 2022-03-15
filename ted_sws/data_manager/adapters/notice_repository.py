@@ -1,7 +1,7 @@
 from typing import Iterator
 from pymongo import MongoClient
 from ted_sws.domain.adapters.repository_abc import NoticeRepositoryABC
-from ted_sws.domain.model.notice import Notice
+from ted_sws.domain.model.notice import Notice, NoticeStatus
 
 
 class NoticeRepository(NoticeRepositoryABC):
@@ -35,7 +35,7 @@ class NoticeRepository(NoticeRepositoryABC):
         """
         notice_dict = notice.dict()
         notice_dict["_id"] = notice_dict["ted_id"]
-        self.collection.update_one({'_id':notice_dict["_id"]}, {"$set": notice_dict})
+        self.collection.update_one({'_id': notice_dict["_id"]}, {"$set": notice_dict})
 
     def get(self, reference) -> Notice:
         """
@@ -45,6 +45,15 @@ class NoticeRepository(NoticeRepositoryABC):
         """
         result_dict = self.collection.find_one({"ted_id": reference})
         return Notice(**result_dict) if result_dict else None
+
+    def get_notice_by_status(self, notice_status: NoticeStatus) -> Iterator[Notice]:
+        """
+            This method provides all notices based on its status.
+        :param notice_status:
+        :return:
+        """
+        for result_dict in self.collection.find({"status": notice_status}):
+            yield Notice(**result_dict)
 
     def list(self) -> Iterator[Notice]:
         """

@@ -1,7 +1,7 @@
 from typing import Iterator
 
 from ted_sws.domain.adapters.repository_abc import NoticeRepositoryABC
-from ted_sws.domain.model.notice import Notice
+from ted_sws.domain.model.notice import Notice, NoticeStatus
 
 
 class FakeNoticeRepository(NoticeRepositoryABC):
@@ -41,6 +41,14 @@ class FakeNoticeRepository(NoticeRepositoryABC):
             return self.repository[reference]
 
         return None
+
+    def get_notice_by_status(self, notice_status: NoticeStatus) -> Iterator[Notice]:
+        """
+            This method provides all notices based on its status.
+        :param notice_status:
+        :return:
+        """
+        return [value for value in self.repository.values() if value.status == notice_status]
 
     def list(self) -> Iterator[Notice]:
         """

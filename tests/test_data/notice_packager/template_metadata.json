@@ -1,0 +1,41 @@
+{
+  "notice": {
+    "id": "196390_2016",
+    "languages": ["en"],
+    "action": {
+      "type": "create",
+      "date": "2017-05-30T17:23:11.922+02:00"
+    }
+  },
+  "work": {
+    "do_not_index": "true",
+    "date_document": "2021-08-01",
+    "created_by_agent": "PUBL",
+    "dataset_published_by_agent": "PUBL",
+    "datetime_transmission": "2021-08-01T00:01:00",
+    "title": {
+      "en": "eProcurement notice 196390_2016"
+    },
+    "date_creation": "2016-01-01",
+    "uri": "http://data.europa.eu/a4g/resource/2016/196390_2016",
+    "dataset_version": "20160101-0",
+    "concept_type_dataset": "TEST_DATA",
+    "dataset_keyword": [
+      "eProcurement",
+      "notice"
+    ],
+    "dataset_has_frequency_publication_frequency": "OTHER"
+  },
+  "expression": {
+    "title": {
+      "en": "eProcurement notice 196390_2016"
+    },
+    "uses_language": "ENG"
+  },
+  "manifestation": {
+    "type": "E_PROCUREMENT_ONTOLOGY",
+    "date_publication": "2021-08-01",
+    "distribution_has_status_distribution_status": "COMPLETED",
+    "distribution_has_media_type_concept_media_type": "RDF"
+  }
+}

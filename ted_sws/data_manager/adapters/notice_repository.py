@@ -1,7 +1,10 @@
+import logging
 from typing import Iterator
 from pymongo import MongoClient
 from ted_sws.domain.adapters.repository_abc import NoticeRepositoryABC
 from ted_sws.domain.model.notice import Notice
+
+logger = logging.getLogger(__name__)
 
 
 class NoticeRepository(NoticeRepositoryABC):
@@ -25,7 +28,10 @@ class NoticeRepository(NoticeRepositoryABC):
         """
         notice_dict = notice.dict()
         notice_dict["_id"] = notice_dict["ted_id"]
-        self.collection.insert_one(notice_dict)
+        try:
+            self.collection.insert_one(notice_dict)
+        except Exception as e:
+            logger.warning(f"Failed to add notice with id={notice_dict['ted_id']}, with error message: "+str(e))
 
     def update(self, notice: Notice):
         """
@@ -35,7 +41,7 @@ class NoticeRepository(NoticeRepositoryABC):
         """
         notice_dict = notice.dict()
         notice_dict["_id"] = notice_dict["ted_id"]
-        self.collection.update_one({'_id':notice_dict["_id"]}, {"$set": notice_dict})
+        self.collection.update_one({'_id': notice_dict["_id"]}, {"$set": notice_dict})
 
     def get(self, reference) -> Notice:
         """

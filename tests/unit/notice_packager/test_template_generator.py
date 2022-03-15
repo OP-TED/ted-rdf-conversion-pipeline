@@ -41,18 +41,18 @@ def test_tmd_rdf_generator(template_sample_metadata):
 
 
 def test_mets2create_mets_xml_generator(template_sample_metadata):
-    template_sample_metadata["notice"]["action"]["type"] = "create"
+    template_sample_metadata.notice.action.type = "create"
     test_template = "196390_2016_mets2create.mets.xml"
     __test(TemplateGenerator.mets2action_mets_xml_generator, template_sample_metadata, test_template)
 
 
 def test_mets2update_mets_xml_generator(template_sample_metadata):
-    template_sample_metadata["notice"]["action"]["type"] = "update"
+    template_sample_metadata.notice.action.type = "update"
     test_template = "196390_2016_mets2update.mets.xml"
     __test(TemplateGenerator.mets2action_mets_xml_generator, template_sample_metadata, test_template)
 
 
 def test_mets2action_mets_xml_generator_with_wrong_action(template_sample_metadata):
-    template_sample_metadata["notice"]["action"]["type"] = "wrong_action"
+    template_sample_metadata.notice.action.type = "wrong_action"
     with pytest.raises(ValueError):
         TemplateGenerator.mets2action_mets_xml_generator(template_sample_metadata)

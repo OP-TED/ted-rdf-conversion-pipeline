@@ -7,9 +7,11 @@
 
 """ """
 
-import pytest
 import base64
 import os
+
+import pytest
+
 from ted_sws.notice_packager.model.metadata import ACTION_CREATE, ACTION_UPDATE
 from ted_sws.notice_packager.services.notice_packager import create_notice_package
 from tests import TEST_DATA_PATH

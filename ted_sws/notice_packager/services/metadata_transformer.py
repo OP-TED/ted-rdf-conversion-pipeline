@@ -11,11 +11,11 @@ into data structures needed to render the templates.
 This transformed metadata is what adapters expect.
 """
 
+import datetime
+
 from ted_sws.metadata_normaliser.model.metadata import ExtractedMetadata
 from ted_sws.notice_packager.model.metadata import PackagerMetadata, ACTION_CREATE, LANGUAGE, REVISION, BASE_WORK, \
     BASE_TITLE
-from typing import Dict, List
-import datetime
 
 NORM_SEP = '_'
 
@@ -24,13 +24,13 @@ class MetadataTransformer:
     def __init__(self, notice_metadata: ExtractedMetadata):
         self.notice_metadata = notice_metadata
 
-    def template_metadata(self, action: str = ACTION_CREATE) -> Dict:
+    def template_metadata(self, action: str = ACTION_CREATE) -> PackagerMetadata:
         metadata = self.from_notice_metadata(self.notice_metadata)
-        metadata['notice']['action']['type'] = action
+        metadata.notice.action.type = action
         return metadata
 
     @classmethod
-    def __normalize_value(cls, value: str) -> str:
+    def normalize_value(cls, value: str) -> str:
         return value.replace('-', NORM_SEP)
 
     @classmethod
@@ -38,14 +38,14 @@ class MetadataTransformer:
         return metadata.notice.id.split(NORM_SEP)[1]
 
     @classmethod
-    def from_notice_metadata(cls, notice_metadata: ExtractedMetadata) -> Dict:
+    def from_notice_metadata(cls, notice_metadata: ExtractedMetadata) -> PackagerMetadata:
         _date = datetime.datetime.now()
         _revision = REVISION
 
         metadata = PackagerMetadata()
 
         # NOTICE
-        metadata.notice.id = cls.__normalize_value(notice_metadata.notice_publication_number)
+        metadata.notice.id = cls.normalize_value(notice_metadata.notice_publication_number)
 
         # WORK
         metadata.work.uri = f"{BASE_WORK}{cls.__year(metadata)}/{metadata.notice.id}"
@@ -59,4 +59,4 @@ class MetadataTransformer:
         # EXPRESSION
         metadata.expression.title = {LANGUAGE: BASE_TITLE + " " + metadata.notice.id}
 
-        return metadata.dict()
+        return metadata

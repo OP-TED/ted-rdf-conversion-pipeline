@@ -12,10 +12,9 @@ This module provides functionalities to generate notice package.
 import base64
 import os.path
 from pathlib import Path
-from tempfile import TemporaryDirectory, NamedTemporaryFile
+from tempfile import TemporaryDirectory
 from typing import List, Union
 
-from tests.fakes.fake_notice import FakeNotice
 from ted_sws.domain.model.notice import Notice
 from ted_sws.metadata_normaliser.model.metadata import ExtractedMetadata
 from ted_sws.metadata_normaliser.services.xml_manifestation_metadata_extractor import XMLManifestationMetadataExtractor
@@ -23,6 +22,7 @@ from ted_sws.notice_packager.adapters.archiver import ArchiverFactory, ARCHIVE_Z
 from ted_sws.notice_packager.adapters.template_generator import TemplateGenerator
 from ted_sws.notice_packager.model.metadata import ACTION_CREATE
 from ted_sws.notice_packager.services.metadata_transformer import MetadataTransformer
+from tests.fakes.fake_notice import FakeNotice
 
 ARCHIVE_NAME_FORMAT = "eProcurement_notice_{notice_id}.zip"
 FILE_METS_XML_FORMAT = "{notice_id}-0.mets.xml.dmd.rdf"
@@ -83,7 +83,7 @@ def create_notice_package(in_data: IN_DATA_TYPE, rdf_content: Union[str, bytes] 
     :param extra_files: additional files paths to be added to archive
     :param action:
     :param save_to:
-    :return:
+    :return: base64 encoded archive or path to archive
     """
 
     notice_metadata: NOTICE_METADATA_TYPE = __validated_in_data(in_data)
@@ -91,8 +91,8 @@ def create_notice_package(in_data: IN_DATA_TYPE, rdf_content: Union[str, bytes] 
     metadata_transformer = MetadataTransformer(notice_metadata)
     template_metadata = metadata_transformer.template_metadata(action=action)
 
-    notice_id = template_metadata['notice']['id']
-    notice_action = template_metadata['notice']['action']['type']
+    notice_id = template_metadata.notice.id
+    notice_action = template_metadata.notice.action.type
 
     tmp_dir = TemporaryDirectory()
     tmp_dir_path = Path(tmp_dir.name)
@@ -130,6 +130,7 @@ def create_notice_package(in_data: IN_DATA_TYPE, rdf_content: Union[str, bytes] 
     with open(package_path, "rb") as f:
         raw_archive_content = f.read()
 
+    # TODO: clear out the return
     if save_to is None:
         archive_content = base64.b64encode(raw_archive_content)
         return str(archive_content, 'utf-8')

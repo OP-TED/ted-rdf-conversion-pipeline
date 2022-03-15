@@ -11,9 +11,9 @@ This module provides functionalities to archive files
 
 import abc
 import os
-from zipfile import ZipFile, ZIP_DEFLATED
-from typing import List, Union
 from pathlib import Path
+from typing import List, Union
+from zipfile import ZipFile, ZIP_DEFLATED
 
 ARCHIVE_ZIP_FORMAT = "zip"
 ARCHIVE_ZIP_COMPRESSION = ZIP_DEFLATED

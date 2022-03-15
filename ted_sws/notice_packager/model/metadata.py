@@ -10,11 +10,11 @@ This model contains the metadata mapping/manipulation class to be used by Notice
 """
 
 import datetime
-
-from ted_sws.domain.model.metadata import Metadata
 from typing import List, Dict
+
 from pydantic import validator
 
+from ted_sws.domain.model.metadata import Metadata
 
 WORK_AGENT = "PUBL"
 PUBLICATION_FREQUENCY = "OTHER"
@@ -47,12 +47,7 @@ def validate_notice_action_type(v):
         raise ValueError('No such action: %s' % v)
 
 
-class MetaMetadata(Metadata):
-    class Config:
-        underscore_attrs_are_private = True
-
-
-class NoticeActionMetadata(MetaMetadata):
+class NoticeActionMetadata(Metadata):
     """
     Notice action metadata
     """
@@ -65,7 +60,7 @@ class NoticeActionMetadata(MetaMetadata):
         return v
 
 
-class NoticeMetadata(MetaMetadata):
+class NoticeMetadata(Metadata):
     """
     General notice metadata
     """
@@ -74,7 +69,7 @@ class NoticeMetadata(MetaMetadata):
     action: NoticeActionMetadata = NoticeActionMetadata()
 
 
-class WorkMetadata(MetaMetadata):
+class WorkMetadata(Metadata):
     """
         What is the minimal input necessary to produce the work metadata,
         and the rest is a bunch of constants OR generated values (e.g. date, URI, ...)
@@ -94,19 +89,19 @@ class WorkMetadata(MetaMetadata):
     dataset_has_frequency_publication_frequency: str = PUBLICATION_FREQUENCY
 
 
-class ExpressionMetadata(MetaMetadata):
+class ExpressionMetadata(Metadata):
     title: Dict[str, str] = None
     uses_language: str = USES_LANGUAGE
 
 
-class ManifestationMetadata(MetaMetadata):
+class ManifestationMetadata(Metadata):
     type: str = MANIFESTATION_TYPE
     date_publication: str = datetime.datetime.now().strftime('%Y-%m-%d')
     distribution_has_status_distribution_status: str = DISTRIBUTION_STATUS
     distribution_has_media_type_concept_media_type: str = MEDIA_TYPE
 
 
-class PackagerMetadata(MetaMetadata):
+class PackagerMetadata(Metadata):
     notice: NoticeMetadata = NoticeMetadata()
     work: WorkMetadata = WorkMetadata()
     expression: ExpressionMetadata = ExpressionMetadata()

@@ -10,7 +10,7 @@ services:
       - mongodb-data:/data/db
     networks:
       - mongodb-net
-      - airflow-ext
+      - common-ext
     ports:
       - ${MONGO_DB_PORT}:27017
     restart: unless-stopped
@@ -63,6 +63,6 @@ networks:
   proxy-net:
     external:
       name: proxy-net
-  airflow-ext:
-    internal: false
-    name: airflow-ext-${ENVIRONMENT}
+  common-ext:
+    external:
+      name: common-ext-${ENVIRONMENT}

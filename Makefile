@@ -51,6 +51,8 @@ test-all:
 build-externals:
 	@ echo -e "$(BUILD_PRINT)Creating the necessary volumes, networks and folders and setting the special rights"
 	@ docker network create proxy-net || true
+	@ docker network create common-ext-${ENVIRONMENT} || true
+
 
 #-----------------------------------------------------------------------------
 # SERVER SERVICES

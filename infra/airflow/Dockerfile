@@ -8,7 +8,7 @@ RUN apt-get update && apt-get install make && apt-get install build-essential gi
 USER airflow
 
 # requirements-airflow.txt shall be made availble from teh **sem-covid** GitHub repository
-COPY requirements-airflow.txt /opt/airflow
+COPY requirements.txt /opt/airflow
 
 # working in the /opt/airflow
 WORKDIR /opt/airflow

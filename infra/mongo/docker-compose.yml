@@ -10,6 +10,7 @@ services:
       - mongodb-data:/data/db
     networks:
       - mongodb-net
+      - common-ext
     ports:
       - ${MONGO_DB_PORT}:27017
     restart: unless-stopped
@@ -62,3 +63,6 @@ networks:
   proxy-net:
     external:
       name: proxy-net
+  common-ext:
+    external:
+      name: common-ext-${ENVIRONMENT}

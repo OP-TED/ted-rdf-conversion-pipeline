@@ -9,14 +9,15 @@
 This module provides functionalities to generate bulk/multiple notice packages for test purposes.
 """
 
-from pathlib import Path
 import base64
+from pathlib import Path
+
+from ted_sws.metadata_normaliser.services.xml_manifestation_metadata_extractor import XMLManifestationMetadataExtractor
 from ted_sws.notice_packager.adapters.archiver import PATH_TYPE
 from ted_sws.notice_packager.services.metadata_transformer import MetadataTransformer
 from ted_sws.notice_packager.services.notice_packager import create_notice_package
 from tests import TEST_DATA_PATH
 from tests.fakes.fake_notice import FakeNotice
-from ted_sws.metadata_normaliser.services.xml_manifestation_metadata_extractor import XMLManifestationMetadataExtractor
 
 DEFAULT_OUTPUT_FOLDER: Path = TEST_DATA_PATH / "notice_packager" / "mets_packages" / "pkgs"
 DEFAULT_RDF_PATH: Path = TEST_DATA_PATH / "notice_packager" / "templates" / "196390_2016.rdf"

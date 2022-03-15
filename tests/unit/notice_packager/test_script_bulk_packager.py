@@ -8,7 +8,8 @@
 """ """
 
 import os
-from ted_sws.notice_packager.scripts.bulk_packager import generate_packages
+
+from ted_sws.notice_packager.entrypoints.bulk_packager import generate_packages
 
 
 def test_bulk_packager():

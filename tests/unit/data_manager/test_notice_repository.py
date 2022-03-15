@@ -22,8 +22,7 @@ def test_notice_repository_create(mongodb_client):
     result_notices = list(notice_repository.list())
     assert result_notices
     assert len(result_notices) == 1
-    with pytest.raises(Exception):
-        notice_repository.add(notice)
+    notice_repository.add(notice)
     notice.original_metadata = TEDMetadata(**{"AA": "Updated metadata"})
     notice_repository.update(notice)
     result_notice = notice_repository.get(reference=NOTICE_TED_ID)

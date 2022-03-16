@@ -7,7 +7,6 @@ import xml.etree.ElementTree as ET
 
 def test_metadata_extractor(raw_notice):
     metadata_extractor = XMLManifestationMetadataExtractor(xml_manifestation=raw_notice.xml_manifestation).to_metadata()
-
     extracted_metadata_dict = metadata_extractor.dict()
 
     assert isinstance(metadata_extractor, ExtractedMetadata)

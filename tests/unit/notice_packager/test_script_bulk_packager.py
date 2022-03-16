@@ -10,10 +10,11 @@
 import os
 
 from ted_sws.notice_packager.entrypoints.bulk_packager import generate_packages
+from tests import TEST_DATA_PATH
 
 
 def test_bulk_packager():
-    output_folder_path = generate_packages(1)
+    output_folder_path = generate_packages(1, TEST_DATA_PATH / "notice_packager" / "mets_packages" / "test_pkgs")
     assert output_folder_path is not None
     assert os.path.exists(output_folder_path)
     for f in os.listdir(output_folder_path):

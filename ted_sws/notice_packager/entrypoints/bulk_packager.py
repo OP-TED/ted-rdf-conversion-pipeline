@@ -9,6 +9,7 @@
 This module provides functionalities to generate bulk/multiple notice packages for test purposes.
 """
 
+import os
 import base64
 from pathlib import Path
 
@@ -31,6 +32,8 @@ def generate_packages(files_count: int = DEFAULT_FILES_COUNT, output_folder: PAT
 
     encoded_rdf_content = base64.b64encode(bytes(rdf_content, 'utf-8'))
 
+    if not os.path.exists(output_folder):
+        os.makedirs(output_folder)
     output_folder = Path(output_folder)
 
     base_idx = 100000

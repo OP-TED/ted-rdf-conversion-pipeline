@@ -9,11 +9,14 @@ def test_metadata_extractor(raw_notice):
     metadata_extractor = XMLManifestationMetadataExtractor(xml_manifestation=raw_notice.xml_manifestation).to_metadata()
 
     extracted_metadata_dict = metadata_extractor.dict()
-    print (extracted_metadata_dict)
 
     assert isinstance(metadata_extractor, ExtractedMetadata)
     assert extracted_metadata_dict.keys() == ExtractedMetadata.__fields__.keys()
+    assert "extracted_form_number", "xml_schema" in extracted_metadata_dict.keys()
     assert "067623-2022" in extracted_metadata_dict["notice_publication_number"]
+    assert "http://publications.europa.eu/resource/schema/ted/R2.0.8/publication TED_EXPORT.xsd" in \
+           extracted_metadata_dict["xml_schema"]
+    assert extracted_metadata_dict["extracted_form_number"] == "18"
 
 
 def test_metadata_extractor_2016(notice_2016):

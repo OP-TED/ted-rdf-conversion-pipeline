@@ -114,3 +114,7 @@ class XpathRegistry:
     @property
     def xpath_legal_basis_directive_third(self):
         return "manifestation_ns:FORM_SECTION/*/manifestation_ns:LEGAL_BASIS_OTHER/manifestation_ns:P/manifestation_ns:FT"
+
+    @property
+    def xpath_form_number(self):
+        return "manifestation_ns:FORM_SECTION/*[1]"

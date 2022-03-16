@@ -18,3 +18,5 @@ def test_bulk_packager():
     assert os.path.exists(output_folder_path)
     for f in os.listdir(output_folder_path):
         os.remove(os.path.join(output_folder_path, f))
+    os.rmdir(output_folder_path)
+

@@ -70,6 +70,16 @@ def test_notice_packager_with_extra_files(notice_2018):
     assert encoded_package_content is not None
 
 
+def test_notice_packager_with_non_existent_files(notice_2018):
+    encoded_package_content = create_notice_package(
+        notice_2018,
+        extra_files=[
+            TEST_DATA_PATH / "notice_packager" / "non_existent_notice_file.xml"
+        ]
+    )
+    assert encoded_package_content is not None
+
+
 def test_notice_packager_with_rdf_content(notice_2018, rdf_content):
     encoded_rdf_content = base64.b64encode(bytes(rdf_content, 'utf-8'))
     encoded_package_content = create_notice_package(

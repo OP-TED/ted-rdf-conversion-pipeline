@@ -23,7 +23,8 @@ from ted_sws.notice_packager.adapters.archiver import ArchiverFactory, ARCHIVE_Z
 from ted_sws.notice_packager.adapters.template_generator import TemplateGenerator
 from ted_sws.notice_packager.model.metadata import ACTION_CREATE
 from ted_sws.notice_packager.services.metadata_transformer import MetadataTransformer
-from tests.fakes.fake_notice import FakeNotice
+from ted_sws.data_manager.adapters.notice_repository import NoticeRepositoryABC
+
 
 ARCHIVE_NAME_FORMAT = "eProcurement_notice_{notice_id}.zip"
 FILE_METS_XML_FORMAT = "{notice_id}-0.mets.xml.dmd.rdf"
@@ -38,20 +39,24 @@ RDF_CONTENT_TYPE = Union[str, bytes]
 
 def create_notice_package(in_data: IN_DATA_TYPE, rdf_content: RDF_CONTENT_TYPE = None,
                           extra_files: PATH_LIST_TYPE = None, action: str = ACTION_CREATE,
-                          save_to: PATH_TYPE = None) -> str:
+                          save_to: PATH_TYPE = None, notice_repository: NoticeRepositoryABC = None) -> str:
     """
     :param in_data: can be Notice object, ExtractedMetadata object or notice_id string
     :param rdf_content: base64 encoded bytes content of rdf file
     :param extra_files: additional files paths to be added to archive
     :param action:
-    :param save_to:
+    :param save_to: can be:
+                    None - base64 encoded string of archive content,
+                    "" - temporary archive path,
+                    string (path to archive: containing archive name or just the folder) - archive path
+    :param notice_repository:
     :return: base64 encoded archive or path to archive
     """
 
     tmp_dir = TemporaryDirectory()
     tmp_dir_path = Path(tmp_dir.name)
 
-    notice_packager = NoticePackager(in_data, action, tmp_dir_path)
+    notice_packager = NoticePackager(in_data, action, tmp_dir_path, notice_repository)
 
     notice_packager.add_template_files()
     notice_packager.add_rdf_content(rdf_content)
@@ -65,8 +70,8 @@ class NoticePackager:
     This class will manage the steps/methods of notice packager creation
     """
 
-    def __init__(self, in_data: IN_DATA_TYPE, action: str, tmp_dir_path: Path):
-        self.notice_metadata: NOTICE_METADATA_TYPE = self.__validated_in_data(in_data)
+    def __init__(self, in_data: IN_DATA_TYPE, action: str, tmp_dir_path: Path, notice_repository: NoticeRepositoryABC):
+        self.notice_metadata: NOTICE_METADATA_TYPE = self.__validated_in_data(in_data, notice_repository)
         self.archiver = ArchiverFactory.get_archiver(ARCHIVE_ZIP_FORMAT)
         metadata_transformer = MetadataTransformer(self.notice_metadata)
         self.template_metadata = metadata_transformer.template_metadata(action=action)
@@ -87,7 +92,7 @@ class NoticePackager:
             file.close()
 
     @classmethod
-    def __validated_in_data(cls, in_data: IN_DATA_TYPE) -> NOTICE_METADATA_TYPE:
+    def __validated_in_data(cls, in_data: IN_DATA_TYPE, notice_repository: NoticeRepositoryABC) -> NOTICE_METADATA_TYPE:
         accepted_types = IN_DATA_TYPE.__args__
         if not isinstance(in_data, accepted_types):
             raise TypeError('Notice Packager accepts input data of "%s" types only' % accepted_types)
@@ -101,7 +106,10 @@ class NoticePackager:
             '''
             # get Notice from DB
             notice_id = in_data
-            in_data = FakeNotice(ted_id=notice_id)
+            if isinstance(notice_repository, NoticeRepositoryABC):
+                in_data = notice_repository.get(reference=notice_id)
+            else:
+                raise TypeError('Notice Repository must be sent, if providing notice_id "%s"' % notice_id)
 
         if isinstance(in_data, Notice):  # Notice
             '''
@@ -113,6 +121,9 @@ class NoticePackager:
                 xml_manifestation=notice.xml_manifestation).to_metadata()
         elif isinstance(in_data, NOTICE_METADATA_TYPE):  # ExtractedMetadata
             notice_metadata = in_data
+
+        if not isinstance(notice_metadata, NOTICE_METADATA_TYPE):
+            raise TypeError('Notice Metadata must be of "%s" type' % NOTICE_METADATA_TYPE.__name__)
 
         return notice_metadata
 

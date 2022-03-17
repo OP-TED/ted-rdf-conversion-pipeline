@@ -25,7 +25,6 @@ from ted_sws.notice_packager.model.metadata import ACTION_CREATE
 from ted_sws.notice_packager.services.metadata_transformer import MetadataTransformer
 from ted_sws.data_manager.adapters.notice_repository import NoticeRepositoryABC
 
-
 ARCHIVE_NAME_FORMAT = "eProcurement_notice_{notice_id}.zip"
 FILE_METS_XML_FORMAT = "{notice_id}-0.mets.xml.dmd.rdf"
 FILE_METS_ACTION_FORMAT = "{notice_id}_mets2{action}.mets.xml"

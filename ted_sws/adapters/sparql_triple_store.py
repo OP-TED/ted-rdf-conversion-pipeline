@@ -52,7 +52,6 @@ class TripleStoreABC(ABC):
         :param sparql_prefixes:
         :return:
         """
-        raise NotImplementedError
 
     @abstractmethod
     def with_query_from_file(self, sparql_query_file_path: str, substitution_variables: dict = None,
@@ -64,7 +63,6 @@ class TripleStoreABC(ABC):
         :param prefixes:
         :return:
         """
-        raise NotImplementedError
 
     @abstractmethod
     def fetch_tabular(self) -> pd.DataFrame:
@@ -72,7 +70,6 @@ class TripleStoreABC(ABC):
             This method will return the result of the SPARQL query in a tabular format (dataframe)
         :return:
         """
-        raise NotImplementedError
 
     @abstractmethod
     def fetch_tree(self) -> dict:
@@ -80,7 +77,6 @@ class TripleStoreABC(ABC):
             This method will return the result of the SPARQL query in a dict format (json)
         :return:
         """
-        raise NotImplementedError
 
 
 class SPARQLTripleStore(TripleStoreABC):

@@ -11,4 +11,4 @@ where
     #?s ?p ?o
   }
 }
-limit 10
+LIMIT ~value

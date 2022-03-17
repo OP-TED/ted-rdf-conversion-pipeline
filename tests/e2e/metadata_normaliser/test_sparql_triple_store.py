@@ -1,6 +1,7 @@
 import pathlib
 
 import pandas as pd
+import pytest
 
 from ted_sws.adapters.sparql_triple_store import SPARQLTripleStore
 from tests import TEST_DATA_PATH
@@ -20,11 +21,13 @@ where
     #?s ?p ?o
   }
 }
-limit 10
+limit ~value
 """
+    # dc: identifier
 
+    substitution_variables = {"value": 10}
     execute_query = SPARQLTripleStore().with_query(
-        sparql_query=query)
+        sparql_query=query, substitution_variables=substitution_variables)
 
     tabular_results = execute_query.fetch_tabular()
     tree_results = execute_query.fetch_tree()
@@ -34,11 +37,17 @@ limit 10
     assert tree_results["results"]["bindings"][0]["concept"][
                "value"] == "http://publications.europa.eu/resource/authority/buyer-legal-type/OP_DATPRO"
 
+    with pytest.raises(Exception):
+        SPARQLTripleStore().with_query(sparql_query="").fetch_tree()
+
+    with pytest.raises(Exception):
+        SPARQLTripleStore().with_query(sparql_query="").fetch_tabular()
+
 
 def test_sparql_triple_store_with_query_from_file():
     query_path = TEST_DATA_PATH / "sparql_queries" / "buyer_legal_type.rq"
-
-    execute_query = SPARQLTripleStore().with_query_from_file(sparql_query_file_path=query_path)
+    substitution_variables = {"value": 10}
+    execute_query = SPARQLTripleStore().with_query_from_file(sparql_query_file_path=query_path,substitution_variables=substitution_variables)
 
     tabular_results = execute_query.fetch_tabular()
     tree_results = execute_query.fetch_tree()
@@ -49,3 +58,6 @@ def test_sparql_triple_store_with_query_from_file():
                "value"] == "http://publications.europa.eu/resource/authority/buyer-legal-type/OP_DATPRO"
 
     assert "europa.eu" in execute_query.__str__()
+
+
+

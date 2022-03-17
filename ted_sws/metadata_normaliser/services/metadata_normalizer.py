@@ -4,6 +4,7 @@ from ted_sws.domain.model.metadata import NormalisedMetadata
 from ted_sws.domain.model.notice import Notice
 from ted_sws.metadata_normaliser.model.metadata import ExtractedMetadata
 from ted_sws.metadata_normaliser.services.xml_manifestation_metadata_extractor import XMLManifestationMetadataExtractor
+from ted_sws.data_manager.adapters.notice_repository import NoticeRepositoryABC
 
 
 def normalise_notice(notice: Notice) -> Notice:
@@ -19,14 +20,18 @@ def normalise_notice(notice: Notice) -> Notice:
     return notice
 
 
-def normalise_notice_by_id(notice_id: str, notice_repository):
+def normalise_notice_by_id(notice_id: str, notice_repository: NoticeRepositoryABC) -> Notice:
     """
         Given a notice id, find the notice in the database, normalise its metadata, and store the updated state.
     :param notice_id:
+    :param notice_repository:
     :return:
     """
-    # TODO:
-    # find
+    notice: Notice = notice_repository.get(reference=notice_id)
+    if notice is None:
+        raise ValueError('Notice, with "%s" notice_id, was not found' % notice_id)
+
+    return normalise_notice(notice)
 
 
 class MetadataNormaliserABC(abc.ABC):
@@ -38,7 +43,6 @@ class MetadataNormaliserABC(abc.ABC):
     def normalise_metadata(self) -> NormalisedMetadata:
         """
         Method to normalise metadata
-
         """
 
 

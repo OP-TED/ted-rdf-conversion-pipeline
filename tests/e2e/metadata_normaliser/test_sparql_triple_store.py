@@ -1,6 +1,6 @@
 import pandas as pd
 
-from ted_sws.metadata_normaliser.adapters.sparql_triple_store import SPARQLTripleStore
+from ted_sws.adapters.sparql_triple_store import SPARQLTripleStore
 
 
 def test_sparql_triple_store():

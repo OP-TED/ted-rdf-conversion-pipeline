@@ -1,6 +1,6 @@
 import pandas as pd
 
-from ted_sws.metadata_normaliser.adapters.sparql_triple_store import TripleStoreABC
+from ted_sws.adapters.sparql_triple_store import TripleStoreABC
 
 
 class FakeTripleStore(TripleStoreABC):

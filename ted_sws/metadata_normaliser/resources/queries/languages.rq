@@ -1,0 +1,16 @@
+PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+PREFIX euvoc: <http://publications.europa.eu/ontology/euvoc#>
+
+
+select ?code ?conceptURI
+where
+{
+ graph <http://publications.europa.eu/resource/authority/language>
+ {
+
+    ?conceptURI skos:notation ?code .
+
+   filter (datatype(?code)=euvoc:TED_SCHEMA)
+
+  }
+}

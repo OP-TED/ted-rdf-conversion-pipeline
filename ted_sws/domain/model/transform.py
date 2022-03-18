@@ -7,6 +7,31 @@
 
 """ """
 import abc
+from typing import List, Optional
+
+
+class FileResource:
+    file_name: str
+    file_content: str
+
+class MetadataConstraints:
+    pass
+
+class TransformationRuleSet:
+    resources : List[FileResource]
+    rml_mapping_rules: List[FileResource]
+
+class SHACLTestSuite:
+    shacl_tests: List[FileResource]
+
+class SPARQLTestSuite:
+    purpose: Optional[str]
+    sparql_tests: List[FileResource]
+
+
+
+class MappingSuite:
+    pass
 
 
 class RuleSet(abc.ABC):

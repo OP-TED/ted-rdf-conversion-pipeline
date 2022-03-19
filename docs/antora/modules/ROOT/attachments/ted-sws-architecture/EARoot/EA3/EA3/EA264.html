@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<title>ineligible for transformation</title>
+<title>set notice state to [eligible for packaging]</title>
 <link href="../../../css/ea.css" rel="stylesheet" type="text/css" />
 <script>
 function initPage(src) {	
@@ -34,15 +34,15 @@ function nameClassifier(name, separator)
 <div class="pageHeader"></div>
 <div class="PageBody">
 	<div id="name_classifier" style="display: none;"></div>
-	<span class="ObjectTitle"><script type="text/javascript">document.write(nameClassifier("ineligible for transformation", " : "))</script>  : Public  &lt;&lt;rdfsResource&gt;&gt; RDFResource</span>
+	<span class="ObjectTitle"><script type="text/javascript">document.write(nameClassifier("set notice state to [eligible for packaging]", " : "))</script>  : Public  &lt;&lt;ArchiMate_ApplicationProcess&gt;&gt; ApplicationProcess</span>
 	<table border="0" cellpadding="0" cellspacing="0" class="ObjectDetails">
 		<tr>
 			<td width="15%" class="ObjectDetailsTopic">Created:</td>
-			<td width="85%" class="ObjectDetailsValue">08/02/2022 19:24:14</td>
+			<td width="85%" class="ObjectDetailsValue">19/03/2022 21:28:51</td>
 		</tr>
 		<tr>
 			<td class="ObjectDetailsTopic">Modified:</td>
-			<td class="ObjectDetailsValue">08/02/2022 19:24:22</td>
+			<td class="ObjectDetailsValue">19/03/2022 21:29:00</td>
 		</tr>
 		<tr style="height: 10px"><td colspan="2"></td></tr>
 		<tr>
@@ -87,45 +87,97 @@ function nameClassifier(name, separator)
 		</tr>
 		<tr id="adv00" style="display: none;">
 			<td class="ObjectDetailsTopic" style="padding-left: 18px;">UUID:</td>
-			<td class="ObjectDetailsValue">{645CA632-2454-4dcc-B77F-C1615DC3D8BD}</td>
+			<td class="ObjectDetailsValue">{51ECB096-53F6-4ca7-A704-DFFB5B58AA28}</td>
 		</tr>
 		<tr id="adv01" style="display: none;">
 			<td class="ObjectDetailsTopic" style="padding-left: 18px;">Appears In:</td>
-			<td class="ObjectDetailsValue"><a href="EA253.html">status</a></td>
+			<td class="ObjectDetailsValue"><a href="EA258.html">re-package process orchestrator</a></td>
 		</tr>
 	</table>
 	
 	<div class="TableGroup" id="TableGroup">
 		<ul class="ItemTitle">
-			<li onClick="parent.toggleItem('Links');" id="LinksTitle">Other Links</li>
+			<li onClick="parent.toggleItem('FlowTo');" id="FlowToTitle">Flow To</li>
+			<li onClick="parent.toggleItem('FlowFrom');" id="FlowFromTitle">Flow From</li>
+			<li onClick="parent.toggleItem('CustomProperties');" id="CustomPropertiesTitle">Advanced</li>
 		</ul>
-		<div class="ItemBody" id="LinksTable">
-			<table align="center" border="0" cellspacing="0" cellpadding="0" class="Table">
+		<div class="ItemBody" id="FlowToTable">
+			<table border="0" cellspacing="0" cellpadding="0" class="Table">
 				<tr>
-					<td width="30%" class="TableHeading">Object</td>
-					<td width="10%" class="TableHeading">Type</td>
-					<td width="10%" class="TableHeading">Connection</td>
-					<td width="10%" class="TableHeading">Direction</td>
-					<td width="40%" class="TableHeading">Notes</td>
+					<td width="50%" class="TableHeading">Element</td>
+					<td width="50%" class="TableHeading">Name</td>
 				</tr>
 				<tr>
-					<td width="30%" class="TableRow" valign="top"><a href="EA267.html">«rdfsClass» NoticeStatus</a></td>
-					<td width="10%" class="TableRow" valign="top">RDFClass</td>
-					<td width="10%" class="TableRow" valign="top">Realization</td>
-					<td width="10%" class="TableRow" valign="top">To</td>
-					<td width="40%" class="TableRow" valign="top">&nbsp;</td>
+					<td width="50%" class="TableRow" valign="top">
+						<a href="../EA1/EA250.html">trigger notice processing orchestrator,  passing [notice_id] and [state]</a><br />
+						Activity «ArchiMate_Triggering» 
+					</td>
+					<td width="50%" class="TableRow" valign="top">&nbsp;</td>					
 				</tr>
 				<tr>
-					<td width="30%" class="TableRow" valign="top"><a href="EA266.html">«rdfsResource» normalised metadata</a></td>
-					<td width="10%" class="TableRow" valign="top">RDFResource</td>
-					<td width="10%" class="TableRow" valign="top">Dependency</td>
-					<td width="10%" class="TableRow" valign="top">From</td>
-					<td width="40%" class="TableRow" valign="top">&nbsp;</td>
+					<td class="TableRowBottomDashed"  colspan="2">
+						<div class="DetailsDivParent"><img src="../../../images/minus03.gif" align="absmiddle" id="DetailsImageLinkFlow473" onclick="parent.toggleDiv('detailsDIVLinkFlow473', 'DetailsImageLinkFlow473')" />Details:
+							<div id="detailsDIVLinkFlow473" class="DetailsDiv" >
+							&nbsp;
+							</div>
+						</div>
+					</td>
 				</tr>
-
 			</table>
 		</div>
-	</div>
+		<div class="ItemBody" id="FlowFromTable">
+			<table border="0" cellspacing="0" cellpadding="0" class="Table">
+				<tr>
+					<td width="50%" class="TableHeading">Element</td>
+					<td width="50%" class="TableHeading">Name</td>
+				</tr>
+				<tr>
+					<td width="50%" class="TableRow" valign="top">
+						<a href="EA262.html">for each notice</a><br />
+						Decision «ArchiMate_Triggering» 
+					</td>
+					<td width="50%" class="TableRow" valign="top">&nbsp;</td>					
+				</tr>
+				<tr>
+					<td class="TableRowBottomDashed"  colspan="2">
+						<div class="DetailsDivParent"><img src="../../../images/minus03.gif" align="absmiddle" id="DetailsImageLinkFlow474" onclick="parent.toggleDiv('detailsDIVLinkFlow474', 'DetailsImageLinkFlow474')" />Details:
+							<div id="detailsDIVLinkFlow474" class="DetailsDiv" >
+							&nbsp;
+							</div>
+						</div>
+					</td>
+				</tr>
+			</table>
+		</div>
+		<div class="ItemBody" id="CustomPropertiesTable">
+			<table border="0" cellspacing="0" cellpadding="0" class="Table">
+				<tr>
+					<td width="30%" class="TableHeading">Property</td>
+					<td width="70%" class="TableHeading">Value</td>
+				</tr>
+			<tr>
+				<td width="30%" class="TableRow">_HideUmlLinks:</td>
+				<td width="70%" class="TableRow">True</td>
+			</tr>
+
+			<tr>
+				<td width="30%" class="TableRow">_defaultDiagramType:</td>
+				<td width="70%" class="TableRow">ArchiMate3::Application</td>
+			</tr>
+
+			<tr>
+				<td width="30%" class="TableRow">isReadOnly:</td>
+				<td width="70%" class="TableRow">false</td>
+			</tr>
+
+			<tr>
+				<td width="30%" class="TableRow">isFinalSpecialization:</td>
+				<td width="70%" class="TableRow">0</td>
+			</tr>
+
+
+			</table>
+		</div>	</div>
 <div class="pageFooter"></div>
  
 </body>

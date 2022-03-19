@@ -1,7 +1,0 @@
-tocTab[tocTab.length] = new Array("0.1.3.4:1", "", "«rdfsClass» SHACLFile", "EARoot/EA1/EA3/EA4/EA313.html", "5.png", "E354", "0", "", "Class0","{10A1B8D3-6680-488f-8C8E-C21631048E6A}");
-tocTab[tocTab.length] = new Array("0.1.3.4:2", "", "«rdfsClass» SHACLReport", "EARoot/EA1/EA3/EA4/EA314.html", "5.png", "E357", "0", "", "Class0","{C33A8889-B6C4-456c-97DF-ED9C435BB4BB}");
-tocTab[tocTab.length] = new Array("0.1.3.4:3", "", "«rdfsClass» SPARQLQuery", "EARoot/EA1/EA3/EA4/EA315.html", "5.png", "E355", "0", "", "Class0","{11A5E9D9-199D-404b-9426-FFF196807448}");
-tocTab[tocTab.length] = new Array("0.1.3.4:4", "", "«rdfsClass» SPARQLReport", "EARoot/EA1/EA3/EA4/EA316.html", "5.png", "E358", "0", "", "Class0","{281107C1-63C1-4a8c-9371-4BD8E724018B}");
-tocTab[tocTab.length] = new Array("0.1.3.4:5", "", "«rdfsClass» TestDefinitionObject", "EARoot/EA1/EA3/EA4/EA317.html", "5.png", "E353", "0", "", "Class0","{A8C9D3F9-2EC2-43d2-949B-8724DC4CBD25}");
-tocTab[tocTab.length] = new Array("0.1.3.4:6", "", "«rdfsClass» TestReport", "EARoot/EA1/EA3/EA4/EA318.html", "5.png", "E348", "0", "", "Class0","{419ABA43-9719-4833-9B35-153112C921F0}");
-tocTab[tocTab.length] = new Array("0.1.3.4:7", "", "«rdfsClass» TestSuite", "EARoot/EA1/EA3/EA4/EA319.html", "5.png", "E352", "0", "", "Class0","{1ED74384-A7C1-45da-AA61-BC1A826E4712}");

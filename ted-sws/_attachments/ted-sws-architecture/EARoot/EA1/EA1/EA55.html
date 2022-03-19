@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<title>Transformed notice published</title>
+<title>Transform notice</title>
 <link href="../../../css/ea.css" rel="stylesheet" type="text/css" />
 <script>
 function initPage(src) {	
@@ -34,15 +34,15 @@ function nameClassifier(name, separator)
 <div class="pageHeader"></div>
 <div class="PageBody">
 	<div id="name_classifier" style="display: none;"></div>
-	<span class="ObjectTitle"><script type="text/javascript">document.write(nameClassifier("Transformed notice published", " : "))</script>  : Public  &lt;&lt;EndEvent&gt;&gt; EndEvent</span>
+	<span class="ObjectTitle"><script type="text/javascript">document.write(nameClassifier("Transform notice", " : "))</script>  : Public  &lt;&lt;BusinessProcess&gt;&gt; BusinessProcess</span>
 	<table border="0" cellpadding="0" cellspacing="0" class="ObjectDetails">
 		<tr>
 			<td width="15%" class="ObjectDetailsTopic">Created:</td>
-			<td width="85%" class="ObjectDetailsValue">04/12/2021 22:28:32</td>
+			<td width="85%" class="ObjectDetailsValue">28/01/2022 10:14:06</td>
 		</tr>
 		<tr>
 			<td class="ObjectDetailsTopic">Modified:</td>
-			<td class="ObjectDetailsValue">04/12/2021 22:40:59</td>
+			<td class="ObjectDetailsValue">28/01/2022 10:17:33</td>
 		</tr>
 		<tr style="height: 10px"><td colspan="2"></td></tr>
 		<tr>
@@ -87,20 +87,46 @@ function nameClassifier(name, separator)
 		</tr>
 		<tr id="adv00" style="display: none;">
 			<td class="ObjectDetailsTopic" style="padding-left: 18px;">UUID:</td>
-			<td class="ObjectDetailsValue">{3ECC78CB-0160-4742-829C-1FF363DBBFB5}</td>
+			<td class="ObjectDetailsValue">{FB1A7AF3-D1F3-4dbd-BB76-AF00EDDB0372}</td>
 		</tr>
 		<tr id="adv01" style="display: none;">
 			<td class="ObjectDetailsTopic" style="padding-left: 18px;">Appears In:</td>
-			<td class="ObjectDetailsValue"><a href="EA29.html">process single notice</a></td>
+			<td class="ObjectDetailsValue"><a href="EA36.html">process single notice</a></td>
 		</tr>
 	</table>
 	
 	<div class="TableGroup" id="TableGroup">
 		<ul class="ItemTitle">
+			<li onClick="parent.toggleItem('FlowTo');" id="FlowToTitle">Flow To</li>
 			<li onClick="parent.toggleItem('FlowFrom');" id="FlowFromTitle">Flow From</li>
 			<li onClick="parent.toggleItem('TaggedVal');" id="TaggedValTitle">Tagged Values</li>
 			<li onClick="parent.toggleItem('CustomProperties');" id="CustomPropertiesTitle">Advanced</li>
+			<li onClick="parent.toggleItem('Links');" id="LinksTitle">Other Links</li>
 		</ul>
+		<div class="ItemBody" id="FlowToTable">
+			<table border="0" cellspacing="0" cellpadding="0" class="Table">
+				<tr>
+					<td width="50%" class="TableHeading">Element</td>
+					<td width="50%" class="TableHeading">Name</td>
+				</tr>
+				<tr>
+					<td width="50%" class="TableRow" valign="top">
+						<a href="EA50.html">Resolve notice entities in Master Data Regsitry</a><br />
+						Activity «SequenceFlow» 
+					</td>
+					<td width="50%" class="TableRow" valign="top">&nbsp;</td>					
+				</tr>
+				<tr>
+					<td class="TableRowBottomDashed"  colspan="2">
+						<div class="DetailsDivParent"><img src="../../../images/minus03.gif" align="absmiddle" id="DetailsImageLinkFlow129" onclick="parent.toggleDiv('detailsDIVLinkFlow129', 'DetailsImageLinkFlow129')" />Details:
+							<div id="detailsDIVLinkFlow129" class="DetailsDiv" >
+							&nbsp;
+							</div>
+						</div>
+					</td>
+				</tr>
+			</table>
+		</div>
 		<div class="ItemBody" id="FlowFromTable">
 			<table border="0" cellspacing="0" cellpadding="0" class="Table">
 				<tr>
@@ -109,15 +135,15 @@ function nameClassifier(name, separator)
 				</tr>
 				<tr>
 					<td width="50%" class="TableRow" valign="top">
-						<a href="EA40.html">is notice publically available in Cellar?</a><br />
+						<a href="EA46.html">is notice eligible for transformation?</a><br />
 						Decision «SequenceFlow» 
 					</td>
 					<td width="50%" class="TableRow" valign="top">yes</td>					
 				</tr>
 				<tr>
 					<td class="TableRowBottomDashed"  colspan="2">
-						<div class="DetailsDivParent"><img src="../../../images/minus03.gif" align="absmiddle" id="DetailsImageLinkFlow221" onclick="parent.toggleDiv('detailsDIVLinkFlow221', 'DetailsImageLinkFlow221')" />Details:
-							<div id="detailsDIVLinkFlow221" class="DetailsDiv" >
+						<div class="DetailsDivParent"><img src="../../../images/minus03.gif" align="absmiddle" id="DetailsImageLinkFlow130" onclick="parent.toggleDiv('detailsDIVLinkFlow130', 'DetailsImageLinkFlow130')" />Details:
+							<div id="detailsDIVLinkFlow130" class="DetailsDiv" >
 							&nbsp;
 							</div>
 						</div>
@@ -132,40 +158,40 @@ function nameClassifier(name, separator)
 			<td width="50%" class="TableHeading">Value</td>
 		</tr>
 					<tr>
-				<td width="50%" class="TableRow" valign="top">eventDefinition</td>
-				<td width="50%" class="TableRow" valign="top">Terminate</td>
+				<td width="50%" class="TableRow" valign="top">isClosed</td>
+				<td width="50%" class="TableRow" valign="top">false</td>
 			</tr>	
 			<tr>
 				<td class="TableRowBottomDashed"  colspan="2">
-					<div class="DetailsDivParent"><img src="../../../images/minus03.gif" align="absmiddle" id="DetailsImageScenario222" onclick="parent.toggleDiv('detailsDIVScenario222','DetailsImageScenario222')" />Details:
-						<div id="detailsDIVScenario222" class="DetailsDiv" >
-						<div class="ObjectDetailsNotes">Values: None,Cancel,Compensation,Error,Escalation,Message,Multiple,Terminate,Signal<br />Default: None<br /></div>
+					<div class="DetailsDivParent"><img src="../../../images/minus03.gif" align="absmiddle" id="DetailsImageScenario131" onclick="parent.toggleDiv('detailsDIVScenario131','DetailsImageScenario131')" />Details:
+						<div id="detailsDIVScenario131" class="DetailsDiv" >
+						<div class="ObjectDetailsNotes">Values: true,false<br />Default: false<br /></div>
 
 						</div>
 					</div>
 				</td>
 			</tr>			<tr>
-				<td width="50%" class="TableRow" valign="top">implementation</td>
-				<td width="50%" class="TableRow" valign="top">##unspecified</td>
+				<td width="50%" class="TableRow" valign="top">processType</td>
+				<td width="50%" class="TableRow" valign="top">None</td>
 			</tr>	
 			<tr>
 				<td class="TableRowBottomDashed"  colspan="2">
-					<div class="DetailsDivParent"><img src="../../../images/minus03.gif" align="absmiddle" id="DetailsImageScenario223" onclick="parent.toggleDiv('detailsDIVScenario223','DetailsImageScenario223')" />Details:
-						<div id="detailsDIVScenario223" class="DetailsDiv" >
-						<div class="ObjectDetailsNotes">Values: ##webService,##unspecified<br />Default: ##unspecified<br /></div>
+					<div class="DetailsDivParent"><img src="../../../images/minus03.gif" align="absmiddle" id="DetailsImageScenario132" onclick="parent.toggleDiv('detailsDIVScenario132','DetailsImageScenario132')" />Details:
+						<div id="detailsDIVScenario132" class="DetailsDiv" >
+						<div class="ObjectDetailsNotes">Values: None,Public,Private<br />Default: None<br /></div>
 
 						</div>
 					</div>
 				</td>
 			</tr>			<tr>
-				<td width="50%" class="TableRow" valign="top">waitForCompletion</td>
-				<td width="50%" class="TableRow" valign="top">true</td>
+				<td width="50%" class="TableRow" valign="top">state</td>
+				<td width="50%" class="TableRow" valign="top">None</td>
 			</tr>	
 			<tr>
 				<td class="TableRowBottomDashed"  colspan="2">
-					<div class="DetailsDivParent"><img src="../../../images/minus03.gif" align="absmiddle" id="DetailsImageScenario224" onclick="parent.toggleDiv('detailsDIVScenario224','DetailsImageScenario224')" />Details:
-						<div id="detailsDIVScenario224" class="DetailsDiv" >
-						<div class="ObjectDetailsNotes">Values: true,false<br />Default: true<br /></div>
+					<div class="DetailsDivParent"><img src="../../../images/minus03.gif" align="absmiddle" id="DetailsImageScenario133" onclick="parent.toggleDiv('detailsDIVScenario133','DetailsImageScenario133')" />Details:
+						<div id="detailsDIVScenario133" class="DetailsDiv" >
+						<div class="ObjectDetailsNotes">Values: None,Ready,Active,Withdrawn,Completing,Completed,Terminated,Terminating,Compensating,Compensated,Failing,Failed<br />Default: None<br /></div>
 
 						</div>
 					</div>
@@ -180,28 +206,75 @@ function nameClassifier(name, separator)
 				</tr>
 			<tr>
 				<td width="30%" class="TableRow">_tagGroupings:</td>
-				<td width="70%" class="TableRow">auditing=Base Element;categoryValue=Base Element;documentation=Base Element;monitoring=Base Element;eventDefinition=End Event;eventDefinitionRefs=End Event;inputSet=End Event;activityRef=Compensation Event;waitForCompletion=Compensation Event;errorRef=Error Event;escalationRef=Escalation Event;messageRef=Message Event;operationRef=Message Event;signalRef=Signal Event;assignments=Other;implementation=Other;
-</td>
+				<td width="70%" class="TableRow">auditing=Base Element;documentation=Base Element;monitoring=Base Element;definitionalCollaborationRef=Process;isClosed=Process;isExecutable=Process;processType=Process;resources=Process;supports=Process;ioBinding=Callable Element;ioSpecification=Callable Element;supportedInterfaceRefs=Callable Element;correlationSubscription=Execution;state=Execution;</td>
 			</tr>
 
 			<tr>
 				<td width="30%" class="TableRow">_tagGroups:</td>
-				<td width="70%" class="TableRow">Base Element,End Event,Compensation Event,Error Event,Escalation Event,Message Event,Signal Event,Other</td>
+				<td width="70%" class="TableRow">Base Element,Process,Callable Element,Execution</td>
 			</tr>
 
 			<tr>
-				<td width="30%" class="TableRow">_subtypeProperty:</td>
-				<td width="70%" class="TableRow">BPMN2.0::EndEvent::eventDefinition</td>
+				<td width="30%" class="TableRow">_makeComposite:</td>
+				<td width="70%" class="TableRow">true</td>
 			</tr>
 
 			<tr>
 				<td width="30%" class="TableRow">_tagGroupStates:</td>
-				<td width="70%" class="TableRow">Base Element=closed;End Event=open;Compensation Event=open;Error Event=open;Escalation Event=open;Message Event=open;Signal Event=open;Other=closed;</td>
+				<td width="70%" class="TableRow">Base Element=closed;Process=open;Callable Element=closed;Execution=closed;</td>
+			</tr>
+
+			<tr>
+				<td width="30%" class="TableRow">_defaultDiagramType:</td>
+				<td width="70%" class="TableRow">BPMN2.0::Business Process</td>
+			</tr>
+
+			<tr>
+				<td width="30%" class="TableRow">isReadOnly:</td>
+				<td width="70%" class="TableRow">false</td>
+			</tr>
+
+			<tr>
+				<td width="30%" class="TableRow">isFinalSpecialization:</td>
+				<td width="70%" class="TableRow">0</td>
 			</tr>
 
 
 			</table>
-		</div>	</div>
+		</div>		<div class="ItemBody" id="LinksTable">
+			<table align="center" border="0" cellspacing="0" cellpadding="0" class="Table">
+				<tr>
+					<td width="30%" class="TableHeading">Object</td>
+					<td width="10%" class="TableHeading">Type</td>
+					<td width="10%" class="TableHeading">Connection</td>
+					<td width="10%" class="TableHeading">Direction</td>
+					<td width="40%" class="TableHeading">Notes</td>
+				</tr>
+				<tr>
+					<td width="30%" class="TableRow" valign="top"><a href="EA63.html">«DataObject» Mapping rules</a></td>
+					<td width="10%" class="TableRow" valign="top">DataObject</td>
+					<td width="10%" class="TableRow" valign="top">Dependency</td>
+					<td width="10%" class="TableRow" valign="top">From</td>
+					<td width="40%" class="TableRow" valign="top">&nbsp;</td>
+				</tr>
+				<tr>
+					<td width="30%" class="TableRow" valign="top"><a href="EA65.html">«DataObject» TED-RDF notice</a></td>
+					<td width="10%" class="TableRow" valign="top">DataObject</td>
+					<td width="10%" class="TableRow" valign="top">Dependency</td>
+					<td width="10%" class="TableRow" valign="top">To</td>
+					<td width="40%" class="TableRow" valign="top">&nbsp;</td>
+				</tr>
+				<tr>
+					<td width="30%" class="TableRow" valign="top"><a href="EA66.html">«DataObject» TED-XML notice & metadata</a></td>
+					<td width="10%" class="TableRow" valign="top">DataObject</td>
+					<td width="10%" class="TableRow" valign="top">Dependency</td>
+					<td width="10%" class="TableRow" valign="top">From</td>
+					<td width="40%" class="TableRow" valign="top">&nbsp;</td>
+				</tr>
+
+			</table>
+		</div>
+	</div>
 <div class="pageFooter"></div>
  
 </body>

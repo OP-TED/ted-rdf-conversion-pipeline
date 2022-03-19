@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<title>Transformation ruleset retreival functionality</title>
+<title>Notice status tracking (CRU) functionality</title>
 <link href="../../../../css/ea.css" rel="stylesheet" type="text/css" />
 <script>
 function initPage(src) {	
@@ -34,15 +34,15 @@ function nameClassifier(name, separator)
 <div class="pageHeader"></div>
 <div class="PageBody">
 	<div id="name_classifier" style="display: none;"></div>
-	<span class="ObjectTitle"><script type="text/javascript">document.write(nameClassifier("Transformation ruleset retreival functionality", " : "))</script>  : Public  &lt;&lt;ArchiMate_ApplicationFunction&gt;&gt; ApplicationFunction</span>
+	<span class="ObjectTitle"><script type="text/javascript">document.write(nameClassifier("Notice status tracking (CRU) functionality", " : "))</script>  : Public  &lt;&lt;ArchiMate_ApplicationFunction&gt;&gt; ApplicationFunction</span>
 	<table border="0" cellpadding="0" cellspacing="0" class="ObjectDetails">
 		<tr>
 			<td width="15%" class="ObjectDetailsTopic">Created:</td>
-			<td width="85%" class="ObjectDetailsValue">29/12/2021 14:49:38</td>
+			<td width="85%" class="ObjectDetailsValue">15/12/2021 10:46:01</td>
 		</tr>
 		<tr>
 			<td class="ObjectDetailsTopic">Modified:</td>
-			<td class="ObjectDetailsValue">14/03/2022 16:06:47</td>
+			<td class="ObjectDetailsValue">14/03/2022 16:21:07</td>
 		</tr>
 		<tr style="height: 10px"><td colspan="2"></td></tr>
 		<tr>
@@ -87,14 +87,14 @@ function nameClassifier(name, separator)
 		</tr>
 		<tr id="adv00" style="display: none;">
 			<td class="ObjectDetailsTopic" style="padding-left: 18px;">UUID:</td>
-			<td class="ObjectDetailsValue">{BE97E973-A89D-4eda-A938-AE3B1CF577CE}</td>
+			<td class="ObjectDetailsValue">{58F78163-451B-4bbb-B266-F3807CCE76A1}</td>
 		</tr>
 		<tr id="adv01" style="display: none;">
 			<td class="ObjectDetailsTopic" style="padding-left: 18px;">Appears In:</td>
-			<td class="ObjectDetailsValue"><a href="EA188.html">transformation and validation rules manager</a></td>
+			<td class="ObjectDetailsValue"><a href="EA193.html">notice state and data manager</a></td>
 		</tr>
 	</table>
-	<div class="ObjectDetailsNotes">Functionality of adding, retreiving and deleting a mapping rule-set. No update is possible.&lt;br/&gt;&lt;br/&gt;Each rule-set is identified and versioned. Minimal metadata are associated. &lt;br/&gt;&lt;br/&gt;Each rule-set is placed in a broader scheme for transformation rule governance documented elsewhere. &lt;br/&gt;&lt;br/&gt;If the rule-set is already used in any notice, i.e. an RDF manifestation exists, then that rule set cannot be deleted. Only marked for deprecation.&lt;br/&gt;</div>
+	<div class="ObjectDetailsNotes">It is important to keep a state machine that governs state transitions for a notice. &lt;br/&gt;</div>
 
 	<div class="TableGroup" id="TableGroup">
 		<ul class="ItemTitle">
@@ -111,7 +111,7 @@ function nameClassifier(name, separator)
 				</tr>
 				<tr>
 					<td width="40%" class="TableRow" valign="top">
-						<a href="EA207.html">«ArchiMate_ApplicationComponent» Transformation & validation rules manager</a><br />
+						<a href="EA209.html">«ArchiMate_ApplicationComponent» Notice state & data manager</a><br />
 						ApplicationComponent «ArchiMate_Assignment» 
 					</td>
 					<td width="30%" class="TableRow" valign="top">
@@ -125,8 +125,8 @@ function nameClassifier(name, separator)
 				</tr>
 				<tr>
 					<td class="TableRowBottomDashed"  colspan="3">
-						<div class="DetailsDivParent"><img src="../../../../images/minus03.gif" align="absmiddle" id="DetailsImageLink429" onclick="parent.toggleDiv('detailsDIVLink429','DetailsImageLink429')" />Details:
-							<div id="detailsDIVLink429" class="DetailsDiv" >
+						<div class="DetailsDivParent"><img src="../../../../images/minus03.gif" align="absmiddle" id="DetailsImageLink416" onclick="parent.toggleDiv('detailsDIVLink416','DetailsImageLink416')" />Details:
+							<div id="detailsDIVLink416" class="DetailsDiv" >
 							&nbsp;
 							</div>
 						</div>
@@ -173,15 +173,15 @@ function nameClassifier(name, separator)
 					<td width="40%" class="TableHeading">Notes</td>
 				</tr>
 				<tr>
-					<td width="30%" class="TableRow" valign="top"><a href="EA209.html">«ArchiMate_ApplicationService» Transformation and validation rules management service</a></td>
-					<td width="10%" class="TableRow" valign="top">ApplicationService</td>
+					<td width="30%" class="TableRow" valign="top"><a href="../EA1/EA111.html">«ArchiMate_DataObject» Notice metadata</a></td>
+					<td width="10%" class="TableRow" valign="top">DataObject</td>
 					<td width="10%" class="TableRow" valign="top">Dependency</td>
 					<td width="10%" class="TableRow" valign="top">To</td>
 					<td width="40%" class="TableRow" valign="top">&nbsp;</td>
 				</tr>
 				<tr>
-					<td width="30%" class="TableRow" valign="top"><a href="../EA3/EA127.html">«ArchiMate_DataObject» RML mapping rule set</a></td>
-					<td width="10%" class="TableRow" valign="top">DataObject</td>
+					<td width="30%" class="TableRow" valign="top"><a href="EA208.html">«ArchiMate_ApplicationService» Notice state & data management service</a></td>
+					<td width="10%" class="TableRow" valign="top">ApplicationService</td>
 					<td width="10%" class="TableRow" valign="top">Dependency</td>
 					<td width="10%" class="TableRow" valign="top">To</td>
 					<td width="40%" class="TableRow" valign="top">&nbsp;</td>

@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<title>business process (BPMN)::Unit test according to mapping design & sample data</title>
+<title>business process (BPMN)::TED-XML notice & metadata</title>
 <link href="../../css/ea.css" rel="stylesheet" type="text/css" />
 <script>
 function initPage(src) {	
@@ -34,15 +34,15 @@ function nameClassifier(name, separator)
 <div class="pageHeader"></div>
 <div class="PageBody">
 	<div id="name_classifier" style="display: none;"></div>
-	<span class="ObjectTitle"><script type="text/javascript">document.write(nameClassifier("Unit test according to mapping design & sample data", " : "))</script>  : Public  &lt;&lt;DataObject&gt;&gt; DataObject</span>
+	<span class="ObjectTitle"><script type="text/javascript">document.write(nameClassifier("TED-XML notice & metadata", " : "))</script>  : Public  &lt;&lt;DataObject&gt;&gt; DataObject</span>
 	<table border="0" cellpadding="0" cellspacing="0" class="ObjectDetails">
 		<tr>
 			<td width="15%" class="ObjectDetailsTopic">Created:</td>
-			<td width="85%" class="ObjectDetailsValue">04/12/2021 23:12:34</td>
+			<td width="85%" class="ObjectDetailsValue">04/12/2021 22:09:17</td>
 		</tr>
 		<tr>
 			<td class="ObjectDetailsTopic">Modified:</td>
-			<td class="ObjectDetailsValue">04/12/2021 23:14:16</td>
+			<td class="ObjectDetailsValue">08/12/2021 21:44:52</td>
 		</tr>
 		<tr style="height: 10px"><td colspan="2"></td></tr>
 		<tr>
@@ -87,11 +87,11 @@ function nameClassifier(name, separator)
 		</tr>
 		<tr id="adv00" style="display: none;">
 			<td class="ObjectDetailsTopic" style="padding-left: 18px;">UUID:</td>
-			<td class="ObjectDetailsValue">{0EFA46EA-9C94-4785-BB18-BE70B2678898}</td>
+			<td class="ObjectDetailsValue">{2D2F673F-EA3E-48cf-97A0-1A95863EC267}</td>
 		</tr>
 		<tr id="adv01" style="display: none;">
 			<td class="ObjectDetailsTopic" style="padding-left: 18px;">Appears In:</td>
-			<td class="ObjectDetailsValue"><a href="EA29.html">mapping development lifecycle</a></td>
+			<td class="ObjectDetailsValue"><a href="EA36.html">process single notice</a>, <a href="EA38.html">Transform notice</a></td>
 		</tr>
 	</table>
 	
@@ -113,8 +113,8 @@ function nameClassifier(name, separator)
 			</tr>	
 			<tr>
 				<td class="TableRowBottomDashed"  colspan="2">
-					<div class="DetailsDivParent"><img src="../../images/minus03.gif" align="absmiddle" id="DetailsImageScenario252" onclick="parent.toggleDiv('detailsDIVScenario252','DetailsImageScenario252')" />Details:
-						<div id="detailsDIVScenario252" class="DetailsDiv" >
+					<div class="DetailsDivParent"><img src="../../images/minus03.gif" align="absmiddle" id="DetailsImageScenario231" onclick="parent.toggleDiv('detailsDIVScenario231','DetailsImageScenario231')" />Details:
+						<div id="detailsDIVScenario231" class="DetailsDiv" >
 						<div class="ObjectDetailsNotes">Values: Input,Output,None<br />Default: None<br /></div>
 
 						</div>
@@ -126,8 +126,8 @@ function nameClassifier(name, separator)
 			</tr>	
 			<tr>
 				<td class="TableRowBottomDashed"  colspan="2">
-					<div class="DetailsDivParent"><img src="../../images/minus03.gif" align="absmiddle" id="DetailsImageScenario253" onclick="parent.toggleDiv('detailsDIVScenario253','DetailsImageScenario253')" />Details:
-						<div id="detailsDIVScenario253" class="DetailsDiv" >
+					<div class="DetailsDivParent"><img src="../../images/minus03.gif" align="absmiddle" id="DetailsImageScenario232" onclick="parent.toggleDiv('detailsDIVScenario232','DetailsImageScenario232')" />Details:
+						<div id="detailsDIVScenario232" class="DetailsDiv" >
 						<div class="ObjectDetailsNotes">Values: true,false<br />Default: false<br /></div>
 
 						</div>
@@ -178,17 +178,59 @@ function nameClassifier(name, separator)
 					<td width="40%" class="TableHeading">Notes</td>
 				</tr>
 				<tr>
-					<td width="30%" class="TableRow" valign="top"><a href="EA61.html">«Activity» Run corresponding unit tests</a></td>
+					<td width="30%" class="TableRow" valign="top"><a href="EA53.html">«Activity» Store notice for future batch processing</a></td>
 					<td width="10%" class="TableRow" valign="top">Activity</td>
 					<td width="10%" class="TableRow" valign="top">Dependency</td>
 					<td width="10%" class="TableRow" valign="top">From</td>
 					<td width="40%" class="TableRow" valign="top">&nbsp;</td>
 				</tr>
 				<tr>
-					<td width="30%" class="TableRow" valign="top"><a href="EA52.html">«Activity» Implement (unit) tests for mapping rules (based on sample data)</a></td>
+					<td width="30%" class="TableRow" valign="top"><a href="EA49.html">«Activity» Normalise notice metadata</a></td>
 					<td width="10%" class="TableRow" valign="top">Activity</td>
 					<td width="10%" class="TableRow" valign="top">Dependency</td>
 					<td width="10%" class="TableRow" valign="top">From</td>
+					<td width="40%" class="TableRow" valign="top">&nbsp;</td>
+				</tr>
+				<tr>
+					<td width="30%" class="TableRow" valign="top"><a href="EA58.html">«Activity» Fetch notice from TED</a></td>
+					<td width="10%" class="TableRow" valign="top">Activity</td>
+					<td width="10%" class="TableRow" valign="top">Dependency</td>
+					<td width="10%" class="TableRow" valign="top">From</td>
+					<td width="40%" class="TableRow" valign="top">&nbsp;</td>
+				</tr>
+				<tr>
+					<td width="30%" class="TableRow" valign="top"><a href="EA46.html">«Gateway» is notice eligible for transformation?</a></td>
+					<td width="10%" class="TableRow" valign="top">Gateway</td>
+					<td width="10%" class="TableRow" valign="top">Dependency</td>
+					<td width="10%" class="TableRow" valign="top">To</td>
+					<td width="40%" class="TableRow" valign="top">&nbsp;</td>
+				</tr>
+				<tr>
+					<td width="30%" class="TableRow" valign="top"><a href="EA59.html">«Activity» Package notice</a></td>
+					<td width="10%" class="TableRow" valign="top">Activity</td>
+					<td width="10%" class="TableRow" valign="top">Dependency</td>
+					<td width="10%" class="TableRow" valign="top">To</td>
+					<td width="40%" class="TableRow" valign="top">&nbsp;</td>
+				</tr>
+				<tr>
+					<td width="30%" class="TableRow" valign="top"><a href="EA69.html">«Activity» Execute notice transformation</a></td>
+					<td width="10%" class="TableRow" valign="top">Activity</td>
+					<td width="10%" class="TableRow" valign="top">Dependency</td>
+					<td width="10%" class="TableRow" valign="top">To</td>
+					<td width="40%" class="TableRow" valign="top">&nbsp;</td>
+				</tr>
+				<tr>
+					<td width="30%" class="TableRow" valign="top"><a href="EA71.html">«Activity» Pre-process notice</a></td>
+					<td width="10%" class="TableRow" valign="top">Activity</td>
+					<td width="10%" class="TableRow" valign="top">Dependency</td>
+					<td width="10%" class="TableRow" valign="top">To</td>
+					<td width="40%" class="TableRow" valign="top">&nbsp;</td>
+				</tr>
+				<tr>
+					<td width="30%" class="TableRow" valign="top"><a href="EA55.html">«BusinessProcess» Transform notice</a></td>
+					<td width="10%" class="TableRow" valign="top">BusinessProcess</td>
+					<td width="10%" class="TableRow" valign="top">Dependency</td>
+					<td width="10%" class="TableRow" valign="top">To</td>
 					<td width="40%" class="TableRow" valign="top">&nbsp;</td>
 				</tr>
 

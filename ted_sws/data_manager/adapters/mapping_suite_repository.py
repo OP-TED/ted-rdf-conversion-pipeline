@@ -98,7 +98,7 @@ class MappingSuiteRepositoryInFileSystem(MappingSuiteRepositoryABC):
         """
         transform_path = package_path / "transform"
         mappings_path = transform_path / "mappings"
-        resources_path = transform_path / "resource"
+        resources_path = transform_path / "resources"
         resources = self._read_file_resources(path=resources_path)
         rml_mapping_rules = self._read_file_resources(path=mappings_path)
         return TransformationRuleSet(resources=resources, rml_mapping_rules=rml_mapping_rules)
@@ -177,7 +177,7 @@ class MappingSuiteRepositoryInFileSystem(MappingSuiteRepositoryABC):
         package_path = self.repository_path / mapping_suite.identifier
         transform_path = package_path / "transform"
         mappings_path = transform_path / "mappings"
-        resources_path = transform_path / "resource"
+        resources_path = transform_path / "resources"
         mappings_path.mkdir(parents=True, exist_ok=True)
         resources_path.mkdir(parents=True, exist_ok=True)
         self._write_file_resources(file_resources=mapping_suite.transformation_rule_set.rml_mapping_rules,

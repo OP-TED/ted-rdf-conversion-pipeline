@@ -7,7 +7,7 @@
 
 """ """
 import abc
-import datetime
+from datetime import datetime
 from typing import List, Optional
 
 from ted_sws.domain.model import PropertyBaseModel
@@ -43,9 +43,9 @@ class SPARQLTestSuite(MappingSuiteComponent):
 
 
 class MappingSuite(MappingSuiteComponent):
-    created: datetime.datetime
-    identifier: str
-    title: str
+    created_at: datetime
+    identifier: str = "no_id"
+    title: str = "no_title"
     version: str = "0.0.1"
     metadata_constrains: MetadataConstraints
     transformation_rule_set: TransformationRuleSet

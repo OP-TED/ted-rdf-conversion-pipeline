@@ -43,7 +43,7 @@ class SPARQLTestSuite(MappingSuiteComponent):
 
 
 class MappingSuite(MappingSuiteComponent):
-    created_at: datetime
+    created_at: str
     identifier: str = "no_id"
     title: str = "no_title"
     version: str = "0.0.1"

@@ -1,11 +1,12 @@
 import json
 import pathlib
-from typing import Iterator, List
+from typing import Iterator, List, Optional
 
 from pymongo import MongoClient
 
 from ted_sws.domain.adapters.repository_abc import MappingSuiteRepositoryABC
-from ted_sws.domain.model.transform import MappingSuite, FileResource
+from ted_sws.domain.model.transform import MappingSuite, FileResource, TransformationRuleSet, SHACLTestSuite, \
+    SPARQLTestSuite, MetadataConstraints
 
 
 class MappingSuiteRepositoryMongoDB(MappingSuiteRepositoryABC):
@@ -75,9 +76,36 @@ class MappingSuiteRepositoryInFileSystem(MappingSuiteRepositoryABC):
         :param repository_path:
         """
         self.repository_path = repository_path
+        self.repository_path.mkdir(parents=True, exist_ok=True)
 
-    def _read_package_metadate(self, package_metadata_path: pathlib.Path) -> dict:
-        pass
+    def _read_package_metadata(self, package_path: pathlib.Path) -> dict:
+        package_metadata_path = package_path / "metadata.json"
+        package_metadata_content = package_metadata_path.read_text(encoding="utf-8")
+        package_metadata = json.loads(package_metadata_content)
+        package_metadata['metadata_constraints'] = MetadataConstraints(**package_metadata['metadata_constraints'])
+        return package_metadata
+
+    def _read_transformation_rule_set(self, package_path: pathlib.Path) -> TransformationRuleSet:
+        transform_path = package_path / "transform"
+        mappings_path = transform_path / "mappings"
+        resources_path = transform_path / "resource"
+        resources = self._read_file_resources(path=resources_path)
+        rml_mapping_rules = self._read_file_resources(path=mappings_path)
+        return TransformationRuleSet(resources=resources, rml_mapping_rules=rml_mapping_rules)
+
+    def _read_shacl_test_suites(self, package_path: pathlib.Path) -> List[SHACLTestSuite]:
+        validate_path = package_path / "validate"
+        shacl_path = validate_path / "shacl"
+        shacl_test_suite_paths = [x for x in shacl_path.iterdir() if x.is_dir()]
+        return [SHACLTestSuite(shacl_tests=self._read_file_resources(path=shacl_test_suite_path))
+                for shacl_test_suite_path in shacl_test_suite_paths]
+
+    def _read_sparql_test_suites(self, package_path: pathlib.Path) -> List[SPARQLTestSuite]:
+        validate_path = package_path / "validate"
+        sparql_path = validate_path / "sparql"
+        sparql_test_suite_paths = [x for x in sparql_path.iterdir() if x.is_dir()]
+        return [SPARQLTestSuite(sparql_tests=self._read_file_resources(path=sparql_test_suite_path))
+                for sparql_test_suite_path in sparql_test_suite_paths]
 
     def _create_package_metadata(self, mapping_suite: MappingSuite):
         package_path = self.repository_path / mapping_suite.identifier
@@ -99,7 +127,7 @@ class MappingSuiteRepositoryInFileSystem(MappingSuiteRepositoryABC):
                 f.write(file_resource.file_content)
 
     def _read_file_resources(self, path: pathlib.Path) -> List[FileResource]:
-        files = [file for file in path.glob('**/*') if file.is_file()]
+        files = [file for file in path.iterdir() if file.is_file()]
         return [FileResource(file_name=file.name,
                              file_content=file.read_text(encoding="utf-8"))
                 for file in files]
@@ -155,6 +183,16 @@ class MappingSuiteRepositoryInFileSystem(MappingSuiteRepositoryABC):
         self._create_package_transform_rules(mapping_suite=mapping_suite)
         self._create_package_validation_rules(mapping_suite=mapping_suite)
 
+    def _read_mapping_suite_package(self, mapping_suite_identifier: str) -> Optional[MappingSuite]:
+        package_path = self.repository_path / mapping_suite_identifier
+        if package_path.is_dir():
+            package_metadata = self._read_package_metadata(package_path)
+            package_metadata["transformation_rule_set"] = self._read_transformation_rule_set(package_path)
+            package_metadata["shacl_test_suites"] = self._read_shacl_test_suites(package_path)
+            package_metadata["sparql_test_suites"] = self._read_sparql_test_suites(package_path)
+            return MappingSuite(**package_metadata)
+        return None
+
     def add(self, mapping_suite: MappingSuite):
         """
             This method allows you to add MappingSuite objects to the repository.
@@ -177,11 +215,24 @@ class MappingSuiteRepositoryInFileSystem(MappingSuiteRepositoryABC):
         :param reference:
         :return: MappingSuite
         """
-        pass
+        return self._read_mapping_suite_package(mapping_suite_identifier=reference)
 
     def list(self) -> Iterator[MappingSuite]:
         """
             This method allows all records to be retrieved from the repository.
         :return: list of MappingSuites
         """
-        pass
+        package_paths = [x for x in self.repository_path.iterdir() if x.is_dir()]
+        for package_path in package_paths:
+            yield self.get(reference=package_path.name)
+
+    def clear_repository(self):
+        def rm_tree(pth: pathlib.Path):
+            for child in pth.iterdir():
+                if child.is_file():
+                    child.unlink()
+                else:
+                    rm_tree(child)
+            pth.rmdir()
+        rm_tree(self.repository_path)
+

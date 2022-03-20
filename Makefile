@@ -145,7 +145,7 @@ init-rml-mapper:
 	@ mv .rmlmapper/rmlmapper-5.0.0-r362-all.jar .rmlmapper/rmlmapper.jar 2>/dev/null
 
 
-start-project-services: | start-airflow start-mongo
+start-project-services: | start-airflow start-mongo init-rml-mapper:
 stop-project-services: | stop-airflow stop-mongo
 
 #-----------------------------------------------------------------------------

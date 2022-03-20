@@ -139,6 +139,11 @@ stop-mongo:
 	@ echo -e "$(BUILD_PRINT)Stopping the Mongo services $(END_BUILD_PRINT)"
 	@ docker-compose -p ${ENVIRONMENT} --file ./infra/mongo/docker-compose.yml --env-file ${ENV_FILE} down
 
+init-rml-mapper:
+	@ echo -e "RMLMapper folder initialisation!"
+	@ wget -c https://github.com/RMLio/rmlmapper-java/releases/download/v5.0.0/rmlmapper-5.0.0-r362-all.jar -P .rmlmapper/
+	@ mv .rmlmapper/rmlmapper-5.0.0-r362-all.jar .rmlmapper/rmlmapper.jar 2>/dev/null
+
 
 start-project-services: | start-airflow start-mongo
 stop-project-services: | stop-airflow stop-mongo
@@ -193,6 +198,8 @@ prod-dotenv-file: guard-VAULT_ADDR guard-VAULT_TOKEN vault-installed
 	@ echo AIRFLOW_INFRA_FOLDER=~/airflow-infra/prod >> .env
 	@ vault kv get -format="json" ted-prod/airflow | jq -r ".data.data | keys[] as \$$k | \"\(\$$k)=\(.[\$$k])\"" >> .env
 	@ vault kv get -format="json" ted-prod/mongo-db | jq -r ".data.data | keys[] as \$$k | \"\(\$$k)=\(.[\$$k])\"" >> .env
+
+
 
 
 #clean-mongo-db:

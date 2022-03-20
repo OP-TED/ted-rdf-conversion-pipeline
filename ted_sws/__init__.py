@@ -68,3 +68,4 @@ class TedConfigResolver(MongoDBConfig, RMLMapperConfig):
 
 
 config = TedConfigResolver()
+

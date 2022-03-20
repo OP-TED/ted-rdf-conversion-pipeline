@@ -26,7 +26,14 @@ jobs:
 
       - name: Run unit tests
         run: make test-all
-
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v1
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          file: coverage.xml
+          env_vars: OS,PYTHON
+          name: codecov-umbrella
+          fail_ci_if_error: true
 #      - name: Clean Mongo DB
 #        run: make clean-mongo-db
 #      - name: Upload coverage to Codecov

@@ -47,7 +47,7 @@ class XMLManifestationMetadataExtractor:
 
     @property
     def notice_publication_number(self):
-        return self.manifestation_root.attrib["DOC_ID"]
+        return self.manifestation_root.get("DOC_ID")
 
     @property
     def publication_date(self):
@@ -129,10 +129,16 @@ class XMLManifestationMetadataExtractor:
             namespaces=self.namespaces))
 
     @property
-    def notice_type(self):
+    def extracted_notice_type(self):
         return extract_code_and_value_from_element(element=self.manifestation_root.find(
             self.xpath_registry.xpath_notice_type,
             namespaces=self.namespaces))
+
+    @property
+    def extracted_form_number(self):
+        return extract_attribute_from_element(element=self.manifestation_root.find(
+            self.xpath_registry.xpath_form_number,
+            namespaces=self.namespaces), attrib_key="FORM")
 
     @property
     def regulation(self):
@@ -189,6 +195,19 @@ class XMLManifestationMetadataExtractor:
                 self.xpath_registry.xpath_legal_basis_directive_third,
                 namespaces=self.namespaces))
 
+    @property
+    def xml_schema(self):
+        xsi_namespace = self.namespaces.get("xsi")
+        xml_schema_attribute = f"{ {xsi_namespace} }schemaLocation".replace("'", "")
+        return self.manifestation_root.get(xml_schema_attribute) if xsi_namespace else None
+
+    @property
+    def xml_schema_version(self):
+        return self.manifestation_root.get("VERSION") or extract_attribute_from_element(
+            element=self.manifestation_root.find(
+                self.xpath_registry.xpath_form_number,
+                namespaces=self.namespaces), attrib_key="VERSION")
+
     def to_metadata(self) -> ExtractedMetadata:
         """
          Creating extracted metadata
@@ -208,7 +227,8 @@ class XMLManifestationMetadataExtractor:
         metadata.document_sent_date = self.document_sent_date
         metadata.type_of_contract = self.type_of_contract
         metadata.type_of_procedure = self.type_of_procedure
-        metadata.notice_type = self.notice_type
+        metadata.extracted_notice_type = self.extracted_notice_type
+        metadata.extracted_form_number = self.extracted_form_number
         metadata.regulation = self.regulation
         metadata.type_of_bid = self.type_of_bid
         metadata.award_criteria = self.award_criteria
@@ -216,6 +236,8 @@ class XMLManifestationMetadataExtractor:
         metadata.place_of_performance = self.place_of_performance
         metadata.internet_address = self.internet_address
         metadata.legal_basis_directive = self.legal_basis_directive
+        metadata.xml_schema = self.xml_schema
+        metadata.xml_schema_version = self.xml_schema_version
         return metadata
 
     def _parse_manifestation(self):
@@ -264,7 +286,7 @@ def extract_attribute_from_element(element: ET.Element, attrib_key: str) -> str:
     :return:
     """
     if element is not None:
-        return element.attrib[attrib_key]
+        return element.get(attrib_key)
 
 
 def extract_code_and_value_from_element(element: ET.Element) -> EncodedValue:

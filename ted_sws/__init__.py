@@ -28,6 +28,24 @@ class MongoDBConfig:
 
     @property
     def MONGO_DB_AUTH_URL(self) -> str:
+        if self.ENVIRONMENT == "dev" and self.AIRFLOW__CORE__EXECUTOR:
+            return self.MONGO_DB_AUTH_URL_DEV_CONTAINER
+        return VaultAndEnvConfigResolver().config_resolve()
+
+    @property
+    def MONGO_DB_AUTH_URL_DEV_CONTAINER(self) -> str:
+        """
+        This variable is to be used only on dev environment when execution is done from a docker container as oppose to
+        development host environment
+        """
+        return VaultAndEnvConfigResolver().config_resolve()
+
+    @property
+    def ENVIRONMENT(self) -> str:
+        return VaultAndEnvConfigResolver().config_resolve()
+
+    @property
+    def AIRFLOW__CORE__EXECUTOR(self) -> str:
         return VaultAndEnvConfigResolver().config_resolve()
 
     @property

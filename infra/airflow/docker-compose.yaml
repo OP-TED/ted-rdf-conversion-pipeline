@@ -59,6 +59,8 @@ x-airflow-common:
     _PIP_ADDITIONAL_REQUIREMENTS: ${_PIP_ADDITIONAL_REQUIREMENTS:-}
     VAULT_TOKEN: ${VAULT_TOKEN}
     VAULT_ADDR: ${VAULT_ADDR}
+    ENVIRONMENT: ${ENVIRONMENT}
+    PYTHONPATH: /opt/airflow/
   volumes:
 #    - ./config/airflow.cfg:/opt/airflow/airflow.cfg
     - ${AIRFLOW_INFRA_FOLDER}/.env:/opt/airflow/.env
@@ -169,7 +171,7 @@ services:
     restart: unless-stopped
     networks:
       - airflow
-      - airflow-ext
+      - common-ext
     depends_on:
       <<: *airflow-common-depends-on
       airflow-init:
@@ -187,7 +189,7 @@ services:
     restart: unless-stopped
     networks:
       - airflow
-      - airflow-ext
+      - common-ext
     depends_on:
       <<: *airflow-common-depends-on
       airflow-init:
@@ -309,9 +311,9 @@ networks:
     internal: true
     name: airflow-${ENVIRONMENT}
   networks:
-  airflow-ext:
-    internal: false
-    name: airflow-ext-${ENVIRONMENT}
+  common-ext:
+    external:
+      name: common-ext-${ENVIRONMENT}
   proxy-net:
     external:
       name: proxy-net

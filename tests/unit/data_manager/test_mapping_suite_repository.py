@@ -32,3 +32,4 @@ def test_mapping_suite_repository_in_file_system(file_system_repository_path, fa
     mapping_suite_repository.add(mapping_suite=result_mapping_suite)
     result_mapping_suites = list(mapping_suite_repository.list())
     assert len(result_mapping_suites) == 2
+    mapping_suite_repository.clear_repository()

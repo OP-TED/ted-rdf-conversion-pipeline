@@ -23,7 +23,6 @@ class FileResource(MappingSuiteComponent):
     file_name: str
     file_content: str
 
-
 class MetadataConstraints(MappingSuiteComponent):
     constraints: dict
 
@@ -38,7 +37,8 @@ class SHACLTestSuite(MappingSuiteComponent):
 
 
 class SPARQLTestSuite(MappingSuiteComponent):
-    purpose: Optional[str]
+    # TODO: Revise this field
+    # purpose: Optional[FileResource] = None
     sparql_tests: List[FileResource]
 
 
@@ -47,7 +47,7 @@ class MappingSuite(MappingSuiteComponent):
     identifier: str = "no_id"
     title: str = "no_title"
     version: str = "0.0.1"
-    metadata_constrains: MetadataConstraints
+    metadata_constraints: MetadataConstraints
     transformation_rule_set: TransformationRuleSet
     shacl_test_suites: List[SHACLTestSuite]
     sparql_test_suites: List[SPARQLTestSuite]

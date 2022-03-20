@@ -31,7 +31,7 @@ def fake_mapping_suite():
                                         sparql_tests=[empty_file_resource]
                                         )
     mapping_suite = MappingSuite(created_at=datetime.now(),
-                                 metadata_constrains=metadata_constrains,
+                                 metadata_constraints=metadata_constrains,
                                  transformation_rule_set=transformation_rule_set,
                                  shacl_test_suites=[shacl_test_suite],
                                  sparql_test_suites=[sparql_test_suite]

@@ -1,3 +1,5 @@
+from deepdiff import DeepDiff
+
 from ted_sws.data_manager.adapters.mapping_suite_repository import MappingSuiteRepositoryMongoDB, \
     MappingSuiteRepositoryInFileSystem
 
@@ -33,3 +35,14 @@ def test_mapping_suite_repository_in_file_system(file_system_repository_path, fa
     result_mapping_suites = list(mapping_suite_repository.list())
     assert len(result_mapping_suites) == 2
     mapping_suite_repository.clear_repository()
+
+def test_inter_transactions_mapping_suite_repositories(mongodb_client, file_system_repository_path, fake_mapping_suite):
+    mapping_suite_repository_mongodb = MappingSuiteRepositoryMongoDB(mongodb_client=mongodb_client, database_name='test_inter_transactions')
+    mapping_suite_repository_file_system = MappingSuiteRepositoryInFileSystem(repository_path=file_system_repository_path)
+    mapping_suite_repository_file_system.clear_repository()
+    mapping_suite_repository_mongodb.add(mapping_suite=fake_mapping_suite)
+    result_mapping_suite = mapping_suite_repository_mongodb.get(reference=fake_mapping_suite.identifier)
+    mapping_suite_repository_file_system.add(mapping_suite=result_mapping_suite)
+    result_mapping_suite = mapping_suite_repository_file_system.get(reference=fake_mapping_suite.identifier)
+    assert DeepDiff(result_mapping_suite, fake_mapping_suite) == {}
+    mapping_suite_repository_file_system.clear_repository()

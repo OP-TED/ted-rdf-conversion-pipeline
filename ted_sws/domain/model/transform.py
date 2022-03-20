@@ -20,29 +20,47 @@ class MappingSuiteComponent(PropertyBaseModel, abc.ABC):
 
 
 class FileResource(MappingSuiteComponent):
+    """
+
+    """
     file_name: str
     file_content: str
 
 class MetadataConstraints(MappingSuiteComponent):
+    """
+
+    """
     constraints: dict
 
 
 class TransformationRuleSet(MappingSuiteComponent):
+    """
+
+    """
     resources: List[FileResource]
     rml_mapping_rules: List[FileResource]
 
 
 class SHACLTestSuite(MappingSuiteComponent):
+    """
+
+    """
     shacl_tests: List[FileResource]
 
 
 class SPARQLTestSuite(MappingSuiteComponent):
+    """
+
+    """
     # TODO: Revise this field
     # purpose: Optional[FileResource] = None
     sparql_tests: List[FileResource]
 
 
 class MappingSuite(MappingSuiteComponent):
+    """
+
+    """
     created_at: str
     identifier: str = "no_id"
     title: str = "no_title"

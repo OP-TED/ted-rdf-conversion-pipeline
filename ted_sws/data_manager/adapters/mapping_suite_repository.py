@@ -80,7 +80,7 @@ class MappingSuiteRepositoryInFileSystem(MappingSuiteRepositoryABC):
 
     def _read_package_metadata(self, package_path: pathlib.Path) -> dict:
         """
-
+            This method allows reading the metadata of a packet.
         :param package_path:
         :return:
         """
@@ -92,7 +92,7 @@ class MappingSuiteRepositoryInFileSystem(MappingSuiteRepositoryABC):
 
     def _read_transformation_rule_set(self, package_path: pathlib.Path) -> TransformationRuleSet:
         """
-
+            This method allows you to read the transformation rules in a package.
         :param package_path:
         :return:
         """
@@ -105,7 +105,7 @@ class MappingSuiteRepositoryInFileSystem(MappingSuiteRepositoryABC):
 
     def _read_shacl_test_suites(self, package_path: pathlib.Path) -> List[SHACLTestSuite]:
         """
-
+            This method allows you to read shacl test suites from a package.
         :param package_path:
         :return:
         """
@@ -117,7 +117,7 @@ class MappingSuiteRepositoryInFileSystem(MappingSuiteRepositoryABC):
 
     def _read_sparql_test_suites(self, package_path: pathlib.Path) -> List[SPARQLTestSuite]:
         """
-
+            This method allows you to read sparql test suites from a package.
         :param package_path:
         :return:
         """
@@ -129,7 +129,7 @@ class MappingSuiteRepositoryInFileSystem(MappingSuiteRepositoryABC):
 
     def _create_package_metadata(self, mapping_suite: MappingSuite):
         """
-
+            This method creates the metadata of a package based on the metadata in the mapping_suite.
         :param mapping_suite:
         :return:
         """
@@ -147,7 +147,7 @@ class MappingSuiteRepositoryInFileSystem(MappingSuiteRepositoryABC):
 
     def _write_file_resources(self, file_resources: List[FileResource], path: pathlib.Path):
         """
-
+            This method allows you to write a list of file-type resources to a specific location.
         :param file_resources:
         :param path:
         :return:
@@ -159,7 +159,7 @@ class MappingSuiteRepositoryInFileSystem(MappingSuiteRepositoryABC):
 
     def _read_file_resources(self, path: pathlib.Path) -> List[FileResource]:
         """
-
+            This method reads a list of file-type resources that are in a specific location.
         :param path:
         :return:
         """
@@ -170,7 +170,7 @@ class MappingSuiteRepositoryInFileSystem(MappingSuiteRepositoryABC):
 
     def _create_package_transform_rules(self, mapping_suite: MappingSuite):
         """
-
+            This method creates the transformation rules within the package.
         :param mapping_suite:
         :return:
         """
@@ -189,7 +189,7 @@ class MappingSuiteRepositoryInFileSystem(MappingSuiteRepositoryABC):
 
     def _create_package_validation_rules(self, mapping_suite: MappingSuite):
         """
-
+            This method creates the validation rules within the package.
         :param mapping_suite:
         :return:
         """
@@ -221,7 +221,7 @@ class MappingSuiteRepositoryInFileSystem(MappingSuiteRepositoryABC):
 
     def _create_mapping_suite_package(self, mapping_suite: MappingSuite):
         """
-
+            This method creates a package based on data from mapping_suite.
         :param mapping_suite:
         :return:
         """
@@ -231,7 +231,7 @@ class MappingSuiteRepositoryInFileSystem(MappingSuiteRepositoryABC):
 
     def _read_mapping_suite_package(self, mapping_suite_identifier: str) -> Optional[MappingSuite]:
         """
-
+            This method reads a package and initializes a MappingSuite object.
         :param mapping_suite_identifier:
         :return:
         """

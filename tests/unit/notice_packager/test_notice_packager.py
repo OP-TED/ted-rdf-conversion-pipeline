@@ -15,7 +15,6 @@ import pytest
 from ted_sws.notice_packager.model.metadata import ACTION_CREATE, ACTION_UPDATE
 from ted_sws.notice_packager.services.notice_packager import create_notice_package
 from tests import TEST_DATA_PATH
-from tests.fakes.fake_repository import FakeNoticeRepository
 
 
 def test_notice_packager(notice_sample_metadata):
@@ -55,12 +54,12 @@ def test_notice_packager_with_notice(notice_2018):
     assert encoded_package_content is not None
 
 
-def test_notice_packager_with_notice_id():
+def test_notice_packager_with_notice_id(notice_2018, notice_repository):
     notice_id = 'fake-notice-id'
-    notice_repository = FakeNoticeRepository()
-    with pytest.raises(TypeError):
-        encoded_package_content = create_notice_package(in_data=notice_id, notice_repository=notice_repository)
-        assert encoded_package_content is not None
+
+    notice_repository.add(notice_2018)
+    encoded_package_content = create_notice_package(in_data=notice_2018.ted_id, notice_repository=notice_repository)
+    assert encoded_package_content is not None
 
     with pytest.raises(TypeError):
         create_notice_package(in_data=notice_id, notice_repository=None)

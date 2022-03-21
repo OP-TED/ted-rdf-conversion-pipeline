@@ -22,7 +22,7 @@ def test_setting_normalised_metadata_upstream(publicly_available_notice):
     publicly_available_notice.set_normalised_metadata(publicly_available_notice.normalised_metadata)
     assert publicly_available_notice.status is NoticeStatus.PUBLICLY_AVAILABLE
 
-    publicly_available_notice.set_normalised_metadata(NormalisedMetadata())
+    publicly_available_notice.set_normalised_metadata(NormalisedMetadata(**{"notice_publication_number": "ND-UP"}))
     assert publicly_available_notice.status is NoticeStatus.NORMALISED_METADATA
     assert publicly_available_notice.normalised_metadata is not None
     assert publicly_available_notice.rdf_manifestation is None
@@ -30,7 +30,7 @@ def test_setting_normalised_metadata_upstream(publicly_available_notice):
 
 
 def test_setting_normalised_metadata_downstream(raw_notice):
-    raw_notice.set_normalised_metadata(NormalisedMetadata())
+    raw_notice.set_normalised_metadata(NormalisedMetadata(**{"notice_publication_number": "ND-DOWN"}))
     assert raw_notice.status is NoticeStatus.NORMALISED_METADATA
     assert raw_notice.normalised_metadata is not None
     assert raw_notice.rdf_manifestation is None

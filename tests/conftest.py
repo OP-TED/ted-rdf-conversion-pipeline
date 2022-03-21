@@ -17,6 +17,7 @@ from tests.fakes.fake_repository import FakeNoticeRepository
 def notice_id():
     return "067623-2022"
 
+
 @pytest.fixture
 def notice_repository():
     return FakeNoticeRepository()
@@ -32,7 +33,8 @@ def raw_notice(ted_document_search, notice_repository, notice_id) -> Notice:
     document_id = notice_id
     NoticeFetcher(ted_api_adapter=ted_document_search, notice_repository=notice_repository).fetch_notice_by_id(
         document_id=document_id)
-    return notice_repository.get(reference=document_id)
+    raw_notice = notice_repository.get(reference=document_id)
+    return raw_notice
 
 
 def read_notice(notice_file: str):

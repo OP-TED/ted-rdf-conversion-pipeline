@@ -31,7 +31,7 @@ def publicly_available_notice(fetched_notice_data) -> Notice:
                     xml_manifestation=xml_manifestation)
     notice._rdf_manifestation = RDFManifestation(object_data="RDF manifestation content", validation=validation)
     notice._mets_manifestation = METSManifestation(object_data="METS manifestation content")
-    notice._normalised_metadata = NormalisedMetadata(title="a never known title")
+    notice._normalised_metadata = NormalisedMetadata(**{"notice_publication_number": "ND"})
     notice._status = NoticeStatus.PUBLICLY_AVAILABLE
     return notice
 
@@ -45,6 +45,6 @@ def raw_notice(fetched_notice_data) -> Notice:
 
 @pytest.fixture(scope="function")
 def transformation_eligible_notice(raw_notice) -> Notice:
-    raw_notice.set_normalised_metadata(normalised_metadata=NormalisedMetadata(**{"AA": "notice metadata "}))
+    raw_notice.set_normalised_metadata(normalised_metadata=NormalisedMetadata(**{"notice_publication_number": "ND-UP"}))
     raw_notice.update_status_to(NoticeStatus.ELIGIBLE_FOR_TRANSFORMATION)
     return raw_notice

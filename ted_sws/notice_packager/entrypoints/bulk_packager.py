@@ -35,7 +35,7 @@ def generate_packages(files_count: int = DEFAULT_FILES_COUNT, output_folder: PAT
     if not os.path.exists(output_folder):
         os.makedirs(output_folder)
     output_folder = Path(output_folder)
-
+    output_folder.mkdir(parents=True, exist_ok=True)
     base_idx = 100000
     year = 2022
 

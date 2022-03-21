@@ -1,0 +1,14 @@
+PREFIX cdm: <http://publications.europa.eu/ontology/cdm#>
+PREFIX dct: <http://purl.org/dc/terms/>
+PREFIX dc: <http://purl.org/dc/elements/1.1/>
+
+select *
+where
+{
+ graph <http://publications.europa.eu/resource/authority/buyer-legal-type>
+ {
+    ?concept dc:identifier ?code .
+    #?s ?p ?o
+  }
+}
+LIMIT ~value

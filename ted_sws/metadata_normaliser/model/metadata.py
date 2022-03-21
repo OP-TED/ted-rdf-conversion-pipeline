@@ -23,7 +23,8 @@ class ExtractedMetadata(Metadata):
     deadline_for_submission: str = None
     type_of_contract: EncodedValue = None
     type_of_procedure: EncodedValue = None
-    notice_type: EncodedValue = None
+    extracted_notice_type: EncodedValue = None
+    extracted_form_number: str = None
     regulation: EncodedValue = None
     type_of_bid: EncodedValue = None
     award_criteria: EncodedValue = None
@@ -31,4 +32,5 @@ class ExtractedMetadata(Metadata):
     place_of_performance: List[EncodedValue] = None
     internet_address: str = None
     legal_basis_directive: str = None
-
+    xml_schema: str = None
+    xml_schema_version: str = None

@@ -104,8 +104,8 @@ class ExtractedMetadataNormaliser:
             "deadline_for_submission": datetime.datetime.strptime(
                 emd.deadline_for_submission, '%Y%m%d'
             ) if emd.deadline_for_submission is not None else None,
-            "notice_type": emd.notice_type.value,
-            "form_type": '',
+            "notice_type": emd.extracted_notice_type.value,
+            "form_type": emd.extracted_form_number,
             "place_of_performance": [k.value for k in emd.place_of_performance],
             "legal_basis_directive": emd.legal_basis_directive if emd.legal_basis_directive is not None else ""
         }

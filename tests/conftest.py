@@ -1,16 +1,17 @@
 import base64
+import datetime
 import json
 
 import pytest
 
 from ted_sws.domain.model.manifestation import XMLManifestation
-from ted_sws.domain.model.metadata import TEDMetadata
+from ted_sws.domain.model.metadata import TEDMetadata, LanguageTaggedString
 from ted_sws.domain.model.notice import Notice
 from ted_sws.notice_fetcher.adapters.ted_api import TedAPIAdapter
 from ted_sws.notice_fetcher.services.notice_fetcher import NoticeFetcher
 from tests import TEST_DATA_PATH
-from tests.fakes.fake_ted_api import FakeRequestAPI
 from tests.fakes.fake_repository import FakeNoticeRepository
+from tests.fakes.fake_ted_api import FakeRequestAPI
 
 
 @pytest.fixture
@@ -81,3 +82,43 @@ def notice_2018():
     original_metadata = TEDMetadata(**notice_data)
 
     return Notice(ted_id=ted_id, xml_manifestation=xml_manifestation, original_metadata=original_metadata)
+
+
+@pytest.fixture
+def normalised_metadata_dict():
+    data = {
+        'title': [
+            LanguageTaggedString(text='Услуги по ремонт и поддържане на превозни средства с военна употреба',
+                                 language='BG'),
+            LanguageTaggedString(text='Repair and maintenance services of military vehicles', language='GA')
+        ],
+        'long_title': [
+            LanguageTaggedString(
+                text='Гepмaния :: Бон :: Услуги по ремонт и поддържане на превозни средства с военна употреба',
+                language='BG'),
+            LanguageTaggedString(text='Tyskland :: Bonn :: Reparation och underhåll av militärfordon',
+                                 language='SV')
+        ],
+        'notice_publication_number': '067623-2022',
+        'publication_date': datetime.date(2022, 2, 7),
+        'ojs_issue_number': '26',
+        'ojs_type': 'S',
+        'city_of_buyer': [
+            LanguageTaggedString(text='Бон', language='BG'),
+            LanguageTaggedString(text='Bonn', language='SV')
+        ],
+        'name_of_buyer': [
+            LanguageTaggedString(text='HIL Heeresinstandsetzungslogistik GmbH', language='DE')
+        ],
+        'original_language': 'http://publications.europa.eu/resource/authority/language/DEU',
+        'country_of_buyer': 'http://publications.europa.eu/resource/authority/country/DEU',
+        'eu_institution': False,
+        'document_sent_date': datetime.date(2022, 2, 2),
+        'deadline_for_submission': None,
+        'notice_type': 'AWESOME_NOTICE_TYPE',
+        'form_type': '18',
+        'place_of_performance': ['http://data.europa.eu/nuts/code/DE'],
+        'legal_basis_directive': 'http://publications.europa.eu/resource/authority/legal-basis/32009L0081'
+    }
+
+    return data

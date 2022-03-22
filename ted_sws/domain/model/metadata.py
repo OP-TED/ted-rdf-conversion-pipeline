@@ -13,13 +13,6 @@ from pydantic.annotated_types import NamedTuple
 
 from ted_sws.domain.model import PropertyBaseModel
 
-TLanguageConceptURI = str
-TCountryConceptURI = str
-TEFormsNoticeTypeURI = str
-TEFormsFormTypeURI = str
-TNUTSConceptURI = str
-TLegalBasisConceptURI = str
-
 
 class Metadata(PropertyBaseModel):
     """
@@ -59,23 +52,23 @@ class NormalisedMetadata(Metadata):
     """
         Stores notice normalised metadata
     """
-    title: List[LanguageTaggedString] = None
-    long_title: List[LanguageTaggedString] = None
-    notice_publication_number: str = ""
-    publication_date: datetime.date = None
-    ojs_issue_number: str = ""
-    ojs_type: str = ""
+    title: List[LanguageTaggedString]
+    long_title: List[LanguageTaggedString]
+    notice_publication_number: str
+    publication_date: datetime.date
+    ojs_issue_number: str
+    ojs_type: str
     city_of_buyer: Optional[List[LanguageTaggedString]]
     name_of_buyer: Optional[List[LanguageTaggedString]]
-    original_language: Optional[TLanguageConceptURI]
-    country_of_buyer: Optional[TCountryConceptURI]
+    original_language: Optional[str]
+    country_of_buyer: Optional[str]
     eu_institution: Optional[bool]
     document_sent_date: Optional[datetime.date]
     deadline_for_submission: Optional[datetime.date]
-    notice_type: TEFormsNoticeTypeURI = None
-    form_type: TEFormsFormTypeURI = None
-    place_of_performance: List[TNUTSConceptURI] = None
-    legal_basis_directive: TLegalBasisConceptURI = None
+    notice_type: str
+    form_type: str
+    place_of_performance: List[str]
+    legal_basis_directive: str
 
 
 class TEDMetadata(Metadata):

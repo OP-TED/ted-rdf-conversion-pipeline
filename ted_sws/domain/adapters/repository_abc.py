@@ -1,7 +1,7 @@
 import abc
 from typing import Iterator
 
-from ted_sws.domain.model.notice import Notice
+from ted_sws.domain.model.notice import Notice, NoticeStatus
 
 
 class RepositoryABC(abc.ABC):
@@ -37,6 +37,14 @@ class NoticeRepositoryABC(RepositoryABC):
             This method allows a notice to be obtained based on an identification reference.
         :param reference:
         :return: Notice
+        """
+
+    @abc.abstractmethod
+    def get_notice_by_status(self, notice_status: NoticeStatus) -> Iterator[Notice]:
+        """
+            This method provides all notices based on its status.
+        :param notice_status:
+        :return:
         """
 
     @abc.abstractmethod

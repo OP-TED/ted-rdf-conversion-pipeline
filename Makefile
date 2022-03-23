@@ -51,6 +51,8 @@ test-all:
 build-externals:
 	@ echo -e "$(BUILD_PRINT)Creating the necessary volumes, networks and folders and setting the special rights"
 	@ docker network create proxy-net || true
+	@ docker network create common-ext-${ENVIRONMENT} || true
+
 
 #-----------------------------------------------------------------------------
 # SERVER SERVICES
@@ -84,6 +86,7 @@ create-env-airflow:
 	@ ln -s -f -n ${PROJECT_PATH}/dags ${AIRFLOW_INFRA_FOLDER}/dags
 	@ ln -s -f -n ${PROJECT_PATH}/ted_sws ${AIRFLOW_INFRA_FOLDER}/ted_sws
 	@ chmod 777 ${AIRFLOW_INFRA_FOLDER}/logs ${AIRFLOW_INFRA_FOLDER}/plugins ${AIRFLOW_INFRA_FOLDER}/.env
+	@ cp requirements.txt ./infra/airflow/
 
 build-airflow: guard-ENVIRONMENT create-env-airflow build-externals
 	@ echo -e "$(BUILD_PRINT) Build Airflow services $(END_BUILD_PRINT)"
@@ -194,7 +197,8 @@ prod-dotenv-file: guard-VAULT_ADDR guard-VAULT_TOKEN vault-installed
 	@ vault kv get -format="json" ted-prod/airflow | jq -r ".data.data | keys[] as \$$k | \"\(\$$k)=\(.[\$$k])\"" >> .env
 	@ vault kv get -format="json" ted-prod/mongo-db | jq -r ".data.data | keys[] as \$$k | \"\(\$$k)=\(.[\$$k])\"" >> .env
 
-
+refresh-normaliser-mapping-files:
+	@ python -m ted_sws.metadata_normaliser.entrypoints.generate_mapping_resources
 #clean-mongo-db:
 #	@ export PYTHONPATH=$(PWD) && python ./tests/clean_mongo_db.py
 

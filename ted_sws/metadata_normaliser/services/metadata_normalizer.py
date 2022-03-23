@@ -149,7 +149,7 @@ class ExtractedMetadataNormaliser:
             "deadline_for_submission": datetime.datetime.strptime(
                 extracted_metadata.deadline_for_submission, '%Y%m%d'
             ) if extracted_metadata.deadline_for_submission is not None else None,
-            "notice_type": extracted_metadata.extracted_notice_type.value,
+            "notice_type": extracted_metadata.extracted_document_type.value,
             "form_type": extracted_metadata.extracted_form_number,
             "place_of_performance": [self.get_map_value(nuts_map, place_of_performance.code) for place_of_performance
                                      in extracted_metadata.place_of_performance],

@@ -7,6 +7,8 @@
 
 """ """
 import abc
+from dataclasses import Field
+from datetime import datetime
 from typing import List
 
 from ted_sws.domain.model import PropertyBaseModel
@@ -15,7 +17,6 @@ from ted_sws.domain.model import PropertyBaseModel
 class MappingSuiteComponent(PropertyBaseModel, abc.ABC):
     class Config:
         validate_assignment = True
-        orm_mode = True
 
 
 class FileResource(MappingSuiteComponent):
@@ -24,6 +25,7 @@ class FileResource(MappingSuiteComponent):
     """
     file_name: str
     file_content: str
+
 
 class MetadataConstraints(MappingSuiteComponent):
     """
@@ -60,7 +62,7 @@ class MappingSuite(MappingSuiteComponent):
     """
 
     """
-    created_at: str
+    created_at: str = datetime.now().isoformat()
     identifier: str = "no_id"
     title: str = "no_title"
     version: str = "0.0.1"

@@ -1,12 +1,22 @@
 import json
 import pathlib
+import shutil
 from typing import Iterator, List, Optional
 
 from pymongo import MongoClient
 
+from ted_sws import config
 from ted_sws.domain.adapters.repository_abc import MappingSuiteRepositoryABC
 from ted_sws.domain.model.transform import MappingSuite, FileResource, TransformationRuleSet, SHACLTestSuite, \
     SPARQLTestSuite, MetadataConstraints
+
+METADATA_FILE_NAME = "metadata.json"
+TRANSFORM_PACKAGE_NAME = "transform"
+MAPPINGS_PACKAGE_NAME = "mappings"
+RESOURCES_PACKAGE_NAME = "resources"
+VALIDATE_PACKAGE_NAME = "validate"
+SHACL_PACKAGE_NAME = "shacl"
+SPARQL_PACKAGE_NAME = "sparql"
 
 
 class MappingSuiteRepositoryMongoDB(MappingSuiteRepositoryABC):
@@ -15,16 +25,16 @@ class MappingSuiteRepositoryMongoDB(MappingSuiteRepositoryABC):
     """
 
     _collection_name = "mapping_suite_collection"
-    _database_name = "mapping_suite_db"
+    _database_name = config.MONGO_DB_AGGREGATES_DATABASE_NAME
 
-    def __init__(self, mongodb_client: MongoClient, database_name: str = None):
+    def __init__(self, mongodb_client: MongoClient):
         """
 
         :param mongodb_client:
         :param database_name:
         """
         mongodb_client = mongodb_client
-        notice_db = mongodb_client[database_name if database_name else self._database_name]
+        notice_db = mongodb_client[self._database_name]
         self.collection = notice_db[self._collection_name]
 
     def add(self, mapping_suite: MappingSuite):
@@ -84,7 +94,7 @@ class MappingSuiteRepositoryInFileSystem(MappingSuiteRepositoryABC):
         :param package_path:
         :return:
         """
-        package_metadata_path = package_path / "metadata.json"
+        package_metadata_path = package_path / METADATA_FILE_NAME
         package_metadata_content = package_metadata_path.read_text(encoding="utf-8")
         package_metadata = json.loads(package_metadata_content)
         package_metadata['metadata_constraints'] = MetadataConstraints(**package_metadata['metadata_constraints'])
@@ -96,9 +106,8 @@ class MappingSuiteRepositoryInFileSystem(MappingSuiteRepositoryABC):
         :param package_path:
         :return:
         """
-        transform_path = package_path / "transform"
-        mappings_path = transform_path / "mappings"
-        resources_path = transform_path / "resources"
+        mappings_path = package_path / TRANSFORM_PACKAGE_NAME / MAPPINGS_PACKAGE_NAME
+        resources_path = package_path / TRANSFORM_PACKAGE_NAME / RESOURCES_PACKAGE_NAME
         resources = self._read_file_resources(path=resources_path)
         rml_mapping_rules = self._read_file_resources(path=mappings_path)
         return TransformationRuleSet(resources=resources, rml_mapping_rules=rml_mapping_rules)
@@ -109,8 +118,8 @@ class MappingSuiteRepositoryInFileSystem(MappingSuiteRepositoryABC):
         :param package_path:
         :return:
         """
-        validate_path = package_path / "validate"
-        shacl_path = validate_path / "shacl"
+        validate_path = package_path / VALIDATE_PACKAGE_NAME
+        shacl_path = validate_path / SHACL_PACKAGE_NAME
         shacl_test_suite_paths = [x for x in shacl_path.iterdir() if x.is_dir()]
         return [SHACLTestSuite(shacl_tests=self._read_file_resources(path=shacl_test_suite_path))
                 for shacl_test_suite_path in shacl_test_suite_paths]
@@ -121,13 +130,13 @@ class MappingSuiteRepositoryInFileSystem(MappingSuiteRepositoryABC):
         :param package_path:
         :return:
         """
-        validate_path = package_path / "validate"
-        sparql_path = validate_path / "sparql"
+        validate_path = package_path / VALIDATE_PACKAGE_NAME
+        sparql_path = validate_path / SPARQL_PACKAGE_NAME
         sparql_test_suite_paths = [x for x in sparql_path.iterdir() if x.is_dir()]
         return [SPARQLTestSuite(sparql_tests=self._read_file_resources(path=sparql_test_suite_path))
                 for sparql_test_suite_path in sparql_test_suite_paths]
 
-    def _create_package_metadata(self, mapping_suite: MappingSuite):
+    def _write_package_metadata(self, mapping_suite: MappingSuite):
         """
             This method creates the metadata of a package based on the metadata in the mapping_suite.
         :param mapping_suite:
@@ -135,13 +144,10 @@ class MappingSuiteRepositoryInFileSystem(MappingSuiteRepositoryABC):
         """
         package_path = self.repository_path / mapping_suite.identifier
         package_path.mkdir(parents=True, exist_ok=True)
-        metadata_path = package_path / "metadata.json"
-        package_metadata = dict()
-        package_metadata['title'] = mapping_suite.title
-        package_metadata['created_at'] = mapping_suite.created_at
-        package_metadata['identifier'] = mapping_suite.identifier
-        package_metadata['version'] = mapping_suite.version
-        package_metadata['metadata_constraints'] = mapping_suite.metadata_constraints.dict()
+        metadata_path = package_path / METADATA_FILE_NAME
+        package_metadata = mapping_suite.dict()
+        [package_metadata.pop(key, None) for key in
+         ["transformation_rule_set", "shacl_test_suites", "sparql_test_suites"]]
         with metadata_path.open("w", encoding="utf-8") as f:
             f.write(json.dumps(package_metadata))
 
@@ -168,16 +174,16 @@ class MappingSuiteRepositoryInFileSystem(MappingSuiteRepositoryABC):
                              file_content=file.read_text(encoding="utf-8"))
                 for file in files]
 
-    def _create_package_transform_rules(self, mapping_suite: MappingSuite):
+    def _write_package_transform_rules(self, mapping_suite: MappingSuite):
         """
             This method creates the transformation rules within the package.
         :param mapping_suite:
         :return:
         """
         package_path = self.repository_path / mapping_suite.identifier
-        transform_path = package_path / "transform"
-        mappings_path = transform_path / "mappings"
-        resources_path = transform_path / "resources"
+        transform_path = package_path / TRANSFORM_PACKAGE_NAME
+        mappings_path = transform_path / MAPPINGS_PACKAGE_NAME
+        resources_path = transform_path / RESOURCES_PACKAGE_NAME
         mappings_path.mkdir(parents=True, exist_ok=True)
         resources_path.mkdir(parents=True, exist_ok=True)
         self._write_file_resources(file_resources=mapping_suite.transformation_rule_set.rml_mapping_rules,
@@ -187,16 +193,16 @@ class MappingSuiteRepositoryInFileSystem(MappingSuiteRepositoryABC):
                                    path=resources_path
                                    )
 
-    def _create_package_validation_rules(self, mapping_suite: MappingSuite):
+    def _write_package_validation_rules(self, mapping_suite: MappingSuite):
         """
             This method creates the validation rules within the package.
         :param mapping_suite:
         :return:
         """
         package_path = self.repository_path / mapping_suite.identifier
-        validate_path = package_path / "validate"
-        sparql_path = validate_path / "sparql"
-        shacl_path = validate_path / "shacl"
+        validate_path = package_path / VALIDATE_PACKAGE_NAME
+        sparql_path = validate_path / SPARQL_PACKAGE_NAME
+        shacl_path = validate_path / SHACL_PACKAGE_NAME
         sparql_path.mkdir(parents=True, exist_ok=True)
         shacl_path.mkdir(parents=True, exist_ok=True)
         shacl_test_suites = mapping_suite.shacl_test_suites
@@ -210,24 +216,22 @@ class MappingSuiteRepositoryInFileSystem(MappingSuiteRepositoryABC):
             shacl_test_suite_path_counter += 1
 
         sparql_test_suites = mapping_suite.sparql_test_suites
-        sparql_test_suite_path_counter = 0
-        for sparql_test_suite in sparql_test_suites:
-            sparql_test_suite_path = sparql_path / f"sparql_test_suite_{sparql_test_suite_path_counter}"
+        for idx, sparql_test_suite in enumerate(sparql_test_suites):
+            sparql_test_suite_path = sparql_path / f"sparql_test_suite_{idx}"
             sparql_test_suite_path.mkdir(parents=True, exist_ok=True)
             self._write_file_resources(file_resources=sparql_test_suite.sparql_tests,
                                        path=sparql_test_suite_path
                                        )
-            sparql_test_suite_path_counter += 1
 
-    def _create_mapping_suite_package(self, mapping_suite: MappingSuite):
+    def _write_mapping_suite_package(self, mapping_suite: MappingSuite):
         """
             This method creates a package based on data from mapping_suite.
         :param mapping_suite:
         :return:
         """
-        self._create_package_metadata(mapping_suite=mapping_suite)
-        self._create_package_transform_rules(mapping_suite=mapping_suite)
-        self._create_package_validation_rules(mapping_suite=mapping_suite)
+        self._write_package_metadata(mapping_suite=mapping_suite)
+        self._write_package_transform_rules(mapping_suite=mapping_suite)
+        self._write_package_validation_rules(mapping_suite=mapping_suite)
 
     def _read_mapping_suite_package(self, mapping_suite_identifier: str) -> Optional[MappingSuite]:
         """
@@ -250,7 +254,7 @@ class MappingSuiteRepositoryInFileSystem(MappingSuiteRepositoryABC):
         :param mapping_suite:
         :return:
         """
-        self._create_mapping_suite_package(mapping_suite=mapping_suite)
+        self._write_mapping_suite_package(mapping_suite=mapping_suite)
 
     def update(self, mapping_suite: MappingSuite):
         """
@@ -258,7 +262,9 @@ class MappingSuiteRepositoryInFileSystem(MappingSuiteRepositoryABC):
         :param mapping_suite:
         :return:
         """
-        self._create_mapping_suite_package(mapping_suite=mapping_suite)
+        package_path = self.repository_path / mapping_suite.identifier
+        if package_path.is_dir():
+            self._write_mapping_suite_package(mapping_suite=mapping_suite)
 
     def get(self, reference) -> MappingSuite:
         """
@@ -282,17 +288,4 @@ class MappingSuiteRepositoryInFileSystem(MappingSuiteRepositoryABC):
             This method allows you to clean the repository.
         :return:
         """
-        def rm_tree(pth: pathlib.Path):
-            """
-                This feature recursively deletes files from a path.
-            :param pth:
-            :return:
-            """
-            for child in pth.iterdir():
-                if child.is_file():
-                    child.unlink()
-                else:
-                    rm_tree(child)
-            pth.rmdir()
-        rm_tree(self.repository_path)
-
+        shutil.rmtree(self.repository_path)

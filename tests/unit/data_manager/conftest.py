@@ -17,12 +17,13 @@ def mongodb_client():
 
 @pytest.fixture
 def file_system_repository_path():
-    return TEST_DATA_PATH /"notice_transformer"/"test_file_system_repository"
+    return TEST_DATA_PATH / "notice_transformer" / "test_file_system_repository"
+
 
 @pytest.fixture
 def fake_mapping_suite():
     metadata_constrains = MetadataConstraints(constraints=dict())
-    empty_file_resource = FileResource(file_name="fake_file.txt",file_content = "fake content")
+    empty_file_resource = FileResource(file_name="fake_file.txt", file_content="fake content")
     transformation_rule_set = TransformationRuleSet(resources=[empty_file_resource],
                                                     rml_mapping_rules=[empty_file_resource]
                                                     )
@@ -30,8 +31,7 @@ def fake_mapping_suite():
     sparql_test_suite = SPARQLTestSuite(purpose="no_purpose",
                                         sparql_tests=[empty_file_resource]
                                         )
-    mapping_suite = MappingSuite(created_at=datetime.now().isoformat(),
-                                 metadata_constraints=metadata_constrains,
+    mapping_suite = MappingSuite(metadata_constraints=metadata_constrains,
                                  transformation_rule_set=transformation_rule_set,
                                  shacl_test_suites=[shacl_test_suite],
                                  sparql_test_suites=[sparql_test_suite]

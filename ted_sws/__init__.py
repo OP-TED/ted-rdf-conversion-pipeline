@@ -53,6 +53,11 @@ class MongoDBConfig:
         return int(VaultAndEnvConfigResolver().config_resolve())
 
 
+    @property
+    def MONGO_DB_AGGREGATES_DATABASE_NAME(self) -> str:
+        return VaultAndEnvConfigResolver().config_resolve()
+
+
 
 class RMLMapperConfig:
 

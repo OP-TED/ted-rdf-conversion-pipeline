@@ -2,7 +2,8 @@ import abc
 import pathlib
 import tempfile
 
-from ted_sws.data_manager.adapters.mapping_suite_repository import MappingSuiteRepositoryInFileSystem
+from ted_sws.data_manager.adapters.mapping_suite_repository import MappingSuiteRepositoryInFileSystem, \
+    TRANSFORM_PACKAGE_NAME, RESOURCES_PACKAGE_NAME
 from ted_sws.domain.model.manifestation import RDFManifestation
 from ted_sws.domain.model.notice import Notice
 from ted_sws.domain.model.transform import MappingSuite
@@ -32,10 +33,10 @@ class NoticeTransformer(NoticeTransformerABC):
         self.rml_mapper = rml_mapper
 
 
-    def _inject_in_package_notice_xml_manifestation(self, package_path: pathlib.Path, notice: Notice):
+    def _write_notice_xml_manifestation_in_package(self, package_path: pathlib.Path, notice: Notice):
         mapping_suite_repository = MappingSuiteRepositoryInFileSystem(repository_path=package_path.parent)
         mapping_suite_repository.add(mapping_suite=self.mapping_suite)
-        notice_path = package_path / "transform" / "resources" / "notice.xml"
+        notice_path = package_path / TRANSFORM_PACKAGE_NAME / RESOURCES_PACKAGE_NAME / "notice.xml"
         with notice_path.open("w", encoding="utf-8") as file:
             file.write(notice.xml_manifestation.object_data)
 
@@ -47,7 +48,7 @@ class NoticeTransformer(NoticeTransformerABC):
         """
         with tempfile.TemporaryDirectory() as d:
             package_path = pathlib.Path(d) / self.mapping_suite.identifier
-            self._inject_in_package_notice_xml_manifestation(package_path=package_path, notice=notice)
+            self._write_notice_xml_manifestation_in_package(package_path=package_path, notice=notice)
             rdf_result = self.rml_mapper.execute(package_path=package_path)
             notice.set_rdf_manifestation(rdf_manifestation=RDFManifestation(object_data=rdf_result))
 

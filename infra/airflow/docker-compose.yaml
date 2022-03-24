@@ -129,6 +129,9 @@ services:
       - "traefik.http.routers.${ENVIRONMENT}-airflow-secured.tls.certresolver=mytlschallenge" # <== Defining certsresolvers for https
       - "traefik.http.services.${ENVIRONMENT}-airflow-secured.loadbalancer.server.port=8080"
 
+      - "traefik.http.routers.${ENVIRONMENT}-airflow.middlewares=admin-auth"
+      - "traefik.http.middlewares.admin-auth.basicauth.users=admin:$$apr1$$O4NQPpRP$$P5LlBzvwUi3UuuRU9KuxY."
+
     depends_on:
       <<: *airflow-common-depends-on
       airflow-init:

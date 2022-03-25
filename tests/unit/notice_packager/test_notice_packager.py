@@ -54,10 +54,19 @@ def test_notice_packager_with_notice(notice_2018):
     assert encoded_package_content is not None
 
 
-def test_notice_packager_with_notice_id():
+def test_notice_packager_with_notice_id(notice_2018, notice_repository):
     notice_id = 'fake-notice-id'
-    encoded_package_content = create_notice_package(notice_id)
+
+    notice_repository.add(notice_2018)
+    encoded_package_content = create_notice_package(in_data=notice_2018.ted_id, notice_repository=notice_repository)
     assert encoded_package_content is not None
+
+    with pytest.raises(TypeError):
+        create_notice_package(in_data=notice_id, notice_repository=None)
+
+    with pytest.raises(TypeError):
+        notice_id = 'fake-wrong-notice-id'
+        create_notice_package(in_data=notice_id, notice_repository=notice_repository)
 
 
 def test_notice_packager_with_extra_files(notice_2018):
@@ -65,6 +74,16 @@ def test_notice_packager_with_extra_files(notice_2018):
         notice_2018,
         extra_files=[
             TEST_DATA_PATH / "notice_packager" / "notice.xml"
+        ]
+    )
+    assert encoded_package_content is not None
+
+
+def test_notice_packager_with_non_existent_files(notice_2018):
+    encoded_package_content = create_notice_package(
+        notice_2018,
+        extra_files=[
+            TEST_DATA_PATH / "notice_packager" / "non_existent_notice_file.xml"
         ]
     )
     assert encoded_package_content is not None

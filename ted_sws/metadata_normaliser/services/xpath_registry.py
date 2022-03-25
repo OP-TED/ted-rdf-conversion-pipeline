@@ -68,7 +68,7 @@ class XpathRegistry:
         return "manifestation_ns:CODED_DATA_SECTION/manifestation_ns:CODIF_DATA/manifestation_ns:PR_PROC"
 
     @property
-    def xpath_notice_type(self):
+    def xpath_document_type(self):
         return "manifestation_ns:CODED_DATA_SECTION/manifestation_ns:CODIF_DATA/manifestation_ns:TD_DOCUMENT_TYPE"
 
     @property
@@ -118,3 +118,7 @@ class XpathRegistry:
     @property
     def xpath_form_number(self):
         return "manifestation_ns:FORM_SECTION/*[1]"
+
+    @property
+    def xpath_notice_type(self):
+        return "manifestation_ns:FORM_SECTION/*/manifestation_ns:NOTICE"

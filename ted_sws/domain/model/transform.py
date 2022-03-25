@@ -46,6 +46,7 @@ class SHACLTestSuite(MappingSuiteComponent):
     """
 
     """
+    identifier: str
     shacl_tests: List[FileResource]
 
 
@@ -53,8 +54,7 @@ class SPARQLTestSuite(MappingSuiteComponent):
     """
 
     """
-    # TODO: Revise this field
-    # purpose: Optional[FileResource] = None
+    identifier: str
     sparql_tests: List[FileResource]
 
 

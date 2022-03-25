@@ -14,7 +14,7 @@ DATA_SOURCE_PACKAGE = "data"
 
 def transform_notice(notice: Notice, mapping_suite: MappingSuite, rml_mapper: RMLMapperABC):
     """
-        This feature allows the XML content of a Notice to be transformed into RDF,
+        This function allows the XML content of a Notice to be transformed into RDF,
          using the mapping rules in mapping_suite and the rml_mapper mapping adapter.
     :param notice:
     :param mapping_suite:
@@ -26,7 +26,7 @@ def transform_notice(notice: Notice, mapping_suite: MappingSuite, rml_mapper: RM
 
 def transform_test_data(mapping_suite: MappingSuite, rml_mapper: RMLMapperABC, output_path: pathlib.Path):
     """
-
+        This function converts each file in the test data and writes the result to a file in output_path.
     :param mapping_suite:
     :param rml_mapper:
     :param output_path:

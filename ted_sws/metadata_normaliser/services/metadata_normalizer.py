@@ -71,31 +71,14 @@ class MetadataNormaliser(MetadataNormaliserABC):
         self.notice.set_normalised_metadata(normalised_metadata)
 
 
-def filter_df_by_variables(df: pd.DataFrame, column_one_name: str, var_one: str, column_two_name: str = None,
-                           var_two: str = None,
-                           column_three_name: str = None, var_three: str = None, column_four_name: str = None,
-                           var_four: str = None, ) -> pd.DataFrame:
+def filter_df_by_variables(df: pd.DataFrame, **kwargs) -> pd.DataFrame:
     """
     Filter a dataframe by different variables
     :param df:
-    :param column_one_name:
-    :param var_one:
-    :param column_two_name:
-    :param var_two:
-    :param column_three_name:
-    :param var_three:
-    :param column_four_name:
-    :param var_four:
+    :param kwargs:
     :return:
     """
-
-    query_string = f"{column_one_name}=='{var_one}'"
-    if var_two:
-        query_string += f"and {column_two_name}=='{var_two}'"
-    if var_three:
-        query_string += f"and {column_three_name}=='{var_three}'"
-    if var_four:
-        query_string += f"and {column_four_name}=='{var_four}'"
+    query_string = " and ".join([f"{key}=='{value}'" for key, value in kwargs.items() if value])
     return df.query(query_string)
 
 
@@ -160,10 +143,9 @@ class ExtractedMetadataNormaliser:
         :return:
         """
         mapping_df = pd.merge(sf_map, ef_map, on=MERGING_COLUMN, how="left")
-        filtered_df = filter_df_by_variables(df=mapping_df, column_one_name="form_number", var_one=form_number,
-                                             column_two_name="sf_notice_type", var_two=extracted_notice_type,
-                                             column_three_name="legal_basis", var_three=legal_basis,
-                                             column_four_name="document_code", var_four=document_type_code)
+        filtered_df = filter_df_by_variables(df=mapping_df, form_number=form_number,
+                                             sf_notice_type=extracted_notice_type, legal_basis=legal_basis,
+                                             document_code=document_type_code)
         form_type = filtered_df["form_type"].values[0]
         notice_type = filtered_df["eform_notice_type"].values[0]
         return form_type, notice_type
@@ -185,8 +167,10 @@ class ExtractedMetadataNormaliser:
         eforms_map = mapping_registry.ef_notice_df
         form_type, notice_type = self.get_form_type_and_notice_type(sf_map=standard_forms_map, ef_map=eforms_map,
                                                                     extracted_notice_type=self.extracted_metadata.extracted_notice_type,
-                                                                    form_number=self.normalise_form_number(self.extracted_metadata.extracted_form_number),
-                                                                    legal_basis=self.normalise_legal_basis_value(self.extracted_metadata.legal_basis_directive),
+                                                                    form_number=self.normalise_form_number(
+                                                                        self.extracted_metadata.extracted_form_number),
+                                                                    legal_basis=self.normalise_legal_basis_value(
+                                                                        self.extracted_metadata.legal_basis_directive),
                                                                     document_type_code=self.extracted_metadata.extracted_document_type.code)
 
         extracted_metadata = self.extracted_metadata
@@ -221,7 +205,8 @@ class ExtractedMetadataNormaliser:
             ) if extracted_metadata.deadline_for_submission is not None else None,
             "notice_type": self.get_map_value(mapping=notice_type_map, value=notice_type),
             "form_type": self.get_map_value(mapping=form_type_map, value=form_type),
-            "place_of_performance": [self.get_map_value(mapping=nuts_map, value=place_of_performance.code) for place_of_performance
+            "place_of_performance": [self.get_map_value(mapping=nuts_map, value=place_of_performance.code) for
+                                     place_of_performance
                                      in extracted_metadata.place_of_performance],
             "legal_basis_directive": self.get_map_value(mapping=legal_basis_map,
                                                         value=self.normalise_legal_basis_value(

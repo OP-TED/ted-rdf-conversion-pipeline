@@ -62,9 +62,8 @@ def test_get_map_value(raw_notice):
 
 def test_filter_df_by_variables():
     df = MappingFilesRegistry().ef_notice_df
-    filtered_df = filter_df_by_variables(df=df, column_one_name="form_type", var_one="planning",
-                                         column_two_name="eform_notice_type",
-                                         var_two="pin-only")
+    filtered_df = filter_df_by_variables(df=df, form_type="planning",
+                                         eform_notice_type="pin-only")
 
     assert len(filtered_df.index) == 3
     assert "32014L0024" in filtered_df["eform_legal_basis"].values

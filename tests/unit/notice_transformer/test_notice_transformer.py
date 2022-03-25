@@ -31,7 +31,7 @@ def test_transform_test_data(fake_rml_mapper, fake_mapping_suite):
         assert Counter(file_names) == Counter(test_data_file_names)
 
 
-def test_transform_test_data(fake_rml_mapper, fake_mapping_suite):
+def test_transform_test_data_function(fake_rml_mapper, fake_mapping_suite):
     with tempfile.TemporaryDirectory() as d:
         output_path = pathlib.Path(d)
         transform_test_data(mapping_suite=fake_mapping_suite, rml_mapper=fake_rml_mapper, output_path=output_path)

@@ -58,6 +58,13 @@ class SPARQLTestSuite(MappingSuiteComponent):
     sparql_tests: List[FileResource]
 
 
+class TransformationTestData(MappingSuiteComponent):
+    """
+
+    """
+    test_data: List[FileResource]
+
+
 class MappingSuite(MappingSuiteComponent):
     """
 
@@ -70,3 +77,4 @@ class MappingSuite(MappingSuiteComponent):
     transformation_rule_set: TransformationRuleSet
     shacl_test_suites: List[SHACLTestSuite]
     sparql_test_suites: List[SPARQLTestSuite]
+    transformation_test_data: TransformationTestData

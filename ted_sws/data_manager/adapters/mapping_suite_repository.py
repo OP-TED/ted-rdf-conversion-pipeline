@@ -8,7 +8,7 @@ from pymongo import MongoClient
 from ted_sws import config
 from ted_sws.domain.adapters.repository_abc import MappingSuiteRepositoryABC
 from ted_sws.domain.model.transform import MappingSuite, FileResource, TransformationRuleSet, SHACLTestSuite, \
-    SPARQLTestSuite, MetadataConstraints
+    SPARQLTestSuite, MetadataConstraints, TransformationTestData
 
 METADATA_FILE_NAME = "metadata.json"
 TRANSFORM_PACKAGE_NAME = "transform"
@@ -17,6 +17,7 @@ RESOURCES_PACKAGE_NAME = "resources"
 VALIDATE_PACKAGE_NAME = "validate"
 SHACL_PACKAGE_NAME = "shacl"
 SPARQL_PACKAGE_NAME = "sparql"
+TEST_DATA_PACKAGE_NAME = "test_data"
 
 
 class MappingSuiteRepositoryMongoDB(MappingSuiteRepositoryABC):
@@ -121,7 +122,8 @@ class MappingSuiteRepositoryInFileSystem(MappingSuiteRepositoryABC):
         validate_path = package_path / VALIDATE_PACKAGE_NAME
         shacl_path = validate_path / SHACL_PACKAGE_NAME
         shacl_test_suite_paths = [x for x in shacl_path.iterdir() if x.is_dir()]
-        return [SHACLTestSuite(shacl_tests=self._read_file_resources(path=shacl_test_suite_path))
+        return [SHACLTestSuite(identifier=shacl_test_suite_path.name,
+                               shacl_tests=self._read_file_resources(path=shacl_test_suite_path))
                 for shacl_test_suite_path in shacl_test_suite_paths]
 
     def _read_sparql_test_suites(self, package_path: pathlib.Path) -> List[SPARQLTestSuite]:
@@ -133,7 +135,8 @@ class MappingSuiteRepositoryInFileSystem(MappingSuiteRepositoryABC):
         validate_path = package_path / VALIDATE_PACKAGE_NAME
         sparql_path = validate_path / SPARQL_PACKAGE_NAME
         sparql_test_suite_paths = [x for x in sparql_path.iterdir() if x.is_dir()]
-        return [SPARQLTestSuite(sparql_tests=self._read_file_resources(path=sparql_test_suite_path))
+        return [SPARQLTestSuite(identifier=sparql_test_suite_path.name,
+                                sparql_tests=self._read_file_resources(path=sparql_test_suite_path))
                 for sparql_test_suite_path in sparql_test_suite_paths]
 
     def _write_package_metadata(self, mapping_suite: MappingSuite):
@@ -206,22 +209,45 @@ class MappingSuiteRepositoryInFileSystem(MappingSuiteRepositoryABC):
         sparql_path.mkdir(parents=True, exist_ok=True)
         shacl_path.mkdir(parents=True, exist_ok=True)
         shacl_test_suites = mapping_suite.shacl_test_suites
-        shacl_test_suite_path_counter = 0
         for shacl_test_suite in shacl_test_suites:
-            shacl_test_suite_path = shacl_path / f"shacl_test_suite_{shacl_test_suite_path_counter}"
+            shacl_test_suite_path = shacl_path / shacl_test_suite.identifier
             shacl_test_suite_path.mkdir(parents=True, exist_ok=True)
             self._write_file_resources(file_resources=shacl_test_suite.shacl_tests,
                                        path=shacl_test_suite_path
                                        )
-            shacl_test_suite_path_counter += 1
 
         sparql_test_suites = mapping_suite.sparql_test_suites
-        for idx, sparql_test_suite in enumerate(sparql_test_suites):
-            sparql_test_suite_path = sparql_path / f"sparql_test_suite_{idx}"
+        for sparql_test_suite in sparql_test_suites:
+            sparql_test_suite_path = sparql_path / sparql_test_suite.identifier
             sparql_test_suite_path.mkdir(parents=True, exist_ok=True)
             self._write_file_resources(file_resources=sparql_test_suite.sparql_tests,
                                        path=sparql_test_suite_path
                                        )
+
+
+    def _write_test_data_package(self, mapping_suite: MappingSuite):
+        """
+            This method writes the test data to a dedicated folder in the package.
+        :param mapping_suite:
+        :return:
+        """
+        package_path = self.repository_path / mapping_suite.identifier
+        test_data_path = package_path / TEST_DATA_PACKAGE_NAME
+        test_data_path.mkdir(parents=True, exist_ok=True)
+        self._write_file_resources(file_resources=mapping_suite.transformation_test_data.test_data,
+                                   path=test_data_path
+                                   )
+
+    def _read_test_data_package(self, package_path: pathlib.Path)-> TransformationTestData:
+        """
+            This method reads the test data from the package.
+        :param package_path:
+        :return:
+        """
+        test_data_path = package_path / TEST_DATA_PACKAGE_NAME
+        test_data = self._read_file_resources(path=test_data_path)
+        return TransformationTestData(test_data=test_data)
+
 
     def _write_mapping_suite_package(self, mapping_suite: MappingSuite):
         """
@@ -232,6 +258,7 @@ class MappingSuiteRepositoryInFileSystem(MappingSuiteRepositoryABC):
         self._write_package_metadata(mapping_suite=mapping_suite)
         self._write_package_transform_rules(mapping_suite=mapping_suite)
         self._write_package_validation_rules(mapping_suite=mapping_suite)
+        self._write_test_data_package(mapping_suite=mapping_suite)
 
     def _read_mapping_suite_package(self, mapping_suite_identifier: str) -> Optional[MappingSuite]:
         """
@@ -245,6 +272,7 @@ class MappingSuiteRepositoryInFileSystem(MappingSuiteRepositoryABC):
             package_metadata["transformation_rule_set"] = self._read_transformation_rule_set(package_path)
             package_metadata["shacl_test_suites"] = self._read_shacl_test_suites(package_path)
             package_metadata["sparql_test_suites"] = self._read_sparql_test_suites(package_path)
+            package_metadata["transformation_test_data"] = self._read_test_data_package(package_path)
             return MappingSuite(**package_metadata)
         return None
 

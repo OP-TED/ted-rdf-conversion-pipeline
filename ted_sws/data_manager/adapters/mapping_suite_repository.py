@@ -11,10 +11,10 @@ from ted_sws.domain.model.transform import MappingSuite, FileResource, Transform
     SPARQLTestSuite, MetadataConstraints, TransformationTestData
 
 METADATA_FILE_NAME = "metadata.json"
-TRANSFORM_PACKAGE_NAME = "transform"
+TRANSFORM_PACKAGE_NAME = "transformation"
 MAPPINGS_PACKAGE_NAME = "mappings"
 RESOURCES_PACKAGE_NAME = "resources"
-VALIDATE_PACKAGE_NAME = "validate"
+VALIDATE_PACKAGE_NAME = "validation"
 SHACL_PACKAGE_NAME = "shacl"
 SPARQL_PACKAGE_NAME = "sparql"
 TEST_DATA_PACKAGE_NAME = "test_data"

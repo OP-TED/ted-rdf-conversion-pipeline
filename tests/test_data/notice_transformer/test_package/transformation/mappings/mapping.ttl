@@ -43,6 +43,6 @@ map:s_000 rdf:type rr:SubjectMap ;
 
 map:source_000 rml:iterator "$.persons[*]" ;
 	rml:referenceFormulation ql:JSONPath ;
-	rml:source "transform/resources/data.json";
+	rml:source "transformation/resources/data.json";
 	rdf:type rml:LogicalSource .
 

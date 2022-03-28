@@ -1,4 +1,4 @@
-name: Tests on server
+name: Tests on hermes server
 
 on:
   workflow_dispatch:

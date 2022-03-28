@@ -1,6 +1,8 @@
 import logging
 from typing import Iterator
 from pymongo import MongoClient
+
+from ted_sws import config
 from ted_sws.domain.adapters.repository_abc import NoticeRepositoryABC
 from ted_sws.domain.model.notice import Notice, NoticeStatus
 
@@ -13,11 +15,11 @@ class NoticeRepository(NoticeRepositoryABC):
     """
 
     _collection_name = "notice_collection"
-    _database_name = "notice_db"
+    _database_name = config.MONGO_DB_AGGREGATES_DATABASE_NAME
 
-    def __init__(self, mongodb_client: MongoClient, database_name: str = None):
+    def __init__(self, mongodb_client: MongoClient):
         mongodb_client = mongodb_client
-        notice_db = mongodb_client[database_name if database_name else self._database_name]
+        notice_db = mongodb_client[self._database_name]
         self.collection = notice_db[self._collection_name]
 
     def add(self, notice: Notice):

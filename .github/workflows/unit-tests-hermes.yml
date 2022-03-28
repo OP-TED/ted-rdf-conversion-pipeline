@@ -1,4 +1,4 @@
-name: Tests on server
+name: Tests on hermes server
 
 on:
   workflow_dispatch:
@@ -27,7 +27,7 @@ jobs:
       - name: Run unit tests
         run: make test-all
       - name: Upload coverage to Codecov
-        uses: codecov/codecov-action@v1
+        uses: codecov/codecov-action@v2.1.0
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
           file: coverage.xml

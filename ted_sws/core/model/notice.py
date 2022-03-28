@@ -312,6 +312,7 @@ class Notice(WorkExpression):
                 raise UnsupportedStatusTransition(
                     f"Unsupported transition from state {self._status} to state {new_status}.")
         elif self._status > new_status:
+            # TODO: implement delete actions
             self._status = new_status
             if new_status < NoticeStatus.NORMALISED_METADATA:
                 self._normalised_metadata = None

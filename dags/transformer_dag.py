@@ -1,10 +1,18 @@
 import sys
-from random import randint
-
 sys.path.append("/opt/airflow/")
 sys.path = list(set(sys.path))
 import os
 os.chdir("/opt/airflow/")
+
+
+from random import randint
+
+from pymongo import MongoClient
+
+from ted_sws import config
+from ted_sws.data_manager.adapters.mapping_suite_repository import MappingSuiteRepositoryMongoDB
+from ted_sws.data_manager.adapters.notice_repository import NoticeRepository
+from ted_sws.notice_transformer.adapters.rml_mapper import RMLMapper
 
 from airflow.decorators import dag, task
 from airflow.operators.python import get_current_context
@@ -27,28 +35,30 @@ DEFAULT_DAG_ARGUMENTS = {
 }
 
 
-@dag(default_args=DEFAULT_DAG_ARGUMENTS, tags=['kolea', 'example-dag'])
+@dag(default_args=DEFAULT_DAG_ARGUMENTS, tags=['worker', 'pipeline'])
 def transformer_dag():
-
-    def get_number_of_documents():
-        # API call
-        return int(randint(2,6))
+    @task
+    def get_dag_params():
+        context = get_current_context()
+        return context["dag_run"].conf
 
     @task
-    def second_step(data = "Default value"):
-        print(data)
+    def transform_notice(dag_params):
+        notice_id = dag_params["notice_id"]
+        mapping_suite_id = dag_params["mapping_suite_id"]
+        mongo_client = MongoClient(config.MONGO_DB_AUTH_URL)
+        notice_repository = NoticeRepository(mongodb_client=mongo_client)
+        notice = notice_repository.get(reference=notice_id)
+        mapping_suite_repository = MappingSuiteRepositoryMongoDB(mongodb_client=mongo_client)
+        mapping_suite = mapping_suite_repository.get(reference=mapping_suite_id)
+        result_notice = transform_notice(notice=notice, mapping_suite=mapping_suite, rml_mapper=RMLMapper(
+            rml_mapper_path=config.RML_MAPPER_PATH))  # revise config.RML_MAPPER_PATH for execution in Airflow
+        notice_repository.update(notice=result_notice)
 
-    @task
-    def first_step():
-        #context = get_current_context()
-        return "Salut Kolea"
 
-    #tmp_var = first_step()
-    #second_step(tmp_var)
-    #second_step(first_step())
-    number_of_documents = get_number_of_documents()
-    for index in range(0,int(number_of_documents)):
-        second_step(first_step())
+
+    transform_notice(get_dag_params())
+
 
 
 dag = transformer_dag()

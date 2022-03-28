@@ -97,8 +97,8 @@ def step_impl(publicly_available_notice):
 
 
 @given("normalised metadata", target_fixture="normalised_metadata")
-def step_impl():
-    return NormalisedMetadata(**{"AA": "no dataaa"})
+def step_impl(normalised_metadata_dict):
+    return NormalisedMetadata(**normalised_metadata_dict)
 
 
 @when("normalised metadata is added")
@@ -117,8 +117,8 @@ def step_impl(raw_notice):
 
 
 @given("the notice already contains normalised metadata")
-def step_impl(raw_notice):
-    raw_notice.set_normalised_metadata(NormalisedMetadata(**{"title": "some other metadata"}))
+def step_impl(raw_notice,normalised_metadata_dict):
+    raw_notice.set_normalised_metadata(NormalisedMetadata(**normalised_metadata_dict))
     assert raw_notice.normalised_metadata is not None
 
 
@@ -126,6 +126,7 @@ def step_impl(raw_notice):
 def step_impl(raw_notice, normalised_metadata):
     assert raw_notice.normalised_metadata is not None
     old = raw_notice.normalised_metadata
+    normalised_metadata.notice_publication_number = "something else"
     raw_notice.set_normalised_metadata(normalised_metadata=normalised_metadata)
     return old
 

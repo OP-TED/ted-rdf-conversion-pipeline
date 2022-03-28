@@ -1,7 +1,8 @@
 import abc
 from typing import Iterator
 
-from ted_sws.domain.model.notice import Notice, NoticeStatus
+from ted_sws.domain.model.notice import Notice
+from ted_sws.domain.model.transform import MappingSuite
 
 
 class RepositoryABC(abc.ABC):
@@ -40,16 +41,45 @@ class NoticeRepositoryABC(RepositoryABC):
         """
 
     @abc.abstractmethod
-    def get_notice_by_status(self, notice_status: NoticeStatus) -> Iterator[Notice]:
-        """
-            This method provides all notices based on its status.
-        :param notice_status:
-        :return:
-        """
-
-    @abc.abstractmethod
     def list(self) -> Iterator[Notice]:
         """
             This method allows all records to be retrieved from the repository.
         :return: list of notices
+        """
+
+
+class MappingSuiteRepositoryABC(RepositoryABC):
+    """
+       This repository is intended for storing MappingSuite objects.
+    """
+
+    @abc.abstractmethod
+    def add(self, mapping_suite: MappingSuite):
+        """
+            This method allows you to add MappingSuite objects to the repository.
+        :param mapping_suite:
+        :return:
+        """
+
+    @abc.abstractmethod
+    def update(self, mapping_suite: MappingSuite):
+        """
+            This method allows you to update MappingSuite objects to the repository
+        :param mapping_suite:
+        :return:
+        """
+
+    @abc.abstractmethod
+    def get(self, reference) -> MappingSuite:
+        """
+            This method allows a MappingSuite to be obtained based on an identification reference.
+        :param reference:
+        :return: MappingSuite
+        """
+
+    @abc.abstractmethod
+    def list(self) -> Iterator[MappingSuite]:
+        """
+            This method allows all records to be retrieved from the repository.
+        :return: list of MappingSuites
         """

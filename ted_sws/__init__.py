@@ -53,10 +53,24 @@ class MongoDBConfig:
         return int(VaultAndEnvConfigResolver().config_resolve())
 
 
-class TedConfigResolver(MongoDBConfig):
+    @property
+    def MONGO_DB_AGGREGATES_DATABASE_NAME(self) -> str:
+        return VaultAndEnvConfigResolver().config_resolve()
+
+
+
+class RMLMapperConfig:
+
+    @property
+    def RML_MAPPER_PATH(self) -> str:
+        return VaultAndEnvConfigResolver().config_resolve()
+
+
+class TedConfigResolver(MongoDBConfig, RMLMapperConfig):
     """
         This class resolve the secrets of the ted-sws project.
     """
 
 
 config = TedConfigResolver()
+

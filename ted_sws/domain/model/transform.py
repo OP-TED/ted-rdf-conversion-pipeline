@@ -7,24 +7,74 @@
 
 """ """
 import abc
+from dataclasses import Field
+from datetime import datetime
+from typing import List
+
+from ted_sws.domain.model import PropertyBaseModel
 
 
-class RuleSet(abc.ABC):
+class MappingSuiteComponent(PropertyBaseModel, abc.ABC):
+    class Config:
+        validate_assignment = True
+
+
+class FileResource(MappingSuiteComponent):
     """
-        A set of rules used in a normalisation or transformation operation.
+
     """
+    file_name: str
+    file_content: str
+
+
+class MetadataConstraints(MappingSuiteComponent):
+    """
+
+    """
+    constraints: dict
+
+
+class TransformationRuleSet(MappingSuiteComponent):
+    """
+
+    """
+    resources: List[FileResource]
+    rml_mapping_rules: List[FileResource]
+
+
+class SHACLTestSuite(MappingSuiteComponent):
+    """
+
+    """
+    identifier: str
+    shacl_tests: List[FileResource]
+
+
+class SPARQLTestSuite(MappingSuiteComponent):
+    """
+
+    """
+    identifier: str
+    sparql_tests: List[FileResource]
+
+
+class TransformationTestData(MappingSuiteComponent):
+    """
+
+    """
+    test_data: List[FileResource]
+
+
+class MappingSuite(MappingSuiteComponent):
+    """
+
+    """
+    created_at: str = datetime.now().isoformat()
+    identifier: str = "no_id"
+    title: str = "no_title"
     version: str = "0.0.1"
-
-
-class TransformationRuleSet(RuleSet):
-    """
-
-    """
-
-
-class NormalisationRuleSet(RuleSet):
-    """
-
-    """
-
-
+    metadata_constraints: MetadataConstraints
+    transformation_rule_set: TransformationRuleSet
+    shacl_test_suites: List[SHACLTestSuite]
+    sparql_test_suites: List[SPARQLTestSuite]
+    transformation_test_data: TransformationTestData

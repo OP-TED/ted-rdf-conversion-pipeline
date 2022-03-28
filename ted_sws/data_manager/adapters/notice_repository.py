@@ -3,8 +3,8 @@ from typing import Iterator
 from pymongo import MongoClient
 
 from ted_sws import config
-from ted_sws.domain.adapters.repository_abc import NoticeRepositoryABC
-from ted_sws.domain.model.notice import Notice, NoticeStatus
+from ted_sws.data_manager.adapters.repository_abc import NoticeRepositoryABC
+from ted_sws.core.model.notice import Notice, NoticeStatus
 
 logger = logging.getLogger(__name__)
 

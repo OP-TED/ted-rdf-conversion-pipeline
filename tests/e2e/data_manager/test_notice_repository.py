@@ -1,13 +1,11 @@
 import pytest
 
 from ted_sws.data_manager.adapters.notice_repository import NoticeRepository
-from ted_sws.domain.model.manifestation import XMLManifestation
-from ted_sws.domain.model.metadata import TEDMetadata
-from ted_sws.domain.model.notice import Notice
+from ted_sws.core.model.manifestation import XMLManifestation
+from ted_sws.core.model.metadata import TEDMetadata
+from ted_sws.core.model.notice import Notice
 
 NOTICE_TED_ID = "123456"
-TEST_DB_NAME = 'test_db'
-
 
 def test_notice_repository_create(mongodb_client):
     mongodb_client.drop_database(NoticeRepository._database_name)

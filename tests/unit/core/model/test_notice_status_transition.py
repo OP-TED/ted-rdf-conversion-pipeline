@@ -9,7 +9,7 @@
 
 import pytest
 
-from ted_sws.domain.model.notice import Notice, NoticeStatus, UnsupportedStatusTransition
+from ted_sws.core.model.notice import Notice, NoticeStatus, UnsupportedStatusTransition
 
 
 def test_illegal_status_transitions(raw_notice):

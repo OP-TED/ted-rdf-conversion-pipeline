@@ -11,7 +11,7 @@ from dataclasses import Field
 from datetime import datetime
 from typing import List
 
-from ted_sws.domain.model import PropertyBaseModel
+from ted_sws.core.model import PropertyBaseModel
 
 
 class MappingSuiteComponent(PropertyBaseModel, abc.ABC):

@@ -6,8 +6,8 @@ from typing import Iterator, List, Optional
 from pymongo import MongoClient
 
 from ted_sws import config
-from ted_sws.domain.adapters.repository_abc import MappingSuiteRepositoryABC
-from ted_sws.domain.model.transform import MappingSuite, FileResource, TransformationRuleSet, SHACLTestSuite, \
+from ted_sws.data_manager.adapters.repository_abc import MappingSuiteRepositoryABC
+from ted_sws.core.model.transform import MappingSuite, FileResource, TransformationRuleSet, SHACLTestSuite, \
     SPARQLTestSuite, MetadataConstraints, TransformationTestData
 
 METADATA_FILE_NAME = "metadata.json"

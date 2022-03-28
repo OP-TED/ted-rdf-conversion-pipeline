@@ -9,10 +9,10 @@
 
 import pytest
 
-from ted_sws.domain.model.manifestation import XMLManifestation, RDFManifestation, METSManifestation, \
+from ted_sws.core.model.manifestation import XMLManifestation, RDFManifestation, METSManifestation, \
     RDFValidationManifestation
-from ted_sws.domain.model.metadata import TEDMetadata, NormalisedMetadata
-from ted_sws.domain.model.notice import Notice, NoticeStatus
+from ted_sws.core.model.metadata import TEDMetadata, NormalisedMetadata
+from ted_sws.core.model.notice import Notice, NoticeStatus
 
 
 @pytest.fixture

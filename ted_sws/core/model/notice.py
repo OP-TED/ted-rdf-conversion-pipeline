@@ -20,10 +20,10 @@ from functools import total_ordering
 
 from pydantic import Field
 
-from ted_sws.domain.model import PropertyBaseModel
-from ted_sws.domain.model.manifestation import METSManifestation, RDFManifestation, XMLManifestation, \
+from ted_sws.core.model import PropertyBaseModel
+from ted_sws.core.model.manifestation import METSManifestation, RDFManifestation, XMLManifestation, \
     RDFValidationManifestation
-from ted_sws.domain.model.metadata import TEDMetadata, NormalisedMetadata
+from ted_sws.core.model.metadata import TEDMetadata, NormalisedMetadata
 
 
 class UnsupportedStatusTransition(Exception):

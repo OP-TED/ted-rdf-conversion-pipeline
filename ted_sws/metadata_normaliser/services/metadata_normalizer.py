@@ -4,8 +4,8 @@ import datetime
 import pandas as pd
 
 from ted_sws.data_manager.adapters.notice_repository import NoticeRepositoryABC
-from ted_sws.domain.model.metadata import NormalisedMetadata, LanguageTaggedString
-from ted_sws.domain.model.notice import Notice
+from ted_sws.core.model.metadata import NormalisedMetadata, LanguageTaggedString
+from ted_sws.core.model.notice import Notice
 from ted_sws.metadata_normaliser.model.metadata import ExtractedMetadata
 from ted_sws.metadata_normaliser.services.xml_manifestation_metadata_extractor import XMLManifestationMetadataExtractor
 from ted_sws.metadata_normaliser.resources.mapping_files_registry import MappingFilesRegistry

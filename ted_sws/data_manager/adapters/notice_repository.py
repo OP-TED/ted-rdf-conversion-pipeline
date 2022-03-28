@@ -17,8 +17,9 @@ class NoticeRepository(NoticeRepositoryABC):
     _collection_name = "notice_collection"
     _database_name = config.MONGO_DB_AGGREGATES_DATABASE_NAME
 
-    def __init__(self, mongodb_client: MongoClient):
+    def __init__(self, mongodb_client: MongoClient, database_name: str = _database_name):
         mongodb_client = mongodb_client
+        self._database_name = database_name
         notice_db = mongodb_client[self._database_name]
         self.collection = notice_db[self._collection_name]
 

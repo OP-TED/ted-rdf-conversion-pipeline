@@ -18,19 +18,20 @@ def test_updating_notice_invalid_sate(publicly_available_notice):
         publicly_available_notice.update_status_to(None)
 
 
-def test_setting_normalised_metadata_upstream(publicly_available_notice):
+def test_setting_normalised_metadata_upstream(publicly_available_notice, normalised_metadata_dict):
     publicly_available_notice.set_normalised_metadata(publicly_available_notice.normalised_metadata)
     assert publicly_available_notice.status is NoticeStatus.PUBLICLY_AVAILABLE
 
-    publicly_available_notice.set_normalised_metadata(NormalisedMetadata())
+    normalised_metadata_dict["notice_publication_number"] = "ND-UP"
+    publicly_available_notice.set_normalised_metadata(NormalisedMetadata(**normalised_metadata_dict))
     assert publicly_available_notice.status is NoticeStatus.NORMALISED_METADATA
     assert publicly_available_notice.normalised_metadata is not None
     assert publicly_available_notice.rdf_manifestation is None
     assert publicly_available_notice.mets_manifestation is None
 
 
-def test_setting_normalised_metadata_downstream(raw_notice):
-    raw_notice.set_normalised_metadata(NormalisedMetadata())
+def test_setting_normalised_metadata_downstream(raw_notice, normalised_metadata_dict):
+    raw_notice.set_normalised_metadata(NormalisedMetadata(**normalised_metadata_dict))
     assert raw_notice.status is NoticeStatus.NORMALISED_METADATA
     assert raw_notice.normalised_metadata is not None
     assert raw_notice.rdf_manifestation is None

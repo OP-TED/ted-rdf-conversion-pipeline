@@ -8,13 +8,14 @@
 """ """
 from deepdiff import DeepDiff
 
-from ted_sws.domain.model.metadata import TEDMetadata, NormalisedMetadata
+from ted_sws.domain.model.metadata import TEDMetadata
 
 
 def test_metadata():
     metadata = TEDMetadata(**{"AA": "Value here", "No_key": "Value"})
     assert metadata.AA == "Value here"
     assert "No_key" not in metadata.dict().keys()
+
 
 def test_dict_comparison():
     a1 = {'a': 1, 'a2': 1, "b": 2, "c": 3}
@@ -40,9 +41,3 @@ def test_metadata_equality():
     assert md1 != md3
     assert md2 != md3
 
-
-def test_normalised_metadata():
-    metadata = NormalisedMetadata(**{"title": "Title here", "No_key": "Value"})
-    assert metadata.title == "Title here"
-    assert "No_key" not in metadata.dict().keys()
-    assert "title" in metadata.dict().keys()

@@ -6,7 +6,10 @@
 # Email: costezki.eugen@gmail.com 
 
 """ """
-from typing import List
+import datetime
+from typing import List, Optional
+
+from pydantic.annotated_types import NamedTuple
 
 from ted_sws.domain.model import PropertyBaseModel
 
@@ -15,16 +18,57 @@ class Metadata(PropertyBaseModel):
     """
         Unified interface for metadata
     """
+
     class Config:
         underscore_attrs_are_private = True
+
+
+class LanguageTaggedString(NamedTuple):
+    """
+    Holds strings with language tag
+    """
+    text: str = None
+    language: str = None
+
+
+class CompositeTitle(Metadata):
+    """
+    Compose title
+    """
+    title: LanguageTaggedString = None
+    title_city: LanguageTaggedString = None
+    title_country: LanguageTaggedString = None
+
+
+class EncodedValue(NamedTuple):
+    """
+    Holds code and value
+    """
+    code: str = None
+    value: str = None
 
 
 class NormalisedMetadata(Metadata):
     """
         Stores notice normalised metadata
-        TODO: This structure/set of metadata will might change in the future
     """
-    title: str = ""
+    title: List[LanguageTaggedString]
+    long_title: List[LanguageTaggedString]
+    notice_publication_number: str
+    publication_date: datetime.date
+    ojs_issue_number: str
+    ojs_type: str
+    city_of_buyer: Optional[List[LanguageTaggedString]]
+    name_of_buyer: Optional[List[LanguageTaggedString]]
+    original_language: Optional[str]
+    country_of_buyer: Optional[str]
+    eu_institution: Optional[bool]
+    document_sent_date: Optional[datetime.date]
+    deadline_for_submission: Optional[datetime.date]
+    notice_type: str
+    form_type: str
+    place_of_performance: List[str]
+    legal_basis_directive: str
 
 
 class TEDMetadata(Metadata):

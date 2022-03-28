@@ -1,33 +1,7 @@
-from typing import List, Optional
+import datetime
+from typing import List
 
-from pydantic.annotated_types import NamedTuple
-
-from ted_sws.domain.model.metadata import Metadata
-
-
-class LanguageTaggedString(NamedTuple):
-    """
-    Holds strings with language tag
-    """
-    text: str = None
-    language: str = None
-
-
-class CompositeTitle(Metadata):
-    """
-    Compose title
-    """
-    title: LanguageTaggedString = None
-    title_city: LanguageTaggedString = None
-    title_country: LanguageTaggedString = None
-
-
-class EncodedValue(NamedTuple):
-    """
-    Holds code and value
-    """
-    code: str = None
-    value: str = None
+from ted_sws.domain.model.metadata import Metadata, CompositeTitle, LanguageTaggedString, EncodedValue
 
 
 class ExtractedMetadata(Metadata):
@@ -49,7 +23,7 @@ class ExtractedMetadata(Metadata):
     deadline_for_submission: str = None
     type_of_contract: EncodedValue = None
     type_of_procedure: EncodedValue = None
-    extracted_notice_type: EncodedValue = None
+    extracted_document_type: EncodedValue = None
     extracted_form_number: str = None
     regulation: EncodedValue = None
     type_of_bid: EncodedValue = None
@@ -60,3 +34,4 @@ class ExtractedMetadata(Metadata):
     legal_basis_directive: str = None
     xml_schema: str = None
     xml_schema_version: str = None
+    extracted_notice_type: str = None

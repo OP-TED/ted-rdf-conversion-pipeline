@@ -129,9 +129,9 @@ class XMLManifestationMetadataExtractor:
             namespaces=self.namespaces))
 
     @property
-    def extracted_notice_type(self):
+    def extracted_document_type(self):
         return extract_code_and_value_from_element(element=self.manifestation_root.find(
-            self.xpath_registry.xpath_notice_type,
+            self.xpath_registry.xpath_document_type,
             namespaces=self.namespaces))
 
     @property
@@ -208,6 +208,12 @@ class XMLManifestationMetadataExtractor:
                 self.xpath_registry.xpath_form_number,
                 namespaces=self.namespaces), attrib_key="VERSION")
 
+    @property
+    def extracted_notice_type(self):
+        return extract_attribute_from_element(element=self.manifestation_root.find(
+            self.xpath_registry.xpath_notice_type,
+            namespaces=self.namespaces), attrib_key="TYPE")
+
     def to_metadata(self) -> ExtractedMetadata:
         """
          Creating extracted metadata
@@ -227,7 +233,7 @@ class XMLManifestationMetadataExtractor:
         metadata.document_sent_date = self.document_sent_date
         metadata.type_of_contract = self.type_of_contract
         metadata.type_of_procedure = self.type_of_procedure
-        metadata.extracted_notice_type = self.extracted_notice_type
+        metadata.extracted_document_type = self.extracted_document_type
         metadata.extracted_form_number = self.extracted_form_number
         metadata.regulation = self.regulation
         metadata.type_of_bid = self.type_of_bid
@@ -238,6 +244,7 @@ class XMLManifestationMetadataExtractor:
         metadata.legal_basis_directive = self.legal_basis_directive
         metadata.xml_schema = self.xml_schema
         metadata.xml_schema_version = self.xml_schema_version
+        metadata.extracted_notice_type = self.extracted_notice_type
         return metadata
 
     def _parse_manifestation(self):

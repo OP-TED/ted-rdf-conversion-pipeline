@@ -4,9 +4,9 @@ import json
 
 import pytest
 
-from ted_sws.domain.model.manifestation import XMLManifestation
-from ted_sws.domain.model.metadata import TEDMetadata, LanguageTaggedString
-from ted_sws.domain.model.notice import Notice
+from ted_sws.core.model.manifestation import XMLManifestation
+from ted_sws.core.model.metadata import TEDMetadata, LanguageTaggedString
+from ted_sws.core.model.notice import Notice
 from ted_sws.notice_fetcher.adapters.ted_api import TedAPIAdapter
 from ted_sws.notice_fetcher.services.notice_fetcher import NoticeFetcher
 from tests import TEST_DATA_PATH

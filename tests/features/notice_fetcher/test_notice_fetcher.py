@@ -2,7 +2,7 @@ import pytest
 from _pytest._code import ExceptionInfo
 from pytest_bdd import scenario, given, when, then
 
-from ted_sws.domain.model.notice import Notice
+from ted_sws.core.model.notice import Notice
 from ted_sws.notice_fetcher.adapters.ted_api import TedAPIAdapter, TedRequestAPI
 from ted_sws.notice_fetcher.services.notice_fetcher import NoticeFetcher
 

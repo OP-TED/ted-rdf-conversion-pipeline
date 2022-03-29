@@ -20,10 +20,10 @@ from functools import total_ordering
 
 from pydantic import Field
 
-from ted_sws.domain.model import PropertyBaseModel
-from ted_sws.domain.model.manifestation import METSManifestation, RDFManifestation, XMLManifestation, \
+from ted_sws.core.model import PropertyBaseModel
+from ted_sws.core.model.manifestation import METSManifestation, RDFManifestation, XMLManifestation, \
     RDFValidationManifestation
-from ted_sws.domain.model.metadata import TEDMetadata, NormalisedMetadata
+from ted_sws.core.model.metadata import TEDMetadata, NormalisedMetadata
 
 
 class UnsupportedStatusTransition(Exception):
@@ -312,6 +312,7 @@ class Notice(WorkExpression):
                 raise UnsupportedStatusTransition(
                     f"Unsupported transition from state {self._status} to state {new_status}.")
         elif self._status > new_status:
+            # TODO: implement delete actions
             self._status = new_status
             if new_status < NoticeStatus.NORMALISED_METADATA:
                 self._normalised_metadata = None

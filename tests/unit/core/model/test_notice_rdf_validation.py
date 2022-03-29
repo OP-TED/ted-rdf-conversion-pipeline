@@ -8,8 +8,8 @@
 """ """
 import pytest
 
-from ted_sws.domain.model.manifestation import RDFValidationManifestation
-from ted_sws.domain.model.notice import NoticeStatus, UnsupportedStatusTransition
+from ted_sws.core.model.manifestation import RDFValidationManifestation
+from ted_sws.core.model.notice import NoticeStatus, UnsupportedStatusTransition
 
 
 def test_set_notice_rdf_validation(publicly_available_notice, raw_notice):

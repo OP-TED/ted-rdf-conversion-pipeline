@@ -1,9 +1,9 @@
 import pytest
 from pytest_bdd import scenario, given, when, then, parsers
 
-from ted_sws.domain.model.manifestation import RDFManifestation, RDFValidationManifestation, METSManifestation
-from ted_sws.domain.model.metadata import NormalisedMetadata
-from ted_sws.domain.model.notice import NoticeStatus
+from ted_sws.core.model.manifestation import RDFManifestation, RDFValidationManifestation, METSManifestation
+from ted_sws.core.model.metadata import NormalisedMetadata
+from ted_sws.core.model.notice import NoticeStatus
 from tests.features import str2bool
 
 

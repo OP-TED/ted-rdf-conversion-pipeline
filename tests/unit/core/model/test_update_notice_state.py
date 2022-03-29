@@ -8,9 +8,9 @@
 """ """
 import pytest
 
-from ted_sws.domain.model.manifestation import RDFManifestation, METSManifestation
-from ted_sws.domain.model.metadata import NormalisedMetadata
-from ted_sws.domain.model.notice import NoticeStatus, UnsupportedStatusTransition
+from ted_sws.core.model.manifestation import RDFManifestation, METSManifestation
+from ted_sws.core.model.metadata import NormalisedMetadata
+from ted_sws.core.model.notice import NoticeStatus, UnsupportedStatusTransition
 
 
 def test_updating_notice_invalid_sate(publicly_available_notice):

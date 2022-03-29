@@ -3,8 +3,8 @@ from typing import Iterator
 from pymongo import MongoClient
 
 from ted_sws import config
-from ted_sws.domain.adapters.repository_abc import NoticeRepositoryABC
-from ted_sws.domain.model.notice import Notice, NoticeStatus
+from ted_sws.data_manager.adapters.repository_abc import NoticeRepositoryABC
+from ted_sws.core.model.notice import Notice, NoticeStatus
 
 logger = logging.getLogger(__name__)
 
@@ -17,8 +17,9 @@ class NoticeRepository(NoticeRepositoryABC):
     _collection_name = "notice_collection"
     _database_name = config.MONGO_DB_AGGREGATES_DATABASE_NAME
 
-    def __init__(self, mongodb_client: MongoClient):
+    def __init__(self, mongodb_client: MongoClient, database_name: str = _database_name):
         mongodb_client = mongodb_client
+        self._database_name = database_name
         notice_db = mongodb_client[self._database_name]
         self.collection = notice_db[self._collection_name]
 

@@ -1,8 +1,8 @@
 from pytest_bdd import scenario, given, when, then
 
-from ted_sws.domain.model.manifestation import XMLManifestation
-from ted_sws.domain.model.metadata import TEDMetadata
-from ted_sws.domain.model.notice import Notice
+from ted_sws.core.model.manifestation import XMLManifestation
+from ted_sws.core.model.metadata import TEDMetadata
+from ted_sws.core.model.notice import Notice
 
 
 @scenario("test_creating_notice.feature", "Create a bare minimum notice")

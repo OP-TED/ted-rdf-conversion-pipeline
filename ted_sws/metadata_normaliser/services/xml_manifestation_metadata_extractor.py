@@ -1,7 +1,7 @@
 import xml.etree.ElementTree as ET
 from io import StringIO
 
-from ted_sws.domain.model.manifestation import XMLManifestation
+from ted_sws.core.model.manifestation import XMLManifestation
 from ted_sws.metadata_normaliser.model.metadata import ExtractedMetadata, LanguageTaggedString, CompositeTitle, \
     EncodedValue
 from ted_sws.metadata_normaliser.services.xpath_registry import XpathRegistry

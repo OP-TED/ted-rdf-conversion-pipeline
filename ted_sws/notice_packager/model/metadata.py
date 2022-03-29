@@ -14,7 +14,7 @@ from typing import List, Dict
 
 from pydantic import validator
 
-from ted_sws.domain.model.metadata import Metadata
+from ted_sws.core.model.metadata import Metadata
 
 WORK_AGENT = "PUBL"
 PUBLICATION_FREQUENCY = "OTHER"

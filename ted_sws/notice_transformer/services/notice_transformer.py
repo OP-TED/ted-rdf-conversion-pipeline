@@ -4,9 +4,9 @@ import tempfile
 
 from ted_sws.data_manager.adapters.mapping_suite_repository import MappingSuiteRepositoryInFileSystem, \
     TRANSFORM_PACKAGE_NAME, RESOURCES_PACKAGE_NAME
-from ted_sws.domain.model.manifestation import RDFManifestation, XMLManifestation
-from ted_sws.domain.model.notice import Notice, NoticeStatus
-from ted_sws.domain.model.transform import MappingSuite, FileResource
+from ted_sws.core.model.manifestation import RDFManifestation, XMLManifestation
+from ted_sws.core.model.notice import Notice, NoticeStatus
+from ted_sws.core.model.transform import MappingSuite, FileResource
 from ted_sws.notice_transformer.adapters.rml_mapper import RMLMapperABC
 
 DATA_SOURCE_PACKAGE = "data"

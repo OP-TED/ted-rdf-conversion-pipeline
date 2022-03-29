@@ -6,8 +6,8 @@ from typing import Iterator, List, Optional
 from pymongo import MongoClient
 
 from ted_sws import config
-from ted_sws.domain.adapters.repository_abc import MappingSuiteRepositoryABC
-from ted_sws.domain.model.transform import MappingSuite, FileResource, TransformationRuleSet, SHACLTestSuite, \
+from ted_sws.data_manager.adapters.repository_abc import MappingSuiteRepositoryABC
+from ted_sws.core.model.transform import MappingSuite, FileResource, TransformationRuleSet, SHACLTestSuite, \
     SPARQLTestSuite, MetadataConstraints, TransformationTestData
 
 METADATA_FILE_NAME = "metadata.json"
@@ -28,13 +28,14 @@ class MappingSuiteRepositoryMongoDB(MappingSuiteRepositoryABC):
     _collection_name = "mapping_suite_collection"
     _database_name = config.MONGO_DB_AGGREGATES_DATABASE_NAME
 
-    def __init__(self, mongodb_client: MongoClient):
+    def __init__(self, mongodb_client: MongoClient, database_name: str = _database_name):
         """
 
         :param mongodb_client:
         :param database_name:
         """
         mongodb_client = mongodb_client
+        self._database_name = database_name
         notice_db = mongodb_client[self._database_name]
         self.collection = notice_db[self._collection_name]
 
@@ -224,7 +225,6 @@ class MappingSuiteRepositoryInFileSystem(MappingSuiteRepositoryABC):
                                        path=sparql_test_suite_path
                                        )
 
-
     def _write_test_data_package(self, mapping_suite: MappingSuite):
         """
             This method writes the test data to a dedicated folder in the package.
@@ -238,7 +238,7 @@ class MappingSuiteRepositoryInFileSystem(MappingSuiteRepositoryABC):
                                    path=test_data_path
                                    )
 
-    def _read_test_data_package(self, package_path: pathlib.Path)-> TransformationTestData:
+    def _read_test_data_package(self, package_path: pathlib.Path) -> TransformationTestData:
         """
             This method reads the test data from the package.
         :param package_path:
@@ -247,7 +247,6 @@ class MappingSuiteRepositoryInFileSystem(MappingSuiteRepositoryABC):
         test_data_path = package_path / TEST_DATA_PACKAGE_NAME
         test_data = self._read_file_resources(path=test_data_path)
         return TransformationTestData(test_data=test_data)
-
 
     def _write_mapping_suite_package(self, mapping_suite: MappingSuite):
         """

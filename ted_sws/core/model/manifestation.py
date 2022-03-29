@@ -10,7 +10,7 @@ from enum import Enum
 
 from pydantic import BaseModel, Field
 
-from ted_sws.domain.model import PropertyBaseModel
+from ted_sws.core.model import PropertyBaseModel
 
 
 class ManifestationMimeType(Enum):

@@ -12,8 +12,8 @@ from deepdiff import DeepDiff
 import pytest
 from pydantic import ValidationError
 
-from ted_sws.domain.model.manifestation import XMLManifestation, Manifestation, ManifestationMimeType
-from ted_sws.domain.model.notice import Notice, NoticeStatus
+from ted_sws.core.model.manifestation import XMLManifestation, Manifestation, ManifestationMimeType
+from ted_sws.core.model.notice import Notice, NoticeStatus
 
 
 def test_manifestation_invalid_creation():

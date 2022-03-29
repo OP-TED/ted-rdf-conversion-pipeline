@@ -1,9 +1,7 @@
-import pathlib
-
 import pandas as pd
 import pytest
 
-from ted_sws.adapters.sparql_triple_store import SPARQLTripleStore
+from ted_sws.core.adapters.sparql_triple_store import SPARQLTripleStore
 from tests import TEST_DATA_PATH
 
 

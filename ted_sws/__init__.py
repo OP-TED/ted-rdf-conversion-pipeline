@@ -12,8 +12,8 @@ __version__ = "0.0.1"
 import os
 
 import dotenv
-from ted_sws.adapters.config_resolver import VaultAndEnvConfigResolver
-from ted_sws.adapters.vault_secrets_store import VaultSecretsStore
+from ted_sws.core.adapters.config_resolver import VaultAndEnvConfigResolver
+from ted_sws.core.adapters.vault_secrets_store import VaultSecretsStore
 
 dotenv.load_dotenv(verbose=True, override=True)
 

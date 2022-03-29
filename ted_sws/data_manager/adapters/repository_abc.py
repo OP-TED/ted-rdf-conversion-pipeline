@@ -1,8 +1,8 @@
 import abc
 from typing import Iterator
 
-from ted_sws.domain.model.notice import Notice
-from ted_sws.domain.model.transform import MappingSuite
+from ted_sws.core.model.notice import Notice
+from ted_sws.core.model.transform import MappingSuite
 
 
 class RepositoryABC(abc.ABC):

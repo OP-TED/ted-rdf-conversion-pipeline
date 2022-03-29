@@ -2,7 +2,7 @@ import pathlib
 import tempfile
 from collections import Counter
 
-from ted_sws.domain.model.notice import NoticeStatus
+from ted_sws.core.model.notice import NoticeStatus
 from ted_sws.notice_transformer.services.notice_transformer import NoticeTransformer, transform_notice, \
     transform_test_data
 

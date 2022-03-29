@@ -13,7 +13,7 @@ import logging
 import os
 from abc import ABC
 
-from ted_sws.adapters.vault_secrets_store import VaultSecretsStore
+from ted_sws.core.adapters.vault_secrets_store import VaultSecretsStore
 
 logger = logging.getLogger(__name__)
 

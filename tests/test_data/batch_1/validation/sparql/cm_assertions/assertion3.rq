@@ -1,0 +1,8 @@
+# title: NUTS code
+# description: this is a description
+# class path: epo:Role (from CL1)  / epo:Organisation (from CL2) / locn:Address / at-voc:nuts (from CL3)
+ASK
+WHERE
+{
+  ?this epo:playedBy / epo:hasRegisteredAddress / locn:adminUnitL2 ?value .
+}

@@ -1,0 +1,8 @@
+# title: Official name
+# description: this is a description
+# class path: epo:Role (from CL1) / epo:Organisation (from CL2) / rdf:langString
+ASK
+WHERE
+{
+  ?this epo:playedBy / epo:hasName ?value .
+}

@@ -36,6 +36,9 @@ class CmdRunner:
         self.fs_repository_path = Path(os.path.realpath(REPOSITORY_PATH))
         self.output_path = output_path
 
+    def is_mapping_suite(self, suite_id):
+        return any(f == METADATA_FILE_NAME for f in os.listdir(self.fs_repository_path / Path(suite_id)))
+
     def transform(self, mapping_suite_id):
         """
         Transforms the Test Mapping Suites (identified by mapping_suite_id)
@@ -51,7 +54,8 @@ class CmdRunner:
 
 
 @click.command()
-@click.option('--mapping-suite-id', default=None, help='Mapping Suite ID.')
+@click.option('--mapping-suite-id', default=None,
+              help='Mapping Suite ID (leave empty to transform all Mapping Suites).')
 def transform_notice(mapping_suite_id, output_path='output'):
     """
     Transforms the Test Mapping Suites (identified by mapping-suite-id).
@@ -63,7 +67,7 @@ def transform_notice(mapping_suite_id, output_path='output'):
         cmd.transform(mapping_suite_id)
     else:
         for suite_id in os.listdir(cmd.fs_repository_path):
-            if any(f == METADATA_FILE_NAME for f in os.listdir(cmd.fs_repository_path / Path(suite_id))):
+            if cmd.is_mapping_suite(suite_id):
                 cmd.transform(suite_id)
                 print("PARSED :: Suite :: " + suite_id)
 

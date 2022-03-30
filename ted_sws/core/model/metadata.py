@@ -69,6 +69,7 @@ class NormalisedMetadata(Metadata):
     form_type: str
     place_of_performance: List[str]
     legal_basis_directive: str
+    form_number: str
 
 
 class TEDMetadata(Metadata):

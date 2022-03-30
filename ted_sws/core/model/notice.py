@@ -83,7 +83,6 @@ NOTICE_STATUS_DOWNSTREAM_TRANSITION = {NoticeStatus.RAW: [NoticeStatus.NORMALISE
                                        NoticeStatus.PUBLICLY_AVAILABLE: [],
                                        }
 
-
 class WorkExpression(PropertyBaseModel, abc.ABC):
     """
         A Merger of Work and Expression FRBR classes.

@@ -43,7 +43,7 @@ def test_create_eligibility_df(file_system_repository_path):
     mapping_suite = mapping_suite_repository.get("test_package")
     eligibility_df = create_eligibility_df(metadata_constraint=mapping_suite.metadata_constraints)
     assert isinstance(eligibility_df, pd.DataFrame)
-    assert len(eligibility_df.index) == 9
+    assert len(eligibility_df.index) == 18
     assert "form_number" in eligibility_df.columns
     assert "legal_basis" in eligibility_df.columns
     assert "year" in eligibility_df.columns

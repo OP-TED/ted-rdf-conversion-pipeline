@@ -1,11 +1,10 @@
 import sys
+
 sys.path.append("/opt/airflow/")
 sys.path = list(set(sys.path))
 import os
+
 os.chdir("/opt/airflow/")
-
-
-from random import randint
 
 from pymongo import MongoClient
 
@@ -13,6 +12,7 @@ from ted_sws import config
 from ted_sws.data_manager.adapters.mapping_suite_repository import MappingSuiteRepositoryMongoDB
 from ted_sws.data_manager.adapters.notice_repository import NoticeRepository
 from ted_sws.notice_transformer.adapters.rml_mapper import RMLMapper
+import ted_sws.notice_transformer.services.notice_transformer as notice_transformer
 
 from airflow.decorators import dag, task
 from airflow.operators.python import get_current_context
@@ -36,29 +36,30 @@ DEFAULT_DAG_ARGUMENTS = {
 
 
 @dag(default_args=DEFAULT_DAG_ARGUMENTS, tags=['worker', 'pipeline'])
-def transformer_dag():
+def notice_transformer_dag():
     @task
     def get_dag_params():
         context = get_current_context()
         return context["dag_run"].conf
 
     @task
-    def transform_notice(dag_params):
-        notice_id = dag_params["notice_id"]
-        mapping_suite_id = dag_params["mapping_suite_id"]
+    def transform_notice(params):
+        notice_id = params["notice_id"]
+        mapping_suite_id = params["mapping_suite_id"]
         mongo_client = MongoClient(config.MONGO_DB_AUTH_URL)
         notice_repository = NoticeRepository(mongodb_client=mongo_client)
         notice = notice_repository.get(reference=notice_id)
         mapping_suite_repository = MappingSuiteRepositoryMongoDB(mongodb_client=mongo_client)
         mapping_suite = mapping_suite_repository.get(reference=mapping_suite_id)
-        result_notice = transform_notice(notice=notice, mapping_suite=mapping_suite, rml_mapper=RMLMapper(
-            rml_mapper_path=config.RML_MAPPER_PATH))  # revise config.RML_MAPPER_PATH for execution in Airflow
+        result_notice = notice_transformer.transform_notice(notice=notice, mapping_suite=mapping_suite,
+                                                            rml_mapper=RMLMapper(
+                                                                rml_mapper_path=config.RML_MAPPER_PATH
+                                                            ))
+        # TODO: revise config.RML_MAPPER_PATH for execution in Airflow
         notice_repository.update(notice=result_notice)
 
+    dag_params = get_dag_params()
+    transform_notice(dag_params)
 
 
-    transform_notice(get_dag_params())
-
-
-
-dag = transformer_dag()
+dag = notice_transformer_dag()

@@ -52,11 +52,9 @@ class MongoDBConfig:
     def MONGO_DB_PORT(self) -> int:
         return int(VaultAndEnvConfigResolver().config_resolve())
 
-
     @property
     def MONGO_DB_AGGREGATES_DATABASE_NAME(self) -> str:
         return VaultAndEnvConfigResolver().config_resolve()
-
 
 
 class RMLMapperConfig:
@@ -73,4 +71,3 @@ class TedConfigResolver(MongoDBConfig, RMLMapperConfig):
 
 
 config = TedConfigResolver()
-

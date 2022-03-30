@@ -15,7 +15,7 @@ from pathlib import Path
 from tempfile import TemporaryDirectory
 from typing import List, Union
 
-from ted_sws.domain.model.notice import Notice
+from ted_sws.core.model.notice import Notice
 from ted_sws.metadata_normaliser.model.metadata import ExtractedMetadata
 from ted_sws.metadata_normaliser.services.xml_manifestation_metadata_extractor import XMLManifestationMetadataExtractor
 from ted_sws.notice_packager.adapters.archiver import ArchiverFactory, ARCHIVE_ZIP_FORMAT, PATH_TYPE, \

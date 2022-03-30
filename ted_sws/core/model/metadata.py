@@ -11,7 +11,7 @@ from typing import List, Optional
 
 from pydantic.annotated_types import NamedTuple
 
-from ted_sws.domain.model import PropertyBaseModel
+from ted_sws.core.model import PropertyBaseModel
 
 
 class Metadata(PropertyBaseModel):

@@ -2,7 +2,7 @@ import json
 import logging
 import pathlib
 
-from ted_sws.adapters.sparql_triple_store import SPARQLTripleStore, TripleStoreABC
+from ted_sws.core.adapters.sparql_triple_store import SPARQLTripleStore, TripleStoreABC
 from ted_sws.metadata_normaliser.resources import MAPPING_FILES_PATH, QUERIES_PATH
 
 logger = logging.getLogger(__name__)

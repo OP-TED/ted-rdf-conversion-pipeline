@@ -4,7 +4,7 @@ import mongomock
 import pymongo
 import pytest
 
-from ted_sws.domain.model.transform import MetadataConstraints, FileResource, TransformationRuleSet, SHACLTestSuite, \
+from ted_sws.core.model.transform import MetadataConstraints, FileResource, TransformationRuleSet, SHACLTestSuite, \
     SPARQLTestSuite, MappingSuite, TransformationTestData
 from tests import TEST_DATA_PATH
 

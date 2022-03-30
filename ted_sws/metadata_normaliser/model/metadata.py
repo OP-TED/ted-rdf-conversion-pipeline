@@ -1,7 +1,7 @@
 import datetime
 from typing import List
 
-from ted_sws.domain.model.metadata import Metadata, CompositeTitle, LanguageTaggedString, EncodedValue
+from ted_sws.core.model.metadata import Metadata, CompositeTitle, LanguageTaggedString, EncodedValue
 
 
 class ExtractedMetadata(Metadata):

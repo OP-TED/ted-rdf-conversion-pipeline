@@ -8,7 +8,7 @@
 """ """
 from deepdiff import DeepDiff
 
-from ted_sws.domain.model.metadata import TEDMetadata
+from ted_sws.core.model.metadata import TEDMetadata
 
 
 def test_metadata():

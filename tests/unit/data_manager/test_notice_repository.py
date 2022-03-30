@@ -1,9 +1,7 @@
-import pytest
-
 from ted_sws.data_manager.adapters.notice_repository import NoticeRepository
-from ted_sws.domain.model.manifestation import XMLManifestation
-from ted_sws.domain.model.metadata import TEDMetadata
-from ted_sws.domain.model.notice import Notice, NoticeStatus
+from ted_sws.core.model.manifestation import XMLManifestation
+from ted_sws.core.model.metadata import TEDMetadata
+from ted_sws.core.model.notice import Notice, NoticeStatus
 
 NOTICE_TED_ID = "123456"
 
@@ -40,4 +38,8 @@ def test_notice_repository_get_notice_by_status(mongodb_client):
     result_notices = notice_repository.get_notice_by_status(notice_status=NoticeStatus.RAW)
     for result_notice in result_notices:
         assert result_notice.status == NoticeStatus.RAW
-    
+
+
+def test_notice_repository_default_database_name(mongodb_client):
+    notice_repository = NoticeRepository(mongodb_client=mongodb_client)
+    assert notice_repository._database_name == NoticeRepository._database_name

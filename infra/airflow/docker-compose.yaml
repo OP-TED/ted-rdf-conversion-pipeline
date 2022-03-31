@@ -68,6 +68,7 @@ x-airflow-common:
     - ${AIRFLOW_INFRA_FOLDER}/logs:/opt/airflow/logs
     - ${AIRFLOW_INFRA_FOLDER}/plugins:/opt/airflow/plugins
     - ${AIRFLOW_INFRA_FOLDER}/ted_sws:/opt/airflow/ted_sws
+    - ${AIRFLOW_INFRA_FOLDER}/tests:/opt/airflow/tests
   user: "${AIRFLOW_UID:-50000}:0"
   command: bash -c "export PYTHONPATH='/opt/airflow/'"
   depends_on:

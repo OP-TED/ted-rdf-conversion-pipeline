@@ -34,10 +34,9 @@ def push(key, value):
 NOTICE_ID = "notice_id"
 MAPPING_SUITE_ID = "mapping_suite_id"
 
+
 @dag(default_args=DEFAULT_DAG_ARGUMENTS, tags=['worker', 'pipeline'])
 def single_notice_proc_pipeline():
-
-
     def _normalise_notice_metadata():
         notice_id = pull(NOTICE_ID)
         print(notice_id)
@@ -58,13 +57,76 @@ def single_notice_proc_pipeline():
         notice_id = notice_id + "_transformed"
         push(NOTICE_ID, notice_id)
 
-    state_skip_table = {
-        str(NoticeStatus.RAW): "normalise_notice_metadata",
-        str(NoticeStatus.INELIGIBLE_FOR_TRANSFORMATION): "check_eligibility_for_transformation",
-        str(NoticeStatus.INELIGIBLE_FOR_PACKAGING): "transform_notice",
-        str(NoticeStatus.VALIDATED): "transform_notice",
-        str(NoticeStatus.ELIGIBLE_FOR_TRANSFORMATION): "transform_notice"
-    }
+    def _resolve_entities_in_the_rdf_manifestation():
+        notice_id = pull(NOTICE_ID)
+        push(NOTICE_ID, notice_id)
+
+    def _validate_transformed_rdf_manifestation():
+        notice_id = pull(NOTICE_ID)
+        push(NOTICE_ID, notice_id)
+
+    def _check_eligibility_for_packing_by_validation_report():
+        notice_id = pull(NOTICE_ID)
+        push(NOTICE_ID, notice_id)
+
+    def _generate_mets_package():
+        notice_id = pull(NOTICE_ID)
+        push(NOTICE_ID, notice_id)
+
+    def _check_package_integrity_by_package_structure():
+        notice_id = pull(NOTICE_ID)
+        push(NOTICE_ID, notice_id)
+
+    def _publish_notice_in_cellar():
+        notice_id = pull(NOTICE_ID)
+        push(NOTICE_ID, notice_id)
+
+    def _check_notice_public_availability_in_cellar():
+        notice_id = pull(NOTICE_ID)
+        push(NOTICE_ID, notice_id)
+
+    def _notice_successfully_processed():
+        notice_id = pull(NOTICE_ID)
+
+    def _fail_on_state():
+        notice_id = pull(NOTICE_ID)
+
+    def _check_notice_state_before_transform():
+        notice_id = pull(NOTICE_ID)
+        push(NOTICE_ID, notice_id)
+        status = NoticeStatus.ELIGIBLE_FOR_TRANSFORMATION
+        if status == NoticeStatus.ELIGIBLE_FOR_TRANSFORMATION:
+            return "transform_notice"
+        else:
+            return "fail_on_state"
+
+    def _check_notice_state_before_generate_mets_package():
+        notice_id = pull(NOTICE_ID)
+        push(NOTICE_ID, notice_id)
+        status = NoticeStatus.ELIGIBLE_FOR_PACKAGING
+        if status == NoticeStatus.ELIGIBLE_FOR_PACKAGING:
+            return "generate_mets_package"
+        else:
+            return "fail_on_state"
+
+    def _check_notice_state_before_publish_notice_in_cellar():
+        notice_id = pull(NOTICE_ID)
+        push(NOTICE_ID, notice_id)
+        status = NoticeStatus.ELIGIBLE_FOR_PUBLISHING
+        if status == NoticeStatus.ELIGIBLE_FOR_PUBLISHING:
+            return "publish_notice_in_cellar"
+        else:
+            return "fail_on_state"
+
+    def _check_notice_state_before_notice_successfully_processed():
+        notice_id = pull(NOTICE_ID)
+        push(NOTICE_ID, notice_id)
+        status = NoticeStatus.PUBLISHED
+        if status == NoticeStatus.PUBLISHED:
+            return "notice_successfully_processed"
+        else:
+            return "fail_on_state"
+
 
     normalise_notice_metadata = PythonOperator(
         task_id="normalise_notice_metadata",
@@ -82,7 +144,100 @@ def single_notice_proc_pipeline():
         trigger_rule=TriggerRule.NONE_FAILED_MIN_ONE_SUCCESS
     )
 
-    normalise_notice_metadata >> check_eligibility_for_transformation >> transform_notice
+    resolve_entities_in_the_rdf_manifestation = PythonOperator(
+        task_id="resolve_entities_in_the_rdf_manifestation",
+        python_callable= _resolve_entities_in_the_rdf_manifestation,
+        trigger_rule=TriggerRule.NONE_FAILED_MIN_ONE_SUCCESS
+    )
+
+    validate_transformed_rdf_manifestation = PythonOperator(
+        task_id="validate_transformed_rdf_manifestation",
+        python_callable=_validate_transformed_rdf_manifestation,
+        trigger_rule=TriggerRule.NONE_FAILED_MIN_ONE_SUCCESS
+    )
+
+    check_eligibility_for_packing_by_validation_report = PythonOperator(
+        task_id="check_eligibility_for_packing_by_validation_report",
+        python_callable=_check_eligibility_for_packing_by_validation_report,
+        trigger_rule=TriggerRule.NONE_FAILED_MIN_ONE_SUCCESS
+    )
+
+    generate_mets_package = PythonOperator(
+        task_id="generate_mets_package",
+        python_callable=_generate_mets_package,
+        trigger_rule=TriggerRule.NONE_FAILED_MIN_ONE_SUCCESS
+    )
+
+    check_package_integrity_by_package_structure = PythonOperator(
+        task_id="check_package_integrity_by_package_structure",
+        python_callable=_check_package_integrity_by_package_structure,
+        trigger_rule=TriggerRule.NONE_FAILED_MIN_ONE_SUCCESS
+    )
+
+    publish_notice_in_cellar = PythonOperator(
+        task_id="publish_notice_in_cellar",
+        python_callable=_publish_notice_in_cellar,
+        trigger_rule=TriggerRule.NONE_FAILED_MIN_ONE_SUCCESS
+    )
+
+    check_notice_public_availability_in_cellar = PythonOperator(
+        task_id="check_notice_public_availability_in_cellar",
+        python_callable=_check_notice_public_availability_in_cellar,
+        trigger_rule=TriggerRule.NONE_FAILED_MIN_ONE_SUCCESS
+    )
+
+    notice_successfully_processed = PythonOperator(
+        task_id="notice_successfully_processed",
+        python_callable=_notice_successfully_processed,
+        trigger_rule=TriggerRule.NONE_FAILED_MIN_ONE_SUCCESS
+    )
+
+    fail_on_state = PythonOperator(
+        task_id="fail_on_state",
+        python_callable=_fail_on_state,
+        trigger_rule=TriggerRule.NONE_FAILED_MIN_ONE_SUCCESS
+    )
+
+    check_notice_state_before_transform = BranchPythonOperator(
+        task_id='check_notice_state_before_transform',
+        python_callable=_check_notice_state_before_transform,
+    )
+
+    check_notice_state_before_generate_mets_package = BranchPythonOperator(
+        task_id='check_notice_state_before_generate_mets_package',
+        python_callable=_check_notice_state_before_generate_mets_package,
+    )
+
+    check_notice_state_before_publish_notice_in_cellar = BranchPythonOperator(
+        task_id='check_notice_state_before_publish_notice_in_cellar',
+        python_callable=_check_notice_state_before_publish_notice_in_cellar,
+    )
+
+    check_notice_state_before_notice_successfully_processed = BranchPythonOperator(
+        task_id='check_notice_state_before_notice_successfully_processed',
+        python_callable=_check_notice_state_before_notice_successfully_processed,
+    )
+
+
+
+    normalise_notice_metadata >> check_eligibility_for_transformation >> check_notice_state_before_transform >> [transform_notice, fail_on_state]
+    transform_notice >> resolve_entities_in_the_rdf_manifestation >> validate_transformed_rdf_manifestation >> check_eligibility_for_packing_by_validation_report
+    check_eligibility_for_packing_by_validation_report >> check_notice_state_before_generate_mets_package >> [generate_mets_package, fail_on_state]
+    generate_mets_package >> check_package_integrity_by_package_structure >> check_notice_state_before_publish_notice_in_cellar >> [publish_notice_in_cellar, fail_on_state]
+    publish_notice_in_cellar >> check_notice_public_availability_in_cellar >> check_notice_state_before_notice_successfully_processed >> [notice_successfully_processed, fail_on_state]
+
+    state_skip_table = {
+        str(NoticeStatus.RAW): "normalise_notice_metadata",
+        str(NoticeStatus.INELIGIBLE_FOR_TRANSFORMATION): "check_eligibility_for_transformation",
+        str(NoticeStatus.INELIGIBLE_FOR_PACKAGING): "transform_notice",
+        str(NoticeStatus.VALIDATED): "transform_notice",
+        str(NoticeStatus.ELIGIBLE_FOR_TRANSFORMATION): "transform_notice",
+        str(NoticeStatus.INELIGIBLE_FOR_PUBLISHING): "generate_mets_package",
+        str(NoticeStatus.ELIGIBLE_FOR_PACKAGING): "generate_mets_package",
+        str(NoticeStatus.PUBLICLY_UNAVAILABLE): "publish_notice_in_cellar",
+        str(NoticeStatus.ELIGIBLE_FOR_PUBLISHING): "publish_notice_in_cellar",
+
+    }
 
     def _get_task_run():
         context = get_current_context()
@@ -95,7 +250,7 @@ def single_notice_proc_pipeline():
         python_callable=_get_task_run,
     )
 
-    branch_task >> [normalise_notice_metadata, check_eligibility_for_transformation, transform_notice]
+    branch_task >> [normalise_notice_metadata, check_eligibility_for_transformation, transform_notice, generate_mets_package, publish_notice_in_cellar]
 
 
 dag = single_notice_proc_pipeline()

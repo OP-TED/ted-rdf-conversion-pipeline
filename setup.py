@@ -70,6 +70,7 @@ setup(
     entry_points={
         "console_scripts": [
             # "rdfpipe = rdflib.tools.rdfpipe:main", # inspired form rdflib, replace as needed
+            "transformer = ted_sws.notice_transformer.entrypoints.cmd_mapping_suite_transformer:main"
         ],
     },
     **kwargs,

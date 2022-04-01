@@ -64,7 +64,9 @@ def test_setting_mets_manifestation_downstream(raw_notice):
 
     raw_notice.update_status_to(NoticeStatus.NORMALISED_METADATA)
     raw_notice.update_status_to(NoticeStatus.ELIGIBLE_FOR_TRANSFORMATION)
+    raw_notice.update_status_to(NoticeStatus.PREPROCESSED_FOR_TRANSFORMATION)
     raw_notice.set_rdf_manifestation(RDFManifestation(object_data="rdf data"))
+    raw_notice.update_status_to(NoticeStatus.DISTILLED)
     raw_notice.update_status_to(NoticeStatus.VALIDATED)
     raw_notice.update_status_to(NoticeStatus.ELIGIBLE_FOR_PACKAGING)
     raw_notice.set_mets_manifestation(METSManifestation(object_data="mets data"))

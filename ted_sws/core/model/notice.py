@@ -159,11 +159,11 @@ class Notice(WorkExpression):
     _mets_manifestation: Optional[METSManifestation] = None
 
     @property
-    def preprocessed_xml_manifestation(self) ->XMLManifestation:
+    def preprocessed_xml_manifestation(self) -> XMLManifestation:
         return self._preprocessed_xml_manifestation
 
     @property
-    def distilled_rdf_manifestation(self)->RDFManifestation:
+    def distilled_rdf_manifestation(self) -> RDFManifestation:
         return self._distilled_rdf_manifestation
 
     @property
@@ -184,7 +184,6 @@ class Notice(WorkExpression):
             return None
 
         return self.rdf_manifestation.validation
-
 
     def set_preprocessed_xml_manifestation(self, preprocessed_xml_manifestation: XMLManifestation):
         """
@@ -207,7 +206,6 @@ class Notice(WorkExpression):
             return
         self._distilled_rdf_manifestation = distilled_rdf_manifestation
         self.update_status_to(NoticeStatus.DISTILLED)
-
 
     def set_normalised_metadata(self, normalised_metadata: NormalisedMetadata):
         """
@@ -355,9 +353,9 @@ class Notice(WorkExpression):
             self._status = new_status
             if new_status < NoticeStatus.NORMALISED_METADATA:
                 self._normalised_metadata = None
-                self._distilled_rdf_manifestation = None
                 self._preprocessed_xml_manifestation = None
             if new_status < NoticeStatus.TRANSFORMED:
                 self._rdf_manifestation = None
+                self._distilled_rdf_manifestation = None
             if new_status < NoticeStatus.PACKAGED:
                 self._mets_manifestation = None

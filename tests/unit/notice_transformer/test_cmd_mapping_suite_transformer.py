@@ -8,7 +8,8 @@ from ted_sws.notice_transformer.entrypoints.cmd_mapping_suite_transformer import
 
 cmdRunner = CliRunner()
 
-def __remove_output_dir(fake_repository_path, fake_mapping_suite_id):
+
+def __process_output_dir(fake_repository_path, fake_mapping_suite_id):
     output_dir_path = fake_repository_path / fake_mapping_suite_id / "output"
     output_notice_path = output_dir_path / "notice.xml"
     assert os.path.isdir(output_dir_path)
@@ -22,7 +23,7 @@ def test_cmd_transformer(fake_mapping_suite_id, fake_repository_path):
     assert response.exit_code == 0
     assert fake_mapping_suite_id in response.output
     assert "SUCCESS" in response.output
-    __remove_output_dir(fake_repository_path, fake_mapping_suite_id)
+    __process_output_dir(fake_repository_path, fake_mapping_suite_id)
 
 
 def test_cmd_transformer_with_not_package(fake_not_mapping_suite_id, fake_repository_path):
@@ -41,7 +42,7 @@ def test_cmd_transformer_with_failed_package(fake_failed_mapping_suite_id, fake_
 def test_cmd_transformer_with_no_suite_id(fake_repository_path, fake_mapping_suite_id):
     response = cmdRunner.invoke(transform_notice, ["--opt-mappings-path", fake_repository_path])
     assert response.exit_code == 0
-    __remove_output_dir(fake_repository_path, fake_mapping_suite_id)
+    __process_output_dir(fake_repository_path, fake_mapping_suite_id)
 
 
 def __test_cmd_transformer_from_cli(fake_repository_path, cmd_transformer_path, fake_mapping_suite_id):

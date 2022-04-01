@@ -355,6 +355,8 @@ class Notice(WorkExpression):
             self._status = new_status
             if new_status < NoticeStatus.NORMALISED_METADATA:
                 self._normalised_metadata = None
+                self._distilled_rdf_manifestation = None
+                self._preprocessed_xml_manifestation = None
             if new_status < NoticeStatus.TRANSFORMED:
                 self._rdf_manifestation = None
             if new_status < NoticeStatus.PACKAGED:

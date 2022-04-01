@@ -29,11 +29,11 @@ def publicly_available_notice(fetched_notice_data, normalised_metadata_dict) -> 
     validation = RDFValidationManifestation(object_data="this is a validation report")
     notice = Notice(ted_id=ted_id, original_metadata=original_metadata,
                     xml_manifestation=xml_manifestation)
-    notice._distilled_rdf_manifestation = RDFManifestation(object_data="RDF manifestation content", validation=validation)
-    notice._preprocessed_xml_manifestation = xml_manifestation
     notice._rdf_manifestation = RDFManifestation(object_data="RDF manifestation content", validation=validation)
     notice._mets_manifestation = METSManifestation(object_data="METS manifestation content")
     notice._normalised_metadata = NormalisedMetadata(**normalised_metadata_dict)
+    notice._distilled_rdf_manifestation = RDFManifestation(object_data="RDF manifestation content", validation=validation)
+    notice._preprocessed_xml_manifestation = xml_manifestation
     notice._status = NoticeStatus.PUBLICLY_AVAILABLE
     return notice
 

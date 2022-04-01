@@ -49,4 +49,5 @@ def raw_notice(fetched_notice_data) -> Notice:
 def transformation_eligible_notice(raw_notice, normalised_metadata_dict) -> Notice:
     raw_notice.set_normalised_metadata(normalised_metadata=NormalisedMetadata(**normalised_metadata_dict))
     raw_notice.update_status_to(NoticeStatus.ELIGIBLE_FOR_TRANSFORMATION)
+    raw_notice.update_status_to(NoticeStatus.PREPROCESSED_FOR_TRANSFORMATION)
     return raw_notice

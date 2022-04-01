@@ -69,6 +69,8 @@ def test_notice_status_transition_below_packaged(publicly_available_notice):
     assert publicly_available_notice.normalised_metadata is not None
     assert publicly_available_notice.xml_manifestation is not None
     assert publicly_available_notice.original_metadata is not None
+    assert publicly_available_notice.distilled_rdf_manifestation is not None
+    assert publicly_available_notice.preprocessed_xml_manifestation is not None
 
 
 def test_notice_status_transition_below_transformed(publicly_available_notice):

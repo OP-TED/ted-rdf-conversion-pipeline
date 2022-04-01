@@ -1,0 +1,7 @@
+tocTab[tocTab.length] = new Array("0.1.4.6:1", "", "«rdfsClass» Assessing", "EARoot/EA1/EA4/EA6/EA382.html", "5.png", "E335", "0", "", "Class0","{2A921CFA-E571-4cce-9598-89240D0A4537}");
+tocTab[tocTab.length] = new Array("0.1.4.6:2", "", "«rdfsClass» Fetching", "EARoot/EA1/EA4/EA6/EA383.html", "5.png", "E332", "0", "", "Class0","{A290AC29-07A9-43d7-97F0-1154ACE4462C}");
+tocTab[tocTab.length] = new Array("0.1.4.6:3", "", "«rdfsClass» MetadataNormalisation", "EARoot/EA1/EA4/EA6/EA384.html", "5.png", "E333", "0", "", "Class0","{DB54E3EB-ECF1-4eb7-B729-CAFB5D14826F}");
+tocTab[tocTab.length] = new Array("0.1.4.6:4", "", "«rdfsClass» Packaging", "EARoot/EA1/EA4/EA6/EA385.html", "5.png", "E336", "0", "", "Class0","{470B086F-A1C5-4a7c-9299-1B4484E49F2A}");
+tocTab[tocTab.length] = new Array("0.1.4.6:5", "", "«rdfsClass» prov:Activity", "EARoot/EA1/EA4/EA6/EA386.html", "5.png", "E328", "0", "", "Class0","{D79ED253-E59D-476c-8497-BC750CB36CFB}");
+tocTab[tocTab.length] = new Array("0.1.4.6:6", "", "«rdfsClass» Publishing", "EARoot/EA1/EA4/EA6/EA387.html", "5.png", "E337", "0", "", "Class0","{9B2C0CD3-503F-4b92-82FB-842ADE3C43FD}");
+tocTab[tocTab.length] = new Array("0.1.4.6:7", "", "«rdfsClass» Transformation", "EARoot/EA1/EA4/EA6/EA388.html", "5.png", "E334", "0", "", "Class0","{99F2C201-ADE7-4285-B76E-8124EF840511}");

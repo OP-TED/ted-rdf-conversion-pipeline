@@ -1,0 +1,17 @@
+tocTab[tocTab.length] = new Array("0.1.4:1", "", "notice domain model", "EARoot/EA1/EA4/EA304.html", "175.png", "39", "0", "", "Logical diagram0","{71884F0E-1278-4f39-9DAA-3BEB40D54D63}");
+tocTab[tocTab.length] = new Array("0.1.4:2", "", "mapping suite", "EARoot/EA1/EA4/EA306.html", "175.png", "73", "0", "", "Logical diagram0","{532729DC-F265-48bb-8347-AC086D230C2F}");
+tocTab[tocTab.length] = new Array("0.1.4:3", "", "tracing application to model objects", "EARoot/EA1/EA4/EA308.html", "175.png", "41", "0", "", "Logical diagram0","{DEBE2BE5-4A70-45c7-87E7-FE4A88013179}");
+tocTab[tocTab.length] = new Array("0.1.4:4", "", "activity logging domain model", "EARoot/EA1/EA4/EA310.html", "175.png", "42", "0", "", "Logical diagram0","{96AB6B9E-1DE5-4850-A0C6-617AAC30CCD7}");
+tocTab[tocTab.length] = new Array("0.1.4:5", "", "«rdfsClass» TransformationTestData", "EARoot/EA1/EA4/EA313.html", "5.png", "E650", "0", "", "Class0","{4CCB0035-2C5D-4ecf-9B77-9ADFA61568E8}");
+tocTab[tocTab.length] = new Array("0.1.4:6", "", "«rdfsClass» DistilledRDFManifestation", "EARoot/EA1/EA4/EA317.html", "5.png", "E658", "0", "", "Class0","{7217AFC7-A07F-4a94-9DBA-4505581618C9}");
+tocTab[tocTab.length] = new Array("0.1.4:7", "", "«rdfsClass» ExtractedMetadata", "EARoot/EA1/EA4/EA318.html", "5.png", "E449", "0", "", "Class0","{8FE4E92F-349E-4b4d-A59F-2656934D9C99}");
+tocTab[tocTab.length] = new Array("0.1.4:8", "", "«rdfsClass» METSMetadata", "EARoot/EA1/EA4/EA320.html", "5.png", "E450", "0", "", "Class0","{C16AD59D-36F9-445c-AAFE-29437043B210}");
+tocTab[tocTab.length] = new Array("0.1.4:9", "", "«rdfsClass» PreProcessedXMLManifestation", "EARoot/EA1/EA4/EA322.html", "5.png", "E657", "0", "", "Class0","{CB6B74E0-8C56-4801-A236-AE9BEBEC690E}");
+tocTab[tocTab.length] = new Array("0.1.4:10", "", "«rdfsClass» RawRDFManifestation", "EARoot/EA1/EA4/EA323.html", "5.png", "E659", "0", "", "Class0","{98A0347D-7C65-4bc2-9FFA-CBEB61DE71E8}");
+tocTab[tocTab.length] = new Array("0.1.4.1", "1", "notice", "EARoot/EA1/EA4/EA1/EA331.html", "4.png", "", "", "{C27B4D23-B0F7-44ed-B74A-CD6146FFD178}", "Package");
+tocTab[tocTab.length] = new Array("0.1.4.2", "1", "notice metadata", "EARoot/EA1/EA4/EA2/EA340.html", "4.png", "", "", "{B8D7AEE2-A1D9-44e2-8814-F6AFF87EF981}", "Package");
+tocTab[tocTab.length] = new Array("0.1.4.3", "1", "state", "EARoot/EA1/EA4/EA3/EA346.html", "4.png", "", "", "{F2A939AA-5069-4acb-98F3-1CF47B492835}", "Package");
+tocTab[tocTab.length] = new Array("0.1.4.4", "1", "file type", "EARoot/EA1/EA4/EA4/EA368.html", "4.png", "", "", "{12E926D4-EAA3-48d0-AECC-3F7FB5BFFF99}", "Package");
+tocTab[tocTab.length] = new Array("0.1.4.5", "1", "tranformation & test suite", "EARoot/EA1/EA4/EA5/EA371.html", "4.png", "", "", "{DB81417F-DD6F-44a6-BD2B-5C9D0DAD623F}", "Package");
+tocTab[tocTab.length] = new Array("0.1.4.6", "1", "activity logging", "EARoot/EA1/EA4/EA6/EA381.html", "4.png", "", "", "{A625F9A4-C3BA-4a5c-BAB3-E8EC75EB00DE}", "Package");
+tocTab[tocTab.length] = new Array("0.1.4.7", "1", "class view", "EARoot/EA1/EA4/EA7/EA391.html", "4.png", "", "", "{63DD047C-73F7-41e6-8A6D-EE7429011E52}", "Package");

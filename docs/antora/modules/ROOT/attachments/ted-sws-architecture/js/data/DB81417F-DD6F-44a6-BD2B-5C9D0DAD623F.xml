@@ -1,0 +1,9 @@
+tocTab[tocTab.length] = new Array("0.1.4.5:1", "", "«rdfsClass» MappingSuite", "EARoot/EA1/EA4/EA5/EA372.html", "5.png", "E538", "0", "", "Class0","{301118D5-ECD0-462e-A881-168A4DD3CA39}");
+tocTab[tocTab.length] = new Array("0.1.4.5:2", "", "«rdfsClass» MetadataConstraints", "EARoot/EA1/EA4/EA5/EA373.html", "5.png", "E350", "0", "", "Class0","{15609F85-9058-4156-8306-BEC71981980D}");
+tocTab[tocTab.length] = new Array("0.1.4.5:3", "", "«rdfsClass» SHACLReport", "EARoot/EA1/EA4/EA5/EA374.html", "5.png", "E357", "0", "", "Class0","{C33A8889-B6C4-456c-97DF-ED9C435BB4BB}");
+tocTab[tocTab.length] = new Array("0.1.4.5:4", "", "«rdfsClass» SHACLTestSuite", "EARoot/EA1/EA4/EA5/EA375.html", "5.png", "E539", "0", "", "Class0","{287FC260-28B9-423f-8372-CF0D25A722EA}");
+tocTab[tocTab.length] = new Array("0.1.4.5:5", "", "«rdfsClass» SPARQLReport", "EARoot/EA1/EA4/EA5/EA376.html", "5.png", "E358", "0", "", "Class0","{281107C1-63C1-4a8c-9371-4BD8E724018B}");
+tocTab[tocTab.length] = new Array("0.1.4.5:6", "", "«rdfsClass» SPARQLTestSuite", "EARoot/EA1/EA4/EA5/EA377.html", "5.png", "E540", "0", "", "Class0","{93EE0CC5-26B3-4fa9-9FB7-1C68F8F0E36B}");
+tocTab[tocTab.length] = new Array("0.1.4.5:7", "", "«rdfsClass» TestReport", "EARoot/EA1/EA4/EA5/EA378.html", "5.png", "E348", "0", "", "Class0","{419ABA43-9719-4833-9B35-153112C921F0}");
+tocTab[tocTab.length] = new Array("0.1.4.5:8", "", "«rdfsClass» TestSuite", "EARoot/EA1/EA4/EA5/EA379.html", "5.png", "E352", "0", "", "Class0","{1ED74384-A7C1-45da-AA61-BC1A826E4712}");
+tocTab[tocTab.length] = new Array("0.1.4.5:9", "", "«rdfsClass» TransformationRuleSet", "EARoot/EA1/EA4/EA5/EA380.html", "5.png", "E349", "0", "", "Class0","{5F6BDB9A-9D1C-44ee-A54A-45CC6C100D05}");

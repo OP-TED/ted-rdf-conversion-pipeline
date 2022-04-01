@@ -26,7 +26,7 @@ SETUP:
    (.env file must already be created)
 4) Go to ted-sws-artefacts directory.
 5) Create a symlink in ted-sws-artefacts project's root directory:
-   # ln -sf ../ted-sws/ted_sws/notice_transformer/entrypoints/cmd_mapping_suite_transformer.py transformer.py
+   # ln -sf ../ted-sws/ted_sws/notice_transformer/entrypoints/cmd_mapping_suite_transformer.py transformer
 6) Usage:
    # ./transformer --help
 """
@@ -42,19 +42,20 @@ class CmdRunner:
         self.output_path = output_path
 
     def is_mapping_suite(self, suite_id):
-        return any(f == METADATA_FILE_NAME for f in os.listdir(self.fs_repository_path / Path(suite_id)))
+        suite_path = self.fs_repository_path / Path(suite_id)
+        return os.path.isdir(suite_path) and any(f == METADATA_FILE_NAME for f in os.listdir(suite_path))
 
     def transform(self, mapping_suite_id):
         """
         Transforms the Test Mapping Suites (identified by mapping_suite_id)
         """
-        print(
+        click.echo(
             "Running process for " + "\033[1;93m{}\033[00m".format("MappingSuite[" + mapping_suite_id + "]") + " ... ",
-            end="", flush=True
+            nl=False
         )
         if not self.is_mapping_suite(mapping_suite_id):
-            print("\033[1;91m{}\033[00m".format("FAILED"))
-            print("\033[1;91m {}\033[00m".format('FAILED') + " :: " + "Not a MappingSuite!", flush=True)
+            click.echo("\033[1;91m{}\033[00m".format("FAILED"))
+            click.echo("\033[1;91m {}\033[00m".format('FAILED') + " :: " + "Not a MappingSuite!")
             return False
 
         fs_mapping_suite_path = self.fs_repository_path / Path(mapping_suite_id)
@@ -72,23 +73,23 @@ class CmdRunner:
 
         suite_text = ":: " + mapping_suite_id
         if error:
-            print("\033[1;91m{}\033[00m".format("FAILED"))
-            print("\033[0;91m {}\033[00m".format(type(error).__name__ + ' :: ' + str(error)))
-            print("\033[1;91m {}\033[00m".format('FAILED'), suite_text)
+            click.echo("\033[1;91m{}\033[00m".format("FAILED"))
+            click.echo("\033[0;91m {}\033[00m".format(type(error).__name__ + ' :: ' + str(error)))
+            click.echo("\033[1;91m {}\033[00m".format('FAILED') + '  ' + suite_text)
             return False
         else:
-            print("\033[1;92m{}\033[00m".format("DONE"))
-            print("\033[1;92m {}\033[00m".format('SUCCESS'), suite_text)
+            click.echo("\033[1;92m{}\033[00m".format("DONE"))
+            click.echo("\033[1;92m {}\033[00m".format('SUCCESS') + '  ' + suite_text)
             return True
 
 
 @click.command()
-@click.argument('mapping_suite_id', nargs=1, required=False)
+@click.argument('mapping-suite-id', nargs=1, required=False)
 @click.option('--opt-mapping-suite-id', default=None,
               help='MappingSuite ID to be processed (leave empty to process all Mapping Suites).')
 @click.option('--opt-mappings-path', default=DEFAULT_MAPPINGS_PATH)
 @click.option('--opt-output-path', default='output')
-def transform_notice(mapping_suite_id, opt_mapping_suite_id, opt_mappings_path, opt_output_path):
+def transform_notice(mapping_suite_id, opt_mapping_suite_id, opt_mappings_path, opt_output_path) -> click.BaseCommand:
     """
     Transforms the Test Mapping Suites (identified by mapping-suite-id).
     If no mapping-suite-id is provided, all mapping suites from mappings directory will be processed.

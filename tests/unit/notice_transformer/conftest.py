@@ -19,8 +19,18 @@ def fake_mapping_suite_id() -> str:
 
 
 @pytest.fixture
+def fake_not_mapping_suite_id() -> str:
+    return "test_not_package"
+
+
+@pytest.fixture
+def fake_failed_mapping_suite_id() -> str:
+    return "test_failed_package"
+
+
+@pytest.fixture
 def fake_repository_path() -> Path:
-    return TEST_DATA_PATH / "notice_transformer"
+    return TEST_DATA_PATH / "notice_transformer" / "mappings"
 
 
 @pytest.fixture
@@ -29,3 +39,7 @@ def fake_mapping_suite(fake_repository_path, fake_mapping_suite_id) -> MappingSu
     mapping_suite_repository = MappingSuiteRepositoryInFileSystem(repository_path=repository_path)
     return mapping_suite_repository.get(reference=fake_mapping_suite_id)
 
+
+@pytest.fixture
+def cmd_transformer_path() -> str:
+    return "../../../../ted_sws/notice_transformer/entrypoints/cmd_mapping_suite_transformer.py"

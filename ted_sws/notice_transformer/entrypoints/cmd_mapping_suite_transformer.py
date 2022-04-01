@@ -16,6 +16,7 @@ from ted_sws.notice_transformer.adapters.rml_mapper import RMLMapper
 import ted_sws.notice_transformer.services.notice_transformer as notice_transformer
 
 DEFAULT_MAPPINGS_PATH = 'mappings'
+DEFAULT_OUTPUT_PATH = 'output'
 
 """
 SETUP:
@@ -88,8 +89,8 @@ class CmdRunner:
 @click.option('--opt-mapping-suite-id', default=None,
               help='MappingSuite ID to be processed (leave empty to process all Mapping Suites).')
 @click.option('--opt-mappings-path', default=DEFAULT_MAPPINGS_PATH)
-@click.option('--opt-output-path', default='output')
-def transform_notice(mapping_suite_id, opt_mapping_suite_id, opt_mappings_path, opt_output_path) -> click.BaseCommand:
+@click.option('--opt-output-path', default=DEFAULT_OUTPUT_PATH)
+def transform_notice(mapping_suite_id, opt_mapping_suite_id, opt_mappings_path, opt_output_path):
     """
     Transforms the Test Mapping Suites (identified by mapping-suite-id).
     If no mapping-suite-id is provided, all mapping suites from mappings directory will be processed.

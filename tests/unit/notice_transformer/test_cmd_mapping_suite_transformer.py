@@ -35,7 +35,7 @@ def test_cmd_transformer_with_no_suite_id(fake_repository_path, fake_mapping_sui
 
 
 def test_cmd_transformer_from_cli(fake_repository_path, cmd_transformer_path, fake_mapping_suite_id):
-    cmd = f"cd {fake_repository_path} && pwdr && ln -sf {cmd_transformer_path} transformer && ls -al && ./transformer --opt-mapping-suite-id={fake_mapping_suite_id} --opt-mappings-path=."
+    cmd = f"cd {fake_repository_path} && pwd && ln -sf {cmd_transformer_path} transformer && ls -al && ./transformer --opt-mapping-suite-id={fake_mapping_suite_id} --opt-mappings-path=."
     response = subprocess.run(cmd, shell=True, stdout=subprocess.PIPE)
     print(response.stdout.decode('utf-8'))
     assert response.returncode == 0

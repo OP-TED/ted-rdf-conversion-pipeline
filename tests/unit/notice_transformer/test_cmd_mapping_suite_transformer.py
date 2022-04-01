@@ -57,11 +57,6 @@ def __test_cmd_transformer_from_cli(fake_repository_path, cmd_transformer_path, 
     response = subprocess.run(cmd, shell=True, stdout=subprocess.PIPE)
     assert response.returncode == 0
 
-    output_dir_path = fake_repository_path / fake_mapping_suite_id / "output"
-    output_notice_path = output_dir_path / "notice.xml"
-    assert os.path.isdir(output_dir_path)
-    assert os.path.isfile(output_notice_path)
-    os.remove(output_notice_path)
-    os.rmdir(output_dir_path)
+    __process_output_dir(fake_repository_path, fake_mapping_suite_id)
 
     os.remove(os.path.join(fake_repository_path, Path('transformer')))

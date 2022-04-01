@@ -8,23 +8,24 @@ from ted_sws.notice_transformer.entrypoints.cmd_mapping_suite_transformer import
 
 cmdRunner = CliRunner()
 
-
-def __init(fake_repository_path):
-    makefile_path = fake_repository_path / '../../../..'
-    cmd = f"cd {makefile_path} && make rml-mapper-path-add-dotenv-file"
-    subprocess.run(cmd, shell=True, stdout=subprocess.PIPE)
+def __remove_output_dir(fake_repository_path, fake_mapping_suite_id):
+    output_dir_path = fake_repository_path / fake_mapping_suite_id / "output"
+    output_notice_path = output_dir_path / "notice.xml"
+    assert os.path.isdir(output_dir_path)
+    assert os.path.isfile(output_notice_path)
+    os.remove(output_notice_path)
+    os.rmdir(output_dir_path)
 
 
 def test_cmd_transformer(fake_mapping_suite_id, fake_repository_path):
-    __init(fake_repository_path)
     response = cmdRunner.invoke(transform_notice, [fake_mapping_suite_id, "--opt-mappings-path", fake_repository_path])
     assert response.exit_code == 0
     assert fake_mapping_suite_id in response.output
     assert "SUCCESS" in response.output
+    __remove_output_dir(fake_repository_path, fake_mapping_suite_id)
 
 
 def test_cmd_transformer_with_not_package(fake_not_mapping_suite_id, fake_repository_path):
-    __init(fake_repository_path)
     response = cmdRunner.invoke(transform_notice,
                                 [fake_not_mapping_suite_id, "--opt-mappings-path", fake_repository_path])
     assert "FAILED" in response.output
@@ -32,23 +33,27 @@ def test_cmd_transformer_with_not_package(fake_not_mapping_suite_id, fake_reposi
 
 
 def test_cmd_transformer_with_failed_package(fake_failed_mapping_suite_id, fake_repository_path):
-    __init(fake_repository_path)
     response = cmdRunner.invoke(transform_notice,
                                 [fake_failed_mapping_suite_id, "--opt-mappings-path", fake_repository_path])
     assert "FAILED" in response.output
 
 
 def test_cmd_transformer_with_no_suite_id(fake_repository_path, fake_mapping_suite_id):
-    __init(fake_repository_path)
     response = cmdRunner.invoke(transform_notice, ["--opt-mappings-path", fake_repository_path])
     assert response.exit_code == 0
+    __remove_output_dir(fake_repository_path, fake_mapping_suite_id)
 
 
-def test_cmd_transformer_from_cli(fake_repository_path, cmd_transformer_path, fake_mapping_suite_id):
-    __init(fake_repository_path)
+def __test_cmd_transformer_from_cli(fake_repository_path, cmd_transformer_path, fake_mapping_suite_id):
+    """
+    This should be run locally, as the server env has issues
+    :param fake_repository_path:
+    :param cmd_transformer_path:
+    :param fake_mapping_suite_id:
+    :return:
+    """
     cmd = f"cd {fake_repository_path} && ln -sf {cmd_transformer_path} transformer && ./transformer --opt-mapping-suite-id={fake_mapping_suite_id} --opt-mappings-path=."
     response = subprocess.run(cmd, shell=True, stdout=subprocess.PIPE)
-    print(response.stdout.decode('utf-8'))
     assert response.returncode == 0
 
     output_dir_path = fake_repository_path / fake_mapping_suite_id / "output"

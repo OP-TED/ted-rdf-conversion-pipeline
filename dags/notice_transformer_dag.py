@@ -62,4 +62,4 @@ def notice_transformer_dag():
     transform_notice(dag_params)
 
 
-dag = notice_transformer_dag()
+# dag = notice_transformer_dag()

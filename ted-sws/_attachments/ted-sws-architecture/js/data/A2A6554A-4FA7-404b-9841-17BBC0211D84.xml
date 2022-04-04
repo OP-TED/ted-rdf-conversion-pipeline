@@ -1,0 +1,4 @@
+tocTab[tocTab.length] = new Array("0.2:1", "", "mapping workbench overview", "EARoot/EA2/EA401.html", "176.png", "63", "0", "", "Package diagram0","{4C272AA9-A055-46a7-9DF7-792AD264C4AF}");
+tocTab[tocTab.length] = new Array("0.2.1", "1", "business process (BPMN)", "EARoot/EA2/EA1/EA424.html", "4.png", "", "", "{7F8682BC-214C-40bb-A2EF-AA6526824BE7}", "Package");
+tocTab[tocTab.length] = new Array("0.2.2", "1", "business layer - mapping artefacts", "EARoot/EA2/EA2/EA494.html", "4.png", "", "", "{07F3388E-88CB-4def-9A93-DDF6B85627A4}", "Package");
+tocTab[tocTab.length] = new Array("0.2.3", "1", "application layer - mapping development components", "EARoot/EA2/EA3/EA539.html", "4.png", "", "", "{309B4F3A-208F-4a8b-A27C-105DC4754E30}", "Package");

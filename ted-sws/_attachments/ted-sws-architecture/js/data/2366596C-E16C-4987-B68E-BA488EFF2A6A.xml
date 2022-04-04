@@ -1,0 +1,3 @@
+tocTab[tocTab.length] = new Array("0.1.2.10:1", "", "pipeline orchestrator", "EARoot/EA1/EA2/EA10/EA230.html", "175.png", "20", "0", "", "Logical diagram0","{D24A226D-47CD-41cf-A1BE-6E044FBC9A70}");
+tocTab[tocTab.length] = new Array("0.1.2.10:2", "", "pipeline orchestrator (horisontal)", "EARoot/EA1/EA2/EA10/EA232.html", "175.png", "34", "0", "", "Logical diagram0","{B26A8F29-886F-4823-8740-DB43FDE59726}");
+tocTab[tocTab.length] = new Array("0.1.2.10:3", "", "«ArchiMate_ApplicationComponent» ETL DAG", "EARoot/EA1/EA2/EA10/EA235.html", "9F0DDA8A-5_ArchiMate_ApplicationComponent.png", "E186", "0", "", "Component0","{4EF7582B-3C6C-4bdc-8EE1-3E22C545C9DA}");

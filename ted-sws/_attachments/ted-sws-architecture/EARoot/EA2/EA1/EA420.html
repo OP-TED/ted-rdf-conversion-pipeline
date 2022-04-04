@@ -1,0 +1,101 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>mapping development lifecycle</title>
+<link href="../../../css/ea.css" rel="stylesheet" type="text/css" />
+<script>
+function initPage(src) {	
+	if(parent==this&&(this.location+"").indexOf('EARoot')!=-1)
+		document.location=(this.location+"").substring(0,(this.location+"").indexOf('EARoot'))+"index"+(this.location+"").substring((this.location+"").lastIndexOf('.'))+"?goto="+((this.location+"").substring((this.location+"").indexOf('EARoot')+7,(this.location+"").lastIndexOf('.')).replace(/\//g,':').replace(/EA/g,""));
+	else
+		parent.initPage(src);
+}
+
+function nameClassifier(name, separator)
+{
+  var str = name;
+  var classifierName;
+  var node = document.getElementById('name_classifier');
+  if(node != null)
+  {
+    classifierName = node.innerHTML;
+  }
+  if(classifierName != "")
+  {
+   str += separator + classifierName;
+  }
+  
+  return str;
+}
+</script>
+</head>
+<body onload="initPage(this);" class="Content">
+<div class="PageBody">
+	
+<img src="EA421.png" usemap="#EA421" border="0" />
+
+<MAP NAME="EA421">
+<area shape="rect" coords="903,344,945,386" href="EA442.html" target="_self">
+<area shape="rect" coords="736,335,846,395" href="EA433.html" target="_self">
+<area shape="rect" coords="737,534,847,594" href="EA435.html" target="_self">
+<area shape="rect" coords="76,201,186,261" href="EA450.html" target="_self">
+<area shape="rect" coords="298,330,415,400" href="EA441.html" target="_self">
+<area shape="rect" coords="537,335,647,395" href="EA439.html" target="_self">
+<area shape="rect" coords="276,539,386,599" href="EA454.html" target="_self">
+<area shape="rect" coords="104,135,134,165" href="EA445.html" target="_self">
+<area shape="rect" coords="538,657,648,726" href="EA437.html" target="_self">
+<area shape="rect" coords="903,543,945,585" href="EA453.html" target="_self">
+<area shape="rect" coords="909,761,939,791" href="EA444.html" target="_self">
+<area shape="rect" coords="39,538,149,598" href="EA438.html" target="_self">
+<area shape="rect" coords="665,267,700,317" href="EA455.html" target="_self">
+<area shape="rect" coords="903,671,945,713" href="EA443.html" target="_self">
+<area shape="rect" coords="663,729,698,779" href="EA446.html" target="_self">
+<area shape="rect" coords="442,599,477,649" href="EA440.html" target="_self">
+<area shape="rect" coords="672,475,707,525" href="EA452.html" target="_self">
+<area shape="rect" coords="298,177,415,282" href="EA432.html" target="_self">
+<area shape="rect" coords="171,10,558,135" href="EA431.html" target="_self">
+<area shape="rect" coords="195,300,230,350" href="EA436.html" target="_self">
+<area shape="rect" coords="460,395,495,445" href="EA447.html" target="_self">
+<area shape="rect" coords="195,467,230,517" href="EA451.html" target="_self">
+<area shape="rect" coords="134,386,169,436" href="EA449.html" target="_self">
+<area shape="rect" coords="538,534,648,594" href="EA448.html" target="_self">
+<area shape="rect" coords="718,655,848,729" href="EA434.html" target="_self">
+</MAP>
+
+	<div class="ObjectTitle">mapping development lifecycle : Business Process diagram</div>
+	<table border="0" cellpadding="0" cellspacing="0" class="ObjectDetails">
+		<tr>
+			<td width="15%" class="ObjectDetailsTopic">Created:</td>
+			<td width="85%" class="ObjectDetailsValue">04/12/2021 22:37:08</td>
+		</tr>
+		<tr>
+			<td width="15%" class="ObjectDetailsTopic">Modified:</td>
+			<td width="85%" class="ObjectDetailsValue">04/04/2022 17:48:55</td>
+		</tr>
+		<tr style="padding-top: 10px;">
+			<td width="15%" class="ObjectDetailsTopic"><img src="../../../images/plus03.gif" align="absmiddle" id="proj" onclick="parent.toggleData(this.id)" />Project:</td>
+			<td width="85%" class="ObjectDetailsValue"></td>			
+		</tr>
+		<tr id="proj00" style="display: none;">
+			<td width="15%" class="ObjectDetailsTopic" style="padding-left: 18px;">Author:</td>
+			<td width="85%" class="ObjectDetailsValue">lps</td>
+		</tr>
+		<tr id="proj01" style="display: none;">
+			<td width="15%" class="ObjectDetailsTopic" style="padding-left: 18px;">Version:</td>
+			<td width="85%" class="ObjectDetailsValue">1.0</td>
+		</tr>
+		<tr>
+			<td width="15%" class="ObjectDetailsTopic"><img src="../../../images/plus03.gif" align="absmiddle" id="adv" onclick="parent.toggleData(this.id)" />Advanced:</td>
+			<td width="85%" class="ObjectDetailsValue"></td>			
+		</tr>
+		<tr id="adv00" style="display: none;">
+			<td width="15%" class="ObjectDetailsTopic" style="padding-left: 18px;">ID:</td>
+			<td width="85%" class="ObjectDetailsValue">{3E59EE06-03D1-47db-81C2-4AA1CF41405D}</td>
+		</tr>
+	</table>
+	
+</div>
+ 
+</body>
+</html>

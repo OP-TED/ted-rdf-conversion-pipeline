@@ -1,0 +1,3 @@
+tocTab[tocTab.length] = new Array("0.1", "1", "ted-sws", "EARoot/EA1/EA3.html", "31.png", "", "", "{CD520967-33ED-4a7d-8E47-CF781315D702}", "Package");
+tocTab[tocTab.length] = new Array("0.2", "1", "mapping workbench", "EARoot/EA2/EA403.html", "31.png", "", "", "{A2A6554A-4FA7-404b-9841-17BBC0211D84}", "Package");
+tocTab[tocTab.length] = new Array("0.3", "1", "master data registry", "EARoot/EA3/EA561.html", "31.png", "", "", "{15D1FD24-3281-4ec4-BBB3-F3884BDEB510}", "Package");

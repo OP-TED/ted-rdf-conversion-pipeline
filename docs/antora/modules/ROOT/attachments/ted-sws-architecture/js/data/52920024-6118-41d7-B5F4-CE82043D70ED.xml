@@ -1,0 +1,7 @@
+tocTab[tocTab.length] = new Array("0.1.5:1", "", "infra", "EARoot/EA1/EA5/EA392.html", "175.png", "36", "0", "", "Logical diagram0","{4744FCD1-28D4-4c8b-BF9A-6CF45BB4D518}");
+tocTab[tocTab.length] = new Array("0.1.5:2", "", "«ArchiMate_SystemSoftware» Airflow", "EARoot/EA1/EA5/EA395.html", "9F0DDA8A-5_ArchiMate_SystemSoftware.png", "E293", "0", "", "Class0","{BD24A8B0-72D5-4ad6-BB27-A916021CD884}");
+tocTab[tocTab.length] = new Array("0.1.5:3", "", "«ArchiMate_SystemSoftware» ElasticSearch", "EARoot/EA1/EA5/EA396.html", "9F0DDA8A-5_ArchiMate_SystemSoftware.png", "E290", "0", "", "Class0","{C9CAE50C-728A-4521-AFFE-69E993644010}");
+tocTab[tocTab.length] = new Array("0.1.5:4", "", "«ArchiMate_SystemSoftware» Kibana", "EARoot/EA1/EA5/EA397.html", "9F0DDA8A-5_ArchiMate_SystemSoftware.png", "E292", "0", "", "Class0","{159DFCEF-B317-4987-87E1-8784E1F39937}");
+tocTab[tocTab.length] = new Array("0.1.5:5", "", "«ArchiMate_SystemSoftware» Logstash", "EARoot/EA1/EA5/EA398.html", "9F0DDA8A-5_ArchiMate_SystemSoftware.png", "E291", "0", "", "Class0","{50803C0F-3A20-4df6-BB90-3D8C6AF5CCA6}");
+tocTab[tocTab.length] = new Array("0.1.5:6", "", "«ArchiMate_SystemSoftware» MongoDB", "EARoot/EA1/EA5/EA399.html", "9F0DDA8A-5_ArchiMate_SystemSoftware.png", "E289", "0", "", "Class0","{66A538DD-BE97-4eb0-8B7A-C9F33976C8B1}");
+tocTab[tocTab.length] = new Array("0.1.5:7", "", "«ArchiMate_SystemSoftware» Redis", "EARoot/EA1/EA5/EA400.html", "9F0DDA8A-5_ArchiMate_SystemSoftware.png", "E294", "0", "", "Class0","{1CFA7C5E-5BFF-49e5-8FB8-1530BE3CAC89}");

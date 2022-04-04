@@ -1,0 +1,6 @@
+tocTab[tocTab.length] = new Array("0.1.4.1:1", "", "«rdfsClass» frbr:Manifestation", "EARoot/EA1/EA4/EA1/EA332.html", "5.png", "E309", "0", "", "Class0","{7540CC34-1043-4ded-A7EC-51B705F2CFB0}");
+tocTab[tocTab.length] = new Array("0.1.4.1:2", "", "«rdfsClass» frbr:WorkExpression", "EARoot/EA1/EA4/EA1/EA333.html", "5.png", "E308", "0", "", "Class0","{FAB2E5D8-A882-4c39-BF72-68F10F6758EE}");
+tocTab[tocTab.length] = new Array("0.1.4.1:3", "", "«rdfsClass» METSManifestation", "EARoot/EA1/EA4/EA1/EA334.html", "5.png", "E327", "0", "", "Class0","{A09B486A-5230-43d6-ABE3-527DE48AC5C7}");
+tocTab[tocTab.length] = new Array("0.1.4.1:4", "", "«rdfsClass» Notice", "EARoot/EA1/EA4/EA1/EA335.html", "5.png", "E307", "0", "", "Class0","{C8EE1FFF-C85D-4fc0-B458-769050B9EFFB}");
+tocTab[tocTab.length] = new Array("0.1.4.1:5", "", "«rdfsClass» RDFManifestation", "EARoot/EA1/EA4/EA1/EA336.html", "5.png", "E326", "0", "", "Class0","{4D62DDBE-ACF6-4873-844E-CFE462573A90}");
+tocTab[tocTab.length] = new Array("0.1.4.1:6", "", "«rdfsClass» XMLManifestation", "EARoot/EA1/EA4/EA1/EA337.html", "5.png", "E325", "0", "", "Class0","{F553D609-D996-4b4d-B4FE-C270D55F6351}");

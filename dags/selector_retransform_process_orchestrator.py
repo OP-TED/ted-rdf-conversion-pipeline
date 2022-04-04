@@ -15,7 +15,7 @@ from ted_sws import config
 from ted_sws.data_manager.adapters.notice_repository import NoticeRepository
 
 
-@dag(default_args=DEFAULT_DAG_ARGUMENTS, tags=['selector', 'daily-fetch'])
+@dag(default_args=DEFAULT_DAG_ARGUMENTS, tags=['selector', 're-transform'])
 def selector_re_transform_process_orchestrator():
     @task
     def select_notices_for_re_transform_and_reset_status():

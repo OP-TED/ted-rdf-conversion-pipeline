@@ -39,7 +39,7 @@ def selector_re_publish_process_orchestrator():
                 task_id=f'trigger_worker_dag_{notice.ted_id}',
                 trigger_dag_id="worker_single_notice_process_orchestrator",
                 conf={"notice_id": notice.ted_id,
-                      "notice_status": notice.status
+                      "notice_status": str(notice.status)
                       }
             ).execute(context=context)
 

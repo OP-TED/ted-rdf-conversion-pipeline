@@ -32,6 +32,8 @@ def publicly_available_notice(fetched_notice_data, normalised_metadata_dict) -> 
     notice._rdf_manifestation = RDFManifestation(object_data="RDF manifestation content", validation=validation)
     notice._mets_manifestation = METSManifestation(object_data="METS manifestation content")
     notice._normalised_metadata = NormalisedMetadata(**normalised_metadata_dict)
+    notice._distilled_rdf_manifestation = RDFManifestation(object_data="RDF manifestation content", validation=validation)
+    notice._preprocessed_xml_manifestation = xml_manifestation
     notice._status = NoticeStatus.PUBLICLY_AVAILABLE
     return notice
 
@@ -47,4 +49,5 @@ def raw_notice(fetched_notice_data) -> Notice:
 def transformation_eligible_notice(raw_notice, normalised_metadata_dict) -> Notice:
     raw_notice.set_normalised_metadata(normalised_metadata=NormalisedMetadata(**normalised_metadata_dict))
     raw_notice.update_status_to(NoticeStatus.ELIGIBLE_FOR_TRANSFORMATION)
+    raw_notice.update_status_to(NoticeStatus.PREPROCESSED_FOR_TRANSFORMATION)
     return raw_notice

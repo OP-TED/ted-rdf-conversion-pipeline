@@ -47,12 +47,11 @@ def selector_daily_fetch_orchestrator():
                 task_id=f'trigger_worker_dag_{notice.ted_id}',
                 trigger_dag_id="worker_single_notice_process_orchestrator",
                 conf={"notice_id": notice.ted_id,
-                      "notice_status": notice.status
+                      "notice_status": str(notice.status)
                       }
             ).execute(context=context)
 
-    fetch_notice_from_ted()
-    trigger_document_proc_pipeline()
+    fetch_notice_from_ted() >> trigger_document_proc_pipeline()
 
 
 etl_dag = selector_daily_fetch_orchestrator()

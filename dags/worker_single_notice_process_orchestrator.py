@@ -1,8 +1,11 @@
 import sys
 
 from airflow.utils.trigger_rule import TriggerRule
+from pymongo import MongoClient
 
+from ted_sws import config
 from ted_sws.core.model.notice import NoticeStatus
+from ted_sws.data_manager.adapters.notice_repository import NoticeRepository
 from ted_sws.metadata_normaliser.services.metadata_normalizer import normalise_notice_by_id
 
 sys.path.append("/opt/airflow/")
@@ -41,7 +44,10 @@ def push(key, value):
 def worker_single_notice_process_orchestrator():
     def _normalise_notice_metadata():
         notice_id = pull(NOTICE_ID)
-        normalise_notice_by_id(notice_id=notice_id)
+        mongodb_client = MongoClient(config.MONGO_DB_AUTH_URL)
+        notice_repository = NoticeRepository(mongodb_client=mongodb_client)
+        normalised_notice = normalise_notice_by_id(notice_id=notice_id, notice_repository=notice_repository)
+        notice_repository.update(notice=normalised_notice)
         push(NOTICE_ID, notice_id)
 
     def _check_eligibility_for_transformation():
@@ -245,13 +251,8 @@ def worker_single_notice_process_orchestrator():
 
     state_skip_table = {
         str(NoticeStatus.RAW): "normalise_notice_metadata",
-        str(NoticeStatus.INELIGIBLE_FOR_TRANSFORMATION): "check_eligibility_for_transformation",
-        str(NoticeStatus.INELIGIBLE_FOR_PACKAGING): "transform_notice",
-        str(NoticeStatus.VALIDATED): "transform_notice",
-        str(NoticeStatus.ELIGIBLE_FOR_TRANSFORMATION): "transform_notice",
-        str(NoticeStatus.INELIGIBLE_FOR_PUBLISHING): "generate_mets_package",
+        str(NoticeStatus.ELIGIBLE_FOR_TRANSFORMATION): "check_eligibility_for_transformation",
         str(NoticeStatus.ELIGIBLE_FOR_PACKAGING): "generate_mets_package",
-        str(NoticeStatus.PUBLICLY_UNAVAILABLE): "publish_notice_in_cellar",
         str(NoticeStatus.ELIGIBLE_FOR_PUBLISHING): "publish_notice_in_cellar",
 
     }

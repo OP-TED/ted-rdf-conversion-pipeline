@@ -1,7 +1,4 @@
 import sys
-
-from ted_sws.core.model.notice import NoticeStatus
-
 sys.path.append("/opt/airflow/")
 sys.path = list(set(sys.path))
 import os
@@ -12,36 +9,35 @@ from airflow.decorators import dag, task
 from airflow.operators.python import get_current_context
 from airflow.operators.trigger_dagrun import TriggerDagRunOperator
 from pymongo import MongoClient
+from ted_sws.core.model.notice import NoticeStatus
 
 from ted_sws import config
 from ted_sws.data_manager.adapters.notice_repository import NoticeRepository
-from ted_sws.notice_fetcher.adapters.ted_api import TedAPIAdapter, TedRequestAPI
-from ted_sws.notice_fetcher.services.notice_fetcher import NoticeFetcher
+
 
 @dag(default_args=DEFAULT_DAG_ARGUMENTS, tags=['selector', 'daily-fetch'])
 def selector_re_transform_process_orchestrator():
     @task
-    def fetch_notice_from_ted():
-        context = get_current_context()
-        dag_conf = context["dag_run"].conf
-        key = 'fetch_time_filter'
-        if key in dag_conf.keys():
-            print(dag_conf[key])
-            mongodb_client = MongoClient(config.MONGO_DB_AUTH_URL)
-            NoticeFetcher(notice_repository=NoticeRepository(mongodb_client=mongodb_client),
-                          ted_api_adapter=TedAPIAdapter(request_api=TedRequestAPI())).fetch_notices_by_date_wild_card(
-                wildcard_date=dag_conf[key]) #"20220203*"
-        else:
-            print(f"The key={key} is not present in context")
-
-
+    def select_notices_for_re_transform_and_reset_status():
+        mongodb_client = MongoClient(config.MONGO_DB_AUTH_URL)
+        notice_repository = NoticeRepository(mongodb_client=mongodb_client)
+        target_notice_states = [NoticeStatus.ELIGIBLE_FOR_TRANSFORMATION, NoticeStatus.NORMALISED_METADATA,
+                         NoticeStatus.ELIGIBLE_FOR_TRANSFORMATION, NoticeStatus.PREPROCESSED_FOR_TRANSFORMATION,
+                         NoticeStatus.INELIGIBLE_FOR_TRANSFORMATION, NoticeStatus.TRANSFORMED, NoticeStatus.DISTILLED,
+                         NoticeStatus.VALIDATED, NoticeStatus.INELIGIBLE_FOR_PACKAGING
+                         ]
+        for target_notice_state in target_notice_states:
+            notices = notice_repository.get_notice_by_status(notice_status=target_notice_state)
+            for notice in notices:
+                notice.update_status_to(new_status=NoticeStatus.ELIGIBLE_FOR_TRANSFORMATION)
+                notice_repository.update(notice=notice)
 
     @task
-    def trigger_document_proc_pipeline():
+    def trigger_worker_for_transform_branch():
         context = get_current_context()
         mongodb_client = MongoClient(config.MONGO_DB_AUTH_URL)
         notice_repository = NoticeRepository(mongodb_client=mongodb_client)
-        notices = notice_repository.get_notice_by_status(notice_status=NoticeStatus.RAW)
+        notices = notice_repository.get_notice_by_status(notice_status=NoticeStatus.ELIGIBLE_FOR_TRANSFORMATION)
         for notice in notices:
             TriggerDagRunOperator(
                 task_id=f'trigger_worker_dag_{notice.ted_id}',
@@ -51,8 +47,7 @@ def selector_re_transform_process_orchestrator():
                       }
             ).execute(context=context)
 
-    fetch_notice_from_ted()
-    trigger_document_proc_pipeline()
+    select_notices_for_re_transform_and_reset_status() >> trigger_worker_for_transform_branch()
 
 
 etl_dag = selector_re_transform_process_orchestrator()

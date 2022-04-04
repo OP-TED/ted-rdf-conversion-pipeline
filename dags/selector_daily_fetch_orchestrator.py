@@ -1,4 +1,7 @@
 import sys
+
+from ted_sws.core.model.notice import NoticeStatus
+
 sys.path.append("/opt/airflow/")
 sys.path = list(set(sys.path))
 import os
@@ -38,12 +41,14 @@ def selector_daily_fetch_orchestrator():
         context = get_current_context()
         mongodb_client = MongoClient(config.MONGO_DB_AUTH_URL)
         notice_repository = NoticeRepository(mongodb_client=mongodb_client)
-        notices = notice_repository.list()
+        notices = notice_repository.get_notice_by_status(notice_status=NoticeStatus.RAW)
         for notice in notices:
             TriggerDagRunOperator(
                 task_id=f'trigger_worker_dag_{notice.ted_id}',
                 trigger_dag_id="worker_single_notice_process_orchestrator",
-                conf={"notice_id": notice.ted_id}
+                conf={"notice_id": notice.ted_id,
+                      "notice_status": notice.status
+                      }
             ).execute(context=context)
 
     fetch_notice_from_ted()

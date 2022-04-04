@@ -39,7 +39,9 @@ class NoticeStatus(IntEnum):
     NORMALISED_METADATA = 20
     INELIGIBLE_FOR_TRANSFORMATION = 23  # backlog status
     ELIGIBLE_FOR_TRANSFORMATION = 27  # forward status
+    PREPROCESSED_FOR_TRANSFORMATION = 29
     TRANSFORMED = 30
+    DISTILLED = 35
     VALIDATED = 40
     INELIGIBLE_FOR_PACKAGING = 43  # backlog status
     ELIGIBLE_FOR_PACKAGING = 47  # forward status
@@ -67,8 +69,11 @@ NOTICE_STATUS_DOWNSTREAM_TRANSITION = {NoticeStatus.RAW: [NoticeStatus.NORMALISE
                                                                           NoticeStatus.ELIGIBLE_FOR_TRANSFORMATION],
                                        NoticeStatus.INELIGIBLE_FOR_TRANSFORMATION: [
                                            NoticeStatus.ELIGIBLE_FOR_TRANSFORMATION],
-                                       NoticeStatus.ELIGIBLE_FOR_TRANSFORMATION: [NoticeStatus.TRANSFORMED],
-                                       NoticeStatus.TRANSFORMED: [NoticeStatus.VALIDATED],
+                                       NoticeStatus.ELIGIBLE_FOR_TRANSFORMATION: [
+                                           NoticeStatus.PREPROCESSED_FOR_TRANSFORMATION],
+                                       NoticeStatus.PREPROCESSED_FOR_TRANSFORMATION: [NoticeStatus.TRANSFORMED],
+                                       NoticeStatus.TRANSFORMED: [NoticeStatus.DISTILLED],
+                                       NoticeStatus.DISTILLED: [NoticeStatus.VALIDATED],
                                        NoticeStatus.VALIDATED: [NoticeStatus.INELIGIBLE_FOR_PACKAGING,
                                                                 NoticeStatus.ELIGIBLE_FOR_PACKAGING],
                                        NoticeStatus.INELIGIBLE_FOR_PACKAGING: [NoticeStatus.ELIGIBLE_FOR_PACKAGING],
@@ -147,8 +152,18 @@ class Notice(WorkExpression):
     _normalised_metadata: Optional[NormalisedMetadata] = None
 
     xml_manifestation: XMLManifestation = Field(..., allow_mutation=False)
+    _preprocessed_xml_manifestation: Optional[XMLManifestation] = None
+    _distilled_rdf_manifestation: Optional[RDFManifestation] = None
     _rdf_manifestation: Optional[RDFManifestation] = None
     _mets_manifestation: Optional[METSManifestation] = None
+
+    @property
+    def preprocessed_xml_manifestation(self) -> XMLManifestation:
+        return self._preprocessed_xml_manifestation
+
+    @property
+    def distilled_rdf_manifestation(self) -> RDFManifestation:
+        return self._distilled_rdf_manifestation
 
     @property
     def normalised_metadata(self) -> NormalisedMetadata:
@@ -168,6 +183,28 @@ class Notice(WorkExpression):
             return None
 
         return self.rdf_manifestation.validation
+
+    def set_preprocessed_xml_manifestation(self, preprocessed_xml_manifestation: XMLManifestation):
+        """
+            Set preprocessed XML manifestation to the notice.
+        :param preprocessed_xml_manifestation:
+        :return:
+        """
+        if self.preprocessed_xml_manifestation == preprocessed_xml_manifestation:
+            return
+        self._preprocessed_xml_manifestation = preprocessed_xml_manifestation
+        self.update_status_to(NoticeStatus.PREPROCESSED_FOR_TRANSFORMATION)
+
+    def set_distilled_rdf_manifestation(self, distilled_rdf_manifestation: RDFManifestation):
+        """
+            Set distilled RDF manifestation to the notice.
+        :param distilled_rdf_manifestation:
+        :return:
+        """
+        if self.distilled_rdf_manifestation == distilled_rdf_manifestation:
+            return
+        self._distilled_rdf_manifestation = distilled_rdf_manifestation
+        self.update_status_to(NoticeStatus.DISTILLED)
 
     def set_normalised_metadata(self, normalised_metadata: NormalisedMetadata):
         """
@@ -315,7 +352,9 @@ class Notice(WorkExpression):
             self._status = new_status
             if new_status < NoticeStatus.NORMALISED_METADATA:
                 self._normalised_metadata = None
+                self._preprocessed_xml_manifestation = None
             if new_status < NoticeStatus.TRANSFORMED:
                 self._rdf_manifestation = None
+                self._distilled_rdf_manifestation = None
             if new_status < NoticeStatus.PACKAGED:
                 self._mets_manifestation = None

@@ -153,6 +153,7 @@ services:
     restart: unless-stopped
     networks:
       - airflow
+      - common-ext
     depends_on:
       <<: *airflow-common-depends-on
       airflow-init:

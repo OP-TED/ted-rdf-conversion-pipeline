@@ -111,8 +111,14 @@ def test_notice_status_transition_check_preprocessed_and_distilled_state(raw_not
     """
     assert raw_notice.status == NoticeStatus.RAW
     raw_notice._status = NoticeStatus.ELIGIBLE_FOR_TRANSFORMATION
-    raw_notice.set_preprocessed_xml_manifestation(preprocessed_xml_manifestation=publicly_available_notice.preprocessed_xml_manifestation)
+    raw_notice.set_preprocessed_xml_manifestation(
+        preprocessed_xml_manifestation=publicly_available_notice.preprocessed_xml_manifestation)
     assert raw_notice.status == NoticeStatus.PREPROCESSED_FOR_TRANSFORMATION
+    raw_notice.set_preprocessed_xml_manifestation(
+        preprocessed_xml_manifestation=publicly_available_notice.preprocessed_xml_manifestation)
     raw_notice.update_status_to(NoticeStatus.TRANSFORMED)
-    raw_notice.set_distilled_rdf_manifestation(distilled_rdf_manifestation=publicly_available_notice.distilled_rdf_manifestation)
+    raw_notice.set_distilled_rdf_manifestation(
+        distilled_rdf_manifestation=publicly_available_notice.distilled_rdf_manifestation)
     assert raw_notice.status == NoticeStatus.DISTILLED
+    raw_notice.set_distilled_rdf_manifestation(
+        distilled_rdf_manifestation=publicly_available_notice.distilled_rdf_manifestation)

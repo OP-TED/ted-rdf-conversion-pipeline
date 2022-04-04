@@ -3,6 +3,7 @@ import sys
 from airflow.utils.trigger_rule import TriggerRule
 
 from ted_sws.core.model.notice import NoticeStatus
+from ted_sws.metadata_normaliser.services.metadata_normalizer import normalise_notice_by_id
 
 sys.path.append("/opt/airflow/")
 sys.path = list(set(sys.path))
@@ -10,10 +11,14 @@ import os
 
 os.chdir("/opt/airflow/")
 
-from airflow.decorators import dag, task
+from airflow.decorators import dag
 from airflow.operators.python import get_current_context, BranchPythonOperator, PythonOperator
 
 from dags import DEFAULT_DAG_ARGUMENTS
+
+NOTICE_ID = "notice_id"
+MAPPING_SUITE_ID = "mapping_suite_id"
+TASK_INSTANCE = "ti"
 
 
 def select_first_non_none(data):
@@ -23,24 +28,20 @@ def select_first_non_none(data):
 def pull(key, task_ids=None):
     context = get_current_context()
     return select_first_non_none(
-        context['ti'].xcom_pull(key=str(key), task_ids=task_ids if task_ids else context['task'].upstream_task_ids))
+        context[TASK_INSTANCE].xcom_pull(key=str(key),
+                                         task_ids=task_ids if task_ids else context['task'].upstream_task_ids))
 
 
 def push(key, value):
     context = get_current_context()
-    return context['ti'].xcom_push(key=str(key), value=value)
-
-
-NOTICE_ID = "notice_id"
-MAPPING_SUITE_ID = "mapping_suite_id"
+    return context[TASK_INSTANCE].xcom_push(key=str(key), value=value)
 
 
 @dag(default_args=DEFAULT_DAG_ARGUMENTS, tags=['worker', 'pipeline'])
 def worker_single_notice_process_orchestrator():
     def _normalise_notice_metadata():
         notice_id = pull(NOTICE_ID)
-        print(notice_id)
-        notice_id = notice_id + "_normalised"
+        normalise_notice_by_id(notice_id=notice_id)
         push(NOTICE_ID, notice_id)
 
     def _check_eligibility_for_transformation():
@@ -49,7 +50,6 @@ def worker_single_notice_process_orchestrator():
         notice_id = notice_id + "_checked"
         push(NOTICE_ID, notice_id)
         push(MAPPING_SUITE_ID, "mapping_suite_id")
-
 
     def _preprocess_xml_manifestation():
         notice_id = pull(NOTICE_ID)
@@ -136,7 +136,6 @@ def worker_single_notice_process_orchestrator():
         else:
             return "fail_on_state"
 
-
     normalise_notice_metadata = PythonOperator(
         task_id="normalise_notice_metadata",
         python_callable=_normalise_notice_metadata,
@@ -162,7 +161,7 @@ def worker_single_notice_process_orchestrator():
 
     resolve_entities_in_the_rdf_manifestation = PythonOperator(
         task_id="resolve_entities_in_the_rdf_manifestation",
-        python_callable= _resolve_entities_in_the_rdf_manifestation,
+        python_callable=_resolve_entities_in_the_rdf_manifestation,
         trigger_rule=TriggerRule.NONE_FAILED_MIN_ONE_SUCCESS
     )
 
@@ -234,13 +233,15 @@ def worker_single_notice_process_orchestrator():
         python_callable=_check_notice_state_before_notice_successfully_processed,
     )
 
-
-
-    normalise_notice_metadata >> check_eligibility_for_transformation >> check_notice_state_before_transform >> [preprocess_xml_manifestation, fail_on_state]
+    normalise_notice_metadata >> check_eligibility_for_transformation >> check_notice_state_before_transform >> [
+        preprocess_xml_manifestation, fail_on_state]
     preprocess_xml_manifestation >> transform_notice >> resolve_entities_in_the_rdf_manifestation >> validate_transformed_rdf_manifestation >> check_eligibility_for_packing_by_validation_report
-    check_eligibility_for_packing_by_validation_report >> check_notice_state_before_generate_mets_package >> [generate_mets_package, fail_on_state]
-    generate_mets_package >> check_package_integrity_by_package_structure >> check_notice_state_before_publish_notice_in_cellar >> [publish_notice_in_cellar, fail_on_state]
-    publish_notice_in_cellar >> check_notice_public_availability_in_cellar >> check_notice_state_before_notice_successfully_processed >> [notice_successfully_processed, fail_on_state]
+    check_eligibility_for_packing_by_validation_report >> check_notice_state_before_generate_mets_package >> [
+        generate_mets_package, fail_on_state]
+    generate_mets_package >> check_package_integrity_by_package_structure >> check_notice_state_before_publish_notice_in_cellar >> [
+        publish_notice_in_cellar, fail_on_state]
+    publish_notice_in_cellar >> check_notice_public_availability_in_cellar >> check_notice_state_before_notice_successfully_processed >> [
+        notice_successfully_processed, fail_on_state]
 
     state_skip_table = {
         str(NoticeStatus.RAW): "normalise_notice_metadata",
@@ -266,7 +267,8 @@ def worker_single_notice_process_orchestrator():
         python_callable=_get_task_run,
     )
 
-    branch_task >> [normalise_notice_metadata, check_eligibility_for_transformation, generate_mets_package, publish_notice_in_cellar]
+    branch_task >> [normalise_notice_metadata, check_eligibility_for_transformation, generate_mets_package,
+                    publish_notice_in_cellar]
 
 
 dag = worker_single_notice_process_orchestrator()

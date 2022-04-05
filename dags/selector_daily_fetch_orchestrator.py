@@ -54,4 +54,4 @@ def selector_daily_fetch_orchestrator():
     fetch_notice_from_ted() >> trigger_document_proc_pipeline()
 
 
-etl_dag = selector_daily_fetch_orchestrator()
+dag = selector_daily_fetch_orchestrator()

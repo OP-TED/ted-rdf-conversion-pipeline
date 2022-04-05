@@ -108,7 +108,7 @@ class WorkExpression(PropertyBaseModel, abc.ABC):
         validate_assignment = True
         orm_mode = True
 
-    created_at: datetime = datetime.now()
+    created_at: str = datetime.now().isoformat()
     version_number: int = 0
 
     @property

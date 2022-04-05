@@ -100,7 +100,7 @@ def normalised_metadata_dict():
                                  language='SV')
         ],
         'notice_publication_number': '067623-2022',
-        'publication_date': datetime.date(2022, 2, 7),
+        'publication_date': datetime.date(2022, 2, 7).isoformat(),
         'ojs_issue_number': '26',
         'ojs_type': 'S',
         'city_of_buyer': [
@@ -113,7 +113,7 @@ def normalised_metadata_dict():
         'original_language': 'http://publications.europa.eu/resource/authority/language/DEU',
         'country_of_buyer': 'http://publications.europa.eu/resource/authority/country/DEU',
         'eu_institution': False,
-        'document_sent_date': datetime.date(2022, 2, 2),
+        'document_sent_date': datetime.date(2022, 2, 2).isoformat(),
         'deadline_for_submission': None,
         'notice_type': 'AWESOME_NOTICE_TYPE',
         'form_type': '18',

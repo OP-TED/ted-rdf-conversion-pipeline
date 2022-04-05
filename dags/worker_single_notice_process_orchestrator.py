@@ -254,7 +254,6 @@ def worker_single_notice_process_orchestrator():
         str(NoticeStatus.ELIGIBLE_FOR_TRANSFORMATION): "check_eligibility_for_transformation",
         str(NoticeStatus.ELIGIBLE_FOR_PACKAGING): "generate_mets_package",
         str(NoticeStatus.ELIGIBLE_FOR_PUBLISHING): "publish_notice_in_cellar",
-
     }
 
     def _get_task_run():

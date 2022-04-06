@@ -179,7 +179,7 @@ class ExtractedMetadataNormaliser:
             "notice_publication_number": extracted_metadata.notice_publication_number,
             "publication_date": datetime.datetime.strptime(
                 extracted_metadata.publication_date, '%Y%m%d'
-            ),
+            ).isoformat(),
             "ojs_issue_number": extracted_metadata.ojs_issue_number,
             "ojs_type": extracted_metadata.ojs_type if extracted_metadata.ojs_type else "S",
             "city_of_buyer": [city_of_buyer for city_of_buyer in extracted_metadata.city_of_buyer],
@@ -189,15 +189,15 @@ class ExtractedMetadataNormaliser:
             "eu_institution": False if extracted_metadata.eu_institution == '-' else True,
             "document_sent_date": datetime.datetime.strptime(
                 extracted_metadata.document_sent_date, '%Y%m%d'
-            ) if extracted_metadata.document_sent_date is not None else None,
+            ).isoformat() if extracted_metadata.document_sent_date is not None else None,
             "deadline_for_submission": datetime.datetime.strptime(
                 extracted_metadata.deadline_for_submission, '%Y%m%d'
-            ) if extracted_metadata.deadline_for_submission is not None else None,
+            ).isoformat() if extracted_metadata.deadline_for_submission is not None else None,
             "notice_type": self.get_map_value(mapping=notice_type_map, value=notice_type),
             "form_type": self.get_map_value(mapping=form_type_map, value=form_type),
-            "place_of_performance": [self.get_map_value(mapping=nuts_map, value=place_of_performance.code) for
+            "place_of_performance": [self.get_map_value(mapping=nuts_map, value=place_of_performance.code) if place_of_performance else None for
                                      place_of_performance
-                                     in extracted_metadata.place_of_performance],
+                                     in extracted_metadata.place_of_performance ],
             "legal_basis_directive": self.get_map_value(mapping=legal_basis_map,
                                                         value=self.normalise_legal_basis_value(
                                                             extracted_metadata.legal_basis_directive)),

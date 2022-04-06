@@ -265,7 +265,9 @@ class XMLManifestationMetadataExtractor:
 
         namespaces["manifestation_ns"] = namespaces.pop("")
 
-        for key, value in namespaces.items():
+        tmp_dict = namespaces.copy()
+        items = tmp_dict.items()
+        for key, value in items:
             if value.endswith("nuts"):
                 namespaces["nuts"] = namespaces.pop(key)
 

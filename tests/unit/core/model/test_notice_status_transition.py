@@ -122,3 +122,7 @@ def test_notice_status_transition_check_preprocessed_and_distilled_state(raw_not
     assert raw_notice.status == NoticeStatus.DISTILLED
     raw_notice.set_distilled_rdf_manifestation(
         distilled_rdf_manifestation=publicly_available_notice.distilled_rdf_manifestation)
+
+
+def test_notice_status_conversion_from_string():
+    assert NoticeStatus["RAW"] == NoticeStatus.RAW

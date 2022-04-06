@@ -37,7 +37,6 @@ def worker_single_notice_process_orchestrator():
 
     def _check_eligibility_for_transformation():
         notice_id = pull_dag_upstream(NOTICE_ID)
-        print(notice_id)
         notice_id = notice_id + "_checked"
         push_dag_downstream(NOTICE_ID, notice_id)
         push_dag_downstream(MAPPING_SUITE_ID, "mapping_suite_id")
@@ -45,7 +44,6 @@ def worker_single_notice_process_orchestrator():
     def _preprocess_xml_manifestation():
         notice_id = pull_dag_upstream(NOTICE_ID)
         mapping_suite_id = pull_dag_upstream(MAPPING_SUITE_ID)
-        print(notice_id, mapping_suite_id)
         notice_id = notice_id + "_preprocessed"
         push_dag_downstream(NOTICE_ID, notice_id)
         pull_dag_upstream(MAPPING_SUITE_ID, mapping_suite_id)
@@ -53,7 +51,6 @@ def worker_single_notice_process_orchestrator():
     def _transform_notice():
         notice_id = pull_dag_upstream(NOTICE_ID)
         mapping_suite_id = pull_dag_upstream(MAPPING_SUITE_ID)
-        print(notice_id, mapping_suite_id)
         notice_id = notice_id + "_transformed"
         push_dag_downstream(NOTICE_ID, notice_id)
 

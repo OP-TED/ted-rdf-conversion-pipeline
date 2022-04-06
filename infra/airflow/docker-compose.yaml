@@ -61,6 +61,7 @@ x-airflow-common:
     VAULT_ADDR: ${VAULT_ADDR}
     ENVIRONMENT: ${ENVIRONMENT}
     PYTHONPATH: /opt/airflow/
+    AIRFLOW_HOME: /opt/airflow
   volumes:
 #    - ./config/airflow.cfg:/opt/airflow/airflow.cfg
     - ${AIRFLOW_INFRA_FOLDER}/.env:/opt/airflow/.env

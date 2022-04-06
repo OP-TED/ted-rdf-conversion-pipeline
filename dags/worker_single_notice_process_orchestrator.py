@@ -1,10 +1,3 @@
-# import sys
-# sys.path.append("/opt/airflow/")
-# sys.path = list(set(sys.path))
-# import os
-# os.chdir("/opt/airflow/")
-
-
 from airflow.utils.trigger_rule import TriggerRule
 from pymongo import MongoClient
 

@@ -76,8 +76,10 @@ setup(
     entry_points={
         "console_scripts": [
             # "rdfpipe = rdflib.tools.rdfpipe:main", # inspired form rdflib, replace as needed
-            "transformer = ted_sws.notice_transformer.entrypoints.cmd_mapping_suite_transformer:main"
+            "transformer = ted_sws.notice_transformer.entrypoints.cmd_mapping_suite_transformer:main",
+            "normalisation_resource_generator = ted_sws.metadata_normaliser.entrypoints.generate_mapping_resources:main"
         ],
     },
+    include_package_data=True,
     **kwargs,
 )

@@ -1,7 +1,9 @@
 import json
 import pathlib
+from click.testing import CliRunner
 
-from ted_sws.metadata_normaliser.entrypoints.generate_mapping_resources import generate_mapping_files
+
+from ted_sws.metadata_normaliser.entrypoints.generate_mapping_resources import generate_mapping_files, main as cli_main
 from tests import TEST_DATA_PATH
 from tests.fakes.fake_triple_store import FakeTripleStore
 
@@ -22,3 +24,7 @@ def test_generate_mapping_resources(tmp_path):
     assert isinstance(generated_file_content, dict)
     assert "results" in generated_file_content.keys()
     assert generated_file_content["results"] == "awesome results"
+
+    cli = CliRunner()
+    response = cli.invoke(cli_main, ["--output-folder-path", str(output_folder_path)])
+    assert response.exit_code == 0

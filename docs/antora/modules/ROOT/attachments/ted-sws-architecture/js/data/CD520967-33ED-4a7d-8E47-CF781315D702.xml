@@ -1,0 +1,6 @@
+tocTab[tocTab.length] = new Array("0.1:1", "", "ted-sws overview", "EARoot/EA1/EA1.html", "176.png", "62", "0", "", "Package diagram0","{8934DFC0-9AB2-4ebe-B9D8-52E2EE29CEC7}");
+tocTab[tocTab.length] = new Array("0.1.1", "1", "business process (BPMN)", "EARoot/EA1/EA1/EA40.html", "4.png", "", "", "{2C6EFAE5-836A-4025-B7A6-59F5FF07A034}", "Package");
+tocTab[tocTab.length] = new Array("0.1.2", "1", "application layer - pipeline components", "EARoot/EA1/EA2/EA83.html", "4.png", "", "", "{98908C15-551B-49c6-A8FD-9A909B06757F}", "Package");
+tocTab[tocTab.length] = new Array("0.1.3", "1", "application layer - orchestration", "EARoot/EA1/EA3/EA236.html", "4.png", "", "", "{CBC5D277-3A44-42d2-82A6-F2F5158DD4EA}", "Package");
+tocTab[tocTab.length] = new Array("0.1.4", "1", "domain model", "EARoot/EA1/EA4/EA312.html", "4.png", "", "", "{FFFB9560-B40B-4d7f-A4E2-6B4F7D49A199}", "Package");
+tocTab[tocTab.length] = new Array("0.1.5", "1", "infra", "EARoot/EA1/EA5/EA394.html", "4.png", "", "", "{52920024-6118-41d7-B5F4-CE82043D70ED}", "Package");

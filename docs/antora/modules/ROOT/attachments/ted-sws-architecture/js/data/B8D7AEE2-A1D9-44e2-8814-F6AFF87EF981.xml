@@ -1,0 +1,4 @@
+tocTab[tocTab.length] = new Array("0.1.4.2:1", "", "notice metadata", "EARoot/EA1/EA4/EA2/EA338.html", "175.png", "43", "0", "", "Logical diagram0","{FA5C8E46-421E-4c85-96E7-78ED43FED46A}");
+tocTab[tocTab.length] = new Array("0.1.4.2:2", "", "«rdfsClass» NormalisedMetadata", "EARoot/EA1/EA4/EA2/EA341.html", "5.png", "E313", "0", "", "Class0","{6F72DDC8-D97E-4f82-84D2-2829F01E63E4}");
+tocTab[tocTab.length] = new Array("0.1.4.2:3", "", "«rdfsClass» NoticeMetadata", "EARoot/EA1/EA4/EA2/EA342.html", "5.png", "E311", "0", "", "Class0","{E8A3DC95-5182-47e8-AB30-BEEA4F3AF4E3}");
+tocTab[tocTab.length] = new Array("0.1.4.2:4", "", "«rdfsClass» OriginalMetadata", "EARoot/EA1/EA4/EA2/EA343.html", "5.png", "E312", "0", "", "Class0","{55204232-9514-44fa-B259-9F1EA12C61A3}");

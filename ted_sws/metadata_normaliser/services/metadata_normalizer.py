@@ -3,6 +3,7 @@ import datetime
 
 import pandas as pd
 
+from ted_sws.core.service.metadata_constraints import filter_df_by_variables
 from ted_sws.data_manager.adapters.notice_repository import NoticeRepositoryABC
 from ted_sws.core.model.metadata import NormalisedMetadata, LanguageTaggedString
 from ted_sws.core.model.notice import Notice
@@ -69,17 +70,6 @@ class MetadataNormaliser(MetadataNormaliserABC):
             xml_manifestation=self.notice.xml_manifestation).to_metadata()
         normalised_metadata = ExtractedMetadataNormaliser(extracted_metadata).to_metadata()
         self.notice.set_normalised_metadata(normalised_metadata)
-
-
-def filter_df_by_variables(df: pd.DataFrame, **kwargs) -> pd.DataFrame:
-    """
-    Filter a dataframe by different variables
-    :param df:
-    :param kwargs:
-    :return:
-    """
-    query_string = " and ".join([f"{key}=='{value}'" for key, value in kwargs.items() if value])
-    return df.query(query_string)
 
 
 class ExtractedMetadataNormaliser:
@@ -210,7 +200,8 @@ class ExtractedMetadataNormaliser:
                                      in extracted_metadata.place_of_performance ],
             "legal_basis_directive": self.get_map_value(mapping=legal_basis_map,
                                                         value=self.normalise_legal_basis_value(
-                                                            extracted_metadata.legal_basis_directive))
+                                                            extracted_metadata.legal_basis_directive)),
+            "form_number": self.normalise_form_number(value=extracted_metadata.extracted_form_number)
         }
 
         return NormalisedMetadata(**metadata)

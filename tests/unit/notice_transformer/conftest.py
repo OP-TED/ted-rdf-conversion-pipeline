@@ -14,6 +14,6 @@ def fake_rml_mapper() -> RMLMapperABC:
 
 @pytest.fixture
 def fake_mapping_suite() -> MappingSuite:
-    repository_path = TEST_DATA_PATH / "notice_transformer"
+    repository_path = TEST_DATA_PATH / "notice_transformer" / "test_repository"
     mapping_suite_repository = MappingSuiteRepositoryInFileSystem(repository_path=repository_path)
     return mapping_suite_repository.get(reference="test_package")

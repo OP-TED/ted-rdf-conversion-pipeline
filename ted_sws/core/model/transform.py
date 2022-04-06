@@ -72,7 +72,8 @@ class MappingSuite(MappingSuiteComponent):
     created_at: str = datetime.now().isoformat()
     identifier: str = "no_id"
     title: str = "no_title"
-    version: str = "0.0.1"
+    version: str = "0.1"
+    ontology_version: str = "0.0.1"
     metadata_constraints: MetadataConstraints
     transformation_rule_set: TransformationRuleSet
     shacl_test_suites: List[SHACLTestSuite]

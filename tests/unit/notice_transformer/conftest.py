@@ -30,7 +30,7 @@ def fake_failed_mapping_suite_id() -> str:
 
 @pytest.fixture
 def fake_repository_path() -> Path:
-    return TEST_DATA_PATH / "notice_transformer" / "mappings"
+    return TEST_DATA_PATH / "notice_transformer" / "test_repository"
 
 
 @pytest.fixture

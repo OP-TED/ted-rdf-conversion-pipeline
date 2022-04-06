@@ -55,7 +55,7 @@ class NormalisedMetadata(Metadata):
     title: List[LanguageTaggedString]
     long_title: List[LanguageTaggedString]
     notice_publication_number: str
-    publication_date: datetime.date
+    publication_date: str
     ojs_issue_number: str
     ojs_type: str
     city_of_buyer: Optional[List[LanguageTaggedString]]
@@ -63,12 +63,13 @@ class NormalisedMetadata(Metadata):
     original_language: Optional[str]
     country_of_buyer: Optional[str]
     eu_institution: Optional[bool]
-    document_sent_date: Optional[datetime.date]
-    deadline_for_submission: Optional[datetime.date]
+    document_sent_date: Optional[str]
+    deadline_for_submission: Optional[str]
     notice_type: str
     form_type: str
-    place_of_performance: List[str]
+    place_of_performance: Optional[List[str]]
     legal_basis_directive: str
+    form_number: str
 
 
 class TEDMetadata(Metadata):

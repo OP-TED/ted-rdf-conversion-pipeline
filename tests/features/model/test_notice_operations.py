@@ -307,11 +307,12 @@ def step_impl(a_notice, availability):
 
 @given("a notice eligible for transformation", )
 def step_impl(transformation_eligible_notice):
-    assert transformation_eligible_notice.status is NoticeStatus.ELIGIBLE_FOR_TRANSFORMATION
+    assert transformation_eligible_notice.status is NoticeStatus.PREPROCESSED_FOR_TRANSFORMATION
 
 
 @when("RDF validation report is added")
 def step_impl(transformation_eligible_notice, rdf_validation):
+    transformation_eligible_notice.update_status_to(NoticeStatus.DISTILLED)
     transformation_eligible_notice.set_rdf_validation(rdf_validation)
 
 

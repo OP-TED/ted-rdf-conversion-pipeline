@@ -3,6 +3,7 @@ import datetime
 
 import pandas as pd
 
+from ted_sws.core.service.metadata_constraints import filter_df_by_variables
 from ted_sws.data_manager.adapters.notice_repository import NoticeRepositoryABC
 from ted_sws.core.model.metadata import NormalisedMetadata, LanguageTaggedString
 from ted_sws.core.model.notice import Notice
@@ -69,17 +70,6 @@ class MetadataNormaliser(MetadataNormaliserABC):
             xml_manifestation=self.notice.xml_manifestation).to_metadata()
         normalised_metadata = ExtractedMetadataNormaliser(extracted_metadata).to_metadata()
         self.notice.set_normalised_metadata(normalised_metadata)
-
-
-def filter_df_by_variables(df: pd.DataFrame, **kwargs) -> pd.DataFrame:
-    """
-    Filter a dataframe by different variables
-    :param df:
-    :param kwargs:
-    :return:
-    """
-    query_string = " and ".join([f"{key}=='{value}'" for key, value in kwargs.items() if value])
-    return df.query(query_string)
 
 
 class ExtractedMetadataNormaliser:
@@ -189,7 +179,7 @@ class ExtractedMetadataNormaliser:
             "notice_publication_number": extracted_metadata.notice_publication_number,
             "publication_date": datetime.datetime.strptime(
                 extracted_metadata.publication_date, '%Y%m%d'
-            ),
+            ).isoformat(),
             "ojs_issue_number": extracted_metadata.ojs_issue_number,
             "ojs_type": extracted_metadata.ojs_type if extracted_metadata.ojs_type else "S",
             "city_of_buyer": [city_of_buyer for city_of_buyer in extracted_metadata.city_of_buyer],
@@ -199,18 +189,19 @@ class ExtractedMetadataNormaliser:
             "eu_institution": False if extracted_metadata.eu_institution == '-' else True,
             "document_sent_date": datetime.datetime.strptime(
                 extracted_metadata.document_sent_date, '%Y%m%d'
-            ) if extracted_metadata.document_sent_date is not None else None,
+            ).isoformat() if extracted_metadata.document_sent_date is not None else None,
             "deadline_for_submission": datetime.datetime.strptime(
                 extracted_metadata.deadline_for_submission, '%Y%m%d'
-            ) if extracted_metadata.deadline_for_submission is not None else None,
+            ).isoformat() if extracted_metadata.deadline_for_submission is not None else None,
             "notice_type": self.get_map_value(mapping=notice_type_map, value=notice_type),
             "form_type": self.get_map_value(mapping=form_type_map, value=form_type),
-            "place_of_performance": [self.get_map_value(mapping=nuts_map, value=place_of_performance.code) for
+            "place_of_performance": [self.get_map_value(mapping=nuts_map, value=place_of_performance.code) if place_of_performance else None for
                                      place_of_performance
-                                     in extracted_metadata.place_of_performance],
+                                     in extracted_metadata.place_of_performance ],
             "legal_basis_directive": self.get_map_value(mapping=legal_basis_map,
                                                         value=self.normalise_legal_basis_value(
-                                                            extracted_metadata.legal_basis_directive))
+                                                            extracted_metadata.legal_basis_directive)),
+            "form_number": self.normalise_form_number(value=extracted_metadata.extracted_form_number)
         }
 
         return NormalisedMetadata(**metadata)

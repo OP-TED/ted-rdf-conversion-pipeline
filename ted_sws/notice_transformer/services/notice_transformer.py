@@ -83,7 +83,7 @@ class NoticeTransformer(NoticeTransformerABC):
         file_resources = []
         for data in transformation_test_data.test_data:
             notice = Notice(ted_id="tmp_notice",xml_manifestation=XMLManifestation(object_data=data.file_content))
-            notice._status = NoticeStatus.ELIGIBLE_FOR_TRANSFORMATION
+            notice._status = NoticeStatus.PREPROCESSED_FOR_TRANSFORMATION
             notice_result = self.transform_notice(notice=notice)
             file_resources.append(
                 FileResource(file_name=data.file_name, file_content=notice_result.rdf_manifestation.object_data))

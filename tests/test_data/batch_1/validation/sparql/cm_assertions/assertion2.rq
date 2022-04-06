@@ -1,0 +1,8 @@
+# title: Town
+# description: this is a description
+# class path: epo:Role (from CL1) / epo:Organisation (from CL2) /  locn:Address / rdf:langString
+ASK
+WHERE
+{
+  ?this epo:playedBy / epo:hasRegisteredAddress / locn:postName ?value .
+}

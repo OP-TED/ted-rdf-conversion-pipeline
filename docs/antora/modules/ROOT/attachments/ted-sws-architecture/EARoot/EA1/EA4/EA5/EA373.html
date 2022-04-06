@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<title>tranformation & test suite::SHACLFile</title>
+<title>tranformation & test suite::MetadataConstraints</title>
 <link href="../../../../css/ea.css" rel="stylesheet" type="text/css" />
 <script>
 function initPage(src) {	
@@ -34,15 +34,15 @@ function nameClassifier(name, separator)
 <div class="pageHeader"></div>
 <div class="PageBody">
 	<div id="name_classifier" style="display: none;"></div>
-	<span class="ObjectTitle"><script type="text/javascript">document.write(nameClassifier("SHACLFile", " : "))</script>  : Public  &lt;&lt;rdfsClass&gt;&gt; RDFClass</span>
+	<span class="ObjectTitle"><script type="text/javascript">document.write(nameClassifier("MetadataConstraints", " : "))</script>  : Public  &lt;&lt;rdfsClass&gt;&gt; RDFClass</span>
 	<table border="0" cellpadding="0" cellspacing="0" class="ObjectDetails">
 		<tr>
 			<td width="15%" class="ObjectDetailsTopic">Created:</td>
-			<td width="85%" class="ObjectDetailsValue">23/01/2022 17:02:54</td>
+			<td width="85%" class="ObjectDetailsValue">23/01/2022 15:49:42</td>
 		</tr>
 		<tr>
 			<td class="ObjectDetailsTopic">Modified:</td>
-			<td class="ObjectDetailsValue">14/03/2022 14:39:35</td>
+			<td class="ObjectDetailsValue">14/03/2022 16:05:03</td>
 		</tr>
 		<tr style="height: 10px"><td colspan="2"></td></tr>
 		<tr>
@@ -87,21 +87,78 @@ function nameClassifier(name, separator)
 		</tr>
 		<tr id="adv00" style="display: none;">
 			<td class="ObjectDetailsTopic" style="padding-left: 18px;">UUID:</td>
-			<td class="ObjectDetailsValue">{10A1B8D3-6680-488f-8C8E-C21631048E6A}</td>
+			<td class="ObjectDetailsValue">{15609F85-9058-4156-8306-BEC71981980D}</td>
 		</tr>
 		<tr id="adv01" style="display: none;">
 			<td class="ObjectDetailsTopic" style="padding-left: 18px;">Appears In:</td>
-			<td class="ObjectDetailsValue"><a href="../EA311.html">tracing application to model objects</a>, <a href="../EA307.html">test suite domain model</a></td>
+			<td class="ObjectDetailsValue"><a href="../EA308.html">tracing application to model objects</a>, <a href="../EA306.html">mapping suite</a></td>
 		</tr>
 	</table>
-	<div class="ObjectDetailsNotes">The content of a SHACL data shape file. &lt;br/&gt;Multiple SHACL files may be applied.&lt;br/&gt;&lt;br/&gt;</div>
+	<div class="ObjectDetailsNotes">A set of constraints over notice metadata.&#160;&#160;&lt;br/&gt;&lt;br/&gt;Normally this would be encoded in a simple predicate logic, but certainly less expressive models may be sufficient. &lt;br/&gt;For example a constraint can be formulated over the &quot;form type&quot; metadata field. It can say that form number can be either &quot;F03, F06, F26&quot;: &quot;form number = [F03, F06, F26]&quot;. &lt;br/&gt;Default logical condition over the array of possible values, is OR. &lt;br/&gt;We can imagine that the &quot;legal basis&quot; needs to be specified in addition to the form type. For example: &quot;legal basis=D24&quot; . The logical condition between fields is AND.&lt;br/&gt;&lt;br/&gt;</div>
 
 	<div class="TableGroup" id="TableGroup">
 		<ul class="ItemTitle">
+			<li onClick="parent.toggleItem('Attributes');" id="AttributesTitle">Attributes</li>
 			<li onClick="parent.toggleItem('AssociationsFrom');" id="AssociationsFromTitle">Associations From</li>
 			<li onClick="parent.toggleItem('CustomProperties');" id="CustomPropertiesTitle">Advanced</li>
 			<li onClick="parent.toggleItem('Links');" id="LinksTitle">Other Links</li>
 		</ul>
+<div class="ItemBody" id="AttributesTable">
+	<table border="0" cellspacing="0" cellpadding="0" class="Table">
+		<tr>
+			<td width="100%" class="TableHeading">Attribute</td>
+		</tr>
+						<tr>
+				<td width="100%" class="TableRow">
+					<i>Public rdfs:Literal</i><br /><strong>&nbsp;&nbsp;constraint</strong>
+				</td>
+			</tr>
+			<tr>
+				<td class="TableRowBottomDashed"  colspan="1">										
+					<a href="#" onclick="parent.toggleData('DetailsImageAttributes573')" style="text-decoration: none; color: #000000;"><img src="../../../../images/plus03.gif" align="absmiddle" id="DetailsImageAttributes573" border="0" />Details:</a>
+					<table border="0" cellspacing="0" cellpadding="0" class="Table" style="padding: 4px 18px;">
+					
+						<tr id="DetailsImageAttributes573_00" style="display: none;">
+							<td width="75"><i>Alias:</i></td>
+							<td></td>
+						</tr>
+						<tr id="DetailsImageAttributes573_01" style="display: none;">
+							<td width="75"><i>Initial:</i></td>
+							<td></td>
+						</tr>
+						<tr id="DetailsImageAttributes573_02" style="display: none;">
+							<td width="75"><i>Stereotype: </i></td>
+							<td></td>
+						</tr>
+						<tr id="DetailsImageAttributes573_03" style="display: none;">
+							<td width="75"><i>Ordered: </i></td>
+							<td></td>
+						</tr>
+						<tr id="DetailsImageAttributes573_04" style="display: none;">
+							<td width="75"><i>Range: </i></td>
+							<td></td>
+						</tr>
+						<tr id="DetailsImageAttributes573_05" style="display: none;">
+							<td width="75"><i>Transient: </i></td>
+							<td>False</td>
+						</tr>
+						<tr id="DetailsImageAttributes573_06" style="display: none;">
+							<td width="75"><i>Derived: </i></td>
+							<td>False</td>
+						</tr>
+							<tr id="DetailsImageAttributes573_07" style="display: none;">
+							<td width="75"><i>IsID: </i></td>
+						<td>False</td>
+						</tr>
+					</table>
+					
+					
+						&nbsp;
+						
+				</td>
+			</tr>
+	</table>
+</div>
 		<div class="ItemBody" id="AssociationsFromTable">
 			<table border="0" cellspacing="0" cellpadding="0" class="Table">
 				<tr>
@@ -111,7 +168,7 @@ function nameClassifier(name, separator)
 				</tr>
 				<tr>
 					<td width="40%" class="TableRow" valign="top">
-						<a href="EA375.html">«rdfsClass» SHACLTestSuite</a><br />
+						<a href="EA380.html">«rdfsClass» TransformationRuleSet</a><br />
 						RDFClass «rdfProperty» 
 					</td>
 					<td width="30%" class="TableRow" valign="top">
@@ -119,14 +176,37 @@ function nameClassifier(name, separator)
 						&nbsp;
 					</td>
 					<td width="30%" class="TableRow" valign="top">
-						<strong>Name:</strong> comprisesTestDefinitionObject<br />
+						<strong>Name:</strong> eligibilityCondition<br />
 						&nbsp;	
 					</td>
 				</tr>
 				<tr>
 					<td class="TableRowBottomDashed"  colspan="3">
-						<div class="DetailsDivParent"><img src="../../../../images/minus03.gif" align="absmiddle" id="DetailsImageLink570" onclick="parent.toggleDiv('detailsDIVLink570','DetailsImageLink570')" />Details:
-							<div id="detailsDIVLink570" class="DetailsDiv" >
+						<div class="DetailsDivParent"><img src="../../../../images/minus03.gif" align="absmiddle" id="DetailsImageLink574" onclick="parent.toggleDiv('detailsDIVLink574','DetailsImageLink574')" />Details:
+							<div id="detailsDIVLink574" class="DetailsDiv" >
+							&nbsp;
+							</div>
+						</div>
+					</td>
+				</tr>
+				<tr>
+					<td width="40%" class="TableRow" valign="top">
+						<a href="EA372.html">«rdfsClass» MappingSuite</a><br />
+						RDFClass «rdfProperty» 
+					</td>
+					<td width="30%" class="TableRow" valign="top">
+						<strong>Name:</strong> &nbsp;<br />
+						&nbsp;
+					</td>
+					<td width="30%" class="TableRow" valign="top">
+						<strong>Name:</strong> comprisesMetadataConstraints<br />
+						&nbsp;	
+					</td>
+				</tr>
+				<tr>
+					<td class="TableRowBottomDashed"  colspan="3">
+						<div class="DetailsDivParent"><img src="../../../../images/minus03.gif" align="absmiddle" id="DetailsImageLink575" onclick="parent.toggleDiv('detailsDIVLink575','DetailsImageLink575')" />Details:
+							<div id="detailsDIVLink575" class="DetailsDiv" >
 							&nbsp;
 							</div>
 						</div>
@@ -158,16 +238,9 @@ function nameClassifier(name, separator)
 					<td width="40%" class="TableHeading">Notes</td>
 				</tr>
 				<tr>
-					<td width="30%" class="TableRow" valign="top"><a href="../../EA2/EA5/EA163.html">«ArchiMate_DataObject» SHACL shape definition</a></td>
+					<td width="30%" class="TableRow" valign="top"><a href="../../EA2/EA3/EA129.html">«ArchiMate_DataObject» Eligibility constraints</a></td>
 					<td width="10%" class="TableRow" valign="top">DataObject</td>
 					<td width="10%" class="TableRow" valign="top">Dependency</td>
-					<td width="10%" class="TableRow" valign="top">To</td>
-					<td width="40%" class="TableRow" valign="top">&nbsp;</td>
-				</tr>
-				<tr>
-					<td width="30%" class="TableRow" valign="top"><a href="EA379.html">«rdfsClass» TestDefinitionObject</a></td>
-					<td width="10%" class="TableRow" valign="top">RDFClass</td>
-					<td width="10%" class="TableRow" valign="top">Generalization</td>
 					<td width="10%" class="TableRow" valign="top">To</td>
 					<td width="40%" class="TableRow" valign="top">&nbsp;</td>
 				</tr>

@@ -1,8 +1,8 @@
-import sys
-sys.path.append("/opt/airflow/")
-sys.path = list(set(sys.path))
-import os
-os.chdir("/opt/airflow/")
+# import sys
+# sys.path.append("/opt/airflow/")
+# sys.path = list(set(sys.path))
+# import os
+# os.chdir("/opt/airflow/")
 
 from dags import DEFAULT_DAG_ARGUMENTS
 from airflow.decorators import dag, task

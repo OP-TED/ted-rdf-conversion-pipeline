@@ -1,11 +1,8 @@
-import sys
-
-from ted_sws.core.model.notice import NoticeStatus
-
-sys.path.append("/opt/airflow/")
-sys.path = list(set(sys.path))
-import os
-os.chdir("/opt/airflow/")
+# import sys
+# sys.path.append("/opt/airflow/")
+# sys.path = list(set(sys.path))
+# import os
+# os.chdir("/opt/airflow/")
 
 from dags import DEFAULT_DAG_ARGUMENTS
 from airflow.decorators import dag, task
@@ -17,6 +14,7 @@ from ted_sws import config
 from ted_sws.data_manager.adapters.notice_repository import NoticeRepository
 from ted_sws.notice_fetcher.adapters.ted_api import TedAPIAdapter, TedRequestAPI
 from ted_sws.notice_fetcher.services.notice_fetcher import NoticeFetcher
+from ted_sws.core.model.notice import NoticeStatus
 
 @dag(default_args=DEFAULT_DAG_ARGUMENTS, tags=['selector', 'daily-fetch'])
 def selector_daily_fetch_orchestrator():

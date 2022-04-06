@@ -1,4 +1,9 @@
-import sys
+# import sys
+# sys.path.append("/opt/airflow/")
+# sys.path = list(set(sys.path))
+# import os
+# os.chdir("/opt/airflow/")
+
 
 from airflow.utils.trigger_rule import TriggerRule
 from pymongo import MongoClient
@@ -7,12 +12,6 @@ from ted_sws import config
 from ted_sws.core.model.notice import NoticeStatus
 from ted_sws.data_manager.adapters.notice_repository import NoticeRepository
 from ted_sws.metadata_normaliser.services.metadata_normalizer import normalise_notice_by_id
-
-sys.path.append("/opt/airflow/")
-sys.path = list(set(sys.path))
-import os
-
-os.chdir("/opt/airflow/")
 
 from airflow.decorators import dag
 from airflow.operators.python import get_current_context, BranchPythonOperator, PythonOperator

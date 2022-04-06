@@ -1,6 +1,7 @@
 from airflow.utils.trigger_rule import TriggerRule
 from pymongo import MongoClient
 
+from dags.dags_utils import pull_dag_upstream, push_dag_downstream
 from ted_sws import config
 from ted_sws.core.model.notice import NoticeStatus
 from ted_sws.data_manager.adapters.notice_repository import NoticeRepository
@@ -13,94 +14,86 @@ from dags import DEFAULT_DAG_ARGUMENTS
 
 NOTICE_ID = "notice_id"
 MAPPING_SUITE_ID = "mapping_suite_id"
-TASK_INSTANCE = "ti"
-
-
-def select_first_non_none(data):
-    return next((item for item in data if item is not None), None)
-
-
-def pull(key, task_ids=None):
-    context = get_current_context()
-    return select_first_non_none(
-        context[TASK_INSTANCE].xcom_pull(key=str(key),
-                                         task_ids=task_ids if task_ids else context['task'].upstream_task_ids))
-
-
-def push(key, value):
-    context = get_current_context()
-    return context[TASK_INSTANCE].xcom_push(key=str(key), value=value)
 
 
 @dag(default_args=DEFAULT_DAG_ARGUMENTS, tags=['worker', 'pipeline'])
 def worker_single_notice_process_orchestrator():
+    """
+
+    :return:
+    """
+
     def _normalise_notice_metadata():
-        notice_id = pull(NOTICE_ID)
+        """
+
+        :return:
+        """
+        notice_id = pull_dag_upstream(NOTICE_ID)
         mongodb_client = MongoClient(config.MONGO_DB_AUTH_URL)
         notice_repository = NoticeRepository(mongodb_client=mongodb_client)
         normalised_notice = normalise_notice_by_id(notice_id=notice_id, notice_repository=notice_repository)
         notice_repository.update(notice=normalised_notice)
-        push(NOTICE_ID, notice_id)
+        push_dag_downstream(NOTICE_ID, notice_id)
 
     def _check_eligibility_for_transformation():
-        notice_id = pull(NOTICE_ID)
+        notice_id = pull_dag_upstream(NOTICE_ID)
         print(notice_id)
         notice_id = notice_id + "_checked"
-        push(NOTICE_ID, notice_id)
-        push(MAPPING_SUITE_ID, "mapping_suite_id")
+        push_dag_downstream(NOTICE_ID, notice_id)
+        push_dag_downstream(MAPPING_SUITE_ID, "mapping_suite_id")
 
     def _preprocess_xml_manifestation():
-        notice_id = pull(NOTICE_ID)
-        mapping_suite_id = pull(MAPPING_SUITE_ID)
+        notice_id = pull_dag_upstream(NOTICE_ID)
+        mapping_suite_id = pull_dag_upstream(MAPPING_SUITE_ID)
         print(notice_id, mapping_suite_id)
         notice_id = notice_id + "_preprocessed"
-        push(NOTICE_ID, notice_id)
-        pull(MAPPING_SUITE_ID, mapping_suite_id)
+        push_dag_downstream(NOTICE_ID, notice_id)
+        pull_dag_upstream(MAPPING_SUITE_ID, mapping_suite_id)
 
     def _transform_notice():
-        notice_id = pull(NOTICE_ID)
-        mapping_suite_id = pull(MAPPING_SUITE_ID)
+        notice_id = pull_dag_upstream(NOTICE_ID)
+        mapping_suite_id = pull_dag_upstream(MAPPING_SUITE_ID)
         print(notice_id, mapping_suite_id)
         notice_id = notice_id + "_transformed"
-        push(NOTICE_ID, notice_id)
+        push_dag_downstream(NOTICE_ID, notice_id)
 
     def _resolve_entities_in_the_rdf_manifestation():
-        notice_id = pull(NOTICE_ID)
-        push(NOTICE_ID, notice_id)
+        notice_id = pull_dag_upstream(NOTICE_ID)
+        push_dag_downstream(NOTICE_ID, notice_id)
 
     def _validate_transformed_rdf_manifestation():
-        notice_id = pull(NOTICE_ID)
-        push(NOTICE_ID, notice_id)
+        notice_id = pull_dag_upstream(NOTICE_ID)
+        push_dag_downstream(NOTICE_ID, notice_id)
 
     def _check_eligibility_for_packing_by_validation_report():
-        notice_id = pull(NOTICE_ID)
-        push(NOTICE_ID, notice_id)
+        notice_id = pull_dag_upstream(NOTICE_ID)
+        push_dag_downstream(NOTICE_ID, notice_id)
 
     def _generate_mets_package():
-        notice_id = pull(NOTICE_ID)
-        push(NOTICE_ID, notice_id)
+        notice_id = pull_dag_upstream(NOTICE_ID)
+        push_dag_downstream(NOTICE_ID, notice_id)
 
     def _check_package_integrity_by_package_structure():
-        notice_id = pull(NOTICE_ID)
-        push(NOTICE_ID, notice_id)
+        notice_id = pull_dag_upstream(NOTICE_ID)
+        push_dag_downstream(NOTICE_ID, notice_id)
 
     def _publish_notice_in_cellar():
-        notice_id = pull(NOTICE_ID)
-        push(NOTICE_ID, notice_id)
+        notice_id = pull_dag_upstream(NOTICE_ID)
+        push_dag_downstream(NOTICE_ID, notice_id)
 
     def _check_notice_public_availability_in_cellar():
-        notice_id = pull(NOTICE_ID)
-        push(NOTICE_ID, notice_id)
+        notice_id = pull_dag_upstream(NOTICE_ID)
+        push_dag_downstream(NOTICE_ID, notice_id)
 
     def _notice_successfully_processed():
-        notice_id = pull(NOTICE_ID)
+        notice_id = pull_dag_upstream(NOTICE_ID)
 
     def _fail_on_state():
-        notice_id = pull(NOTICE_ID)
+        notice_id = pull_dag_upstream(NOTICE_ID)
 
     def _check_notice_state_before_transform():
-        notice_id = pull(NOTICE_ID)
-        push(NOTICE_ID, notice_id)
+        notice_id = pull_dag_upstream(NOTICE_ID)
+        push_dag_downstream(NOTICE_ID, notice_id)
         status = NoticeStatus.ELIGIBLE_FOR_TRANSFORMATION
         if status == NoticeStatus.ELIGIBLE_FOR_TRANSFORMATION:
             return "transform_notice"
@@ -108,8 +101,8 @@ def worker_single_notice_process_orchestrator():
             return "fail_on_state"
 
     def _check_notice_state_before_generate_mets_package():
-        notice_id = pull(NOTICE_ID)
-        push(NOTICE_ID, notice_id)
+        notice_id = pull_dag_upstream(NOTICE_ID)
+        push_dag_downstream(NOTICE_ID, notice_id)
         status = NoticeStatus.ELIGIBLE_FOR_PACKAGING
         if status == NoticeStatus.ELIGIBLE_FOR_PACKAGING:
             return "generate_mets_package"
@@ -117,8 +110,8 @@ def worker_single_notice_process_orchestrator():
             return "fail_on_state"
 
     def _check_notice_state_before_publish_notice_in_cellar():
-        notice_id = pull(NOTICE_ID)
-        push(NOTICE_ID, notice_id)
+        notice_id = pull_dag_upstream(NOTICE_ID)
+        push_dag_downstream(NOTICE_ID, notice_id)
         status = NoticeStatus.ELIGIBLE_FOR_PUBLISHING
         if status == NoticeStatus.ELIGIBLE_FOR_PUBLISHING:
             return "publish_notice_in_cellar"
@@ -126,8 +119,8 @@ def worker_single_notice_process_orchestrator():
             return "fail_on_state"
 
     def _check_notice_state_before_notice_successfully_processed():
-        notice_id = pull(NOTICE_ID)
-        push(NOTICE_ID, notice_id)
+        notice_id = pull_dag_upstream(NOTICE_ID)
+        push_dag_downstream(NOTICE_ID, notice_id)
         status = NoticeStatus.PUBLISHED
         if status == NoticeStatus.PUBLISHED:
             return "notice_successfully_processed"
@@ -251,7 +244,7 @@ def worker_single_notice_process_orchestrator():
     def _get_task_run():
         context = get_current_context()
         dag_params = context["dag_run"].conf
-        push(key=NOTICE_ID, value=dag_params["notice_id"])
+        push_dag_downstream(key=NOTICE_ID, value=dag_params["notice_id"])
         return state_skip_table[dag_params["notice_status"]]
 
     branch_task = BranchPythonOperator(

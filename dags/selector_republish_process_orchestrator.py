@@ -8,6 +8,8 @@ from ted_sws.core.model.notice import NoticeStatus
 from ted_sws import config
 from ted_sws.data_manager.adapters.notice_repository import NoticeRepository
 
+RE_PUBLISH_TARGET_NOTICE_STATES = [NoticeStatus.PUBLICLY_UNAVAILABLE, NoticeStatus.ELIGIBLE_FOR_PUBLISHING]
+
 
 @dag(default_args=DEFAULT_DAG_ARGUMENTS, tags=['selector', 're-publish'])
 def selector_re_publish_process_orchestrator():
@@ -15,8 +17,7 @@ def selector_re_publish_process_orchestrator():
     def select_notices_for_re_publish_and_reset_status():
         mongodb_client = MongoClient(config.MONGO_DB_AUTH_URL)
         notice_repository = NoticeRepository(mongodb_client=mongodb_client)
-        target_notice_states = [NoticeStatus.PUBLICLY_UNAVAILABLE,NoticeStatus.ELIGIBLE_FOR_PUBLISHING]
-        for target_notice_state in target_notice_states:
+        for target_notice_state in RE_PUBLISH_TARGET_NOTICE_STATES:
             notices = notice_repository.get_notice_by_status(notice_status=target_notice_state)
             for notice in notices:
                 notice.update_status_to(new_status=NoticeStatus.ELIGIBLE_FOR_PUBLISHING)

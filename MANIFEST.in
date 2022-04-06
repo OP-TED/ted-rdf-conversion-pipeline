@@ -1,0 +1,1 @@
+recursive-include ted_sws *.rq *.json *.jinja2

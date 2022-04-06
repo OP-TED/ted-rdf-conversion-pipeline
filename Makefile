@@ -206,6 +206,13 @@ prod-dotenv-file: guard-VAULT_ADDR guard-VAULT_TOKEN vault-installed
 	@ vault kv get -format="json" ted-prod/airflow | jq -r ".data.data | keys[] as \$$k | \"\(\$$k)=\(.[\$$k])\"" >> .env
 	@ vault kv get -format="json" ted-prod/mongo-db | jq -r ".data.data | keys[] as \$$k | \"\(\$$k)=\(.[\$$k])\"" >> .env
 
+local-dotenv-file: rml-mapper-path-add-dotenv-file
+
+rml-mapper-path-add-dotenv-file:
+	@ echo -e "$(BUILD_PRINT)Add rml-mapper path to local .env file $(END_BUILD_PRINT)"
+	@ sed -i '/^RML_MAPPER_PATH/d' .env
+	@ echo RML_MAPPER_PATH=${RML_MAPPER_PATH} >> .env
+
 refresh-normaliser-mapping-files:
 	@ python -m ted_sws.metadata_normaliser.entrypoints.generate_mapping_resources
 #clean-mongo-db:

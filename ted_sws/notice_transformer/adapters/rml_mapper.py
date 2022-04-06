@@ -47,5 +47,5 @@ class RMLMapper(RMLMapperABC):
         :return: a string containing the result of the transformation
         """
         bash_script = f"cd {package_path} && java -jar {self.rml_mapper_path} -m {package_path / TRANSFORM_PACKAGE_NAME / MAPPINGS_PACKAGE_NAME / '*'}"
-        script_result = subprocess.run(bash_script, shell= True, stdout=subprocess.PIPE)
+        script_result = subprocess.run(bash_script, shell=True, stdout=subprocess.PIPE)
         return script_result.stdout.decode('utf-8')

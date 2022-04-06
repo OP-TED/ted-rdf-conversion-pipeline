@@ -268,6 +268,8 @@ class MappingSuiteRepositoryInFileSystem(MappingSuiteRepositoryABC):
         package_path = self.repository_path / mapping_suite_identifier
         if package_path.is_dir():
             package_metadata = self._read_package_metadata(package_path)
+            package_metadata["identifier"] = package_metadata[
+                "identifier"] if "identifier" in package_metadata else mapping_suite_identifier
             package_metadata["transformation_rule_set"] = self._read_transformation_rule_set(package_path)
             package_metadata["shacl_test_suites"] = self._read_shacl_test_suites(package_path)
             package_metadata["sparql_test_suites"] = self._read_sparql_test_suites(package_path)

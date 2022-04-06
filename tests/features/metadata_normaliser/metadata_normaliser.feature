@@ -17,12 +17,12 @@ Feature: Notice metadata normalizer
       | publication_date          | True     |
       | ojs_issue_number          | True     |
       | ojs_type                  | True     |
-      | city_of_buyer             | False    |
-      | name_of_buyer             | False    |
-      | original_language         | False    |
-      | country_of_buyer          | False    |
-      | eu_institution            | False    |
-      | document_sent_date        | False    |
+      | city_of_buyer             | True     |
+      | name_of_buyer             | True     |
+      | original_language         | True     |
+      | country_of_buyer          | True     |
+      | eu_institution            | True     |
+      | document_sent_date        | True     |
       | deadline_for_submission   | False    |
       | notice_type               | True     |
       | form_type                 | True     |

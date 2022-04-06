@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<title>business layer - mapping artefacts::eForms XSD to EPO conceptual mapping</title>
+<title>expanding mapping suite package</title>
 <link href="../../../css/ea.css" rel="stylesheet" type="text/css" />
 <script>
 function initPage(src) {	
@@ -34,15 +34,15 @@ function nameClassifier(name, separator)
 <div class="pageHeader"></div>
 <div class="PageBody">
 	<div id="name_classifier" style="display: none;"></div>
-	<span class="ObjectTitle"><script type="text/javascript">document.write(nameClassifier("eForms XSD to EPO conceptual mapping", " : "))</script>  : Public  &lt;&lt;ArchiMate_DataObject&gt;&gt; DataObject</span>
+	<span class="ObjectTitle"><script type="text/javascript">document.write(nameClassifier("expanding mapping suite package", " : "))</script>  : Public  &lt;&lt;BusinessProcess&gt;&gt; BusinessProcess</span>
 	<table border="0" cellpadding="0" cellspacing="0" class="ObjectDetails">
 		<tr>
 			<td width="15%" class="ObjectDetailsTopic">Created:</td>
-			<td width="85%" class="ObjectDetailsValue">01/03/2022 22:53:02</td>
+			<td width="85%" class="ObjectDetailsValue">01/04/2022 10:46:53</td>
 		</tr>
 		<tr>
 			<td class="ObjectDetailsTopic">Modified:</td>
-			<td class="ObjectDetailsValue">01/03/2022 23:57:17</td>
+			<td class="ObjectDetailsValue">01/04/2022 10:46:53</td>
 		</tr>
 		<tr style="height: 10px"><td colspan="2"></td></tr>
 		<tr>
@@ -87,90 +87,100 @@ function nameClassifier(name, separator)
 		</tr>
 		<tr id="adv00" style="display: none;">
 			<td class="ObjectDetailsTopic" style="padding-left: 18px;">UUID:</td>
-			<td class="ObjectDetailsValue">{B6533E07-D9CB-4c16-8CC5-D2B0F8A1D874}</td>
+			<td class="ObjectDetailsValue">{60EB1484-8B50-474b-9149-B9762058B4C5}</td>
 		</tr>
 		<tr id="adv01" style="display: none;">
 			<td class="ObjectDetailsTopic" style="padding-left: 18px;">Appears In:</td>
-			<td class="ObjectDetailsValue"><a href="EA421.html">business layer - mapping artefacts - messy overview</a>, <a href="EA419.html">business layer - mapping artefacts - phase II</a></td>
+			<td class="ObjectDetailsValue"></td>
 		</tr>
 	</table>
 	
 	<div class="TableGroup" id="TableGroup">
 		<ul class="ItemTitle">
-			<li onClick="parent.toggleItem('AssociationsTo');" id="AssociationsToTitle">Associations To</li>
+			<li onClick="parent.toggleItem('TaggedVal');" id="TaggedValTitle">Tagged Values</li>
 			<li onClick="parent.toggleItem('CustomProperties');" id="CustomPropertiesTitle">Advanced</li>
-			<li onClick="parent.toggleItem('Links');" id="LinksTitle">Other Links</li>
 		</ul>
-		<div class="ItemBody" id="AssociationsToTable">
-			<table border="0" cellspacing="0" cellpadding="0" class="Table">
-				<tr>
-					<td width="40%" class="TableHeading">Element</td>
-					<td width="30%" class="TableHeading">Source Role</td>
-					<td width="30%" class="TableHeading">Target Role</td>
-				</tr>
-				<tr>
-					<td width="40%" class="TableRow" valign="top">
-						<a href="EA431.html">«ArchiMate_DataObject» EPO (latest version)</a><br />
-						DataObject «ArchiMate_Association» 
-					</td>
-					<td width="30%" class="TableRow" valign="top">
-						<strong>Name:</strong> &nbsp;<br />
-						&nbsp;
-					</td>
-					<td width="30%" class="TableRow" valign="top">
-						<strong>Name:</strong> &nbsp;<br />
-						&nbsp;	
-					</td>
-				</tr>
-				<tr>
-					<td class="TableRowBottomDashed"  colspan="3">
-						<div class="DetailsDivParent"><img src="../../../images/minus03.gif" align="absmiddle" id="DetailsImageLink602" onclick="parent.toggleDiv('detailsDIVLink602','DetailsImageLink602')" />Details:
-							<div id="detailsDIVLink602" class="DetailsDiv" >
-							&nbsp;
-							</div>
-						</div>
-					</td>
-				</tr>
-				<tr>
-					<td width="40%" class="TableRow" valign="top">
-						<a href="EA429.html">«ArchiMate_DataObject» eForms XSD schema (in development)</a><br />
-						DataObject «ArchiMate_Association» 
-					</td>
-					<td width="30%" class="TableRow" valign="top">
-						<strong>Name:</strong> &nbsp;<br />
-						&nbsp;
-					</td>
-					<td width="30%" class="TableRow" valign="top">
-						<strong>Name:</strong> &nbsp;<br />
-						&nbsp;	
-					</td>
-				</tr>
-				<tr>
-					<td class="TableRowBottomDashed"  colspan="3">
-						<div class="DetailsDivParent"><img src="../../../images/minus03.gif" align="absmiddle" id="DetailsImageLink603" onclick="parent.toggleDiv('detailsDIVLink603','DetailsImageLink603')" />Details:
-							<div id="detailsDIVLink603" class="DetailsDiv" >
-							&nbsp;
-							</div>
-						</div>
-					</td>
-				</tr>
+<div class="ItemBody" id="TaggedValTable">
+	<table align="center" border="0" cellspacing="0" cellpadding="0" class="Table">
+		<tr>
+			<td width="50%" class="TableHeading">Tag</td>
+			<td width="50%" class="TableHeading">Value</td>
+		</tr>
+					<tr>
+				<td width="50%" class="TableRow" valign="top">isClosed</td>
+				<td width="50%" class="TableRow" valign="top">false</td>
+			</tr>	
+			<tr>
+				<td class="TableRowBottomDashed"  colspan="2">
+					<div class="DetailsDivParent"><img src="../../../images/minus03.gif" align="absmiddle" id="DetailsImageScenario603" onclick="parent.toggleDiv('detailsDIVScenario603','DetailsImageScenario603')" />Details:
+						<div id="detailsDIVScenario603" class="DetailsDiv" >
+						<div class="ObjectDetailsNotes">Values: true,false<br />Default: false<br /></div>
 
-			</table>
-		</div>
-		<div class="ItemBody" id="CustomPropertiesTable">
+						</div>
+					</div>
+				</td>
+			</tr>			<tr>
+				<td width="50%" class="TableRow" valign="top">processType</td>
+				<td width="50%" class="TableRow" valign="top">None</td>
+			</tr>	
+			<tr>
+				<td class="TableRowBottomDashed"  colspan="2">
+					<div class="DetailsDivParent"><img src="../../../images/minus03.gif" align="absmiddle" id="DetailsImageScenario604" onclick="parent.toggleDiv('detailsDIVScenario604','DetailsImageScenario604')" />Details:
+						<div id="detailsDIVScenario604" class="DetailsDiv" >
+						<div class="ObjectDetailsNotes">Values: None,Public,Private<br />Default: None<br /></div>
+
+						</div>
+					</div>
+				</td>
+			</tr>			<tr>
+				<td width="50%" class="TableRow" valign="top">state</td>
+				<td width="50%" class="TableRow" valign="top">None</td>
+			</tr>	
+			<tr>
+				<td class="TableRowBottomDashed"  colspan="2">
+					<div class="DetailsDivParent"><img src="../../../images/minus03.gif" align="absmiddle" id="DetailsImageScenario605" onclick="parent.toggleDiv('detailsDIVScenario605','DetailsImageScenario605')" />Details:
+						<div id="detailsDIVScenario605" class="DetailsDiv" >
+						<div class="ObjectDetailsNotes">Values: None,Ready,Active,Withdrawn,Completing,Completed,Terminated,Terminating,Compensating,Compensated,Failing,Failed<br />Default: None<br /></div>
+
+						</div>
+					</div>
+				</td>
+			</tr>
+	</table>
+</div>		<div class="ItemBody" id="CustomPropertiesTable">
 			<table border="0" cellspacing="0" cellpadding="0" class="Table">
 				<tr>
 					<td width="30%" class="TableHeading">Property</td>
 					<td width="70%" class="TableHeading">Value</td>
 				</tr>
 			<tr>
-				<td width="30%" class="TableRow">_HideUmlLinks:</td>
-				<td width="70%" class="TableRow">True</td>
+				<td width="30%" class="TableRow">_tagGroupings:</td>
+				<td width="70%" class="TableRow">auditing=Base Element;documentation=Base Element;monitoring=Base Element;definitionalCollaborationRef=Process;isClosed=Process;isExecutable=Process;processType=Process;resources=Process;supports=Process;ioBinding=Callable Element;ioSpecification=Callable Element;supportedInterfaceRefs=Callable Element;correlationSubscription=Execution;state=Execution;</td>
+			</tr>
+
+			<tr>
+				<td width="30%" class="TableRow">_tagGroups:</td>
+				<td width="70%" class="TableRow">Base Element,Process,Callable Element,Execution</td>
+			</tr>
+
+			<tr>
+				<td width="30%" class="TableRow">_makeComposite:</td>
+				<td width="70%" class="TableRow">true</td>
+			</tr>
+
+			<tr>
+				<td width="30%" class="TableRow">_tagGroupStates:</td>
+				<td width="70%" class="TableRow">Base Element=closed;Process=open;Callable Element=closed;Execution=closed;</td>
 			</tr>
 
 			<tr>
 				<td width="30%" class="TableRow">_defaultDiagramType:</td>
-				<td width="70%" class="TableRow">ArchiMate3::Application</td>
+				<td width="70%" class="TableRow">BPMN2.0::Business Process</td>
+			</tr>
+
+			<tr>
+				<td width="30%" class="TableRow">isReadOnly:</td>
+				<td width="70%" class="TableRow">false</td>
 			</tr>
 
 			<tr>
@@ -180,40 +190,7 @@ function nameClassifier(name, separator)
 
 
 			</table>
-		</div>		<div class="ItemBody" id="LinksTable">
-			<table align="center" border="0" cellspacing="0" cellpadding="0" class="Table">
-				<tr>
-					<td width="30%" class="TableHeading">Object</td>
-					<td width="10%" class="TableHeading">Type</td>
-					<td width="10%" class="TableHeading">Connection</td>
-					<td width="10%" class="TableHeading">Direction</td>
-					<td width="40%" class="TableHeading">Notes</td>
-				</tr>
-				<tr>
-					<td width="30%" class="TableRow" valign="top"><a href="EA428.html">«ArchiMate_DataObject» eForms XML to EPO RDF mapping (RML)</a></td>
-					<td width="10%" class="TableRow" valign="top">DataObject</td>
-					<td width="10%" class="TableRow" valign="top">Generalization</td>
-					<td width="10%" class="TableRow" valign="top">From</td>
-					<td width="40%" class="TableRow" valign="top">&nbsp;</td>
-				</tr>
-				<tr>
-					<td width="30%" class="TableRow" valign="top"><a href="./EA1/EA448.html">«ArchiMate_BusinessObject» Conceptual mapping</a></td>
-					<td width="10%" class="TableRow" valign="top">BusinessObject</td>
-					<td width="10%" class="TableRow" valign="top">Dependency</td>
-					<td width="10%" class="TableRow" valign="top">To</td>
-					<td width="40%" class="TableRow" valign="top">&nbsp;</td>
-				</tr>
-				<tr>
-					<td width="30%" class="TableRow" valign="top"><a href="./EA1/EA451.html">«ArchiMate_BusinessObject» eForms (2023-...)</a></td>
-					<td width="10%" class="TableRow" valign="top">BusinessObject</td>
-					<td width="10%" class="TableRow" valign="top">Dependency</td>
-					<td width="10%" class="TableRow" valign="top">To</td>
-					<td width="40%" class="TableRow" valign="top">&nbsp;</td>
-				</tr>
-
-			</table>
-		</div>
-	</div>
+		</div>	</div>
 <div class="pageFooter"></div>
  
 </body>

@@ -45,7 +45,9 @@ def test_notice_status_upstream_transition(raw_notice):
     raw_notice.update_status_to(NoticeStatus.NORMALISED_METADATA)
     raw_notice.update_status_to(NoticeStatus.INELIGIBLE_FOR_TRANSFORMATION)
     raw_notice.update_status_to(NoticeStatus.ELIGIBLE_FOR_TRANSFORMATION)
+    raw_notice.update_status_to(NoticeStatus.PREPROCESSED_FOR_TRANSFORMATION)
     raw_notice.update_status_to(NoticeStatus.TRANSFORMED)
+    raw_notice.update_status_to(NoticeStatus.DISTILLED)
     raw_notice.update_status_to(NoticeStatus.VALIDATED)
     raw_notice.update_status_to(NoticeStatus.INELIGIBLE_FOR_PACKAGING)
     raw_notice.update_status_to(NoticeStatus.ELIGIBLE_FOR_PACKAGING)
@@ -69,6 +71,8 @@ def test_notice_status_transition_below_packaged(publicly_available_notice):
     assert publicly_available_notice.normalised_metadata is not None
     assert publicly_available_notice.xml_manifestation is not None
     assert publicly_available_notice.original_metadata is not None
+    assert publicly_available_notice.distilled_rdf_manifestation is not None
+    assert publicly_available_notice.preprocessed_xml_manifestation is not None
 
 
 def test_notice_status_transition_below_transformed(publicly_available_notice):
@@ -96,3 +100,29 @@ def test_notice_status_transition_below_normalised_metadata(publicly_available_n
     assert publicly_available_notice.normalised_metadata is None
     assert publicly_available_notice.xml_manifestation is not None
     assert publicly_available_notice.original_metadata is not None
+
+
+def test_notice_status_transition_check_preprocessed_and_distilled_state(raw_notice, publicly_available_notice):
+    """
+    
+    :param raw_notice:
+    :param publicly_available_notice:
+    :return:
+    """
+    assert raw_notice.status == NoticeStatus.RAW
+    raw_notice._status = NoticeStatus.ELIGIBLE_FOR_TRANSFORMATION
+    raw_notice.set_preprocessed_xml_manifestation(
+        preprocessed_xml_manifestation=publicly_available_notice.preprocessed_xml_manifestation)
+    assert raw_notice.status == NoticeStatus.PREPROCESSED_FOR_TRANSFORMATION
+    raw_notice.set_preprocessed_xml_manifestation(
+        preprocessed_xml_manifestation=publicly_available_notice.preprocessed_xml_manifestation)
+    raw_notice.update_status_to(NoticeStatus.TRANSFORMED)
+    raw_notice.set_distilled_rdf_manifestation(
+        distilled_rdf_manifestation=publicly_available_notice.distilled_rdf_manifestation)
+    assert raw_notice.status == NoticeStatus.DISTILLED
+    raw_notice.set_distilled_rdf_manifestation(
+        distilled_rdf_manifestation=publicly_available_notice.distilled_rdf_manifestation)
+
+
+def test_notice_status_conversion_from_string():
+    assert NoticeStatus["RAW"] == NoticeStatus.RAW

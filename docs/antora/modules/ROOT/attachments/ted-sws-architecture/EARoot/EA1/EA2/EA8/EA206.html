@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<title>Metadata storage (CR) functionality</title>
+<title>Mapping suite management service</title>
 <link href="../../../../css/ea.css" rel="stylesheet" type="text/css" />
 <script>
 function initPage(src) {	
@@ -34,15 +34,15 @@ function nameClassifier(name, separator)
 <div class="pageHeader"></div>
 <div class="PageBody">
 	<div id="name_classifier" style="display: none;"></div>
-	<span class="ObjectTitle"><script type="text/javascript">document.write(nameClassifier("Metadata storage (CR) functionality", " : "))</script>  : Public  &lt;&lt;ArchiMate_ApplicationFunction&gt;&gt; ApplicationFunction</span>
+	<span class="ObjectTitle"><script type="text/javascript">document.write(nameClassifier("Mapping suite management service", " : "))</script>  : Public  &lt;&lt;ArchiMate_ApplicationService&gt;&gt; ApplicationService</span>
 	<table border="0" cellpadding="0" cellspacing="0" class="ObjectDetails">
 		<tr>
 			<td width="15%" class="ObjectDetailsTopic">Created:</td>
-			<td width="85%" class="ObjectDetailsValue">17/12/2021 21:44:39</td>
+			<td width="85%" class="ObjectDetailsValue">01/03/2022 21:08:40</td>
 		</tr>
 		<tr>
 			<td class="ObjectDetailsTopic">Modified:</td>
-			<td class="ObjectDetailsValue">14/03/2022 16:21:27</td>
+			<td class="ObjectDetailsValue">21/03/2022 10:35:09</td>
 		</tr>
 		<tr style="height: 10px"><td colspan="2"></td></tr>
 		<tr>
@@ -87,22 +87,21 @@ function nameClassifier(name, separator)
 		</tr>
 		<tr id="adv00" style="display: none;">
 			<td class="ObjectDetailsTopic" style="padding-left: 18px;">UUID:</td>
-			<td class="ObjectDetailsValue">{8AA67B56-7FB9-427e-9D30-6A1D8151F064}</td>
+			<td class="ObjectDetailsValue">{581CA985-9764-4efa-899A-E79125166B55}</td>
 		</tr>
 		<tr id="adv01" style="display: none;">
 			<td class="ObjectDetailsTopic" style="padding-left: 18px;">Appears In:</td>
-			<td class="ObjectDetailsValue"><a href="EA193.html">notice state and data manager</a></td>
+			<td class="ObjectDetailsValue"><a href="../EA3/EA126.html">notice transformer</a>, <a href="../EA5/EA155.html">transformation validator</a>, <a href="EA195.html">transformation and validation rules manager</a></td>
 		</tr>
 	</table>
-	<div class="ObjectDetailsNotes">Metadata storage functionality comprises creation, deletion and update operations.&lt;br/&gt;</div>
-
+	
 	<div class="TableGroup" id="TableGroup">
 		<ul class="ItemTitle">
-			<li onClick="parent.toggleItem('AssociationsFrom');" id="AssociationsFromTitle">Associations From</li>
+			<li onClick="parent.toggleItem('AssociationsTo');" id="AssociationsToTitle">Associations To</li>
 			<li onClick="parent.toggleItem('CustomProperties');" id="CustomPropertiesTitle">Advanced</li>
 			<li onClick="parent.toggleItem('Links');" id="LinksTitle">Other Links</li>
 		</ul>
-		<div class="ItemBody" id="AssociationsFromTable">
+		<div class="ItemBody" id="AssociationsToTable">
 			<table border="0" cellspacing="0" cellpadding="0" class="Table">
 				<tr>
 					<td width="40%" class="TableHeading">Element</td>
@@ -111,8 +110,8 @@ function nameClassifier(name, separator)
 				</tr>
 				<tr>
 					<td width="40%" class="TableRow" valign="top">
-						<a href="EA209.html">«ArchiMate_ApplicationComponent» Notice state & data manager</a><br />
-						ApplicationComponent «ArchiMate_Assignment» 
+						<a href="../EA3/EA137.html">«ArchiMate_ApplicationComponent» XML to RDF transformer</a><br />
+						ApplicationComponent «ArchiMate_Serving» 
 					</td>
 					<td width="30%" class="TableRow" valign="top">
 						<strong>Name:</strong> &nbsp;<br />
@@ -127,6 +126,29 @@ function nameClassifier(name, separator)
 					<td class="TableRowBottomDashed"  colspan="3">
 						<div class="DetailsDivParent"><img src="../../../../images/minus03.gif" align="absmiddle" id="DetailsImageLink400" onclick="parent.toggleDiv('detailsDIVLink400','DetailsImageLink400')" />Details:
 							<div id="detailsDIVLink400" class="DetailsDiv" >
+							&nbsp;
+							</div>
+						</div>
+					</td>
+				</tr>
+				<tr>
+					<td width="40%" class="TableRow" valign="top">
+						<a href="../EA5/EA167.html">«ArchiMate_ApplicationComponent» TED-RDF validator</a><br />
+						ApplicationComponent «ArchiMate_Serving» 
+					</td>
+					<td width="30%" class="TableRow" valign="top">
+						<strong>Name:</strong> &nbsp;<br />
+						&nbsp;
+					</td>
+					<td width="30%" class="TableRow" valign="top">
+						<strong>Name:</strong> &nbsp;<br />
+						&nbsp;	
+					</td>
+				</tr>
+				<tr>
+					<td class="TableRowBottomDashed"  colspan="3">
+						<div class="DetailsDivParent"><img src="../../../../images/minus03.gif" align="absmiddle" id="DetailsImageLink401" onclick="parent.toggleDiv('detailsDIVLink401','DetailsImageLink401')" />Details:
+							<div id="detailsDIVLink401" class="DetailsDiv" >
 							&nbsp;
 							</div>
 						</div>
@@ -173,17 +195,31 @@ function nameClassifier(name, separator)
 					<td width="40%" class="TableHeading">Notes</td>
 				</tr>
 				<tr>
-					<td width="30%" class="TableRow" valign="top"><a href="../EA1/EA111.html">«ArchiMate_DataObject» Notice metadata</a></td>
-					<td width="10%" class="TableRow" valign="top">DataObject</td>
+					<td width="30%" class="TableRow" valign="top"><a href="EA202.html">«ArchiMate_ApplicationFunction» Eligibility constraint retreival functionality</a></td>
+					<td width="10%" class="TableRow" valign="top">ApplicationFunction</td>
 					<td width="10%" class="TableRow" valign="top">Dependency</td>
-					<td width="10%" class="TableRow" valign="top">To</td>
+					<td width="10%" class="TableRow" valign="top">From</td>
 					<td width="40%" class="TableRow" valign="top">&nbsp;</td>
 				</tr>
 				<tr>
-					<td width="30%" class="TableRow" valign="top"><a href="EA208.html">«ArchiMate_ApplicationService» Notice state & data management service</a></td>
-					<td width="10%" class="TableRow" valign="top">ApplicationService</td>
+					<td width="30%" class="TableRow" valign="top"><a href="EA215.html">«ArchiMate_ApplicationFunction» Test-suite retreival functionality</a></td>
+					<td width="10%" class="TableRow" valign="top">ApplicationFunction</td>
 					<td width="10%" class="TableRow" valign="top">Dependency</td>
-					<td width="10%" class="TableRow" valign="top">To</td>
+					<td width="10%" class="TableRow" valign="top">From</td>
+					<td width="40%" class="TableRow" valign="top">&nbsp;</td>
+				</tr>
+				<tr>
+					<td width="30%" class="TableRow" valign="top"><a href="EA217.html">«ArchiMate_ApplicationFunction» Transformation ruleset retreival functionality</a></td>
+					<td width="10%" class="TableRow" valign="top">ApplicationFunction</td>
+					<td width="10%" class="TableRow" valign="top">Dependency</td>
+					<td width="10%" class="TableRow" valign="top">From</td>
+					<td width="40%" class="TableRow" valign="top">&nbsp;</td>
+				</tr>
+				<tr>
+					<td width="30%" class="TableRow" valign="top"><a href="EA205.html">«ArchiMate_ApplicationFunction» Mapping suite management (CRD) functionality</a></td>
+					<td width="10%" class="TableRow" valign="top">ApplicationFunction</td>
+					<td width="10%" class="TableRow" valign="top">Dependency</td>
+					<td width="10%" class="TableRow" valign="top">From</td>
 					<td width="40%" class="TableRow" valign="top">&nbsp;</td>
 				</tr>
 

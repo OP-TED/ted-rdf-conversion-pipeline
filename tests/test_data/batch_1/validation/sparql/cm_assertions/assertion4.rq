@@ -1,0 +1,8 @@
+# title: Type of the contracting authority
+# description: this is a description
+# class path: epo:Role / epo:Buyer / at-voc:buyer-legal-type (from CL5)
+ASK
+WHERE
+{
+  ?this rdf:type / epo:hasBuyerType ?value .
+}

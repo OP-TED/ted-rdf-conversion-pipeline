@@ -38,5 +38,6 @@ def generate_mapping_files(queries_folder_path: Path = QUERIES_PATH,
 
     logger.info(f"Mapping files were generated in {output_folder_path}")
 
+
 if __name__ == '__main__':
     main()

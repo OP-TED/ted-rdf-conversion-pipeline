@@ -4,16 +4,22 @@
 # Date:  07/02/2022
 # Author: Eugeniu Costetchi
 # Email: costezki.eugen@gmail.com
-
+# Package PIP install location: https://github.com/meaningfy-ws/ted-sws/archive/main.zip
 """ """
 
-import os
-import re
 import codecs
+import os
+import pathlib
+import re
+
+from pkg_resources import parse_requirements
 from setuptools import setup, find_packages
 
 kwargs = {}
-kwargs["install_requires"] = []
+
+with pathlib.Path('requirements.txt').open() as requirements:
+    kwargs["install_requires"] = [str(requirement) for requirement in parse_requirements(requirements)]
+
 kwargs["tests_require"] = []
 kwargs["extras_require"] = {
 }

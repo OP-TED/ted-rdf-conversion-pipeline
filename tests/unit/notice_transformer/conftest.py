@@ -38,8 +38,3 @@ def fake_mapping_suite(fake_repository_path, fake_mapping_suite_id) -> MappingSu
     repository_path = fake_repository_path
     mapping_suite_repository = MappingSuiteRepositoryInFileSystem(repository_path=repository_path)
     return mapping_suite_repository.get(reference=fake_mapping_suite_id)
-
-
-@pytest.fixture
-def cmd_transformer_path() -> str:
-    return "../../../../ted_sws/notice_transformer/entrypoints/cmd_mapping_suite_transformer.py"

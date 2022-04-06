@@ -1,35 +1,24 @@
 #!/usr/bin/python3
 
 import os
-import sys
-
-module_path = os.path.dirname(os.path.realpath(__file__)) + '/../../../'
-sys.path.append(module_path)
-
-import click
 from pathlib import Path
 
+import click
+
+import ted_sws.notice_transformer.services.notice_transformer as notice_transformer
 from ted_sws import config
 from ted_sws.data_manager.adapters.mapping_suite_repository import MappingSuiteRepositoryInFileSystem, \
     METADATA_FILE_NAME
 from ted_sws.notice_transformer.adapters.rml_mapper import RMLMapper
-import ted_sws.notice_transformer.services.notice_transformer as notice_transformer
 
 DEFAULT_MAPPINGS_PATH = 'mappings'
 DEFAULT_OUTPUT_PATH = 'output'
 
 """
 SETUP:
-1) Clone ted-sws repository on the same directory level as ted-sws-artefacts project.
-2) Go to ted-sws directory.
-3) Run the following commands (it will install the requirements and set the path to rplmapper.jar):
-   # make install && make local-dotenv-file 
-   (.env file must already be created)
-4) Go to ted-sws-artefacts directory.
-5) Create a symlink in ted-sws-artefacts project's root directory:
-   # ln -sf ../ted-sws/ted_sws/notice_transformer/entrypoints/cmd_mapping_suite_transformer.py transformer
-6) Usage:
-   # ./transformer --help
+1) pip install https://github.com/meaningfy-ws/ted-sws/archive/main.zip
+2) Usage:
+   # transformer --help
 """
 
 
@@ -90,7 +79,7 @@ class CmdRunner:
               help='MappingSuite ID to be processed (leave empty to process all Mapping Suites).')
 @click.option('--opt-mappings-path', default=DEFAULT_MAPPINGS_PATH)
 @click.option('--opt-output-path', default=DEFAULT_OUTPUT_PATH)
-def transform_notice(mapping_suite_id, opt_mapping_suite_id, opt_mappings_path, opt_output_path):
+def main(mapping_suite_id, opt_mapping_suite_id, opt_mappings_path, opt_output_path):
     """
     Transforms the Test Mapping Suites (identified by mapping-suite-id).
     If no mapping-suite-id is provided, all mapping suites from mappings directory will be processed.
@@ -109,4 +98,4 @@ def transform_notice(mapping_suite_id, opt_mapping_suite_id, opt_mappings_path, 
 
 
 if __name__ == '__main__':
-    transform_notice()
+    main()

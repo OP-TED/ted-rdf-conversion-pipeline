@@ -232,17 +232,17 @@ def worker_single_notice_process_orchestrator():
         notice_successfully_processed, fail_on_state]
 
     state_skip_table = {
-        str(NoticeStatus.RAW): "normalise_notice_metadata",
-        str(NoticeStatus.ELIGIBLE_FOR_TRANSFORMATION): "check_eligibility_for_transformation",
-        str(NoticeStatus.ELIGIBLE_FOR_PACKAGING): "generate_mets_package",
-        str(NoticeStatus.ELIGIBLE_FOR_PUBLISHING): "publish_notice_in_cellar",
+        NoticeStatus.RAW: "normalise_notice_metadata",
+        NoticeStatus.ELIGIBLE_FOR_TRANSFORMATION: "check_eligibility_for_transformation",
+        NoticeStatus.ELIGIBLE_FOR_PACKAGING: "generate_mets_package",
+        NoticeStatus.ELIGIBLE_FOR_PUBLISHING: "publish_notice_in_cellar",
     }
 
     def _get_task_run():
         context = get_current_context()
         dag_params = context["dag_run"].conf
         push_dag_downstream(key=NOTICE_ID, value=dag_params["notice_id"])
-        return state_skip_table[dag_params["notice_status"]]
+        return state_skip_table[NoticeStatus[dag_params["notice_status"].split(".")[-1]]]
 
     branch_task = BranchPythonOperator(
         task_id='start_processing_notice',

@@ -32,10 +32,6 @@ class NoticeRepository(NoticeRepositoryABC):
         notice_dict = notice.dict()
         notice_dict["_id"] = notice_dict["ted_id"]
         self.collection.update_one({'_id': notice_dict["_id"]}, {"$set": notice_dict}, upsert=True)
-        # try:
-        #     self.collection.insert_one(notice_dict)
-        # except Exception as e:
-        #     logger.warning(f"Failed to add notice with id={notice_dict['ted_id']}, with error message: "+str(e))
 
     def update(self, notice: Notice):
         """

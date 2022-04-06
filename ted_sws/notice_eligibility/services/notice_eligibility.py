@@ -1,3 +1,4 @@
+from datetime import datetime
 from typing import Tuple
 
 import pandas as pd
@@ -30,7 +31,7 @@ def check_package(mapping_suite: MappingSuite, notice_metadata: NormalisedMetada
     """
     checking_df = create_eligibility_df(metadata_constraint=mapping_suite.metadata_constraints)
     legal_basis = notice_metadata.legal_basis_directive.split("/")[-1]
-    year = str(notice_metadata.publication_date.year)
+    year = str(datetime.fromisoformat(notice_metadata.publication_date).year)
     form_number = notice_metadata.form_number
     filtered_df = filter_df_by_variables(df=checking_df, form_number=form_number, legal_basis=legal_basis, year=year)
     return True if not filtered_df.empty else False

@@ -27,6 +27,9 @@ jobs:
       - name: Get RML mapper
         run: make init-rml-mapper
 
+      - name: Get Saxon
+        run: make init-saxon
+
       - name: Run unit tests
         run: make test-all
       - name: Upload coverage to Codecov

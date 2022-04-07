@@ -64,7 +64,14 @@ class RMLMapperConfig:
         return VaultAndEnvConfigResolver().config_resolve()
 
 
-class TedConfigResolver(MongoDBConfig, RMLMapperConfig):
+class XMLProcessorConfig:
+
+    @property
+    def XML_PROCESSOR_PATH(self) -> str:
+        return VaultAndEnvConfigResolver().config_resolve()
+
+
+class TedConfigResolver(MongoDBConfig, RMLMapperConfig, XMLProcessorConfig):
     """
         This class resolve the secrets of the ted-sws project.
     """

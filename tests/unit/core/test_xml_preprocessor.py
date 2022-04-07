@@ -1,4 +1,3 @@
-from ted_sws import config
 from ted_sws.core.adapters.xml_preprocessor import XMLPreprocessor
 
 

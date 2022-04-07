@@ -13,7 +13,6 @@ ENV_FILE := .env
 PROJECT_PATH = $(shell pwd)
 AIRFLOW_INFRA_FOLDER ?= ${PROJECT_PATH}/.airflow
 RML_MAPPER_PATH = ${PROJECT_PATH}/.rmlmapper/rmlmapper.jar
-XML_PROCESSOR_PATH = ${PROJECT_PATH}/.saxon/saxon-he-10.6.jar
 
 #-----------------------------------------------------------------------------
 # Dev commands
@@ -149,10 +148,6 @@ init-rml-mapper:
 	@ wget -c https://github.com/RMLio/rmlmapper-java/releases/download/v5.0.0/rmlmapper-5.0.0-r362-all.jar -P .rmlmapper/
 	@ mv .rmlmapper/rmlmapper-5.0.0-r362-all.jar .rmlmapper/rmlmapper.jar 2>/dev/null
 
-init-saxon:
-	@ echo -e "$(BUILD_PRINT)Saxon folder initialization $(END_BUILD_PRINT)"
-	@ wget -c https://kumisystems.dl.sourceforge.net/project/saxon/Saxon-HE/10/Java/SaxonHE10-6J.zip -P .saxon/
-	@ cd .saxon && unzip SaxonHE10-6J.zip && rm -rf SaxonHE10-6J.zip
 
 start-project-services: | start-airflow start-mongo init-rml-mapper
 stop-project-services: | stop-airflow stop-mongo
@@ -182,7 +177,6 @@ staging-dotenv-file: guard-VAULT_ADDR guard-VAULT_TOKEN vault-installed
 	@ echo ENVIRONMENT=staging >> .env
 	@ echo SUBDOMAIN=staging. >> .env
 	@ echo RML_MAPPER_PATH=${RML_MAPPER_PATH} >> .env
-	@ echo XML_PROCESSOR_PATH=${XML_PROCESSOR_PATH} >> .env
 	@ echo AIRFLOW_INFRA_FOLDER=~/airflow-infra/staging >> .env
 	@ vault kv get -format="json" ted-staging/airflow | jq -r ".data.data | keys[] as \$$k | \"\(\$$k)=\(.[\$$k])\"" >> .env
 	@ vault kv get -format="json" ted-staging/mongo-db | jq -r ".data.data | keys[] as \$$k | \"\(\$$k)=\(.[\$$k])\"" >> .env
@@ -195,7 +189,6 @@ dev-dotenv-file: guard-VAULT_ADDR guard-VAULT_TOKEN vault-installed
 	@ echo ENVIRONMENT=dev >> .env
 	@ echo SUBDOMAIN= >> .env
 	@ echo RML_MAPPER_PATH=${RML_MAPPER_PATH} >> .env
-	@ echo XML_PROCESSOR_PATH=${XML_PROCESSOR_PATH} >> .env
 	@ echo AIRFLOW_INFRA_FOLDER=${AIRFLOW_INFRA_FOLDER} >> .env
 	@ vault kv get -format="json" ted-dev/airflow | jq -r ".data.data | keys[] as \$$k | \"\(\$$k)=\(.[\$$k])\"" >> .env
 	@ vault kv get -format="json" ted-dev/mongo-db | jq -r ".data.data | keys[] as \$$k | \"\(\$$k)=\(.[\$$k])\"" >> .env
@@ -209,7 +202,6 @@ prod-dotenv-file: guard-VAULT_ADDR guard-VAULT_TOKEN vault-installed
 	@ echo ENVIRONMENT=prod >> .env
 	@ echo SUBDOMAIN= >> .env
 	@ echo RML_MAPPER_PATH=${RML_MAPPER_PATH} >> .env
-	@ echo XML_PROCESSOR_PATH=${XML_PROCESSOR_PATH} >> .env
 	@ echo AIRFLOW_INFRA_FOLDER=~/airflow-infra/prod >> .env
 	@ vault kv get -format="json" ted-prod/airflow | jq -r ".data.data | keys[] as \$$k | \"\(\$$k)=\(.[\$$k])\"" >> .env
 	@ vault kv get -format="json" ted-prod/mongo-db | jq -r ".data.data | keys[] as \$$k | \"\(\$$k)=\(.[\$$k])\"" >> .env

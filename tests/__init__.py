@@ -8,6 +8,26 @@
 """ """
 import pathlib
 
+import os, shutil, tempfile
+
 TESTS_PATH = pathlib.Path(__file__).parent.resolve()
 
 TEST_DATA_PATH = TESTS_PATH / 'test_data'
+
+
+
+class temporary_copy(object):
+
+    def __init__(self, original_path):
+        self.original_path = original_path
+
+    def __enter__(self):
+        temp_dir = tempfile.gettempdir()
+        base_path = os.path.basename(self.original_path)
+        self.path = pathlib.Path(os.path.join(temp_dir, base_path))
+        self.path.mkdir(parents=True, exist_ok=True)
+        shutil.copytree(self.original_path, self.path, dirs_exist_ok=True)
+        return self.path
+
+    def __exit__(self, exc_type, exc_val, exc_tb):
+        shutil.rmtree(self.path)

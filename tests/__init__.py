@@ -17,7 +17,11 @@ TEST_DATA_PATH = TESTS_PATH / 'test_data'
 
 
 class temporary_copy(object):
-
+    """
+        This class realizes the temporary context mechanism for an existing directory.
+        It can be used when you want to perform operations on a copy in an existing directory.
+        Once the context is closed, the temporary directory will be deleted.
+    """
     def __init__(self, original_path):
         self.original_path = original_path
 

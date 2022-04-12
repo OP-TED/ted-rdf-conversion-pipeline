@@ -157,6 +157,7 @@ class Notice(WorkExpression):
     _rdf_manifestation: Optional[RDFManifestation] = None
     _mets_manifestation: Optional[METSManifestation] = None
 
+
     @property
     def preprocessed_xml_manifestation(self) -> XMLManifestation:
         return self._preprocessed_xml_manifestation

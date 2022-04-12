@@ -1,6 +1,5 @@
-from ted_sws.core.adapters.logger import LoggerFactory, LoggingType
+from ted_sws.core.adapters.logger import LoggerFactory, LoggingType, DOMAIN_LOGGING_TYPES
 from ted_sws.core.model import message
-from ted_sws import config
 
 """ 
 Here are defined all core/domain messages' handlers
@@ -23,7 +22,7 @@ def handler_log(log: message.Log):
             messages=eol.join(map(lambda m: " - " + m, log.messages))
         )
 
-    for logging_type_value in config.LOGGING_TYPE.split(","):
+    for logging_type_value in DOMAIN_LOGGING_TYPES:
         _logger = LoggerFactory.get(LoggingType(logging_type_value), name=logging_type_value + "-logging")
         _logger.log(msg)
     return msg

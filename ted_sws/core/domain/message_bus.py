@@ -53,4 +53,8 @@ if MessageBus.HAS_LOGGING_MIDDLEWARE:
 if len(middlewares) > 0:
     message_bus.set_middlewares(middlewares)
 
-message_bus.add_handlers({message.Log: [message_handlers.handler_log]})
+message_bus.add_handlers({
+    message.Log: [
+        message_handlers.handler_log
+    ]
+})

@@ -12,7 +12,8 @@ class LoggingType(enum.Enum):
     PY = "PY"
 
 
-DOMAIN_LOGGING_TYPE = config.LOGGING_TYPE.split(",")[0] if config.LOGGING_TYPE is not None else LoggingType.PY.value
+DOMAIN_LOGGING_TYPES = config.LOGGING_TYPE.split(",") if config.LOGGING_TYPE is not None else [LoggingType.PY.value]
+DOMAIN_LOGGING_TYPE = DOMAIN_LOGGING_TYPES[0]
 
 
 class LoggerABC(abc.ABC):

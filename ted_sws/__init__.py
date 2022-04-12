@@ -72,11 +72,13 @@ class ELKConfig:
 
     @property
     def ELK_PORT(self) -> int:
-        return int(VaultAndEnvConfigResolver().config_resolve())
+        v: str = VaultAndEnvConfigResolver().config_resolve()
+        return int(v) if v is not None else None
 
     @property
     def ELK_VERSION(self) -> int:
-        return int(VaultAndEnvConfigResolver().config_resolve())
+        v: str = VaultAndEnvConfigResolver().config_resolve()
+        return int(v) if v is not None else None
 
 
 class LoggingConfig:
@@ -85,7 +87,14 @@ class LoggingConfig:
         return VaultAndEnvConfigResolver().config_resolve()
 
 
-class TedConfigResolver(MongoDBConfig, RMLMapperConfig, ELKConfig, LoggingConfig):
+class XMLProcessorConfig:
+
+    @property
+    def XML_PROCESSOR_PATH(self) -> str:
+        return VaultAndEnvConfigResolver().config_resolve()
+
+
+class TedConfigResolver(MongoDBConfig, RMLMapperConfig, XMLProcessorConfig, ELKConfig, LoggingConfig):
     """
         This class resolve the secrets of the ted-sws project.
     """

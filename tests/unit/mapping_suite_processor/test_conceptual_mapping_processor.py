@@ -18,4 +18,4 @@ def test_mapping_suite_processor_generate_sparql_queries(file_system_repository_
         assert CONCEPTUAL_MAPPINGS_ASSERTIONS in sparql_packages
         for sparql_test_suite in mapping_suite.sparql_test_suites:
             if sparql_test_suite.identifier == CONCEPTUAL_MAPPINGS_ASSERTIONS:
-                assert len(sparql_test_suite.sparql_tests) == 188
+                assert len(sparql_test_suite.sparql_tests) == 66

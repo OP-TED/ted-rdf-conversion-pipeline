@@ -22,14 +22,18 @@ def test_message_bus_log(caplog):
     log = log_message(logging_type)
     message_bus.set_domain_logger(LoggerFactory.get(logging_type, name="py-domain"))
     message_bus.handle(log)
-    assert log.title in caplog.text
-    for message in log.messages:
-        assert message in caplog.text
+    if log.title:
+        assert log.title in caplog.text
+    if log.messages:
+        for message in log.messages:
+            assert message in caplog.text
 
     logging_type = LoggingType.ELK
     log = log_message(logging_type)
     message_bus.set_domain_logger(LoggerFactory.get(logging_type, name="elk-domain"))
     message_bus.handle(log)
-    assert log.title in caplog.text
-    for message in log.messages:
-        assert message in caplog.text
+    if log.title:
+        assert log.title in caplog.text
+    if log.messages:
+        for message in log.messages:
+            assert message in caplog.text

@@ -15,9 +15,14 @@ def handler_log(log: message.Log):
     """
 
     eol = log.format.new_line
-    msg = (
-            "{title}" + eol + "Messages: " + eol + "{messages}" + eol
-    ).format(title=log.title, messages=eol.join(map(lambda m: " - " + m, log.messages)))
+    msg = ""
+    if log.title:
+        msg += ("{title}" + eol).format(title=log.title)
+    if log.messages:
+        msg += ("Messages: " + eol + "{messages}" + eol).format(
+            messages=eol.join(map(lambda m: " - " + m, log.messages))
+        )
+
     for logging_type_value in config.LOGGING_TYPE.split(","):
         _logger = LoggerFactory.get(LoggingType(logging_type_value), name=logging_type_value + "-logging")
         _logger.log(msg)

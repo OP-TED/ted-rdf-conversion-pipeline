@@ -12,6 +12,9 @@ class LoggingType(enum.Enum):
     PY = "PY"
 
 
+DOMAIN_LOGGING_TYPE = config.LOGGING_TYPE.split(",")[0] if config.LOGGING_TYPE is not None else LoggingType.PY.value
+
+
 class LoggerABC(abc.ABC):
     """
     This abstract class provides methods definitions and infos for available loggers
@@ -40,7 +43,7 @@ class Logger(LoggerABC):
 
 class LoggerFactory:
     @classmethod
-    def get(cls, logging_type: LoggingType = LoggingType(config.LOGGING_TYPE.split(",")[0]), name: str = __name__):
+    def get(cls, logging_type: LoggingType = LoggingType(DOMAIN_LOGGING_TYPE), name: str = __name__):
         """Factory Method to return the needed Logger, based on logging type/target"""
         loggers = {
             LoggingType.ELK: ELKLogger,

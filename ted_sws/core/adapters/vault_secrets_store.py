@@ -7,6 +7,7 @@ import dotenv
 
 dotenv.load_dotenv(verbose=True, override=True)
 
+
 class SecretsStoreABC(ABC):
     """
         This class aims to define an interface for obtaining secrets from similar resources as Vault.

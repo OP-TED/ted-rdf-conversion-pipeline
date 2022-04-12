@@ -12,6 +12,7 @@ __version__ = "0.0.1"
 import os
 
 import dotenv
+
 from ted_sws.core.adapters.config_resolver import VaultAndEnvConfigResolver
 from ted_sws.core.adapters.vault_secrets_store import VaultSecretsStore
 
@@ -64,6 +65,28 @@ class RMLMapperConfig:
         return VaultAndEnvConfigResolver().config_resolve()
 
 
+class ELKConfig:
+    @property
+    def ELK_HOST(self) -> str:
+        return VaultAndEnvConfigResolver().config_resolve()
+
+    @property
+    def ELK_PORT(self) -> int:
+        v: str = VaultAndEnvConfigResolver().config_resolve()
+        return int(v) if v is not None else None
+
+    @property
+    def ELK_VERSION(self) -> int:
+        v: str = VaultAndEnvConfigResolver().config_resolve()
+        return int(v) if v is not None else None
+
+
+class LoggingConfig:
+    @property
+    def LOGGING_TYPE(self) -> str:
+        return VaultAndEnvConfigResolver().config_resolve()
+
+
 class XMLProcessorConfig:
 
     @property
@@ -71,7 +94,7 @@ class XMLProcessorConfig:
         return VaultAndEnvConfigResolver().config_resolve()
 
 
-class TedConfigResolver(MongoDBConfig, RMLMapperConfig, XMLProcessorConfig):
+class TedConfigResolver(MongoDBConfig, RMLMapperConfig, XMLProcessorConfig, ELKConfig, LoggingConfig):
     """
         This class resolve the secrets of the ted-sws project.
     """

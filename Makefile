@@ -182,6 +182,10 @@ staging-dotenv-file: guard-VAULT_ADDR guard-VAULT_TOKEN vault-installed
 	@ echo ENVIRONMENT=staging >> .env
 	@ echo SUBDOMAIN=staging. >> .env
 	@ echo RML_MAPPER_PATH=${RML_MAPPER_PATH} >> .env
+	@ echo ELK_HOST=localhost >> .env
+	@ echo ELK_PORT=5959 >> .env
+	@ echo ELK_VERSION=1 >> .env
+	@ echo LOGGING_TYPE=PY,ELK >> .env
 	@ echo XML_PROCESSOR_PATH=${XML_PROCESSOR_PATH} >> .env
 	@ echo AIRFLOW_INFRA_FOLDER=~/airflow-infra/staging >> .env
 	@ vault kv get -format="json" ted-staging/airflow | jq -r ".data.data | keys[] as \$$k | \"\(\$$k)=\(.[\$$k])\"" >> .env
@@ -195,6 +199,10 @@ dev-dotenv-file: guard-VAULT_ADDR guard-VAULT_TOKEN vault-installed
 	@ echo ENVIRONMENT=dev >> .env
 	@ echo SUBDOMAIN= >> .env
 	@ echo RML_MAPPER_PATH=${RML_MAPPER_PATH} >> .env
+	@ echo ELK_HOST=localhost >> .env
+	@ echo ELK_PORT=5959 >> .env
+	@ echo ELK_VERSION=1 >> .env
+	@ echo LOGGING_TYPE=PY,ELK >> .env
 	@ echo XML_PROCESSOR_PATH=${XML_PROCESSOR_PATH} >> .env
 	@ echo AIRFLOW_INFRA_FOLDER=${AIRFLOW_INFRA_FOLDER} >> .env
 	@ vault kv get -format="json" ted-dev/airflow | jq -r ".data.data | keys[] as \$$k | \"\(\$$k)=\(.[\$$k])\"" >> .env
@@ -209,20 +217,39 @@ prod-dotenv-file: guard-VAULT_ADDR guard-VAULT_TOKEN vault-installed
 	@ echo ENVIRONMENT=prod >> .env
 	@ echo SUBDOMAIN= >> .env
 	@ echo RML_MAPPER_PATH=${RML_MAPPER_PATH} >> .env
+	@ echo ELK_HOST=localhost >> .env
+	@ echo ELK_PORT=5959 >> .env
+	@ echo ELK_VERSION=1 >> .env
+	@ echo LOGGING_TYPE=PY,ELK >> .env
 	@ echo XML_PROCESSOR_PATH=${XML_PROCESSOR_PATH} >> .env
 	@ echo AIRFLOW_INFRA_FOLDER=~/airflow-infra/prod >> .env
 	@ vault kv get -format="json" ted-prod/airflow | jq -r ".data.data | keys[] as \$$k | \"\(\$$k)=\(.[\$$k])\"" >> .env
 	@ vault kv get -format="json" ted-prod/mongo-db | jq -r ".data.data | keys[] as \$$k | \"\(\$$k)=\(.[\$$k])\"" >> .env
 
-local-dotenv-file: rml-mapper-path-add-dotenv-file
+local-dotenv-file: rml-mapper-path-add-dotenv-file elk-add-dotenv-file logging-add-dotenv-file
 
 rml-mapper-path-add-dotenv-file:
 	@ echo -e "$(BUILD_PRINT)Add rml-mapper path to local .env file $(END_BUILD_PRINT)"
 	@ sed -i '/^RML_MAPPER_PATH/d' .env
 	@ echo RML_MAPPER_PATH=${RML_MAPPER_PATH} >> .env
 
+elk-add-dotenv-file:
+	@ echo -e "$(BUILD_PRINT)Add elk config to local .env file $(END_BUILD_PRINT)"
+	@ sed -i '/^ELK_HOST/d' .env
+	@ echo ELK_HOST=localhost >> .env
+	@ sed -i '/^ELK_PORT/d' .env
+	@ echo ELK_PORT=5959 >> .env
+	@ sed -i '/^ELK_VERSION/d' .env
+	@ echo ELK_VERSION=1 >> .env
+
+logging-add-dotenv-file:
+	@ echo -e "$(BUILD_PRINT)Add logging config to local .env file $(END_BUILD_PRINT)"
+	@ sed -i '/^LOGGING_TYPE/d' .env
+	@ echo LOGGING_TYPE=PY,ELK >> .env
+
 refresh-normaliser-mapping-files:
 	@ python -m ted_sws.metadata_normaliser.entrypoints.generate_mapping_resources
+
 #clean-mongo-db:
 #	@ export PYTHONPATH=$(PWD) && python ./tests/clean_mongo_db.py
 

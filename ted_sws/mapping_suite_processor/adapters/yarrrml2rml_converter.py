@@ -3,7 +3,7 @@ import pathlib
 import subprocess
 
 
-class YARRRML2RMLConvertorABC(abc.ABC):
+class YARRRML2RMLConverterABC(abc.ABC):
     """
         This class is a general interface of a YARRRML to RML converter.
     """
@@ -18,13 +18,13 @@ class YARRRML2RMLConvertorABC(abc.ABC):
         """
 
 
-class YARRRML2RMLConvertor(YARRRML2RMLConvertorABC):
+class YARRRML2RMLConverter(YARRRML2RMLConverterABC):
     """
         This class converts YARRRML to RML using an external docker container that performs conversion logic.
     """
     def convert(self, yarrrml_input_file_path: pathlib.Path, rml_output_file_path: pathlib.Path):
         """
-            This method converts a yarrrml file and writes the result to another rml file.
+            This method converts a YARRRML file and writes the result to another RML file.
         :param yarrrml_input_file_path:
         :param rml_output_file_path:
         :return:

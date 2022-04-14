@@ -247,8 +247,8 @@ logging-add-dotenv-file:
 	@ sed -i '/^LOGGING_TYPE/d' .env
 	@ echo LOGGING_TYPE=PY,ELK >> .env
 
-refresh-normaliser-mapping-files:
-	@ python -m ted_sws.metadata_normaliser.entrypoints.generate_mapping_resources
+refresh-mapping-files:
+	@ python -m ted_sws.data_manager.entrypoints.generate_mapping_resources
 
 #clean-mongo-db:
 #	@ export PYTHONPATH=$(PWD) && python ./tests/clean_mongo_db.py

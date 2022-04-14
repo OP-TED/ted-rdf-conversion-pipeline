@@ -1,6 +1,6 @@
 import pandas as pd
 
-from ted_sws.metadata_normaliser.resources.mapping_files_registry import MappingFilesRegistry
+from ted_sws.resources.mapping_files_registry import MappingFilesRegistry
 
 
 def test_mapping_file_registry():

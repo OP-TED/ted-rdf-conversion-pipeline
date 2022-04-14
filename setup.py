@@ -76,7 +76,7 @@ setup(
     entry_points={
         "console_scripts": [
             "transformer = ted_sws.notice_transformer.entrypoints.cmd_mapping_suite_transformer:main",
-            "normalisation_resource_generator = ted_sws.metadata_normaliser.entrypoints.generate_mapping_resources:main"
+            "normalisation_resource_generator = ted_sws.data_manager.entrypoints.generate_mapping_resources:main"
         ],
     },
     include_package_data=True,

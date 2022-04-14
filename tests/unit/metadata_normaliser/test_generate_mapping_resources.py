@@ -3,7 +3,7 @@ import pathlib
 from click.testing import CliRunner
 
 
-from ted_sws.metadata_normaliser.entrypoints.generate_mapping_resources import generate_mapping_files, main as cli_main
+from ted_sws.data_manager.entrypoints.generate_mapping_resources import generate_mapping_files, main as cli_main
 from tests import TEST_DATA_PATH
 from tests.fakes.fake_triple_store import FakeTripleStore
 

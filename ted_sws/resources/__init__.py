@@ -10,7 +10,7 @@ except ImportError:
     # Try backported to PY<37 `importlib_resources`.
     import importlib_resources as pkg_resources
 
-import ted_sws.metadata_normaliser.resources.mapping_files
+import ted_sws.resources.mapping_files
 
 
 def get_mapping_json_file(mapping_file_name: str) -> dict:

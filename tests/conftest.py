@@ -9,7 +9,6 @@ from ted_sws.core.model.metadata import TEDMetadata, LanguageTaggedString, Norma
 from ted_sws.core.model.notice import Notice
 from ted_sws.notice_fetcher.adapters.ted_api import TedAPIAdapter
 from ted_sws.notice_fetcher.services.notice_fetcher import NoticeFetcher
-from ted_sws.notice_packager.model.metadata import NoticeMetadata
 from tests import TEST_DATA_PATH
 from tests.fakes.fake_repository import FakeNoticeRepository
 from tests.fakes.fake_ted_api import FakeRequestAPI
@@ -84,6 +83,7 @@ def notice_2018():
 
     return Notice(ted_id=ted_id, xml_manifestation=xml_manifestation, original_metadata=original_metadata)
 
+
 @pytest.fixture
 def notice_2020():
     notice_data = read_notice("408313-2020.json")
@@ -95,6 +95,7 @@ def notice_2020():
     original_metadata = TEDMetadata(**notice_data)
 
     return Notice(ted_id=ted_id, xml_manifestation=xml_manifestation, original_metadata=original_metadata)
+
 
 @pytest.fixture
 def normalised_metadata_dict():

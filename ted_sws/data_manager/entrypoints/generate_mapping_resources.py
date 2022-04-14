@@ -4,7 +4,7 @@ from pathlib import Path
 
 import click
 from ted_sws.core.adapters.sparql_triple_store import SPARQLTripleStore, TripleStoreABC
-from ted_sws.metadata_normaliser.resources import MAPPING_FILES_PATH, QUERIES_PATH
+from ted_sws.resources import MAPPING_FILES_PATH, QUERIES_PATH
 
 logger = logging.getLogger(__name__)
 

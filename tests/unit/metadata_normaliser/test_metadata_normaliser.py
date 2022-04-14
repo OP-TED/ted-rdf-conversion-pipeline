@@ -2,7 +2,7 @@ import pytest
 
 from ted_sws.core.model.notice import NoticeStatus
 from ted_sws.core.service.metadata_constraints import filter_df_by_variables
-from ted_sws.metadata_normaliser.resources.mapping_files_registry import MappingFilesRegistry
+from ted_sws.resources.mapping_files_registry import MappingFilesRegistry
 from ted_sws.metadata_normaliser.services.metadata_normalizer import normalise_notice, normalise_notice_by_id, \
     MetadataNormaliser, ExtractedMetadataNormaliser
 from ted_sws.metadata_normaliser.services.xml_manifestation_metadata_extractor import XMLManifestationMetadataExtractor

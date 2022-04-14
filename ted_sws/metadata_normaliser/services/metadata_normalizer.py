@@ -1,17 +1,16 @@
 import abc
-import datetime
+from datetime import datetime
+from typing import Dict, Tuple, List
 
 import pandas as pd
 
-from ted_sws.core.service.metadata_constraints import filter_df_by_variables
-from ted_sws.data_manager.adapters.notice_repository import NoticeRepositoryABC
 from ted_sws.core.model.metadata import NormalisedMetadata, LanguageTaggedString
 from ted_sws.core.model.notice import Notice
+from ted_sws.core.service.metadata_constraints import filter_df_by_variables
+from ted_sws.data_manager.adapters.notice_repository import NoticeRepositoryABC
 from ted_sws.metadata_normaliser.model.metadata import ExtractedMetadata
-from ted_sws.metadata_normaliser.services.xml_manifestation_metadata_extractor import XMLManifestationMetadataExtractor
 from ted_sws.metadata_normaliser.resources.mapping_files_registry import MappingFilesRegistry
-
-from typing import Dict, Tuple
+from ted_sws.metadata_normaliser.services.xml_manifestation_metadata_extractor import XMLManifestationMetadataExtractor
 
 JOIN_SEP = " :: "
 MERGING_COLUMN = "eforms_subtype"
@@ -140,6 +139,15 @@ class ExtractedMetadataNormaliser:
         notice_type = filtered_df["eform_notice_type"].values[0]
         return form_type, notice_type
 
+    def get_map_list_value_by_code(self, mapping: Dict, listing: List):
+        return [self.get_map_value(mapping=mapping, value=element.code) if element else None for element in listing]
+
+    @classmethod
+    def iso_date_format(cls, _date: str, with_none=False):
+        if _date or not with_none:
+            return datetime.strptime(_date, '%Y%m%d').isoformat()
+        return None
+
     def to_metadata(self) -> NormalisedMetadata:
         """
             Generate the normalised metadata
@@ -155,13 +163,15 @@ class ExtractedMetadataNormaliser:
         nuts_map = mapping_registry.nuts
         standard_forms_map = mapping_registry.sf_notice_df
         eforms_map = mapping_registry.ef_notice_df
-        form_type, notice_type = self.get_form_type_and_notice_type(sf_map=standard_forms_map, ef_map=eforms_map,
-                                                                    extracted_notice_type=self.extracted_metadata.extracted_notice_type,
-                                                                    form_number=self.normalise_form_number(
-                                                                        self.extracted_metadata.extracted_form_number),
-                                                                    legal_basis=self.normalise_legal_basis_value(
-                                                                        self.extracted_metadata.legal_basis_directive),
-                                                                    document_type_code=self.extracted_metadata.extracted_document_type.code)
+        form_type, notice_type = self.get_form_type_and_notice_type(
+            sf_map=standard_forms_map, ef_map=eforms_map,
+            extracted_notice_type=self.extracted_metadata.extracted_notice_type,
+            form_number=self.normalise_form_number(
+                self.extracted_metadata.extracted_form_number),
+            legal_basis=self.normalise_legal_basis_value(
+                self.extracted_metadata.legal_basis_directive),
+            document_type_code=self.extracted_metadata.extracted_document_type.code
+        )
 
         extracted_metadata = self.extracted_metadata
 
@@ -177,9 +187,7 @@ class ExtractedMetadataNormaliser:
                     language=title.title.language) for title in extracted_metadata.title
             ],
             "notice_publication_number": extracted_metadata.notice_publication_number,
-            "publication_date": datetime.datetime.strptime(
-                extracted_metadata.publication_date, '%Y%m%d'
-            ).isoformat(),
+            "publication_date": self.iso_date_format(extracted_metadata.publication_date),
             "ojs_issue_number": extracted_metadata.ojs_issue_number,
             "ojs_type": extracted_metadata.ojs_type if extracted_metadata.ojs_type else "S",
             "city_of_buyer": [city_of_buyer for city_of_buyer in extracted_metadata.city_of_buyer],
@@ -187,20 +195,18 @@ class ExtractedMetadataNormaliser:
             "original_language": self.get_map_value(mapping=languages_map, value=extracted_metadata.original_language),
             "country_of_buyer": self.get_map_value(mapping=countries_map, value=extracted_metadata.country_of_buyer),
             "eu_institution": False if extracted_metadata.eu_institution == '-' else True,
-            "document_sent_date": datetime.datetime.strptime(
-                extracted_metadata.document_sent_date, '%Y%m%d'
-            ).isoformat() if extracted_metadata.document_sent_date is not None else None,
-            "deadline_for_submission": datetime.datetime.strptime(
-                extracted_metadata.deadline_for_submission, '%Y%m%d'
-            ).isoformat() if extracted_metadata.deadline_for_submission is not None else None,
+            "document_sent_date": self.iso_date_format(extracted_metadata.document_sent_date, True),
+            "deadline_for_submission": self.iso_date_format(extracted_metadata.deadline_for_submission, True),
             "notice_type": self.get_map_value(mapping=notice_type_map, value=notice_type),
             "form_type": self.get_map_value(mapping=form_type_map, value=form_type),
-            "place_of_performance": [self.get_map_value(mapping=nuts_map, value=place_of_performance.code) if place_of_performance else None for
-                                     place_of_performance
-                                     in extracted_metadata.place_of_performance ],
+            "place_of_performance": self.get_map_list_value_by_code(
+                mapping=nuts_map,
+                listing=extracted_metadata.place_of_performance
+            ),
             "legal_basis_directive": self.get_map_value(mapping=legal_basis_map,
                                                         value=self.normalise_legal_basis_value(
-                                                            extracted_metadata.legal_basis_directive)),
+                                                            extracted_metadata.legal_basis_directive
+                                                        )),
             "form_number": self.normalise_form_number(value=extracted_metadata.extracted_form_number)
         }
 

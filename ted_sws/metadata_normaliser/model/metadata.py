@@ -1,4 +1,3 @@
-import datetime
 from typing import List
 
 from ted_sws.core.model.metadata import Metadata, CompositeTitle, LanguageTaggedString, EncodedValue

@@ -1,4 +1,4 @@
-from ted_sws.metadata_normaliser.resources import get_mapping_json_file, get_mapping_csv_file
+from ted_sws.resources import get_mapping_json_file, get_mapping_csv_file
 
 
 class MappingFilesRegistry:

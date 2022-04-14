@@ -58,3 +58,5 @@ def mapping_suite_processor_generate_sparql_queries(mapping_suite_package_path: 
         output_file_path = output_file_path / f"sparql_query_{index}.rq"
         with open(output_file_path, "w") as output_file:
             output_file.write(sparql_query)
+
+

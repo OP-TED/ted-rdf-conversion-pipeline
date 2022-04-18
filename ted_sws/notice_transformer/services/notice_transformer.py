@@ -1,5 +1,4 @@
 import abc
-import os
 import tempfile
 from pathlib import Path
 
@@ -105,10 +104,20 @@ class NoticeTransformer(NoticeTransformerABC):
         :return:
         """
         serialization: RMLSerializationFormat = self.rml_mapper.get_serialization_format()
-        exts={
+        exts = {
             RMLSerializationFormat.TURTLE: '.ttl'
         }
         return "{ext}".format(ext=exts.get(serialization, Path(filename).suffix))
+
+    def _write_resource_to_out_file(self, file_resource: FileResource, output_path: Path):
+        filename = file_resource.file_name
+        notice_container = self.get_test_notice_container(filename)
+        out_filename = notice_container + self._get_out_file_ext(filename)
+        file_resource_parent_path = output_path / Path(notice_container)
+        file_resource_parent_path.mkdir(parents=True, exist_ok=True)
+        file_resource_path = file_resource_parent_path / Path(out_filename)
+        with file_resource_path.open("w+", encoding="utf-8") as f:
+            f.write(file_resource.file_content)
 
     def transform_test_data(self, output_path: Path):
         """
@@ -117,24 +126,21 @@ class NoticeTransformer(NoticeTransformerABC):
         :return:
         """
         transformation_test_data = self.mapping_suite.transformation_test_data
-        file_resources = []
+        output_path.mkdir(parents=True, exist_ok=True)
+        # file_resources = []
         for data in transformation_test_data.test_data:
             notice = Notice(ted_id="tmp_notice", xml_manifestation=XMLManifestation(object_data=data.file_content))
             notice._status = NoticeStatus.PREPROCESSED_FOR_TRANSFORMATION
             notice_result = self.transform_notice(notice=notice)
-            file_resources.append(
-                FileResource(file_name=data.file_name, file_content=notice_result.rdf_manifestation.object_data)
+            file_resource = FileResource(
+                file_name=data.file_name,
+                file_content=notice_result.rdf_manifestation.object_data
             )
+            self._write_resource_to_out_file(file_resource, output_path)
+            # file_resources.append(file_resource)
 
-        output_path.mkdir(parents=True, exist_ok=True)
-        for file_resource in file_resources:
-            filename = file_resource.file_name
-            notice_container = self.get_test_notice_container(filename)
-            new_filename = notice_container + self._get_out_file_ext(filename)
-            file_resource_path = output_path / Path(notice_container) / Path(new_filename)
-            os.makedirs(os.path.dirname(file_resource_path), exist_ok=True)
-            with file_resource_path.open("w", encoding="utf-8") as f:
-                f.write(file_resource.file_content)
+        # for file_resource in file_resources:
+        #    self._write_resource_to_out_file(file_resource, output_path)
 
     def transform_notice(self, notice: Notice) -> Notice:
         """

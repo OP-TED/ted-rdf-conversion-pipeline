@@ -1,7 +1,6 @@
 import os
 from pathlib import Path
 
-import pytest
 from click.testing import CliRunner
 
 from ted_sws.notice_transformer.entrypoints.cmd_mapping_suite_transformer import main as transform

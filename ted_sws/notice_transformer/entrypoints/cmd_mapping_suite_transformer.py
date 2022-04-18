@@ -60,7 +60,7 @@ class CmdRunner:
             try:
                 serialization_format = RMLSerializationFormat(serialization_format_value)
             except ValueError as e:
-                raise ValueError('ERROR :: No such serialization format: %s' % serialization_format_value)
+                raise ValueError('No such serialization format: %s' % serialization_format_value)
 
             notice_transformer.transform_test_data(
                 mapping_suite=mapping_suite,

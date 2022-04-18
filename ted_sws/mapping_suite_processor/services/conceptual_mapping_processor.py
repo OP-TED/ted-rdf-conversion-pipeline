@@ -1,7 +1,8 @@
 import pathlib
+import shutil
 
 from ted_sws.data_manager.adapters.mapping_suite_repository import TRANSFORM_PACKAGE_NAME, VALIDATE_PACKAGE_NAME, \
-    SPARQL_PACKAGE_NAME, METADATA_FILE_NAME, RESOURCES_PACKAGE_NAME, SHACL_PACKAGE_NAME
+    SPARQL_PACKAGE_NAME, METADATA_FILE_NAME, RESOURCES_PACKAGE_NAME, SHACL_PACKAGE_NAME, TEST_DATA_PACKAGE_NAME
 from ted_sws.mapping_suite_processor.services.conceptual_mapping_files_injection import \
     mapping_suite_processor_inject_resources, mapping_suite_processor_inject_shacl_shapes, \
     mapping_suite_processor_inject_sparql_queries
@@ -19,16 +20,26 @@ SHACL_SHAPE_FILE_NAME = "ePO_shacl_shapes.rdf"
 MAPPING_FILES_RESOURCES_FOLDER = "mapping_files"
 SPARQL_QUERIES_RESOURCES_FOLDER = "queries"
 SPARQL_QUERIES_INJECTION_FOLDER = "business_queries"
+PROD_ARCHIVE_SUFFIX = "prod"
+DEMO_ARCHIVE_SUFFIX = "demo"
 
 
 def mapping_suite_processor_zip_package(mapping_suite_package_path: pathlib.Path,
-                                        output_archive_file_path: pathlib.Path):
+                                        prod_version: bool = False):
     """
-        Această funcție 
+        This function archives a package and puts a suffix in the name of the archive.
     :param mapping_suite_package_path:
-    :param output_archive_file_path:
+    :param prod_version:
     :return:
     """
+    archive_name_suffix = PROD_ARCHIVE_SUFFIX if prod_version else DEMO_ARCHIVE_SUFFIX
+    tmp_folder_path = mapping_suite_package_path.parent / f"{mapping_suite_package_path.stem}-{archive_name_suffix}"
+    output_archive_file_name = mapping_suite_package_path.parent / f"{mapping_suite_package_path.stem}-{archive_name_suffix}"
+    shutil.copytree(mapping_suite_package_path, tmp_folder_path)
+    if prod_version:
+        shutil.rmtree(tmp_folder_path / TEST_DATA_PACKAGE_NAME)
+    shutil.make_archive(str(output_archive_file_name), 'zip', tmp_folder_path)
+    shutil.rmtree(tmp_folder_path)
 
 
 def mapping_suite_processor_expand_package(mapping_suite_package_path: pathlib.Path):
@@ -69,3 +80,6 @@ def mapping_suite_processor_expand_package(mapping_suite_package_path: pathlib.P
     mapping_suite_processor_inject_sparql_queries(sparql_queries_folder_path=sparql_queries_resources_folder_path,
                                                   output_sparql_queries_folder_path=sparql_queries_injection_folder
                                                   )
+
+    mapping_suite_processor_zip_package(mapping_suite_package_path=mapping_suite_package_path)
+    mapping_suite_processor_zip_package(mapping_suite_package_path=mapping_suite_package_path, prod_version=True)

@@ -13,7 +13,6 @@ def test_mapping_suite_processor_expand_package(file_system_repository_path):
         mapping_suite = mapping_suite_repository.get(reference="test_package")
         assert mapping_suite
         assert mapping_suite.sparql_test_suites
-        assert len(mapping_suite.sparql_test_suites) == 1
         sparql_packages = set(map(lambda x: x.identifier, mapping_suite.sparql_test_suites))
         assert CONCEPTUAL_MAPPINGS_ASSERTIONS in sparql_packages
         for sparql_test_suite in mapping_suite.sparql_test_suites:
@@ -33,3 +32,8 @@ def test_mapping_suite_processor_expand_package(file_system_repository_path):
         assert mapping_suite.transformation_rule_set.resources
         assert len(mapping_suite.transformation_rule_set.resources) == 3
 
+        assert mapping_suite.sparql_test_suites
+        assert len(mapping_suite.sparql_test_suites) == 2
+        assert "business_queries" in set(map(lambda x: x.identifier, mapping_suite.sparql_test_suites))
+        assert "cm_assertions" in set(map(lambda x: x.identifier, mapping_suite.sparql_test_suites))
+        assert "not_cm_assertions" not in set(map(lambda x: x.identifier, mapping_suite.sparql_test_suites))

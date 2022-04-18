@@ -37,3 +37,15 @@ def test_mapping_suite_processor_expand_package(file_system_repository_path):
         assert "business_queries" in set(map(lambda x: x.identifier, mapping_suite.sparql_test_suites))
         assert "cm_assertions" in set(map(lambda x: x.identifier, mapping_suite.sparql_test_suites))
         assert "not_cm_assertions" not in set(map(lambda x: x.identifier, mapping_suite.sparql_test_suites))
+
+        tmp_prod_archive_path = tmp_mapping_suite_package_path.parent / f"{tmp_mapping_suite_package_path.stem}-prod.zip"
+        tmp_demo_archive_path = tmp_mapping_suite_package_path.parent / f"{tmp_mapping_suite_package_path.stem}-demo.zip"
+
+        assert tmp_prod_archive_path.is_file()
+        assert tmp_demo_archive_path.is_file()
+
+        tmp_prod_archive_path.unlink()
+        tmp_demo_archive_path.unlink()
+
+        assert not tmp_prod_archive_path.is_file()
+        assert not tmp_demo_archive_path.is_file()

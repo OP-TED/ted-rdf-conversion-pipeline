@@ -13,9 +13,8 @@ def test_mapping_suite_processor_expand_package(file_system_repository_path):
         mapping_suite = mapping_suite_repository.get(reference="test_package")
         assert mapping_suite
         assert mapping_suite.sparql_test_suites
-        assert len(mapping_suite.sparql_test_suites) == 2
+        assert len(mapping_suite.sparql_test_suites) == 1
         sparql_packages = set(map(lambda x: x.identifier, mapping_suite.sparql_test_suites))
-        assert "sparql_test_suite_0" in sparql_packages
         assert CONCEPTUAL_MAPPINGS_ASSERTIONS in sparql_packages
         for sparql_test_suite in mapping_suite.sparql_test_suites:
             if sparql_test_suite.identifier == CONCEPTUAL_MAPPINGS_ASSERTIONS:
@@ -28,4 +27,9 @@ def test_mapping_suite_processor_expand_package(file_system_repository_path):
         assert mapping_suite.ontology_version == "3.0.0.alpha"
         assert "F03" in set(mapping_suite.metadata_constraints.constraints["form_number"])
         assert "F04" not in set(mapping_suite.metadata_constraints.constraints["form_number"])
+
+        assert mapping_suite.shacl_test_suites
+        assert len(mapping_suite.shacl_test_suites) == 1
+        assert mapping_suite.transformation_rule_set.resources
+        assert len(mapping_suite.transformation_rule_set.resources) == 3
 

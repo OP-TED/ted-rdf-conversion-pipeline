@@ -83,3 +83,11 @@ def mapping_suite_processor_expand_package(mapping_suite_package_path: pathlib.P
 
     mapping_suite_processor_zip_package(mapping_suite_package_path=mapping_suite_package_path)
     mapping_suite_processor_zip_package(mapping_suite_package_path=mapping_suite_package_path, prod_version=True)
+
+
+def mapping_suite_processor_load_package_in_mongo_db(mapping_suite_package_path: pathlib.Path):
+    """
+
+    :param mapping_suite_package_path:
+    :return:
+    """

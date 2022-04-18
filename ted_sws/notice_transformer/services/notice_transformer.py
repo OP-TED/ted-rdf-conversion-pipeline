@@ -97,15 +97,18 @@ class NoticeTransformer(NoticeTransformerABC):
         """
         return Path(filename).stem
 
-    def _get_filename_ext(self, filename: str) -> str:
+    def _get_out_file_ext(self, filename: str) -> str:
         """
-        Change a filename extension to ext
+        Get file extension, based on output format
         :param filename:
         :param ext:
         :return:
         """
         serialization: RMLSerializationFormat = self.rml_mapper.get_serialization_format()
-        return ".ttl" if serialization == RMLSerializationFormat.TURTLE else Path(filename).suffix
+        exts={
+            RMLSerializationFormat.TURTLE: '.ttl'
+        }
+        return "{ext}".format(ext=exts.get(serialization, Path(filename).suffix))
 
     def transform_test_data(self, output_path: Path):
         """
@@ -127,7 +130,7 @@ class NoticeTransformer(NoticeTransformerABC):
         for file_resource in file_resources:
             filename = file_resource.file_name
             notice_container = self.get_test_notice_container(filename)
-            new_filename = notice_container + self._get_filename_ext(filename)
+            new_filename = notice_container + self._get_out_file_ext(filename)
             file_resource_path = output_path / Path(notice_container) / Path(new_filename)
             os.makedirs(os.path.dirname(file_resource_path), exist_ok=True)
             with file_resource_path.open("w", encoding="utf-8") as f:

@@ -1,6 +1,7 @@
 import abc
 import tempfile
 from pathlib import Path
+from datetime import datetime
 
 from ted_sws.core.model.manifestation import RDFManifestation, XMLManifestation
 from ted_sws.core.model.notice import Notice, NoticeStatus
@@ -23,15 +24,17 @@ def transform_notice(notice: Notice, mapping_suite: MappingSuite, rml_mapper: RM
     return NoticeTransformer(mapping_suite=mapping_suite, rml_mapper=rml_mapper).transform_notice(notice=notice)
 
 
-def transform_test_data(mapping_suite: MappingSuite, rml_mapper: RMLMapperABC, output_path: Path):
+def transform_test_data(mapping_suite: MappingSuite, rml_mapper: RMLMapperABC, output_path: Path,
+                        loggable: bool = False):
     """
         This function converts each file in the test data and writes the result to a file in output_path.
     :param mapping_suite:
     :param rml_mapper:
     :param output_path:
+    :param loggable:
     :return:
     """
-    NoticeTransformer(mapping_suite=mapping_suite, rml_mapper=rml_mapper).transform_test_data(
+    NoticeTransformer(mapping_suite=mapping_suite, rml_mapper=rml_mapper, loggable=loggable).transform_test_data(
         output_path=output_path,
     )
 
@@ -64,9 +67,10 @@ class NoticeTransformer(NoticeTransformerABC):
         This class is a concrete implementation of transforming a notice using rml-mapper.
     """
 
-    def __init__(self, mapping_suite: MappingSuite, rml_mapper: RMLMapperABC):
+    def __init__(self, mapping_suite: MappingSuite, rml_mapper: RMLMapperABC, loggable: bool = False):
         self.mapping_suite = mapping_suite
         self.rml_mapper = rml_mapper
+        self.loggable = loggable
 
     def _write_notice_xml_manifestation_in_package(self, package_path: Path, notice: Notice):
         """
@@ -109,7 +113,7 @@ class NoticeTransformer(NoticeTransformerABC):
         }
         return "{ext}".format(ext=exts.get(serialization, Path(filename).suffix))
 
-    def _write_resource_to_out_file(self, file_resource: FileResource, output_path: Path):
+    def _write_resource_to_out_file(self, file_resource: FileResource, output_path: Path, idx: int = None):
         filename = file_resource.file_name
         notice_container = self.get_test_notice_container(filename)
         out_filename = notice_container + self._get_out_file_ext(filename)
@@ -118,6 +122,10 @@ class NoticeTransformer(NoticeTransformerABC):
         file_resource_path = file_resource_parent_path / Path(out_filename)
         with file_resource_path.open("w+", encoding="utf-8") as f:
             f.write(file_resource.file_content)
+        if self.loggable:
+            print(("[" + str(idx).rjust(4, "0") + "] " if idx is not None else "") + ":: " + str(
+                datetime.now()
+            ) + " :: " + notice_container, flush=True)
 
     def transform_test_data(self, output_path: Path):
         """
@@ -127,8 +135,11 @@ class NoticeTransformer(NoticeTransformerABC):
         """
         transformation_test_data = self.mapping_suite.transformation_test_data
         output_path.mkdir(parents=True, exist_ok=True)
-        # file_resources = []
-        for data in transformation_test_data.test_data:
+        test_data = transformation_test_data.test_data
+        if self.loggable:
+            print("")
+            print("[" + str(len(test_data)).rjust(4, "0") + "] :: " + str(datetime.now()) + " :: TOTAL", flush=True)
+        for idx, data in enumerate(test_data, start=1):
             notice = Notice(ted_id="tmp_notice", xml_manifestation=XMLManifestation(object_data=data.file_content))
             notice._status = NoticeStatus.PREPROCESSED_FOR_TRANSFORMATION
             notice_result = self.transform_notice(notice=notice)
@@ -136,11 +147,7 @@ class NoticeTransformer(NoticeTransformerABC):
                 file_name=data.file_name,
                 file_content=notice_result.rdf_manifestation.object_data
             )
-            self._write_resource_to_out_file(file_resource, output_path)
-            # file_resources.append(file_resource)
-
-        # for file_resource in file_resources:
-        #    self._write_resource_to_out_file(file_resource, output_path)
+            self._write_resource_to_out_file(file_resource, output_path, idx)
 
     def transform_notice(self, notice: Notice) -> Notice:
         """

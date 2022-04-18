@@ -5,6 +5,7 @@ from pathlib import Path
 
 import click
 
+from ted_sws.core.domain.cmd_runner import CmdRunner as BaseCmdRunner
 import ted_sws.notice_transformer.services.notice_transformer as notice_transformer
 from ted_sws import config
 from ted_sws.data_manager.adapters.mapping_suite_repository import MappingSuiteRepositoryInFileSystem, \
@@ -23,18 +24,36 @@ SETUP:
 """
 
 
-class CmdRunner:
+class CmdRunner(BaseCmdRunner):
     """
     Keeps the logic to be used by Notice Suite Transformer CMD
     """
 
-    def __init__(self, mappings_path=DEFAULT_MAPPINGS_PATH, output_path=DEFAULT_OUTPUT_PATH):
+    def __init__(
+            self,
+            mapping_suite_id,
+            serialization_format_value,
+            mappings_path=DEFAULT_MAPPINGS_PATH,
+            output_path=DEFAULT_OUTPUT_PATH
+    ):
+        super().__init__(loggable=True)
         self.fs_repository_path = Path(os.path.realpath(mappings_path))
         self.output_path = output_path
+        self.mapping_suite_id = mapping_suite_id
+        self.serialization_format_value = serialization_format_value
 
     def is_mapping_suite(self, suite_id):
         suite_path = self.fs_repository_path / Path(suite_id)
         return os.path.isdir(suite_path) and any(f == METADATA_FILE_NAME for f in os.listdir(suite_path))
+
+    def run(self):
+        self.on_begin()
+        if self.mapping_suite_id:
+            self.transform(self.mapping_suite_id, self.serialization_format_value)
+        else:
+            for suite_id in os.listdir(self.fs_repository_path):
+                self.transform(suite_id, self.serialization_format_value)
+        self.on_end()
 
     def transform(self, mapping_suite_id, serialization_format_value):
         """
@@ -68,7 +87,8 @@ class CmdRunner:
                     rml_mapper_path=config.RML_MAPPER_PATH,
                     serialization_format=serialization_format
                 ),
-                output_path=fs_output_path
+                output_path=fs_output_path,
+                loggable=True
             )
         except Exception as e:
             error = e
@@ -107,12 +127,13 @@ def main(mapping_suite_id, serialization_format, opt_mapping_suite_id, opt_seria
     mappings_path = opt_mappings_path
     output_path = opt_output_path
 
-    cmd = CmdRunner(mappings_path=mappings_path, output_path=output_path)
-    if mapping_suite_id:
-        cmd.transform(mapping_suite_id, serialization_format)
-    else:
-        for suite_id in os.listdir(cmd.fs_repository_path):
-            cmd.transform(suite_id, serialization_format)
+    cmd = CmdRunner(
+        mapping_suite_id=mapping_suite_id,
+        serialization_format_value=serialization_format,
+        mappings_path=mappings_path,
+        output_path=output_path
+    )
+    cmd.run()
 
 
 if __name__ == '__main__':

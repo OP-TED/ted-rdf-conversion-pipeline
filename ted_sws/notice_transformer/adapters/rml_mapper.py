@@ -23,12 +23,29 @@ class RMLMapperABC(abc.ABC):
     """
         This class is a general interface of an adapter for rml-mapper.
     """
+    serialization_format: SerializationFormat
+
+    def set_serialization_format(self, serialization_format: SerializationFormat):
+        """
+        Set serialization format of output
+        :param serialization_format: nquads (default), turtle, trig, trix, jsonld, hdt
+        :return:
+        """
+        self.serialization_format = serialization_format
 
     def get_serialization_format(self) -> SerializationFormat:
         """
         Get serialization_format
         :return:
         """
+        return self.serialization_format
+
+    def get_serialization_format_value(self) -> str:
+        """
+        Get serialization_format value
+        :return:
+        """
+        return self.get_serialization_format().value
 
     @abc.abstractmethod
     def execute(self, package_path: Path) -> str:
@@ -43,31 +60,13 @@ class RMLMapper(RMLMapperABC):
     """
         This class is a concrete implementation of the rml-mapper adapter.
     """
-
     def __init__(self, rml_mapper_path: Path, serialization_format: SerializationFormat = TURTLE_SERIALIZATION_FORMAT):
         """
         :param rml_mapper_path: the path to the rml-mapper executable
+        :param serialization_format: serialization format
         """
         self.rml_mapper_path = rml_mapper_path
         self.serialization_format = serialization_format
-
-    def set_serialization_format(self, serialization_format: SerializationFormat):
-        """
-        Set serialization format of output
-        :param serialization_format: nquads (default), turtle, trig, trix, jsonld, hdt
-        :return:
-        """
-        self.serialization_format = serialization_format
-
-    def get_serialization_format(self) -> SerializationFormat:
-        return self.serialization_format
-
-    def get_serialization_value(self) -> str:
-        """
-        Get serialization_format value
-        :return:
-        """
-        return self.get_serialization_format().value
 
     def execute(self, package_path: Path) -> str:
         """
@@ -86,6 +85,6 @@ class RMLMapper(RMLMapperABC):
         :return: a string containing the result of the transformation
         """
         # java -jar ./rmlmapper.jar -m rml.ttl -s turtle  -o output.ttl
-        bash_script = f"cd {package_path} && java -jar {self.rml_mapper_path} -m {package_path / TRANSFORM_PACKAGE_NAME / MAPPINGS_PACKAGE_NAME / '*'} -s {self.get_serialization_value()}"
+        bash_script = f"cd {package_path} && java -jar {self.rml_mapper_path} -m {package_path / TRANSFORM_PACKAGE_NAME / MAPPINGS_PACKAGE_NAME / '*'} -s {self.get_serialization_format_value()}"
         script_result = subprocess.run(bash_script, shell=True, stdout=subprocess.PIPE)
         return script_result.stdout.decode('utf-8')

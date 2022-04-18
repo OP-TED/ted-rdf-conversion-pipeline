@@ -10,4 +10,4 @@ def test_rml_mapper(rml_test_package_path):
 
     serialization_format = SerializationFormat.TURTLE
     rml_mapper.set_serialization_format(serialization_format)
-    assert rml_mapper.get_serialization_value() == serialization_format.value
+    assert rml_mapper.get_serialization_format_value() == serialization_format.value

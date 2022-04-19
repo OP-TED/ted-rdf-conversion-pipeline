@@ -37,3 +37,6 @@ class MappingFilesRegistry:
     def ef_notice_df(self):
         return get_mapping_csv_file("eforms_mapping.csv")
 
+    @property
+    def filter_map_df(self):
+        return get_mapping_csv_file("df_filter_map.csv")

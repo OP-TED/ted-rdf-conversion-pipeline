@@ -131,8 +131,9 @@ def normalised_metadata_dict():
         'notice_type': 'AWESOME_NOTICE_TYPE',
         'form_type': '18',
         'place_of_performance': ['http://data.europa.eu/nuts/code/DE'],
-        'legal_basis_directive': 'http://publications.europa.eu/resource/authority/legal-basis/32009L0081',
-        'form_number': 'F18'
+        'extracted_legal_basis_directive': 'http://publications.europa.eu/resource/authority/legal-basis/32009L0081',
+        'form_number': 'F18',
+        'legal_basis_directive': 'http://publications.europa.eu/resource/authority/legal-basis/32009L0081'
     }
 
     return data
@@ -172,8 +173,9 @@ def normalised_metadata_object():
         'notice_type': 'AWESOME_NOTICE_TYPE',
         'form_type': 'http://publications.europa.eu/resource/authority/form-type/planning',
         'place_of_performance': ['http://data.europa.eu/nuts/code/DE'],
-        'legal_basis_directive': 'http://publications.europa.eu/resource/authority/legal-basis/32014L0024',
-        'form_number': 'F03'
+        'extracted_legal_basis_directive': 'http://publications.europa.eu/resource/authority/legal-basis/32014L0024',
+        'form_number': 'F03',
+        'legal_basis_directive': 'http://publications.europa.eu/resource/authority/legal-basis/32014L0024'
     }
 
     return NormalisedMetadata(**data)

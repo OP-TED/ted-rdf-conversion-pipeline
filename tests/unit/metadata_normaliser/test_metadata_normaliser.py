@@ -73,11 +73,28 @@ def test_filter_df_by_variables():
 def test_get_form_type_and_notice_type(raw_notice):
     extracted_metadata = XMLManifestationMetadataExtractor(xml_manifestation=raw_notice.xml_manifestation).to_metadata()
     extracted_metadata_normaliser = ExtractedMetadataNormaliser(extracted_metadata=extracted_metadata)
-    form_type, notice_type = extracted_metadata_normaliser.get_form_type_and_notice_type(
+    form_type, notice_type, legal_basis = extracted_metadata_normaliser.get_form_type_and_notice_type(
         ef_map=MappingFilesRegistry().ef_notice_df,
         sf_map=MappingFilesRegistry().sf_notice_df,
         form_number="F02", extracted_notice_type=None,
-        legal_basis="32014L0023", document_type_code="Y")
+        legal_basis="32014L0023", document_type_code="Y", filter_map=MappingFilesRegistry().filter_map_df)
 
     assert "competition" == form_type
     assert "cn-standard" == notice_type
+    assert "32014L0024" == legal_basis
+
+
+def test_get_filter_values(raw_notice):
+    extracted_metadata = XMLManifestationMetadataExtractor(xml_manifestation=raw_notice.xml_manifestation).to_metadata()
+    extracted_metadata_normaliser = ExtractedMetadataNormaliser(extracted_metadata=extracted_metadata)
+    filter_map = MappingFilesRegistry().filter_map_df
+    filter_variables_dict = extracted_metadata_normaliser.get_filter_variables_values(form_number="F03",
+                                                                                      filter_map=filter_map,
+                                                                                      extracted_notice_type=None,
+                                                                                      document_type_code="7",
+                                                                                      legal_basis="legal")
+    assert isinstance(filter_variables_dict,dict)
+    assert filter_variables_dict["form_number"] == "F03"
+    assert filter_variables_dict["legal_basis"] is None
+    assert filter_variables_dict["sf_notice_type"] is None
+    assert filter_variables_dict["document_code"] is None

@@ -119,11 +119,41 @@ class ExtractedMetadataNormaliser:
         return value
 
     @classmethod
-    def get_form_type_and_notice_type(cls, ef_map: pd.DataFrame, sf_map: pd.DataFrame, form_number: str,
+    def get_filter_variables_values(cls, form_number: str, extracted_notice_type: str, legal_basis: str,
+                                    document_type_code: str, filter_map: pd.DataFrame) -> dict:
+        """
+        Get necessary values to filter mapping dataframe
+        :param form_number:
+        :param extracted_notice_type:
+        :param legal_basis:
+        :param document_type_code:
+        :param filter_map:
+        :return:
+        """
+        variables = {
+            "form_number": form_number,
+            "sf_notice_type": extracted_notice_type,
+            "document_code": document_type_code,
+            "legal_basis": legal_basis
+        }
+
+        filter_variables = filter_map.query(f"form_number=='{variables['form_number']}'").to_dict(orient='records')[0]
+        for key, value in filter_variables.items():
+            if value == 0:
+                filter_variables[key] = None
+            if value == 1:
+                filter_variables[key] = variables[key]
+
+        return filter_variables
+
+    @classmethod
+    def get_form_type_and_notice_type(cls, filter_map: pd.DataFrame, ef_map: pd.DataFrame, sf_map: pd.DataFrame,
+                                      form_number: str,
                                       extracted_notice_type: str, legal_basis: str, document_type_code: str) -> Tuple:
         """
         Returns notice_type and form_type
         :param ef_map:
+        :param filter_map:
         :param sf_map:
         :param form_number:
         :param extracted_notice_type:
@@ -132,12 +162,18 @@ class ExtractedMetadataNormaliser:
         :return:
         """
         mapping_df = pd.merge(sf_map, ef_map, on=MERGING_COLUMN, how="left")
-        filtered_df = filter_df_by_variables(df=mapping_df, form_number=form_number,
-                                             sf_notice_type=extracted_notice_type, legal_basis=legal_basis,
-                                             document_code=document_type_code)
+        filter_variables = cls.get_filter_variables_values(form_number=form_number, filter_map=filter_map,
+                                                           extracted_notice_type=extracted_notice_type,
+                                                           legal_basis=legal_basis,
+                                                           document_type_code=document_type_code)
+        filtered_df = filter_df_by_variables(df=mapping_df, form_number=filter_variables["form_number"],
+                                             sf_notice_type=filter_variables["sf_notice_type"],
+                                             legal_basis=filter_variables["legal_basis"],
+                                             document_code=filter_variables["document_code"])
         form_type = filtered_df["form_type"].values[0]
         notice_type = filtered_df["eform_notice_type"].values[0]
-        return form_type, notice_type
+        legal_basis = filtered_df["eform_legal_basis"].values[0]
+        return form_type, notice_type, legal_basis
 
     def get_map_list_value_by_code(self, mapping: Dict, listing: List):
         return [self.get_map_value(mapping=mapping, value=element.code) if element else None for element in listing]
@@ -163,8 +199,9 @@ class ExtractedMetadataNormaliser:
         nuts_map = mapping_registry.nuts
         standard_forms_map = mapping_registry.sf_notice_df
         eforms_map = mapping_registry.ef_notice_df
-        form_type, notice_type = self.get_form_type_and_notice_type(
-            sf_map=standard_forms_map, ef_map=eforms_map,
+        filter_map = mapping_registry.filter_map_df
+        form_type, notice_type, legal_basis = self.get_form_type_and_notice_type(
+            sf_map=standard_forms_map, ef_map=eforms_map, filter_map=filter_map,
             extracted_notice_type=self.extracted_metadata.extracted_notice_type,
             form_number=self.normalise_form_number(
                 self.extracted_metadata.extracted_form_number),
@@ -203,11 +240,12 @@ class ExtractedMetadataNormaliser:
                 mapping=nuts_map,
                 listing=extracted_metadata.place_of_performance
             ),
-            "legal_basis_directive": self.get_map_value(mapping=legal_basis_map,
-                                                        value=self.normalise_legal_basis_value(
-                                                            extracted_metadata.legal_basis_directive
-                                                        )),
-            "form_number": self.normalise_form_number(value=extracted_metadata.extracted_form_number)
+            "extracted_legal_basis_directive": self.get_map_value(mapping=legal_basis_map,
+                                                                  value=self.normalise_legal_basis_value(
+                                                                      extracted_metadata.legal_basis_directive
+                                                                  )),
+            "form_number": self.normalise_form_number(value=extracted_metadata.extracted_form_number),
+            "legal_basis_directive": self.get_map_value(mapping=legal_basis_map, value=legal_basis)
         }
 
         return NormalisedMetadata(**metadata)

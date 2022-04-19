@@ -7,6 +7,11 @@ import pytest
 from ted_sws.core.model.manifestation import XMLManifestation
 from ted_sws.core.model.metadata import TEDMetadata, LanguageTaggedString, NormalisedMetadata
 from ted_sws.core.model.notice import Notice
+from ted_sws.metadata_normaliser.services.metadata_normalizer import TITLE_KEY, LONG_TITLE_KEY, NOTICE_TYPE_KEY, \
+    NOTICE_NUMBER_KEY, OJS_TYPE_KEY, OJS_NUMBER_KEY, LANGUAGE_KEY, EU_INSTITUTION_KEY, SENT_DATE_KEY, DEADLINE_DATE_KEY, \
+    BUYER_COUNTRY_KEY, BUYER_NAME_KEY, BUYER_CITY_KEY, PUBLICATION_DATE_KEY, FORM_NUMBER_KEY, \
+    FORM_TYPE_KEY, LEGAL_BASIS_DIRECTIVE_KEY, EXTRACTED_LEGAL_BASIS_KEY, \
+    PLACE_OF_PERFORMANCE_KEY
 from ted_sws.notice_fetcher.adapters.ted_api import TedAPIAdapter
 from ted_sws.notice_fetcher.services.notice_fetcher import NoticeFetcher
 from tests import TEST_DATA_PATH
@@ -100,40 +105,40 @@ def notice_2020():
 @pytest.fixture
 def normalised_metadata_dict():
     data = {
-        'title': [
+        TITLE_KEY: [
             LanguageTaggedString(text='Услуги по ремонт и поддържане на превозни средства с военна употреба',
                                  language='BG'),
             LanguageTaggedString(text='Repair and maintenance services of military vehicles', language='GA')
         ],
-        'long_title': [
+        LONG_TITLE_KEY: [
             LanguageTaggedString(
                 text='Гepмaния :: Бон :: Услуги по ремонт и поддържане на превозни средства с военна употреба',
                 language='BG'),
             LanguageTaggedString(text='Tyskland :: Bonn :: Reparation och underhåll av militärfordon',
                                  language='SV')
         ],
-        'notice_publication_number': '067623-2022',
-        'publication_date': datetime.date(2022, 2, 7).isoformat(),
-        'ojs_issue_number': '26',
-        'ojs_type': 'S',
-        'city_of_buyer': [
+        NOTICE_NUMBER_KEY: '067623-2022',
+        PUBLICATION_DATE_KEY: datetime.date(2022, 2, 7).isoformat(),
+        OJS_NUMBER_KEY: '26',
+        OJS_TYPE_KEY: 'S',
+        BUYER_CITY_KEY: [
             LanguageTaggedString(text='Бон', language='BG'),
             LanguageTaggedString(text='Bonn', language='SV')
         ],
-        'name_of_buyer': [
+        BUYER_NAME_KEY: [
             LanguageTaggedString(text='HIL Heeresinstandsetzungslogistik GmbH', language='DE')
         ],
-        'original_language': 'http://publications.europa.eu/resource/authority/language/DEU',
-        'country_of_buyer': 'http://publications.europa.eu/resource/authority/country/DEU',
-        'eu_institution': False,
-        'document_sent_date': datetime.date(2022, 2, 2).isoformat(),
-        'deadline_for_submission': None,
-        'notice_type': 'AWESOME_NOTICE_TYPE',
-        'form_type': '18',
-        'place_of_performance': ['http://data.europa.eu/nuts/code/DE'],
-        'extracted_legal_basis_directive': 'http://publications.europa.eu/resource/authority/legal-basis/32009L0081',
-        'form_number': 'F18',
-        'legal_basis_directive': 'http://publications.europa.eu/resource/authority/legal-basis/32009L0081'
+        LANGUAGE_KEY: 'http://publications.europa.eu/resource/authority/language/DEU',
+        BUYER_COUNTRY_KEY: 'http://publications.europa.eu/resource/authority/country/DEU',
+        EU_INSTITUTION_KEY: False,
+        SENT_DATE_KEY: datetime.date(2022, 2, 2).isoformat(),
+        DEADLINE_DATE_KEY: None,
+        NOTICE_TYPE_KEY: 'AWESOME_NOTICE_TYPE',
+        FORM_TYPE_KEY: '18',
+        PLACE_OF_PERFORMANCE_KEY: ['http://data.europa.eu/nuts/code/DE'],
+        EXTRACTED_LEGAL_BASIS_KEY: 'http://publications.europa.eu/resource/authority/legal-basis/32009L0081',
+        FORM_NUMBER_KEY: 'F18',
+        LEGAL_BASIS_DIRECTIVE_KEY: 'http://publications.europa.eu/resource/authority/legal-basis/32009L0081'
     }
 
     return data
@@ -142,40 +147,40 @@ def normalised_metadata_dict():
 @pytest.fixture
 def normalised_metadata_object():
     data = {
-        'title': [
+        TITLE_KEY: [
             LanguageTaggedString(text='Услуги по ремонт и поддържане на превозни средства с военна употреба',
                                  language='BG'),
             LanguageTaggedString(text='Repair and maintenance services of military vehicles', language='GA')
         ],
-        'long_title': [
+        LONG_TITLE_KEY: [
             LanguageTaggedString(
                 text='Гepмaния :: Бон :: Услуги по ремонт и поддържане на превозни средства с военна употреба',
                 language='BG'),
             LanguageTaggedString(text='Tyskland :: Bonn :: Reparation och underhåll av militärfordon',
                                  language='SV')
         ],
-        'notice_publication_number': '067623-2022',
-        'publication_date': datetime.date(2020, 2, 7).isoformat(),
-        'ojs_issue_number': '26',
-        'ojs_type': 'S',
-        'city_of_buyer': [
+        NOTICE_NUMBER_KEY: '067623-2022',
+        PUBLICATION_DATE_KEY: datetime.date(2020, 2, 7).isoformat(),
+        OJS_NUMBER_KEY: '26',
+        OJS_TYPE_KEY: 'S',
+        BUYER_CITY_KEY: [
             LanguageTaggedString(text='Бон', language='BG'),
             LanguageTaggedString(text='Bonn', language='SV')
         ],
-        'name_of_buyer': [
+        BUYER_NAME_KEY: [
             LanguageTaggedString(text='HIL Heeresinstandsetzungslogistik GmbH', language='DE')
         ],
-        'original_language': 'http://publications.europa.eu/resource/authority/language/DEU',
-        'country_of_buyer': 'http://publications.europa.eu/resource/authority/country/DEU',
-        'eu_institution': False,
-        'document_sent_date': datetime.date(2022, 2, 2).isoformat(),
-        'deadline_for_submission': None,
-        'notice_type': 'AWESOME_NOTICE_TYPE',
-        'form_type': 'http://publications.europa.eu/resource/authority/form-type/planning',
-        'place_of_performance': ['http://data.europa.eu/nuts/code/DE'],
-        'extracted_legal_basis_directive': 'http://publications.europa.eu/resource/authority/legal-basis/32014L0024',
-        'form_number': 'F03',
-        'legal_basis_directive': 'http://publications.europa.eu/resource/authority/legal-basis/32014L0024'
+        LANGUAGE_KEY: 'http://publications.europa.eu/resource/authority/language/DEU',
+        BUYER_COUNTRY_KEY: 'http://publications.europa.eu/resource/authority/country/DEU',
+        EU_INSTITUTION_KEY: False,
+        SENT_DATE_KEY: datetime.date(2022, 2, 2).isoformat(),
+        DEADLINE_DATE_KEY: None,
+        NOTICE_TYPE_KEY: 'AWESOME_NOTICE_TYPE',
+        FORM_TYPE_KEY: 'http://publications.europa.eu/resource/authority/form-type/planning',
+        PLACE_OF_PERFORMANCE_KEY: ['http://data.europa.eu/nuts/code/DE'],
+        EXTRACTED_LEGAL_BASIS_KEY: 'http://publications.europa.eu/resource/authority/legal-basis/32014L0024',
+        FORM_NUMBER_KEY: 'F03',
+        LEGAL_BASIS_DIRECTIVE_KEY: 'http://publications.europa.eu/resource/authority/legal-basis/32014L0024'
     }
 
     return NormalisedMetadata(**data)

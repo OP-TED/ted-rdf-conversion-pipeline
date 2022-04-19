@@ -4,7 +4,8 @@ from ted_sws.core.model.notice import NoticeStatus
 from ted_sws.core.service.metadata_constraints import filter_df_by_variables
 from ted_sws.resources.mapping_files_registry import MappingFilesRegistry
 from ted_sws.metadata_normaliser.services.metadata_normalizer import normalise_notice, normalise_notice_by_id, \
-    MetadataNormaliser, ExtractedMetadataNormaliser
+    MetadataNormaliser, ExtractedMetadataNormaliser, FORM_NUMBER_KEY, SF_NOTICE_TYPE_KEY, LEGAL_BASIS_KEY, \
+    DOCUMENT_CODE_KEY
 from ted_sws.metadata_normaliser.services.xml_manifestation_metadata_extractor import XMLManifestationMetadataExtractor
 
 
@@ -88,13 +89,13 @@ def test_get_filter_values(raw_notice):
     extracted_metadata = XMLManifestationMetadataExtractor(xml_manifestation=raw_notice.xml_manifestation).to_metadata()
     extracted_metadata_normaliser = ExtractedMetadataNormaliser(extracted_metadata=extracted_metadata)
     filter_map = MappingFilesRegistry().filter_map_df
-    filter_variables_dict = extracted_metadata_normaliser.get_filter_variables_values(form_number="F03",
+    filter_variables_dict = extracted_metadata_normaliser.get_filter_variables_values(form_number="F07",
                                                                                       filter_map=filter_map,
                                                                                       extracted_notice_type=None,
                                                                                       document_type_code="7",
                                                                                       legal_basis="legal")
     assert isinstance(filter_variables_dict,dict)
-    assert filter_variables_dict["form_number"] == "F03"
-    assert filter_variables_dict["legal_basis"] is None
-    assert filter_variables_dict["sf_notice_type"] is None
-    assert filter_variables_dict["document_code"] is None
+    assert filter_variables_dict[FORM_NUMBER_KEY] == "F07"
+    assert filter_variables_dict[LEGAL_BASIS_KEY] is None
+    assert filter_variables_dict[SF_NOTICE_TYPE_KEY] is None
+    assert filter_variables_dict[DOCUMENT_CODE_KEY] == "7"

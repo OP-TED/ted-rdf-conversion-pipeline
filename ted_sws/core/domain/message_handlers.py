@@ -1,4 +1,5 @@
-from ted_sws.core.adapters.logger import LoggerFactory, LoggingType, DOMAIN_LOGGING_TYPES
+from typing import List
+
 from ted_sws.core.model import message
 
 """ 
@@ -13,16 +14,17 @@ def handler_log(log: message.Log):
     :return:
     """
 
-    eol = log.format.new_line
+    eol = message.EOL
     msg = ""
     if log.title:
         msg += ("{title}" + eol).format(title=log.title)
-    if log.messages:
-        msg += ("Messages: " + eol + "{messages}" + eol).format(
-            messages=eol.join(map(lambda m: " - " + m, log.messages))
-        )
+    if log.message:
+        if isinstance(log.message, List):
+            msg += (eol + "{messages}" + eol).format(
+                messages=eol.join(map(lambda m: " - " + m, log.message))
+            )
+        else:
+            msg += log.message
+    log.logger.log(msg)
 
-    for logging_type_value in DOMAIN_LOGGING_TYPES:
-        _logger = LoggerFactory.get(LoggingType(logging_type_value), name=logging_type_value + "-logging")
-        _logger.log(msg)
     return msg

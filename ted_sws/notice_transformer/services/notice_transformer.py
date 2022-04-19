@@ -1,9 +1,12 @@
 import abc
 import tempfile
-from pathlib import Path
 from datetime import datetime
+from pathlib import Path
 
+from ted_sws.core.domain.message_bus import message_bus
+from ted_sws.core.adapters.logger import Logger, logger as root_logger
 from ted_sws.core.model.manifestation import RDFManifestation, XMLManifestation
+from ted_sws.core.model.message import Log
 from ted_sws.core.model.notice import Notice, NoticeStatus
 from ted_sws.core.model.transform import MappingSuite, FileResource
 from ted_sws.data_manager.adapters.mapping_suite_repository import MappingSuiteRepositoryInFileSystem
@@ -34,9 +37,7 @@ def transform_test_data(mapping_suite: MappingSuite, rml_mapper: RMLMapperABC, o
     :param loggable:
     :return:
     """
-    NoticeTransformer(mapping_suite=mapping_suite, rml_mapper=rml_mapper, loggable=loggable).transform_test_data(
-        output_path=output_path,
-    )
+    NoticeTransformer(mapping_suite=mapping_suite, rml_mapper=rml_mapper).transform_test_data(output_path=output_path)
 
 
 class NoticeTransformerABC(abc.ABC):
@@ -67,10 +68,10 @@ class NoticeTransformer(NoticeTransformerABC):
         This class is a concrete implementation of transforming a notice using rml-mapper.
     """
 
-    def __init__(self, mapping_suite: MappingSuite, rml_mapper: RMLMapperABC, loggable: bool = False):
+    def __init__(self, mapping_suite: MappingSuite, rml_mapper: RMLMapperABC, logger: Logger = root_logger):
         self.mapping_suite = mapping_suite
         self.rml_mapper = rml_mapper
-        self.loggable = loggable
+        self.logger = logger
 
     def _write_notice_xml_manifestation_in_package(self, package_path: Path, notice: Notice):
         """
@@ -122,10 +123,13 @@ class NoticeTransformer(NoticeTransformerABC):
         file_resource_path = file_resource_parent_path / Path(out_filename)
         with file_resource_path.open("w+", encoding="utf-8") as f:
             f.write(file_resource.file_content)
-        if self.loggable:
-            print(("[" + str(idx).rjust(4, "0") + "] " if idx is not None else "") + ":: " + str(
+
+        message_bus.handle(Log(
+            message=("[" + str(idx).rjust(4, "0") + "] " if idx is not None else "") + ":: " + str(
                 datetime.now()
-            ) + " :: " + notice_container, flush=True)
+            ) + " :: " + notice_container,
+            logger=self.logger
+        ))
 
     def transform_test_data(self, output_path: Path):
         """
@@ -136,9 +140,10 @@ class NoticeTransformer(NoticeTransformerABC):
         transformation_test_data = self.mapping_suite.transformation_test_data
         output_path.mkdir(parents=True, exist_ok=True)
         test_data = transformation_test_data.test_data
-        if self.loggable:
-            print("")
-            print("[" + str(len(test_data)).rjust(4, "0") + "] :: " + str(datetime.now()) + " :: TOTAL", flush=True)
+        message_bus.handle(Log(
+            message="[" + str(len(test_data)).rjust(4, "0") + "] :: " + str(datetime.now()) + " :: TOTAL",
+            logger=self.logger
+        ))
         for idx, data in enumerate(test_data, start=1):
             notice = Notice(ted_id="tmp_notice", xml_manifestation=XMLManifestation(object_data=data.file_content))
             notice._status = NoticeStatus.PREPROCESSED_FOR_TRANSFORMATION

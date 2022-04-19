@@ -8,7 +8,7 @@
 """ """
 import abc
 from datetime import datetime
-from typing import List, Optional
+from typing import List
 
 from ted_sws.core.model import PropertyBaseModel
 

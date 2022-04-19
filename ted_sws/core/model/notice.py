@@ -15,8 +15,8 @@ from __future__ import annotations
 import abc
 from datetime import datetime
 from enum import IntEnum
-from typing import Optional
 from functools import total_ordering
+from typing import Optional
 
 from pydantic import Field
 
@@ -88,6 +88,7 @@ NOTICE_STATUS_DOWNSTREAM_TRANSITION = {NoticeStatus.RAW: [NoticeStatus.NORMALISE
                                        NoticeStatus.PUBLICLY_AVAILABLE: [],
                                        }
 
+
 class WorkExpression(PropertyBaseModel, abc.ABC):
     """
         A Merger of Work and Expression FRBR classes.
@@ -156,7 +157,6 @@ class Notice(WorkExpression):
     _distilled_rdf_manifestation: Optional[RDFManifestation] = None
     _rdf_manifestation: Optional[RDFManifestation] = None
     _mets_manifestation: Optional[METSManifestation] = None
-
 
     @property
     def preprocessed_xml_manifestation(self) -> XMLManifestation:

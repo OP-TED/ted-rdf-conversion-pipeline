@@ -1,6 +1,7 @@
 import abc
 import enum
 import logging
+import sys
 
 import logstash
 
@@ -10,10 +11,12 @@ from ted_sws import config
 class LoggingType(enum.Enum):
     ELK = "ELK"
     PY = "PY"
+    DB = "DB"
 
 
 DOMAIN_LOGGING_TYPES = config.LOGGING_TYPE.split(",") if config.LOGGING_TYPE is not None else [LoggingType.PY.value]
-DOMAIN_LOGGING_TYPE = DOMAIN_LOGGING_TYPES[0]
+DEFAULT_LOGGER_LEVEL = logging.NOTSET
+DEFAULT_LOGGER_NAME = "ted-sws"
 
 
 class LoggerABC(abc.ABC):
@@ -28,55 +31,38 @@ class Logger(LoggerABC):
     This class provides common features for available loggers
     """
 
-    def __init__(self, name: str = __name__):
+    def __init__(self, name: str = DEFAULT_LOGGER_NAME, level: int = DEFAULT_LOGGER_LEVEL):
+        self.level = level
         self.name = name
         self.logger = logging.getLogger(name)
-        self.level = logging.DEBUG
         self.logger.setLevel(self.level)
+        if self.has_logging_type(LoggingType.ELK):
+            self.add_elk_handler()
 
     def get_logger(self) -> logging.Logger:
         return self.logger
 
-    def log(self, msg: str):
-        msg = "\n" + self.name + "\n" + msg + "\n"
-        self.logger.log(self.level, msg)
+    @staticmethod
+    def has_logging_type(logging_type: LoggingType):
+        return logging_type.value in DOMAIN_LOGGING_TYPES
 
+    def add_stdout_handler(self, level: int = DEFAULT_LOGGER_LEVEL):
+        console = logging.StreamHandler(sys.stdout)
+        console.setLevel(level)
+        self.logger.addHandler(console)
 
-class LoggerFactory:
-    @classmethod
-    def get(cls, logging_type: LoggingType = LoggingType(DOMAIN_LOGGING_TYPE), name: str = __name__):
-        """Factory Method to return the needed Logger, based on logging type/target"""
-        loggers = {
-            LoggingType.ELK: ELKLogger,
-            LoggingType.PY: PYLogger
-        }
-        name = "{logging_type} :: {name}".format(logging_type=logging_type, name=name)
-        return loggers[logging_type](name=name)
-
-
-class ELKLogger(Logger):
-    """
-    LogStash (ELK) Logger
-    """
-
-    def __init__(self, name: str = 'logstash-logger'):
-        super().__init__(name=name)
-
+    def add_elk_handler(self, level: int = DEFAULT_LOGGER_LEVEL):
         host = config.ELK_HOST
         port = config.ELK_PORT
         version = config.ELK_VERSION
 
-        self.logger.addHandler(logstash.LogstashHandler(host, port, version=version))
+        elk = logstash.LogstashHandler(host, port, version=version)
+        elk.setLevel(level)
+        self.logger.addHandler(elk)
         # self.logger.addHandler(logstash.TCPLogstashHandler(host, port, version=version))
 
-
-class PYLogger(Logger):
-    """
-    Python Logger
-    """
-
-    def __init__(self, name: str = __name__):
-        super().__init__(name=name)
+    def log(self, msg: str, level: int = None):
+        self.logger.log(level if level is not None else self.level, msg)
 
 
-logger = LoggerFactory.get(name="domain-logging")
+logger = Logger()

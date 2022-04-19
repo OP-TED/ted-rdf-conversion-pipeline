@@ -1,8 +1,11 @@
 import pathlib
 import shutil
 
+from pymongo import MongoClient
+
 from ted_sws.data_manager.adapters.mapping_suite_repository import TRANSFORM_PACKAGE_NAME, VALIDATE_PACKAGE_NAME, \
-    SPARQL_PACKAGE_NAME, METADATA_FILE_NAME, RESOURCES_PACKAGE_NAME, SHACL_PACKAGE_NAME, TEST_DATA_PACKAGE_NAME
+    SPARQL_PACKAGE_NAME, METADATA_FILE_NAME, RESOURCES_PACKAGE_NAME, SHACL_PACKAGE_NAME, TEST_DATA_PACKAGE_NAME, \
+    MappingSuiteRepositoryInFileSystem, MappingSuiteRepositoryMongoDB
 from ted_sws.mapping_suite_processor.services.conceptual_mapping_files_injection import \
     mapping_suite_processor_inject_resources, mapping_suite_processor_inject_shacl_shapes, \
     mapping_suite_processor_inject_sparql_queries
@@ -85,9 +88,18 @@ def mapping_suite_processor_expand_package(mapping_suite_package_path: pathlib.P
     mapping_suite_processor_zip_package(mapping_suite_package_path=mapping_suite_package_path, prod_version=True)
 
 
-def mapping_suite_processor_load_package_in_mongo_db(mapping_suite_package_path: pathlib.Path):
+def mapping_suite_processor_load_package_in_mongo_db(mapping_suite_package_path: pathlib.Path,
+                                                     mongodb_client: MongoClient):
     """
-
+        This feature allows you to upload a mapping suite package to MongoDB.
     :param mapping_suite_package_path:
+    :param mongodb_client:
     :return:
     """
+    mapping_suite_repository_path = mapping_suite_package_path.parent
+    mapping_suite_package_name = mapping_suite_package_path.name
+    mapping_suite_repository_in_file_system = MappingSuiteRepositoryInFileSystem(
+        repository_path=mapping_suite_repository_path)
+    mapping_suite_in_memory = mapping_suite_repository_in_file_system.get(reference=mapping_suite_package_name)
+    mapping_suite_repository_mongo_db = MappingSuiteRepositoryMongoDB(mongodb_client=mongodb_client)
+    mapping_suite_repository_mongo_db.add(mapping_suite=mapping_suite_in_memory)

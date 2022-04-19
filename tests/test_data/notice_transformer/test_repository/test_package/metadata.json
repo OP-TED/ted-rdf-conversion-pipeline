@@ -4,6 +4,7 @@
   "identifier": "test_package",
   "version": "0.1",
   "ontology_version": "3.0.0.alpha",
+  "xsd_version": "R2.0.9.S05.E01",
   "metadata_constraints": {
     "constraints": {
       "form_number": [

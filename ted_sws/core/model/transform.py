@@ -73,6 +73,7 @@ class MappingSuite(MappingSuiteComponent):
     title: str = "no_title"
     version: str = "0.1"
     ontology_version: str = "0.0.1"
+    xsd_version: str = "no_xsd_version"
     metadata_constraints: MetadataConstraints
     transformation_rule_set: TransformationRuleSet
     shacl_test_suites: List[SHACLTestSuite]

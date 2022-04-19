@@ -14,6 +14,30 @@ from ted_sws.metadata_normaliser.services.xml_manifestation_metadata_extractor i
 
 JOIN_SEP = " :: "
 MERGING_COLUMN = "eforms_subtype"
+E_FORM_NOTICE_TYPE_COLUMN = "eform_notice_type"
+E_FORM_LEGAL_BASIS_COLUMN = "eform_legal_basis"
+FORM_NUMBER_KEY = "form_number"
+FORM_TYPE_KEY = "form_type"
+SF_NOTICE_TYPE_KEY = "sf_notice_type"
+DOCUMENT_CODE_KEY = "document_code"
+LEGAL_BASIS_KEY = "legal_basis"
+LEGAL_BASIS_DIRECTIVE_KEY = "legal_basis_directive"
+EXTRACTED_LEGAL_BASIS_KEY = "extracted_legal_basis_directive"
+PLACE_OF_PERFORMANCE_KEY = "place_of_performance"
+TITLE_KEY = "title"
+LONG_TITLE_KEY = "long_title"
+NOTICE_NUMBER_KEY = "notice_publication_number"
+PUBLICATION_DATE_KEY = "publication_date"
+OJS_NUMBER_KEY = "ojs_issue_number"
+OJS_TYPE_KEY = "ojs_type"
+BUYER_CITY_KEY = "city_of_buyer"
+BUYER_NAME_KEY = "name_of_buyer"
+LANGUAGE_KEY = "original_language"
+BUYER_COUNTRY_KEY = "country_of_buyer"
+EU_INSTITUTION_KEY = "eu_institution"
+SENT_DATE_KEY = "document_sent_date"
+DEADLINE_DATE_KEY = "deadline_for_submission"
+NOTICE_TYPE_KEY = "notice_type"
 
 
 def normalise_notice(notice: Notice) -> Notice:
@@ -119,11 +143,41 @@ class ExtractedMetadataNormaliser:
         return value
 
     @classmethod
-    def get_form_type_and_notice_type(cls, ef_map: pd.DataFrame, sf_map: pd.DataFrame, form_number: str,
+    def get_filter_variables_values(cls, form_number: str, extracted_notice_type: str, legal_basis: str,
+                                    document_type_code: str, filter_map: pd.DataFrame) -> dict:
+        """
+        Get necessary values to filter mapping dataframe
+        :param form_number:
+        :param extracted_notice_type:
+        :param legal_basis:
+        :param document_type_code:
+        :param filter_map:
+        :return:
+        """
+        variables = {
+            FORM_NUMBER_KEY: form_number,
+            SF_NOTICE_TYPE_KEY: extracted_notice_type,
+            DOCUMENT_CODE_KEY: document_type_code,
+            LEGAL_BASIS_KEY: legal_basis
+        }
+
+        filter_variables = filter_map.query(f"{FORM_NUMBER_KEY}=='{variables[FORM_NUMBER_KEY]}'").to_dict(orient='records')[0]
+        for key, value in filter_variables.items():
+            if value == 0:
+                filter_variables[key] = None
+            if value == 1:
+                filter_variables[key] = variables[key]
+
+        return filter_variables
+
+    @classmethod
+    def get_form_type_and_notice_type(cls, filter_map: pd.DataFrame, ef_map: pd.DataFrame, sf_map: pd.DataFrame,
+                                      form_number: str,
                                       extracted_notice_type: str, legal_basis: str, document_type_code: str) -> Tuple:
         """
         Returns notice_type and form_type
         :param ef_map:
+        :param filter_map:
         :param sf_map:
         :param form_number:
         :param extracted_notice_type:
@@ -132,12 +186,18 @@ class ExtractedMetadataNormaliser:
         :return:
         """
         mapping_df = pd.merge(sf_map, ef_map, on=MERGING_COLUMN, how="left")
-        filtered_df = filter_df_by_variables(df=mapping_df, form_number=form_number,
-                                             sf_notice_type=extracted_notice_type, legal_basis=legal_basis,
-                                             document_code=document_type_code)
-        form_type = filtered_df["form_type"].values[0]
-        notice_type = filtered_df["eform_notice_type"].values[0]
-        return form_type, notice_type
+        filter_variables = cls.get_filter_variables_values(form_number=form_number, filter_map=filter_map,
+                                                           extracted_notice_type=extracted_notice_type,
+                                                           legal_basis=legal_basis,
+                                                           document_type_code=document_type_code)
+        filtered_df = filter_df_by_variables(df=mapping_df, form_number=filter_variables[FORM_NUMBER_KEY],
+                                             sf_notice_type=filter_variables[SF_NOTICE_TYPE_KEY],
+                                             legal_basis=filter_variables[LEGAL_BASIS_KEY],
+                                             document_code=filter_variables[DOCUMENT_CODE_KEY])
+        form_type = filtered_df[FORM_TYPE_KEY].values[0]
+        notice_type = filtered_df[E_FORM_NOTICE_TYPE_COLUMN].values[0]
+        legal_basis = filtered_df[E_FORM_LEGAL_BASIS_COLUMN].values[0]
+        return form_type, notice_type, legal_basis
 
     def get_map_list_value_by_code(self, mapping: Dict, listing: List):
         return [self.get_map_value(mapping=mapping, value=element.code) if element else None for element in listing]
@@ -163,8 +223,9 @@ class ExtractedMetadataNormaliser:
         nuts_map = mapping_registry.nuts
         standard_forms_map = mapping_registry.sf_notice_df
         eforms_map = mapping_registry.ef_notice_df
-        form_type, notice_type = self.get_form_type_and_notice_type(
-            sf_map=standard_forms_map, ef_map=eforms_map,
+        filter_map = mapping_registry.filter_map_df
+        form_type, notice_type, legal_basis = self.get_form_type_and_notice_type(
+            sf_map=standard_forms_map, ef_map=eforms_map, filter_map=filter_map,
             extracted_notice_type=self.extracted_metadata.extracted_notice_type,
             form_number=self.normalise_form_number(
                 self.extracted_metadata.extracted_form_number),
@@ -176,8 +237,8 @@ class ExtractedMetadataNormaliser:
         extracted_metadata = self.extracted_metadata
 
         metadata = {
-            "title": [title.title for title in extracted_metadata.title],
-            "long_title": [
+            TITLE_KEY: [title.title for title in extracted_metadata.title],
+            LONG_TITLE_KEY: [
                 LanguageTaggedString(text=JOIN_SEP.join(
                     [
                         title.title_country.text,
@@ -186,28 +247,29 @@ class ExtractedMetadataNormaliser:
                     ]),
                     language=title.title.language) for title in extracted_metadata.title
             ],
-            "notice_publication_number": extracted_metadata.notice_publication_number,
-            "publication_date": self.iso_date_format(extracted_metadata.publication_date),
-            "ojs_issue_number": extracted_metadata.ojs_issue_number,
-            "ojs_type": extracted_metadata.ojs_type if extracted_metadata.ojs_type else "S",
-            "city_of_buyer": [city_of_buyer for city_of_buyer in extracted_metadata.city_of_buyer],
-            "name_of_buyer": [name_of_buyer for name_of_buyer in extracted_metadata.name_of_buyer],
-            "original_language": self.get_map_value(mapping=languages_map, value=extracted_metadata.original_language),
-            "country_of_buyer": self.get_map_value(mapping=countries_map, value=extracted_metadata.country_of_buyer),
-            "eu_institution": False if extracted_metadata.eu_institution == '-' else True,
-            "document_sent_date": self.iso_date_format(extracted_metadata.document_sent_date, True),
-            "deadline_for_submission": self.iso_date_format(extracted_metadata.deadline_for_submission, True),
-            "notice_type": self.get_map_value(mapping=notice_type_map, value=notice_type),
-            "form_type": self.get_map_value(mapping=form_type_map, value=form_type),
-            "place_of_performance": self.get_map_list_value_by_code(
+            NOTICE_NUMBER_KEY: extracted_metadata.notice_publication_number,
+            PUBLICATION_DATE_KEY: self.iso_date_format(extracted_metadata.publication_date),
+            OJS_NUMBER_KEY: extracted_metadata.ojs_issue_number,
+            OJS_TYPE_KEY: extracted_metadata.ojs_type if extracted_metadata.ojs_type else "S",
+            BUYER_CITY_KEY: [city_of_buyer for city_of_buyer in extracted_metadata.city_of_buyer],
+            BUYER_NAME_KEY: [name_of_buyer for name_of_buyer in extracted_metadata.name_of_buyer],
+            LANGUAGE_KEY: self.get_map_value(mapping=languages_map, value=extracted_metadata.original_language),
+            BUYER_COUNTRY_KEY: self.get_map_value(mapping=countries_map, value=extracted_metadata.country_of_buyer),
+            EU_INSTITUTION_KEY: False if extracted_metadata.eu_institution == '-' else True,
+            SENT_DATE_KEY: self.iso_date_format(extracted_metadata.document_sent_date, True),
+            DEADLINE_DATE_KEY: self.iso_date_format(extracted_metadata.deadline_for_submission, True),
+            NOTICE_TYPE_KEY: self.get_map_value(mapping=notice_type_map, value=notice_type),
+            FORM_TYPE_KEY: self.get_map_value(mapping=form_type_map, value=form_type),
+            PLACE_OF_PERFORMANCE_KEY: self.get_map_list_value_by_code(
                 mapping=nuts_map,
                 listing=extracted_metadata.place_of_performance
             ),
-            "legal_basis_directive": self.get_map_value(mapping=legal_basis_map,
-                                                        value=self.normalise_legal_basis_value(
-                                                            extracted_metadata.legal_basis_directive
-                                                        )),
-            "form_number": self.normalise_form_number(value=extracted_metadata.extracted_form_number)
+            EXTRACTED_LEGAL_BASIS_KEY: self.get_map_value(mapping=legal_basis_map,
+                                                                  value=self.normalise_legal_basis_value(
+                                                                      extracted_metadata.legal_basis_directive
+                                                                  )),
+            FORM_NUMBER_KEY: self.normalise_form_number(value=extracted_metadata.extracted_form_number),
+            LEGAL_BASIS_DIRECTIVE_KEY: self.get_map_value(mapping=legal_basis_map, value=legal_basis)
         }
 
         return NormalisedMetadata(**metadata)

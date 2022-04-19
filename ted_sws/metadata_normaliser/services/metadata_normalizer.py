@@ -14,6 +14,8 @@ from ted_sws.metadata_normaliser.services.xml_manifestation_metadata_extractor i
 
 JOIN_SEP = " :: "
 MERGING_COLUMN = "eforms_subtype"
+E_FORM_NOTICE_TYPE_COLUMN = "eform_notice_type"
+E_FORM_LEGAL_BASIS_COLUMN = "eform_legal_basis"
 FORM_NUMBER_KEY = "form_number"
 FORM_TYPE_KEY = "form_type"
 SF_NOTICE_TYPE_KEY = "sf_notice_type"
@@ -193,8 +195,8 @@ class ExtractedMetadataNormaliser:
                                              legal_basis=filter_variables[LEGAL_BASIS_KEY],
                                              document_code=filter_variables[DOCUMENT_CODE_KEY])
         form_type = filtered_df[FORM_TYPE_KEY].values[0]
-        notice_type = filtered_df["eform_notice_type"].values[0]
-        legal_basis = filtered_df["eform_legal_basis"].values[0]
+        notice_type = filtered_df[E_FORM_NOTICE_TYPE_COLUMN].values[0]
+        legal_basis = filtered_df[E_FORM_LEGAL_BASIS_COLUMN].values[0]
         return form_type, notice_type, legal_basis
 
     def get_map_list_value_by_code(self, mapping: Dict, listing: List):

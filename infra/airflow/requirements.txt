@@ -9,3 +9,4 @@ apache-airflow==2.2.5
 hvac==0.11.2
 SPARQLWrapper==1.8.5
 pandas==1.3.5
+gitdir==1.2.7

@@ -1,39 +1,31 @@
 #!/usr/bin/python3
 
 """
-
 """
 
+import logging
+
+from ted_sws.core.adapters.logger import Logger
 from ted_sws.core.domain.message_bus import message_bus
 from ted_sws.core.model.message import Log
-from ted_sws.core.adapters.logger import Logger, LoggingType, LoggerFactory
+
+TEST_LOGGER = Logger(name="TEST_MESSAGE_BUS_LOGGER", level=logging.INFO)
 
 
-def log_message(logging_type: LoggingType) -> Log:
-    str_longing_type = logging_type.value
+def log_message() -> Log:
     return Log(
-        title=str_longing_type + " :: test_message_bus_log",
-        messages=[str_longing_type + " :: log_message :: 1", str_longing_type + " :: log_message :: 2"]
+        title="test_message_bus_log",
+        message=["log_message :: 1", "log_message :: 2"],
+        logger=TEST_LOGGER
     )
 
 
 def test_message_bus_log(caplog):
-    logging_type = LoggingType.PY
-    log = log_message(logging_type)
-    message_bus.set_domain_logger(LoggerFactory.get(logging_type, name="py-domain"))
+    log = log_message()
+    message_bus.set_domain_logger(TEST_LOGGER)
     message_bus.handle(log)
     if log.title:
         assert log.title in caplog.text
-    if log.messages:
-        for message in log.messages:
-            assert message in caplog.text
-
-    logging_type = LoggingType.ELK
-    log = log_message(logging_type)
-    message_bus.set_domain_logger(LoggerFactory.get(logging_type, name="elk-domain"))
-    message_bus.handle(log)
-    if log.title:
-        assert log.title in caplog.text
-    if log.messages:
-        for message in log.messages:
+    if log.message:
+        for message in log.message:
             assert message in caplog.text

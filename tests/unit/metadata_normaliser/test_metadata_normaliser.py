@@ -4,7 +4,8 @@ from ted_sws.core.model.notice import NoticeStatus
 from ted_sws.core.service.metadata_constraints import filter_df_by_variables
 from ted_sws.resources.mapping_files_registry import MappingFilesRegistry
 from ted_sws.metadata_normaliser.services.metadata_normalizer import normalise_notice, normalise_notice_by_id, \
-    MetadataNormaliser, ExtractedMetadataNormaliser
+    MetadataNormaliser, ExtractedMetadataNormaliser, FORM_NUMBER_KEY, SF_NOTICE_TYPE_KEY, LEGAL_BASIS_KEY, \
+    DOCUMENT_CODE_KEY
 from ted_sws.metadata_normaliser.services.xml_manifestation_metadata_extractor import XMLManifestationMetadataExtractor
 
 
@@ -73,11 +74,28 @@ def test_filter_df_by_variables():
 def test_get_form_type_and_notice_type(raw_notice):
     extracted_metadata = XMLManifestationMetadataExtractor(xml_manifestation=raw_notice.xml_manifestation).to_metadata()
     extracted_metadata_normaliser = ExtractedMetadataNormaliser(extracted_metadata=extracted_metadata)
-    form_type, notice_type = extracted_metadata_normaliser.get_form_type_and_notice_type(
+    form_type, notice_type, legal_basis = extracted_metadata_normaliser.get_form_type_and_notice_type(
         ef_map=MappingFilesRegistry().ef_notice_df,
         sf_map=MappingFilesRegistry().sf_notice_df,
         form_number="F02", extracted_notice_type=None,
-        legal_basis="32014L0023", document_type_code="Y")
+        legal_basis="32014L0023", document_type_code="Y", filter_map=MappingFilesRegistry().filter_map_df)
 
     assert "competition" == form_type
     assert "cn-standard" == notice_type
+    assert "32014L0024" == legal_basis
+
+
+def test_get_filter_values(raw_notice):
+    extracted_metadata = XMLManifestationMetadataExtractor(xml_manifestation=raw_notice.xml_manifestation).to_metadata()
+    extracted_metadata_normaliser = ExtractedMetadataNormaliser(extracted_metadata=extracted_metadata)
+    filter_map = MappingFilesRegistry().filter_map_df
+    filter_variables_dict = extracted_metadata_normaliser.get_filter_variables_values(form_number="F07",
+                                                                                      filter_map=filter_map,
+                                                                                      extracted_notice_type=None,
+                                                                                      document_type_code="7",
+                                                                                      legal_basis="legal")
+    assert isinstance(filter_variables_dict,dict)
+    assert filter_variables_dict[FORM_NUMBER_KEY] == "F07"
+    assert filter_variables_dict[LEGAL_BASIS_KEY] is None
+    assert filter_variables_dict[SF_NOTICE_TYPE_KEY] is None
+    assert filter_variables_dict[DOCUMENT_CODE_KEY] == "7"

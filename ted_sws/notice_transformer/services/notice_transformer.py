@@ -1,13 +1,16 @@
 import abc
-import pathlib
 import tempfile
+from datetime import datetime
+from pathlib import Path
 
-from ted_sws.data_manager.adapters.mapping_suite_repository import MappingSuiteRepositoryInFileSystem, \
-    TRANSFORM_PACKAGE_NAME, RESOURCES_PACKAGE_NAME
+from ted_sws.core.domain.message_bus import message_bus
+from ted_sws.core.adapters.logger import Logger, logger as root_logger
 from ted_sws.core.model.manifestation import RDFManifestation, XMLManifestation
+from ted_sws.core.model.message import Log
 from ted_sws.core.model.notice import Notice, NoticeStatus
 from ted_sws.core.model.transform import MappingSuite, FileResource
-from ted_sws.notice_transformer.adapters.rml_mapper import RMLMapperABC
+from ted_sws.data_manager.adapters.mapping_suite_repository import MappingSuiteRepositoryInFileSystem
+from ted_sws.notice_transformer.adapters.rml_mapper import RMLMapperABC, SerializationFormat as RMLSerializationFormat
 
 DATA_SOURCE_PACKAGE = "data"
 
@@ -24,12 +27,14 @@ def transform_notice(notice: Notice, mapping_suite: MappingSuite, rml_mapper: RM
     return NoticeTransformer(mapping_suite=mapping_suite, rml_mapper=rml_mapper).transform_notice(notice=notice)
 
 
-def transform_test_data(mapping_suite: MappingSuite, rml_mapper: RMLMapperABC, output_path: pathlib.Path):
+def transform_test_data(mapping_suite: MappingSuite, rml_mapper: RMLMapperABC, output_path: Path,
+                        loggable: bool = False):
     """
         This function converts each file in the test data and writes the result to a file in output_path.
     :param mapping_suite:
     :param rml_mapper:
     :param output_path:
+    :param loggable:
     :return:
     """
     NoticeTransformer(mapping_suite=mapping_suite, rml_mapper=rml_mapper).transform_test_data(output_path=output_path)
@@ -48,17 +53,27 @@ class NoticeTransformerABC(abc.ABC):
         :return:
         """
 
+    @staticmethod
+    @abc.abstractmethod
+    def get_test_notice_container(filename: str) -> str:
+        """
+            Get filename name (notice container) without extension
+        :param filename:
+        :return:
+        """
+
 
 class NoticeTransformer(NoticeTransformerABC):
     """
         This class is a concrete implementation of transforming a notice using rml-mapper.
     """
 
-    def __init__(self, mapping_suite: MappingSuite, rml_mapper: RMLMapperABC):
+    def __init__(self, mapping_suite: MappingSuite, rml_mapper: RMLMapperABC, logger: Logger = root_logger):
         self.mapping_suite = mapping_suite
         self.rml_mapper = rml_mapper
+        self.logger = logger
 
-    def _write_notice_xml_manifestation_in_package(self, package_path: pathlib.Path, notice: Notice):
+    def _write_notice_xml_manifestation_in_package(self, package_path: Path, notice: Notice):
         """
             This method generates a source file to perform the transformation.
         :param package_path:
@@ -73,26 +88,71 @@ class NoticeTransformer(NoticeTransformerABC):
         with notice_path.open("w", encoding="utf-8") as file:
             file.write(notice.xml_manifestation.object_data)
 
-    def transform_test_data(self, output_path: pathlib.Path):
+    @staticmethod
+    def get_test_notice_container(filename: str) -> str:
+        return NoticeTransformer._get_filename_name(filename)
+
+    @staticmethod
+    def _get_filename_name(filename: str) -> str:
+        """
+        Get filename name without extension
+        :param filename:
+        :return:
+        """
+        return Path(filename).stem
+
+    def _get_out_file_ext(self, filename: str) -> str:
+        """
+        Get file extension, based on output format
+        :param filename:
+        :param ext:
+        :return:
+        """
+        serialization: RMLSerializationFormat = self.rml_mapper.get_serialization_format()
+        exts = {
+            RMLSerializationFormat.TURTLE: '.ttl'
+        }
+        return "{ext}".format(ext=exts.get(serialization, Path(filename).suffix))
+
+    def _write_resource_to_out_file(self, file_resource: FileResource, output_path: Path, idx: int = None):
+        filename = file_resource.file_name
+        notice_container = self.get_test_notice_container(filename)
+        out_filename = notice_container + self._get_out_file_ext(filename)
+        file_resource_parent_path = output_path / Path(notice_container)
+        file_resource_parent_path.mkdir(parents=True, exist_ok=True)
+        file_resource_path = file_resource_parent_path / Path(out_filename)
+        with file_resource_path.open("w+", encoding="utf-8") as f:
+            f.write(file_resource.file_content)
+
+        message_bus.handle(Log(
+            message=("[" + str(idx).rjust(4, "0") + "] " if idx is not None else "") + ":: " + str(
+                datetime.now()
+            ) + " :: " + notice_container,
+            logger=self.logger
+        ))
+
+    def transform_test_data(self, output_path: Path):
         """
             This method converts each file in the test data and writes the result to a file in output_path.
         :param output_path:
         :return:
         """
         transformation_test_data = self.mapping_suite.transformation_test_data
-        file_resources = []
-        for data in transformation_test_data.test_data:
-            notice = Notice(ted_id="tmp_notice",xml_manifestation=XMLManifestation(object_data=data.file_content))
+        output_path.mkdir(parents=True, exist_ok=True)
+        test_data = transformation_test_data.test_data
+        message_bus.handle(Log(
+            message="[" + str(len(test_data)).rjust(4, "0") + "] :: " + str(datetime.now()) + " :: TOTAL",
+            logger=self.logger
+        ))
+        for idx, data in enumerate(test_data, start=1):
+            notice = Notice(ted_id="tmp_notice", xml_manifestation=XMLManifestation(object_data=data.file_content))
             notice._status = NoticeStatus.PREPROCESSED_FOR_TRANSFORMATION
             notice_result = self.transform_notice(notice=notice)
-            file_resources.append(
-                FileResource(file_name=data.file_name, file_content=notice_result.rdf_manifestation.object_data))
-
-        output_path.mkdir(parents=True, exist_ok=True)
-        for file_resource in file_resources:
-            file_resource_path = output_path / file_resource.file_name
-            with file_resource_path.open("w", encoding="utf-8") as f:
-                f.write(file_resource.file_content)
+            file_resource = FileResource(
+                file_name=data.file_name,
+                file_content=notice_result.rdf_manifestation.object_data
+            )
+            self._write_resource_to_out_file(file_resource, output_path, idx)
 
     def transform_notice(self, notice: Notice) -> Notice:
         """
@@ -101,7 +161,7 @@ class NoticeTransformer(NoticeTransformerABC):
         :return:
         """
         with tempfile.TemporaryDirectory() as d:
-            package_path = pathlib.Path(d) / self.mapping_suite.identifier
+            package_path = Path(d) / self.mapping_suite.identifier
             self._write_notice_xml_manifestation_in_package(package_path=package_path, notice=notice)
             rdf_result = self.rml_mapper.execute(package_path=package_path)
             notice.set_rdf_manifestation(rdf_manifestation=RDFManifestation(object_data=rdf_result))

@@ -6,7 +6,6 @@
 # Email: costezki.eugen@gmail.com 
 
 """ """
-import datetime
 from typing import List, Optional
 
 from pydantic.annotated_types import NamedTuple
@@ -68,6 +67,7 @@ class NormalisedMetadata(Metadata):
     notice_type: str
     form_type: str
     place_of_performance: Optional[List[str]]
+    extracted_legal_basis_directive: Optional[str]
     legal_basis_directive: str
     form_number: str
 

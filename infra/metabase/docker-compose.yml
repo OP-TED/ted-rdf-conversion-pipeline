@@ -1,30 +1,54 @@
-version: "3"
+version: "3.8"
 
-# All available services
 services:
 
-  # Misc Storage
   postgres:
-    container_name: "data-engine_postgres"
+    container_name: metabase-postgres-${ENVIRONMENT}
     restart: "always"
     image: postgres
-    env_file:
-      - ./config/postgres.env
+    environment:
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - METABASE_PASSWORD=${METABASE_PASSWORD}
     volumes:
       - postgres_volume:/var/lib/postgresql/data/
       - ./services/postgres/:/docker-entrypoint-initdb.d/
-    ports:
-      - 54320:5432
+    networks:
+      - metabase-net
 
   metabase:
-    container_name: "data-engine_metabase"
+    container_name: metabase-${ENVIRONMENT}
     restart: "always"
     image: metabase/metabase
-    env_file:
-      - ./config/metabase_database.env
-    ports:
-      - 3000:3000
+    environment:
+      - ENV_MB_DB_TYPE=postgres
+      - ENV_MB_DB_DBNAME=${ENV_MB_DB_DBNAME}
+      - ENV_MB_DB_PORT=${ENV_MB_DB_PORT}
+      - ENV_MB_DB_USER=${ENV_MB_DB_USER}
+      - ENV_MB_DB_PASS=${ENV_MB_DB_PASS}
+      - ENV_MB_DB_HOST=metabase-postgres-${ENVIRONMENT}
+      - ENV_MB_ENCRYPTION_SECRET_KEY=${ENV_MB_ENCRYPTION_SECRET_KEY}
+    networks:
+      - metabase-net
+      - proxy-net
+    labels:
+      #### Labels define the behavior and rules of the traefik proxy for this container ####
+      - "traefik.enable=true" # <== Enable traefik to proxy this container
+      - "traefik.http.routers.${ENVIRONMENT}-metabase.rule=Host(`metabase.${SUBDOMAIN}${DOMAIN}`)" # <== Your Domain Name goes here for the http rule
+      - "traefik.http.routers.${ENVIRONMENT}-metabase.entrypoints=web" # <== Defining the entrypoint for http, **ref: line 30
+      - "traefik.http.routers.${ENVIRONMENT}-metabase.middlewares=redirect@file" # <== This is a middleware to redirect to https
+      - "traefik.http.routers.${ENVIRONMENT}-metabase-secured.rule=Host(`metabase.${SUBDOMAIN}${DOMAIN}`)" # <== Your Domain Name for the https rule
+      - "traefik.http.routers.${ENVIRONMENT}-metabase-secured.entrypoints=web-secured" # <== Defining entrypoint for https, **ref: line 31
+      - "traefik.http.routers.${ENVIRONMENT}-metabase-secured.tls.certresolver=mytlschallenge" # <== Defining certsresolvers for https
 
 # Volumes to persist data
 volumes:
   postgres_volume:
+    name: postgres-volume-${ENVIRONMENT}
+
+networks:
+  metabase-net:
+    internal: false
+    name: metabase-net-${ENVIRONMENT}
+  proxy-net:
+    external:
+      name: proxy-net

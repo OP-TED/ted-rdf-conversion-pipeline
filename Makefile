@@ -144,6 +144,14 @@ stop-mongo:
 	@ echo -e "$(BUILD_PRINT)Stopping the Mongo services $(END_BUILD_PRINT)"
 	@ docker-compose -p ${ENVIRONMENT} --file ./infra/mongo/docker-compose.yml --env-file ${ENV_FILE} down
 
+start-metabase: build-externals
+	@ echo -e "$(BUILD_PRINT)Starting the Metabase services $(END_BUILD_PRINT)"
+	@ docker-compose -p ${ENVIRONMENT} --file ./infra/metabase/docker-compose.yml --env-file ${ENV_FILE} up -d
+
+stop-metabase:
+	@ echo -e "$(BUILD_PRINT)Stopping the Metabase services $(END_BUILD_PRINT)"
+	@ docker-compose -p ${ENVIRONMENT} --file ./infra/metabase/docker-compose.yml --env-file ${ENV_FILE} down
+
 init-rml-mapper:
 	@ echo -e "RMLMapper folder initialisation!"
 	@ wget -c https://github.com/RMLio/rmlmapper-java/releases/download/v5.0.0/rmlmapper-5.0.0-r362-all.jar -P .rmlmapper/
@@ -154,8 +162,8 @@ init-saxon:
 	@ wget -c https://kumisystems.dl.sourceforge.net/project/saxon/Saxon-HE/10/Java/SaxonHE10-6J.zip -P .saxon/
 	@ cd .saxon && unzip SaxonHE10-6J.zip && rm -rf SaxonHE10-6J.zip
 
-start-project-services: | start-airflow start-mongo init-rml-mapper
-stop-project-services: | stop-airflow stop-mongo
+start-project-services: | start-airflow start-mongo init-rml-mapper start-allegro-graph start-metabase
+stop-project-services: | stop-airflow stop-mongo stop-allegro-graph stop-metabase
 
 #-----------------------------------------------------------------------------
 # VAULT SERVICES
@@ -190,6 +198,8 @@ staging-dotenv-file: guard-VAULT_ADDR guard-VAULT_TOKEN vault-installed
 	@ echo AIRFLOW_INFRA_FOLDER=~/airflow-infra/staging >> .env
 	@ vault kv get -format="json" ted-staging/airflow | jq -r ".data.data | keys[] as \$$k | \"\(\$$k)=\(.[\$$k])\"" >> .env
 	@ vault kv get -format="json" ted-staging/mongo-db | jq -r ".data.data | keys[] as \$$k | \"\(\$$k)=\(.[\$$k])\"" >> .env
+	@ vault kv get -format="json" ted-staging/metabase | jq -r ".data.data | keys[] as \$$k | \"\(\$$k)=\(.[\$$k])\"" >> .env
+	@ vault kv get -format="json" ted-staging/agraph | jq -r ".data.data | keys[] as \$$k | \"\(\$$k)=\(.[\$$k])\"" >> .env
 
 dev-dotenv-file: guard-VAULT_ADDR guard-VAULT_TOKEN vault-installed
 	@ echo -e "$(BUILD_PRINT)Create .env file $(END_BUILD_PRINT)"
@@ -207,6 +217,8 @@ dev-dotenv-file: guard-VAULT_ADDR guard-VAULT_TOKEN vault-installed
 	@ echo AIRFLOW_INFRA_FOLDER=${AIRFLOW_INFRA_FOLDER} >> .env
 	@ vault kv get -format="json" ted-dev/airflow | jq -r ".data.data | keys[] as \$$k | \"\(\$$k)=\(.[\$$k])\"" >> .env
 	@ vault kv get -format="json" ted-dev/mongo-db | jq -r ".data.data | keys[] as \$$k | \"\(\$$k)=\(.[\$$k])\"" >> .env
+	@ vault kv get -format="json" ted-dev/metabase | jq -r ".data.data | keys[] as \$$k | \"\(\$$k)=\(.[\$$k])\"" >> .env
+	@ vault kv get -format="json" ted-dev/agraph | jq -r ".data.data | keys[] as \$$k | \"\(\$$k)=\(.[\$$k])\"" >> .env
 
 
 prod-dotenv-file: guard-VAULT_ADDR guard-VAULT_TOKEN vault-installed
@@ -225,6 +237,8 @@ prod-dotenv-file: guard-VAULT_ADDR guard-VAULT_TOKEN vault-installed
 	@ echo AIRFLOW_INFRA_FOLDER=~/airflow-infra/prod >> .env
 	@ vault kv get -format="json" ted-prod/airflow | jq -r ".data.data | keys[] as \$$k | \"\(\$$k)=\(.[\$$k])\"" >> .env
 	@ vault kv get -format="json" ted-prod/mongo-db | jq -r ".data.data | keys[] as \$$k | \"\(\$$k)=\(.[\$$k])\"" >> .env
+	@ vault kv get -format="json" ted-prod/metabase | jq -r ".data.data | keys[] as \$$k | \"\(\$$k)=\(.[\$$k])\"" >> .env
+	@ vault kv get -format="json" ted-prod/agraph | jq -r ".data.data | keys[] as \$$k | \"\(\$$k)=\(.[\$$k])\"" >> .env
 
 local-dotenv-file: rml-mapper-path-add-dotenv-file elk-add-dotenv-file logging-add-dotenv-file
 

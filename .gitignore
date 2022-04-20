@@ -102,3 +102,4 @@ infra/traefik/letsencrypt/acme.json
 infra/airflow/logs/scheduler/latest
 /.airflow/
 .rmlmapper/rmlmapper.jar
+infra/airflow/requirements.txt

@@ -18,7 +18,7 @@ from ted_sws.core.adapters.vault_secrets_store import VaultSecretsStore
 
 dotenv.load_dotenv(verbose=True, override=True)
 
-SECRET_PATHS = ['mongo-db']
+SECRET_PATHS = ['mongo-db', 'github']
 SECRET_MOUNT = f'ted-{os.environ.get("ENVIRONMENT", default="staging")}'
 
 VaultSecretsStore.default_secret_mount = SECRET_MOUNT
@@ -94,7 +94,14 @@ class XMLProcessorConfig:
         return VaultAndEnvConfigResolver().config_resolve()
 
 
-class TedConfigResolver(MongoDBConfig, RMLMapperConfig, XMLProcessorConfig, ELKConfig, LoggingConfig):
+class GitHubArtefacts:
+
+    @property
+    def GITHUB_TED_SWS_ARTEFACTS_URL(self) -> str:
+        return VaultAndEnvConfigResolver().config_resolve()
+
+
+class TedConfigResolver(MongoDBConfig, RMLMapperConfig, XMLProcessorConfig, ELKConfig, LoggingConfig, GitHubArtefacts):
     """
         This class resolve the secrets of the ted-sws project.
     """

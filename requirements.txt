@@ -13,5 +13,5 @@ python-logstash~=0.4.8
 pymessagebus~=1.2
 click~=8.1.0
 openpyxl==3.0.9
-gitdir==1.2.7
+
 

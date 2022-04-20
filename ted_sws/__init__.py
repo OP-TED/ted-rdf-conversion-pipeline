@@ -97,7 +97,7 @@ class XMLProcessorConfig:
 class GitHubArtefacts:
 
     @property
-    def GITHUB_MAPPINGS_URL(self) -> str:
+    def GITHUB_TED_SWS_ARTEFACTS_URL(self) -> str:
         return VaultAndEnvConfigResolver().config_resolve()
 
 

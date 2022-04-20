@@ -39,7 +39,7 @@ def generate_metadata(raw_metadata: dict) -> str:
     """
 
     def get_list_from_raw_metadata(field_key: str) -> list:
-        return [x.strip() for x in raw_metadata[field_key][0].split(',')]
+        return [x.strip() for x in str(raw_metadata[field_key][0]).split(',')]
 
     constraints = {FORM_NUMBER_KEY: get_list_from_raw_metadata(FORM_NUMBER_FIELD),
                    LEGAL_BASIS_KEY: get_list_from_raw_metadata(LEGAL_BASIS_FIELD),

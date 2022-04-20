@@ -40,7 +40,7 @@ services:
       - "traefik.http.routers.${ENVIRONMENT}-metabase-secured.entrypoints=web-secured" # <== Defining entrypoint for https, **ref: line 31
       - "traefik.http.routers.${ENVIRONMENT}-metabase-secured.tls.certresolver=mytlschallenge" # <== Defining certsresolvers for https
 
-# Volumes to persist data
+
 volumes:
   postgres_volume:
     name: postgres-volume-${ENVIRONMENT}

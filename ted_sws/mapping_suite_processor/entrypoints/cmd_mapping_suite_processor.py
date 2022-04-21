@@ -74,8 +74,7 @@ def run(mapping_suite_id, opt_mappings_path=DEFAULT_MAPPINGS_PATH):
 @click.option('-m', '--opt-mappings-path', default=DEFAULT_MAPPINGS_PATH)
 def main(mapping_suite_id, opt_mappings_path):
     """
-    Process Mapping Suites (identified by mapping-suite-id).
-    If no mapping-suite-id is provided, all mapping suites from mappings directory will be processed.
+    Process Mapping Suite (identified by mapping-suite-id).
     """
     run(mapping_suite_id, opt_mappings_path)
 

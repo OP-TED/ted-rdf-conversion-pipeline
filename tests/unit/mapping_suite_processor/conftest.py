@@ -20,3 +20,13 @@ def mongodb_client():
 @pytest.fixture
 def fake_mapping_suite_id() -> str:
     return "test_package_fake"
+
+
+@pytest.fixture
+def invalid_mapping_suite_id() -> str:
+    return "test_invalid_package"
+
+
+@pytest.fixture
+def invalid_repository_path() -> str:
+    return "non_existing_dir"

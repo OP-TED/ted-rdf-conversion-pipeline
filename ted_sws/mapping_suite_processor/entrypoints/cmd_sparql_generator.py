@@ -38,7 +38,7 @@ class CmdRunner(BaseCmdRunner):
         self.rq_name = rq_name
 
         if not self.conceptual_mappings_file_path.is_file():
-            error_msg = "No such file :: [" + conceptual_mappings_file + "]"
+            error_msg = f"No such file :: [{conceptual_mappings_file}]"
             self.log_failed_msg(error_msg)
             raise FileNotFoundError(error_msg)
 
@@ -60,18 +60,8 @@ class CmdRunner(BaseCmdRunner):
         return self.run_cmd_result(error)
 
 
-@click.command()
-@click.argument('mapping-suite-id', nargs=1, required=False)
-@click.option('-i', '--opt-conceptual-mappings-file', help="Use to overwrite INPUT generator")
-@click.option('-o', '--opt-output-sparql-queries-folder', help="Use to overwrite OUTPUT generator")
-@click.option('-rq-name', '--opt-rq-name', default=DEFAULT_RQ_NAME)
-@click.option('-m', '--opt-mappings-path', default=DEFAULT_MAPPINGS_PATH)
-def main(mapping_suite_id, opt_conceptual_mappings_file, opt_output_sparql_queries_folder,
-         opt_rq_name, opt_mappings_path):
-    """
-    Generates SPARQL queries from Conceptual Mappings.
-    """
-
+def run(mapping_suite_id=None, opt_conceptual_mappings_file=None, opt_output_sparql_queries_folder=None,
+        opt_rq_name=DEFAULT_RQ_NAME, opt_mappings_path=DEFAULT_MAPPINGS_PATH):
     if opt_conceptual_mappings_file:
         conceptual_mappings_file = opt_conceptual_mappings_file
     else:
@@ -94,6 +84,21 @@ def main(mapping_suite_id, opt_conceptual_mappings_file, opt_output_sparql_queri
         rq_name=opt_rq_name
     )
     cmd.run()
+
+
+@click.command()
+@click.argument('mapping-suite-id', nargs=1, required=False)
+@click.option('-i', '--opt-conceptual-mappings-file', help="Use to overwrite INPUT generator")
+@click.option('-o', '--opt-output-sparql-queries-folder', help="Use to overwrite OUTPUT generator")
+@click.option('-rq-name', '--opt-rq-name', default=DEFAULT_RQ_NAME)
+@click.option('-m', '--opt-mappings-path', default=DEFAULT_MAPPINGS_PATH)
+def main(mapping_suite_id, opt_conceptual_mappings_file, opt_output_sparql_queries_folder,
+         opt_rq_name, opt_mappings_path):
+    """
+    Generates SPARQL queries from Conceptual Mappings.
+    """
+    run(mapping_suite_id, opt_conceptual_mappings_file, opt_output_sparql_queries_folder,
+        opt_rq_name, opt_mappings_path)
 
 
 if __name__ == '__main__':

@@ -37,7 +37,7 @@ class CmdRunner(BaseCmdRunner):
         self.output_metadata_file_path = Path(os.path.realpath(output_metadata_file))
 
         if not self.conceptual_mappings_file_path.is_file():
-            error_msg = "No such file :: [" + conceptual_mappings_file + "]"
+            error_msg = f"No such file :: [{conceptual_mappings_file}]"
             self.log_failed_msg(error_msg)
             raise FileNotFoundError(error_msg)
 
@@ -59,16 +59,8 @@ class CmdRunner(BaseCmdRunner):
         return self.run_cmd_result(error)
 
 
-@click.command()
-@click.argument('mapping-suite-id', nargs=1, required=False)
-@click.option('-i', '--opt-conceptual-mappings-file', help="Use to overwrite INPUT generator")
-@click.option('-o', '--opt-output-metadata-file', help="Use to overwrite OUTPUT generator")
-@click.option('-m', '--opt-mappings-path', default=DEFAULT_MAPPINGS_PATH)
-def main(mapping_suite_id, opt_conceptual_mappings_file, opt_output_metadata_file, opt_mappings_path):
-    """
-    Generates Metadata from Conceptual Mappings.
-    """
-
+def run(mapping_suite_id=None, opt_conceptual_mappings_file=None, opt_output_metadata_file=None,
+        opt_mappings_path=DEFAULT_MAPPINGS_PATH):
     if opt_conceptual_mappings_file:
         conceptual_mappings_file = opt_conceptual_mappings_file
     else:
@@ -91,6 +83,18 @@ def main(mapping_suite_id, opt_conceptual_mappings_file, opt_output_metadata_fil
         output_metadata_file=output_metadata_file
     )
     cmd.run()
+
+
+@click.command()
+@click.argument('mapping-suite-id', nargs=1, required=False)
+@click.option('-i', '--opt-conceptual-mappings-file', help="Use to overwrite INPUT generator")
+@click.option('-o', '--opt-output-metadata-file', help="Use to overwrite OUTPUT generator")
+@click.option('-m', '--opt-mappings-path', default=DEFAULT_MAPPINGS_PATH)
+def main(mapping_suite_id, opt_conceptual_mappings_file, opt_output_metadata_file, opt_mappings_path):
+    """
+    Generates Metadata from Conceptual Mappings.
+    """
+    run(mapping_suite_id, opt_conceptual_mappings_file, opt_output_metadata_file, opt_mappings_path)
 
 
 if __name__ == '__main__':

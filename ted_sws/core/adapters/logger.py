@@ -2,6 +2,7 @@ import abc
 import enum
 import logging
 import sys
+from colorama import Fore
 
 import logstash
 
@@ -16,7 +17,12 @@ class LoggingType(enum.Enum):
 
 DOMAIN_LOGGING_TYPES = config.LOGGING_TYPE.split(",") if config.LOGGING_TYPE is not None else [LoggingType.PY.value]
 DEFAULT_LOGGER_LEVEL = logging.NOTSET
-DEFAULT_LOGGER_NAME = "ted-sws"
+DEFAULT_LOGGER_NAME = "ROOT"
+
+LOG_ERROR_TEXT = Fore.RED + "{}" + Fore.RESET
+LOG_SUCCESS_TEXT = Fore.GREEN + "{}" + Fore.RESET
+LOG_INFO_TEXT = Fore.CYAN + "{}" + Fore.RESET
+LOG_WARN_TEXT = Fore.YELLOW + "{}" + Fore.RESET
 
 
 class LoggerABC(abc.ABC):
@@ -46,9 +52,11 @@ class Logger(LoggerABC):
     def has_logging_type(logging_type: LoggingType):
         return logging_type.value in DOMAIN_LOGGING_TYPES
 
-    def add_stdout_handler(self, level: int = DEFAULT_LOGGER_LEVEL):
+    def add_stdout_handler(self, level: int = DEFAULT_LOGGER_LEVEL, formatter: logging.Formatter = None):
         console = logging.StreamHandler(sys.stdout)
         console.setLevel(level)
+        if formatter is not None:
+            console.setFormatter(formatter)
         self.logger.addHandler(console)
 
     def add_elk_handler(self, level: int = DEFAULT_LOGGER_LEVEL):

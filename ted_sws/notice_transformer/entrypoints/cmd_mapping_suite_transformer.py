@@ -5,13 +5,14 @@ from pathlib import Path
 
 import click
 
-from ted_sws.core.adapters.cmd_runner import CmdRunner as BaseCmdRunner
-from ted_sws.notice_transformer.services.notice_transformer import NoticeTransformer
 from ted_sws import config
+from ted_sws.core.adapters.cmd_runner import CmdRunner as BaseCmdRunner
+from ted_sws.core.adapters.logger import LOG_INFO_TEXT
 from ted_sws.data_manager.adapters.mapping_suite_repository import MappingSuiteRepositoryInFileSystem, \
     METADATA_FILE_NAME
 from ted_sws.notice_transformer.adapters.rml_mapper import RMLMapper, SerializationFormat as RMLSerializationFormat, \
     TURTLE_SERIALIZATION_FORMAT
+from ted_sws.notice_transformer.services.notice_transformer import NoticeTransformer
 
 DEFAULT_MAPPINGS_PATH = 'mappings'
 DEFAULT_OUTPUT_PATH = 'output'
@@ -27,7 +28,6 @@ class CmdRunner(BaseCmdRunner):
     """
     Keeps the logic to be used by Notice Suite Transformer CMD
     """
-    loggable: bool = True
 
     def __init__(
             self,
@@ -46,26 +46,23 @@ class CmdRunner(BaseCmdRunner):
         suite_path = self.fs_repository_path / Path(suite_id)
         return os.path.isdir(suite_path) and any(f == METADATA_FILE_NAME for f in os.listdir(suite_path))
 
-    def run(self):
-        self.on_begin()
+    def run_cmd(self):
         if self.mapping_suite_id:
             self.transform(self.mapping_suite_id, self.serialization_format_value)
         else:
             for suite_id in os.listdir(self.fs_repository_path):
                 self.transform(suite_id, self.serialization_format_value)
-        self.on_end()
 
     def transform(self, mapping_suite_id, serialization_format_value):
         """
         Transforms the Test Mapping Suites (identified by mapping_suite_id)
         """
         self.log(
-            "Running process for " + "\033[1;93m{}\033[00m".format("MappingSuite[" + mapping_suite_id + "]") + " ... "
+            "Running process for " + LOG_INFO_TEXT.format("MappingSuite[" + mapping_suite_id + "]") + " ... "
         )
 
         if not self.is_mapping_suite(mapping_suite_id):
-            self.log("\033[1;91m{}\033[00m".format("FAILED"))
-            self.log("\033[1;91m {}\033[00m".format('FAILED') + " :: " + "Not a MappingSuite!")
+            self.log_failed_msg("Not a MappingSuite!")
             return False
 
         fs_mapping_suite_path = self.fs_repository_path / Path(mapping_suite_id)
@@ -89,15 +86,13 @@ class CmdRunner(BaseCmdRunner):
         except Exception as e:
             error = e
 
-        suite_text = ":: " + mapping_suite_id
+        suite_text = mapping_suite_id
         if error:
-            self.log("\033[1;91m{}\033[00m".format("FAILED"))
-            self.log("\033[0;91m {}\033[00m".format(type(error).__name__ + ' :: ' + str(error)))
-            self.log("\033[1;91m {}\033[00m".format('FAILED') + '  ' + suite_text)
+            self.log_failed_error(error)
+            self.log_failed_msg(suite_text)
             return False
         else:
-            self.log("\033[1;92m{}\033[00m".format("DONE"))
-            self.log("\033[1;92m {}\033[00m".format('SUCCESS') + '  ' + suite_text)
+            self.log_success_msg(suite_text)
             return True
 
 

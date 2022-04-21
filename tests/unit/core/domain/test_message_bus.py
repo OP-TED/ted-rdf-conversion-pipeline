@@ -12,20 +12,36 @@ from ted_sws.core.model.message import Log
 TEST_LOGGER = Logger(name="TEST_MESSAGE_BUS_LOGGER", level=logging.INFO)
 
 
-def log_message() -> Log:
-    return Log(
+def test_message_bus_log(caplog):
+    log1 = Log(
         title="test_message_bus_log",
-        message=["log_message :: 1", "log_message :: 2"],
+        message=["log_message1 :: 1", "log_message :: 2"],
         logger=TEST_LOGGER
     )
-
-
-def test_message_bus_log(caplog):
-    log = log_message()
     message_bus.set_domain_logger(TEST_LOGGER)
-    message_bus.handle(log)
-    if log.title:
-        assert log.title in caplog.text
-    if log.message:
-        for message in log.message:
+    message_bus.handle(log1)
+
+    log2 = Log(
+        message="log_message2 :: MESSAGE",
+        logger=TEST_LOGGER
+    )
+    message_bus.handle(log2)
+
+    log3 = Log(
+        message=["log_message3 :: 1", "log_message3 :: 2"],
+        logger=TEST_LOGGER
+    )
+    message_bus.handle(log3)
+
+    if log1.title:
+        assert log1.title in caplog.text
+    if log1.message:
+        for message in log1.message:
+            assert message in caplog.text
+
+    if log2.message:
+        assert log2.message in caplog.text
+
+    if log3.message:
+        for message in log3.message:
             assert message in caplog.text

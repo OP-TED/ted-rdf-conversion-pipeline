@@ -84,6 +84,16 @@ class CmdRunner(CmdRunnerABC):
     def run_cmd(self):
         pass
 
+    def run_cmd_result(self, error: Exception, msg: str = None, errmsg: str = None) -> bool:
+        if error:
+            self.log_failed_error(error)
+            if errmsg is not None:
+                self.log_failed_msg(errmsg)
+            return False
+        else:
+            self.log_success_msg(msg)
+            return True
+
     def on_end(self):
         self.end_time = datetime.datetime.now()
         self.log("CMD :: END :: {now} :: [{time}]".format(

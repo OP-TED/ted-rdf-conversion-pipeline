@@ -86,14 +86,8 @@ class CmdRunner(BaseCmdRunner):
         except Exception as e:
             error = e
 
-        suite_text = mapping_suite_id
-        if error:
-            self.log_failed_error(error)
-            self.log_failed_msg(suite_text)
-            return False
-        else:
-            self.log_success_msg(suite_text)
-            return True
+        msg = mapping_suite_id
+        return self.run_cmd_result(error, msg, msg)
 
 
 @click.command()

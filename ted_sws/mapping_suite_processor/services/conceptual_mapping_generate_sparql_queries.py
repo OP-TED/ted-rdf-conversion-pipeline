@@ -12,6 +12,8 @@ RULES_FIELD_XPATH = 'Field XPath (M)'
 RULES_CLASS_PATH = 'Class path (M)'
 RULES_PROPERTY_PATH = 'Property path (M)'
 
+DEFAULT_RQ_NAME = 'sparql_query_'
+
 
 def sparql_validation_generator(data: pd.DataFrame) -> Iterator[str]:
     """
@@ -34,11 +36,13 @@ def sparql_validation_generator(data: pd.DataFrame) -> Iterator[str]:
 
 
 def mapping_suite_processor_generate_sparql_queries(conceptual_mappings_file_path: pathlib.Path,
-                                                    output_sparql_queries_folder_path: pathlib.Path):
+                                                    output_sparql_queries_folder_path: pathlib.Path,
+                                                    rq_name: str = DEFAULT_RQ_NAME):
     """
         This function reads data from conceptual_mappings.xlsx and generates SPARQL validation queries in provided package.
     :param conceptual_mappings_file_path:
     :param output_sparql_queries_folder_path:
+    :param rq_name:
     :return:
     """
     with open(conceptual_mappings_file_path, 'rb') as excel_file:
@@ -48,7 +52,8 @@ def mapping_suite_processor_generate_sparql_queries(conceptual_mappings_file_pat
         conceptual_mappings_rules_df = conceptual_mappings_rules_df[
             conceptual_mappings_rules_df[RULES_PROPERTY_PATH].notnull()]
     sparql_queries = sparql_validation_generator(conceptual_mappings_rules_df)
+    output_sparql_queries_folder_path.mkdir(parents=True, exist_ok=True)
     for index, sparql_query in enumerate(sparql_queries):
-        output_file_path = output_sparql_queries_folder_path / f"sparql_query_{index}.rq"
+        output_file_path = output_sparql_queries_folder_path / f"{rq_name}{index}.rq"
         with open(output_file_path, "w") as output_file:
             output_file.write(sparql_query)

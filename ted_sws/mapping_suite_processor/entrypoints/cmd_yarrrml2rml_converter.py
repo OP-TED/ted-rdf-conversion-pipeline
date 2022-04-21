@@ -60,12 +60,7 @@ class CmdRunner(BaseCmdRunner):
         except Exception as e:
             error = e
 
-        if error:
-            self.log_failed_error(error)
-            return False
-        else:
-            self.log_success_msg()
-            return True
+        return self.run_cmd_result(error)
 
 
 @click.command()

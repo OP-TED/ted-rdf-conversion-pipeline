@@ -7,35 +7,34 @@ import click
 
 from ted_sws.core.adapters.cmd_runner import CmdRunner as BaseCmdRunner
 from ted_sws.core.adapters.logger import LOG_INFO_TEXT
-from ted_sws.mapping_suite_processor.services.conceptual_mapping_generate_sparql_queries import \
-    mapping_suite_processor_generate_sparql_queries as generate_sparql_queries, DEFAULT_RQ_NAME
+from ted_sws.mapping_suite_processor.services.conceptual_mapping_generate_metadata import \
+    mapping_suite_processor_generate_metadata as generate_metadata
 
 DEFAULT_MAPPINGS_PATH = 'mappings'
 DEFAULT_CONCEPTUAL_MAPPINGS_FILE = '{mappings_path}/{mapping_suite_id}/transformation/conceptual_mappings.xlsx'
-DEFAULT_OUTPUT_SPARQL_QUERIES_FOLDER = '{mappings_path}/{mapping_suite_id}/validation/sparql/cm_assertions'
-CMD_NAME = "CMD_SPARQL_GENERATOR"
+DEFAULT_OUTPUT_METADATA_FILE = '{mappings_path}/{mapping_suite_id}/{output_file_name}'
+DEFAULT_OUTPUT_METADATA_FILE_NAME = 'metadata.json'
+CMD_NAME = "CMD_METADATA_GENERATOR"
 
 """
 USAGE:
-# sparql_generator --help
+# metadata_generator --help
 """
 
 
 class CmdRunner(BaseCmdRunner):
     """
-    Keeps the logic to be used by SPARQL queries Generator
+    Keeps the logic to be used by Metadata Generator
     """
 
     def __init__(
             self,
             conceptual_mappings_file,
-            output_sparql_queries_folder,
-            rq_name
+            output_metadata_file
     ):
         super().__init__(name=CMD_NAME)
         self.conceptual_mappings_file_path = Path(os.path.realpath(conceptual_mappings_file))
-        self.output_sparql_queries_folder_path = Path(os.path.realpath(output_sparql_queries_folder))
-        self.rq_name = rq_name
+        self.output_metadata_file_path = Path(os.path.realpath(output_metadata_file))
 
         if not self.conceptual_mappings_file_path.is_file():
             error_msg = "No such file :: [" + conceptual_mappings_file + "]"
@@ -43,17 +42,17 @@ class CmdRunner(BaseCmdRunner):
             raise FileNotFoundError(error_msg)
 
     def run_cmd(self):
-        self.generate(self.conceptual_mappings_file_path, self.output_sparql_queries_folder_path, self.rq_name)
+        self.generate(self.conceptual_mappings_file_path, self.output_metadata_file_path)
 
-    def generate(self, conceptual_mappings_file_path, output_sparql_queries_folder_path, rq_name):
+    def generate(self, conceptual_mappings_file_path, output_metadata_file_path):
         """
-        Generates SPARQL queries from Conceptual Mappings
+        Generates Metadata from Conceptual Mappings
         """
-        self.log("Running " + LOG_INFO_TEXT.format("SPARQL queries") + " generation ... ")
+        self.log("Running " + LOG_INFO_TEXT.format("Metadata") + " generation ... ")
 
         error = None
         try:
-            generate_sparql_queries(conceptual_mappings_file_path, output_sparql_queries_folder_path, rq_name)
+            generate_metadata(conceptual_mappings_file_path, output_metadata_file_path)
         except Exception as e:
             error = e
 
@@ -63,13 +62,11 @@ class CmdRunner(BaseCmdRunner):
 @click.command()
 @click.argument('mapping-suite-id', nargs=1, required=False)
 @click.option('-i', '--opt-conceptual-mappings-file', help="Use to overwrite INPUT generator")
-@click.option('-o', '--opt-output-sparql-queries-folder', help="Use to overwrite OUTPUT generator")
-@click.option('-rq-name', '--opt-rq-name', default=DEFAULT_RQ_NAME)
+@click.option('-o', '--opt-output-metadata-file', help="Use to overwrite OUTPUT generator")
 @click.option('-m', '--opt-mappings-path', default=DEFAULT_MAPPINGS_PATH)
-def main(mapping_suite_id, opt_conceptual_mappings_file, opt_output_sparql_queries_folder,
-         opt_rq_name, opt_mappings_path):
+def main(mapping_suite_id, opt_conceptual_mappings_file, opt_output_metadata_file, opt_mappings_path):
     """
-    Generates SPARQL queries from Conceptual Mappings.
+    Generates Metadata from Conceptual Mappings.
     """
 
     if opt_conceptual_mappings_file:
@@ -80,18 +77,18 @@ def main(mapping_suite_id, opt_conceptual_mappings_file, opt_output_sparql_queri
             mapping_suite_id=mapping_suite_id
         )
 
-    if opt_output_sparql_queries_folder:
-        output_sparql_queries_folder = opt_output_sparql_queries_folder
+    if opt_output_metadata_file:
+        output_metadata_file = opt_output_metadata_file
     else:
-        output_sparql_queries_folder = DEFAULT_OUTPUT_SPARQL_QUERIES_FOLDER.format(
+        output_metadata_file = DEFAULT_OUTPUT_METADATA_FILE.format(
             mappings_path=opt_mappings_path,
-            mapping_suite_id=mapping_suite_id
+            mapping_suite_id=mapping_suite_id,
+            output_file_name=DEFAULT_OUTPUT_METADATA_FILE_NAME
         )
 
     cmd = CmdRunner(
         conceptual_mappings_file=conceptual_mappings_file,
-        output_sparql_queries_folder=output_sparql_queries_folder,
-        rq_name=opt_rq_name
+        output_metadata_file=output_metadata_file
     )
     cmd.run()
 

@@ -6,7 +6,7 @@ from pathlib import Path
 import click
 
 from ted_sws.core.adapters.cmd_runner import CmdRunner as BaseCmdRunner
-from ted_sws.core.adapters.logger import LOG_INFO_PATTERN
+from ted_sws.core.adapters.logger import LOG_INFO_TEXT
 from ted_sws.mapping_suite_processor.adapters.yarrrml2rml_converter import YARRRML2RMLConverter
 
 DEFAULT_MAPPINGS_PATH = 'mappings'
@@ -47,7 +47,7 @@ class CmdRunner(BaseCmdRunner):
         """
         Converts YARRRML to RML
         """
-        self.log("Running " + LOG_INFO_PATTERN.format("YARRRML -> RML") + " conversion ... ")
+        self.log("Running " + LOG_INFO_TEXT.format("YARRRML -> RML") + " conversion ... ")
 
         error = None
         try:

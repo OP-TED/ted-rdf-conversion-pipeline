@@ -2,7 +2,7 @@ import abc
 import datetime
 import logging
 
-from ted_sws.core.adapters.logger import Logger, LOG_FAILED_PATTERN, LOG_SUCCESS_PATTERN
+from ted_sws.core.adapters.logger import Logger, LOG_ERROR_TEXT, LOG_SUCCESS_TEXT
 from ted_sws.core.domain.message_bus import message_bus
 from ted_sws.core.model.message import Log
 
@@ -62,15 +62,15 @@ class CmdRunner(CmdRunnerABC):
         message_bus.handle(Log(message=message, name=self.name, logger=self.logger))
 
     def log_failed_error(self, error: Exception):
-        self.log(LOG_FAILED_PATTERN.format("FAILED"))
-        self.log(LOG_FAILED_PATTERN.format(type(error).__name__ + ' :: ' + str(error)))
+        self.log(LOG_ERROR_TEXT.format("FAILED"))
+        self.log(LOG_ERROR_TEXT.format(type(error).__name__ + ' :: ' + str(error)))
 
     def log_failed_msg(self, msg: str = None):
-        self.log(LOG_FAILED_PATTERN.format('FAILED') + (' :: ' + msg if msg is not None else ""))
+        self.log(LOG_ERROR_TEXT.format('FAILED') + (' :: ' + msg if msg is not None else ""))
 
     def log_success_msg(self, msg: str = None):
-        self.log(LOG_SUCCESS_PATTERN.format("DONE"))
-        self.log(LOG_SUCCESS_PATTERN.format('SUCCESS') + (' :: ' + msg if msg is not None else ""))
+        self.log(LOG_SUCCESS_TEXT.format("DONE"))
+        self.log(LOG_SUCCESS_TEXT.format('SUCCESS') + (' :: ' + msg if msg is not None else ""))
 
     def on_begin(self):
         self.begin_time = datetime.datetime.now()

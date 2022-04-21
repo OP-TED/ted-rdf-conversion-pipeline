@@ -2,6 +2,7 @@ import abc
 import enum
 import logging
 import sys
+from colorama import Fore
 
 import logstash
 
@@ -18,9 +19,10 @@ DOMAIN_LOGGING_TYPES = config.LOGGING_TYPE.split(",") if config.LOGGING_TYPE is 
 DEFAULT_LOGGER_LEVEL = logging.NOTSET
 DEFAULT_LOGGER_NAME = "ROOT"
 
-LOG_FAILED_PATTERN = "\033[1;91m{}\033[00m"
-LOG_SUCCESS_PATTERN = "\033[1;92m{}\033[00m"
-LOG_INFO_PATTERN = "\033[1;93m{}\033[00m"
+LOG_ERROR_TEXT = Fore.RED + "{}" + Fore.RESET
+LOG_SUCCESS_TEXT = Fore.GREEN + "{}" + Fore.RESET
+LOG_INFO_TEXT = Fore.CYAN + "{}" + Fore.RESET
+LOG_WARN_TEXT = Fore.YELLOW + "{}" + Fore.RESET
 
 
 class LoggerABC(abc.ABC):

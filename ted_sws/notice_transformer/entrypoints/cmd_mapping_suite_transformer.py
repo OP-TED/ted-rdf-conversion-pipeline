@@ -7,7 +7,7 @@ import click
 
 from ted_sws import config
 from ted_sws.core.adapters.cmd_runner import CmdRunner as BaseCmdRunner
-from ted_sws.core.adapters.logger import LOG_INFO_PATTERN
+from ted_sws.core.adapters.logger import LOG_INFO_TEXT
 from ted_sws.data_manager.adapters.mapping_suite_repository import MappingSuiteRepositoryInFileSystem, \
     METADATA_FILE_NAME
 from ted_sws.notice_transformer.adapters.rml_mapper import RMLMapper, SerializationFormat as RMLSerializationFormat, \
@@ -58,7 +58,7 @@ class CmdRunner(BaseCmdRunner):
         Transforms the Test Mapping Suites (identified by mapping_suite_id)
         """
         self.log(
-            "Running process for " + LOG_INFO_PATTERN.format("MappingSuite[" + mapping_suite_id + "]") + " ... "
+            "Running process for " + LOG_INFO_TEXT.format("MappingSuite[" + mapping_suite_id + "]") + " ... "
         )
 
         if not self.is_mapping_suite(mapping_suite_id):

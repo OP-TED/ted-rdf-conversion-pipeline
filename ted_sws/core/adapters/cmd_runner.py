@@ -82,7 +82,7 @@ class CmdRunner(CmdRunnerABC):
         self.on_end()
 
     def run_cmd(self):
-        ...
+        pass
 
     def on_end(self):
         self.end_time = datetime.datetime.now()

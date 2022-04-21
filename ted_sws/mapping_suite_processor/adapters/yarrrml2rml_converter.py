@@ -22,7 +22,9 @@ class YARRRML2RMLConverter(YARRRML2RMLConverterABC):
     """
         This class converts YARRRML to RML using an external docker container that performs conversion logic.
     """
-    def convert(self, yarrrml_input_file_path: pathlib.Path, rml_output_file_path: pathlib.Path):
+
+    def convert(self, yarrrml_input_file_path: pathlib.Path,
+                rml_output_file_path: pathlib.Path) -> subprocess.CompletedProcess:
         """
             This method converts a YARRRML file and writes the result to another RML file.
         :param yarrrml_input_file_path:
@@ -30,4 +32,4 @@ class YARRRML2RMLConverter(YARRRML2RMLConverterABC):
         :return:
         """
         bash_script = f"(docker run --rm -i -v {yarrrml_input_file_path.parent}:/data rmlio/yarrrml-parser:latest -i /data/{yarrrml_input_file_path.name}) > {rml_output_file_path}"
-        subprocess.run(bash_script, shell=True, stdout=subprocess.PIPE)
+        return subprocess.run(bash_script, shell=True, capture_output=True)

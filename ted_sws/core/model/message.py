@@ -18,5 +18,5 @@ class Message(BaseModel):
 
 class Log(Message):
     name: str = __name__
-    level: int = logging.NOTSET
+    level: int = None
     logger: Logger = root_logger

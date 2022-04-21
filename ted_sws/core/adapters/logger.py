@@ -16,7 +16,11 @@ class LoggingType(enum.Enum):
 
 DOMAIN_LOGGING_TYPES = config.LOGGING_TYPE.split(",") if config.LOGGING_TYPE is not None else [LoggingType.PY.value]
 DEFAULT_LOGGER_LEVEL = logging.NOTSET
-DEFAULT_LOGGER_NAME = "ted-sws"
+DEFAULT_LOGGER_NAME = "ROOT"
+
+LOG_FAILED_PATTERN = "\033[1;91m{}\033[00m"
+LOG_SUCCESS_PATTERN = "\033[1;92m{}\033[00m"
+LOG_INFO_PATTERN = "\033[1;93m{}\033[00m"
 
 
 class LoggerABC(abc.ABC):
@@ -46,9 +50,11 @@ class Logger(LoggerABC):
     def has_logging_type(logging_type: LoggingType):
         return logging_type.value in DOMAIN_LOGGING_TYPES
 
-    def add_stdout_handler(self, level: int = DEFAULT_LOGGER_LEVEL):
+    def add_stdout_handler(self, level: int = DEFAULT_LOGGER_LEVEL, formatter: logging.Formatter = None):
         console = logging.StreamHandler(sys.stdout)
         console.setLevel(level)
+        if formatter is not None:
+            console.setFormatter(formatter)
         self.logger.addHandler(console)
 
     def add_elk_handler(self, level: int = DEFAULT_LOGGER_LEVEL):

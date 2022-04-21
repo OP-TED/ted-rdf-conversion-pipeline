@@ -86,5 +86,5 @@ class RMLMapper(RMLMapperABC):
         """
         # java -jar ./rmlmapper.jar -m rml.ttl -s turtle  -o output.ttl
         bash_script = f"cd {package_path} && java -jar {self.rml_mapper_path} -m {package_path / TRANSFORM_PACKAGE_NAME / MAPPINGS_PACKAGE_NAME / '*'} -s {self.get_serialization_format_value()}"
-        script_result = subprocess.run(bash_script, shell=True, stdout=subprocess.PIPE)
+        script_result = subprocess.run(bash_script, shell=True, capture_output=True)
         return script_result.stdout.decode('utf-8')

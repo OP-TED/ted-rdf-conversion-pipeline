@@ -20,11 +20,13 @@ def handler_log(log: message.Log):
         msg += ("{title}" + eol).format(title=log.title)
     if log.message:
         if isinstance(log.message, List):
-            msg += (eol + "{messages}" + eol).format(
+            if not log.title:
+                msg += eol
+            msg += ("{messages}" + eol).format(
                 messages=eol.join(map(lambda m: " - " + m, log.message))
             )
         else:
             msg += log.message
-    log.logger.log(msg)
+    log.logger.log(msg, log.level)
 
     return msg

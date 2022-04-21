@@ -36,7 +36,7 @@ class CmdRunner(BaseCmdRunner):
         self.rml_output_file_path = Path(os.path.realpath(rml_output_file))
 
         if not self.yarrrml_input_file_path.is_file():
-            error_msg = "No such YARRRML file :: [" + yarrrml_input_file + "]"
+            error_msg = f"No such YARRRML file :: [{yarrrml_input_file}]"
             self.log_failed_msg(error_msg)
             raise FileNotFoundError(error_msg)
 
@@ -63,18 +63,8 @@ class CmdRunner(BaseCmdRunner):
         return self.run_cmd_result(error)
 
 
-@click.command()
-@click.argument('mapping-suite-id', nargs=1, required=False)
-@click.argument('rml-output-file-name', nargs=1, required=False)
-@click.option('-i', '--opt-yarrrml-input-file', help="Use to overwrite INPUT generator")
-@click.option('-o', '--opt-rml-output-file', help="Use to overwrite OUTPUT generator")
-@click.option('-m', '--opt-mappings-path', default=DEFAULT_MAPPINGS_PATH)
-def main(mapping_suite_id, rml_output_file_name, opt_yarrrml_input_file, opt_rml_output_file, opt_mappings_path):
-    """
-    Converts YARRRML to RML.
-    Skip RML_OUTPUT_FILE_NAME to use the default name.
-    """
-
+def run(mapping_suite_id=None, rml_output_file_name=None, opt_yarrrml_input_file=None, opt_rml_output_file=None,
+        opt_mappings_path=DEFAULT_MAPPINGS_PATH):
     if opt_yarrrml_input_file:
         yarrrml_input_file = opt_yarrrml_input_file
     else:
@@ -97,6 +87,20 @@ def main(mapping_suite_id, rml_output_file_name, opt_yarrrml_input_file, opt_rml
         rml_output_file=rml_output_file
     )
     cmd.run()
+
+
+@click.command()
+@click.argument('mapping-suite-id', nargs=1, required=False)
+@click.argument('rml-output-file-name', nargs=1, required=False)
+@click.option('-i', '--opt-yarrrml-input-file', help="Use to overwrite INPUT generator")
+@click.option('-o', '--opt-rml-output-file', help="Use to overwrite OUTPUT generator")
+@click.option('-m', '--opt-mappings-path', default=DEFAULT_MAPPINGS_PATH)
+def main(mapping_suite_id, rml_output_file_name, opt_yarrrml_input_file, opt_rml_output_file, opt_mappings_path):
+    """
+    Converts YARRRML to RML.
+    Skip RML_OUTPUT_FILE_NAME to use the default name.
+    """
+    run(mapping_suite_id, rml_output_file_name, opt_yarrrml_input_file, opt_rml_output_file, opt_mappings_path)
 
 
 if __name__ == '__main__':

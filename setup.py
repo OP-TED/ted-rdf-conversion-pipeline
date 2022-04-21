@@ -75,6 +75,7 @@ setup(
     packages=packages,
     entry_points={
         "console_scripts": [
+            "mapping_suite_processor = ted_sws.mapping_suite_processor.entrypoints.cmd_mapping_suite_processor:main",
             "metadata_generator = ted_sws.mapping_suite_processor.entrypoints.cmd_metadata_generator:main",
             "sparql_generator = ted_sws.mapping_suite_processor.entrypoints.cmd_sparql_generator:main",
             "yarrrml2rml_converter = ted_sws.mapping_suite_processor.entrypoints.cmd_yarrrml2rml_converter:main",

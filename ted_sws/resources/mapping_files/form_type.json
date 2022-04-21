@@ -13,21 +13,21 @@
       {
         "code": {
           "type": "literal",
-          "value": "planning"
-        },
-        "conceptURI": {
-          "type": "uri",
-          "value": "http://publications.europa.eu/resource/authority/form-type/planning"
-        }
-      },
-      {
-        "code": {
-          "type": "literal",
           "value": "OP_DATPRO"
         },
         "conceptURI": {
           "type": "uri",
           "value": "http://publications.europa.eu/resource/authority/form-type/OP_DATPRO"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "bri"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://publications.europa.eu/resource/authority/form-type/bri"
         }
       },
       {
@@ -83,11 +83,11 @@
       {
         "code": {
           "type": "literal",
-          "value": "bri"
+          "value": "planning"
         },
         "conceptURI": {
           "type": "uri",
-          "value": "http://publications.europa.eu/resource/authority/form-type/bri"
+          "value": "http://publications.europa.eu/resource/authority/form-type/planning"
         }
       }
     ]

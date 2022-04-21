@@ -13,11 +13,291 @@
       {
         "code": {
           "type": "literal",
-          "value": "VES"
+          "value": "PTE"
         },
         "conceptURI": {
           "type": "uri",
-          "value": "http://publications.europa.eu/resource/authority/currency/VES"
+          "value": "http://publications.europa.eu/resource/authority/currency/PTE"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "NPR"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://publications.europa.eu/resource/authority/currency/NPR"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "BAM"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://publications.europa.eu/resource/authority/currency/BAM"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "OP_DATPRO"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://publications.europa.eu/resource/authority/currency/OP_DATPRO"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "CHE"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://publications.europa.eu/resource/authority/currency/CHE"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "NLG"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://publications.europa.eu/resource/authority/currency/NLG"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "GIP"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://publications.europa.eu/resource/authority/currency/GIP"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "AED"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://publications.europa.eu/resource/authority/currency/AED"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "AFN"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://publications.europa.eu/resource/authority/currency/AFN"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "BRC"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://publications.europa.eu/resource/authority/currency/BRC"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "CDF"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://publications.europa.eu/resource/authority/currency/CDF"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "COP"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://publications.europa.eu/resource/authority/currency/COP"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "EUR"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://publications.europa.eu/resource/authority/currency/EUR"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "MAD"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://publications.europa.eu/resource/authority/currency/MAD"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "PHP"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://publications.europa.eu/resource/authority/currency/PHP"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "SCR"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://publications.europa.eu/resource/authority/currency/SCR"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "ANG"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://publications.europa.eu/resource/authority/currency/ANG"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "ARM"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://publications.europa.eu/resource/authority/currency/ARM"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "BRB"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://publications.europa.eu/resource/authority/currency/BRB"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "BRN"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://publications.europa.eu/resource/authority/currency/BRN"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "BTN"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://publications.europa.eu/resource/authority/currency/BTN"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "CSK"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://publications.europa.eu/resource/authority/currency/CSK"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "CYP"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://publications.europa.eu/resource/authority/currency/CYP"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "ESP"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://publications.europa.eu/resource/authority/currency/ESP"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "GEL"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://publications.europa.eu/resource/authority/currency/GEL"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "GRD"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://publications.europa.eu/resource/authority/currency/GRD"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "MKD"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://publications.europa.eu/resource/authority/currency/MKD"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "SUR"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://publications.europa.eu/resource/authority/currency/SUR"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "YUG"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://publications.europa.eu/resource/authority/currency/YUG"
         }
       },
       {
@@ -43,31 +323,11 @@
       {
         "code": {
           "type": "literal",
-          "value": "AED"
-        },
-        "conceptURI": {
-          "type": "uri",
-          "value": "http://publications.europa.eu/resource/authority/currency/AED"
-        }
-      },
-      {
-        "code": {
-          "type": "literal",
           "value": "AFA"
         },
         "conceptURI": {
           "type": "uri",
           "value": "http://publications.europa.eu/resource/authority/currency/AFA"
-        }
-      },
-      {
-        "code": {
-          "type": "literal",
-          "value": "AFN"
-        },
-        "conceptURI": {
-          "type": "uri",
-          "value": "http://publications.europa.eu/resource/authority/currency/AFN"
         }
       },
       {
@@ -98,16 +358,6 @@
         "conceptURI": {
           "type": "uri",
           "value": "http://publications.europa.eu/resource/authority/currency/AMD"
-        }
-      },
-      {
-        "code": {
-          "type": "literal",
-          "value": "ANG"
-        },
-        "conceptURI": {
-          "type": "uri",
-          "value": "http://publications.europa.eu/resource/authority/currency/ANG"
         }
       },
       {
@@ -158,16 +408,6 @@
         "conceptURI": {
           "type": "uri",
           "value": "http://publications.europa.eu/resource/authority/currency/ARL"
-        }
-      },
-      {
-        "code": {
-          "type": "literal",
-          "value": "ARM"
-        },
-        "conceptURI": {
-          "type": "uri",
-          "value": "http://publications.europa.eu/resource/authority/currency/ARM"
         }
       },
       {
@@ -238,16 +478,6 @@
         "conceptURI": {
           "type": "uri",
           "value": "http://publications.europa.eu/resource/authority/currency/AZN"
-        }
-      },
-      {
-        "code": {
-          "type": "literal",
-          "value": "BAM"
-        },
-        "conceptURI": {
-          "type": "uri",
-          "value": "http://publications.europa.eu/resource/authority/currency/BAM"
         }
       },
       {
@@ -383,26 +613,6 @@
       {
         "code": {
           "type": "literal",
-          "value": "BRB"
-        },
-        "conceptURI": {
-          "type": "uri",
-          "value": "http://publications.europa.eu/resource/authority/currency/BRB"
-        }
-      },
-      {
-        "code": {
-          "type": "literal",
-          "value": "BRC"
-        },
-        "conceptURI": {
-          "type": "uri",
-          "value": "http://publications.europa.eu/resource/authority/currency/BRC"
-        }
-      },
-      {
-        "code": {
-          "type": "literal",
           "value": "BRE"
         },
         "conceptURI": {
@@ -418,16 +628,6 @@
         "conceptURI": {
           "type": "uri",
           "value": "http://publications.europa.eu/resource/authority/currency/BRL"
-        }
-      },
-      {
-        "code": {
-          "type": "literal",
-          "value": "BRN"
-        },
-        "conceptURI": {
-          "type": "uri",
-          "value": "http://publications.europa.eu/resource/authority/currency/BRN"
         }
       },
       {
@@ -458,16 +658,6 @@
         "conceptURI": {
           "type": "uri",
           "value": "http://publications.europa.eu/resource/authority/currency/BSD"
-        }
-      },
-      {
-        "code": {
-          "type": "literal",
-          "value": "BTN"
-        },
-        "conceptURI": {
-          "type": "uri",
-          "value": "http://publications.europa.eu/resource/authority/currency/BTN"
         }
       },
       {
@@ -523,16 +713,6 @@
       {
         "code": {
           "type": "literal",
-          "value": "CDF"
-        },
-        "conceptURI": {
-          "type": "uri",
-          "value": "http://publications.europa.eu/resource/authority/currency/CDF"
-        }
-      },
-      {
-        "code": {
-          "type": "literal",
           "value": "CHF"
         },
         "conceptURI": {
@@ -573,16 +753,6 @@
       {
         "code": {
           "type": "literal",
-          "value": "COP"
-        },
-        "conceptURI": {
-          "type": "uri",
-          "value": "http://publications.europa.eu/resource/authority/currency/COP"
-        }
-      },
-      {
-        "code": {
-          "type": "literal",
           "value": "CRC"
         },
         "conceptURI": {
@@ -598,16 +768,6 @@
         "conceptURI": {
           "type": "uri",
           "value": "http://publications.europa.eu/resource/authority/currency/CSJ"
-        }
-      },
-      {
-        "code": {
-          "type": "literal",
-          "value": "CSK"
-        },
-        "conceptURI": {
-          "type": "uri",
-          "value": "http://publications.europa.eu/resource/authority/currency/CSK"
         }
       },
       {
@@ -638,16 +798,6 @@
         "conceptURI": {
           "type": "uri",
           "value": "http://publications.europa.eu/resource/authority/currency/CVE"
-        }
-      },
-      {
-        "code": {
-          "type": "literal",
-          "value": "CYP"
-        },
-        "conceptURI": {
-          "type": "uri",
-          "value": "http://publications.europa.eu/resource/authority/currency/CYP"
         }
       },
       {
@@ -763,31 +913,11 @@
       {
         "code": {
           "type": "literal",
-          "value": "ESP"
-        },
-        "conceptURI": {
-          "type": "uri",
-          "value": "http://publications.europa.eu/resource/authority/currency/ESP"
-        }
-      },
-      {
-        "code": {
-          "type": "literal",
           "value": "ETB"
         },
         "conceptURI": {
           "type": "uri",
           "value": "http://publications.europa.eu/resource/authority/currency/ETB"
-        }
-      },
-      {
-        "code": {
-          "type": "literal",
-          "value": "EUR"
-        },
-        "conceptURI": {
-          "type": "uri",
-          "value": "http://publications.europa.eu/resource/authority/currency/EUR"
         }
       },
       {
@@ -843,16 +973,6 @@
       {
         "code": {
           "type": "literal",
-          "value": "GEL"
-        },
-        "conceptURI": {
-          "type": "uri",
-          "value": "http://publications.europa.eu/resource/authority/currency/GEL"
-        }
-      },
-      {
-        "code": {
-          "type": "literal",
           "value": "GHC"
         },
         "conceptURI": {
@@ -868,16 +988,6 @@
         "conceptURI": {
           "type": "uri",
           "value": "http://publications.europa.eu/resource/authority/currency/GHS"
-        }
-      },
-      {
-        "code": {
-          "type": "literal",
-          "value": "GIP"
-        },
-        "conceptURI": {
-          "type": "uri",
-          "value": "http://publications.europa.eu/resource/authority/currency/GIP"
         }
       },
       {
@@ -918,16 +1028,6 @@
         "conceptURI": {
           "type": "uri",
           "value": "http://publications.europa.eu/resource/authority/currency/GQE"
-        }
-      },
-      {
-        "code": {
-          "type": "literal",
-          "value": "GRD"
-        },
-        "conceptURI": {
-          "type": "uri",
-          "value": "http://publications.europa.eu/resource/authority/currency/GRD"
         }
       },
       {
@@ -1343,16 +1443,6 @@
       {
         "code": {
           "type": "literal",
-          "value": "MAD"
-        },
-        "conceptURI": {
-          "type": "uri",
-          "value": "http://publications.europa.eu/resource/authority/currency/MAD"
-        }
-      },
-      {
-        "code": {
-          "type": "literal",
           "value": "MCF"
         },
         "conceptURI": {
@@ -1388,16 +1478,6 @@
         "conceptURI": {
           "type": "uri",
           "value": "http://publications.europa.eu/resource/authority/currency/MGF"
-        }
-      },
-      {
-        "code": {
-          "type": "literal",
-          "value": "MKD"
-        },
-        "conceptURI": {
-          "type": "uri",
-          "value": "http://publications.europa.eu/resource/authority/currency/MKD"
         }
       },
       {
@@ -1613,31 +1693,11 @@
       {
         "code": {
           "type": "literal",
-          "value": "NLG"
-        },
-        "conceptURI": {
-          "type": "uri",
-          "value": "http://publications.europa.eu/resource/authority/currency/NLG"
-        }
-      },
-      {
-        "code": {
-          "type": "literal",
           "value": "NOK"
         },
         "conceptURI": {
           "type": "uri",
           "value": "http://publications.europa.eu/resource/authority/currency/NOK"
-        }
-      },
-      {
-        "code": {
-          "type": "literal",
-          "value": "NPR"
-        },
-        "conceptURI": {
-          "type": "uri",
-          "value": "http://publications.europa.eu/resource/authority/currency/NPR"
         }
       },
       {
@@ -1658,16 +1718,6 @@
         "conceptURI": {
           "type": "uri",
           "value": "http://publications.europa.eu/resource/authority/currency/OMR"
-        }
-      },
-      {
-        "code": {
-          "type": "literal",
-          "value": "OP_DATPRO"
-        },
-        "conceptURI": {
-          "type": "uri",
-          "value": "http://publications.europa.eu/resource/authority/currency/OP_DATPRO"
         }
       },
       {
@@ -1723,16 +1773,6 @@
       {
         "code": {
           "type": "literal",
-          "value": "PHP"
-        },
-        "conceptURI": {
-          "type": "uri",
-          "value": "http://publications.europa.eu/resource/authority/currency/PHP"
-        }
-      },
-      {
-        "code": {
-          "type": "literal",
           "value": "PKR"
         },
         "conceptURI": {
@@ -1758,16 +1798,6 @@
         "conceptURI": {
           "type": "uri",
           "value": "http://publications.europa.eu/resource/authority/currency/PLZ"
-        }
-      },
-      {
-        "code": {
-          "type": "literal",
-          "value": "PTE"
-        },
-        "conceptURI": {
-          "type": "uri",
-          "value": "http://publications.europa.eu/resource/authority/currency/PTE"
         }
       },
       {
@@ -1868,16 +1898,6 @@
         "conceptURI": {
           "type": "uri",
           "value": "http://publications.europa.eu/resource/authority/currency/SBD"
-        }
-      },
-      {
-        "code": {
-          "type": "literal",
-          "value": "SCR"
-        },
-        "conceptURI": {
-          "type": "uri",
-          "value": "http://publications.europa.eu/resource/authority/currency/SCR"
         }
       },
       {
@@ -2028,16 +2048,6 @@
         "conceptURI": {
           "type": "uri",
           "value": "http://publications.europa.eu/resource/authority/currency/STD"
-        }
-      },
-      {
-        "code": {
-          "type": "literal",
-          "value": "SUR"
-        },
-        "conceptURI": {
-          "type": "uri",
-          "value": "http://publications.europa.eu/resource/authority/currency/SUR"
         }
       },
       {
@@ -2493,16 +2503,6 @@
       {
         "code": {
           "type": "literal",
-          "value": "YUG"
-        },
-        "conceptURI": {
-          "type": "uri",
-          "value": "http://publications.europa.eu/resource/authority/currency/YUG"
-        }
-      },
-      {
-        "code": {
-          "type": "literal",
           "value": "YUM"
         },
         "conceptURI": {
@@ -2653,21 +2653,11 @@
       {
         "code": {
           "type": "literal",
-          "value": "MRU"
+          "value": "BOV"
         },
         "conceptURI": {
           "type": "uri",
-          "value": "http://publications.europa.eu/resource/authority/currency/MRU"
-        }
-      },
-      {
-        "code": {
-          "type": "literal",
-          "value": "STN"
-        },
-        "conceptURI": {
-          "type": "uri",
-          "value": "http://publications.europa.eu/resource/authority/currency/STN"
+          "value": "http://publications.europa.eu/resource/authority/currency/BOV"
         }
       },
       {
@@ -2683,31 +2673,61 @@
       {
         "code": {
           "type": "literal",
-          "value": "XDR"
+          "value": "COU"
         },
         "conceptURI": {
           "type": "uri",
-          "value": "http://publications.europa.eu/resource/authority/currency/XDR"
+          "value": "http://publications.europa.eu/resource/authority/currency/COU"
         }
       },
       {
         "code": {
           "type": "literal",
-          "value": "BOV"
+          "value": "MRU"
         },
         "conceptURI": {
           "type": "uri",
-          "value": "http://publications.europa.eu/resource/authority/currency/BOV"
+          "value": "http://publications.europa.eu/resource/authority/currency/MRU"
         }
       },
       {
         "code": {
           "type": "literal",
-          "value": "CHE"
+          "value": "MXV"
         },
         "conceptURI": {
           "type": "uri",
-          "value": "http://publications.europa.eu/resource/authority/currency/CHE"
+          "value": "http://publications.europa.eu/resource/authority/currency/MXV"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "STN"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://publications.europa.eu/resource/authority/currency/STN"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "VED"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://publications.europa.eu/resource/authority/currency/VED"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "XAG"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://publications.europa.eu/resource/authority/currency/XAG"
         }
       },
       {
@@ -2723,51 +2743,11 @@
       {
         "code": {
           "type": "literal",
-          "value": "XPT"
-        },
-        "conceptURI": {
-          "type": "uri",
-          "value": "http://publications.europa.eu/resource/authority/currency/XPT"
-        }
-      },
-      {
-        "code": {
-          "type": "literal",
           "value": "XBA"
         },
         "conceptURI": {
           "type": "uri",
           "value": "http://publications.europa.eu/resource/authority/currency/XBA"
-        }
-      },
-      {
-        "code": {
-          "type": "literal",
-          "value": "COU"
-        },
-        "conceptURI": {
-          "type": "uri",
-          "value": "http://publications.europa.eu/resource/authority/currency/COU"
-        }
-      },
-      {
-        "code": {
-          "type": "literal",
-          "value": "UYW"
-        },
-        "conceptURI": {
-          "type": "uri",
-          "value": "http://publications.europa.eu/resource/authority/currency/UYW"
-        }
-      },
-      {
-        "code": {
-          "type": "literal",
-          "value": "XBB"
-        },
-        "conceptURI": {
-          "type": "uri",
-          "value": "http://publications.europa.eu/resource/authority/currency/XBB"
         }
       },
       {
@@ -2793,36 +2773,6 @@
       {
         "code": {
           "type": "literal",
-          "value": "XBD"
-        },
-        "conceptURI": {
-          "type": "uri",
-          "value": "http://publications.europa.eu/resource/authority/currency/XBD"
-        }
-      },
-      {
-        "code": {
-          "type": "literal",
-          "value": "XPD"
-        },
-        "conceptURI": {
-          "type": "uri",
-          "value": "http://publications.europa.eu/resource/authority/currency/XPD"
-        }
-      },
-      {
-        "code": {
-          "type": "literal",
-          "value": "CLF"
-        },
-        "conceptURI": {
-          "type": "uri",
-          "value": "http://publications.europa.eu/resource/authority/currency/CLF"
-        }
-      },
-      {
-        "code": {
-          "type": "literal",
           "value": "XUA"
         },
         "conceptURI": {
@@ -2833,21 +2783,41 @@
       {
         "code": {
           "type": "literal",
-          "value": "XAG"
+          "value": "VES"
         },
         "conceptURI": {
           "type": "uri",
-          "value": "http://publications.europa.eu/resource/authority/currency/XAG"
+          "value": "http://publications.europa.eu/resource/authority/currency/VES"
         }
       },
       {
         "code": {
           "type": "literal",
-          "value": "MXV"
+          "value": "XBB"
         },
         "conceptURI": {
           "type": "uri",
-          "value": "http://publications.europa.eu/resource/authority/currency/MXV"
+          "value": "http://publications.europa.eu/resource/authority/currency/XBB"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "XDR"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://publications.europa.eu/resource/authority/currency/XDR"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "XPT"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://publications.europa.eu/resource/authority/currency/XPT"
         }
       },
       {
@@ -2863,21 +2833,51 @@
       {
         "code": {
           "type": "literal",
-          "value": "XBT"
+          "value": "UYW"
         },
         "conceptURI": {
           "type": "uri",
-          "value": "http://publications.europa.eu/resource/authority/currency/XBT"
+          "value": "http://publications.europa.eu/resource/authority/currency/UYW"
         }
       },
       {
         "code": {
           "type": "literal",
-          "value": "VED"
+          "value": "XPD"
         },
         "conceptURI": {
           "type": "uri",
-          "value": "http://publications.europa.eu/resource/authority/currency/VED"
+          "value": "http://publications.europa.eu/resource/authority/currency/XPD"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "XBD"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://publications.europa.eu/resource/authority/currency/XBD"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "CLF"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://publications.europa.eu/resource/authority/currency/CLF"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "XBT"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://publications.europa.eu/resource/authority/currency/XBT"
         }
       }
     ]

@@ -53,6 +53,11 @@ def worker_single_notice_process_orchestrator():
     def _preprocess_xml_manifestation():
         notice_id = pull_dag_upstream(NOTICE_ID)
         mapping_suite_id = pull_dag_upstream(MAPPING_SUITE_ID)
+        mongodb_client = MongoClient(config.MONGO_DB_AUTH_URL)
+        notice_repository = NoticeRepository(mongodb_client=mongodb_client)
+        notice = notice_repository.get(reference=notice_id)
+        notice.update_status_to(new_status=NoticeStatus.PREPROCESSED_FOR_TRANSFORMATION)
+        notice_repository.update(notice=notice)
         push_dag_downstream(NOTICE_ID, notice_id)
         push_dag_downstream(MAPPING_SUITE_ID, mapping_suite_id)
 
@@ -107,11 +112,16 @@ def worker_single_notice_process_orchestrator():
     def _check_notice_state_before_transform():
         notice_id = pull_dag_upstream(NOTICE_ID)
         mapping_suite_id = pull_dag_upstream(MAPPING_SUITE_ID)
-        push_dag_downstream(NOTICE_ID, notice_id)
-        status = NoticeStatus.ELIGIBLE_FOR_TRANSFORMATION
+        mongodb_client = MongoClient(config.MONGO_DB_AUTH_URL)
+        notice_repository = NoticeRepository(mongodb_client=mongodb_client)
+        notice = notice_repository.get(reference=notice_id)
         push_dag_downstream(NOTICE_ID, notice_id)
         push_dag_downstream(MAPPING_SUITE_ID, mapping_suite_id)
-        if status == NoticeStatus.ELIGIBLE_FOR_TRANSFORMATION:
+        print(notice.status)
+        print(NoticeStatus.ELIGIBLE_FOR_TRANSFORMATION)
+        print(notice.status == NoticeStatus.ELIGIBLE_FOR_TRANSFORMATION)
+        if notice.status == NoticeStatus.ELIGIBLE_FOR_TRANSFORMATION:
+            print("Go to preprocess_xml_manifestation")
             return "preprocess_xml_manifestation"
         else:
             return "fail_on_state"

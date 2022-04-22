@@ -75,10 +75,12 @@ setup(
     packages=packages,
     entry_points={
         "console_scripts": [
+            "mapping_suite_processor = ted_sws.mapping_suite_processor.entrypoints.cmd_mapping_suite_processor:main",
+            "metadata_generator = ted_sws.mapping_suite_processor.entrypoints.cmd_metadata_generator:main",
             "sparql_generator = ted_sws.mapping_suite_processor.entrypoints.cmd_sparql_generator:main",
             "yarrrml2rml_converter = ted_sws.mapping_suite_processor.entrypoints.cmd_yarrrml2rml_converter:main",
             "transformer = ted_sws.notice_transformer.entrypoints.cmd_mapping_suite_transformer:main",
-            "normalisation_resource_generator = ted_sws.data_manager.entrypoints.generate_mapping_resources:main"
+            "normalisation_resource_generator = ted_sws.data_manager.entrypoints.cmd_generate_mapping_resources:main"
         ],
     },
     include_package_data=True,

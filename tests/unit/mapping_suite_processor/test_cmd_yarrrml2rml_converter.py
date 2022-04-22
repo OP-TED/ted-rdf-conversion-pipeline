@@ -9,10 +9,10 @@ cmdRunner = CliRunner()
 
 def __process_output_dir(fake_repository_path, fake_mapping_suite_id):
     output_dir_path = fake_repository_path / fake_mapping_suite_id / "transformation" / "mappings"
-    output_notice_path = output_dir_path / "mappings.rml.ttl"
+    output_file_path = output_dir_path / "mappings.rml.ttl"
     assert os.path.isdir(output_dir_path)
-    assert os.path.isfile(output_notice_path)
-    os.remove(output_notice_path)
+    assert os.path.isfile(output_file_path)
+    os.remove(output_file_path)
 
 
 def test_cmd_converter(fake_mapping_suite_id, file_system_repository_path):

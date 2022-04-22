@@ -10,12 +10,13 @@ from ted_sws.core.model.message import Log
 from ted_sws.core.model.notice import Notice, NoticeStatus
 from ted_sws.core.model.transform import MappingSuite, FileResource
 from ted_sws.data_manager.adapters.mapping_suite_repository import MappingSuiteRepositoryInFileSystem
+from ted_sws.data_manager.adapters.repository_abc import NoticeRepositoryABC, MappingSuiteRepositoryABC
 from ted_sws.notice_transformer.adapters.rml_mapper import RMLMapperABC, SerializationFormat as RMLSerializationFormat
 
 DATA_SOURCE_PACKAGE = "data"
 
 
-def transform_notice(notice: Notice, mapping_suite: MappingSuite, rml_mapper: RMLMapperABC):
+def transform_notice(notice: Notice, mapping_suite: MappingSuite, rml_mapper: RMLMapperABC) -> Notice:
     """
         This function allows the XML content of a Notice to be transformed into RDF,
          using the mapping rules in mapping_suite and the rml_mapper mapping adapter.
@@ -25,6 +26,30 @@ def transform_notice(notice: Notice, mapping_suite: MappingSuite, rml_mapper: RM
     :return:
     """
     return NoticeTransformer(mapping_suite=mapping_suite, rml_mapper=rml_mapper).transform_notice(notice=notice)
+
+
+def transform_notice_by_id(notice_id: str, mapping_suite_id: str, notice_repository: NoticeRepositoryABC,
+                           mapping_suite_repository: MappingSuiteRepositoryABC, rml_mapper: RMLMapperABC):
+    """
+        This function allows the XML content of a Notice to be transformed into RDF,
+         using the mapping rules in mapping_suite and the rml_mapper mapping adapter.
+    :param notice_id:
+    :param mapping_suite_id:
+    :param notice_repository:
+    :param mapping_suite_repository:
+    :param rml_mapper:
+    :return:
+    """
+    notice = notice_repository.get(reference=notice_id)
+    mapping_suite = mapping_suite_repository.get(reference=mapping_suite_id)
+    if notice is None:
+        raise ValueError(f'Notice, with {notice_id} id, was not found')
+
+    if mapping_suite is None:
+        raise ValueError(f'Mapping suite, with {mapping_suite_id} id, was not found')
+
+    result_notice = transform_notice(notice=notice, mapping_suite=mapping_suite, rml_mapper=rml_mapper)
+    notice_repository.update(notice=result_notice)
 
 
 def transform_test_data(mapping_suite: MappingSuite, rml_mapper: RMLMapperABC, output_path: Path,

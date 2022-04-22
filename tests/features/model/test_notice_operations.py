@@ -144,7 +144,7 @@ def step_impl(raw_notice):
 
 @then("notice contains no RDF validation")
 def step_impl(transformation_eligible_notice):
-    assert transformation_eligible_notice.rdf_validation is None
+    assert transformation_eligible_notice.get_rdf_validation() is None
 
 
 @then("notice contains no METS manifestation")
@@ -210,7 +210,7 @@ def step_impl(transformation_eligible_notice, rdf_validation):
 
 @then("the notice object contains the RDF validation report")
 def step_impl(transformation_eligible_notice):
-    assert transformation_eligible_notice.rdf_validation is not None
+    assert transformation_eligible_notice.get_rdf_validation() is not None
 
 
 @then("the notice status is VALIDATED")

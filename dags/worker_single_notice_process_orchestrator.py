@@ -93,7 +93,7 @@ def worker_single_notice_process_orchestrator():
         push_dag_downstream(NOTICE_ID, notice_id)
         status = NoticeStatus.ELIGIBLE_FOR_TRANSFORMATION
         if status == NoticeStatus.ELIGIBLE_FOR_TRANSFORMATION:
-            return "transform_notice"
+            return "preprocess_xml_manifestation"
         else:
             return "fail_on_state"
 

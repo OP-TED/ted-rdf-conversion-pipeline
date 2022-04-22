@@ -2,6 +2,8 @@ import pathlib
 import tempfile
 from collections import Counter
 
+import pytest
+
 from ted_sws.core.model.notice import NoticeStatus
 from ted_sws.data_manager.adapters.mapping_suite_repository import MappingSuiteRepositoryMongoDB
 from ted_sws.notice_transformer.services.notice_transformer import NoticeTransformer, transform_notice, \
@@ -32,6 +34,19 @@ def test_notice_transformer_by_id_function(fake_rml_mapper, mongodb_client, fake
                            fake_rml_mapper)
     result_notice = notice_repository.get(reference=notice_id)
     assert result_notice.status == NoticeStatus.TRANSFORMED
+
+
+def test_notice_transformer_by_id_function_with_invalid_ids(fake_rml_mapper, mongodb_client, fake_mapping_suite,
+                                                            notice_2018,
+                                                            notice_repository):
+    notice_2018._status = NoticeStatus.PREPROCESSED_FOR_TRANSFORMATION
+    notice_id = notice_2018.ted_id
+    mapping_suite_repository = MappingSuiteRepositoryMongoDB(mongodb_client=mongodb_client)
+    with pytest.raises(Exception) as e_info:
+        transform_notice_by_id(notice_id, fake_mapping_suite.identifier, notice_repository, mapping_suite_repository,
+                               fake_rml_mapper)
+    result_notice = notice_repository.get(reference=notice_id)
+    assert result_notice is None
 
 
 def test_transform_test_data(fake_rml_mapper, fake_mapping_suite):

@@ -72,5 +72,6 @@ def notice_eligibility_checker_by_id(notice_id: str, notice_repository: NoticeRe
     notice = notice_repository.get(reference=notice_id)
     if notice is None:
         raise ValueError(f'Notice, with {notice_id} id, was not found')
-
-    return notice_eligibility_checker(notice=notice, mapping_suite_repository=mapping_suite_repository)
+    result = notice_eligibility_checker(notice=notice, mapping_suite_repository=mapping_suite_repository)
+    notice_repository.update(notice=notice)
+    return result

@@ -1,8 +1,10 @@
 import logging
-from typing import Iterator
+from typing import Iterator, Union
 from pymongo import MongoClient
 
 from ted_sws import config
+from ted_sws.core.model.manifestation import XMLManifestation, RDFManifestation, METSManifestation
+from ted_sws.core.model.metadata import NormalisedMetadata
 from ted_sws.data_manager.adapters.repository_abc import NoticeRepositoryABC
 from ted_sws.core.model.notice import Notice, NoticeStatus
 
@@ -22,6 +24,32 @@ class NoticeRepository(NoticeRepositoryABC):
         self._database_name = database_name
         notice_db = mongodb_client[self._database_name]
         self.collection = notice_db[self._collection_name]
+
+
+    @staticmethod
+    def _create_notice_from_repository_result(notice_dict: dict) -> Union[Notice, None]:
+        """
+
+        :param notice_dict:
+        :return:
+        """
+
+        def init_object_from_dict(object_class, key):
+            if notice_dict[key]:
+                return object_class(**notice_dict[key])
+            return None
+
+        if notice_dict:
+            del notice_dict["_id"]
+            notice = Notice(**notice_dict)
+            notice._status = NoticeStatus(notice_dict["status"])
+            notice._normalised_metadata= init_object_from_dict(NormalisedMetadata,"normalised_metadata")
+            notice._preprocessed_xml_manifestation = init_object_from_dict(XMLManifestation,"preprocessed_xml_manifestation")
+            notice._distilled_rdf_manifestation = init_object_from_dict(RDFManifestation,"distilled_rdf_manifestation")
+            notice._rdf_manifestation =  init_object_from_dict(RDFManifestation,"rdf_manifestation")
+            notice._mets_manifestation = init_object_from_dict(METSManifestation,"mets_manifestation")
+            return notice
+        return None
 
     def add(self, notice: Notice):
         """
@@ -50,7 +78,7 @@ class NoticeRepository(NoticeRepositoryABC):
         :return: Notice
         """
         result_dict = self.collection.find_one({"ted_id": reference})
-        return Notice(**result_dict) if result_dict else None
+        return NoticeRepository._create_notice_from_repository_result(result_dict)
 
     def get_notice_by_status(self, notice_status: NoticeStatus) -> Iterator[Notice]:
         """
@@ -59,7 +87,7 @@ class NoticeRepository(NoticeRepositoryABC):
         :return:
         """
         for result_dict in self.collection.find({"status": notice_status}):
-            yield Notice(**result_dict)
+            yield NoticeRepository._create_notice_from_repository_result(result_dict)
 
     def list(self) -> Iterator[Notice]:
         """
@@ -67,4 +95,4 @@ class NoticeRepository(NoticeRepositoryABC):
         :return: list of notices
         """
         for result_dict in self.collection.find():
-            yield Notice(**result_dict)
+            yield NoticeRepository._create_notice_from_repository_result(result_dict)

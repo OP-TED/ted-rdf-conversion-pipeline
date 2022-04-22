@@ -150,9 +150,8 @@ class Notice(WorkExpression):
     _status: NoticeStatus = NoticeStatus.RAW  # PrivateAttr(default=NoticeStatus.RAW)
     ted_id: str = Field(..., allow_mutation=False)
     original_metadata: Optional[TEDMetadata] = None
-    _normalised_metadata: Optional[NormalisedMetadata] = None
-
     xml_manifestation: XMLManifestation = Field(..., allow_mutation=False)
+    _normalised_metadata: Optional[NormalisedMetadata] = None
     _preprocessed_xml_manifestation: Optional[XMLManifestation] = None
     _distilled_rdf_manifestation: Optional[RDFManifestation] = None
     _rdf_manifestation: Optional[RDFManifestation] = None
@@ -178,8 +177,7 @@ class Notice(WorkExpression):
     def mets_manifestation(self) -> METSManifestation:
         return self._mets_manifestation
 
-    @property
-    def rdf_validation(self) -> RDFValidationManifestation:
+    def get_rdf_validation(self) -> RDFValidationManifestation:
         if not self.rdf_manifestation:
             return None
 

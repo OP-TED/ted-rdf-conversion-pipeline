@@ -4,6 +4,7 @@ from pymongo import MongoClient
 from dags.dags_utils import pull_dag_upstream, push_dag_downstream
 from ted_sws import config
 from ted_sws.core.model.notice import NoticeStatus
+from ted_sws.data_manager.adapters.mapping_suite_repository import MappingSuiteRepositoryMongoDB
 from ted_sws.data_manager.adapters.notice_repository import NoticeRepository
 from ted_sws.metadata_normaliser.services.metadata_normalizer import normalise_notice_by_id
 
@@ -11,6 +12,9 @@ from airflow.decorators import dag
 from airflow.operators.python import get_current_context, BranchPythonOperator, PythonOperator
 
 from dags import DEFAULT_DAG_ARGUMENTS
+from ted_sws.notice_eligibility.services.notice_eligibility import notice_eligibility_checker_by_id
+from ted_sws.notice_transformer.adapters.rml_mapper import RMLMapper
+from ted_sws.notice_transformer.services.notice_transformer import transform_notice_by_id
 
 NOTICE_ID = "notice_id"
 MAPPING_SUITE_ID = "mapping_suite_id"
@@ -37,22 +41,39 @@ def worker_single_notice_process_orchestrator():
 
     def _check_eligibility_for_transformation():
         notice_id = pull_dag_upstream(NOTICE_ID)
-        notice_id = notice_id + "_checked"
+        mongodb_client = MongoClient(config.MONGO_DB_AUTH_URL)
+        notice_repository = NoticeRepository(mongodb_client=mongodb_client)
+        mapping_suite_repository = MappingSuiteRepositoryMongoDB(mongodb_client=mongodb_client)
+        notice_id, mapping_suite_id = notice_eligibility_checker_by_id(notice_id=notice_id,
+                                                                       notice_repository=notice_repository,
+                                                                       mapping_suite_repository=mapping_suite_repository)
         push_dag_downstream(NOTICE_ID, notice_id)
-        push_dag_downstream(MAPPING_SUITE_ID, "mapping_suite_id")
+        push_dag_downstream(MAPPING_SUITE_ID, mapping_suite_id)
 
     def _preprocess_xml_manifestation():
         notice_id = pull_dag_upstream(NOTICE_ID)
         mapping_suite_id = pull_dag_upstream(MAPPING_SUITE_ID)
-        notice_id = notice_id + "_preprocessed"
+        mongodb_client = MongoClient(config.MONGO_DB_AUTH_URL)
+        notice_repository = NoticeRepository(mongodb_client=mongodb_client)
+        notice = notice_repository.get(reference=notice_id)
+        notice.update_status_to(new_status=NoticeStatus.PREPROCESSED_FOR_TRANSFORMATION)
+        notice_repository.update(notice=notice)
         push_dag_downstream(NOTICE_ID, notice_id)
-        pull_dag_upstream(MAPPING_SUITE_ID, mapping_suite_id)
+        push_dag_downstream(MAPPING_SUITE_ID, mapping_suite_id)
 
     def _transform_notice():
         notice_id = pull_dag_upstream(NOTICE_ID)
         mapping_suite_id = pull_dag_upstream(MAPPING_SUITE_ID)
-        notice_id = notice_id + "_transformed"
+        mongodb_client = MongoClient(config.MONGO_DB_AUTH_URL)
+        notice_repository = NoticeRepository(mongodb_client=mongodb_client)
+        mapping_suite_repository = MappingSuiteRepositoryMongoDB(mongodb_client=mongodb_client)
+        rml_mapper = RMLMapper(rml_mapper_path=config.RML_MAPPER_PATH)
+        transform_notice_by_id(notice_id=notice_id, mapping_suite_id=mapping_suite_id,
+                               notice_repository=notice_repository, mapping_suite_repository=mapping_suite_repository,
+                               rml_mapper=rml_mapper
+                               )
         push_dag_downstream(NOTICE_ID, notice_id)
+        push_dag_downstream(MAPPING_SUITE_ID, mapping_suite_id)
 
     def _resolve_entities_in_the_rdf_manifestation():
         notice_id = pull_dag_upstream(NOTICE_ID)
@@ -90,9 +111,17 @@ def worker_single_notice_process_orchestrator():
 
     def _check_notice_state_before_transform():
         notice_id = pull_dag_upstream(NOTICE_ID)
+        mapping_suite_id = pull_dag_upstream(MAPPING_SUITE_ID)
+        mongodb_client = MongoClient(config.MONGO_DB_AUTH_URL)
+        notice_repository = NoticeRepository(mongodb_client=mongodb_client)
+        notice = notice_repository.get(reference=notice_id)
         push_dag_downstream(NOTICE_ID, notice_id)
-        status = NoticeStatus.ELIGIBLE_FOR_TRANSFORMATION
-        if status == NoticeStatus.ELIGIBLE_FOR_TRANSFORMATION:
+        push_dag_downstream(MAPPING_SUITE_ID, mapping_suite_id)
+        print(notice.status)
+        print(NoticeStatus.ELIGIBLE_FOR_TRANSFORMATION)
+        print(notice.status == NoticeStatus.ELIGIBLE_FOR_TRANSFORMATION)
+        if notice.status == NoticeStatus.ELIGIBLE_FOR_TRANSFORMATION:
+            print("Go to preprocess_xml_manifestation")
             return "preprocess_xml_manifestation"
         else:
             return "fail_on_state"

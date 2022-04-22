@@ -5,9 +5,12 @@ import tempfile
 from pymongo import MongoClient
 
 from ted_sws import config
+from ted_sws.core.model.manifestation import XMLManifestation
+from ted_sws.core.model.notice import Notice
 from ted_sws.data_manager.adapters.mapping_suite_repository import TRANSFORM_PACKAGE_NAME, VALIDATE_PACKAGE_NAME, \
     SPARQL_PACKAGE_NAME, METADATA_FILE_NAME, RESOURCES_PACKAGE_NAME, SHACL_PACKAGE_NAME, TEST_DATA_PACKAGE_NAME, \
     MappingSuiteRepositoryInFileSystem, MappingSuiteRepositoryMongoDB
+from ted_sws.data_manager.adapters.notice_repository import NoticeRepository
 from ted_sws.mapping_suite_processor.adapters.github_package_downloader import GitHubMappingSuitePackageDownloader
 from ted_sws.mapping_suite_processor.services.conceptual_mapping_files_injection import \
     mapping_suite_processor_inject_resources, mapping_suite_processor_inject_shacl_shapes, \
@@ -92,11 +95,14 @@ def mapping_suite_processor_expand_package(mapping_suite_package_path: pathlib.P
 
 
 def mapping_suite_processor_load_package_in_mongo_db(mapping_suite_package_path: pathlib.Path,
-                                                     mongodb_client: MongoClient):
+                                                     mongodb_client: MongoClient,
+                                                     load_test_data: bool = False
+                                                     ):
     """
         This feature allows you to upload a mapping suite package to MongoDB.
     :param mapping_suite_package_path:
     :param mongodb_client:
+    :param load_test_data:
     :return:
     """
     mapping_suite_repository_path = mapping_suite_package_path.parent
@@ -104,16 +110,26 @@ def mapping_suite_processor_load_package_in_mongo_db(mapping_suite_package_path:
     mapping_suite_repository_in_file_system = MappingSuiteRepositoryInFileSystem(
         repository_path=mapping_suite_repository_path)
     mapping_suite_in_memory = mapping_suite_repository_in_file_system.get(reference=mapping_suite_package_name)
+    if load_test_data:
+        tests_data = mapping_suite_in_memory.transformation_test_data.test_data
+        notice_repository = NoticeRepository(mongodb_client=mongodb_client)
+        for test_data in tests_data:
+            notice_repository.add(notice=Notice(ted_id=test_data.file_name.split(".")[0],
+                                                xml_manifestation=XMLManifestation(object_data=test_data.file_content)))
+
     mapping_suite_repository_mongo_db = MappingSuiteRepositoryMongoDB(mongodb_client=mongodb_client)
     mapping_suite_repository_mongo_db.add(mapping_suite=mapping_suite_in_memory)
 
 
 def mapping_suite_processor_from_github_expand_and_load_package_in_mongo_db(mapping_suite_package_name: str,
-                                                                            mongodb_client: MongoClient):
+                                                                            mongodb_client: MongoClient,
+                                                                            load_test_data: bool = False
+                                                                            ):
     """
         This feature is intended to download a mapping_suite_package from GitHub and process it for upload to MongoDB.
     :param mapping_suite_package_name:
     :param mongodb_client:
+    :param load_test_data:
     :return:
     """
     mapping_suite_package_downloader = GitHubMappingSuitePackageDownloader(
@@ -125,5 +141,6 @@ def mapping_suite_processor_from_github_expand_and_load_package_in_mongo_db(mapp
         mapping_suite_package_path = tmp_dir_path / mapping_suite_package_name
         mapping_suite_processor_expand_package(mapping_suite_package_path=mapping_suite_package_path)
         mapping_suite_processor_load_package_in_mongo_db(mapping_suite_package_path=mapping_suite_package_path,
-                                                         mongodb_client=mongodb_client
+                                                         mongodb_client=mongodb_client,
+                                                         load_test_data=load_test_data
                                                          )

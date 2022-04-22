@@ -47,7 +47,7 @@ class MappingSuiteRepositoryMongoDB(MappingSuiteRepositoryABC):
         """
         mapping_suite_dict = mapping_suite.dict()
         mapping_suite_dict["_id"] = mapping_suite_dict["identifier"]
-        self.collection.insert_one(mapping_suite_dict)
+        self.collection.update_one({'_id': mapping_suite_dict["_id"]}, {"$set": mapping_suite_dict}, upsert=True)
 
     def update(self, mapping_suite: MappingSuite):
         """

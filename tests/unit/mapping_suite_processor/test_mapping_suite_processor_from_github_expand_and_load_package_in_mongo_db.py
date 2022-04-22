@@ -8,7 +8,8 @@ MAPPING_SUITE_PACKAGE_ID = "test_package"
 def test_mapping_suite_processor_from_github_expand_and_load_package_in_mongo_db(mongodb_client):
     mapping_suite_processor_from_github_expand_and_load_package_in_mongo_db(
         mapping_suite_package_name=MAPPING_SUITE_PACKAGE_NAME,
-        mongodb_client=mongodb_client
+        mongodb_client=mongodb_client,
+        load_test_data=True
     )
     mapping_suite_repository = MappingSuiteRepositoryMongoDB(mongodb_client=mongodb_client)
     mapping_suite = mapping_suite_repository.get(reference=MAPPING_SUITE_PACKAGE_ID)

@@ -43,3 +43,14 @@ def test_notice_repository_get_notice_by_status(mongodb_client):
 def test_notice_repository_default_database_name(mongodb_client):
     notice_repository = NoticeRepository(mongodb_client=mongodb_client)
     assert notice_repository._database_name == NoticeRepository._database_name
+
+def test_notice_repository_create_notice_from_repository_result(mongodb_client):
+    notice_repository = NoticeRepository(mongodb_client=mongodb_client)
+    notice = Notice(ted_id=NOTICE_TED_ID, original_metadata=TEDMetadata(**{"AA": "Metadata"}),
+                    xml_manifestation=XMLManifestation(object_data="HELLO"))
+    notice_repository.add(notice)
+    result_dict = notice_repository.collection.find_one({"ted_id": notice.ted_id})
+    result_notice = notice_repository._create_notice_from_repository_result(notice_dict=result_dict)
+    invalid_result_notice = notice_repository._create_notice_from_repository_result(None)
+    assert result_notice
+    assert invalid_result_notice is None

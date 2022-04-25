@@ -43,17 +43,17 @@ class CmdRunner(BaseCmdRunner):
         self.log("Running " + LOG_INFO_TEXT.format(f"MappingSuite[{self.mapping_suite_id}]") + " processing ... ")
         self.log(LOG_WARN_TEXT.format("#######"))
 
+        cmd_metadata_generator.run(
+            mapping_suite_id=self.mapping_suite_id,
+            opt_mappings_path=self.mappings_path
+        )
+
         cmd_yarrrml2rml_converter.run(
             mapping_suite_id=self.mapping_suite_id,
             opt_mappings_path=self.mappings_path
         )
 
         cmd_sparql_generator.run(
-            mapping_suite_id=self.mapping_suite_id,
-            opt_mappings_path=self.mappings_path
-        )
-
-        cmd_metadata_generator.run(
             mapping_suite_id=self.mapping_suite_id,
             opt_mappings_path=self.mappings_path
         )
@@ -74,7 +74,7 @@ def run(mapping_suite_id, opt_mappings_path=DEFAULT_MAPPINGS_PATH):
 @click.option('-m', '--opt-mappings-path', default=DEFAULT_MAPPINGS_PATH)
 def main(mapping_suite_id, opt_mappings_path):
     """
-    Process Mapping Suite (identified by mapping-suite-id).
+    Processes Mapping Suite (identified by mapping-suite-id).
     """
     run(mapping_suite_id, opt_mappings_path)
 

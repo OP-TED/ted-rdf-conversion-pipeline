@@ -48,11 +48,12 @@ normalisation_resource_generator --help
 ```
 to get the Usage Help:
 ```bash
-Usage: normalisation_resource_generator [OPTIONS]
+Usage: normalisation_resource_generator [OPTIONS] [MAPPING_SUITE_ID]
 
 Options:
-  --queries-folder-path TEXT
-  --output-folder-path TEXT
+  --opt-queries-folder TEXT
+  --opt-output-folder TEXT
+  -m, --opt-mappings-path TEXT
   --help                                      Show this message and exit.
 ```
 

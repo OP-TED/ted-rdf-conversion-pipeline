@@ -7,7 +7,7 @@ from typing import Tuple, List
 import click
 
 from ted_sws.core.adapters.cmd_runner import CmdRunner as BaseCmdRunner, DEFAULT_MAPPINGS_PATH
-from ted_sws.core.adapters.logger import LOG_INFO_TEXT, LOG_WARN_TEXT
+from ted_sws.core.adapters.logger import LOG_INFO_TEXT, LOG_WARN_TEXT, LOG_WARN_LEVEL
 from ted_sws.data_manager.entrypoints import cmd_generate_mapping_resources
 from ted_sws.mapping_suite_processor.entrypoints import cmd_yarrrml2rml_converter, cmd_sparql_generator, \
     cmd_metadata_generator
@@ -43,7 +43,6 @@ class CmdRunner(BaseCmdRunner):
         self.mapping_suite_id = mapping_suite_id
         self.mappings_path = mappings_path
         self.commands = commands
-        print("K :: ", commands, type(commands))
 
         mapping_suite_path = Path(os.path.realpath(mappings_path)) / Path(mapping_suite_id)
         if not mapping_suite_path.is_dir():
@@ -52,37 +51,40 @@ class CmdRunner(BaseCmdRunner):
             raise FileNotFoundError(error_msg)
 
     def _cmd(self, cmd: str):
-        if cmd == 'cmd_generate_mapping_resources':
+        if cmd == 'normalisation_resource_generator':
             cmd_generate_mapping_resources.run(
                 mapping_suite_id=self.mapping_suite_id,
                 opt_mappings_path=self.mappings_path
             )
-        elif cmd == 'cmd_metadata_generator':
+        elif cmd == 'metadata_generator':
             cmd_metadata_generator.run(
                 mapping_suite_id=self.mapping_suite_id,
                 opt_mappings_path=self.mappings_path
             )
-        elif cmd == 'cmd_yarrrml2rml_converter':
+        elif cmd == 'yarrrml2rml_converter':
             cmd_yarrrml2rml_converter.run(
                 mapping_suite_id=self.mapping_suite_id,
                 opt_mappings_path=self.mappings_path
             )
-        elif cmd == 'cmd_sparql_generator':
+        elif cmd == 'sparql_generator':
             cmd_sparql_generator.run(
                 mapping_suite_id=self.mapping_suite_id,
                 opt_mappings_path=self.mappings_path
             )
-        elif cmd == 'cmd_mapping_suite_transformer':
+        elif cmd == 'transformer':
             cmd_mapping_suite_transformer.run(
                 mapping_suite_id=self.mapping_suite_id,
                 opt_mappings_path=self.mappings_path
             )
 
     def run_cmd(self):
-        self.log("Running " + LOG_INFO_TEXT.format(f"MappingSuite[{self.mapping_suite_id}]") + " processing ... ")
+        self.log("Running " + LOG_WARN_TEXT.format(self.commands) + " for " + LOG_INFO_TEXT.format(
+            f"MappingSuite[{self.mapping_suite_id}]"
+        ) + " ... ")
         self.log(LOG_WARN_TEXT.format("#######"))
 
         for cmd in self.commands:
+            self.log(LOG_WARN_TEXT.format("# " + cmd), LOG_WARN_LEVEL)
             self._cmd(cmd)
 
         self.log(LOG_WARN_TEXT.format("#######"))

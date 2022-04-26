@@ -176,9 +176,9 @@ Options:
 ```
 Use:
 ```bash
-mapping_suite_processor -c=COMMAND1 -c=COMMAND2 ...
+mapping_suite_processor -c COMMAND1 -c COMMAND2 ...
 ```
-to set custom commands (ordered) to be executed
+to set custom commands (order) to be executed
 
 ## Contributions
 

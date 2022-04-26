@@ -5,12 +5,11 @@ from pathlib import Path
 
 import click
 
-from ted_sws.core.adapters.cmd_runner import CmdRunner as BaseCmdRunner
+from ted_sws.core.adapters.cmd_runner import CmdRunner as BaseCmdRunner, DEFAULT_MAPPINGS_PATH
 from ted_sws.core.adapters.logger import LOG_INFO_TEXT, LOG_WARN_TEXT
 from ted_sws.mapping_suite_processor.entrypoints import cmd_yarrrml2rml_converter, cmd_sparql_generator, \
     cmd_metadata_generator
 
-DEFAULT_MAPPINGS_PATH = 'mappings'
 CMD_NAME = "CMD_MAPPING_SUITE_PROCESSOR"
 
 """
@@ -43,17 +42,17 @@ class CmdRunner(BaseCmdRunner):
         self.log("Running " + LOG_INFO_TEXT.format(f"MappingSuite[{self.mapping_suite_id}]") + " processing ... ")
         self.log(LOG_WARN_TEXT.format("#######"))
 
+        cmd_metadata_generator.run(
+            mapping_suite_id=self.mapping_suite_id,
+            opt_mappings_path=self.mappings_path
+        )
+
         cmd_yarrrml2rml_converter.run(
             mapping_suite_id=self.mapping_suite_id,
             opt_mappings_path=self.mappings_path
         )
 
         cmd_sparql_generator.run(
-            mapping_suite_id=self.mapping_suite_id,
-            opt_mappings_path=self.mappings_path
-        )
-
-        cmd_metadata_generator.run(
             mapping_suite_id=self.mapping_suite_id,
             opt_mappings_path=self.mappings_path
         )
@@ -74,7 +73,7 @@ def run(mapping_suite_id, opt_mappings_path=DEFAULT_MAPPINGS_PATH):
 @click.option('-m', '--opt-mappings-path', default=DEFAULT_MAPPINGS_PATH)
 def main(mapping_suite_id, opt_mappings_path):
     """
-    Process Mapping Suite (identified by mapping-suite-id).
+    Processes Mapping Suite (identified by mapping-suite-id).
     """
     run(mapping_suite_id, opt_mappings_path)
 

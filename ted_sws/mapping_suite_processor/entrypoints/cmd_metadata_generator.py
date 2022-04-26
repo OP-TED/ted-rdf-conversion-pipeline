@@ -86,8 +86,8 @@ def run(mapping_suite_id=None, opt_conceptual_mappings_file=None, opt_output_met
 
 @click.command()
 @click.argument('mapping-suite-id', nargs=1, required=False)
-@click.option('-i', '--opt-conceptual-mappings-file', help="Use to overwrite INPUT generator")
-@click.option('-o', '--opt-output-metadata-file', help="Use to overwrite OUTPUT generator")
+@click.option('-i', '--opt-conceptual-mappings-file', help="Use to overwrite default INPUT generator")
+@click.option('-o', '--opt-output-metadata-file', help="Use to overwrite default OUTPUT generator")
 @click.option('-m', '--opt-mappings-path', default=DEFAULT_MAPPINGS_PATH)
 def main(mapping_suite_id, opt_conceptual_mappings_file, opt_output_metadata_file, opt_mappings_path):
     """

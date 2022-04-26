@@ -39,7 +39,9 @@ make setup
 ## Usage
 ### CLI tools (commands/console-scripts) for notice mapping suite manipulation
 
-#### normalisation_resource_generator
+Using MAPPING_SUITE_ID argument should be enough for general purpose.
+
+#### CMD: normalisation_resource_generator
 Generates all resources files needed for notice mapping suite transformation.
 
 Use:
@@ -51,13 +53,13 @@ to get the Usage Help:
 Usage: normalisation_resource_generator [OPTIONS] [MAPPING_SUITE_ID]
 
 Options:
-  --opt-queries-folder TEXT
-  --opt-output-folder TEXT
+  -i, --opt-queries-folder TEXT               Use to overwrite default INPUT generator
+  -o, --opt-output-folder TEXT                Use to overwrite default OUTPUT generator
   -m, --opt-mappings-path TEXT
   --help                                      Show this message and exit.
 ```
 
-#### metadata_generator
+#### CMD: metadata_generator
 Generates metadata.json file from Conceptual Mappings file data.
 
 Use:
@@ -71,13 +73,13 @@ Usage: metadata_generator [OPTIONS] [MAPPING_SUITE_ID]
   Generates Metadata from Conceptual Mappings.
 
 Options:
-  -i, --opt-conceptual-mappings-file TEXT     Use to overwrite INPUT generator
-  -o, --opt-output-metadata-file TEXT         Use to overwrite OUTPUT generator
+  -i, --opt-conceptual-mappings-file TEXT     Use to overwrite default INPUT generator
+  -o, --opt-output-metadata-file TEXT         Use to overwrite default OUTPUT generator
   -m, --opt-mappings-path TEXT
   --help                                      Show this message and exit.
 ```
 
-#### yarrrml2rml_converter
+#### CMD: yarrrml2rml_converter
 Converts YARRRML data to RML data.
 
 Use:
@@ -91,13 +93,13 @@ Usage: yarrrml2rml_converter [OPTIONS] [MAPPING_SUITE_ID] [RML_OUTPUT_FILE_NAME]
   Converts YARRRML to RML. Skip RML_OUTPUT_FILE_NAME to use the default name.
 
 Options:
-  -i, --opt-yarrrml-input-file TEXT           Use to overwrite INPUT generator
-  -o, --opt-rml-output-file TEXT              Use to overwrite OUTPUT generator
+  -i, --opt-yarrrml-input-file TEXT           Use to overwrite default INPUT generator
+  -o, --opt-rml-output-file TEXT              Use to overwrite default OUTPUT generator
   -m, --opt-mappings-path TEXT
   --help                                      Show this message and exit.
 ```
 
-#### sparql_generator
+#### CMD: sparql_generator
 Generates SPARQL queries from Conceptual Mappings file data.
 
 Use:
@@ -111,14 +113,14 @@ Usage: sparql_generator [OPTIONS] [MAPPING_SUITE_ID]
   Generates SPARQL queries from Conceptual Mappings.
 
 Options:
-  -i, --opt-conceptual-mappings-file TEXT         Use to overwrite INPUT generator
-  -o, --opt-output-sparql-queries-folder TEXT     Use to overwrite OUTPUT generator
+  -i, --opt-conceptual-mappings-file TEXT         Use to overwrite default INPUT generator
+  -o, --opt-output-sparql-queries-folder TEXT     Use to overwrite default OUTPUT generator
   -rq-name, --opt-rq-name TEXT
   -m, --opt-mappings-path TEXT
   --help                                          Show this message and exit.
 ```
 
-#### mapping_suite_processor
+#### CMD: mapping_suite_processor
 Processes Mapping Suite (identified by mapping-suite-id).
 
 Successively runs the following commands:
@@ -143,7 +145,7 @@ Options:
   --help                                      Show this message and exit.
 ```
 
-#### transformer
+#### CMD: transformer
 Transforms the Test Mapping Suites.
 
 Use:

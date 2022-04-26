@@ -91,8 +91,8 @@ def run(mapping_suite_id=None, rml_output_file_name=None, opt_yarrrml_input_file
 @click.command()
 @click.argument('mapping-suite-id', nargs=1, required=False)
 @click.argument('rml-output-file-name', nargs=1, required=False)
-@click.option('-i', '--opt-yarrrml-input-file', help="Use to overwrite INPUT generator")
-@click.option('-o', '--opt-rml-output-file', help="Use to overwrite OUTPUT generator")
+@click.option('-i', '--opt-yarrrml-input-file', help="Use to overwrite default INPUT generator")
+@click.option('-o', '--opt-rml-output-file', help="Use to overwrite default OUTPUT generator")
 @click.option('-m', '--opt-mappings-path', default=DEFAULT_MAPPINGS_PATH)
 def main(mapping_suite_id, rml_output_file_name, opt_yarrrml_input_file, opt_rml_output_file, opt_mappings_path):
     """

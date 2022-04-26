@@ -87,8 +87,9 @@ def run(mapping_suite_id=None,
 
 @click.command()
 @click.argument('mapping-suite-id', nargs=1, required=False)
-@click.option('--opt-queries-folder', default=str(QUERIES_PATH))
-@click.option('--opt-output-folder', default=str(MAPPING_FILES_PATH))
+@click.option('-i', '--opt-queries-folder', default=str(QUERIES_PATH), help="Use to overwrite default INPUT generator")
+@click.option('-o', '--opt-output-folder', default=str(MAPPING_FILES_PATH),
+              help="Use to overwrite default OUTPUT generator")
 @click.option('-m', '--opt-mappings-path', default=DEFAULT_MAPPINGS_PATH)
 def main(mapping_suite_id, opt_queries_folder, opt_output_folder, opt_mappings_path):
     run(mapping_suite_id, opt_queries_folder, opt_output_folder, opt_mappings_path, SPARQLTripleStore())

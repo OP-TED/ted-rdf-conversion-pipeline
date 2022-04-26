@@ -3,8 +3,8 @@ import tempfile
 from datetime import datetime
 from pathlib import Path
 
+from ted_sws.core.adapters.logger import Logger, logger as root_logger, LOG_WARN_TEXT, LOG_INFO_TEXT
 from ted_sws.core.domain.message_bus import message_bus
-from ted_sws.core.adapters.logger import Logger, logger as root_logger
 from ted_sws.core.model.manifestation import RDFManifestation, XMLManifestation
 from ted_sws.core.model.message import Log
 from ted_sws.core.model.notice import Notice, NoticeStatus
@@ -150,9 +150,11 @@ class NoticeTransformer(NoticeTransformerABC):
             f.write(file_resource.file_content)
 
         message_bus.handle(Log(
-            message=("[" + str(idx).rjust(4, "0") + "] " if idx is not None else "") + ":: " + str(
+            message=((LOG_INFO_TEXT.format(
+                "[" + str(idx).rjust(4, "0") + "]"
+            )) if idx is not None else "") + " :: " + str(
                 datetime.now()
-            ) + " :: " + notice_container,
+            ) + " :: " + LOG_INFO_TEXT.format(notice_container),
             logger=self.logger
         ))
 
@@ -166,7 +168,11 @@ class NoticeTransformer(NoticeTransformerABC):
         output_path.mkdir(parents=True, exist_ok=True)
         test_data = transformation_test_data.test_data
         message_bus.handle(Log(
-            message="[" + str(len(test_data)).rjust(4, "0") + "] :: " + str(datetime.now()) + " :: TOTAL",
+            message=LOG_WARN_TEXT.format(
+                "[" + str(len(test_data)).rjust(4, "0") + "]"
+            ) + " :: " + str(
+                datetime.now()
+            ) + " :: " + LOG_WARN_TEXT.format("TOTAL"),
             logger=self.logger
         ))
         for idx, data in enumerate(test_data, start=1):

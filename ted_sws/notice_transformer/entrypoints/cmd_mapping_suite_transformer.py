@@ -89,6 +89,24 @@ class CmdRunner(BaseCmdRunner):
         return self.run_cmd_result(error, msg, msg)
 
 
+def run(mapping_suite_id=None, serialization_format=TURTLE_SERIALIZATION_FORMAT.value, opt_mapping_suite_id=None,
+        opt_serialization_format=None, opt_mappings_path=DEFAULT_MAPPINGS_PATH, opt_output_path=DEFAULT_OUTPUT_PATH):
+    if opt_mapping_suite_id:
+        mapping_suite_id = opt_mapping_suite_id
+    if opt_serialization_format:
+        serialization_format = opt_serialization_format
+    mappings_path = opt_mappings_path
+    output_path = opt_output_path
+
+    cmd = CmdRunner(
+        mapping_suite_id=mapping_suite_id,
+        serialization_format_value=serialization_format,
+        mappings_path=mappings_path,
+        output_path=output_path
+    )
+    cmd.run()
+
+
 @click.command()
 @click.argument('mapping-suite-id', nargs=1, required=False)
 @click.argument('serialization-format', nargs=1, required=False, default=TURTLE_SERIALIZATION_FORMAT.value)
@@ -104,20 +122,8 @@ def main(mapping_suite_id, serialization_format, opt_mapping_suite_id, opt_seria
     Transforms the Test Mapping Suites (identified by mapping-suite-id).
     If no mapping-suite-id is provided, all mapping suites from mappings directory will be processed.
     """
-    if opt_mapping_suite_id:
-        mapping_suite_id = opt_mapping_suite_id
-    if opt_serialization_format:
-        serialization_format = opt_serialization_format
-    mappings_path = opt_mappings_path
-    output_path = opt_output_path
-
-    cmd = CmdRunner(
-        mapping_suite_id=mapping_suite_id,
-        serialization_format_value=serialization_format,
-        mappings_path=mappings_path,
-        output_path=output_path
-    )
-    cmd.run()
+    run(mapping_suite_id, serialization_format, opt_mapping_suite_id, opt_serialization_format, opt_mappings_path,
+        opt_output_path)
 
 
 if __name__ == '__main__':

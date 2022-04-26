@@ -120,31 +120,6 @@ Options:
   --help                                          Show this message and exit.
 ```
 
-#### CMD: mapping_suite_processor
-Processes Mapping Suite (identified by mapping-suite-id).
-
-Successively runs the following commands:
-```bash
-metadata_generator
-yarrrml2rml_converter
-sparql_generator
-```
-
-Use:
-```bash
-mapping_suite_processor --help
-```
-to get the Usage Help:
-```bash
-Usage: mapping_suite_processor [OPTIONS] MAPPING_SUITE_ID
-
-  Processes Mapping Suite (identified by mapping-suite-id).
-
-Options:
-  -m, --opt-mappings-path TEXT
-  --help                                      Show this message and exit.
-```
-
 #### CMD: transformer
 Transforms the Test Mapping Suites.
 
@@ -169,6 +144,41 @@ Options:
   --opt-output-path TEXT
   --help                                      Show this message and exit.
 ```
+
+#### CMD: mapping_suite_processor
+Processes Mapping Suite (identified by mapping-suite-id).
+
+By default, successively runs the following commands:
+```bash
+- normalisation_resource_generator
+- metadata_generator
+- yarrrml2rml_converter
+- sparql_generator
+- transformer
+```
+
+Use:
+```bash
+mapping_suite_processor --help
+```
+to get the Usage Help:
+```bash
+Usage: mapping_suite_processor [OPTIONS] MAPPING_SUITE_ID
+
+  Processes Mapping Suite (identified by mapping-suite-id): -
+  normalisation_resource_generator - metadata_generator -
+  yarrrml2rml_converter - sparql_generator - transformer
+
+Options:
+  -c, --opt-commands [normalisation_resource_generator|metadata_generator|yarrrml2rml_converter|sparql_generator|transformer]
+  -m, --opt-mappings-path TEXT
+  --help                                      Show this message and exit.
+```
+Use:
+```bash
+mapping_suite_processor -c COMMAND1 -c COMMAND2 ...
+```
+to set custom commands (order) to be executed
 
 ## Contributions
 

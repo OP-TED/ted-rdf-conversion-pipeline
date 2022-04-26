@@ -5,12 +5,11 @@ from pathlib import Path
 
 import click
 
-from ted_sws.core.adapters.cmd_runner import CmdRunner as BaseCmdRunner
+from ted_sws.core.adapters.cmd_runner import CmdRunner as BaseCmdRunner, DEFAULT_MAPPINGS_PATH
 from ted_sws.core.adapters.logger import LOG_INFO_TEXT, LOG_WARN_TEXT
 from ted_sws.mapping_suite_processor.entrypoints import cmd_yarrrml2rml_converter, cmd_sparql_generator, \
     cmd_metadata_generator
 
-DEFAULT_MAPPINGS_PATH = 'mappings'
 CMD_NAME = "CMD_MAPPING_SUITE_PROCESSOR"
 
 """

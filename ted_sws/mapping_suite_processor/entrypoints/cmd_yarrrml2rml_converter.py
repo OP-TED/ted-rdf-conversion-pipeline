@@ -5,11 +5,10 @@ from pathlib import Path
 
 import click
 
-from ted_sws.core.adapters.cmd_runner import CmdRunner as BaseCmdRunner
+from ted_sws.core.adapters.cmd_runner import CmdRunner as BaseCmdRunner, DEFAULT_MAPPINGS_PATH
 from ted_sws.core.adapters.logger import LOG_INFO_TEXT
 from ted_sws.mapping_suite_processor.adapters.yarrrml2rml_converter import YARRRML2RMLConverter
 
-DEFAULT_MAPPINGS_PATH = 'mappings'
 DEFAULT_YARRRML_INPUT_FILE = '{mappings_path}/{mapping_suite_id}/transformation/technical_mappings.yarrrml.yaml'
 DEFAULT_RML_OUTPUT_FILE = '{mappings_path}/{mapping_suite_id}/transformation/mappings/{output_file_name}'
 DEFAULT_RML_OUTPUT_FILE_NAME = 'output.rml.ttl'

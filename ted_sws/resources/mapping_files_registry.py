@@ -1,6 +1,6 @@
 from ted_sws.resources import get_mapping_json_file, get_mapping_csv_file
 
-COUNTRIES_MAPPING_FILE = "countries.json"
+COUNTRIES_MAPPING_FILE = "country.json"
 FORM_TYPE_MAPPING_FILE = "form_type.json"
 LANGUAGES_MAPPING_FILE = "languages.json"
 LEGAL_BASIS_MAPPING_FILE = "legal_basis.json"

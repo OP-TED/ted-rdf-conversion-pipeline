@@ -263,7 +263,7 @@ class XMLManifestationMetadataExtractor:
         namespaces = dict([node for _, node in ET.iterparse(source=StringIO(self.xml_manifestation.object_data),
                                                             events=['start-ns'])])
 
-        namespaces["manifestation_ns"] = namespaces.pop("")
+        namespaces["manifestation_ns"] = namespaces.pop("") if "" in namespaces.keys() else ""
 
         tmp_dict = namespaces.copy()
         items = tmp_dict.items()

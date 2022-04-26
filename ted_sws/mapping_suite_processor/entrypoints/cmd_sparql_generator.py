@@ -5,12 +5,11 @@ from pathlib import Path
 
 import click
 
-from ted_sws.core.adapters.cmd_runner import CmdRunner as BaseCmdRunner
+from ted_sws.core.adapters.cmd_runner import CmdRunner as BaseCmdRunner, DEFAULT_MAPPINGS_PATH
 from ted_sws.core.adapters.logger import LOG_INFO_TEXT
 from ted_sws.mapping_suite_processor.services.conceptual_mapping_generate_sparql_queries import \
     mapping_suite_processor_generate_sparql_queries as generate_sparql_queries, DEFAULT_RQ_NAME
 
-DEFAULT_MAPPINGS_PATH = 'mappings'
 DEFAULT_CONCEPTUAL_MAPPINGS_FILE = '{mappings_path}/{mapping_suite_id}/transformation/conceptual_mappings.xlsx'
 DEFAULT_OUTPUT_SPARQL_QUERIES_FOLDER = '{mappings_path}/{mapping_suite_id}/validation/sparql/cm_assertions'
 CMD_NAME = "CMD_SPARQL_GENERATOR"
@@ -88,8 +87,8 @@ def run(mapping_suite_id=None, opt_conceptual_mappings_file=None, opt_output_spa
 
 @click.command()
 @click.argument('mapping-suite-id', nargs=1, required=False)
-@click.option('-i', '--opt-conceptual-mappings-file', help="Use to overwrite INPUT generator")
-@click.option('-o', '--opt-output-sparql-queries-folder', help="Use to overwrite OUTPUT generator")
+@click.option('-i', '--opt-conceptual-mappings-file', help="Use to overwrite default INPUT generator")
+@click.option('-o', '--opt-output-sparql-queries-folder', help="Use to overwrite default OUTPUT generator")
 @click.option('-rq-name', '--opt-rq-name', default=DEFAULT_RQ_NAME)
 @click.option('-m', '--opt-mappings-path', default=DEFAULT_MAPPINGS_PATH)
 def main(mapping_suite_id, opt_conceptual_mappings_file, opt_output_sparql_queries_folder,

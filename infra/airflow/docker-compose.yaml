@@ -62,6 +62,7 @@ x-airflow-common:
     ENVIRONMENT: ${ENVIRONMENT}
     PYTHONPATH: /opt/airflow/
     AIRFLOW_HOME: /opt/airflow
+    RML_MAPPER_PATH: /opt/airflow/.rmlmapper/rmlmapper.jar
   volumes:
 #    - ./config/airflow.cfg:/opt/airflow/airflow.cfg
     - ${AIRFLOW_INFRA_FOLDER}/.env:/opt/airflow/.env

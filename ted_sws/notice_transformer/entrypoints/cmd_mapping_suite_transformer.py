@@ -6,7 +6,7 @@ from pathlib import Path
 import click
 
 from ted_sws import config
-from ted_sws.core.adapters.cmd_runner import CmdRunner as BaseCmdRunner
+from ted_sws.core.adapters.cmd_runner import CmdRunner as BaseCmdRunner, DEFAULT_MAPPINGS_PATH
 from ted_sws.core.adapters.logger import LOG_INFO_TEXT
 from ted_sws.data_manager.adapters.mapping_suite_repository import MappingSuiteRepositoryInFileSystem, \
     METADATA_FILE_NAME
@@ -14,7 +14,6 @@ from ted_sws.notice_transformer.adapters.rml_mapper import RMLMapper, Serializat
     TURTLE_SERIALIZATION_FORMAT
 from ted_sws.notice_transformer.services.notice_transformer import NoticeTransformer
 
-DEFAULT_MAPPINGS_PATH = 'mappings'
 DEFAULT_OUTPUT_PATH = 'output'
 CMD_NAME = "CMD_MAPPING_SUITE_TRANSFORMER"
 

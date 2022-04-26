@@ -62,6 +62,9 @@ class NoticeStatus(IntEnum):
             return self.value > other.value
         raise ValueError(f"Cannot compare {self.name} and {other.name}")
 
+    def __str__(self):
+        return self._name_
+
 
 #  possible downstream transitions
 NOTICE_STATUS_DOWNSTREAM_TRANSITION = {NoticeStatus.RAW: [NoticeStatus.NORMALISED_METADATA],

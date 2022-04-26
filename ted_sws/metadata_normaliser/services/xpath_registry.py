@@ -117,7 +117,7 @@ class XpathRegistry:
 
     @property
     def xpath_form_number(self):
-        return "manifestation_ns:FORM_SECTION/*[1]"
+        return ".//*[@FORM]"
 
     @property
     def xpath_notice_type(self):

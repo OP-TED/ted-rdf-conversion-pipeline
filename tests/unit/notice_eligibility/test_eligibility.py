@@ -4,7 +4,7 @@ from ted_sws.core.model.notice import NoticeStatus
 from ted_sws.data_manager.adapters.mapping_suite_repository import MappingSuiteRepositoryInFileSystem
 from ted_sws.metadata_normaliser.services.metadata_normalizer import MetadataNormaliser
 from ted_sws.notice_eligibility.services.notice_eligibility import create_eligibility_df, check_package, \
-    notice_eligibility_checker, notice_eligibility_checker_by_id
+    notice_eligibility_checker, notice_eligibility_checker_by_id, transform_version_string_into_int
 
 
 def test_non_eligibility_by_notice(file_system_repository_path, raw_notice):
@@ -59,3 +59,10 @@ def test_check_mapping_suite(file_system_repository_path, normalised_metadata_ob
     is_valid = check_package(mapping_suite=mapping_suite_repository.get("test_package"),
                              notice_metadata=normalised_metadata_object)
     assert not is_valid
+
+
+def test_transform_version_string_into_int():
+    funky_version_string = "5.7.6"
+    funky_version_int = transform_version_string_into_int(version_string=funky_version_string)
+    assert isinstance(funky_version_int, int)
+    assert funky_version_int == 50706

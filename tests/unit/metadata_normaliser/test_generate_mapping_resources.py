@@ -14,7 +14,7 @@ def __process_output_dir(fake_repository_path, fake_mapping_suite_id):
     assert os.path.isdir(output_dir_path)
     for filename in os.listdir(output_dir_path):
         f = os.path.join(output_dir_path, filename)
-        if os.path.isfile(f):
+        if os.path.isfile(f) and filename != "data.json":
             os.remove(f)
 
 

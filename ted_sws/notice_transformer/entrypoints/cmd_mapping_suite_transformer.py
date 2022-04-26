@@ -33,13 +33,15 @@ class CmdRunner(BaseCmdRunner):
             mapping_suite_id,
             serialization_format_value,
             mappings_path=DEFAULT_MAPPINGS_PATH,
-            output_path=DEFAULT_OUTPUT_PATH
+            output_path=DEFAULT_OUTPUT_PATH,
+            rml_mapper=None
     ):
         super().__init__(name=CMD_NAME)
         self.fs_repository_path = Path(os.path.realpath(mappings_path))
         self.output_path = output_path
         self.mapping_suite_id = mapping_suite_id
         self.serialization_format_value = serialization_format_value
+        self.rml_mapper = rml_mapper
 
     def is_mapping_suite(self, suite_id):
         suite_path = self.fs_repository_path / Path(suite_id)
@@ -77,10 +79,16 @@ class CmdRunner(BaseCmdRunner):
             except ValueError as e:
                 raise ValueError('No such serialization format: %s' % serialization_format_value)
 
-            notice_transformer = NoticeTransformer(mapping_suite=mapping_suite, rml_mapper=RMLMapper(
-                rml_mapper_path=config.RML_MAPPER_PATH,
-                serialization_format=serialization_format
-            ), logger=self.get_logger())
+            if self.rml_mapper is None:
+                rml_mapper = RMLMapper(
+                    rml_mapper_path=config.RML_MAPPER_PATH,
+                    serialization_format=serialization_format
+                )
+            else:
+                rml_mapper = self.rml_mapper
+
+            notice_transformer = NoticeTransformer(mapping_suite=mapping_suite, rml_mapper=rml_mapper,
+                                                   logger=self.get_logger())
             notice_transformer.transform_test_data(output_path=fs_output_path)
         except Exception as e:
             error = e
@@ -90,7 +98,8 @@ class CmdRunner(BaseCmdRunner):
 
 
 def run(mapping_suite_id=None, serialization_format=TURTLE_SERIALIZATION_FORMAT.value, opt_mapping_suite_id=None,
-        opt_serialization_format=None, opt_mappings_path=DEFAULT_MAPPINGS_PATH, opt_output_path=DEFAULT_OUTPUT_PATH):
+        opt_serialization_format=None, opt_mappings_path=DEFAULT_MAPPINGS_PATH, opt_output_path=DEFAULT_OUTPUT_PATH,
+        rml_mapper=None):
     if opt_mapping_suite_id:
         mapping_suite_id = opt_mapping_suite_id
     if opt_serialization_format:
@@ -102,7 +111,8 @@ def run(mapping_suite_id=None, serialization_format=TURTLE_SERIALIZATION_FORMAT.
         mapping_suite_id=mapping_suite_id,
         serialization_format_value=serialization_format,
         mappings_path=mappings_path,
-        output_path=output_path
+        output_path=output_path,
+        rml_mapper=rml_mapper
     )
     cmd.run()
 

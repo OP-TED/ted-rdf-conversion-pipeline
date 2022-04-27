@@ -1,4 +1,15 @@
-#TED Semantic Web Services
+# TED Semantic Web Services
+
+<hr>
+
+## Table of contents
+
+- [Developer documentation](#developer-documentation)
+- [Installation](#installation)
+- [Usage](#usage)
+
+
+<hr>
 
 ## Developer documentation
 
@@ -6,6 +17,8 @@ If you contribute to this project please refer to the following project document
 * [GitHub pages with the enterprise architecture (in development)](https://meaningfy-ws.github.io/ted-sws/ted-sws/index.html)
 * [Enterprise architecture model file (in development)](https://drive.google.com/file/d/1YB2dPYe9E9bAR2peVraQaUANS-hXetms/view?usp=sharing)
 * [Meaningfy google Drive of the project (restricted)](https://drive.google.com/drive/folders/1wfWYDAtcaJrYTuB14VzTixr1mJUkCHYl?usp=sharing)
+
+<hr>
 
 ## Installation
 ### Installation of ted-sws package within external projects using terminal
@@ -35,6 +48,8 @@ install:
 ```bash
 make setup
 ```
+
+<hr>
 
 ## Usage
 ### CLI tools (commands/console-scripts) for notice mapping suite manipulation
@@ -180,6 +195,10 @@ mapping_suite_processor -c COMMAND1 -c COMMAND2 ...
 ```
 to set custom commands (order) to be executed
 
+<hr>
+
 ## Contributions
+
+<hr>
 
 ## Licence

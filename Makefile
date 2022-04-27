@@ -154,8 +154,9 @@ stop-metabase:
 
 init-rml-mapper:
 	@ echo -e "RMLMapper folder initialisation!"
-	@ wget -c https://github.com/RMLio/rmlmapper-java/releases/download/v5.0.0/rmlmapper-5.0.0-r362-all.jar -P .rmlmapper/
-	@ mv .rmlmapper/rmlmapper-5.0.0-r362-all.jar .rmlmapper/rmlmapper.jar 2>/dev/null
+	@ mkdir ./.rmlmapper
+	@ wget --load-cookies /tmp/cookies.txt "https://docs.google.com/uc?export=download&confirm=$(wget --quiet --save-cookies /tmp/cookies.txt --keep-session-cookies --no-check-certificate 'https://docs.google.com/uc?export=download&id=1MckjzpvrCoChy_IRYC2S54tf3dFQNwEt' -O- | sed -rn \'s/.*confirm=\([0-9A-Za-z_]+).*/\1\n/p\'\)&id=1MckjzpvrCoChy_IRYC2S54tf3dFQNwEt" -O ./.rmlmapper/rmlmapper.jar && rm -rf /tmp/cookies.txt
+
 
 init-saxon:
 	@ echo -e "$(BUILD_PRINT)Saxon folder initialization $(END_BUILD_PRINT)"
@@ -262,7 +263,7 @@ logging-add-dotenv-file:
 	@ echo LOGGING_TYPE=PY,ELK >> .env
 
 refresh-mapping-files:
-	@ python -m ted_sws.data_manager.entrypoints.generate_mapping_resources
+	@ python -m ted_sws.data_manager.entrypoints.cmd_generate_mapping_resources
 
 #clean-mongo-db:
 #	@ export PYTHONPATH=$(PWD) && python ./tests/clean_mongo_db.py

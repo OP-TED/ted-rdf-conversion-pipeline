@@ -14,7 +14,7 @@ PROJECT_PATH = $(shell pwd)
 AIRFLOW_INFRA_FOLDER ?= ${PROJECT_PATH}/.airflow
 RML_MAPPER_PATH = ${PROJECT_PATH}/.rmlmapper/rmlmapper.jar
 XML_PROCESSOR_PATH = ${PROJECT_PATH}/.saxon/saxon-he-10.6.jar
-
+LOGGING_TYPE = PY
 #-----------------------------------------------------------------------------
 # Dev commands
 #-----------------------------------------------------------------------------
@@ -154,8 +154,8 @@ stop-metabase:
 
 init-rml-mapper:
 	@ echo -e "RMLMapper folder initialisation!"
-	@ wget -c https://github.com/RMLio/rmlmapper-java/releases/download/v5.0.0/rmlmapper-5.0.0-r362-all.jar -P .rmlmapper/
-	@ mv .rmlmapper/rmlmapper-5.0.0-r362-all.jar .rmlmapper/rmlmapper.jar 2>/dev/null
+	@ mkdir -p ./.rmlmapper
+	@ wget --load-cookies /tmp/cookies.txt "https://docs.google.com/uc?export=download&confirm=$(wget --quiet --save-cookies /tmp/cookies.txt --keep-session-cookies --no-check-certificate 'https://docs.google.com/uc?export=download&id=1MckjzpvrCoChy_IRYC2S54tf3dFQNwEt' -O- | sed -rn \'s/.*confirm=\([0-9A-Za-z_]+).*/\1\n/p\'\)&id=1MckjzpvrCoChy_IRYC2S54tf3dFQNwEt" -O ./.rmlmapper/rmlmapper.jar && rm -rf /tmp/cookies.txt
 
 init-saxon:
 	@ echo -e "$(BUILD_PRINT)Saxon folder initialization $(END_BUILD_PRINT)"
@@ -193,7 +193,7 @@ staging-dotenv-file: guard-VAULT_ADDR guard-VAULT_TOKEN vault-installed
 	@ echo ELK_HOST=localhost >> .env
 	@ echo ELK_PORT=5959 >> .env
 	@ echo ELK_VERSION=1 >> .env
-	@ echo LOGGING_TYPE=PY,ELK >> .env
+	@ echo LOGGING_TYPE=${LOGGING_TYPE} >> .env
 	@ echo XML_PROCESSOR_PATH=${XML_PROCESSOR_PATH} >> .env
 	@ echo AIRFLOW_INFRA_FOLDER=~/airflow-infra/staging >> .env
 	@ vault kv get -format="json" ted-staging/airflow | jq -r ".data.data | keys[] as \$$k | \"\(\$$k)=\(.[\$$k])\"" >> .env
@@ -212,7 +212,7 @@ dev-dotenv-file: guard-VAULT_ADDR guard-VAULT_TOKEN vault-installed
 	@ echo ELK_HOST=localhost >> .env
 	@ echo ELK_PORT=5959 >> .env
 	@ echo ELK_VERSION=1 >> .env
-	@ echo LOGGING_TYPE=PY,ELK >> .env
+	@ echo LOGGING_TYPE=${LOGGING_TYPE} >> .env
 	@ echo XML_PROCESSOR_PATH=${XML_PROCESSOR_PATH} >> .env
 	@ echo AIRFLOW_INFRA_FOLDER=${AIRFLOW_INFRA_FOLDER} >> .env
 	@ vault kv get -format="json" ted-dev/airflow | jq -r ".data.data | keys[] as \$$k | \"\(\$$k)=\(.[\$$k])\"" >> .env
@@ -232,7 +232,7 @@ prod-dotenv-file: guard-VAULT_ADDR guard-VAULT_TOKEN vault-installed
 	@ echo ELK_HOST=localhost >> .env
 	@ echo ELK_PORT=5959 >> .env
 	@ echo ELK_VERSION=1 >> .env
-	@ echo LOGGING_TYPE=PY,ELK >> .env
+	@ echo LOGGING_TYPE=${LOGGING_TYPE} >> .env
 	@ echo XML_PROCESSOR_PATH=${XML_PROCESSOR_PATH} >> .env
 	@ echo AIRFLOW_INFRA_FOLDER=~/airflow-infra/prod >> .env
 	@ vault kv get -format="json" ted-prod/airflow | jq -r ".data.data | keys[] as \$$k | \"\(\$$k)=\(.[\$$k])\"" >> .env
@@ -259,7 +259,7 @@ elk-add-dotenv-file:
 logging-add-dotenv-file:
 	@ echo -e "$(BUILD_PRINT)Add logging config to local .env file $(END_BUILD_PRINT)"
 	@ sed -i '/^LOGGING_TYPE/d' .env
-	@ echo LOGGING_TYPE=PY,ELK >> .env
+	@ echo LOGGING_TYPE=${LOGGING_TYPE} >> .env
 
 refresh-mapping-files:
 	@ python -m ted_sws.data_manager.entrypoints.generate_mapping_resources

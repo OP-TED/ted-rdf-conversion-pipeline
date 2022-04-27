@@ -170,6 +170,13 @@ class MappingSuiteRepositoryInFileSystem(MappingSuiteRepositoryABC):
 
     @classmethod
     def _guess_test_data_file_name(cls, file, parent=None) -> str:
+        """
+            This method generates (guesses) a file_name for a file-type resource, based on file's original_name and
+            parent folder (grouping) name.
+        :param file:
+        :param parent:
+        :return:
+        """
         mapping_suite_name = file
         if parent and parent != TEST_DATA_PACKAGE_NAME:
             parts = parent.split('_')
@@ -179,6 +186,14 @@ class MappingSuiteRepositoryInFileSystem(MappingSuiteRepositoryABC):
         return mapping_suite_name
 
     def _read_test_data_file_resources(self, path: pathlib.Path, file_resources=None) -> List[FileResource]:
+        """
+            This method reads a folder (with nested-tree structure) of resources and returns a flat list of file-type
+            resources from all beyond levels.
+            Used for folders that contains files with unique names, but grouped into sub-folders.
+        :param path:
+        :param file_resources:
+        :return:
+        """
         if file_resources is None:
             file_resources = []
 

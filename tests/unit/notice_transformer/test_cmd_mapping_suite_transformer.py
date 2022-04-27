@@ -9,12 +9,14 @@ cmdRunner = CliRunner()
 
 
 def __process_output_dir(fake_repository_path, fake_mapping_suite_id):
-    output_dir_path = fake_repository_path / fake_mapping_suite_id / "output" / "notice"
-    output_notice_path = output_dir_path / "notice.ttl"
-    assert os.path.isdir(output_dir_path)
-    assert os.path.isfile(output_notice_path)
-    os.remove(output_notice_path)
-    os.rmdir(output_dir_path)
+    output_dir_path = fake_repository_path / fake_mapping_suite_id / "output"
+    for r in os.listdir(output_dir_path):
+        output_notice_dir_path = output_dir_path / r
+        output_notice_path = output_notice_dir_path / "notice.ttl"
+        assert os.path.isdir(output_notice_dir_path)
+        assert os.path.isfile(output_notice_path)
+        os.remove(output_notice_path)
+        os.rmdir(output_notice_dir_path)
 
 
 def test_cmd_transformer(caplog, fake_rml_mapper, fake_mapping_suite_id, fake_repository_path):

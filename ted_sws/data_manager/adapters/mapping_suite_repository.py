@@ -1,4 +1,5 @@
 import json
+import os
 import pathlib
 import shutil
 from typing import Iterator, List, Optional
@@ -6,9 +7,9 @@ from typing import Iterator, List, Optional
 from pymongo import MongoClient
 
 from ted_sws import config
-from ted_sws.data_manager.adapters.repository_abc import MappingSuiteRepositoryABC
 from ted_sws.core.model.transform import MappingSuite, FileResource, TransformationRuleSet, SHACLTestSuite, \
     SPARQLTestSuite, MetadataConstraints, TransformationTestData
+from ted_sws.data_manager.adapters.repository_abc import MappingSuiteRepositoryABC
 
 METADATA_FILE_NAME = "metadata.json"
 TRANSFORM_PACKAGE_NAME = "transformation"
@@ -167,6 +168,30 @@ class MappingSuiteRepositoryInFileSystem(MappingSuiteRepositoryABC):
             with file_resource_path.open("w", encoding="utf-8") as f:
                 f.write(file_resource.file_content)
 
+    @classmethod
+    def _guess_test_data_file_name(cls, file, parent=None) -> str:
+        mapping_suite_name = file
+        if parent and parent != TEST_DATA_PACKAGE_NAME:
+            parts = parent.split('_')
+            idx = len(parts) - 1
+            if idx > 0 and parts[idx]:
+                mapping_suite_name = parts[idx] + '-' + mapping_suite_name
+        return mapping_suite_name
+
+    def _read_test_data_file_resources(self, path: pathlib.Path, file_resources=None) -> List[FileResource]:
+        if file_resources is None:
+            file_resources = []
+
+        for root, dirs, files in os.walk(path):
+            for f in files:
+                parent = os.path.basename(root)
+                file = pathlib.Path(os.path.join(root, f))
+                file_resources.append(FileResource(file_name=self._guess_test_data_file_name(file.name, parent),
+                                                   file_content=file.read_text(encoding="utf-8"),
+                                                   original_name=file.name))
+
+        return file_resources
+
     def _read_file_resources(self, path: pathlib.Path) -> List[FileResource]:
         """
             This method reads a list of file-type resources that are in a specific location.
@@ -175,7 +200,8 @@ class MappingSuiteRepositoryInFileSystem(MappingSuiteRepositoryABC):
         """
         files = [file for file in path.iterdir() if file.is_file()]
         return [FileResource(file_name=file.name,
-                             file_content=file.read_text(encoding="utf-8"))
+                             file_content=file.read_text(encoding="utf-8"),
+                             original_name=file.name)
                 for file in files]
 
     def _write_package_transform_rules(self, mapping_suite: MappingSuite):
@@ -245,7 +271,7 @@ class MappingSuiteRepositoryInFileSystem(MappingSuiteRepositoryABC):
         :return:
         """
         test_data_path = package_path / TEST_DATA_PACKAGE_NAME
-        test_data = self._read_file_resources(path=test_data_path)
+        test_data = self._read_test_data_file_resources(path=test_data_path)
         return TransformationTestData(test_data=test_data)
 
     def _write_mapping_suite_package(self, mapping_suite: MappingSuite):

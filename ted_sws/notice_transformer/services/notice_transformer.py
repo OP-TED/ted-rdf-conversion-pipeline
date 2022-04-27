@@ -52,8 +52,7 @@ def transform_notice_by_id(notice_id: str, mapping_suite_id: str, notice_reposit
     notice_repository.update(notice=result_notice)
 
 
-def transform_test_data(mapping_suite: MappingSuite, rml_mapper: RMLMapperABC, output_path: Path,
-                        loggable: bool = False):
+def transform_test_data(mapping_suite: MappingSuite, rml_mapper: RMLMapperABC, output_path: Path):
     """
         This function converts each file in the test data and writes the result to a file in output_path.
     :param mapping_suite:
@@ -134,15 +133,16 @@ class NoticeTransformer(NoticeTransformerABC):
         :return:
         """
         serialization: RMLSerializationFormat = self.rml_mapper.get_serialization_format()
-        exts = {
+        extensions = {
             RMLSerializationFormat.TURTLE: '.ttl'
         }
-        return "{ext}".format(ext=exts.get(serialization, Path(filename).suffix))
+        return "{ext}".format(ext=extensions.get(serialization, Path(filename).suffix))
 
     def _write_resource_to_out_file(self, file_resource: FileResource, output_path: Path, idx: int = None):
         filename = file_resource.file_name
+        original_name = file_resource.original_name if file_resource.original_name else filename
         notice_container = self.get_test_notice_container(filename)
-        out_filename = notice_container + self._get_out_file_ext(filename)
+        out_filename = NoticeTransformer._get_filename_name(original_name) + self._get_out_file_ext(filename)
         file_resource_parent_path = output_path / Path(notice_container)
         file_resource_parent_path.mkdir(parents=True, exist_ok=True)
         file_resource_path = file_resource_parent_path / Path(out_filename)
@@ -181,7 +181,8 @@ class NoticeTransformer(NoticeTransformerABC):
             notice_result = self.transform_notice(notice=notice)
             file_resource = FileResource(
                 file_name=data.file_name,
-                file_content=notice_result.rdf_manifestation.object_data
+                file_content=notice_result.rdf_manifestation.object_data,
+                original_name=data.original_name
             )
             self._write_resource_to_out_file(file_resource, output_path, idx)
 

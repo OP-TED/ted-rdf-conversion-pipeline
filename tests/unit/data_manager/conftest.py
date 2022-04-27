@@ -23,7 +23,8 @@ def file_system_repository_path():
 @pytest.fixture
 def fake_mapping_suite():
     metadata_constrains = MetadataConstraints(constraints=dict())
-    empty_file_resource = FileResource(file_name="fake_file.txt", file_content="fake content")
+    file_name = "fake_file.txt"
+    empty_file_resource = FileResource(file_name=file_name, file_content="fake content", original_name=file_name)
     transformation_rule_set = TransformationRuleSet(resources=[empty_file_resource],
                                                     rml_mapping_rules=[empty_file_resource]
                                                     )

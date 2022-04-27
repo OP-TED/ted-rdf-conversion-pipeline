@@ -8,7 +8,7 @@
 """ """
 import abc
 from datetime import datetime
-from typing import List
+from typing import List, Optional
 
 from ted_sws.core.model import PropertyBaseModel
 
@@ -24,6 +24,7 @@ class FileResource(MappingSuiteComponent):
     """
     file_name: str
     file_content: str
+    original_name: Optional[str]
 
 
 class MetadataConstraints(MappingSuiteComponent):

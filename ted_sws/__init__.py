@@ -66,6 +66,7 @@ class RMLMapperConfig:
 
 
 class ELKConfig:
+
     @property
     def ELK_HOST(self) -> str:
         return VaultAndEnvConfigResolver().config_resolve()
@@ -82,6 +83,7 @@ class ELKConfig:
 
 
 class LoggingConfig:
+
     @property
     def LOGGING_TYPE(self) -> str:
         return VaultAndEnvConfigResolver().config_resolve()

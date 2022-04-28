@@ -11,7 +11,7 @@ from ted_sws.mapping_suite_processor.adapters.yarrrml2rml_converter import YARRR
 
 DEFAULT_YARRRML_INPUT_FILE = '{mappings_path}/{mapping_suite_id}/transformation/technical_mappings.yarrrml.yaml'
 DEFAULT_RML_OUTPUT_FILE = '{mappings_path}/{mapping_suite_id}/transformation/mappings/{output_file_name}'
-DEFAULT_RML_OUTPUT_FILE_NAME = 'output.rml.ttl'
+DEFAULT_RML_OUTPUT_FILE_NAME = 'mappings.rml.ttl'
 CMD_NAME = "CMD_YARRRML2RML_CONVERTER"
 
 """

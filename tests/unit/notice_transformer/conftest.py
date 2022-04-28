@@ -18,11 +18,6 @@ def fake_rml_mapper() -> RMLMapperABC:
 
 
 @pytest.fixture
-def fake_mapping_suite_id() -> str:
-    return "test_package"
-
-
-@pytest.fixture
 def fake_not_mapping_suite_id() -> str:
     return "test_not_package"
 
@@ -43,10 +38,16 @@ def fake_repository_path() -> Path:
 
 
 @pytest.fixture
+def fake_mapping_suite_id() -> str:
+    return "test_package"
+
+
+@pytest.fixture
 def fake_mapping_suite(fake_repository_path, fake_mapping_suite_id) -> MappingSuite:
     repository_path = fake_repository_path
     mapping_suite_repository = MappingSuiteRepositoryInFileSystem(repository_path=repository_path)
     return mapping_suite_repository.get(reference=fake_mapping_suite_id)
+
 
 @pytest.fixture
 @mongomock.patch(servers=(('server.example.com', 27017),))

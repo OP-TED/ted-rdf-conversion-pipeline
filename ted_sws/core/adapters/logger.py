@@ -24,6 +24,10 @@ LOG_SUCCESS_TEXT = Fore.GREEN + "{}" + Fore.RESET
 LOG_INFO_TEXT = Fore.CYAN + "{}" + Fore.RESET
 LOG_WARN_TEXT = Fore.YELLOW + "{}" + Fore.RESET
 
+LOG_ERROR_LEVEL = logging.ERROR
+LOG_INFO_LEVEL = logging.INFO
+LOG_WARN_LEVEL = logging.WARNING
+
 
 class LoggerABC(abc.ABC):
     """

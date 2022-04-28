@@ -1,4 +1,15 @@
-#TED Semantic Web Services
+# TED Semantic Web Services
+
+<hr>
+
+## Table of contents
+
+- [Developer documentation](#developer-documentation)
+- [Installation](#installation)
+- [Usage](#usage)
+
+
+<hr>
 
 ## Developer documentation
 
@@ -6,6 +17,8 @@ If you contribute to this project please refer to the following project document
 * [GitHub pages with the enterprise architecture (in development)](https://meaningfy-ws.github.io/ted-sws/ted-sws/index.html)
 * [Enterprise architecture model file (in development)](https://drive.google.com/file/d/1YB2dPYe9E9bAR2peVraQaUANS-hXetms/view?usp=sharing)
 * [Meaningfy google Drive of the project (restricted)](https://drive.google.com/drive/folders/1wfWYDAtcaJrYTuB14VzTixr1mJUkCHYl?usp=sharing)
+
+<hr>
 
 ## Installation
 ### Installation of ted-sws package within external projects using terminal
@@ -35,6 +48,8 @@ install:
 ```bash
 make setup
 ```
+
+<hr>
 
 ## Usage
 ### CLI tools (commands/console-scripts) for notice mapping suite manipulation
@@ -120,31 +135,6 @@ Options:
   --help                                          Show this message and exit.
 ```
 
-#### CMD: mapping_suite_processor
-Processes Mapping Suite (identified by mapping-suite-id).
-
-Successively runs the following commands:
-```bash
-metadata_generator
-yarrrml2rml_converter
-sparql_generator
-```
-
-Use:
-```bash
-mapping_suite_processor --help
-```
-to get the Usage Help:
-```bash
-Usage: mapping_suite_processor [OPTIONS] MAPPING_SUITE_ID
-
-  Processes Mapping Suite (identified by mapping-suite-id).
-
-Options:
-  -m, --opt-mappings-path TEXT
-  --help                                      Show this message and exit.
-```
-
 #### CMD: transformer
 Transforms the Test Mapping Suites.
 
@@ -170,6 +160,45 @@ Options:
   --help                                      Show this message and exit.
 ```
 
+#### CMD: mapping_suite_processor
+Processes Mapping Suite (identified by mapping-suite-id).
+
+By default, successively runs the following commands:
+```bash
+- normalisation_resource_generator
+- metadata_generator
+- yarrrml2rml_converter
+- sparql_generator
+- transformer
+```
+
+Use:
+```bash
+mapping_suite_processor --help
+```
+to get the Usage Help:
+```bash
+Usage: mapping_suite_processor [OPTIONS] MAPPING_SUITE_ID
+
+  Processes Mapping Suite (identified by mapping-suite-id): -
+  normalisation_resource_generator - metadata_generator -
+  yarrrml2rml_converter - sparql_generator - transformer
+
+Options:
+  -c, --opt-commands [normalisation_resource_generator|metadata_generator|yarrrml2rml_converter|sparql_generator|transformer]
+  -m, --opt-mappings-path TEXT
+  --help                                      Show this message and exit.
+```
+Use:
+```bash
+mapping_suite_processor -c COMMAND1 -c COMMAND2 ...
+```
+to set custom commands (order) to be executed
+
+<hr>
+
 ## Contributions
+
+<hr>
 
 ## Licence

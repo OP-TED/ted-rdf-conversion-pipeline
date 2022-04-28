@@ -3,8 +3,8 @@ import tempfile
 from datetime import datetime
 from pathlib import Path
 
+from ted_sws.core.adapters.logger import Logger, logger as root_logger, LOG_WARN_TEXT, LOG_INFO_TEXT
 from ted_sws.core.domain.message_bus import message_bus
-from ted_sws.core.adapters.logger import Logger, logger as root_logger
 from ted_sws.core.model.manifestation import RDFManifestation, XMLManifestation
 from ted_sws.core.model.message import Log
 from ted_sws.core.model.notice import Notice, NoticeStatus
@@ -52,8 +52,7 @@ def transform_notice_by_id(notice_id: str, mapping_suite_id: str, notice_reposit
     notice_repository.update(notice=result_notice)
 
 
-def transform_test_data(mapping_suite: MappingSuite, rml_mapper: RMLMapperABC, output_path: Path,
-                        loggable: bool = False):
+def transform_test_data(mapping_suite: MappingSuite, rml_mapper: RMLMapperABC, output_path: Path):
     """
         This function converts each file in the test data and writes the result to a file in output_path.
     :param mapping_suite:
@@ -134,15 +133,16 @@ class NoticeTransformer(NoticeTransformerABC):
         :return:
         """
         serialization: RMLSerializationFormat = self.rml_mapper.get_serialization_format()
-        exts = {
+        extensions = {
             RMLSerializationFormat.TURTLE: '.ttl'
         }
-        return "{ext}".format(ext=exts.get(serialization, Path(filename).suffix))
+        return "{ext}".format(ext=extensions.get(serialization, Path(filename).suffix))
 
     def _write_resource_to_out_file(self, file_resource: FileResource, output_path: Path, idx: int = None):
         filename = file_resource.file_name
+        original_name = file_resource.original_name if file_resource.original_name else filename
         notice_container = self.get_test_notice_container(filename)
-        out_filename = notice_container + self._get_out_file_ext(filename)
+        out_filename = NoticeTransformer._get_filename_name(original_name) + self._get_out_file_ext(filename)
         file_resource_parent_path = output_path / Path(notice_container)
         file_resource_parent_path.mkdir(parents=True, exist_ok=True)
         file_resource_path = file_resource_parent_path / Path(out_filename)
@@ -150,9 +150,11 @@ class NoticeTransformer(NoticeTransformerABC):
             f.write(file_resource.file_content)
 
         message_bus.handle(Log(
-            message=("[" + str(idx).rjust(4, "0") + "] " if idx is not None else "") + ":: " + str(
+            message=((LOG_INFO_TEXT.format(
+                "[" + str(idx).rjust(4, "0") + "]"
+            )) if idx is not None else "") + " :: " + str(
                 datetime.now()
-            ) + " :: " + notice_container,
+            ) + " :: " + LOG_INFO_TEXT.format(notice_container),
             logger=self.logger
         ))
 
@@ -166,7 +168,11 @@ class NoticeTransformer(NoticeTransformerABC):
         output_path.mkdir(parents=True, exist_ok=True)
         test_data = transformation_test_data.test_data
         message_bus.handle(Log(
-            message="[" + str(len(test_data)).rjust(4, "0") + "] :: " + str(datetime.now()) + " :: TOTAL",
+            message=LOG_WARN_TEXT.format(
+                "[" + str(len(test_data)).rjust(4, "0") + "]"
+            ) + " :: " + str(
+                datetime.now()
+            ) + " :: " + LOG_WARN_TEXT.format("TOTAL"),
             logger=self.logger
         ))
         for idx, data in enumerate(test_data, start=1):
@@ -175,7 +181,8 @@ class NoticeTransformer(NoticeTransformerABC):
             notice_result = self.transform_notice(notice=notice)
             file_resource = FileResource(
                 file_name=data.file_name,
-                file_content=notice_result.rdf_manifestation.object_data
+                file_content=notice_result.rdf_manifestation.object_data,
+                original_name=data.original_name
             )
             self._write_resource_to_out_file(file_resource, output_path, idx)
 

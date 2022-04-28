@@ -40,11 +40,11 @@ class CmdRunnerABC(abc.ABC):
 
 
 class CmdRunner(CmdRunnerABC):
-    def __init__(self, name=__name__):
+    def __init__(self, name=__name__, log_level: int = logging.INFO):
         self.name = name
         self.begin_time = None
         self.end_time = None
-        self.logger = Logger(name=name, level=logging.INFO)
+        self.logger = Logger(name=name, level=log_level)
         self.add_logger_stdout_handler()
 
     def add_logger_stdout_handler(self):
@@ -60,8 +60,8 @@ class CmdRunner(CmdRunnerABC):
     def _now() -> str:
         return str(datetime.datetime.now())
 
-    def log(self, message: str):
-        message_bus.handle(Log(message=message, name=self.name, logger=self.logger))
+    def log(self, message: str, level: int = None):
+        message_bus.handle(Log(message=message, name=self.name, level=level, logger=self.logger))
 
     def log_failed_error(self, error: Exception):
         self.log(LOG_ERROR_TEXT.format("FAILED"))

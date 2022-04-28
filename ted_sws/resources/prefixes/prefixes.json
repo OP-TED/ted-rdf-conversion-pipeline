@@ -1,17 +1,4 @@
 {
-	"prefix_selections" : {
-		"sparql_generator" : ["xml", "xsd", "rdf", "rdfs", "owl", "skos", "dc", "dct", "foaf",   "epo", "epd", "locn"],
-		"sparql_generator_ext" : ["time", "org",   "core-voc", "geosparql", "dul"],
-
-		"yarrrml_rules" : ["epo", "epd", "locn",   "xml", "xsd", "rdf", "rdfs", "dct"],
-		
-		"rml_rules" : ["rr", "rml", "ql",   "epo", "epd", "locn",   "xml", "xsd", "rdf", "rdfs", "dct"],
-		
-		"epo_ontology" : ["epo", "epd", "locn",   "xml", "xsd", "rdf", "rdfs", "owl", "skos", "dc", "dct", "foaf",   "core-voc", "geosparql", "dul"],
-		
-		"currently_unused" : ["cc", "vann",   "epor", "epos",   "grel", "xf",   "map", "sd", "ht", "v"]
-	} ,
-	
 	"prefix_definitions" : {
 		"xml": "http://www.w3.org/XML/1998/namespace" ,
 		"xsd": "https://www.w3.org/2001/XMLSchema#" ,
@@ -56,5 +43,18 @@
 		"sd": "http://www.w3.org/ns/sparql-service-description#" ,
 		"ht": "http://www.w3.org/2006/http#" ,
 		"v": "http://rdf.data-vocabulary.org/#"
+	},
+	
+	"prefix_selections" : {
+		"sparql_generator" : ["xml", "xsd", "rdf", "rdfs", "owl", "skos", "dc", "dct", "foaf",   "epo", "epd", "locn"],
+		"sparql_generator_ext" : ["time", "org",   "core-voc", "geosparql", "dul"],
+
+		"yarrrml_rules" : ["epo", "epd", "locn",   "xml", "xsd", "rdf", "rdfs", "dct"],
+		
+		"rml_rules" : ["rr", "rml", "ql",   "epo", "epd", "locn",   "xml", "xsd", "rdf", "rdfs", "dct"],
+		
+		"epo_ontology" : ["epo", "epd", "locn",   "xml", "xsd", "rdf", "rdfs", "owl", "skos", "dc", "dct", "foaf",   "core-voc", "geosparql", "dul"],
+		
+		"currently_unused" : ["cc", "vann",   "epor", "epos",   "grel", "xf",   "map", "sd", "ht", "v"]
 	}
 }

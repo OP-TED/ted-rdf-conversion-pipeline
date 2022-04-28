@@ -1,6 +1,0 @@
-{
-  "core-voc": "http://data.europa.eu/m8g/" ,
-  "cccev": "http://data.europa.eu/m8g/" ,
-  "geosparql": "http://www.opengis.net/ont/geosparql#" ,
-  "dul": "http://www.loa-cnr.it/ontologies/DUL.owl#"
-}

@@ -22,7 +22,7 @@ Feature: Notice state and content in the lifecycle process
     Then the notice object contains the new normalised metadata
     And the notice status is NORMALISED_METADATA
     And normalised notice contains no RDF manifestation
-    And notice contains no RDF validation
+    And notice not contains RDF validation
     And notice contains no METS manifestation
 
   Scenario: add RDF manifestation

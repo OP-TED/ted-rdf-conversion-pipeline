@@ -144,6 +144,15 @@ def step_impl(raw_notice):
 
 @then("notice contains no RDF validation")
 def step_impl(transformation_eligible_notice):
+    assert transformation_eligible_notice
+    print(f"transformation_eligible_notice.get_rdf_validation() = {transformation_eligible_notice.get_rdf_validation()}")
+    assert transformation_eligible_notice.get_rdf_validation() == []
+
+
+@then("notice not contains RDF validation")
+def step_impl(transformation_eligible_notice):
+    assert transformation_eligible_notice
+    print(f"transformation_eligible_notice.get_rdf_validation() = {transformation_eligible_notice.get_rdf_validation()}")
     assert transformation_eligible_notice.get_rdf_validation() is None
 
 

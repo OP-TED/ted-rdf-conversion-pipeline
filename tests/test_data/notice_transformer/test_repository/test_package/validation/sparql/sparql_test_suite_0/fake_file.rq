@@ -1,0 +1,8 @@
+# title: Title Two
+# description: this is a description
+PREFIX epo: <http://data.europa.eu/a4g/ontology#>
+ASK
+WHERE
+{
+  ?this epo:IsRoleOf / epo:hasName ?value .
+}

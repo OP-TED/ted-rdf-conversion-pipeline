@@ -1,3 +1,5 @@
+import pytest
+
 from ted_sws.core.model.manifestation import RDFManifestation, RDFValidationManifestation
 from ted_sws.core.model.notice import NoticeStatus
 from ted_sws.data_manager.adapters.mapping_suite_repository import MappingSuiteRepositoryInFileSystem
@@ -83,3 +85,15 @@ def test_validate_notice_by_id_with_sparql_suite(notice_with_distilled_status, r
     assert len(notice.get_rdf_validation()) == 2
     assert isinstance(notice.get_rdf_validation()[0], RDFValidationManifestation)
     assert notice.get_rdf_validation()[0].object_data
+
+    with pytest.raises(ValueError):
+        validate_notice_by_id_with_sparql_suite(notice_id="408313-202085569",
+                                                mapping_suite_repository=mapping_suite_repository,
+                                                notice_repository=notice_repository,
+                                                mapping_suite_identifier="test_package")
+
+    with pytest.raises(ValueError):
+        validate_notice_by_id_with_sparql_suite(notice_id="408313-202085569",
+                                                mapping_suite_repository=mapping_suite_repository,
+                                                notice_repository=notice_repository,
+                                                mapping_suite_identifier="no_package_here")

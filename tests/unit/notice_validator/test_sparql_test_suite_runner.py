@@ -93,7 +93,7 @@ def test_validate_notice_by_id_with_sparql_suite(notice_with_distilled_status, r
                                                 mapping_suite_identifier="test_package")
 
     with pytest.raises(ValueError):
-        validate_notice_by_id_with_sparql_suite(notice_id="408313-202085569",
+        validate_notice_by_id_with_sparql_suite(notice_id="408313-2020",
                                                 mapping_suite_repository=mapping_suite_repository,
                                                 notice_repository=notice_repository,
                                                 mapping_suite_identifier="no_package_here")

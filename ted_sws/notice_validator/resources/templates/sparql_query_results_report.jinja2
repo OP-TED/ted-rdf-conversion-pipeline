@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>HTML report for SPARQL Validation</title>
+  </head>
+  <body>
+	<h1>SPARQL Validation HTML report </h1>
+    <h2>Report details: </h2>
+    <ul>
+        <li>Date created: {{ created }}</li>
+        <li>SPARQL test suite identifier: {{ sparql_test_suite_identifier }}</li>
+        <li>Mapping suite identifier: {{ mapping_suite_identifier }}</li>
+    </ul>
+    <h2>Results</h2>
+    <table>
+        <tr>
+            <th>Title</th>
+            <th>Description</th>
+            <th>Query content</th>
+            <th>Result</th>
+            <th>Error</th>
+        </tr>
+        {% for result in execution_results %}
+            <tr>
+                <th>{{ result.query.title }}</th>
+                <th>{{ result.query.description }}</th>
+                <th>{{ result.query.query }}</th>
+                <th>{{ result.result }}</th>
+                <th>{{ result.error }}</th>
+            </tr>
+        {% endfor %}
+    </table>
+  </body>
+</html>

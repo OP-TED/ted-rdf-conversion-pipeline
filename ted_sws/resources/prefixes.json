@@ -23,7 +23,7 @@
 		"dct": "http://purl.org/dc/terms/" ,
 		"foaf": "http://xmlns.com/foaf/0.1/" ,
 
-		"time": http://www.w3.org/2006/time#" ,
+		"time": "http://www.w3.org/2006/time#" ,
 		"org": "http://www.w3.org/ns/org#" ,
 
 		"cc": "http://creativecommons.org/ns#" ,
@@ -46,7 +46,7 @@
 		"rr": "http://www.w3.org/ns/r2rml#" ,
 		"rml": "http://semweb.mmlab.be/ns/rml#" ,
 
-		"ql": "http://semweb.mmlab.be/ns/ql#"
+		"ql": "http://semweb.mmlab.be/ns/ql#",
 		
 		"grel": "http://users.ugent.be/~bjdmeest/function/grel.ttl#" ,
 		

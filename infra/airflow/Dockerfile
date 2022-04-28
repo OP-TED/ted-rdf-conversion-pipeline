@@ -3,6 +3,7 @@ FROM apache/airflow:2.2.5-python3.8
 # quick sudo
 USER root
 RUN apt-get update && apt-get install make && apt-get install build-essential git -y && apt-get install -y wget
+RUN apt install -y default-jre
 
 # back to normal user
 USER airflow

@@ -38,7 +38,7 @@ def test_generate_mapping_resources(tmp_path):
 
 def test_generate_mapping_resources_cli(fake_mapping_suite_id, file_system_repository_path):
     cli = CliRunner()
-    response = cli.invoke(cli_main, [fake_mapping_suite_id, "--opt-mappings-path", file_system_repository_path])
+    response = cli.invoke(cli_main, [fake_mapping_suite_id, "--opt-mappings-folder", file_system_repository_path])
     assert response.exit_code == 0
 
     __process_output_dir(file_system_repository_path, fake_mapping_suite_id)
@@ -46,5 +46,5 @@ def test_generate_mapping_resources_cli(fake_mapping_suite_id, file_system_repos
 
 def test_generate_mapping_resources_with_invalid_mapping(invalid_mapping_suite_id, file_system_repository_path):
     cli = CliRunner()
-    response = cli.invoke(cli_main, [invalid_mapping_suite_id, "--opt-mappings-path", file_system_repository_path])
+    response = cli.invoke(cli_main, [invalid_mapping_suite_id, "--opt-mappings-folder", file_system_repository_path])
     assert "FAILED" in response.output

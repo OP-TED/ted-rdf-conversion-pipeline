@@ -15,17 +15,17 @@ from ted_sws.notice_transformer.adapters.rml_mapper import RMLMapper, Serializat
 from ted_sws.notice_transformer.services.notice_transformer import NoticeTransformer
 
 DEFAULT_OUTPUT_PATH = 'output'
-CMD_NAME = "CMD_MAPPING_SUITE_TRANSFORMER"
+CMD_NAME = "CMD_MAPPING_RUNNER"
 
 """
 USAGE:
-# transformer --help
+# mapping_runner --help
 """
 
 
 class CmdRunner(BaseCmdRunner):
     """
-    Keeps the logic to be used by Notice Suite Transformer CMD
+    Keeps the logic to be used by Notice Suite Mapping Runner CMD
     """
 
     def __init__(
@@ -98,14 +98,14 @@ class CmdRunner(BaseCmdRunner):
 
 
 def run(mapping_suite_id=None, serialization_format=TURTLE_SERIALIZATION_FORMAT.value, opt_mapping_suite_id=None,
-        opt_serialization_format=None, opt_mappings_path=DEFAULT_MAPPINGS_PATH, opt_output_path=DEFAULT_OUTPUT_PATH,
+        opt_serialization_format=None, opt_mappings_folder=DEFAULT_MAPPINGS_PATH, opt_output_folder=DEFAULT_OUTPUT_PATH,
         rml_mapper=None):
     if opt_mapping_suite_id:
         mapping_suite_id = opt_mapping_suite_id
     if opt_serialization_format:
         serialization_format = opt_serialization_format
-    mappings_path = opt_mappings_path
-    output_path = opt_output_path
+    mappings_path = opt_mappings_folder
+    output_path = opt_output_folder
 
     cmd = CmdRunner(
         mapping_suite_id=mapping_suite_id,
@@ -124,16 +124,16 @@ def run(mapping_suite_id=None, serialization_format=TURTLE_SERIALIZATION_FORMAT.
               help='MappingSuite ID to be processed (leave empty to process all Mapping Suites).')
 @click.option('--opt-serialization-format',
               help='Serialization format (turtle (default), nquads, trig, trix, jsonld, hdt).')
-@click.option('--opt-mappings-path', default=DEFAULT_MAPPINGS_PATH)
-@click.option('--opt-output-path', default=DEFAULT_OUTPUT_PATH)
-def main(mapping_suite_id, serialization_format, opt_mapping_suite_id, opt_serialization_format, opt_mappings_path,
-         opt_output_path):
+@click.option('--opt-mappings-folder', default=DEFAULT_MAPPINGS_PATH)
+@click.option('--opt-output-folder', default=DEFAULT_OUTPUT_PATH)
+def main(mapping_suite_id, serialization_format, opt_mapping_suite_id, opt_serialization_format, opt_mappings_folder,
+         opt_output_folder):
     """
     Transforms the Test Mapping Suites (identified by mapping-suite-id).
     If no mapping-suite-id is provided, all mapping suites from mappings directory will be processed.
     """
-    run(mapping_suite_id, serialization_format, opt_mapping_suite_id, opt_serialization_format, opt_mappings_path,
-        opt_output_path)
+    run(mapping_suite_id, serialization_format, opt_mapping_suite_id, opt_serialization_format, opt_mappings_folder,
+        opt_output_folder)
 
 
 if __name__ == '__main__':

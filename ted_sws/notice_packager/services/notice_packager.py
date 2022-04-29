@@ -13,9 +13,10 @@ import base64
 import os.path
 from pathlib import Path
 from tempfile import TemporaryDirectory
-from typing import List, Union
+from typing import Union
 
 from ted_sws.core.model.notice import Notice
+from ted_sws.data_manager.adapters.notice_repository import NoticeRepositoryABC
 from ted_sws.metadata_normaliser.model.metadata import ExtractedMetadata
 from ted_sws.metadata_normaliser.services.xml_manifestation_metadata_extractor import XMLManifestationMetadataExtractor
 from ted_sws.notice_packager.adapters.archiver import ArchiverFactory, ARCHIVE_ZIP_FORMAT, PATH_TYPE, \
@@ -23,7 +24,6 @@ from ted_sws.notice_packager.adapters.archiver import ArchiverFactory, ARCHIVE_Z
 from ted_sws.notice_packager.adapters.template_generator import TemplateGenerator
 from ted_sws.notice_packager.model.metadata import ACTION_CREATE
 from ted_sws.notice_packager.services.metadata_transformer import MetadataTransformer
-from ted_sws.data_manager.adapters.notice_repository import NoticeRepositoryABC
 
 ARCHIVE_NAME_FORMAT = "eProcurement_notice_{notice_id}.zip"
 FILE_METS_XML_FORMAT = "{notice_id}-0.mets.xml.dmd.rdf"

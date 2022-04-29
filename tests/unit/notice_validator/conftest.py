@@ -21,6 +21,37 @@ WHERE
 
 
 @pytest.fixture
+def query_content_without_description():
+    return """
+
+    # title : Official name
+
+    PREFIX epo: <http://data.europa.eu/a4g/ontology#>
+    ASK
+    WHERE
+    {
+      ?this epo:playedBy / epo:hasDefaultContactPoint / epo:hasFax ?organisationContactPointFax .
+    }
+        """
+
+
+@pytest.fixture
+def query_content_with_xpath():
+    return """
+    # title: Official name
+    #xpath: //some/xpath/goes/here
+    # description: this is a description
+
+    PREFIX epo: <http://data.europa.eu/a4g/ontology#>
+    ASK
+    WHERE
+    {
+      ?this epo:playedBy / epo:hasDefaultContactPoint / epo:hasFax ?organisationContactPointFax .
+    }
+        """
+
+
+@pytest.fixture
 def rdf_file_content():
     path = TEST_DATA_PATH / "example.ttl"
     return path.read_text()

@@ -3,10 +3,10 @@ import tempfile
 from datetime import datetime
 from pathlib import Path
 
-from ted_sws.core.adapters.logger import Logger, logger as root_logger, LOG_WARN_TEXT, LOG_INFO_TEXT
-from ted_sws.core.domain.message_bus import message_bus
+from ted_sws.event_manager.adapters.logger import Logger, logger as root_logger, LOG_WARN_TEXT, LOG_INFO_TEXT
+from ted_sws.event_manager.domain.message_bus import message_bus
 from ted_sws.core.model.manifestation import RDFManifestation, XMLManifestation
-from ted_sws.core.model.message import Log
+from ted_sws.event_manager.model.message import Log
 from ted_sws.core.model.notice import Notice, NoticeStatus
 from ted_sws.core.model.transform import MappingSuite, FileResource
 from ted_sws.data_manager.adapters.mapping_suite_repository import MappingSuiteRepositoryInFileSystem

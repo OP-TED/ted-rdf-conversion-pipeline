@@ -5,9 +5,9 @@ from pymessagebus import MessageBus as PyMessageBus
 from pymessagebus.api import Middleware
 from pymessagebus.middleware.logger import get_logger_middleware, LoggingMiddlewareConfig
 
-from ted_sws.core.adapters.logger import logger, Logger
-from ted_sws.core.domain import message_handlers
-from ted_sws.core.model import message
+from ted_sws.event_manager.adapters.logger import logger, Logger
+from ted_sws.event_manager.domain import message_handlers
+from ted_sws.event_manager.model import message
 
 """ 
 Here is instantiated/initialized domain message_bus service

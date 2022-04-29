@@ -3,6 +3,7 @@ from pymongo import MongoClient
 
 from dags.dags_utils import pull_dag_upstream, push_dag_downstream
 from ted_sws import config
+from ted_sws.core.model.manifestation import METSManifestation
 from ted_sws.core.model.notice import NoticeStatus
 from ted_sws.data_manager.adapters.mapping_suite_repository import MappingSuiteRepositoryMongoDB
 from ted_sws.data_manager.adapters.notice_repository import NoticeRepository
@@ -13,8 +14,10 @@ from airflow.operators.python import get_current_context, BranchPythonOperator, 
 
 from dags import DEFAULT_DAG_ARGUMENTS
 from ted_sws.notice_eligibility.services.notice_eligibility import notice_eligibility_checker_by_id
+from ted_sws.notice_packager.services.notice_packager import create_notice_package
 from ted_sws.notice_transformer.adapters.rml_mapper import RMLMapper
 from ted_sws.notice_transformer.services.notice_transformer import transform_notice_by_id
+from ted_sws.notice_validator.services.sparql_test_suite_runner import validate_notice_by_id_with_sparql_suite
 
 NOTICE_ID = "notice_id"
 MAPPING_SUITE_ID = "mapping_suite_id"
@@ -77,18 +80,45 @@ def worker_single_notice_process_orchestrator():
 
     def _resolve_entities_in_the_rdf_manifestation():
         notice_id = pull_dag_upstream(NOTICE_ID)
+        mapping_suite_id = pull_dag_upstream(MAPPING_SUITE_ID)
+        mongodb_client = MongoClient(config.MONGO_DB_AUTH_URL)
+        notice_repository = NoticeRepository(mongodb_client=mongodb_client)
+        notice = notice_repository.get(reference=notice_id)
+        notice.set_distilled_rdf_manifestation(distilled_rdf_manifestation=notice.rdf_manifestation)
+        notice_repository.update(notice=notice)
         push_dag_downstream(NOTICE_ID, notice_id)
+        push_dag_downstream(MAPPING_SUITE_ID, mapping_suite_id)
 
     def _validate_transformed_rdf_manifestation():
         notice_id = pull_dag_upstream(NOTICE_ID)
+        mapping_suite_id = pull_dag_upstream(MAPPING_SUITE_ID)
+        mongodb_client = MongoClient(config.MONGO_DB_AUTH_URL)
+        notice_repository = NoticeRepository(mongodb_client=mongodb_client)
+        mapping_suite_repository = MappingSuiteRepositoryMongoDB(mongodb_client=mongodb_client)
+        validate_notice_by_id_with_sparql_suite(notice_id=notice_id, mapping_suite_identifier=mapping_suite_id,
+                                                notice_repository=notice_repository,
+                                                mapping_suite_repository=mapping_suite_repository)
+
         push_dag_downstream(NOTICE_ID, notice_id)
+        push_dag_downstream(MAPPING_SUITE_ID, mapping_suite_id)
 
     def _check_eligibility_for_packing_by_validation_report():
         notice_id = pull_dag_upstream(NOTICE_ID)
+        mongodb_client = MongoClient(config.MONGO_DB_AUTH_URL)
+        notice_repository = NoticeRepository(mongodb_client=mongodb_client)
+        notice = notice_repository.get(reference=notice_id)
+        notice.set_is_eligible_for_packaging(eligibility=True)
+        notice_repository.update(notice=notice)
         push_dag_downstream(NOTICE_ID, notice_id)
 
     def _generate_mets_package():
         notice_id = pull_dag_upstream(NOTICE_ID)
+        mongodb_client = MongoClient(config.MONGO_DB_AUTH_URL)
+        notice_repository = NoticeRepository(mongodb_client=mongodb_client)
+        notice = notice_repository.get(reference=notice_id)
+        mets_manifestation_content = create_notice_package(in_data=notice, notice_repository=notice_repository)
+        notice.set_mets_manifestation(mets_manifestation=METSManifestation(object_data=mets_manifestation_content))
+        notice_repository.update(notice=notice)
         push_dag_downstream(NOTICE_ID, notice_id)
 
     def _check_package_integrity_by_package_structure():

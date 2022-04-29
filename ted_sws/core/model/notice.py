@@ -249,7 +249,10 @@ class Notice(WorkExpression):
         if self.rdf_manifestation.validation == rdf_validation:
             return
 
-        self._rdf_manifestation.validation = rdf_validation
+        self._rdf_manifestation.validation.append(rdf_validation)
+
+        # TODO: elaborate the logic of when do we consider that the validation is completely set,
+        #  as we may have multiple types of validation
         self.update_status_to(NoticeStatus.VALIDATED)
 
     def set_mets_manifestation(self, mets_manifestation: METSManifestation):

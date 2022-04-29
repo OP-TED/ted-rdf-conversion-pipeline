@@ -3,6 +3,7 @@ from pymongo import MongoClient
 
 from dags.dags_utils import pull_dag_upstream, push_dag_downstream
 from ted_sws import config
+from ted_sws.core.model.manifestation import METSManifestation
 from ted_sws.core.model.notice import NoticeStatus
 from ted_sws.data_manager.adapters.mapping_suite_repository import MappingSuiteRepositoryMongoDB
 from ted_sws.data_manager.adapters.notice_repository import NoticeRepository
@@ -114,7 +115,10 @@ def worker_single_notice_process_orchestrator():
         notice_id = pull_dag_upstream(NOTICE_ID)
         mongodb_client = MongoClient(config.MONGO_DB_AUTH_URL)
         notice_repository = NoticeRepository(mongodb_client=mongodb_client)
-        create_notice_package(in_data=notice_id, notice_repository=notice_repository)
+        notice = notice_repository.get(reference=notice_id)
+        mets_manifestation_content = create_notice_package(in_data=notice, notice_repository=notice_repository)
+        notice.set_mets_manifestation(mets_manifestation=METSManifestation(object_data=mets_manifestation_content))
+        notice_repository.update(notice=notice)
         push_dag_downstream(NOTICE_ID, notice_id)
 
     def _check_package_integrity_by_package_structure():

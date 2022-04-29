@@ -117,7 +117,8 @@ def worker_single_notice_process_orchestrator():
         notice_repository = NoticeRepository(mongodb_client=mongodb_client)
         notice = notice_repository.get(reference=notice_id)
         mets_manifestation_content = create_notice_package(in_data=notice,
-                                                           rdf_content=notice.distilled_rdf_manifestation.object_data,
+                                                           rdf_content=notice.distilled_rdf_manifestation.object_data.encode(
+                                                               "utf-8"),
                                                            notice_repository=notice_repository)
         notice.set_mets_manifestation(mets_manifestation=METSManifestation(object_data=mets_manifestation_content))
         notice_repository.update(notice=notice)

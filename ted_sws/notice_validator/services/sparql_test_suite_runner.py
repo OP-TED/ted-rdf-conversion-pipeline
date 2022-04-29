@@ -1,4 +1,5 @@
 from io import StringIO
+from typing import Tuple
 
 from jinja2 import Environment, PackageLoader
 
@@ -11,6 +12,11 @@ from ted_sws.notice_validator.model.sparql_test_suite import SPARQLTestSuiteExec
 
 TEMPLATES = Environment(loader=PackageLoader("ted_sws.notice_validator.resources", "templates"))
 SPARQL_TEST_SUITE_EXECUTION_HTML_REPORT_TEMPLATE = "sparql_query_results_report.jinja2"
+
+QUERY_METADATA_TITLE = "title"
+QUERY_METADATA_DESCRIPTION = "description"
+DEFAULT_QUERY_TITLE = "untitled query"
+DEFAULT_QUERY_DESCRIPTION = "un-described query"
 
 
 class SPARQLTestSuiteRunner:
@@ -32,11 +38,12 @@ class SPARQLTestSuiteRunner:
         :param file_resource:
         :return:
         """
-        file_content = StringIO(file_resource.file_content)
-        title = file_content.readline().split(":")[1].replace('\n', '').lstrip()
-        description = file_content.readline().split(":")[1].replace('\n', '').lstrip()
-        query = file_content.read()
-        return SPARQLQuery(title=title, description=description, query=query)
+        metadata = extract_metadata_from_sparql_query(file_resource.file_content)
+        title = metadata[QUERY_METADATA_TITLE] \
+            if QUERY_METADATA_TITLE in metadata else DEFAULT_QUERY_TITLE
+        description = metadata[QUERY_METADATA_DESCRIPTION] \
+            if QUERY_METADATA_DESCRIPTION in metadata else DEFAULT_QUERY_DESCRIPTION
+        return SPARQLQuery(title=title, description=description, query=file_resource.file_content)
 
     def execute_test_suite(self) -> SPARQLTestSuiteExecution:
         """
@@ -126,3 +133,19 @@ def validate_notice_by_id_with_sparql_suite(notice_id: str, mapping_suite_identi
         raise ValueError(f'Mapping suite package, with {mapping_suite_identifier} id, was not found')
     validate_notice_with_sparql_suite(notice=notice, mapping_suite_package=mapping_suite_package)
     notice_repository.update(notice=notice)
+
+
+def extract_metadata_from_sparql_query(content) -> dict:
+    """
+        Extracts a dictionary of metadata from a SPARQL query
+    """
+
+    def _process_line(line) -> Tuple[str, str]:
+        if ":" in line:
+            key_part, value_part = line.rsplit(":", 1)
+            key_part = key_part.replace("#", "").strip()
+            value_part = value_part.strip()
+            return key_part, value_part
+
+    content_lines_with_comments = filter(lambda x: x.strip().startswith("#"), content.splitlines())
+    return dict([_process_line(line) for line in content_lines_with_comments])

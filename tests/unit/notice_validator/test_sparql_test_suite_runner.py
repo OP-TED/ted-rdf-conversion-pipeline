@@ -5,7 +5,7 @@ from ted_sws.core.model.notice import NoticeStatus
 from ted_sws.data_manager.adapters.mapping_suite_repository import MappingSuiteRepositoryInFileSystem
 from ted_sws.notice_validator.model.sparql_test_suite import SPARQLQuery, SPARQLQueryResult
 from ted_sws.notice_validator.services.sparql_test_suite_runner import SPARQLTestSuiteRunner, SPARQLReportBuilder, \
-    validate_notice_with_sparql_suite, validate_notice_by_id_with_sparql_suite
+    validate_notice_with_sparql_suite, validate_notice_by_id_with_sparql_suite, extract_metadata_from_sparql_query
 
 
 def test_sparql_query_test_suite_runner(rdf_file_content, sparql_test_suite, dummy_mapping_suite):
@@ -97,3 +97,21 @@ def test_validate_notice_by_id_with_sparql_suite(notice_with_distilled_status, r
                                                 mapping_suite_repository=mapping_suite_repository,
                                                 notice_repository=notice_repository,
                                                 mapping_suite_identifier="no_package_here")
+
+
+def test_get_metadata_from_freaking_sparql_queries(query_content, query_content_without_description,
+                                                   query_content_with_xpath):
+    metadata = extract_metadata_from_sparql_query(query_content)
+    assert metadata["title"]
+    assert metadata["description"]
+    assert "SELECT" not in metadata
+
+    metadata = extract_metadata_from_sparql_query(query_content_with_xpath)
+    assert metadata["title"]
+    assert metadata["description"]
+    assert metadata["xpath"]
+    assert "PREFIX" not in metadata
+
+    metadata = extract_metadata_from_sparql_query(query_content_without_description)
+    assert metadata["title"]
+    assert "description" not in metadata

@@ -56,7 +56,7 @@ class CmdRunner(BaseCmdRunner):
 def run(mapping_suite_id=None,
         opt_queries_folder: str = str(QUERIES_PATH),
         opt_output_folder: str = str(MAPPING_FILES_PATH),
-        opt_mappings_path: str = DEFAULT_MAPPINGS_PATH,
+        opt_mappings_folder: str = DEFAULT_MAPPINGS_PATH,
         triple_store: TripleStoreABC = SPARQLTripleStore()):
     """
     This method will generate a json file for each ran SPARQL query in the resources folder
@@ -64,7 +64,7 @@ def run(mapping_suite_id=None,
     :param triple_store:
     :param opt_queries_folder:
     :param opt_output_folder:
-    :param opt_mappings_path:
+    :param opt_mappings_folder:
     :return:
     """
     queries_folder = opt_queries_folder
@@ -73,7 +73,7 @@ def run(mapping_suite_id=None,
         output_folder = opt_output_folder
     else:
         output_folder = DEFAULT_OUTPUT_PATH.format(
-            mappings_path=opt_mappings_path,
+            mappings_path=opt_mappings_folder,
             mapping_suite_id=mapping_suite_id
         )
 
@@ -87,12 +87,12 @@ def run(mapping_suite_id=None,
 
 @click.command()
 @click.argument('mapping-suite-id', nargs=1, required=False)
-@click.option('-i', '--opt-queries-folder', default=str(QUERIES_PATH), help="Use to overwrite default INPUT generator")
+@click.option('-i', '--opt-queries-folder', default=str(QUERIES_PATH), help="Use to overwrite default INPUT")
 @click.option('-o', '--opt-output-folder', default=str(MAPPING_FILES_PATH),
-              help="Use to overwrite default OUTPUT generator")
-@click.option('-m', '--opt-mappings-path', default=DEFAULT_MAPPINGS_PATH)
-def main(mapping_suite_id, opt_queries_folder, opt_output_folder, opt_mappings_path):
-    run(mapping_suite_id, opt_queries_folder, opt_output_folder, opt_mappings_path, SPARQLTripleStore())
+              help="Use to overwrite default OUTPUT")
+@click.option('-m', '--opt-mappings-folder', default=DEFAULT_MAPPINGS_PATH)
+def main(mapping_suite_id, opt_queries_folder, opt_output_folder, opt_mappings_folder):
+    run(mapping_suite_id, opt_queries_folder, opt_output_folder, opt_mappings_folder, SPARQLTripleStore())
 
 
 if __name__ == '__main__':

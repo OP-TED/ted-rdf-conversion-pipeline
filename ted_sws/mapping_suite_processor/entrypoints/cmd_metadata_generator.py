@@ -59,12 +59,12 @@ class CmdRunner(BaseCmdRunner):
 
 
 def run(mapping_suite_id=None, opt_conceptual_mappings_file=None, opt_output_metadata_file=None,
-        opt_mappings_path=DEFAULT_MAPPINGS_PATH):
+        opt_mappings_folder=DEFAULT_MAPPINGS_PATH):
     if opt_conceptual_mappings_file:
         conceptual_mappings_file = opt_conceptual_mappings_file
     else:
         conceptual_mappings_file = DEFAULT_CONCEPTUAL_MAPPINGS_FILE.format(
-            mappings_path=opt_mappings_path,
+            mappings_path=opt_mappings_folder,
             mapping_suite_id=mapping_suite_id
         )
 
@@ -72,7 +72,7 @@ def run(mapping_suite_id=None, opt_conceptual_mappings_file=None, opt_output_met
         output_metadata_file = opt_output_metadata_file
     else:
         output_metadata_file = DEFAULT_OUTPUT_METADATA_FILE.format(
-            mappings_path=opt_mappings_path,
+            mappings_path=opt_mappings_folder,
             mapping_suite_id=mapping_suite_id,
             output_file_name=DEFAULT_OUTPUT_METADATA_FILE_NAME
         )
@@ -86,14 +86,14 @@ def run(mapping_suite_id=None, opt_conceptual_mappings_file=None, opt_output_met
 
 @click.command()
 @click.argument('mapping-suite-id', nargs=1, required=False)
-@click.option('-i', '--opt-conceptual-mappings-file', help="Use to overwrite default INPUT generator")
-@click.option('-o', '--opt-output-metadata-file', help="Use to overwrite default OUTPUT generator")
-@click.option('-m', '--opt-mappings-path', default=DEFAULT_MAPPINGS_PATH)
-def main(mapping_suite_id, opt_conceptual_mappings_file, opt_output_metadata_file, opt_mappings_path):
+@click.option('-i', '--opt-conceptual-mappings-file', help="Use to overwrite default INPUT")
+@click.option('-o', '--opt-output-metadata-file', help="Use to overwrite default OUTPUT")
+@click.option('-m', '--opt-mappings-folder', default=DEFAULT_MAPPINGS_PATH)
+def main(mapping_suite_id, opt_conceptual_mappings_file, opt_output_metadata_file, opt_mappings_folder):
     """
     Generates Metadata from Conceptual Mappings.
     """
-    run(mapping_suite_id, opt_conceptual_mappings_file, opt_output_metadata_file, opt_mappings_path)
+    run(mapping_suite_id, opt_conceptual_mappings_file, opt_output_metadata_file, opt_mappings_folder)
 
 
 if __name__ == '__main__':

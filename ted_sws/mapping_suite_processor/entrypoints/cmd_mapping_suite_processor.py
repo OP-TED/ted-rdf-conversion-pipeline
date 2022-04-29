@@ -11,14 +11,14 @@ from ted_sws.core.adapters.logger import LOG_INFO_TEXT, LOG_WARN_TEXT, LOG_WARN_
 from ted_sws.data_manager.entrypoints import cmd_generate_mapping_resources
 from ted_sws.mapping_suite_processor.entrypoints import cmd_yarrrml2rml_converter, cmd_sparql_generator, \
     cmd_metadata_generator
-from ted_sws.notice_transformer.entrypoints import cmd_mapping_suite_transformer
+from ted_sws.notice_transformer.entrypoints import cmd_mapping_runner
 
 DEFAULT_COMMANDS: Tuple = (
     'normalisation_resource_generator',
     'metadata_generator',
     'yarrrml2rml_converter',
     'sparql_generator',
-    'transformer'
+    'mapping_runner'
 )
 CMD_NAME = "CMD_MAPPING_SUITE_PROCESSOR"
 
@@ -54,27 +54,27 @@ class CmdRunner(BaseCmdRunner):
         if cmd == 'normalisation_resource_generator':
             cmd_generate_mapping_resources.run(
                 mapping_suite_id=self.mapping_suite_id,
-                opt_mappings_path=self.mappings_path
+                opt_mappings_folder=self.mappings_path
             )
         elif cmd == 'metadata_generator':
             cmd_metadata_generator.run(
                 mapping_suite_id=self.mapping_suite_id,
-                opt_mappings_path=self.mappings_path
+                opt_mappings_folder=self.mappings_path
             )
         elif cmd == 'yarrrml2rml_converter':
             cmd_yarrrml2rml_converter.run(
                 mapping_suite_id=self.mapping_suite_id,
-                opt_mappings_path=self.mappings_path
+                opt_mappings_folder=self.mappings_path
             )
         elif cmd == 'sparql_generator':
             cmd_sparql_generator.run(
                 mapping_suite_id=self.mapping_suite_id,
-                opt_mappings_path=self.mappings_path
+                opt_mappings_folder=self.mappings_path
             )
-        elif cmd == 'transformer':
-            cmd_mapping_suite_transformer.run(
+        elif cmd == 'mapping_runner':
+            cmd_mapping_runner.run(
                 mapping_suite_id=self.mapping_suite_id,
-                opt_mappings_path=self.mappings_path
+                opt_mappings_folder=self.mappings_path
             )
 
     def run_cmd(self):
@@ -90,10 +90,10 @@ class CmdRunner(BaseCmdRunner):
         self.log(LOG_WARN_TEXT.format("#######"))
 
 
-def run(mapping_suite_id, opt_mappings_path=DEFAULT_MAPPINGS_PATH, opt_commands=DEFAULT_COMMANDS):
+def run(mapping_suite_id, opt_mappings_folder=DEFAULT_MAPPINGS_PATH, opt_commands=DEFAULT_COMMANDS):
     cmd = CmdRunner(
         mapping_suite_id=mapping_suite_id,
-        mappings_path=opt_mappings_path,
+        mappings_path=opt_mappings_folder,
         commands=list(opt_commands)
     )
     cmd.run()
@@ -102,17 +102,17 @@ def run(mapping_suite_id, opt_mappings_path=DEFAULT_MAPPINGS_PATH, opt_commands=
 @click.command()
 @click.argument('mapping-suite-id', nargs=1, required=True)
 @click.option('-c', '--opt-commands', default=DEFAULT_COMMANDS, type=click.Choice(DEFAULT_COMMANDS), multiple=True)
-@click.option('-m', '--opt-mappings-path', default=DEFAULT_MAPPINGS_PATH)
-def main(mapping_suite_id, opt_mappings_path, opt_commands):
+@click.option('-m', '--opt-mappings-folder', default=DEFAULT_MAPPINGS_PATH)
+def main(mapping_suite_id, opt_mappings_folder, opt_commands):
     """
     Processes Mapping Suite (identified by mapping-suite-id):
     - normalisation_resource_generator
     - metadata_generator
     - yarrrml2rml_converter
     - sparql_generator
-    - transformer
+    - mapping_runner
     """
-    run(mapping_suite_id, opt_mappings_path, opt_commands)
+    run(mapping_suite_id, opt_mappings_folder, opt_commands)
 
 
 if __name__ == '__main__':

@@ -1,6 +1,6 @@
 from typing import List
 
-from ted_sws.core.model import message
+from ted_sws.event_manager.model import message
 
 """ 
 Here are defined all core/domain messages' handlers

@@ -7,6 +7,7 @@
 
 """ """
 from enum import Enum
+from typing import List
 
 from pydantic import BaseModel, Field
 
@@ -56,10 +57,11 @@ class RDFValidationManifestation(Manifestation):
     """
         The validation report
     """
+    object_data: str = ""
 
 
 class RDFManifestation(Manifestation):
     """
         Transformed manifestation in RDF format
     """
-    validation: RDFValidationManifestation = None
+    validation: List[RDFValidationManifestation] = []

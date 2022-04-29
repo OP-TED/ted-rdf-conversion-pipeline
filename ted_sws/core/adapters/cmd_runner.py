@@ -2,9 +2,9 @@ import abc
 import datetime
 import logging
 
-from ted_sws.core.adapters.logger import Logger, LOG_ERROR_TEXT, LOG_SUCCESS_TEXT
-from ted_sws.core.domain.message_bus import message_bus
-from ted_sws.core.model.message import Log
+from ted_sws.event_manager.adapters.logger import Logger, LOG_ERROR_TEXT, LOG_SUCCESS_TEXT
+from ted_sws.event_manager.domain.message_bus import message_bus
+from ted_sws.event_manager.model.message import Log
 
 DEFAULT_MAPPINGS_PATH = 'mappings'
 

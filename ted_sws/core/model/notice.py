@@ -238,10 +238,6 @@ class Notice(WorkExpression):
 
     def set_rdf_validation(self, rdf_validation: RDFValidationManifestation):
         """
-            TODO: adapt this function to work with a list of validation manifestations,
-             as we may have several SPARQL and several SHACL validation reports,
-             not to mention possible aggregations on them, which may be separate reports.
-
             Add an RDF validation result to the notice.
             If METS package data are available, erase them and reset the state.
         :param rdf_validation:
@@ -255,7 +251,7 @@ class Notice(WorkExpression):
 
         self._rdf_manifestation.validation.append(rdf_validation)
 
-        # TODO: elaborate the logic of when do we consider that the validation is completly set,
+        # TODO: elaborate the logic of when do we consider that the validation is completely set,
         #  as we may have multiple types of validation
         self.update_status_to(NoticeStatus.VALIDATED)
 

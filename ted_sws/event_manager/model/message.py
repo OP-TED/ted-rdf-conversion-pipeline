@@ -1,6 +1,5 @@
-import logging
 from typing import Optional, List, Union
-from ted_sws.core.adapters.logger import Logger, logger as root_logger
+from ted_sws.event_manager.adapters.logger import Logger, logger as root_logger
 
 from pydantic import BaseModel
 

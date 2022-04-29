@@ -116,7 +116,9 @@ def worker_single_notice_process_orchestrator():
         mongodb_client = MongoClient(config.MONGO_DB_AUTH_URL)
         notice_repository = NoticeRepository(mongodb_client=mongodb_client)
         notice = notice_repository.get(reference=notice_id)
-        mets_manifestation_content = create_notice_package(in_data=notice, notice_repository=notice_repository)
+        mets_manifestation_content = create_notice_package(in_data=notice,
+                                                           rdf_content=notice.distilled_rdf_manifestation.object_data,
+                                                           notice_repository=notice_repository)
         notice.set_mets_manifestation(mets_manifestation=METSManifestation(object_data=mets_manifestation_content))
         notice_repository.update(notice=notice)
         push_dag_downstream(NOTICE_ID, notice_id)

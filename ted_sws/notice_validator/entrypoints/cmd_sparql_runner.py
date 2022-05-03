@@ -47,6 +47,17 @@ class CmdRunner(BaseCmdRunner):
         with open(report_path / report_name.format(id=report_id), "w+") as f:
             f.write(content)
 
+    def validate_queries(self, base_report_path, sparql_test_suite, queries_results):
+        sparql_reports_path = base_report_path / DEFAULT_SPARQL_REPORTS_FOLDER / sparql_test_suite.identifier
+        sparql_reports_path.mkdir(parents=True, exist_ok=True)
+        for result in queries_results:
+            result_id = result.identifier
+            json_result = SPARQLReportBuilder.generate_json_for_query_result(result, self.mapping_suite).dict()
+            json_data = str(json.dumps(json_result, indent=4))
+            self.save_report(sparql_reports_path, JSON_REPORT, result_id, json_data)
+            html_data = SPARQLReportBuilder.generate_html_for_query_result(result, self.mapping_suite).object_data
+            self.save_report(sparql_reports_path, HTML_REPORT, result_id, html_data)
+
     def validate(self, rdf_file, base_report_path):
         self.log("Validating " + LOG_INFO_TEXT.format(rdf_file.name) + " ... ")
         rdf_manifestation = RDFManifestation(object_data=rdf_file.read_text(encoding="utf-8"))
@@ -59,15 +70,8 @@ class CmdRunner(BaseCmdRunner):
             test_suite_execution = SPARQLTestSuiteRunner(rdf_manifestation=rdf_manifestation,
                                                          sparql_test_suite=sparql_test_suite,
                                                          mapping_suite=self.mapping_suite).execute_test_suite()
-            sparql_reports_path = base_report_path / DEFAULT_SPARQL_REPORTS_FOLDER / sparql_test_suite.identifier
-            sparql_reports_path.mkdir(parents=True, exist_ok=True)
-            for result in test_suite_execution.execution_results:
-                result_id = result.identifier
-                json_result = SPARQLReportBuilder.generate_result_json(result, self.mapping_suite).dict()
-                json_data = str(json.dumps(json_result, indent=4))
-                self.save_report(sparql_reports_path, JSON_REPORT, result_id, json_data)
-                html_data = SPARQLReportBuilder.generate_result_html(result, self.mapping_suite).object_data
-                self.save_report(sparql_reports_path, HTML_REPORT, result_id, html_data)
+
+            self.validate_queries(base_report_path, sparql_test_suite, test_suite_execution.execution_results)
 
             report_builder = SPARQLReportBuilder(sparql_test_suite_execution=test_suite_execution)
             json_report: RDFValidationManifestation = report_builder.generate_json()

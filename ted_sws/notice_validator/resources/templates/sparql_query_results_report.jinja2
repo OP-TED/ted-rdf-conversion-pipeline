@@ -35,6 +35,7 @@
   </head>
   <body>
 	<h1>SPARQL Validation HTML report </h1>
+	<hr>
     <h2>Report details: </h2>
     <ul>
         <li>Date created: {{ created }}</li>
@@ -42,6 +43,7 @@
         {{ sparql_test_suite_identifier }}</li>
         <li>Mapping suite identifier: {{ mapping_suite_identifier }}</li>
     </ul>
+    <hr>
     <h2>Results</h2>
     <table>
         <tr>
@@ -56,7 +58,7 @@
                 <td>{{ result.query.title }}</td>
                 <td>{{ result.query.description }}</td>
                 <td>{{ result.query.query | replace('\n', '<br>') }}</td>
-                <td class="{% if result.result == "True" %}success{% else %}error{% endif %}">{{ result.result }}</td>
+                <td{% if result.result == "True" %} class="success"{% endif %}>{{ result.result }}</td>
                 <td>{{ result.error }}</td>
             </tr>
         {% endfor %}

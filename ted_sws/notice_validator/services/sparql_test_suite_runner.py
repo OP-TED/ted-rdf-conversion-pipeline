@@ -105,10 +105,10 @@ class SPARQLReportBuilder:
         return RDFValidationManifestation(object_data=report)
 
     @classmethod
-    def generate_result_json(cls, query_result: SPARQLQueryResult,
-                             mapping_suite_package: MappingSuite) -> RDFValidationManifestation:
+    def generate_json_for_query_result(cls, query_result: SPARQLQueryResult,
+                                       mapping_suite_package: MappingSuite) -> RDFValidationManifestation:
         """
-        Generating json report from SPARQL test result
+        Generating json report from single SPARQL query test result
         :return:
         """
 
@@ -122,10 +122,10 @@ class SPARQLReportBuilder:
         return sparql_result_report
 
     @classmethod
-    def generate_result_html(cls, query_result: SPARQLQueryResult,
-                             mapping_suite_package: MappingSuite) -> RDFValidationManifestation:
+    def generate_html_for_query_result(cls, query_result: SPARQLQueryResult,
+                                       mapping_suite_package: MappingSuite) -> RDFValidationManifestation:
         """
-        Generating html report from SPARQL test result
+        Generating html report from single SPARQL query test result
         :return:
         """
         result = SPARQLTestSuiteExecution(

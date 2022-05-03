@@ -107,7 +107,7 @@ class CmdRunner(CmdRunnerABC):
         ))
 
 
-class CmdRunnerMappingSuite(CmdRunner):
+class CmdRunnerForMappingSuite(CmdRunner):
     repository_path: Path
 
     def is_mapping_suite(self, suite_id):

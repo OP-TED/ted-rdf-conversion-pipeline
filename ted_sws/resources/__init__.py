@@ -31,6 +31,7 @@ def get_mapping_csv_file(mapping_file_name: str) -> pd.DataFrame:
 
 RESOURCES_PATH = pathlib.Path(__file__).parent.resolve()
 
+PREFIXES_PATH = RESOURCES_PATH / 'prefixes'
 QUERIES_PATH = RESOURCES_PATH / 'queries'
 MAPPING_FILES_PATH = RESOURCES_PATH / 'mapping_files'
 XSLT_FILES_PATH = RESOURCES_PATH / 'xslt_files'

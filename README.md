@@ -68,9 +68,9 @@ to get the Usage Help:
 Usage: normalisation_resource_generator [OPTIONS] [MAPPING_SUITE_ID]
 
 Options:
-  -i, --opt-queries-folder TEXT               Use to overwrite default INPUT generator
-  -o, --opt-output-folder TEXT                Use to overwrite default OUTPUT generator
-  -m, --opt-mappings-path TEXT
+  -i, --opt-queries-folder TEXT               Use to overwrite default INPUT
+  -o, --opt-output-folder TEXT                Use to overwrite default OUTPUT
+  -m, --opt-mappings-folder TEXT
   --help                                      Show this message and exit.
 ```
 
@@ -88,9 +88,9 @@ Usage: metadata_generator [OPTIONS] [MAPPING_SUITE_ID]
   Generates Metadata from Conceptual Mappings.
 
 Options:
-  -i, --opt-conceptual-mappings-file TEXT     Use to overwrite default INPUT generator
-  -o, --opt-output-metadata-file TEXT         Use to overwrite default OUTPUT generator
-  -m, --opt-mappings-path TEXT
+  -i, --opt-conceptual-mappings-file TEXT     Use to overwrite default INPUT
+  -o, --opt-output-metadata-file TEXT         Use to overwrite default OUTPUT
+  -m, --opt-mappings-folder TEXT
   --help                                      Show this message and exit.
 ```
 
@@ -108,9 +108,9 @@ Usage: yarrrml2rml_converter [OPTIONS] [MAPPING_SUITE_ID] [RML_OUTPUT_FILE_NAME]
   Converts YARRRML to RML. Skip RML_OUTPUT_FILE_NAME to use the default name.
 
 Options:
-  -i, --opt-yarrrml-input-file TEXT           Use to overwrite default INPUT generator
-  -o, --opt-rml-output-file TEXT              Use to overwrite default OUTPUT generator
-  -m, --opt-mappings-path TEXT
+  -i, --opt-yarrrml-input-file TEXT           Use to overwrite default INPUT
+  -o, --opt-rml-output-file TEXT              Use to overwrite default OUTPUT
+  -m, --opt-mappings-folder TEXT
   --help                                      Show this message and exit.
 ```
 
@@ -128,23 +128,23 @@ Usage: sparql_generator [OPTIONS] [MAPPING_SUITE_ID]
   Generates SPARQL queries from Conceptual Mappings.
 
 Options:
-  -i, --opt-conceptual-mappings-file TEXT         Use to overwrite default INPUT generator
-  -o, --opt-output-sparql-queries-folder TEXT     Use to overwrite default OUTPUT generator
+  -i, --opt-conceptual-mappings-file TEXT         Use to overwrite default INPUT
+  -o, --opt-output-sparql-queries-folder TEXT     Use to overwrite default OUTPUT
   -rq-name, --opt-rq-name TEXT
-  -m, --opt-mappings-path TEXT
+  -m, --opt-mappings-folder TEXT
   --help                                          Show this message and exit.
 ```
 
-#### CMD: transformer
+#### CMD: mapping_runner
 Transforms the Test Mapping Suites.
 
 Use:
 ```bash
-transformer --help
+mapping_runner --help
 ```
 to get the Usage Help:
 ```bash
-Usage: transformer [OPTIONS] [MAPPING_SUITE_ID] [SERIALIZATION_FORMAT]
+Usage: mapping_runner [OPTIONS] [MAPPING_SUITE_ID] [SERIALIZATION_FORMAT]
 
   Transforms the Test Mapping Suites (identified by mapping-suite-id). If no
   mapping-suite-id is provided, all mapping suites from mappings directory
@@ -155,8 +155,8 @@ Options:
                                               to process all Mapping Suites).
   --opt-serialization-format TEXT             Serialization format (turtle (default),
                                               nquads, trig, trix, jsonld, hdt).
-  --opt-mappings-path TEXT
-  --opt-output-path TEXT
+  --opt-mappings-folder TEXT
+  --opt-output-folder TEXT
   --help                                      Show this message and exit.
 ```
 
@@ -169,7 +169,7 @@ By default, successively runs the following commands:
 - metadata_generator
 - yarrrml2rml_converter
 - sparql_generator
-- transformer
+- mapping_runner
 ```
 
 Use:
@@ -182,11 +182,11 @@ Usage: mapping_suite_processor [OPTIONS] MAPPING_SUITE_ID
 
   Processes Mapping Suite (identified by mapping-suite-id): -
   normalisation_resource_generator - metadata_generator -
-  yarrrml2rml_converter - sparql_generator - transformer
+  yarrrml2rml_converter - sparql_generator - mapping_runner
 
 Options:
-  -c, --opt-commands [normalisation_resource_generator|metadata_generator|yarrrml2rml_converter|sparql_generator|transformer]
-  -m, --opt-mappings-path TEXT
+  -c, --opt-commands [normalisation_resource_generator|metadata_generator|yarrrml2rml_converter|sparql_generator|mapping_runner]
+  -m, --opt-mappings-folder TEXT
   --help                                      Show this message and exit.
 ```
 Use:

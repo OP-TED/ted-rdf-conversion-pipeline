@@ -1,6 +1,8 @@
 import pathlib
 from typing import Iterator
 import pandas as pd
+from ted_sws.resources.prefixes import PREFIXES_DEFINITIONS
+import re
 
 CONCEPTUAL_MAPPINGS_RULES_SHEET_NAME = "Rules"
 RULES_SF_FIELD_ID = 'Standard Form Field ID (M)'
@@ -13,6 +15,14 @@ RULES_CLASS_PATH = 'Class path (M)'
 RULES_PROPERTY_PATH = 'Property path (M)'
 
 DEFAULT_RQ_NAME = 'sparql_query_'
+
+SPARQL_PREFIX_PATTERN = re.compile('(?:\\s+|^)(\\w+)?:')
+SPARQL_PREFIX_LINE = 'PREFIX {prefix}: <{value}>'
+
+
+def get_sparql_prefixes(sparql_q: str) -> set:
+    finds: list = re.findall(SPARQL_PREFIX_PATTERN, sparql_q)
+    return set(finds)
 
 
 def sparql_validation_generator(data: pd.DataFrame) -> Iterator[str]:
@@ -30,9 +40,13 @@ def sparql_validation_generator(data: pd.DataFrame) -> Iterator[str]:
         field_xpath = row[RULES_FIELD_XPATH]
         class_path = row[RULES_CLASS_PATH]
         property_path = row[RULES_PROPERTY_PATH]
+        prefixes = [SPARQL_PREFIX_LINE.format(
+            prefix=prefix, value=PREFIXES_DEFINITIONS.get(prefix)
+        ) for prefix in get_sparql_prefixes(property_path)]
         yield f"#title: {sf_field_id} - {sf_field_name}\n" \
               f"#description: “{sf_field_id} - {sf_field_name}” in SF corresponds to “{e_form_bt_id} {e_form_bt_name}” in eForms. The corresponding XML element is {base_xpath}{field_xpath}. The expected ontology instances are epo: {class_path} .\n" \
-              f"ASK WHERE {{ {property_path} }}"
+              "\n" + "\n".join(prefixes) + "\n\n" \
+                                           f"ASK WHERE {{ {property_path} }}"
 
 
 def mapping_suite_processor_generate_sparql_queries(conceptual_mappings_file_path: pathlib.Path,

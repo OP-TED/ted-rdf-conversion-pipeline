@@ -6,10 +6,9 @@ from pathlib import Path
 import click
 
 from ted_sws import config
-from ted_sws.core.adapters.cmd_runner import CmdRunner as BaseCmdRunner, DEFAULT_MAPPINGS_PATH
+from ted_sws.core.adapters.cmd_runner import CmdRunnerMappingSuite as BaseCmdRunner, DEFAULT_MAPPINGS_PATH
 from ted_sws.event_manager.adapters.logger import LOG_INFO_TEXT
-from ted_sws.data_manager.adapters.mapping_suite_repository import MappingSuiteRepositoryInFileSystem, \
-    METADATA_FILE_NAME
+from ted_sws.data_manager.adapters.mapping_suite_repository import MappingSuiteRepositoryInFileSystem
 from ted_sws.notice_transformer.adapters.rml_mapper import RMLMapper, SerializationFormat as RMLSerializationFormat, \
     TURTLE_SERIALIZATION_FORMAT
 from ted_sws.notice_transformer.services.notice_transformer import NoticeTransformer
@@ -37,21 +36,17 @@ class CmdRunner(BaseCmdRunner):
             rml_mapper=None
     ):
         super().__init__(name=CMD_NAME)
-        self.fs_repository_path = Path(os.path.realpath(mappings_path))
+        self.repository_path = Path(os.path.realpath(mappings_path))
         self.output_path = output_path
         self.mapping_suite_id = mapping_suite_id
         self.serialization_format_value = serialization_format_value
         self.rml_mapper = rml_mapper
 
-    def is_mapping_suite(self, suite_id):
-        suite_path = self.fs_repository_path / Path(suite_id)
-        return os.path.isdir(suite_path) and any(f == METADATA_FILE_NAME for f in os.listdir(suite_path))
-
     def run_cmd(self):
         if self.mapping_suite_id:
             self.transform(self.mapping_suite_id, self.serialization_format_value)
         else:
-            for suite_id in os.listdir(self.fs_repository_path):
+            for suite_id in os.listdir(self.repository_path):
                 self.transform(suite_id, self.serialization_format_value)
 
     def transform(self, mapping_suite_id, serialization_format_value):
@@ -66,12 +61,12 @@ class CmdRunner(BaseCmdRunner):
             self.log_failed_msg("Not a MappingSuite!")
             return False
 
-        fs_mapping_suite_path = self.fs_repository_path / Path(mapping_suite_id)
+        fs_mapping_suite_path = self.repository_path / Path(mapping_suite_id)
         fs_output_path = fs_mapping_suite_path / Path(self.output_path)
 
         error = None
         try:
-            mapping_suite_repository = MappingSuiteRepositoryInFileSystem(repository_path=self.fs_repository_path)
+            mapping_suite_repository = MappingSuiteRepositoryInFileSystem(repository_path=self.repository_path)
             mapping_suite = mapping_suite_repository.get(reference=mapping_suite_id)
 
             try:

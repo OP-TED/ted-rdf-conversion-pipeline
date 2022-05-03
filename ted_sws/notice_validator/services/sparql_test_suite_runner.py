@@ -1,4 +1,6 @@
-from io import StringIO
+from datetime import datetime
+import re
+from pathlib import Path
 from typing import Tuple
 
 from jinja2 import Environment, PackageLoader
@@ -8,7 +10,8 @@ from ted_sws.core.model.notice import Notice
 from ted_sws.core.model.transform import SPARQLTestSuite, MappingSuite, FileResource
 from ted_sws.data_manager.adapters.repository_abc import NoticeRepositoryABC, MappingSuiteRepositoryABC
 from ted_sws.notice_validator.adapters.sparql_runner import SPARQLRunner
-from ted_sws.notice_validator.model.sparql_test_suite import SPARQLTestSuiteExecution, SPARQLQuery, SPARQLQueryResult
+from ted_sws.notice_validator.model.sparql_test_suite import SPARQLTestSuiteExecution, SPARQLQuery, \
+    SPARQLQueryResult, SPARQLQueryResultReport
 
 TEMPLATES = Environment(loader=PackageLoader("ted_sws.notice_validator.resources", "templates"))
 SPARQL_TEST_SUITE_EXECUTION_HTML_REPORT_TEMPLATE = "sparql_query_results_report.jinja2"
@@ -32,6 +35,11 @@ class SPARQLTestSuiteRunner:
         self.mapping_suite = mapping_suite
 
     @classmethod
+    def _sanitize_query(cls, query: str) -> str:
+        query = re.sub(r'(?m)^ *#.*\n?', '', query).strip('\n ')
+        return query
+
+    @classmethod
     def _sparql_query_from_file_resource(cls, file_resource: FileResource) -> SPARQLQuery:
         """
         Gets file content and converts to a SPARQLQuery
@@ -43,7 +51,8 @@ class SPARQLTestSuiteRunner:
             if QUERY_METADATA_TITLE in metadata else DEFAULT_QUERY_TITLE
         description = metadata[QUERY_METADATA_DESCRIPTION] \
             if QUERY_METADATA_DESCRIPTION in metadata else DEFAULT_QUERY_DESCRIPTION
-        return SPARQLQuery(title=title, description=description, query=file_resource.file_content)
+        query = cls._sanitize_query(file_resource.file_content)
+        return SPARQLQuery(title=title, description=description, query=query)
 
     def execute_test_suite(self) -> SPARQLTestSuiteExecution:
         """
@@ -59,6 +68,7 @@ class SPARQLTestSuiteRunner:
             sparql_query = self._sparql_query_from_file_resource(file_resource=query_file_resource)
             sparql_query_result = SPARQLQueryResult(query=sparql_query)
             try:
+                sparql_query_result.identifier = Path(query_file_resource.file_name).stem
                 query_result = sparql_runner.query(sparql_query.query)
                 sparql_query_result.result = str(
                     query_result.askAnswer) if query_result.type == "ASK" else query_result.serialize(
@@ -91,6 +101,43 @@ class SPARQLReportBuilder:
         """
         report = TEMPLATES.get_template(SPARQL_TEST_SUITE_EXECUTION_HTML_REPORT_TEMPLATE).render(
             self.sparql_test_suite_execution.dict())
+
+        return RDFValidationManifestation(object_data=report)
+
+    @classmethod
+    def generate_result_json(cls, query_result: SPARQLQueryResult,
+                             mapping_suite_package: MappingSuite) -> RDFValidationManifestation:
+        """
+        Generating json report from SPARQL test result
+        :return:
+        """
+
+        sparql_result_report = SPARQLQueryResultReport(
+            created=datetime.now().isoformat(),
+            mapping_suite_identifier=mapping_suite_package.identifier,
+            query_result=query_result,
+            object_data="SPARQLQueryResultReport"
+        )
+
+        return sparql_result_report
+
+    @classmethod
+    def generate_result_html(cls, query_result: SPARQLQueryResult,
+                             mapping_suite_package: MappingSuite) -> RDFValidationManifestation:
+        """
+        Generating html report from SPARQL test result
+        :return:
+        """
+        result = SPARQLTestSuiteExecution(
+            sparql_test_suite_identifier=query_result.identifier,
+            mapping_suite_identifier=mapping_suite_package.identifier,
+            execution_results=[query_result]
+        )
+
+        data = result.dict()
+        data["test_identifier_label"] = "SPARQL test identifier"
+
+        report = TEMPLATES.get_template(SPARQL_TEST_SUITE_EXECUTION_HTML_REPORT_TEMPLATE).render(data)
 
         return RDFValidationManifestation(object_data=report)
 
@@ -142,7 +189,7 @@ def extract_metadata_from_sparql_query(content) -> dict:
 
     def _process_line(line) -> Tuple[str, str]:
         if ":" in line:
-            key_part, value_part = line.rsplit(":", 1)
+            key_part, value_part = line.split(":", 1)
             key_part = key_part.replace("#", "").strip()
             value_part = value_part.strip()
             return key_part, value_part

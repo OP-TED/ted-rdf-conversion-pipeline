@@ -170,6 +170,7 @@ By default, successively runs the following commands:
 - yarrrml2rml_converter
 - sparql_generator
 - mapping_runner
+- sparql_runner
 ```
 
 Use:
@@ -182,10 +183,11 @@ Usage: mapping_suite_processor [OPTIONS] MAPPING_SUITE_ID
 
   Processes Mapping Suite (identified by mapping-suite-id): -
   normalisation_resource_generator - metadata_generator -
-  yarrrml2rml_converter - sparql_generator - mapping_runner
+  yarrrml2rml_converter - sparql_generator - mapping_runner - sparql_runner
 
 Options:
-  -c, --opt-commands [normalisation_resource_generator|metadata_generator|yarrrml2rml_converter|sparql_generator|mapping_runner]
+  -c, --opt-commands [normalisation_resource_generator|metadata_generator|yarrrml2rml_converter|sparql_generator
+  |mapping_runner|sparql_runner]
   -m, --opt-mappings-folder TEXT
   --help                                      Show this message and exit.
 ```

@@ -109,7 +109,7 @@ def run(mapping_suite_id=None, opt_mappings_folder=DEFAULT_MAPPINGS_PATH):
 @click.option('-m', '--opt-mappings-folder', default=DEFAULT_MAPPINGS_PATH)
 def main(mapping_suite_id, opt_mappings_folder):
     """
-    Generates SPARQL queries from Conceptual Mappings.
+    Generates Validation Reports for RDF files
     """
     run(mapping_suite_id, opt_mappings_folder)
 

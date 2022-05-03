@@ -11,16 +11,12 @@ from ted_sws.event_manager.adapters.logger import LOG_INFO_TEXT, LOG_WARN_TEXT, 
 from ted_sws.data_manager.entrypoints import cmd_generate_mapping_resources
 from ted_sws.mapping_suite_processor.entrypoints import cmd_yarrrml2rml_converter, cmd_sparql_generator, \
     cmd_metadata_generator
-from ted_sws.notice_transformer.entrypoints import cmd_mapping_runner
-from ted_sws.notice_validator.entrypoints import cmd_sparql_runner
 
 DEFAULT_COMMANDS: Tuple = (
     'normalisation_resource_generator',
     'metadata_generator',
     'yarrrml2rml_converter',
-    'sparql_generator',
-    'mapping_runner',
-    'sparql_runner'
+    'sparql_generator'
 )
 CMD_NAME = "CMD_MAPPING_SUITE_PROCESSOR"
 
@@ -73,16 +69,6 @@ class CmdRunner(BaseCmdRunner):
                 mapping_suite_id=self.mapping_suite_id,
                 opt_mappings_folder=self.mappings_path
             )
-        elif cmd == 'mapping_runner':
-            cmd_mapping_runner.run(
-                mapping_suite_id=self.mapping_suite_id,
-                opt_mappings_folder=self.mappings_path
-            )
-        elif cmd == 'sparql_runner':
-            cmd_sparql_runner.run(
-                mapping_suite_id=self.mapping_suite_id,
-                opt_mappings_folder=self.mappings_path
-            )
 
     def run_cmd(self):
         self.log("Running " + LOG_WARN_TEXT.format(self.commands) + " for " + LOG_INFO_TEXT.format(
@@ -117,8 +103,6 @@ def main(mapping_suite_id, opt_mappings_folder, opt_commands):
     - metadata_generator
     - yarrrml2rml_converter
     - sparql_generator
-    - mapping_runner
-    - sparql_runner
     """
     run(mapping_suite_id, opt_mappings_folder, opt_commands)
 

@@ -9,10 +9,12 @@ from ted_sws.core.adapters.cmd_runner import CmdRunner as BaseCmdRunner, DEFAULT
 from ted_sws.event_manager.adapters.logger import LOG_INFO_TEXT
 from ted_sws.mapping_suite_processor.services.conceptual_mapping_generate_metadata import \
     mapping_suite_processor_generate_metadata as generate_metadata
+from ted_sws.data_manager.adapters.mapping_suite_repository import METADATA_FILE_NAME, TRANSFORM_PACKAGE_NAME
 
-DEFAULT_CONCEPTUAL_MAPPINGS_FILE = '{mappings_path}/{mapping_suite_id}/transformation/conceptual_mappings.xlsx'
+DEFAULT_CONCEPTUAL_MAPPINGS_FILE = '{mappings_path}/{mapping_suite_id}/' + TRANSFORM_PACKAGE_NAME + \
+                                   '/conceptual_mappings.xlsx'
 DEFAULT_OUTPUT_METADATA_FILE = '{mappings_path}/{mapping_suite_id}/{output_file_name}'
-DEFAULT_OUTPUT_METADATA_FILE_NAME = 'metadata.json'
+DEFAULT_OUTPUT_METADATA_FILE_NAME = METADATA_FILE_NAME
 CMD_NAME = "CMD_METADATA_GENERATOR"
 
 """

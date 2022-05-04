@@ -21,6 +21,16 @@ class SPARQLQueryResult(PropertyBaseModel):
     query: SPARQLQuery
     result: Optional[str]
     error: Optional[str]
+    identifier: Optional[str]
+
+
+class SPARQLQueryResultReport(RDFValidationManifestation):
+    """
+    Stores SPARQL query execution report result
+    """
+    created: str = datetime.now().isoformat()
+    mapping_suite_identifier: str
+    query_result: SPARQLQueryResult
 
 
 class SPARQLTestSuiteExecution(RDFValidationManifestation):

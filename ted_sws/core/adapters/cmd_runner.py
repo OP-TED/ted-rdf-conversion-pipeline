@@ -1,7 +1,10 @@
 import abc
 import datetime
 import logging
+import os
+from pathlib import Path
 
+from ted_sws.data_manager.adapters.mapping_suite_repository import METADATA_FILE_NAME
 from ted_sws.event_manager.adapters.logger import Logger, LOG_ERROR_TEXT, LOG_SUCCESS_TEXT
 from ted_sws.event_manager.domain.message_bus import message_bus
 from ted_sws.event_manager.model.message import Log
@@ -86,7 +89,7 @@ class CmdRunner(CmdRunnerABC):
     def run_cmd(self):
         pass
 
-    def run_cmd_result(self, error: Exception, msg: str = None, errmsg: str = None) -> bool:
+    def run_cmd_result(self, error: Exception = None, msg: str = None, errmsg: str = None) -> bool:
         if error:
             self.log_failed_error(error)
             if errmsg is not None:
@@ -102,3 +105,11 @@ class CmdRunner(CmdRunnerABC):
             now=str(self.end_time),
             time=self.end_time - self.begin_time
         ))
+
+
+class CmdRunnerForMappingSuite(CmdRunner):
+    repository_path: Path
+
+    def is_mapping_suite(self, suite_id):
+        suite_path = self.repository_path / Path(suite_id)
+        return os.path.isdir(suite_path) and any(f == METADATA_FILE_NAME for f in os.listdir(suite_path))

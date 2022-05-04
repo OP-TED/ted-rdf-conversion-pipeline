@@ -33,15 +33,11 @@ class Manifestation(PropertyBaseModel):
         validate_assignment = True
         orm_mode = True
 
-    chunked_object_data: str = "" #Field(..., allow_mutation=False)
-
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.chunked_object_data = kwargs["object_data"]
+    object_data: str = Field(..., allow_mutation=False)
 
     def __str__(self):
         STR_LEN = 150  # constant
-        content = self.chunked_object_data if self.chunked_object_data else ""
+        content = self.object_data if self.object_data else ""
         return f"/{str(content)[:STR_LEN]}" + ("..." if len(content) > STR_LEN else "") + "/"
 
 

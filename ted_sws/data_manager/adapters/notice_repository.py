@@ -1,5 +1,8 @@
+import hashlib
 import logging
 from typing import Iterator, Union
+
+import gridfs
 from pymongo import MongoClient
 
 from ted_sws import config
@@ -24,6 +27,72 @@ class NoticeRepository(NoticeRepositoryABC):
         self._database_name = database_name
         notice_db = mongodb_client[self._database_name]
         self.collection = notice_db[self._collection_name]
+        self.file_storage = gridfs.GridFS(notice_db)
+
+    def get_file_content_from_grid_fs(self, file_id: str) -> str:
+        """
+            This method load file_content from GridFS by field_id.
+        :param file_id:
+        :return:
+        """
+        return self.file_storage.get(file_id=file_id).read().decode("utf-8")
+
+    def put_file_content_in_grid_fs(self, notice_id: str, file_content: str) -> str:
+        """
+            This method store file_content in GridFS and set notice_id as file metadata.
+        :param notice_id:
+        :param file_content:
+        :return:
+        """
+        return self.file_storage.put(data=file_content.encode("utf-8"), notice_id=notice_id)
+
+    def delete_files_by_notice_id(self, notice_id: str):
+        """
+            This method delete all files from GridFS with specific notice_id in metadata.
+        :param notice_id:
+        :return:
+        """
+        results = self.file_storage.find({"notice_id": notice_id})
+        for result in results:
+            self.file_storage.delete(file_id=result._id)
+
+    def write_notice_fields_in_grid_fs(self, notice: Notice) -> Notice:
+        """
+            This method store large fields in GridFS.
+        :param notice:
+        :return:
+        """
+        self.delete_files_by_notice_id(notice_id=notice.ted_id)
+        notice.xml_manifestation.object_data = self.put_file_content_in_grid_fs(notice_id=notice.ted_id,
+                                                                                file_content=notice.xml_manifestation.object_data)
+        notice.rdf_manifestation.object_data = self.put_file_content_in_grid_fs(notice_id=notice.ted_id,
+                                                                                file_content=notice.rdf_manifestation.object_data)
+        notice.mets_manifestation.object_data = self.put_file_content_in_grid_fs(notice_id=notice.ted_id,
+                                                                                 file_content=notice.mets_manifestation.object_data)
+        notice.distilled_rdf_manifestation.object_data = self.put_file_content_in_grid_fs(notice_id=notice.ted_id,
+                                                                                          file_content=notice.distilled_rdf_manifestation.object_data)
+        notice.preprocessed_xml_manifestation.object_data = self.put_file_content_in_grid_fs(notice_id=notice.ted_id,
+                                                                                             file_content=notice.preprocessed_xml_manifestation.object_data)
+
+        return notice
+
+    def load_notice_fields_from_grid_fs(self, notice: Notice) -> Notice:
+        """
+           This method loads large fields from GridFS.
+        :param notice:
+        :return:
+        """
+        notice.xml_manifestation.object_data = self.get_file_content_from_grid_fs(
+            file_id=notice.xml_manifestation.object_data)
+        notice.rdf_manifestation.object_data = self.get_file_content_from_grid_fs(
+            file_id=notice.rdf_manifestation.object_data)
+        notice.mets_manifestation.object_data = self.get_file_content_from_grid_fs(
+            file_id=notice.mets_manifestation.object_data)
+        notice.distilled_rdf_manifestation.object_data = self.get_file_content_from_grid_fs(
+            file_id=notice.distilled_rdf_manifestation.object_data)
+        notice.preprocessed_xml_manifestation.object_data = self.get_file_content_from_grid_fs(
+            file_id=notice.preprocessed_xml_manifestation.object_data)
+        return notice
 
     @staticmethod
     def _create_notice_from_repository_result(notice_dict: dict) -> Union[Notice, None]:
@@ -69,6 +138,7 @@ class NoticeRepository(NoticeRepositoryABC):
         :param notice:
         :return:
         """
+        notice = self.write_notice_fields_in_grid_fs(notice=notice)
         notice_dict = NoticeRepository._create_dict_from_notice(notice=notice)
         self.collection.update_one({'_id': notice_dict["_id"]}, {"$set": notice_dict}, upsert=True)
 
@@ -78,8 +148,11 @@ class NoticeRepository(NoticeRepositoryABC):
         :param notice:
         :return:
         """
-        notice_dict = NoticeRepository._create_dict_from_notice(notice=notice)
-        self.collection.update_one({'_id': notice_dict["_id"]}, {"$set": notice_dict})
+        notice_exist = self.collection.find_one({'_id': notice.ted_id})
+        if notice_exist is not None:
+            notice = self.write_notice_fields_in_grid_fs(notice=notice)
+            notice_dict = NoticeRepository._create_dict_from_notice(notice=notice)
+            self.collection.update_one({'_id': notice_dict["_id"]}, {"$set": notice_dict})
 
     def get(self, reference) -> Notice:
         """
@@ -88,7 +161,9 @@ class NoticeRepository(NoticeRepositoryABC):
         :return: Notice
         """
         result_dict = self.collection.find_one({"ted_id": reference})
-        return NoticeRepository._create_notice_from_repository_result(result_dict)
+        notice = NoticeRepository._create_notice_from_repository_result(result_dict)
+        notice = self.load_notice_fields_from_grid_fs(notice)
+        return notice
 
     def get_notice_by_status(self, notice_status: NoticeStatus) -> Iterator[Notice]:
         """

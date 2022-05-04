@@ -2,6 +2,9 @@ from ted_sws.data_manager.adapters.notice_repository import NoticeRepository
 from ted_sws.core.model.manifestation import XMLManifestation
 from ted_sws.core.model.metadata import TEDMetadata
 from ted_sws.core.model.notice import Notice, NoticeStatus
+from mongomock.gridfs import enable_gridfs_integration
+enable_gridfs_integration()
+
 
 NOTICE_TED_ID = "123456"
 

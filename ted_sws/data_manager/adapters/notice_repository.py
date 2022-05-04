@@ -6,7 +6,7 @@ import gridfs
 from pymongo import MongoClient
 
 from ted_sws import config
-from ted_sws.core.model.manifestation import XMLManifestation, RDFManifestation, METSManifestation
+from ted_sws.core.model.manifestation import XMLManifestation, RDFManifestation, METSManifestation, Manifestation
 from ted_sws.core.model.metadata import NormalisedMetadata
 from ted_sws.data_manager.adapters.repository_abc import NoticeRepositoryABC
 from ted_sws.core.model.notice import Notice, NoticeStatus
@@ -23,11 +23,10 @@ class NoticeRepository(NoticeRepositoryABC):
     _database_name = config.MONGO_DB_AGGREGATES_DATABASE_NAME
 
     def __init__(self, mongodb_client: MongoClient, database_name: str = _database_name):
-        mongodb_client = mongodb_client
         self._database_name = database_name
         notice_db = mongodb_client[self._database_name]
-        self.collection = notice_db[self._collection_name]
         self.file_storage = gridfs.GridFS(notice_db)
+        self.collection = notice_db[self._collection_name]
 
     def get_file_content_from_grid_fs(self, file_id: str) -> str:
         """
@@ -44,7 +43,9 @@ class NoticeRepository(NoticeRepositoryABC):
         :param file_content:
         :return:
         """
-        return self.file_storage.put(data=file_content.encode("utf-8"), notice_id=notice_id)
+        content = file_content.encode("utf-8")
+        hashed_content = hashlib.sha256(content).hexdigest()
+        return self.file_storage.put(data=content, notice_id=notice_id, _id=hashed_content)
 
     def delete_files_by_notice_id(self, notice_id: str):
         """
@@ -63,16 +64,17 @@ class NoticeRepository(NoticeRepositoryABC):
         :return:
         """
         self.delete_files_by_notice_id(notice_id=notice.ted_id)
-        notice.xml_manifestation.object_data = self.put_file_content_in_grid_fs(notice_id=notice.ted_id,
-                                                                                file_content=notice.xml_manifestation.object_data)
-        notice.rdf_manifestation.object_data = self.put_file_content_in_grid_fs(notice_id=notice.ted_id,
-                                                                                file_content=notice.rdf_manifestation.object_data)
-        notice.mets_manifestation.object_data = self.put_file_content_in_grid_fs(notice_id=notice.ted_id,
-                                                                                 file_content=notice.mets_manifestation.object_data)
-        notice.distilled_rdf_manifestation.object_data = self.put_file_content_in_grid_fs(notice_id=notice.ted_id,
-                                                                                          file_content=notice.distilled_rdf_manifestation.object_data)
-        notice.preprocessed_xml_manifestation.object_data = self.put_file_content_in_grid_fs(notice_id=notice.ted_id,
-                                                                                             file_content=notice.preprocessed_xml_manifestation.object_data)
+
+        def write_large_field(large_field: Manifestation):
+            if (large_field is not None) and (large_field.object_data is not None):
+                large_field.object_data = self.put_file_content_in_grid_fs(notice_id=notice.ted_id,
+                                                                           file_content=large_field.object_data)
+
+        write_large_field(notice.xml_manifestation)
+        write_large_field(notice.rdf_manifestation)
+        write_large_field(notice.mets_manifestation)
+        write_large_field(notice.distilled_rdf_manifestation)
+        write_large_field(notice.preprocessed_xml_manifestation)
 
         return notice
 
@@ -82,16 +84,16 @@ class NoticeRepository(NoticeRepositoryABC):
         :param notice:
         :return:
         """
-        notice.xml_manifestation.object_data = self.get_file_content_from_grid_fs(
-            file_id=notice.xml_manifestation.object_data)
-        notice.rdf_manifestation.object_data = self.get_file_content_from_grid_fs(
-            file_id=notice.rdf_manifestation.object_data)
-        notice.mets_manifestation.object_data = self.get_file_content_from_grid_fs(
-            file_id=notice.mets_manifestation.object_data)
-        notice.distilled_rdf_manifestation.object_data = self.get_file_content_from_grid_fs(
-            file_id=notice.distilled_rdf_manifestation.object_data)
-        notice.preprocessed_xml_manifestation.object_data = self.get_file_content_from_grid_fs(
-            file_id=notice.preprocessed_xml_manifestation.object_data)
+
+        def load_large_field(large_field: Manifestation):
+            if (large_field is not None) and (large_field.object_data is not None):
+                large_field.object_data = self.get_file_content_from_grid_fs(file_id=large_field.object_data)
+
+        load_large_field(large_field=notice.xml_manifestation)
+        load_large_field(large_field=notice.rdf_manifestation)
+        load_large_field(large_field=notice.mets_manifestation)
+        load_large_field(large_field=notice.distilled_rdf_manifestation)
+        load_large_field(large_field=notice.preprocessed_xml_manifestation)
         return notice
 
     @staticmethod

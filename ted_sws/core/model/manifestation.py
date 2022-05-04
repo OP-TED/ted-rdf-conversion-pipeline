@@ -33,7 +33,7 @@ class Manifestation(PropertyBaseModel):
         validate_assignment = True
         orm_mode = True
 
-    object_data: str = Field(..., allow_mutation=False)
+    object_data: str = Field(..., allow_mutation=True)
 
     def __str__(self):
         STR_LEN = 150  # constant

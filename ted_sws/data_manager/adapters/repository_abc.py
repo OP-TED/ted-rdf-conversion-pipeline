@@ -1,5 +1,5 @@
 import abc
-from typing import Iterator
+from typing import Iterator, Optional
 
 from ted_sws.core.model.notice import Notice
 from ted_sws.core.model.transform import MappingSuite
@@ -33,7 +33,7 @@ class NoticeRepositoryABC(RepositoryABC):
         """
 
     @abc.abstractmethod
-    def get(self, reference) -> Notice:
+    def get(self, reference) -> Optional[Notice]:
         """
             This method allows a notice to be obtained based on an identification reference.
         :param reference:

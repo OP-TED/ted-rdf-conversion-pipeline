@@ -1,6 +1,6 @@
 import hashlib
 import logging
-from typing import Iterator, Union
+from typing import Iterator, Union, Optional
 
 import gridfs
 from pymongo import MongoClient
@@ -156,16 +156,18 @@ class NoticeRepository(NoticeRepositoryABC):
             notice_dict = NoticeRepository._create_dict_from_notice(notice=notice)
             self.collection.update_one({'_id': notice_dict["_id"]}, {"$set": notice_dict})
 
-    def get(self, reference) -> Notice:
+    def get(self, reference) -> Optional[Notice]:
         """
             This method allows a notice to be obtained based on an identification reference.
         :param reference:
         :return: Notice
         """
         result_dict = self.collection.find_one({"ted_id": reference})
-        notice = NoticeRepository._create_notice_from_repository_result(result_dict)
-        notice = self.load_notice_fields_from_grid_fs(notice)
-        return notice
+        if result_dict is not None:
+            notice = NoticeRepository._create_notice_from_repository_result(result_dict)
+            notice = self.load_notice_fields_from_grid_fs(notice)
+            return notice
+        return None
 
     def get_notice_by_status(self, notice_status: NoticeStatus) -> Iterator[Notice]:
         """

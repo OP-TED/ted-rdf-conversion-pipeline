@@ -7,7 +7,6 @@ from tests import temporary_copy
 
 def test_mapping_suite_processor_expand_package(file_system_repository_path):
     mapping_suite_package_path = file_system_repository_path / "test_package"
-    print(mapping_suite_package_path)
     with temporary_copy(mapping_suite_package_path) as tmp_mapping_suite_package_path:
         mapping_suite_processor_expand_package(mapping_suite_package_path=tmp_mapping_suite_package_path)
         mapping_suite_repository = MappingSuiteRepositoryInFileSystem(
@@ -22,7 +21,6 @@ def test_mapping_suite_processor_expand_package(file_system_repository_path):
                 assert len(sparql_test_suite.sparql_tests) == 66
 
         assert mapping_suite.metadata_constraints
-        print(f"mapping suite contraints = {mapping_suite.metadata_constraints}")
         assert mapping_suite.title == "sample_title"
         assert mapping_suite.identifier == "test_package"
         assert mapping_suite.version == "0.0.1"

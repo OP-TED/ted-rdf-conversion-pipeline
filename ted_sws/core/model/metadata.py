@@ -70,6 +70,7 @@ class NormalisedMetadata(Metadata):
     extracted_legal_basis_directive: Optional[str]
     legal_basis_directive: str
     form_number: str
+    eforms_subtype: str
 
 
 class TEDMetadata(Metadata):

@@ -3,28 +3,28 @@ import pathlib
 from datetime import datetime
 import pandas as pd
 
-FORM_NUMBER_FIELD = 'Form number'
-LEGAL_BASIS_FIELD = 'Legal Basis'
-YEAR_FIELD = 'Year'
-NOTICE_TYPE_FIELD = 'Notice type (eForms)'
-FORM_TYPE_FIELD = 'Form type (eForms)'
-VERSION_FIELD = 'Version'
+VERSION_FIELD = 'Mapping Version'
 EPO_VERSION_FIELD = 'EPO version'
-XSD_VERSION_FIELD = 'XSD version number(s)'
+DESCRIPTION_FIELD = "Description"
 TITLE_FIELD = 'Title'
 IDENTIFIER_FIELD = 'Identifier'
+E_FORMS_SUBTYPE_FIELD = "eForms Subtype"
+START_DATE_FIELD = "Start Date"
+END_DATE_FIELD = "End Date"
+MIN_XSD_VERSION_FIELD = "Min XSD Version"
+MAX_XSD_VERSION_FIELD = "Max XSD Version"
 
-FORM_NUMBER_KEY = "form_number"
-LEGAL_BASIS_KEY = "legal_basis"
-YEAR_KEY = "year"
-NOTICE_TYPE_KEY = "notice_type"
-FORM_TYPE_KEY = "form_type"
+E_FORMS_SUBTYPE_KEY = "eforms_subtype"
+START_DATE_KEY = "start_date"
+END_DATE_KEY = "end_date"
+MIN_XSD_VERSION_KEY = "min_xsd_version"
+MAX_XSD_VERSION_KEY = "max_xsd_version"
 TITLE_KEY = "title"
 CREATED_KEY = "created_at"
 IDENTIFIER_KEY = "identifier"
 VERSION_KEY = "version"
+DESCRIPTION_KEY = "description"
 ONTOLOGY_VERSION_KEY = "ontology_version"
-XSD_VERSION_KEY = "xsd_version"
 METADATA_CONSTRAINTS_KEY = "metadata_constraints"
 CONSTRAINTS_KEY = "constraints"
 
@@ -45,16 +45,16 @@ def generate_metadata(raw_metadata: dict) -> str:
         else:
             return []
 
-    constraints = {FORM_NUMBER_KEY: get_list_from_raw_metadata(FORM_NUMBER_FIELD),
-                   LEGAL_BASIS_KEY: get_list_from_raw_metadata(LEGAL_BASIS_FIELD),
-                   YEAR_KEY: get_list_from_raw_metadata(YEAR_FIELD),
-                   NOTICE_TYPE_KEY: get_list_from_raw_metadata(NOTICE_TYPE_FIELD),
-                   FORM_TYPE_KEY: get_list_from_raw_metadata(FORM_TYPE_FIELD)}
+    constraints = {E_FORMS_SUBTYPE_KEY: get_list_from_raw_metadata(E_FORMS_SUBTYPE_FIELD),
+                   START_DATE_KEY: str(raw_metadata[START_DATE_FIELD][0]),
+                   END_DATE_KEY: str(raw_metadata[END_DATE_FIELD][0]),
+                   MIN_XSD_VERSION_KEY: raw_metadata[MIN_XSD_VERSION_FIELD][0],
+                   MAX_XSD_VERSION_KEY: raw_metadata[MAX_XSD_VERSION_FIELD][0]}
 
     metadata = {TITLE_KEY: raw_metadata[TITLE_FIELD][0], IDENTIFIER_KEY: raw_metadata[IDENTIFIER_FIELD][0],
                 CREATED_KEY: datetime.now().isoformat(), VERSION_KEY: raw_metadata[VERSION_FIELD][0],
                 ONTOLOGY_VERSION_KEY: raw_metadata[EPO_VERSION_FIELD][0],
-                XSD_VERSION_KEY: raw_metadata[XSD_VERSION_FIELD][0],
+                DESCRIPTION_KEY: raw_metadata[DESCRIPTION_FIELD][0],
                 METADATA_CONSTRAINTS_KEY: {CONSTRAINTS_KEY: constraints}}
     return json.dumps(metadata)
 

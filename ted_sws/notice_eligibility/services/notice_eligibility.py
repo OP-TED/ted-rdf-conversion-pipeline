@@ -1,25 +1,14 @@
-from datetime import datetime
+import datetime
 from typing import Tuple
 
 import pandas as pd
 
 from ted_sws.core.model.metadata import NormalisedMetadata
 from ted_sws.core.model.notice import Notice
-from ted_sws.core.model.transform import MetadataConstraints, MappingSuite
-from ted_sws.core.service.metadata_constraints import filter_df_by_variables
+from ted_sws.core.model.transform import MappingSuite
 from ted_sws.data_manager.adapters.repository_abc import MappingSuiteRepositoryABC, NoticeRepositoryABC
-
-
-def create_eligibility_df(metadata_constraint: MetadataConstraints) -> pd.DataFrame:
-    """
-     Create a dataframe with all possible combinations from constraints
-    :param metadata_constraint:
-    :return:
-    """
-    filtered_constraints = {key: value for key, value in metadata_constraint.constraints.items() if value}
-    data_list = [filtered_constraints[key] for key in filtered_constraints.keys()]
-    index = pd.MultiIndex.from_product(data_list, names=filtered_constraints.keys())
-    return pd.DataFrame(index=index).reset_index()
+from ted_sws.mapping_suite_processor.services.conceptual_mapping_generate_metadata import START_DATE_KEY, END_DATE_KEY, \
+    MIN_XSD_VERSION_KEY, MAX_XSD_VERSION_KEY, E_FORMS_SUBTYPE_KEY
 
 
 def check_package(mapping_suite: MappingSuite, notice_metadata: NormalisedMetadata):
@@ -29,12 +18,22 @@ def check_package(mapping_suite: MappingSuite, notice_metadata: NormalisedMetada
     :param mapping_suite:
     :return:
     """
-    checking_df = create_eligibility_df(metadata_constraint=mapping_suite.metadata_constraints)
-    legal_basis = notice_metadata.legal_basis_directive.split("/")[-1]
-    year = str(datetime.fromisoformat(notice_metadata.publication_date).year)
-    form_number = notice_metadata.form_number
-    filtered_df = filter_df_by_variables(df=checking_df, form_number=form_number, legal_basis=legal_basis, year=year)
-    return True if not filtered_df.empty else False
+    constraints = mapping_suite.metadata_constraints.constraints
+
+    eform_subtype = notice_metadata.eforms_subtype
+    notice_publication_date = datetime.datetime.fromisoformat(notice_metadata.publication_date)
+    notice_xsd_version = notice_metadata.xsd_version
+
+    constraint_start_date = datetime.datetime.strptime(constraints[START_DATE_KEY][0], "%Y-%m-%d")
+    constraint_end_date = datetime.datetime.strptime(constraints[END_DATE_KEY][0], "%Y-%m-%d")
+    constraint_min_xsd_version = constraints[MIN_XSD_VERSION_KEY][0]
+    constraint_max_xsd_version = constraints[MAX_XSD_VERSION_KEY][0]
+
+    in_date_range = constraint_start_date <= notice_publication_date <= constraint_end_date
+    in_version_range = constraint_min_xsd_version <= notice_xsd_version <= constraint_max_xsd_version
+    covered_eform_type = int(eform_subtype) in constraints[E_FORMS_SUBTYPE_KEY]
+
+    return True if in_date_range and in_version_range and covered_eform_type else False
 
 
 def transform_version_string_into_int(version_string: str) -> int:

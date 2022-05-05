@@ -21,14 +21,14 @@ jobs:
       - name: Make envfile
         run: make staging-dotenv-file
 
-      - name: Start staging infra
-        run: make start-project-services
-
       - name: Get RML mapper
         run: make init-rml-mapper
 
       - name: Get Saxon
         run: make init-saxon
+
+      - name: Start staging infra
+        run: make start-project-services
 
       - name: Run unit tests
         run: make test-all

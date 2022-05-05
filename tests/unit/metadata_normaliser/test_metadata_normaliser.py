@@ -74,7 +74,7 @@ def test_filter_df_by_variables():
 def test_get_form_type_and_notice_type(raw_notice):
     extracted_metadata = XMLManifestationMetadataExtractor(xml_manifestation=raw_notice.xml_manifestation).to_metadata()
     extracted_metadata_normaliser = ExtractedMetadataNormaliser(extracted_metadata=extracted_metadata)
-    form_type, notice_type, legal_basis = extracted_metadata_normaliser.get_form_type_and_notice_type(
+    form_type, notice_type, legal_basis, eforms_subtype = extracted_metadata_normaliser.get_form_type_and_notice_type(
         ef_map=MappingFilesRegistry().ef_notice_df,
         sf_map=MappingFilesRegistry().sf_notice_df,
         form_number="F02", extracted_notice_type=None,
@@ -83,6 +83,7 @@ def test_get_form_type_and_notice_type(raw_notice):
     assert "competition" == form_type
     assert "cn-standard" == notice_type
     assert "32014L0024" == legal_basis
+    assert 16 == eforms_subtype
 
 
 def test_get_filter_values(raw_notice):

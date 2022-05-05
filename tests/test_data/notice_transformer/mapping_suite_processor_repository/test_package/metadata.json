@@ -9,11 +9,11 @@
       "eforms_subtype": [
         4,12
       ],
-      "start_date": "2020-03-03"
+      "start_date": ["2020-03-03"]
       ,
-      "end_date": "2020-03-10",
-      "min_xsd_version": "R2.0.9.S04.E01",
-      "max_xsd_version": "R2.0.9.S04.E01"
+      "end_date": ["2020-03-10"],
+      "min_xsd_version": ["R2.0.9.S04.E01"],
+      "max_xsd_version": ["R2.0.9.S04.E01"]
     }
   }
 }

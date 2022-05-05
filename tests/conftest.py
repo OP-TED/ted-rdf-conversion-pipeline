@@ -11,7 +11,7 @@ from ted_sws.metadata_normaliser.services.metadata_normalizer import TITLE_KEY, 
     NOTICE_NUMBER_KEY, OJS_TYPE_KEY, OJS_NUMBER_KEY, LANGUAGE_KEY, EU_INSTITUTION_KEY, SENT_DATE_KEY, DEADLINE_DATE_KEY, \
     BUYER_COUNTRY_KEY, BUYER_NAME_KEY, BUYER_CITY_KEY, PUBLICATION_DATE_KEY, FORM_NUMBER_KEY, \
     FORM_TYPE_KEY, LEGAL_BASIS_DIRECTIVE_KEY, EXTRACTED_LEGAL_BASIS_KEY, \
-    PLACE_OF_PERFORMANCE_KEY, E_FORMS_SUBTYPE
+    PLACE_OF_PERFORMANCE_KEY, E_FORMS_SUBTYPE_KEY, XSD_VERSION_KEY
 from ted_sws.notice_fetcher.adapters.ted_api import TedAPIAdapter
 from ted_sws.notice_fetcher.services.notice_fetcher import NoticeFetcher
 from tests import TEST_DATA_PATH
@@ -139,7 +139,8 @@ def normalised_metadata_dict():
         EXTRACTED_LEGAL_BASIS_KEY: 'http://publications.europa.eu/resource/authority/legal-basis/32009L0081',
         FORM_NUMBER_KEY: 'F18',
         LEGAL_BASIS_DIRECTIVE_KEY: 'http://publications.europa.eu/resource/authority/legal-basis/32009L0081',
-        E_FORMS_SUBTYPE: "16"
+        E_FORMS_SUBTYPE_KEY: 16,
+        XSD_VERSION_KEY: "R2.0.9.S04.E01"
     }
 
     return data
@@ -161,7 +162,7 @@ def normalised_metadata_object():
                                  language='SV')
         ],
         NOTICE_NUMBER_KEY: '067623-2022',
-        PUBLICATION_DATE_KEY: datetime.date(2020, 2, 7).isoformat(),
+        PUBLICATION_DATE_KEY: datetime.date(2020, 3, 8).isoformat(),
         OJS_NUMBER_KEY: '26',
         OJS_TYPE_KEY: 'S',
         BUYER_CITY_KEY: [
@@ -182,7 +183,8 @@ def normalised_metadata_object():
         EXTRACTED_LEGAL_BASIS_KEY: 'http://publications.europa.eu/resource/authority/legal-basis/32014L0024',
         FORM_NUMBER_KEY: 'F03',
         LEGAL_BASIS_DIRECTIVE_KEY: 'http://publications.europa.eu/resource/authority/legal-basis/32014L0024',
-        E_FORMS_SUBTYPE: "14"
+        E_FORMS_SUBTYPE_KEY: 12,
+        XSD_VERSION_KEY: "R2.0.9.S04.E01"
     }
 
     return NormalisedMetadata(**data)

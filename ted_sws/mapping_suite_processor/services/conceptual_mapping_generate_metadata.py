@@ -45,11 +45,11 @@ def generate_metadata(raw_metadata: dict) -> str:
         else:
             return []
 
-    constraints = {E_FORMS_SUBTYPE_KEY: get_list_from_raw_metadata(E_FORMS_SUBTYPE_FIELD),
-                   START_DATE_KEY: str(raw_metadata[START_DATE_FIELD][0]),
-                   END_DATE_KEY: str(raw_metadata[END_DATE_FIELD][0]),
-                   MIN_XSD_VERSION_KEY: raw_metadata[MIN_XSD_VERSION_FIELD][0],
-                   MAX_XSD_VERSION_KEY: raw_metadata[MAX_XSD_VERSION_FIELD][0]}
+    constraints = {E_FORMS_SUBTYPE_KEY: [int(x) for x in get_list_from_raw_metadata(E_FORMS_SUBTYPE_FIELD)],
+                   START_DATE_KEY: get_list_from_raw_metadata(START_DATE_FIELD),
+                   END_DATE_KEY: get_list_from_raw_metadata(END_DATE_FIELD),
+                   MIN_XSD_VERSION_KEY: get_list_from_raw_metadata(MIN_XSD_VERSION_FIELD),
+                   MAX_XSD_VERSION_KEY: get_list_from_raw_metadata(MAX_XSD_VERSION_FIELD)}
 
     metadata = {TITLE_KEY: raw_metadata[TITLE_FIELD][0], IDENTIFIER_KEY: raw_metadata[IDENTIFIER_FIELD][0],
                 CREATED_KEY: datetime.now().isoformat(), VERSION_KEY: raw_metadata[VERSION_FIELD][0],

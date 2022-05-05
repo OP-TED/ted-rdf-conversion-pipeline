@@ -25,7 +25,7 @@ def test_mapping_suite_processor_expand_package(file_system_repository_path):
         assert mapping_suite.identifier == "test_package"
         assert mapping_suite.version == "0.0.1"
         assert mapping_suite.ontology_version == "3.0.0.alpha"
-        assert "13" in set(mapping_suite.metadata_constraints.constraints["eforms_subtype"])
+        assert 13 in set(mapping_suite.metadata_constraints.constraints["eforms_subtype"])
         assert "R2.0.9.S04.E06" not in set(mapping_suite.metadata_constraints.constraints["min_xsd_version"])
 
         assert mapping_suite.shacl_test_suites

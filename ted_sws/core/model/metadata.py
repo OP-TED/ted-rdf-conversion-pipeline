@@ -71,6 +71,7 @@ class NormalisedMetadata(Metadata):
     legal_basis_directive: str
     form_number: str
     eforms_subtype: str
+    xsd_version: str
 
 
 class TEDMetadata(Metadata):

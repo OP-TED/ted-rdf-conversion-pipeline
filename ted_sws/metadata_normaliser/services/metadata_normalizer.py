@@ -13,7 +13,7 @@ from ted_sws.resources.mapping_files_registry import MappingFilesRegistry
 from ted_sws.metadata_normaliser.services.xml_manifestation_metadata_extractor import XMLManifestationMetadataExtractor
 
 JOIN_SEP = " :: "
-E_FORMS_SUBTYPE = "eforms_subtype"
+E_FORMS_SUBTYPE_KEY = "eforms_subtype"
 E_FORM_NOTICE_TYPE_COLUMN = "eform_notice_type"
 E_FORM_LEGAL_BASIS_COLUMN = "eform_legal_basis"
 FORM_NUMBER_KEY = "form_number"
@@ -38,6 +38,7 @@ EU_INSTITUTION_KEY = "eu_institution"
 SENT_DATE_KEY = "document_sent_date"
 DEADLINE_DATE_KEY = "deadline_for_submission"
 NOTICE_TYPE_KEY = "notice_type"
+XSD_VERSION_KEY = "xsd_version"
 
 
 def normalise_notice(notice: Notice) -> Notice:
@@ -162,7 +163,7 @@ class ExtractedMetadataNormaliser:
         }
 
         filter_variables = \
-        filter_map.query(f"{FORM_NUMBER_KEY}=='{variables[FORM_NUMBER_KEY]}'").to_dict(orient='records')[0]
+            filter_map.query(f"{FORM_NUMBER_KEY}=='{variables[FORM_NUMBER_KEY]}'").to_dict(orient='records')[0]
         for key, value in filter_variables.items():
             if value == 0:
                 filter_variables[key] = None
@@ -186,7 +187,7 @@ class ExtractedMetadataNormaliser:
         :param document_type_code:
         :return:
         """
-        mapping_df = pd.merge(sf_map, ef_map, on=E_FORMS_SUBTYPE, how="left")
+        mapping_df = pd.merge(sf_map, ef_map, on=E_FORMS_SUBTYPE_KEY, how="left")
         filter_variables = cls.get_filter_variables_values(form_number=form_number, filter_map=filter_map,
                                                            extracted_notice_type=extracted_notice_type,
                                                            legal_basis=legal_basis,
@@ -198,7 +199,7 @@ class ExtractedMetadataNormaliser:
         form_type = filtered_df[FORM_TYPE_KEY].values[0]
         notice_type = filtered_df[E_FORM_NOTICE_TYPE_COLUMN].values[0]
         legal_basis = filtered_df[E_FORM_LEGAL_BASIS_COLUMN].values[0]
-        eforms_subtype = filtered_df[E_FORMS_SUBTYPE].values[0]
+        eforms_subtype = filtered_df[E_FORMS_SUBTYPE_KEY].values[0]
         return form_type, notice_type, legal_basis, eforms_subtype
 
     def get_map_list_value_by_code(self, mapping: Dict, listing: List):
@@ -272,7 +273,8 @@ class ExtractedMetadataNormaliser:
                                                           )),
             FORM_NUMBER_KEY: self.normalise_form_number(value=extracted_metadata.extracted_form_number),
             LEGAL_BASIS_DIRECTIVE_KEY: self.get_map_value(mapping=legal_basis_map, value=legal_basis),
-            E_FORMS_SUBTYPE: str(eforms_subtype)
+            E_FORMS_SUBTYPE_KEY: int(eforms_subtype),
+            XSD_VERSION_KEY: extracted_metadata.xml_schema_version
         }
 
         return NormalisedMetadata(**metadata)

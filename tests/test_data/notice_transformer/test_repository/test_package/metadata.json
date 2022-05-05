@@ -2,26 +2,18 @@
   "title": "no_title",
   "created_at": "2022-03-20T19:46:14.069518",
   "identifier": "test_package",
-  "version": "0.1.1",
+  "version": "1.0.1",
   "ontology_version": "3.0.0.alpha",
-  "xsd_version": "R2.0.9.S05.E01",
   "metadata_constraints": {
     "constraints": {
-      "form_number": [
-        "F03","F04"
+      "eforms_subtype": [
+        4,12,29
       ],
-      "legal_basis": [
-        "32014L0023",
-        "32014L0024",
-        "32014L0025"
-      ],
-      "year": [
-        "2021",
-        "2020",
-        "2019"
-      ],
-      "notice_type": [],
-      "form_type": []
+      "start_date": ["2020-03-03"]
+      ,
+      "end_date": ["2020-09-10"],
+      "min_xsd_version": ["R2.0.9.S03.E01"],
+      "max_xsd_version": ["R2.0.9.S04.E01"]
     }
   }
 }

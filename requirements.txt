@@ -14,5 +14,3 @@ pymessagebus~=1.2
 click~=8.1.0
 openpyxl==3.0.9
 colorama~=0.4
-
-

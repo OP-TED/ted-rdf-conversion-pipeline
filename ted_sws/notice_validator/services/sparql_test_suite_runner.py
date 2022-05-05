@@ -131,7 +131,8 @@ class SPARQLReportBuilder:
         result = SPARQLTestSuiteExecution(
             sparql_test_suite_identifier=query_result.identifier,
             mapping_suite_identifier=mapping_suite_package.identifier,
-            execution_results=[query_result]
+            execution_results=[query_result],
+            object_data="SPARQLTestSuiteExecution"
         )
 
         data = result.dict()

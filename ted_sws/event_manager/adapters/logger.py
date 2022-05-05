@@ -3,6 +3,7 @@ import enum
 import logging
 import sys
 from colorama import Fore
+from typing import List
 
 import logstash
 
@@ -46,8 +47,8 @@ class Logger(LoggerABC):
         self.name = name
         self.logger = logging.getLogger(name)
         self.logger.setLevel(self.level)
-        if self.has_logging_type(LoggingType.ELK):
-            self.add_elk_handler()
+
+        self.add_handlers()
 
     def get_logger(self) -> logging.Logger:
         return self.logger
@@ -56,12 +57,30 @@ class Logger(LoggerABC):
     def has_logging_type(logging_type: LoggingType):
         return logging_type.value in DOMAIN_LOGGING_TYPES
 
+    def init_handlers(self):
+        self.logger.handlers = []
+
+    def get_handlers(self) -> List:
+        return self.logger.handlers
+
+    def add_handlers(self):
+        self.init_handlers()
+        if self.has_logging_type(LoggingType.ELK):
+            self.add_elk_handler()
+
+    def has_handler(self, handler) -> bool:
+        return any((type(handler) is type(h)) for h in self.get_handlers())
+
+    def add_handler(self, handler):
+        if not self.has_handler(handler):
+            self.logger.addHandler(handler)
+
     def add_stdout_handler(self, level: int = DEFAULT_LOGGER_LEVEL, formatter: logging.Formatter = None):
         console = logging.StreamHandler(sys.stdout)
         console.setLevel(level)
         if formatter is not None:
             console.setFormatter(formatter)
-        self.logger.addHandler(console)
+        self.add_handler(console)
 
     def add_elk_handler(self, level: int = DEFAULT_LOGGER_LEVEL):
         host = config.ELK_HOST
@@ -70,7 +89,7 @@ class Logger(LoggerABC):
 
         elk = logstash.LogstashHandler(host, port, version=version)
         elk.setLevel(level)
-        self.logger.addHandler(elk)
+        self.add_handler(elk)
         # self.logger.addHandler(logstash.TCPLogstashHandler(host, port, version=version))
 
     def log(self, msg: str, level: int = None):

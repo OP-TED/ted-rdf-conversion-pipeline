@@ -54,7 +54,6 @@ def notice_2016():
     notice_content = base64.b64decode(notice_data["content"]).decode(encoding="utf-8")
 
     xml_manifestation = XMLManifestation(object_data=notice_content)
-
     del notice_data["content"]
     ted_id = notice_data["ND"]
     original_metadata = TEDMetadata(**notice_data)

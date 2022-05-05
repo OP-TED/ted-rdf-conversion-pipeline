@@ -48,6 +48,9 @@ class CmdRunner(CmdRunnerABC):
         self.begin_time = None
         self.end_time = None
         self.logger = Logger(name=name, level=log_level)
+        self.add_logger_handlers()
+
+    def add_logger_handlers(self):
         self.add_logger_stdout_handler()
 
     def add_logger_stdout_handler(self):

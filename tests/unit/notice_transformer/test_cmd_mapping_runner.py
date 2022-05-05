@@ -31,7 +31,7 @@ def test_cmd_mapping_runner(caplog, fake_rml_mapper, fake_mapping_suite_id, fake
 
 
 def test_cmd_mapping_runner_with_invalid_serialization(caplog, fake_rml_mapper, fake_mapping_suite_id,
-                                                    fake_repository_path):
+                                                       fake_repository_path):
     cli_run(
         mapping_suite_id=fake_mapping_suite_id,
         serialization_format="invalid-turtle",
@@ -50,7 +50,7 @@ def test_cmd_mapping_runner_with_invalid_serialization(caplog, fake_rml_mapper, 
 
 
 def test_cmd_mapping_runner_with_not_package(caplog, fake_rml_mapper, fake_not_mapping_suite_id,
-                                          fake_fail_repository_path):
+                                             fake_fail_repository_path):
     cli_run(
         mapping_suite_id=fake_not_mapping_suite_id,
         opt_mappings_folder=fake_fail_repository_path,
@@ -61,7 +61,7 @@ def test_cmd_mapping_runner_with_not_package(caplog, fake_rml_mapper, fake_not_m
 
 
 def test_cmd_mapping_runner_with_failed_package(caplog, fake_rml_mapper, fake_failed_mapping_suite_id,
-                                             fake_fail_repository_path):
+                                                fake_fail_repository_path):
     cli_run(
         mapping_suite_id=fake_failed_mapping_suite_id,
         opt_mappings_folder=fake_fail_repository_path,

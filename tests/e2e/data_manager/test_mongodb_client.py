@@ -3,7 +3,7 @@ from pymongo import MongoClient
 from ted_sws import config
 
 
-def test_mongodb_client():
+def test_mongodb_client(notice_2016):
     uri = config.MONGO_DB_AUTH_URL
     mongodb_client = MongoClient(uri)
     mongodb_client.drop_database('test')

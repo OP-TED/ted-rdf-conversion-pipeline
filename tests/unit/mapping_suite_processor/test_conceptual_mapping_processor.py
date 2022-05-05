@@ -7,7 +7,6 @@ from tests import temporary_copy
 
 def test_mapping_suite_processor_expand_package(file_system_repository_path):
     mapping_suite_package_path = file_system_repository_path / "test_package"
-    print(mapping_suite_package_path)
     with temporary_copy(mapping_suite_package_path) as tmp_mapping_suite_package_path:
         mapping_suite_processor_expand_package(mapping_suite_package_path=tmp_mapping_suite_package_path)
         mapping_suite_repository = MappingSuiteRepositoryInFileSystem(

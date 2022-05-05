@@ -34,6 +34,7 @@ CONCEPTUAL_MAPPINGS_METADATA_SHEET_NAME = "Metadata"
 def generate_metadata(raw_metadata: dict) -> str:
     """
         This feature restructures the metadata into a default format.
+        Metadata is formed from 2 parts: metadata for mapping suite and constraints on the mapping suite
     :param raw_metadata:
     :return:
     """

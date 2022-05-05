@@ -16,7 +16,6 @@ def __process_output_dir(fake_repository_path, fake_mapping_suite_id):
 
 
 def test_metadata_generator(fake_mapping_suite_id, file_system_repository_path):
-    print(file_system_repository_path)
     response = cmdRunner.invoke(generate, [fake_mapping_suite_id, "--opt-mappings-folder", file_system_repository_path])
     assert response.exit_code == 0
     assert "SUCCESS" in response.output

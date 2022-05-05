@@ -9,9 +9,13 @@ from ted_sws.core.adapters.cmd_runner import CmdRunner as BaseCmdRunner, DEFAULT
 from ted_sws.event_manager.adapters.logger import LOG_INFO_TEXT
 from ted_sws.mapping_suite_processor.services.conceptual_mapping_generate_sparql_queries import \
     mapping_suite_processor_generate_sparql_queries as generate_sparql_queries, DEFAULT_RQ_NAME
+from ted_sws.data_manager.adapters.mapping_suite_repository import VALIDATE_PACKAGE_NAME, SPARQL_PACKAGE_NAME, \
+    TRANSFORM_PACKAGE_NAME
 
-DEFAULT_CONCEPTUAL_MAPPINGS_FILE = '{mappings_path}/{mapping_suite_id}/transformation/conceptual_mappings.xlsx'
-DEFAULT_OUTPUT_SPARQL_QUERIES_FOLDER = '{mappings_path}/{mapping_suite_id}/validation/sparql/cm_assertions'
+DEFAULT_CONCEPTUAL_MAPPINGS_FILE = '{mappings_path}/{mapping_suite_id}/' + TRANSFORM_PACKAGE_NAME + \
+                                   '/conceptual_mappings.xlsx'
+DEFAULT_OUTPUT_SPARQL_QUERIES_FOLDER = '{mappings_path}/{mapping_suite_id}/' + VALIDATE_PACKAGE_NAME + '/' + \
+                                       SPARQL_PACKAGE_NAME + '/cm_assertions'
 CMD_NAME = "CMD_SPARQL_GENERATOR"
 
 """

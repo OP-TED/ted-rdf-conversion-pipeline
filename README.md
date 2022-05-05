@@ -169,7 +169,6 @@ By default, successively runs the following commands:
 - metadata_generator
 - yarrrml2rml_converter
 - sparql_generator
-- mapping_runner
 ```
 
 Use:
@@ -182,10 +181,10 @@ Usage: mapping_suite_processor [OPTIONS] MAPPING_SUITE_ID
 
   Processes Mapping Suite (identified by mapping-suite-id): -
   normalisation_resource_generator - metadata_generator -
-  yarrrml2rml_converter - sparql_generator - mapping_runner
+  yarrrml2rml_converter - sparql_generator
 
 Options:
-  -c, --opt-commands [normalisation_resource_generator|metadata_generator|yarrrml2rml_converter|sparql_generator|mapping_runner]
+  -c, --opt-commands [normalisation_resource_generator|metadata_generator|yarrrml2rml_converter|sparql_generator]
   -m, --opt-mappings-folder TEXT
   --help                                      Show this message and exit.
 ```
@@ -195,6 +194,25 @@ mapping_suite_processor -c COMMAND1 -c COMMAND2 ...
 ```
 to set custom commands (order) to be executed
 
+
+#### CMD: sparql_runner
+Generates Validation Reports for RDF files.
+
+Use:
+```bash
+sparql_runner --help
+```
+to get the Usage Help:
+```bash
+Usage: sparql_runner [OPTIONS] [MAPPING_SUITE_ID]
+
+  Generates Validation Reports for RDF files
+
+Options:
+  -m, --opt-mappings-folder TEXT
+  --help                                      Show this message and exit.
+
+```
 <hr>
 
 ## Contributions

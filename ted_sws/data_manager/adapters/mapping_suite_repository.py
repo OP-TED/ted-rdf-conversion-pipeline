@@ -185,7 +185,7 @@ class MappingSuiteRepositoryInFileSystem(MappingSuiteRepositoryABC):
                 mapping_suite_name = parts[idx] + '-' + mapping_suite_name
         return mapping_suite_name
 
-    def _read_test_data_file_resources(self, path: pathlib.Path, file_resources=None) -> List[FileResource]:
+    def _read_flat_file_resources(self, path: pathlib.Path, file_resources=None) -> List[FileResource]:
         """
             This method reads a folder (with nested-tree structure) of resources and returns a flat list of file-type
             resources from all beyond levels.
@@ -286,7 +286,7 @@ class MappingSuiteRepositoryInFileSystem(MappingSuiteRepositoryABC):
         :return:
         """
         test_data_path = package_path / TEST_DATA_PACKAGE_NAME
-        test_data = self._read_test_data_file_resources(path=test_data_path)
+        test_data = self._read_flat_file_resources(path=test_data_path)
         return TransformationTestData(test_data=test_data)
 
     def _write_mapping_suite_package(self, mapping_suite: MappingSuite):

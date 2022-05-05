@@ -10,6 +10,7 @@ This module provides functionalities to generate notice package.
 """
 
 import base64
+import binascii
 import os.path
 from pathlib import Path
 from tempfile import TemporaryDirectory
@@ -151,8 +152,12 @@ class NoticePackager:
         if rdf_content is not None:
             if isinstance(rdf_content, str):
                 rdf_content = bytes(rdf_content, 'utf-8')
+            try:
+                rdf_content_bytes = base64.b64decode(rdf_content, validate=True)
+            except binascii.Error:
+                rdf_content_bytes = rdf_content
             rdf_file_path = self.tmp_dir_path / FILE_RDF_FORMAT.format(notice_id=self.notice_id)
-            self.__write_to_file(rdf_file_path, base64.b64decode(rdf_content), 'xb')
+            self.__write_to_file(rdf_file_path, rdf_content_bytes, 'xb')
             self.files.append(rdf_file_path)
 
     def add_extra_files(self, extra_files: PATH_LIST_TYPE):

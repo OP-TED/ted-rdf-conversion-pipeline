@@ -8,7 +8,7 @@ from ted_sws.notice_validator.services.sparql_test_suite_runner import SPARQLTes
     validate_notice_with_sparql_suite, validate_notice_by_id_with_sparql_suite, extract_metadata_from_sparql_query
 
 
-def test_sparql_query_test_suite_runner(rdf_file_content, sparql_test_suite, dummy_mapping_suite):
+def test_sparql_query_test_suite_runner(rdf_file_content, sparql_test_suite, dummy_mapping_suite, sparql_file_one):
     rdf_manifestation = RDFManifestation(object_data=rdf_file_content)
     sparql_runner = SPARQLTestSuiteRunner(rdf_manifestation=rdf_manifestation, sparql_test_suite=sparql_test_suite,
                                           mapping_suite=dummy_mapping_suite)
@@ -22,6 +22,13 @@ def test_sparql_query_test_suite_runner(rdf_file_content, sparql_test_suite, dum
         assert query.description
         assert query.query
         assert "this is a description" == query.description
+
+    query_meta = ["# title", "# description"]
+    for meta in query_meta:
+        assert meta in sparql_file_one.file_content
+    sanitized_query = sparql_runner._sanitize_query(sparql_file_one.file_content)
+    for meta in query_meta:
+        assert meta not in sanitized_query
 
     test_suite_executions = sparql_runner.execute_test_suite().execution_results
     assert isinstance(test_suite_executions, list)

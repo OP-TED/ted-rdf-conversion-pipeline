@@ -143,3 +143,18 @@ def notice_with_distilled_status(notice_2020, rdf_file_content):
     notice_2020.update_status_to(new_status=NoticeStatus.DISTILLED)
 
     return notice_2020
+
+
+@pytest.fixture
+def fake_repository_path():
+    return TEST_DATA_PATH / "notice_validator" / "test_repository"
+
+
+@pytest.fixture
+def fake_mapping_suite_id() -> str:
+    return "test_package"
+
+@pytest.fixture
+def invalid_mapping_suite_id() -> str:
+    return "test_invalid_package"
+

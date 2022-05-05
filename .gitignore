@@ -1,3 +1,4 @@
+/.saxon/
 /.tox/
 __pycache__/
 build/

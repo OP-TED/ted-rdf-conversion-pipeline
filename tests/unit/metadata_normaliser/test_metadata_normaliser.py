@@ -99,4 +99,4 @@ def test_get_filter_values(raw_notice):
     assert filter_variables_dict[FORM_NUMBER_KEY] == "F07"
     assert filter_variables_dict[LEGAL_BASIS_KEY] is None
     assert filter_variables_dict[SF_NOTICE_TYPE_KEY] is None
-    assert filter_variables_dict[DOCUMENT_CODE_KEY] == "7"
+    assert filter_variables_dict[DOCUMENT_CODE_KEY] is None

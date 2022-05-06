@@ -155,7 +155,7 @@ stop-metabase:
 init-rml-mapper:
 	@ echo -e "RMLMapper folder initialisation!"
 	@ mkdir -p ./.rmlmapper
-	@ wget --load-cookies /tmp/cookies.txt "https://docs.google.com/uc?export=download&confirm=$(wget --quiet --save-cookies /tmp/cookies.txt --keep-session-cookies --no-check-certificate 'https://docs.google.com/uc?export=download&id=1MckjzpvrCoChy_IRYC2S54tf3dFQNwEt' -O- | sed -rn \'s/.*confirm=\([0-9A-Za-z_]+).*/\1\n/p\'\)&id=1MckjzpvrCoChy_IRYC2S54tf3dFQNwEt" -O ./.rmlmapper/rmlmapper.jar && rm -rf /tmp/cookies.txt
+	@ wget -c https://api.bitbucket.org/2.0/repositories/Dragos0000/rml-mapper/src/master/rmlmapper.jar -P ./.rmlmapper
 
 
 init-saxon:

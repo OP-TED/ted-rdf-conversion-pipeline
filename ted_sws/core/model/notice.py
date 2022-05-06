@@ -23,7 +23,7 @@ from pydantic import Field
 from ted_sws.core.model import PropertyBaseModel
 from ted_sws.core.model.manifestation import METSManifestation, RDFManifestation, XMLManifestation, \
     RDFValidationManifestation
-from ted_sws.core.model.metadata import TEDMetadata, NormalisedMetadata
+from ted_sws.core.model.metadata import TEDMetadata, NormalisedMetadata, XMLMetadata
 
 
 class UnsupportedStatusTransition(Exception):
@@ -159,6 +159,7 @@ class Notice(WorkExpression):
     _distilled_rdf_manifestation: Optional[RDFManifestation] = None
     _rdf_manifestation: Optional[RDFManifestation] = None
     _mets_manifestation: Optional[METSManifestation] = None
+    xml_metadata: Optional[XMLMetadata] = None
 
     @property
     def preprocessed_xml_manifestation(self) -> XMLManifestation:

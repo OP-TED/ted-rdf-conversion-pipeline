@@ -22,6 +22,13 @@ class Metadata(PropertyBaseModel):
         underscore_attrs_are_private = True
 
 
+class XMLMetadata(Metadata):
+    """
+        Stores the metadata of an XMLManifestation.
+    """
+    unique_xpaths: List[str] = None
+
+
 class LanguageTaggedString(NamedTuple):
     """
     Holds strings with language tag

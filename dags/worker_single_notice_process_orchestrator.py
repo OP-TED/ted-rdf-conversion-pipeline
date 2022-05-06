@@ -47,11 +47,14 @@ def worker_single_notice_process_orchestrator():
         mongodb_client = MongoClient(config.MONGO_DB_AUTH_URL)
         notice_repository = NoticeRepository(mongodb_client=mongodb_client)
         mapping_suite_repository = MappingSuiteRepositoryMongoDB(mongodb_client=mongodb_client)
-        notice_id, mapping_suite_id = notice_eligibility_checker_by_id(notice_id=notice_id,
-                                                                       notice_repository=notice_repository,
-                                                                       mapping_suite_repository=mapping_suite_repository)
+        result = notice_eligibility_checker_by_id(notice_id=notice_id,
+                                                  notice_repository=notice_repository,
+                                                  mapping_suite_repository=mapping_suite_repository)
+        if result:
+            notice_id, mapping_suite_id = result
+
+            push_dag_downstream(MAPPING_SUITE_ID, mapping_suite_id)
         push_dag_downstream(NOTICE_ID, notice_id)
-        push_dag_downstream(MAPPING_SUITE_ID, mapping_suite_id)
 
     def _preprocess_xml_manifestation():
         notice_id = pull_dag_upstream(NOTICE_ID)
@@ -144,17 +147,13 @@ def worker_single_notice_process_orchestrator():
 
     def _check_notice_state_before_transform():
         notice_id = pull_dag_upstream(NOTICE_ID)
-        mapping_suite_id = pull_dag_upstream(MAPPING_SUITE_ID)
         mongodb_client = MongoClient(config.MONGO_DB_AUTH_URL)
         notice_repository = NoticeRepository(mongodb_client=mongodb_client)
         notice = notice_repository.get(reference=notice_id)
         push_dag_downstream(NOTICE_ID, notice_id)
-        push_dag_downstream(MAPPING_SUITE_ID, mapping_suite_id)
-        print(notice.status)
-        print(NoticeStatus.ELIGIBLE_FOR_TRANSFORMATION)
-        print(notice.status == NoticeStatus.ELIGIBLE_FOR_TRANSFORMATION)
         if notice.status == NoticeStatus.ELIGIBLE_FOR_TRANSFORMATION:
-            print("Go to preprocess_xml_manifestation")
+            mapping_suite_id = pull_dag_upstream(MAPPING_SUITE_ID)
+            push_dag_downstream(MAPPING_SUITE_ID, mapping_suite_id)
             return "preprocess_xml_manifestation"
         else:
             return "fail_on_state"

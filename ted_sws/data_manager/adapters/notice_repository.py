@@ -4,6 +4,7 @@ from typing import Iterator, Union, Optional
 
 import gridfs
 from pymongo import MongoClient
+from pymongo.collection import Collection
 
 from ted_sws import config
 from ted_sws.core.model.manifestation import XMLManifestation, RDFManifestation, METSManifestation, Manifestation

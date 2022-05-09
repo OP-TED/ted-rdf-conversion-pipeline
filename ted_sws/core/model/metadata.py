@@ -29,6 +29,13 @@ class XMLMetadata(Metadata):
     unique_xpaths: List[str] = None
 
 
+class XPathMetadata(Metadata):
+    """
+        Stores the metadata about unique XPath.
+    """
+    xpath: str
+    notice_ids: List[str]
+
 class LanguageTaggedString(NamedTuple):
     """
     Holds strings with language tag

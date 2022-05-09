@@ -49,10 +49,13 @@ def test_mongodb_queries():
     mongodb_client.drop_database('test')
     test_db = mongodb_client['test']
     objects_collection = test_db['objects']
+    print(type(objects_collection))
     for i in range(0, 20):
         objects_collection.insert_one(random_object())
 
     unique_xpaths = objects_collection.distinct("xpath")
+    print(type(unique_xpaths))
+
     unique_notice_ids = objects_collection.distinct("notices")
     print("unique_notice_ids: ",unique_notice_ids)
     print("unique_xpaths: ",unique_xpaths)

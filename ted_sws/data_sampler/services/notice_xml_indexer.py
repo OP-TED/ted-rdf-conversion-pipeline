@@ -60,3 +60,11 @@ def get_minimal_set_of_xpaths_for_coverage_notices():
 def get_minimal_set_of_notices_for_coverage_xpaths():
     ...
 
+def get_notices_covered_by_xpaths():
+    ...
+
+def get_xpaths_covered_by_notices():
+    ...
+
+
+

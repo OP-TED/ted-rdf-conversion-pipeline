@@ -54,3 +54,9 @@ def get_unique_notice_id_from_notice_repository(mongodb_client:MongoClient) -> L
     notice_repository = NoticeRepository(mongodb_client=mongodb_client)
     return notice_repository.collection.distinct("ted_id")
 
+def get_minimal_set_of_xpaths_for_coverage_notices():
+    ...
+
+def get_minimal_set_of_notices_for_coverage_xpaths():
+    ...
+

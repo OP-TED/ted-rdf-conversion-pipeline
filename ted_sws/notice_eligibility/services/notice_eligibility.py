@@ -24,8 +24,9 @@ def check_package(mapping_suite: MappingSuite, notice_metadata: NormalisedMetada
     notice_publication_date = datetime.datetime.fromisoformat(notice_metadata.publication_date)
     notice_xsd_version = notice_metadata.xsd_version
 
-    constraint_start_date = datetime.datetime.strptime(constraints[START_DATE_KEY][0], "%Y-%m-%d")
-    constraint_end_date = datetime.datetime.strptime(constraints[END_DATE_KEY][0], "%Y-%m-%d")
+    end_date = constraints[END_DATE_KEY][0] if constraints[END_DATE_KEY] else datetime.datetime.now().isoformat()
+    constraint_start_date = datetime.datetime.fromisoformat(constraints[START_DATE_KEY][0])
+    constraint_end_date = datetime.datetime.fromisoformat(end_date)
     constraint_min_xsd_version = constraints[MIN_XSD_VERSION_KEY][0]
     constraint_max_xsd_version = constraints[MAX_XSD_VERSION_KEY][0]
 

@@ -103,6 +103,12 @@ def test_notice_packager_with_rdf_content(notice_2018, rdf_content):
     )
     assert encoded_package_content is not None
 
+    encoded_package_content = create_notice_package(
+        notice_2018,
+        rdf_content=rdf_content.encode("utf-8")
+    )
+    assert encoded_package_content is not None
+
 
 def test_notice_packager_with_save_to(notice_sample_metadata, rdf_content):
     package_path = create_notice_package(

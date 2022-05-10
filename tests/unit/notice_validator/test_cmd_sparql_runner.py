@@ -2,7 +2,7 @@ import os
 
 from click.testing import CliRunner
 
-from ted_sws.notice_validator.entrypoints.cmd_sparql_runner import main as cli_main, \
+from ted_sws.notice_validator.entrypoints.cli.cmd_sparql_runner import main as cli_main, \
     DEFAULT_TEST_SUITE_REPORT_FOLDER, DEFAULT_SPARQL_REPORTS_FOLDER, DEFAULT_OUTPUT_PATH
 
 cmdRunner = CliRunner()

@@ -9,7 +9,7 @@ from ted_sws.core.adapters.cmd_runner import CmdRunner as BaseCmdRunner, DEFAULT
 from ted_sws.core.model.manifestation import RDFManifestation, RDFValidationManifestation
 from ted_sws.data_manager.adapters.mapping_suite_repository import MappingSuiteRepositoryInFileSystem
 from ted_sws.event_manager.adapters.logger import LOG_INFO_TEXT
-from ted_sws.notice_transformer.entrypoints.cmd_mapping_runner import DEFAULT_OUTPUT_PATH
+from ted_sws.notice_transformer.entrypoints.cli.cmd_mapping_runner import DEFAULT_OUTPUT_PATH
 from ted_sws.notice_validator.services.sparql_test_suite_runner import SPARQLTestSuiteRunner, SPARQLReportBuilder
 
 DEFAULT_RDF_FOLDER = '{mappings_path}/{mapping_suite_id}/' + DEFAULT_OUTPUT_PATH

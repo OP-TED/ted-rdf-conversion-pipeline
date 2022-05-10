@@ -3,9 +3,7 @@ from pathlib import Path
 
 from click.testing import CliRunner
 
-from ted_sws.notice_transformer.entrypoints.cmd_mapping_runner import run as cli_run
-
-cmdRunner = CliRunner()
+from ted_sws.notice_transformer.entrypoints.cli.cmd_mapping_runner import run as cli_run
 
 
 def __process_output_dir(fake_repository_path, fake_mapping_suite_id):

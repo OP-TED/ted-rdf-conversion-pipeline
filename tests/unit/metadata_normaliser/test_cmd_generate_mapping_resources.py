@@ -4,7 +4,7 @@ import pathlib
 
 from click.testing import CliRunner
 
-from ted_sws.data_manager.entrypoints.cmd_generate_mapping_resources import run as cli_run, main as cli_main
+from ted_sws.data_manager.entrypoints.cli.cmd_generate_mapping_resources import run as cli_run, main as cli_main
 from tests import TEST_DATA_PATH
 from tests.fakes.fake_triple_store import FakeTripleStore
 

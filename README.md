@@ -211,8 +211,35 @@ Usage: sparql_runner [OPTIONS] [MAPPING_SUITE_ID]
 Options:
   -m, --opt-mappings-folder TEXT
   --help                                      Show this message and exit.
-
 ```
+
+### API
+#### Start local API server
+To start the API server:
+```bash
+api-start-server
+```
+Output:
+```bash
+uvicorn --host localhost --port 8000 --log-level info ted_sws.core.entrypoints.api.main:app --reload
+###
+See http://localhost:8000/docs for API usage.
+```
+Use:
+```bash
+api-start-server --help
+```
+to get the cli command Usage Help:
+```bash
+Usage: api-start-server [OPTIONS]
+
+Options:
+  -h, --host TEXT
+  -p, --port INTEGER
+  -l, --log-level [critical|error|warning|info|debug|trace]
+  --help                                      Show this message and exit.
+```
+
 <hr>
 
 ## Contributions

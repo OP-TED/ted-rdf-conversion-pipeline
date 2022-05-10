@@ -2,7 +2,7 @@ import os
 
 from click.testing import CliRunner
 
-from ted_sws.mapping_suite_processor.entrypoints.cmd_yarrrml2rml_converter import main as convert
+from ted_sws.mapping_suite_processor.entrypoints.cli.cmd_yarrrml2rml_converter import main as convert
 
 cmdRunner = CliRunner()
 

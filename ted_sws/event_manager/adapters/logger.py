@@ -47,6 +47,7 @@ class Logger(LoggerABC):
         self.name = name
         self.logger = logging.getLogger(name)
         self.logger.setLevel(self.level)
+        # self.logger.propagate = False
 
         self.add_handlers()
 
@@ -58,7 +59,8 @@ class Logger(LoggerABC):
         return logging_type.value in DOMAIN_LOGGING_TYPES
 
     def init_handlers(self):
-        self.logger.handlers = []
+        if self.logger.hasHandlers():
+            self.logger.handlers.clear()
 
     def get_handlers(self) -> List:
         return self.logger.handlers

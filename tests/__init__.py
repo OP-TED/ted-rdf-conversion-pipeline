@@ -15,7 +15,6 @@ TESTS_PATH = pathlib.Path(__file__).parent.resolve()
 TEST_DATA_PATH = TESTS_PATH / 'test_data'
 
 
-
 class temporary_copy(object):
     """
         This class realizes the temporary context mechanism for an existing directory.

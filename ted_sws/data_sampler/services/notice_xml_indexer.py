@@ -1,9 +1,8 @@
 import pathlib
 import tempfile
-from typing import List, Iterator
+from typing import List
 
 from pymongo import MongoClient
-from pymongo.command_cursor import CommandCursor
 
 from ted_sws.core.adapters.xml_preprocessor import XMLPreprocessor
 from ted_sws.core.model.metadata import XMLMetadata
@@ -48,58 +47,48 @@ def index_notice(notice: Notice) -> Notice:
 
 
 def get_unique_xpaths_from_notice_repository(mongodb_client: MongoClient) -> List[str]:
+    """
+
+    """
     notice_repository = NoticeRepository(mongodb_client=mongodb_client)
     return notice_repository.collection.distinct("xml_metadata.unique_xpaths")
 
 
 def get_unique_notice_id_from_notice_repository(mongodb_client: MongoClient) -> List[str]:
+    """
+
+    """
     notice_repository = NoticeRepository(mongodb_client=mongodb_client)
     return notice_repository.collection.distinct("ted_id")
 
 
-def get_minimal_set_of_xpaths_for_coverage_notices(notice_ids: List[str]) -> List[str]:
+def get_minimal_set_of_xpaths_for_coverage_notices(notice_ids: List[str], mongodb_client: MongoClient) -> List[str]:
     """
 
     :param notice_ids:
     :return:
     """
-    # minimal_set_of_xpaths = []
-    # covered_notice_ids = []
-    # while len(notice_ids):
-    #     xpaths = []
-    #     for xpath_id in list(unique_xpaths):
-    #         tmp_result = list(
-    #             objects_collection.aggregate([{"$match": {"xpath": {"$in": [xpath_id]},
-    #                                                       "notices": {"$in": unique_notice_ids}}},
-    #                                           {"$project": {"_id": 0,
-    #                                                         "notice_id": "$notices"}},
-    #                                           {
-    #
-    #                                               "$group": {"_id": None,
-    #                                                          "notice_ids": {"$push": "$notice_id"}
-    #                                                          }
-    #                                           },
-    #                                           {"$project": {"_id": 0,
-    #                                                         "notice_ids": 1,
-    #                                                         "count_notices": {"$size": "$notice_ids"}}},
-    #                                           {
-    #                                               "$addFields": {"xpath": xpath_id}
-    #                                           }
-    #                                           ]))
-    #
-    #         if len(tmp_result):
-    #             xpaths.append(tmp_result[0])
-    #
-    #     # for xpath in xpaths:
-    #     #  print(xpath)
-    #     top_xpath = sorted(xpaths, key=lambda d: d['count_notices'], reverse=True)[0]
-    #     minimal_set_of_xpaths.append(top_xpath["xpath"])
-    #     notice_ids = top_xpath["notice_ids"]
-    #     for notice_id in notice_ids:
-    #         unique_notice_ids.remove(notice_id)
-    #         covered_notice_ids.append(notice_id)
-    #
-    # print("minimal_set_of_xpaths: ", minimal_set_of_xpaths)
+    minimal_set_of_xpaths = []
+    unique_notice_ids = notice_ids.copy()
+    notice_repository = NoticeRepository(mongodb_client=mongodb_client)
+    while len(unique_notice_ids):
+        tmp_result = list(notice_repository.collection.aggregate([
+            {"$unwind": "$xml_metadata.unique_xpaths"},
+            {"$match": {
+                "xml_metadata.unique_xpaths": {"$nin": minimal_set_of_xpaths},
+                "ted_id": {"$in": unique_notice_ids}
+            }
+            },
+            {"$group": {"_id": "$xml_metadata.unique_xpaths", "count": {"$sum": 1},
+                        "notice_ids": {"$push": "$ted_id"}}},
+            {"$sort": {"count": -1}},
+            {"$limit": 1}
+        ]))[0]
+        minimal_set_of_xpaths.append(tmp_result["_id"])
+        for notice_id in tmp_result["notice_ids"]:
+            unique_notice_ids.remove(notice_id)
+
+    return minimal_set_of_xpaths
 
 
 def get_minimal_set_of_notices_for_coverage_xpaths(xpaths: List[str], mongodb_client: MongoClient) -> List[str]:
@@ -117,7 +106,7 @@ def get_minimal_set_of_notices_for_coverage_xpaths(xpaths: List[str], mongodb_cl
                 "xml_metadata.unique_xpaths": {"$in": unique_xpaths},
             }
             },
-            {"$group": {"_id": "$ted_id", "count": {"$sum": 1}, "xpaths": {"$push" : "$xml_metadata.unique_xpaths"}}},
+            {"$group": {"_id": "$ted_id", "count": {"$sum": 1}, "xpaths": {"$push": "$xml_metadata.unique_xpaths"}}},
             {"$sort": {"count": -1}},
             {"$limit": 1}
         ]))[0]
@@ -126,7 +115,6 @@ def get_minimal_set_of_notices_for_coverage_xpaths(xpaths: List[str], mongodb_cl
             unique_xpaths.remove(xpath)
 
     return minimal_set_of_notices
-
 
 
 def get_unique_notices_id_covered_by_xpaths(xpaths: List[str], mongodb_client: MongoClient) -> List[str]:

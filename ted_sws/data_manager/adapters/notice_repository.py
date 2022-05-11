@@ -25,6 +25,7 @@ class NoticeRepository(NoticeRepositoryABC):
 
     def __init__(self, mongodb_client: MongoClient, database_name: str = _database_name):
         self._database_name = database_name
+        self.mongodb_client = mongodb_client
         notice_db = mongodb_client[self._database_name]
         self.file_storage = gridfs.GridFS(notice_db)
         self.collection = notice_db[self._collection_name]
@@ -177,7 +178,9 @@ class NoticeRepository(NoticeRepositoryABC):
         :return:
         """
         for result_dict in self.collection.find({"status": str(notice_status)}):
-            yield NoticeRepository._create_notice_from_repository_result(result_dict)
+            notice = NoticeRepository._create_notice_from_repository_result(result_dict)
+            notice = self.load_notice_fields_from_grid_fs(notice)
+            yield notice
 
     def list(self) -> Iterator[Notice]:
         """
@@ -185,4 +188,6 @@ class NoticeRepository(NoticeRepositoryABC):
         :return: list of notices
         """
         for result_dict in self.collection.find():
-            yield NoticeRepository._create_notice_from_repository_result(result_dict)
+            notice = NoticeRepository._create_notice_from_repository_result(result_dict)
+            notice = self.load_notice_fields_from_grid_fs(notice)
+            yield notice

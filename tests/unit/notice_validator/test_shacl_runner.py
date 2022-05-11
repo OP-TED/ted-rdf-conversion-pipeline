@@ -3,9 +3,9 @@ import rdflib
 from ted_sws.notice_validator.adapters.shacl_runner import SHACLRunner
 
 
-def test_shacl_runner(rdf_file_content, shacl_file_content):
+def test_shacl_runner(rdf_file_content, list_of_shacl_files):
     shacl_runner = SHACLRunner(rdf_content=rdf_file_content)
-    result = shacl_runner.validate(shacl_shape_content=shacl_file_content)
+    result = shacl_runner.validate(shacl_shape_files=list_of_shacl_files)
 
     assert isinstance(result, tuple)
     conforms, result_graph, results_text = result

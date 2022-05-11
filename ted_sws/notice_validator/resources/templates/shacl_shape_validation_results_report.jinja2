@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
@@ -9,82 +9,90 @@
         body {
             font-family: Arial, sans-serif;
         }
-        table{
+
+        table {
             border-spacing: 1px;
             border-collapse: separate;
         }
+
         th, td {
             border-bottom: 1px solid #ddd;
             padding: 10px;
             text-align: left;
             vertical-align: top;
         }
+
         th {
             background-color: #000;
             color: white;
         }
-        tr:nth-child(even) {background-color: #f2f2f2;}
-        tr:hover {background-color: #ddd;}
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        tr:hover {
+            background-color: #ddd;
+        }
+
         .error {
             color: red;
         }
+
         .success {
             color: green;
         }
     </style>
-  </head>
-  <body>
-	<h1>SHACL Validation HTML report </h1>
-	<hr>
-    <h2>Report details: </h2>
-    <ul>
-        <li>Date created: {{ created }}</li>
-        <li>{% if test_identifier_label %}{{ test_identifier_label }}{% else %}SHACL test suite identifier{% endif %}:
-        {{ shacl_test_suite_identifier }}</li>
-        <li>Mapping suite identifier: {{ mapping_suite_identifier }}</li>
-    </ul>
-    <hr>
-    <h2>Results</h2>
+</head>
+<body>
+<h1>SHACL Validation HTML report </h1>
+<hr>
+<h2>Report details: </h2>
+<ul>
+    <li>Date created: {{ created }}</li>
+    <li>SHACL test suite identifier: {{ shacl_test_suite_identifier }}</li>
+    <li>Mapping suite identifier: {{ mapping_suite_identifier }}</li>
+</ul>
+<hr>
+<h2>Results</h2>
+<table>
+    <tr>
+        <th>Title</th>
+        <th>Conforms</th>
+        <th>Error</th>
+    </tr>
+    <tr>
+        <td>{{ validation_result.identifier }}</td>
+        <td{% if validation_result.conforms == "True" %}
+            class="success"{% endif %}>{{ validation_result.conforms }}</td>
+        <td>{{ validation_result.error }}</td>
+    </tr>
+</table>
+
+
+
+{% if validation_result.results_dict %}
+    <h2>Extended results</h2>
+    <h1>{{ validation_result.identifier }}</h1>
     <table>
         <tr>
-            <th>Title</th>
-            <th>Conforms</th>
-            <th>Error</th>
+            <th>focusNode</th>
+            <th>resultPath</th>
+            <th>resultSeverity</th>
+            <th>sourceConstraintComponent</th>
+            <th>message</th>
         </tr>
-        {% for result in execution_results %}
+        {% for biding in validation_result.results_dict.results.bindings %}
             <tr>
-                <td>{{ result.identifier }}</td>
-                <td{% if result.conforms == "True" %} class="success"{% endif %}>{{ result.conforms }}</td>
-                <td>{{ result.error }}</td>
+                <td> {{ biding.focusNode.value }}</td>
+                <td> {{ biding.resultPath.value }}</td>
+                <td> {{ biding.resultSeverity.value }}</td>
+                <td>{{ biding.sourceConstraintComponent.value }}</td>
+                <td>{{ biding.message.value }}</td>
             </tr>
         {% endfor %}
     </table>
 
-    <h2>Extended results</h2>
-        {% for result in execution_results %}
-          {% if result.results_dict %}
-
-            <h1>{{ result.identifier }}</h1>
-              <table>
-                    <tr>
-                        <th>focusNode</th>
-                        <th>resultPath</th>
-                        <th>resultSeverity</th>
-                        <th>sourceConstraintComponent</th>
-                        <th>message</th>
-                    </tr>
-              {% for biding in result.results_dict.results.bindings %}
-                    <tr>
-                        <td> {{ biding.focusNode.value }}</td>
-                        <td> {{ biding.resultPath.value }}</td>
-                        <td> {{ biding.resultSeverity.value }}</td>
-                        <td>{{ biding.sourceConstraintComponent.value }}</td>
-                        <td>{{ biding.message.value }}</td>
-                    </tr>
-                {% endfor %}
-                </table>
-
-            {% endif %}
-        {% endfor %}
-  </body>
+{% endif %}
+</body>
 </html>

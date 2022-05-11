@@ -5,39 +5,23 @@ from ted_sws.core.model import PropertyBaseModel
 from ted_sws.core.model.manifestation import RDFValidationManifestation
 
 
-class SHACLShapeValidation(PropertyBaseModel):
+class QueriedSHACLShapeValidationResult(PropertyBaseModel):
     """
-    Stores SHACL shapes details
+    Queried SHACL Validation Report which contains the following variables
+    ?focusNode ?message ?resultPath ?resultSeverity ?sourceConstraintComponent ?sourceShape ?value
     """
-    title: Optional[str]
-    content: str
-
-
-class SHACLShapeValidationResult(PropertyBaseModel):
-    """
-    Stores SHACL shapes validation result
-    """
-    shapes: SHACLShapeValidation
     conforms: Optional[str]
     results_dict: Optional[dict]
     error: Optional[str]
     identifier: Optional[str]
 
 
-class SHACLShapeResultReport(RDFValidationManifestation):
+class SHACLSuiteValidationReport(RDFValidationManifestation):
     """
-    Stores SHACL shape execution report result
-    """
-    created: str = datetime.now().isoformat()
-    mapping_suite_identifier: str
-    validation_result: SHACLShapeValidationResult
-
-
-class SHACLTestSuiteExecution(RDFValidationManifestation):
-    """
-    Stores execution results for a SHACL test suite
+    This is validation report for a SHACL test suite that contains json and html representation
     """
     created: str = datetime.now().isoformat()
     shacl_test_suite_identifier: str
     mapping_suite_identifier: str
-    execution_results: List[SHACLShapeValidationResult] = []
+    validation_result: QueriedSHACLShapeValidationResult
+

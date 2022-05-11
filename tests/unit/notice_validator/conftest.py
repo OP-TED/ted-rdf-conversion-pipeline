@@ -59,16 +59,38 @@ def rdf_file_content():
 
 @pytest.fixture
 def shacl_file_content():
-    path = TEST_DATA_PATH / "ePO_shacl_shapes.rdf"
+    path = TEST_DATA_PATH / "ePO_shacl_shapes.xml"
     return path.read_text()
+
+
+@pytest.fixture
+def shacl_file_two_content():
+    path = TEST_DATA_PATH / "ePO_shacl_shapes_two.xml"
+    return path.read_text()
+
+
+@pytest.fixture
+def list_of_shacl_files(shacl_file_content, shacl_file_two_content):
+    return [
+        FileResource(file_name="shacl_file_one.xml", file_content=shacl_file_content),
+        FileResource(file_name="shacl_file_two.xml", file_content=shacl_file_two_content)
+    ]
+
 
 @pytest.fixture
 def shacl_file_one(shacl_file_content):
-    return FileResource(file_name="shacl_file_one", file_content=shacl_file_content)
+    return FileResource(file_name="shacl_file_one.xml", file_content=shacl_file_content)
+
 
 @pytest.fixture
-def shacl_file_two():
-    return FileResource(file_name="shacl_file_two", file_content="something fishy")
+def shacl_file_two(shacl_file_two_content):
+    return FileResource(file_name="shacl_file_two.xml", file_content=shacl_file_two_content)
+
+
+@pytest.fixture
+def shacl_file_with_error():
+    return FileResource(file_name="shacl_file_with_error", file_content="something fishy")
+
 
 @pytest.fixture
 def validator_query():
@@ -149,9 +171,15 @@ WHERE
 def sparql_test_suite(sparql_file_one, sparql_file_two):
     return SPARQLTestSuite(identifier="sparql_test_package", sparql_tests=[sparql_file_one, sparql_file_two])
 
+
 @pytest.fixture
-def shacl_test_suite(shacl_file_one,shacl_file_two):
+def shacl_test_suite(shacl_file_one, shacl_file_two):
     return SHACLTestSuite(identifier="shacl_test_package", shacl_tests=[shacl_file_one, shacl_file_two])
+
+
+@pytest.fixture
+def bad_shacl_test_suite(shacl_file_one, shacl_file_with_error):
+    return SHACLTestSuite(identifier="bad_shacl_test_package", shacl_tests=[shacl_file_one, shacl_file_with_error])
 
 
 @pytest.fixture
@@ -160,7 +188,7 @@ def sparql_test_suite_with_invalid_query(invalid_sparql_file):
 
 
 @pytest.fixture
-def dummy_mapping_suite(sparql_test_suite,shacl_test_suite):
+def dummy_mapping_suite(sparql_test_suite, shacl_test_suite):
     metadata_constrains = MetadataConstraints(constraints=dict())
     file_name = "fake_title.txt"
     empty_file_resource = FileResource(file_name=file_name, file_content="no content here", original_name=file_name)

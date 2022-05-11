@@ -49,6 +49,8 @@ def index_notice(notice: Notice) -> Notice:
 def get_unique_xpaths_from_notice_repository(mongodb_client: MongoClient) -> List[str]:
     """
 
+    :param mongodb_client:
+    :return:
     """
     notice_repository = NoticeRepository(mongodb_client=mongodb_client)
     return notice_repository.collection.distinct("xml_metadata.unique_xpaths")
@@ -57,6 +59,8 @@ def get_unique_xpaths_from_notice_repository(mongodb_client: MongoClient) -> Lis
 def get_unique_notice_id_from_notice_repository(mongodb_client: MongoClient) -> List[str]:
     """
 
+    :param mongodb_client:
+    :return:
     """
     notice_repository = NoticeRepository(mongodb_client=mongodb_client)
     return notice_repository.collection.distinct("ted_id")
@@ -66,6 +70,7 @@ def get_minimal_set_of_xpaths_for_coverage_notices(notice_ids: List[str], mongod
     """
 
     :param notice_ids:
+    :param mongodb_client:
     :return:
     """
     minimal_set_of_xpaths = []
@@ -92,6 +97,12 @@ def get_minimal_set_of_xpaths_for_coverage_notices(notice_ids: List[str], mongod
 
 
 def get_minimal_set_of_notices_for_coverage_xpaths(xpaths: List[str], mongodb_client: MongoClient) -> List[str]:
+    """
+
+    :param xpaths:
+    :param mongodb_client:
+    :return:
+    """
     minimal_set_of_notices = []
     unique_xpaths = xpaths.copy()
     notice_repository = NoticeRepository(mongodb_client=mongodb_client)
@@ -118,6 +129,12 @@ def get_minimal_set_of_notices_for_coverage_xpaths(xpaths: List[str], mongodb_cl
 
 
 def get_unique_notices_id_covered_by_xpaths(xpaths: List[str], mongodb_client: MongoClient) -> List[str]:
+    """
+
+    :param xpaths:
+    :param mongodb_client:
+    :return:
+    """
     notice_repository = NoticeRepository(mongodb_client=mongodb_client)
     results = list(notice_repository.collection.aggregate([
         {"$match": {"xml_metadata.unique_xpaths": {"$in": xpaths}}},
@@ -145,6 +162,12 @@ def get_unique_notices_id_covered_by_xpaths(xpaths: List[str], mongodb_client: M
 
 
 def get_unique_xpaths_covered_by_notices(notice_ids: List[str], mongodb_client: MongoClient) -> List[str]:
+    """
+
+    :param notice_ids:
+    :param mongodb_client:
+    :return:
+    """
     notice_repository = NoticeRepository(mongodb_client=mongodb_client)
     results = list(notice_repository.collection.aggregate([
         {"$match": {"ted_id": {"$in": notice_ids}}},

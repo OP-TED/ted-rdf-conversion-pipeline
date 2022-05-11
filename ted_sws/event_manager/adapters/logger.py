@@ -51,9 +51,9 @@ class Logger(LoggerABC):
     def get_logger(self) -> logging.Logger:
         return self.logger
 
-    @staticmethod
-    def has_logging_type(logging_type: LoggingType):
-        return logging_type.value in DOMAIN_LOGGING_TYPES
+    # @staticmethod
+    # def has_logging_type(logging_type: LoggingType):
+    #     return logging_type.value in DOMAIN_LOGGING_TYPES
 
     def init_handlers(self):
         if self.logger.hasHandlers():

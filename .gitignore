@@ -1,5 +1,6 @@
 /.saxon/
 /.tox/
+/.saxon/
 __pycache__/
 build/
 *.pyc

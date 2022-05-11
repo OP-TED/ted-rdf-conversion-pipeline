@@ -2,6 +2,8 @@ import base64
 import datetime
 import json
 
+import mongomock
+import pymongo
 import pytest
 
 from ted_sws.core.model.manifestation import XMLManifestation
@@ -17,7 +19,8 @@ from ted_sws.notice_fetcher.services.notice_fetcher import NoticeFetcher
 from tests import TEST_DATA_PATH
 from tests.fakes.fake_repository import FakeNoticeRepository
 from tests.fakes.fake_ted_api import FakeRequestAPI
-
+from mongomock.gridfs import enable_gridfs_integration
+enable_gridfs_integration()
 
 @pytest.fixture
 def notice_id():
@@ -187,3 +190,11 @@ def normalised_metadata_object():
     }
 
     return NormalisedMetadata(**data)
+
+@pytest.fixture
+@mongomock.patch(servers=(('server.example.com', 27017),))
+def mongodb_client():
+    mongo_client = pymongo.MongoClient('server.example.com')
+    for database_name in mongo_client.list_database_names():
+        mongo_client.drop_database(database_name)
+    return mongo_client

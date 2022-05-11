@@ -14,8 +14,7 @@ PROJECT_PATH = $(shell pwd)
 AIRFLOW_INFRA_FOLDER ?= ${PROJECT_PATH}/.airflow
 RML_MAPPER_PATH = ${PROJECT_PATH}/.rmlmapper/rmlmapper.jar
 XML_PROCESSOR_PATH = ${PROJECT_PATH}/.saxon/saxon-he-10.6.jar
-API_HOST = localhost
-API_PORT = 8000
+
 
 #-----------------------------------------------------------------------------
 # Dev commands
@@ -202,7 +201,8 @@ staging-dotenv-file: guard-VAULT_ADDR guard-VAULT_TOKEN vault-installed
 	@ vault kv get -format="json" ted-staging/airflow | jq -r ".data.data | keys[] as \$$k | \"\(\$$k)=\(.[\$$k])\"" >> .env
 	@ vault kv get -format="json" ted-staging/mongo-db | jq -r ".data.data | keys[] as \$$k | \"\(\$$k)=\(.[\$$k])\"" >> .env
 	@ vault kv get -format="json" ted-staging/metabase | jq -r ".data.data | keys[] as \$$k | \"\(\$$k)=\(.[\$$k])\"" >> .env
-	@ git
+	@ vault kv get -format="json" ted-staging/ted-sws | jq -r ".data.data | keys[] as \$$k | \"\(\$$k)=\(.[\$$k])\"" >> .env
+
 
 dev-dotenv-file: guard-VAULT_ADDR guard-VAULT_TOKEN vault-installed
 	@ echo -e "$(BUILD_PRINT)Create .env file $(END_BUILD_PRINT)"
@@ -222,6 +222,7 @@ dev-dotenv-file: guard-VAULT_ADDR guard-VAULT_TOKEN vault-installed
 	@ vault kv get -format="json" ted-dev/mongo-db | jq -r ".data.data | keys[] as \$$k | \"\(\$$k)=\(.[\$$k])\"" >> .env
 	@ vault kv get -format="json" ted-dev/metabase | jq -r ".data.data | keys[] as \$$k | \"\(\$$k)=\(.[\$$k])\"" >> .env
 	@ vault kv get -format="json" ted-dev/agraph | jq -r ".data.data | keys[] as \$$k | \"\(\$$k)=\(.[\$$k])\"" >> .env
+	@ vault kv get -format="json" ted-dev/ted-sws | jq -r ".data.data | keys[] as \$$k | \"\(\$$k)=\(.[\$$k])\"" >> .env
 
 
 prod-dotenv-file: guard-VAULT_ADDR guard-VAULT_TOKEN vault-installed
@@ -242,6 +243,7 @@ prod-dotenv-file: guard-VAULT_ADDR guard-VAULT_TOKEN vault-installed
 	@ vault kv get -format="json" ted-prod/mongo-db | jq -r ".data.data | keys[] as \$$k | \"\(\$$k)=\(.[\$$k])\"" >> .env
 	@ vault kv get -format="json" ted-prod/metabase | jq -r ".data.data | keys[] as \$$k | \"\(\$$k)=\(.[\$$k])\"" >> .env
 	@ vault kv get -format="json" ted-prod/agraph | jq -r ".data.data | keys[] as \$$k | \"\(\$$k)=\(.[\$$k])\"" >> .env
+	@ vault kv get -format="json" ted-prod/ted-sws | jq -r ".data.data | keys[] as \$$k | \"\(\$$k)=\(.[\$$k])\"" >> .env
 
 local-dotenv-file: rml-mapper-path-add-dotenv-file elk-add-dotenv-file logging-add-dotenv-file
 
@@ -264,12 +266,6 @@ logging-add-dotenv-file:
 	@ sed -i '/^LOGGING_TYPE/d' .env
 	@ echo LOGGING_TYPE=PY,ELK >> .env
 
-api-add-dotenv-file:
-	@ echo -e "$(BUILD_PRINT)Add API config to local .env file $(END_BUILD_PRINT)"
-	@ sed -i '/^API_HOST/d' .env
-	@ echo API_HOST=${API_HOST} >> .env
-	@ sed -i '/^API_PORT/d' .env
-	@ echo API_PORT=${API_PORT} >> .env
 
 refresh-mapping-files:
 	@ python -m ted_sws.data_manager.entrypoints.cmd_generate_mapping_resources

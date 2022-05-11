@@ -57,4 +57,4 @@ def test_unique_xpaths_covered_by_notices(notice_repository_with_indexed_notices
     mongodb_client = notice_repository_with_indexed_notices.mongodb_client
     unique_notices = get_unique_notice_id_from_notice_repository(mongodb_client=mongodb_client)
     unique_xpaths = get_unique_xpaths_covered_by_notices(notice_ids=unique_notices, mongodb_client=mongodb_client)
-    assert len(unique_xpaths) == 31
+    assert len(unique_xpaths) == 290

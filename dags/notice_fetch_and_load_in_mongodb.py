@@ -8,7 +8,9 @@ from airflow.operators.python import get_current_context
 from pymongo import MongoClient
 
 from ted_sws import config
+from ted_sws.core.model.notice import NoticeStatus
 from ted_sws.data_manager.adapters.notice_repository import NoticeRepository
+from ted_sws.data_sampler.services.notice_xml_indexer import index_notice
 from ted_sws.notice_fetcher.adapters.ted_api import TedAPIAdapter, TedRequestAPI
 from ted_sws.notice_fetcher.services.notice_fetcher import NoticeFetcher
 
@@ -56,7 +58,17 @@ def selector_notice_fetch_orchestrator():
                           ted_api_adapter=TedAPIAdapter(request_api=TedRequestAPI())).fetch_notices_by_date_wild_card(
                 wildcard_date=generate_wild_card_by_date(date=generated_date))  # "20220203*"
 
-    fetch_notice_from_ted()
+    @task
+    def index_notices():
+        mongodb_client = MongoClient(config.MONGO_DB_AUTH_URL)
+        notice_repository = NoticeRepository(mongodb_client=mongodb_client)
+        notices = notice_repository.get_notice_by_status(notice_status=NoticeStatus.RAW)
+        for notice in notices:
+            indexed_notice = index_notice(notice=notice)
+            notice_repository.update(notice=indexed_notice)
+
+
+    fetch_notice_from_ted() >> index_notices()
 
 
 dag = selector_notice_fetch_orchestrator()

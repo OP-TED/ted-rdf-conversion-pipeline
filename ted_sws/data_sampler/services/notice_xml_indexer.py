@@ -16,7 +16,8 @@ XSLT_PREFIX_RESULT = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>"
 
 def index_notice_by_id(notice_id: str, mongodb_client: MongoClient):
     """
-
+        This function selects unique XPath from XMlManifestation from a notice and indexes notices with these unique XPath,
+         where notice is selected based on notice_id.
     :param notice_id:
     :param mongodb_client:
     :return:
@@ -29,7 +30,7 @@ def index_notice_by_id(notice_id: str, mongodb_client: MongoClient):
 
 def index_notice(notice: Notice) -> Notice:
     """
-
+        This function selects unique XPath from XMlManifestation from a notice and indexes notices with these unique XPath.
     :param notice:
     :return:
     """
@@ -48,7 +49,7 @@ def index_notice(notice: Notice) -> Notice:
 
 def get_unique_xpaths_from_notice_repository(mongodb_client: MongoClient) -> List[str]:
     """
-
+        This function returns all unique XPaths in notice_repository.
     :param mongodb_client:
     :return:
     """
@@ -58,7 +59,7 @@ def get_unique_xpaths_from_notice_repository(mongodb_client: MongoClient) -> Lis
 
 def get_unique_notice_id_from_notice_repository(mongodb_client: MongoClient) -> List[str]:
     """
-
+        This function returns all unique notice_id in notice_repository.
     :param mongodb_client:
     :return:
     """
@@ -68,7 +69,7 @@ def get_unique_notice_id_from_notice_repository(mongodb_client: MongoClient) -> 
 
 def get_minimal_set_of_xpaths_for_coverage_notices(notice_ids: List[str], mongodb_client: MongoClient) -> List[str]:
     """
-
+        This function returns the minimum set of XPaths covering the transmitted notices list.
     :param notice_ids:
     :param mongodb_client:
     :return:
@@ -98,7 +99,7 @@ def get_minimal_set_of_xpaths_for_coverage_notices(notice_ids: List[str], mongod
 
 def get_minimal_set_of_notices_for_coverage_xpaths(xpaths: List[str], mongodb_client: MongoClient) -> List[str]:
     """
-
+        This function returns the minimum set of notices that cover the list of transmitted XPaths.
     :param xpaths:
     :param mongodb_client:
     :return:
@@ -130,7 +131,7 @@ def get_minimal_set_of_notices_for_coverage_xpaths(xpaths: List[str], mongodb_cl
 
 def get_unique_notices_id_covered_by_xpaths(xpaths: List[str], mongodb_client: MongoClient) -> List[str]:
     """
-
+        This function returns a list of notices that are covered by a list of XPaths.
     :param xpaths:
     :param mongodb_client:
     :return:
@@ -163,7 +164,7 @@ def get_unique_notices_id_covered_by_xpaths(xpaths: List[str], mongodb_client: M
 
 def get_unique_xpaths_covered_by_notices(notice_ids: List[str], mongodb_client: MongoClient) -> List[str]:
     """
-
+        This function returns a list of unique XPaths that are covered by the notices list.
     :param notice_ids:
     :param mongodb_client:
     :return:

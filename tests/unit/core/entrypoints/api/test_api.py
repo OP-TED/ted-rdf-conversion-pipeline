@@ -1,4 +1,5 @@
 from click.testing import CliRunner
+from fastapi.responses import JSONResponse, PlainTextResponse
 
 from ted_sws.core.entrypoints.api.common import single_result_response, unescape_value
 from ted_sws.core.entrypoints.api.server import api_server_start as cli_api_server_start
@@ -7,14 +8,10 @@ cmdRunner = CliRunner()
 
 
 def test_single_result_response(input_value, response_type_json, response_type_raw):
-    result_raw: str = single_result_response(input_value, response_type_raw)
-    assert isinstance(result_raw, str)
-    assert result_raw != ""
-
-    result_json: dict = single_result_response(input_value, response_type_json)
-    assert isinstance(result_json, dict)
-    assert "result" in result_json
-    assert result_json.get("result") != ""
+    response = single_result_response(input_value, response_type_raw)
+    assert isinstance(response, PlainTextResponse)
+    response = single_result_response(input_value, response_type_json)
+    assert isinstance(response, JSONResponse)
 
 
 def test_unescape_value(escaped_input_value, unescaped_input_value):

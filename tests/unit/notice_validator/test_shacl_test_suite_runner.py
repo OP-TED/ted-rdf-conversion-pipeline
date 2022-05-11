@@ -70,14 +70,14 @@ def test_validate_notice_by_id_with_shacl_suite(notice_with_distilled_status, rd
     assert isinstance(notice.get_rdf_validation()[0], RDFValidationManifestation)
     assert notice.get_rdf_validation()[0].object_data
 
-    # with pytest.raises(ValueError):
-    #     validate_notice_by_id_with_shacl_suite(notice_id="408313-202085569",
-    #                                            mapping_suite_repository=mapping_suite_repository,
-    #                                            notice_repository=notice_repository,
-    #                                            mapping_suite_identifier="test_package")
-    #
-    # with pytest.raises(ValueError):
-    #     validate_notice_by_id_with_shacl_suite(notice_id="408313-2020",
-    #                                            mapping_suite_repository=mapping_suite_repository,
-    #                                            notice_repository=notice_repository,
-    #                                            mapping_suite_identifier="no_package_here")
+    with pytest.raises(ValueError):
+        validate_notice_by_id_with_shacl_suite(notice_id="408313-202085569",
+                                               mapping_suite_repository=mapping_suite_repository,
+                                               notice_repository=notice_repository,
+                                               mapping_suite_identifier="test_package")
+
+    with pytest.raises(ValueError):
+        validate_notice_by_id_with_shacl_suite(notice_id="408313-2020",
+                                               mapping_suite_repository=mapping_suite_repository,
+                                               notice_repository=notice_repository,
+                                               mapping_suite_identifier="no_package_here")

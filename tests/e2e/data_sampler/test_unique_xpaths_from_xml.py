@@ -17,36 +17,28 @@ def test_index_notice_by_id(notice_2016, mongodb_client):
     assert len(result_notice.xml_metadata.unique_xpaths) == 112
 
 
-def test_unique_xpaths_from_xml(notice_2016, mongodb_client):
-    notice = index_notice(notice=notice_2016)
-    notice_repository = NoticeRepository(mongodb_client=mongodb_client)
-    notice_repository.add(notice=notice)
+def test_unique_xpaths_from_xml(notice_repository_with_indexed_notices):
+    mongodb_client = notice_repository_with_indexed_notices.mongodb_client
     unique_xpaths = get_unique_xpaths_from_notice_repository(mongodb_client=mongodb_client)
-    assert len(unique_xpaths) == 112
+    assert len(unique_xpaths) == 290
 
 
-def test_unique_notice_id(notice_2016, mongodb_client):
-    notice = index_notice(notice=notice_2016)
-    notice_repository = NoticeRepository(mongodb_client=mongodb_client)
-    notice_repository.add(notice=notice)
+def test_unique_notice_id(notice_repository_with_indexed_notices):
+    mongodb_client = notice_repository_with_indexed_notices.mongodb_client
     unique_notice_id = get_unique_notice_id_from_notice_repository(mongodb_client=mongodb_client)
-    assert len(unique_notice_id) == 1
+    assert len(unique_notice_id) == 31
 
 
-def test_minimal_set_of_notices_for_coverage_xpaths(notice_2016, mongodb_client):
-    notice = index_notice(notice=notice_2016)
-    notice_repository = NoticeRepository(mongodb_client=mongodb_client)
-    notice_repository.add(notice=notice)
+def test_minimal_set_of_notices_for_coverage_xpaths(notice_repository_with_indexed_notices):
+    mongodb_client = notice_repository_with_indexed_notices.mongodb_client
     unique_xpaths = get_unique_xpaths_from_notice_repository(mongodb_client=mongodb_client)
     minimal_set_of_notices = get_minimal_set_of_notices_for_coverage_xpaths(xpaths=unique_xpaths,
                                                                             mongodb_client=mongodb_client)
-    assert len(minimal_set_of_notices) == 1
+    assert len(minimal_set_of_notices) == 6
 
 
-def test_minimal_set_of_xpaths_for_coverage_notices(notice_2016, mongodb_client):
-    notice = index_notice(notice=notice_2016)
-    notice_repository = NoticeRepository(mongodb_client=mongodb_client)
-    notice_repository.add(notice=notice)
+def test_minimal_set_of_xpaths_for_coverage_notices(notice_repository_with_indexed_notices):
+    mongodb_client = notice_repository_with_indexed_notices.mongodb_client
     unique_notice_ids = get_unique_notice_id_from_notice_repository(mongodb_client=mongodb_client)
     minimal_set_of_xpaths = get_minimal_set_of_xpaths_for_coverage_notices(notice_ids=unique_notice_ids,
                                                                            mongodb_client=mongodb_client)

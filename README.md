@@ -223,7 +223,7 @@ Output:
 ```bash
 uvicorn --host localhost --port 8000 --log-level info ted_sws.core.entrypoints.api.main:app --reload
 ###
-See http://localhost:8000/docs for API usage.
+See http://localhost:8000/api/v1/docs for API usage.
 ```
 Use:
 ```bash

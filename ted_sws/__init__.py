@@ -103,7 +103,20 @@ class GitHubArtefacts:
         return VaultAndEnvConfigResolver().config_resolve()
 
 
-class TedConfigResolver(MongoDBConfig, RMLMapperConfig, XMLProcessorConfig, ELKConfig, LoggingConfig, GitHubArtefacts):
+class API:
+    @property
+    def API_HOST(self) -> str:
+        v: str = VaultAndEnvConfigResolver().config_resolve()
+        return v if v else "localhost"
+
+    @property
+    def API_PORT(self) -> int:
+        v: str = VaultAndEnvConfigResolver().config_resolve()
+        return int(v) if v else 8000
+
+
+class TedConfigResolver(MongoDBConfig, RMLMapperConfig, XMLProcessorConfig, ELKConfig, LoggingConfig,
+                        GitHubArtefacts, API):
     """
         This class resolve the secrets of the ted-sws project.
     """

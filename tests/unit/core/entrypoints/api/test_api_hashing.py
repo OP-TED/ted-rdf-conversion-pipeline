@@ -35,18 +35,19 @@ def test_api_fn_md5(input_value, response_type_json):
     assert result_json.get("result") != ""
 
 
-def test_api_fn_uuid(input_value, response_type_raw, uuid_input_process_type_md5, uuid_version5):
-    response = client.get(f"{URL_PREFIX}/fn/uuid/{input_value}?response_type={response_type_raw.value}")
+def test_api_fn_uuid(input_value, response_type_raw, response_type_json, uuid_input_process_type_md5, uuid_version5):
+    response = client.get(f"{URL_PREFIX}/fn/uuid/{input_value}")
     assert response.status_code == 200
     assert response.content != ""
 
     response = client.get(
-        f"{URL_PREFIX}/fn/uuid/{input_value}?process_type={uuid_input_process_type_md5.value}")
+        f"{URL_PREFIX}/fn/uuid/{input_value}?process_type={uuid_input_process_type_md5.value}&response_type={response_type_raw.value}"
+    )
     assert response.status_code == 200
     assert response.content != ""
 
     response = client.get(
-        f"{URL_PREFIX}/fn/uuid/{input_value}?version={uuid_version5.value}")
+        f"{URL_PREFIX}/fn/uuid/{input_value}?version={uuid_version5.value}&response_type={response_type_json.value}"
+    )
     assert response.status_code == 200
     assert response.content != ""
-

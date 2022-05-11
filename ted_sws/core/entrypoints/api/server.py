@@ -4,17 +4,20 @@ from typing import Tuple
 
 import click
 
+from ted_sws import config
 from ted_sws.event_manager.adapters.logger import Logger, LOG_INFO_LEVEL
 from ted_sws.event_manager.domain.message_bus import message_bus
 from ted_sws.event_manager.model.message import Log
 from ted_sws.core.entrypoints.api.main import API_PREFIX
 
 API_SERVER_LOG_LEVELS: Tuple = ('critical', 'error', 'warning', 'info', 'debug', 'trace')
+API_HOST: str = config.API_HOST
+API_PORT: int = config.API_PORT
 
 
 @click.command()
-@click.option('-h', '--host', default="localhost")
-@click.option('-p', '--port', default=8000, type=int)
+@click.option('-h', '--host', default=API_HOST)
+@click.option('-p', '--port', default=API_PORT, type=int)
 @click.option('-l', '--log-level', default="info", type=click.Choice(API_SERVER_LOG_LEVELS))
 def api_server_start(host, port, log_level):
     logger = Logger(name="API_SERVER", level=LOG_INFO_LEVEL)

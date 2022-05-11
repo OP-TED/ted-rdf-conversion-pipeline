@@ -14,6 +14,8 @@ PROJECT_PATH = $(shell pwd)
 AIRFLOW_INFRA_FOLDER ?= ${PROJECT_PATH}/.airflow
 RML_MAPPER_PATH = ${PROJECT_PATH}/.rmlmapper/rmlmapper.jar
 XML_PROCESSOR_PATH = ${PROJECT_PATH}/.saxon/saxon-he-10.6.jar
+API_HOST = localhost
+API_PORT = 8000
 
 #-----------------------------------------------------------------------------
 # Dev commands
@@ -261,6 +263,13 @@ logging-add-dotenv-file:
 	@ echo -e "$(BUILD_PRINT)Add logging config to local .env file $(END_BUILD_PRINT)"
 	@ sed -i '/^LOGGING_TYPE/d' .env
 	@ echo LOGGING_TYPE=PY,ELK >> .env
+
+api-add-dotenv-file:
+	@ echo -e "$(BUILD_PRINT)Add API config to local .env file $(END_BUILD_PRINT)"
+	@ sed -i '/^API_HOST/d' .env
+	@ echo API_HOST=${API_HOST} >> .env
+	@ sed -i '/^API_PORT/d' .env
+	@ echo API_PORT=${API_PORT} >> .env
 
 refresh-mapping-files:
 	@ python -m ted_sws.data_manager.entrypoints.cmd_generate_mapping_resources

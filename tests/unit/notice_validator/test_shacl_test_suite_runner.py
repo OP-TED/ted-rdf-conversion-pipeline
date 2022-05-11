@@ -28,13 +28,14 @@ def test_sparql_query_test_suite_runner_error(rdf_file_content, dummy_mapping_su
     assert isinstance(test_suite_execution, SHACLSuiteValidationReport)
     assert test_suite_execution.validation_result.error
 
+
 def test_shacl_report_builder(rdf_file_content, shacl_test_suite, dummy_mapping_suite):
     rdf_manifestation = RDFManifestation(object_data=rdf_file_content)
     sparql_runner = SHACLTestSuiteRunner(rdf_manifestation=rdf_manifestation, shacl_test_suite=shacl_test_suite,
                                          mapping_suite=dummy_mapping_suite)
     report_builder = SHACLReportBuilder(shacl_test_suite_execution=sparql_runner.execute_test_suite())
 
-    reports = report_builder.generate_reports()
+    reports = report_builder.generate_report()
     assert isinstance(reports, RDFValidationManifestation)
     assert reports.object_data
     assert "shacl_test_package" in reports.object_data

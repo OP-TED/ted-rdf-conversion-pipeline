@@ -12,3 +12,7 @@ def test_shacl_runner(rdf_file_content, list_of_shacl_files):
     assert conforms is False
     assert isinstance(result_graph, rdflib.Graph)
     assert isinstance(results_text, str)
+
+    for file in list_of_shacl_files:
+        file_format = shacl_runner._get_file_format(file_name=file.file_name)
+        assert file_format == "xml"

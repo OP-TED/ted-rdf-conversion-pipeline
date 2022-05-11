@@ -3,7 +3,7 @@ from pyshacl import validate
 
 from ted_sws.core.model.transform import FileResource
 
-SHACL_FILE_FORMAT_XML = "xml"
+TURTLE_FILE_TYPE = "turtle"
 SHACL_FILE_FORMAT_TURTLE = "n3"
 
 
@@ -22,8 +22,8 @@ class SHACLRunner:
         :param file_name:
         :return:
         """
-        file_type = file_name.split(".")[-1]
-        return file_type if file_type == SHACL_FILE_FORMAT_XML else SHACL_FILE_FORMAT_TURTLE
+        file_type = rdflib.util.guess_format(file_name)
+        return SHACL_FILE_FORMAT_TURTLE if file_type == TURTLE_FILE_TYPE else file_type
 
     def validate(self, shacl_shape_files: [FileResource]) -> tuple:
         """

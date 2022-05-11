@@ -58,7 +58,7 @@ class SHACLReportBuilder:
     def __init__(self, shacl_test_suite_execution: SHACLSuiteValidationReport):
         self.shacl_test_suite_execution = shacl_test_suite_execution
 
-    def generate_reports(self) -> SHACLSuiteValidationReport:
+    def generate_report(self) -> SHACLSuiteValidationReport:
         html_report = TEMPLATES.get_template(SHACL_TEST_SUITE_EXECUTION_HTML_REPORT_TEMPLATE).render(
             self.shacl_test_suite_execution.dict())
         self.shacl_test_suite_execution.object_data = html_report
@@ -79,7 +79,7 @@ def validate_notice_with_shacl_suite(notice: Notice, mapping_suite_package: Mapp
                                                     shacl_test_suite=shacl_test_suite,
                                                     mapping_suite=mapping_suite_package).execute_test_suite()
         report_builder = SHACLReportBuilder(shacl_test_suite_execution=test_suite_execution)
-        notice.set_rdf_validation(rdf_validation=report_builder.generate_reports())
+        notice.set_rdf_validation(rdf_validation=report_builder.generate_report())
 
 
 def validate_notice_by_id_with_shacl_suite(notice_id: str, mapping_suite_identifier: str,

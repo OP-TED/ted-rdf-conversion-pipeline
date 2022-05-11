@@ -58,6 +58,75 @@ def rdf_file_content():
 
 
 @pytest.fixture
+def shacl_file_content():
+    path = TEST_DATA_PATH / "ePO_shacl_shapes.xml"
+    return path.read_text()
+
+
+@pytest.fixture
+def shacl_file_two_content():
+    path = TEST_DATA_PATH / "ePO_shacl_shapes_two.xml"
+    return path.read_text()
+
+
+@pytest.fixture
+def list_of_shacl_files(shacl_file_content, shacl_file_two_content):
+    return [
+        FileResource(file_name="shacl_file_one.xml", file_content=shacl_file_content),
+        FileResource(file_name="shacl_file_two.xml", file_content=shacl_file_two_content)
+    ]
+
+
+@pytest.fixture
+def shacl_file_one(shacl_file_content):
+    return FileResource(file_name="shacl_file_one.xml", file_content=shacl_file_content)
+
+
+@pytest.fixture
+def shacl_file_two(shacl_file_two_content):
+    return FileResource(file_name="shacl_file_two.xml", file_content=shacl_file_two_content)
+
+
+@pytest.fixture
+def shacl_file_with_error():
+    return FileResource(file_name="shacl_file_with_error", file_content="something fishy")
+
+
+@pytest.fixture
+def validator_query():
+    return """
+prefix dash: <http://datashapes.org/dash#>
+prefix sh: <http://www.w3.org/ns/shacl#>
+prefix message: <http://www.w3.org/ns/shacl#message>
+
+SELECT ?focusNode ?message ?resultPath ?resultSeverity ?sourceConstraintComponent ?sourceShape ?value
+WHERE {
+    ?vr a sh:ValidationResult .
+    ?vr sh:focusNode ?focusNode .
+    OPTIONAL {
+        ?vr sh:message ?message .
+    }
+    OPTIONAL {
+        ?vr sh:resultPath ?resultPath .
+    }
+    OPTIONAL {
+        ?vr sh:resultSeverity ?resultSeverity .
+    }
+    OPTIONAL {
+        ?vr sh:sourceConstraintComponent ?sourceConstraintComponent .
+    }
+    OPTIONAL {
+        ?vr sh:sourceShape ?sourceShape .
+    }
+    OPTIONAL {
+        ?vr sh:value ?value .
+    }
+}
+ORDER BY ?focusNode ?resultSeverity ?sourceConstraintComponent
+    """
+
+
+@pytest.fixture
 def sparql_file_one():
     query = """# title: Title One
 # description: this is a description
@@ -104,20 +173,29 @@ def sparql_test_suite(sparql_file_one, sparql_file_two):
 
 
 @pytest.fixture
+def shacl_test_suite(shacl_file_one, shacl_file_two):
+    return SHACLTestSuite(identifier="shacl_test_package", shacl_tests=[shacl_file_one, shacl_file_two])
+
+
+@pytest.fixture
+def bad_shacl_test_suite(shacl_file_one, shacl_file_with_error):
+    return SHACLTestSuite(identifier="bad_shacl_test_package", shacl_tests=[shacl_file_one, shacl_file_with_error])
+
+
+@pytest.fixture
 def sparql_test_suite_with_invalid_query(invalid_sparql_file):
     return SPARQLTestSuite(identifier="sparql_test_package", sparql_tests=[invalid_sparql_file])
 
 
 @pytest.fixture
-def dummy_mapping_suite(sparql_test_suite):
+def dummy_mapping_suite(sparql_test_suite, shacl_test_suite):
     metadata_constrains = MetadataConstraints(constraints=dict())
     file_name = "fake_title.txt"
     empty_file_resource = FileResource(file_name=file_name, file_content="no content here", original_name=file_name)
     transformation_rule_set = TransformationRuleSet(resources=[empty_file_resource],
                                                     rml_mapping_rules=[empty_file_resource]
                                                     )
-    shacl_test_suite = SHACLTestSuite(identifier="fake_shacl_test_suite",
-                                      shacl_tests=[empty_file_resource])
+    shacl_test_suite = shacl_test_suite
     sparql_test_suite = sparql_test_suite
     transformation_test_data = TransformationTestData(test_data=[empty_file_resource])
     mapping_suite = MappingSuite(metadata_constraints=metadata_constrains,
@@ -154,7 +232,7 @@ def fake_repository_path():
 def fake_mapping_suite_id() -> str:
     return "test_package"
 
+
 @pytest.fixture
 def invalid_mapping_suite_id() -> str:
     return "test_invalid_package"
-

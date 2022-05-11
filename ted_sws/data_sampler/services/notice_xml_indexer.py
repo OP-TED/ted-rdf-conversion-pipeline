@@ -143,20 +143,6 @@ def get_unique_notices_id_covered_by_xpaths(xpaths: List[str], mongodb_client: M
             "$group": {"_id": None,
                        "ted_ids": {"$push": "$ted_id"}
                        }
-        },
-        {
-            "$project": {
-                "_id": 0,
-                "ted_ids": {
-                    "$setUnion": {
-                        "$reduce": {
-                            "input": '$ted_ids',
-                            "initialValue": [],
-                            "in": {"$concatArrays": ['$$value', '$$this']}
-                        }
-                    }
-                }
-            }
         }
     ]))[0]["ted_ids"]
     return results

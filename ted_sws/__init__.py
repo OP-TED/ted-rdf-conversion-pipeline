@@ -105,12 +105,12 @@ class GitHubArtefacts:
 
 class API:
     @property
-    def API_HOST(self) -> str:
+    def ID_MANAGER_API_HOST(self) -> str:
         v: str = VaultAndEnvConfigResolver().config_resolve()
         return v if v else "localhost"
 
     @property
-    def API_PORT(self) -> int:
+    def ID_MANAGER_API_PORT(self) -> int:
         v: str = VaultAndEnvConfigResolver().config_resolve()
         return int(v) if v else 8000
 

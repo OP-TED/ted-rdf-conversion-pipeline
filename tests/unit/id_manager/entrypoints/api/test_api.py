@@ -1,8 +1,8 @@
 from click.testing import CliRunner
 from fastapi.responses import JSONResponse, PlainTextResponse
 
-from ted_sws.core.entrypoints.api.common import single_result_response, unescape_value
-from ted_sws.core.entrypoints.api.server import api_server_start as cli_api_server_start
+from ted_sws.id_manager.entrypoints.api.common import single_result_response, unescape_value
+from ted_sws.id_manager.entrypoints.api.server import api_server_start as cli_api_server_start
 
 cmdRunner = CliRunner()
 

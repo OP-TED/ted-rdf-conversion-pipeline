@@ -9,7 +9,6 @@ apache-airflow==2.2.5
 hvac==0.11.2
 SPARQLWrapper==1.8.5
 pandas==1.3.5
-python-logstash~=0.4.8
 pymessagebus~=1.2
 click~=8.1.0
 openpyxl==3.0.9

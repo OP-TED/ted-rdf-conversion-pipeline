@@ -7,8 +7,8 @@
 
 import pytest
 
-from ted_sws.core.entrypoints.api.common import ResponseType
-from ted_sws.core.entrypoints.api.routes.hashing import UUIDInputProcessType, UUIDNamespaceType, UUIDVersion
+from ted_sws.id_manager.entrypoints.api.common import ResponseType
+from ted_sws.id_manager.entrypoints.api.routes.hashing import UUIDInputProcessType, UUIDNamespaceType, UUIDVersion
 
 
 @pytest.fixture()

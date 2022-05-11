@@ -2,8 +2,8 @@ import urllib.parse
 
 from fastapi.testclient import TestClient
 
-from ted_sws.core.entrypoints.api.main import app, API_PREFIX
-from ted_sws.core.entrypoints.api.routes.xpath import sanitize_xpath, ROUTE_PREFIX
+from ted_sws.id_manager.entrypoints.api.main import app, API_PREFIX
+from ted_sws.id_manager.entrypoints.api.routes.xpath import sanitize_xpath, ROUTE_PREFIX
 
 URL_PREFIX = API_PREFIX + ROUTE_PREFIX
 

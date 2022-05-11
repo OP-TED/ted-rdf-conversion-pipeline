@@ -214,14 +214,15 @@ Options:
 ```
 
 ### API
-#### Start local API server
+#### ID Manager API
+##### Start local API server
 To start the API server:
 ```bash
-api-start-server
+id-manager-api-start-server
 ```
 Output:
 ```bash
-uvicorn --host localhost --port 8000 --log-level info ted_sws.core.entrypoints.api.main:app --reload
+uvicorn --host localhost --port 8000 --log-level info ted_sws.id_manager.entrypoints.api.main:app --reload
 ###
 See http://localhost:8000/api/v1/docs for API usage.
 ```
@@ -231,7 +232,7 @@ api-start-server --help
 ```
 to get the cli command Usage Help:
 ```bash
-Usage: api-start-server [OPTIONS]
+Usage: id-manager-api-start-server [OPTIONS]
 
 Options:
   -h, --host TEXT

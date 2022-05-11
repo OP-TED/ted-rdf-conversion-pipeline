@@ -82,7 +82,7 @@ setup(
             "yarrrml2rml_converter = ted_sws.mapping_suite_processor.entrypoints.cli.cmd_yarrrml2rml_converter:main",
             "mapping_runner = ted_sws.notice_transformer.entrypoints.cli.cmd_mapping_runner:main",
             "normalisation_resource_generator = ted_sws.data_manager.entrypoints.cli.cmd_generate_mapping_resources:main",
-            "api-start-server = ted_sws.core.entrypoints.api.server:api_server_start"
+            "id-manager-api-start-server = ted_sws.id_manager.entrypoints.api.server:api_server_start"
         ],
     },
     include_package_data=True,

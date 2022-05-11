@@ -5,13 +5,10 @@ import sys
 from colorama import Fore
 from typing import List
 
-import logstash
-
 from ted_sws import config
 
 
 class LoggingType(enum.Enum):
-    ELK = "ELK"
     PY = "PY"
     DB = "DB"
 
@@ -67,8 +64,6 @@ class Logger(LoggerABC):
 
     def add_handlers(self):
         self.init_handlers()
-        if self.has_logging_type(LoggingType.ELK):
-            self.add_elk_handler()
 
     def has_handler(self, handler) -> bool:
         return any((type(handler) is type(h)) for h in self.get_handlers())
@@ -83,16 +78,6 @@ class Logger(LoggerABC):
         if formatter is not None:
             console.setFormatter(formatter)
         self.add_handler(console)
-
-    def add_elk_handler(self, level: int = DEFAULT_LOGGER_LEVEL):
-        host = config.ELK_HOST
-        port = config.ELK_PORT
-        version = config.ELK_VERSION
-
-        elk = logstash.LogstashHandler(host, port, version=version)
-        elk.setLevel(level)
-        self.add_handler(elk)
-        # self.logger.addHandler(logstash.TCPLogstashHandler(host, port, version=version))
 
     def log(self, msg: str, level: int = None):
         self.logger.log(level if level is not None else self.level, msg)

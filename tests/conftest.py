@@ -194,4 +194,7 @@ def normalised_metadata_object():
 @pytest.fixture
 @mongomock.patch(servers=(('server.example.com', 27017),))
 def mongodb_client():
-    return pymongo.MongoClient('server.example.com')
+    mongo_client = pymongo.MongoClient('server.example.com')
+    for database_name in mongo_client.list_database_names():
+        mongo_client.drop_database(database_name)
+    return mongo_client

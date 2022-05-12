@@ -9,7 +9,7 @@
 
 import os
 
-from ted_sws.notice_packager.entrypoints.bulk_packager import generate_packages
+from ted_sws.notice_packager.entrypoints.cli.bulk_packager import generate_packages
 from tests import TEST_DATA_PATH
 
 

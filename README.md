@@ -211,8 +211,35 @@ Usage: sparql_runner [OPTIONS] [MAPPING_SUITE_ID]
 Options:
   -m, --opt-mappings-folder TEXT
   --help                                      Show this message and exit.
-
 ```
+
+### API
+#### ID Manager API
+##### Start local API server
+To start the API server:
+```bash
+id-manager-api-start-server
+```
+Output:
+```bash
+uvicorn --host localhost --port 8000 ted_sws.id_manager.entrypoints.api.main:app --reload
+###
+See http://localhost:8000/api/v1/docs for API usage.
+```
+Use:
+```bash
+api-start-server --help
+```
+to get the cli command Usage Help:
+```bash
+Usage: id-manager-api-start-server [OPTIONS]
+
+Options:
+  -h, --host TEXT
+  -p, --port INTEGER
+  --help                                      Show this message and exit.
+```
+
 <hr>
 
 ## Contributions

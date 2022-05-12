@@ -1,8 +1,6 @@
-import os
-
 from click.testing import CliRunner
 
-from ted_sws.notice_transformer.entrypoints.cmd_mapping_runner import main as transform
+from ted_sws.notice_transformer.entrypoints.cli.cmd_mapping_runner import main as transform
 from tests.unit.notice_transformer.test_cmd_mapping_runner import __process_output_dir
 
 cmdRunner = CliRunner()

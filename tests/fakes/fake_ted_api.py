@@ -1,8 +1,8 @@
 import copy
 import json
-import pathlib
 from datetime import date
 from typing import List
+
 from ted_sws.notice_fetcher.adapters.ted_api_abc import TedAPIAdapterABC, RequestAPI
 from tests import TEST_DATA_PATH
 

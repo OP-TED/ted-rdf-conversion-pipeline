@@ -1,6 +1,6 @@
 from click.testing import CliRunner
 
-from ted_sws.mapping_suite_processor.entrypoints.cmd_mapping_suite_processor import main as cli_main
+from ted_sws.mapping_suite_processor.entrypoints.cli.cmd_mapping_suite_processor import main as cli_main
 from tests.unit.mapping_suite_processor.test_cmd_metadata_generator import __process_output_dir as \
     metadata__process_output_dir
 from tests.unit.mapping_suite_processor.test_cmd_sparql_generator import __process_output_dir as \

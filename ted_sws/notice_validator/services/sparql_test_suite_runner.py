@@ -179,6 +179,8 @@ def validate_notice_by_id_with_sparql_suite(notice_id: str, mapping_suite_identi
     mapping_suite_package = mapping_suite_repository.get(reference=mapping_suite_identifier)
     if mapping_suite_package is None:
         raise ValueError(f'Mapping suite package, with {mapping_suite_identifier} id, was not found')
+
+    print("Notice rdf_manifestation:", notice.rdf_manifestation)
     validate_notice_with_sparql_suite(notice=notice, mapping_suite_package=mapping_suite_package)
     notice_repository.update(notice=notice)
 

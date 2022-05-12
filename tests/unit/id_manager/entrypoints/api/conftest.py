@@ -6,9 +6,16 @@
 """ """
 
 import pytest
+from fastapi.testclient import TestClient
 
 from ted_sws.id_manager.entrypoints.api.common import ResponseType
+from ted_sws.id_manager.entrypoints.api.main import app
 from ted_sws.id_manager.entrypoints.api.routes.hashing import UUIDInputProcessType, UUIDNamespaceType, UUIDVersion
+
+
+@pytest.fixture()
+def api_client() -> TestClient:
+    return TestClient(app)
 
 
 @pytest.fixture()

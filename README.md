@@ -222,7 +222,7 @@ id-manager-api-start-server
 ```
 Output:
 ```bash
-uvicorn --host localhost --port 8000 --log-level info ted_sws.id_manager.entrypoints.api.main:app --reload
+uvicorn --host localhost --port 8000 ted_sws.id_manager.entrypoints.api.main:app --reload
 ###
 See http://localhost:8000/api/v1/docs for API usage.
 ```
@@ -237,7 +237,6 @@ Usage: id-manager-api-start-server [OPTIONS]
 Options:
   -h, --host TEXT
   -p, --port INTEGER
-  -l, --log-level [critical|error|warning|info|debug|trace]
   --help                                      Show this message and exit.
 ```
 

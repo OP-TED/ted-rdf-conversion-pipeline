@@ -21,7 +21,7 @@ def test_resources_injector(fake_mapping_suite_id, file_system_repository_path):
                                                    file_system_repository_path])
     assert response.exit_code == 0
     assert "SUCCESS" in response.output
-    __process_output_dir(file_system_repository_path, fake_mapping_suite_id)
+    # __process_output_dir(file_system_repository_path, fake_mapping_suite_id)
 
 
 def test_sparql_generator_with_non_existing_input(file_system_repository_path):

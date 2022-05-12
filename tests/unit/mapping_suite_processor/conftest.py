@@ -1,7 +1,6 @@
 import mongomock
 import pymongo
 import pytest
-from pathlib import Path
 
 from tests import TEST_DATA_PATH
 

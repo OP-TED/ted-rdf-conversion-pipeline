@@ -1,0 +1,839 @@
+<rdf:RDF
+    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+    xmlns:epodata="http://data.europa.eu/a4g/resource#"
+    xmlns:dc="http://www.omg.org/spec/UML/20131001/UMLDC"
+    xmlns:epo="http://data.europa.eu/a4g/ontology#"
+    xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+    xmlns:reg2015="http://data.europa.eu/a4g/extension/ontology#"
+    xmlns:ccts="http://www.unece.org/cefact#"
+    xmlns:dct="http://purl.org/dc/terms/"
+    xmlns:owl="http://www.w3.org/2002/07/owl#"
+    xmlns:reg2015data="http://data.europa.eu/a4g/extension/resource#"
+    xmlns:skos="http://www.w3.org/2004/02/skos/core#"
+    xmlns:cc="http://creativecommons.org/ns#"
+    xmlns:org="http://www.w3.org/ns/org#"
+    xmlns:vann="http://purl.org/vocab/vann/"
+    xmlns:foaf="http://xmlns.com/foaf/0.1/">
+  <epo:Business rdf:about="http://data.europa.eu/a4g/resource/2018/s-001-000005#BusinessOrganisationOldd21a53d8-6ab3-4c55-ac67-be0db18400ce">
+    <epo:isAn>
+      <epo:Organisation rdf:about="http://data.europa.eu/a4g/resource/2018/s-001-000005#WinnerOrganisationOld489a3d39-4283-403e-96c7-c97eb1ca7c77">
+        <epo:hasLocation>
+          <epo:Location rdf:about="http://data.europa.eu/a4g/resource/2018/s-001-000005#WinnerLocationAwardedToGroupOldc89e5b1d-d643-43c2-9038-ce0c05c9e7dc">
+            <epo:hasPostalAddress>
+              <epo:Address rdf:about="http://data.europa.eu/a4g/resource/2018/s-001-000005#WinnerAddressAwardedGroupOld4fd67117-6cb1-4b99-8e79-bb302e903957">
+                <epo:hasCountrySubentityCode rdf:resource="http://data.europa.eu/nuts/code/ITH52"/>
+                <epo:hasStreetName>Galleria Crocetta 10/a</epo:hasStreetName>
+                <epo:hasCityName>Parma</epo:hasCityName>
+                <epo:hasCountryCode rdf:resource="http://publications.europa.eu/resource/authority/country/ITA"/>
+                <epo:hasPostalZone>43126</epo:hasPostalZone>
+              </epo:Address>
+            </epo:hasPostalAddress>
+          </epo:Location>
+        </epo:hasLocation>
+        <epo:hasName xml:lang="en">Forsafe</epo:hasName>
+      </epo:Organisation>
+    </epo:isAn>
+    <epo:hasSize rdf:resource="http://publications.europa.eu/resource/authority/economic-operator-size/sme"/>
+  </epo:Business>
+  <epo:AwardCriterion rdf:about="http://data.europa.eu/a4g/resource/2018/s-001-000005#AwardCriterionCostb4138ba5-9798-49b6-8434-872612adefb2">
+    <epo:hasName xml:lang="nl">Goedkoopste prijsofferte/prijs van inschrijving X</epo:hasName>
+    <epo:hasName xml:lang="it">Offerta di prezzo più economico/prezzo dell'offerta X</epo:hasName>
+    <epo:hasName xml:lang="es">Oferta más barata/precio de la oferta X</epo:hasName>
+    <epo:isUsedToAward>
+      <epo:Lot rdf:about="http://data.europa.eu/a4g/resource/2018/s-001-000005#Lot6b47fca6-4806-41ca-a298-f63ea4170873">
+        <epo:hasDescription xml:lang="el">
+                  &lt;P&gt;Στόχος της παρούσας διαδικασίας διαγωνισμού είναι η σύναψη πολλαπλής σύμβασης-πλαίσιο με διαδοχική σειρά για διάρκεια 4 ετών. Η σύμβαση-πλαίσιο θα εκτελεστεί μέσω ειδικών συμβάσεων. Κάθε φορά που ο ανάδοχος της σύμβασης-πλαίσιο απαντά σε μια πρόσκληση στο πλαίσιο της σύμβασης-πλαίσιο, θα πρέπει να συνάπτεται μια ειδική σύμβαση μεταξύ της EFSA και του αναδόχου της σύμβασης-πλαίσιο. Η ειδική σύμβαση θα ρυθμίσει τις ειδικές προϋποθέσεις για την εκτέλεση της επιμέρους ανάθεσης.&lt;/P&gt;
+               </epo:hasDescription>
+        <epo:hasDescription xml:lang="lv">
+                  &lt;P&gt;Šīs iepirkuma procedūras mērķis ir noslēgt vairākkārtēju kaskādes veida pamatnolīgumu uz 4 gadiem. Pamatnolīgums tiks īstenots, izmantojot konkrētus līgumus. Ikreiz, kad darbuzņēmējs, ar ko noslēgts pamatnolīgums, reaģēs uz izsaukumu pamatnolīguma ietvaros, būs jānoslēdz konkrēts līgums starp EFSA un darbuzņēmēju, ar ko noslēgts pamatnolīgums. Konkrētajā līgumā tiks izklāstīti konkrētie nosacījumi attiecīgā uzdevuma veikšanai.&lt;/P&gt;
+               </epo:hasDescription>
+        <epo:hasDescription xml:lang="da">
+                  &lt;P&gt;Formålet med denne udbudsprocedure er at indgå en multipel rammekontrakt efter kaskadeprincippet for 4 år. Rammekontrakten skal gennemføres på specifikke kontrakter. Hver gang rammekontrahenten svarer på et udbud under rammekontrakten, skal der indgås en specifik kontrakt mellem EFSA og rammekontrahenten. Den specifikke kontrakt skal fastsætte de specifikke betingelser for udførelsen af den enkelte opgave.&lt;/P&gt;
+               </epo:hasDescription>
+        <epo:hasDescription xml:lang="de">
+                  &lt;P&gt;Ziel dieses Beschaffungsverfahrens ist der Abschluss eines Mehrfach-Rahmenvertrags im Kaskadenverfahren für 4 Jahre. Der Rahmenvertrag wird durch spezifische Aufträge umgesetzt. Jedes Mal, wenn der Auftragnehmer des Rahmenvertrags auf eine Anfrage im Zusammenhang mit dem Rahmenvertrag reagiert, muss ein spezifischer Vertrag zwischen der EFSA und dem Auftragnehmer des Rahmenvertrags geschlossen werden. Der spezifische Vertrag enthält die spezifischen Bedingungen für die Ausführung der Einzelaufgabe.&lt;/P&gt;
+               </epo:hasDescription>
+        <epo:hasDescription xml:lang="sl">
+                  &lt;P&gt;Cilj tega razpisnega postopka je skleniti večkratno okvirno pogodbo v kaskadi za 4 leta. Okvirna pogodba se bo izvajala na podlagi posebnih pogodb. Vsakič, ko se okvirni izvajalec odzove na poziv na podlagi okvirne pogodbe, bo treba med EFSA in okvirnim izvajalcem skleniti posebno pogodbo. V posebni pogodbi bodo določeni posebni pogoji za izvedbo posamezne naloge.&lt;/P&gt;
+               </epo:hasDescription>
+        <epo:hasDescription xml:lang="pl">
+                  &lt;P&gt;Celem niniejszej procedury przetargowej jest zawarcie wielokrotnej umowy ramowej w systemie kaskadowym na okres 4 lat. Umowa ramowa będzie realizowana poprzez umowy szczegółowe. Każdorazowo w przypadku odpowiedzi przez wykonawcę na wezwanie zgłoszone w ramach umowy ramowej EFSA i wykonawca umowy ramowej będą zobowiązani do podpisania umowy szczegółowej. W umowie szczegółowej określone zostaną konkretne warunki dotyczące wykonywania danego zadania.&lt;/P&gt;
+               </epo:hasDescription>
+        <epo:providesAdditionalInformation>
+          <epo:StatisticalInformation rdf:about="http://data.europa.eu/a4g/resource/2018/s-001-000005#StatisticalInformation753eee87-e07c-405d-8def-352cda8ae913">
+            <epo:hasReceivedSMETenderLots>2</epo:hasReceivedSMETenderLots>
+            <epo:hasReceivedTenderLots>2</epo:hasReceivedTenderLots>
+          </epo:StatisticalInformation>
+        </epo:providesAdditionalInformation>
+        <epo:hasEstimatedValue>
+          <epo:Value rdf:about="http://data.europa.eu/a4g/resource/2018/s-001-000005#EstimatedValueOlddd6e94be-420e-4c55-8734-9b9de7da45dd">
+            <epo:hasOverallAmount>
+              <ccts:Amount rdf:about="http://data.europa.eu/a4g/resource/2018/s-001-000005#ValueOverallAmountOld12f6a68d-69f4-4d1a-9d13-f9b00b6a2458">
+                <ccts:hasAmountValue>1500000.00</ccts:hasAmountValue>
+                <epo:hasCurrencyCode rdf:resource="http://publications.europa.eu/resource/authority/currency/EUR"/>
+              </ccts:Amount>
+            </epo:hasOverallAmount>
+            <epo:hasVATIncludedIndicator>false</epo:hasVATIncludedIndicator>
+          </epo:Value>
+        </epo:hasEstimatedValue>
+        <epo:isSpecifiedIn>
+          <epo:Procedure rdf:about="http://data.europa.eu/a4g/resource/2018/s-001-000005#Procedure2f1ca8a0-26bc-4d71-9120-684b9fe42e65">
+            <reg2015:hasGPAUsage>false</reg2015:hasGPAUsage>
+            <epo:hasDescription xml:lang="hr">
+               &lt;P&gt;Glavna svrha ovog postupka nabave je odabrati skupinu savjetnika koji mogu pružiti podršku EFSA-i pri ostvarivanju strateškog cilja broj 5 (OS5), „Stvaranje okoliša i kulture koji odražavaju vrijednosti EFSA-e”. Konkretnije, cilj OS5 usmjeren je na snagu orijentacije u pogledu učinkovitosti i kvalitete putem cjelovitog uspostavljanja korporativne funkcije za kontrolu poslovanja te pojednostavljivanja EFSA-inih inicijativa kontroliranja (uključujući upravljanje rizikom, unutarnju kontrolu, upravljanje kvalitetom) kojima se pruža podrška stalnom unapređenju.&lt;/P&gt;
+            </epo:hasDescription>
+            <epo:hasTitle xml:lang="ga">
+               &lt;P&gt;Seirbhísí comhairleachta chun éifeachtúlacht agus éifeachtacht phróisis bhainistíochta saoráide EFSA a fheabhsú&lt;/P&gt;
+            </epo:hasTitle>
+            <epo:hasTitle xml:lang="lt">
+               &lt;P&gt;Konsultavimo paslaugos siekiant pagerinti EFSA įrenginių valdymo procesų veiksmingumą ir efektyvumą&lt;/P&gt;
+            </epo:hasTitle>
+            <epo:hasDescription xml:lang="it">
+               &lt;P&gt;L'obiettivo principale della presente procedura d'appalto è selezionare un gruppo di consulenti in grado di assistere l'EFSA nel conseguire l'obiettivo strategico numero 5 (OS5) «Creare un ambiente e una cultura che riflettono i valori dell'EFSA». In particolare l'OS5 mira a rafforzare le prestazioni e l'orientamento verso la qualità attraverso la costituzione completa di una funzione di controllo delle attività dell'organizzazione e l'ottimizzazione delle iniziative di controllo dell'EFSA (compresi gestione dei rischi, controllo interno, gestione della qualità) per sostenere il miglioramento continuo.&lt;/P&gt;
+            </epo:hasDescription>
+            <epo:hasTitle xml:lang="cs">
+               &lt;P&gt;Poradenské služby pro zvýšení efektivnosti a účinnosti procesů správy zařízení EFSA&lt;/P&gt;
+            </epo:hasTitle>
+            <epo:hasDescription xml:lang="cs">
+               &lt;P&gt;Hlavním cílem tohoto výběrového řízení je vybrat skupinu poradců, kteří budou s to poskytnout podporu agentuře EFSA při dosahování strategického cíle 5 (OS5), „Vytvoření prostředí a kultury, které odrážejí hodnoty EFSA". Cílem OS5 je především posílení orientace na výkonnost a kvalitu prostřednictvím úplného zřízení funkce firemní obchodní kontroly a racionalizace kontrolních iniciativ EFSA (včetně řízení rizik, vnitřní kontroly, řízení kvality) při podpoře průběžného zlepšování.&lt;/P&gt;
+            </epo:hasDescription>
+            <epo:hasDescription xml:lang="da">
+               &lt;P&gt;Hovedformålet med denne udbudsprocedure er at udvælge en pulje af konsulenter, der kan støtte EFSA med henblik på at opnå det strategiske mål nr. 5 (SM5) »Skabelse af et miljø og en kultur, der afspejler EFSA's værdier«. SM5 har især til formål at styrke præstationen og kvalitetsorienteringen via komplet etablering af en forretningsrelateret kontrolfunktion og strømlining af EFSA's kontrolinitiativer (herunder risikoforvaltning, intern kontrol, kvalitetsforvaltning), der støtter løbende forbedring.&lt;/P&gt;
+            </epo:hasDescription>
+            <epo:hasDescription xml:lang="lt">
+               &lt;P&gt;Pagrindinis šios pirkimo procedūros tikslas yra atrinkti konsultantų, galinčių remti EFSA jai siekiant strateginio tikslo nr. 5 (OS5) „Aplinkos ir kultūros, kurios atspindėtų EFSA vertes, sukūrimas“, grupę. Ypač OS5 siekiama stiprinti veiklos vykdymą ir kokybės orientavimą visiškai įsteigiant korporacinio verslo kontrolės funkciją ir supaprastinant EFSA kontroliavimo iniciatyvas (įskaitant rizikos valdymą, vidaus kontrolę, kokybės valdymą) remiant nuolatinį tobulinimą.&lt;/P&gt;
+            </epo:hasDescription>
+            <epo:hasTitle xml:lang="en">
+               &lt;P&gt;Consultancy services to improve efficiency and effectiveness of EFSA facility management processes&lt;/P&gt;
+            </epo:hasTitle>
+            <epo:hasTitle xml:lang="nl">
+               &lt;P&gt;Consultancydiensten met het oog op de verbetering van de efficiëntie en doeltreffendheid van EFSA-faciliteitenbeheerprocessen&lt;/P&gt;
+            </epo:hasTitle>
+            <epo:hasOverallPurpose>
+              <epo:Purpose rdf:about="http://data.europa.eu/a4g/resource/2018/s-001-000005#Purpose4f129349-a479-4bc0-b0ec-5dd721f41a32">
+                <epo:hasMainClassification rdf:resource="http://data.europa.eu/cpv/cpv/79411000"/>
+                <epo:hasContractNatureType rdf:resource="http://publications.europa.eu/resource/authority/contract-nature/services"/>
+              </epo:Purpose>
+            </epo:hasOverallPurpose>
+            <epo:hasDescription xml:lang="bg">
+               &lt;P&gt;Основната цел на тази процедура по обществена поръчка е да се избере екип от консултанти, които да могат да подпомогнат ЕОБХ при постигането на стратегическата цел номер 5 (OS5), „Създаване на среда и култура, които отразяват ценностите на ЕОБХ“. По-специално OS5 е насочена към подобряване на изпълнението и ориентацията към качество посредством пълното установяване на функция за управление на корпоративната бизнес дейност и рационализиране на контролиращите инициативи на ЕОБХ (включително управление на риска, вътрешен контрол, управление на качеството), подпомагащи непрекъснато усъвършенстване.&lt;/P&gt;
+            </epo:hasDescription>
+            <epo:hasDescription xml:lang="es">
+               &lt;P&gt;El objetivo principal del presente procedimiento de licitación consiste en seleccionar a un grupo de consultores para prestar apoyo a la EFSA en la consecución del objetivo estratégico número 5 (OS5), «Crear un entorno y una cultura que reflejen los valores de la EFSA». En particular, el OS5 prevé reforzar el rendimiento y la orientación de calidad a través del establecimiento completo de una función de control de las actividades de la organización, así como la racionalización de las iniciativas de control de la EFSA (incluida la gestión de riesgos, el control interno, la gestión de la calidad) en apoyo a la mejora continua.&lt;/P&gt;
+            </epo:hasDescription>
+            <epo:hasDescription xml:lang="sk">
+               &lt;P&gt;Hlavným cieľom tohto obstarávacieho konania je vybrať skupinu konzultantov, ktorí budú schopní poskytnúť podporu EFSA pri dosiahnutí strategického cieľa 5 (OS5) „Vytvorenie takého prostredia a kultúry, ktoré odrážajú hodnoty EFSA". Cieľom OS5 je predovšetkým posilnenie orientácie na výkon a kvalitu prostredníctvom úplného zavedenia funkcie podnikovej obchodnej kontroly a zefektívnenia kontrolných iniciatív EFSA (vrátane riadenia rizík, vnútornej kontroly, riadenia kvality), pričom sa bude podporovať neustále zlepšovanie.&lt;/P&gt;
+            </epo:hasDescription>
+            <epo:hasDescription xml:lang="sv">
+               &lt;P&gt;Det huvudsakliga syftet med detta upphandlingsförfarande är att välja ut en grupp av rådgivare som kan stödja Efsa när det gäller att uppnå det strategiska målet nummer 5 (OS5), Skapa en miljö och kultur som återspeglar Efsas värderingar. I synnerhet syftar OS5 till att stärka utförande och kvalitetsinriktning genom fullständigt upprättande av en kontrollfunktion för affärsrörelser och effektivisering av Efsas kontrollinitiativ (inbegripet riskhantering, internkontroll, kvalitetsstyrning) för att stödja kontinuerlig förbättring.&lt;/P&gt;
+            </epo:hasDescription>
+            <epo:hasTitle xml:lang="hr">
+               &lt;P&gt;Savjetodavne usluge za unapređenje učinkovitosti i djelotvornosti postupaka EFSA-e za upravljanje objektima&lt;/P&gt;
+            </epo:hasTitle>
+            <epo:hasDescription xml:lang="nl">
+               &lt;P&gt;De voornaamste doelstelling van onderhavige aanbestedingsprocedure is de selectie van een groep adviseurs die EFSA kunnen bijstaan bij het behalen van strategische doelstelling nummer 5 „Een klimaat en cultuur scheppen die de waarden van EFSA weerspiegelen”. Strategische doelstelling nummer 5 is met name gericht op de versterking van de prestatie en kwaliteitsoriëntatie via de volledige opstelling van een controlefunctie voor bedrijfsactiviteiten en het stroomlijnen van de controlerende initiatieven van EFSA (met inbegrip van risicobeheer, interne controle, kwaliteitsbeheer) waarbij continue verbetering wordt ondersteund.&lt;/P&gt;
+            </epo:hasDescription>
+            <epo:hasTitle xml:lang="sl">
+               &lt;P&gt;Svetovalne storitve za izboljšanje učinkovitosti in uspešnosti procesov upravljanja objektov EFSA&lt;/P&gt;
+            </epo:hasTitle>
+            <epo:hasTitle xml:lang="sv">
+               &lt;P&gt;Rådgivningstjänster för att förbättra effektiviteten och verkningsfullheten hos Efsas fastighetsförvaltningsprocesser&lt;/P&gt;
+            </epo:hasTitle>
+            <epo:hasDescription xml:lang="de">
+               &lt;P&gt;Dieses Beschaffungsverfahren dient hauptsächlich dem Zweck, einen Beraterpool auszuwählen, der in der Lage ist, die EFSA beim Erreichen des strategischen Ziels Nr. 5 (OS5) „Schaffen eines Umfelds und einer Kultur, welche die Werte der EFSA widerspiegeln“ zu unterstützen. OS5 zielt insbesondere auf eine starke Leistung und Qualitätsorientierung ab. Dazu sollen die umfassende Einrichtung einer Unternehmenskontrollfunktion sowie die Rationalisierung der Controlling-Initiativen der EFSA (einschließlich Risikomanagement, interne Kontrolle, Qualitätsmanagement), die eine ständige Verbesserung unterstützen, erfolgen.&lt;/P&gt;
+            </epo:hasDescription>
+            <reg2015:uses>
+              <epo:FrameworkAgreementTechnique rdf:about="http://data.europa.eu/a4g/resource/2018/s-001-000005#Framework6da52f0f-1ba1-44ab-8b94-c07f4d4c3397"/>
+            </reg2015:uses>
+            <epo:hasTitle xml:lang="mt">
+               &lt;P&gt;Servizzi ta' konsulenza biex itejbu l-effiċjenza u l-effettività tal-proċessi tal-immaniġġjar tal-faċilità tal-EFSA&lt;/P&gt;
+            </epo:hasTitle>
+            <epo:hasTitle xml:lang="hu">
+               &lt;P&gt;Tanácsadási szolgáltatások az EFSA létesítménygazdálkodási folyamatai hatékonyságának és eredményességének fejlesztése érdekében&lt;/P&gt;
+            </epo:hasTitle>
+            <epo:hasDescription xml:lang="lv">
+               &lt;P&gt;Šīs iepirkuma procedūras galvenais mērķis ir izraudzīties tādu konsultantu grupu, kuri var palīdzēt EFSA sasniegt 5. stratēģisko mērķi (OS5), proti, radīt tādu vidi un kultūru, kas atspoguļo EFSA vērtības. OS5 ir jo īpaši vērsts uz labiem darbības rezultātiem un orientāciju uz kvalitāti, un tas jāpanāk, pilnā apmērā ieviešot korporatīvo darbības uzraudzības funkciju un racionalizējot EFSA kontroles iniciatīvas (tostarp riska pārvaldību, iekšējo kontroli, kvalitātes pārvaldību), kas sekmē pastāvīgu pilnveidi.&lt;/P&gt;
+            </epo:hasDescription>
+            <epo:hasTitle xml:lang="bg">
+               &lt;P&gt;Консултантски услуги за подобряване на ефикасността и ефективността на процесите по управление на съоръжения на ЕОБХ&lt;/P&gt;
+            </epo:hasTitle>
+            <epo:hasTitle xml:lang="de">
+               &lt;P&gt;Beratungsleistungen zur Erhöhung der Effizienz und Effektivität der Gebäudemanagementprozesse der EFSA&lt;/P&gt;
+            </epo:hasTitle>
+            <epo:hasTitle xml:lang="lv">
+               &lt;P&gt;Konsultāciju pakalpojumi EFSA resursu pārvaldības procesu efektivitātes un lietderības uzlabošanai&lt;/P&gt;
+            </epo:hasTitle>
+            <epo:specifies rdf:resource="http://data.europa.eu/a4g/resource/2018/s-001-000005#Lot6b47fca6-4806-41ca-a298-f63ea4170873"/>
+            <epo:hasProcedureType rdf:resource="http://publications.europa.eu/resource/authority/procurement-procedure-type/open"/>
+            <epo:hasTitle xml:lang="et">
+               &lt;P&gt;Nõustamisteenused, et parandada Euroopa Toiduohutusameti (EFSA) rajatiste haldamise protsesside tõhusust ja tulemuslikkust&lt;/P&gt;
+            </epo:hasTitle>
+            <epo:hasTitle xml:lang="pt">
+               &lt;P&gt;Serviços de consultoria para melhorar a eficiência e a eficácia de processos de gestão de instalações da EFSA&lt;/P&gt;
+            </epo:hasTitle>
+            <epo:hasTitle xml:lang="fi">
+               &lt;P&gt;Konsultointipalvelut Euroopan elintarviketurvallisuusviranomaisen (EFSA) tilojen hallinnointia koskevien prosessien tehokkuuden ja tuloksellisuuden parantamiseksi&lt;/P&gt;
+            </epo:hasTitle>
+            <epo:hasID>
+              <epo:Identifier rdf:about="http://data.europa.eu/a4g/resource/2018/s-001-000005#ProcedureId2df330d0-3eb6-49a7-9b14-a6075d3c5bac">
+                <epo:hasIdentifierValue>OC/EFSA/CORSER/2017/03</epo:hasIdentifierValue>
+              </epo:Identifier>
+            </epo:hasID>
+            <epo:hasTitle xml:lang="da">
+               &lt;P&gt;Rådgivning til forbedring af nyttevirkningen og effektiviteten af EFSA's processer til ejendomsadministration&lt;/P&gt;
+            </epo:hasTitle>
+            <epo:hasTitle xml:lang="sk">
+               &lt;P&gt;Poradenské služby na zlepšenie účinnosti a efektívnosti procesov správy zariadení EFSA&lt;/P&gt;
+            </epo:hasTitle>
+            <epo:hasDescription xml:lang="hu">
+               &lt;P&gt;E közbeszerzési eljárás fő célja egy olyan tanácsadói csapat kiválasztása, amely képes támogatni az EFSA-t az 5. számú stratégiai célkitűzés (OS5) elérésében, amely a következő: „Az EFSA értékeit tükröző környezet és kultúra létrehozása”. Az 5. számú stratégiai célkitűzés konkrétan a teljesítmény- és a minőségorientáció megerősítése egy a szervezet tevékenységét ellenőrző szervezeti funkció teljes körű létrehozásával, valamint az EFSA folyamatos fejlődést támogató ellenőrzési kezdeményezéseinek (ideértve a kockázatkezelést, a belső ellenőrzést és a minőségirányítást is) észszerűsítésével.&lt;/P&gt;
+            </epo:hasDescription>
+            <epo:hasDescription xml:lang="en">
+               &lt;P&gt;The main purpose of this procurement procedure is to select a pool of consultants able to support EFSA in the achievement of the Strategic Objective number 5 (OS5), “Create an environment and culture that reflects EFSA’s values”. In particular the OS5 aims to strength of performance and quality orientation via the full establishment of a corporate business control function and the streamlining of EFSA’s controlling initiatives (including risk management, internal control, quality management) supporting continuous improvement.&lt;/P&gt;
+            </epo:hasDescription>
+            <epo:hasTitle xml:lang="ro">
+               &lt;P&gt;Servicii de consultanță pentru îmbunătățirea eficienței și a eficacității proceselor de gestionare a instalațiilor EFSA&lt;/P&gt;
+            </epo:hasTitle>
+            <epo:hasDescription xml:lang="el">
+               &lt;P&gt;Ο κύριος στόχος της παρούσας διαδικασίας ανάθεσης σύμβασης είναι η επιλογή μιας ομάδας συμβούλων, οι οποίοι θα υποστηρίζουν την EFSA στην επίτευξη του στρατηγικού στόχου 5 (OS5), «Δημιουργία περιβάλλοντος και νοοτροπίας που αντικατοπτρίζουν τις αξίες της EFSA». Ειδικότερα, ο OS5 στοχεύει στην ενίσχυση της απόδοσης και του προσανατολισμού ποιότητας, μέσω της πλήρους εγκατάστασης λειτουργίας εταιρικού επιχειρηματικού ελέγχου και του εκσυγχρονισμού των πρωτοβουλιών ελέγχου της EFSA (συμπεριλαμβανομένων της διαχείρισης κινδύνων, του εσωτερικού ελέγχου και της διαχείρισης ποιότητας) στηρίζοντας τη συνεχή βελτίωση.&lt;/P&gt;
+            </epo:hasDescription>
+            <epo:hasTitle xml:lang="el">
+               &lt;P&gt;Υπηρεσίες παροχής συμβουλών για τη βελτίωση της αποδοτικότητας και της αποτελεσματικότητας των διαδικασιών διαχείρισης των εγκαταστάσεων της EFSA&lt;/P&gt;
+            </epo:hasTitle>
+            <epo:hasDescription xml:lang="fi">
+               &lt;P&gt;Tämän hankintamenettelyn päätarkoituksena on sellaisen konsulttien ryhmän valitseminen, joka pystyy tukemaan EFSAa strategisen tavoitteen numero 5 (OS5) ”EFSAn arvoja heijastavan ympäristön ja kulttuurin luominen” saavuttamisessa. OS5-tavoitteen avulla pyritään erityisesti vahvistamaan suorituskykyä ja laatusuuntautuneisuutta seuraavien avulla: yritysliiketoiminnan valvontatoiminnon täysimääräinen perustaminen ja EFSAn valvontaan liittyvien aloitteiden (mukaan luettuina riskinhallinta, sisäinen valvonta, laadunhallinta) virtaviivaistaminen jatkuvan parantamisen tukemiseksi.&lt;/P&gt;
+            </epo:hasDescription>
+            <epo:hasTitle xml:lang="fr">
+               &lt;P&gt;Services de conseil en vue d'améliorer l'efficacité et l'efficience des processus de gestion d'installations de l'EFSA&lt;/P&gt;
+            </epo:hasTitle>
+            <reg2015:hasBuyerLegalType rdf:resource="http://publications.europa.eu/resource/authority/buyer-legal-type/eu-int-org"/>
+            <epo:hasTitle xml:lang="it">
+               &lt;P&gt;Servizi di consulenza per migliorare l'efficienza e l'efficacia dei processi di gestione delle installazioni dell'EFSA&lt;/P&gt;
+            </epo:hasTitle>
+            <epo:hasDescription xml:lang="pt">
+               &lt;P&gt;O objetivo principal do presente processo de concurso consiste em selecionar um grupo de consultores capazes de apoiar a EFSA na consecução do objetivo estratégico n.º 5 «Criar um ambiente e uma cultura que reflitam os valores da EFSA». Em particular, o objetivo estratégico n.º 5 visa reforçar o desempenho e a orientação para a qualidade através do total estabelecimento de uma função de controlo das atividades da organização e da otimização das iniciativas de controlo da EFSA (incluindo gestão de riscos, controlo interno, gestão da qualidade) que apoiam a melhoria contínua.&lt;/P&gt;
+            </epo:hasDescription>
+            <epo:hasDescription xml:lang="sl">
+               &lt;P&gt;Glavni namen tega razpisnega postopka je izbrati skupino svetovalcev za zagotavljanje podpore za EFSA pri doseganju strateškega cilja številka 5 (OS5), „Ustvariti okolje in kulturo, ki odražata vrednote EFSA“. Namen OS5 je zlasti krepitev izvajanja dejavnosti in kakovostnega vodenja s popolno vzpostavitvijo poslovne nadzorne funkcije in izboljšanjem učinkovitosti nadzornih pobud EFSA (vključno z obvladovanjem tveganja, notranjim nadzorom, vodenjem kakovosti) za podporo nenehnih izboljšav.&lt;/P&gt;
+            </epo:hasDescription>
+            <epo:isResponsibilityOf>
+              <epo:Buyer rdf:about="http://data.europa.eu/a4g/resource/2018/s-001-000005#Buyerea0d9819-9e2a-4afe-bff8-a6ef6a07c9c5">
+                <epo:isResponsibleFor rdf:resource="http://data.europa.eu/a4g/resource/2018/s-001-000005#Procedure2f1ca8a0-26bc-4d71-9120-684b9fe42e65"/>
+                <epo:isRoleOf>
+                  <epo:Organisation rdf:about="http://data.europa.eu/a4g/resource/2018/s-001-000005#Organisation3bd58e87-8501-48e4-b747-e44b15922210">
+                    <epo:hasName xml:lang="bg">Европейски орган за безопасност на храните (ЕОБХ)</epo:hasName>
+                    <epo:hasName xml:lang="sv">Europeiska myndigheten för livsmedelssäkerhet (Efsa)</epo:hasName>
+                    <epo:hasName xml:lang="de">Europäische Behörde für Lebensmittelsicherheit (EFSA)</epo:hasName>
+                    <epo:hasName xml:lang="ga">An tÚdarás Eorpach um Shábháilteacht Bia (EFSA)</epo:hasName>
+                    <epo:hasName xml:lang="es">Autoridad Europea de Seguridad Alimentaria (EFSA)</epo:hasName>
+                    <epo:hasName xml:lang="fi">Euroopan elintarviketurvallisuusviranomainen (EFSA)</epo:hasName>
+                    <epo:hasName xml:lang="pt">Autoridade Europeia para a Segurança dos Alimentos (EFSA)</epo:hasName>
+                    <epo:hasName xml:lang="hr">Europska agencija za sigurnost hrane (EFSA)</epo:hasName>
+                    <epo:hasName xml:lang="sk">Európsky úrad pre bezpečnosť potravín (EFSA)</epo:hasName>
+                    <epo:hasName xml:lang="ro">Autoritatea Europeană pentru Siguranța Alimentară (EFSA)</epo:hasName>
+                    <epo:hasName xml:lang="mt">L-Awtorità Ewropea dwar is-Sigurtà fl-Ikel (EFSA)</epo:hasName>
+                    <epo:hasName xml:lang="da">Den Europæiske Fødevaresikkerhedsautoritet (EFSA)</epo:hasName>
+                    <epo:hasName xml:lang="nl">Europese Autoriteit voor voedselveiligheid (EFSA)</epo:hasName>
+                    <epo:hasName xml:lang="it">Autorità europea per la sicurezza alimentare (EFSA)</epo:hasName>
+                    <epo:hasName xml:lang="lt">Europos maisto saugos tarnyba (EFSA)</epo:hasName>
+                    <epo:hasName xml:lang="en">European Food Safety Authority (EFSA)</epo:hasName>
+                    <epo:hasName xml:lang="hu">Európai Élelmiszerbiztonsági Hatóság (EFSA)</epo:hasName>
+                    <epo:hasName xml:lang="lv">Eiropas Pārtikas nekaitīguma iestāde (EFSA)</epo:hasName>
+                    <epo:hasName xml:lang="sl">Evropska agencija za varnost hrane (EFSA)</epo:hasName>
+                    <epo:hasName xml:lang="cs">Evropský úřad pro bezpečnost potravin (EFSA)</epo:hasName>
+                    <epo:hasName xml:lang="pl">Europejski Urząd ds. Bezpieczeństwa Żywności (EFSA)</epo:hasName>
+                    <epo:hasName xml:lang="fr">Autorité européenne de sécurité des aliments (EFSA)</epo:hasName>
+                    <epo:hasName xml:lang="et">Euroopa Toiduohutusamet (EFSA)</epo:hasName>
+                    <epo:hasLocation>
+                      <epo:Location rdf:about="http://data.europa.eu/a4g/resource/2018/s-001-000005#Locationf0f0c419-137c-407e-80e3-e9f1f397c582">
+                        <epo:hasPostalAddress>
+                          <epo:Address rdf:about="http://data.europa.eu/a4g/resource/2018/s-001-000005#Address2360b19b-7a7e-4797-97be-b72288008f70">
+                            <epo:hasCountrySubentityCode rdf:resource="http://data.europa.eu/nuts/code/ITH52"/>
+                            <epo:hasStreetName>Via Carlo Magno 1A</epo:hasStreetName>
+                            <epo:hasCityName>Parma</epo:hasCityName>
+                            <epo:hasCountryCode rdf:resource="http://publications.europa.eu/resource/authority/country/ITA"/>
+                            <epo:hasPostalZone>43126</epo:hasPostalZone>
+                          </epo:Address>
+                        </epo:hasPostalAddress>
+                      </epo:Location>
+                    </epo:hasLocation>
+                    <epo:hasName xml:lang="el">Ευρωπαϊκή Αρχή για την Ασφάλεια των Τροφίμων (EFSA)</epo:hasName>
+                  </epo:Organisation>
+                </epo:isRoleOf>
+                <epo:has>
+                  <epo:ContactPoint rdf:about="http://data.europa.eu/a4g/resource/2018/s-001-000005#ContactPoint3769a5c6-6e12-4215-ac45-e0f8b81a0598">
+                    <epo:hasEmail>EFSAProcurement@efsa.europa.eu</epo:hasEmail>
+                    <epo:hasInternetAddress>http://www.efsa.europa.eu/en/procurement/tenders.htm</epo:hasInternetAddress>
+                  </epo:ContactPoint>
+                </epo:has>
+              </epo:Buyer>
+            </epo:isResponsibilityOf>
+            <reg2015:hasBuyerMainActivity rdf:resource="http://publications.europa.eu/resource/authority/main-activity/gen-pub"/>
+            <epo:hasDescription xml:lang="pl">
+               &lt;P&gt;Głównym celem niniejszej procedury zamówienia jest wybór grupy konsultantów, którzy udzielą wsparcia EFSA w osiągnięciu celu strategicznego nr 5 „Stworzenie środowiska i kultury, które będą odzwierciedlać wartości EFSA”. Cel strategiczny nr 5 w szczególności polega na wzmocnieniu wydajności oraz nastawienia na jakość poprzez pełne wdrożenie funkcji kontroli działalności instytucji oraz usprawnienie inicjatyw kontrolnych EFSA (w tym zarządzania ryzykiem, kontroli wewnętrznej, zarządzania jakością), zgodnie z koncepcją ciągłego doskonalenia.&lt;/P&gt;
+            </epo:hasDescription>
+            <epo:hasTitle xml:lang="es">
+               &lt;P&gt;Servicios de consultoría para mejorar la eficacia y la eficiencia de los procesos de gestión de las instalaciones de la EFSA&lt;/P&gt;
+            </epo:hasTitle>
+            <epo:hasTitle xml:lang="pl">
+               &lt;P&gt;Usługi doradcze w celu poprawy skuteczności i wydajności procesów zarządzania obiektem EFSA&lt;/P&gt;
+            </epo:hasTitle>
+            <epo:hasDescription xml:lang="et">
+               &lt;P&gt;Selle hankemenetluse põhieesmärk on valida konsultantide rühm, kes oleks võimelised toetama Euroopa Toiduohutusametit (EFSA) strateegilise eesmärgi nr 5 (OS5) "Keskkonna ja kultuuri loomine, mis kajastaks EFSA väärtusi" saavutamises. Eelkõige on strateegilise eesmärgi nr 5 eesmärk tugevdada tulemuslikkust ja kvaliteedile orienteeritust ettevõtte ärijuhtimise funktsiooni täieliku rajamise kaudu ja EFSA juhtimisalgatuste (sh riskijuhtimise, sisekontrolli, kvaliteedihalduse) lihtsustamise kaudu, toetades järjepidevat arengut.&lt;/P&gt;
+            </epo:hasDescription>
+            <epo:hasDescription xml:lang="ro">
+               &lt;P&gt;Obiectivul principal al acestei proceduri de achiziții este de a selecta un grup de consultanți capabili să susțină EFSA în atingerea obiectivului său strategic numărul 5 (OS5), „Crearea unui mediu și a unei culturi care să reflecte valorile EFSA”. În special, obiectivul strategic numărul 5 are ca obiectiv consolidarea orientării spre performanță și calitate prin implementarea completă a unei funcții de control al activităților corporative și prin raționalizarea inițiativelor de control ale EFSA (inclusiv gestionarea riscurilor, controlul intern, gestionarea calității) care susțin îmbunătățirea continuă.&lt;/P&gt;
+            </epo:hasDescription>
+            <epo:hasDescription xml:lang="ga">
+               &lt;P&gt;Is é príomhchuspóir an nóis imeachta soláthair seo comhthiomsú sainchomhairleoirí a roghnú a bheidh in ann tacú le EFSA chun cuspóir straitéiseach uimhir 5 (OS5) a ghnóthú, is é sin “Create an environment and culture that reflects EFSA’s values”. Is amhlaidh go sonrach arb í aidhm OS5 treoshuíomh um fheidhmíocht agus cáilíocht a neartú ach fheidhm rialaithe um ghnó corparáideach a bhunú ina hiomláine agus trí thionscnaimh rialaithe EFSA a chuíchóiriú (lena n-áirítear bainistíocht riosca, rialú inmheánach, bainistíocht cáilíochta) lena dtugtar tacaíocht d'fheabhsú leanúnach.&lt;/P&gt;
+            </epo:hasDescription>
+            <epo:leadsTo>
+              <epo:Contract rdf:about="http://data.europa.eu/a4g/resource/2018/s-001-000005#Contract0f859ca9-16d3-47b4-b59c-9032a3bc3fce">
+                <epo:hasTitle xml:lang="fr">
+               &lt;P&gt;Services de conseil en vue d'améliorer l'efficacité et l'efficience des processus de gestion d'installations de l'EFSA&lt;/P&gt;
+            </epo:hasTitle>
+                <epo:hasTitle xml:lang="hr">
+               &lt;P&gt;Savjetodavne usluge za unapređenje učinkovitosti i djelotvornosti postupaka EFSA-e za upravljanje objektima&lt;/P&gt;
+            </epo:hasTitle>
+                <epo:hasTitle xml:lang="en">
+               &lt;P&gt;Consultancy services to improve efficiency and effectiveness of EFSA facility management processes&lt;/P&gt;
+            </epo:hasTitle>
+                <epo:hasTitle xml:lang="pt">
+               &lt;P&gt;Serviços de consultoria para melhorar a eficiência e a eficácia de processos de gestão de instalações da EFSA&lt;/P&gt;
+            </epo:hasTitle>
+                <epo:hasTitle xml:lang="sl">
+               &lt;P&gt;Svetovalne storitve za izboljšanje učinkovitosti in uspešnosti procesov upravljanja objektov EFSA&lt;/P&gt;
+            </epo:hasTitle>
+                <epo:hasTitle xml:lang="it">
+               &lt;P&gt;Servizi di consulenza per migliorare l'efficienza e l'efficacia dei processi di gestione delle installazioni dell'EFSA&lt;/P&gt;
+            </epo:hasTitle>
+                <epo:hasTitle xml:lang="pl">
+               &lt;P&gt;Usługi doradcze w celu poprawy skuteczności i wydajności procesów zarządzania obiektem EFSA&lt;/P&gt;
+            </epo:hasTitle>
+                <epo:hasTitle xml:lang="hu">
+               &lt;P&gt;Tanácsadási szolgáltatások az EFSA létesítménygazdálkodási folyamatai hatékonyságának és eredményességének fejlesztése érdekében&lt;/P&gt;
+            </epo:hasTitle>
+                <epo:refersTo rdf:resource="http://data.europa.eu/a4g/resource/2018/s-001-000005#Lot6b47fca6-4806-41ca-a298-f63ea4170873"/>
+                <epo:hasContractConclusionDate>2017-12-18</epo:hasContractConclusionDate>
+                <epo:hasTitle xml:lang="cs">
+               &lt;P&gt;Poradenské služby pro zvýšení efektivnosti a účinnosti procesů správy zařízení EFSA&lt;/P&gt;
+            </epo:hasTitle>
+                <epo:hasProcurementValue>
+                  <epo:Value rdf:about="http://data.europa.eu/a4g/resource/2018/s-001-000005#TotalValueValTotalOld6bd2c3ee-6351-4610-994b-f66acdc00e60">
+                    <epo:hasOverallAmount>
+                      <ccts:Amount rdf:about="http://data.europa.eu/a4g/resource/2018/s-001-000005#ValueAwardedAmountOldc783ead1-96f0-4a50-a28f-25881acc3c0d">
+                        <ccts:hasAmountValue>1500000.00</ccts:hasAmountValue>
+                        <epo:hasCurrencyCode rdf:resource="http://publications.europa.eu/resource/authority/currency/EUR"/>
+                      </ccts:Amount>
+                    </epo:hasOverallAmount>
+                    <epo:hasVATIncludedIndicator>false</epo:hasVATIncludedIndicator>
+                  </epo:Value>
+                </epo:hasProcurementValue>
+                <epo:hasTitle xml:lang="bg">
+               &lt;P&gt;Консултантски услуги за подобряване на ефикасността и ефективността на процесите по управление на съоръжения на ЕОБХ&lt;/P&gt;
+            </epo:hasTitle>
+                <epo:hasID>
+                  <epo:Identifier rdf:about="http://data.europa.eu/a4g/resource/2018/s-001-000005#ContractIdd5c8db47-1f72-4a0a-b38e-6a235dc3e17a">
+                    <epo:hasIdentifierValue>OC/EFSA/CORSER/2017/03 - FWC 01</epo:hasIdentifierValue>
+                  </epo:Identifier>
+                </epo:hasID>
+                <epo:hasTitle xml:lang="es">
+               &lt;P&gt;Servicios de consultoría para mejorar la eficacia y la eficiencia de los procesos de gestión de las instalaciones de la EFSA&lt;/P&gt;
+            </epo:hasTitle>
+                <epo:hasTitle xml:lang="lv">
+               &lt;P&gt;Konsultāciju pakalpojumi EFSA resursu pārvaldības procesu efektivitātes un lietderības uzlabošanai&lt;/P&gt;
+            </epo:hasTitle>
+                <epo:hasTitle xml:lang="da">
+               &lt;P&gt;Rådgivning til forbedring af nyttevirkningen og effektiviteten af EFSA's processer til ejendomsadministration&lt;/P&gt;
+            </epo:hasTitle>
+              </epo:Contract>
+            </epo:leadsTo>
+            <epo:hasDescription xml:lang="mt">
+               &lt;P&gt;L-iskop ewlieni ta' din il-proċedura tal-ksib hu li tagħżel firxa ta' konsulenti kapaċi jappoġġjaw lill-EFSA fil-ksib tal-Objettiv Strateġiku numru 5 (OS5). 'Oħloq ambjent u kultura li tirrifletti l-valuri tal-EFSA'. B'mod partikolari l-OS5 jimmira li jsaħħaħ il-prestazzjoni u l-orjentament tal-kwalità permezz tat-twaqqif bis-sħiħ ta' funzjoni korporattiva għall-kontroll tan-negozju u l-allinjament tal-inizjattivi ta' kontroll tal-EFSA (inkluż l-immaniġġjar tar-riskju, il-kontroll intern, l-immaniġġjar tal-kwalità) li jappoġġjaw titjib kontinwu.&lt;/P&gt;
+            </epo:hasDescription>
+            <epo:hasDescription xml:lang="fr">
+               &lt;P&gt;Le principal objectif de la présente procédure de marché est de sélectionner une équipe de consultants qui soient en mesure d'aider l'EFSA à atteindre l'objectif stratégique numéro 5 « Créer un environnement et une culture qui reflètent les valeurs de l'EFSA ». L'objectif stratégique numéro 5 vise notamment le renforcement des performances et l'orientation vers la qualité grâce à la mise en place complète d'une fonction de contrôle des activités de l'organisation et à la rationalisation des initiatives de contrôle de l'EFSA (y compris la gestion des risques, le contrôle interne, la gestion de la qualité), afin de soutenir l'amélioration continue.&lt;/P&gt;
+            </epo:hasDescription>
+            <epo:hasTotalValue>
+              <epo:Value rdf:about="http://data.europa.eu/a4g/resource/2018/s-001-000005#ValueTotal7f5fc0ea-a44b-49c9-bdb5-f595c5b9d034">
+                <epo:hasOverallAmount>
+                  <ccts:Amount rdf:about="http://data.europa.eu/a4g/resource/2018/s-001-000005#AmountTotal047e0994-dba3-4db3-b611-34aec4bfd445">
+                    <ccts:hasAmountValue>1500000.00</ccts:hasAmountValue>
+                    <epo:hasCurrencyCode rdf:resource="http://publications.europa.eu/resource/authority/currency/EUR"/>
+                  </ccts:Amount>
+                </epo:hasOverallAmount>
+                <epo:VATIncludedIndicator>false</epo:VATIncludedIndicator>
+              </epo:Value>
+            </epo:hasTotalValue>
+          </epo:Procedure>
+        </epo:isSpecifiedIn>
+        <epo:hasDescription xml:lang="hu">
+                  &lt;P&gt;A közbeszerzési eljárás célja egy Több féllel kötött, lépcsőzetes rendszerű keretszerződés megkötése 4 évre. A keretszerződést konkrét szerződések révén hajtják végre. Minden egyes alkalommal, amikor a keretszerződés nyertes ajánlattevője a keretszerződés keretében ajánlatot nyújt be, egyedi szerződést kell létesíteni az EFSA és a keretszerződés nyertes ajánlattevője között. Az egyedi szerződés határozza meg az egyes megbízásokra vonatkozó konkrét feltételeket.&lt;/P&gt;
+               </epo:hasDescription>
+        <epo:hasDescription xml:lang="et">
+                  &lt;P&gt;Kõnealuse hanketeate eesmärk on sõlmida 4 aastaks mitmekordne astmeline raamleping. Raamleping viiakse ellu erilepingute kaudu. Iga kord, kui raamlepingu töövõtja raamlepingu alusel kutsele vastab, peavad EFSA ja raamlepingu töövõtja sõlmima erilepingu. Erilepingus sätestatakse üksiku ülesande täitmise eritingimused.&lt;/P&gt;
+               </epo:hasDescription>
+        <epo:hasDescription xml:lang="hr">
+                  &lt;P&gt;Cilj ovog postupka nabave sklapanje je višestrukog okvirnog ugovora u kaskadi u trajanju od 4 godine. Okvirni će se ugovor provesti pomoću posebnih ugovora. Svaki put kad okvirni ugovaratelj odgovori na poziv u okviru okvirnog ugovora, morat će se sklopiti posebni ugovor između EFSA-e i okvirnog ugovaratelja. Posebnim ugovorom utvrdit će se posebni uvjeti za izvršenje pojedinačnog zadatka.&lt;/P&gt;
+               </epo:hasDescription>
+        <epo:hasDescription xml:lang="it">
+                  &lt;P&gt;L'obiettivo della presente procedura d'appalto è concludere un contratto quadro multiplo con sistema a cascata per 4 anni. Il contratto quadro sarà attuato attraverso contratti specifici. Ogni volta che il contraente-quadro risponderà a un invito nell'ambito del contratto quadro, un contratto specifico dovrà essere concluso tra l'EFSA e il contraente-quadro. Il contratto specifico stabilirà le condizioni particolari per l'esecuzione del singolo incarico.&lt;/P&gt;
+               </epo:hasDescription>
+        <epo:hasEstimatedValue>
+          <epo:Value rdf:about="http://data.europa.eu/a4g/resource/2018/s-001-000005#EstimatedValueOlde44bcd73-73e9-49f0-a3be-ae92a5a99e06">
+            <epo:hasOverallAmount>
+              <ccts:Amount rdf:about="http://data.europa.eu/a4g/resource/2018/s-001-000005#ValueOverallAmountOldd1a70dcf-a3b1-484e-809f-9031ac0f546f">
+                <ccts:hasAmountValue>1500000.00</ccts:hasAmountValue>
+                <epo:hasCurrencyCode rdf:resource="http://publications.europa.eu/resource/authority/currency/EUR"/>
+              </ccts:Amount>
+            </epo:hasOverallAmount>
+            <epo:hasVATIncludedIndicator>false</epo:hasVATIncludedIndicator>
+          </epo:Value>
+        </epo:hasEstimatedValue>
+        <epo:hasDescription xml:lang="pt">
+                  &lt;P&gt;O objetivo do presente concurso consiste em celebrar um contrato-quadro múltiplo em cascata com um duração de 4 anos. O contrato-quadro será implementado através de contratos específicos. Cada vez que o contratante-quadro responder a um pedido no âmbito do contrato-quadro, terá de ser celebrado um contrato específico entre a EFSA e o contratante-quadro. O contrato específico definirá as condições específicas de execução da missão individual.&lt;/P&gt;
+               </epo:hasDescription>
+        <epo:has>
+          <epo:ContractTerm rdf:about="http://data.europa.eu/a4g/resource/2018/s-001-000005#ContractTermLote17a99e2-8ec6-4a71-986d-124e3b50b95c">
+            <epo:hasSpecificPlaceOfPerformance>
+              <epo:Address rdf:about="http://data.europa.eu/a4g/resource/2018/s-001-000005#ObjectContractAddress2ecd679b-c260-4cd3-9e4f-1276a103fd5a">
+                <epo:hasCountrySubentityCode rdf:resource="http://data.europa.eu/nuts/code/ITH52"/>
+              </epo:Address>
+            </epo:hasSpecificPlaceOfPerformance>
+          </epo:ContractTerm>
+        </epo:has>
+        <epo:hasDescription xml:lang="sk">
+                  &lt;P&gt;Cieľom tohto obstarávacieho konania je uzavrieť viacnásobnú rámcovú zmluvu s kaskádovým systémom na 4 roky. Rámcová zmluva sa bude realizovať prostredníctvom osobitných zmlúv. Pri každej reakcii rámcového dodávateľa na požiadavku na základe rámcovej zmluvy sa medzi EFSA a rámcovým dodávateľom bude musieť uzavrieť osobitná zmluva. V osobitnej zmluve sa stanovia konkrétne podmienky vykonávania jednotlivých úloh.&lt;/P&gt;
+               </epo:hasDescription>
+        <epo:hasDescription xml:lang="ga">
+                  &lt;P&gt;Is éard is aidhm leis an nós imeachta soláthair seo chun conradh ilchreatlaí a dhéanamh in ord tosaíochta ar feadh 4 bliana. Cuirfear an creatchonradh chun feidhme trí chonarthaí sainiúla. Ní mór conradh sainiúil a shocrú idir EFSA agus an creatchonraitheoir gach uair a fhreagraíonn an creatchonraitheoir do ghlao faoin gcreatchonradh. Leagfar amach na coinníollacha sainiúla le haghaidh d’fheidhmiú an tsannacháin aonair leis an gconradh sainiúil.&lt;/P&gt;
+               </epo:hasDescription>
+        <epo:hasDescription xml:lang="es">
+                  &lt;P&gt;El objetivo del presente procedimiento de contratación consiste en celebrar un contrato marco múltiple en cascada de 4 años de duración. El contrato marco se implementará a través de contratos específicos. Cada vez que el contratista marco participe en una convocatoria en virtud del contrato marco, se tendrá que celebrar un contrato específico entre la EFSA y el contratista marco. El contrato específico determinará las condiciones concretas para la realización de la tarea específica.&lt;/P&gt;
+               </epo:hasDescription>
+        <epo:hasDescription xml:lang="en">
+                  &lt;P&gt;The aim of this procurement procedure is to conclude a multiple framework contract in cascade for 4 years. The framework contract will be implemented through specific contracts. Each time the framework contractor responds to a call under the framework contract, a specific contract will have to be concluded between EFSA and the framework contractor. The specific contract will set out the specific conditions for performing the individual assignment.&lt;/P&gt;
+               </epo:hasDescription>
+        <epo:hasDescription xml:lang="sv">
+                  &lt;P&gt;Syftet med detta upphandlingsförfarande är att sluta ett multipelt ramavtal i kaskadform på 4 år. Ramavtalet kommer att genomföras genom specifika kontrakt. Varje gång ramuppdragstagaren besvarar en anfordran inom ramen för ramavtalet måste ett specifikt kontrakt slutas mellan Efsa och ramuppdragstagaren. I det specifika kontraktet kommer de särskilda villkoren för genomförandet av det enskilda uppdraget att fastställas.&lt;/P&gt;
+               </epo:hasDescription>
+        <epo:hasDescription xml:lang="lt">
+                  &lt;P&gt;Šios pirkimo procedūros tikslas – sudaryti pakopinę preliminariąją sutartį su keliais tiekėjais 4 metams šiose srityse: Preliminarioji sutartis bus įgyvendinta pagal specialias sutartis. Kiekvieną kartą, kai preliminariosios sutarties rangovas reaguoja į konkursą pagal preliminariąją sutartį, EFSA ir preliminariosios sutarties rangovas turi sudaryti specialią sutartį. Specialioje sutartyje bus išdėstytos specialios sąlygos atskirai užduočiai atlikti.&lt;/P&gt;
+               </epo:hasDescription>
+        <epo:hasDescription xml:lang="ro">
+                  &lt;P&gt;Obiectivul acestei proceduri de achiziții este de a încheia un contract-cadru multiplu în cascadă pentru o perioadă de 4 ani. Contractul-cadru va fi implementat prin intermediul unor contracte specifice. De fiecare dată când contractantul contractului-cadru răspunde unei cereri în baza contractului-cadru, se va încheia un contract specific între EFSA și contractantul contractului-cadru. Contractul specific va stabili condițiile specifice pentru executarea misiunilor individuale.&lt;/P&gt;
+               </epo:hasDescription>
+        <epo:hasDescription xml:lang="bg">
+                  &lt;P&gt;Целта на настоящата процедура по обществена поръчка е да се сключи многостранен каскаден рамков договор за 4 години. Рамковият договор ще се реализира чрез специфични поръчки. Всеки път, когато рамковият изпълнител отговаря на покана по рамковия договор, ще трябва да бъде сключен специфичен договор между ЕОБХ и рамковия изпълнител. Специфичният договор ще определя специфичните условия за извършване на индивидуалното задание.&lt;/P&gt;
+               </epo:hasDescription>
+        <epo:hasDescription xml:lang="nl">
+                  &lt;P&gt;Het doel van deze aanbestedingsprocedure is het sluiten van een meervoudige raamovereenkomst volgens het cascadesysteem voor 4 jaar. De raamovereenkomst wordt ten uitvoer gelegd via specifieke opdrachten. Telkens wanneer een raamcontractant reageert op een oproep in het kader van de raamovereenkomst, moet een specifieke overeenkomst worden afgesloten tussen EFSA en de raamcontractant. In de specifieke overeenkomst zullen de specifieke voorwaarden worden vastgesteld voor de uitvoering van de individuele taken.&lt;/P&gt;
+               </epo:hasDescription>
+        <epo:has>
+          <epo:Purpose rdf:about="http://data.europa.eu/a4g/resource/2018/s-001-000005#PurposeAdditional6c35717d-bc61-4fb8-b647-5052a5cc9955">
+            <epo:hasOptionsPermission rdf:resource="http://publications.europa.eu/resource/authority/permission/not-allowed"/>
+          </epo:Purpose>
+        </epo:has>
+        <epo:providesAdditionalInformation>
+          <epo:StatisticalInformation rdf:about="http://data.europa.eu/a4g/resource/2018/s-001-000005#StatisticalInformation7735b89c-0a3f-4342-b57a-b2048097154c">
+            <epo:hasReceivedSMETenderLots>2</epo:hasReceivedSMETenderLots>
+            <epo:hasReceivedTenderLots>2</epo:hasReceivedTenderLots>
+          </epo:StatisticalInformation>
+        </epo:providesAdditionalInformation>
+        <epo:hasDescription xml:lang="mt">
+                  &lt;P&gt;L-għan ta' din il-proċedura ta' ksib huwa biex tikkonkludi qafas ta' kuntratt multiplu f'ordni ta' prijorità għal 4 snin. Il-qafas ta' kuntratt se jkun implimentat permezz ta' kuntratti speċifiċi. Kull darba l-kuntrattur tal-qafas jirrispondi għal sejħa taħt il-qafas ta' kuntratt, kuntratt speċifiku jew formola tal-ordni se jkollhom jiġu konklużi bejn l-EFSA u l-kuntrattur tal-qafas. Il-kuntratt speċifiku jew il-formola tal-ordni se jistabbilixxi/tistabbilixxi kundizzjonijiet speċifiċi għat-twettiq tal-biċċa xogħol individwali.&lt;/P&gt;
+               </epo:hasDescription>
+        <epo:hasDescription xml:lang="cs">
+                  &lt;P&gt;Cílem tohoto výběrového řízení je uzavřít vícestrannou rámcovou smlouvu v kaskádě na dobu 4 let. Rámcová smlouva bude realizována prostřednictvím dílčích zakázek. Pokaždé, když rámcový poskytovatel služeb zareaguje na výzvu podle rámcové smlouvy, bude nutné, aby EFSA a rámcový poskytovatel služeb spolu uzavřeli dílčí smlouvu. Tato dílčí smlouva stanoví konkrétní podmínky provedení jednotlivých zadání.&lt;/P&gt;
+               </epo:hasDescription>
+        <epo:hasDescription xml:lang="fr">
+                  &lt;P&gt;L'objectif de la présente procédure de marché est de conclure un contrat-cadre multiple en cascade d'une durée de 4 ans. Il sera mis en œuvre par le biais de contrats spécifiques. Chaque fois que le contractant-cadre répondra à une demande au titre du contrat-cadre, un contrat spécifique devra être conclu entre l'EFSA et le contractant-cadre. Le contrat spécifique établira les conditions spécifiques d'exécution de chaque mission.&lt;/P&gt;
+               </epo:hasDescription>
+        <epo:hasDescription xml:lang="fi">
+                  &lt;P&gt;Tämän hankintamenettelyn tavoitteena on peräkkäisjärjestelmän mukaisen rinnakkaisen puitesopimuksen tekeminen 4 vuodeksi. Puitesopimukset pannaan täytäntöön erillissopimusten avulla. Joka kerta, kun puitesopimuksen osapuoli vastaa puitesopimukseen kuuluvaan pyyntöön, on tehtävä erillissopimus EFSAn ja puitesopimuksen osapuolen kesken. Erillissopimuksessa määritetään erityisehdot yksittäisen toimeksiannon suorittamista varten.&lt;/P&gt;
+               </epo:hasDescription>
+      </epo:Lot>
+    </epo:isUsedToAward>
+    <epo:hasName xml:lang="fi">Halvin tarjottu hinta/tarjouksen X hinta</epo:hasName>
+    <epo:hasName xml:lang="sk">Ponuka s najnižšou cenou/cena ponuky X</epo:hasName>
+    <epo:hasName xml:lang="sv">lägsta anbudspris/pris från anbudsgivare X</epo:hasName>
+    <epo:hasFormula>40</epo:hasFormula>
+    <epo:hasName xml:lang="hu">A legalacsonyabb árat tartalmazó pályázat/az X pályázat által tartalmazott ár</epo:hasName>
+    <epo:hasAwardCriterionType rdf:resource="http://publications.europa.eu/resource/authority/award-criterion-type/cost"/>
+    <epo:hasName xml:lang="fr">Offre la moins chère/prix de l'offre X</epo:hasName>
+    <epo:hasName xml:lang="pl">Oferta najkorzystniejsza cenowo / wartość ogłoszenia X</epo:hasName>
+    <epo:hasName xml:lang="el">Χαμηλότερη τιμή/τιμή της προσφοράς Χ</epo:hasName>
+    <epo:hasName xml:lang="hr">Najniža cijena ponude/cijena nadmetanja X</epo:hasName>
+    <epo:hasName xml:lang="lv">Piedāvājums ar zemāko cenu / X piedāvājuma cena</epo:hasName>
+    <epo:hasName xml:lang="cs">Nejlevnější cenová nabídka / cena nabídky X</epo:hasName>
+    <epo:hasName xml:lang="et">Odavaim hinnapakkumine/pakkumuse X hind</epo:hasName>
+    <epo:hasName xml:lang="pt">Oferta de preço mais barata/preço do concurso X</epo:hasName>
+    <epo:hasName xml:lang="lt">Pigiausias kainos pasiūlymas / pasiūlymo X kaina</epo:hasName>
+    <epo:hasName xml:lang="bg">Оферта с най-ниска цена/цена на оферта Х</epo:hasName>
+    <epo:hasName xml:lang="de">Günstigstes Preisangebot /Preis des Angebots X</epo:hasName>
+    <epo:hasName xml:lang="ro">Oferta cu prețul cel mai mic / prețul ofertei X</epo:hasName>
+    <epo:hasName xml:lang="en">Cheapest price offer/price of tender X</epo:hasName>
+    <epo:hasName xml:lang="mt">L-orħos offerta / prezz tal-offerta X</epo:hasName>
+    <epo:hasName xml:lang="ga">An tairiscint is saoire ó thaobh praghais/praghas na tairisceana X</epo:hasName>
+    <epo:hasName xml:lang="sl">Najcenejša ponudba/cena ponudbe X</epo:hasName>
+    <epo:hasName xml:lang="da">Billigste pristilbud/prisen på bud X</epo:hasName>
+  </epo:AwardCriterion>
+  <epo:Business rdf:about="http://data.europa.eu/a4g/resource/2018/s-001-000005#BusinessOrganisationOld9bd6d205-f45a-4186-b3d1-cb846fc22881">
+    <epo:isAn>
+      <epo:Organisation rdf:about="http://data.europa.eu/a4g/resource/2018/s-001-000005#WinnerOrganisationOldec481a0e-a930-443e-a379-e500bf61e7a7">
+        <epo:hasLocation>
+          <epo:Location rdf:about="http://data.europa.eu/a4g/resource/2018/s-001-000005#WinnerLocationAwardedToGroupOld6b78a7c8-9658-4a20-8b3c-43293a5807e1">
+            <epo:hasPostalAddress>
+              <epo:Address rdf:about="http://data.europa.eu/a4g/resource/2018/s-001-000005#WinnerAddressAwardedGroupOld49184c3b-b3e1-4563-b965-9736892d8edb">
+                <epo:hasCountrySubentityCode rdf:resource="http://data.europa.eu/nuts/code/ITH52"/>
+                <epo:hasStreetName>Via Tazio Nuvolari 44 a</epo:hasStreetName>
+                <epo:hasCityName>Parma</epo:hasCityName>
+                <epo:hasCountryCode rdf:resource="http://publications.europa.eu/resource/authority/country/ITA"/>
+                <epo:hasPostalZone>43122</epo:hasPostalZone>
+              </epo:Address>
+            </epo:hasPostalAddress>
+          </epo:Location>
+        </epo:hasLocation>
+        <epo:hasName xml:lang="en">Studio King Ingegneri Associati</epo:hasName>
+      </epo:Organisation>
+    </epo:isAn>
+    <epo:hasSize rdf:resource="http://publications.europa.eu/resource/authority/economic-operator-size/sme"/>
+  </epo:Business>
+  <epo:Business rdf:about="http://data.europa.eu/a4g/resource/2018/s-001-000005#BusinessOrganisationNoAwardedGroupOld2204c086-3f4d-4307-a2cd-b14db0dfe7c3">
+    <epo:isAn>
+      <epo:Organisation rdf:about="http://data.europa.eu/a4g/resource/2018/s-001-000005#WinnerOrganisationNoAwardedGroupOldbbf0f328-5b67-478a-a72b-e6cb2614b8a5">
+        <epo:hasLocation>
+          <epo:Location rdf:about="http://data.europa.eu/a4g/resource/2018/s-001-000005#WinnerLocationNoAwardedToGroupOld527b3531-2131-4707-b4a7-05ecfbd80973">
+            <epo:hasPostalAddress>
+              <epo:Address rdf:about="http://data.europa.eu/a4g/resource/2018/s-001-000005#WinnerAddressNoAwardedGroupOldedc74267-ac0e-4477-aab2-014c8f2ec523">
+                <epo:hasCountrySubentityCode rdf:resource="http://data.europa.eu/nuts/code/ITH52"/>
+                <epo:hasStreetName>Strada Cavagnari 10</epo:hasStreetName>
+                <epo:hasCityName>Parma</epo:hasCityName>
+                <epo:hasCountryCode rdf:resource="http://publications.europa.eu/resource/authority/country/ITA"/>
+                <epo:hasPostalZone>43126</epo:hasPostalZone>
+              </epo:Address>
+            </epo:hasPostalAddress>
+          </epo:Location>
+        </epo:hasLocation>
+        <epo:hasName xml:lang="en">A.I.Erre engineering</epo:hasName>
+      </epo:Organisation>
+    </epo:isAn>
+    <epo:hasSize rdf:resource="http://publications.europa.eu/resource/authority/economic-operator-size/sme"/>
+  </epo:Business>
+  <epo:AwardDecision rdf:about="http://data.europa.eu/a4g/resource/2018/s-001-000005#AwardDecision3da369f3-57b3-4e99-b75e-b3de94c3d774">
+    <epo:has>
+      <epo:Winner rdf:about="http://data.europa.eu/a4g/resource/2018/s-001-000005#WinnerNoGroup20f7d525-65d9-4a0b-b928-c38e603c606d">
+        <epo:isRoleOf rdf:resource="http://data.europa.eu/a4g/resource/2018/s-001-000005#WinnerOrganisationNoAwardedGroupOldbbf0f328-5b67-478a-a72b-e6cb2614b8a5"/>
+      </epo:Winner>
+    </epo:has>
+    <epo:refersTo rdf:resource="http://data.europa.eu/a4g/resource/2018/s-001-000005#Lot6b47fca6-4806-41ca-a298-f63ea4170873"/>
+    <epo:isReferedByA>
+      <epo:Contract rdf:about="http://data.europa.eu/a4g/resource/2018/s-001-000005#Contract09994e8b-d949-49e2-9f40-560f9498f81c">
+        <epo:hasTitle xml:lang="pl">
+               &lt;P&gt;Usługi doradcze w celu poprawy skuteczności i wydajności procesów zarządzania obiektem EFSA&lt;/P&gt;
+            </epo:hasTitle>
+        <epo:hasID>
+          <epo:Identifier rdf:about="http://data.europa.eu/a4g/resource/2018/s-001-000005#ContractId6534306a-bf96-4da0-a6be-ae16f597577e">
+            <epo:hasIdentifierValue>OC/EFSA/CORSER/2017/03 - FWC02</epo:hasIdentifierValue>
+          </epo:Identifier>
+        </epo:hasID>
+        <epo:hasTitle xml:lang="hr">
+               &lt;P&gt;Savjetodavne usluge za unapređenje učinkovitosti i djelotvornosti postupaka EFSA-e za upravljanje objektima&lt;/P&gt;
+            </epo:hasTitle>
+        <epo:hasTitle xml:lang="es">
+               &lt;P&gt;Servicio de consultoría para mejorar la eficacia y la eficiencia de los procesos de gestión de las instalaciones de la EFSA&lt;/P&gt;
+            </epo:hasTitle>
+        <epo:hasProcurementValue>
+          <epo:Value rdf:about="http://data.europa.eu/a4g/resource/2018/s-001-000005#TotalValueValTotalOld6e20fbba-02ab-4343-b77c-225907a16de6">
+            <epo:hasOverallAmount>
+              <ccts:Amount rdf:about="http://data.europa.eu/a4g/resource/2018/s-001-000005#ValueAwardedAmountOld3561f8ec-3c87-4da2-9acc-e9f308578bcd">
+                <ccts:hasAmountValue>1500000.00</ccts:hasAmountValue>
+                <epo:hasCurrencyCode rdf:resource="http://publications.europa.eu/resource/authority/currency/EUR"/>
+              </ccts:Amount>
+            </epo:hasOverallAmount>
+            <epo:hasVATIncludedIndicator>false</epo:hasVATIncludedIndicator>
+          </epo:Value>
+        </epo:hasProcurementValue>
+        <epo:hasTitle xml:lang="da">
+               &lt;P&gt;Rådgivning til forbedring af nyttevirkningen og effektiviteten af EFSA's processer til ejendomsadministration&lt;/P&gt;
+            </epo:hasTitle>
+        <epo:hasTitle xml:lang="fr">
+               &lt;P&gt;Services de conseil en vue d'améliorer l'efficacité et l'efficience des processus de gestion d'installations de l'EFSA&lt;/P&gt;
+            </epo:hasTitle>
+        <epo:hasTitle xml:lang="hu">
+               &lt;P&gt;Tanácsadási szolgáltatás az EFSA létesítménygazdálkodási folyamatai hatékonyságának és eredményességének fejlesztése érdekében&lt;/P&gt;
+            </epo:hasTitle>
+        <epo:hasContractConclusionDate>2017-12-18</epo:hasContractConclusionDate>
+        <epo:hasTitle xml:lang="bg">
+               &lt;P&gt;Консултантска услуга за подобряване на ефикасността и ефективността на процесите по управление на съоръжения на ЕОБХ&lt;/P&gt;
+            </epo:hasTitle>
+        <epo:hasTitle xml:lang="it">
+               &lt;P&gt;Servizio di consulenza per migliorare l'efficienza e l'efficacia dei processi di gestione delle installazioni dell'EFSA&lt;/P&gt;
+            </epo:hasTitle>
+        <epo:hasTitle xml:lang="lv">
+               &lt;P&gt;Konsultāciju pakalpojumi EFSA resursu pārvaldības procesu efektivitātes un lietderības uzlabošanai&lt;/P&gt;
+            </epo:hasTitle>
+        <epo:hasTitle xml:lang="en">
+               &lt;P&gt;Consultancy service to improve efficiency and effectiveness of EFSA facility management processes&lt;/P&gt;
+            </epo:hasTitle>
+        <epo:hasTitle xml:lang="sl">
+               &lt;P&gt;Svetovalne storitve za izboljšanje učinkovitosti in uspešnosti procesov upravljanja objektov EFSA&lt;/P&gt;
+            </epo:hasTitle>
+        <epo:hasTitle xml:lang="pt">
+               &lt;P&gt;Serviços de consultoria para melhorar a eficiência e a eficácia de processos de gestão de instalações da EFSA&lt;/P&gt;
+            </epo:hasTitle>
+        <epo:refersTo rdf:resource="http://data.europa.eu/a4g/resource/2018/s-001-000005#Lot6b47fca6-4806-41ca-a298-f63ea4170873"/>
+        <epo:hasTitle xml:lang="cs">
+               &lt;P&gt;Poradenské služby pro zvýšení efektivnosti a účinnosti procesů správy zařízení EFSA&lt;/P&gt;
+            </epo:hasTitle>
+      </epo:Contract>
+    </epo:isReferedByA>
+    <epo:hasAwardStatus rdf:resource="http://publications.europa.eu/resource/authority/winner-selection-status/selec-w"/>
+  </epo:AwardDecision>
+  <epo:AwardCriterion rdf:about="http://data.europa.eu/a4g/resource/2018/s-001-000005#AwardCriterionQuality80591791-ea6f-4110-8c3b-cb95678afed3">
+    <epo:hasName xml:lang="hu">A teljesítendő feladatok minőségének biztosítására-, az EFSA üzleti folytonosság-tervvel történő támogatására-, a foglalkozás-egészségügyi-, a biztonsági és környezetvédelmi irányítási rendszer fenntartására és fejlesztésére alkalmazott intézkedések</epo:hasName>
+    <epo:hasName xml:lang="lt">Priemonės, užtikrinančios rezultatų kokybę, palaikančios EFSA per veiklos tęstinumo planą, išlaikančios ir tobulinančios darbo saugos, sveikatos ir aplinkosaugos vadybos sistemą</epo:hasName>
+    <epo:hasName xml:lang="el">Μέτρα για τη διασφάλιση της ποιότητας των παραδοτέων, για την υποστηρίξη την EFSA με ένα σχέδιο συνέχισης της επιχειρηματικής δραστηριότητας, για τη διατήρηση και τη βελτίωση ενός συστήματος επαγγελματικής υγείας και ασφάλειας και περιβαλλοντικής διαχείρισης</epo:hasName>
+    <epo:hasName xml:lang="da">Foranstaltninger til sikring af projektleverancernes kvalitet, at støtte EFSA med en driftskontinuitetsplan, at opretholde og forbedre et system til forvaltning af arbejdspladsens sundhed, sikkerhed og miljø</epo:hasName>
+    <epo:hasName xml:lang="ga">Bearta chun cáilíocht na n-inseachadtaí a ráthú, chun tacú le EFSA lena phlean leanúnachais ghnó, chun sláinte agus sábháilteacht cheirde a chothabháil agus a fheabhsú, agus córas bainistíochta comhshaoil</epo:hasName>
+    <epo:hasName xml:lang="nl">Maatregelen ter garantie van de kwaliteit van de te verlenen diensten, ter ondersteuning van EFSA bij het bedrijfscontinuïteitsplan, om een managementsysteem inzake veiligheid en gezondheid op het werk en milieu te handhaven en verbeteren.</epo:hasName>
+    <epo:isUsedToAward rdf:resource="http://data.europa.eu/a4g/resource/2018/s-001-000005#Lot6b47fca6-4806-41ca-a298-f63ea4170873"/>
+    <epo:hasName xml:lang="it">Misure volte a garantire la qualità dei risultati, a sostenere l'EFSA con un piano di continuità operativa, per mantenere e migliorare la salute e la sicurezza sul lavoro, e un sistema di gestione dell'ambiente</epo:hasName>
+    <epo:hasName xml:lang="pl">Środki gwarantujące jakość świadczonych usług, w celu wsparcia EFSA w planie ciągłości działania, utrzymania i poprawy zasad bezpieczeństwa i higieny pracy oraz systemu zrządzania środowiskowego</epo:hasName>
+    <epo:hasName xml:lang="de">Maßnahmen zur Sicherstellung der Qualität der Leistungen, Unterstützung der EFSA bei der Aufrechterhaltung des Betriebskontinuitätsplans, Aufrechterhaltung und Verbesserung eines Arbeitsschutz- und Umweltmanagementsystems</epo:hasName>
+    <epo:hasName xml:lang="et">Meetmed tulemuste kvaliteedi tagamiseks, EFSA toetamiseks talitluspidevuse kavaga, töötervishoid ja tööohutuse ja keskkonnajuhtimissüsteemi säilitamine ja täiustamine</epo:hasName>
+    <epo:hasAwardCriterionType rdf:resource="http://publications.europa.eu/resource/authority/award-criterion-type/quality"/>
+    <epo:hasName xml:lang="lv">Nodevumu kvalitātes garantēšanas pasākumi, lai atbalstītu EFSA darbības nepārtrauktības plānam, uzturētu un uzlabotu arodveselību un drošību, kā arī vides vadības sistēmu</epo:hasName>
+    <epo:hasName xml:lang="cs">Opatření zajišťující kvalitu plnění, podporující EFSA v plánu kontinuity podnikání, udržující a zdokonalující oblast zdraví a bezpečnosti práce a systém environmentálního řízení</epo:hasName>
+    <epo:hasName xml:lang="en">Measures to guarantee quality of deliverables, to support EFSA with business continuity plan, to maintain and improve an occupational health and safety and environmental management system</epo:hasName>
+    <epo:hasFormula>60</epo:hasFormula>
+    <epo:hasName xml:lang="sk">Opatrenia na zaručenie kvality výstupov na podporu EFSA s plánom obchodnej kontinuity, s cieľom udržiavať a zlepšovať systém ochrany zdravia a bezpečnosti pri práci a systém environmentálneho riadenia</epo:hasName>
+    <epo:hasName xml:lang="ro">Măsuri pentru garantarea calității livrabilelor, sprijinirea EFSA cu privire la planul de continuitate a activității, menținerea și îmbunătățirea sistemului de gestionare a sănătății și securității ocupaționale și de mediu</epo:hasName>
+    <epo:hasName xml:lang="mt">Miżuri biex jiggarantixxu l-kwalità tar-riżultati, biex jappoġġjaw lill-EFSA bi pjan għall-kontinwità tan-negozju, biex tinżamm u tittejjeb sistema ta' saħħa u sigurtà fuq il-post tax-xogħol u ta' ġestjoni ambjentali</epo:hasName>
+    <epo:hasName xml:lang="fr">Mesures visant à garantir la qualité des résultats attendus, pour soutenir la planification de la continuité des activités de l'EFSA, pour maintenir et améliorer un système de gestion de la santé et de la sécurité au travail et de l'environnement</epo:hasName>
+    <epo:hasName xml:lang="hr">Mjere jamčenja kvalitete predmeta isporuke, kako bi se osigurala potpora plana kontinuiranog poslovanja za EFSA-u te održao i unaprijedio sustav upravljanja zdravljem i sigurnošću na radu i okolišem</epo:hasName>
+    <epo:hasName xml:lang="bg">Мерки за гарантиране на качеството на резултатите, за подпомагане на ЕОБХ с план за непрекъснатост на дейността, за поддържане и подобряване на система за управление на здравословни и безопасни условия и среда на работа.</epo:hasName>
+    <epo:hasName xml:lang="sv">Åtgärder för att säkerställa kvaliteten på det som ska tillhandahållas, att stödja Efsa med en plan avseende verksamhetskontinuitet, samt att upprätthålla och förbättra ett hanteringssystem för hälsa, säkerhet och miljö</epo:hasName>
+    <epo:hasName xml:lang="pt">Medidas para garantir a qualidade das entregas, apoiar a EFSA com o plano de continuidade do negócio, manter e melhorar um sistema de saúde e segurança ocupacional e de gestão ambiental</epo:hasName>
+    <epo:hasName xml:lang="fi">Toimitusten laadun takaamista koskevat toimenpiteet, joilla tuetaan EFSAa liiketoiminnan jatkuvuussuunnitelman avulla, ylläpidetään ja parannetaan työterveys-, työturvallisuus- ja ympäristönhallintajärjestelmää</epo:hasName>
+    <epo:hasName xml:lang="es">Medidas para garantizar la calidad de las entregas, apoyar a la EFSA con el plan de continuidad de negocio, mantener y mejorar el sistema de salud y seguridad en el trabajo y de gestión medioambiental</epo:hasName>
+    <epo:hasName xml:lang="sl">Ukrepi za zagotavljanje kakovosti rezultatov, podpore EFSA z načrtom poslovne kontinuitete, vzdrževanje in izboljšanje sistema za varovanje zdravja in varnosti pri delu ter ravnanje z okoljem</epo:hasName>
+  </epo:AwardCriterion>
+  <epo:Business rdf:about="http://data.europa.eu/a4g/resource/2018/s-001-000005#BusinessOrganisationOld35a8c9da-a61b-4add-8342-a3eadc5c62a5">
+    <epo:isAn>
+      <epo:Organisation rdf:about="http://data.europa.eu/a4g/resource/2018/s-001-000005#WinnerOrganisationOld3dafc074-f728-4fe7-b00b-36940004030e">
+        <epo:hasLocation>
+          <epo:Location rdf:about="http://data.europa.eu/a4g/resource/2018/s-001-000005#WinnerLocationAwardedToGroupOldb2e7d663-d49f-42af-8ce0-78f924c13347">
+            <epo:hasPostalAddress>
+              <epo:Address rdf:about="http://data.europa.eu/a4g/resource/2018/s-001-000005#WinnerAddressAwardedGroupOld76016400-5d13-4023-9138-05dfe89aeb2f">
+                <epo:hasCountrySubentityCode rdf:resource="http://data.europa.eu/nuts/code/ITH52"/>
+                <epo:hasStreetName>Galleria Crocetta 10/a</epo:hasStreetName>
+                <epo:hasCityName>Parma</epo:hasCityName>
+                <epo:hasCountryCode rdf:resource="http://publications.europa.eu/resource/authority/country/ITA"/>
+                <epo:hasPostalZone>43126</epo:hasPostalZone>
+              </epo:Address>
+            </epo:hasPostalAddress>
+          </epo:Location>
+        </epo:hasLocation>
+        <epo:hasName xml:lang="en">Medlavitalia s.r.l</epo:hasName>
+      </epo:Organisation>
+    </epo:isAn>
+    <epo:hasSize rdf:resource="http://publications.europa.eu/resource/authority/economic-operator-size/sme"/>
+  </epo:Business>
+  <epo:Reviewer rdf:about="http://data.europa.eu/a4g/resource/2018/s-001-000005#Reviewer28806546-e04f-4ae6-a51e-0b8bc80e5383">
+    <reg2015:isInvolvedIn rdf:resource="http://data.europa.eu/a4g/resource/2018/s-001-000005#Procedure2f1ca8a0-26bc-4d71-9120-684b9fe42e65"/>
+    <epo:isRoleOf>
+      <epo:Organisation rdf:about="http://data.europa.eu/a4g/resource/2018/s-001-000005#OrganisationReviewBody2cbff5df-ea42-4d73-b94d-4a18d3630ab6">
+        <epo:hasName xml:lang="da">Retten</epo:hasName>
+        <epo:hasName xml:lang="fi">Unionin yleinen tuomioistuin</epo:hasName>
+        <epo:hasName xml:lang="pt">Tribunal Geral</epo:hasName>
+        <epo:hasName xml:lang="nl">Gerecht</epo:hasName>
+        <epo:hasName xml:lang="en">General Court of the European Union</epo:hasName>
+        <epo:hasName xml:lang="el">Γενικό Δικαστήριο</epo:hasName>
+        <epo:hasName xml:lang="ga">An Chúirt Ghinearálta</epo:hasName>
+        <epo:hasName xml:lang="bg">Общ съд</epo:hasName>
+        <epo:hasName xml:lang="sv">Tribunalen</epo:hasName>
+        <epo:hasName xml:lang="es">Tribunal General</epo:hasName>
+        <epo:hasName xml:lang="cs">Tribunál</epo:hasName>
+        <epo:hasName xml:lang="sk">Všeobecný súd</epo:hasName>
+        <epo:hasName xml:lang="hr">Opći sud</epo:hasName>
+        <epo:hasName xml:lang="ro">Tribunalul</epo:hasName>
+        <epo:hasName xml:lang="pl">Sąd</epo:hasName>
+        <epo:hasName xml:lang="et">Üldkohus</epo:hasName>
+        <epo:hasName xml:lang="de">Gericht</epo:hasName>
+        <epo:hasName xml:lang="hu">Törvényszék</epo:hasName>
+        <epo:hasName xml:lang="lv">Vispārējā tiesa</epo:hasName>
+        <epo:hasName xml:lang="sl">Splošno sodišče</epo:hasName>
+        <epo:hasLocation>
+          <epo:Location rdf:about="http://data.europa.eu/a4g/resource/2018/s-001-000005#LocationReviewBodyc795820b-1262-4edd-922a-ae2de2ee175b">
+            <epo:hasPostalAddress>
+              <epo:Address rdf:about="http://data.europa.eu/a4g/resource/2018/s-001-000005#AddressReviewBodya0104728-80e5-417b-b327-9d7d86ba8a37">
+                <epo:hasStreetName>Rue du Fort Niedergrünewald</epo:hasStreetName>
+                <epo:hasStreetName>rue du Fort Niedergrünewald</epo:hasStreetName>
+                <epo:hasCityName>Luxembourg</epo:hasCityName>
+                <epo:hasCountryCode rdf:resource="http://publications.europa.eu/resource/authority/country/LUX"/>
+                <epo:hasPostalZone>2925</epo:hasPostalZone>
+              </epo:Address>
+            </epo:hasPostalAddress>
+          </epo:Location>
+        </epo:hasLocation>
+        <epo:hasName xml:lang="fr">Tribunal</epo:hasName>
+        <epo:hasName xml:lang="it">Tribunale</epo:hasName>
+        <epo:hasName xml:lang="mt">Il-Qorti Ġenerali</epo:hasName>
+        <epo:hasName xml:lang="lt">Bendrasis Teismas</epo:hasName>
+      </epo:Organisation>
+    </epo:isRoleOf>
+    <epo:has>
+      <epo:ContactPoint rdf:about="http://data.europa.eu/a4g/resource/2018/s-001-000005#ContactPointReviewBodyb7e4a9ee-c5eb-4260-a037-6c0515d9c12e">
+        <epo:hasEmail>generalcourt.registry@curia.europa.eu</epo:hasEmail>
+        <epo:hasTelephone>+352 4303-1</epo:hasTelephone>
+        <epo:hasFax>+352 4303-2100</epo:hasFax>
+        <epo:hasInternetAddress>http://curia.europa.eu</epo:hasInternetAddress>
+      </epo:ContactPoint>
+    </epo:has>
+  </epo:Reviewer>
+  <epo:ProcurementServiceProvider rdf:about="http://data.europa.eu/a4g/resource/2018/s-001-000005#ProcurementServiceProviderComp7fca75e9-7464-46fb-81ab-01c1a50b267d">
+    <reg2015:isInvolvedIn rdf:resource="http://data.europa.eu/a4g/resource/2018/s-001-000005#Procedure2f1ca8a0-26bc-4d71-9120-684b9fe42e65"/>
+    <reg2015:providesMoreInformationOnTimeLimitsForReviewProcedures rdf:resource="http://data.europa.eu/a4g/resource/2018/s-001-000005#Procedure2f1ca8a0-26bc-4d71-9120-684b9fe42e65"/>
+  </epo:ProcurementServiceProvider>
+  <epo:ContractAwardNotice rdf:about="http://data.europa.eu/a4g/resource/2018/s-001-000005#ContractAwardNotice6dafb02d-0014-44f9-a9c0-b73b74341d49">
+    <epo:summarises rdf:resource="http://data.europa.eu/a4g/resource/2018/s-001-000005#Procedure2f1ca8a0-26bc-4d71-9120-684b9fe42e65"/>
+    <epo:hasDispatchDate>2017-12-22</epo:hasDispatchDate>
+    <epo:hasPublicationDate>2018-01-03</epo:hasPublicationDate>
+    <epo:refersToPrevious>
+      <epo:Notice rdf:about="http://data.europa.eu/a4g/resource/2018/s-001-000005#PreviousNotice7b618742-02b5-49d2-a693-f494b37e44c3">
+        <epo:hasID>
+          <epo:Identifier rdf:about="http://data.europa.eu/a4g/resource/2018/s-001-000005#NoticeIded02379f-32f2-4962-8d12-9806ad63f64c">
+            <epo:hasIdentifierValue>2017/S 126-255693</epo:hasIdentifierValue>
+          </epo:Identifier>
+        </epo:hasID>
+      </epo:Notice>
+    </epo:refersToPrevious>
+    <epo:isMadeAvailableVia>
+      <epo:Channel rdf:about="http://data.europa.eu/a4g/resource/2018/s-001-000005#ChannelCN066a3278-21b1-46b9-a341-81b05bab60d2">
+        <epo:hasURL>http://ted.europa.eu/udl?uri=TED:NOTICE:000005-2018:TEXT:EN:HTML</epo:hasURL>
+        <epo:hasURL>http://ted.europa.eu/udl?uri=TED:NOTICE:000005-2018:TEXT:CS:HTML</epo:hasURL>
+        <epo:hasURL>http://ted.europa.eu/udl?uri=TED:NOTICE:000005-2018:TEXT:SV:HTML</epo:hasURL>
+        <epo:hasURL>http://ted.europa.eu/udl?uri=TED:NOTICE:000005-2018:TEXT:NL:HTML</epo:hasURL>
+        <epo:hasURL>http://ted.europa.eu/udl?uri=TED:NOTICE:000005-2018:TEXT:MT:HTML</epo:hasURL>
+        <epo:hasURL>http://ted.europa.eu/udl?uri=TED:NOTICE:000005-2018:TEXT:SK:HTML</epo:hasURL>
+        <epo:hasURL>http://ted.europa.eu/udl?uri=TED:NOTICE:000005-2018:TEXT:ET:HTML</epo:hasURL>
+        <epo:hasURL>http://ted.europa.eu/udl?uri=TED:NOTICE:000005-2018:TEXT:SL:HTML</epo:hasURL>
+        <epo:hasURL>http://ted.europa.eu/udl?uri=TED:NOTICE:000005-2018:TEXT:BG:HTML</epo:hasURL>
+        <epo:hasURL>http://ted.europa.eu/udl?uri=TED:NOTICE:000005-2018:TEXT:PT:HTML</epo:hasURL>
+        <epo:hasURL>http://ted.europa.eu/udl?uri=TED:NOTICE:000005-2018:TEXT:PL:HTML</epo:hasURL>
+        <epo:hasURL>http://ted.europa.eu/udl?uri=TED:NOTICE:000005-2018:TEXT:GA:HTML</epo:hasURL>
+        <epo:hasURL>http://ted.europa.eu/udl?uri=TED:NOTICE:000005-2018:TEXT:LT:HTML</epo:hasURL>
+        <epo:hasURL>http://ted.europa.eu/udl?uri=TED:NOTICE:000005-2018:TEXT:ES:HTML</epo:hasURL>
+        <epo:hasURL>http://ted.europa.eu/udl?uri=TED:NOTICE:000005-2018:TEXT:HR:HTML</epo:hasURL>
+        <epo:hasURL>http://ted.europa.eu/udl?uri=TED:NOTICE:000005-2018:TEXT:FI:HTML</epo:hasURL>
+        <epo:hasURL>http://ted.europa.eu/udl?uri=TED:NOTICE:000005-2018:TEXT:IT:HTML</epo:hasURL>
+        <epo:hasURL>http://ted.europa.eu/udl?uri=TED:NOTICE:000005-2018:TEXT:HU:HTML</epo:hasURL>
+        <epo:hasURL>http://ted.europa.eu/udl?uri=TED:NOTICE:000005-2018:TEXT:RO:HTML</epo:hasURL>
+        <epo:hasURL>http://ted.europa.eu/udl?uri=TED:NOTICE:000005-2018:TEXT:FR:HTML</epo:hasURL>
+        <epo:hasURL>http://ted.europa.eu/udl?uri=TED:NOTICE:000005-2018:TEXT:DA:HTML</epo:hasURL>
+        <epo:hasURL>http://ted.europa.eu/udl?uri=TED:NOTICE:000005-2018:TEXT:LV:HTML</epo:hasURL>
+        <epo:hasURL>http://ted.europa.eu/udl?uri=TED:NOTICE:000005-2018:TEXT:EL:HTML</epo:hasURL>
+        <epo:hasURL>http://ted.europa.eu/udl?uri=TED:NOTICE:000005-2018:TEXT:DE:HTML</epo:hasURL>
+      </epo:Channel>
+    </epo:isMadeAvailableVia>
+    <epo:relatesTo rdf:resource="http://data.europa.eu/a4g/resource/2018/s-001-000005#Procedure2f1ca8a0-26bc-4d71-9120-684b9fe42e65"/>
+    <skos:editorialNote>Please note that some elements from the F03 are not mappable to the eProcurement Ontology which was designed in the eNotification phase for Commission Implementing Regulation (EU) 2019/1780 . The population of the knowledge graph will therefore not take into consideration the following xpaths from the published notices:
+OBJECT_CONTRACT/CPV_MAIN/CPV_SUPPLEMENTARY_CODE
+OBJECT_CONTRACT/LOT_DIVISION
+OBJECT_CONTRACT/NO_LOT_DIVISION
+OBJECT_CONTRACT/OBJECT_DESCR/CPV_ADDITIONAL/CPV_SUPPLEMENTARY_CODE
+OBJECT_CONTRACT/OBJECT_DESCR/NO_EU_PROGR_RELATED
+AWARD_CONTRACT/NO_AWARDED_CONTRACT/PROCUREMENT_DISCONTINUED
+AWARD_CONTRACT/NO_AWARDED_CONTRACT/PROCUREMENT_DISCONTINUED/ORIGINAL_ENOTICES
+AWARD_CONTRACT/NO_AWARDED_CONTRACT/PROCUREMENT_DISCONTINUED/ORIGINAL_TED_ESENDER
+AWARD_CONTRACT/NO_AWARDED_CONTRACT/PROCUREMENT_DISCONTINUED/ESENDER_LOGIN
+AWARD_CONTRACT/NO_AWARDED_CONTRACT/PROCUREMENT_DISCONTINUED/CUSTOMER_LOGIN
+AWARD_CONTRACT/NO_AWARDED_CONTRACT/PROCUREMENT_DISCONTINUED/NO_DOC_EXT
+AWARD_CONTRACT/NO_AWARDED_CONTRACT/PROCUREMENT_DISCONTINUED/ORIGINAL_OTHER_MEANS
+AWARD_CONTRACT/NO_AWARDED_CONTRACT/PROCUREMENT_DISCONTINUED/DATE_DISPATCH_ORIGINAL
+AWARD_CONTRACT/NO_AWARDED_CONTRACT/PROCUREMENT_UNSUCCESSFUL
+AWARD_CONTRACT/AWARDED_CONTRACT/TENDERS/NB_TENDERS_RECEIVED_OTHER_EU
+AWARD_CONTRACT/AWARDED_CONTRACT/TENDERS/NB_TENDERS_RECEIVED_NON_EU
+AWARD_CONTRACT/AWARDED_CONTRACT/CONTRACTORS/NO_AWARDED_TO_GROUP
+AWARD_CONTRACT/AWARDED_CONTRACT/VAL_SUBCONTRACTING
+AWARD_CONTRACT/AWARDED_CONTRACT/VAL_SUBCONTRACTING/CURRENCY
+AWARD_CONTRACT/AWARDED_CONTRACT/PCT_SUBCONTRACTING
+AWARD_CONTRACT/AWARDED_CONTRACT/VAL_SUBCONTRACTING/INFO_ADD_SUBCONTRACTING
+/PROCEDURE/PT_AWARD_CONTRACT_WITHOUT_CALL/D_OUTSIDE_SCOPE</skos:editorialNote>
+    <epo:refersToPrevious>
+      <epo:Notice rdf:about="http://data.europa.eu/a4g/resource/2018/s-001-000005#PrevNotice5da50e7c-cc64-41e0-9817-d812158ea1b1">
+        <epo:hasID>
+          <epo:Identifier rdf:about="http://data.europa.eu/a4g/resource/2018/s-001-000005#PrevNoticeId467b6d17-da98-41f5-a68e-d4b189852ddc">
+            <epo:hasIdentifierValue>2017/S 126-255693</epo:hasIdentifierValue>
+          </epo:Identifier>
+        </epo:hasID>
+      </epo:Notice>
+    </epo:refersToPrevious>
+    <epo:hasID>
+      <epo:Identifier rdf:about="http://data.europa.eu/a4g/resource/2018/s-001-000005#ContractAwardNoticeIdcb104304-9586-47d2-9f1b-fe7e3eb271a8">
+        <epo:hasIdentifierValue>2018/S 001-000005</epo:hasIdentifierValue>
+      </epo:Identifier>
+    </epo:hasID>
+  </epo:ContractAwardNotice>
+  <epo:Business rdf:about="http://data.europa.eu/a4g/resource/2018/s-001-000005#BusinessOrganisationOld3e9b7017-3585-4741-b9c6-38c6d2243257">
+    <epo:isAn>
+      <epo:Organisation rdf:about="http://data.europa.eu/a4g/resource/2018/s-001-000005#WinnerOrganisationOldf21bfba9-1470-4f91-bcf1-8324757050f3">
+        <epo:hasLocation>
+          <epo:Location rdf:about="http://data.europa.eu/a4g/resource/2018/s-001-000005#WinnerLocationAwardedToGroupOld733ba7f3-aea2-43e4-85c0-79b33904470f">
+            <epo:hasPostalAddress>
+              <epo:Address rdf:about="http://data.europa.eu/a4g/resource/2018/s-001-000005#WinnerAddressAwardedGroupOld5b5043cf-3a2f-441d-a0eb-7dc43e4d99f6">
+                <epo:hasCountrySubentityCode rdf:resource="http://data.europa.eu/nuts/code/ITH52"/>
+                <epo:hasStreetName>Via Bondi 14/a</epo:hasStreetName>
+                <epo:hasCityName>Parma</epo:hasCityName>
+                <epo:hasCountryCode rdf:resource="http://publications.europa.eu/resource/authority/country/ITA"/>
+                <epo:hasPostalZone>43123</epo:hasPostalZone>
+              </epo:Address>
+            </epo:hasPostalAddress>
+          </epo:Location>
+        </epo:hasLocation>
+        <epo:hasName xml:lang="en">Policreo società di progettazione s.r.l</epo:hasName>
+      </epo:Organisation>
+    </epo:isAn>
+    <epo:hasSize rdf:resource="http://publications.europa.eu/resource/authority/economic-operator-size/sme"/>
+  </epo:Business>
+  <epo:Business rdf:about="http://data.europa.eu/a4g/resource/2018/s-001-000005#BusinessOrganisationOld4a3fe634-a8be-487a-adc9-77dbea298860">
+    <epo:isAn>
+      <epo:Organisation rdf:about="http://data.europa.eu/a4g/resource/2018/s-001-000005#WinnerOrganisationOld8db28f61-540b-4844-b4f5-fd856d743976">
+        <epo:hasLocation>
+          <epo:Location rdf:about="http://data.europa.eu/a4g/resource/2018/s-001-000005#WinnerLocationAwardedToGroupOlda722b941-f58d-48ba-8688-99fb1693206a">
+            <epo:hasPostalAddress>
+              <epo:Address rdf:about="http://data.europa.eu/a4g/resource/2018/s-001-000005#WinnerAddressAwardedGroupOld96c4ee7d-536a-4e93-8b39-4f58edfcaaff">
+                <epo:hasCountrySubentityCode rdf:resource="http://data.europa.eu/nuts/code/ITC4B"/>
+                <epo:hasStreetName>Via Mantovanella 4</epo:hasStreetName>
+                <epo:hasCityName>Mantova</epo:hasCityName>
+                <epo:hasCountryCode rdf:resource="http://publications.europa.eu/resource/authority/country/ITA"/>
+                <epo:hasPostalZone>46100</epo:hasPostalZone>
+              </epo:Address>
+            </epo:hasPostalAddress>
+          </epo:Location>
+        </epo:hasLocation>
+        <epo:hasName xml:lang="en">ELT associati di Guaglio Davide e Molinari Paolo</epo:hasName>
+      </epo:Organisation>
+    </epo:isAn>
+    <epo:hasSize rdf:resource="http://publications.europa.eu/resource/authority/economic-operator-size/sme"/>
+  </epo:Business>
+  <epo:AwardDecision rdf:about="http://data.europa.eu/a4g/resource/2018/s-001-000005#AwardDecisiond72f52e6-b5f2-496d-86f8-e5d0f0f4de8b">
+    <epo:has>
+      <epo:Winner rdf:about="http://data.europa.eu/a4g/resource/2018/s-001-000005#WinnerGroup6e9d08ea-8a6f-4f92-adfb-e4d499b81a0e">
+        <epo:isRoleOf>
+          <epo:OrganisationGroup rdf:about="http://data.europa.eu/a4g/resource/2018/s-001-000005#WinnerOrganisationGroupOldcd275209-55bb-4986-9b7a-72eaaeb24da4">
+            <epo:hasMember rdf:resource="http://data.europa.eu/a4g/resource/2018/s-001-000005#WinnerOrganisationOld8db28f61-540b-4844-b4f5-fd856d743976"/>
+            <epo:hasMember rdf:resource="http://data.europa.eu/a4g/resource/2018/s-001-000005#WinnerOrganisationOldf21bfba9-1470-4f91-bcf1-8324757050f3"/>
+            <epo:hasMember rdf:resource="http://data.europa.eu/a4g/resource/2018/s-001-000005#WinnerOrganisationOldec481a0e-a930-443e-a379-e500bf61e7a7"/>
+            <epo:hasMember rdf:resource="http://data.europa.eu/a4g/resource/2018/s-001-000005#WinnerOrganisationOld3dafc074-f728-4fe7-b00b-36940004030e"/>
+            <epo:hasMember rdf:resource="http://data.europa.eu/a4g/resource/2018/s-001-000005#WinnerOrganisationOld489a3d39-4283-403e-96c7-c97eb1ca7c77"/>
+          </epo:OrganisationGroup>
+        </epo:isRoleOf>
+      </epo:Winner>
+    </epo:has>
+    <epo:refersTo rdf:resource="http://data.europa.eu/a4g/resource/2018/s-001-000005#Lot6b47fca6-4806-41ca-a298-f63ea4170873"/>
+    <epo:isReferedByA rdf:resource="http://data.europa.eu/a4g/resource/2018/s-001-000005#Contract0f859ca9-16d3-47b4-b59c-9032a3bc3fce"/>
+    <epo:hasAwardStatus rdf:resource="http://publications.europa.eu/resource/authority/winner-selection-status/selec-w"/>
+  </epo:AwardDecision>
+</rdf:RDF>

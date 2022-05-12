@@ -9,10 +9,10 @@ from ted_sws.core.adapters.cmd_runner import CmdRunner as BaseCmdRunner, DEFAULT
 from ted_sws.event_manager.adapters.logger import LOG_INFO_TEXT
 from ted_sws.mapping_suite_processor.services.conceptual_mapping_generate_metadata import \
     mapping_suite_processor_generate_metadata as generate_metadata
-from ted_sws.data_manager.adapters.mapping_suite_repository import METADATA_FILE_NAME, TRANSFORM_PACKAGE_NAME
+from ted_sws.data_manager.adapters.mapping_suite_repository import METADATA_FILE_NAME
+from ted_sws.mapping_suite_processor.entrypoints.cli import CONCEPTUAL_MAPPINGS_FILE
 
-DEFAULT_CONCEPTUAL_MAPPINGS_FILE = '{mappings_path}/{mapping_suite_id}/' + TRANSFORM_PACKAGE_NAME + \
-                                   '/conceptual_mappings.xlsx'
+
 DEFAULT_OUTPUT_METADATA_FILE = '{mappings_path}/{mapping_suite_id}/{output_file_name}'
 DEFAULT_OUTPUT_METADATA_FILE_NAME = METADATA_FILE_NAME
 CMD_NAME = "CMD_METADATA_GENERATOR"
@@ -65,7 +65,7 @@ def run(mapping_suite_id=None, opt_conceptual_mappings_file=None, opt_output_met
     if opt_conceptual_mappings_file:
         conceptual_mappings_file = opt_conceptual_mappings_file
     else:
-        conceptual_mappings_file = DEFAULT_CONCEPTUAL_MAPPINGS_FILE.format(
+        conceptual_mappings_file = CONCEPTUAL_MAPPINGS_FILE.format(
             mappings_path=opt_mappings_folder,
             mapping_suite_id=mapping_suite_id
         )

@@ -13,7 +13,7 @@
         access: transformation/resources/nuts.json
         referenceFormulation: jsonpath
         iterator: $.results.bindings[*]
-      countries-source:
+      country-source:
         access: transformation/resources/country.json
         referenceFormulation: jsonpath
         iterator: $.results.bindings[*]
@@ -220,7 +220,7 @@
                     - [str2, $(code.value)]
           - p: locn:adminUnitL2
             o:
-              - mapping: countries
+              - mapping: country
                 condition:
                   function: equal
                   parameters:
@@ -853,9 +853,9 @@
         sources:
           - nuts-source
         s: $(conceptURI.value)
-      countries:
+      country:
         sources:
-          - countries-source
+          - country-source
         s: $(conceptURI.value)
 
       buyerlegaltype:

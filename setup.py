@@ -79,6 +79,7 @@ setup(
             "mapping_suite_processor = ted_sws.mapping_suite_processor.entrypoints.cli.cmd_mapping_suite_processor:main",
             "metadata_generator = ted_sws.mapping_suite_processor.entrypoints.cli.cmd_metadata_generator:main",
             "sparql_generator = ted_sws.mapping_suite_processor.entrypoints.cli.cmd_sparql_generator:main",
+            "resources_injector = ted_sws.mapping_suite_processor.entrypoints.cli.cmd_resources_injector:main",
             "yarrrml2rml_converter = ted_sws.mapping_suite_processor.entrypoints.cli.cmd_yarrrml2rml_converter:main",
             "mapping_runner = ted_sws.notice_transformer.entrypoints.cli.cmd_mapping_runner:main",
             "normalisation_resource_generator = ted_sws.data_manager.entrypoints.cli.cmd_generate_mapping_resources:main",

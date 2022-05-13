@@ -1,5 +1,6 @@
 import hashlib
 import logging
+from random import random, randint
 from typing import Iterator, Union, Optional
 
 import gridfs
@@ -46,7 +47,7 @@ class NoticeRepository(NoticeRepositoryABC):
         :return:
         """
         content = file_content.encode("utf-8")
-        hashed_content = hashlib.sha256(content).hexdigest()
+        hashed_content = hashlib.sha256(content + str(randint(0,1000000)).encode("utf-8")).hexdigest()
         return self.file_storage.put(data=content, notice_id=notice_id, _id=hashed_content)
 
     def delete_files_by_notice_id(self, notice_id: str):

@@ -1,12 +1,9 @@
-import hashlib
 import logging
-from random import random, randint
 from typing import Iterator, Union, Optional
 
 import gridfs
 from pymongo import MongoClient
-from pymongo.collection import Collection
-
+from bson import ObjectId
 from ted_sws import config
 from ted_sws.core.model.manifestation import XMLManifestation, RDFManifestation, METSManifestation, Manifestation
 from ted_sws.core.model.metadata import NormalisedMetadata
@@ -37,7 +34,7 @@ class NoticeRepository(NoticeRepositoryABC):
         :param file_id:
         :return:
         """
-        return self.file_storage.get(file_id=file_id).read().decode("utf-8")
+        return self.file_storage.get(file_id=ObjectId(file_id)).read().decode("utf-8")
 
     def put_file_content_in_grid_fs(self, notice_id: str, file_content: str) -> str:
         """
@@ -46,9 +43,7 @@ class NoticeRepository(NoticeRepositoryABC):
         :param file_content:
         :return:
         """
-        content = file_content.encode("utf-8")
-        hashed_content = hashlib.sha256(content + str(randint(0,1000000)).encode("utf-8")).hexdigest()
-        return self.file_storage.put(data=content, notice_id=notice_id, _id=hashed_content)
+        return str(self.file_storage.put(data=file_content.encode("utf-8"), notice_id=notice_id))
 
     def delete_files_by_notice_id(self, notice_id: str):
         """

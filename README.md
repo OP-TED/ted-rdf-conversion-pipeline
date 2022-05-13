@@ -74,6 +74,28 @@ Options:
   --help                                      Show this message and exit.
 ```
 
+#### CMD: resources_injector
+Injects the requested resources from Conceptual Mappings into the MappingSuite.
+
+Use:
+```bash
+resources_injector --help
+```
+to get the Usage Help:
+```bash
+Usage: resources_injector [OPTIONS] [MAPPING_SUITE_ID]
+
+  Injects the requested resources from Conceptual Mappings into the
+  MappingSuite
+
+Options:
+  -i, --opt-conceptual-mappings-file TEXT     Use to overwrite default INPUT
+  -o, --opt-output-folder TEXT                Use to overwrite default OUTPUT
+  -r, --opt-resources-folder TEXT
+  -m, --opt-mappings-folder TEXT
+  --help                                      Show this message and exit.
+```
+
 #### CMD: metadata_generator
 Generates metadata.json file from Conceptual Mappings file data.
 
@@ -166,6 +188,7 @@ Processes Mapping Suite (identified by mapping-suite-id).
 By default, successively runs the following commands:
 ```bash
 - normalisation_resource_generator
+- resources_injector
 - metadata_generator
 - yarrrml2rml_converter
 - sparql_generator
@@ -184,7 +207,7 @@ Usage: mapping_suite_processor [OPTIONS] MAPPING_SUITE_ID
   yarrrml2rml_converter - sparql_generator
 
 Options:
-  -c, --opt-commands [normalisation_resource_generator|metadata_generator|yarrrml2rml_converter|sparql_generator]
+  -c, --opt-commands [normalisation_resource_generator|resources_injector|metadata_generator|yarrrml2rml_converter|sparql_generator]
   -m, --opt-mappings-folder TEXT
   --help                                      Show this message and exit.
 ```

@@ -69,3 +69,23 @@ def notice_sample_metadata(notice_2018) -> ExtractedMetadata:
 @pytest.fixture()
 def rdf_content() -> str:
     return (TEST_DATA_PATH / "notice_packager" / "templates" / "196390_2016.rdf").read_text()
+
+
+@pytest.fixture
+def mets_packages_path():
+    return TEST_DATA_PATH / "notice_packager" / "mets_packages" / "test_pkgs"
+
+
+@pytest.fixture
+def rdf_files_path():
+    return TEST_DATA_PATH / "notice_packager" / "mets_packages" / "rdfs"
+
+
+@pytest.fixture
+def non_existing_rdf_files_path():
+    return TEST_DATA_PATH / "notice_packager" / "mets_packages" / "non_existing_rdfs"
+
+
+@pytest.fixture
+def invalid_rdf_files_path():
+    return TEST_DATA_PATH / "notice_packager" / "mets_packages" / "invalid_rdfs"

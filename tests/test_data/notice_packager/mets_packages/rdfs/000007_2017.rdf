@@ -1,0 +1,1428 @@
+<rdf:RDF
+    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+    xmlns:epodata="http://data.europa.eu/a4g/resource#"
+    xmlns:dc="http://www.omg.org/spec/UML/20131001/UMLDC"
+    xmlns:epo="http://data.europa.eu/a4g/ontology#"
+    xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+    xmlns:reg2015="http://data.europa.eu/a4g/extension/ontology#"
+    xmlns:ccts="http://www.unece.org/cefact#"
+    xmlns:dct="http://purl.org/dc/terms/"
+    xmlns:owl="http://www.w3.org/2002/07/owl#"
+    xmlns:reg2015data="http://data.europa.eu/a4g/extension/resource#"
+    xmlns:skos="http://www.w3.org/2004/02/skos/core#"
+    xmlns:cc="http://creativecommons.org/ns#"
+    xmlns:org="http://www.w3.org/ns/org#"
+    xmlns:vann="http://purl.org/vocab/vann/"
+    xmlns:foaf="http://xmlns.com/foaf/0.1/">
+  <epo:Reviewer rdf:about="http://data.europa.eu/a4g/resource/2017/s-001-000007#Reviewerdec8d443-6393-4aea-a3ce-8747ac7ce0f0">
+    <epo:has>
+      <epo:ContactPoint rdf:about="http://data.europa.eu/a4g/resource/2017/s-001-000007#ContactPointReviewBodyf9f6e87e-2a89-4f30-9621-3b2046796ada">
+        <epo:hasEmail>cfi.registry@curia.europa.eu</epo:hasEmail>
+        <epo:hasTelephone>+352 4303-1</epo:hasTelephone>
+        <epo:hasInternetAddress>http://curia.europa.eu/</epo:hasInternetAddress>
+        <epo:hasFax>+352 4303-2100</epo:hasFax>
+      </epo:ContactPoint>
+    </epo:has>
+    <epo:isRoleOf>
+      <epo:Organisation rdf:about="http://data.europa.eu/a4g/resource/2017/s-001-000007#OrganisationReviewBodycfda28d7-6adf-497e-bbd1-de02c2433943">
+        <epo:hasName xml:lang="sv">Tribunalen</epo:hasName>
+        <epo:hasName xml:lang="hu">Törvényszék</epo:hasName>
+        <epo:hasName xml:lang="de">Gericht der Europäischen Union</epo:hasName>
+        <epo:hasName xml:lang="ga">An Chúirt Ghinearálta</epo:hasName>
+        <epo:hasName xml:lang="mt">Il-Qorti Ġenerali</epo:hasName>
+        <epo:hasName xml:lang="bg">Общ съд</epo:hasName>
+        <epo:hasName xml:lang="fi">Unionin yleinen tuomioistuin</epo:hasName>
+        <epo:hasName xml:lang="en">General Court</epo:hasName>
+        <epo:hasName xml:lang="et">Üldkohus</epo:hasName>
+        <epo:hasName xml:lang="pl">Sąd</epo:hasName>
+        <epo:hasName xml:lang="it">Tribunale</epo:hasName>
+        <epo:hasName xml:lang="pt">Tribunal Geral</epo:hasName>
+        <epo:hasName xml:lang="el">Γενικό Δικαστήριο</epo:hasName>
+        <epo:hasName xml:lang="sk">Všeobecný súd</epo:hasName>
+        <epo:hasName xml:lang="ro">Tribunalul</epo:hasName>
+        <epo:hasName xml:lang="lv">Vispārējā tiesa</epo:hasName>
+        <epo:hasName xml:lang="fr">Tribunal</epo:hasName>
+        <epo:hasLocation>
+          <epo:Location rdf:about="http://data.europa.eu/a4g/resource/2017/s-001-000007#LocationReviewBody3f44bf38-6c01-4080-b8c3-b4952a59e746">
+            <epo:hasPostalAddress>
+              <epo:Address rdf:about="http://data.europa.eu/a4g/resource/2017/s-001-000007#AddressReviewBody18a62155-0683-41e2-b996-a8254c4795e9">
+                <epo:hasPostalZone>2925</epo:hasPostalZone>
+                <epo:hasCityName>Lussemburgu</epo:hasCityName>
+                <epo:hasCityName>Luxembourg</epo:hasCityName>
+                <epo:hasCountryCode rdf:resource="http://publications.europa.eu/resource/authority/country/LUX"/>
+                <epo:hasStreetName>rue du Fort Niedergrünewald</epo:hasStreetName>
+              </epo:Address>
+            </epo:hasPostalAddress>
+          </epo:Location>
+        </epo:hasLocation>
+        <epo:hasName xml:lang="hr">Opći sud</epo:hasName>
+        <epo:hasName xml:lang="lt">Bendrasis Teismas</epo:hasName>
+        <epo:hasName xml:lang="da">Retten</epo:hasName>
+        <epo:hasName xml:lang="nl">Gerecht</epo:hasName>
+        <epo:hasName xml:lang="es">Tribunal General</epo:hasName>
+        <epo:hasName xml:lang="sl">Splošno sodišče</epo:hasName>
+        <epo:hasName xml:lang="cs">Tribunál</epo:hasName>
+      </epo:Organisation>
+    </epo:isRoleOf>
+    <reg2015:isInvolvedIn>
+      <epo:Procedure rdf:about="http://data.europa.eu/a4g/resource/2017/s-001-000007#Procedure0a80fd52-a02a-4c67-9d74-976f6391a14a">
+        <epo:hasTitle xml:lang="hu">
+&lt;P&gt;Szárazföldi személyszállítási szolgáltatások nyújtására irányuló keretszerződés; 1. tétel – Leszbosz; 2. tétel – Híosz; 3. tétel – Kósz.&lt;/P&gt;
+</epo:hasTitle>
+        <epo:hasAcceleratedProcedureJustification xml:lang="nl"
+        >
+&lt;P&gt;Met het oog op het hoge aantal overnamen op het niveau van de lidstaten, moet Frontex alle nodige stappen ondernemen om ervoor te zorgen dat onmiddellijk steun wordt verleend aan de lidstaten, zodat zij aan hun verplichtingen kunnen voldoen.&lt;/P&gt;
+</epo:hasAcceleratedProcedureJustification>
+        <epo:leadsTo>
+          <epo:Contract rdf:about="http://data.europa.eu/a4g/resource/2017/s-001-000007#Contract00f1d326-0f50-45fa-92f5-b065c4f7343b">
+            <epo:hasTitle xml:lang="hr">
+&lt;P&gt;Okvirni ugovor za pružanje usluga prijevoza putnika kopnom, autobusom; grupa 1 — Lesvos&lt;/P&gt;
+</epo:hasTitle>
+            <epo:hasTitle xml:lang="es">
+&lt;P&gt;Contrato marco para la prestación de servicios de transporte de viajeros por tierra, en autobús; lote 1 — Lesbos&lt;/P&gt;
+</epo:hasTitle>
+            <epo:hasID>
+              <epo:Identifier rdf:about="http://data.europa.eu/a4g/resource/2017/s-001-000007#ContractId868f9242-679c-482d-ac54-1073a5f796ec">
+                <epo:hasIdentifierValue>Frontex/OP/602/2016/Lot 1</epo:hasIdentifierValue>
+              </epo:Identifier>
+            </epo:hasID>
+            <epo:hasID>
+              <epo:Identifier rdf:about="http://data.europa.eu/a4g/resource/2017/s-001-000007#ContractId4b45ae61-7bcc-4b37-b6eb-4ecaccc84864">
+                <epo:hasIdentifierValue>Frontex/OP/602/2016/Lot 1</epo:hasIdentifierValue>
+              </epo:Identifier>
+            </epo:hasID>
+            <epo:hasID>
+              <epo:Identifier rdf:about="http://data.europa.eu/a4g/resource/2017/s-001-000007#ContractIda05006a6-e5e6-4c34-9eb2-43168e5bcfe5">
+                <epo:hasIdentifierValue>Frontex/OP/602/2016/Lot 1</epo:hasIdentifierValue>
+              </epo:Identifier>
+            </epo:hasID>
+            <epo:hasID>
+              <epo:Identifier rdf:about="http://data.europa.eu/a4g/resource/2017/s-001-000007#ContractId688df8c2-7f7b-4630-9709-3d83313da5fb">
+                <epo:hasIdentifierValue>Frontex/OP/602/2016/Lot 1</epo:hasIdentifierValue>
+              </epo:Identifier>
+            </epo:hasID>
+            <epo:hasID>
+              <epo:Identifier rdf:about="http://data.europa.eu/a4g/resource/2017/s-001-000007#ContractIdce976ed2-bd69-482a-85dd-f75f142208cf">
+                <epo:hasIdentifierValue>Frontex/OP/602/2016/Lot 1</epo:hasIdentifierValue>
+              </epo:Identifier>
+            </epo:hasID>
+            <epo:hasID>
+              <epo:Identifier rdf:about="http://data.europa.eu/a4g/resource/2017/s-001-000007#ContractId45074547-3403-44c1-ab77-f43dd516d055">
+                <epo:hasIdentifierValue>Frontex/OP/602/2016/Lot 1</epo:hasIdentifierValue>
+              </epo:Identifier>
+            </epo:hasID>
+            <epo:hasID>
+              <epo:Identifier rdf:about="http://data.europa.eu/a4g/resource/2017/s-001-000007#ContractIdcb73526b-3a90-4525-a481-9530a16403e1">
+                <epo:hasIdentifierValue>Frontex/OP/602/2016/Lot 1</epo:hasIdentifierValue>
+              </epo:Identifier>
+            </epo:hasID>
+            <epo:hasTitle xml:lang="da">
+&lt;P&gt;Rammekontrakt om udførelse af passagertransport over land med bus. Parti 1 — Lesbos&lt;/P&gt;
+</epo:hasTitle>
+            <epo:hasID>
+              <epo:Identifier rdf:about="http://data.europa.eu/a4g/resource/2017/s-001-000007#ContractId9d195eda-c394-4811-99a2-fe9971f33f90">
+                <epo:hasIdentifierValue>Frontex/OP/602/2016/Lot 1</epo:hasIdentifierValue>
+              </epo:Identifier>
+            </epo:hasID>
+            <epo:hasID>
+              <epo:Identifier rdf:about="http://data.europa.eu/a4g/resource/2017/s-001-000007#ContractId7c52503f-d4a0-47e4-b8be-5125f22ea1ae">
+                <epo:hasIdentifierValue>Frontex/OP/602/2016/Lot 1</epo:hasIdentifierValue>
+              </epo:Identifier>
+            </epo:hasID>
+            <epo:hasTitle xml:lang="hu">
+&lt;P&gt;Szárazföldi, buszos személyszállítási szolgáltatások nyújtására irányuló keretszerződés; 1. tétel – Leszbosz&lt;/P&gt;
+</epo:hasTitle>
+            <epo:hasTitle xml:lang="lv">
+&lt;P&gt;Pamatnolīgums par pasažieru sauszemes pārvadājumu pakalpojumu nodrošināšanu, izmantojot autobusu; 1. daļa – Lesba&lt;/P&gt;
+</epo:hasTitle>
+            <epo:hasContractConclusionDate>2016-12-06</epo:hasContractConclusionDate>
+            <epo:hasID>
+              <epo:Identifier rdf:about="http://data.europa.eu/a4g/resource/2017/s-001-000007#ContractId748d98f3-5da9-4b4f-b4e2-d8609c624e9e">
+                <epo:hasIdentifierValue>Frontex/OP/602/2016/Parti 1</epo:hasIdentifierValue>
+              </epo:Identifier>
+            </epo:hasID>
+            <epo:hasTitle xml:lang="pl">
+&lt;P&gt;Umowa ramowa o świadczenie usług lądowych przewozów pasażerskich autokarem; część 1 — Lesbos&lt;/P&gt;
+</epo:hasTitle>
+            <epo:hasID>
+              <epo:Identifier rdf:about="http://data.europa.eu/a4g/resource/2017/s-001-000007#ContractIdee3dfd29-dd5f-4883-8038-338057f4e141">
+                <epo:hasIdentifierValue>Frontex/OP/602/2016/Lot 1</epo:hasIdentifierValue>
+              </epo:Identifier>
+            </epo:hasID>
+            <epo:hasTitle xml:lang="en">
+&lt;P&gt;Framework contract for the provision of passenger transfer services by land, by bus; lot 1 — Lesvos&lt;/P&gt;
+</epo:hasTitle>
+            <epo:hasTitle xml:lang="it">
+&lt;P&gt;Contratto quadro per la prestazione di servizi di trasferimento passeggeri via terra, con autobus; lotto 1 — Lesbo&lt;/P&gt;
+</epo:hasTitle>
+            <epo:hasTitle xml:lang="cs">
+&lt;P&gt;Rámcová smlouva o poskytování služeb přepravy cestujících po souši autobusem; položka č. 1 – Lesvos&lt;/P&gt;
+</epo:hasTitle>
+            <epo:hasProcurementValue>
+              <epo:Value rdf:about="http://data.europa.eu/a4g/resource/2017/s-001-000007#TotalValueValTotalOlde85a657d-cfc5-4dff-b804-86d12f277c8c">
+                <epo:hasOverallAmount>
+                  <ccts:Amount rdf:about="http://data.europa.eu/a4g/resource/2017/s-001-000007#ValueAwardedAmountOldf00dfeaf-c835-4be3-b67d-cfd1ecc750d6">
+                    <ccts:hasAmountValue>150000.00</ccts:hasAmountValue>
+                    <epo:hasCurrencyCode rdf:resource="http://publications.europa.eu/resource/authority/currency/EUR"/>
+                  </ccts:Amount>
+                </epo:hasOverallAmount>
+                <epo:hasVATIncludedIndicator>false</epo:hasVATIncludedIndicator>
+              </epo:Value>
+            </epo:hasProcurementValue>
+            <epo:refersTo>
+              <epo:Lot rdf:about="http://data.europa.eu/a4g/resource/2017/s-001-000007#Lotfb15a5da-cf67-41a8-9ced-7b8370cddeee">
+                <epo:hasTitle xml:lang="hu">
+&lt;P&gt;Szárazföldi, buszos személyszállítási szolgáltatások nyújtására irányuló keretszerződés; 1. tétel – Leszbosz&lt;/P&gt;
+</epo:hasTitle> <epo:hasDescription xml:lang="sv">
+&lt;P&gt;Tillhandahållande av tjänster för passagerartransport med buss i Grekland – ön Lesbos.&lt;/P&gt;
+</epo:hasDescription>
+                <epo:hasTitle xml:lang="nl">
+&lt;P&gt;Raamovereenkomst voor de verlening van diensten inzake passagiersvervoer over land, per bus; perceel 1 — Lesbos&lt;/P&gt;
+</epo:hasTitle> <epo:isSpecifiedIn rdf:resource="http://data.europa.eu/a4g/resource/2017/s-001-000007#Procedure0a80fd52-a02a-4c67-9d74-976f6391a14a"/>
+                <epo:hasEstimatedValue>
+                  <epo:Value rdf:about="http://data.europa.eu/a4g/resource/2017/s-001-000007#EstimatedValueOld2d76c1a9-c15f-4eb3-8ed6-163747c1979e">
+                    <epo:hasOverallAmount>
+                      <ccts:Amount rdf:about="http://data.europa.eu/a4g/resource/2017/s-001-000007#ValueOverallAmountOldb6327cff-3d9d-4550-a69f-95dbdeda3d24">
+                        <ccts:hasAmountValue>150000.00</ccts:hasAmountValue>
+                        <epo:hasCurrencyCode rdf:resource="http://publications.europa.eu/resource/authority/currency/EUR"/>
+                      </ccts:Amount>
+                    </epo:hasOverallAmount>
+                    <epo:hasVATIncludedIndicator>false</epo:hasVATIncludedIndicator>
+                  </epo:Value>
+                </epo:hasEstimatedValue>
+                <epo:hasTitle xml:lang="et">
+&lt;P&gt;Reisijate maismaaveo (bussiveo) teenuste osutamise raamleping; 1. osa – Lesbos&lt;/P&gt;
+</epo:hasTitle> <epo:hasTitle xml:lang="el">
+&lt;P&gt;Σύμβαση-πλαίσιο για την παροχή υπηρεσιών χερσαίας μεταφοράς επιβατών, με λεωφορείο, παρτίδα 1 — Λέσβος&lt;/P&gt;
+</epo:hasTitle> <epo:hasTitle xml:lang="it">
+&lt;P&gt;Contratto quadro per la prestazione di servizi di trasferimento passeggeri via terra, con autobus; lotto 1 — Lesbo&lt;/P&gt;
+</epo:hasTitle> <epo:hasDescription xml:lang="cs">
+&lt;P&gt;Poskytování služeb přepravy cestujících autobusem v Řecku – ostrov Lesvos.&lt;/P&gt;
+</epo:hasDescription>
+                <epo:hasDescription xml:lang="es">
+&lt;P&gt;Prestación de servicios de transporte de viajeros en autobús en Grecia — isla de Lesbos.&lt;/P&gt;
+</epo:hasDescription>
+                <epo:hasDescription xml:lang="sl">
+&lt;P&gt;Zagotavljanje storitev avtobusnega potniškega prometa v Grčiji – otok Lezbos.&lt;/P&gt;
+</epo:hasDescription>
+                <epo:hasDescription xml:lang="hr">
+&lt;P&gt;Pružanje usluga prijevoza putnika autobusom u Grčkoj — otok Lesvos.&lt;/P&gt;
+</epo:hasDescription>
+                <epo:hasTitle xml:lang="mt">
+&lt;P&gt;Qafas ta' kuntratt għall-provvista ta' servizzi għat-trasferiment tal-passiġġieri fuq l-art, permezz tal-karozza tal-linja; l-1 lott — Lesvos&lt;/P&gt;
+</epo:hasTitle> <epo:hasDescription xml:lang="pt">
+&lt;P&gt;Prestação de serviços de transferência de passageiros, por autocarro, na Grécia — ilha de Lesbos.&lt;/P&gt;
+</epo:hasDescription>
+                <epo:hasTitle xml:lang="pt">
+&lt;P&gt;Contrato-quadro relativo à prestação de serviços de transporte terrestre de passageiros, por autocarro, lote 1 — Lesbos&lt;/P&gt;
+</epo:hasTitle> <epo:hasTitle xml:lang="hr">
+&lt;P&gt;Okvirni ugovor za pružanje usluga prijevoza putnika kopnom, autobusom; grupa 1 — Lesvos&lt;/P&gt;
+</epo:hasTitle> <epo:hasID>
+                  <epo:Identifier rdf:about="http://data.europa.eu/a4g/resource/2017/s-001-000007#LotIdf3154ccd-b4c8-46b8-a911-17fee680f96f">
+                    <epo:hasIdentifierValue>1</epo:hasIdentifierValue>
+                  </epo:Identifier>
+                </epo:hasID>
+                <epo:hasDescription xml:lang="bg">
+&lt;P&gt;Осигуряване на услуги по трансфер на пътници с автобус в Гърция – остров Лесбос.&lt;/P&gt;
+</epo:hasDescription>
+                <epo:hasTitle xml:lang="da">
+&lt;P&gt;Rammekontrakt om udførelse af passagertransport over land med bus. Parti 1 — Lesbos&lt;/P&gt;
+</epo:hasTitle> <epo:hasDescription xml:lang="nl">
+&lt;P&gt;Verlening van diensten inzake passagiersvervoer per bus in Griekenland — eiland Lesbos.&lt;/P&gt;
+</epo:hasDescription>
+                <epo:hasDescription xml:lang="ga">
+&lt;P&gt;Seirbhísí aistrithe paisinéirí ar an mbus a sholáthar sa Ghréig — oileán Lesvos.&lt;/P&gt;
+</epo:hasDescription>
+                <epo:hasTitle xml:lang="es">
+&lt;P&gt;Contrato marco para la prestación de servicios de transporte de viajeros por tierra, en autobús; lote 1 — Lesbos&lt;/P&gt;
+</epo:hasTitle> <epo:hasTitle xml:lang="sk">
+&lt;P&gt;Rámcová zmluva na poskytovanie služieb prepravy cestujúcich po zemi, autobusom; časť 1 – Lesbos&lt;/P&gt;
+</epo:hasTitle> <epo:providesAdditionalInformation>
+                  <epo:StatisticalInformation rdf:about="http://data.europa.eu/a4g/resource/2017/s-001-000007#StatisticalInformation6c3d405b-b34b-4866-b212-b168f7952011">
+                    <epo:hasReceivedTenderLots>1</epo:hasReceivedTenderLots>
+                  </epo:StatisticalInformation>
+                </epo:providesAdditionalInformation>
+                <epo:hasDescription xml:lang="mt">
+&lt;P&gt;Provvista ta' servizzi għat-trasferiment tal-passiġġieri bil-karozza tal-linja fil-Greċja — il-gżira ta' Lesvos.&lt;/P&gt;
+</epo:hasDescription>
+                <epo:hasDescription xml:lang="hu">
+&lt;P&gt;Buszos személyszállítási szolgáltatások nyújtása Görögországban – Leszbosz szigete.&lt;/P&gt;
+</epo:hasDescription>
+                <epo:hasTitle xml:lang="fr">
+&lt;P&gt;Contrat-cadre relatif à la prestation de services de transport terrestre de passagers par bus; lot 1 — Lesbos&lt;/P&gt;
+</epo:hasTitle> <epo:hasTitle xml:lang="ro">
+&lt;P&gt;Contract-cadru pentru prestarea de servicii de transport terestru de pasageri cu autobuzul; lotul 1 – Lesbos&lt;/P&gt;
+</epo:hasTitle> <epo:hasDescription xml:lang="en">
+&lt;P&gt;Provision of passenger transfer services by bus in Greece — Lesvos island.&lt;/P&gt;
+</epo:hasDescription>
+                <epo:hasDescription xml:lang="fr">
+&lt;P&gt;Prestation de services de transport de passagers par bus en Grèce, île de Lesbos.&lt;/P&gt;
+</epo:hasDescription>
+                <epo:hasTitle xml:lang="sv">
+&lt;P&gt;Ramavtal för tillhandahållande av tjänster för passagerartransport landvägen, med buss, del 1 – Lesbos&lt;/P&gt;
+</epo:hasTitle> <epo:hasDescription xml:lang="it">
+&lt;P&gt;Prestazione di servizi di trasferimento passeggeri con autobus in Grecia — isola di Lesbo.&lt;/P&gt;
+</epo:hasDescription>
+                <epo:hasDescription xml:lang="de">
+&lt;P&gt;Personentransferdienste per Bus in Griechenland — Insel Lesbos.&lt;/P&gt;
+</epo:hasDescription>
+                <epo:has>
+                  <epo:Purpose rdf:about="http://data.europa.eu/a4g/resource/2017/s-001-000007#PurposeAdditional511052ec-6527-44ad-9d67-2378abddb9b8">
+                    <epo:hasAdditionalClassification rdf:resource="http://data.europa.eu/cpv/cpv/60170000"/>
+                    <epo:hasOptionsPermission rdf:resource="http://publications.europa.eu/resource/authority/permission/not-allowed"/>
+                  </epo:Purpose>
+                </epo:has>
+                <epo:hasDescription xml:lang="lv">
+&lt;P&gt;Pasažieru pārvadājumu pakalpojumu nodrošināšana, izmantojot autobusu, Grieķijā, Lesbas salā.&lt;/P&gt;
+</epo:hasDescription>
+                <epo:hasDescription xml:lang="ro">
+&lt;P&gt;Prestare de servicii de transport terestru de pasageri cu autobuzul în Grecia – insula Lesbos.&lt;/P&gt;
+</epo:hasDescription>
+                <epo:hasTitle xml:lang="de">
+&lt;P&gt;Rahmenvertrag über Personentransferdienste auf dem Landweg, per Bus; Los 1 — Lesbos&lt;/P&gt;
+</epo:hasTitle> <epo:hasDescription xml:lang="da">
+&lt;P&gt;Udførelse af passagertransport over land med bus i Grækenland, øen Lesbos.&lt;/P&gt;
+</epo:hasDescription>
+                <epo:hasTitle xml:lang="fi">
+&lt;P&gt;Puitesopimus matkustajille tarkoitettujen maakuljetuspalveluiden toimittamisesta linja-autokuljetuksina; erä 1 – Lesbos&lt;/P&gt;
+</epo:hasTitle> <epo:hasDescription xml:lang="fi">
+&lt;P&gt;Erän kohteena on matkustajille tarkoitettujen linja-autokuljetuspalveluiden toimittaminen Kreikassa, Lesboksen saarella.&lt;/P&gt;
+</epo:hasDescription>
+                <epo:hasTitle xml:lang="lv">
+&lt;P&gt;Pamatnolīgums par pasažieru sauszemes pārvadājumu pakalpojumu nodrošināšanu, izmantojot autobusu; 1. daļa – Lesba&lt;/P&gt;
+</epo:hasTitle> <epo:hasTitle xml:lang="en">
+&lt;P&gt;Framework contract for the provision of passenger transfer services by land, by bus; lot 1 — Lesvos&lt;/P&gt;
+</epo:hasTitle> <epo:hasTitle xml:lang="bg">
+&lt;P&gt;Рамков договор за осигуряване на услуги по трансфер на пътници по земя, с автобус; партида 1 – Лесбос&lt;/P&gt;
+</epo:hasTitle> <epo:hasDescription xml:lang="et">
+&lt;P&gt;Reisijate bussiveo teenuste osutamine Kreekas Lesbose saarel.&lt;/P&gt;
+</epo:hasDescription>
+                <epo:hasTitle xml:lang="ga">
+&lt;P&gt;Conradh creatlaí le haghaidh seirbhísí aistrithe paisinéirí ar talamh, ar an mbus, a sholáthar; beart 1 — Lesvos&lt;/P&gt;
+</epo:hasTitle> <epo:hasDescription xml:lang="lt">
+&lt;P&gt;Keleivių vežimo autobusais paslaugų teikimas Graikijoje, Lesbo saloje.&lt;/P&gt;
+</epo:hasDescription>
+                <epo:hasDescription xml:lang="pl">
+&lt;P&gt;Świadczenie usług przewozów pasażerskich autokarem w Grecji — wyspa Lesbos.&lt;/P&gt;
+</epo:hasDescription>
+                <epo:hasTitle xml:lang="lt">
+&lt;P&gt;Preliminarioji sutartis dėl keleivių vežimo sausuma, autobusais, paslaugų teikimo: 1 dalis – Lesbas&lt;/P&gt;
+</epo:hasTitle> <epo:hasDescription xml:lang="el">
+&lt;P&gt;Παροχή υπηρεσιών μεταφοράς επιβατών με λεωφορεία στην Ελλάδα — Νήσος Λέσβος.&lt;/P&gt;
+</epo:hasDescription>
+                <epo:hasTitle xml:lang="sl">
+&lt;P&gt;Okvirno naročilo za zagotavljanje storitev potniškega prometa po kopnem, z avtobusom; sklop 1 – Lezbos&lt;/P&gt;
+</epo:hasTitle> <epo:hasDescription xml:lang="sk">
+&lt;P&gt;Poskytovanie služieb prepravy cestujúcich autobusom v Grécku – ostrov Lesbos.&lt;/P&gt;
+</epo:hasDescription>
+                <epo:hasTitle xml:lang="pl">
+&lt;P&gt;Umowa ramowa o świadczenie usług lądowych przewozów pasażerskich autokarem; część 1 — Lesbos&lt;/P&gt;
+</epo:hasTitle> <epo:hasTitle xml:lang="cs">
+&lt;P&gt;Rámcová smlouva o poskytování služeb přepravy cestujících po souši autobusem; položka č. 1 – Lesvos&lt;/P&gt;
+</epo:hasTitle>
+              </epo:Lot>
+            </epo:refersTo>
+            <epo:hasID>
+              <epo:Identifier rdf:about="http://data.europa.eu/a4g/resource/2017/s-001-000007#ContractId8f0604d5-d28d-4082-8de0-50967a6f6505">
+                <epo:hasIdentifierValue>Frontex/OP/602/2016/Lot 1</epo:hasIdentifierValue>
+              </epo:Identifier>
+            </epo:hasID>
+            <epo:hasID>
+              <epo:Identifier rdf:about="http://data.europa.eu/a4g/resource/2017/s-001-000007#ContractId5ad285d2-d82f-46df-9e65-12d84b73cb23">
+                <epo:hasIdentifierValue>Frontex/OP/602/2016/Los 1</epo:hasIdentifierValue>
+              </epo:Identifier>
+            </epo:hasID>
+            <epo:hasID>
+              <epo:Identifier rdf:about="http://data.europa.eu/a4g/resource/2017/s-001-000007#ContractIdfcd13911-f9de-4adb-b9dc-9140ae628c4d">
+                <epo:hasIdentifierValue>Frontex/OP/602/2016/Lot 1</epo:hasIdentifierValue>
+              </epo:Identifier>
+            </epo:hasID>
+            <epo:hasID>
+              <epo:Identifier rdf:about="http://data.europa.eu/a4g/resource/2017/s-001-000007#ContractId879a4bb7-213a-40da-9db5-02491ece71ad">
+                <epo:hasIdentifierValue>Frontex/OP/602/2016/Lot 1</epo:hasIdentifierValue>
+              </epo:Identifier>
+            </epo:hasID>
+            <epo:hasID>
+              <epo:Identifier rdf:about="http://data.europa.eu/a4g/resource/2017/s-001-000007#ContractId85f1cb3b-fea8-4356-93f5-ebe62f516192">
+                <epo:hasIdentifierValue>Frontex/OP/602/2016/Lot 1</epo:hasIdentifierValue>
+              </epo:Identifier>
+            </epo:hasID>
+            <epo:hasTitle xml:lang="bg">
+&lt;P&gt;Рамков договор за осигуряване на услуги по трансфер на пътници по земя, с автобус; партида 1 – Лесбос&lt;/P&gt;
+</epo:hasTitle>
+            <epo:hasID>
+              <epo:Identifier rdf:about="http://data.europa.eu/a4g/resource/2017/s-001-000007#ContractIdcd9c73a6-d303-43d3-bb95-ceeb493953a7">
+                <epo:hasIdentifierValue>Frontex/OP/602/2016/Lot 1</epo:hasIdentifierValue>
+              </epo:Identifier>
+            </epo:hasID>
+            <epo:hasTitle xml:lang="pt">
+&lt;P&gt;Contrato-quadro relativo à prestação de serviços de transporte terrestre de passageiros, por autocarro, lote 1 — Lesbos&lt;/P&gt;
+</epo:hasTitle>
+            <epo:hasID>
+              <epo:Identifier rdf:about="http://data.europa.eu/a4g/resource/2017/s-001-000007#ContractId5e66d32a-f159-4c44-bd85-47c54b59c5d0">
+                <epo:hasIdentifierValue>Frontex/OP/602/2016/Lot 1</epo:hasIdentifierValue>
+              </epo:Identifier>
+            </epo:hasID>
+            <epo:hasID>
+              <epo:Identifier rdf:about="http://data.europa.eu/a4g/resource/2017/s-001-000007#ContractIdf2d2e21c-1c18-41d3-820e-20532910c460">
+                <epo:hasIdentifierValue>Frontex/OP/602/2016/Lotto 1</epo:hasIdentifierValue>
+              </epo:Identifier>
+            </epo:hasID>
+            <epo:hasID>
+              <epo:Identifier rdf:about="http://data.europa.eu/a4g/resource/2017/s-001-000007#ContractId1a8ba093-33e8-4e38-92cf-1a27ef766f14">
+                <epo:hasIdentifierValue>Frontex/OP/602/2016/Lot 1</epo:hasIdentifierValue>
+              </epo:Identifier>
+            </epo:hasID>
+            <epo:hasTitle xml:lang="fr">
+&lt;P&gt;Contrat-cadre relatif à la prestation de services de transport terrestre de passagers par bus; lot 1 — Lesbos&lt;/P&gt;
+</epo:hasTitle>
+            <epo:hasID>
+              <epo:Identifier rdf:about="http://data.europa.eu/a4g/resource/2017/s-001-000007#ContractId579f2202-839f-4426-a66b-7f2e08c54306">
+                <epo:hasIdentifierValue>Frontex/OP/602/2016/Lot 1</epo:hasIdentifierValue>
+              </epo:Identifier>
+            </epo:hasID>
+            <epo:hasID>
+              <epo:Identifier rdf:about="http://data.europa.eu/a4g/resource/2017/s-001-000007#ContractIdeeaa9ca0-605a-4cbd-888f-70996b35bad7">
+                <epo:hasIdentifierValue>Frontex/OP/602/2016/L-1 lott</epo:hasIdentifierValue>
+              </epo:Identifier>
+            </epo:hasID>
+            <epo:hasTitle xml:lang="sl">
+&lt;P&gt;Okvirno naročilo za zagotavljanje storitev potniškega prometa po kopnem, z avtobusom; sklop 1 – Lezbos&lt;/P&gt;
+</epo:hasTitle>
+            <epo:hasID>
+              <epo:Identifier rdf:about="http://data.europa.eu/a4g/resource/2017/s-001-000007#ContractIda321c2a8-ce8f-4ce4-a37e-25f5a3f9df2a">
+                <epo:hasIdentifierValue>Frontex/OP/602/2016/Lot 1</epo:hasIdentifierValue>
+              </epo:Identifier>
+            </epo:hasID>
+            <epo:hasID>
+              <epo:Identifier rdf:about="http://data.europa.eu/a4g/resource/2017/s-001-000007#ContractIdadb3f79b-73e6-478b-b00a-9478c79754ac">
+                <epo:hasIdentifierValue>Frontex/OP/602/2016/Lot 1</epo:hasIdentifierValue>
+              </epo:Identifier>
+            </epo:hasID>
+          </epo:Contract>
+        </epo:leadsTo>
+        <epo:hasAcceleratedProcedureJustification xml:lang="mt"
+        >
+&lt;P&gt;Fil-konsiderazzjoni tan-numru għoli ta' ammissjonijiet mill-ġdid pendenti fuq il-livell tal-Istati Membri, il-Frontex jeħtieġ li tieħu l-passi kollha neċessarji biex tassigura li l-appoġġ immedjat ikun ipprovdut lill-Istati Membri biex jissodisfaw l-obbligi tagħhom.&lt;/P&gt;
+</epo:hasAcceleratedProcedureJustification>
+        <epo:hasAcceleratedProcedureJustification xml:lang="sv"
+        >
+&lt;P&gt;Med beaktande av det stora antal återtaganden som är under behandling på medlemsstatsnivå måste Frontex vidta alla nödvändiga åtgärder för att säkerställa att omedelbart stöd ges till medlemsstaterna för uppfyllandet av deras skyldigheter.&lt;/P&gt;
+</epo:hasAcceleratedProcedureJustification>
+        <epo:hasTitle xml:lang="el">
+&lt;P&gt;Σύμβαση-πλαίσιο για την παροχή υπηρεσιών χερσαίας μεταφοράς επιβατών, παρτίδα 1 — Λέσβος, παρτίδα 2 — Χίος, παρτίδα 3 — Κως.&lt;/P&gt;
+</epo:hasTitle>
+        <epo:hasAcceleratedProcedureJustification xml:lang="cs"
+        >
+&lt;P&gt;Při zvažování vysokého otevřeného počtu zpětně přebíraných osob na úrovni členských států musí Frontex podniknout všechny kroky potřebné k zajištění toho, aby byla členským státům zajištěna okamžitá podpora při plnění jejich závazků.&lt;/P&gt;
+</epo:hasAcceleratedProcedureJustification>
+        <epo:hasTitle xml:lang="es">
+&lt;P&gt;Contrato marco para la prestación de servicios de transporte de viajeros por tierra; lote 1 — Lesbos; lote 2 — Quíos; lote 3 — Cos.&lt;/P&gt;
+</epo:hasTitle>
+        <epo:hasDescription xml:lang="sv">
+&lt;P&gt;Ramavtal för tillhandahållande av tjänster för passagerartransport landvägen.&lt;/P&gt;
+</epo:hasDescription>
+        <epo:hasAcceleratedProcedureJustification xml:lang="fi"
+        >
+&lt;P&gt;jäsenvaltioiden tasolla käsiteltävinä olevien takaisinottojen suuren määrän vuoksi Frontexin on tehtävä kaikki tarvittavat toimenpiteet sen varmistamiseksi, että jäsenvaltioille toimitetaan välitöntä tukea jäsenvaltioiden velvoitteiden täyttämiseksi.&lt;/P&gt;
+</epo:hasAcceleratedProcedureJustification>
+        <epo:hasDescription xml:lang="pt">
+&lt;P&gt;Contrato-quadro relativo à prestação de serviços de transporte terrestre de passageiros.&lt;/P&gt;
+</epo:hasDescription>
+        <epo:hasProcedureType rdf:resource="http://publications.europa.eu/resource/authority/procurement-procedure-type/open"/>
+        <epo:hasAcceleratedProcedureJustification xml:lang="pl"
+        >
+&lt;P&gt;mając na uwadze dużą liczbę readmisji oczekujących na poziomie państw członkowskich Frontex musi podjąć wszelkie konieczne kroki w celu zapewnienia państwom członkowskim bezpośredniego wsparcia w wypełnianiu ich obowiązków.&lt;/P&gt;
+</epo:hasAcceleratedProcedureJustification>
+        <epo:hasDescription xml:lang="sk">
+&lt;P&gt;Rámcová zmluva na poskytovanie služieb prepravy cestujúcich po zemi.&lt;/P&gt;
+</epo:hasDescription>
+        <epo:hasTitle xml:lang="de">
+&lt;P&gt;Rahmenvertrag über Personentransferdienste auf dem Landweg; Los 1 — Lesbos; Los 2 — Chios; Los 3 — Kos.&lt;/P&gt;
+</epo:hasTitle>
+        <epo:hasDescription xml:lang="nl">
+&lt;P&gt;Raamovereenkomst voor de verlening van diensten inzake passagiersvervoer over land.&lt;/P&gt;
+</epo:hasDescription>
+        <epo:hasAcceleratedProcedureJustification xml:lang="pt"
+        >
+&lt;P&gt;Considerando o número elevado de readmissões pendentes ao nível dos Estados-Membros, a Frontex deve tomar todas as medidas necessárias para garantir a prestação de apoio imediato aos Estados-Membros para cumprir as respetivas obrigações.&lt;/P&gt;
+</epo:hasAcceleratedProcedureJustification>
+        <epo:hasDescription xml:lang="es">
+&lt;P&gt;Contrato marco para la prestación de servicios de transporte de pasajeros por tierra.&lt;/P&gt;
+</epo:hasDescription>
+        <epo:hasAcceleratedProcedureJustification xml:lang="es"
+        >
+&lt;P&gt;Teniendo en cuenta la gran cantidad de readmisiones pendientes a escala de los Estados miembros, Frontex deberá tomar todas las medidas necesarias para garantizar que se prestará un apoyo inmediato a los Estados Miembros para que cumplan sus obligaciones.&lt;/P&gt;
+</epo:hasAcceleratedProcedureJustification>
+        <epo:hasDescription xml:lang="sl">
+&lt;P&gt;Okvirno naročilo za zagotavljanje storitev potniškega prometa po kopnem.&lt;/P&gt;
+</epo:hasDescription>
+        <epo:hasAcceleratedProcedureJustification xml:lang="fr"
+        >
+&lt;P&gt;Au vu du nombre élevé de réadmissions en attente au niveau des États membres, Frontex doit prendre toutes les mesures nécessaires pour garantir qu'une aide immédiate est apportée aux États membres afin qu'ils remplissent leurs obligations.&lt;/P&gt;
+</epo:hasAcceleratedProcedureJustification>
+        <epo:hasAcceleratedProcedureJustification xml:lang="el"
+        >
+&lt;P&gt;Λαμβάνοντας υπόψη τον υψηλό αριθμό των εκκρεμουσών επανεισδοχών σε επίπεδο κρατών μελών, ο Frontex χρειάζεται να λάβει όλα τα απαραίτητα βήματα για να διασφαλίσει την παροχή άμεσης υποστήριξης προς τα κράτη μέλη για την εκπλήρωση των υποχρεώσεών τους.&lt;/P&gt;
+</epo:hasAcceleratedProcedureJustification>
+        <epo:hasTitle xml:lang="sl">
+&lt;P&gt;Okvirno naročilo za zagotavljanje storitev potniškega prometa po kopnem; sklop 1 – Lezbos; sklop 2 – Hios; sklop 3 – Kos.&lt;/P&gt;
+</epo:hasTitle>
+        <epo:hasTitle xml:lang="pt">
+&lt;P&gt;Contrato-quadro relativo à prestação de serviços de transporte terrestre de passageiros; lote 1 — Lesvos; lote 2 — Chios; lote 3 — Kos.&lt;/P&gt;
+</epo:hasTitle>
+        <epo:hasTitle xml:lang="lv">
+&lt;P&gt;Pamatnolīgums par pasažieru sauszemes pārvadājumu pakalpojumu nodrošināšanu; 1. daļa – Lesba; 2. daļa – Hija; 3. daļa – Kosa.&lt;/P&gt;
+</epo:hasTitle>
+        <epo:hasDescription xml:lang="el">
+&lt;P&gt;Σύμβαση-πλαίσιο για την παροχή υπηρεσιών χερσαίας μεταφοράς επιβατών.&lt;/P&gt;
+</epo:hasDescription>
+        <epo:hasTitle xml:lang="fr">
+&lt;P&gt;Contrat-cadre relatif à la prestation de services de transport terrestre de passagers; lot 1 — Lesbos; lot 2 — Chios; lot 3 — Kos.&lt;/P&gt;
+</epo:hasTitle>
+        <epo:hasAcceleratedProcedureJustification xml:lang="it"
+        >
+&lt;P&gt;in considerazione del numero elevato di riammissioni in sospeso a livello degli Stati membri, Frontex deve prendere tutte le misure necessarie per garantire che sia fornito un sostegno immediato agli Stati membri nell'adempimento dei loro obblighi.&lt;/P&gt;
+</epo:hasAcceleratedProcedureJustification>
+        <epo:hasTitle xml:lang="sk">
+&lt;P&gt;Rámcová zmluva na poskytovanie služieb prepravy cestujúcich po zemi; časť 1 – Lesbos; časť 2 – Chios; časť 3 – Kos.&lt;/P&gt;
+</epo:hasTitle>
+        <epo:hasTitle xml:lang="it">
+&lt;P&gt;Contratto quadro per la prestazione di servizi di trasferimento passeggeri via terra; lotto 1 — Lesbo; lotto 2 — Chio; lotto 3 — Coo.&lt;/P&gt;
+</epo:hasTitle>
+        <epo:specifies>
+          <epo:Lot rdf:about="http://data.europa.eu/a4g/resource/2017/s-001-000007#Lot65a638aa-af7a-48fe-a314-5fe17f8dffd5">
+            <epo:hasDescription xml:lang="lv">
+&lt;P&gt;Pasažieru pakalpojumu nodrošināšana, izmantojot autobusu, Grieķijā, Hijas salā.&lt;/P&gt;
+</epo:hasDescription>
+            <epo:hasTitle xml:lang="cs">
+&lt;P&gt;Rámcová smlouva o poskytování služeb přepravy cestujících po souši autobusem; položka č. 2 – Chios&lt;/P&gt;
+</epo:hasTitle>
+            <epo:hasTitle xml:lang="nl">
+&lt;P&gt;Raamovereenkomst voor de verlening van diensten inzake passagiersvervoer over land, per bus; perceel 2 — Chios&lt;/P&gt;
+</epo:hasTitle>
+            <epo:hasEstimatedValue>
+              <epo:Value rdf:about="http://data.europa.eu/a4g/resource/2017/s-001-000007#EstimatedValueOldae8deb96-04e1-45d9-91a3-815d569a37c2">
+                <epo:hasOverallAmount>
+                  <ccts:Amount rdf:about="http://data.europa.eu/a4g/resource/2017/s-001-000007#ValueOverallAmountOld3221be63-3ea9-49c6-a33b-ace69b65f433">
+                    <ccts:hasAmountValue>150000.00</ccts:hasAmountValue>
+                    <epo:hasCurrencyCode rdf:resource="http://publications.europa.eu/resource/authority/currency/EUR"/>
+                  </ccts:Amount>
+                </epo:hasOverallAmount>
+                <epo:hasVATIncludedIndicator>false</epo:hasVATIncludedIndicator>
+              </epo:Value>
+            </epo:hasEstimatedValue>
+            <epo:hasDescription xml:lang="es">
+&lt;P&gt;Prestación de servicios de transporte de viajeros en autobús en Grecia, isla Quíos&lt;/P&gt;
+</epo:hasDescription>
+            <epo:isSpecifiedIn rdf:resource="http://data.europa.eu/a4g/resource/2017/s-001-000007#Procedure0a80fd52-a02a-4c67-9d74-976f6391a14a"/>
+            <epo:hasDescription xml:lang="sk">
+&lt;P&gt;Poskytovanie služieb prepravy cestujúcich autobusom v Grécku, ostrov Chios.&lt;/P&gt;
+</epo:hasDescription>
+            <epo:providesAdditionalInformation>
+              <epo:StatisticalInformation rdf:about="http://data.europa.eu/a4g/resource/2017/s-001-000007#StatisticalInformationd115cbb2-06b3-4c18-bd14-d7ed5af9bb77">
+                <epo:hasReceivedTenderLots>1</epo:hasReceivedTenderLots>
+              </epo:StatisticalInformation>
+            </epo:providesAdditionalInformation>
+            <epo:hasTitle xml:lang="fi">
+&lt;P&gt;Puitesopimus matkustajille tarkoitettujen maakuljetuspalveluiden toimittamisesta linja-autokuljetuksina; erä 2 – Chíos&lt;/P&gt;
+</epo:hasTitle>
+            <epo:hasTitle xml:lang="pt">
+&lt;P&gt;Contrato-quadro relativo à prestação de serviços de transporte terrestre de passageiros, por autocarro, lote 2 — Chios&lt;/P&gt;
+</epo:hasTitle>
+            <epo:hasDescription xml:lang="en">
+&lt;P&gt;Provision of passenger services by bus in Greece, Chios island.&lt;/P&gt;
+</epo:hasDescription>
+            <epo:hasTitle xml:lang="bg">
+&lt;P&gt;Рамков договор за осигуряване на услуги по трансфер на пътници по земя, с автобус; партида 2 – Хиос&lt;/P&gt;
+</epo:hasTitle>
+            <epo:hasTitle xml:lang="it">
+&lt;P&gt;Contratto quadro per la prestazione di servizi di trasferimento passeggeri via terra, con autobus; lotto 2 — Chio&lt;/P&gt;
+</epo:hasTitle>
+            <epo:hasTitle xml:lang="de">
+&lt;P&gt;Rahmenvertrag über Personentransferdienste auf dem Landweg, per Bus; Los 2 — Chios&lt;/P&gt;
+</epo:hasTitle>
+            <epo:hasTitle xml:lang="ga">
+&lt;P&gt;Conradh creatlaí le haghaidh seirbhísí aistrithe paisinéirí ar talamh, ar an mbus, a sholáthar; beart 2 — Chios&lt;/P&gt;
+</epo:hasTitle>
+            <epo:hasTitle xml:lang="en">
+&lt;P&gt;Framework contract for the provision of passenger transfer services by land, by bus; lot 2 — Chios&lt;/P&gt;
+</epo:hasTitle>
+            <epo:hasDescription xml:lang="da">
+&lt;P&gt;Udførelse af passagertransport over land med bus i Grækenland, øen Chios.&lt;/P&gt;
+</epo:hasDescription>
+            <epo:hasDescription xml:lang="cs">
+&lt;P&gt;Poskytování služeb přepravy cestujících autobusem v Řecku, ostrov Chios.&lt;/P&gt;
+</epo:hasDescription>
+            <epo:hasDescription xml:lang="et">
+&lt;P&gt;Reisijate bussiveo teenuste osutamine Kreekas Chíose saarel.&lt;/P&gt;
+</epo:hasDescription>
+            <epo:hasDescription xml:lang="bg">
+&lt;P&gt;Осигуряване на пътнически услуги с автобус в Гърция, остров Хиос.&lt;/P&gt;
+</epo:hasDescription>
+            <epo:hasTitle xml:lang="sk">
+&lt;P&gt;Rámcová zmluva na poskytovanie služieb prepravy cestujúcich po zemi, autobusom; časť 2 – Chios&lt;/P&gt;
+</epo:hasTitle>
+            <epo:hasDescription xml:lang="sv">
+&lt;P&gt;Tillhandahållande av busstjänster för passagerare i Grekland, ön Chios.&lt;/P&gt;
+</epo:hasDescription>
+            <epo:hasTitle xml:lang="hr">
+&lt;P&gt;Okvirni ugovor za pružanje usluga prijevoza putnika kopnom, autobusom; grupa 2 — Chios&lt;/P&gt;
+</epo:hasTitle>
+            <epo:hasDescription xml:lang="pl">
+&lt;P&gt;Świadczenie usług przewozów pasażerskich autokarem w Grecji — wyspa Chios.&lt;/P&gt;
+</epo:hasDescription>
+            <epo:hasTitle xml:lang="ro">
+&lt;P&gt;Contract-cadru pentru prestarea de servicii de transport terestru de pasageri cu autobuzul; lotul 2 – Chios&lt;/P&gt;
+</epo:hasTitle>
+            <epo:hasDescription xml:lang="pt">
+&lt;P&gt;Prestação de serviços de passageiros, por autocarro, na Grécia, ilha de Chios.&lt;/P&gt;
+</epo:hasDescription>
+            <epo:hasTitle xml:lang="fr">
+&lt;P&gt;Contrat-cadre relatif à la prestation de services de transport terrestre de passagers par bus; lot 2 — Chios&lt;/P&gt;
+</epo:hasTitle>
+            <epo:hasDescription xml:lang="ga">
+&lt;P&gt;Seirbhísí aistrithe paisinéirí ar an mbus a sholáthar sa Ghréig, oileán Chios.&lt;/P&gt;
+</epo:hasDescription>
+            <epo:hasTitle xml:lang="lt">
+&lt;P&gt;Preliminarioji sutartis dėl keleivių vežimo sausuma, autobusais, paslaugų teikimo: 2 dalis – Chijas&lt;/P&gt;
+</epo:hasTitle>
+            <epo:hasDescription xml:lang="mt">
+&lt;P&gt;Provvista ta' servizzi għat-trasferiment tal-passiġġieri bil-karozza tal-linja fil-Greċja, il-gżira ta' Chios.&lt;/P&gt;
+</epo:hasDescription>
+            <epo:hasTitle xml:lang="et">
+&lt;P&gt;Reisijate maismaaveo (bussiveo) teenuste osutamise raamleping; 2. osa – Chíos&lt;/P&gt;
+</epo:hasTitle>
+            <epo:hasTitle xml:lang="sl">
+&lt;P&gt;Okvirno naročilo za zagotavljanje storitev potniškega prometa po kopnem, z avtobusom; sklop 2 – Hios&lt;/P&gt;
+</epo:hasTitle>
+            <epo:hasDescription xml:lang="fr">
+&lt;P&gt;Prestation de services de transport de passagers par bus en Grèce, île de Chios.&lt;/P&gt;
+</epo:hasDescription>
+            <epo:has>
+              <epo:Purpose rdf:about="http://data.europa.eu/a4g/resource/2017/s-001-000007#PurposeAdditionala37c6291-c499-4d08-b8b0-3048bb366be5">
+                <epo:hasAdditionalClassification rdf:resource="http://data.europa.eu/cpv/cpv/60170000"/>
+                <epo:hasOptionsPermission rdf:resource="http://publications.europa.eu/resource/authority/permission/not-allowed"/>
+              </epo:Purpose>
+            </epo:has>
+            <epo:hasDescription xml:lang="el">
+&lt;P&gt;Παροχή υπηρεσιών μεταφοράς επιβατών με λεωφορεία στην Ελλάδα, νήσος Χίος.&lt;/P&gt;
+</epo:hasDescription>
+            <epo:hasDescription xml:lang="ro">
+&lt;P&gt;Prestare de servicii de transport de pasageri cu autobuzul în Grecia, insula Chios.&lt;/P&gt;
+</epo:hasDescription>
+            <epo:hasDescription xml:lang="sl">
+&lt;P&gt;Zagotavljanje storitev avtobusnega potniškega prometa v Grčiji – otok Hios.&lt;/P&gt;
+</epo:hasDescription>
+            <epo:hasTitle xml:lang="pl">
+&lt;P&gt;Umowa ramowa o świadczenie usług lądowych przewozów pasażerskich autokarem; część 2 — Chios&lt;/P&gt;
+</epo:hasTitle>
+            <epo:hasDescription xml:lang="fi">
+&lt;P&gt;Erän kohteena on matkustajille tarkoitettujen linja-autopalveluiden toimittaminen Kreikassa, Chíosin saarella.&lt;/P&gt;
+</epo:hasDescription>
+            <epo:hasID>
+              <epo:Identifier rdf:about="http://data.europa.eu/a4g/resource/2017/s-001-000007#LotId3e564871-1c05-4404-969f-4e70a9cf06cf">
+                <epo:hasIdentifierValue>2</epo:hasIdentifierValue>
+              </epo:Identifier>
+            </epo:hasID>
+            <epo:hasTitle xml:lang="sv">
+&lt;P&gt;Ramavtal för tillhandahållande av tjänster för passagerartransport landvägen, med buss, del 2 – Chios&lt;/P&gt;
+</epo:hasTitle>
+            <epo:hasDescription xml:lang="de">
+&lt;P&gt;Personenverkehrsdienste per Bus in Griechenland, Insel Chios.&lt;/P&gt;
+</epo:hasDescription>
+            <epo:hasDescription xml:lang="hr">
+&lt;P&gt;Pružanje usluga prijevoza putnika autobusom u Grčkoj, otok Chios.&lt;/P&gt;
+</epo:hasDescription>
+            <epo:hasTitle xml:lang="el">
+&lt;P&gt;Σύμβαση-πλαίσιο για την παροχή υπηρεσιών χερσαίας μεταφοράς επιβατών, με λεωφορείο, παρτίδα 2 — Χίος&lt;/P&gt;
+</epo:hasTitle>
+            <epo:hasTitle xml:lang="mt">
+&lt;P&gt;Qafas ta' kuntratt għall-provvista ta' servizzi għat-trasferiment tal-passiġġieri fuq l-art, permezz tal-karozza tal-linja; it-2 lott — Chios&lt;/P&gt;
+</epo:hasTitle>
+            <epo:hasTitle xml:lang="es">
+&lt;P&gt;Contrato marco para la prestación de servicios de transporte de viajeros por tierra, en autobús; lote 2 — Quíos&lt;/P&gt;
+</epo:hasTitle>
+            <epo:hasDescription xml:lang="hu">
+&lt;P&gt;Buszos személyszállítási szolgáltatások nyújtása Görögországban, Híosz szigetén.&lt;/P&gt;
+</epo:hasDescription>
+            <epo:hasDescription xml:lang="nl">
+&lt;P&gt;Verlening van diensten inzake passagiersvervoer per bus in Griekenland, eiland Chios.&lt;/P&gt;
+</epo:hasDescription>
+            <epo:hasTitle xml:lang="da">
+&lt;P&gt;Rammekontrakt om udførelse af passagertransport over land med bus. Parti 2 — Chios&lt;/P&gt;
+</epo:hasTitle>
+            <epo:hasDescription xml:lang="it">
+&lt;P&gt;Prestazione di servizi di trasferimento passeggeri con autobus in Grecia, isola di Chio.&lt;/P&gt;
+</epo:hasDescription>
+            <epo:hasTitle xml:lang="lv">
+&lt;P&gt;Pamatnolīgums par pasažieru sauszemes pārvadājumu pakalpojumu nodrošināšanu, izmantojot autobusu; 2. daļa – Hija&lt;/P&gt;
+</epo:hasTitle>
+            <epo:hasTitle xml:lang="hu">
+&lt;P&gt;Szárazföldi, buszos személyszállítási szolgáltatások nyújtására irányuló keretszerződés; 2. tétel – Híosz&lt;/P&gt;
+</epo:hasTitle>
+            <epo:hasDescription xml:lang="lt">
+&lt;P&gt;Keleivių vežimo autobusais paslaugų teikimas Graikijoje, Chijo saloje.&lt;/P&gt;
+</epo:hasDescription>
+          </epo:Lot>
+        </epo:specifies>
+        <epo:hasAcceleratedProcedureJustification xml:lang="en"
+        >
+&lt;P&gt;In the consideration of the high number of readmissions pending at the level of Member States, Frontex needs to take all the necessary steps to ensure that immediate support is provided to the Member States to fulfil their obligations.&lt;/P&gt;
+</epo:hasAcceleratedProcedureJustification>
+        <epo:hasTitle xml:lang="et">
+&lt;P&gt;Reisijate maismaaveo teenuste osutamise raamleping; 1. osa – Lesbos; 2. osa – Chíos; 3. osa – Kos&lt;/P&gt;
+</epo:hasTitle>
+        <epo:hasDescription xml:lang="mt">
+&lt;P&gt;Qafas ta' kuntratt għall-provvista ta' servizzi għat-trasferiment tal-passiġġieri fuq l-art.&lt;/P&gt;
+</epo:hasDescription>
+        <epo:hasAcceleratedProcedureJustification xml:lang="sk"
+        >
+&lt;P&gt;Frontex pri zvážení vysokého počtu readmisií, ktoré čakajú na vybavenie na úrovni členských štátov, musí prijať všetky potrebné kroky, ktorými sa zaistí, že členským štátom sa poskytne okamžitá podpora v záujme splnenia ich povinností.&lt;/P&gt;
+</epo:hasAcceleratedProcedureJustification>
+        <epo:isResponsibilityOf>
+          <epo:Buyer rdf:about="http://data.europa.eu/a4g/resource/2017/s-001-000007#Buyer3a7d3836-607d-434a-afe8-54e77340512a">
+            <epo:has>
+              <epo:ContactPoint rdf:about="http://data.europa.eu/a4g/resource/2017/s-001-000007#ContactPoint40003f04-d39f-4419-a3fa-bd5c0ac1e071">
+                <epo:hasEmail>procurement@frontex.europa.eu</epo:hasEmail>
+                <epo:hasTelephone>+48 222059500</epo:hasTelephone>
+                <epo:hasInternetAddress>http://www.frontex.europa.eu</epo:hasInternetAddress>
+                <epo:hasFax>+48 222059501</epo:hasFax>
+              </epo:ContactPoint>
+            </epo:has>
+            <epo:isResponsibleFor rdf:resource="http://data.europa.eu/a4g/resource/2017/s-001-000007#Procedure0a80fd52-a02a-4c67-9d74-976f6391a14a"/>
+            <epo:isRoleOf>
+              <epo:Organisation rdf:about="http://data.europa.eu/a4g/resource/2017/s-001-000007#Organisationd841d181-f61a-4e28-9bdf-581b1e533c91">
+                <epo:hasLocation>
+                  <epo:Location rdf:about="http://data.europa.eu/a4g/resource/2017/s-001-000007#Location495a67c6-d114-4a97-b81c-babcca8a7397">
+                    <epo:hasPostalAddress>
+                      <epo:Address rdf:about="http://data.europa.eu/a4g/resource/2017/s-001-000007#Address076dccc1-1f9a-48ec-85bd-32226f4b83c4">
+                        <epo:hasPostalZone>00-844</epo:hasPostalZone>
+                        <epo:hasCountrySubentityCode rdf:resource="http://data.europa.eu/nuts/code/PL"/>
+                        <epo:hasCityName>Varsavja</epo:hasCityName>
+                        <epo:hasCityName>Varsó</epo:hasCityName>
+                        <epo:hasCityName>Warsaw</epo:hasCityName>
+                        <epo:hasCountryCode rdf:resource="http://publications.europa.eu/resource/authority/country/POL"/>
+                        <epo:hasStreetName>Plac Europejski 6</epo:hasStreetName>
+                      </epo:Address>
+                    </epo:hasPostalAddress>
+                  </epo:Location>
+                </epo:hasLocation>
+                <epo:hasName xml:lang="en">Frontex</epo:hasName>
+              </epo:Organisation>
+            </epo:isRoleOf>
+          </epo:Buyer>
+        </epo:isResponsibilityOf>
+        <epo:hasDescription xml:lang="ga">
+&lt;P&gt;Conradh creatlaí le haghaidh seirbhísí aistrithe paisinéirí ar talamh a sholáthar.&lt;/P&gt;
+</epo:hasDescription>
+        <epo:hasDescription xml:lang="cs">
+&lt;P&gt;Rámcová smlouva o poskytování služeb přepravy cestujících po souši.&lt;/P&gt;
+</epo:hasDescription>
+        <epo:specifies rdf:resource="http://data.europa.eu/a4g/resource/2017/s-001-000007#Lotfb15a5da-cf67-41a8-9ced-7b8370cddeee"/>
+        <epo:hasTitle xml:lang="en">
+&lt;P&gt;Framework contract for the provision of passenger transfer services by land lot 1 — Lesvos; lot 2 — Chios; lot 3 — Kos.&lt;/P&gt;
+</epo:hasTitle>
+        <epo:hasTitle xml:lang="ro">
+&lt;P&gt;Contract-cadru pentru prestarea de servicii de transport terestru de pasageri; lotul 1 – Lesbos; lotul 2 – Chios; lotul 3 – Kos.&lt;/P&gt;
+</epo:hasTitle>
+        <epo:hasOverallPurpose>
+          <epo:Purpose rdf:about="http://data.europa.eu/a4g/resource/2017/s-001-000007#Purposef780ddb8-412b-49a6-8859-78b475c11de0">
+            <epo:hasMainClassification rdf:resource="http://data.europa.eu/cpv/cpv/60170000"/>
+            <epo:hasContractNatureType rdf:resource="http://publications.europa.eu/resource/authority/contract-nature/services"/>
+          </epo:Purpose>
+        </epo:hasOverallPurpose>
+        <epo:hasTitle xml:lang="da">
+&lt;P&gt;Rammekontrakt om udførelse af passagertransport over land. Parti 1 — Lesbos, parti 2 — Chios, parti 3 — Kos.&lt;/P&gt;
+</epo:hasTitle>
+        <epo:hasTitle xml:lang="fi">
+&lt;P&gt;Puitesopimus matkustajille tarkoitettujen maakuljetuspalveluiden toimittamisesta; erä 1 – Lesbos; erä 2 – Chíos; erä 3 – Kos&lt;/P&gt;
+</epo:hasTitle>
+        <epo:hasDescription xml:lang="hu">
+&lt;P&gt;Szárazföldi személyszállítási szolgáltatások nyújtására irányuló keretszerződés.&lt;/P&gt;
+</epo:hasDescription>
+        <epo:hasAcceleratedProcedureJustification xml:lang="lt"
+        >
+&lt;P&gt;Atsižvelgdama į didelį readmisijų, kurios nebaigtos nagrinėti valstybėse narėse, skaičių, Frontex turi imtis visų būtinų žingsnių, kad užtikrintų, jog valstybėms narėms būtų teikiama skubi parama, padedanti joms įvykdyti savo įsipareigojimus.&lt;/P&gt;
+</epo:hasAcceleratedProcedureJustification>
+        <epo:hasDescription xml:lang="bg">
+&lt;P&gt;Рамков договор за осигуряване на услуги по трансфер на пътници по земя.&lt;/P&gt;
+</epo:hasDescription>
+        <epo:hasAcceleratedProcedureJustification xml:lang="ro"
+        >
+&lt;P&gt;Având în vedere numărul ridicat de readmisii în așteptare la nivelul statelor membre, Frontex trebuie să ia toate măsurile necesare pentru a asigura că se acordă sprijin imediat statelor membre pentru îndeplinirea obligațiilor acestora.&lt;/P&gt;
+</epo:hasAcceleratedProcedureJustification>
+        <epo:hasTitle xml:lang="bg">
+&lt;P&gt;Рамков договор за осигуряване на услуги по трансфер на пътници по земя, партида 1 – Лесбос; партида 2 – Хиос; партида 3 – Кос.&lt;/P&gt;
+</epo:hasTitle>
+        <epo:hasTitle xml:lang="hr">
+&lt;P&gt;Okvirni ugovor za pružanje usluga prijevoza putnika kopnom; grupa 1 — Lesvos; grupa 2 — Chios; grupa 3 — Kos&lt;/P&gt;
+</epo:hasTitle>
+        <epo:hasDescription xml:lang="da">
+&lt;P&gt;Rammekontrakt om udførelse af passagertransport over land.&lt;/P&gt;
+</epo:hasDescription>
+        <epo:hasAcceleratedProcedureJustification xml:lang="da"
+        >
+&lt;P&gt;I betragtning af det store antal ventende tilbagetagelser på medlemsstatsplan må Frontex træffe alle nødvendige foranstaltninger til at sikre, at der øjeblikkeligt ydes medlemsstaterne støtte til at opfylde deres forpligtelser.&lt;/P&gt;
+</epo:hasAcceleratedProcedureJustification>
+        <epo:hasDescription xml:lang="fr">
+&lt;P&gt;Contrat-cadre relatif à la prestation de services de transport terrestre de passagers.&lt;/P&gt;
+</epo:hasDescription>
+        <epo:hasTotalValue>
+          <epo:Value rdf:about="http://data.europa.eu/a4g/resource/2017/s-001-000007#ValueTotala853e821-f929-49bc-a9fd-4f5114628e76">
+            <epo:hasOverallAmount>
+              <ccts:Amount rdf:about="http://data.europa.eu/a4g/resource/2017/s-001-000007#AmountTotal6c290a83-3a33-450e-ac7f-8e9abe4ac099">
+                <ccts:hasAmountValue>450000.00</ccts:hasAmountValue>
+                <epo:hasCurrencyCode rdf:resource="http://publications.europa.eu/resource/authority/currency/EUR"/>
+              </ccts:Amount>
+            </epo:hasOverallAmount>
+            <epo:VATIncludedIndicator>false</epo:VATIncludedIndicator>
+          </epo:Value>
+        </epo:hasTotalValue>
+        <epo:hasDescription xml:lang="lv">
+&lt;P&gt;Pamatnolīgums par pasažieru sauszemes pārvadājumu pakalpojumu nodrošināšanu.&lt;/P&gt;
+</epo:hasDescription>
+        <epo:hasDescription xml:lang="it">
+&lt;P&gt;Contratto quadro per la prestazione di servizi di trasferimento passeggeri via terra.&lt;/P&gt;
+</epo:hasDescription>
+        <reg2015:hasGPAUsage>false</reg2015:hasGPAUsage>
+        <epo:hasDescription xml:lang="hr">
+&lt;P&gt;Okvirni ugovor za pružanje usluga prijevoza putnika kopnom.&lt;/P&gt;
+</epo:hasDescription>
+        <epo:hasAcceleratedProcedureJustification xml:lang="de"
+        >
+&lt;P&gt;In Anbetracht der hohen Anzahl noch durchzuführender Rückübernahmen auf Ebene der Mitgliedstaaten muss Frontex alle notwendigen Schritte tätigen, um die sofortige Unterstützung der Mitgliedstaaten zur Erfüllung ihrer Pflichten zu gewährleisten.&lt;/P&gt;
+</epo:hasAcceleratedProcedureJustification>
+        <epo:hasDescription xml:lang="ro">
+&lt;P&gt;Contract-cadru pentru prestarea de servicii de transport terestru de pasageri.&lt;/P&gt;
+</epo:hasDescription>
+        <epo:hasAcceleratedProcedureJustification xml:lang="hr"
+        >
+&lt;P&gt;U razmatranju velikog broja ponovnih prihvata u tijeku na razini država članica, Frontex treba poduzeti sve potrebne korake kako bi osigurao trenutačnu podršku državama članicama kako bi one ispunile svoje obveze.&lt;/P&gt;
+</epo:hasAcceleratedProcedureJustification>
+        <epo:hasAcceleratedProcedureJustification xml:lang="et"
+        >
+&lt;P&gt;kuna liikmesriikide tasandil on ootel suur hulk tagasivõtte, on Frontexil vaja võtta kõik vajalikud meetmed, millega tagada, et liikmesriikidele antakse viivitamata nende kohustuste täitmiseks tuge.&lt;/P&gt;
+</epo:hasAcceleratedProcedureJustification>
+        <epo:hasAcceleratedProcedureJustification xml:lang="sl"
+        >
+&lt;P&gt;Glede na veliko število nedokončanih ponovnih sprejemov na ravni držav članic mora Frontex sprejeti vse potrebne ukrepe za zagotovitev takojšnje podpore za države članice pri izpolnjevanju njihovih obveznosti.&lt;/P&gt;
+</epo:hasAcceleratedProcedureJustification>
+        <epo:hasDescription xml:lang="de">
+&lt;P&gt;Rahmenvertrag über Personentransferdienste auf dem Landweg.&lt;/P&gt;
+</epo:hasDescription>
+        <epo:hasDescription xml:lang="en">
+&lt;P&gt;Framework contract for the provision of passenger transfer services by land.&lt;/P&gt;
+</epo:hasDescription>
+        <epo:hasTitle xml:lang="sv">
+&lt;P&gt;Ramavtal för tillhandahållande av tjänster för passagerartransport landvägen, del 1 – Lesbos, del 2 – Chios, del 3 – Kos&lt;/P&gt;
+</epo:hasTitle>
+        <epo:hasAcceleratedProcedureJustification xml:lang="ga"
+        >
+&lt;P&gt;Ag féachaint do líon mór na n-athcheaduithe isteach ar leibhéal na mBallstát, teastaíonn ó Frontex na céimeanna riachtanacha uile a ghlacadh chun a chinntiú go soláthraítear tacaíocht láithreach do na Ballstáit chun a gcuid oibleagáidí a chomhlíonadh.&lt;/P&gt;
+</epo:hasAcceleratedProcedureJustification>
+        <epo:hasDescription xml:lang="lt">
+&lt;P&gt;Preliminarioji sutartis dėl keleivių vežimo sausuma paslaugų teikimo.&lt;/P&gt;
+</epo:hasDescription>
+        <epo:specifies>
+          <epo:Lot rdf:about="http://data.europa.eu/a4g/resource/2017/s-001-000007#Lot124e2c1c-24f4-4dfb-adf0-f47bcf9ea557">
+            <epo:hasDescription xml:lang="ga">
+&lt;P&gt;Conradh creatlaí le haghaidh seirbhísí aistrithe paisinéirí ar talamh, ar an mbus, a sholáthar. Beart 3 — Kos.&lt;/P&gt;
+</epo:hasDescription>
+            <epo:hasTitle xml:lang="ro">
+&lt;P&gt;Contract-cadru pentru prestarea de servicii de transport terestru de pasageri; lotul 3 – Kos&lt;/P&gt;
+</epo:hasTitle>
+            <epo:hasDescription xml:lang="fi">
+&lt;P&gt;Erän kohteena on puitesopimus matkustajille tarkoitettujen maakuljetuspalveluiden toimittamisesta linja-autokuljetuksina (erä 3 – Kos).&lt;/P&gt;
+</epo:hasDescription>
+            <epo:hasTitle xml:lang="pt">
+&lt;P&gt;Contrato-quadro relativo à prestação de serviços de transferência de passageiros por terra; lote 3 — Kos&lt;/P&gt;
+</epo:hasTitle>
+            <epo:hasDescription xml:lang="pt">
+&lt;P&gt;Contrato-quadro relativo à prestação de serviços de transporte terrestre de passageiros, por autocarro, lote 3 — Kos.&lt;/P&gt;
+</epo:hasDescription>
+            <epo:hasTitle xml:lang="fi">
+&lt;P&gt;Puitesopimus matkustajille tarkoitettujen maakuljetuspalveluiden toimittamisesta; erä 3 – Kos&lt;/P&gt;
+</epo:hasTitle>
+            <epo:hasTitle xml:lang="et">
+&lt;P&gt;Reisijate maismaaveo teenuste osutamise raamleping; 3. osa – Kos&lt;/P&gt;
+</epo:hasTitle>
+            <epo:hasDescription xml:lang="bg">
+&lt;P&gt;Рамков договор за осигуряване на услуги по трансфер на пътници по земя; с автобус. Партида 3 – Кос.&lt;/P&gt;
+</epo:hasDescription>
+            <epo:hasTitle xml:lang="sv">
+&lt;P&gt;Ramavtal för tillhandahållande av tjänster för passagerartransport landvägen, del 3 – Kos&lt;/P&gt;
+</epo:hasTitle>
+            <epo:hasDescription xml:lang="sv">
+&lt;P&gt;Ramavtal för tillhandahållande av tjänster för passagerartransport landvägen, med buss. Del 3 – Kos.&lt;/P&gt;
+</epo:hasDescription>
+            <epo:hasDescription xml:lang="da">
+&lt;P&gt;Rammekontrakt om udførelse af passagertransport over land med bus. Parti 3 — Kos.&lt;/P&gt;
+</epo:hasDescription>
+            <epo:hasTitle xml:lang="mt">
+&lt;P&gt;Qafas ta' kuntratt għall-provvista ta' servizzi għat-trasferiment tal-passiġġieri fuq l-art; it-3 lott — Kos&lt;/P&gt;
+</epo:hasTitle>
+            <epo:hasTitle xml:lang="de">
+&lt;P&gt;Rahmenvertrag über Personentransferdienste auf dem Landweg; Los 3 — Kos&lt;/P&gt;
+</epo:hasTitle>
+            <epo:hasDescription xml:lang="et">
+&lt;P&gt;Reisijate maismaaveo (bussiveo) teenuste osutamise raamleping; 3. osa – Kos.&lt;/P&gt;
+</epo:hasDescription>
+            <epo:hasDescription xml:lang="lt">
+&lt;P&gt;Preliminarioji sutartis dėl keleivių vežimo sausuma, autobusais, paslaugų teikimo: 3 dalis – Kosas.&lt;/P&gt;
+</epo:hasDescription>
+            <epo:hasTitle xml:lang="en">
+&lt;P&gt;Framework contract for the provision of passenger transfer services by land; lot 3 — Kos&lt;/P&gt;
+</epo:hasTitle>
+            <epo:hasDescription xml:lang="lv">
+&lt;P&gt;Pamatnolīgums par pasažieru sauszemes pārvadājumu pakalpojumu nodrošināšanu, izmantojot autobusu. 3. daļa – Kosa.&lt;/P&gt;
+</epo:hasDescription>
+            <epo:hasTitle xml:lang="el">
+&lt;P&gt;Σύμβαση-πλαίσιο για την παροχή υπηρεσιών χερσαίας μεταφοράς επιβατών, παρτίδα 3 — Κως&lt;/P&gt;
+</epo:hasTitle>
+            <epo:hasDescription xml:lang="mt">
+&lt;P&gt;Qafas ta' kuntratt għall-provvista ta' servizzi għat-trasferiment tal-passiġġieri fuq l-art, permezz tal-karozza tal-linja. It-3 lott — Kos.&lt;/P&gt;
+</epo:hasDescription>
+            <epo:providesAdditionalInformation>
+              <epo:StatisticalInformation rdf:about="http://data.europa.eu/a4g/resource/2017/s-001-000007#StatisticalInformation3f993721-3e12-4c09-92ad-2d4b227df024"/>
+            </epo:providesAdditionalInformation>
+            <epo:hasID>
+              <epo:Identifier rdf:about="http://data.europa.eu/a4g/resource/2017/s-001-000007#LotIde0e6f285-4274-4dba-b0a3-de44d8e77cfc">
+                <epo:hasIdentifierValue>3</epo:hasIdentifierValue>
+              </epo:Identifier>
+            </epo:hasID>
+            <epo:hasTitle xml:lang="lv">
+&lt;P&gt;Pamatnolīgums par pasažieru sauszemes pārvadājumu pakalpojumu nodrošināšanu; 3. daļa – Kosa&lt;/P&gt;
+</epo:hasTitle>
+            <epo:hasDescription xml:lang="sk">
+&lt;P&gt;Rámcová zmluva na poskytovanie služieb prepravy cestujúcich po zemi, autobusom. Časť 3 – Kos.&lt;/P&gt;
+</epo:hasDescription>
+            <epo:hasTitle xml:lang="it">
+&lt;P&gt;Contratto quadro per la prestazione di servizi di trasferimento passeggeri via terra; lotto 3 — Coo&lt;/P&gt;
+</epo:hasTitle>
+            <epo:hasTitle xml:lang="cs">
+&lt;P&gt;Rámcová smlouva o poskytování služeb přepravy cestujících po souši; položka č. 3 – Kos&lt;/P&gt;
+</epo:hasTitle>
+            <epo:hasTitle xml:lang="lt">
+&lt;P&gt;Preliminarioji sutartis dėl keleivių vežimo sausuma paslaugų teikimo: 3 dalis – Kosas&lt;/P&gt;
+</epo:hasTitle>
+            <epo:hasDescription xml:lang="hu">
+&lt;P&gt;Szárazföldi, buszos személyszállítási szolgáltatások nyújtására irányuló keretszerződés; 3. tétel – Kósz&lt;/P&gt;
+</epo:hasDescription>
+            <epo:hasDescription xml:lang="en">
+&lt;P&gt;Framework contract for the provision of passenger transfer services by land, by bus. Lot 3 — Kos.&lt;/P&gt;
+</epo:hasDescription>
+            <epo:hasTitle xml:lang="pl">
+&lt;P&gt;Umowa ramowa o świadczenie usług lądowych przewozów pasażerskich; część 3 — Kos&lt;/P&gt;
+</epo:hasTitle>
+            <epo:hasDescription xml:lang="hr">
+&lt;P&gt;Okvirni ugovor za pružanje usluga prijevoza putnika kopnom, autobusom. Grupa 3 — Kos.&lt;/P&gt;
+</epo:hasDescription>
+            <epo:hasDescription xml:lang="de">
+&lt;P&gt;Rahmenvertrag über Personentransferdienste auf dem Landweg, per Bus. Los 3 — Kos.&lt;/P&gt;
+</epo:hasDescription>
+            <epo:hasDescription xml:lang="el">
+&lt;P&gt;Σύμβαση-πλαίσιο για την παροχή υπηρεσιών χερσαίας μεταφοράς επιβατών, με λεωφορείο. Παρτίδα 3 — Κως.&lt;/P&gt;
+</epo:hasDescription>
+            <epo:hasDescription xml:lang="pl">
+&lt;P&gt;Umowa ramowa o świadczenie usług lądowych przewozów pasażerskich autokarem; część 3 — Kos.&lt;/P&gt;
+</epo:hasDescription>
+            <epo:hasDescription xml:lang="es">
+&lt;P&gt;Contrato marco para la prestación de servicios de transporte de viajeros por tierra, en autobús. Lote 3 — Cos.&lt;/P&gt;
+</epo:hasDescription>
+            <epo:hasDescription xml:lang="cs">
+&lt;P&gt;Rámcová smlouva o poskytování služeb přepravy cestujících po souši autobusem. Položka č. 3 – Kos.&lt;/P&gt;
+</epo:hasDescription>
+            <epo:hasTitle xml:lang="sk">
+&lt;P&gt;Rámcová zmluva na poskytovanie služieb prepravy cestujúcich po zemi; časť 3 – Kos&lt;/P&gt;
+</epo:hasTitle>
+            <epo:hasTitle xml:lang="bg">
+&lt;P&gt;Рамков договор за осигуряване на услуги по трансфер на пътници по земя; партида 3 – Кос&lt;/P&gt;
+</epo:hasTitle>
+            <epo:hasTitle xml:lang="es">
+&lt;P&gt;Contrato marco para la prestación de servicios de transporte de viajeros por tierra; lote 3 — Cos&lt;/P&gt;
+</epo:hasTitle>
+            <epo:hasDescription xml:lang="sl">
+&lt;P&gt;Okvirno naročilo za zagotavljanje storitev potniškega prometa po kopnem, z avtobusom. Sklop 3 – Kos.&lt;/P&gt;
+</epo:hasDescription>
+            <epo:hasTitle xml:lang="sl">
+&lt;P&gt;Okvirno naročilo za zagotavljanje storitev potniškega prometa po kopnem; sklop 3 – Kos&lt;/P&gt;
+</epo:hasTitle>
+            <epo:isSpecifiedIn rdf:resource="http://data.europa.eu/a4g/resource/2017/s-001-000007#Procedure0a80fd52-a02a-4c67-9d74-976f6391a14a"/>
+            <epo:hasDescription xml:lang="fr">
+&lt;P&gt;Contrat-cadre relatif à la prestation de services de transport terrestre de passagers par bus. Lot 3 — Kos.&lt;/P&gt;
+</epo:hasDescription>
+            <epo:hasTitle xml:lang="hr">
+&lt;P&gt;Okvirni ugovor za pružanje usluga prijevoza putnika kopnom; grupa 3 — Kos&lt;/P&gt;
+</epo:hasTitle>
+            <epo:hasTitle xml:lang="nl">
+&lt;P&gt;Raamovereenkomst voor de verlening van diensten inzake passagiersvervoer over land; perceel 3 — Kos&lt;/P&gt;
+</epo:hasTitle>
+            <epo:hasTitle xml:lang="da">
+&lt;P&gt;Rammekontrakt om udførelse af passagertransport over land. Parti 3 — Kos&lt;/P&gt;
+</epo:hasTitle>
+            <epo:hasTitle xml:lang="hu">
+&lt;P&gt;Szárazföldi személyszállítási szolgáltatások nyújtására irányuló keretszerződés; 3. tétel – Kósz&lt;/P&gt;
+</epo:hasTitle>
+            <epo:hasTitle xml:lang="ga">
+&lt;P&gt;Conradh creatlaí le haghaidh seirbhísí aistrithe paisinéirí ar talamh a sholáthar; beart 3 — Kos&lt;/P&gt;
+</epo:hasTitle>
+            <epo:hasDescription xml:lang="nl">
+&lt;P&gt;Raamovereenkomst voor de verlening van diensten inzake passagiersvervoer over land, per bus; perceel 3 — Kos&lt;/P&gt;
+</epo:hasDescription>
+            <epo:hasTitle xml:lang="fr">
+&lt;P&gt;Contrat-cadre relatif à la prestation de services de transport terrestre de passagers par bus; lot 3 — Kos&lt;/P&gt;
+</epo:hasTitle>
+            <epo:has>
+              <epo:Purpose rdf:about="http://data.europa.eu/a4g/resource/2017/s-001-000007#PurposeAdditional9aadcdf7-7e62-404a-b5bd-608cef2030fe">
+                <epo:hasAdditionalClassification rdf:resource="http://data.europa.eu/cpv/cpv/60170000"/>
+                <epo:hasOptionsPermission rdf:resource="http://publications.europa.eu/resource/authority/permission/not-allowed"/>
+              </epo:Purpose>
+            </epo:has>
+            <epo:hasDescription xml:lang="it">
+&lt;P&gt;Contratto quadro per la prestazione di servizi di trasferimento passeggeri via terra, con autobus. Lotto 3 — Coo.&lt;/P&gt;
+</epo:hasDescription>
+            <epo:hasDescription xml:lang="ro">
+&lt;P&gt;Contract-cadru pentru prestarea de servicii de transport terestru de pasageri cu autobuzul; lotul 3 – Kos.&lt;/P&gt;
+</epo:hasDescription>
+          </epo:Lot>
+        </epo:specifies>
+        <reg2015:uses>
+          <epo:FrameworkAgreementTechnique rdf:about="http://data.europa.eu/a4g/resource/2017/s-001-000007#Frameworkd92b8f53-9413-4874-8fe9-97937b385284"/>
+        </reg2015:uses>
+        <reg2015:hasBuyerLegalType rdf:resource="http://publications.europa.eu/resource/authority/buyer-legal-type/eu-int-org"/>
+        <epo:hasAcceleratedProcedureJustification xml:lang="bg"
+        >
+&lt;P&gt;Като се отчита големият брой обратни приемания в процес на разглеждане на ниво държави-членки, Frontex трябва да предприеме всички необходими стъпки, за да гарантира, че е предоставена незабавна подкрепа на държавите-членки, за да изпълнят своите задължения.&lt;/P&gt;
+</epo:hasAcceleratedProcedureJustification>
+        <epo:hasTitle xml:lang="lt">
+&lt;P&gt;Preliminarioji sutartis dėl keleivių vežimo sausuma paslaugų teikimo: 1 dalis – Lesbas; 2 dalis – Chijas; 3 dalis – Kosas.&lt;/P&gt;
+</epo:hasTitle>
+        <epo:hasDescription xml:lang="pl">
+&lt;P&gt;Umowa ramowa o świadczenie usług lądowych przewozów pasażerskich.&lt;/P&gt;
+</epo:hasDescription>
+        <epo:hasAcceleratedProcedureJustification xml:lang="lv"
+        >
+&lt;P&gt;ņemot vērā, ka dalībvalstu līmenī liels skaits atpakaļuzņemšanas gadījumu nav īstenoti, Frontex jāveic visi nepieciešamie pasākumi, lai nodrošinātu dalībvalstīm tūlītēja atbalsta sniegšanu to pienākumu izpildē.&lt;/P&gt;
+</epo:hasAcceleratedProcedureJustification>
+        <epo:hasTitle xml:lang="pl">
+&lt;P&gt;Umowa ramowa o świadczenie usług lądowych przewozów pasażerskich; część 1 — Lesbos; część 2 — Chios; część 3 — Kos&lt;/P&gt;
+</epo:hasTitle>
+        <epo:hasTitle xml:lang="cs">
+&lt;P&gt;Rámcová smlouva o poskytování služeb přepravy cestujících po souši; položka č. 1 – Lesvos; položka č. 2 – Chios; položka č. 3 – Kos.&lt;/P&gt;
+</epo:hasTitle>
+        <reg2015:hasBuyerMainActivity rdf:resource="http://publications.europa.eu/resource/authority/main-activity/gen-pub"/>
+        <epo:hasTitle xml:lang="ga">
+&lt;P&gt;Conradh creatlaí le haghaidh seirbhísí aistrithe paisinéirí ar talamh a sholáthar; beart 1 — Lesvos; beart 2 — Chios; beart 3 — Kos.&lt;/P&gt;
+</epo:hasTitle>
+        <epo:hasAcceleratedProcedureJustification xml:lang="hu"
+        >
+&lt;P&gt;A tagállamok szintjén függőben lévő visszafogadások magas számának figyelembe vételével a Frontexnek meg kell tennie a szükséges lépéseket annak biztosítása érdekében, hogy a tagállamok azonnali támogatásban részesülnek a kötelezettségeik teljesítéséhez.&lt;/P&gt;
+</epo:hasAcceleratedProcedureJustification>
+        <epo:hasDescription xml:lang="fi">
+&lt;P&gt;Sopimuksen kohteena on puitesopimus matkustajille tarkoitettujen maakuljetuspalveluiden toimittamisesta.&lt;/P&gt;
+</epo:hasDescription>
+        <epo:hasDescription xml:lang="et">
+&lt;P&gt;Reisijate maismaaveo teenuste osutamise raamleping&lt;/P&gt;
+</epo:hasDescription>
+        <epo:hasTitle xml:lang="nl">
+&lt;P&gt;Raamovereenkomst voor de verlening van diensten inzake passagiersvervoer over land; perceel 1 — Lesbos; perceel 2 — Chios; perceel 3 — Kos.&lt;/P&gt;
+</epo:hasTitle>
+        <epo:hasTitle xml:lang="mt">
+&lt;P&gt;Qafas ta' kuntratt għall-provvista ta' servizzi għat-trasferiment tal-passiġġieri fuq l-art, l-1 lott — Lesvos; it-2 lott — Chios; it-3 lott — Kos.&lt;/P&gt;
+</epo:hasTitle>
+        <epo:hasID>
+          <epo:Identifier rdf:about="http://data.europa.eu/a4g/resource/2017/s-001-000007#ProcedureId1f593789-b90c-4d68-886d-c44f9c30362e">
+            <epo:hasIdentifierValue>FRONTEX/OP/602/2016/KM.</epo:hasIdentifierValue>
+          </epo:Identifier>
+        </epo:hasID>
+      </epo:Procedure>
+    </reg2015:isInvolvedIn>
+  </epo:Reviewer>
+  <epo:Identifier rdf:about="http://data.europa.eu/a4g/resource/2017/s-001-000007#ContractId572e0078-83c8-4b5f-8078-e5933a651739">
+    <epo:hasIdentifierValue>Frontex/OP/602/2016.</epo:hasIdentifierValue>
+  </epo:Identifier>
+  <epo:ProcurementServiceProvider rdf:about="http://data.europa.eu/a4g/resource/2017/s-001-000007#ProcurementServiceProviderComp12e27789-ab14-4f4c-911d-47f194db073a">
+    <reg2015:providesMoreInformationOnTimeLimitsForReviewProcedures rdf:resource="http://data.europa.eu/a4g/resource/2017/s-001-000007#Procedure0a80fd52-a02a-4c67-9d74-976f6391a14a"/>
+    <reg2015:isInvolvedIn rdf:resource="http://data.europa.eu/a4g/resource/2017/s-001-000007#Procedure0a80fd52-a02a-4c67-9d74-976f6391a14a"/>
+  </epo:ProcurementServiceProvider>
+  <epo:Business rdf:about="http://data.europa.eu/a4g/resource/2017/s-001-000007#BusinessOrganisationNoAwardedGroupOld0e967d79-b619-4c2c-bbe2-7bec361ff13b">
+    <epo:isAn>
+      <epo:Organisation rdf:about="http://data.europa.eu/a4g/resource/2017/s-001-000007#WinnerOrganisationNoAwardedGroupOld03d147ea-840c-4d2d-9bd8-412f93e003a9">
+        <epo:hasName xml:lang="fr">Vagia Tzislaki — Lesvorama General Travel Agency</epo:hasName>
+        <epo:hasName xml:lang="es">Vagia Tzislaki — Lesvorama General Travel Agency</epo:hasName>
+        <epo:hasName xml:lang="de">Vagia Tzislaki — Lesvorama General Travel Agency</epo:hasName>
+        <epo:hasLocation>
+          <epo:Location rdf:about="http://data.europa.eu/a4g/resource/2017/s-001-000007#WinnerLocationNoAwardedToGroupOld67b6e272-b52d-473d-a440-41b2bf48bd96">
+            <epo:hasPostalAddress>
+              <epo:Address rdf:about="http://data.europa.eu/a4g/resource/2017/s-001-000007#WinnerAddressNoAwardedGroupOld294a11f6-fa18-40c3-a71a-6efedc3ead4b">
+                <epo:hasPostalZone>811 08</epo:hasPostalZone>
+                <epo:hasCountrySubentityCode rdf:resource="http://data.europa.eu/nuts/code/GR"/>
+                <epo:hasCityName>Mithimna</epo:hasCityName>
+                <epo:hasCountryCode rdf:resource="http://publications.europa.eu/resource/authority/country/GRC"/>
+                <epo:hasStreetName>M. Goutou 22, Lesvos</epo:hasStreetName>
+              </epo:Address>
+            </epo:hasPostalAddress>
+          </epo:Location>
+        </epo:hasLocation>
+        <epo:hasName xml:lang="lv">Vagia Tzislaki – Lesvorama General Travel Agency</epo:hasName>
+        <epo:hasName xml:lang="et">Vagia Tzislaki – Lesvorama General Travel Agency</epo:hasName>
+        <epo:hasName xml:lang="cs">Vagia Tzislaki – Lesvorama General Travel Agency</epo:hasName>
+        <epo:hasName xml:lang="fi">Vagia Tzislaki – Lesvorama General Travel Agency</epo:hasName>
+        <epo:hasName xml:lang="hr">Vagia Tzislaki — Lesvorama General Travel Agency</epo:hasName>
+        <epo:hasName xml:lang="ro">Vagia Tzislaki — Lesvorama General Travel Agency</epo:hasName>
+        <epo:hasName xml:lang="bg">Vagia Tzislaki — Lesvorama General Travel Agency</epo:hasName>
+        <epo:hasName xml:lang="ga">Vagia Tzislaki — Lesvorama General Travel Agency</epo:hasName>
+        <epo:hasName xml:lang="sl">Vagia Tzislaki — Lesvorama General Travel Agency</epo:hasName>
+        <epo:hasName xml:lang="sk">Vagia Tzislaki — Lesvorama General Travel Agency</epo:hasName>
+        <epo:hasName xml:lang="pl">Vagia Tzislaki — Lesvorama General Travel Agency</epo:hasName>
+        <epo:hasName xml:lang="mt">Vagia Tzislaki — Lesvorama General Travel Agency</epo:hasName>
+        <epo:hasName xml:lang="lt">Vagia Tzislaki — Lesvorama General Travel Agency</epo:hasName>
+        <epo:hasName xml:lang="hu">Vagia Tzislaki — Lesvorama General Travel Agency</epo:hasName>
+        <epo:hasName xml:lang="sv">Vagia Tzislaki — Lesvorama General Travel Agency</epo:hasName>
+        <epo:hasName xml:lang="pt">Vagia Tzislaki — Lesvorama General Travel Agency</epo:hasName>
+        <epo:hasName xml:lang="da">Vagia Tzislaki — Lesvorama General Travel Agency</epo:hasName>
+        <epo:hasName xml:lang="en">Vagia Tzislaki — Lesvorama General Travel Agency</epo:hasName>
+        <epo:hasName xml:lang="nl">Vagia Tzislaki — Lesvorama General Travel Agency</epo:hasName>
+        <epo:hasName xml:lang="it">Vagia Tzislaki — Lesvorama General Travel Agency</epo:hasName>
+        <epo:hasName xml:lang="el">Vagia Tzislaki — Lesvorama General Travel Agency</epo:hasName>
+      </epo:Organisation>
+    </epo:isAn>
+    <epo:hasSize rdf:resource="http://publications.europa.eu/resource/authority/economic-operator-size/sme"/>
+  </epo:Business>
+  <epo:AwardCriterion rdf:about="http://data.europa.eu/a4g/resource/2017/s-001-000007#AwardCriterionPrice5a323e0e-135c-4019-9ec6-b14f2a115b82">
+    <epo:isUsedToAward rdf:resource="http://data.europa.eu/a4g/resource/2017/s-001-000007#Lotfb15a5da-cf67-41a8-9ced-7b8370cddeee"/>
+    <epo:hasAwardCriterionType rdf:resource="http://publications.europa.eu/resource/authority/award-criterion-type/price"/>
+  </epo:AwardCriterion>
+  <epo:Business rdf:about="http://data.europa.eu/a4g/resource/2017/s-001-000007#BusinessOrganisationNoAwardedGroupOld83918669-ed7d-4122-becd-34c1a0bca8d3">
+    <epo:isAn>
+      <epo:Organisation rdf:about="http://data.europa.eu/a4g/resource/2017/s-001-000007#WinnerOrganisationNoAwardedGroupOld57e2ff6f-e5e8-41ef-80c0-5d6e7bcf21da">
+        <epo:hasName xml:lang="pt">Vagia Tzislaki — Lesvorama General Travel Agency</epo:hasName>
+        <epo:hasName xml:lang="it">Vagia Tzislaki — Lesvorama General Travel Agency</epo:hasName>
+        <epo:hasName xml:lang="el">Vagia Tzislaki — Lesvorama General Travel Agency</epo:hasName>
+        <epo:hasName xml:lang="fr">Vagia Tzislaki — Lesvorama General Travel Agency</epo:hasName>
+        <epo:hasName xml:lang="es">Vagia Tzislaki — Lesvorama General Travel Agency</epo:hasName>
+        <epo:hasName xml:lang="de">Vagia Tzislaki — Lesvorama General Travel Agency</epo:hasName>
+        <epo:hasName xml:lang="da">Vagia Tzislaki — Lesvorama General Travel Agency</epo:hasName>
+        <epo:hasName xml:lang="fi">Vagia Tzislaki – Lesvorama General Travel Agency</epo:hasName>
+        <epo:hasName xml:lang="en">Vagia Tzislaki — Lesvorama General Travel Agency</epo:hasName>
+        <epo:hasName xml:lang="nl">Vagia Tzislaki — Lesvorama General Travel Agency</epo:hasName>
+        <epo:hasLocation>
+          <epo:Location rdf:about="http://data.europa.eu/a4g/resource/2017/s-001-000007#WinnerLocationNoAwardedToGroupOlde37b7604-f3c2-45bf-876b-f1f482ceaa9b">
+            <epo:hasPostalAddress>
+              <epo:Address rdf:about="http://data.europa.eu/a4g/resource/2017/s-001-000007#WinnerAddressNoAwardedGroupOld18803378-67a3-4442-a804-86561a402f1c">
+                <epo:hasPostalZone>811 08</epo:hasPostalZone>
+                <epo:hasCountrySubentityCode rdf:resource="http://data.europa.eu/nuts/code/GR"/>
+                <epo:hasCityName>Mithimna</epo:hasCityName>
+                <epo:hasCountryCode rdf:resource="http://publications.europa.eu/resource/authority/country/GRC"/>
+                <epo:hasStreetName>M. Goutou 22, Lesvos</epo:hasStreetName>
+              </epo:Address>
+            </epo:hasPostalAddress>
+          </epo:Location>
+        </epo:hasLocation>
+        <epo:hasName xml:lang="hr">Vagia Tzislaki — Lesvorama General Travel Agency</epo:hasName>
+        <epo:hasName xml:lang="ro">Vagia Tzislaki — Lesvorama General Travel Agency</epo:hasName>
+        <epo:hasName xml:lang="bg">Vagia Tzislaki — Lesvorama General Travel Agency</epo:hasName>
+        <epo:hasName xml:lang="ga">Vagia Tzislaki — Lesvorama General Travel Agency</epo:hasName>
+        <epo:hasName xml:lang="sl">Vagia Tzislaki — Lesvorama General Travel Agency</epo:hasName>
+        <epo:hasName xml:lang="sk">Vagia Tzislaki — Lesvorama General Travel Agency</epo:hasName>
+        <epo:hasName xml:lang="pl">Vagia Tzislaki — Lesvorama General Travel Agency</epo:hasName>
+        <epo:hasName xml:lang="mt">Vagia Tzislaki — Lesvorama General Travel Agency</epo:hasName>
+        <epo:hasName xml:lang="lv">Vagia Tzislaki – Lesvorama General Travel Agency</epo:hasName>
+        <epo:hasName xml:lang="lt">Vagia Tzislaki — Lesvorama General Travel Agency</epo:hasName>
+        <epo:hasName xml:lang="hu">Vagia Tzislaki — Lesvorama General Travel Agency</epo:hasName>
+        <epo:hasName xml:lang="et">Vagia Tzislaki – Lesvorama General Travel Agency</epo:hasName>
+        <epo:hasName xml:lang="cs">Vagia Tzislaki — Lesvorama General Travel Agency</epo:hasName>
+        <epo:hasName xml:lang="sv">Vagia Tzislaki — Lesvorama General Travel Agency</epo:hasName>
+      </epo:Organisation>
+    </epo:isAn>
+    <epo:hasSize rdf:resource="http://publications.europa.eu/resource/authority/economic-operator-size/sme"/>
+  </epo:Business>
+  <epo:AwardCriterion rdf:about="http://data.europa.eu/a4g/resource/2017/s-001-000007#AwardCriterionPrice48dc00da-7def-4ded-8490-280224d6f924">
+    <epo:isUsedToAward rdf:resource="http://data.europa.eu/a4g/resource/2017/s-001-000007#Lot65a638aa-af7a-48fe-a314-5fe17f8dffd5"/>
+    <epo:hasAwardCriterionType rdf:resource="http://publications.europa.eu/resource/authority/award-criterion-type/price"/>
+  </epo:AwardCriterion>
+  <epo:AwardDecision rdf:about="http://data.europa.eu/a4g/resource/2017/s-001-000007#AwardDecision477d4557-3732-480f-9f38-5cb32dd1b618">
+    <epo:refersTo rdf:resource="http://data.europa.eu/a4g/resource/2017/s-001-000007#Lotfb15a5da-cf67-41a8-9ced-7b8370cddeee"/>
+    <epo:has>
+      <epo:Winner rdf:about="http://data.europa.eu/a4g/resource/2017/s-001-000007#WinnerNoGroupbea97253-7c58-41c4-a740-7e6855d03617">
+        <epo:isRoleOf rdf:resource="http://data.europa.eu/a4g/resource/2017/s-001-000007#WinnerOrganisationNoAwardedGroupOld57e2ff6f-e5e8-41ef-80c0-5d6e7bcf21da"/>
+      </epo:Winner>
+    </epo:has>
+    <epo:isReferedByA rdf:resource="http://data.europa.eu/a4g/resource/2017/s-001-000007#Contract00f1d326-0f50-45fa-92f5-b065c4f7343b"/>
+    <epo:hasAwardStatus rdf:resource="http://publications.europa.eu/resource/authority/winner-selection-status/selec-w"/>
+  </epo:AwardDecision>
+  <epo:ContractAwardNotice rdf:about="http://data.europa.eu/a4g/resource/2017/s-001-000007#ContractAwardNoticef17a6464-b2a0-4a20-9fbe-c2e90f7a2816">
+    <epo:isMadeAvailableVia>
+      <epo:Channel rdf:about="http://data.europa.eu/a4g/resource/2017/s-001-000007#ChannelCN4576b114-2ce0-498d-be2b-76d5ae69adaa">
+        <epo:hasURL>http://ted.europa.eu/udl?uri=TED:NOTICE:000007-2017:TEXT:SK:HTML</epo:hasURL>
+        <epo:hasURL>http://ted.europa.eu/udl?uri=TED:NOTICE:000007-2017:TEXT:EL:HTML</epo:hasURL>
+        <epo:hasURL>http://ted.europa.eu/udl?uri=TED:NOTICE:000007-2017:TEXT:PL:HTML</epo:hasURL>
+        <epo:hasURL>http://ted.europa.eu/udl?uri=TED:NOTICE:000007-2017:TEXT:HU:HTML</epo:hasURL>
+        <epo:hasURL>http://ted.europa.eu/udl?uri=TED:NOTICE:000007-2017:TEXT:GA:HTML</epo:hasURL>
+        <epo:hasURL>http://ted.europa.eu/udl?uri=TED:NOTICE:000007-2017:TEXT:MT:HTML</epo:hasURL>
+        <epo:hasURL>http://ted.europa.eu/udl?uri=TED:NOTICE:000007-2017:TEXT:DA:HTML</epo:hasURL>
+        <epo:hasURL>http://ted.europa.eu/udl?uri=TED:NOTICE:000007-2017:TEXT:LV:HTML</epo:hasURL>
+        <epo:hasURL>http://ted.europa.eu/udl?uri=TED:NOTICE:000007-2017:TEXT:IT:HTML</epo:hasURL>
+        <epo:hasURL>http://ted.europa.eu/udl?uri=TED:NOTICE:000007-2017:TEXT:CS:HTML</epo:hasURL>
+        <epo:hasURL>http://ted.europa.eu/udl?uri=TED:NOTICE:000007-2017:TEXT:RO:HTML</epo:hasURL>
+        <epo:hasURL>http://ted.europa.eu/udl?uri=TED:NOTICE:000007-2017:TEXT:PT:HTML</epo:hasURL>
+        <epo:hasURL>http://ted.europa.eu/udl?uri=TED:NOTICE:000007-2017:TEXT:SV:HTML</epo:hasURL>
+        <epo:hasURL>http://ted.europa.eu/udl?uri=TED:NOTICE:000007-2017:TEXT:ES:HTML</epo:hasURL>
+        <epo:hasURL>http://ted.europa.eu/udl?uri=TED:NOTICE:000007-2017:TEXT:ET:HTML</epo:hasURL>
+        <epo:hasURL>http://ted.europa.eu/udl?uri=TED:NOTICE:000007-2017:TEXT:NL:HTML</epo:hasURL>
+        <epo:hasURL>http://ted.europa.eu/udl?uri=TED:NOTICE:000007-2017:TEXT:EN:HTML</epo:hasURL>
+        <epo:hasURL>http://ted.europa.eu/udl?uri=TED:NOTICE:000007-2017:TEXT:DE:HTML</epo:hasURL>
+        <epo:hasURL>http://ted.europa.eu/udl?uri=TED:NOTICE:000007-2017:TEXT:FI:HTML</epo:hasURL>
+        <epo:hasURL>http://ted.europa.eu/udl?uri=TED:NOTICE:000007-2017:TEXT:BG:HTML</epo:hasURL>
+        <epo:hasURL>http://ted.europa.eu/udl?uri=TED:NOTICE:000007-2017:TEXT:HR:HTML</epo:hasURL>
+        <epo:hasURL>http://ted.europa.eu/udl?uri=TED:NOTICE:000007-2017:TEXT:SL:HTML</epo:hasURL>
+        <epo:hasURL>http://ted.europa.eu/udl?uri=TED:NOTICE:000007-2017:TEXT:LT:HTML</epo:hasURL>
+        <epo:hasURL>http://ted.europa.eu/udl?uri=TED:NOTICE:000007-2017:TEXT:FR:HTML</epo:hasURL>
+      </epo:Channel>
+    </epo:isMadeAvailableVia>
+    <epo:summarises rdf:resource="http://data.europa.eu/a4g/resource/2017/s-001-000007#Procedure0a80fd52-a02a-4c67-9d74-976f6391a14a"/>
+    <epo:hasDispatchDate>2016-12-22</epo:hasDispatchDate>
+    <epo:relatesTo rdf:resource="http://data.europa.eu/a4g/resource/2017/s-001-000007#Procedure0a80fd52-a02a-4c67-9d74-976f6391a14a"/>
+    <epo:refersToPrevious>
+      <epo:Notice rdf:about="http://data.europa.eu/a4g/resource/2017/s-001-000007#PrevNotice8dc40463-5fce-4f82-a5e9-3c2a2c60af48">
+        <epo:hasID>
+          <epo:Identifier rdf:about="http://data.europa.eu/a4g/resource/2017/s-001-000007#PrevNoticeId678179e9-323b-4fc4-b276-a1afe664130a">
+            <epo:hasIdentifierValue>2016/S 187-335100</epo:hasIdentifierValue>
+          </epo:Identifier>
+        </epo:hasID>
+      </epo:Notice>
+    </epo:refersToPrevious>
+    <skos:editorialNote>Please note that some elements from the F03 are not mappable to the eProcurement Ontology which was designed in the eNotification phase for Commission Implementing Regulation (EU) 2019/1780 . The population of the knowledge graph will therefore not take into consideration the following xpaths from the published notices:
+OBJECT_CONTRACT/CPV_MAIN/CPV_SUPPLEMENTARY_CODE
+OBJECT_CONTRACT/LOT_DIVISION
+OBJECT_CONTRACT/NO_LOT_DIVISION
+OBJECT_CONTRACT/OBJECT_DESCR/CPV_ADDITIONAL/CPV_SUPPLEMENTARY_CODE
+OBJECT_CONTRACT/OBJECT_DESCR/NO_EU_PROGR_RELATED
+AWARD_CONTRACT/NO_AWARDED_CONTRACT/PROCUREMENT_DISCONTINUED
+AWARD_CONTRACT/NO_AWARDED_CONTRACT/PROCUREMENT_DISCONTINUED/ORIGINAL_ENOTICES
+AWARD_CONTRACT/NO_AWARDED_CONTRACT/PROCUREMENT_DISCONTINUED/ORIGINAL_TED_ESENDER
+AWARD_CONTRACT/NO_AWARDED_CONTRACT/PROCUREMENT_DISCONTINUED/ESENDER_LOGIN
+AWARD_CONTRACT/NO_AWARDED_CONTRACT/PROCUREMENT_DISCONTINUED/CUSTOMER_LOGIN
+AWARD_CONTRACT/NO_AWARDED_CONTRACT/PROCUREMENT_DISCONTINUED/NO_DOC_EXT
+AWARD_CONTRACT/NO_AWARDED_CONTRACT/PROCUREMENT_DISCONTINUED/ORIGINAL_OTHER_MEANS
+AWARD_CONTRACT/NO_AWARDED_CONTRACT/PROCUREMENT_DISCONTINUED/DATE_DISPATCH_ORIGINAL
+AWARD_CONTRACT/NO_AWARDED_CONTRACT/PROCUREMENT_UNSUCCESSFUL
+AWARD_CONTRACT/AWARDED_CONTRACT/TENDERS/NB_TENDERS_RECEIVED_OTHER_EU
+AWARD_CONTRACT/AWARDED_CONTRACT/TENDERS/NB_TENDERS_RECEIVED_NON_EU
+AWARD_CONTRACT/AWARDED_CONTRACT/CONTRACTORS/NO_AWARDED_TO_GROUP
+AWARD_CONTRACT/AWARDED_CONTRACT/VAL_SUBCONTRACTING
+AWARD_CONTRACT/AWARDED_CONTRACT/VAL_SUBCONTRACTING/CURRENCY
+AWARD_CONTRACT/AWARDED_CONTRACT/PCT_SUBCONTRACTING
+AWARD_CONTRACT/AWARDED_CONTRACT/VAL_SUBCONTRACTING/INFO_ADD_SUBCONTRACTING
+/PROCEDURE/PT_AWARD_CONTRACT_WITHOUT_CALL/D_OUTSIDE_SCOPE</skos:editorialNote>
+    <epo:refersToPrevious>
+      <epo:Notice rdf:about="http://data.europa.eu/a4g/resource/2017/s-001-000007#PreviousNotice4188eb6e-8562-4870-856d-02265311ec7c">
+        <epo:hasID>
+          <epo:Identifier rdf:about="http://data.europa.eu/a4g/resource/2017/s-001-000007#NoticeId6e7bbace-cb6a-454d-841a-75ee65fc5f0f">
+            <epo:hasIdentifierValue>2016/S 187-335100</epo:hasIdentifierValue>
+          </epo:Identifier>
+        </epo:hasID>
+      </epo:Notice>
+    </epo:refersToPrevious>
+    <epo:hasID>
+      <epo:Identifier rdf:about="http://data.europa.eu/a4g/resource/2017/s-001-000007#ContractAwardNoticeId1d738376-d3d2-4760-8b04-fbb34f82f04b">
+        <epo:hasIdentifierValue>2017/S 001-000007</epo:hasIdentifierValue>
+      </epo:Identifier>
+    </epo:hasID>
+    <epo:hasPublicationDate>2017-01-03</epo:hasPublicationDate>
+  </epo:ContractAwardNotice>
+  <epo:AwardDecision rdf:about="http://data.europa.eu/a4g/resource/2017/s-001-000007#AwardDecision55f57e12-bc2a-4368-b867-16af7ee5f9d1">
+    <epo:refersTo rdf:resource="http://data.europa.eu/a4g/resource/2017/s-001-000007#Lot65a638aa-af7a-48fe-a314-5fe17f8dffd5"/>
+    <epo:has>
+      <epo:Winner rdf:about="http://data.europa.eu/a4g/resource/2017/s-001-000007#WinnerNoGroup3bdce708-4f5f-491e-a2f9-67ca8917f469">
+        <epo:isRoleOf rdf:resource="http://data.europa.eu/a4g/resource/2017/s-001-000007#WinnerOrganisationNoAwardedGroupOld03d147ea-840c-4d2d-9bd8-412f93e003a9"/>
+      </epo:Winner>
+    </epo:has>
+    <epo:isReferedByA>
+      <epo:Contract rdf:about="http://data.europa.eu/a4g/resource/2017/s-001-000007#Contractccdcbe81-d73c-4f9c-bb60-4fd4a84ca830">
+        <epo:hasID>
+          <epo:Identifier rdf:about="http://data.europa.eu/a4g/resource/2017/s-001-000007#ContractId07fbef05-90f7-4575-8337-5c22dac86617">
+            <epo:hasIdentifierValue>Frontex/OP/602/2016/Lot 2</epo:hasIdentifierValue>
+          </epo:Identifier>
+        </epo:hasID>
+        <epo:hasID>
+          <epo:Identifier rdf:about="http://data.europa.eu/a4g/resource/2017/s-001-000007#ContractId7654c20c-3192-49ab-8d4b-f762683baaa7">
+            <epo:hasIdentifierValue>Frontex/OP/602/2016/Lot 2</epo:hasIdentifierValue>
+          </epo:Identifier>
+        </epo:hasID>
+        <epo:hasID>
+          <epo:Identifier rdf:about="http://data.europa.eu/a4g/resource/2017/s-001-000007#ContractId236cb30f-3318-4106-b21b-9bf65af62c2c">
+            <epo:hasIdentifierValue>Frontex/OP/602/2016/Lot 2</epo:hasIdentifierValue>
+          </epo:Identifier>
+        </epo:hasID>
+        <epo:hasID>
+          <epo:Identifier rdf:about="http://data.europa.eu/a4g/resource/2017/s-001-000007#ContractId542c6392-1a26-4701-a06d-0507326c915e">
+            <epo:hasIdentifierValue>Frontex/OP/602/2016/Lot 2</epo:hasIdentifierValue>
+          </epo:Identifier>
+        </epo:hasID>
+        <epo:hasID>
+          <epo:Identifier rdf:about="http://data.europa.eu/a4g/resource/2017/s-001-000007#ContractId60fc327b-6435-463e-bf3e-074566ee3951">
+            <epo:hasIdentifierValue>Frontex/OP/602/2016/It-2 lott</epo:hasIdentifierValue>
+          </epo:Identifier>
+        </epo:hasID>
+        <epo:hasContractConclusionDate>2016-12-06</epo:hasContractConclusionDate>
+        <epo:hasID>
+          <epo:Identifier rdf:about="http://data.europa.eu/a4g/resource/2017/s-001-000007#ContractId1438ca6c-49f4-44f1-a06d-f3222885cfd3">
+            <epo:hasIdentifierValue>Frontex/OP/602/2016/Lot 2</epo:hasIdentifierValue>
+          </epo:Identifier>
+        </epo:hasID>
+        <epo:hasID>
+          <epo:Identifier rdf:about="http://data.europa.eu/a4g/resource/2017/s-001-000007#ContractIdc6bec8e4-7866-4aa6-b02f-fecd59c0caa1">
+            <epo:hasIdentifierValue>Frontex/OP/602/2016/Lot 2</epo:hasIdentifierValue>
+          </epo:Identifier>
+        </epo:hasID>
+        <epo:hasTitle xml:lang="en">
+&lt;P&gt;Framework contract for the provision of passenger transfer services by land, by bus; lot 2 — Chios&lt;/P&gt;
+</epo:hasTitle>
+        <epo:hasTitle xml:lang="lv">
+&lt;P&gt;Pamatnolīgums par pasažieru sauszemes pārvadājumu pakalpojumu nodrošināšanu, izmantojot autobusu; 2. daļa – Hija&lt;/P&gt;
+</epo:hasTitle>
+        <epo:hasTitle xml:lang="es">
+&lt;P&gt;Contrato marco para la prestación de servicios de transporte de viajeros por tierra, en autobús; lote 2 — Quíos&lt;/P&gt;
+</epo:hasTitle>
+        <epo:hasID>
+          <epo:Identifier rdf:about="http://data.europa.eu/a4g/resource/2017/s-001-000007#ContractIdc5f3f5b3-f71c-4258-a172-399790d34230">
+            <epo:hasIdentifierValue>Frontex/OP/602/2016/Lot 2</epo:hasIdentifierValue>
+          </epo:Identifier>
+        </epo:hasID>
+        <epo:hasTitle xml:lang="pl">
+&lt;P&gt;Umowa ramowa o świadczenie usług lądowych przewozów pasażerskich autokarem; część 2 — Chios&lt;/P&gt;
+</epo:hasTitle>
+        <epo:hasTitle xml:lang="bg">
+&lt;P&gt;Рамков договор за осигуряване на услуги по трансфер на пътници по земя, с автобус; партида 2 – Хиос&lt;/P&gt;
+</epo:hasTitle>
+        <epo:hasID>
+          <epo:Identifier rdf:about="http://data.europa.eu/a4g/resource/2017/s-001-000007#ContractIdce0c29a5-5df7-4e19-83f4-f9da5933f016">
+            <epo:hasIdentifierValue>Frontex/OP/602/2016/Lot 2</epo:hasIdentifierValue>
+          </epo:Identifier>
+        </epo:hasID>
+        <epo:hasID>
+          <epo:Identifier rdf:about="http://data.europa.eu/a4g/resource/2017/s-001-000007#ContractIdb796e433-35ec-4295-b4ca-87879d60cbcb">
+            <epo:hasIdentifierValue>Frontex/OP/602/2016/Lotto 2</epo:hasIdentifierValue>
+          </epo:Identifier>
+        </epo:hasID>
+        <epo:hasID>
+          <epo:Identifier rdf:about="http://data.europa.eu/a4g/resource/2017/s-001-000007#ContractIdee468fcf-9fb4-4d5e-b6b1-28da359bb5f0">
+            <epo:hasIdentifierValue>Frontex/OP/602/2016/Lot 2</epo:hasIdentifierValue>
+          </epo:Identifier>
+        </epo:hasID>
+        <epo:hasID>
+          <epo:Identifier rdf:about="http://data.europa.eu/a4g/resource/2017/s-001-000007#ContractIdd288d44f-b2e9-4cc7-9e96-a12e38b59c77">
+            <epo:hasIdentifierValue>Frontex/OP/602/2016/Parti 2</epo:hasIdentifierValue>
+          </epo:Identifier>
+        </epo:hasID>
+        <epo:hasProcurementValue>
+          <epo:Value rdf:about="http://data.europa.eu/a4g/resource/2017/s-001-000007#TotalValueValTotalOlda9f79727-2653-4b50-ba5b-4596e287cf7d">
+            <epo:hasOverallAmount>
+              <ccts:Amount rdf:about="http://data.europa.eu/a4g/resource/2017/s-001-000007#ValueAwardedAmountOld53ef0ef7-25fc-4172-b3fd-f5ed6a9428a4">
+                <ccts:hasAmountValue>150000.00</ccts:hasAmountValue>
+                <epo:hasCurrencyCode rdf:resource="http://publications.europa.eu/resource/authority/currency/EUR"/>
+              </ccts:Amount>
+            </epo:hasOverallAmount>
+            <epo:hasVATIncludedIndicator>false</epo:hasVATIncludedIndicator>
+          </epo:Value>
+        </epo:hasProcurementValue>
+        <epo:hasTitle xml:lang="fr">
+&lt;P&gt;Contrat-cadre relatif à la prestation de services de transport terrestre de passagers par bus; lot 2 — Chios&lt;/P&gt;
+</epo:hasTitle>
+        <epo:hasTitle xml:lang="pt">
+&lt;P&gt;Contrato-quadro relativo à prestação de serviços de transporte terrestre de passageiros, por autocarro, lote 2 — Chios&lt;/P&gt;
+</epo:hasTitle>
+        <epo:hasTitle xml:lang="hu">
+&lt;P&gt;Szárazföldi, buszos személyszállítási szolgáltatások nyújtására irányuló keretszerződés; 2. tétel – Híosz&lt;/P&gt;
+</epo:hasTitle>
+        <epo:hasID>
+          <epo:Identifier rdf:about="http://data.europa.eu/a4g/resource/2017/s-001-000007#ContractId27d6c0d7-c4b8-4820-bc8c-acdf08641589">
+            <epo:hasIdentifierValue>Frontex/OP/602/2016/Lot 2</epo:hasIdentifierValue>
+          </epo:Identifier>
+        </epo:hasID>
+        <epo:hasID>
+          <epo:Identifier rdf:about="http://data.europa.eu/a4g/resource/2017/s-001-000007#ContractIde1f39c9e-d016-4901-a7a7-4ce08dd167f2">
+            <epo:hasIdentifierValue>Frontex/OP/602/2016/Lot 2</epo:hasIdentifierValue>
+          </epo:Identifier>
+        </epo:hasID>
+        <epo:hasTitle xml:lang="hr">
+&lt;P&gt;Okvirni ugovor za pružanje usluga prijevoza putnika kopnom, autobusom; grupa 2 — Chios&lt;/P&gt;
+</epo:hasTitle>
+        <epo:hasID>
+          <epo:Identifier rdf:about="http://data.europa.eu/a4g/resource/2017/s-001-000007#ContractId4c0e74ec-42ae-43b7-b4da-35d106183a87">
+            <epo:hasIdentifierValue>Frontex/OP/602/2016/Lot 2</epo:hasIdentifierValue>
+          </epo:Identifier>
+        </epo:hasID>
+        <epo:hasID>
+          <epo:Identifier rdf:about="http://data.europa.eu/a4g/resource/2017/s-001-000007#ContractId1a58c727-17fc-4e65-9557-cc85a27693d7">
+            <epo:hasIdentifierValue>Frontex/OP/602/2016/Lot 2</epo:hasIdentifierValue>
+          </epo:Identifier>
+        </epo:hasID>
+        <epo:hasTitle xml:lang="da">
+&lt;P&gt;Rammekontrakt om udførelse af passagertransport over land med bus. Parti 2 — Chios&lt;/P&gt;
+</epo:hasTitle>
+        <epo:refersTo rdf:resource="http://data.europa.eu/a4g/resource/2017/s-001-000007#Lot65a638aa-af7a-48fe-a314-5fe17f8dffd5"/>
+        <epo:hasID>
+          <epo:Identifier rdf:about="http://data.europa.eu/a4g/resource/2017/s-001-000007#ContractId1bb09117-d570-4b10-a0c7-f8df11423f66">
+            <epo:hasIdentifierValue>Frontex/OP/602/2016/Lot 2</epo:hasIdentifierValue>
+          </epo:Identifier>
+        </epo:hasID>
+        <epo:hasTitle xml:lang="sl">
+&lt;P&gt;Okvirno naročilo za zagotavljanje storitev potniškega prometa po kopnem, z avtobusom; sklop 2 – Hios&lt;/P&gt;
+</epo:hasTitle>
+        <epo:hasTitle xml:lang="it">
+&lt;P&gt;Contratto quadro per la prestazione di servizi di trasferimento passeggeri via terra, con autobus; lotto 2 — Chio&lt;/P&gt;
+</epo:hasTitle>
+        <epo:hasID>
+          <epo:Identifier rdf:about="http://data.europa.eu/a4g/resource/2017/s-001-000007#ContractId52f6fe37-b05b-4190-bf3d-44998df2d1e2">
+            <epo:hasIdentifierValue>Frontex/OP/602/2016/Lot 2</epo:hasIdentifierValue>
+          </epo:Identifier>
+        </epo:hasID>
+        <epo:hasID>
+          <epo:Identifier rdf:about="http://data.europa.eu/a4g/resource/2017/s-001-000007#ContractId844fdcd0-fc0b-47fe-9471-09f4ffc48a7a">
+            <epo:hasIdentifierValue>Frontex/OP/602/2016/Lot 2</epo:hasIdentifierValue>
+          </epo:Identifier>
+        </epo:hasID>
+        <epo:hasID>
+          <epo:Identifier rdf:about="http://data.europa.eu/a4g/resource/2017/s-001-000007#ContractIdf7cd6dc0-84d4-4a36-a9d3-e5ac632587e3">
+            <epo:hasIdentifierValue>Frontex/OP/602/2016/Lot 2</epo:hasIdentifierValue>
+          </epo:Identifier>
+        </epo:hasID>
+        <epo:hasID>
+          <epo:Identifier rdf:about="http://data.europa.eu/a4g/resource/2017/s-001-000007#ContractIdcf5a77b6-2015-493e-a7ed-8160a575ba71">
+            <epo:hasIdentifierValue>Frontex/OP/602/2016/Lot 2</epo:hasIdentifierValue>
+          </epo:Identifier>
+        </epo:hasID>
+        <epo:hasTitle xml:lang="cs">
+&lt;P&gt;Rámcová smlouva o poskytování služeb přepravy cestujících po souši autobusem; položka č. 2 – Chios&lt;/P&gt;
+</epo:hasTitle>
+        <epo:hasID>
+          <epo:Identifier rdf:about="http://data.europa.eu/a4g/resource/2017/s-001-000007#ContractId6a392397-2e5f-4364-82a5-540ebc4e3bcd">
+            <epo:hasIdentifierValue>Frontex/OP/602/2016/Lot 2</epo:hasIdentifierValue>
+          </epo:Identifier>
+        </epo:hasID>
+        <epo:hasID>
+          <epo:Identifier rdf:about="http://data.europa.eu/a4g/resource/2017/s-001-000007#ContractId2a2346e3-70ba-4ac4-b6c6-dd59cbcc3d58">
+            <epo:hasIdentifierValue>Frontex/OP/602/2016/Los 2</epo:hasIdentifierValue>
+          </epo:Identifier>
+        </epo:hasID>
+        <epo:hasID>
+          <epo:Identifier rdf:about="http://data.europa.eu/a4g/resource/2017/s-001-000007#ContractIda755017c-dc9b-4e76-b387-b0f29a8914c3">
+            <epo:hasIdentifierValue>Frontex/OP/602/2016/Lot 2</epo:hasIdentifierValue>
+          </epo:Identifier>
+        </epo:hasID>
+      </epo:Contract>
+    </epo:isReferedByA>
+    <epo:hasAwardStatus rdf:resource="http://publications.europa.eu/resource/authority/winner-selection-status/selec-w"/>
+  </epo:AwardDecision>
+  <epo:AwardDecision rdf:about="http://data.europa.eu/a4g/resource/2017/s-001-000007#AwardDecisionbda044fe-81f8-49f1-ad31-d597dc05f340">
+    <epo:refersTo rdf:resource="http://data.europa.eu/a4g/resource/2017/s-001-000007#Lot124e2c1c-24f4-4dfb-adf0-f47bcf9ea557"/>
+    <epo:hasAwardStatus rdf:resource="http://publications.europa.eu/resource/authority/winner-selection-status/clos-nw"/>
+  </epo:AwardDecision>
+  <epo:AwardCriterion rdf:about="http://data.europa.eu/a4g/resource/2017/s-001-000007#AwardCriterionPrice1fd863d8-5ab4-4aee-91b3-950e2c1cdcd6">
+    <epo:isUsedToAward rdf:resource="http://data.europa.eu/a4g/resource/2017/s-001-000007#Lot124e2c1c-24f4-4dfb-adf0-f47bcf9ea557"/>
+    <epo:hasAwardCriterionType rdf:resource="http://publications.europa.eu/resource/authority/award-criterion-type/price"/>
+  </epo:AwardCriterion>
+</rdf:RDF>

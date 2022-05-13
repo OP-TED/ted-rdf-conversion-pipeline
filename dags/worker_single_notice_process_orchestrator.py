@@ -88,7 +88,7 @@ def worker_single_notice_process_orchestrator():
         mongodb_client = MongoClient(config.MONGO_DB_AUTH_URL)
         notice_repository = NoticeRepository(mongodb_client=mongodb_client)
         notice = notice_repository.get(reference=notice_id)
-        notice.set_distilled_rdf_manifestation(distilled_rdf_manifestation=notice.rdf_manifestation)
+        notice.set_distilled_rdf_manifestation(distilled_rdf_manifestation=notice.rdf_manifestation.copy())
         notice_repository.update(notice=notice)
         push_dag_downstream(NOTICE_ID, notice_id)
         push_dag_downstream(MAPPING_SUITE_ID, mapping_suite_id)

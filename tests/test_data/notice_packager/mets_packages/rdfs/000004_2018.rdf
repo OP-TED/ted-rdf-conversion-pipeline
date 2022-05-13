@@ -1,0 +1,680 @@
+<rdf:RDF
+    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+    xmlns:epodata="http://data.europa.eu/a4g/resource#"
+    xmlns:dc="http://www.omg.org/spec/UML/20131001/UMLDC"
+    xmlns:epo="http://data.europa.eu/a4g/ontology#"
+    xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+    xmlns:reg2015="http://data.europa.eu/a4g/extension/ontology#"
+    xmlns:ccts="http://www.unece.org/cefact#"
+    xmlns:dct="http://purl.org/dc/terms/"
+    xmlns:owl="http://www.w3.org/2002/07/owl#"
+    xmlns:reg2015data="http://data.europa.eu/a4g/extension/resource#"
+    xmlns:skos="http://www.w3.org/2004/02/skos/core#"
+    xmlns:cc="http://creativecommons.org/ns#"
+    xmlns:org="http://www.w3.org/ns/org#"
+    xmlns:vann="http://purl.org/vocab/vann/"
+    xmlns:foaf="http://xmlns.com/foaf/0.1/">
+  <epo:AwardDecision rdf:about="http://data.europa.eu/a4g/resource/2018/s-001-000004#AwardDecision4f2e7656-028c-449f-a9cc-4478e363272e">
+    <epo:refersTo>
+      <epo:Lot rdf:about="http://data.europa.eu/a4g/resource/2018/s-001-000004#Lot6b6e32ba-6881-4357-a69c-4dd76c9e572b">
+        <epo:hasTitle xml:lang="pt">
+                  &lt;P&gt;Dados de entrada do mercado financeiro para validação&lt;/P&gt;
+               </epo:hasTitle>
+        <epo:hasAdditionalInformation xml:lang="fr">
+                  &lt;P&gt;Contrat-cadre de services unique.&lt;/P&gt;
+               </epo:hasAdditionalInformation>
+        <epo:hasAdditionalInformation xml:lang="pl">
+                  &lt;P&gt;Pojedyncza umowa ramowa o usługi.&lt;/P&gt;
+               </epo:hasAdditionalInformation>
+        <epo:hasDescription xml:lang="el">
+                  &lt;P&gt;Παροχή ποιοτικών και ποσοτικών δεδομένων.&lt;/P&gt;
+               </epo:hasDescription>
+        <epo:hasTitle xml:lang="hu">
+                  &lt;P&gt;Pénzpiaci input adatok hitelesítéshez&lt;/P&gt;
+               </epo:hasTitle>
+        <epo:hasTitle xml:lang="sv">
+                  &lt;P&gt;Indata från finansmarknaden för validering&lt;/P&gt;
+               </epo:hasTitle>
+        <epo:hasAdditionalInformation xml:lang="ro">
+                  &lt;P&gt;Contract-cadru unic de servicii.&lt;/P&gt;
+               </epo:hasAdditionalInformation>
+        <epo:hasAdditionalInformation xml:lang="ga">
+                  &lt;P&gt;Creatchonradh seirbhíse aonair.&lt;/P&gt;
+               </epo:hasAdditionalInformation>
+        <epo:hasTitle xml:lang="pl">
+                  &lt;P&gt;Dane wejściowe dotyczące rynku finansowego na potrzeby walidacji&lt;/P&gt;
+               </epo:hasTitle>
+        <epo:hasTitle xml:lang="da">
+                  &lt;P&gt;Inddata fra finansmarkedet til validering&lt;/P&gt;
+               </epo:hasTitle>
+        <epo:hasTitle xml:lang="it">
+                  &lt;P&gt;Dati sui mercati finanziari per la convalida&lt;/P&gt;
+               </epo:hasTitle>
+        <epo:hasAdditionalInformation xml:lang="lt">
+                  &lt;P&gt;Viena preliminarioji paslaugų pirkimo sutartis.&lt;/P&gt;
+               </epo:hasAdditionalInformation>
+        <epo:hasTitle xml:lang="cs">
+                  &lt;P&gt;Vstupní údaje z finančního trhu pro ověření&lt;/P&gt;
+               </epo:hasTitle>
+        <epo:hasTitle xml:lang="et">
+                  &lt;P&gt;Finantsturu sisendi andmed valideerimiseks&lt;/P&gt;
+               </epo:hasTitle>
+        <epo:hasTitle xml:lang="ga">
+                  &lt;P&gt;Sonraí ionchuir um margadh airgeadais le haghaidh bailíochtaithe&lt;/P&gt;
+               </epo:hasTitle>
+        <epo:hasAdditionalInformation xml:lang="cs">
+                  &lt;P&gt;Samostatná rámcová smlouva o poskytování služeb.&lt;/P&gt;
+               </epo:hasAdditionalInformation>
+        <epo:hasTitle xml:lang="mt">
+                  &lt;P&gt;Tidħil ta' Dejta tas-Suq Finanzjarju għall-Validazzjoni&lt;/P&gt;
+               </epo:hasTitle>
+        <epo:hasAdditionalInformation xml:lang="da">
+                  &lt;P&gt;Enkelt rammetjenesteydelseskontrakt.&lt;/P&gt;
+               </epo:hasAdditionalInformation>
+        <epo:hasTitle xml:lang="fr">
+                  &lt;P&gt;Données d'entrée relatives aux marchés financiers pour la validation&lt;/P&gt;
+               </epo:hasTitle>
+        <epo:hasID>
+          <epo:Identifier rdf:about="http://data.europa.eu/a4g/resource/2018/s-001-000004#LotIdcd876206-91f2-483e-93ce-1eb23bcc22bb">
+            <epo:hasIdentifierValue>2</epo:hasIdentifierValue>
+          </epo:Identifier>
+        </epo:hasID>
+        <epo:hasAdditionalInformation xml:lang="sk">
+                  &lt;P&gt;Samostatná rámcová zmluva na poskytovanie služieb.&lt;/P&gt;
+               </epo:hasAdditionalInformation>
+        <epo:hasDescription xml:lang="lt">
+                  &lt;P&gt;Kokybinių ir kiekybinių duomenų tiekimas.&lt;/P&gt;
+               </epo:hasDescription>
+        <epo:hasDescription xml:lang="es">
+                  &lt;P&gt;Suministro de datos cualitativos y cuantitativos.&lt;/P&gt;
+               </epo:hasDescription>
+        <epo:hasAdditionalInformation xml:lang="en">
+                  &lt;P&gt;Single framework service contract.&lt;/P&gt;
+               </epo:hasAdditionalInformation>
+        <epo:hasAdditionalInformation xml:lang="mt">
+                  &lt;P&gt;Qafas ta' kuntratt ta' servizz singolu.&lt;/P&gt;
+               </epo:hasAdditionalInformation>
+        <epo:hasTitle xml:lang="sl">
+                  &lt;P&gt;Vhodni podatki o finančnih trgih za potrjevanje&lt;/P&gt;
+               </epo:hasTitle>
+        <epo:hasDescription xml:lang="da">
+                  &lt;P&gt;Levering af kvalitative og kvantitative data.&lt;/P&gt;
+               </epo:hasDescription>
+        <epo:hasTitle xml:lang="hr">
+                  &lt;P&gt;Ulazni podaci o financijskom tržištu za ovjeru&lt;/P&gt;
+               </epo:hasTitle>
+        <epo:hasDescription xml:lang="mt">
+                  &lt;P&gt;Il-provvista ta' dejta kwalitattiva u kwantitattiva.&lt;/P&gt;
+               </epo:hasDescription>
+        <epo:hasAdditionalInformation xml:lang="sv">
+                  &lt;P&gt;Enskilt ramavtal för tjänster.&lt;/P&gt;
+               </epo:hasAdditionalInformation>
+        <epo:hasDescription xml:lang="sv">
+                  &lt;P&gt;Tillhandahållande av kvalitativa och kvantitativa data.&lt;/P&gt;
+               </epo:hasDescription>
+        <epo:hasDescription xml:lang="pt">
+                  &lt;P&gt;Fornecimento de dados qualitativos e quantitativos.&lt;/P&gt;
+               </epo:hasDescription>
+        <epo:isSpecifiedIn>
+          <epo:Procedure rdf:about="http://data.europa.eu/a4g/resource/2018/s-001-000004#Procedured04d40e0-1b0b-4979-b90d-20e4024132b1">
+            <epo:hasTitle xml:lang="hr">
+               &lt;P&gt;Podaci o financijskom tržištu za izračun vremenskih struktura nerizičnih kamatnih stopa, simetričnu prilagodbu riziku glavnice i za druge potrebe, podijeljeno u 2 grupe&lt;/P&gt;
+            </epo:hasTitle>
+            <reg2015:uses>
+              <epo:FrameworkAgreementTechnique rdf:about="http://data.europa.eu/a4g/resource/2018/s-001-000004#Framework85814221-4e08-4433-b575-ea5a9d065f84"/>
+            </reg2015:uses>
+            <epo:hasDescription xml:lang="lt">
+               &lt;P&gt;Finansų rinkos įvesties duomenų, skirtų patikrinti, teikimas.&lt;/P&gt;
+            </epo:hasDescription>
+            <epo:hasDescription xml:lang="da">
+               &lt;P&gt;Levering af inddata fra finansmarkedet til validering.&lt;/P&gt;
+            </epo:hasDescription>
+            <epo:hasOverallPurpose>
+              <epo:Purpose rdf:about="http://data.europa.eu/a4g/resource/2018/s-001-000004#Purposeab01a9b8-f7c6-4dfb-971a-0b0795090e67">
+                <epo:hasMainClassification rdf:resource="http://data.europa.eu/cpv/cpv/72300000"/>
+                <epo:hasContractNatureType rdf:resource="http://publications.europa.eu/resource/authority/contract-nature/services"/>
+              </epo:Purpose>
+            </epo:hasOverallPurpose>
+            <epo:hasDescription xml:lang="pl">
+               &lt;P&gt;Dane wejściowe dotyczące rynku finansowego na potrzeby walidacji.&lt;/P&gt;
+            </epo:hasDescription>
+            <epo:hasDescription xml:lang="hu">
+               &lt;P&gt;Pénzpiaci input adatok biztosítása hitelesítéshez.&lt;/P&gt;
+            </epo:hasDescription>
+            <epo:specifies rdf:resource="http://data.europa.eu/a4g/resource/2018/s-001-000004#Lot6b6e32ba-6881-4357-a69c-4dd76c9e572b"/>
+            <epo:hasDescription xml:lang="hr">
+               &lt;P&gt;Osiguravanje ulaznih podataka o financijskom tržištu za ovjeru.&lt;/P&gt;
+            </epo:hasDescription>
+            <epo:hasDescription xml:lang="sl">
+               &lt;P&gt;Zagotavljanje vhodnih podatkov o finančnih trgih za potrjevanje.&lt;/P&gt;
+            </epo:hasDescription>
+            <epo:hasTitle xml:lang="nl">
+               &lt;P&gt;Gegevens over de financiële markt voor de berekening van looptijdstructuren van risicovrije rentevoeten, de symmetrische aanpassing van het aandelenrisico en voor andere doeleinden, verdeeld in 2 percelen.&lt;/P&gt;
+            </epo:hasTitle>
+            <epo:hasDescription xml:lang="cs">
+               &lt;P&gt;Poskytování vstupních údajů z finančního trhu pro ověření.&lt;/P&gt;
+            </epo:hasDescription>
+            <epo:hasTitle xml:lang="ga">
+               &lt;P&gt;Sonraí margaidh airgeadais do ríomh struchtúr téarma rátaí úis saor ó riosca, mar aon le coigeartú siméadrach do riosca gnáthscaireanna agus le haghaidh riachtanas eile, arna roinnt ina 2 bheart&lt;/P&gt;
+            </epo:hasTitle>
+            <epo:hasDescription xml:lang="fr">
+               &lt;P&gt;Fourniture de données d'entrée relatives aux marchés financiers pour la validation&lt;/P&gt;
+            </epo:hasDescription>
+            <epo:hasTitle xml:lang="et">
+               &lt;P&gt;Finantsturu andmed riskivabade intressimäärade tingimuste arvutamiseks, aktsiakursiriski sümmeetriliseks kohandamiseks ja teisteks vajadusteks, jagatud 2 ossa&lt;/P&gt;
+            </epo:hasTitle>
+            <epo:hasDescription xml:lang="el">
+               &lt;P&gt;Παροχή δεδομένων εισαγωγής σχετικά με τις χρηματοπιστωτικές αγορές προς επικύρωση.&lt;/P&gt;
+            </epo:hasDescription>
+            <epo:hasTitle xml:lang="sk">
+               &lt;P&gt;Údaje o finančných trhoch na výpočet termínovaných štruktúr bezrizikových úrokových sadzieb, symetrickú úpravu na akciové riziko a na iné potreby, rozdelené na 2 časti&lt;/P&gt;
+            </epo:hasTitle>
+            <epo:hasProcedureType rdf:resource="http://publications.europa.eu/resource/authority/procurement-procedure-type/open"/>
+            <epo:hasTitle xml:lang="sv">
+               &lt;P&gt;Finansmarknadsdata för beräkning av riskfria räntesatser för durationerna, symmetrisk justering avseende aktiekursrisk och för andra behov, uppdelat i 2 delar&lt;/P&gt;
+            </epo:hasTitle>
+            <reg2015:hasGPAUsage>true</reg2015:hasGPAUsage>
+            <reg2015:hasBuyerLegalType rdf:resource="http://publications.europa.eu/resource/authority/buyer-legal-type/eu-int-org"/>
+            <epo:hasTitle xml:lang="hu">
+               &lt;P&gt;Pénzpiaci adatok a kockázatmentes kamatlábak hozamgörbéinek kiszámításához, a részvénykockázathoz történő szimmetrikus igazításhoz, és egyéb célokra, 2 tételben&lt;/P&gt;
+            </epo:hasTitle>
+            <epo:hasDescription xml:lang="en">
+               &lt;P&gt;Provision of financial market input data for validation.&lt;/P&gt;
+            </epo:hasDescription>
+            <epo:hasTitle xml:lang="fr">
+               &lt;P&gt;Données des marchés financiers pour le calcul des courbes de taux d'intérêt sans risque, l'ajustement symétrique au risque des actions et pour d'autres besoins (2 lots)&lt;/P&gt;
+            </epo:hasTitle>
+            <epo:hasDescription xml:lang="sv">
+               &lt;P&gt;Tillhandahållande av indata från finansmarknaden för validering.&lt;/P&gt;
+            </epo:hasDescription>
+            <epo:hasDescription xml:lang="nl">
+               &lt;P&gt;Verlening van inputgegevens voor validatie over de financiële markt.&lt;/P&gt;
+            </epo:hasDescription>
+            <reg2015:hasBuyerMainActivity rdf:resource="http://publications.europa.eu/resource/authority/main-activity/gen-pub"/>
+            <epo:hasTitle xml:lang="es">
+               &lt;P&gt;Datos sobre mercados financieros para el cálculo de las estructuras temporales de tipos de interés sin riesgo, para el ajuste simétrico del riesgo de acciones y para otras necesidades, dividido en 2 lotes&lt;/P&gt;
+            </epo:hasTitle>
+            <epo:hasTitle xml:lang="fi">
+               &lt;P&gt;Rahoitusmarkkinoita koskevat tiedot riskittömien korkokäyrien laskemista, osakeriskien symmetristä mukauttamista ja muita tarpeita varten (jaettu 2 erään)&lt;/P&gt;
+            </epo:hasTitle>
+            <epo:hasDescription xml:lang="lv">
+               &lt;P&gt;Jānodrošina finanšu tirgu ievaddati validēšanai.&lt;/P&gt;
+            </epo:hasDescription>
+            <epo:hasID>
+              <epo:Identifier rdf:about="http://data.europa.eu/a4g/resource/2018/s-001-000004#ProcedureId04a3b178-9ba2-4305-aecc-0fa4529d3754">
+                <epo:hasIdentifierValue>EIOPA/OP/009/2017</epo:hasIdentifierValue>
+              </epo:Identifier>
+            </epo:hasID>
+            <epo:hasDescription xml:lang="et">
+               &lt;P&gt;Finantsturu sisendi andmed valideerimiseks.&lt;/P&gt;
+            </epo:hasDescription>
+            <epo:hasTitle xml:lang="sl">
+               &lt;P&gt;Podatki o finančnih trgih za izračun struktur netveganih obrestnih mer, simetrično prilagajanje na tveganje lastniških vrednostnih papirjev in za druge potrebe, razdeljeno v 2 sklopa.&lt;/P&gt;
+            </epo:hasTitle>
+            <epo:hasTitle xml:lang="ro">
+               &lt;P&gt;Date privind piețele financiare pentru calcularea structurii pe termene a ratelor dobânzilor fără risc, pentru ajustarea simetrică la riscul de devalorizare a acțiunilor și pentru alte necesități, împărțite în 2 loturi&lt;/P&gt;
+            </epo:hasTitle>
+            <epo:isResponsibilityOf>
+              <epo:Buyer rdf:about="http://data.europa.eu/a4g/resource/2018/s-001-000004#Buyer0399f864-f9d0-4aa5-b91a-aa2ea94d6b2d">
+                <epo:isRoleOf>
+                  <epo:Organisation rdf:about="http://data.europa.eu/a4g/resource/2018/s-001-000004#Organisation96225737-6de4-4d48-b6d1-955e8b2b5d88">
+                    <epo:hasName xml:lang="et">Euroopa Kindlustus- ja Tööandjapensionide Järelevalve</epo:hasName>
+                    <epo:hasName xml:lang="mt">L-Awtorità Ewropea tal-Assigurazzjoni u l-Pensjonijiet tax-Xogħol</epo:hasName>
+                    <epo:hasName xml:lang="sl">Evropski organ za zavarovanja in poklicne pokojnine</epo:hasName>
+                    <epo:hasName xml:lang="pl">Europejski Urząd Nadzoru Ubezpieczeń i Pracowniczych Programów Emerytalnych</epo:hasName>
+                    <epo:hasName xml:lang="hu">Európai Biztosítás- és Foglalkoztatóinyugdíj-hatóság</epo:hasName>
+                    <epo:hasName xml:lang="ro">Autoritatea Europeană de Asigurări și Pensii Ocupaționale</epo:hasName>
+                    <epo:hasName xml:lang="sv">Europeiska försäkrings- och tjänstepensionsmyndigheten</epo:hasName>
+                    <epo:hasName xml:lang="lv">Eiropas Apdrošināšanas un aroda pensiju iestāde</epo:hasName>
+                    <epo:hasName xml:lang="fr">Autorité européenne des assurances et des pensions professionnelles</epo:hasName>
+                    <epo:hasLocation>
+                      <epo:Location rdf:about="http://data.europa.eu/a4g/resource/2018/s-001-000004#Location75814e7e-cb05-4d13-a25e-b5e43888cf00">
+                        <epo:hasPostalAddress>
+                          <epo:Address rdf:about="http://data.europa.eu/a4g/resource/2018/s-001-000004#Address7af18046-8cba-4c7e-994b-2fc05f4f90ad">
+                            <epo:hasCountrySubentityCode rdf:resource="http://data.europa.eu/nuts/code/DE712"/>
+                            <epo:hasCountryCode rdf:resource="http://publications.europa.eu/resource/authority/country/DEU"/>
+                            <epo:hasStreetName>WesthafenTower, Westhafenplatz 1</epo:hasStreetName>
+                            <epo:hasPostalZone>60327</epo:hasPostalZone>
+                            <epo:hasCityName>Frankfurt am Main</epo:hasCityName>
+                          </epo:Address>
+                        </epo:hasPostalAddress>
+                      </epo:Location>
+                    </epo:hasLocation>
+                    <epo:hasName xml:lang="lt">Europos draudimo ir profesinių pensijų institucija</epo:hasName>
+                    <epo:hasName xml:lang="sk">Európsky orgán pre poisťovníctvo a dôchodkové poistenie zamestnancov</epo:hasName>
+                    <epo:hasName xml:lang="bg">Европейски орган за застраховане и професионално пенсионно осигуряване</epo:hasName>
+                    <epo:hasName xml:lang="fi">Euroopan vakuutus- ja lisäeläkeviranomainen</epo:hasName>
+                    <epo:hasName xml:lang="en">European Insurance and Occupational Pensions Authority</epo:hasName>
+                    <epo:hasName xml:lang="es">Autoridad Europea de Seguros y Pensiones de Jubilación</epo:hasName>
+                    <epo:hasName xml:lang="it">Autorità europea delle assicurazioni e delle pensioni aziendali e professionali</epo:hasName>
+                    <epo:hasName xml:lang="nl">Europese Autoriteit voor verzekeringen en bedrijfspensioenen</epo:hasName>
+                    <epo:hasName xml:lang="da">Den Europæiske Tilsynsmyndighed for Forsikrings- og Arbejdsmarkedspensionsordninger</epo:hasName>
+                    <epo:hasName xml:lang="pt">Autoridade Europeia dos Seguros e Pensões Complementares de Reforma</epo:hasName>
+                    <epo:hasName xml:lang="de">Europäische Aufsichtsbehörde für das Versicherungswesen und die betriebliche Altersversorgung</epo:hasName>
+                    <epo:hasName xml:lang="el">Ευρωπαϊκή Αρχή Ασφαλίσεων και Επαγγελματικών Συντάξεων</epo:hasName>
+                    <epo:hasName xml:lang="ga">An tÚdarás Eorpach um Árachas agus Pinsin Cheirde</epo:hasName>
+                    <epo:hasName xml:lang="cs">Evropský orgán pro pojišťovnictví a zaměstnanecké penzijní pojištění</epo:hasName>
+                    <epo:hasName xml:lang="hr">Europsko nadzorno tijelo za osiguranje i strukovno mirovinsko osiguranje</epo:hasName>
+                  </epo:Organisation>
+                </epo:isRoleOf>
+                <epo:has>
+                  <epo:ContactPoint rdf:about="http://data.europa.eu/a4g/resource/2018/s-001-000004#ContactPoint81217f82-4375-436b-9a51-2bfcc1625fa9">
+                    <epo:hasDescription xml:lang="en">Procurement Team</epo:hasDescription>
+                    <epo:hasInternetAddress>https://eiopa.europa.eu/</epo:hasInternetAddress>
+                    <epo:hasEmail>procurement@eiopa.europa.eu</epo:hasEmail>
+                  </epo:ContactPoint>
+                </epo:has>
+                <epo:isResponsibleFor rdf:resource="http://data.europa.eu/a4g/resource/2018/s-001-000004#Procedured04d40e0-1b0b-4979-b90d-20e4024132b1"/>
+              </epo:Buyer>
+            </epo:isResponsibilityOf>
+            <epo:hasTitle xml:lang="en">
+               &lt;P&gt;Financial market data for the calculation of Risk-free Interest Rates Term Structures, Symmetric Adjustment to Equity Risk and for other needs, divided into 2 lots&lt;/P&gt;
+            </epo:hasTitle>
+            <epo:hasTitle xml:lang="bg">
+               &lt;P&gt;Данни относно финансовия пазар за изчисляване на срочни структури на безрискови лихвени проценти, за симетрична корекция на риска на собствения капитал и за други нужди, разделено в 2 обособени позиции.&lt;/P&gt;
+            </epo:hasTitle>
+            <epo:hasDescription xml:lang="ro">
+               &lt;P&gt;Furnizarea de date de intrare privind piețele financiare pentru validare&lt;/P&gt;
+            </epo:hasDescription>
+            <epo:hasDescription xml:lang="pt">
+               &lt;P&gt;Fornecimento de dados de entrada do mercado financeiro para validação.&lt;/P&gt;
+            </epo:hasDescription>
+            <epo:hasDescription xml:lang="mt">
+               &lt;P&gt;Provvista ta' tidħil ta' dejta tas-suq finanzjarju għall-validazzjoni&lt;/P&gt;
+            </epo:hasDescription>
+            <epo:hasTitle xml:lang="lv">
+               &lt;P&gt;Finanšu tirgu dati bezriska procentu likmju termiņstruktūru aprēķināšanai, simetriskai korekcijai atbilstoši kapitāla vērtspapīru riskam un citām vajadzībām, 2 daļas&lt;/P&gt;
+            </epo:hasTitle>
+            <epo:hasTitle xml:lang="pl">
+               &lt;P&gt;Dane dotyczące rynku finansowego do obliczania struktur terminowych stóp procentowych wolnych od ryzyka, symetrycznego dostosowania do ryzyka cen akcji oraz na inne potrzeby, z podziałem na 2 części&lt;/P&gt;
+            </epo:hasTitle>
+            <epo:hasTitle xml:lang="el">
+               &lt;P&gt;Δεδομένα σχετικά με τις χρηματοπιστωτικές αγορές για τον υπολογισμό καμπυλών επιτοκίων μηδενικού κινδύνου, για τη συμμετρική προσαρμογή στους κινδύνους των ιδίων κεφαλαίων και για άλλες ανάγκες, σε 2 παρτίδες&lt;/P&gt;
+            </epo:hasTitle>
+            <epo:hasTitle xml:lang="cs">
+               &lt;P&gt;Údaje z finančního trhu pro výpočet termínových struktur bezrizikových úrokových sazeb, symetrické úpravy akciového rizika a pro další účely, rozdělené do 2 položek&lt;/P&gt;
+            </epo:hasTitle>
+            <epo:hasDescription xml:lang="de">
+               &lt;P&gt;Bereitstellung von Eingangsdaten in Bezug auf den Finanzmarkt zur Validierung&lt;/P&gt;
+            </epo:hasDescription>
+            <epo:hasDescription xml:lang="ga">
+               &lt;P&gt;Sonraí ionchuir um margadh airgeadais a sholáthar le haghaidh bailíochtaithe.&lt;/P&gt;
+            </epo:hasDescription>
+            <epo:hasTitle xml:lang="it">
+               &lt;P&gt;Dati sui mercati finanziari per il calcolo delle strutture per scadenza dei tassi d'interesse privi di rischio, per l'aggiustamento simmetrico al rischio azionario e per altre esigenze, suddiviso in 2 lotti&lt;/P&gt;
+            </epo:hasTitle>
+            <epo:hasDescription xml:lang="es">
+               &lt;P&gt;Provisión de datos de entrada sobre mercados financieros para validación.&lt;/P&gt;
+            </epo:hasDescription>
+            <epo:hasDescription xml:lang="sk">
+               &lt;P&gt;Poskytnutie vstupných údajov o finančných trhoch na overenie.&lt;/P&gt;
+            </epo:hasDescription>
+            <epo:hasTitle xml:lang="da">
+               &lt;P&gt;Finansmarkedsdata til beregning af risikofrie rentekurver, symmetrisk tilpasning til kapitalrisiko og andre formål, inddelt i 2 partier&lt;/P&gt;
+            </epo:hasTitle>
+            <epo:hasTitle xml:lang="lt">
+               &lt;P&gt;Finansų rinkos duomenys, skirti nerizikingų palūkanų normų struktūroms apskaičiuoti, nuosavybės vertybinių popierių rizikos simetriniam tikslinimui ir kitoms reikmėms, padalyti į 2 dalis&lt;/P&gt;
+            </epo:hasTitle>
+            <epo:hasDescription xml:lang="fi">
+               &lt;P&gt;Rahoitusmarkkinoiden syöttötietojen toimittaminen validointia varten&lt;/P&gt;
+            </epo:hasDescription>
+            <epo:hasTitle xml:lang="mt">
+               &lt;P&gt;Dejta tas-suq finanzjarju għall-kalkolu ta' Strutturi tat-Terminu tar-Rati ta' Imgħax mingħajr Riskju, Aġġustament Simetriku għar-Riskju ta’ Ekwità u għal ħtiġijiet oħra, maqsuma f'2 lottijiet.&lt;/P&gt;
+            </epo:hasTitle>
+            <epo:hasDescription xml:lang="bg">
+               &lt;P&gt;Осигуряване на входни данни относно финансовия пазар за валидиране.&lt;/P&gt;
+            </epo:hasDescription>
+            <epo:hasDescription xml:lang="it">
+               &lt;P&gt;Fornitura di dati sui mercati finanziari per la convalida.&lt;/P&gt;
+            </epo:hasDescription>
+            <epo:hasTitle xml:lang="de">
+               &lt;P&gt;Finanzmarktdaten für die Berechnung von Laufzeitstrukturen für risikolose Zinssätze, die symmetrische Anpassung an das Aktienrisiko und für sonstigen Bedarf, aufgeteilt in 2 Lose&lt;/P&gt;
+            </epo:hasTitle>
+            <epo:hasTitle xml:lang="pt">
+               &lt;P&gt;Dados do mercado financeiro para o cálculo de estruturas temporais das taxas de juro sem risco, ajustamento simétrico ao risco acionista e outras necessidades, dividido em 2 lotes&lt;/P&gt;
+            </epo:hasTitle>
+          </epo:Procedure>
+        </epo:isSpecifiedIn>
+        <epo:hasDescription xml:lang="hr">
+                  &lt;P&gt;Osiguravanje kvalitativnih i kvantitativnih podataka.&lt;/P&gt;
+               </epo:hasDescription>
+        <epo:hasAdditionalInformation xml:lang="hr">
+                  &lt;P&gt;Jedinstveni okvirni ugovor o uslugama.&lt;/P&gt;
+               </epo:hasAdditionalInformation>
+        <epo:has>
+          <epo:ContractTerm rdf:about="http://data.europa.eu/a4g/resource/2018/s-001-000004#ContractTermLot0e52b388-6227-43f4-99ce-3d931a39c4f7">
+            <epo:hasSpecificPlaceOfPerformance>
+              <epo:Address rdf:about="http://data.europa.eu/a4g/resource/2018/s-001-000004#ObjectContractAddress2aea1be5-19b0-4fbf-8733-ab7363a933dc">
+                <epo:hasCountrySubentityCode rdf:resource="http://data.europa.eu/nuts/code/DE712"/>
+              </epo:Address>
+            </epo:hasSpecificPlaceOfPerformance>
+          </epo:ContractTerm>
+        </epo:has>
+        <epo:hasDescription xml:lang="cs">
+                  &lt;P&gt;Poskytování kvalitativních a kvantitativních údajů.&lt;/P&gt;
+               </epo:hasDescription>
+        <epo:hasDescription xml:lang="ga">
+                  &lt;P&gt;Sonraí cáilíochtúla agus cainníochtúla a chur ar fáil.&lt;/P&gt;
+               </epo:hasDescription>
+        <epo:hasDescription xml:lang="pl">
+                  &lt;P&gt;Zapewnienie danych ilościowych i jakościowych.&lt;/P&gt;
+               </epo:hasDescription>
+        <epo:hasDescription xml:lang="en">
+                  &lt;P&gt;Provision of qualitative and quantitative data.&lt;/P&gt;
+               </epo:hasDescription>
+        <epo:hasAdditionalInformation xml:lang="nl">
+                  &lt;P&gt;Enkelvoudige raamovereenkomst voor diensten.&lt;/P&gt;
+               </epo:hasAdditionalInformation>
+        <epo:hasAdditionalInformation xml:lang="pt">
+                  &lt;P&gt;Contrato-quadro de serviços único.&lt;/P&gt;
+               </epo:hasAdditionalInformation>
+        <epo:hasTitle xml:lang="lv">
+                  &lt;P&gt;Finanšu tirgu ievaddati validēšanai&lt;/P&gt;
+               </epo:hasTitle>
+        <epo:hasDescription xml:lang="it">
+                  &lt;P&gt;Fornitura di dati qualitativi e quantitativi.&lt;/P&gt;
+               </epo:hasDescription>
+        <epo:hasAdditionalInformation xml:lang="de">
+                  &lt;P&gt;einfacher Dienstleistungsrahmenvertrag.&lt;/P&gt;
+               </epo:hasAdditionalInformation>
+        <epo:hasTitle xml:lang="bg">
+                  &lt;P&gt;Входни данни относно финансовия пазар за валидиране&lt;/P&gt;
+               </epo:hasTitle>
+        <epo:hasDescription xml:lang="et">
+                  &lt;P&gt;Kvalitatiivsete ja kvantitatiivsete andmete tagamine.&lt;/P&gt;
+               </epo:hasDescription>
+        <epo:isFundedBy>
+          <epo:Fund rdf:about="http://data.europa.eu/a4g/resource/2018/s-001-000004#Fund5902e854-a978-419e-a18f-5cb354846591">
+            <epo:hasName xml:lang="lv">ES darbības apropriācijas</epo:hasName>
+            <epo:hasName xml:lang="pt">Dotações operacionais da UE</epo:hasName>
+            <epo:hasName xml:lang="es">créditos administrativos de la Unión Europea</epo:hasName>
+            <epo:hasName xml:lang="fi">EU:n toimintamäärärahat.</epo:hasName>
+            <epo:hasName xml:lang="lt">ES veiklos asignavimai</epo:hasName>
+            <epo:hasName xml:lang="it">Stanziamenti operativi dell'UE</epo:hasName>
+            <epo:hasName xml:lang="ga">Leithreasuithe oibriúcháin an AE</epo:hasName>
+            <epo:hasName xml:lang="fr">Crédits administratifs de l'UE</epo:hasName>
+            <epo:hasName xml:lang="hr">Operativna namjenska sredstva EU-a.</epo:hasName>
+            <epo:hasName xml:lang="sv">EU:s driftsanslag</epo:hasName>
+            <epo:hasName xml:lang="sk">Operačné rozpočtové prostriedky EÚ</epo:hasName>
+            <epo:hasName xml:lang="et">ELi tegevusassigneeringud</epo:hasName>
+            <epo:hasName xml:lang="pl">środki operacyjne UE.</epo:hasName>
+            <epo:hasName xml:lang="nl">beleidskredieten van de EU.</epo:hasName>
+            <epo:hasName xml:lang="hu">Európai uniós operatív előirányzatok</epo:hasName>
+            <epo:hasName xml:lang="sl">Operativna sredstva EU.</epo:hasName>
+            <epo:hasName xml:lang="de">operative Mittel der EU</epo:hasName>
+            <epo:hasName xml:lang="mt">L-approprjazzjonijiet operazzjonali tal-UE.</epo:hasName>
+            <epo:hasName xml:lang="bg">Оперативни бюджетни кредити на ЕС</epo:hasName>
+            <epo:hasName xml:lang="da">EU's driftsbevillinger</epo:hasName>
+            <epo:hasName xml:lang="ro">creditele operaționale ale UE.</epo:hasName>
+            <epo:hasName xml:lang="en">EU operational appropriations</epo:hasName>
+            <epo:hasName xml:lang="el">Επιχειρησιακές πιστώσεις της ΕΕ</epo:hasName>
+            <epo:hasName xml:lang="cs">Provozní rozpočtové prostředky EU</epo:hasName>
+          </epo:Fund>
+        </epo:isFundedBy>
+        <epo:hasDescription xml:lang="sk">
+                  &lt;P&gt;Poskytnutie kvalitatívnych a kvantitatívnych údajov.&lt;/P&gt;
+               </epo:hasDescription>
+        <epo:hasAdditionalInformation xml:lang="et">
+                  &lt;P&gt;Ühekordne teenuste raamleping.&lt;/P&gt;
+               </epo:hasAdditionalInformation>
+        <epo:hasDescription xml:lang="lv">
+                  &lt;P&gt;Kvalitatīvo un kvantitatīvo datu nodrošināšana.&lt;/P&gt;
+               </epo:hasDescription>
+        <epo:hasDescription xml:lang="nl">
+                  &lt;P&gt;Verstrekking van kwalitatieve en kwantitatieve gegevens.&lt;/P&gt;
+               </epo:hasDescription>
+        <epo:hasAdditionalInformation xml:lang="el">
+                  &lt;P&gt;Ενιαία σύμβαση-πλαίσιο παροχής υπηρεσιών.&lt;/P&gt;
+               </epo:hasAdditionalInformation>
+        <epo:hasDescription xml:lang="sl">
+                  &lt;P&gt;Zagotavljanje kvalitativnih in kvantitativnih podatkov.&lt;/P&gt;
+               </epo:hasDescription>
+        <epo:hasAdditionalInformation xml:lang="bg">
+                  &lt;P&gt;Единичен рамков договор за услуги.&lt;/P&gt;
+               </epo:hasAdditionalInformation>
+        <epo:hasTitle xml:lang="ro">
+                  &lt;P&gt;Date de intrare privind piețele financiare pentru validare&lt;/P&gt;
+               </epo:hasTitle>
+        <epo:hasTitle xml:lang="de">
+                  &lt;P&gt;Eingangsdaten in Bezug auf den Finanzmarkt zur Validierung&lt;/P&gt;
+               </epo:hasTitle>
+        <epo:hasAdditionalInformation xml:lang="sl">
+                  &lt;P&gt;Eno okvirno naročilo storitev.&lt;/P&gt;
+               </epo:hasAdditionalInformation>
+        <epo:hasDescription xml:lang="fi">
+                  &lt;P&gt;Erän kohteena on laadullisten ja määrällisten tietojen toimittaminen.&lt;/P&gt;
+               </epo:hasDescription>
+        <epo:hasAdditionalInformation xml:lang="lv">
+                  &lt;P&gt;Atsevišķs pakalpojumu pamatnolīgums.&lt;/P&gt;
+               </epo:hasAdditionalInformation>
+        <epo:hasDescription xml:lang="ro">
+                  &lt;P&gt;Furnizare de date calitative și cantitative.&lt;/P&gt;
+               </epo:hasDescription>
+        <epo:hasDescription xml:lang="fr">
+                  &lt;P&gt;Fourniture de données qualitatives et quantitatives.&lt;/P&gt;
+               </epo:hasDescription>
+        <epo:hasTitle xml:lang="es">
+                  &lt;P&gt;Datos de entrada sobre mercados financieros para validación&lt;/P&gt;
+               </epo:hasTitle>
+        <epo:hasTitle xml:lang="lt">
+                  &lt;P&gt;Finansų rinkos įvesties duomenys, skirti patikrinti&lt;/P&gt;
+               </epo:hasTitle>
+        <epo:hasTitle xml:lang="nl">
+                  &lt;P&gt;Inputgegevens voor validatie over de financiële markt.&lt;/P&gt;
+               </epo:hasTitle>
+        <epo:hasAdditionalInformation xml:lang="es">
+                  &lt;P&gt;Contrato marco único de servicios.&lt;/P&gt;
+               </epo:hasAdditionalInformation>
+        <epo:hasAdditionalInformation xml:lang="hu">
+                  &lt;P&gt;Egyetlen szolgáltatási keretszerződés.&lt;/P&gt;
+               </epo:hasAdditionalInformation>
+        <epo:hasAdditionalInformation xml:lang="fi">
+                  &lt;P&gt;Yksittäinen palveluja koskeva puitesopimus.&lt;/P&gt;
+               </epo:hasAdditionalInformation>
+        <epo:hasAdditionalInformation xml:lang="it">
+                  &lt;P&gt;Singolo contratto quadro di servizi.&lt;/P&gt;
+               </epo:hasAdditionalInformation>
+        <epo:hasDescription xml:lang="bg">
+                  &lt;P&gt;Осигуряване на качествени и количествени данни.&lt;/P&gt;
+               </epo:hasDescription>
+        <epo:hasTitle xml:lang="en">
+                  &lt;P&gt;Financial Market Input Data for Validation&lt;/P&gt;
+               </epo:hasTitle>
+        <epo:has>
+          <epo:Purpose rdf:about="http://data.europa.eu/a4g/resource/2018/s-001-000004#PurposeAdditionalf65acbed-0240-44d0-a890-e6c16becb992">
+            <epo:hasAdditionalClassification rdf:resource="http://data.europa.eu/cpv/cpv/72319000"/>
+            <epo:hasOptionsPermission rdf:resource="http://publications.europa.eu/resource/authority/permission/not-allowed"/>
+          </epo:Purpose>
+        </epo:has>
+        <epo:hasDescription xml:lang="hu">
+                  &lt;P&gt;Kvalitatív és kvantitatív adatok biztosítása.&lt;/P&gt;
+               </epo:hasDescription>
+        <epo:hasTitle xml:lang="sk">
+                  &lt;P&gt;Vstupné údaje o finančných trhoch na overenie&lt;/P&gt;
+               </epo:hasTitle>
+        <epo:hasTitle xml:lang="fi">
+                  &lt;P&gt;Rahoitusmarkkinoiden syöttötiedot validointia varten&lt;/P&gt;
+               </epo:hasTitle>
+        <epo:hasDescription xml:lang="de">
+                  &lt;P&gt;Bereitstellung von qualitativen und quantitativen Daten.&lt;/P&gt;
+               </epo:hasDescription>
+        <epo:hasTitle xml:lang="el">
+                  &lt;P&gt;Δεδομένα εισαγωγής σχετικά με τις χρηματοπιστωτικές αγορές προς επικύρωση&lt;/P&gt;
+               </epo:hasTitle>
+      </epo:Lot>
+    </epo:refersTo>
+    <epo:hasAwardStatus rdf:resource="http://publications.europa.eu/resource/authority/winner-selection-status/clos-nw"/>
+  </epo:AwardDecision>
+  <epo:AwardCriterion rdf:about="http://data.europa.eu/a4g/resource/2018/s-001-000004#AwardCriterionQualityf01a8d90-76f7-4ca7-9b40-424c634a1d91">
+    <epo:hasName xml:lang="mt">Il-kwalità teknika</epo:hasName>
+    <epo:hasName xml:lang="de">Technische Eignung</epo:hasName>
+    <epo:hasName xml:lang="sl">Tehnična kakovost</epo:hasName>
+    <epo:hasFormula>70</epo:hasFormula>
+    <epo:hasName xml:lang="ga">Cáilíocht theicniúil</epo:hasName>
+    <epo:hasAwardCriterionType rdf:resource="http://publications.europa.eu/resource/authority/award-criterion-type/quality"/>
+    <epo:hasName xml:lang="nl">technische kwaliteit</epo:hasName>
+    <epo:hasName xml:lang="pt">Qualidade técnica</epo:hasName>
+    <epo:hasName xml:lang="ro">Calitatea tehnică</epo:hasName>
+    <epo:hasName xml:lang="hr">Tehnička kvaliteta</epo:hasName>
+    <epo:hasName xml:lang="el">Τεχνική ποιότητα</epo:hasName>
+    <epo:hasName xml:lang="sv">Teknisk kvalitet</epo:hasName>
+    <epo:hasName xml:lang="da">Teknisk kvalitet</epo:hasName>
+    <epo:hasName xml:lang="hu">Technikai minőség</epo:hasName>
+    <epo:hasName xml:lang="fi">tekninen laatu</epo:hasName>
+    <epo:hasName xml:lang="es">calidad técnica</epo:hasName>
+    <epo:hasName xml:lang="lt">techninė kokybė</epo:hasName>
+    <epo:hasName xml:lang="et">tehniline kvaliteet</epo:hasName>
+    <epo:isUsedToAward rdf:resource="http://data.europa.eu/a4g/resource/2018/s-001-000004#Lot6b6e32ba-6881-4357-a69c-4dd76c9e572b"/>
+    <epo:hasName xml:lang="sk">Technická kvalita</epo:hasName>
+    <epo:hasName xml:lang="pl">Jakość techniczna</epo:hasName>
+    <epo:hasName xml:lang="cs">Technická kvalita</epo:hasName>
+    <epo:hasName xml:lang="fr">Qualité technique</epo:hasName>
+    <epo:hasName xml:lang="bg">Техническо качество</epo:hasName>
+    <epo:hasName xml:lang="lv">Tehniskā kvalitāte</epo:hasName>
+    <epo:hasName xml:lang="it">Qualità tecnica</epo:hasName>
+    <epo:hasName xml:lang="en">Technical quality</epo:hasName>
+  </epo:AwardCriterion>
+  <epo:Identifier rdf:about="http://data.europa.eu/a4g/resource/2018/s-001-000004#ContractIde1457735-ff5c-4d4a-a6bd-2f683dc5cf70">
+    <epo:hasIdentifierValue>EIOPA/OP/009/2017, Lot 2</epo:hasIdentifierValue>
+  </epo:Identifier>
+  <epo:ProcurementServiceProvider rdf:about="http://data.europa.eu/a4g/resource/2018/s-001-000004#ProcurementServiceProviderCompba169862-a49b-472e-ad45-7b53058067ca">
+    <reg2015:providesMoreInformationOnTimeLimitsForReviewProcedures rdf:resource="http://data.europa.eu/a4g/resource/2018/s-001-000004#Procedured04d40e0-1b0b-4979-b90d-20e4024132b1"/>
+    <reg2015:isInvolvedIn rdf:resource="http://data.europa.eu/a4g/resource/2018/s-001-000004#Procedured04d40e0-1b0b-4979-b90d-20e4024132b1"/>
+  </epo:ProcurementServiceProvider>
+  <epo:ContractAwardNotice rdf:about="http://data.europa.eu/a4g/resource/2018/s-001-000004#ContractAwardNoticed2dc14e2-f878-42c3-bdea-dfcd54524107">
+    <epo:hasPublicationDate>2018-01-03</epo:hasPublicationDate>
+    <epo:refersToPrevious>
+      <epo:Notice rdf:about="http://data.europa.eu/a4g/resource/2018/s-001-000004#PrevNotice635e2e95-fa7c-42a7-8c31-6cdbeef99109">
+        <epo:hasID>
+          <epo:Identifier rdf:about="http://data.europa.eu/a4g/resource/2018/s-001-000004#PrevNoticeIda7a3ba73-0fd1-44b8-90cf-02886e341e6f">
+            <epo:hasIdentifierValue>2017/S 055-100825</epo:hasIdentifierValue>
+          </epo:Identifier>
+        </epo:hasID>
+      </epo:Notice>
+    </epo:refersToPrevious>
+    <epo:isMadeAvailableVia>
+      <epo:Channel rdf:about="http://data.europa.eu/a4g/resource/2018/s-001-000004#ChannelCNaa899c4e-b016-4999-8fd7-90ce0964ae86">
+        <epo:hasURL>http://ted.europa.eu/udl?uri=TED:NOTICE:000004-2018:TEXT:CS:HTML</epo:hasURL>
+        <epo:hasURL>http://ted.europa.eu/udl?uri=TED:NOTICE:000004-2018:TEXT:EN:HTML</epo:hasURL>
+        <epo:hasURL>http://ted.europa.eu/udl?uri=TED:NOTICE:000004-2018:TEXT:HR:HTML</epo:hasURL>
+        <epo:hasURL>http://ted.europa.eu/udl?uri=TED:NOTICE:000004-2018:TEXT:SV:HTML</epo:hasURL>
+        <epo:hasURL>http://ted.europa.eu/udl?uri=TED:NOTICE:000004-2018:TEXT:DA:HTML</epo:hasURL>
+        <epo:hasURL>http://ted.europa.eu/udl?uri=TED:NOTICE:000004-2018:TEXT:NL:HTML</epo:hasURL>
+        <epo:hasURL>http://ted.europa.eu/udl?uri=TED:NOTICE:000004-2018:TEXT:ET:HTML</epo:hasURL>
+        <epo:hasURL>http://ted.europa.eu/udl?uri=TED:NOTICE:000004-2018:TEXT:IT:HTML</epo:hasURL>
+        <epo:hasURL>http://ted.europa.eu/udl?uri=TED:NOTICE:000004-2018:TEXT:RO:HTML</epo:hasURL>
+        <epo:hasURL>http://ted.europa.eu/udl?uri=TED:NOTICE:000004-2018:TEXT:GA:HTML</epo:hasURL>
+        <epo:hasURL>http://ted.europa.eu/udl?uri=TED:NOTICE:000004-2018:TEXT:MT:HTML</epo:hasURL>
+        <epo:hasURL>http://ted.europa.eu/udl?uri=TED:NOTICE:000004-2018:TEXT:SL:HTML</epo:hasURL>
+        <epo:hasURL>http://ted.europa.eu/udl?uri=TED:NOTICE:000004-2018:TEXT:BG:HTML</epo:hasURL>
+        <epo:hasURL>http://ted.europa.eu/udl?uri=TED:NOTICE:000004-2018:TEXT:EL:HTML</epo:hasURL>
+        <epo:hasURL>http://ted.europa.eu/udl?uri=TED:NOTICE:000004-2018:TEXT:DE:HTML</epo:hasURL>
+        <epo:hasURL>http://ted.europa.eu/udl?uri=TED:NOTICE:000004-2018:TEXT:HU:HTML</epo:hasURL>
+        <epo:hasURL>http://ted.europa.eu/udl?uri=TED:NOTICE:000004-2018:TEXT:SK:HTML</epo:hasURL>
+        <epo:hasURL>http://ted.europa.eu/udl?uri=TED:NOTICE:000004-2018:TEXT:LT:HTML</epo:hasURL>
+        <epo:hasURL>http://ted.europa.eu/udl?uri=TED:NOTICE:000004-2018:TEXT:PL:HTML</epo:hasURL>
+        <epo:hasURL>http://ted.europa.eu/udl?uri=TED:NOTICE:000004-2018:TEXT:PT:HTML</epo:hasURL>
+        <epo:hasURL>http://ted.europa.eu/udl?uri=TED:NOTICE:000004-2018:TEXT:LV:HTML</epo:hasURL>
+        <epo:hasURL>http://ted.europa.eu/udl?uri=TED:NOTICE:000004-2018:TEXT:ES:HTML</epo:hasURL>
+        <epo:hasURL>http://ted.europa.eu/udl?uri=TED:NOTICE:000004-2018:TEXT:FI:HTML</epo:hasURL>
+        <epo:hasURL>http://ted.europa.eu/udl?uri=TED:NOTICE:000004-2018:TEXT:FR:HTML</epo:hasURL>
+      </epo:Channel>
+    </epo:isMadeAvailableVia>
+    <epo:relatesTo rdf:resource="http://data.europa.eu/a4g/resource/2018/s-001-000004#Procedured04d40e0-1b0b-4979-b90d-20e4024132b1"/>
+    <epo:hasID>
+      <epo:Identifier rdf:about="http://data.europa.eu/a4g/resource/2018/s-001-000004#ContractAwardNoticeId95bd8074-cdc0-4f5a-862f-fa643027c7b1">
+        <epo:hasIdentifierValue>2018/S 001-000004</epo:hasIdentifierValue>
+      </epo:Identifier>
+    </epo:hasID>
+    <epo:hasDispatchDate>2017-12-22</epo:hasDispatchDate>
+    <epo:summarises rdf:resource="http://data.europa.eu/a4g/resource/2018/s-001-000004#Procedured04d40e0-1b0b-4979-b90d-20e4024132b1"/>
+    <skos:editorialNote>Please note that some elements from the F03 are not mappable to the eProcurement Ontology which was designed in the eNotification phase for Commission Implementing Regulation (EU) 2019/1780 . The population of the knowledge graph will therefore not take into consideration the following xpaths from the published notices:
+OBJECT_CONTRACT/CPV_MAIN/CPV_SUPPLEMENTARY_CODE
+OBJECT_CONTRACT/LOT_DIVISION
+OBJECT_CONTRACT/NO_LOT_DIVISION
+OBJECT_CONTRACT/OBJECT_DESCR/CPV_ADDITIONAL/CPV_SUPPLEMENTARY_CODE
+OBJECT_CONTRACT/OBJECT_DESCR/NO_EU_PROGR_RELATED
+AWARD_CONTRACT/NO_AWARDED_CONTRACT/PROCUREMENT_DISCONTINUED
+AWARD_CONTRACT/NO_AWARDED_CONTRACT/PROCUREMENT_DISCONTINUED/ORIGINAL_ENOTICES
+AWARD_CONTRACT/NO_AWARDED_CONTRACT/PROCUREMENT_DISCONTINUED/ORIGINAL_TED_ESENDER
+AWARD_CONTRACT/NO_AWARDED_CONTRACT/PROCUREMENT_DISCONTINUED/ESENDER_LOGIN
+AWARD_CONTRACT/NO_AWARDED_CONTRACT/PROCUREMENT_DISCONTINUED/CUSTOMER_LOGIN
+AWARD_CONTRACT/NO_AWARDED_CONTRACT/PROCUREMENT_DISCONTINUED/NO_DOC_EXT
+AWARD_CONTRACT/NO_AWARDED_CONTRACT/PROCUREMENT_DISCONTINUED/ORIGINAL_OTHER_MEANS
+AWARD_CONTRACT/NO_AWARDED_CONTRACT/PROCUREMENT_DISCONTINUED/DATE_DISPATCH_ORIGINAL
+AWARD_CONTRACT/NO_AWARDED_CONTRACT/PROCUREMENT_UNSUCCESSFUL
+AWARD_CONTRACT/AWARDED_CONTRACT/TENDERS/NB_TENDERS_RECEIVED_OTHER_EU
+AWARD_CONTRACT/AWARDED_CONTRACT/TENDERS/NB_TENDERS_RECEIVED_NON_EU
+AWARD_CONTRACT/AWARDED_CONTRACT/CONTRACTORS/NO_AWARDED_TO_GROUP
+AWARD_CONTRACT/AWARDED_CONTRACT/VAL_SUBCONTRACTING
+AWARD_CONTRACT/AWARDED_CONTRACT/VAL_SUBCONTRACTING/CURRENCY
+AWARD_CONTRACT/AWARDED_CONTRACT/PCT_SUBCONTRACTING
+AWARD_CONTRACT/AWARDED_CONTRACT/VAL_SUBCONTRACTING/INFO_ADD_SUBCONTRACTING
+/PROCEDURE/PT_AWARD_CONTRACT_WITHOUT_CALL/D_OUTSIDE_SCOPE</skos:editorialNote>
+    <epo:refersToPrevious>
+      <epo:Notice rdf:about="http://data.europa.eu/a4g/resource/2018/s-001-000004#PreviousNotice9284684e-f0ac-4e59-9e7f-37985a7bbcd0">
+        <epo:hasID>
+          <epo:Identifier rdf:about="http://data.europa.eu/a4g/resource/2018/s-001-000004#NoticeIde16649a1-6e7f-4d7b-a7b9-388067d85587">
+            <epo:hasIdentifierValue>2017/S 055-100825</epo:hasIdentifierValue>
+          </epo:Identifier>
+        </epo:hasID>
+      </epo:Notice>
+    </epo:refersToPrevious>
+  </epo:ContractAwardNotice>
+  <epo:AwardCriterion rdf:about="http://data.europa.eu/a4g/resource/2018/s-001-000004#AwardCriterionPricecf81ff8b-3bfe-45e0-b71c-663d1909a5dd">
+    <epo:isUsedToAward rdf:resource="http://data.europa.eu/a4g/resource/2018/s-001-000004#Lot6b6e32ba-6881-4357-a69c-4dd76c9e572b"/>
+    <epo:hasAwardCriterionType rdf:resource="http://publications.europa.eu/resource/authority/award-criterion-type/price"/>
+    <epo:hasFormula>30</epo:hasFormula>
+  </epo:AwardCriterion>
+  <epo:Reviewer rdf:about="http://data.europa.eu/a4g/resource/2018/s-001-000004#Reviewer1ecbf983-03d1-48d8-a511-9081445f10a6">
+    <epo:isRoleOf>
+      <epo:Organisation rdf:about="http://data.europa.eu/a4g/resource/2018/s-001-000004#OrganisationReviewBodyd76d17c3-6f2c-496b-842e-d18d7b1044c4">
+        <epo:hasName xml:lang="en">General Court</epo:hasName>
+        <epo:hasLocation>
+          <epo:Location rdf:about="http://data.europa.eu/a4g/resource/2018/s-001-000004#LocationReviewBodye60a9fb4-0d2e-4f26-b6bb-992851f84418">
+            <epo:hasPostalAddress>
+              <epo:Address rdf:about="http://data.europa.eu/a4g/resource/2018/s-001-000004#AddressReviewBody08b4a0f8-7e64-4731-9a85-4a48d4c01d85">
+                <epo:hasCountryCode rdf:resource="http://publications.europa.eu/resource/authority/country/LUX"/>
+                <epo:hasStreetName>Rue du Fort Niedergrünewald</epo:hasStreetName>
+                <epo:hasStreetName>rue du Fort Niedergrünewald</epo:hasStreetName>
+                <epo:hasPostalZone>2925</epo:hasPostalZone>
+                <epo:hasCityName>Luxemburg</epo:hasCityName>
+              </epo:Address>
+            </epo:hasPostalAddress>
+          </epo:Location>
+        </epo:hasLocation>
+        <epo:hasName xml:lang="pt">Tribunal Geral</epo:hasName>
+        <epo:hasName xml:lang="fr">Tribunal</epo:hasName>
+        <epo:hasName xml:lang="sk">Všeobecný súd</epo:hasName>
+        <epo:hasName xml:lang="mt">Il-Qorti Ġenerali</epo:hasName>
+        <epo:hasName xml:lang="sv">Tribunalen</epo:hasName>
+        <epo:hasName xml:lang="ro">Tribunalul</epo:hasName>
+        <epo:hasName xml:lang="et">Üldkohus</epo:hasName>
+        <epo:hasName xml:lang="it">Tribunale</epo:hasName>
+        <epo:hasName xml:lang="hr">Opći sud</epo:hasName>
+        <epo:hasName xml:lang="el">Γενικό Δικαστήριο</epo:hasName>
+        <epo:hasName xml:lang="ga">An Chúirt Ghinearálta</epo:hasName>
+        <epo:hasName xml:lang="de">Gericht</epo:hasName>
+        <epo:hasName xml:lang="lv">Vispārējā tiesa</epo:hasName>
+        <epo:hasName xml:lang="es">Tribunal General</epo:hasName>
+        <epo:hasName xml:lang="nl">Gerecht</epo:hasName>
+        <epo:hasName xml:lang="cs">Tribunál</epo:hasName>
+        <epo:hasName xml:lang="da">Retten</epo:hasName>
+        <epo:hasName xml:lang="bg">Общ съд</epo:hasName>
+        <epo:hasName xml:lang="sl">Splošno sodišče</epo:hasName>
+        <epo:hasName xml:lang="pl">Sąd</epo:hasName>
+        <epo:hasName xml:lang="hu">Törvényszék</epo:hasName>
+        <epo:hasName xml:lang="lt">Bendrasis Teismas</epo:hasName>
+        <epo:hasName xml:lang="fi">Unionin yleinen tuomioistuin</epo:hasName>
+      </epo:Organisation>
+    </epo:isRoleOf>
+    <epo:has>
+      <epo:ContactPoint rdf:about="http://data.europa.eu/a4g/resource/2018/s-001-000004#ContactPointReviewBodyf39fba07-5150-466f-b549-0f4cc1cd22e4">
+        <epo:hasInternetAddress>http://curia.europa.eu</epo:hasInternetAddress>
+        <epo:hasFax>+352 43032100</epo:hasFax>
+        <epo:hasTelephone>+352 43031</epo:hasTelephone>
+      </epo:ContactPoint>
+    </epo:has>
+    <reg2015:isInvolvedIn rdf:resource="http://data.europa.eu/a4g/resource/2018/s-001-000004#Procedured04d40e0-1b0b-4979-b90d-20e4024132b1"/>
+  </epo:Reviewer>
+</rdf:RDF>

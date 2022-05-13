@@ -1,7 +1,7 @@
 import pytest
 
 from ted_sws.data_manager.adapters.notice_repository import NoticeRepository
-from ted_sws.core.model.manifestation import XMLManifestation
+from ted_sws.core.model.manifestation import XMLManifestation, RDFManifestation
 from ted_sws.core.model.metadata import TEDMetadata
 from ted_sws.core.model.notice import Notice
 
@@ -30,3 +30,12 @@ def test_notice_repository_create(mongodb_client):
     assert result_notice.ted_id == NOTICE_TED_ID
     assert result_notice.original_metadata.AA == "Updated metadata"
     mongodb_client.drop_database(TEST_DATABASE_NAME)
+
+def test_notice_repository_grid_fs(notice_2016 ,mongodb_client):
+    file_content = "File content"
+    mongodb_client.drop_database(TEST_DATABASE_NAME)
+    notice_repository = NoticeRepository(mongodb_client=mongodb_client, database_name=TEST_DATABASE_NAME)
+    notice_2016._rdf_manifestation = RDFManifestation(object_data=file_content)
+    notice_repository.add(notice=notice_2016)
+    result_notice = notice_repository.get(reference=notice_2016.ted_id)
+    assert result_notice.rdf_manifestation.object_data == file_content

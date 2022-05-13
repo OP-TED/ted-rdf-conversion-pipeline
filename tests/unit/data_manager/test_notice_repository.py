@@ -1,5 +1,5 @@
 from ted_sws.data_manager.adapters.notice_repository import NoticeRepository
-from ted_sws.core.model.manifestation import XMLManifestation
+from ted_sws.core.model.manifestation import XMLManifestation, RDFManifestation
 from ted_sws.core.model.metadata import TEDMetadata
 from ted_sws.core.model.notice import Notice, NoticeStatus
 from mongomock.gridfs import enable_gridfs_integration
@@ -57,3 +57,12 @@ def test_notice_repository_create_notice_from_repository_result(mongodb_client):
     invalid_result_notice = notice_repository._create_notice_from_repository_result(None)
     assert result_notice
     assert invalid_result_notice is None
+
+
+def test_notice_repository_grid_fs(notice_2016 ,mongodb_client):
+    file_content = "File content"
+    notice_repository = NoticeRepository(mongodb_client=mongodb_client)
+    notice_2016._rdf_manifestation = RDFManifestation(object_data=file_content)
+    notice_repository.add(notice=notice_2016)
+    result_notice = notice_repository.get(reference=notice_2016.ted_id)
+    assert result_notice.rdf_manifestation.object_data == file_content

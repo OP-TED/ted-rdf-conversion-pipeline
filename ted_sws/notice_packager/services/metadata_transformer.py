@@ -18,6 +18,7 @@ from ted_sws.notice_packager.model.metadata import PackagerMetadata, ACTION_CREA
     BASE_TITLE
 
 NORM_SEP = '_'
+DENORM_SEP = '-'
 
 
 class MetadataTransformer:
@@ -31,7 +32,11 @@ class MetadataTransformer:
 
     @classmethod
     def normalize_value(cls, value: str) -> str:
-        return value.replace('-', NORM_SEP)
+        return value.replace(DENORM_SEP, NORM_SEP)
+
+    @classmethod
+    def denormalize_value(cls, value: str) -> str:
+        return value.replace(NORM_SEP, DENORM_SEP)
 
     @classmethod
     def __year(cls, metadata: PackagerMetadata) -> str:

@@ -60,11 +60,9 @@ def test_notice_repository_create_notice_from_repository_result(mongodb_client):
 
 
 def test_notice_repository_grid_fs(notice_2016 ,mongodb_client):
+    file_content = "File content"
     notice_repository = NoticeRepository(mongodb_client=mongodb_client)
-    notice_2016._rdf_manifestation = RDFManifestation(object_data="Hello world")
-    print(notice_2016.rdf_manifestation)
+    notice_2016._rdf_manifestation = RDFManifestation(object_data=file_content)
     notice_repository.add(notice=notice_2016)
-    for notice in notice_repository.get_notice_by_status(notice_status=NoticeStatus.RAW):
-        print(notice.rdf_manifestation)
     result_notice = notice_repository.get(reference=notice_2016.ted_id)
-    print(result_notice.rdf_manifestation)
+    assert result_notice.rdf_manifestation.object_data == file_content

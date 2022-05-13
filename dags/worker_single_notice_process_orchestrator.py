@@ -17,6 +17,7 @@ from ted_sws.notice_eligibility.services.notice_eligibility import notice_eligib
 from ted_sws.notice_packager.services.notice_packager import create_notice_package
 from ted_sws.notice_transformer.adapters.rml_mapper import RMLMapper
 from ted_sws.notice_transformer.services.notice_transformer import transform_notice_by_id
+from ted_sws.notice_validator.services.shacl_test_suite_runner import validate_notice_by_id_with_shacl_suite
 from ted_sws.notice_validator.services.sparql_test_suite_runner import validate_notice_by_id_with_sparql_suite
 
 NOTICE_ID = "notice_id"
@@ -108,7 +109,10 @@ def worker_single_notice_process_orchestrator():
         validate_notice_by_id_with_sparql_suite(notice_id=notice_id, mapping_suite_identifier=mapping_suite_id,
                                                 notice_repository=notice_repository,
                                                 mapping_suite_repository=mapping_suite_repository)
-
+        validate_notice_by_id_with_shacl_suite(notice_id=notice_id, mapping_suite_identifier=mapping_suite_id,
+                                               notice_repository=notice_repository,
+                                               mapping_suite_repository=mapping_suite_repository
+                                               )
         push_dag_downstream(NOTICE_ID, notice_id)
         push_dag_downstream(MAPPING_SUITE_ID, mapping_suite_id)
 

@@ -16,7 +16,7 @@ import abc
 from datetime import datetime
 from enum import IntEnum
 from functools import total_ordering
-from typing import Optional
+from typing import Optional, List
 
 from pydantic import Field
 
@@ -181,7 +181,7 @@ class Notice(WorkExpression):
     def mets_manifestation(self) -> METSManifestation:
         return self._mets_manifestation
 
-    def get_rdf_validation(self) -> RDFValidationManifestation:
+    def get_rdf_validation(self) -> Optional[List[RDFValidationManifestation]]:
         if not self.rdf_manifestation:
             return None
 

@@ -1,3 +1,4 @@
+import copy
 import logging
 from typing import Iterator, Union, Optional
 
@@ -61,6 +62,7 @@ class NoticeRepository(NoticeRepositoryABC):
         :param notice:
         :return:
         """
+        notice = copy.deepcopy(notice)
         self.delete_files_by_notice_id(notice_id=notice.ted_id)
 
         def write_large_field(large_field: Manifestation):
@@ -73,6 +75,13 @@ class NoticeRepository(NoticeRepositoryABC):
         write_large_field(notice.mets_manifestation)
         write_large_field(notice.distilled_rdf_manifestation)
         write_large_field(notice.preprocessed_xml_manifestation)
+        if notice.rdf_manifestation:
+            for validation_report in notice.rdf_manifestation.validation:
+                write_large_field(validation_report)
+
+        if notice.distilled_rdf_manifestation:
+            for validation_report in notice.distilled_rdf_manifestation.validation:
+                write_large_field(validation_report)
 
         return notice
 
@@ -92,6 +101,13 @@ class NoticeRepository(NoticeRepositoryABC):
         load_large_field(large_field=notice.mets_manifestation)
         load_large_field(large_field=notice.distilled_rdf_manifestation)
         load_large_field(large_field=notice.preprocessed_xml_manifestation)
+        if notice.rdf_manifestation:
+            for validation_report in notice.rdf_manifestation.validation:
+                load_large_field(validation_report)
+        if notice.distilled_rdf_manifestation:
+            for validation_report in notice.distilled_rdf_manifestation.validation:
+                load_large_field(validation_report)
+
         return notice
 
     @staticmethod

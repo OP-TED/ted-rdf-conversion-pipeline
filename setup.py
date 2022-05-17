@@ -76,6 +76,7 @@ setup(
     entry_points={
         "console_scripts": [
             "sparql_runner = ted_sws.notice_validator.entrypoints.cli.cmd_sparql_runner:main",
+            "shacl_runner = ted_sws.notice_validator.entrypoints.cli.cmd_shacl_runner:main",
             "mapping_suite_processor = ted_sws.mapping_suite_processor.entrypoints.cli.cmd_mapping_suite_processor:main",
             "metadata_generator = ted_sws.mapping_suite_processor.entrypoints.cli.cmd_metadata_generator:main",
             "sparql_generator = ted_sws.mapping_suite_processor.entrypoints.cli.cmd_sparql_generator:main",

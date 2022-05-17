@@ -219,7 +219,7 @@ to set custom commands (order) to be executed
 
 
 #### CMD: sparql_runner
-Generates Validation Reports for RDF files.
+Generates SPARQL Validation Reports for RDF files.
 
 Use:
 ```bash
@@ -230,6 +230,24 @@ to get the Usage Help:
 Usage: sparql_runner [OPTIONS] [MAPPING_SUITE_ID]
 
   Generates Validation Reports for RDF files
+
+Options:
+  -m, --opt-mappings-folder TEXT
+  --help                                      Show this message and exit.
+```
+
+#### CMD: shacl_runner
+Generates SHACL Validation Reports for RDF files.
+
+Use:
+```bash
+shacl_runner --help
+```
+to get the Usage Help:
+```bash
+Usage: shacl_runner [OPTIONS] [MAPPING_SUITE_ID]
+
+  Generates SHACL Validation Reports for RDF files
 
 Options:
   -m, --opt-mappings-folder TEXT

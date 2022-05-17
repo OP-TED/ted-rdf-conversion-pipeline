@@ -24,15 +24,6 @@ class SPARQLQueryResult(PropertyBaseModel):
     identifier: Optional[str]
 
 
-class SPARQLQueryResultReport(RDFValidationManifestation):
-    """
-    Stores SPARQL query execution report result
-    """
-    created: str = datetime.now().isoformat()
-    mapping_suite_identifier: str
-    query_result: SPARQLQueryResult
-
-
 class SPARQLTestSuiteExecution(RDFValidationManifestation):
     """
     Stores execution results for a SPARQL test suite

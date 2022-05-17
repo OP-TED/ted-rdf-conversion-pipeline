@@ -10,6 +10,7 @@ from ted_sws.event_manager.domain.message_bus import message_bus
 from ted_sws.event_manager.model.message import Log
 
 DEFAULT_MAPPINGS_PATH = 'mappings'
+DEFAULT_OUTPUT_PATH = 'output'
 
 
 class CmdRunnerABC(abc.ABC):

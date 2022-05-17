@@ -1,31 +1,30 @@
 #!/usr/bin/python3
 
-import json
 from pathlib import Path
 
 import click
 
 from ted_sws.core.adapters.cmd_runner import CmdRunner as BaseCmdRunner, DEFAULT_MAPPINGS_PATH, DEFAULT_OUTPUT_PATH
-from ted_sws.core.model.manifestation import RDFManifestation, RDFValidationManifestation
+from ted_sws.core.model.manifestation import RDFManifestation
 from ted_sws.data_manager.adapters.mapping_suite_repository import MappingSuiteRepositoryInFileSystem
 from ted_sws.event_manager.adapters.logger import LOG_INFO_TEXT
-from ted_sws.notice_validator.services.sparql_test_suite_runner import SPARQLTestSuiteRunner, SPARQLReportBuilder
+from ted_sws.notice_validator.model.shacl_test_suite import SHACLSuiteValidationReport
+from ted_sws.notice_validator.services.shacl_test_suite_runner import SHACLTestSuiteRunner, SHACLReportBuilder
 
 DEFAULT_RDF_FOLDER = '{mappings_path}/{mapping_suite_id}/' + DEFAULT_OUTPUT_PATH
 DEFAULT_TEST_SUITE_REPORT_FOLDER = "test_suite_report"
-JSON_REPORT = "{id}.json"
 HTML_REPORT = "{id}.html"
-CMD_NAME = "CMD_SPARQL_RUNNER"
+CMD_NAME = "CMD_SHACL_RUNNER"
 
 """
 USAGE:
-# sparql_runner --help
+# shacl_runner --help
 """
 
 
 class CmdRunner(BaseCmdRunner):
     """
-    Keeps the logic to be used by SPARQL Runner
+    Keeps the logic to be used by SHACL Runner
     """
 
     def __init__(
@@ -52,21 +51,18 @@ class CmdRunner(BaseCmdRunner):
         report_path = base_report_path / DEFAULT_TEST_SUITE_REPORT_FOLDER
         report_path.mkdir(parents=True, exist_ok=True)
 
-        sparql_test_suites = self.mapping_suite.sparql_test_suites
-        for sparql_test_suite in sparql_test_suites:
-            test_suite_execution = SPARQLTestSuiteRunner(rdf_manifestation=rdf_manifestation,
-                                                         sparql_test_suite=sparql_test_suite,
-                                                         mapping_suite=self.mapping_suite).execute_test_suite()
+        shacl_test_suites = self.mapping_suite.shacl_test_suites
+        for shacl_test_suite in shacl_test_suites:
+            test_suite_execution = SHACLTestSuiteRunner(rdf_manifestation=rdf_manifestation,
+                                                        shacl_test_suite=shacl_test_suite,
+                                                        mapping_suite=self.mapping_suite).execute_test_suite()
 
-            report_builder = SPARQLReportBuilder(sparql_test_suite_execution=test_suite_execution)
-            json_report: RDFValidationManifestation = report_builder.generate_json()
-            html_report = report_builder.generate_html()
+            report_builder = SHACLReportBuilder(shacl_test_suite_execution=test_suite_execution)
+            report: SHACLSuiteValidationReport = report_builder.generate_report()
 
-            suite_id = sparql_test_suite.identifier
-            json_data = str(json.dumps(json_report.dict(), indent=4))
-            self.save_report(report_path, JSON_REPORT, suite_id, json_data)
-            html_data = html_report.object_data
-            self.save_report(report_path, HTML_REPORT, suite_id, html_data)
+            suite_id = shacl_test_suite.identifier
+            data = report.object_data
+            self.save_report(report_path, HTML_REPORT, suite_id, data)
 
     def run_cmd(self):
         error = None
@@ -98,7 +94,7 @@ def run(mapping_suite_id=None, opt_mappings_folder=DEFAULT_MAPPINGS_PATH):
 @click.option('-m', '--opt-mappings-folder', default=DEFAULT_MAPPINGS_PATH)
 def main(mapping_suite_id, opt_mappings_folder):
     """
-    Generates SPARQL Validation Reports for RDF files
+    Generates SHACL Validation Reports for RDF files
     """
     run(mapping_suite_id, opt_mappings_folder)
 

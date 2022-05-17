@@ -9,7 +9,7 @@
     <style type="text/css">
         body {
             font-family: Arial, sans-serif;
-                margin: 0 auto;
+                margin: 25px auto;
                 width: 80%;
         }
         .error {
@@ -17,6 +17,9 @@
         }
         .success {
             color: green;
+        }
+        table thead th {
+            text-align: left;
         }
     </style>
   </head>
@@ -26,8 +29,7 @@
     <h2>Report details: </h2>
     <ul>
         <li>Date created: {{ created }}</li>
-        <li>{% if test_identifier_label %}{{ test_identifier_label }}{% else %}SPARQL test suite identifier{% endif %}:
-        {{ sparql_test_suite_identifier }}</li>
+        <li>SPARQL test suite identifier: {{ sparql_test_suite_identifier }}</li>
         <li>Mapping suite identifier: {{ mapping_suite_identifier }}</li>
     </ul>
     <hr>
@@ -65,9 +67,10 @@
     $(document).ready(function () {
 
         $("table.display").DataTable({
-            dom: 'B<"clear">lfrtip',
+            dom: 'B<"clear">lfiprtip',
             buttons: [],
             "lengthMenu": [[5, 15, 30, -1], [5, 15, 30, "All"]],
+            "pageLength": 15,
             responsive: {
                 details: true
             }

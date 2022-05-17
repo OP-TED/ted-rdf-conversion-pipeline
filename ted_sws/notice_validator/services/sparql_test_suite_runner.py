@@ -11,7 +11,7 @@ from ted_sws.core.model.transform import SPARQLTestSuite, MappingSuite, FileReso
 from ted_sws.data_manager.adapters.repository_abc import NoticeRepositoryABC, MappingSuiteRepositoryABC
 from ted_sws.notice_validator.adapters.sparql_runner import SPARQLRunner
 from ted_sws.notice_validator.model.sparql_test_suite import SPARQLTestSuiteExecution, SPARQLQuery, \
-    SPARQLQueryResult, SPARQLQueryResultReport
+    SPARQLQueryResult
 
 TEMPLATES = Environment(loader=PackageLoader("ted_sws.notice_validator.resources", "templates"))
 SPARQL_TEST_SUITE_EXECUTION_HTML_REPORT_TEMPLATE = "sparql_query_results_report.jinja2"
@@ -101,44 +101,6 @@ class SPARQLReportBuilder:
         """
         report = TEMPLATES.get_template(SPARQL_TEST_SUITE_EXECUTION_HTML_REPORT_TEMPLATE).render(
             self.sparql_test_suite_execution.dict())
-
-        return RDFValidationManifestation(object_data=report)
-
-    @classmethod
-    def generate_json_for_query_result(cls, query_result: SPARQLQueryResult,
-                                       mapping_suite_package: MappingSuite) -> RDFValidationManifestation:
-        """
-        Generating json report from single SPARQL query test result
-        :return:
-        """
-
-        sparql_result_report = SPARQLQueryResultReport(
-            created=datetime.now().isoformat(),
-            mapping_suite_identifier=mapping_suite_package.identifier,
-            query_result=query_result,
-            object_data="SPARQLQueryResultReport"
-        )
-
-        return sparql_result_report
-
-    @classmethod
-    def generate_html_for_query_result(cls, query_result: SPARQLQueryResult,
-                                       mapping_suite_package: MappingSuite) -> RDFValidationManifestation:
-        """
-        Generating html report from single SPARQL query test result
-        :return:
-        """
-        result = SPARQLTestSuiteExecution(
-            sparql_test_suite_identifier=query_result.identifier,
-            mapping_suite_identifier=mapping_suite_package.identifier,
-            execution_results=[query_result],
-            object_data="SPARQLTestSuiteExecution"
-        )
-
-        data = result.dict()
-        data["test_identifier_label"] = "SPARQL test identifier"
-
-        report = TEMPLATES.get_template(SPARQL_TEST_SUITE_EXECUTION_HTML_REPORT_TEMPLATE).render(data)
 
         return RDFValidationManifestation(object_data=report)
 

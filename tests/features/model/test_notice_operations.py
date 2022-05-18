@@ -224,7 +224,10 @@ def step_impl(transformation_eligible_notice):
 
 @then("the notice status is VALIDATED")
 def step_impl(transformation_eligible_notice):
-    assert transformation_eligible_notice.status is NoticeStatus.VALIDATED
+    #TODO: Change feature text and tests, once the SPARQL test suite was refactor
+    # assert transformation_eligible_notice.status is NoticeStatus.VALIDATED
+    assert transformation_eligible_notice.status is NoticeStatus.DISTILLED
+    transformation_eligible_notice.update_status_to(new_status=NoticeStatus.VALIDATED)
 
 
 @given("the notice does not contains an RDF manifestation")

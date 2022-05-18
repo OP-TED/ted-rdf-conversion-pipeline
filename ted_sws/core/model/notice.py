@@ -16,7 +16,7 @@ import abc
 from datetime import datetime
 from enum import IntEnum
 from functools import total_ordering
-from typing import Optional
+from typing import Optional, List
 
 from pydantic import Field
 
@@ -181,11 +181,16 @@ class Notice(WorkExpression):
     def mets_manifestation(self) -> METSManifestation:
         return self._mets_manifestation
 
-    def get_rdf_validation(self) -> RDFValidationManifestation:
+    def get_rdf_validation(self) -> Optional[List[RDFValidationManifestation]]:
         if not self.rdf_manifestation:
             return None
 
         return self.rdf_manifestation.validation
+
+    def get_distilled_rdf_validation(self) -> Optional[List[RDFValidationManifestation]]:
+        if not self.distilled_rdf_manifestation:
+            return None
+        return self.distilled_rdf_manifestation.validation
 
     def set_preprocessed_xml_manifestation(self, preprocessed_xml_manifestation: XMLManifestation):
         """
@@ -237,6 +242,19 @@ class Notice(WorkExpression):
         else:
             self.update_status_to(NoticeStatus.VALIDATED)
 
+    def _check_status_is_validated(self) -> bool:
+
+        def _get_number_of_validation_types(validations: List[RDFValidationManifestation]):
+            unique_validation_types = set([type(validation).__name__ for validation in validations])
+            return len(unique_validation_types)
+
+        if self._rdf_manifestation and self._distilled_rdf_manifestation:
+            if self._rdf_manifestation.validation and self._distilled_rdf_manifestation.validation:
+                if (_get_number_of_validation_types(self._rdf_manifestation.validation) > 1) and (
+                        _get_number_of_validation_types(self._distilled_rdf_manifestation.validation) > 1):
+                    return True
+        return False
+
     def set_rdf_validation(self, rdf_validation: RDFValidationManifestation):
         """
             Add an RDF validation result to the notice.
@@ -247,14 +265,25 @@ class Notice(WorkExpression):
         if not self.rdf_manifestation:
             raise ValueError("Cannot set the RDF validation of a non-existent RDF manifestation")
 
-        if self.rdf_manifestation.validation == rdf_validation:
-            return
+        for validation in self._rdf_manifestation.validation:
+            if validation == rdf_validation:
+                return
 
         self._rdf_manifestation.validation.append(rdf_validation)
+        if self._check_status_is_validated():
+            self.update_status_to(NoticeStatus.VALIDATED)
 
-        # TODO: elaborate the logic of when do we consider that the validation is completely set,
-        #  as we may have multiple types of validation
-        self.update_status_to(NoticeStatus.VALIDATED)
+    def set_distilled_rdf_validation(self, rdf_validation: RDFValidationManifestation):
+        if not self.distilled_rdf_manifestation:
+            raise ValueError("Cannot set the RDF validation of a non-existent RDF manifestation")
+
+        for validation in self._distilled_rdf_manifestation.validation:
+            if validation == rdf_validation:
+                return
+
+        self._distilled_rdf_manifestation.validation.append(rdf_validation)
+        if self._check_status_is_validated():
+            self.update_status_to(NoticeStatus.VALIDATED)
 
     def set_mets_manifestation(self, mets_manifestation: METSManifestation):
         """

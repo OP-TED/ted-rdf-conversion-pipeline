@@ -44,14 +44,22 @@ def test_shacl_report_builder(rdf_file_content, shacl_test_suite, dummy_mapping_
 
 def test_validate_notice_with_shacl_suite(notice_with_distilled_status, dummy_mapping_suite, rdf_file_content):
     notice = notice_with_distilled_status
+    assert notice.rdf_manifestation
+    assert notice.distilled_rdf_manifestation
     validate_notice_with_shacl_suite(notice=notice, mapping_suite_package=dummy_mapping_suite)
-
-    assert notice.status == NoticeStatus.VALIDATED
-    assert isinstance(notice.get_rdf_validation(), list)
-    assert len(notice.get_rdf_validation()) == 1
-    assert isinstance(notice.get_rdf_validation()[0], RDFValidationManifestation)
-    assert notice.get_rdf_validation()[0].object_data
-    assert notice.get_rdf_validation()[0].validation_result
+    rdf_validation = notice.get_rdf_validation()
+    distilled_rdf_validation = notice.get_distilled_rdf_validation()
+    assert notice.status == NoticeStatus.DISTILLED
+    assert isinstance(rdf_validation, list)
+    assert len(rdf_validation) == 1
+    assert isinstance(rdf_validation[0], RDFValidationManifestation)
+    assert rdf_validation[0].object_data
+    assert rdf_validation[0].validation_result
+    assert isinstance(distilled_rdf_validation, list)
+    assert len(distilled_rdf_validation) == 1
+    assert isinstance(distilled_rdf_validation[0], RDFValidationManifestation)
+    assert distilled_rdf_validation[0].object_data
+    assert distilled_rdf_validation[0].validation_result
 
 
 def test_validate_notice_by_id_with_shacl_suite(notice_with_distilled_status, rdf_file_content, notice_repository,
@@ -65,7 +73,7 @@ def test_validate_notice_by_id_with_shacl_suite(notice_with_distilled_status, rd
                                            notice_repository=notice_repository,
                                            mapping_suite_identifier="test_package")
 
-    assert notice.status == NoticeStatus.VALIDATED
+    assert notice.status == NoticeStatus.DISTILLED
     assert isinstance(notice.get_rdf_validation(), list)
     assert len(notice.get_rdf_validation()) == 1
     assert isinstance(notice.get_rdf_validation()[0], RDFValidationManifestation)

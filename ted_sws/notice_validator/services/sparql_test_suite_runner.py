@@ -1,7 +1,7 @@
 from datetime import datetime
 import re
 from pathlib import Path
-from typing import Tuple
+from typing import Tuple, List
 
 from jinja2 import Environment, PackageLoader
 
@@ -112,15 +112,25 @@ def validate_notice_with_sparql_suite(notice: Notice, mapping_suite_package: Map
     :param mapping_suite_package:
     :return:
     """
-    rdf_manifestation = notice.rdf_manifestation
-    sparql_test_suites = mapping_suite_package.sparql_test_suites
-    for sparql_test_suite in sparql_test_suites:
-        test_suite_execution = SPARQLTestSuiteRunner(rdf_manifestation=rdf_manifestation,
-                                                     sparql_test_suite=sparql_test_suite,
-                                                     mapping_suite=mapping_suite_package).execute_test_suite()
-        report_builder = SPARQLReportBuilder(sparql_test_suite_execution=test_suite_execution)
-        notice.set_rdf_validation(rdf_validation=report_builder.generate_json())
-        notice.set_rdf_validation(rdf_validation=report_builder.generate_html())
+
+    def sparql_validation(rdf_manifestation: RDFManifestation) -> List[RDFValidationManifestation]:
+        sparql_test_suites = mapping_suite_package.sparql_test_suites
+        reports = []
+        for sparql_test_suite in sparql_test_suites:
+            test_suite_execution = SPARQLTestSuiteRunner(rdf_manifestation=rdf_manifestation,
+                                                         sparql_test_suite=sparql_test_suite,
+                                                         mapping_suite=mapping_suite_package).execute_test_suite()
+            report_builder = SPARQLReportBuilder(sparql_test_suite_execution=test_suite_execution)
+            #TODO: Create unique SPARQL report, look at SHACL implementation.
+            reports.append(report_builder.generate_html())
+            reports.append(report_builder.generate_json())
+        return reports
+
+    for report in sparql_validation(rdf_manifestation=notice.rdf_manifestation):
+        notice.set_rdf_validation(rdf_validation=report)
+
+    for report in sparql_validation(rdf_manifestation=notice.distilled_rdf_manifestation):
+        notice.set_distilled_rdf_validation(rdf_validation=report)
 
 
 def validate_notice_by_id_with_sparql_suite(notice_id: str, mapping_suite_identifier: str,

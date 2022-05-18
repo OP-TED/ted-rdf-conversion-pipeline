@@ -1,4 +1,6 @@
 import json
+from typing import List
+
 from jinja2 import Environment, PackageLoader
 
 from ted_sws.core.model.manifestation import RDFManifestation
@@ -72,14 +74,24 @@ def validate_notice_with_shacl_suite(notice: Notice, mapping_suite_package: Mapp
     :param mapping_suite_package:
     :return:
     """
-    rdf_manifestation = notice.rdf_manifestation
-    shacl_test_suites = mapping_suite_package.shacl_test_suites
-    for shacl_test_suite in shacl_test_suites:
-        test_suite_execution = SHACLTestSuiteRunner(rdf_manifestation=rdf_manifestation,
-                                                    shacl_test_suite=shacl_test_suite,
-                                                    mapping_suite=mapping_suite_package).execute_test_suite()
-        report_builder = SHACLReportBuilder(shacl_test_suite_execution=test_suite_execution)
-        notice.set_rdf_validation(rdf_validation=report_builder.generate_report())
+
+    def shacl_validation(rdf_manifestation: RDFManifestation) -> List[SHACLSuiteValidationReport]:
+        reports = []
+        shacl_test_suites = mapping_suite_package.shacl_test_suites
+        for shacl_test_suite in shacl_test_suites:
+            test_suite_execution = SHACLTestSuiteRunner(rdf_manifestation=rdf_manifestation,
+                                                        shacl_test_suite=shacl_test_suite,
+                                                        mapping_suite=mapping_suite_package).execute_test_suite()
+            report_builder = SHACLReportBuilder(shacl_test_suite_execution=test_suite_execution)
+            reports.append(report_builder.generate_report())
+
+        return reports
+
+    for report in shacl_validation(rdf_manifestation=notice.rdf_manifestation):
+        notice.set_rdf_validation(rdf_validation=report)
+
+    for report in shacl_validation(rdf_manifestation=notice.distilled_rdf_manifestation):
+        notice.set_distilled_rdf_validation(rdf_validation=report)
 
 
 def validate_notice_by_id_with_shacl_suite(notice_id: str, mapping_suite_identifier: str,

@@ -59,16 +59,31 @@ def test_unique_xpaths_covered_by_notices(notice_repository_with_indexed_notices
     unique_xpaths = get_unique_xpaths_covered_by_notices(notice_ids=unique_notices, mongodb_client=mongodb_client)
     assert len(unique_xpaths) == 290
 
+
 def test_get_most_representative_notices(notice_repository_with_indexed_notices):
     mongodb_client = notice_repository_with_indexed_notices.mongodb_client
     unique_notices = get_unique_notice_id_from_notice_repository(mongodb_client=mongodb_client)
-    most_representative_notices = get_most_representative_notices(notice_ids=unique_notices, mongodb_client=mongodb_client,
+    most_representative_notices = get_most_representative_notices(notice_ids=unique_notices,
+                                                                  mongodb_client=mongodb_client,
                                                                   top_k=10)
     assert most_representative_notices
     assert len(most_representative_notices) == 6
+
 
 def test_get_most_representative_notices_by_query_result(notice_repository_with_indexed_notices):
     mongodb_client = notice_repository_with_indexed_notices.mongodb_client
     notice_db = mongodb_client[notice_repository_with_indexed_notices._database_name]
     notice_collection = notice_db[notice_repository_with_indexed_notices._collection_name]
-    notice_ids = notice_collection.aggregate()
+    notices_with_form_number_f03 = list(notice_collection.aggregate([
+        {"$match": {"normalised_metadata.form_number": "F03"}},
+        {
+            "$group": {"_id": None,
+                       "ted_ids": {"$push": "$ted_id"}
+                       }
+        }
+    ]))[0]["ted_ids"]
+    most_representative_notices = get_most_representative_notices(notice_ids=notices_with_form_number_f03,
+                                                                  mongodb_client=mongodb_client,
+                                                                  top_k=10)
+    assert most_representative_notices
+    assert len(most_representative_notices) == 6

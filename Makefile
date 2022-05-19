@@ -97,20 +97,20 @@ build-airflow: guard-ENVIRONMENT create-env-airflow build-externals
 	@ docker-compose -p ${ENVIRONMENT} --file ./infra/airflow/docker-compose.yaml --env-file ${ENV_FILE} up -d --force-recreate
 
 start-airflow: build-externals
-	@ echo -e "$(BUILD_PRINT)Starting Airflow servies $(END_BUILD_PRINT)"
+	@ echo -e "$(BUILD_PRINT)Starting Airflow services $(END_BUILD_PRINT)"
 	@ docker-compose -p ${ENVIRONMENT} --file ./infra/airflow/docker-compose.yaml --env-file ${ENV_FILE} up -d
 
 stop-airflow:
-	@ echo -e "$(BUILD_PRINT)Stoping Airflow services $(END_BUILD_PRINT)"
+	@ echo -e "$(BUILD_PRINT)Stopping Airflow services $(END_BUILD_PRINT)"
 	@ docker-compose -p ${ENVIRONMENT} --file ./infra/airflow/docker-compose.yaml --env-file ${ENV_FILE} down
 
 #	------------------------
 start-allegro-graph: build-externals
-	@ echo -e "$(BUILD_PRINT)Starting Allegro-Graph servies $(END_BUILD_PRINT)"
+	@ echo -e "$(BUILD_PRINT)Starting Allegro-Graph services $(END_BUILD_PRINT)"
 	@ docker-compose -p ${ENVIRONMENT} --file ./infra/allegro-graph/docker-compose.yml --env-file ${ENV_FILE} up -d
 
 stop-allegro-graph:
-	@ echo -e "$(BUILD_PRINT)Stoping Allegro-Graph services $(END_BUILD_PRINT)"
+	@ echo -e "$(BUILD_PRINT)Stopping Allegro-Graph services $(END_BUILD_PRINT)"
 	@ docker-compose -p ${ENVIRONMENT} --file ./infra/allegro-graph/docker-compose.yml --env-file ${ENV_FILE} down
 
 #	------------------------
@@ -282,3 +282,20 @@ refresh-mapping-files:
 #stop-silk-service:
 #	@ echo -e "Stop silk service"
 #	@ cd infra/silk/ && docker-compose down
+
+
+#-----------------------------------------------------------------------------
+# API Service commands
+#-----------------------------------------------------------------------------
+build-api:
+	@ echo -e "$(BUILD_PRINT) Build API services $(END_BUILD_PRINT)"
+	@ docker-compose -p ${ENVIRONMENT} --file infra/api/docker-compose.yml --env-file ${ENV_FILE} build --no-cache --force-rm
+	@ docker-compose -p ${ENVIRONMENT} --file infra/api/docker-compose.yml --env-file ${ENV_FILE} up -d --force-recreate
+
+start-api:
+	@ echo -e "$(BUILD_PRINT)Starting API services $(END_BUILD_PRINT)"
+	@ docker-compose -p ${ENVIRONMENT} --file infra/api/docker-compose.yml --env-file ${ENV_FILE} up -d
+
+stop-api:
+	@ echo -e "$(BUILD_PRINT)Stopping API services $(END_BUILD_PRINT)"
+	@ docker-compose -p ${ENVIRONMENT} --file infra/api/docker-compose.yml --env-file ${ENV_FILE} down

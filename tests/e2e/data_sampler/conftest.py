@@ -6,6 +6,7 @@ from ted_sws.data_manager.adapters.notice_repository import NoticeRepository
 from ted_sws.data_sampler.services.notice_xml_indexer import index_notice
 from ted_sws.mapping_suite_processor.services.conceptual_mapping_processor import \
     mapping_suite_processor_from_github_expand_and_load_package_in_mongo_db
+from ted_sws.metadata_normaliser.services.metadata_normalizer import normalise_notice
 
 
 @pytest.fixture
@@ -29,5 +30,6 @@ def notice_repository_with_indexed_notices(mongodb_client) -> NoticeRepository:
     notice_repository = NoticeRepository(mongodb_client=mongodb_client)
     for notice in notice_repository.list():
         indexed_notice = index_notice(notice=notice)
-        notice_repository.update(notice=indexed_notice)
+        normalised_notice = normalise_notice(notice=indexed_notice)
+        notice_repository.update(notice=normalised_notice)
     return notice_repository

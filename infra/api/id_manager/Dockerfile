@@ -8,4 +8,4 @@ RUN pip install --upgrade pip
 RUN pip install -r requirements.txt
 RUN pip install -r infra/api/requirements.txt
 
-ENTRYPOINT uvicorn --host 0.0.0.0 --port ${ID_MANAGER_API_PORT} ted_sws.id_manager.entrypoints.api.main:app --reload
+ENTRYPOINT uvicorn --host 0.0.0.0 --port ${ID_MANAGER_API_PORT} ted_sws.id_manager.entrypoints.api.main:app

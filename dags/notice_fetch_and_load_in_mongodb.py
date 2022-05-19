@@ -67,7 +67,6 @@ def selector_notice_fetch_orchestrator():
             indexed_notice = index_notice(notice=notice)
             notice_repository.update(notice=indexed_notice)
 
-
     fetch_notice_from_ted() >> index_notices()
 
 

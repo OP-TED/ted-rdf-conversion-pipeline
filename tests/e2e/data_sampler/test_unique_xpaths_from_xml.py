@@ -1,4 +1,6 @@
 from ted_sws.data_manager.adapters.notice_repository import NoticeRepository
+from ted_sws.data_sampler.services.notice_selectors import get_notice_ids_by_form_number, \
+    get_notice_ids_by_eforms_subtype
 from ted_sws.data_sampler.services.notice_xml_indexer import index_notice, index_notice_by_id, \
     get_unique_xpaths_from_notice_repository, get_unique_notice_id_from_notice_repository, \
     get_minimal_set_of_notices_for_coverage_xpaths, get_minimal_set_of_xpaths_for_coverage_notices, \
@@ -72,18 +74,19 @@ def test_get_most_representative_notices(notice_repository_with_indexed_notices)
 
 def test_get_most_representative_notices_by_query_result(notice_repository_with_indexed_notices):
     mongodb_client = notice_repository_with_indexed_notices.mongodb_client
-    notice_db = mongodb_client[notice_repository_with_indexed_notices._database_name]
-    notice_collection = notice_db[notice_repository_with_indexed_notices._collection_name]
-    notices_with_form_number_f03 = list(notice_collection.aggregate([
-        {"$match": {"normalised_metadata.form_number": "F03"}},
-        {
-            "$group": {"_id": None,
-                       "ted_ids": {"$push": "$ted_id"}
-                       }
-        }
-    ]))[0]["ted_ids"]
+    notices_with_form_number_f03 = get_notice_ids_by_form_number(form_number="F03", mongodb_client=mongodb_client)
     most_representative_notices = get_most_representative_notices(notice_ids=notices_with_form_number_f03,
                                                                   mongodb_client=mongodb_client,
                                                                   top_k=10)
     assert most_representative_notices
     assert len(most_representative_notices) == 6
+
+    notices_with_eforms_subtype = get_notice_ids_by_eforms_subtype(eforms_subtype="29", mongodb_client=mongodb_client)
+    most_representative_notices = get_most_representative_notices(notice_ids=notices_with_eforms_subtype,
+                                                                  mongodb_client=mongodb_client,
+                                                                  top_k=10)
+    assert most_representative_notices
+    assert len(most_representative_notices) == 6
+
+
+

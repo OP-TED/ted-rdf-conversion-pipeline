@@ -13,10 +13,9 @@ from ted_sws.core.model.notice import NoticeStatus
 import datetime
 
 
-DAILY_DAG_ARGUMENTS = DEFAULT_DAG_ARGUMENTS
-DAILY_DAG_ARGUMENTS["schedule_interval"] = "* * * * *"
-
-@dag(default_args=DAILY_DAG_ARGUMENTS, tags=['selector', 'daily-fetch'])
+@dag(default_args=DEFAULT_DAG_ARGUMENTS,
+     schedule_interval="*/10 * * * *",  # "0 3 * * *" for daily at 03:00
+     tags=['selector', 'daily-fetch'])
 def selector_daily_fetch_orchestrator():
     @task
     def fetch_notice_from_ted():

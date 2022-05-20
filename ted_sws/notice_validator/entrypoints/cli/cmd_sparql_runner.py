@@ -13,8 +13,8 @@ from ted_sws.notice_validator.services.sparql_test_suite_runner import SPARQLTes
 
 DEFAULT_RDF_FOLDER = '{mappings_path}/{mapping_suite_id}/' + DEFAULT_OUTPUT_PATH
 DEFAULT_TEST_SUITE_REPORT_FOLDER = "test_suite_report"
-JSON_REPORT = "{id}.json"
-HTML_REPORT = "{id}.html"
+JSON_REPORT = "sparql_{id}.json"
+HTML_REPORT = "sparql_{id}.html"
 CMD_NAME = "CMD_SPARQL_RUNNER"
 
 """

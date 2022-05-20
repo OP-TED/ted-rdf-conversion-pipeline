@@ -16,7 +16,7 @@ def selector_raw_notices_process_orchestrator():
         context = get_current_context()
         mongodb_client = MongoClient(config.MONGO_DB_AUTH_URL)
         notice_repository = NoticeRepository(mongodb_client=mongodb_client)
-        notices = notice_repository.get_notice_by_status(notice_status=NoticeStatus.ELIGIBLE_FOR_PACKAGING)
+        notices = notice_repository.get_notice_by_status(notice_status=NoticeStatus.RAW)
         for notice in notices:
             TriggerDagRunOperator(
                 task_id=f'trigger_worker_dag_{notice.ted_id}',

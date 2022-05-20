@@ -179,3 +179,16 @@ def get_unique_xpaths_covered_by_notices(notice_ids: List[str], mongodb_client: 
         }
     ]))[0]["xpaths"]
     return results
+
+
+def get_most_representative_notices(notice_ids: List[str], mongodb_client: MongoClient, top_k: int = None) -> List[str]:
+    """
+        This function returns top_k the most representative notices, from the list of notices provided.
+    :param notice_ids:
+    :param mongodb_client:
+    :param top_k:
+    :return:
+    """
+    unique_xpaths = get_unique_xpaths_covered_by_notices(notice_ids=notice_ids, mongodb_client=mongodb_client)
+    minimal_set_of_notices = get_minimal_set_of_notices_for_coverage_xpaths(xpaths=unique_xpaths,mongodb_client=mongodb_client)
+    return minimal_set_of_notices[:top_k]

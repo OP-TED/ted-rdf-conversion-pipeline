@@ -5,6 +5,8 @@ import json
 import mongomock
 import pymongo
 import pytest
+from click.testing import CliRunner
+from mongomock.gridfs import enable_gridfs_integration
 
 from ted_sws.core.model.manifestation import XMLManifestation
 from ted_sws.core.model.metadata import TEDMetadata, LanguageTaggedString, NormalisedMetadata
@@ -19,8 +21,9 @@ from ted_sws.notice_fetcher.services.notice_fetcher import NoticeFetcher
 from tests import TEST_DATA_PATH
 from tests.fakes.fake_repository import FakeNoticeRepository
 from tests.fakes.fake_ted_api import FakeRequestAPI
-from mongomock.gridfs import enable_gridfs_integration
+
 enable_gridfs_integration()
+
 
 @pytest.fixture
 def notice_id():
@@ -191,6 +194,7 @@ def normalised_metadata_object():
 
     return NormalisedMetadata(**data)
 
+
 @pytest.fixture
 @mongomock.patch(servers=(('server.example.com', 27017),))
 def mongodb_client():
@@ -198,3 +202,8 @@ def mongodb_client():
     for database_name in mongo_client.list_database_names():
         mongo_client.drop_database(database_name)
     return mongo_client
+
+
+@pytest.fixture
+def cli_runner():
+    return CliRunner()

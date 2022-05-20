@@ -287,15 +287,21 @@ refresh-mapping-files:
 #-----------------------------------------------------------------------------
 # API Service commands
 #-----------------------------------------------------------------------------
-build-api:
-	@ echo -e "$(BUILD_PRINT) Build API services $(END_BUILD_PRINT)"
+build-all-apis: build-id_manager-api
+
+start-all-apis: start-id_manager-api
+
+stop-all-apis: stop-id_manager-api
+
+build-id_manager-api:
+	@ echo -e "$(BUILD_PRINT) Build id_manager API service $(END_BUILD_PRINT)"
 	@ docker-compose -p ${ENVIRONMENT} --file infra/api/docker-compose.yml --env-file ${ENV_FILE} build --no-cache --force-rm
 	@ docker-compose -p ${ENVIRONMENT} --file infra/api/docker-compose.yml --env-file ${ENV_FILE} up -d --force-recreate
 
-start-api:
-	@ echo -e "$(BUILD_PRINT)Starting API services $(END_BUILD_PRINT)"
+start-id_manager-api:
+	@ echo -e "$(BUILD_PRINT)Starting id_manager API service $(END_BUILD_PRINT)"
 	@ docker-compose -p ${ENVIRONMENT} --file infra/api/docker-compose.yml --env-file ${ENV_FILE} up -d
 
-stop-api:
-	@ echo -e "$(BUILD_PRINT)Stopping API services $(END_BUILD_PRINT)"
+stop-id_manager-api:
+	@ echo -e "$(BUILD_PRINT)Stopping id_manager API service $(END_BUILD_PRINT)"
 	@ docker-compose -p ${ENVIRONMENT} --file infra/api/docker-compose.yml --env-file ${ENV_FILE} down

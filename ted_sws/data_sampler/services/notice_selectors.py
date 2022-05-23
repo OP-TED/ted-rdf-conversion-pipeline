@@ -4,11 +4,12 @@ from pymongo import MongoClient
 
 from ted_sws.data_manager.adapters.notice_repository import NoticeRepository
 
-
 NOTICE_METADATA_FORM_NUMBER_FIELD_NAME = "form_number"
 NOTICE_METADATA_EFORMS_SUBTYPE_FIELD_NAME = "eforms_subtype"
 
-def get_notice_ids_by_normalised_metadata_field_value(field_name: str, field_value: str, mongodb_client: MongoClient) -> List[str]:
+
+def get_notice_ids_by_normalised_metadata_field_value(field_name: str, field_value: str,
+                                                      mongodb_client: MongoClient) -> List[str]:
     """
         This function returns a list of notice_ids, according to the value of a field in normalized_metadata.
     :param field_name:
@@ -27,6 +28,7 @@ def get_notice_ids_by_normalised_metadata_field_value(field_name: str, field_val
     ]))[0]["ted_ids"]
     return notice_ids
 
+
 def get_notice_ids_by_form_number(form_number: str, mongodb_client: MongoClient) -> List[str]:
     """
         This function returns a list of notice_ids, according to a form_number.
@@ -35,9 +37,10 @@ def get_notice_ids_by_form_number(form_number: str, mongodb_client: MongoClient)
     :return:
     """
     return get_notice_ids_by_normalised_metadata_field_value(field_name=NOTICE_METADATA_FORM_NUMBER_FIELD_NAME,
-                                                  field_value=form_number,
-                                                  mongodb_client=mongodb_client
-                                                  )
+                                                             field_value=form_number,
+                                                             mongodb_client=mongodb_client
+                                                             )
+
 
 def get_notice_ids_by_eforms_subtype(eforms_subtype: str, mongodb_client: MongoClient) -> List[str]:
     """
@@ -47,6 +50,6 @@ def get_notice_ids_by_eforms_subtype(eforms_subtype: str, mongodb_client: MongoC
     :return:
     """
     return get_notice_ids_by_normalised_metadata_field_value(field_name=NOTICE_METADATA_EFORMS_SUBTYPE_FIELD_NAME,
-                                                  field_value=eforms_subtype,
-                                                  mongodb_client=mongodb_client
-                                                  )
+                                                             field_value=eforms_subtype,
+                                                             mongodb_client=mongodb_client
+                                                             )

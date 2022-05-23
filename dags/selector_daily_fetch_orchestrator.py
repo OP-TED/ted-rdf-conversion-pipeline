@@ -14,7 +14,7 @@ import datetime
 
 
 @dag(default_args=DEFAULT_DAG_ARGUMENTS,
-     schedule_interval="*/10 * * * *",  # "0 3 * * *" for daily at 03:00
+     schedule_interval="0 3 * * *",
      tags=['selector', 'daily-fetch'])
 def selector_daily_fetch_orchestrator():
     @task

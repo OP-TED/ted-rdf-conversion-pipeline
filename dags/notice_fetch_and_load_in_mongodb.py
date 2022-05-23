@@ -1,5 +1,6 @@
 from datetime import datetime
 
+from airflow.operators.trigger_dagrun import TriggerDagRunOperator
 from dateutil import rrule
 
 from dags import DEFAULT_DAG_ARGUMENTS
@@ -40,7 +41,7 @@ def generate_wild_card_by_date(date: str) -> str:
     return f"{date}*"
 
 
-@dag(default_args=DEFAULT_DAG_ARGUMENTS, tags=['selector', 'daily-fetch'])
+@dag(default_args=DEFAULT_DAG_ARGUMENTS, schedule_interval=None, tags=['selector', 'daily-fetch'])
 def selector_notice_fetch_orchestrator():
     @task
     def fetch_notice_from_ted():
@@ -67,8 +68,21 @@ def selector_notice_fetch_orchestrator():
             indexed_notice = index_notice(notice=notice)
             notice_repository.update(notice=indexed_notice)
 
-
-    fetch_notice_from_ted() >> index_notices()
+    @task
+    def trigger_normalise_worker():
+        context = get_current_context()
+        mongodb_client = MongoClient(config.MONGO_DB_AUTH_URL)
+        notice_repository = NoticeRepository(mongodb_client=mongodb_client)
+        notices = notice_repository.get_notice_by_status(notice_status=NoticeStatus.RAW)
+        for notice in notices:
+            TriggerDagRunOperator(
+                task_id=f'trigger_worker_dag_{notice.ted_id}',
+                trigger_dag_id="normalise_worker",
+                conf={"notice_id": notice.ted_id,
+                      "notice_status": str(notice.status)
+                      }
+            ).execute(context=context)
+    fetch_notice_from_ted() >> index_notices() >> trigger_normalise_worker()
 
 
 dag = selector_notice_fetch_orchestrator()

@@ -1,0 +1,12 @@
+version: '3'
+
+services:
+  api-id_manager:
+    container_name: api-id_manager
+    build:
+      context: ../..
+      dockerfile: ./infra/api/id_manager/Dockerfile
+    ports:
+      - ${ID_MANAGER_API_PORT}:${ID_MANAGER_API_PORT}
+    env_file: ../../.env
+

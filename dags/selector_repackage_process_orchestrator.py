@@ -11,7 +11,9 @@ from ted_sws.data_manager.adapters.notice_repository import NoticeRepository
 RE_PACKAGE_TARGET_NOTICE_STATES = [NoticeStatus.ELIGIBLE_FOR_PACKAGING, NoticeStatus.INELIGIBLE_FOR_PUBLISHING]
 
 
-@dag(default_args=DEFAULT_DAG_ARGUMENTS, tags=['selector', 're-package'])
+@dag(default_args=DEFAULT_DAG_ARGUMENTS,
+     schedule_interval=None,
+     tags=['selector', 're-package'])
 def selector_re_package_process_orchestrator():
     @task
     def select_notices_for_re_package_and_reset_status():

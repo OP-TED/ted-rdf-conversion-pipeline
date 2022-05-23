@@ -5,7 +5,8 @@ from ted_sws.data_sampler.services.notice_sampler import store_notice_samples_in
     RESULT_NOTICE_SAMPLES_FOLDER_NAME
 
 
-def test_notice_sampler(mongodb_client):
+def test_notice_sampler(notice_repository_with_indexed_notices):
+    mongodb_client = notice_repository_with_indexed_notices.mongodb_client
     with tempfile.TemporaryDirectory() as tmp_dirname:
         test_storage_path = pathlib.Path(tmp_dirname)
         store_notice_samples_in_file_system(mongodb_client=mongodb_client,

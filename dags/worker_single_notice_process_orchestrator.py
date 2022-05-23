@@ -24,7 +24,9 @@ NOTICE_ID = "notice_id"
 MAPPING_SUITE_ID = "mapping_suite_id"
 
 
-@dag(default_args=DEFAULT_DAG_ARGUMENTS, tags=['worker', 'pipeline'])
+@dag(default_args=DEFAULT_DAG_ARGUMENTS,
+     schedule_interval=None,
+     tags=['worker', 'pipeline'])
 def worker_single_notice_process_orchestrator():
     """
 

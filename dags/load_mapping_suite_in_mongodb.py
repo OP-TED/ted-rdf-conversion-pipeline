@@ -18,7 +18,10 @@ TRIGGER_DOCUMENT_PROC_PIPELINE_TASK_ID = "trigger_document_proc_pipeline"
 FINISH_LOADING_MAPPING_SUITE_TASK_ID = "finish_loading_mapping_suite"
 CHECK_IF_LOAD_TEST_DATA_TASK_ID = "check_if_load_test_data"
 
-@dag(default_args=DEFAULT_DAG_ARGUMENTS, tags=['fetch', 'mapping-suite', 'github'])
+
+@dag(default_args=DEFAULT_DAG_ARGUMENTS,
+     schedule_interval=None,
+     tags=['fetch', 'mapping-suite', 'github'])
 def load_mapping_suite_in_mongodb():
     @task
     def fetch_mapping_suite_package_from_github_into_mongodb():

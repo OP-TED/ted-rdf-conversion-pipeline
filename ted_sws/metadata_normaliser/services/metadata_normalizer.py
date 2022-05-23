@@ -203,7 +203,13 @@ class ExtractedMetadataNormaliser:
         return form_type, notice_type, legal_basis, eforms_subtype
 
     def get_map_list_value_by_code(self, mapping: Dict, listing: List):
-        return [self.get_map_value(mapping=mapping, value=element.code) if element else None for element in listing]
+        result = []
+        for element in listing:
+            if element:
+                map_value = self.get_map_value(mapping=mapping, value=element.code)
+                if map_value:
+                    result.append(map_value)
+        return result
 
     @classmethod
     def iso_date_format(cls, _date: str, with_none=False):

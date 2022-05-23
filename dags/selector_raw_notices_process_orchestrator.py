@@ -9,7 +9,9 @@ from ted_sws import config
 from ted_sws.data_manager.adapters.notice_repository import NoticeRepository
 
 
-@dag(default_args=DEFAULT_DAG_ARGUMENTS, tags=['selector', 'raw-notices'])
+@dag(default_args=DEFAULT_DAG_ARGUMENTS,
+     schedule_interval=None,
+     tags=['selector', 'raw-notices'])
 def selector_raw_notices_process_orchestrator():
     @task
     def trigger_worker_for_raw_notices():

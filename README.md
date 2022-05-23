@@ -85,13 +85,33 @@ to get the Usage Help:
 ```bash
 Usage: resources_injector [OPTIONS] [MAPPING_SUITE_ID]
 
-  Injects the requested resources from Conceptual Mappings into the
-  MappingSuite
+  Injects the requested resources from Conceptual Mappings into the MappingSuite
 
 Options:
   -i, --opt-conceptual-mappings-file TEXT     Use to overwrite default INPUT
   -o, --opt-output-folder TEXT                Use to overwrite default OUTPUT
   -r, --opt-resources-folder TEXT
+  -m, --opt-mappings-folder TEXT
+  --help                                      Show this message and exit.
+```
+
+#### CMD: rml_modules_injector
+Injects the requested RML modules from Conceptual Mappings into the MappingSuite.
+
+Use:
+```bash
+rml_modules_injector --help
+```
+to get the Usage Help:
+```bash
+Usage: rml_modules_injector [OPTIONS] [MAPPING_SUITE_ID]
+
+  Injects the requested RML modules from Conceptual Mappings into the MappingSuite
+
+Options:
+  -i, --opt-conceptual-mappings-file TEXT     Use to overwrite default INPUT
+  -o, --opt-output-folder TEXT                Use to overwrite default OUTPUT
+  -r, --opt-rml-modules-folder TEXT
   -m, --opt-mappings-folder TEXT
   --help                                      Show this message and exit.
 ```
@@ -189,6 +209,7 @@ By default, successively runs the following commands:
 ```bash
 - normalisation_resource_generator
 - resources_injector
+- rml_modules_injector
 - metadata_generator
 - yarrrml2rml_converter
 - sparql_generator
@@ -207,7 +228,7 @@ Usage: mapping_suite_processor [OPTIONS] MAPPING_SUITE_ID
   yarrrml2rml_converter - sparql_generator
 
 Options:
-  -c, --opt-commands [normalisation_resource_generator|resources_injector|metadata_generator|yarrrml2rml_converter|sparql_generator]
+  -c, --opt-commands [normalisation_resource_generator|resources_injector|rml_modules_injector|metadata_generator|yarrrml2rml_converter|sparql_generator]
   -m, --opt-mappings-folder TEXT
   --help                                      Show this message and exit.
 ```
@@ -259,7 +280,7 @@ Options:
 ##### Start local API server
 To start the API server:
 ```bash
-id-manager-api-start-server
+api-id_manager-start-server
 ```
 Output:
 ```bash
@@ -269,11 +290,11 @@ See http://localhost:8000/api/v1/docs for API usage.
 ```
 Use:
 ```bash
-api-start-server --help
+api-id_manager-start-server --help
 ```
 to get the cli command Usage Help:
 ```bash
-Usage: id-manager-api-start-server [OPTIONS]
+Usage: api-id_manager-start-server [OPTIONS]
 
 Options:
   -h, --host TEXT

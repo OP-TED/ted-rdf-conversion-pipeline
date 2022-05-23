@@ -15,6 +15,13 @@ RESULT_NOTICE_SAMPLES_FOLDER_NAME = "notice_samples"
 
 
 def store_notice_samples_in_file_system(mongodb_client: MongoClient, storage_path: pathlib.Path, top_k: int = None):
+    """
+        This function store notice samples in file system. Notices are selected by form number and eforms_subtypes.
+    :param mongodb_client:
+    :param storage_path:
+    :param top_k:
+    :return:
+    """
     storage_path = storage_path / RESULT_NOTICE_SAMPLES_FOLDER_NAME
     storage_path.mkdir(parents=True, exist_ok=True)
     sf_notice_df = MappingFilesRegistry().sf_notice_df

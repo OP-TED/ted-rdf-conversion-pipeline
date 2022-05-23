@@ -17,7 +17,9 @@ RE_TRANSFORM_TARGET_NOTICE_STATES = [NoticeStatus.ELIGIBLE_FOR_TRANSFORMATION, N
                                      ]
 
 
-@dag(default_args=DEFAULT_DAG_ARGUMENTS, tags=['selector', 're-transform'])
+@dag(default_args=DEFAULT_DAG_ARGUMENTS,
+     schedule_interval=None,
+     tags=['selector', 're-transform'])
 def selector_re_transform_process_orchestrator():
     @task
     def select_notices_for_re_transform_and_reset_status():

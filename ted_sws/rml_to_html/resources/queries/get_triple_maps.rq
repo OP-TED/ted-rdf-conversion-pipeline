@@ -1,0 +1,10 @@
+prefix rr: <http://www.w3.org/ns/r2rml#>
+
+SELECT ?tripleMap ?tmLabel ?tmComment
+
+{
+?tripleMap a rr:TriplesMap .
+ optional{?tripleMap rdfs:label ?tmLabel}
+ optional{?tripleMap rdfs:comment ?tmComment}
+
+}

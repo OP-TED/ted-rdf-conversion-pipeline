@@ -1,0 +1,13 @@
+prefix epo: <http://data.europa.eu/a4g/ontology#>
+prefix rr: <http://www.w3.org/ns/r2rml#>
+
+SELECT ?tripleMap ?template ?cls
+WHERE {
+  values (?tripleMap){
+ (<http://data.europa.eu/a4g/mapping/sf-rml/ContactPoint>)}
+
+
+  ?tripleMap a rr:TriplesMap ;
+           rr:subjectMap / rr:template ?template ;
+       	   rr:subjectMap / rr:class ?cls . 
+}

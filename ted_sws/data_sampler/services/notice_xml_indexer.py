@@ -89,10 +89,12 @@ def get_minimal_set_of_xpaths_for_coverage_notices(notice_ids: List[str], mongod
                         "notice_ids": {"$push": "$ted_id"}}},
             {"$sort": {"count": -1}},
             {"$limit": 1}
-        ]))[0]
-        minimal_set_of_xpaths.append(tmp_result["_id"])
-        for notice_id in tmp_result["notice_ids"]:
-            unique_notice_ids.remove(notice_id)
+        ]))
+        if tmp_result:
+            tmp_result = tmp_result[0]
+            minimal_set_of_xpaths.append(tmp_result["_id"])
+            for notice_id in tmp_result["notice_ids"]:
+                unique_notice_ids.remove(notice_id)
 
     return minimal_set_of_xpaths
 
@@ -121,10 +123,12 @@ def get_minimal_set_of_notices_for_coverage_xpaths(xpaths: List[str], mongodb_cl
             {"$group": {"_id": "$ted_id", "count": {"$sum": 1}, "xpaths": {"$push": "$xml_metadata.unique_xpaths"}}},
             {"$sort": {"count": -1}},
             {"$limit": 1}
-        ]))[0]
-        minimal_set_of_notices.append(tmp_result["_id"])
-        for xpath in tmp_result["xpaths"]:
-            unique_xpaths.remove(xpath)
+        ]))
+        if tmp_result:
+            tmp_result = tmp_result[0]
+            minimal_set_of_notices.append(tmp_result["_id"])
+            for xpath in tmp_result["xpaths"]:
+                unique_xpaths.remove(xpath)
 
     return minimal_set_of_notices
 
@@ -144,9 +148,8 @@ def get_unique_notices_id_covered_by_xpaths(xpaths: List[str], mongodb_client: M
                        "ted_ids": {"$push": "$ted_id"}
                        }
         }
-    ]))[0]["ted_ids"]
-    return results
-
+    ]))
+    return results[0]["ted_ids"] if results else results
 
 def get_unique_xpaths_covered_by_notices(notice_ids: List[str], mongodb_client: MongoClient) -> List[str]:
     """
@@ -177,8 +180,8 @@ def get_unique_xpaths_covered_by_notices(notice_ids: List[str], mongodb_client: 
                 }
             }
         }
-    ]))[0]["xpaths"]
-    return results
+    ]))
+    return results[0]["xpaths"] if results else results
 
 
 def get_most_representative_notices(notice_ids: List[str], mongodb_client: MongoClient, top_k: int = None) -> List[str]:

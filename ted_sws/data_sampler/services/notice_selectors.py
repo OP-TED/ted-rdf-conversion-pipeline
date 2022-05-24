@@ -25,8 +25,8 @@ def get_notice_ids_by_normalised_metadata_field_value(field_name: str, field_val
                        "ted_ids": {"$push": "$ted_id"}
                        }
         }
-    ]))[0]["ted_ids"]
-    return notice_ids
+    ]))
+    return notice_ids[0]["ted_ids"] if len(notice_ids) else notice_ids
 
 
 def get_notice_ids_by_form_number(form_number: str, mongodb_client: MongoClient) -> List[str]:

@@ -59,12 +59,9 @@ class CmdRunner(BaseCmdRunner):
                                                          mapping_suite=self.mapping_suite).execute_test_suite()
 
             report_builder = SPARQLReportBuilder(sparql_test_suite_execution=test_suite_execution)
-            json_report: RDFValidationManifestation = report_builder.generate_json()
-            html_report = report_builder.generate_html()
+            html_report = report_builder.generate_report()
 
             suite_id = sparql_test_suite.identifier
-            json_data = str(json.dumps(json_report.dict(), indent=4))
-            self.save_report(report_path, JSON_REPORT, suite_id, json_data)
             html_data = html_report.object_data
             self.save_report(report_path, HTML_REPORT, suite_id, html_data)
 

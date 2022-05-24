@@ -54,26 +54,33 @@ def test_sparql_report_builder(rdf_file_content, sparql_test_suite, dummy_mappin
     sparql_runner = SPARQLTestSuiteRunner(rdf_manifestation=rdf_manifestation, sparql_test_suite=sparql_test_suite,
                                           mapping_suite=dummy_mapping_suite)
     report_builder = SPARQLReportBuilder(sparql_test_suite_execution=sparql_runner.execute_test_suite())
+    report = report_builder.generate_report()
 
-    json_report = report_builder.generate_json()
-    html_report = report_builder.generate_html()
-
-    assert json_report
-    assert html_report
-    assert isinstance(json_report, RDFValidationManifestation)
-    assert isinstance(html_report, RDFValidationManifestation)
-    assert json_report.sparql_test_suite_identifier == "sparql_test_package"
+    assert report
+    assert isinstance(report, RDFValidationManifestation)
+    assert report.object_data
+    assert "sparql_test_package" in report.object_data
+    assert report.sparql_test_suite_identifier == "sparql_test_package"
 
 
 def test_validate_notice_with_sparql_suite(notice_with_distilled_status, dummy_mapping_suite, rdf_file_content):
     notice = notice_with_distilled_status
+    assert notice.rdf_manifestation
+    assert notice.distilled_rdf_manifestation
     validate_notice_with_sparql_suite(notice=notice, mapping_suite_package=dummy_mapping_suite)
-
-    assert notice.status == NoticeStatus.VALIDATED
-    assert isinstance(notice.get_rdf_validation(), list)
-    assert len(notice.get_rdf_validation()) == 2
-    assert isinstance(notice.get_rdf_validation()[0], RDFValidationManifestation)
-    assert notice.get_rdf_validation()[0].object_data
+    rdf_validation = notice.get_rdf_validation()
+    distilled_rdf_validation = notice.get_distilled_rdf_validation()
+    assert notice.status == NoticeStatus.DISTILLED
+    assert isinstance(rdf_validation, list)
+    assert len(rdf_validation) == 1
+    assert isinstance(rdf_validation[0], RDFValidationManifestation)
+    assert rdf_validation[0].object_data
+    assert rdf_validation[0].execution_results
+    assert isinstance(distilled_rdf_validation, list)
+    assert len(distilled_rdf_validation) == 1
+    assert isinstance(distilled_rdf_validation[0], RDFValidationManifestation)
+    assert distilled_rdf_validation[0].object_data
+    assert distilled_rdf_validation[0].execution_results
 
 
 def test_validate_notice_by_id_with_sparql_suite(notice_with_distilled_status, rdf_file_content, notice_repository,
@@ -87,9 +94,9 @@ def test_validate_notice_by_id_with_sparql_suite(notice_with_distilled_status, r
                                             notice_repository=notice_repository,
                                             mapping_suite_identifier="test_package")
 
-    assert notice.status == NoticeStatus.VALIDATED
+    assert notice.status == NoticeStatus.DISTILLED
     assert isinstance(notice.get_rdf_validation(), list)
-    assert len(notice.get_rdf_validation()) == 2
+    assert len(notice.get_rdf_validation()) == 1
     assert isinstance(notice.get_rdf_validation()[0], RDFValidationManifestation)
     assert notice.get_rdf_validation()[0].object_data
 

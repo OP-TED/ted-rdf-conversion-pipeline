@@ -87,22 +87,11 @@ class SPARQLReportBuilder:
     def __init__(self, sparql_test_suite_execution: SPARQLTestSuiteExecution):
         self.sparql_test_suite_execution = sparql_test_suite_execution
 
-    def generate_json(self) -> RDFValidationManifestation:
-        """
-        Generating json report from SPARQL test suite execution results
-        :return:
-        """
-        return self.sparql_test_suite_execution
-
-    def generate_html(self) -> RDFValidationManifestation:
-        """
-        Generating html report from SPARQL test suite execution results
-        :return:
-        """
-        report = TEMPLATES.get_template(SPARQL_TEST_SUITE_EXECUTION_HTML_REPORT_TEMPLATE).render(
+    def generate_report(self) -> RDFValidationManifestation:
+        html_report = TEMPLATES.get_template(SPARQL_TEST_SUITE_EXECUTION_HTML_REPORT_TEMPLATE).render(
             self.sparql_test_suite_execution.dict())
-
-        return RDFValidationManifestation(object_data=report)
+        self.sparql_test_suite_execution.object_data = html_report
+        return self.sparql_test_suite_execution
 
 
 def validate_notice_with_sparql_suite(notice: Notice, mapping_suite_package: MappingSuite):
@@ -121,9 +110,7 @@ def validate_notice_with_sparql_suite(notice: Notice, mapping_suite_package: Map
                                                          sparql_test_suite=sparql_test_suite,
                                                          mapping_suite=mapping_suite_package).execute_test_suite()
             report_builder = SPARQLReportBuilder(sparql_test_suite_execution=test_suite_execution)
-            #TODO: Create unique SPARQL report, look at SHACL implementation.
-            reports.append(report_builder.generate_html())
-            reports.append(report_builder.generate_json())
+            reports.append(report_builder.generate_report())
         return reports
 
     for report in sparql_validation(rdf_manifestation=notice.rdf_manifestation):

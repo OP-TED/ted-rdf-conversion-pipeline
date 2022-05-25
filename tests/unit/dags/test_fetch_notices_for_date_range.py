@@ -1,11 +1,11 @@
-from dags.notice_fetch_and_load_in_mongodb import generate_daily_dates, generate_wild_card_by_date
+from dags.fetch_notices_for_date_range import generate_daily_dates, generate_wild_card_by_date
 
 
-def test_selector_notice_fetch_orchestrator(dag_bag):
+def test_fetch_notices_for_date_range(dag_bag):
     assert dag_bag.import_errors == {}
-    dag = dag_bag.get_dag(dag_id="selector_notice_fetch_orchestrator")
+    dag = dag_bag.get_dag(dag_id="fetch_notices_for_date_range")
     assert dag is not None
-    assert dag.has_task("fetch_notice_from_ted")
+    assert dag.has_task("trigger_fetch_notices_workers_for_date_range")
 
 
 def test_generate_daily_dates():

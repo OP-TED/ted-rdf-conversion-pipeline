@@ -295,13 +295,13 @@ stop-all-apis: stop-id_manager-api
 
 build-id_manager-api:
 	@ echo -e "$(BUILD_PRINT) Build id_manager API service $(END_BUILD_PRINT)"
-	@ docker-compose -p ${ENVIRONMENT} --file infra/api/docker-compose.yml --env-file ${ENV_FILE} build --no-cache --force-rm
-	@ docker-compose -p ${ENVIRONMENT} --file infra/api/docker-compose.yml --env-file ${ENV_FILE} up -d --force-recreate
+	@ docker-compose -p common --file infra/api/docker-compose.yml --env-file ${ENV_FILE} build --no-cache --force-rm
+	@ docker-compose -p common --file infra/api/docker-compose.yml --env-file ${ENV_FILE} up -d --force-recreate
 
 start-id_manager-api:
 	@ echo -e "$(BUILD_PRINT)Starting id_manager API service $(END_BUILD_PRINT)"
-	@ docker-compose -p ${ENVIRONMENT} --file infra/api/docker-compose.yml --env-file ${ENV_FILE} up -d
+	@ docker-compose -p common --file infra/api/docker-compose.yml --env-file ${ENV_FILE} up -d
 
 stop-id_manager-api:
 	@ echo -e "$(BUILD_PRINT)Stopping id_manager API service $(END_BUILD_PRINT)"
-	@ docker-compose -p ${ENVIRONMENT} --file infra/api/docker-compose.yml --env-file ${ENV_FILE} down
+	@ docker-compose -p common --file infra/api/docker-compose.yml --env-file ${ENV_FILE} down

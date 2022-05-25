@@ -1,5 +1,5 @@
 FROM python:3.8-slim-buster
-EXPOSE $ID_MANAGER_API_PORT
+EXPOSE 8000
 
 WORKDIR /usr/src/api/id_manager
 COPY . /usr/src/api/id_manager

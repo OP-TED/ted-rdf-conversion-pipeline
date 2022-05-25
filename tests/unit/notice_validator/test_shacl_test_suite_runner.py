@@ -90,3 +90,16 @@ def test_validate_notice_by_id_with_shacl_suite(notice_with_distilled_status, rd
                                                mapping_suite_repository=mapping_suite_repository,
                                                notice_repository=notice_repository,
                                                mapping_suite_identifier="no_package_here")
+
+def test_validate_notice_by_id_with_shacl_suite_polygon(notice_with_distilled_status, rdf_file_content, notice_repository,
+                                                path_to_file_system_repository):
+    notice = notice_with_distilled_status
+    mapping_suite_repository = MappingSuiteRepositoryInFileSystem(repository_path=path_to_file_system_repository)
+    notice_repository.add(notice)
+
+    validate_notice_by_id_with_shacl_suite(notice_id=notice.ted_id,
+                                           mapping_suite_repository=mapping_suite_repository,
+                                           notice_repository=notice_repository,
+                                           mapping_suite_identifier="test_package")
+    result_notice = notice_repository.get(notice.ted_id)
+    print(result_notice.distilled_rdf_manifestation.validation)

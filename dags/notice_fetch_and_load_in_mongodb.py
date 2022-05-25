@@ -53,8 +53,8 @@ def selector_notice_fetch_orchestrator():
         if END_DATE_KEY not in dag_conf.keys():
             raise "Config key [end_date] is not present in dag context"
 
-        mongodb_client = MongoClient(config.MONGO_DB_AUTH_URL)
         for generated_date in generate_daily_dates(dag_conf[START_DATE_KEY], dag_conf[END_DATE_KEY]):
+            mongodb_client = MongoClient(config.MONGO_DB_AUTH_URL)
             NoticeFetcher(notice_repository=NoticeRepository(mongodb_client=mongodb_client),
                           ted_api_adapter=TedAPIAdapter(request_api=TedRequestAPI())).fetch_notices_by_date_wild_card(
                 wildcard_date=generate_wild_card_by_date(date=generated_date))  # "20220203*"
@@ -82,6 +82,7 @@ def selector_notice_fetch_orchestrator():
                       "notice_status": str(notice.status)
                       }
             ).execute(context=context)
+
     fetch_notice_from_ted() >> index_notices() >> trigger_normalise_worker()
 
 

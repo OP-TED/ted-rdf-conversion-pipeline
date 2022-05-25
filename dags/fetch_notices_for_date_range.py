@@ -50,7 +50,7 @@ def fetch_notices_for_date_range():
         for generated_date in generate_daily_dates(dag_conf[START_DATE_KEY], dag_conf[END_DATE_KEY]):
             wildcard_date = generate_wild_card_by_date(date=generated_date)
             TriggerDagRunOperator(
-                task_id=f'trigger_fetch_notices_per_day_worker_dag_{wildcard_date}',
+                task_id=f'trigger_fetch_notices_per_day_worker_dag_{wildcard_date[:-1]}',
                 trigger_dag_id="fetch_notices_per_day_worker",
                 conf={DATE_WILD_CARD_KEY: wildcard_date}
             ).execute(context=context)

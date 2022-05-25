@@ -5,6 +5,7 @@ from airflow.decorators import dag, task
 from airflow.operators.python import get_current_context
 from pymongo import MongoClient
 
+from dags.index_and_normalise_notice_worker import NOTICE_ID
 from ted_sws import config
 from ted_sws.core.model.notice import NoticeStatus
 from ted_sws.data_manager.adapters.notice_repository import NoticeRepository
@@ -40,7 +41,7 @@ def fetch_notices_per_day_worker():
             TriggerDagRunOperator(
                 task_id=f'trigger_index_and_normalise_notice_worker_dag_{notice.ted_id}',
                 trigger_dag_id="index_and_normalise_notice_worker",
-                conf={"notice_id": notice.ted_id}
+                conf={NOTICE_ID: notice.ted_id}
             ).execute(context=context)
 
     fetch_notices() >> trigger_index_and_normalise_notice_worker()

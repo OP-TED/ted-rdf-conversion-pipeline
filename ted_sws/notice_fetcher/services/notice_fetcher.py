@@ -1,5 +1,6 @@
 import abc
 from datetime import date
+from typing import List
 
 from ted_sws.data_manager.adapters.repository_abc import NoticeRepositoryABC
 from ted_sws.core.model.manifestation import XMLManifestation
@@ -22,7 +23,7 @@ class NoticeFetcherABC(abc.ABC):
         """
 
     @abc.abstractmethod
-    def fetch_notices_by_query(self, query: dict):
+    def fetch_notices_by_query(self, query: dict) -> List[str]:
         """
             This method will fetch a list of notices by using a search query
         :param query:
@@ -30,7 +31,7 @@ class NoticeFetcherABC(abc.ABC):
         """
 
     @abc.abstractmethod
-    def fetch_notices_by_date_range(self, start_date: date, end_date: date):
+    def fetch_notices_by_date_range(self, start_date: date, end_date: date) -> List[str]:
         """
             This method will fetch a list of notices by using a date range
         :param start_date:
@@ -39,7 +40,7 @@ class NoticeFetcherABC(abc.ABC):
         """
 
     @abc.abstractmethod
-    def fetch_notices_by_date_wild_card(self, wildcard_date: str):
+    def fetch_notices_by_date_wild_card(self, wildcard_date: str) -> List[str]:
         """
             This method will fetch a list of notices by using a wildcard date
         :param wildcard_date:
@@ -75,6 +76,19 @@ class NoticeFetcher(NoticeFetcherABC):
 
         return Notice(ted_id=ted_id, xml_manifestation=xml_manifestation, original_metadata=original_metadata)
 
+    def _store_to_notice_repository(self, documents: List[dict]) -> List[str]:
+        """
+            This method stores documents in NoticeRepository and returns the list of stored notice_id.
+        :param documents:
+        :return:
+        """
+        notice_ids = set()
+        for document in documents:
+            notice_ids.add(document["ND"])
+            self.notice_repository.add(notice=self._create_notice(notice_data=document))
+
+        return list(notice_ids)
+
     def fetch_notice_by_id(self, document_id):
         """
             This method will fetch a notice by id
@@ -84,17 +98,16 @@ class NoticeFetcher(NoticeFetcherABC):
         document_result = self.ted_api_adapter.get_by_id(document_id=document_id)
         self.notice_repository.add(notice=self._create_notice(notice_data=document_result))
 
-    def fetch_notices_by_query(self, query: dict):
+    def fetch_notices_by_query(self, query: dict) -> List[str]:
         """
             This method will fetch a list of notices by using a search query
         :param query:
         :return:
         """
         documents = self.ted_api_adapter.get_by_query(query=query)
-        for document in documents:
-            self.notice_repository.add(notice=self._create_notice(notice_data=document))
+        return self._store_to_notice_repository(documents=documents)
 
-    def fetch_notices_by_date_range(self, start_date: date, end_date: date):
+    def fetch_notices_by_date_range(self, start_date: date, end_date: date) -> List[str]:
         """
             This method will fetch a list of notices by using a date range
         :param start_date:
@@ -102,15 +115,13 @@ class NoticeFetcher(NoticeFetcherABC):
         :return:
         """
         documents = self.ted_api_adapter.get_by_range_date(start_date=start_date, end_date=end_date)
-        for document in documents:
-            self.notice_repository.add(notice=self._create_notice(notice_data=document))
+        return self._store_to_notice_repository(documents=documents)
 
-    def fetch_notices_by_date_wild_card(self, wildcard_date: str):
+    def fetch_notices_by_date_wild_card(self, wildcard_date: str) -> List[str]:
         """
             This method will fetch a list of notices by using a wildcard date
         :param wildcard_date:
         :return:
         """
         documents = self.ted_api_adapter.get_by_wildcard_date(wildcard_date=wildcard_date)
-        for document in documents:
-            self.notice_repository.add(notice=self._create_notice(notice_data=document))
+        return self._store_to_notice_repository(documents=documents)

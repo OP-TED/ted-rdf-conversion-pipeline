@@ -71,7 +71,7 @@ class CmdRunner(BaseCmdRunner):
 
             try:
                 serialization_format = RMLSerializationFormat(serialization_format_value)
-            except ValueError as e:
+            except ValueError:
                 raise ValueError('No such serialization format: %s' % serialization_format_value)
 
             if self.rml_mapper is None:

@@ -5,6 +5,7 @@ from ted_sws.mapping_suite_processor.services.conceptual_mapping_processor impor
 MAPPING_SUITE_PACKAGE_NAME = "package_F03_test"
 MAPPING_SUITE_PACKAGE_ID = "test_package"
 
+
 def test_mapping_suite_processor_from_github_expand_and_load_package_in_mongo_db(mongodb_client):
     mapping_suite_processor_from_github_expand_and_load_package_in_mongo_db(
         mapping_suite_package_name=MAPPING_SUITE_PACKAGE_NAME,

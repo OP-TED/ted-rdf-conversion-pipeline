@@ -11,5 +11,5 @@ DEFAULT_DAG_ARGUMENTS = {
     "retry_delay": timedelta(minutes=3600),
     "max_active_runs": 128,
     "concurrency": 128,
-    "execution_timeout": timedelta(hours=24),
+    "execution_timeout": timedelta(days=10),
 }

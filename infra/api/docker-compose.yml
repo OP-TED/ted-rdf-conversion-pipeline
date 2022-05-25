@@ -1,4 +1,4 @@
-version: '3'
+version: '3.8'
 
 services:
   api-id_manager:
@@ -6,7 +6,20 @@ services:
     build:
       context: ../..
       dockerfile: ./infra/api/id_manager/Dockerfile
-    ports:
-      - ${ID_MANAGER_API_PORT}:${ID_MANAGER_API_PORT}
     env_file: ../../.env
+    networks:
+      - proxy-net
+    labels:
+      #### Labels define the behavior and rules of the traefik proxy for this container ####
+      - "traefik.enable=true" # <== Enable traefik to proxy this container
+      - "traefik.http.routers.digest-api.rule=Host(`digest-api.${DOMAIN}`)" # <== Your Domain Name goes here for the http rule
+      - "traefik.http.routers.digest-api.entrypoints=web" # <== Defining the entrypoint for http, **ref: line 30
+      - "traefik.http.routers.digest-api.middlewares=redirect@file" # <== This is a middleware to redirect to https
+      - "traefik.http.routers.digest-api-secured.rule=Host(`digest-api.${DOMAIN}`)" # <== Your Domain Name for the https rule
+      - "traefik.http.routers.digest-api-secured.entrypoints=web-secured" # <== Defining entrypoint for https, **ref: line 31
+      - "traefik.http.routers.digest-api-secured.tls.certresolver=mytlschallenge" # <== Defining certsresolvers for https
 
+networks:
+  proxy-net:
+    external:
+      name: proxy-net

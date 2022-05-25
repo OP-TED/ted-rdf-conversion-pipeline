@@ -25,14 +25,14 @@ def index_and_normalise_notice_worker():
     """
 
     @task
-    def index_notice():
+    def index_notice_step():
         """
 
         :return:
         """
         context = get_current_context()
         dag_params = context["dag_run"].conf
-        notice_id = dag_params["notice_id"]
+        notice_id = dag_params[NOTICE_ID]
         push_dag_downstream(key=NOTICE_ID, value=notice_id)
         mongodb_client = MongoClient(config.MONGO_DB_AUTH_URL)
         notice_repository = NoticeRepository(mongodb_client=mongodb_client)
@@ -41,7 +41,7 @@ def index_and_normalise_notice_worker():
         notice_repository.update(notice=indexed_notice)
 
     @task
-    def normalise_notice_metadata():
+    def normalise_notice_metadata_step():
         """
 
         :return:
@@ -52,7 +52,7 @@ def index_and_normalise_notice_worker():
         normalised_notice = normalise_notice_by_id(notice_id=notice_id, notice_repository=notice_repository)
         notice_repository.update(notice=normalised_notice)
 
-    index_notice() >> normalise_notice_metadata()
+    index_notice_step() >> normalise_notice_metadata_step()
 
 
 dag = index_and_normalise_notice_worker()

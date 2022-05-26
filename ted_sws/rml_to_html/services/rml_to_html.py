@@ -16,6 +16,6 @@ def rml_files_to_html_report(mapping_suite_identifier: str,mapping_suite_reposit
     triple_maps = json.loads(sparql_runner.query(query_object=query_registry.TRIPLE_MAP).serialize(
                     format="json").decode("utf-8"))
     triple_maps_uris = [triple_map['tripleMap']["value"] for triple_map in triple_maps["results"]["bindings"]]
-
+    for triple_map_uri in triple_maps_uris
 
     return triple_maps

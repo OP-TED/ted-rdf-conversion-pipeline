@@ -1,0 +1,44 @@
+prefix rml: <http://semweb.mmlab.be/ns/rml#>
+prefix rr: <http://www.w3.org/ns/r2rml#>
+
+SELECT  ?predicate ?reference ?referenceLanguageMap ?parentTripleMap ?joinConditionChild ?joinConditionParent ?template ?templateTermType
+WHERE {
+  values (?tripleMap){
+ ({tripleMapUri})
+ #(<http://data.europa.eu/a4g/mapping/sf-rml/Lot>)
+ }
+
+  ?tripleMap a rr:TriplesMap ;
+          rr:predicateObjectMap ?pom .
+
+   optional{
+     ?pom rr:predicate ?predicate ;
+  		  rr:objectMap / rml:reference  ?reference .
+  		 }
+     optional{
+     ?pom rr:predicate ?predicate ;
+  		  rr:objectMap / rml:languageMap / rml:reference ?referenceLanguageMap .
+  		 }
+
+   optional{
+     ?pom rr:predicate ?predicate ;
+         rr:objectMap / rr:parentTriplesMap ?parentTripleMap.
+         }
+
+     optional{
+     ?pom rr:predicate ?predicate ;
+         rr:objectMap / rr:joinCondition / rr:child ?joinConditionChild;
+          rr:objectMap / rr:joinCondition / rr:parent ?joinConditionParent.
+          }
+
+    optional{
+    ?pom rr:predicate ?predicate ;
+         rr:objectMap / rr:template  ?template .
+    }
+
+    optional{
+    ?pom rr:predicate ?predicate ;
+         rr:objectMap / rr:termType  ?templateTermType .
+    }
+
+}

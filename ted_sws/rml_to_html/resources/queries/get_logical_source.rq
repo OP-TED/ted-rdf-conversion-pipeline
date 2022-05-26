@@ -1,10 +1,10 @@
 prefix rml: <http://semweb.mmlab.be/ns/rml#>
 prefix rr: <http://www.w3.org/ns/r2rml#>
 
-SELECT ?tripleMap ?source
+SELECT distinct ?source
 WHERE {
   values (?tripleMap){
- (<http://data.europa.eu/a4g/mapping/sf-rml/ContactPoint>)}
+ (<$tripleMapUri>)}
 
 
   ?tripleMap a rr:TriplesMap ;

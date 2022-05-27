@@ -9,7 +9,7 @@ DEFAULT_DAG_ARGUMENTS = {
     "email_on_retry": False,
     "retries": 0,
     "retry_delay": timedelta(minutes=3600),
-    "max_active_runs": 128,
-    "concurrency": 128,
+    "max_active_runs": 15,
+    "concurrency": 15,
     "execution_timeout": timedelta(days=10),
 }

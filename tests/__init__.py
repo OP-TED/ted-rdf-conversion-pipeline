@@ -34,3 +34,4 @@ class temporary_copy(object):
 
     def __exit__(self, exc_type, exc_val, exc_tb):
         shutil.rmtree(self.path)
+        

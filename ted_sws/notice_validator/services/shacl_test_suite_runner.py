@@ -3,13 +3,12 @@ from typing import List
 
 from jinja2 import Environment, PackageLoader
 
-from ted_sws.core.model.manifestation import RDFManifestation
+from ted_sws.core.model.manifestation import RDFManifestation, SHACLTestSuiteValidationReport, \
+    QueriedSHACLShapeValidationResult
 from ted_sws.core.model.notice import Notice
 from ted_sws.core.model.transform import MappingSuite, SHACLTestSuite
 from ted_sws.data_manager.adapters.repository_abc import NoticeRepositoryABC, MappingSuiteRepositoryABC
 from ted_sws.notice_validator.adapters.shacl_runner import SHACLRunner
-from ted_sws.notice_validator.model.shacl_test_suite import QueriedSHACLShapeValidationResult, \
-    SHACLSuiteValidationReport
 from ted_sws.resources import SHACL_RESULT_QUERY_PATH
 
 TEMPLATES = Environment(loader=PackageLoader("ted_sws.notice_validator.resources", "templates"))
@@ -28,7 +27,7 @@ class SHACLTestSuiteRunner:
         self.shacl_test_suite = shacl_test_suite
         self.mapping_suite = mapping_suite
 
-    def execute_test_suite(self) -> SHACLSuiteValidationReport:
+    def execute_test_suite(self) -> SHACLTestSuiteValidationReport:
         """
             Executing SHACL shape validation from a SHACL test suite and return execution details
         :return:
@@ -46,25 +45,22 @@ class SHACLTestSuiteRunner:
         except Exception as e:
             shacl_shape_validation_result.error = str(e)
 
-        return SHACLSuiteValidationReport(mapping_suite_identifier=self.mapping_suite.identifier,
-                                          shacl_test_suite_identifier=self.shacl_test_suite.identifier,
-                                          validation_result=shacl_shape_validation_result,
-                                          object_data="SHACLTestSuiteExecution")
+        return SHACLTestSuiteValidationReport(mapping_suite_identifier=self.mapping_suite.identifier,
+                                              test_suite_identifier=self.shacl_test_suite.identifier,
+                                              validation_results=shacl_shape_validation_result,
+                                              object_data="SHACLTestSuiteExecution")
 
 
-class SHACLReportBuilder:
+def generate_shacl_report(shacl_test_suite_execution: SHACLTestSuiteValidationReport) -> SHACLTestSuiteValidationReport:
     """
-        Given a QueriedSHACLShapeValidationResult, generates JSON and HTML reports.
+        This function generate html report after SHACL test execution.
+    :param shacl_test_suite_execution:
+    :return:
     """
-
-    def __init__(self, shacl_test_suite_execution: SHACLSuiteValidationReport):
-        self.shacl_test_suite_execution = shacl_test_suite_execution
-
-    def generate_report(self) -> SHACLSuiteValidationReport:
-        html_report = TEMPLATES.get_template(SHACL_TEST_SUITE_EXECUTION_HTML_REPORT_TEMPLATE).render(
-            self.shacl_test_suite_execution.dict())
-        self.shacl_test_suite_execution.object_data = html_report
-        return self.shacl_test_suite_execution
+    html_report = TEMPLATES.get_template(SHACL_TEST_SUITE_EXECUTION_HTML_REPORT_TEMPLATE).render(
+        shacl_test_suite_execution.dict())
+    shacl_test_suite_execution.object_data = html_report
+    return shacl_test_suite_execution
 
 
 def validate_notice_with_shacl_suite(notice: Notice, mapping_suite_package: MappingSuite):
@@ -75,15 +71,14 @@ def validate_notice_with_shacl_suite(notice: Notice, mapping_suite_package: Mapp
     :return:
     """
 
-    def shacl_validation(rdf_manifestation: RDFManifestation) -> List[SHACLSuiteValidationReport]:
+    def shacl_validation(rdf_manifestation: RDFManifestation) -> List[SHACLTestSuiteValidationReport]:
         reports = []
         shacl_test_suites = mapping_suite_package.shacl_test_suites
         for shacl_test_suite in shacl_test_suites:
             test_suite_execution = SHACLTestSuiteRunner(rdf_manifestation=rdf_manifestation,
                                                         shacl_test_suite=shacl_test_suite,
                                                         mapping_suite=mapping_suite_package).execute_test_suite()
-            report_builder = SHACLReportBuilder(shacl_test_suite_execution=test_suite_execution)
-            reports.append(report_builder.generate_report())
+            reports.append(generate_shacl_report(shacl_test_suite_execution=test_suite_execution))
 
         return reports
 

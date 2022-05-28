@@ -17,4 +17,8 @@ class QueryRegistry:
 
     @property
     def PREDICATE_OBJECT_MAP(self):
-        return get_sparql_query(query_file_name="get_predicate_object_map.rq")
+        return get_sparql_query(query_file_name="get_predicate_object_map.rq")    \
+
+    @property
+    def TRIPLE_MAP_COMMENT_LABEL(self):
+        return get_sparql_query(query_file_name="get_label_comment.rq")

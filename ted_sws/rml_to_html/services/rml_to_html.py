@@ -1,10 +1,14 @@
 import json
 from string import Template
 
+from jinja2 import Environment, PackageLoader
+
 from ted_sws.data_manager.adapters.repository_abc import MappingSuiteRepositoryABC
 from ted_sws.notice_validator.adapters.sparql_runner import SPARQLRunner
 from ted_sws.rml_to_html.resources.query_registry import QueryRegistry
 
+TEMPLATES = Environment(loader=PackageLoader("ted_sws.rml_to_html.resources", "templates"))
+RML_TO_HTML_REPORT_TEMPLATE = "rml_to_html_report.jinja2"
 
 def query_uri_substitution(query: str, triple_map_uri: str) -> str:
     """
@@ -24,7 +28,10 @@ def get_query_results(query: str, sparql_runner: SPARQLRunner) -> dict:
 
 def run_queries_for_triple_map(triple_map_uri: str, query_registry: QueryRegistry, sparql_runner: SPARQLRunner) -> dict:
     return {
-        "triple_map_uri":triple_map_uri,
+        "triple_map_uri": triple_map_uri,
+        "details": get_query_results(
+            query=query_uri_substitution(query=query_registry.TRIPLE_MAP_COMMENT_LABEL, triple_map_uri=triple_map_uri),
+            sparql_runner=sparql_runner),
         "logical_source": get_query_results(
             query=query_uri_substitution(query=query_registry.LOGICAL_SOURCE, triple_map_uri=triple_map_uri),
             sparql_runner=sparql_runner),
@@ -37,7 +44,8 @@ def run_queries_for_triple_map(triple_map_uri: str, query_registry: QueryRegistr
 
     }
 
-def rml_files_to_html_report(mapping_suite_identifier: str,mapping_suite_repository: MappingSuiteRepositoryABC):
+
+def rml_files_to_html_report(mapping_suite_identifier: str, mapping_suite_repository: MappingSuiteRepositoryABC):
     mapping_suite_package = mapping_suite_repository.get(reference=mapping_suite_identifier)
     if mapping_suite_package is None:
         raise ValueError(f'Mapping suite package, with {mapping_suite_identifier} id, was not found')
@@ -46,20 +54,19 @@ def rml_files_to_html_report(mapping_suite_identifier: str,mapping_suite_reposit
 
     sparql_runner = SPARQLRunner(files=rml_files)
     triple_maps = json.loads(sparql_runner.query(query_object=query_registry.TRIPLE_MAP).serialize(
-                    format="json").decode("utf-8"))
+        format="json").decode("utf-8"))
     triple_maps_uris = [triple_map['tripleMap']["value"] for triple_map in triple_maps["results"]["bindings"]]
-    list_of_triple_maps = {}
-    for triple_map_uri in triple_maps_uris[:2]:
-        triple_map_details = {}
+    print(triple_maps_uris)
+    triple_maps_details = {}
+    for triple_map_uri in triple_maps_uris:
+        triple_maps_details[triple_map_uri] = run_queries_for_triple_map(triple_map_uri=triple_map_uri,
+                                                                         query_registry=query_registry,
+                                                                         sparql_runner=sparql_runner)
 
-        query = query_uri_substitution(query=query_registry.LOGICAL_SOURCE, triple_map_uri=triple_map_uri)
-        logical_source = json.loads(
-        sparql_runner.query(query_object=query).serialize(
-            format="json").decode("utf-8"))
-        triple_map_details["logical_source"] = logical_source["results"]["bindings"]
-        list_of_triple_maps[triple_map_uri] = triple_map_details
+    html_report = TEMPLATES.get_template(RML_TO_HTML_REPORT_TEMPLATE).render(triple_maps_details=triple_maps_details)
+    with open("rml-report.html", "w") as file:
+        file.write(html_report)
+
+    return triple_maps_details
 
 
-
-
-    return list_of_triple_maps

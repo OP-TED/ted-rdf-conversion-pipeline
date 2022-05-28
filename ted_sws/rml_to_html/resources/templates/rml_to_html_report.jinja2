@@ -1,0 +1,93 @@
+{% macro display_element(key,dict_to_check,label,list_element=True,link=False) -%}
+    {% if key in dict_to_check.keys() %}
+        {% if list_element %}
+            <dd><strong><em>{{ label }}:</em></strong>
+                {% if link %}
+                    <a href="#{{ dict_to_check[key].value }}">{{ dict_to_check[key].value }}</a>
+                {% else %}
+                    {{ dict_to_check[key].value }}
+                {% endif %}
+            </dd>
+        {% else %}
+            <p>{{ dict_to_check[key].value }}</p>
+        {% endif %}
+    {% endif %}
+{% endmacro -%}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>HTML report for RML</title>
+    <style type="text/css">
+        body {
+            font-family: Arial, sans-serif;
+                margin: 25px auto;
+                width: 80%;
+        }
+
+        dt {
+            font-weight: bold;
+            text-decoration: underline;
+        }
+
+        dd {
+            padding: 0 0 0.5em 0;
+        }
+    </style>
+</head>
+<body>
+<h1>RML report </h1>
+<hr>
+{% for triple_map in triple_maps_details %}
+    <h2 id="{{ triple_map }}">{{ triple_maps_details[triple_map].triple_map_uri }}</h2>
+    {% for detail in triple_maps_details[triple_map].details %}
+        {{ display_element("tmLabel", detail,"tmLabel",False) }}
+        {{ display_element("tmComment", detail,"tmComment",False) }}
+    {% endfor %}
+    <dl>
+        <dt>Logical Source</dt>
+        {% for logical_source in triple_maps_details[triple_map].logical_source %}
+        <dd>{{ logical_source.source.value }}</dd>
+        {% endfor %}
+    </dl>
+
+    <dl>
+        <dt>Subject map</dt>
+        {% for subject_map in triple_maps_details[triple_map].subject_map %}
+        <dd>
+            <strong><em>Class:</em></strong> {{ subject_map.cls.value }}<br>
+            <strong><em>Template:</em></strong>  {{ subject_map.template.value }}
+        </dd>
+        {% endfor %}
+    </dl>
+
+    <dl>
+        <dt>Predicate object maps</dt>
+        <dd>
+            {% for object_map in triple_maps_details[triple_map].predicate_object_map %}
+                {% if "predicate" in object_map.keys() %}
+                    <dl>
+                        <dt>{{ object_map.predicate.value }}</dt>
+
+                        {{ display_element("reference",object_map,"Reference") }}
+                        {{ display_element("referenceLanguageMap",object_map,"Reference Language Map") }}
+                        {{ display_element("parentTripleMap",object_map,"Parent Triple Map",True, True) }}
+                        {{ display_element("joinConditionChild",object_map,"Join condition Child") }}
+                        {{ display_element("joinConditionParent",object_map,"Join condition Parent") }}
+                        {{ display_element("template",object_map,"Template") }}
+                        {{ display_element("templateTermType",object_map,"Template term type") }}
+
+                    </dl>
+                {% endif %}
+            {% endfor %}
+        </dd>
+    </dl>
+
+{% endfor %}
+
+</body>
+</html>
+

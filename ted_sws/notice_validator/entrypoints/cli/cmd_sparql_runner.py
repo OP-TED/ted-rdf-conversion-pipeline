@@ -13,8 +13,8 @@ from ted_sws.notice_validator.services.sparql_test_suite_runner import SPARQLTes
 
 DEFAULT_RDF_FOLDER = '{mappings_path}/{mapping_suite_id}/' + DEFAULT_OUTPUT_PATH
 DEFAULT_TEST_SUITE_REPORT_FOLDER = "test_suite_report"
-JSON_REPORT = "{id}.json"
-HTML_REPORT = "{id}.html"
+JSON_REPORT = "sparql_{id}.json"
+HTML_REPORT = "sparql_{id}.html"
 CMD_NAME = "CMD_SPARQL_RUNNER"
 
 """
@@ -59,12 +59,9 @@ class CmdRunner(BaseCmdRunner):
                                                          mapping_suite=self.mapping_suite).execute_test_suite()
 
             report_builder = SPARQLReportBuilder(sparql_test_suite_execution=test_suite_execution)
-            json_report: RDFValidationManifestation = report_builder.generate_json()
-            html_report = report_builder.generate_html()
+            html_report = report_builder.generate_report()
 
             suite_id = sparql_test_suite.identifier
-            json_data = str(json.dumps(json_report.dict(), indent=4))
-            self.save_report(report_path, JSON_REPORT, suite_id, json_data)
             html_data = html_report.object_data
             self.save_report(report_path, HTML_REPORT, suite_id, html_data)
 

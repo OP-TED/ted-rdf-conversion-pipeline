@@ -32,3 +32,4 @@ class SPARQLTestSuiteExecution(RDFValidationManifestation):
     sparql_test_suite_identifier: str
     mapping_suite_identifier: str
     execution_results: List[SPARQLQueryResult] = []
+

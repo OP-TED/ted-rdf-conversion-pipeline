@@ -11,7 +11,9 @@ from ted_sws.data_manager.adapters.notice_repository import NoticeRepository
 RE_PUBLISH_TARGET_NOTICE_STATES = [NoticeStatus.PUBLICLY_UNAVAILABLE, NoticeStatus.ELIGIBLE_FOR_PUBLISHING]
 
 
-@dag(default_args=DEFAULT_DAG_ARGUMENTS, tags=['selector', 're-publish'])
+@dag(default_args=DEFAULT_DAG_ARGUMENTS,
+     schedule_interval=None,
+     tags=['selector', 're-publish'])
 def selector_re_publish_process_orchestrator():
     @task
     def select_notices_for_re_publish_and_reset_status():

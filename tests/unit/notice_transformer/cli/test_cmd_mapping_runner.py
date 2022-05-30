@@ -1,12 +1,10 @@
 import os
 from pathlib import Path
 
-from click.testing import CliRunner
-
 from ted_sws.notice_transformer.entrypoints.cli.cmd_mapping_runner import run as cli_run
 
 
-def __process_output_dir(fake_repository_path, fake_mapping_suite_id):
+def post_process(fake_repository_path, fake_mapping_suite_id):
     output_dir_path = fake_repository_path / fake_mapping_suite_id / "output"
     for r in os.listdir(output_dir_path):
         output_notice_dir_path = output_dir_path / r
@@ -25,7 +23,7 @@ def test_cmd_mapping_runner(caplog, fake_rml_mapper, fake_mapping_suite_id, fake
     )
     assert fake_mapping_suite_id in caplog.text
     assert "SUCCESS" in caplog.text
-    __process_output_dir(fake_repository_path, fake_mapping_suite_id)
+    post_process(fake_repository_path, fake_mapping_suite_id)
 
 
 def test_cmd_mapping_runner_with_invalid_serialization(caplog, fake_rml_mapper, fake_mapping_suite_id,
@@ -77,4 +75,4 @@ def test_cmd_mapping_runner_with_no_suite_id(caplog, fake_rml_mapper, fake_repos
 
     fs_repository_path = Path(os.path.realpath(fake_repository_path))
     for suite_id in os.listdir(fs_repository_path):
-        __process_output_dir(fake_repository_path, suite_id)
+        post_process(fake_repository_path, suite_id)

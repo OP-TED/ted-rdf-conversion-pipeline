@@ -51,10 +51,10 @@ def test_notice_repository_store_validation_reports_in_grid_fs(notice_with_disti
     validate_notice_with_shacl_suite(notice=notice, mapping_suite_package=dummy_mapping_suite)
     notice_repository.add(notice)
     result_notice = notice_repository.get(reference=notice.ted_id)
-    for validation_report, result_validation_report in zip(notice.rdf_manifestation.validation, result_notice.rdf_manifestation.validation):
+    for validation_report, result_validation_report in zip(notice.rdf_manifestation.shacl_validations, result_notice.rdf_manifestation.shacl_validations):
         assert validation_report.object_data == result_validation_report.object_data
 
-    for validation_report, result_validation_report in zip(notice.distilled_rdf_manifestation.validation,
-                                                           result_notice.distilled_rdf_manifestation.validation):
+    for validation_report, result_validation_report in zip(notice.distilled_rdf_manifestation.shacl_validations,
+                                                           result_notice.distilled_rdf_manifestation.shacl_validations):
         assert validation_report.object_data == result_validation_report.object_data
 

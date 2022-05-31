@@ -10,7 +10,7 @@
 import pytest
 
 from ted_sws.core.model.manifestation import XMLManifestation, RDFManifestation, METSManifestation, \
-    RDFValidationManifestation
+    SPARQLTestSuiteValidationReport, SHACLTestSuiteValidationReport
 from ted_sws.core.model.metadata import TEDMetadata, NormalisedMetadata
 from ted_sws.core.model.notice import Notice, NoticeStatus
 
@@ -26,13 +26,26 @@ def fetched_notice_data():
 @pytest.fixture(scope="function")
 def publicly_available_notice(fetched_notice_data, normalised_metadata_dict) -> Notice:
     ted_id, original_metadata, xml_manifestation = fetched_notice_data
-    validation = RDFValidationManifestation(object_data="this is a validation report")
+    sparql_validation = SPARQLTestSuiteValidationReport(object_data="This is validation report!",
+                                                        test_suite_identifier="sparql_test_id",
+                                                        mapping_suite_identifier="mapping_suite_id",
+                                                        validation_results=[])
+    shacl_validation = SHACLTestSuiteValidationReport(object_data="This is validation report!",
+                                                      test_suite_identifier="shacl_test_id",
+                                                      mapping_suite_identifier="mapping_suite_id",
+                                                      validation_results=[])
     notice = Notice(ted_id=ted_id, original_metadata=original_metadata,
                     xml_manifestation=xml_manifestation)
-    notice._rdf_manifestation = RDFManifestation(object_data="RDF manifestation content", validation=[validation])
+    notice._rdf_manifestation = RDFManifestation(object_data="RDF manifestation content",
+                                                 shacl_validations=[shacl_validation],
+                                                 sparql_validations=[sparql_validation]
+                                                 )
+    notice._distilled_rdf_manifestation = RDFManifestation(object_data="RDF manifestation content",
+                                                           shacl_validations=[shacl_validation],
+                                                           sparql_validations=[sparql_validation]
+                                                           )
     notice._mets_manifestation = METSManifestation(object_data="METS manifestation content")
     notice._normalised_metadata = NormalisedMetadata(**normalised_metadata_dict)
-    notice._distilled_rdf_manifestation = RDFManifestation(object_data="RDF manifestation content", validation=[validation])
     notice._preprocessed_xml_manifestation = xml_manifestation
     notice._status = NoticeStatus.PUBLICLY_AVAILABLE
     return notice

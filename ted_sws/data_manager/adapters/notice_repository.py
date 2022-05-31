@@ -3,7 +3,7 @@ import logging
 from typing import Iterator, Union, Optional
 
 import gridfs
-from pymongo import MongoClient
+from pymongo import MongoClient, ASCENDING
 from bson import ObjectId
 from ted_sws import config
 from ted_sws.core.model.manifestation import XMLManifestation, RDFManifestation, METSManifestation, Manifestation
@@ -28,6 +28,7 @@ class NoticeRepository(NoticeRepositoryABC):
         notice_db = mongodb_client[self._database_name]
         self.file_storage = gridfs.GridFS(notice_db)
         self.collection = notice_db[self._collection_name]
+        self.collection.create_index([("ted_id", ASCENDING)])
 
     def get_file_content_from_grid_fs(self, file_id: str) -> str:
         """

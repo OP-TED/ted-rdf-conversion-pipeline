@@ -4,7 +4,7 @@ import pathlib
 import shutil
 from typing import Iterator, List, Optional
 
-from pymongo import MongoClient
+from pymongo import MongoClient, ASCENDING
 
 from ted_sws import config
 from ted_sws.core.model.transform import MappingSuite, FileResource, TransformationRuleSet, SHACLTestSuite, \
@@ -39,6 +39,7 @@ class MappingSuiteRepositoryMongoDB(MappingSuiteRepositoryABC):
         self._database_name = database_name
         notice_db = mongodb_client[self._database_name]
         self.collection = notice_db[self._collection_name]
+        self.collection.create_index([("identifier", ASCENDING)])
 
     def add(self, mapping_suite: MappingSuite):
         """

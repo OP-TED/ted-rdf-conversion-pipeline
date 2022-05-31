@@ -8,7 +8,7 @@ from ted_sws.notice_validator.services.shacl_test_suite_runner import SHACLTestS
     validate_notice_with_shacl_suite, validate_notice_by_id_with_shacl_suite
 
 
-def test_sparql_query_test_suite_runner(rdf_file_content, shacl_test_suite, dummy_mapping_suite):
+def test_shacl_query_test_suite_runner(rdf_file_content, shacl_test_suite, dummy_mapping_suite):
     rdf_manifestation = RDFManifestation(object_data=rdf_file_content)
     sparql_runner = SHACLTestSuiteRunner(rdf_manifestation=rdf_manifestation, shacl_test_suite=shacl_test_suite,
                                          mapping_suite=dummy_mapping_suite)
@@ -18,7 +18,7 @@ def test_sparql_query_test_suite_runner(rdf_file_content, shacl_test_suite, dumm
     assert isinstance(test_suite_execution.validation_result.results_dict, dict)
 
 
-def test_sparql_query_test_suite_runner_error(rdf_file_content, dummy_mapping_suite, bad_shacl_test_suite):
+def test_shacl_query_test_suite_runner_error(rdf_file_content, dummy_mapping_suite, bad_shacl_test_suite):
     dummy_mapping_suite.shacl_test_suites = [bad_shacl_test_suite]
     rdf_manifestation = RDFManifestation(object_data=rdf_file_content)
     sparql_runner = SHACLTestSuiteRunner(rdf_manifestation=rdf_manifestation, shacl_test_suite=bad_shacl_test_suite,

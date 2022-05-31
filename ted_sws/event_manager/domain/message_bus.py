@@ -5,7 +5,7 @@ from pymessagebus import MessageBus as PyMessageBus
 from pymessagebus.api import Middleware
 from pymessagebus.middleware.logger import get_logger_middleware, LoggingMiddlewareConfig
 
-from ted_sws.event_manager.adapters.logger import logger, Logger
+from ted_sws.event_manager.adapters.log.logger import Logger
 from ted_sws.event_manager.domain import message_handlers
 from ted_sws.event_manager.model import message
 
@@ -18,14 +18,7 @@ class MessageBus(PyMessageBus):
     """
     This class provides additional features to MessageBus
     """
-    HAS_LOGGING_MIDDLEWARE = True
-    _logger: Logger = logger
-
-    def set_domain_logger(self, _logger: Logger):
-        self._logger = _logger
-
-    def get_domain_logger(self) -> Logger:
-        return self._logger
+    _logger: Logger = None
 
     def set_middlewares(self, _middlewares: List[Middleware] = None):
         self._middlewares_chain = self._get_middlewares_callables_chain(
@@ -39,19 +32,6 @@ class MessageBus(PyMessageBus):
 
 
 message_bus = MessageBus()
-
-middlewares: List = []
-if MessageBus.HAS_LOGGING_MIDDLEWARE:
-    logging_middleware_config = LoggingMiddlewareConfig(
-        mgs_received_level=logging.INFO,
-        mgs_succeeded_level=logging.INFO,
-        mgs_failed_level=logging.CRITICAL
-    )
-    logging_middleware = get_logger_middleware(message_bus.get_domain_logger().get_logger(), logging_middleware_config)
-    middlewares.append(logging_middleware)
-
-if len(middlewares) > 0:
-    message_bus.set_middlewares(middlewares)
 
 message_bus.add_handlers({
     message.Log: [

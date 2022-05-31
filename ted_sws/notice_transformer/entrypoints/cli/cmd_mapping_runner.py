@@ -8,7 +8,7 @@ import click
 from ted_sws import config
 from ted_sws.core.adapters.cmd_runner import CmdRunnerForMappingSuite as BaseCmdRunner, DEFAULT_MAPPINGS_PATH, \
     DEFAULT_OUTPUT_PATH
-from ted_sws.event_manager.adapters.logger import LOG_INFO_TEXT
+from ted_sws.event_manager.adapters.log.common import LOG_INFO_TEXT
 from ted_sws.data_manager.adapters.mapping_suite_repository import MappingSuiteRepositoryInFileSystem
 from ted_sws.notice_transformer.adapters.rml_mapper import RMLMapper, SerializationFormat as RMLSerializationFormat, \
     TURTLE_SERIALIZATION_FORMAT

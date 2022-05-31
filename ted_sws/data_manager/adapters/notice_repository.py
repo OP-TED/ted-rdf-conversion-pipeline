@@ -1,17 +1,15 @@
 import copy
-import logging
 from typing import Iterator, Union, Optional
 
 import gridfs
-from pymongo import MongoClient
 from bson import ObjectId
+from pymongo import MongoClient
+
 from ted_sws import config
 from ted_sws.core.model.manifestation import XMLManifestation, RDFManifestation, METSManifestation, Manifestation
 from ted_sws.core.model.metadata import NormalisedMetadata
-from ted_sws.data_manager.adapters.repository_abc import NoticeRepositoryABC
 from ted_sws.core.model.notice import Notice, NoticeStatus
-
-logger = logging.getLogger(__name__)
+from ted_sws.data_manager.adapters.repository_abc import NoticeRepositoryABC
 
 
 class NoticeRepository(NoticeRepositoryABC):

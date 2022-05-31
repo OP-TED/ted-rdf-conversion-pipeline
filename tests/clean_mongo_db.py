@@ -5,6 +5,7 @@ from logging import getLogger
 
 logger = getLogger(__name__)
 
+
 def clean_mongo_db():
     uri = config.MONGO_DB_AUTH_URL
     port = config.MONGO_DB_PORT
@@ -18,5 +19,6 @@ def clean_mongo_db():
             mongodb_client.drop_database(database)
     else:
         logger.warning("This was an attempt to erase the DB in NON-Staging environment.")
+
 
 clean_mongo_db()

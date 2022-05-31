@@ -5,12 +5,14 @@ import os
 from pathlib import Path
 
 from ted_sws.data_manager.adapters.mapping_suite_repository import METADATA_FILE_NAME
-from ted_sws.event_manager.adapters.logger import Logger, LOG_ERROR_TEXT, LOG_SUCCESS_TEXT
+from ted_sws.event_manager.adapters.log.logger import Logger
+from ted_sws.event_manager.adapters.log.common import LOG_ERROR_TEXT, LOG_SUCCESS_TEXT
 from ted_sws.event_manager.domain.message_bus import message_bus
 from ted_sws.event_manager.model.message import Log
 
 DEFAULT_MAPPINGS_PATH = 'mappings'
 DEFAULT_OUTPUT_PATH = 'output'
+DEFAULT_LOG_LEVEL = logging.INFO
 
 
 class CmdRunnerABC(abc.ABC):
@@ -44,21 +46,24 @@ class CmdRunnerABC(abc.ABC):
 
 
 class CmdRunner(CmdRunnerABC):
-    def __init__(self, name=__name__, log_level: int = logging.INFO):
+    def __init__(self, name=__name__, logger: Logger = None):
         self.name = name
         self.begin_time = None
         self.end_time = None
-        self.logger = Logger(name=name, level=log_level)
+        if logger is not None:
+            self.logger = logger
+        else:
+            self.logger = Logger(name=name, level=DEFAULT_LOG_LEVEL, logging_handlers=[])
         self.add_logger_handlers()
 
     def add_logger_handlers(self):
-        self.add_logger_stdout_handler()
+        self.add_logger_stream_handler()
 
-    def add_logger_stdout_handler(self):
+    def add_logger_stream_handler(self):
         fmt = "[%(asctime)s] - %(name)s - %(levelname)s - %(message)s"
         date_fmt = "%Y-%m-%d %H:%M:%S"
         formatter = logging.Formatter(fmt, date_fmt)
-        self.logger.add_stdout_handler(formatter=formatter)
+        self.logger.add_stream_handler(formatter=formatter)
 
     def get_logger(self) -> Logger:
         return self.logger

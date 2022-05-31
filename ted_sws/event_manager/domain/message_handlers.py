@@ -27,6 +27,8 @@ def handler_log(log: message.Log):
             )
         else:
             msg += log.message
-    log.logger.log(msg, log.level)
+
+    if log.logger:
+        log.logger.log(msg, log.level)
 
     return msg

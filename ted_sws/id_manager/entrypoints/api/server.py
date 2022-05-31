@@ -4,7 +4,8 @@ import subprocess
 import click
 
 from ted_sws import config
-from ted_sws.event_manager.adapters.logger import Logger, LOG_INFO_LEVEL
+from ted_sws.event_manager.adapters.log.logger import Logger
+from ted_sws.event_manager.adapters.log.common import LOG_INFO_LEVEL
 from ted_sws.event_manager.domain.message_bus import message_bus
 from ted_sws.event_manager.model.message import Log
 from ted_sws.id_manager.entrypoints.api.main import API_PREFIX
@@ -17,8 +18,8 @@ API_PORT: int = config.ID_MANAGER_API_PORT
 @click.option('-h', '--host', default=API_HOST)
 @click.option('-p', '--port', default=API_PORT, type=int)
 def api_server_start(host, port):
-    logger = Logger(name="ID_MANAGER_API_SERVER", level=LOG_INFO_LEVEL)
-    logger.add_stdout_handler(formatter=logging.Formatter(
+    logger = Logger(name="ID_MANAGER_API_SERVER", level=LOG_INFO_LEVEL, logging_handlers=[])
+    logger.add_stream_handler(formatter=logging.Formatter(
         "[%(asctime)s] - %(name)s - %(levelname)s:\n%(message)s",
         "%Y-%m-%d %H:%M:%S"
     ))

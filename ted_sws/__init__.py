@@ -18,10 +18,14 @@ from ted_sws.core.adapters.vault_secrets_store import VaultSecretsStore
 
 dotenv.load_dotenv(verbose=True, override=True)
 
-SECRET_PATHS = ['mongo-db', 'github']
-SECRET_MOUNT = f'ted-{os.environ.get("ENVIRONMENT", default="staging")}'
+ENV = os.environ.get("ENVIRONMENT", default="staging")
+if ENV == "local":
+    SECRET_PATHS = []
+else:
+    SECRET_PATHS = ['mongo-db', 'github']
+    SECRET_MOUNT = f'ted-{ENV}'
+    VaultSecretsStore.default_secret_mount = SECRET_MOUNT
 
-VaultSecretsStore.default_secret_mount = SECRET_MOUNT
 VaultSecretsStore.default_secret_paths = SECRET_PATHS
 
 
@@ -57,6 +61,14 @@ class MongoDBConfig:
     def MONGO_DB_AGGREGATES_DATABASE_NAME(self) -> str:
         return VaultAndEnvConfigResolver().config_resolve()
 
+    @property
+    def MONGO_DB_LOGS_DATABASE_NAME(self) -> str:
+        return VaultAndEnvConfigResolver().config_resolve()
+
+    @property
+    def MONGO_DB_LOGS_COLLECTION(self) -> str:
+        return VaultAndEnvConfigResolver().config_resolve()
+
 
 class RMLMapperConfig:
 
@@ -82,11 +94,16 @@ class ELKConfig:
         return int(v) if v is not None else None
 
 
-class LoggingConfig:
+class LoggerConfig:
 
     @property
-    def LOGGING_TYPE(self) -> str:
+    def LOGGER_LOGGING_HANDLER(self) -> str:
         return VaultAndEnvConfigResolver().config_resolve()
+
+    @property
+    def LOGGER_MONGO_HANDLER_BUFFER_PERIODICAL_FLUSH_TIMING(self) -> float:
+        v: str = VaultAndEnvConfigResolver().config_resolve()
+        return float(v) if v is not None else None
 
 
 class XMLProcessorConfig:
@@ -115,7 +132,7 @@ class API:
         return int(v) if v else 8000
 
 
-class TedConfigResolver(MongoDBConfig, RMLMapperConfig, XMLProcessorConfig, ELKConfig, LoggingConfig,
+class TedConfigResolver(MongoDBConfig, RMLMapperConfig, XMLProcessorConfig, ELKConfig, LoggerConfig,
                         GitHubArtefacts, API):
     """
         This class resolve the secrets of the ted-sws project.

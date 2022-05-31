@@ -7,7 +7,7 @@ import click
 from ted_sws.core.adapters.cmd_runner import CmdRunner as BaseCmdRunner, DEFAULT_MAPPINGS_PATH, DEFAULT_OUTPUT_PATH
 from ted_sws.core.model.manifestation import RDFManifestation
 from ted_sws.data_manager.adapters.mapping_suite_repository import MappingSuiteRepositoryInFileSystem
-from ted_sws.event_manager.adapters.logger import LOG_INFO_TEXT
+from ted_sws.event_manager.adapters.log.common import LOG_INFO_TEXT
 from ted_sws.notice_validator.model.shacl_test_suite import SHACLSuiteValidationReport
 from ted_sws.notice_validator.services.shacl_test_suite_runner import SHACLTestSuiteRunner, SHACLReportBuilder
 

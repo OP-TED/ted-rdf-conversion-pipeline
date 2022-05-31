@@ -3,7 +3,8 @@ import tempfile
 from datetime import datetime
 from pathlib import Path
 
-from ted_sws.event_manager.adapters.logger import Logger, logger as root_logger, LOG_WARN_TEXT, LOG_INFO_TEXT
+from ted_sws.event_manager.adapters.log.logger import Logger
+from ted_sws.event_manager.adapters.log.common import LOG_WARN_TEXT, LOG_INFO_TEXT
 from ted_sws.event_manager.domain.message_bus import message_bus
 from ted_sws.core.model.manifestation import RDFManifestation, XMLManifestation
 from ted_sws.event_manager.model.message import Log
@@ -92,7 +93,7 @@ class NoticeTransformer(NoticeTransformerABC):
         This class is a concrete implementation of transforming a notice using rml-mapper.
     """
 
-    def __init__(self, mapping_suite: MappingSuite, rml_mapper: RMLMapperABC, logger: Logger = root_logger):
+    def __init__(self, mapping_suite: MappingSuite, rml_mapper: RMLMapperABC, logger: Logger = None):
         self.mapping_suite = mapping_suite
         self.rml_mapper = rml_mapper
         self.logger = logger

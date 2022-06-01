@@ -4,7 +4,7 @@ import pathlib
 import shutil
 from typing import Iterator, List, Optional
 
-from pymongo import MongoClient
+from pymongo import MongoClient, ASCENDING
 
 from ted_sws import config
 from ted_sws.core.model.transform import MappingSuite, FileResource, TransformationRuleSet, SHACLTestSuite, \
@@ -66,7 +66,7 @@ class MappingSuiteRepositoryMongoDB(MappingSuiteRepositoryABC):
         :param reference:
         :return: MappingSuite
         """
-        result_dict = self.collection.find_one({"identifier": reference})
+        result_dict = self.collection.find_one({"_id": reference})
         return MappingSuite(**result_dict) if result_dict else None
 
     def list(self) -> Iterator[MappingSuite]:

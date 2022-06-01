@@ -11,6 +11,11 @@ def file_system_repository_path():
 
 
 @pytest.fixture
+def rml_modules_path():
+    return TEST_DATA_PATH / "rml_modules"
+
+
+@pytest.fixture
 @mongomock.patch(servers=(('server.example.com', 27017),))
 def mongodb_client():
     return pymongo.MongoClient('server.example.com')

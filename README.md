@@ -111,6 +111,7 @@ Usage: rml_modules_injector [OPTIONS] [MAPPING_SUITE_ID]
 Options:
   -i, --opt-conceptual-mappings-file TEXT     Use to overwrite default INPUT
   -o, --opt-output-folder TEXT                Use to overwrite default OUTPUT
+  -c, --opt-clean BOOLEAN                     Use to clean the OUTPUT folder
   -r, --opt-rml-modules-folder TEXT
   -m, --opt-mappings-folder TEXT
   --help                                      Show this message and exit.
@@ -209,7 +210,6 @@ By default, successively runs the following commands:
 ```bash
 - normalisation_resource_generator
 - resources_injector
-- rml_modules_injector
 - metadata_generator
 - yarrrml2rml_converter
 - sparql_generator
@@ -228,7 +228,7 @@ Usage: mapping_suite_processor [OPTIONS] MAPPING_SUITE_ID
   yarrrml2rml_converter - sparql_generator
 
 Options:
-  -c, --opt-commands [normalisation_resource_generator|resources_injector|rml_modules_injector|metadata_generator|yarrrml2rml_converter|sparql_generator]
+  -c, --opt-commands [normalisation_resource_generator|resources_injector|metadata_generator|yarrrml2rml_converter|sparql_generator]
   -m, --opt-mappings-folder TEXT
   --help                                      Show this message and exit.
 ```

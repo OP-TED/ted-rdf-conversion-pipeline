@@ -24,22 +24,22 @@ PROD_ARCHIVE_SUFFIX = "prod"
 DEMO_ARCHIVE_SUFFIX = "demo"
 
 
-def mapping_suite_processor_zip_package(mapping_suite_package_path: pathlib.Path,
-                                        prod_version: bool = False):
-    """
-        This function archives a package and puts a suffix in the name of the archive.
-    :param mapping_suite_package_path:
-    :param prod_version:
-    :return:
-    """
-    archive_name_suffix = PROD_ARCHIVE_SUFFIX if prod_version else DEMO_ARCHIVE_SUFFIX
-    tmp_folder_path = mapping_suite_package_path.parent / f"{mapping_suite_package_path.stem}-{archive_name_suffix}"
-    output_archive_file_name = mapping_suite_package_path.parent / f"{mapping_suite_package_path.stem}-{archive_name_suffix}"
-    shutil.copytree(mapping_suite_package_path, tmp_folder_path, dirs_exist_ok=True)
-    if prod_version:
-        shutil.rmtree(tmp_folder_path / TEST_DATA_PACKAGE_NAME)
-    shutil.make_archive(str(output_archive_file_name), 'zip', tmp_folder_path)
-    shutil.rmtree(tmp_folder_path)
+# def mapping_suite_processor_zip_package(mapping_suite_package_path: pathlib.Path,
+#                                         prod_version: bool = False):
+#     """
+#         This function archives a package and puts a suffix in the name of the archive.
+#     :param mapping_suite_package_path:
+#     :param prod_version:
+#     :return:
+#     """
+#     archive_name_suffix = PROD_ARCHIVE_SUFFIX if prod_version else DEMO_ARCHIVE_SUFFIX
+#     tmp_folder_path = mapping_suite_package_path.parent / f"{mapping_suite_package_path.stem}-{archive_name_suffix}"
+#     output_archive_file_name = mapping_suite_package_path.parent / f"{mapping_suite_package_path.stem}-{archive_name_suffix}"
+#     shutil.copytree(mapping_suite_package_path, tmp_folder_path, dirs_exist_ok=True)
+#     if prod_version:
+#         shutil.rmtree(tmp_folder_path / TEST_DATA_PACKAGE_NAME)
+#     shutil.make_archive(str(output_archive_file_name), 'zip', tmp_folder_path)
+#     shutil.rmtree(tmp_folder_path)
 
 
 # def mapping_suite_processor_expand_package(mapping_suite_package_path: pathlib.Path):

@@ -19,13 +19,16 @@ def get_notice_ids_by_normalised_metadata_field_value(field_name: str, field_val
     """
     notice_repository = NoticeRepository(mongodb_client=mongodb_client)
     notice_ids = list(notice_repository.collection.aggregate([
-        {"$match": {f"normalised_metadata.{field_name}": field_value}},
+        {"$match": {f"normalised_metadata.{field_name}": field_value, "xml_metadata": {"$ne": None}}
+
+         },
+        { "$limit": 10}, #TODO: remove this limit, this limit is only for testing logic
         {
             "$group": {"_id": None,
                        "ted_ids": {"$push": "$ted_id"}
                        }
         }
-    ]))
+    ],allowDiskUse=True))
     return notice_ids[0]["ted_ids"] if len(notice_ids) else notice_ids
 
 

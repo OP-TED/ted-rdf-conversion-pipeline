@@ -49,7 +49,7 @@
 		"sparql_generator" : ["xml", "xsd", "rdf", "rdfs", "owl", "skos", "dc", "dct", "foaf", "epo", "epd", "locn"],
 		"sparql_generator_ext" : ["time", "org", "core-voc", "geosparql", "dul"],
 		"yarrrml_rules" : ["epo", "epd", "locn", "xml", "xsd", "rdf", "rdfs", "dct"],
-		"rml_rules" : ["rr", "rml", "ql", "epo", "epd", "locn", "xml", "xsd", "rdf", "rdfs", "dct"],
+		"rml_rules" : ["rr", "rml", "ql", "epo", "epd", "locn", "xml", "xsd", "rdf", "rdfs", "owl", "dct", "cc", "cccev", "skos", "time", "vann"],
 		"epo_ontology" : ["epo", "epd", "locn", "xml", "xsd", "rdf", "rdfs", "owl", "skos", "dc", "dct", "foaf", "core-voc", "geosparql", "dul"],
 		"currently_unused" : ["cc", "vann", "epor", "epos", "grel", "xf", "map", "sd", "ht", "v"]
 	}

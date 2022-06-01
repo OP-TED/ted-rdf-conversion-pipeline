@@ -56,6 +56,7 @@ def mapping_suite_processor_zip_package(mapping_suite_package_path: pathlib.Path
 def mapping_suite_processor_expand_package(mapping_suite_package_path: pathlib.Path):
     """
         This function reads data from conceptual_mappings.xlsx and expand provided package.
+                Note: we don't use this at  the moment
     :param mapping_suite_package_path:
     :return:
     """
@@ -149,7 +150,6 @@ def mapping_suite_processor_from_github_expand_and_load_package_in_mongo_db(mapp
         mapping_suite_package_downloader.download(mapping_suite_package_name=mapping_suite_package_name,
                                                   output_mapping_suite_package_path=tmp_dir_path)
         mapping_suite_package_path = tmp_dir_path / mapping_suite_package_name
-        mapping_suite_processor_expand_package(mapping_suite_package_path=mapping_suite_package_path)
         mapping_suite_processor_load_package_in_mongo_db(mapping_suite_package_path=mapping_suite_package_path,
                                                          mongodb_client=mongodb_client,
                                                          load_test_data=load_test_data

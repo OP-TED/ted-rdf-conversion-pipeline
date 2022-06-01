@@ -39,7 +39,6 @@ class MappingSuiteRepositoryMongoDB(MappingSuiteRepositoryABC):
         self._database_name = database_name
         notice_db = mongodb_client[self._database_name]
         self.collection = notice_db[self._collection_name]
-        self.collection.create_index([("identifier", ASCENDING)])
 
     def add(self, mapping_suite: MappingSuite):
         """
@@ -67,7 +66,7 @@ class MappingSuiteRepositoryMongoDB(MappingSuiteRepositoryABC):
         :param reference:
         :return: MappingSuite
         """
-        result_dict = self.collection.find_one({"identifier": reference})
+        result_dict = self.collection.find_one({"_id": reference})
         return MappingSuite(**result_dict) if result_dict else None
 
     def list(self) -> Iterator[MappingSuite]:

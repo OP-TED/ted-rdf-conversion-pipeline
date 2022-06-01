@@ -28,7 +28,8 @@ class NoticeRepository(NoticeRepositoryABC):
         notice_db = mongodb_client[self._database_name]
         self.file_storage = gridfs.GridFS(notice_db)
         self.collection = notice_db[self._collection_name]
-        self.collection.create_index([("ted_id", ASCENDING)])
+        self.file_storage_collection = notice_db["fs.files"]
+        self.file_storage_collection.create_index([("notice_id", ASCENDING)])
 
     def get_file_content_from_grid_fs(self, file_id: str) -> str:
         """
@@ -177,7 +178,7 @@ class NoticeRepository(NoticeRepositoryABC):
         :param reference:
         :return: Notice
         """
-        result_dict = self.collection.find_one({"ted_id": reference})
+        result_dict = self.collection.find_one({"_id": reference})
         if result_dict is not None:
             notice = NoticeRepository._create_notice_from_repository_result(result_dict)
             notice = self.load_notice_fields_from_grid_fs(notice)

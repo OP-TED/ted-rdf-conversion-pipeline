@@ -117,7 +117,7 @@ def step_impl(raw_notice):
 
 
 @given("the notice already contains normalised metadata")
-def step_impl(raw_notice,normalised_metadata_dict):
+def step_impl(raw_notice, normalised_metadata_dict):
     raw_notice.set_normalised_metadata(NormalisedMetadata(**normalised_metadata_dict))
     assert raw_notice.normalised_metadata is not None
 
@@ -145,14 +145,16 @@ def step_impl(raw_notice):
 @then("notice contains no RDF validation")
 def step_impl(transformation_eligible_notice):
     assert transformation_eligible_notice
-    print(f"transformation_eligible_notice.get_rdf_validation() = {transformation_eligible_notice.get_rdf_validation()}")
+    print(
+        f"transformation_eligible_notice.get_rdf_validation() = {transformation_eligible_notice.get_rdf_validation()}")
     assert transformation_eligible_notice.get_rdf_validation() == []
 
 
 @then("notice not contains RDF validation")
 def step_impl(transformation_eligible_notice):
     assert transformation_eligible_notice
-    print(f"transformation_eligible_notice.get_rdf_validation() = {transformation_eligible_notice.get_rdf_validation()}")
+    print(
+        f"transformation_eligible_notice.get_rdf_validation() = {transformation_eligible_notice.get_rdf_validation()}")
     assert transformation_eligible_notice.get_rdf_validation() is None
 
 
@@ -202,7 +204,10 @@ def step_impl(transformation_eligible_notice, old_rdf_manifestation, rdf_manifes
 
 @given("RDF validation report", target_fixture="rdf_validation")
 def step_impl():
-    return RDFValidationManifestation(object_data="this is another validation report")
+    return RDFValidationManifestation(object_data="this is another validation report",
+                                      test_suite_identifier="test_suite_id",
+                                      mapping_suite_identifier="mapping_suite_id"
+                                      )
 
 
 @given("the notice contains an RDF manifestation")
@@ -224,7 +229,7 @@ def step_impl(transformation_eligible_notice):
 
 @then("the notice status is VALIDATED")
 def step_impl(transformation_eligible_notice):
-    #TODO: Change feature text and tests, once the SPARQL test suite was refactor
+    # TODO: Change feature text and tests, once the SPARQL test suite was refactor
     # assert transformation_eligible_notice.status is NoticeStatus.VALIDATED
     assert transformation_eligible_notice.status is NoticeStatus.DISTILLED
     transformation_eligible_notice.update_status_to(new_status=NoticeStatus.VALIDATED)

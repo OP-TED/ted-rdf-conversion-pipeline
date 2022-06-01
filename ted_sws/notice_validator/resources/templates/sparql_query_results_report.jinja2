@@ -33,7 +33,7 @@
     <h2>Report details: </h2>
     <ul>
         <li>Date created: {{ created }}</li>
-        <li>SPARQL test suite identifier: {{ sparql_test_suite_identifier }}</li>
+        <li>SPARQL test suite identifier: {{ test_suite_identifier }}</li>
         <li>Mapping suite identifier: {{ mapping_suite_identifier }}</li>
     </ul>
     <hr>
@@ -54,7 +54,7 @@
     'false_executions': 0,
     'error_executions': 0,
     } %}
-        {% for result in execution_results %}
+        {% for result in validation_results %}
             <tr>
                 <td>{{ result.query.title }}</td>
                 <td>{{ result.query.description }}</td>

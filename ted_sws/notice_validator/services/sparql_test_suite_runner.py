@@ -1,17 +1,15 @@
-from datetime import datetime
 import re
 from pathlib import Path
 from typing import Tuple, List
 
 from jinja2 import Environment, PackageLoader
 
-from ted_sws.core.model.manifestation import RDFManifestation, RDFValidationManifestation
+from ted_sws.core.model.manifestation import RDFManifestation, SPARQLQueryResult, \
+    SPARQLTestSuiteValidationReport, SPARQLQuery
 from ted_sws.core.model.notice import Notice
 from ted_sws.core.model.transform import SPARQLTestSuite, MappingSuite, FileResource
 from ted_sws.data_manager.adapters.repository_abc import NoticeRepositoryABC, MappingSuiteRepositoryABC
 from ted_sws.notice_validator.adapters.sparql_runner import SPARQLRunner
-from ted_sws.notice_validator.model.sparql_test_suite import SPARQLTestSuiteExecution, SPARQLQuery, \
-    SPARQLQueryResult
 
 TEMPLATES = Environment(loader=PackageLoader("ted_sws.notice_validator.resources", "templates"))
 SPARQL_TEST_SUITE_EXECUTION_HTML_REPORT_TEMPLATE = "sparql_query_results_report.jinja2"
@@ -54,16 +52,16 @@ class SPARQLTestSuiteRunner:
         query = cls._sanitize_query(file_resource.file_content)
         return SPARQLQuery(title=title, description=description, query=query)
 
-    def execute_test_suite(self) -> SPARQLTestSuiteExecution:
+    def execute_test_suite(self) -> SPARQLTestSuiteValidationReport:
         """
             Executing SPARQL queries from a SPARQL test suite and return execution details
         :return:
         """
         sparql_runner = SPARQLRunner(self.rdf_manifestation.object_data)
-        test_suite_executions = SPARQLTestSuiteExecution(mapping_suite_identifier=self.mapping_suite.identifier,
-                                                         sparql_test_suite_identifier=self.sparql_test_suite.identifier,
-                                                         execution_results=[],
-                                                         object_data="SPARQLTestSuiteExecution")
+        test_suite_executions = SPARQLTestSuiteValidationReport(mapping_suite_identifier=self.mapping_suite.identifier,
+                                                                test_suite_identifier=self.sparql_test_suite.identifier,
+                                                                validation_results=[],
+                                                                object_data="SPARQLTestSuiteExecution")
         for query_file_resource in self.sparql_test_suite.sparql_tests:
             sparql_query = self._sparql_query_from_file_resource(file_resource=query_file_resource)
             sparql_query_result = SPARQLQueryResult(query=sparql_query)
@@ -75,7 +73,7 @@ class SPARQLTestSuiteRunner:
                     format="json")
             except Exception as e:
                 sparql_query_result.error = str(e)
-            test_suite_executions.execution_results.append(sparql_query_result)
+            test_suite_executions.validation_results.append(sparql_query_result)
         return test_suite_executions
 
 
@@ -84,10 +82,10 @@ class SPARQLReportBuilder:
         Given a SPARQLQueryResult, generates JSON and HTML reports.
     """
 
-    def __init__(self, sparql_test_suite_execution: SPARQLTestSuiteExecution):
+    def __init__(self, sparql_test_suite_execution: SPARQLTestSuiteValidationReport):
         self.sparql_test_suite_execution = sparql_test_suite_execution
 
-    def generate_report(self) -> RDFValidationManifestation:
+    def generate_report(self) -> SPARQLTestSuiteValidationReport:
         html_report = TEMPLATES.get_template(SPARQL_TEST_SUITE_EXECUTION_HTML_REPORT_TEMPLATE).render(
             self.sparql_test_suite_execution.dict())
         self.sparql_test_suite_execution.object_data = html_report
@@ -102,7 +100,7 @@ def validate_notice_with_sparql_suite(notice: Notice, mapping_suite_package: Map
     :return:
     """
 
-    def sparql_validation(rdf_manifestation: RDFManifestation) -> List[RDFValidationManifestation]:
+    def sparql_validation(rdf_manifestation: RDFManifestation) -> List[SPARQLTestSuiteValidationReport]:
         sparql_test_suites = mapping_suite_package.sparql_test_suites
         reports = []
         for sparql_test_suite in sparql_test_suites:

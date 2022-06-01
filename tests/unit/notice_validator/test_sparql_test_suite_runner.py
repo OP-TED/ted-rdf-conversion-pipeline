@@ -1,9 +1,9 @@
 import pytest
 
-from ted_sws.core.model.manifestation import RDFManifestation, RDFValidationManifestation
+from ted_sws.core.model.manifestation import RDFManifestation, RDFValidationManifestation, SPARQLQuery, \
+    SPARQLQueryResult
 from ted_sws.core.model.notice import NoticeStatus
 from ted_sws.data_manager.adapters.mapping_suite_repository import MappingSuiteRepositoryInFileSystem
-from ted_sws.notice_validator.model.sparql_test_suite import SPARQLQuery, SPARQLQueryResult
 from ted_sws.notice_validator.services.sparql_test_suite_runner import SPARQLTestSuiteRunner, SPARQLReportBuilder, \
     validate_notice_with_sparql_suite, validate_notice_by_id_with_sparql_suite, extract_metadata_from_sparql_query
 
@@ -30,7 +30,7 @@ def test_sparql_query_test_suite_runner(rdf_file_content, sparql_test_suite, dum
     for meta in query_meta:
         assert meta not in sanitized_query
 
-    test_suite_executions = sparql_runner.execute_test_suite().execution_results
+    test_suite_executions = sparql_runner.execute_test_suite().validation_results
     assert isinstance(test_suite_executions, list)
     for execution in test_suite_executions:
         assert isinstance(execution, SPARQLQueryResult)
@@ -44,9 +44,9 @@ def test_sparql_query_test_suite_runner_error(sparql_test_suite_with_invalid_que
     sparql_runner = SPARQLTestSuiteRunner(rdf_manifestation=RDFManifestation(object_data=rdf_file_content),
                                           sparql_test_suite=sparql_test_suite_with_invalid_query,
                                           mapping_suite=dummy_mapping_suite).execute_test_suite()
-    assert sparql_runner.execution_results[0].error
-    assert isinstance(sparql_runner.execution_results[0].error, str)
-    assert "Expected" in sparql_runner.execution_results[0].error
+    assert sparql_runner.validation_results[0].error
+    assert isinstance(sparql_runner.validation_results[0].error, str)
+    assert "Expected" in sparql_runner.validation_results[0].error
 
 
 def test_sparql_report_builder(rdf_file_content, sparql_test_suite, dummy_mapping_suite):
@@ -60,7 +60,7 @@ def test_sparql_report_builder(rdf_file_content, sparql_test_suite, dummy_mappin
     assert isinstance(report, RDFValidationManifestation)
     assert report.object_data
     assert "sparql_test_package" in report.object_data
-    assert report.sparql_test_suite_identifier == "sparql_test_package"
+    assert report.test_suite_identifier == "sparql_test_package"
 
 
 def test_validate_notice_with_sparql_suite(notice_with_distilled_status, dummy_mapping_suite, rdf_file_content):
@@ -75,12 +75,12 @@ def test_validate_notice_with_sparql_suite(notice_with_distilled_status, dummy_m
     assert len(rdf_validation) == 1
     assert isinstance(rdf_validation[0], RDFValidationManifestation)
     assert rdf_validation[0].object_data
-    assert rdf_validation[0].execution_results
+    assert rdf_validation[0].validation_results
     assert isinstance(distilled_rdf_validation, list)
     assert len(distilled_rdf_validation) == 1
     assert isinstance(distilled_rdf_validation[0], RDFValidationManifestation)
     assert distilled_rdf_validation[0].object_data
-    assert distilled_rdf_validation[0].execution_results
+    assert distilled_rdf_validation[0].validation_results
 
 
 def test_validate_notice_by_id_with_sparql_suite(notice_with_distilled_status, rdf_file_content, notice_repository,

@@ -29,7 +29,7 @@
 <h2>Report details: </h2>
 <ul>
     <li>Date created: {{ created }}</li>
-    <li>SHACL test suite identifier: {{ shacl_test_suite_identifier }}</li>
+    <li>SHACL test suite identifier: {{ test_suite_identifier }}</li>
     <li>Mapping suite identifier: {{ mapping_suite_identifier }}</li>
 </ul>
 <hr>
@@ -44,18 +44,18 @@
     </thead>
     <tbody>
     <tr>
-        <td>{{ validation_result.identifier }}</td>
-        <td{% if validation_result.conforms == "True" %}
-            class="success"{% endif %}>{{ validation_result.conforms }}</td>
-        <td>{{ validation_result.error }}</td>
+        <td>{{ validation_results.identifier }}</td>
+        <td{% if validation_results.conforms == "True" %}
+            class="success"{% endif %}>{{ validation_results.conforms }}</td>
+        <td>{{ validation_results.error }}</td>
     </tr>
     </tbody>
 </table>
 
-{% if validation_result.results_dict %}
+{% if validation_results.results_dict %}
     <hr>
     <h2>Extended results</h2>
-    <h1>{{ validation_result.identifier }}</h1>
+    <h1>{{ validation_results.identifier }}</h1>
     <table class="display">
      <thead class="center aligned">
         <tr>
@@ -67,7 +67,7 @@
         </tr>
         </thead>
         <tbody>
-        {% for biding in validation_result.results_dict.results.bindings %}
+        {% for biding in validation_results.results_dict.results.bindings %}
             <tr>
                 <td>{{ biding.focusNode.value }}</td>
                 <td>{{ biding.resultPath.value }}</td>

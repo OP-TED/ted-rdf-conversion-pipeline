@@ -33,9 +33,10 @@ class CmdRunner(BaseCmdRunner):
             serialization_format_value,
             mappings_path=DEFAULT_MAPPINGS_PATH,
             output_path=DEFAULT_OUTPUT_PATH,
-            rml_mapper=None
+            rml_mapper=None,
+            logger=None
     ):
-        super().__init__(name=CMD_NAME)
+        super().__init__(name=CMD_NAME, logger=logger)
         self.repository_path = Path(os.path.realpath(mappings_path))
         self.output_path = output_path
         self.mapping_suite_id = mapping_suite_id
@@ -94,7 +95,7 @@ class CmdRunner(BaseCmdRunner):
 
 def run(mapping_suite_id=None, serialization_format=TURTLE_SERIALIZATION_FORMAT.value, opt_mapping_suite_id=None,
         opt_serialization_format=None, opt_mappings_folder=DEFAULT_MAPPINGS_PATH, opt_output_folder=DEFAULT_OUTPUT_PATH,
-        rml_mapper=None):
+        rml_mapper=None, logger=None):
     if opt_mapping_suite_id:
         mapping_suite_id = opt_mapping_suite_id
     if opt_serialization_format:
@@ -107,7 +108,8 @@ def run(mapping_suite_id=None, serialization_format=TURTLE_SERIALIZATION_FORMAT.
         serialization_format_value=serialization_format,
         mappings_path=mappings_path,
         output_path=output_path,
-        rml_mapper=rml_mapper
+        rml_mapper=rml_mapper,
+        logger=logger
     )
     cmd.run()
 

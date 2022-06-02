@@ -44,8 +44,7 @@ class Logger(LoggerABC):
         self.name = name
         self.logger = logging.getLogger(name)
         self.logger.setLevel(self.level)
-        # self.logger.propagate = False
-
+        self.logger.propagate = False
         self.add_handlers()
 
     def get_logger(self) -> logging.Logger:

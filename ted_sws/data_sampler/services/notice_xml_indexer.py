@@ -123,7 +123,7 @@ def get_minimal_set_of_notices_for_coverage_xpaths(xpaths: List[str], mongodb_cl
             {"$group": {"_id": "$ted_id", "count": {"$sum": 1}, "xpaths": {"$push": "$xml_metadata.unique_xpaths"}}},
             {"$sort": {"count": -1}},
             {"$limit": 1}
-        ]))
+        ], allowDiskUse=True))
         if tmp_result:
             tmp_result = tmp_result[0]
             minimal_set_of_notices.append(tmp_result["_id"])
@@ -180,7 +180,7 @@ def get_unique_xpaths_covered_by_notices(notice_ids: List[str], mongodb_client: 
                 }
             }
         }
-    ]))
+    ], allowDiskUse=True ))
     return results[0]["xpaths"] if results else results
 
 

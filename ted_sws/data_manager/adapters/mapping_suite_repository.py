@@ -168,23 +168,6 @@ class MappingSuiteRepositoryInFileSystem(MappingSuiteRepositoryABC):
             with file_resource_path.open("w", encoding="utf-8") as f:
                 f.write(file_resource.file_content)
 
-    @classmethod
-    def _guess_test_data_file_name(cls, file, parent=None) -> str:
-        """
-            This method generates (guesses) a file_name for a file-type resource, based on file's original_name and
-            parent folder (grouping) name.
-        :param file:
-        :param parent:
-        :return:
-        """
-        mapping_suite_name = file
-        if parent and parent != TEST_DATA_PACKAGE_NAME:
-            parts = parent.split('_')
-            idx = len(parts) - 1
-            if idx > 0 and parts[idx]:
-                mapping_suite_name = parts[idx] + '-' + mapping_suite_name
-        return mapping_suite_name
-
     def _read_flat_file_resources(self, path: pathlib.Path, file_resources=None) -> List[FileResource]:
         """
             This method reads a folder (with nested-tree structure) of resources and returns a flat list of file-type
@@ -199,9 +182,8 @@ class MappingSuiteRepositoryInFileSystem(MappingSuiteRepositoryABC):
 
         for root, dirs, files in os.walk(path):
             for f in files:
-                parent = os.path.basename(root)
                 file = pathlib.Path(os.path.join(root, f))
-                file_resources.append(FileResource(file_name=self._guess_test_data_file_name(file.name, parent),
+                file_resources.append(FileResource(file_name=file.name,
                                                    file_content=file.read_text(encoding="utf-8"),
                                                    original_name=file.name))
 

@@ -41,7 +41,7 @@ class CmdRunner(BaseCmdRunner):
             self.log_failed_msg(error_msg)
             raise FileNotFoundError(error_msg)
 
-        if clean:
+        if clean and os.path.exists(self.output_folder_path):
             for filename in os.listdir(self.output_folder_path):
                 f = os.path.join(self.output_folder_path, filename)
                 if os.path.isfile(f):

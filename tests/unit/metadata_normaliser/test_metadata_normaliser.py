@@ -100,3 +100,36 @@ def test_get_filter_values(raw_notice):
     assert filter_variables_dict[LEGAL_BASIS_KEY] is None
     assert filter_variables_dict[SF_NOTICE_TYPE_KEY] is None
     assert filter_variables_dict[DOCUMENT_CODE_KEY] is None
+
+
+def test_normalising_process_on_failed_notice_in_dag(notice_2021):
+    extracted_metadata = XMLManifestationMetadataExtractor(
+        xml_manifestation=notice_2021.xml_manifestation).to_metadata()
+    extracted_metadata_normaliser = ExtractedMetadataNormaliser(extracted_metadata=extracted_metadata)
+    filter_map = MappingFilesRegistry().filter_map_df
+    filter_variables_dict = extracted_metadata_normaliser.get_filter_variables_values(
+        form_number=extracted_metadata.extracted_form_number,
+        filter_map=filter_map,
+        extracted_notice_type=extracted_metadata.extracted_notice_type,
+        document_type_code=extracted_metadata.extracted_document_type.code,
+        legal_basis=extracted_metadata.legal_basis_directive)
+
+    assert isinstance(filter_variables_dict, dict)
+    assert filter_variables_dict[FORM_NUMBER_KEY] == "F21"
+    assert filter_variables_dict[LEGAL_BASIS_KEY] is None
+    assert filter_variables_dict[SF_NOTICE_TYPE_KEY] == "AWARD_CONTRACT"
+    assert filter_variables_dict[DOCUMENT_CODE_KEY] is None
+
+    form_type, notice_type, legal_basis, eforms_subtype = extracted_metadata_normaliser.get_form_type_and_notice_type(
+        ef_map=MappingFilesRegistry().ef_notice_df,
+        sf_map=MappingFilesRegistry().sf_notice_df,
+        form_number=extracted_metadata.extracted_form_number,
+        extracted_notice_type=extracted_metadata.extracted_notice_type,
+        legal_basis=extracted_metadata.legal_basis_directive,
+        document_type_code=extracted_metadata.extracted_document_type.code,
+        filter_map=MappingFilesRegistry().filter_map_df)
+
+    assert form_type == "result"
+    assert notice_type == "can-social"
+    assert legal_basis == "32014L0024"
+    assert eforms_subtype == 33

@@ -109,7 +109,8 @@ class ExtractedMetadataNormaliser:
         :param value:
         :return:
         """
-        entry_list = [element for element in mapping['results']['bindings'] if element['code']['value'] == value]
+        entry_list = [element for element in mapping['results']['bindings'] if
+                      element['code']['value'] == value.strip()]
         entry = None
         if entry_list:
             entry = entry_list[0]
@@ -126,7 +127,7 @@ class ExtractedMetadataNormaliser:
         """
         pattern = "3{year}L{number}"
         normalised_value = value
-        parts = value.split("/")
+        parts = value.split("/") if "/" in value else [value]
         if len(parts) > 1:
             normalised_value = pattern.format(year=parts[0], number=parts[1].rjust(4, "0"))
 

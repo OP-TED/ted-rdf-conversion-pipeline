@@ -22,7 +22,6 @@ def get_notice_ids_by_normalised_metadata_field_value(field_name: str, field_val
         {"$match": {f"normalised_metadata.{field_name}": field_value, "xml_metadata": {"$ne": None}}
 
          },
-        { "$limit": 10}, #TODO: remove this limit, this limit is only for testing logic
         {
             "$group": {"_id": None,
                        "ted_ids": {"$push": "$ted_id"}

@@ -35,7 +35,7 @@ class NoticeSamplerRunner(CmdRunner):
 
     def _store_samples_by_notice_ids(self, storage_samples_path: pathlib.Path, notice_ids: List[str]):
         """
-
+            This method stores notices in the file system.
         :param storage_samples_path:
         :param notice_ids:
         :return:
@@ -59,7 +59,7 @@ class NoticeSamplerRunner(CmdRunner):
 
     def execute_notice_sampler_foreach_form_number(self):
         """
-
+            This method executes notice sampler for each form_number.
         :return:
         """
         form_numbers = list(set(self.sf_notice_df[FORM_NUMBER_COLUMN_NAME].values.tolist()))
@@ -78,7 +78,7 @@ class NoticeSamplerRunner(CmdRunner):
 
     def execute_notice_sampler_foreach_eforms_subtype(self):
         """
-
+            This method executes notice sampler for each eforms_subtype.
         :return:
         """
         eforms_subtypes = list(set(self.sf_notice_df[EFORMS_SUBTYPE_COLUMN_NAME].values.tolist()))
@@ -97,7 +97,7 @@ class NoticeSamplerRunner(CmdRunner):
 
     def run_cmd(self):
         """
-
+            This method notifies the sampler for each form_number and eforms_subtype.
         :return:
         """
         self.execute_notice_sampler_foreach_form_number()

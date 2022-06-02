@@ -44,11 +44,13 @@ class CmdRunnerABC(abc.ABC):
 
 
 class CmdRunner(CmdRunnerABC):
-    def __init__(self, name=__name__, log_level: int = logging.INFO):
+    def __init__(self, name=__name__, log_level: int = logging.INFO, logger: Logger = None):
         self.name = name
         self.begin_time = None
         self.end_time = None
-        self.logger = Logger(name=name, level=log_level)
+        if logger is None:
+            logger = Logger(name=name, level=log_level)
+        self.logger = logger
         self.add_logger_handlers()
 
     def add_logger_handlers(self):

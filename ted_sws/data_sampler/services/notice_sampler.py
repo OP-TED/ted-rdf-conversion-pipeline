@@ -1,4 +1,3 @@
-import logging
 import pathlib
 from typing import List
 
@@ -9,7 +8,6 @@ from ted_sws.data_manager.adapters.notice_repository import NoticeRepository
 from ted_sws.data_sampler.services.notice_selectors import get_notice_ids_by_form_number, \
     get_notice_ids_by_eforms_subtype
 from ted_sws.data_sampler.services.notice_xml_indexer import get_most_representative_notices
-from ted_sws.event_manager.adapters.logger import Logger
 from ted_sws.resources.mapping_files_registry import MappingFilesRegistry
 
 FORM_NUMBER_COLUMN_NAME = "form_number"

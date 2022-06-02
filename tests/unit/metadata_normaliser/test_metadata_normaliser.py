@@ -16,13 +16,12 @@ def test_metadata_normaliser_by_notice(raw_notice):
     assert notice.status == NoticeStatus.NORMALISED_METADATA
 
 
-def test_metadata_normaliser_by_notice_id(notice_id, notice_repository, notice_2018):
-    notice_repository.add(notice_2018)
-    with pytest.raises(AttributeError):
-        notice = normalise_notice_by_id(notice_id=notice_2018.ted_id, notice_repository=notice_repository)
-        assert notice.normalised_metadata
-        assert notice.normalised_metadata.title
-        assert notice.status == NoticeStatus.NORMALISED_METADATA
+def test_metadata_normaliser_by_notice_id(notice_id, notice_repository, notice_2020):
+    notice_repository.add(notice_2020)
+    notice = normalise_notice_by_id(notice_id=notice_2020.ted_id, notice_repository=notice_repository)
+    assert notice.normalised_metadata
+    assert notice.normalised_metadata.title
+    assert notice.status == NoticeStatus.NORMALISED_METADATA
 
 
 def test_metadata_normaliser_by_wrong_notice_id(notice_repository):

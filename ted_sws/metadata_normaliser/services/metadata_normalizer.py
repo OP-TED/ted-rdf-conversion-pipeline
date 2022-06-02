@@ -127,7 +127,7 @@ class ExtractedMetadataNormaliser:
         """
         pattern = "3{year}L{number}"
         normalised_value = value
-        parts = value.split("/") if "/" in value else [value]
+        parts = value.split("/") if value and ("/" in value) else [value]
         if len(parts) > 1:
             normalised_value = pattern.format(year=parts[0], number=parts[1].rjust(4, "0"))
 

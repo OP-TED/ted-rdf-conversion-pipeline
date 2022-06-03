@@ -120,7 +120,8 @@ def get_minimal_set_of_notices_for_coverage_xpaths(xpaths: List[str], mongodb_cl
                 "xml_metadata.unique_xpaths": {"$in": unique_xpaths},
             }
             },
-            {"$group": {"_id": "$ted_id", "count": {"$sum": 1}, "xpaths": {"$push": "$xml_metadata.unique_xpaths"}}},
+            {"$group": {"_id": "$ted_id", "count": {"$sum": 1}, "xpaths": {"$addToSet" : "$xml_metadata.unique_xpaths"}
+                        }},
             {"$sort": {"count": -1}},
             {"$limit": 1}
         ], allowDiskUse=True))
@@ -151,6 +152,7 @@ def get_unique_notices_id_covered_by_xpaths(xpaths: List[str], mongodb_client: M
     ]))
     return results[0]["ted_ids"] if results else results
 
+
 def get_unique_xpaths_covered_by_notices(notice_ids: List[str], mongodb_client: MongoClient) -> List[str]:
     """
         This function returns a list of unique XPaths that are covered by the notices list.
@@ -159,29 +161,11 @@ def get_unique_xpaths_covered_by_notices(notice_ids: List[str], mongodb_client: 
     :return:
     """
     notice_repository = NoticeRepository(mongodb_client=mongodb_client)
-    results = list(notice_repository.collection.aggregate([
-        {"$match": {"ted_id": {"$in": notice_ids}}},
-        {
-            "$group": {"_id": None,
-                       "xpaths": {"$push": "$xml_metadata.unique_xpaths"}
-                       }
-        },
-        {
-            "$project": {
-                "_id": 0,
-                "xpaths": {
-                    "$setUnion": {
-                        "$reduce": {
-                            "input": '$xpaths',
-                            "initialValue": [],
-                            "in": {"$concatArrays": ['$$value', '$$this']}
-                        }
-                    }
-                }
-            }
-        }
-    ], allowDiskUse=True ))
-    return results[0]["xpaths"] if results else results
+    results = notice_repository.collection.aggregate([{"$match": {"ted_id": {"$in": notice_ids}}}], allowDiskUse=True)
+    unique_xpaths = set()
+    for result in results:
+        unique_xpaths.update(result["xml_metadata"]["unique_xpaths"])
+    return list(unique_xpaths)
 
 
 def get_most_representative_notices(notice_ids: List[str], mongodb_client: MongoClient, top_k: int = None) -> List[str]:
@@ -193,5 +177,6 @@ def get_most_representative_notices(notice_ids: List[str], mongodb_client: Mongo
     :return:
     """
     unique_xpaths = get_unique_xpaths_covered_by_notices(notice_ids=notice_ids, mongodb_client=mongodb_client)
-    minimal_set_of_notices = get_minimal_set_of_notices_for_coverage_xpaths(xpaths=unique_xpaths,mongodb_client=mongodb_client)
+    minimal_set_of_notices = get_minimal_set_of_notices_for_coverage_xpaths(xpaths=unique_xpaths,
+                                                                            mongodb_client=mongodb_client)
     return minimal_set_of_notices[:top_k]

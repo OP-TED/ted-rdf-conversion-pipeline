@@ -10,6 +10,7 @@ from ted_sws.rml_to_html.resources.query_registry import QueryRegistry
 TEMPLATES = Environment(loader=PackageLoader("ted_sws.rml_to_html.resources", "templates"))
 RML_TO_HTML_REPORT_TEMPLATE = "rml_to_html_report.jinja2"
 
+
 def query_uri_substitution(query: str, triple_map_uri: str) -> str:
     """
     Method to replace triple map URI in the SPARQL query

@@ -277,6 +277,24 @@ Options:
   --help                                      Show this message and exit.
 ```
 
+#### CMD: rml_report_generator
+Generates RML modules report file for Mapping Suite.
+
+Use:
+```bash
+rml_report_generator --help
+```
+to get the Usage Help:
+```bash
+Usage: rml_report_generator [OPTIONS] [MAPPING_SUITE_ID]
+
+  Generates RML modules report file for Mapping Suite.
+
+Options:
+  -m, --opt-mappings-folder TEXT
+  --help                                      Show this message and exit.
+```
+
 ### API
 #### ID Manager API
 ##### Start local API server

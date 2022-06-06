@@ -40,37 +40,42 @@ class NoticeRepository(NoticeRepositoryABC):
         """
         return self.file_storage.get(file_id=ObjectId(file_id)).read().decode("utf-8")
 
-    def put_file_content_in_grid_fs(self, notice_id: str, file_content: str) -> str:
+    def put_file_content_in_grid_fs(self, notice_id: str, file_content: str) -> ObjectId:
         """
             This method store file_content in GridFS and set notice_id as file metadata.
         :param notice_id:
         :param file_content:
         :return:
         """
-        return str(self.file_storage.put(data=file_content.encode("utf-8"), notice_id=notice_id))
+        return self.file_storage.put(data=file_content.encode("utf-8"), notice_id=notice_id)
 
-    def delete_files_by_notice_id(self, linked_files_from_grid_fs: GridOutCursor):
+    def delete_files_by_notice_id(self, linked_file_ids: list):
         """
             This method delete all files from GridFS with specific notice_id in metadata.
-        :param linked_files_from_grid_fs:
+        :param linked_file_ids:
         :return:
         """
-        for linked_file in linked_files_from_grid_fs:
-            self.file_storage.delete(file_id=linked_file._id)
+        for linked_file_id in linked_file_ids:
+            self.file_storage.delete(file_id=linked_file_id)
 
-    def write_notice_fields_in_grid_fs(self, notice: Notice) -> Tuple[Notice, GridOutCursor] :
+    def write_notice_fields_in_grid_fs(self, notice: Notice) -> Tuple[Notice, list, list]:
         """
             This method store large fields in GridFS.
         :param notice:
         :return:
         """
         notice = copy.deepcopy(notice)
-        linked_files_from_grid_fs = self.file_storage.find({"notice_id": notice.ted_id})
+        linked_file_ids = [linked_file._id for linked_file in
+                           self.file_storage.find({"notice_id": notice.ted_id})]
+
+        new_linked_file_ids = []
 
         def write_large_field(large_field: Manifestation):
             if (large_field is not None) and (large_field.object_data is not None):
-                large_field.object_data = self.put_file_content_in_grid_fs(notice_id=notice.ted_id,
-                                                                           file_content=large_field.object_data)
+                object_id = self.put_file_content_in_grid_fs(notice_id=notice.ted_id,
+                                                             file_content=large_field.object_data)
+                large_field.object_data = str(object_id)
+                new_linked_file_ids.append(object_id)
 
         write_large_field(notice.xml_manifestation)
         write_large_field(notice.rdf_manifestation)
@@ -91,7 +96,7 @@ class NoticeRepository(NoticeRepositoryABC):
             for validation_report in notice.distilled_rdf_manifestation.sparql_validations:
                 write_large_field(validation_report)
 
-        return notice, linked_files_from_grid_fs
+        return notice, linked_file_ids, new_linked_file_ids
 
     def load_notice_fields_from_grid_fs(self, notice: Notice) -> Notice:
         """
@@ -162,16 +167,23 @@ class NoticeRepository(NoticeRepositoryABC):
         notice_dict["status"] = str(notice_dict["status"])
         return notice_dict
 
+    def _update_notice(self, notice: Notice, upsert: bool = False):
+        notice, linked_file_ids, new_linked_file_ids = self.write_notice_fields_in_grid_fs(notice=notice)
+        notice_dict = NoticeRepository._create_dict_from_notice(notice=notice)
+        try:
+            self.collection.update_one({'_id': notice_dict["_id"]}, {"$set": notice_dict}, upsert=upsert)
+            self.delete_files_by_notice_id(linked_file_ids=linked_file_ids)
+        except Exception as exception:
+            self.delete_files_by_notice_id(linked_file_ids=new_linked_file_ids)
+            raise exception
+
     def add(self, notice: Notice):
         """
             This method allows you to add notice objects to the repository.
         :param notice:
         :return:
         """
-        notice, linked_files = self.write_notice_fields_in_grid_fs(notice=notice)
-        notice_dict = NoticeRepository._create_dict_from_notice(notice=notice)
-        self.collection.update_one({'_id': notice_dict["_id"]}, {"$set": notice_dict}, upsert=True)
-        self.delete_files_by_notice_id(linked_files_from_grid_fs=linked_files)
+        self._update_notice(notice=notice, upsert=True)
 
     def update(self, notice: Notice):
         """
@@ -181,10 +193,7 @@ class NoticeRepository(NoticeRepositoryABC):
         """
         notice_exist = self.collection.find_one({'_id': notice.ted_id})
         if notice_exist is not None:
-            notice, linked_files = self.write_notice_fields_in_grid_fs(notice=notice)
-            notice_dict = NoticeRepository._create_dict_from_notice(notice=notice)
-            self.collection.update_one({'_id': notice_dict["_id"]}, {"$set": notice_dict})
-            self.delete_files_by_notice_id(linked_files_from_grid_fs=linked_files)
+            self._update_notice(notice=notice)
 
     def get(self, reference) -> Optional[Notice]:
         """

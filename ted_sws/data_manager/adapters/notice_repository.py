@@ -1,8 +1,9 @@
 import copy
 import logging
-from typing import Iterator, Union, Optional
+from typing import Iterator, Union, Optional, Tuple
 
 import gridfs
+from gridfs import GridOutCursor
 from pymongo import MongoClient, ASCENDING
 from bson import ObjectId
 from ted_sws import config
@@ -48,24 +49,23 @@ class NoticeRepository(NoticeRepositoryABC):
         """
         return str(self.file_storage.put(data=file_content.encode("utf-8"), notice_id=notice_id))
 
-    def delete_files_by_notice_id(self, notice_id: str):
+    def delete_files_by_notice_id(self, linked_files_from_grid_fs: GridOutCursor):
         """
             This method delete all files from GridFS with specific notice_id in metadata.
-        :param notice_id:
+        :param linked_files_from_grid_fs:
         :return:
         """
-        results = self.file_storage.find({"notice_id": notice_id})
-        for result in results:
-            self.file_storage.delete(file_id=result._id)
+        for linked_file in linked_files_from_grid_fs:
+            self.file_storage.delete(file_id=linked_file._id)
 
-    def write_notice_fields_in_grid_fs(self, notice: Notice) -> Notice:
+    def write_notice_fields_in_grid_fs(self, notice: Notice) -> Tuple[Notice, GridOutCursor] :
         """
             This method store large fields in GridFS.
         :param notice:
         :return:
         """
         notice = copy.deepcopy(notice)
-        self.delete_files_by_notice_id(notice_id=notice.ted_id)
+        linked_files_from_grid_fs = self.file_storage.find({"notice_id": notice.ted_id})
 
         def write_large_field(large_field: Manifestation):
             if (large_field is not None) and (large_field.object_data is not None):
@@ -91,7 +91,7 @@ class NoticeRepository(NoticeRepositoryABC):
             for validation_report in notice.distilled_rdf_manifestation.sparql_validations:
                 write_large_field(validation_report)
 
-        return notice
+        return notice, linked_files_from_grid_fs
 
     def load_notice_fields_from_grid_fs(self, notice: Notice) -> Notice:
         """
@@ -168,9 +168,10 @@ class NoticeRepository(NoticeRepositoryABC):
         :param notice:
         :return:
         """
-        notice = self.write_notice_fields_in_grid_fs(notice=notice)
+        notice, linked_files = self.write_notice_fields_in_grid_fs(notice=notice)
         notice_dict = NoticeRepository._create_dict_from_notice(notice=notice)
         self.collection.update_one({'_id': notice_dict["_id"]}, {"$set": notice_dict}, upsert=True)
+        self.delete_files_by_notice_id(linked_files_from_grid_fs=linked_files)
 
     def update(self, notice: Notice):
         """
@@ -180,9 +181,10 @@ class NoticeRepository(NoticeRepositoryABC):
         """
         notice_exist = self.collection.find_one({'_id': notice.ted_id})
         if notice_exist is not None:
-            notice = self.write_notice_fields_in_grid_fs(notice=notice)
+            notice, linked_files = self.write_notice_fields_in_grid_fs(notice=notice)
             notice_dict = NoticeRepository._create_dict_from_notice(notice=notice)
             self.collection.update_one({'_id': notice_dict["_id"]}, {"$set": notice_dict})
+            self.delete_files_by_notice_id(linked_files_from_grid_fs=linked_files)
 
     def get(self, reference) -> Optional[Notice]:
         """

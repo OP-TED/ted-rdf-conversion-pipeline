@@ -43,7 +43,7 @@ class SHACLTestSuiteRunner:
                 result_graph.query(shacl_shape_result_query).serialize(
                     format='json').decode("UTF-8"))
         except Exception as e:
-            shacl_shape_validation_result.error = str(e)
+            shacl_shape_validation_result.error = str(e)[:100]
 
         return SHACLTestSuiteValidationReport(mapping_suite_identifier=self.mapping_suite.identifier,
                                               test_suite_identifier=self.shacl_test_suite.identifier,

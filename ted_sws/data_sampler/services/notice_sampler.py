@@ -88,7 +88,7 @@ class NoticeSamplerRunner(CmdRunner):
             notice_samples_path.mkdir(parents=True, exist_ok=True)
             self.log(message="-"*50)
             self.log(message=f"Get notice_ids by eforms_subtype = [{eforms_subtype}]...")
-            selected_notice_ids = get_notice_ids_by_eforms_subtype(eforms_subtype=eforms_subtype,
+            selected_notice_ids = get_notice_ids_by_eforms_subtype(eforms_subtype=str(eforms_subtype),
                                                                    mongodb_client=self.mongodb_client)
             self.log(message=f"Retrieved {len(selected_notice_ids)} notice_ids by eforms_subtype = [{eforms_subtype}]...")
             self._store_samples_by_notice_ids(storage_samples_path=notice_samples_path, notice_ids=selected_notice_ids)
@@ -100,8 +100,8 @@ class NoticeSamplerRunner(CmdRunner):
             This method notifies the sampler for each form_number and eforms_subtype.
         :return:
         """
-        self.execute_notice_sampler_foreach_form_number()
         self.execute_notice_sampler_foreach_eforms_subtype()
+        self.execute_notice_sampler_foreach_form_number()
 
 
 def store_notice_samples_in_file_system(mongodb_client: MongoClient, storage_path: pathlib.Path, top_k: int = None):

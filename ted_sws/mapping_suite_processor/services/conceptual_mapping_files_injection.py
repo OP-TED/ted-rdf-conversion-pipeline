@@ -42,8 +42,7 @@ def mapping_suite_processor_inject_rml_modules(conceptual_mappings_file_path: pa
     :param output_rml_modules_folder_path:
     :return:
     """
-    rml_modules_df = pd.read_excel(conceptual_mappings_file_path,
-                                   sheet_name=CONCEPTUAL_MAPPINGS_RML_MODULES_SHEET_NAME)
+    rml_modules_df = pd.read_excel(conceptual_mappings_file_path, sheet_name=CONCEPTUAL_MAPPINGS_RML_MODULES_SHEET_NAME)
     rml_module_file_names = list(rml_modules_df[FILE_NAME_KEY].values)
     for rml_module_file_name in rml_module_file_names:
         src_rml_module_file_path = rml_modules_folder_path / rml_module_file_name

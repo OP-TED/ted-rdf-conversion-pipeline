@@ -207,3 +207,16 @@ def mongodb_client():
 @pytest.fixture
 def cli_runner():
     return CliRunner()
+
+
+@pytest.fixture
+def notice_2021():
+    notice_data = read_notice("633448-2021.json")
+    notice_content = base64.b64decode(notice_data["content"]).decode(encoding="utf-8")
+
+    xml_manifestation = XMLManifestation(object_data=notice_content)
+    del notice_data["content"]
+    ted_id = notice_data["ND"]
+    original_metadata = TEDMetadata(**notice_data)
+
+    return Notice(ted_id=ted_id, xml_manifestation=xml_manifestation, original_metadata=original_metadata)

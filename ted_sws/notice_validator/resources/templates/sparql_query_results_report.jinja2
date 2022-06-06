@@ -1,3 +1,7 @@
+{% macro increment(dictionary, key, increment_by=1) %}
+    {% if dictionary.update({key: dictionary[key] + increment_by}) %} {% endif %}
+{% endmacro %}
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -29,7 +33,7 @@
     <h2>Report details: </h2>
     <ul>
         <li>Date created: {{ created }}</li>
-        <li>SPARQL test suite identifier: {{ sparql_test_suite_identifier }}</li>
+        <li>SPARQL test suite identifier: {{ test_suite_identifier }}</li>
         <li>Mapping suite identifier: {{ mapping_suite_identifier }}</li>
     </ul>
     <hr>
@@ -45,7 +49,12 @@
         </tr>
      </thead>
     <tbody>
-        {% for result in execution_results %}
+    {% set counter = {
+    'true_executions': 0,
+    'false_executions': 0,
+    'error_executions': 0,
+    } %}
+        {% for result in validation_results %}
             <tr>
                 <td>{{ result.query.title }}</td>
                 <td>{{ result.query.description }}</td>
@@ -53,8 +62,43 @@
                 <td{% if result.result == "True" %} class="success" {% else %} class="error" {% endif %}>{{ result.result }}</td>
                 <td>{{ result.error }}</td>
             </tr>
+            {% if result.result == "True" %}
+                {{ increment(counter, 'true_executions') }}
+            {% elif result.error %}
+                {{ increment(counter, 'error_executions') }}
+            {% else %}
+                {{ increment(counter, 'false_executions') }}
+            {% endif %}
+
         {% endfor %}
     </tbody>
+    </table>
+    <h2>Results summary</h2>
+    <table class="display">
+        <thead class="center aligned">
+        <tr>
+            <th>Result type</th>
+            <th>Number of</th>
+            <th>Ratio</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>{{ "True" }}</td>
+            <td>{{ counter.true_executions }}</td>
+            <td>{{ counter.true_executions / (counter.true_executions + counter.false_executions + counter.error_executions) }}</td>
+        </tr>
+        <tr>
+            <td>{{ "False" }}</td>
+            <td>{{ counter.false_executions }}</td>
+            <td>{{ counter.false_executions / (counter.true_executions + counter.false_executions + counter.error_executions) }}</td>
+        </tr>
+                <tr>
+            <td>{{ "Error" }}</td>
+            <td>{{ counter.error_executions }}</td>
+            <td>{{ counter.error_executions / (counter.true_executions + counter.false_executions + counter.error_executions) }}</td>
+        </tr>
+        </tbody>
     </table>
   </body>
 </html>

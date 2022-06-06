@@ -7,6 +7,8 @@
 - [Developer documentation](#developer-documentation)
 - [Installation](#installation)
 - [Usage](#usage)
+- [Contributing](#contributing)
+- [Licence](#licence)
 
 
 <hr>
@@ -111,6 +113,7 @@ Usage: rml_modules_injector [OPTIONS] [MAPPING_SUITE_ID]
 Options:
   -i, --opt-conceptual-mappings-file TEXT     Use to overwrite default INPUT
   -o, --opt-output-folder TEXT                Use to overwrite default OUTPUT
+  -c, --opt-clean BOOLEAN                     Use to clean the OUTPUT folder
   -r, --opt-rml-modules-folder TEXT
   -m, --opt-mappings-folder TEXT
   --help                                      Show this message and exit.
@@ -209,7 +212,6 @@ By default, successively runs the following commands:
 ```bash
 - normalisation_resource_generator
 - resources_injector
-- rml_modules_injector
 - metadata_generator
 - yarrrml2rml_converter
 - sparql_generator
@@ -228,7 +230,7 @@ Usage: mapping_suite_processor [OPTIONS] MAPPING_SUITE_ID
   yarrrml2rml_converter - sparql_generator
 
 Options:
-  -c, --opt-commands [normalisation_resource_generator|resources_injector|rml_modules_injector|metadata_generator|yarrrml2rml_converter|sparql_generator]
+  -c, --opt-commands [normalisation_resource_generator|resources_injector|metadata_generator|yarrrml2rml_converter|sparql_generator]
   -m, --opt-mappings-folder TEXT
   --help                                      Show this message and exit.
 ```
@@ -275,6 +277,24 @@ Options:
   --help                                      Show this message and exit.
 ```
 
+#### CMD: rml_report_generator
+Generates RML modules report file for Mapping Suite.
+
+Use:
+```bash
+rml_report_generator --help
+```
+to get the Usage Help:
+```bash
+Usage: rml_report_generator [OPTIONS] [MAPPING_SUITE_ID]
+
+  Generates RML modules report file for Mapping Suite.
+
+Options:
+  -m, --opt-mappings-folder TEXT
+  --help                                      Show this message and exit.
+```
+
 ### API
 #### ID Manager API
 ##### Start local API server
@@ -304,8 +324,16 @@ Options:
 
 <hr>
 
-## Contributions
+## Contributing
 
-<hr>
+You are more than welcome to help expand and mature this project. 
 
-## Licence
+When contributing to this repository, please first discuss the change you wish to make via issue, email, or any other method with the owners of this repository before making a change.
+
+Please note we adhere to [Apache code of conduct](https://www.apache.org/foundation/policies/conduct), please follow it in all your interactions with the project.  
+
+## Licence 
+
+The documents, such as reports and specifications are licenced under a [CC BY 4.0 licence](https://creativecommons.org/licenses/by/4.0/deed.en).
+
+The source code and other scripts are licenced under [EUPL v1.2](https://joinup.ec.europa.eu/collection/eupl/eupl-text-eupl-12) licence.

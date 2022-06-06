@@ -1,7 +1,7 @@
 {
 	"prefix_definitions" : {
 		"xml": "http://www.w3.org/XML/1998/namespace",
-		"xsd": "https://www.w3.org/2001/XMLSchema#",
+		"xsd": "http://www.w3.org/2001/XMLSchema#",
 		"rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
 		"rdfs": "http://www.w3.org/2000/01/rdf-schema#",
 		"owl": "http://www.w3.org/2002/07/owl#",
@@ -19,6 +19,8 @@
 
 		"epo": "http://data.europa.eu/a4g/ontology#",
 		"epd": "http://data.europa.eu/a4g/resource/",
+		"tedm": "http://data.europa.eu/a4g/mapping/sf-rml/",
+		"tedd": "http://data.europa.eu/a4g/dataset/sf-rml/",
 		"locn": "http://www.w3.org/ns/locn#",
 		
 		"core-voc": "http://data.europa.eu/m8g/",
@@ -49,8 +51,8 @@
 		"sparql_generator" : ["xml", "xsd", "rdf", "rdfs", "owl", "skos", "dc", "dct", "foaf", "epo", "epd", "locn"],
 		"sparql_generator_ext" : ["time", "org", "core-voc", "geosparql", "dul"],
 		"yarrrml_rules" : ["epo", "epd", "locn", "xml", "xsd", "rdf", "rdfs", "dct"],
-		"rml_rules" : ["rr", "rml", "ql", "epo", "epd", "locn", "xml", "xsd", "rdf", "rdfs", "dct"],
-		"epo_ontology" : ["epo", "epd", "locn", "xml", "xsd", "rdf", "rdfs", "owl", "skos", "dc", "dct", "foaf", "core-voc", "geosparql", "dul"],
-		"currently_unused" : ["cc", "vann", "epor", "epos", "grel", "xf", "map", "sd", "ht", "v"]
+		"rml_rules" : ["rr", "rml", "ql", "epo", "epd", "tedm", "locn", "xml", "xsd", "rdf", "rdfs", "owl", "dct", "cc", "cccev", "skos", "time", "vann"],
+		"epo_ontology" : ["epo", "epd", "locn", "xml", "xsd", "rdf", "rdfs", "owl", "skos", "dc", "dct", "foaf", "core-voc", "geosparql", "dul", "cc", "time", "vann"],
+		"currently_unused" : ["epor", "epos", "grel", "xf", "map", "sd", "ht", "v"]
 	}
 }

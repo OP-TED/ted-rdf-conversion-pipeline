@@ -1,4 +1,6 @@
 import datetime
+import time
+from random import randint
 
 from airflow.operators.trigger_dagrun import TriggerDagRunOperator
 
@@ -38,16 +40,18 @@ def fetch_notices_per_day_worker():
             while restart_dag_operator:
                 restart_dag_operator = False
                 try:
+                    time.sleep(randint(10, 500) / 1000)
                     TriggerDagRunOperator(
                         task_id=f'trigger_index_and_normalise_notice_worker_dag_{notice_id}',
                         trigger_dag_id="index_and_normalise_notice_worker",
                         trigger_run_id=notice_id,
-                        execution_date=datetime.datetime.now().replace(tzinfo=datetime.timezone.utc),
                         conf={NOTICE_ID: notice_id}
                     ).execute(context=context)
-                except:
+                except Exception as e:
+
                     restart_dag_operator = True
                     print("trigger dag operator restarted !!!")
+                    print("EXCEPTION message: ", e)
 
     fetch_notices_and_trigger_index_and_normalise_notice_worker()
 

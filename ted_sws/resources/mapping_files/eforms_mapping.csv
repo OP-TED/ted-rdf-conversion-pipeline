@@ -13,7 +13,7 @@ competition,pin-cfc-standard,32014L0025,11
 competition,pin-cfc-social,32014L0024,12
 competition,pin-cfc-social,32014L0025,13
 competition,pin-cfc-social,32014L0023,14
-competition,qu-sy ,32014L0025,15
+competition,qu-sy,32014L0025,15
 competition,cn-standard,32014L0024,16
 competition,cn-standard,32014L0025,17
 competition,cn-standard,32009L0081,18
@@ -31,9 +31,9 @@ result,can-standard,32014L0024,29
 result,can-standard,32014L0025,30
 result,can-standard,32009L0081,31
 result,can-standard,32014L0023,32
-result,can-social ,32014L0024,33
-result,can-social ,32014L0025,34
-result,can-social ,32014L0023,35
+result,can-social,32014L0024,33
+result,can-social,32014L0025,34
+result,can-social,32014L0023,35
 result,can-desg,32014L0024,36
 result,can-desg,32014L0025,37
 cont-modif,can-modif,32014L0024,38

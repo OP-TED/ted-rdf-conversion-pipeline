@@ -3,7 +3,7 @@ import logging
 from typing import Iterator, Union, Optional
 
 import gridfs
-from pymongo import MongoClient
+from pymongo import MongoClient, ASCENDING
 from bson import ObjectId
 from ted_sws import config
 from ted_sws.core.model.manifestation import XMLManifestation, RDFManifestation, METSManifestation, Manifestation
@@ -28,6 +28,8 @@ class NoticeRepository(NoticeRepositoryABC):
         notice_db = mongodb_client[self._database_name]
         self.file_storage = gridfs.GridFS(notice_db)
         self.collection = notice_db[self._collection_name]
+        self.file_storage_collection = notice_db["fs.files"]
+        self.file_storage_collection.create_index([("notice_id", ASCENDING)])
 
     def get_file_content_from_grid_fs(self, file_id: str) -> str:
         """
@@ -76,11 +78,17 @@ class NoticeRepository(NoticeRepositoryABC):
         write_large_field(notice.distilled_rdf_manifestation)
         write_large_field(notice.preprocessed_xml_manifestation)
         if notice.rdf_manifestation:
-            for validation_report in notice.rdf_manifestation.validation:
+            for validation_report in notice.rdf_manifestation.shacl_validations:
+                write_large_field(validation_report)
+
+            for validation_report in notice.rdf_manifestation.sparql_validations:
                 write_large_field(validation_report)
 
         if notice.distilled_rdf_manifestation:
-            for validation_report in notice.distilled_rdf_manifestation.validation:
+            for validation_report in notice.distilled_rdf_manifestation.shacl_validations:
+                write_large_field(validation_report)
+
+            for validation_report in notice.distilled_rdf_manifestation.sparql_validations:
                 write_large_field(validation_report)
 
         return notice
@@ -102,10 +110,16 @@ class NoticeRepository(NoticeRepositoryABC):
         load_large_field(large_field=notice.distilled_rdf_manifestation)
         load_large_field(large_field=notice.preprocessed_xml_manifestation)
         if notice.rdf_manifestation:
-            for validation_report in notice.rdf_manifestation.validation:
+            for validation_report in notice.rdf_manifestation.shacl_validations:
                 load_large_field(validation_report)
+            for validation_report in notice.rdf_manifestation.sparql_validations:
+                load_large_field(validation_report)
+
         if notice.distilled_rdf_manifestation:
-            for validation_report in notice.distilled_rdf_manifestation.validation:
+            for validation_report in notice.distilled_rdf_manifestation.shacl_validations:
+                load_large_field(validation_report)
+
+            for validation_report in notice.distilled_rdf_manifestation.sparql_validations:
                 load_large_field(validation_report)
 
         return notice
@@ -176,7 +190,7 @@ class NoticeRepository(NoticeRepositoryABC):
         :param reference:
         :return: Notice
         """
-        result_dict = self.collection.find_one({"ted_id": reference})
+        result_dict = self.collection.find_one({"_id": reference})
         if result_dict is not None:
             notice = NoticeRepository._create_notice_from_repository_result(result_dict)
             notice = self.load_notice_fields_from_grid_fs(notice)

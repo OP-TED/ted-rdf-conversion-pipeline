@@ -1,0 +1,12 @@
+prefix rml: <http://semweb.mmlab.be/ns/rml#>
+prefix rr: <http://www.w3.org/ns/r2rml#>
+
+SELECT distinct ?source
+WHERE {
+  values (?tripleMap){
+ (<$tripleMapUri>)}
+
+
+  ?tripleMap a rr:TriplesMap ;
+           rml:logicalSource / rml:source ?source ;
+}

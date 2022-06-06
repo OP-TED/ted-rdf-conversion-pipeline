@@ -7,15 +7,14 @@ from typing import Tuple, List
 import click
 
 from ted_sws.core.adapters.cmd_runner import CmdRunner as BaseCmdRunner, DEFAULT_MAPPINGS_PATH
-from ted_sws.event_manager.adapters.logger import LOG_INFO_TEXT, LOG_WARN_TEXT, LOG_WARN_LEVEL
 from ted_sws.data_manager.entrypoints.cli import cmd_generate_mapping_resources
+from ted_sws.event_manager.adapters.logger import LOG_INFO_TEXT, LOG_WARN_TEXT, LOG_WARN_LEVEL
 from ted_sws.mapping_suite_processor.entrypoints.cli import cmd_yarrrml2rml_converter, cmd_metadata_generator, \
-    cmd_sparql_generator, cmd_resources_injector, cmd_rml_modules_injector
+    cmd_sparql_generator, cmd_resources_injector
 
 DEFAULT_COMMANDS: Tuple = (
     'normalisation_resource_generator',
     'resources_injector',
-    'rml_modules_injector',
     'metadata_generator',
     'yarrrml2rml_converter',
     'sparql_generator'
@@ -58,11 +57,6 @@ class CmdRunner(BaseCmdRunner):
             )
         elif cmd == 'resources_injector':
             cmd_resources_injector.run(
-                mapping_suite_id=self.mapping_suite_id,
-                opt_mappings_folder=self.mappings_path
-            )
-        elif cmd == 'rml_modules_injector':
-            cmd_rml_modules_injector.run(
                 mapping_suite_id=self.mapping_suite_id,
                 opt_mappings_folder=self.mappings_path
             )
@@ -113,7 +107,6 @@ def main(mapping_suite_id, opt_mappings_folder, opt_commands):
     Processes Mapping Suite (identified by mapping-suite-id):
     - normalisation_resource_generator
     - resources_injector
-    - rml_modules_injector
     - metadata_generator
     - yarrrml2rml_converter
     - sparql_generator

@@ -10,6 +10,7 @@ from ted_sws.event_manager.domain.message_bus import message_bus
 from ted_sws.event_manager.model.message import Log
 
 TEST_LOGGER = Logger(name="TEST_MESSAGE_BUS_LOGGER", level=logging.INFO)
+TEST_LOGGER.get_logger().propagate = True
 
 
 def test_message_bus_log(caplog):

@@ -277,7 +277,7 @@ class ExtractedMetadataNormaliser:
             EXTRACTED_LEGAL_BASIS_KEY: self.get_map_value(mapping=legal_basis_map,
                                                           value=self.normalise_legal_basis_value(
                                                               extracted_metadata.legal_basis_directive
-                                                          )),
+                                                          )) if self.extracted_metadata.legal_basis_directive else None,
             FORM_NUMBER_KEY: self.normalise_form_number(value=extracted_metadata.extracted_form_number),
             LEGAL_BASIS_DIRECTIVE_KEY: self.get_map_value(mapping=legal_basis_map, value=legal_basis),
             E_FORMS_SUBTYPE_KEY: int(eforms_subtype),

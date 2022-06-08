@@ -42,3 +42,5 @@ cont-modif,can-modif,32014L0023,40
 change,corr,32014L0024,41
 change,corr,32014L0025,41
 change,corr,32014L0023,41
+planning,pin-tran,32007R1370,T01
+result,can-tran,32007R1370,T02

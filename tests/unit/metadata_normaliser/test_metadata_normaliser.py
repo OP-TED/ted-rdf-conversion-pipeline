@@ -100,6 +100,12 @@ def test_get_filter_values(raw_notice):
     assert filter_variables_dict[SF_NOTICE_TYPE_KEY] is None
     assert filter_variables_dict[DOCUMENT_CODE_KEY] is None
 
+    with pytest.raises(Exception):
+        extracted_metadata_normaliser.get_filter_variables_values(form_number="F073",
+                                                                  filter_map=filter_map,
+                                                                  extracted_notice_type=None,
+                                                                  document_type_code="7",
+                                                                  legal_basis="legal")
 
 def test_normalising_process_on_failed_notice_in_dag(notice_2021):
     extracted_metadata = XMLManifestationMetadataExtractor(

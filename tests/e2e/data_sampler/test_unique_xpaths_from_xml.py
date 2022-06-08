@@ -23,13 +23,13 @@ def test_index_notice_by_id(notice_2016, mongodb_client):
 def test_unique_xpaths_from_xml(notice_repository_with_indexed_notices):
     mongodb_client = notice_repository_with_indexed_notices.mongodb_client
     unique_xpaths = get_unique_xpaths_from_notice_repository(mongodb_client=mongodb_client)
-    assert len(unique_xpaths) == 290
+    assert len(unique_xpaths) == 378
 
 
 def test_unique_notice_id(notice_repository_with_indexed_notices):
     mongodb_client = notice_repository_with_indexed_notices.mongodb_client
     unique_notice_id = get_unique_notice_id_from_notice_repository(mongodb_client=mongodb_client)
-    assert len(unique_notice_id) == 31
+    assert len(unique_notice_id) == 82
 
 
 def test_minimal_set_of_notices_for_coverage_xpaths(notice_repository_with_indexed_notices):
@@ -37,7 +37,7 @@ def test_minimal_set_of_notices_for_coverage_xpaths(notice_repository_with_index
     unique_xpaths = get_unique_xpaths_from_notice_repository(mongodb_client=mongodb_client)
     minimal_set_of_notices = get_minimal_set_of_notices_for_coverage_xpaths(xpaths=unique_xpaths,
                                                                             mongodb_client=mongodb_client)
-    assert len(minimal_set_of_notices) == 6
+    assert len(minimal_set_of_notices) == 16
 
 
 def test_minimal_set_of_xpaths_for_coverage_notices(notice_repository_with_indexed_notices):
@@ -52,14 +52,14 @@ def test_unique_notices_id_covered_by_xpaths(notice_repository_with_indexed_noti
     mongodb_client = notice_repository_with_indexed_notices.mongodb_client
     unique_xpaths = get_unique_xpaths_from_notice_repository(mongodb_client=mongodb_client)
     unique_notices = get_unique_notices_id_covered_by_xpaths(xpaths=unique_xpaths, mongodb_client=mongodb_client)
-    assert len(unique_notices) == 31
+    assert len(unique_notices) == 82
 
 
 def test_unique_xpaths_covered_by_notices(notice_repository_with_indexed_notices):
     mongodb_client = notice_repository_with_indexed_notices.mongodb_client
     unique_notices = get_unique_notice_id_from_notice_repository(mongodb_client=mongodb_client)
     unique_xpaths = get_unique_xpaths_covered_by_notices(notice_ids=unique_notices, mongodb_client=mongodb_client)
-    assert len(unique_xpaths) == 290
+    assert len(unique_xpaths) == 378
 
 
 def test_get_most_representative_notices(notice_repository_with_indexed_notices):
@@ -69,7 +69,7 @@ def test_get_most_representative_notices(notice_repository_with_indexed_notices)
                                                                   mongodb_client=mongodb_client,
                                                                   top_k=10)
     assert most_representative_notices
-    assert len(most_representative_notices) == 6
+    assert len(most_representative_notices) == 10
 
 
 def test_get_most_representative_notices_by_query_result(notice_repository_with_indexed_notices):
@@ -79,14 +79,14 @@ def test_get_most_representative_notices_by_query_result(notice_repository_with_
                                                                   mongodb_client=mongodb_client,
                                                                   top_k=10)
     assert most_representative_notices
-    assert len(most_representative_notices) == 6
+    assert len(most_representative_notices) == 10
 
     notices_with_eforms_subtype = get_notice_ids_by_eforms_subtype(eforms_subtype="29", mongodb_client=mongodb_client)
     most_representative_notices = get_most_representative_notices(notice_ids=notices_with_eforms_subtype,
                                                                   mongodb_client=mongodb_client,
                                                                   top_k=10)
     assert most_representative_notices
-    assert len(most_representative_notices) == 6
+    assert len(most_representative_notices) == 10
 
 
 

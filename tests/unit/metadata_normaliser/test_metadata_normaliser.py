@@ -82,7 +82,7 @@ def test_get_form_type_and_notice_type(raw_notice):
     assert "competition" == form_type
     assert "cn-standard" == notice_type
     assert "32014L0024" == legal_basis
-    assert 16 == eforms_subtype
+    assert "16" == eforms_subtype
 
 
 def test_get_filter_values(raw_notice):
@@ -131,4 +131,4 @@ def test_normalising_process_on_failed_notice_in_dag(notice_2021):
     assert form_type == "result"
     assert notice_type == "can-social"
     assert legal_basis == "32014L0024"
-    assert eforms_subtype == 33
+    assert eforms_subtype == "33"

@@ -65,6 +65,19 @@ class RMLMapperConfig:
         return VaultAndEnvConfigResolver().config_resolve()
 
 
+class AllegroConfig:
+    @property
+    def AGRAPH_SUPER_USER(self) -> str:
+        return VaultAndEnvConfigResolver().config_resolve()
+
+    @property
+    def AGRAPH_SUPER_PASSWORD(self) -> str:
+        return VaultAndEnvConfigResolver().config_resolve()
+
+    @property
+    def ALLEGRO_HOST(self) -> str:
+        return VaultAndEnvConfigResolver().config_resolve()
+
 class ELKConfig:
 
     @property
@@ -116,7 +129,7 @@ class API:
 
 
 class TedConfigResolver(MongoDBConfig, RMLMapperConfig, XMLProcessorConfig, ELKConfig, LoggingConfig,
-                        GitHubArtefacts, API):
+                        GitHubArtefacts, API, AllegroConfig):
     """
         This class resolve the secrets of the ted-sws project.
     """

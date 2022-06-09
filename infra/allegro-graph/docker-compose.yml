@@ -4,7 +4,7 @@ services:
   agraph:
     image: franzinc/agraph:latest
     container_name: agraph-${ENVIRONMENT}
-    shm_size: '1gb'
+    shm_size: '32gb'
     environment:
       - AGRAPH_SUPER_USER=${AGRAPH_SUPER_USER}
       - AGRAPH_SUPER_PASSWORD=${AGRAPH_SUPER_PASSWORD}

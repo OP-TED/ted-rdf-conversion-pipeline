@@ -3,7 +3,7 @@ from ted_sws.mapping_suite_processor.services.load_mapping_suite_output_into_tri
 
 
 def test_load_output_folder_in_triple_store(package_folder_path, allegro_triple_store):
-    package_name = str(package_folder_path).split("/")[-1]
+    package_name = package_folder_path.stem
     load_mapping_suite_output_into_triple_store(package_folder_path=package_folder_path)
 
     assert package_name in allegro_triple_store.list_repositories()

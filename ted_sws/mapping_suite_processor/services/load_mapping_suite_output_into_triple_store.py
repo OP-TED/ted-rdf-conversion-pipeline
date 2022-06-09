@@ -31,7 +31,7 @@ def load_mapping_suite_output_into_triple_store(package_folder_path, allegro_hos
     package_folder_path = pathlib.Path(package_folder_path)
     metadata_file = package_folder_path / "metadata.json"
     assert metadata_file.exists()
-    package_name = str(package_folder_path).split("/")[-1]
+    package_name = package_folder_path.stem
 
     ttl_files_paths = [str(path) for path in package_folder_path.glob("output/**/*.ttl")]
 

@@ -165,9 +165,9 @@ class ExtractedMetadataNormaliser:
         try:
             filter_variables = \
                 filter_map.query(f"{FORM_NUMBER_KEY}=='{variables[FORM_NUMBER_KEY]}'").to_dict(orient='records')[0]
-        except Exception as e:
-            raise f"This notice doesn't have a form number or the extracted form number is not in the mapping. " \
-                  f"Form number found is {form_number}"
+        except:
+            raise Exception(
+                f"This notice doesn't have a form number or the extracted form number is not in the mapping. Form number found is {form_number}")
 
         for key, value in filter_variables.items():
             if value == 0:
@@ -247,7 +247,6 @@ class ExtractedMetadataNormaliser:
                 self.extracted_metadata.legal_basis_directive),
             document_type_code=self.extracted_metadata.extracted_document_type.code
         )
-
         extracted_metadata = self.extracted_metadata
 
         metadata = {
@@ -281,7 +280,7 @@ class ExtractedMetadataNormaliser:
             EXTRACTED_LEGAL_BASIS_KEY: self.get_map_value(mapping=legal_basis_map,
                                                           value=self.normalise_legal_basis_value(
                                                               extracted_metadata.legal_basis_directive
-                                                          )) if self.extracted_metadata.legal_basis_directive else None,
+                                                          )) if extracted_metadata.legal_basis_directive else None,
             FORM_NUMBER_KEY: self.normalise_form_number(value=extracted_metadata.extracted_form_number),
             LEGAL_BASIS_DIRECTIVE_KEY: self.get_map_value(mapping=legal_basis_map, value=legal_basis),
             E_FORMS_SUBTYPE_KEY: str(eforms_subtype),

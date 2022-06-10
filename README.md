@@ -1,16 +1,17 @@
 # TED Semantic Web Services
 
-[![SonarCloud](https://sonarcloud.io/images/project_badges/sonarcloud-white.svg)](https://sonarcloud.io/summary/new_code?id=meaningfy-ws_ted-sws)
 [![Lines of Code](https://sonarcloud.io/api/project_badges/measure?project=meaningfy-ws_ted-sws&metric=ncloc)](https://sonarcloud.io/summary/new_code?id=meaningfy-ws_ted-sws)
 [![Bugs](https://sonarcloud.io/api/project_badges/measure?project=meaningfy-ws_ted-sws&metric=bugs)](https://sonarcloud.io/summary/new_code?id=meaningfy-ws_ted-sws)
 [![Code Smells](https://sonarcloud.io/api/project_badges/measure?project=meaningfy-ws_ted-sws&metric=code_smells)](https://sonarcloud.io/summary/new_code?id=meaningfy-ws_ted-sws)
 [![Technical Debt](https://sonarcloud.io/api/project_badges/measure?project=meaningfy-ws_ted-sws&metric=sqale_index)](https://sonarcloud.io/summary/new_code?id=meaningfy-ws_ted-sws)
 [![Reliability Rating](https://sonarcloud.io/api/project_badges/measure?project=meaningfy-ws_ted-sws&metric=reliability_rating)](https://sonarcloud.io/summary/new_code?id=meaningfy-ws_ted-sws)
 [![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=meaningfy-ws_ted-sws&metric=sqale_rating)](https://sonarcloud.io/summary/new_code?id=meaningfy-ws_ted-sws)
-
 [![Vulnerabilities](https://sonarcloud.io/api/project_badges/measure?project=meaningfy-ws_ted-sws&metric=vulnerabilities)](https://sonarcloud.io/summary/new_code?id=meaningfy-ws_ted-sws)
 [![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=meaningfy-ws_ted-sws&metric=security_rating)](https://sonarcloud.io/summary/new_code?id=meaningfy-ws_ted-sws)
 
+![Doc build](https://github.com/meaningfy-ws/ted-sws/actions/workflows/main.yml/badge.svg?branch=main)
+![UTest build](https://github.com/meaningfy-ws/ted-sws/actions/workflows/unit-tests.yml/badge.svg?branch=main)
+![E2E Test build](https://github.com/meaningfy-ws/ted-sws/actions/workflows/unit-tests-hermes.yml/badge.svg?branch=main)
 
 ## Table of contents
 

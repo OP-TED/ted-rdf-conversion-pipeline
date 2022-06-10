@@ -2,7 +2,6 @@
 
 <hr>
 
-
 ## Table of contents
 
 - [Developer documentation](#developer-documentation)

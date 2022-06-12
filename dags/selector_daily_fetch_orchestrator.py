@@ -14,12 +14,13 @@ import datetime
 
 
 @dag(default_args=DEFAULT_DAG_ARGUMENTS,
+     catchup=False,
      schedule_interval="0 3 * * *",
      tags=['selector', 'daily-fetch'])
 def selector_daily_fetch_orchestrator():
     @task
     def fetch_notice_from_ted():
-        current_datetime_wildcard = datetime.datetime.now().strftime("%Y%m%d*")
+        current_datetime_wildcard = (datetime.datetime.now()-datetime.timedelta(days=1)).strftime("%Y%m%d*")
         mongodb_client = MongoClient(config.MONGO_DB_AUTH_URL)
         NoticeFetcher(notice_repository=NoticeRepository(mongodb_client=mongodb_client),
                       ted_api_adapter=TedAPIAdapter(request_api=TedRequestAPI())).fetch_notices_by_date_wild_card(

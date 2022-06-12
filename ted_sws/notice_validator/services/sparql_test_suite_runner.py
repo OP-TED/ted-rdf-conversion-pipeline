@@ -72,7 +72,7 @@ class SPARQLTestSuiteRunner:
                     query_result.askAnswer) if query_result.type == "ASK" else query_result.serialize(
                     format="json")
             except Exception as e:
-                sparql_query_result.error = str(e)
+                sparql_query_result.error = str(e)[:100]
             test_suite_executions.validation_results.append(sparql_query_result)
         return test_suite_executions
 

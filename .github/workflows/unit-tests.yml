@@ -2,9 +2,9 @@ name: Tests
 
 on:
   push:
-    branches: [ feature/* ]
+    branches: [ feature/* , main ]
   pull_request:
-    branches: [ master ]
+    branches: [ main ]
 
 jobs:
   build:
@@ -12,7 +12,9 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v1
+    - uses: actions/checkout@v2
+      with:
+        fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
     - name: Set up Python ${{ matrix.python-version }}
       uses: actions/setup-python@v2
       with:
@@ -28,6 +30,11 @@ jobs:
         envkey_VAULT_ADDR: ${{ secrets.VAULT_ADDR }}
     - name: Run unit tests
       run: make test
+    - name: SonarCloud Scan
+      uses: SonarSource/sonarcloud-github-action@master
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
+        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 #    - name: Upload coverage to Codecov
 #      uses: codecov/codecov-action@v1
 #      with:

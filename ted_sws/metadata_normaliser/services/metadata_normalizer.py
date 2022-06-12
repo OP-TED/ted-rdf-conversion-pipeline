@@ -162,9 +162,13 @@ class ExtractedMetadataNormaliser:
             DOCUMENT_CODE_KEY: document_type_code,
             LEGAL_BASIS_KEY: legal_basis
         }
+        try:
+            filter_variables = \
+                filter_map.query(f"{FORM_NUMBER_KEY}=='{variables[FORM_NUMBER_KEY]}'").to_dict(orient='records')[0]
+        except:
+            raise Exception(
+                f"This notice doesn't have a form number or the extracted form number is not in the mapping. Form number found is {form_number}")
 
-        filter_variables = \
-            filter_map.query(f"{FORM_NUMBER_KEY}=='{variables[FORM_NUMBER_KEY]}'").to_dict(orient='records')[0]
         for key, value in filter_variables.items():
             if value == 0:
                 filter_variables[key] = None
@@ -243,7 +247,6 @@ class ExtractedMetadataNormaliser:
                 self.extracted_metadata.legal_basis_directive),
             document_type_code=self.extracted_metadata.extracted_document_type.code
         )
-
         extracted_metadata = self.extracted_metadata
 
         metadata = {
@@ -277,10 +280,10 @@ class ExtractedMetadataNormaliser:
             EXTRACTED_LEGAL_BASIS_KEY: self.get_map_value(mapping=legal_basis_map,
                                                           value=self.normalise_legal_basis_value(
                                                               extracted_metadata.legal_basis_directive
-                                                          )),
+                                                          )) if extracted_metadata.legal_basis_directive else None,
             FORM_NUMBER_KEY: self.normalise_form_number(value=extracted_metadata.extracted_form_number),
             LEGAL_BASIS_DIRECTIVE_KEY: self.get_map_value(mapping=legal_basis_map, value=legal_basis),
-            E_FORMS_SUBTYPE_KEY: int(eforms_subtype),
+            E_FORMS_SUBTYPE_KEY: str(eforms_subtype),
             XSD_VERSION_KEY: extracted_metadata.xml_schema_version
         }
 

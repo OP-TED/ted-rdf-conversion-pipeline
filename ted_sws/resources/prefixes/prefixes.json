@@ -25,6 +25,7 @@
 		
 		"core-voc": "http://data.europa.eu/m8g/",
 		"cccev": "http://data.europa.eu/m8g/",
+		"cpov": "http://data.europa.eu/m8g/",
 		"geosparql": "http://www.opengis.net/ont/geosparql#",
 		"dul": "http://www.loa-cnr.it/ontologies/DUL.owl#",
 
@@ -49,10 +50,10 @@
 	
 	"prefix_selections" : {
 		"sparql_generator" : ["xml", "xsd", "rdf", "rdfs", "owl", "skos", "dc", "dct", "foaf", "epo", "epd", "locn"],
-		"sparql_generator_ext" : ["time", "org", "core-voc", "geosparql", "dul"],
+		"sparql_generator_ext" : ["time", "vann", "cc", "org", "core-voc", "cccev", "cpov", "geosparql", "dul"],
 		"yarrrml_rules" : ["epo", "epd", "locn", "xml", "xsd", "rdf", "rdfs", "dct"],
-		"rml_rules" : ["rr", "rml", "ql", "epo", "epd", "tedm", "locn", "xml", "xsd", "rdf", "rdfs", "owl", "dct", "cc", "cccev", "skos", "time", "vann"],
-		"epo_ontology" : ["epo", "epd", "locn", "xml", "xsd", "rdf", "rdfs", "owl", "skos", "dc", "dct", "foaf", "core-voc", "geosparql", "dul", "cc", "time", "vann"],
+		"rml_rules" : ["rr", "rml", "ql", "epo", "epd", "tedm", "locn", "xml", "xsd", "rdf", "rdfs", "owl", "dct", "cc", "cccev", "cpov", "skos", "time", "vann"],
+		"epo_ontology" : ["epo", "epd", "locn", "xml", "xsd", "rdf", "rdfs", "owl", "skos", "dc", "dct", "foaf", "core-voc", "cccev", "cpov", "geosparql", "dul", "cc", "time", "vann"],
 		"currently_unused" : ["epor", "epos", "grel", "xf", "map", "sd", "ht", "v"]
 	}
 }

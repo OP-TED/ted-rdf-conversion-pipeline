@@ -32,12 +32,15 @@ class CmdRunner(BaseCmdRunner):
             self,
             mapping_suite_id,
             conceptual_mappings_file,
-            mappings_path
+            mappings_path,
+            xslt_transformer,
+            logger=None
     ):
-        super().__init__(name=CMD_NAME)
+        super().__init__(name=CMD_NAME, logger=logger)
         self.mapping_suite_id = mapping_suite_id
         self.mappings_path = mappings_path
         self.conceptual_mappings_file_path = Path(os.path.realpath(conceptual_mappings_file))
+        self.xslt_transformer = xslt_transformer
 
         if not self.conceptual_mappings_file_path.is_file():
             error_msg = f"No such Conceptual Mappings file :: [{conceptual_mappings_file}]"
@@ -53,7 +56,7 @@ class CmdRunner(BaseCmdRunner):
     def save_report(self, report_path, report_name, notice_id, notice_content):
         json_report = coverage_notice_xpath_report(notice_id, notice_content,
                                                    self.mapping_suite_id, self.conceptual_mappings_file_path,
-                                                   self.coverage_runner)
+                                                   self.coverage_runner, self.xslt_transformer)
         with open(report_path / report_name.format(id=notice_id), "w+") as f:
             json.dump(json_report, f, indent=4)
             f.close()
@@ -75,7 +78,8 @@ class CmdRunner(BaseCmdRunner):
         return self.run_cmd_result()
 
 
-def run(mapping_suite_id=None, opt_conceptual_mappings_file=None, opt_mappings_folder=DEFAULT_MAPPINGS_PATH):
+def run(mapping_suite_id=None, opt_conceptual_mappings_file=None, opt_mappings_folder=DEFAULT_MAPPINGS_PATH,
+        xslt_transformer=None, logger=None):
     if opt_conceptual_mappings_file:
         conceptual_mappings_file = opt_conceptual_mappings_file
     else:
@@ -87,7 +91,9 @@ def run(mapping_suite_id=None, opt_conceptual_mappings_file=None, opt_mappings_f
     cmd = CmdRunner(
         mapping_suite_id=mapping_suite_id,
         conceptual_mappings_file=conceptual_mappings_file,
-        mappings_path=opt_mappings_folder
+        mappings_path=opt_mappings_folder,
+        xslt_transformer=xslt_transformer,
+        logger=logger
     )
     cmd.run()
 

@@ -4,18 +4,8 @@ import pytest
 
 from ted_sws.data_manager.adapters.mapping_suite_repository import MappingSuiteRepositoryInFileSystem
 from ted_sws.core.model.transform import MappingSuite
-from ted_sws.notice_transformer.adapters.rml_mapper import RMLMapperABC, SerializationFormat as RMLSerializationFormat
 from tests import TEST_DATA_PATH
-from tests.fakes.fake_rml_mapper import FakeRMLMapper
 from pathlib import Path
-
-
-@pytest.fixture
-def fake_rml_mapper() -> RMLMapperABC:
-    rml_mapper = FakeRMLMapper()
-    rml_mapper.set_serialization_format(RMLSerializationFormat.TURTLE)
-    return rml_mapper
-
 
 @pytest.fixture
 def fake_not_mapping_suite_id() -> str:

@@ -1,7 +1,13 @@
 import os
+import pytest
 
-from ted_sws.notice_validator.entrypoints.cli.cmd_xpath_coverage_runner import main as cli_main, \
+from ted_sws.notice_validator.entrypoints.cli.cmd_xpath_coverage_runner import run as cli_run, \
     DEFAULT_OUTPUT_PATH, DEFAULT_TEST_SUITE_REPORT_FOLDER
+from ted_sws.event_manager.adapters.logger import Logger
+import logging
+
+TEST_LOGGER = Logger(name="TEST_MAPPING_RUNNER", level=logging.INFO)
+TEST_LOGGER.get_logger().propagate = True
 
 
 def post_process(fake_repository_path, fake_mapping_suite_id):
@@ -19,17 +25,27 @@ def post_process(fake_repository_path, fake_mapping_suite_id):
     os.rmdir(report_path)
 
 
-def test_cmd_xpath_coverage_runner(cli_runner, fake_mapping_suite_F03_id, fake_repository_path):
-    response = cli_runner.invoke(cli_main,
-                                 [fake_mapping_suite_F03_id, "--opt-mappings-folder", fake_repository_path])
-    assert response.exit_code == 0
-    assert "SUCCESS" in response.output
+def test_cmd_xpath_coverage_runner(caplog, fake_mapping_suite_F03_id, fake_repository_path, fake_xslt_transformer):
+    cli_run(
+        mapping_suite_id=fake_mapping_suite_F03_id,
+        opt_mappings_folder=fake_repository_path,
+        xslt_transformer=fake_xslt_transformer,
+        logger=TEST_LOGGER
+    )
+
+    assert "SUCCESS" in caplog.text
 
     post_process(fake_repository_path, fake_mapping_suite_F03_id)
 
 
-def test_cmd_xpath_coverage_runner_with_invalid_input(cli_runner, fake_repository_path, invalid_mapping_suite_id):
-    response = cli_runner.invoke(cli_main,
-                                 [invalid_mapping_suite_id, "--opt-mappings-folder", fake_repository_path,
-                                  "--opt-conceptual-mappings-file", "invalid"])
-    assert "FAILED" in response.output
+def test_cmd_xpath_coverage_runner_with_invalid_input(caplog, fake_repository_path, invalid_mapping_suite_id,
+                                                      fake_xslt_transformer):
+    with pytest.raises(FileNotFoundError):
+        cli_run(
+            mapping_suite_id=invalid_mapping_suite_id,
+            opt_mappings_folder=fake_repository_path,
+            xslt_transformer=fake_xslt_transformer,
+            logger=TEST_LOGGER
+        )
+        assert "FAILED" in caplog.text
+

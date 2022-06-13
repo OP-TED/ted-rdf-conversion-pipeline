@@ -5,7 +5,8 @@ from ted_sws.core.model.notice import NoticeStatus
 from ted_sws.core.model.transform import FileResource, SPARQLTestSuite, MetadataConstraints, TransformationRuleSet, \
     SHACLTestSuite, TransformationTestData, MappingSuite
 from tests import TEST_DATA_PATH
-
+from ted_sws.core.adapters.xml_preprocessor import XMLPreprocessorABC
+from tests.fakes.fake_xslt_transformer import FakeXSLTTransformer
 
 @pytest.fixture
 def query_content():
@@ -257,7 +258,11 @@ def fake_conceptual_mappings_F03_path(fake_repository_path, fake_mapping_suite_F
 
 @pytest.fixture
 def fake_notice_F03_content(fake_repository_path, fake_mapping_suite_F03_id):
-    notice_content = ""
-    with open(fake_repository_path / fake_mapping_suite_F03_id / "test_data" / "notice.xml") as f:
+    with open(fake_repository_path / fake_mapping_suite_F03_id / "test_data" / "1" / "notice.xml") as f:
         notice_content = f.read()
     return notice_content
+
+
+@pytest.fixture
+def fake_xslt_transformer() -> XMLPreprocessorABC:
+    return FakeXSLTTransformer()

@@ -4,6 +4,9 @@ import xml.etree.ElementTree as ET
 from datetime import datetime
 from pathlib import Path
 from typing import List, Union
+from ted_sws.core.adapters.xml_preprocessor import XMLPreprocessor
+from ted_sws.data_sampler.services.notice_xml_indexer import UNIQUE_XPATHS_XSLT_FILE_PATH, XSLT_PREFIX_RESULT
+from ted_sws.resources import XSLT_FILES_PATH
 
 import pandas as pd
 
@@ -26,7 +29,7 @@ class CoverageRunner:
     conceptual_xpaths: set
     base_xpath: str
 
-    def __init__(self, conceptual_mappings_file_path: PATH_TYPE):
+    def __init__(self, conceptual_mappings_file_path: PATH_TYPE, xslt_transformer=None):
         with open(Path(conceptual_mappings_file_path), 'rb') as excel_file:
             metadata_df = pd.read_excel(excel_file, sheet_name=CONCEPTUAL_MAPPINGS_METADATA_SHEET_NAME)
             metadata = metadata_df.set_index('Field').T.to_dict('list')
@@ -37,6 +40,7 @@ class CoverageRunner:
             for xpath in df_xpaths:
                 xpaths.extend(map(lambda x: (self.base_xpath + "/" + x), xpath.split('\n')))
             self.conceptual_xpaths = set(xpaths)
+            self.xslt_transformer = xslt_transformer
 
     def xpath_assertions(self, notice_xpaths) -> List[XPathAssertion]:
         xpath_assertions = []
@@ -54,37 +58,9 @@ class CoverageRunner:
         return list(set(notice_xpaths) - self.conceptual_xpaths)
 
     @classmethod
-    def _notice_namespaces(cls, xml_file) -> dict:
-        namespaces = dict([node for _, node in ET.iterparse(xml_file, events=['start-ns'])])
-        return {v: k for k, v in namespaces.items()}
-
-    @classmethod
-    def _ns_tag(cls, ns_tag, namespaces):
-        tag = ns_tag[1]
-        ns = ns_tag[0]
-        if ns:
-            ns_alias = namespaces[ns]
-            if ns_alias:
-                return ns_alias + ":" + tag
-        return tag
-
-    def _xpath_generator(self, xml_file, namespaces):
-        path = []
-        it = ET.iterparse(xml_file, events=('start', 'end'))
-        for evt, el in it:
-            if evt == 'start':
-                ns_tag = re.split('[{}]', el.tag, 2)[1:]
-                path.append(self._ns_tag(ns_tag, namespaces))
-                xpath = "/" + '/'.join(path)
-
-                if xpath.startswith(self.base_xpath + "/"):
-                    attributes = list(el.attrib.keys())
-                    if len(attributes) > 0:
-                        for attr in attributes:
-                            yield xpath + "/@" + attr
-                    yield xpath
-            else:
-                path.pop()
+    def based_xpaths(cls, xpaths: List[str], base_xpath: str) -> List[str]:
+        base_xpath += "/"
+        return list(filter(lambda xpath: xpath.startswith(base_xpath), xpaths))
 
     def coverage_notice_xpath(self, notice_id, notice_content, mapping_suite_id) -> NoticeCoverageReport:
         report: NoticeCoverageReport = NoticeCoverageReport()
@@ -93,11 +69,19 @@ class CoverageRunner:
         report.notice_id = notice_id
         tmp = tempfile.NamedTemporaryFile()
 
-        with open(tmp.name, 'w') as f:
+        xml_path = tmp.name
+        with open(xml_path, 'w') as f:
             f.write(notice_content)
             f.close()
 
-        notice_xpaths = list(self._xpath_generator(tmp.name, self._notice_namespaces(tmp.name)))
+        if self.xslt_transformer is None:
+            xslt_transformer = XMLPreprocessor()
+        else:
+            xslt_transformer = self.xslt_transformer
+        xslt_path = XSLT_FILES_PATH / UNIQUE_XPATHS_XSLT_FILE_PATH
+        result = xslt_transformer.transform_with_xslt_to_string(xml_path=Path(xml_path),
+                                                                xslt_path=xslt_path)
+        notice_xpaths = self.based_xpaths(result[len(XSLT_PREFIX_RESULT):].split(","), self.base_xpath)
         report.xpath_assertions = self.xpath_assertions(notice_xpaths)
         report.xpath_desertions = self.xpath_desertions(notice_xpaths)
 
@@ -110,8 +94,8 @@ class CoverageRunner:
 
 def coverage_notice_xpath_report(notice_id, notice_content,
                                  mapping_suite_id, conceptual_mappings_file_path: PATH_TYPE = None,
-                                 coverage_runner: CoverageRunner = None) -> dict:
+                                 coverage_runner: CoverageRunner = None, xslt_transformer=None) -> dict:
     if not coverage_runner:
-        coverage_runner = CoverageRunner(conceptual_mappings_file_path)
+        coverage_runner = CoverageRunner(conceptual_mappings_file_path, xslt_transformer)
     report = coverage_runner.coverage_notice_xpath(notice_id, notice_content, mapping_suite_id)
     return coverage_runner.json_report(report)

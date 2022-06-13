@@ -236,5 +236,28 @@ def fake_mapping_suite_id() -> str:
 
 
 @pytest.fixture
+def fake_mapping_suite_F03_id() -> str:
+    return "test_package_F03"
+
+
+@pytest.fixture
 def invalid_mapping_suite_id() -> str:
     return "test_invalid_package"
+
+
+@pytest.fixture
+def fake_notice_id() -> str:
+    return "notice"
+
+
+@pytest.fixture
+def fake_conceptual_mappings_F03_path(fake_repository_path, fake_mapping_suite_F03_id) -> str:
+    return str(fake_repository_path / fake_mapping_suite_F03_id / "transformation" / "conceptual_mappings.xlsx")
+
+
+@pytest.fixture
+def fake_notice_F03_content(fake_repository_path, fake_mapping_suite_F03_id):
+    notice_content = ""
+    with open(fake_repository_path / fake_mapping_suite_F03_id / "test_data" / "notice.xml") as f:
+        notice_content = f.read()
+    return notice_content

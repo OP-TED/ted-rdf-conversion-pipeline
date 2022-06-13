@@ -44,6 +44,7 @@ def test_cmd_xpath_coverage_runner_with_invalid_input(caplog, fake_repository_pa
         cli_run(
             mapping_suite_id=invalid_mapping_suite_id,
             opt_mappings_folder=fake_repository_path,
+            opt_conceptual_mappings_file="invalid",
             xslt_transformer=fake_xslt_transformer,
             logger=TEST_LOGGER
         )

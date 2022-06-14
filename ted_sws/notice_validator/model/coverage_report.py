@@ -1,12 +1,11 @@
 #!/usr/bin/python3
 
-import abc
 from typing import List, Optional
 
 from ted_sws.core.model import PropertyBaseModel
 
 
-class XPathAssertion(PropertyBaseModel, abc.ABC):
+class XPathAssertion(PropertyBaseModel):
     title: Optional[str]
     xpath: Optional[str]
     count: Optional[int]
@@ -14,7 +13,7 @@ class XPathAssertion(PropertyBaseModel, abc.ABC):
     required: Optional[bool]
 
 
-class NoticeCoverageReport(PropertyBaseModel, abc.ABC):
+class NoticeCoverageReport(PropertyBaseModel):
     """
     """
 

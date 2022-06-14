@@ -1,20 +1,18 @@
-import re
 import tempfile
-import xml.etree.ElementTree as ET
 from datetime import datetime
 from pathlib import Path
 from typing import List, Union
-from ted_sws.core.adapters.xml_preprocessor import XMLPreprocessor
-from ted_sws.data_sampler.services.notice_xml_indexer import UNIQUE_XPATHS_XSLT_FILE_PATH, XSLT_PREFIX_RESULT
-from ted_sws.resources import XSLT_FILES_PATH
 
 import pandas as pd
 
+from ted_sws.core.adapters.xml_preprocessor import XMLPreprocessor
+from ted_sws.data_sampler.services.notice_xml_indexer import UNIQUE_XPATHS_XSLT_FILE_PATH, XSLT_PREFIX_RESULT
 from ted_sws.mapping_suite_processor.services.conceptual_mapping_generate_metadata import \
     CONCEPTUAL_MAPPINGS_METADATA_SHEET_NAME
 from ted_sws.mapping_suite_processor.services.conceptual_mapping_generate_sparql_queries import \
     CONCEPTUAL_MAPPINGS_RULES_SHEET_NAME, RULES_FIELD_XPATH
 from ted_sws.notice_validator.model.coverage_report import NoticeCoverageReport, XPathAssertion
+from ted_sws.resources import XSLT_FILES_PATH
 
 PATH_TYPE = Union[str, Path]
 

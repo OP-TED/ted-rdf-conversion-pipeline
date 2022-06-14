@@ -77,6 +77,7 @@ setup(
         "console_scripts": [
             "sparql_runner = ted_sws.notice_validator.entrypoints.cli.cmd_sparql_runner:main",
             "shacl_runner = ted_sws.notice_validator.entrypoints.cli.cmd_shacl_runner:main",
+            "xpath_coverage_runner = ted_sws.notice_validator.entrypoints.cli.cmd_xpath_coverage_runner:main",
             "rml_report_generator = ted_sws.rml_to_html.entrypoints.cli.cmd_rml_report_generator:main",
             "mapping_suite_processor = ted_sws.mapping_suite_processor.entrypoints.cli.cmd_mapping_suite_processor:main",
             "metadata_generator = ted_sws.mapping_suite_processor.entrypoints.cli.cmd_metadata_generator:main",

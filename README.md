@@ -270,6 +270,26 @@ Options:
   --help                                      Show this message and exit.
 ```
 
+#### CMD: xpath_coverage_runner
+Generates Coverage Reports for Notices
+
+Use:
+```bash
+xpath_coverage_runner --help
+```
+to get the Usage Help:
+```bash
+Usage: xpath_coverage_runner [OPTIONS] [MAPPING_SUITE_ID]
+
+  Generates Coverage Reports for Notices
+
+Options:
+  -i, --opt-conceptual-mappings-file TEXT     Use to overwrite default INPUT
+  -m, --opt-mappings-folder TEXT
+
+  --help                                      Show this message and exit.
+```
+
 #### CMD: shacl_runner
 Generates SHACL Validation Reports for RDF files.
 

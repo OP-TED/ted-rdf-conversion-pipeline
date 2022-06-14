@@ -4,14 +4,13 @@ from pathlib import Path
 
 import click
 
-from ted_sws.core.adapters.cmd_runner import CmdRunner as BaseCmdRunner, DEFAULT_MAPPINGS_PATH, DEFAULT_OUTPUT_PATH
+from ted_sws.core.adapters.cmd_runner import CmdRunner as BaseCmdRunner, DEFAULT_MAPPINGS_PATH
 from ted_sws.core.model.manifestation import RDFManifestation, SHACLTestSuiteValidationReport
 from ted_sws.data_manager.adapters.mapping_suite_repository import MappingSuiteRepositoryInFileSystem
 from ted_sws.event_manager.adapters.logger import LOG_INFO_TEXT
+from ted_sws.notice_validator.entrypoints.cli import DEFAULT_RDF_FOLDER, DEFAULT_TEST_SUITE_REPORT_FOLDER
 from ted_sws.notice_validator.services.shacl_test_suite_runner import SHACLTestSuiteRunner, generate_shacl_report
 
-DEFAULT_RDF_FOLDER = '{mappings_path}/{mapping_suite_id}/' + DEFAULT_OUTPUT_PATH
-DEFAULT_TEST_SUITE_REPORT_FOLDER = "test_suite_report"
 HTML_REPORT = "shacl_{id}.html"
 CMD_NAME = "CMD_SHACL_RUNNER"
 
@@ -56,7 +55,8 @@ class CmdRunner(BaseCmdRunner):
                                                         shacl_test_suite=shacl_test_suite,
                                                         mapping_suite=self.mapping_suite).execute_test_suite()
 
-            report: SHACLTestSuiteValidationReport = generate_shacl_report(shacl_test_suite_execution=test_suite_execution)
+            report: SHACLTestSuiteValidationReport = generate_shacl_report(
+                shacl_test_suite_execution=test_suite_execution)
 
             suite_id = shacl_test_suite.identifier
             data = report.object_data

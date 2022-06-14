@@ -1,18 +1,16 @@
 #!/usr/bin/python3
 
-import json
 from pathlib import Path
 
 import click
 
-from ted_sws.core.adapters.cmd_runner import CmdRunner as BaseCmdRunner, DEFAULT_MAPPINGS_PATH, DEFAULT_OUTPUT_PATH
+from ted_sws.core.adapters.cmd_runner import CmdRunner as BaseCmdRunner, DEFAULT_MAPPINGS_PATH
 from ted_sws.core.model.manifestation import RDFManifestation
 from ted_sws.data_manager.adapters.mapping_suite_repository import MappingSuiteRepositoryInFileSystem
 from ted_sws.event_manager.adapters.logger import LOG_INFO_TEXT
 from ted_sws.notice_validator.services.sparql_test_suite_runner import SPARQLTestSuiteRunner, SPARQLReportBuilder
+from ted_sws.notice_validator.entrypoints.cli import DEFAULT_RDF_FOLDER, DEFAULT_TEST_SUITE_REPORT_FOLDER
 
-DEFAULT_RDF_FOLDER = '{mappings_path}/{mapping_suite_id}/' + DEFAULT_OUTPUT_PATH
-DEFAULT_TEST_SUITE_REPORT_FOLDER = "test_suite_report"
 JSON_REPORT = "sparql_{id}.json"
 HTML_REPORT = "sparql_{id}.html"
 CMD_NAME = "CMD_SPARQL_RUNNER"

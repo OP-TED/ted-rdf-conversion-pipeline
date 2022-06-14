@@ -4,7 +4,7 @@ import pathlib
 import shutil
 from typing import Iterator, List, Optional
 
-from pymongo import MongoClient, ASCENDING
+from pymongo import MongoClient
 
 from ted_sws import config
 from ted_sws.core.model.transform import MappingSuite, FileResource, TransformationRuleSet, SHACLTestSuite, \

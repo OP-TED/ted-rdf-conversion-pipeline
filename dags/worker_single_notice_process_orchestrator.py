@@ -316,8 +316,8 @@ def worker_single_notice_process_orchestrator():
         python_callable=_get_task_run,
     )
 
-    branch_task >> [normalise_notice_metadata, check_eligibility_for_transformation, generate_mets_package,
-                    publish_notice_in_cellar]
+    branch_task >> [normalise_notice_metadata, check_eligibility_for_transformation,
+                    check_notice_state_before_generate_mets_package, check_notice_state_before_publish_notice_in_cellar]
 
 
 dag = worker_single_notice_process_orchestrator()

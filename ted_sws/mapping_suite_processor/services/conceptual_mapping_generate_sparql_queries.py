@@ -1,15 +1,18 @@
 import pathlib
-from typing import Iterator
-import pandas as pd
-from ted_sws.resources.prefixes import PREFIXES_DEFINITIONS
 import re
+from typing import Iterator
+
+import pandas as pd
+
+from ted_sws.mapping_suite_processor import CONCEPTUAL_MAPPINGS_METADATA_SHEET_NAME
+from ted_sws.notice_validator import BASE_XPATH_FIELD
+from ted_sws.resources.prefixes import PREFIXES_DEFINITIONS
 
 CONCEPTUAL_MAPPINGS_RULES_SHEET_NAME = "Rules"
 RULES_SF_FIELD_ID = 'Standard Form Field ID (M)'
 RULES_SF_FIELD_NAME = 'Standard Form Field Name (M)'
 RULES_E_FORM_BT_ID = 'eForm BT-ID (O)'
 RULES_E_FORM_BT_NAME = 'eForm BT Name (O)'
-RULES_BASE_XPATH = 'Base XPath (for anchoring) (M)'
 RULES_FIELD_XPATH = 'Field XPath (M)'
 RULES_CLASS_PATH = 'Class path (M)'
 RULES_PROPERTY_PATH = 'Property path (M)'
@@ -25,10 +28,18 @@ def get_sparql_prefixes(sparql_q: str) -> set:
     return set(finds)
 
 
-def sparql_validation_generator(data: pd.DataFrame) -> Iterator[str]:
+def concat_field_xpath(base_xpath: str, field_xpath: str, separator: str = ", ") -> str:
+    base_xpath = base_xpath if not pd.isna(base_xpath) else ''
+    field_xpath = field_xpath if not pd.isna(field_xpath) else ''
+    base_xpath = (base_xpath + "/") if field_xpath else base_xpath
+    return separator.join([base_xpath + xpath for xpath in field_xpath.splitlines()])
+
+
+def sparql_validation_generator(data: pd.DataFrame, base_xpath: str) -> Iterator[str]:
     """
         This function generates SPARQL queries based on data in the dataframe.
     :param data:
+    :param base_xpath:
     :return:
     """
     for index, row in data.iterrows():
@@ -36,7 +47,6 @@ def sparql_validation_generator(data: pd.DataFrame) -> Iterator[str]:
         sf_field_name = row[RULES_SF_FIELD_NAME]
         e_form_bt_id = row[RULES_E_FORM_BT_ID]
         e_form_bt_name = row[RULES_E_FORM_BT_NAME]
-        base_xpath = row[RULES_BASE_XPATH]
         field_xpath = row[RULES_FIELD_XPATH]
         class_path = row[RULES_CLASS_PATH]
         property_path = row[RULES_PROPERTY_PATH]
@@ -44,9 +54,12 @@ def sparql_validation_generator(data: pd.DataFrame) -> Iterator[str]:
             prefix=prefix, value=PREFIXES_DEFINITIONS.get(prefix)
         ) for prefix in get_sparql_prefixes(property_path)]
         yield f"#title: {sf_field_id} - {sf_field_name}\n" \
-              f"#description: “{sf_field_id} - {sf_field_name}” in SF corresponds to “{e_form_bt_id} {e_form_bt_name}” in eForms. The corresponding XML element is {base_xpath}{field_xpath}. The expected ontology instances are epo: {class_path} .\n" \
-              "\n" + "\n".join(prefixes) + "\n\n" \
-                                           f"ASK WHERE {{ {property_path} }}"
+              f"#description: “{sf_field_id} - {sf_field_name}” in SF corresponds to “{e_form_bt_id} " \
+              f"{e_form_bt_name}” in eForms. The corresponding XML element is " \
+              f"{concat_field_xpath(base_xpath, field_xpath)}. " \
+              f"The expected ontology instances are epo: {class_path} ." \
+              "\n" + "\n" + "\n".join(prefixes) + "\n\n" \
+                                                  f"ASK WHERE {{ {property_path} }}"
 
 
 def mapping_suite_processor_generate_sparql_queries(conceptual_mappings_file_path: pathlib.Path,
@@ -65,7 +78,10 @@ def mapping_suite_processor_generate_sparql_queries(conceptual_mappings_file_pat
         conceptual_mappings_rules_df = conceptual_mappings_rules_df[1:]
         conceptual_mappings_rules_df = conceptual_mappings_rules_df[
             conceptual_mappings_rules_df[RULES_PROPERTY_PATH].notnull()]
-    sparql_queries = sparql_validation_generator(conceptual_mappings_rules_df)
+        metadata_df = pd.read_excel(excel_file, sheet_name=CONCEPTUAL_MAPPINGS_METADATA_SHEET_NAME)
+        metadata = metadata_df.set_index('Field').T.to_dict('list')
+        base_xpath = metadata[BASE_XPATH_FIELD][0]
+    sparql_queries = sparql_validation_generator(conceptual_mappings_rules_df, base_xpath)
     output_sparql_queries_folder_path.mkdir(parents=True, exist_ok=True)
     for index, sparql_query in enumerate(sparql_queries):
         output_file_path = output_sparql_queries_folder_path / f"{rq_name}{index}.rq"

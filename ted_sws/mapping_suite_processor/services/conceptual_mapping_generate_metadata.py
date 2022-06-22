@@ -1,7 +1,10 @@
 import json
 import pathlib
 from datetime import datetime
+
 import pandas as pd
+
+from ted_sws.mapping_suite_processor import CONCEPTUAL_MAPPINGS_METADATA_SHEET_NAME
 
 VERSION_FIELD = 'Mapping Version'
 EPO_VERSION_FIELD = 'EPO version'
@@ -27,8 +30,6 @@ DESCRIPTION_KEY = "description"
 ONTOLOGY_VERSION_KEY = "ontology_version"
 METADATA_CONSTRAINTS_KEY = "metadata_constraints"
 CONSTRAINTS_KEY = "constraints"
-
-CONCEPTUAL_MAPPINGS_METADATA_SHEET_NAME = "Metadata"
 
 
 def generate_metadata(raw_metadata: dict) -> str:

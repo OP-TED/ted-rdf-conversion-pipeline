@@ -12,6 +12,8 @@ from ted_sws.data_manager.adapters.notice_repository import NoticeRepository
 from ted_sws.mapping_suite_processor.services.conceptual_mapping_processor import \
     mapping_suite_processor_from_github_expand_and_load_package_in_mongo_db
 
+
+FETCH_MAPPING_SUITE_PACKAGE_FROM_GITHUB_INTO_MONGODB = "fetch_mapping_suite_package_from_github_into_mongodb"
 MAPPING_SUITE_PACKAGE_NAME_DAG_PARAM_KEY = 'mapping_suite_package_name'
 LOAD_TEST_DATA_DAG_PARAM_KEY = 'load_test_data'
 TRIGGER_DOCUMENT_PROC_PIPELINE_TASK_ID = "trigger_document_proc_pipeline"
@@ -43,7 +45,7 @@ def load_mapping_suite_in_mongodb():
                 load_test_data=load_test_data
             )
         else:
-            print(f"The key={key} is not present in context")
+            raise KeyError(f"The key={key} is not present in context")
 
     @task
     def trigger_document_proc_pipeline():

@@ -1,5 +1,4 @@
 from datetime import timezone
-from typing import List
 
 from airflow.models import DagRun, TaskInstance
 from airflow.utils.types import DagRunType

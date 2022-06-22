@@ -11,6 +11,8 @@ from tests import TESTS_PATH
 AIRFLOW_DAG_FOLDER = TESTS_PATH.parent.resolve() / "dags"
 
 
+
+
 @pytest.fixture(scope="session")
 def dag_bag():
     os.environ["AIRFLOW_HOME"] = str(AIRFLOW_DAG_FOLDER)

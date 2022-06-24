@@ -140,7 +140,7 @@ class ExtractedMetadataNormaliser:
         :param value:
         :return:
         """
-        if value and not value.startswith("F"):
+        if value and not value.startswith("F") and not value[0].isalpha():
             return "F" + value
         return value
 

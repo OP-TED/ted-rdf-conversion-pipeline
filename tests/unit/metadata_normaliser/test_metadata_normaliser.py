@@ -44,6 +44,8 @@ def test_normalise_form_number(raw_notice):
     extracted_metadata_normaliser = ExtractedMetadataNormaliser(extracted_metadata=extracted_metadata)
     assert "18" == extracted_metadata.extracted_form_number
     assert "F18" == extracted_metadata_normaliser.normalise_form_number(value=extracted_metadata.extracted_form_number)
+    assert "T01" == extracted_metadata_normaliser.normalise_form_number(value="T01")
+    assert None == extracted_metadata_normaliser.normalise_form_number(value=None)
 
 
 def test_normalise_legal_basis(raw_notice):
@@ -94,7 +96,7 @@ def test_get_filter_values(raw_notice):
                                                                                       extracted_notice_type=None,
                                                                                       document_type_code="7",
                                                                                       legal_basis="legal")
-    assert isinstance(filter_variables_dict,dict)
+    assert isinstance(filter_variables_dict, dict)
     assert filter_variables_dict[FORM_NUMBER_KEY] == "F07"
     assert filter_variables_dict[LEGAL_BASIS_KEY] is None
     assert filter_variables_dict[SF_NOTICE_TYPE_KEY] is None
@@ -106,6 +108,7 @@ def test_get_filter_values(raw_notice):
                                                                   extracted_notice_type=None,
                                                                   document_type_code="7",
                                                                   legal_basis="legal")
+
 
 def test_normalising_process_on_failed_notice_in_dag(notice_2021):
     extracted_metadata = XMLManifestationMetadataExtractor(

@@ -22,6 +22,9 @@ from tests import TEST_DATA_PATH
 from tests.fakes.fake_repository import FakeNoticeRepository
 from tests.fakes.fake_ted_api import FakeRequestAPI
 
+from ted_sws.event_manager.model.message import DBProcessLog, DICT_TYPE
+
+
 enable_gridfs_integration()
 
 
@@ -220,3 +223,26 @@ def notice_2021():
     original_metadata = TEDMetadata(**notice_data)
 
     return Notice(ted_id=ted_id, xml_manifestation=xml_manifestation, original_metadata=original_metadata)
+
+
+@pytest.fixture
+def db_process_log_dict() -> DICT_TYPE:
+    log_dict = {
+        'name': "TEST",
+        'message': "TEST_LOG",
+        'request': {
+            'POSITIONAL_OR_KEYWORD': {
+                'arg1': 1,
+                'arg2': 2
+            }
+        },
+        'duration': 12
+    }
+
+    return log_dict
+
+
+@pytest.fixture
+def db_process_log(db_process_log_dict) -> DBProcessLog:
+    return DBProcessLog(**db_process_log_dict)
+

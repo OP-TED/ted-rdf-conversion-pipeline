@@ -4,12 +4,13 @@ from pathlib import Path
 
 import click
 
-from ted_sws.core.adapters.cmd_runner import CmdRunner as BaseCmdRunner, DEFAULT_MAPPINGS_PATH
+from ted_sws.core.adapters.cmd_runner import CmdRunner as BaseCmdRunner, DEFAULT_MAPPINGS_PATH, CMD_LOG_TITLE
 from ted_sws.core.model.manifestation import RDFManifestation
 from ted_sws.data_manager.adapters.mapping_suite_repository import MappingSuiteRepositoryInFileSystem
 from ted_sws.event_manager.adapters.logger import LOG_INFO_TEXT
 from ted_sws.notice_validator.services.sparql_test_suite_runner import SPARQLTestSuiteRunner, SPARQLReportBuilder
 from ted_sws.notice_validator.entrypoints.cli import DEFAULT_RDF_FOLDER, DEFAULT_TEST_SUITE_REPORT_FOLDER
+from ted_sws.event_manager.adapters.log.log_decorator import log
 
 JSON_REPORT = "sparql_{id}.json"
 HTML_REPORT = "sparql_{id}.html"
@@ -80,6 +81,7 @@ class CmdRunner(BaseCmdRunner):
         return self.run_cmd_result(error)
 
 
+@log(title=CMD_LOG_TITLE, message=CMD_NAME)
 def run(mapping_suite_id=None, opt_mappings_folder=DEFAULT_MAPPINGS_PATH):
     cmd = CmdRunner(
         mapping_suite_id=mapping_suite_id,

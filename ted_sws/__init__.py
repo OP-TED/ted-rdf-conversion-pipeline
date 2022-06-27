@@ -18,10 +18,18 @@ from ted_sws.core.adapters.vault_secrets_store import VaultSecretsStore
 
 dotenv.load_dotenv(verbose=True, override=True)
 
-SECRET_PATHS = ['mongo-db', 'github']
-SECRET_MOUNT = f'ted-{os.environ.get("ENVIRONMENT", default="staging")}'
+RUN_ENV_NAME = "TED_SWS_RUN_ENV"
+RUN_ENV_VAL = "app"
+os.environ[RUN_ENV_NAME] = RUN_ENV_VAL
 
-VaultSecretsStore.default_secret_mount = SECRET_MOUNT
+ENV = os.environ.get("ENVIRONMENT", default="staging")
+if ENV == "local":
+    SECRET_PATHS = []
+else:
+    SECRET_PATHS = ['mongo-db', 'github']
+    SECRET_MOUNT = f'ted-{ENV}'
+    VaultSecretsStore.default_secret_mount = SECRET_MOUNT
+
 VaultSecretsStore.default_secret_paths = SECRET_PATHS
 
 
@@ -99,6 +107,14 @@ class LoggingConfig:
 
     @property
     def LOGGING_TYPE(self) -> str:
+        return VaultAndEnvConfigResolver().config_resolve()
+
+    @property
+    def MONGO_DB_LOGS_DATABASE_NAME(self) -> str:
+        return VaultAndEnvConfigResolver().config_resolve()
+
+    @property
+    def MONGO_DB_LOGS_COLLECTION(self) -> str:
         return VaultAndEnvConfigResolver().config_resolve()
 
 

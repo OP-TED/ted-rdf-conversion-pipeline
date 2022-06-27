@@ -11,6 +11,7 @@ from ted_sws.event_manager.model.message import Log
 
 DEFAULT_MAPPINGS_PATH = 'mappings'
 DEFAULT_OUTPUT_PATH = 'output'
+CMD_LOG_TITLE = "CMD"
 
 
 class CmdRunnerABC(abc.ABC):

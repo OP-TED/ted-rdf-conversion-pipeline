@@ -40,7 +40,7 @@ class LogWriter:
             if isinstance(param, Notice):
                 s_param = cls.sanitize_notice_param(s_param)
         else:
-            s_param = str(param)
+            s_param = param if isinstance(param, bool) else str(param)
 
         return s_param
 
@@ -57,8 +57,13 @@ class LogWriter:
 
     @classmethod
     def get_response(cls, result: Any) -> LogResponse:
+        if isinstance(result, dict):
+            s_result = cls.sanitize_request_params(result)
+        else:
+            s_result = cls.sanitize_request_param(result)
+
         log_response = LogResponse()
-        log_response.RESULT = result
+        log_response.RESULT = s_result
         return log_response
 
     def save(self, title: str = None, message: str = None, request: DICT_TYPE = None) -> str:

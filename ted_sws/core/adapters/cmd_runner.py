@@ -8,10 +8,10 @@ from ted_sws.data_manager.adapters.mapping_suite_repository import METADATA_FILE
 from ted_sws.event_manager.adapters.logger import Logger, LOG_ERROR_TEXT, LOG_SUCCESS_TEXT
 from ted_sws.event_manager.domain.message_bus import message_bus
 from ted_sws.event_manager.model.message import Log
+from ted_sws.event_manager.services.log import log_write
 
 DEFAULT_MAPPINGS_PATH = 'mappings'
 DEFAULT_OUTPUT_PATH = 'output'
-CMD_LOG_TITLE = "CMD"
 
 
 class CmdRunnerABC(abc.ABC):
@@ -70,23 +70,25 @@ class CmdRunner(CmdRunnerABC):
     def _now() -> str:
         return str(datetime.datetime.now())
 
-    def log(self, message: str, level: int = None):
+    def log(self, message: str, level: int = None, save: bool = False):
         message_bus.handle(Log(message=message, name=self.name, level=level, logger=self.logger))
+        if save:
+            log_write(title=self.name, message=message)
 
     def log_failed_error(self, error: Exception):
         self.log(LOG_ERROR_TEXT.format("FAILED"))
-        self.log(LOG_ERROR_TEXT.format(type(error).__name__ + ' :: ' + str(error)))
+        self.log(LOG_ERROR_TEXT.format("FAILED" + ' :: ' + type(error).__name__ + ' :: ' + str(error)), save=True)
 
     def log_failed_msg(self, msg: str = None):
-        self.log(LOG_ERROR_TEXT.format('FAILED') + (' :: ' + msg if msg is not None else ""))
+        self.log(LOG_ERROR_TEXT.format('FAILED') + (' :: ' + msg if msg is not None else ""), save=True)
 
     def log_success_msg(self, msg: str = None):
         self.log(LOG_SUCCESS_TEXT.format("DONE"))
-        self.log(LOG_SUCCESS_TEXT.format('SUCCESS') + (' :: ' + msg if msg is not None else ""))
+        self.log(LOG_SUCCESS_TEXT.format('SUCCESS') + (' :: ' + msg if msg is not None else ""), save=True)
 
     def on_begin(self):
         self.begin_time = datetime.datetime.now()
-        self.log("CMD :: BEGIN :: {now}".format(now=self._now()))
+        self.log("CMD :: BEGIN :: {now}".format(now=self._now()), save=True)
 
     def run(self):
         self.on_begin()
@@ -111,7 +113,7 @@ class CmdRunner(CmdRunnerABC):
         self.log("CMD :: END :: {now} :: [{time}]".format(
             now=str(self.end_time),
             time=self.end_time - self.begin_time
-        ))
+        ), save=True)
 
 
 class CmdRunnerForMappingSuite(CmdRunner):

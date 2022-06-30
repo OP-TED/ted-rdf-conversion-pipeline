@@ -72,8 +72,8 @@ class CmdRunner(CmdRunnerABC):
 
     def log(self, message: str, level: int = None, save: bool = False):
         message_bus.handle(Log(message=message, name=self.name, level=level, logger=self.logger))
-        if save:
-            log_write(title=self.name, message=message)
+        # if save:
+        #     log_write(title=self.name, message=message)
 
     def log_failed_error(self, error: Exception):
         self.log(LOG_ERROR_TEXT.format("FAILED"))

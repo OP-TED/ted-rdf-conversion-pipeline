@@ -326,6 +326,27 @@ Options:
   --help                                      Show this message and exit.
 ```
 
+#### CMD: triple_store_loader
+Loads the MappingSuite output into Triple Store.
+
+Use:
+```bash
+triple_store_loader --help
+```
+to get the Usage Help:
+```bash
+Usage: triple_store_loader [OPTIONS] [MAPPING_SUITE_ID]
+
+  Loads the MappingSuite output into Triple Store.
+
+Options:
+  -c, --opt-catalog-name TEXT
+  -m, --opt-mappings-folder TEXT
+  --help                                      Show this message and exit.
+
+```
+
+
 ### API
 #### ID Manager API
 ##### Start local API server

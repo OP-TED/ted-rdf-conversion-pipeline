@@ -13,7 +13,7 @@ class AllegroGraphTripleStore:
         self.password = password
         self.catalog_name = catalog_name
         self.allegro = AllegroGraphServer(host=self.host, port=443,
-                                          user=self.user, password=self.password, verifypeer=0)
+                                          user=self.user, password=self.password)
 
     def create_repository(self, repository_name: str):
         """

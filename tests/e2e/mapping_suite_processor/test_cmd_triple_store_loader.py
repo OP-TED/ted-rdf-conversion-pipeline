@@ -14,3 +14,9 @@ def test_triple_store_loader(cli_runner, fake_mapping_suite_id, file_system_repo
 
 def test_check_repository_exists(allegro_triple_store, fake_mapping_suite_id):
     assert not repository_exists(triple_store=allegro_triple_store, repository_name=fake_mapping_suite_id)
+
+
+def test_triple_store_loader_with_invalid_input(cli_runner, file_system_repository_path):
+    response = cli_runner.invoke(cli_main,
+                                 ["invalid-mapping-suite-id", "--opt-mappings-folder", file_system_repository_path])
+    assert "FAILED" in response.output

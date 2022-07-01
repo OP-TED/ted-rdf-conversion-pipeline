@@ -71,26 +71,16 @@ def mapping_suite_processor_from_github_expand_and_load_package_in_mongo_db(mapp
     :return:
     """
 
-    def get_git_head_hash() -> str:
-        """
-            This function return hash for last commit with git.
-        :return:
-        """
-        result = subprocess.run('git rev-parse origin/main', shell=True, stdout=subprocess.PIPE,
-                                stderr=subprocess.STDOUT)
-        git_head_hash = result.stdout.decode(encoding="utf-8")
-        print(git_head_hash)
-        return git_head_hash
-
     mapping_suite_package_downloader = GitHubMappingSuitePackageDownloader(
         github_repository_url=config.GITHUB_TED_SWS_ARTEFACTS_URL)
     with tempfile.TemporaryDirectory() as tmp_dir:
         tmp_dir_path = pathlib.Path(tmp_dir)
-        mapping_suite_package_downloader.download(mapping_suite_package_name=mapping_suite_package_name,
-                                                  output_mapping_suite_package_path=tmp_dir_path)
+        git_last_commit_hash = mapping_suite_package_downloader.download(
+            mapping_suite_package_name=mapping_suite_package_name,
+            output_mapping_suite_package_path=tmp_dir_path)
         mapping_suite_package_path = tmp_dir_path / mapping_suite_package_name
         mapping_suite_processor_load_package_in_mongo_db(mapping_suite_package_path=mapping_suite_package_path,
                                                          mongodb_client=mongodb_client,
                                                          load_test_data=load_test_data,
-                                                         git_last_commit_hash=get_git_head_hash()
+                                                         git_last_commit_hash=git_last_commit_hash
                                                          )

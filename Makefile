@@ -311,6 +311,7 @@ stop-id_manager-api:
 dump-mongodb:
 	@ echo -e "Start dump data from mongodb."
 	@ docker exec -i mongodb-${ENVIRONMENT} /usr/bin/mongodump --username ${ME_CONFIG_MONGODB_ADMINUSERNAME} --password ${ME_CONFIG_MONGODB_ADMINPASSWORD} --authenticationDatabase admin --db aggregates_db --out /dump
+	@ mv ./mongodb_dump/aggregates_db ./mongodb_dump/aggregates_db_$(date -d "today" +"%Y_%m_%d_%H_%M")
 	@ docker cp mongodb-${ENVIRONMENT}:/dump ./mongodb_dump
 	@ echo -e "Finish dump data from mongodb."
 

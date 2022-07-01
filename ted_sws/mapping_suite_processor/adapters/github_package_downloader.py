@@ -49,13 +49,10 @@ class GitHubMappingSuitePackageDownloader(MappingSuitePackageDownloaderABC):
             :return:
             """
             result = subprocess.run(f'cd {git_repository_path} && git rev-parse origin/main', shell=True,
-                                    stdout=subprocess.PIPE,
-                                    stderr=subprocess.STDOUT)
+                                    stdout=subprocess.PIPE)
             git_head_hash = result.stdout.decode(encoding="utf-8")
-            print(git_head_hash)
             return git_head_hash
 
-        git_last_commit_hash = ''
         with tempfile.TemporaryDirectory() as tmp_dir:
             temp_dir_path = pathlib.Path(tmp_dir)
             bash_script = f"cd {temp_dir_path} && git clone {self.github_repository_url}"

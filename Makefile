@@ -323,3 +323,4 @@ restore-mongodb:
 	@ docker exec -i mongodb-${ENVIRONMENT} /usr/bin/mongorestore --username ${ME_CONFIG_MONGODB_ADMINUSERNAME} --password ${ME_CONFIG_MONGODB_ADMINPASSWORD} --authenticationDatabase admin --db aggregates_db /mongodb_dump/aggregates_db
 	@ docker exec -it mongodb-${ENVIRONMENT} rm -rf mongodb_dump
 	@ echo -e "Finish restore data in mongodb."
+

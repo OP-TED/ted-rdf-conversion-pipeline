@@ -46,7 +46,6 @@ def mapping_suite_processor_load_package_in_mongo_db(mapping_suite_package_path:
 
     if git_last_commit_hash is not None:
         mapping_suite_in_memory.git_latest_commit_hash = git_last_commit_hash
-        print("GIT_LAST_COMMIT----", git_last_commit_hash)
 
     if load_test_data:
         tests_data = mapping_suite_in_memory.transformation_test_data.test_data

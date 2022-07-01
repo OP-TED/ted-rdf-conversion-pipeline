@@ -306,3 +306,17 @@ start-id_manager-api:
 stop-id_manager-api:
 	@ echo -e "$(BUILD_PRINT)Stopping id_manager API service $(END_BUILD_PRINT)"
 	@ docker-compose -p common --file infra/api/docker-compose.yml --env-file ${ENV_FILE} down
+
+
+dump-mongodb:
+	@ echo -e "Start dump data from mongodb."
+	@ docker exec -i mongodb-${ENVIRONMENT} /usr/bin/mongodump --username ${ME_CONFIG_MONGODB_ADMINUSERNAME} --password ${ME_CONFIG_MONGODB_ADMINPASSWORD} --authenticationDatabase admin --db aggregates_db --out /dump
+	@ docker cp mongodb-${ENVIRONMENT}:/dump ./mongodb_dump
+	@ echo -e "Finish dump data from mongodb."
+
+
+restore-mongodb:
+	@ echo -e "Start restore data in mongodb."
+	@ docker cp ./mongodb_dump mongodb-${ENVIRONMENT}:/dump
+	@ docker exec -i mongodb-${ENVIRONMENT} /usr/bin/mongorestore --username ${ME_CONFIG_MONGODB_ADMINUSERNAME} --password ${ME_CONFIG_MONGODB_ADMINPASSWORD} --authenticationDatabase admin --db aggregates_db /dump/aggregates_db
+	@ echo -e "Finish restore data in mongodb."

@@ -26,6 +26,8 @@ MAPPING_SUITE_ID = "mapping_suite_id"
 
 @dag(default_args=DEFAULT_DAG_ARGUMENTS,
      schedule_interval=None,
+     max_active_runs=128,
+     concurrency=128,
      tags=['worker', 'pipeline'])
 def worker_single_notice_process_orchestrator():
     """

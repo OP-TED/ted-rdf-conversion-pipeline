@@ -4,7 +4,7 @@ from typing import Any, Dict
 from pymongo import MongoClient
 
 from ted_sws.core.model import PropertyBaseModel
-from ted_sws.data_manager.adapters.log_repository import LogRepository
+from ted_sws.event_manager.adapters.log_repository import LogRepository
 from ted_sws.event_manager.adapters.log import LoggedBy
 from ted_sws.event_manager.model.message import DBProcessLog as Log, DBProcessLogResponse as LogResponse, DICT_TYPE
 from ted_sws.core.model.notice import Notice

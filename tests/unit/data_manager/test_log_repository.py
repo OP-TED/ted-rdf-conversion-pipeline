@@ -1,6 +1,6 @@
 from pymongo import DESCENDING
 
-from ted_sws.data_manager.adapters.log_repository import LogRepository
+from ted_sws.event_manager.adapters.log_repository import LogRepository
 from ted_sws.event_manager.model.message import DBProcessLog as Log
 from bson import ObjectId
 

@@ -5,7 +5,7 @@ from typing import Any
 from decorator import decorate
 from pymongo import MongoClient
 
-from ted_sws.data_manager.adapters.log_repository import LogRepository
+from ted_sws.event_manager.adapters.log_repository import LogRepository
 from ted_sws.event_manager.adapters.log import LoggedBy
 from ted_sws.event_manager.adapters.log import is_event_loggable
 from ted_sws.event_manager.adapters.log.log_writer import LogWriter

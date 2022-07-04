@@ -1,8 +1,10 @@
 from enum import Enum
-from typing import Optional
+from typing import Optional, Union, Dict, Any
 import logging
 from datetime import datetime, timezone
 from ted_sws.core.model import PropertyBaseModel
+
+DictType = Union[Dict[str, Any], None]
 
 
 class SeverityLevelType(Enum):
@@ -22,6 +24,7 @@ class EventMessage(PropertyBaseModel):
     severity_level: Optional[SeverityLevelType] = None
     caller_name: Optional[str] = None
     duration: Optional[int] = None
+    args: Optional[DictType] = None
 
     class Config:
         arbitrary_types_allowed = True

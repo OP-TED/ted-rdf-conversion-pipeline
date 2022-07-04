@@ -117,6 +117,21 @@ class LoggingConfig:
     def MONGO_DB_LOGS_COLLECTION(self) -> str:
         return VaultAndEnvConfigResolver().config_resolve()
 
+    @property
+    def DAG_LOGGER_CONFIG_HANDLERS(self) -> str:
+        v: str = VaultAndEnvConfigResolver().config_resolve()
+        return v if v else ""
+
+    @property
+    def CLI_LOGGER_CONFIG_HANDLERS(self) -> str:
+        v: str = VaultAndEnvConfigResolver().config_resolve()
+        return v if v else ""
+
+    @property
+    def CLI_LOGGER_CONFIG_HANDLERS(self) -> str:
+        v: str = VaultAndEnvConfigResolver().config_resolve()
+        return v if v else ""
+
 
 class XMLProcessorConfig:
 

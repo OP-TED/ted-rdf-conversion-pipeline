@@ -1,11 +1,9 @@
 import abc
-from typing import Union
-from ted_sws.event_manager.model.event_message import TechnicalEventMessage, NoticeEventMessage, \
-    MappingSuiteEventMessage
-from ted_sws import config
+
 from pymongo import MongoClient, ASCENDING, DESCENDING
 
-EventMessageType = Union[TechnicalEventMessage, NoticeEventMessage, MappingSuiteEventMessage]
+from ted_sws import config
+from ted_sws.event_manager.model.event_message import EventMessage
 
 
 class EventLoggingRepositoryABC(abc.ABC):
@@ -14,7 +12,7 @@ class EventLoggingRepositoryABC(abc.ABC):
     """
 
     @abc.abstractmethod
-    def add(self, event_message: EventMessageType):
+    def add(self, event_message: EventMessage):
         """
             This method allows you to add Event Messages to the repository.
         :param event_message:
@@ -42,10 +40,10 @@ class EventLoggingRepository(EventLoggingRepositoryABC):
         self.collection.create_index([("day", ASCENDING)])
 
     @classmethod
-    def _prepare_record(cls, event_message: EventMessageType) -> dict:
+    def _prepare_record(cls, event_message: EventMessage) -> dict:
         return event_message.dict()
 
-    def add(self, event_message: EventMessageType) -> str:
+    def add(self, event_message: EventMessage) -> str:
         record = self._prepare_record(event_message)
         result = self.collection.insert_one(record)
         return result.inserted_id

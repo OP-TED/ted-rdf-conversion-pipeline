@@ -5,10 +5,10 @@ import os
 from pathlib import Path
 
 from ted_sws.data_manager.adapters.mapping_suite_repository import METADATA_FILE_NAME
-from ted_sws.event_manager.adapters.logger import Logger, LOG_ERROR_TEXT, LOG_SUCCESS_TEXT
-from ted_sws.event_manager.domain.message_bus import message_bus
-from ted_sws.event_manager.model.message import Log
-from ted_sws.event_manager.services.log import log_write
+from ted_sws.event_manager.adapters.event_handler_config import CLILoggerConfig
+from ted_sws.event_manager.adapters.event_logger import EventLogger
+from ted_sws.event_manager.adapters.logger import LOG_ERROR_TEXT, LOG_SUCCESS_TEXT
+from ted_sws.event_manager.model.event_message import EventMessage
 
 DEFAULT_MAPPINGS_PATH = 'mappings'
 DEFAULT_OUTPUT_PATH = 'output'
@@ -45,17 +45,13 @@ class CmdRunnerABC(abc.ABC):
 
 
 class CmdRunner(CmdRunnerABC):
-    def __init__(self, name=__name__, log_level: int = logging.INFO, logger: Logger = None):
+    def __init__(self, name=__name__, log_level: int = logging.INFO, logger: EventLogger = None):
         self.name = name
         self.begin_time = None
         self.end_time = None
         if logger is None:
-            logger = Logger(name=name, level=log_level)
+            logger = EventLogger(CLILoggerConfig())
         self.logger = logger
-        self.add_logger_handlers()
-
-    def add_logger_handlers(self):
-        self.add_logger_stdout_handler()
 
     def add_logger_stdout_handler(self):
         fmt = "[%(asctime)s] - %(name)s - %(levelname)s - %(message)s"
@@ -63,32 +59,30 @@ class CmdRunner(CmdRunnerABC):
         formatter = logging.Formatter(fmt, date_fmt)
         self.logger.add_stdout_handler(formatter=formatter)
 
-    def get_logger(self) -> Logger:
+    def get_logger(self) -> EventLogger:
         return self.logger
 
     @staticmethod
     def _now() -> str:
         return str(datetime.datetime.now())
 
-    def log(self, message: str, level: int = None, save: bool = False):
-        message_bus.handle(Log(message=message, name=self.name, level=level, logger=self.logger))
-        # if save:
-        #     log_write(title=self.name, message=message)
+    def log(self, message: str):
+        self.logger.info(EventMessage(**{"title": self.name, "message": message}))
 
     def log_failed_error(self, error: Exception):
         self.log(LOG_ERROR_TEXT.format("FAILED"))
-        self.log(LOG_ERROR_TEXT.format("FAILED" + ' :: ' + type(error).__name__ + ' :: ' + str(error)), save=True)
+        self.log(LOG_ERROR_TEXT.format("FAILED" + ' :: ' + type(error).__name__ + ' :: ' + str(error)))
 
     def log_failed_msg(self, msg: str = None):
-        self.log(LOG_ERROR_TEXT.format('FAILED') + (' :: ' + msg if msg is not None else ""), save=True)
+        self.log(LOG_ERROR_TEXT.format('FAILED') + (' :: ' + msg if msg is not None else ""))
 
     def log_success_msg(self, msg: str = None):
         self.log(LOG_SUCCESS_TEXT.format("DONE"))
-        self.log(LOG_SUCCESS_TEXT.format('SUCCESS') + (' :: ' + msg if msg is not None else ""), save=True)
+        self.log(LOG_SUCCESS_TEXT.format('SUCCESS') + (' :: ' + msg if msg is not None else ""))
 
     def on_begin(self):
         self.begin_time = datetime.datetime.now()
-        self.log("CMD :: BEGIN :: {now}".format(now=self._now()), save=True)
+        self.log("CMD :: BEGIN :: {now}".format(now=self._now()))
 
     def run(self):
         self.on_begin()
@@ -113,7 +107,7 @@ class CmdRunner(CmdRunnerABC):
         self.log("CMD :: END :: {now} :: [{time}]".format(
             now=str(self.end_time),
             time=self.end_time - self.begin_time
-        ), save=True)
+        ))
 
 
 class CmdRunnerForMappingSuite(CmdRunner):

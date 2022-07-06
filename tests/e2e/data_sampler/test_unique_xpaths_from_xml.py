@@ -34,8 +34,8 @@ def test_unique_notice_id(notice_repository_with_indexed_notices):
 
 def test_minimal_set_of_notices_for_coverage_xpaths(notice_repository_with_indexed_notices):
     mongodb_client = notice_repository_with_indexed_notices.mongodb_client
-    unique_xpaths = get_unique_xpaths_from_notice_repository(mongodb_client=mongodb_client)
-    minimal_set_of_notices = get_minimal_set_of_notices_for_coverage_xpaths(xpaths=unique_xpaths,
+    notices_with_form_number_f03 = get_notice_ids_by_form_number(form_number="F03", mongodb_client=mongodb_client)
+    minimal_set_of_notices = get_minimal_set_of_notices_for_coverage_xpaths(notice_ids=notices_with_form_number_f03,
                                                                             mongodb_client=mongodb_client)
     assert len(minimal_set_of_notices) == 16
 
@@ -87,6 +87,3 @@ def test_get_most_representative_notices_by_query_result(notice_repository_with_
                                                                   top_k=10)
     assert most_representative_notices
     assert len(most_representative_notices) == 10
-
-
-

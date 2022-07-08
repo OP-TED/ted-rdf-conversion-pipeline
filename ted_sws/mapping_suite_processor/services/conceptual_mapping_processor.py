@@ -1,6 +1,4 @@
 import pathlib
-import shutil
-import subprocess
 import tempfile
 
 from pymongo import MongoClient
@@ -8,8 +6,8 @@ from pymongo import MongoClient
 from ted_sws import config
 from ted_sws.core.model.manifestation import XMLManifestation
 from ted_sws.core.model.notice import Notice
-from ted_sws.data_manager.adapters.mapping_suite_repository import TEST_DATA_PACKAGE_NAME, \
-    MappingSuiteRepositoryInFileSystem, MappingSuiteRepositoryMongoDB
+from ted_sws.data_manager.adapters.mapping_suite_repository import MappingSuiteRepositoryInFileSystem, \
+    MappingSuiteRepositoryMongoDB
 from ted_sws.data_manager.adapters.notice_repository import NoticeRepository
 from ted_sws.mapping_suite_processor.adapters.github_package_downloader import GitHubMappingSuitePackageDownloader
 

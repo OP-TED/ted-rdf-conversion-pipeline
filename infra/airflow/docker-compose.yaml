@@ -64,6 +64,7 @@ x-airflow-common:
     AIRFLOW_HOME: /opt/airflow
     RML_MAPPER_PATH: /opt/airflow/.rmlmapper/rmlmapper.jar
     XML_PROCESSOR_PATH: /opt/airflow/.saxon/saxon-he-10.6.jar
+    DAG_LOGGER_CONFIG_HANDLERS: ${DAG_LOGGER_CONFIG_HANDLERS}
   volumes:
 #    - ./config/airflow.cfg:/opt/airflow/airflow.cfg
     - ${AIRFLOW_INFRA_FOLDER}/.env:/opt/airflow/.env

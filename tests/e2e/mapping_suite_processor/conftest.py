@@ -91,6 +91,16 @@ def package_folder_path():
 
 
 @pytest.fixture
+def fake_mapping_suite_id():
+    return "test_package"
+
+
+@pytest.fixture
+def file_system_repository_path():
+    return TEST_DATA_PATH / "notice_validator" / "test_repository"
+
+
+@pytest.fixture
 def allegro_triple_store():
     return AllegroGraphTripleStore(host=config.ALLEGRO_HOST, user=config.AGRAPH_SUPER_USER,
                                    password=config.AGRAPH_SUPER_PASSWORD)

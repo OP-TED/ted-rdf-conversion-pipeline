@@ -1,13 +1,16 @@
 from datetime import datetime
 
+from airflow.decorators import dag, task
+from airflow.operators.python import get_current_context
 from airflow.operators.trigger_dagrun import TriggerDagRunOperator
 from dateutil import rrule
 
 from dags import DEFAULT_DAG_ARGUMENTS
-from airflow.decorators import dag, task
-from airflow.operators.python import get_current_context
-
 from dags.fetch_notices_per_day_worker import DATE_WILD_CARD_KEY
+from ted_sws.event_manager.adapters.event_log_decorator import event_log
+from ted_sws.event_manager.model.event_message import TechnicalEventMessage
+
+DAG_NAME = "fetch_notices_for_date_range"
 
 START_DATE_KEY = "start_date"
 END_DATE_KEY = "end_date"
@@ -38,6 +41,7 @@ def generate_wild_card_by_date(date: str) -> str:
 @dag(default_args=DEFAULT_DAG_ARGUMENTS, schedule_interval=None, tags=['master', 'fetch_notices_for_date_range'])
 def fetch_notices_for_date_range():
     @task
+    @event_log(TechnicalEventMessage(name=DAG_NAME))
     def trigger_fetch_notices_workers_for_date_range():
         context = get_current_context()
         dag_conf = context["dag_run"].conf

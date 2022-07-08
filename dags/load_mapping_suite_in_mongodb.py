@@ -1,5 +1,3 @@
-from datetime import datetime
-
 from airflow.decorators import dag, task
 from airflow.operators.dummy import DummyOperator
 from airflow.operators.python import get_current_context, BranchPythonOperator
@@ -26,7 +24,7 @@ TRIGGER_DOCUMENT_PROC_PIPELINE_TASK_ID = "trigger_document_proc_pipeline"
 FINISH_LOADING_MAPPING_SUITE_TASK_ID = "finish_loading_mapping_suite"
 CHECK_IF_LOAD_TEST_DATA_TASK_ID = "check_if_load_test_data"
 
-DAG_KEY = f"load_mapping_suite_in_mongodb_{datetime.now().isoformat()}"
+DAG_NAME = "load_mapping_suite_in_mongodb"
 
 
 @dag(default_args=DEFAULT_DAG_ARGUMENTS,
@@ -41,13 +39,13 @@ def load_mapping_suite_in_mongodb():
         :return:
         """
         event_logger: EventLogger = get_logger_from_dag_context(context_args)
-        event_message = MappingSuiteEventMessage(name=DAG_KEY)
+        event_message = MappingSuiteEventMessage(name=DAG_NAME)
         event_message.start()
 
         context = get_current_context()
         dag_conf = context["dag_run"].conf
 
-        event_message.kwargs = get_dag_args_from_context(context)
+        event_message.kwargs = get_dag_args_from_context(context, name=DAG_NAME)
         if MAPPING_SUITE_PACKAGE_NAME_DAG_PARAM_KEY in dag_conf.keys():
             event_message.mapping_suite_id = dag_conf[MAPPING_SUITE_PACKAGE_NAME_DAG_PARAM_KEY]
 
@@ -72,13 +70,13 @@ def load_mapping_suite_in_mongodb():
     @event_log(is_loggable=False)
     def trigger_document_proc_pipeline(**context_args):
         event_logger: EventLogger = get_logger_from_dag_context(context_args)
-        event_message = MappingSuiteEventMessage(name=DAG_KEY)
+        event_message = MappingSuiteEventMessage(name=DAG_NAME)
         event_message.start()
 
         context = get_current_context()
         dag_conf = context["dag_run"].conf
 
-        event_message.kwargs = get_dag_args_from_context(context)
+        event_message.kwargs = get_dag_args_from_context(context, name=DAG_NAME)
         if MAPPING_SUITE_PACKAGE_NAME_DAG_PARAM_KEY in dag_conf.keys():
             event_message.mapping_suite_id = dag_conf[MAPPING_SUITE_PACKAGE_NAME_DAG_PARAM_KEY]
 

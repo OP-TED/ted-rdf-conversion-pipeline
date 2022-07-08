@@ -26,11 +26,12 @@ def get_logger_from_dag_context(dag_context: dict) -> EventLogger:
         raise ValueError("No event_logger available!")
 
 
-def get_dag_args_from_context(context: Context, args: dict = None) -> dict:
+def get_dag_args_from_context(context: Context, name: str = None, args: dict = None) -> dict:
     if not args:
         args = {}
     if 'DAG' not in args:
         args['DAG'] = {}
+    args['DAG']['NAME'] = name
     args['DAG']['RUN_ID'] = context['run_id']
 
     return args

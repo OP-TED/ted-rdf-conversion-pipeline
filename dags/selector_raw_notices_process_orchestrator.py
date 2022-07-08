@@ -1,17 +1,16 @@
-from dags import DEFAULT_DAG_ARGUMENTS
 from airflow.decorators import dag, task
 from airflow.operators.python import get_current_context
 from airflow.operators.trigger_dagrun import TriggerDagRunOperator
 from pymongo import MongoClient
-from ted_sws.core.model.notice import NoticeStatus
 
+from dags import DEFAULT_DAG_ARGUMENTS
 from ted_sws import config
+from ted_sws.core.model.notice import NoticeStatus
 from ted_sws.data_manager.adapters.notice_repository import NoticeRepository
-from datetime import datetime
 from ted_sws.event_manager.adapters.event_log_decorator import event_log
 from ted_sws.event_manager.model.event_message import TechnicalEventMessage
 
-DAG_KEY = f"selector_raw_notices_process_orchestrator_{datetime.now().isoformat()}"
+DAG_NAME = "selector_raw_notices_process_orchestrator"
 
 
 @dag(default_args=DEFAULT_DAG_ARGUMENTS,
@@ -19,7 +18,7 @@ DAG_KEY = f"selector_raw_notices_process_orchestrator_{datetime.now().isoformat(
      tags=['selector', 'raw-notices'])
 def selector_raw_notices_process_orchestrator():
     @task
-    @event_log(TechnicalEventMessage(name=DAG_KEY))
+    @event_log(TechnicalEventMessage(name=DAG_NAME))
     def trigger_worker_for_raw_notices():
         context = get_current_context()
         mongodb_client = MongoClient(config.MONGO_DB_AUTH_URL)

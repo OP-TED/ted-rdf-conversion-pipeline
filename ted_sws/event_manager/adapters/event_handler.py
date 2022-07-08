@@ -56,6 +56,8 @@ class EventLoggingHandler(EventHandler):
         self.logger.handlers.clear()
         self.logger.addHandler(handler)
 
+        self.logger.propagate = False
+
     @classmethod
     def _prepare_message(cls, event_message: EventMessage):
         event_message.caller_name = cls._caller_name(event_message)
@@ -80,7 +82,6 @@ class EventWriterToConsoleHandler(EventLoggingHandler):
         self.name = name
         self.init_handler(logging.StreamHandler(sys.stdout), name, fmt, severity_level,
                           ConfigHandlerType.ConsoleHandler)
-        self.logger.propagate = False
 
 
 class EventWriterToFileHandler(EventLoggingHandler):

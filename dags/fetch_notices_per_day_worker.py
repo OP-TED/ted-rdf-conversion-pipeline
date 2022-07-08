@@ -1,4 +1,3 @@
-from datetime import datetime
 import time
 from random import randint
 
@@ -16,14 +15,14 @@ from ted_sws.event_manager.model.event_message import TechnicalEventMessage
 from ted_sws.notice_fetcher.adapters.ted_api import TedAPIAdapter, TedRequestAPI
 from ted_sws.notice_fetcher.services.notice_fetcher import NoticeFetcher
 
-DAG_KEY = f"fetch_notices_per_day_worker_{datetime.now().isoformat()}"
+DAG_NAME = "fetch_notices_per_day_worker"
 DATE_WILD_CARD_KEY = "date_wild_card"
 
 
 @dag(default_args=DEFAULT_DAG_ARGUMENTS, schedule_interval=None, tags=['worker', 'fetch_notices_per_day'])
 def fetch_notices_per_day_worker():
     @task
-    @event_log(TechnicalEventMessage(name=DAG_KEY))
+    @event_log(TechnicalEventMessage(name=DAG_NAME))
     def fetch_notices_and_trigger_index_and_normalise_notice_worker():
         context = get_current_context()
         dag_conf = context["dag_run"].conf

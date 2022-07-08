@@ -10,7 +10,7 @@ from dags.fetch_notices_per_day_worker import DATE_WILD_CARD_KEY
 from ted_sws.event_manager.adapters.event_log_decorator import event_log
 from ted_sws.event_manager.model.event_message import TechnicalEventMessage
 
-DAG_KEY = f"fetch_notices_for_date_range_{datetime.now().isoformat()}"
+DAG_NAME = "fetch_notices_for_date_range"
 
 START_DATE_KEY = "start_date"
 END_DATE_KEY = "end_date"
@@ -41,7 +41,7 @@ def generate_wild_card_by_date(date: str) -> str:
 @dag(default_args=DEFAULT_DAG_ARGUMENTS, schedule_interval=None, tags=['master', 'fetch_notices_for_date_range'])
 def fetch_notices_for_date_range():
     @task
-    @event_log(TechnicalEventMessage(name=DAG_KEY))
+    @event_log(TechnicalEventMessage(name=DAG_NAME))
     def trigger_fetch_notices_workers_for_date_range():
         context = get_current_context()
         dag_conf = context["dag_run"].conf

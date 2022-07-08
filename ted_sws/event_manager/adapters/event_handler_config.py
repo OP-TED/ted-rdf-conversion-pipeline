@@ -13,8 +13,7 @@ from ted_sws.event_manager.adapters.log import ConfigHandlerType
 NOW = datetime.now(timezone.utc)
 DEFAULT_LOGGER_NAME = "ROOT"
 DEFAULT_NULL_LOGGER_NAME = "NULL"
-DEFAULT_LOGGER_LOG_FILENAME = "./event_logs/{today}.log"
-# DEFAULT_LOGGER_LOG_FILENAME = "./event_logs/{today}/{hour}/{minute}.log" # EXAMPLE
+DEFAULT_LOGGER_LOG_FILENAME = "./event_logs/{today}.log"  # EXAMPLE: ./event_logs/{today}/{hour}/{minute}.log"
 CONFIG_HANDLERS_SEP = ","
 
 HANDLERS_TYPE = List[EventHandler]

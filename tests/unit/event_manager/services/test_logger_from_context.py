@@ -22,13 +22,15 @@ def test_get_logger_from_dag_context():
 
 
 def test_get_dag_args_from_context():
+    dag_name = "DAG_NAME"
     dag_run_id = "DAG_RUN_ID"
     dag_context: Context = Context(**{"run_id": dag_run_id})
-    kwargs = get_dag_args_from_context(dag_context)
+    kwargs = get_dag_args_from_context(dag_context, name=dag_name)
     assert kwargs['DAG']['RUN_ID'] == dag_run_id
+    assert kwargs['DAG']['NAME'] == dag_name
 
     args: dict = {'DAG': {'RUNNABLE': True}}
-    kwargs = get_dag_args_from_context(dag_context, args)
+    kwargs = get_dag_args_from_context(dag_context, args=args)
     assert kwargs['DAG']['RUN_ID'] == dag_run_id
     assert kwargs['DAG']['RUNNABLE']
 

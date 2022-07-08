@@ -1,17 +1,16 @@
-from dags import DEFAULT_DAG_ARGUMENTS
 from airflow.decorators import dag, task
 from airflow.operators.python import get_current_context
 from airflow.operators.trigger_dagrun import TriggerDagRunOperator
 from pymongo import MongoClient
-from ted_sws.core.model.notice import NoticeStatus
 
+from dags import DEFAULT_DAG_ARGUMENTS
 from ted_sws import config
+from ted_sws.core.model.notice import NoticeStatus
 from ted_sws.data_manager.adapters.notice_repository import NoticeRepository
-from datetime import datetime
 from ted_sws.event_manager.adapters.event_log_decorator import event_log
 from ted_sws.event_manager.model.event_message import TechnicalEventMessage
 
-DAG_KEY = f"selector_re_publish_process_orchestrator_{datetime.now().isoformat()}"
+DAG_NAME = "selector_re_publish_process_orchestrator"
 
 RE_PUBLISH_TARGET_NOTICE_STATES = [NoticeStatus.PUBLICLY_UNAVAILABLE, NoticeStatus.ELIGIBLE_FOR_PUBLISHING]
 
@@ -21,7 +20,7 @@ RE_PUBLISH_TARGET_NOTICE_STATES = [NoticeStatus.PUBLICLY_UNAVAILABLE, NoticeStat
      tags=['selector', 're-publish'])
 def selector_re_publish_process_orchestrator():
     @task
-    @event_log(TechnicalEventMessage(name=DAG_KEY))
+    @event_log(TechnicalEventMessage(name=DAG_NAME))
     def select_notices_for_re_publish_and_reset_status():
         mongodb_client = MongoClient(config.MONGO_DB_AUTH_URL)
         notice_repository = NoticeRepository(mongodb_client=mongodb_client)
@@ -32,7 +31,7 @@ def selector_re_publish_process_orchestrator():
                 notice_repository.update(notice=notice)
 
     @task
-    @event_log(TechnicalEventMessage(name=DAG_KEY))
+    @event_log(TechnicalEventMessage(name=DAG_NAME))
     def trigger_worker_for_publish_branch():
         context = get_current_context()
         mongodb_client = MongoClient(config.MONGO_DB_AUTH_URL)

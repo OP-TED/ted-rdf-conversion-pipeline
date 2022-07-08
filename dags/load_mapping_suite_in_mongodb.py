@@ -1,10 +1,11 @@
+from datetime import datetime
+
 from airflow.decorators import dag, task
 from airflow.operators.dummy import DummyOperator
 from airflow.operators.python import get_current_context, BranchPythonOperator
 from airflow.operators.trigger_dagrun import TriggerDagRunOperator
 from airflow.utils.trigger_rule import TriggerRule
 from pymongo import MongoClient
-from datetime import datetime
 
 from dags import DEFAULT_DAG_ARGUMENTS
 from ted_sws import config
@@ -32,17 +33,24 @@ DAG_KEY = f"load_mapping_suite_in_mongodb_{datetime.now().isoformat()}"
      schedule_interval=None,
      tags=['fetch', 'mapping-suite', 'github'])
 def load_mapping_suite_in_mongodb():
-
     @task
-    @event_log(MappingSuiteEventMessage(name=DAG_KEY))
+    @event_log(is_loggable=False)
     def fetch_mapping_suite_package_from_github_into_mongodb(**context_args):
         """
 
         :return:
         """
+        event_logger: EventLogger = get_logger_from_dag_context(context_args)
+        event_message = MappingSuiteEventMessage(name=DAG_KEY)
+        event_message.start()
 
         context = get_current_context()
         dag_conf = context["dag_run"].conf
+
+        event_message.kwargs = get_dag_args_from_context(context)
+        if MAPPING_SUITE_PACKAGE_NAME_DAG_PARAM_KEY in dag_conf.keys():
+            event_message.mapping_suite_id = dag_conf[MAPPING_SUITE_PACKAGE_NAME_DAG_PARAM_KEY]
+
         key = MAPPING_SUITE_PACKAGE_NAME_DAG_PARAM_KEY
         load_test_data = dag_conf[
             LOAD_TEST_DATA_DAG_PARAM_KEY] if LOAD_TEST_DATA_DAG_PARAM_KEY in dag_conf.keys() else False
@@ -54,18 +62,14 @@ def load_mapping_suite_in_mongodb():
                 mongodb_client=mongodb_client,
                 load_test_data=load_test_data
             )
-
-            event_logger: EventLogger = get_logger_from_dag_context(context_args)
-            event_logger.info(MappingSuiteEventMessage(
-                name=DAG_KEY,
-                mapping_suite_id=mapping_suite_package_name,
-                kwargs=get_dag_args_from_context(context)
-            ))
         else:
             raise KeyError(f"The key={key} is not present in context")
 
+        event_message.end()
+        event_logger.info(event_message)
+
     @task
-    @event_log(MappingSuiteEventMessage(name=DAG_KEY), is_loggable=False)
+    @event_log(is_loggable=False)
     def trigger_document_proc_pipeline(**context_args):
         event_logger: EventLogger = get_logger_from_dag_context(context_args)
         event_message = MappingSuiteEventMessage(name=DAG_KEY)

@@ -7,6 +7,11 @@ from ted_sws.core.model.notice import NoticeStatus
 
 from ted_sws import config
 from ted_sws.data_manager.adapters.notice_repository import NoticeRepository
+from datetime import datetime
+from ted_sws.event_manager.adapters.event_log_decorator import event_log
+from ted_sws.event_manager.model.event_message import TechnicalEventMessage
+
+DAG_KEY = f"selector_re_package_process_orchestrator_{datetime.now().isoformat()}"
 
 RE_PACKAGE_TARGET_NOTICE_STATES = [NoticeStatus.ELIGIBLE_FOR_PACKAGING, NoticeStatus.INELIGIBLE_FOR_PUBLISHING]
 
@@ -16,6 +21,7 @@ RE_PACKAGE_TARGET_NOTICE_STATES = [NoticeStatus.ELIGIBLE_FOR_PACKAGING, NoticeSt
      tags=['selector', 're-package'])
 def selector_re_package_process_orchestrator():
     @task
+    @event_log(TechnicalEventMessage(name=DAG_KEY))
     def select_notices_for_re_package_and_reset_status():
         mongodb_client = MongoClient(config.MONGO_DB_AUTH_URL)
         notice_repository = NoticeRepository(mongodb_client=mongodb_client)
@@ -26,6 +32,7 @@ def selector_re_package_process_orchestrator():
                 notice_repository.update(notice=notice)
 
     @task
+    @event_log(TechnicalEventMessage(name=DAG_KEY))
     def trigger_worker_for_package_branch():
         context = get_current_context()
         mongodb_client = MongoClient(config.MONGO_DB_AUTH_URL)

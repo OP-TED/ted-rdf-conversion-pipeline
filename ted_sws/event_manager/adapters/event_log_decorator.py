@@ -6,6 +6,7 @@ from ted_sws.event_manager.adapters.event_logger import EventLogger
 from ted_sws.event_manager.adapters.log import EVENT_LOGGER_CONTEXT_KEY
 from ted_sws.event_manager.model.event_message import EventMessage, SeverityLevelType
 from ted_sws.event_manager.services.logger_from_context import get_env_logger
+import inspect
 
 DEFAULT_DAG_LOGGER_NAME = "DAG"
 
@@ -29,13 +30,19 @@ def event_log(
             event_logger.log(severity_level, event_message)
             return event_message
 
+        def fn_has_var_keyword_params() -> bool:
+            signature = inspect.signature(fn)
+            params = signature.parameters.items()
+            kwargs_param = next(filter(lambda p: (p[1].kind == inspect.Parameter.VAR_KEYWORD), params), None)
+            return kwargs_param is not None
+
         def process(fn, *args, **kwargs):
             is_event_message_loggable: bool = is_loggable and event_message
             init_logger: bool = inject_logger or is_loggable
             if init_logger:
                 event_logger = get_env_logger(EventLogger(event_handler_config))
 
-            if inject_logger:
+            if inject_logger and fn_has_var_keyword_params():
                 kwargs[EVENT_LOGGER_CONTEXT_KEY] = event_logger
 
             if is_event_message_loggable:

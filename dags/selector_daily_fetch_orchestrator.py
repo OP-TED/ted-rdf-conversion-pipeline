@@ -11,6 +11,10 @@ from ted_sws.notice_fetcher.adapters.ted_api import TedAPIAdapter, TedRequestAPI
 from ted_sws.notice_fetcher.services.notice_fetcher import NoticeFetcher
 from ted_sws.core.model.notice import NoticeStatus
 import datetime
+from ted_sws.event_manager.adapters.event_log_decorator import event_log
+from ted_sws.event_manager.model.event_message import TechnicalEventMessage
+
+DAG_KEY = f"selector_daily_fetch_orchestrator_{datetime.datetime.now().isoformat()}"
 
 
 @dag(default_args=DEFAULT_DAG_ARGUMENTS,
@@ -19,6 +23,7 @@ import datetime
      tags=['selector', 'daily-fetch'])
 def selector_daily_fetch_orchestrator():
     @task
+    @event_log(TechnicalEventMessage(name=DAG_KEY))
     def fetch_notice_from_ted():
         current_datetime_wildcard = (datetime.datetime.now()-datetime.timedelta(days=1)).strftime("%Y%m%d*")
         mongodb_client = MongoClient(config.MONGO_DB_AUTH_URL)
@@ -27,6 +32,7 @@ def selector_daily_fetch_orchestrator():
             wildcard_date=current_datetime_wildcard)
 
     @task
+    @event_log(TechnicalEventMessage(name=DAG_KEY))
     def index_notices():
         mongodb_client = MongoClient(config.MONGO_DB_AUTH_URL)
         notice_repository = NoticeRepository(mongodb_client=mongodb_client)
@@ -36,6 +42,7 @@ def selector_daily_fetch_orchestrator():
             notice_repository.update(notice=indexed_notice)
 
     @task
+    @event_log(TechnicalEventMessage(name=DAG_KEY))
     def trigger_document_proc_pipeline():
         context = get_current_context()
         mongodb_client = MongoClient(config.MONGO_DB_AUTH_URL)

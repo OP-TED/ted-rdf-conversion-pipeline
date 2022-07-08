@@ -11,7 +11,14 @@ from airflow.decorators import dag, task
 from airflow.operators.python import get_current_context
 
 from dags import DEFAULT_DAG_ARGUMENTS
+from ted_sws.event_manager.adapters.event_log_decorator import event_log
+from ted_sws.event_manager.adapters.event_logger import EventLogger
+from ted_sws.event_manager.model.event_message import NoticeEventMessage
+from datetime import datetime
+from ted_sws.event_manager.services.logger_from_context import get_logger_from_dag_context, \
+    get_dag_args_from_context
 
+DAG_KEY = f"index_and_normalise_notice_worker_{datetime.now().isoformat()}"
 NOTICE_ID = "notice_id"
 
 
@@ -25,14 +32,23 @@ def index_and_normalise_notice_worker():
     """
 
     @task
-    def index_notice_step():
+    @event_log(is_loggable=False)
+    def index_notice_step(**context_args):
         """
 
         :return:
         """
+        event_logger: EventLogger = get_logger_from_dag_context(context_args)
+        event_message = NoticeEventMessage(name=DAG_KEY)
+        event_message.start()
+
         context = get_current_context()
         dag_params = context["dag_run"].conf
         notice_id = dag_params[NOTICE_ID]
+
+        event_message.kwargs = get_dag_args_from_context(context)
+        event_message.notice_id = notice_id
+
         push_dag_downstream(key=NOTICE_ID, value=notice_id)
         mongodb_client = MongoClient(config.MONGO_DB_AUTH_URL)
         notice_repository = NoticeRepository(mongodb_client=mongodb_client)
@@ -40,17 +56,31 @@ def index_and_normalise_notice_worker():
         indexed_notice = index_notice(notice=notice)
         notice_repository.update(notice=indexed_notice)
 
+        event_message.end()
+        event_logger.info(event_message)
+
     @task
-    def normalise_notice_metadata_step():
+    @event_log(is_loggable=False)
+    def normalise_notice_metadata_step(**context_args):
         """
 
         :return:
         """
+        event_logger: EventLogger = get_logger_from_dag_context(context_args)
+        event_message = NoticeEventMessage(name=DAG_KEY)
+        event_message.start()
+
         notice_id = pull_dag_upstream(NOTICE_ID)
+
+        event_message.notice_id = notice_id
+
         mongodb_client = MongoClient(config.MONGO_DB_AUTH_URL)
         notice_repository = NoticeRepository(mongodb_client=mongodb_client)
         normalised_notice = normalise_notice_by_id(notice_id=notice_id, notice_repository=notice_repository)
         notice_repository.update(notice=normalised_notice)
+
+        event_message.end()
+        event_logger.info(event_message)
 
     index_notice_step() >> normalise_notice_metadata_step()
 

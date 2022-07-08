@@ -33,5 +33,4 @@ def test_get_dag_args_from_context():
     kwargs = get_dag_args_from_context(dag_context, args=args)
     assert kwargs['DAG']['RUN_ID'] == dag_run_id
     assert kwargs['DAG']['RUNNABLE']
-
-
+    

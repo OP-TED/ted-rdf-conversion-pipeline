@@ -298,3 +298,21 @@ start-id_manager-api:
 stop-id_manager-api:
 	@ echo -e "$(BUILD_PRINT)Stopping id_manager API service $(END_BUILD_PRINT)"
 	@ docker-compose -p common --file infra/api/docker-compose.yml --env-file ${ENV_FILE} down
+
+
+dump-mongodb:
+	@ echo -e "Start dump data from mongodb."
+	@ docker exec -i mongodb-${ENVIRONMENT} /usr/bin/mongodump --username ${ME_CONFIG_MONGODB_ADMINUSERNAME} --password ${ME_CONFIG_MONGODB_ADMINPASSWORD} --authenticationDatabase admin --db aggregates_db --out /mongodb_dump
+	@ mv ./mongodb_dump/aggregates_db "./mongodb_dump/aggregates_db_$$(date +"%Y_%m_%d_%H_%M_%S")" 2>/dev/null || true
+	@ docker cp mongodb-${ENVIRONMENT}:/mongodb_dump .
+	@ docker exec -it mongodb-${ENVIRONMENT} rm -rf mongodb_dump
+	@ echo -e "Finish dump data from mongodb."
+
+
+restore-mongodb:
+	@ echo -e "Start restore data in mongodb."
+	@ docker cp ./mongodb_dump mongodb-${ENVIRONMENT}:/mongodb_dump
+	@ docker exec -i mongodb-${ENVIRONMENT} /usr/bin/mongorestore --username ${ME_CONFIG_MONGODB_ADMINUSERNAME} --password ${ME_CONFIG_MONGODB_ADMINPASSWORD} --authenticationDatabase admin --db aggregates_db /mongodb_dump/aggregates_db
+	@ docker exec -it mongodb-${ENVIRONMENT} rm -rf mongodb_dump
+	@ echo -e "Finish restore data in mongodb."
+

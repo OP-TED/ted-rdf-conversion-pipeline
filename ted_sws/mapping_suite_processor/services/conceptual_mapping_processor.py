@@ -25,13 +25,15 @@ DEMO_ARCHIVE_SUFFIX = "demo"
 
 def mapping_suite_processor_load_package_in_mongo_db(mapping_suite_package_path: pathlib.Path,
                                                      mongodb_client: MongoClient,
-                                                     load_test_data: bool = False
+                                                     load_test_data: bool = False,
+                                                     git_last_commit_hash: str = None
                                                      ):
     """
         This feature allows you to upload a mapping suite package to MongoDB.
     :param mapping_suite_package_path:
     :param mongodb_client:
     :param load_test_data:
+    :param git_last_commit_hash:
     :return:
     """
     mapping_suite_repository_path = mapping_suite_package_path.parent
@@ -39,6 +41,10 @@ def mapping_suite_processor_load_package_in_mongo_db(mapping_suite_package_path:
     mapping_suite_repository_in_file_system = MappingSuiteRepositoryInFileSystem(
         repository_path=mapping_suite_repository_path)
     mapping_suite_in_memory = mapping_suite_repository_in_file_system.get(reference=mapping_suite_package_name)
+
+    if git_last_commit_hash is not None:
+        mapping_suite_in_memory.git_latest_commit_hash = git_last_commit_hash
+
     if load_test_data:
         tests_data = mapping_suite_in_memory.transformation_test_data.test_data
         notice_repository = NoticeRepository(mongodb_client=mongodb_client)
@@ -61,14 +67,17 @@ def mapping_suite_processor_from_github_expand_and_load_package_in_mongo_db(mapp
     :param load_test_data:
     :return:
     """
+
     mapping_suite_package_downloader = GitHubMappingSuitePackageDownloader(
         github_repository_url=config.GITHUB_TED_SWS_ARTEFACTS_URL)
     with tempfile.TemporaryDirectory() as tmp_dir:
         tmp_dir_path = pathlib.Path(tmp_dir)
-        mapping_suite_package_downloader.download(mapping_suite_package_name=mapping_suite_package_name,
-                                                  output_mapping_suite_package_path=tmp_dir_path)
+        git_last_commit_hash = mapping_suite_package_downloader.download(
+            mapping_suite_package_name=mapping_suite_package_name,
+            output_mapping_suite_package_path=tmp_dir_path)
         mapping_suite_package_path = tmp_dir_path / mapping_suite_package_name
         mapping_suite_processor_load_package_in_mongo_db(mapping_suite_package_path=mapping_suite_package_path,
                                                          mongodb_client=mongodb_client,
-                                                         load_test_data=load_test_data
+                                                         load_test_data=load_test_data,
+                                                         git_last_commit_hash=git_last_commit_hash
                                                          )

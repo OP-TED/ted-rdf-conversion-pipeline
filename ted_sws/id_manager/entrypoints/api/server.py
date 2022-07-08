@@ -18,7 +18,7 @@ API_PORT: int = config.ID_MANAGER_API_PORT
 @click.option('-p', '--port', default=API_PORT, type=int)
 def api_server_start(host, port):
     logger = Logger(name="ID_MANAGER_API_SERVER", level=LOG_INFO_LEVEL)
-    logger.add_stdout_handler(formatter=logging.Formatter(
+    logger.add_console_handler(formatter=logging.Formatter(
         "[%(asctime)s] - %(name)s - %(levelname)s:\n%(message)s",
         "%Y-%m-%d %H:%M:%S"
     ))

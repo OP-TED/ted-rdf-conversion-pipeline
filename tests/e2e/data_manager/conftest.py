@@ -1,18 +1,10 @@
 import pytest
-from pymongo import MongoClient
+
 from ted_sws.core.model.manifestation import RDFManifestation
 from ted_sws.core.model.notice import NoticeStatus
 from ted_sws.core.model.transform import FileResource, SPARQLTestSuite, MetadataConstraints, TransformationRuleSet, \
     SHACLTestSuite, TransformationTestData, MappingSuite
 from tests import TEST_DATA_PATH
-from ted_sws import config
-
-
-@pytest.fixture
-def mongodb_client():
-    uri = config.MONGO_DB_AUTH_URL
-    mongodb_client = MongoClient(uri)
-    return mongodb_client
 
 
 @pytest.fixture
@@ -226,7 +218,8 @@ def notice_with_distilled_status(notice_2020, rdf_file_content):
     notice_2020.update_status_to(new_status=NoticeStatus.ELIGIBLE_FOR_TRANSFORMATION)
     notice_2020.update_status_to(new_status=NoticeStatus.PREPROCESSED_FOR_TRANSFORMATION)
     notice_2020.set_rdf_manifestation(rdf_manifestation=RDFManifestation(object_data=rdf_file_content))
-    notice_2020.set_distilled_rdf_manifestation(distilled_rdf_manifestation=RDFManifestation(object_data=rdf_file_content))
+    notice_2020.set_distilled_rdf_manifestation(
+        distilled_rdf_manifestation=RDFManifestation(object_data=rdf_file_content))
     notice_2020.update_status_to(new_status=NoticeStatus.DISTILLED)
 
     return notice_2020

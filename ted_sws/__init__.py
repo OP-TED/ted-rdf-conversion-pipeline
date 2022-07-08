@@ -19,7 +19,9 @@ from ted_sws.core.adapters.vault_secrets_store import VaultSecretsStore
 dotenv.load_dotenv(verbose=True, override=True)
 
 RUN_ENV_NAME = "TED_SWS_RUN_ENV"
-RUN_ENV_VAL = "app"
+RUN_ENV_VAL = "ted-sws"
+RUN_TEST_ENV_VAL = "test"
+
 os.environ[RUN_ENV_NAME] = RUN_ENV_VAL
 
 ENV = os.environ.get("ENVIRONMENT", default="staging")
@@ -104,33 +106,21 @@ class ELKConfig:
 
 
 class LoggingConfig:
-
-    @property
-    def LOGGING_TYPE(self) -> str:
-        return VaultAndEnvConfigResolver().config_resolve()
-
     @property
     def MONGO_DB_LOGS_DATABASE_NAME(self) -> str:
         return VaultAndEnvConfigResolver().config_resolve()
 
     @property
-    def MONGO_DB_LOGS_COLLECTION(self) -> str:
+    def DAG_LOGGER_CONFIG_HANDLERS(self) -> str:
         return VaultAndEnvConfigResolver().config_resolve()
 
     @property
-    def DAG_LOGGER_CONFIG_HANDLERS(self) -> str:
-        v: str = VaultAndEnvConfigResolver().config_resolve()
-        return v if v else ""
+    def CLI_LOGGER_CONFIG_HANDLERS(self) -> str:
+        return VaultAndEnvConfigResolver().config_resolve()
 
     @property
-    def CLI_LOGGER_CONFIG_HANDLERS(self) -> str:
-        v: str = VaultAndEnvConfigResolver().config_resolve()
-        return v if v else ""
-
-    @property
-    def CLI_LOGGER_CONFIG_HANDLERS(self) -> str:
-        v: str = VaultAndEnvConfigResolver().config_resolve()
-        return v if v else ""
+    def LOGGER_LOG_FILENAME(self) -> str:
+        return VaultAndEnvConfigResolver().config_resolve()
 
 
 class XMLProcessorConfig:

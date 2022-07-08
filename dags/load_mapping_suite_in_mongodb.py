@@ -1,17 +1,22 @@
+from airflow.decorators import dag, task
 from airflow.operators.dummy import DummyOperator
+from airflow.operators.python import get_current_context, BranchPythonOperator
 from airflow.operators.trigger_dagrun import TriggerDagRunOperator
 from airflow.utils.trigger_rule import TriggerRule
+from pymongo import MongoClient
+from datetime import datetime
 
 from dags import DEFAULT_DAG_ARGUMENTS
-from airflow.decorators import dag, task
-from airflow.operators.python import get_current_context, BranchPythonOperator
-from pymongo import MongoClient
 from ted_sws import config
 from ted_sws.core.model.notice import NoticeStatus
 from ted_sws.data_manager.adapters.notice_repository import NoticeRepository
+from ted_sws.event_manager.adapters.event_log_decorator import event_log
+from ted_sws.event_manager.adapters.event_logger import EventLogger
+from ted_sws.event_manager.model.event_message import MappingSuiteEventMessage
+from ted_sws.event_manager.services.logger_from_context import get_logger_from_dag_context, \
+    get_dag_args_from_context
 from ted_sws.mapping_suite_processor.services.conceptual_mapping_processor import \
     mapping_suite_processor_from_github_expand_and_load_package_in_mongo_db
-
 
 FETCH_MAPPING_SUITE_PACKAGE_FROM_GITHUB_INTO_MONGODB = "fetch_mapping_suite_package_from_github_into_mongodb"
 MAPPING_SUITE_PACKAGE_NAME_DAG_PARAM_KEY = 'mapping_suite_package_name'
@@ -20,17 +25,22 @@ TRIGGER_DOCUMENT_PROC_PIPELINE_TASK_ID = "trigger_document_proc_pipeline"
 FINISH_LOADING_MAPPING_SUITE_TASK_ID = "finish_loading_mapping_suite"
 CHECK_IF_LOAD_TEST_DATA_TASK_ID = "check_if_load_test_data"
 
+DAG_KEY = f"load_mapping_suite_in_mongodb_{datetime.now().isoformat()}"
+
 
 @dag(default_args=DEFAULT_DAG_ARGUMENTS,
      schedule_interval=None,
      tags=['fetch', 'mapping-suite', 'github'])
 def load_mapping_suite_in_mongodb():
+
     @task
-    def fetch_mapping_suite_package_from_github_into_mongodb():
+    @event_log(MappingSuiteEventMessage(name=DAG_KEY))
+    def fetch_mapping_suite_package_from_github_into_mongodb(**context_args):
         """
 
         :return:
         """
+
         context = get_current_context()
         dag_conf = context["dag_run"].conf
         key = MAPPING_SUITE_PACKAGE_NAME_DAG_PARAM_KEY
@@ -44,12 +54,30 @@ def load_mapping_suite_in_mongodb():
                 mongodb_client=mongodb_client,
                 load_test_data=load_test_data
             )
+
+            event_logger: EventLogger = get_logger_from_dag_context(context_args)
+            event_logger.info(MappingSuiteEventMessage(
+                name=DAG_KEY,
+                mapping_suite_id=mapping_suite_package_name,
+                kwargs=get_dag_args_from_context(context)
+            ))
         else:
             raise KeyError(f"The key={key} is not present in context")
 
     @task
-    def trigger_document_proc_pipeline():
+    @event_log(MappingSuiteEventMessage(name=DAG_KEY), is_loggable=False)
+    def trigger_document_proc_pipeline(**context_args):
+        event_logger: EventLogger = get_logger_from_dag_context(context_args)
+        event_message = MappingSuiteEventMessage(name=DAG_KEY)
+        event_message.start()
+
         context = get_current_context()
+        dag_conf = context["dag_run"].conf
+
+        event_message.kwargs = get_dag_args_from_context(context)
+        if MAPPING_SUITE_PACKAGE_NAME_DAG_PARAM_KEY in dag_conf.keys():
+            event_message.mapping_suite_id = dag_conf[MAPPING_SUITE_PACKAGE_NAME_DAG_PARAM_KEY]
+
         mongodb_client = MongoClient(config.MONGO_DB_AUTH_URL)
         notice_repository = NoticeRepository(mongodb_client=mongodb_client)
         notices = notice_repository.get_notice_by_status(notice_status=NoticeStatus.RAW)
@@ -61,6 +89,9 @@ def load_mapping_suite_in_mongodb():
                       "notice_status": str(notice.status)
                       }
             ).execute(context=context)
+
+        event_message.end()
+        event_logger.info(event_message)
 
     def _get_task_run():
         context = get_current_context()

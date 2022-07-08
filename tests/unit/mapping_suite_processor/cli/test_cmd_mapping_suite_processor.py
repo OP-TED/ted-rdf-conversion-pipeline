@@ -15,6 +15,7 @@ def test_mapping_suite_processor(cli_runner, fake_mapping_suite_id, file_system_
         fake_mapping_suite_id,
         "--opt-mappings-folder", file_system_repository_path
     ])
+    print("K :: ", response.output)
     assert response.exit_code == 0
     assert "SUCCESS" in response.output
     assert "FAILED" not in response.output

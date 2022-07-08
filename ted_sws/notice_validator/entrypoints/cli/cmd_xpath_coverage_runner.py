@@ -33,10 +33,9 @@ class CmdRunner(BaseCmdRunner):
             mapping_suite_id,
             conceptual_mappings_file,
             mappings_path,
-            xslt_transformer,
-            logger=None
+            xslt_transformer
     ):
-        super().__init__(name=CMD_NAME, logger=logger)
+        super().__init__(name=CMD_NAME)
         self.mapping_suite_id = mapping_suite_id
         self.mappings_path = mappings_path
         self.conceptual_mappings_file_path = Path(os.path.realpath(conceptual_mappings_file))
@@ -79,7 +78,7 @@ class CmdRunner(BaseCmdRunner):
 
 
 def run(mapping_suite_id=None, opt_conceptual_mappings_file=None, opt_mappings_folder=DEFAULT_MAPPINGS_PATH,
-        xslt_transformer=None, logger=None):
+        xslt_transformer=None):
     if opt_conceptual_mappings_file:
         conceptual_mappings_file = opt_conceptual_mappings_file
     else:
@@ -92,8 +91,7 @@ def run(mapping_suite_id=None, opt_conceptual_mappings_file=None, opt_mappings_f
         mapping_suite_id=mapping_suite_id,
         conceptual_mappings_file=conceptual_mappings_file,
         mappings_path=opt_mappings_folder,
-        xslt_transformer=xslt_transformer,
-        logger=logger
+        xslt_transformer=xslt_transformer
     )
     cmd.run()
 

@@ -1,14 +1,17 @@
 import abc
 import datetime
-import logging
 import os
 from pathlib import Path
 
 from ted_sws.data_manager.adapters.mapping_suite_repository import METADATA_FILE_NAME
+from ted_sws.event_manager.adapters.event_handler import EventWriterToFileHandler, EventWriterToConsoleHandler, \
+    EventWriterToMongoDBHandler
 from ted_sws.event_manager.adapters.event_handler_config import CLILoggerConfig
 from ted_sws.event_manager.adapters.event_logger import EventLogger
+from ted_sws.event_manager.adapters.log import SeverityLevelType
 from ted_sws.event_manager.adapters.logger import LOG_ERROR_TEXT, LOG_SUCCESS_TEXT
-from ted_sws.event_manager.model.event_message import EventMessage
+from ted_sws.event_manager.model.event_message import EventMessage, EventMessageLogSettings
+from ted_sws.event_manager.services.logger_from_context import get_env_logger
 
 DEFAULT_MAPPINGS_PATH = 'mappings'
 DEFAULT_OUTPUT_PATH = 'output'
@@ -45,19 +48,15 @@ class CmdRunnerABC(abc.ABC):
 
 
 class CmdRunner(CmdRunnerABC):
-    def __init__(self, name=__name__, log_level: int = logging.INFO, logger: EventLogger = None):
+    def __init__(self, name=__name__, logger: EventLogger = None):
         self.name = name
         self.begin_time = None
         self.end_time = None
-        if logger is None:
-            logger = EventLogger(CLILoggerConfig())
-        self.logger = logger
 
-    def add_logger_stdout_handler(self):
-        fmt = "[%(asctime)s] - %(name)s - %(levelname)s - %(message)s"
-        date_fmt = "%Y-%m-%d %H:%M:%S"
-        formatter = logging.Formatter(fmt, date_fmt)
-        self.logger.add_stdout_handler(formatter=formatter)
+        if logger is None:
+            logger = get_env_logger(EventLogger(CLILoggerConfig(name=name)), is_cli=True)
+
+        self.logger = logger
 
     def get_logger(self) -> EventLogger:
         return self.logger
@@ -66,8 +65,15 @@ class CmdRunner(CmdRunnerABC):
     def _now() -> str:
         return str(datetime.datetime.now())
 
-    def log(self, message: str):
-        self.logger.info(EventMessage(**{"title": self.name, "message": message}))
+    def log(self, message: str, severity_level: SeverityLevelType = SeverityLevelType.INFO):
+        self.logger.log(severity_level, EventMessage(**{"message": message}),
+                        handler_type=EventWriterToConsoleHandler,
+                        settings=EventMessageLogSettings(**{"briefly": True}))
+
+        self.logger.log(severity_level,
+                        EventMessage(**{"title": self.name, "message": message,
+                                        "caller_name": __name__ + "." + self.name}),
+                        handler_type=[EventWriterToFileHandler, EventWriterToMongoDBHandler])
 
     def log_failed_error(self, error: Exception):
         self.log(LOG_ERROR_TEXT.format("FAILED"))

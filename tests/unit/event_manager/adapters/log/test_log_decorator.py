@@ -32,6 +32,7 @@ def test_log_decorator(notice_2016, notice_2021):
     assert isinstance(result, dict)
 
 
+
 def test_log_decorator_within_test_env(notice_2016, notice_2021):
     result = log_test(1, 2, notice_2016, 3, 4, k="TEST", test_notice=notice_2021)
     assert result

@@ -16,7 +16,7 @@ class LogRepository:
     collection = None
     _instance = None
 
-    _collection_name = config.MONGO_DB_LOGS_COLLECTION
+    _collection_name = "logs"
     _database_name = config.MONGO_DB_LOGS_DATABASE_NAME
 
     def __new__(cls, mongodb_client: MongoClient = None, database_name: str = _database_name):
@@ -35,6 +35,9 @@ class LogRepository:
             cls._instance = super(LogRepository, cls).__new__(cls)
 
         return cls._instance
+
+    def get_database_name(self):
+        return self._database_name
 
     @staticmethod
     def create_dict_from_log(log: Log) -> dict:

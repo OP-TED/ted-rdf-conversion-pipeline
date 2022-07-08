@@ -22,32 +22,32 @@ from tests import TEST_DATA_PATH
 # template_metadata START
 
 
-@pytest.fixture()
+@pytest.fixture
 def template_sample_metadata_json() -> Dict:
     return json.load((TEST_DATA_PATH / "notice_packager" / "template_metadata.json").open())
 
 
-@pytest.fixture()
+@pytest.fixture
 def template_sample_metadata(template_sample_metadata_json) -> PackagerMetadata:
     return PackagerMetadata(**template_sample_metadata_json)
 
 
-@pytest.fixture()
+@pytest.fixture
 def template_sample_notice(template_sample_metadata) -> NoticeMetadata:
     return template_sample_metadata.notice
 
 
-@pytest.fixture()
+@pytest.fixture
 def template_sample_work(template_sample_metadata) -> WorkMetadata:
     return template_sample_metadata.work
 
 
-@pytest.fixture()
+@pytest.fixture
 def template_sample_expression(template_sample_metadata) -> ExpressionMetadata:
     return template_sample_metadata.expression
 
 
-@pytest.fixture()
+@pytest.fixture
 def template_sample_manifestation(template_sample_metadata) -> ManifestationMetadata:
     return template_sample_metadata.manifestation
 
@@ -56,7 +56,7 @@ def template_sample_manifestation(template_sample_metadata) -> ManifestationMeta
 
 # notice_metadata START
 
-@pytest.fixture()
+@pytest.fixture
 def notice_sample_metadata(notice_2018) -> ExtractedMetadata:
     extracted_metadata = XMLManifestationMetadataExtractor(
         xml_manifestation=notice_2018.xml_manifestation).to_metadata()
@@ -66,7 +66,7 @@ def notice_sample_metadata(notice_2018) -> ExtractedMetadata:
 # notice_metadata END
 
 
-@pytest.fixture()
+@pytest.fixture
 def rdf_content() -> str:
     return (TEST_DATA_PATH / "notice_packager" / "templates" / "196390_2016.rdf").read_text()
 

@@ -7,7 +7,7 @@ from pymongo import MongoClient
 
 from ted_sws.event_manager.adapters.log_repository import LogRepository
 from ted_sws.event_manager.adapters.log import LoggedBy
-from ted_sws.event_manager.adapters.log import is_event_loggable
+from ted_sws.event_manager.adapters.log import is_env_logging_enabled
 from ted_sws.event_manager.adapters.log.log_writer import LogWriter
 from ted_sws.event_manager.model.message import DBProcessLog as Log, DBProcessLogRequest as LogRequest, \
     DBProcessLogResponse as LogResponse
@@ -68,7 +68,7 @@ def log(mongodb_client: MongoClient = None, title: str = '', message: str = ''):
             return log_repo.update(_id, log_entry)
 
         def process(fn, *args, **kwargs):
-            if not is_event_loggable():
+            if not is_env_logging_enabled():
                 return fn(*args, **kwargs)
 
             started_at = datetime.now(timezone.utc)

@@ -42,7 +42,7 @@ def index_and_normalise_notice_worker():
         dag_params = context["dag_run"].conf
         notice_id = dag_params[NOTICE_ID]
 
-        handle_event_message_metadata_dag_context(event_message, DAG_NAME, {**context})
+        handle_event_message_metadata_dag_context(event_message, DAG_NAME, context)
         event_message.notice_id = notice_id
 
         push_dag_downstream(key=NOTICE_ID, value=notice_id)

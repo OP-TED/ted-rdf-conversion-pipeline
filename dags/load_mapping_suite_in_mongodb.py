@@ -13,7 +13,7 @@ from ted_sws.event_manager.adapters.event_log_decorator import event_log
 from ted_sws.event_manager.adapters.event_logger import EventLogger
 from ted_sws.event_manager.model.event_message import MappingSuiteEventMessage
 from ted_sws.event_manager.services.logger_from_context import get_logger_from_dag_context, \
-    get_dag_args_from_context
+    handle_event_message_metadata_dag_context
 from ted_sws.mapping_suite_processor.services.conceptual_mapping_processor import \
     mapping_suite_processor_from_github_expand_and_load_package_in_mongo_db
 
@@ -45,7 +45,7 @@ def load_mapping_suite_in_mongodb():
         context = get_current_context()
         dag_conf = context["dag_run"].conf
 
-        event_message.kwargs = get_dag_args_from_context(context, name=DAG_NAME)
+        handle_event_message_metadata_dag_context(event_message, DAG_NAME, context)
         if MAPPING_SUITE_PACKAGE_NAME_DAG_PARAM_KEY in dag_conf.keys():
             event_message.mapping_suite_id = dag_conf[MAPPING_SUITE_PACKAGE_NAME_DAG_PARAM_KEY]
 
@@ -76,7 +76,7 @@ def load_mapping_suite_in_mongodb():
         context = get_current_context()
         dag_conf = context["dag_run"].conf
 
-        event_message.kwargs = get_dag_args_from_context(context, name=DAG_NAME)
+        handle_event_message_metadata_dag_context(event_message, DAG_NAME, context)
         if MAPPING_SUITE_PACKAGE_NAME_DAG_PARAM_KEY in dag_conf.keys():
             event_message.mapping_suite_id = dag_conf[MAPPING_SUITE_PACKAGE_NAME_DAG_PARAM_KEY]
 

@@ -11,7 +11,7 @@ from ted_sws.event_manager.adapters.event_log_decorator import event_log
 from ted_sws.event_manager.adapters.event_logger import EventLogger
 from ted_sws.event_manager.model.event_message import NoticeEventMessage
 from ted_sws.event_manager.services.logger_from_context import get_logger_from_dag_context, \
-    get_dag_args_from_context
+    handle_event_message_metadata_dag_context
 from ted_sws.metadata_normaliser.services.metadata_normalizer import normalise_notice_by_id
 
 DAG_NAME = "index_and_normalise_notice_worker"
@@ -42,7 +42,7 @@ def index_and_normalise_notice_worker():
         dag_params = context["dag_run"].conf
         notice_id = dag_params[NOTICE_ID]
 
-        event_message.kwargs = get_dag_args_from_context(context, name=DAG_NAME)
+        handle_event_message_metadata_dag_context(event_message, DAG_NAME, {**context})
         event_message.notice_id = notice_id
 
         push_dag_downstream(key=NOTICE_ID, value=notice_id)

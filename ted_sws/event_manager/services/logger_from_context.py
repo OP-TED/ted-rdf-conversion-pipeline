@@ -1,11 +1,13 @@
-from airflow.utils.context import Context
+from typing import Dict, Any, MutableMapping, Union
 
 from ted_sws.event_manager.adapters.event_handler_config import CLILoggerConfig, NULLLoggerConfig
 from ted_sws.event_manager.adapters.event_logger import EventLogger
 from ted_sws.event_manager.adapters.log import ConfigHandlerType
 from ted_sws.event_manager.adapters.log import EVENT_LOGGER_CONTEXT_KEY
 from ted_sws.event_manager.adapters.log import is_env_logging_enabled
-from ted_sws.event_manager.model.event_message import EventMessage
+from ted_sws.event_manager.model.event_message import EventMessage, EventMessageProcessType, EventMessageMetadata
+
+ContextType = Union[Dict[str, Any], MutableMapping[str, Any]]
 
 
 def get_env_logger(logger: EventLogger, is_cli: bool = False):
@@ -26,12 +28,31 @@ def get_logger_from_dag_context(dag_context: dict) -> EventLogger:
         raise ValueError("No event_logger available!")
 
 
-def get_dag_args_from_context(context: Context, name: str = None, args: dict = None) -> dict:
-    if not args:
-        args = {}
-    if 'DAG' not in args:
-        args['DAG'] = {}
-    args['DAG']['NAME'] = name
-    args['DAG']['RUN_ID'] = context['run_id']
+def handle_event_message_metadata_dag_context(event_message: EventMessage = None, ps_name: str = None,
+                                              context: ContextType = None) -> EventMessageMetadata:
+    return handle_event_message_metadata_context(event_message, EventMessageProcessType.DAG, ps_name, context)
 
-    return args
+
+def handle_event_message_metadata_context(event_message: EventMessage = None, ps_type: EventMessageProcessType = None,
+                                          ps_name: str = None, context: ContextType = None) -> EventMessageMetadata:
+    metadata: EventMessageMetadata = EventMessageMetadata()
+    if event_message is not None and event_message.metadata:
+        metadata = event_message.metadata
+
+    if ps_type:
+        metadata.process_type = ps_type
+
+    if ps_name:
+        metadata.process_name = ps_name
+
+    ps_id = None
+    if ps_type == EventMessageProcessType.DAG:
+        ps_id = context['run_id']
+
+    if ps_id:
+        metadata.process_id = ps_id
+
+    if event_message is not None:
+        event_message.metadata = metadata
+
+    return metadata

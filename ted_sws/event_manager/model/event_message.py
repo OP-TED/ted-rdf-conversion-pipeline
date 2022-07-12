@@ -9,13 +9,23 @@ from ted_sws.event_manager.adapters.log import SeverityLevelType
 
 DictType = Union[Dict[str, Any], None]
 
+"""
+This module contains event message related models.
+"""
+
 
 class EventMessageProcessType(Enum):
+    """
+    Event message process type.
+    """
     DAG = 'DAG'
     CLI = 'CLI'
 
 
 class EventMessageMetadata(BaseModel):
+    """
+    This is the event message metadata.
+    """
     process_type: Optional[EventMessageProcessType] = None
     process_name: Optional[str] = None
     process_id: Optional[str] = None
@@ -25,10 +35,16 @@ class EventMessageMetadata(BaseModel):
 
 
 class EventMessageDatetime(BaseModel):
+    """
+    This is the event message datetime field type.
+    """
     utc: datetime = Field(default_factory=datetime.utcnow)
 
 
 class EventMessage(PropertyBaseModel):
+    """
+    This is the event message model.
+    """
     name: Optional[str] = None
     title: Optional[str] = None
     message: Optional[str] = None
@@ -49,36 +65,70 @@ class EventMessage(PropertyBaseModel):
         use_enum_values = True
 
     def __init__(self, **data):
+        """
+        This is the event message initialization (on object instance creation).
+        
+        :param data: The input data
+        """
         super().__init__(**data)
         self.create()
 
     def create(self):
+        """
+        This method is called when event message object is instantiated.
+
+        :return: None
+        """
         self.created_at = EventMessageDatetime()
         self.year = self.created_at.utc.year
         self.month = self.created_at.utc.month
         self.day = self.created_at.utc.day
 
-    def start(self):
+    def start_record(self):
+        """
+        This method should be called when the event message record is intended to start.
+        Event message updates related to record's start are handled here.
+
+        :return: None
+        """
         self.started_at = EventMessageDatetime()
 
-    def end(self):
+    def end_record(self):
+        """
+        This method should be called when the event message record is intended to end.
+        Event message updates related to record's end are handled here.
+
+        :return: None
+        """
         self.ended_at = EventMessageDatetime()
         self.duration = (self.ended_at.utc - self.started_at.utc).total_seconds()
 
 
 class TechnicalEventMessage(EventMessage):
+    """
+    This is the technical event message model.
+    """
     pass
 
 
 class NoticeEventMessage(EventMessage):
+    """
+    This is the notice event message model.
+    """
     notice_id: Optional[str] = None
     domain_action: Optional[str] = None
 
 
 class MappingSuiteEventMessage(EventMessage):
+    """
+    This is the mapping suite event message model.
+    """
     mapping_suite_id: Optional[str] = None
 
 
 class EventMessageLogSettings(PropertyBaseModel):
+    """
+    This is the event message logging settings model.
+    """
     briefly: Optional[bool] = False
     force_handlers: Optional[bool] = False

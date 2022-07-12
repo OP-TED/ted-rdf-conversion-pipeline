@@ -10,7 +10,22 @@ from ted_sws.event_manager.model.event_message import EventMessage, EventMessage
 ContextType = Union[Dict[str, Any], MutableMapping[str, Any]]
 
 
-def get_env_logger(logger: EventLogger, is_cli: bool = False):
+"""
+This module contains event logger tools.
+"""
+
+
+def get_env_logger(logger: EventLogger, is_cli: bool = False) -> EventLogger:
+    """
+    This method returns the event logger, based on environment:
+     - if not test environment: logger
+     - if test environment and is_cli: logger with console handler configured
+     - if test environment (not cli): logger with null handler configured
+
+    :param logger: The default logger
+    :param is_cli: Is called from a CLI command?
+    :return: The environment based event logger
+    """
     if is_env_logging_enabled():
         return logger
     elif is_cli:
@@ -22,6 +37,12 @@ def get_env_logger(logger: EventLogger, is_cli: bool = False):
 
 
 def get_logger_from_dag_context(dag_context: dict) -> EventLogger:
+    """
+    Get event logger injected into "host" function by event_log decorator.
+
+    :param dag_context: The args that event logger was injected in
+    :return: The injected event logger
+    """
     if EVENT_LOGGER_CONTEXT_KEY in dag_context:
         return dag_context[EVENT_LOGGER_CONTEXT_KEY]
     else:
@@ -30,11 +51,28 @@ def get_logger_from_dag_context(dag_context: dict) -> EventLogger:
 
 def handle_event_message_metadata_dag_context(event_message: EventMessage = None, ps_name: str = None,
                                               context: ContextType = None) -> EventMessageMetadata:
+    """
+    Update event message metadata with data from DAG context.
+
+    :param event_message: The event message
+    :param ps_name: The process name
+    :param context: The DAG context
+    :return: The event message metadata
+    """
     return handle_event_message_metadata_context(event_message, EventMessageProcessType.DAG, ps_name, context)
 
 
 def handle_event_message_metadata_context(event_message: EventMessage = None, ps_type: EventMessageProcessType = None,
                                           ps_name: str = None, context: ContextType = None) -> EventMessageMetadata:
+    """
+    Update event message metadata with data from process context.
+
+    :param event_message: The event message
+    :param ps_type: The process type
+    :param ps_name: The process name
+    :param context: The process context
+    :return: The event message metadata
+    """
     metadata: EventMessageMetadata = EventMessageMetadata()
     if event_message is not None and event_message.metadata:
         metadata = event_message.metadata

@@ -36,7 +36,7 @@ def index_and_normalise_notice_worker():
         """
         event_logger: EventLogger = get_logger_from_dag_context(context_args)
         event_message = NoticeEventMessage(name=DAG_NAME)
-        event_message.start()
+        event_message.start_record()
 
         context = get_current_context()
         dag_params = context["dag_run"].conf
@@ -52,7 +52,7 @@ def index_and_normalise_notice_worker():
         indexed_notice = index_notice(notice=notice)
         notice_repository.update(notice=indexed_notice)
 
-        event_message.end()
+        event_message.end_record()
         event_logger.info(event_message)
 
     @task
@@ -64,7 +64,7 @@ def index_and_normalise_notice_worker():
         """
         event_logger: EventLogger = get_logger_from_dag_context(context_args)
         event_message = NoticeEventMessage(name=DAG_NAME)
-        event_message.start()
+        event_message.start_record()
 
         notice_id = pull_dag_upstream(NOTICE_ID)
 
@@ -75,7 +75,7 @@ def index_and_normalise_notice_worker():
         normalised_notice = normalise_notice_by_id(notice_id=notice_id, notice_repository=notice_repository)
         notice_repository.update(notice=normalised_notice)
 
-        event_message.end()
+        event_message.end_record()
         event_logger.info(event_message)
 
     index_notice_step() >> normalise_notice_metadata_step()

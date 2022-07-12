@@ -40,7 +40,7 @@ def load_mapping_suite_in_mongodb():
         """
         event_logger: EventLogger = get_logger_from_dag_context(context_args)
         event_message = MappingSuiteEventMessage(name=DAG_NAME)
-        event_message.start()
+        event_message.start_record()
 
         context = get_current_context()
         dag_conf = context["dag_run"].conf
@@ -63,7 +63,7 @@ def load_mapping_suite_in_mongodb():
         else:
             raise KeyError(f"The key={key} is not present in context")
 
-        event_message.end()
+        event_message.end_record()
         event_logger.info(event_message)
 
     @task
@@ -71,7 +71,7 @@ def load_mapping_suite_in_mongodb():
     def trigger_document_proc_pipeline(**context_args):
         event_logger: EventLogger = get_logger_from_dag_context(context_args)
         event_message = MappingSuiteEventMessage(name=DAG_NAME)
-        event_message.start()
+        event_message.start_record()
 
         context = get_current_context()
         dag_conf = context["dag_run"].conf
@@ -92,7 +92,7 @@ def load_mapping_suite_in_mongodb():
                       }
             ).execute(context=context)
 
-        event_message.end()
+        event_message.end_record()
         event_logger.info(event_message)
 
     def _get_task_run():

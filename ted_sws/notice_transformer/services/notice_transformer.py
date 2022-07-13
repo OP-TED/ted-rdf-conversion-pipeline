@@ -161,7 +161,7 @@ class NoticeTransformer(NoticeTransformerABC):
         for idx, data in enumerate(test_data, start=1):
             if self.logger:
                 event_message: EventMessage = EventMessage(**{"title": str(idx)})
-                event_message.start()
+                event_message.start_record()
 
             notice = Notice(ted_id="tmp_notice", xml_manifestation=XMLManifestation(object_data=data.file_content))
             notice._status = NoticeStatus.PREPROCESSED_FOR_TRANSFORMATION
@@ -175,7 +175,7 @@ class NoticeTransformer(NoticeTransformerABC):
 
             if self.logger:
                 event_message.message = self.get_test_notice_container(file_resource.file_name)
-                event_message.end()
+                event_message.end_record()
                 self.logger.info(event_message)
 
     def transform_notice(self, notice: Notice) -> Notice:

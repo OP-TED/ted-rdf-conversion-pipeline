@@ -28,17 +28,20 @@ def index_notice_by_id(notice_id: str, mongodb_client: MongoClient):
     notice_repository.update(notice=notice)
 
 
-def index_notice(notice: Notice) -> Notice:
+def index_notice(notice: Notice, xslt_transformer=None) -> Notice:
     """
         This function selects unique XPath from XMlManifestation from a notice and indexes notices with these unique XPath.
     :param notice:
+    :param xslt_transformer:
     :return:
     """
+
     with tempfile.NamedTemporaryFile() as fp:
         fp.write(notice.xml_manifestation.object_data.encode("utf-8"))
         xml_path = pathlib.Path(fp.name)
         xslt_path = XSLT_FILES_PATH / UNIQUE_XPATHS_XSLT_FILE_PATH
-        xslt_transformer = XMLPreprocessor()
+        if xslt_transformer is None:
+            xslt_transformer = XMLPreprocessor()
         result = xslt_transformer.transform_with_xslt_to_string(xml_path=xml_path,
                                                                 xslt_path=xslt_path)
         unique_xpaths = result[len(XSLT_PREFIX_RESULT):].split(",")

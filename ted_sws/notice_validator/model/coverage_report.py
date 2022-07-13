@@ -15,6 +15,7 @@ class XPathAssertion(PropertyBaseModel):
 
 class NoticeCoverageReport(PropertyBaseModel):
     """
+    This is the model structure for Notice XPATHs Coverage Report
     """
 
     created_at: Optional[str]
@@ -22,3 +23,4 @@ class NoticeCoverageReport(PropertyBaseModel):
     notice_id: Optional[str]
     xpath_assertions: Optional[List[XPathAssertion]]
     xpath_desertions: Optional[List[str]]
+    coverage: Optional[float]

@@ -19,8 +19,8 @@ def get_env_logger(logger: EventLogger, is_cli: bool = False) -> EventLogger:
     """
     This method returns the event logger, based on environment:
      - if not test environment: logger
-     - if test environment and is_cli: logger with console handler configured
-     - if test environment (not cli): logger with null handler configured
+     - if test environment and called from CLI command (is_cli): logger with only console handler configured
+     - if test environment (not cli): logger with only null handler configured
 
     :param logger: The default logger
     :param is_cli: Is called from a CLI command?

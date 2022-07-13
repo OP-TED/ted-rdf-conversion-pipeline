@@ -15,7 +15,7 @@ def test_event_handler(event_handler, event_message, severity_level_info):
 
 def test_console_handler_log(caplog, console_handler, severity_level_info, event_message, output_not_briefly_key):
     console_handler.log(severity_level_info, event_message)
-    assert event_message.title in caplog.text
+    assert event_message.message in caplog.text
     assert output_not_briefly_key in caplog.text
 
 

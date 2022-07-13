@@ -13,7 +13,7 @@ from ted_sws.event_manager.adapters.event_log_decorator import event_log
 from ted_sws.event_manager.adapters.event_logger import EventLogger
 from ted_sws.event_manager.model.event_message import MappingSuiteEventMessage
 from ted_sws.event_manager.services.logger_from_context import get_logger_from_dag_context, \
-    get_dag_args_from_context
+    handle_event_message_metadata_dag_context
 from ted_sws.mapping_suite_processor.services.conceptual_mapping_processor import \
     mapping_suite_processor_from_github_expand_and_load_package_in_mongo_db
 
@@ -40,12 +40,12 @@ def load_mapping_suite_in_mongodb():
         """
         event_logger: EventLogger = get_logger_from_dag_context(context_args)
         event_message = MappingSuiteEventMessage(name=DAG_NAME)
-        event_message.start()
+        event_message.start_record()
 
         context = get_current_context()
         dag_conf = context["dag_run"].conf
 
-        event_message.kwargs = get_dag_args_from_context(context, name=DAG_NAME)
+        handle_event_message_metadata_dag_context(event_message, DAG_NAME, context)
         if MAPPING_SUITE_PACKAGE_NAME_DAG_PARAM_KEY in dag_conf.keys():
             event_message.mapping_suite_id = dag_conf[MAPPING_SUITE_PACKAGE_NAME_DAG_PARAM_KEY]
 
@@ -63,7 +63,7 @@ def load_mapping_suite_in_mongodb():
         else:
             raise KeyError(f"The key={key} is not present in context")
 
-        event_message.end()
+        event_message.end_record()
         event_logger.info(event_message)
 
     @task
@@ -71,12 +71,12 @@ def load_mapping_suite_in_mongodb():
     def trigger_document_proc_pipeline(**context_args):
         event_logger: EventLogger = get_logger_from_dag_context(context_args)
         event_message = MappingSuiteEventMessage(name=DAG_NAME)
-        event_message.start()
+        event_message.start_record()
 
         context = get_current_context()
         dag_conf = context["dag_run"].conf
 
-        event_message.kwargs = get_dag_args_from_context(context, name=DAG_NAME)
+        handle_event_message_metadata_dag_context(event_message, DAG_NAME, context)
         if MAPPING_SUITE_PACKAGE_NAME_DAG_PARAM_KEY in dag_conf.keys():
             event_message.mapping_suite_id = dag_conf[MAPPING_SUITE_PACKAGE_NAME_DAG_PARAM_KEY]
 
@@ -92,7 +92,7 @@ def load_mapping_suite_in_mongodb():
                       }
             ).execute(context=context)
 
-        event_message.end()
+        event_message.end_record()
         event_logger.info(event_message)
 
     def _get_task_run():

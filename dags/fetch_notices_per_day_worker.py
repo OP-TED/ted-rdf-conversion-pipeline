@@ -11,7 +11,8 @@ from dags.index_and_normalise_notice_worker import NOTICE_ID
 from ted_sws import config
 from ted_sws.data_manager.adapters.notice_repository import NoticeRepository
 from ted_sws.event_manager.adapters.event_log_decorator import event_log
-from ted_sws.event_manager.model.event_message import TechnicalEventMessage
+from ted_sws.event_manager.model.event_message import TechnicalEventMessage, EventMessageMetadata, \
+    EventMessageProcessType
 from ted_sws.notice_fetcher.adapters.ted_api import TedAPIAdapter, TedRequestAPI
 from ted_sws.notice_fetcher.services.notice_fetcher import NoticeFetcher
 
@@ -22,7 +23,12 @@ DATE_WILD_CARD_KEY = "date_wild_card"
 @dag(default_args=DEFAULT_DAG_ARGUMENTS, schedule_interval=None, tags=['worker', 'fetch_notices_per_day'])
 def fetch_notices_per_day_worker():
     @task
-    @event_log(TechnicalEventMessage(name=DAG_NAME))
+    @event_log(TechnicalEventMessage(
+        message="fetch_notices_and_trigger_index_and_normalise_notice_worker",
+        metadata=EventMessageMetadata(
+            process_type=EventMessageProcessType.DAG, process_name=DAG_NAME
+        ))
+    )
     def fetch_notices_and_trigger_index_and_normalise_notice_worker():
         context = get_current_context()
         dag_conf = context["dag_run"].conf

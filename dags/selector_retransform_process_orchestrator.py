@@ -8,7 +8,8 @@ from ted_sws import config
 from ted_sws.core.model.notice import NoticeStatus
 from ted_sws.data_manager.adapters.notice_repository import NoticeRepository
 from ted_sws.event_manager.adapters.event_log_decorator import event_log
-from ted_sws.event_manager.model.event_message import TechnicalEventMessage
+from ted_sws.event_manager.model.event_message import TechnicalEventMessage, EventMessageMetadata, \
+    EventMessageProcessType
 
 DAG_NAME = "selector_re_transform_process_orchestrator"
 
@@ -26,7 +27,12 @@ RE_TRANSFORM_TARGET_NOTICE_STATES = [NoticeStatus.ELIGIBLE_FOR_TRANSFORMATION, N
      tags=['selector', 're-transform'])
 def selector_re_transform_process_orchestrator():
     @task
-    @event_log(TechnicalEventMessage(name=DAG_NAME))
+    @event_log(TechnicalEventMessage(
+        message="select_notices_for_re_transform_and_reset_status",
+        metadata=EventMessageMetadata(
+            process_type=EventMessageProcessType.DAG, process_name=DAG_NAME
+        ))
+    )
     def select_notices_for_re_transform_and_reset_status():
         mongodb_client = MongoClient(config.MONGO_DB_AUTH_URL)
         notice_repository = NoticeRepository(mongodb_client=mongodb_client)
@@ -37,7 +43,12 @@ def selector_re_transform_process_orchestrator():
                 notice_repository.update(notice=notice)
 
     @task
-    @event_log(TechnicalEventMessage(name=DAG_NAME))
+    @event_log(TechnicalEventMessage(
+        message="trigger_worker_for_transform_branch",
+        metadata=EventMessageMetadata(
+            process_type=EventMessageProcessType.DAG, process_name=DAG_NAME
+        ))
+    )
     def trigger_worker_for_transform_branch():
         context = get_current_context()
         mongodb_client = MongoClient(config.MONGO_DB_AUTH_URL)

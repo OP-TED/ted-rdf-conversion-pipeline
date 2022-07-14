@@ -16,32 +16,28 @@ from ted_sws.event_manager.adapters.log import ConfigHandlerType
 @pytest.fixture
 def event_message() -> EventMessage:
     message = EventMessage()
-    message.title = "TEST_EVENT_MESSAGE_TITLE"
-    message.message = "TEST_EVENT_MESSAGE_MESSAGE"
+    message.message = "TEST_EVENT_MESSAGE"
     return message
 
 
 @pytest.fixture
 def notice_event_message() -> NoticeEventMessage:
     message = NoticeEventMessage()
-    message.title = "TEST_NOTICE_EVENT_MESSAGE_TITLE"
-    message.message = "TEST_NOTICE_EVENT_MESSAGE_MESSAGE"
+    message.message = "TEST_NOTICE_EVENT_MESSAGE"
     return message
 
 
 @pytest.fixture
 def mapping_suite_event_message() -> MappingSuiteEventMessage:
     message = MappingSuiteEventMessage()
-    message.title = "TEST_MAPPING_SUITE_EVENT_MESSAGE_TITLE"
-    message.message = "TEST_MAPPING_SUITE_EVENT_MESSAGE_MESSAGE"
+    message.message = "TEST_MAPPING_SUITE_EVENT_MESSAGE"
     return message
 
 
 @pytest.fixture
 def technical_event_message() -> TechnicalEventMessage:
     message = TechnicalEventMessage()
-    message.title = "TEST_TECHNICAL_EVENT_MESSAGE_TITLE"
-    message.message = "TEST_TECHNICAL_EVENT_MESSAGE_MESSAGE"
+    message.message = "TEST_TECHNICAL_EVENT_MESSAGE"
     return message
 
 

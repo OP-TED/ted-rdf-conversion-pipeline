@@ -8,7 +8,8 @@ from ted_sws import config
 from ted_sws.core.model.notice import NoticeStatus
 from ted_sws.data_manager.adapters.notice_repository import NoticeRepository
 from ted_sws.event_manager.adapters.event_log_decorator import event_log
-from ted_sws.event_manager.model.event_message import TechnicalEventMessage
+from ted_sws.event_manager.model.event_message import TechnicalEventMessage, EventMessageMetadata, \
+    EventMessageProcessType
 
 DAG_NAME = "selector_raw_notices_process_orchestrator"
 
@@ -18,7 +19,12 @@ DAG_NAME = "selector_raw_notices_process_orchestrator"
      tags=['selector', 'raw-notices'])
 def selector_raw_notices_process_orchestrator():
     @task
-    @event_log(TechnicalEventMessage(name=DAG_NAME))
+    @event_log(TechnicalEventMessage(
+        message="trigger_worker_for_raw_notices",
+        metadata=EventMessageMetadata(
+            process_type=EventMessageProcessType.DAG, process_name=DAG_NAME
+        ))
+    )
     def trigger_worker_for_raw_notices():
         context = get_current_context()
         mongodb_client = MongoClient(config.MONGO_DB_AUTH_URL)

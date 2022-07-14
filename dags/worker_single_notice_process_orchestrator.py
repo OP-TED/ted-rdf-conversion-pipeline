@@ -19,6 +19,11 @@ from ted_sws.notice_transformer.adapters.rml_mapper import RMLMapper
 from ted_sws.notice_transformer.services.notice_transformer import transform_notice_by_id
 from ted_sws.notice_validator.services.shacl_test_suite_runner import validate_notice_by_id_with_shacl_suite
 from ted_sws.notice_validator.services.sparql_test_suite_runner import validate_notice_by_id_with_sparql_suite
+from ted_sws.event_manager.adapters.event_logger import EventLogger
+from ted_sws.event_manager.adapters.event_log_decorator import event_log
+from ted_sws.event_manager.model.event_message import NoticeEventMessage
+from ted_sws.event_manager.services.logger_from_context import get_logger_from_dag_context, \
+    handle_event_message_metadata_dag_context, get_task_id_from_dag_context
 
 NOTICE_ID = "notice_id"
 MAPPING_SUITE_ID = "mapping_suite_id"
@@ -35,11 +40,16 @@ def worker_single_notice_process_orchestrator():
     :return:
     """
 
-    def _normalise_notice_metadata():
+    @event_log(is_loggable=False)
+    def _normalise_notice_metadata(**context_args):
         """
 
         :return:
         """
+        event_logger: EventLogger = get_logger_from_dag_context(context_args)
+        event_message: NoticeEventMessage = NoticeEventMessage()
+        event_message.start_record()
+
         notice_id = pull_dag_upstream(NOTICE_ID)
         mongodb_client = MongoClient(config.MONGO_DB_AUTH_URL)
         notice_repository = NoticeRepository(mongodb_client=mongodb_client)
@@ -47,7 +57,21 @@ def worker_single_notice_process_orchestrator():
         notice_repository.update(notice=normalised_notice)
         push_dag_downstream(NOTICE_ID, notice_id)
 
-    def _check_eligibility_for_transformation():
+        context = get_current_context()
+
+        handle_event_message_metadata_dag_context(event_message, context)
+        event_message.notice_id = notice_id
+        event_message.domain_action = get_task_id_from_dag_context(context)
+        event_message.message = f"Normalising notice({notice_id}) metadata"
+        event_message.end_record()
+        event_logger.info(event_message)
+
+    @event_log(is_loggable=False)
+    def _check_eligibility_for_transformation(**context_args):
+        event_logger: EventLogger = get_logger_from_dag_context(context_args)
+        event_message: NoticeEventMessage = NoticeEventMessage()
+        event_message.start_record()
+
         notice_id = pull_dag_upstream(NOTICE_ID)
         mongodb_client = MongoClient(config.MONGO_DB_AUTH_URL)
         notice_repository = NoticeRepository(mongodb_client=mongodb_client)
@@ -55,13 +79,30 @@ def worker_single_notice_process_orchestrator():
         result = notice_eligibility_checker_by_id(notice_id=notice_id,
                                                   notice_repository=notice_repository,
                                                   mapping_suite_repository=mapping_suite_repository)
+        mapping_suite_id = None
         if result:
             notice_id, mapping_suite_id = result
 
             push_dag_downstream(MAPPING_SUITE_ID, mapping_suite_id)
         push_dag_downstream(NOTICE_ID, notice_id)
 
-    def _preprocess_xml_manifestation():
+        context = get_current_context()
+
+        handle_event_message_metadata_dag_context(event_message, context)
+        event_message.notice_id = notice_id
+        event_message.domain_action = get_task_id_from_dag_context(context)
+        event_message.message = f"Checking notice({notice_id}) eligibility for transformation"
+        if mapping_suite_id:
+            event_message.metadata.process_context["mapping_suite_id"] = mapping_suite_id
+        event_message.end_record()
+        event_logger.info(event_message)
+
+    @event_log(is_loggable=False)
+    def _preprocess_xml_manifestation(**context_args):
+        event_logger: EventLogger = get_logger_from_dag_context(context_args)
+        event_message: NoticeEventMessage = NoticeEventMessage()
+        event_message.start_record()
+
         notice_id = pull_dag_upstream(NOTICE_ID)
         mapping_suite_id = pull_dag_upstream(MAPPING_SUITE_ID)
         mongodb_client = MongoClient(config.MONGO_DB_AUTH_URL)
@@ -72,7 +113,22 @@ def worker_single_notice_process_orchestrator():
         push_dag_downstream(NOTICE_ID, notice_id)
         push_dag_downstream(MAPPING_SUITE_ID, mapping_suite_id)
 
-    def _transform_notice():
+        context = get_current_context()
+
+        handle_event_message_metadata_dag_context(event_message, context)
+        event_message.notice_id = notice_id
+        event_message.domain_action = get_task_id_from_dag_context(context)
+        event_message.message = f"Preprocessing notice({notice_id}) XML manifestation"
+        event_message.metadata.process_context["mapping_suite_id"] = mapping_suite_id
+        event_message.end_record()
+        event_logger.info(event_message)
+
+    @event_log(is_loggable=False)
+    def _transform_notice(**context_args):
+        event_logger: EventLogger = get_logger_from_dag_context(context_args)
+        event_message: NoticeEventMessage = NoticeEventMessage()
+        event_message.start_record()
+
         notice_id = pull_dag_upstream(NOTICE_ID)
         mapping_suite_id = pull_dag_upstream(MAPPING_SUITE_ID)
         mongodb_client = MongoClient(config.MONGO_DB_AUTH_URL)
@@ -86,7 +142,22 @@ def worker_single_notice_process_orchestrator():
         push_dag_downstream(NOTICE_ID, notice_id)
         push_dag_downstream(MAPPING_SUITE_ID, mapping_suite_id)
 
-    def _resolve_entities_in_the_rdf_manifestation():
+        context = get_current_context()
+
+        handle_event_message_metadata_dag_context(event_message, context)
+        event_message.notice_id = notice_id
+        event_message.domain_action = get_task_id_from_dag_context(context)
+        event_message.message = f"Transforming notice({notice_id})"
+        event_message.metadata.process_context["mapping_suite_id"] = mapping_suite_id
+        event_message.end_record()
+        event_logger.info(event_message)
+
+    @event_log(is_loggable=False)
+    def _resolve_entities_in_the_rdf_manifestation(**context_args):
+        event_logger: EventLogger = get_logger_from_dag_context(context_args)
+        event_message: NoticeEventMessage = NoticeEventMessage()
+        event_message.start_record()
+
         notice_id = pull_dag_upstream(NOTICE_ID)
         mapping_suite_id = pull_dag_upstream(MAPPING_SUITE_ID)
         mongodb_client = MongoClient(config.MONGO_DB_AUTH_URL)
@@ -97,7 +168,22 @@ def worker_single_notice_process_orchestrator():
         push_dag_downstream(NOTICE_ID, notice_id)
         push_dag_downstream(MAPPING_SUITE_ID, mapping_suite_id)
 
-    def _validate_transformed_rdf_manifestation():
+        context = get_current_context()
+
+        handle_event_message_metadata_dag_context(event_message, context)
+        event_message.notice_id = notice_id
+        event_message.domain_action = get_task_id_from_dag_context(context)
+        event_message.message = f"Resolving notice({notice_id}) entities in the RDF manifestation"
+        event_message.metadata.process_context["mapping_suite_id"] = mapping_suite_id
+        event_message.end_record()
+        event_logger.info(event_message)
+
+    @event_log(is_loggable=False)
+    def _validate_transformed_rdf_manifestation(**context_args):
+        event_logger: EventLogger = get_logger_from_dag_context(context_args)
+        event_message: NoticeEventMessage = NoticeEventMessage()
+        event_message.start_record()
+
         notice_id = pull_dag_upstream(NOTICE_ID)
         mapping_suite_id = pull_dag_upstream(MAPPING_SUITE_ID)
         mongodb_client = MongoClient(config.MONGO_DB_AUTH_URL)
@@ -113,7 +199,22 @@ def worker_single_notice_process_orchestrator():
         push_dag_downstream(NOTICE_ID, notice_id)
         push_dag_downstream(MAPPING_SUITE_ID, mapping_suite_id)
 
-    def _check_eligibility_for_packing_by_validation_report():
+        context = get_current_context()
+
+        handle_event_message_metadata_dag_context(event_message, context)
+        event_message.notice_id = notice_id
+        event_message.domain_action = get_task_id_from_dag_context(context)
+        event_message.message = f"Validating notice({notice_id}) transformed RDF manifestation"
+        event_message.metadata.process_context["mapping_suite_id"] = mapping_suite_id
+        event_message.end_record()
+        event_logger.info(event_message)
+
+    @event_log(is_loggable=False)
+    def _check_eligibility_for_packing_by_validation_report(**context_args):
+        event_logger: EventLogger = get_logger_from_dag_context(context_args)
+        event_message: NoticeEventMessage = NoticeEventMessage()
+        event_message.start_record()
+
         notice_id = pull_dag_upstream(NOTICE_ID)
         mongodb_client = MongoClient(config.MONGO_DB_AUTH_URL)
         notice_repository = NoticeRepository(mongodb_client=mongodb_client)
@@ -122,7 +223,21 @@ def worker_single_notice_process_orchestrator():
         notice_repository.update(notice=notice)
         push_dag_downstream(NOTICE_ID, notice_id)
 
-    def _generate_mets_package():
+        context = get_current_context()
+
+        handle_event_message_metadata_dag_context(event_message, context)
+        event_message.notice_id = notice_id
+        event_message.domain_action = get_task_id_from_dag_context(context)
+        event_message.message = f"Checking notice({notice_id}) eligibility for packing by validation report"
+        event_message.end_record()
+        event_logger.info(event_message)
+
+    @event_log(is_loggable=False)
+    def _generate_mets_package(**context_args):
+        event_logger: EventLogger = get_logger_from_dag_context(context_args)
+        event_message: NoticeEventMessage = NoticeEventMessage()
+        event_message.start_record()
+
         notice_id = pull_dag_upstream(NOTICE_ID)
         mongodb_client = MongoClient(config.MONGO_DB_AUTH_URL)
         notice_repository = NoticeRepository(mongodb_client=mongodb_client)
@@ -134,6 +249,15 @@ def worker_single_notice_process_orchestrator():
         notice.set_mets_manifestation(mets_manifestation=METSManifestation(object_data=mets_manifestation_content))
         notice_repository.update(notice=notice)
         push_dag_downstream(NOTICE_ID, notice_id)
+
+        context = get_current_context()
+
+        handle_event_message_metadata_dag_context(event_message, context)
+        event_message.notice_id = notice_id
+        event_message.domain_action = get_task_id_from_dag_context(context)
+        event_message.message = f"Generating notice({notice_id}) METS package"
+        event_message.end_record()
+        event_logger.info(event_message)
 
     def _check_package_integrity_by_package_structure():
         notice_id = pull_dag_upstream(NOTICE_ID)

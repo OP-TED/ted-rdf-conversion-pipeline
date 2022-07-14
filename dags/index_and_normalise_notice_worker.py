@@ -14,7 +14,6 @@ from ted_sws.event_manager.services.logger_from_context import get_logger_from_d
     handle_event_message_metadata_dag_context
 from ted_sws.metadata_normaliser.services.metadata_normalizer import normalise_notice_by_id
 
-DAG_NAME = "index_and_normalise_notice_worker"
 NOTICE_ID = "notice_id"
 
 
@@ -35,15 +34,12 @@ def index_and_normalise_notice_worker():
         :return:
         """
         event_logger: EventLogger = get_logger_from_dag_context(context_args)
-        event_message = NoticeEventMessage(name=DAG_NAME)
+        event_message = NoticeEventMessage()
         event_message.start_record()
 
         context = get_current_context()
         dag_params = context["dag_run"].conf
         notice_id = dag_params[NOTICE_ID]
-
-        handle_event_message_metadata_dag_context(event_message, DAG_NAME, context)
-        event_message.notice_id = notice_id
 
         push_dag_downstream(key=NOTICE_ID, value=notice_id)
         mongodb_client = MongoClient(config.MONGO_DB_AUTH_URL)
@@ -52,6 +48,8 @@ def index_and_normalise_notice_worker():
         indexed_notice = index_notice(notice=notice)
         notice_repository.update(notice=indexed_notice)
 
+        handle_event_message_metadata_dag_context(event_message, context)
+        event_message.notice_id = notice_id
         event_message.end_record()
         event_logger.info(event_message)
 
@@ -63,18 +61,18 @@ def index_and_normalise_notice_worker():
         :return:
         """
         event_logger: EventLogger = get_logger_from_dag_context(context_args)
-        event_message = NoticeEventMessage(name=DAG_NAME)
+        event_message = NoticeEventMessage()
         event_message.start_record()
 
         notice_id = pull_dag_upstream(NOTICE_ID)
-
-        event_message.notice_id = notice_id
 
         mongodb_client = MongoClient(config.MONGO_DB_AUTH_URL)
         notice_repository = NoticeRepository(mongodb_client=mongodb_client)
         normalised_notice = normalise_notice_by_id(notice_id=notice_id, notice_repository=notice_repository)
         notice_repository.update(notice=normalised_notice)
 
+        handle_event_message_metadata_dag_context(event_message, get_current_context())
+        event_message.notice_id = notice_id
         event_message.end_record()
         event_logger.info(event_message)
 

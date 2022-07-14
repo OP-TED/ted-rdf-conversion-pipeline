@@ -71,8 +71,7 @@ class CmdRunner(CmdRunnerABC):
                         settings=EventMessageLogSettings(**{"briefly": True}))
 
         self.logger.log(severity_level,
-                        EventMessage(**{"title": self.name, "message": message,
-                                        "caller_name": __name__ + "." + self.name}),
+                        EventMessage(**{"message": message, "caller_name": __name__ + "." + self.name}),
                         handler_type=[EventWriterToFileHandler, EventWriterToMongoDBHandler])
 
     def log_failed_error(self, error: Exception):

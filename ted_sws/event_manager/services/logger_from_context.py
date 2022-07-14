@@ -9,7 +9,6 @@ from ted_sws.event_manager.model.event_message import EventMessage, EventMessage
 
 ContextType = Union[Dict[str, Any], MutableMapping[str, Any]]
 
-
 """
 This module contains event logger tools.
 """
@@ -49,28 +48,61 @@ def get_logger_from_dag_context(dag_context: dict) -> EventLogger:
         raise ValueError("No event_logger available!")
 
 
-def handle_event_message_metadata_dag_context(event_message: EventMessage = None, ps_name: str = None,
-                                              context: ContextType = None) -> EventMessageMetadata:
+def get_task_id_from_dag_context(dag_context: ContextType) -> str:
+    return dag_context['task'].task_id
+
+
+def get_dag_run_id_from_dag_context(dag_context: ContextType) -> str:
+    return dag_context['dag_run'].run_id
+
+
+def get_dag_id_from_dag_context(dag_context: ContextType) -> str:
+    return dag_context['dag'].dag_id
+
+
+def handle_event_message_metadata_dag_context(event_message: EventMessage = None, dag_context: ContextType = None,
+                                              ps_name: str = None, ps_id: str = None,
+                                              ps_context: Dict[str, Any] = None) -> EventMessageMetadata:
     """
     Update event message metadata with data from DAG context.
 
     :param event_message: The event message
+    :param dag_context: The DAG context
     :param ps_name: The process name
-    :param context: The DAG context
+    :param ps_id: The process id
+    :param ps_context: The process context
     :return: The event message metadata
     """
-    return handle_event_message_metadata_context(event_message, EventMessageProcessType.DAG, ps_name, context)
+    metadata = handle_event_message_metadata_context(event_message, EventMessageProcessType.DAG,
+                                                     ps_name, ps_id, ps_context)
+
+    if dag_context:
+        if not metadata.process_id:
+            metadata.process_id = get_dag_run_id_from_dag_context(dag_context)
+
+        if not metadata.process_context:
+            metadata.process_context = {}
+
+        metadata.process_context["task_id"] = get_task_id_from_dag_context(dag_context)
+        metadata.process_context["params"] = dag_context['params']
+
+        if not metadata.process_name:
+            metadata.process_name = get_dag_id_from_dag_context(dag_context)
+
+    return metadata
 
 
 def handle_event_message_metadata_context(event_message: EventMessage = None, ps_type: EventMessageProcessType = None,
-                                          ps_name: str = None, context: ContextType = None) -> EventMessageMetadata:
+                                          ps_name: str = None, ps_id: str = None,
+                                          ps_context: Dict[str, Any] = None) -> EventMessageMetadata:
     """
     Update event message metadata with data from process context.
 
     :param event_message: The event message
     :param ps_type: The process type
     :param ps_name: The process name
-    :param context: The process context
+    :param ps_id: The process id
+    :param ps_context: The process context
     :return: The event message metadata
     """
     metadata: EventMessageMetadata = EventMessageMetadata()
@@ -83,12 +115,11 @@ def handle_event_message_metadata_context(event_message: EventMessage = None, ps
     if ps_name:
         metadata.process_name = ps_name
 
-    ps_id = None
-    if ps_type == EventMessageProcessType.DAG:
-        ps_id = context['run_id']
-
     if ps_id:
         metadata.process_id = ps_id
+
+    if ps_context:
+        metadata.process_context = ps_context
 
     if event_message is not None:
         event_message.metadata = metadata

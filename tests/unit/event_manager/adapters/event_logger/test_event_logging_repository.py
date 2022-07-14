@@ -23,7 +23,6 @@ def test_event_logging_repository(logs_database_name, event_message, event_loggi
     assert repository.get_collection_name() == collection_name
 
     event_message_dict: dict = repository.prepare_record(event_message)
-    assert event_message_dict['title'] == event_message.title
     assert event_message_dict['message'] == event_message.message
 
 

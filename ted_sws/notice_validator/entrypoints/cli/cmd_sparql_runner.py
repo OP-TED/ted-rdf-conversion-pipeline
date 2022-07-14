@@ -39,7 +39,8 @@ class CmdRunner(BaseCmdRunner):
         mapping_suite_repository = MappingSuiteRepositoryInFileSystem(repository_path=repository_path)
         self.mapping_suite = mapping_suite_repository.get(reference=self.mapping_suite_id)
 
-    def save_report(self, report_path, report_name, report_id, content):
+    @classmethod
+    def save_report(cls, report_path, report_name, report_id, content):
         with open(report_path / report_name.format(id=report_id), "w+") as f:
             f.write(content)
 

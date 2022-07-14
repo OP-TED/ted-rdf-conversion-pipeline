@@ -6,15 +6,18 @@ from pathlib import Path
 
 import click
 
+from ted_sws.core.model.notice import Notice
+from ted_sws.core.model.manifestation import XMLManifestation
 from ted_sws.core.adapters.cmd_runner import CmdRunner as BaseCmdRunner, DEFAULT_MAPPINGS_PATH, DEFAULT_OUTPUT_PATH
 from ted_sws.data_manager.adapters.mapping_suite_repository import MappingSuiteRepositoryInFileSystem
 from ted_sws.event_manager.adapters.logger import LOG_INFO_TEXT
 from ted_sws.mapping_suite_processor.entrypoints.cli import CONCEPTUAL_MAPPINGS_FILE
 from ted_sws.notice_validator.services.xpath_coverage_runner import CoverageRunner, coverage_notice_xpath_report
+from typing import List
 
 OUTPUT_FOLDER = '{mappings_path}/{mapping_suite_id}/' + DEFAULT_OUTPUT_PATH
 DEFAULT_TEST_SUITE_REPORT_FOLDER = "test_suite_report"
-JSON_REPORT = "xpath_cov_{id}.json"
+REPORT_FILE = "xpath_cov_{id}"
 CMD_NAME = "CMD_XPATH_COVERAGE_RUNNER"
 
 """
@@ -40,6 +43,8 @@ class CmdRunner(BaseCmdRunner):
         self.mappings_path = mappings_path
         self.conceptual_mappings_file_path = Path(os.path.realpath(conceptual_mappings_file))
         self.xslt_transformer = xslt_transformer
+        self.output_folder = OUTPUT_FOLDER.format(mappings_path=self.mappings_path,
+                                                  mapping_suite_id=self.mapping_suite_id)
 
         if not self.conceptual_mappings_file_path.is_file():
             error_msg = f"No such Conceptual Mappings file :: [{conceptual_mappings_file}]"
@@ -52,27 +57,42 @@ class CmdRunner(BaseCmdRunner):
         self.mapping_suite = mapping_suite_repository.get(reference=self.mapping_suite_id)
         self.coverage_runner = CoverageRunner(self.conceptual_mappings_file_path)
 
-    def save_report(self, report_path, report_name, notice_id, notice_content):
-        json_report = coverage_notice_xpath_report(notice_id, notice_content,
-                                                   self.mapping_suite_id, self.conceptual_mappings_file_path,
-                                                   self.coverage_runner, self.xslt_transformer)
-        with open(report_path / report_name.format(id=notice_id), "w+") as f:
+    @classmethod
+    def save_json_report(cls, output_path, json_report: dict):
+        with open(output_path, "w+") as f:
             json.dump(json_report, f, indent=4)
             f.close()
 
-    def coverage_notice(self, notice, output_path):
-        notice_id = Path(notice.file_name).stem
-        self.log("Generating coverage report for " + LOG_INFO_TEXT.format(notice_id) + " ... ")
-        base_report_path = output_path / notice_id
-        report_path = base_report_path / DEFAULT_TEST_SUITE_REPORT_FOLDER
-        report_path.mkdir(parents=True, exist_ok=True)
-        self.save_report(report_path, JSON_REPORT, notice_id, notice.file_content)
+    @classmethod
+    def save_html_report(cls, output_path, html_report: str):
+        with open(output_path, "w+") as f:
+            f.write(html_report)
+            f.close()
+
+    def coverage_report(self, notices: List[Notice], output_path: Path, label: str):
+        self.log("Generating coverage report for " + LOG_INFO_TEXT.format(label) + " ... ")
+        output_path.parent.mkdir(parents=True, exist_ok=True)
+        report = coverage_notice_xpath_report(notices,
+                                              self.mapping_suite_id,
+                                              self.conceptual_mappings_file_path,
+                                              self.coverage_runner,
+                                              self.xslt_transformer)
+        self.save_json_report(Path(str(output_path) + ".json"), self.coverage_runner.json_report(report))
+        self.save_html_report(Path(str(output_path) + ".html"), self.coverage_runner.html_report(report))
 
     def run_cmd(self):
-        output_path = Path(OUTPUT_FOLDER.format(mappings_path=self.mappings_path,
-                                                mapping_suite_id=self.mapping_suite_id))
-        for notice in self.mapping_suite.transformation_test_data.test_data:
-            self.coverage_notice(notice=notice, output_path=output_path)
+        output_path = Path(self.output_folder)
+        notices: List[Notice] = []
+        for data in self.mapping_suite.transformation_test_data.test_data:
+            notice: Notice = Notice(ted_id=Path(data.file_name).stem,
+                                    xml_manifestation=XMLManifestation(object_data=data.file_content))
+            report_file = REPORT_FILE.format(id=notice.ted_id)
+            report_path = output_path / notice.ted_id / DEFAULT_TEST_SUITE_REPORT_FOLDER / report_file
+            self.coverage_report(notices=[notice], output_path=report_path, label=notice.ted_id)
+            notices.append(notice)
+
+        self.coverage_report(notices=notices, output_path=output_path / REPORT_FILE.format(id=self.mapping_suite_id),
+                             label='MappingSuite[' + self.mapping_suite_id + ']')
 
         return self.run_cmd_result()
 

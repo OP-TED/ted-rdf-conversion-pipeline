@@ -11,6 +11,7 @@ from ted_sws.data_manager.adapters.notice_repository import NoticeRepository
 from ted_sws.resources import XSLT_FILES_PATH
 
 UNIQUE_XPATHS_XSLT_FILE_PATH = "get_unique_xpaths.xsl"
+XPATHS_XSLT_FILE_PATH = "get_xpaths.xsl"
 XSLT_PREFIX_RESULT = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>"
 
 
@@ -28,24 +29,34 @@ def index_notice_by_id(notice_id: str, mongodb_client: MongoClient):
     notice_repository.update(notice=notice)
 
 
-def index_notice(notice: Notice, xslt_transformer=None) -> Notice:
+def index_notice(notice: Notice, xslt_transformer=None, unique=True) -> Notice:
     """
         This function selects unique XPath from XMlManifestation from a notice and indexes notices with these unique XPath.
     :param notice:
     :param xslt_transformer:
+    :param unique:
     :return:
     """
 
     with tempfile.NamedTemporaryFile() as fp:
         fp.write(notice.xml_manifestation.object_data.encode("utf-8"))
         xml_path = pathlib.Path(fp.name)
-        xslt_path = XSLT_FILES_PATH / UNIQUE_XPATHS_XSLT_FILE_PATH
+        xslt_path = XSLT_FILES_PATH
+        if unique:
+            xslt_path /= UNIQUE_XPATHS_XSLT_FILE_PATH
+        else:
+            xslt_path /= XPATHS_XSLT_FILE_PATH
         if xslt_transformer is None:
             xslt_transformer = XMLPreprocessor()
         result = xslt_transformer.transform_with_xslt_to_string(xml_path=xml_path,
                                                                 xslt_path=xslt_path)
-        unique_xpaths = result[len(XSLT_PREFIX_RESULT):].split(",")
-        notice.xml_metadata = XMLMetadata(unique_xpaths=unique_xpaths)
+        xpaths = result[len(XSLT_PREFIX_RESULT):].split(",")
+        xml_metadata = XMLMetadata()
+        if unique:
+            xml_metadata.unique_xpaths = xpaths
+        else:
+            xml_metadata.xpaths = xpaths
+        notice.xml_metadata = xml_metadata
 
     return notice
 

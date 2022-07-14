@@ -126,7 +126,7 @@ class EventLoggingHandler(EventHandler):
         :return: None
         """
         if settings.briefly:
-            message = (event_message.title + ': ' if event_message.title else '') + event_message.message
+            message = event_message.message
         else:
             event_message.severity_level = severity_level
             message = self._prepare_message(event_message)

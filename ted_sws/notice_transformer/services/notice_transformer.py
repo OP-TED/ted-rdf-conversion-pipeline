@@ -8,7 +8,7 @@ from ted_sws.core.model.transform import MappingSuite, FileResource
 from ted_sws.data_manager.adapters.mapping_suite_repository import MappingSuiteRepositoryInFileSystem
 from ted_sws.data_manager.adapters.repository_abc import NoticeRepositoryABC, MappingSuiteRepositoryABC
 from ted_sws.event_manager.adapters.event_logger import EventLogger
-from ted_sws.event_manager.model.event_message import EventMessage
+from ted_sws.event_manager.model.event_message import NoticeEventMessage
 from ted_sws.event_manager.services.logger_from_context import get_env_logger
 from ted_sws.notice_transformer.adapters.rml_mapper import RMLMapperABC, SerializationFormat as RMLSerializationFormat
 
@@ -160,7 +160,7 @@ class NoticeTransformer(NoticeTransformerABC):
 
         for idx, data in enumerate(test_data, start=1):
             if self.logger:
-                event_message: EventMessage = EventMessage(**{"title": str(idx)})
+                event_message: NoticeEventMessage = NoticeEventMessage()
                 event_message.start_record()
 
             notice = Notice(ted_id="tmp_notice", xml_manifestation=XMLManifestation(object_data=data.file_content))
@@ -174,7 +174,9 @@ class NoticeTransformer(NoticeTransformerABC):
             self._write_resource_to_out_file(file_resource, output_path)
 
             if self.logger:
-                event_message.message = self.get_test_notice_container(file_resource.file_name)
+                notice_id = self.get_test_notice_container(file_resource.file_name)
+                event_message.message = notice_id
+                event_message.notice_id = notice_id
                 event_message.end_record()
                 self.logger.info(event_message)
 

@@ -12,8 +12,7 @@ from ted_sws.event_manager.model.event_message import EventMessage, EventMessage
 from ted_sws.event_manager.services.logger_from_context import get_logger_from_dag_context, \
     handle_event_message_metadata_context
 
-deco_event_message = EventMessage(**{"title": "DAG_TEST_EVENT_MESSAGE_TITLE",
-                                     "message": "DAG_TEST_EVENT_MESSAGE_MESSAGE"})
+deco_event_message = EventMessage(**{"message": "DAG_TEST_EVENT_MESSAGE_MESSAGE"})
 
 
 @event_log(event_message=deco_event_message,
@@ -29,8 +28,7 @@ def assert_dag_event_log_decorator(caplog, event_message, **kwargs):
     assert isinstance(logger, EventLogger)
     process_id = "DAG_RUN_ID"
     process_type = EventMessageProcessType.DAG
-    context = {"run_id": process_id}
-    handle_event_message_metadata_context(event_message, ps_type=process_type, context=context)
+    handle_event_message_metadata_context(event_message, ps_type=process_type, ps_id=process_id)
     assert event_message.metadata.process_id == process_id
     assert event_message.metadata.process_type == process_type
     logger.info(event_message=event_message)

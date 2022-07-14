@@ -24,8 +24,6 @@ TRIGGER_DOCUMENT_PROC_PIPELINE_TASK_ID = "trigger_document_proc_pipeline"
 FINISH_LOADING_MAPPING_SUITE_TASK_ID = "finish_loading_mapping_suite"
 CHECK_IF_LOAD_TEST_DATA_TASK_ID = "check_if_load_test_data"
 
-DAG_NAME = "load_mapping_suite_in_mongodb"
-
 
 @dag(default_args=DEFAULT_DAG_ARGUMENTS,
      schedule_interval=None,
@@ -39,15 +37,11 @@ def load_mapping_suite_in_mongodb():
         :return:
         """
         event_logger: EventLogger = get_logger_from_dag_context(context_args)
-        event_message = MappingSuiteEventMessage(name=DAG_NAME)
+        event_message = MappingSuiteEventMessage()
         event_message.start_record()
 
         context = get_current_context()
         dag_conf = context["dag_run"].conf
-
-        handle_event_message_metadata_dag_context(event_message, DAG_NAME, context)
-        if MAPPING_SUITE_PACKAGE_NAME_DAG_PARAM_KEY in dag_conf.keys():
-            event_message.mapping_suite_id = dag_conf[MAPPING_SUITE_PACKAGE_NAME_DAG_PARAM_KEY]
 
         key = MAPPING_SUITE_PACKAGE_NAME_DAG_PARAM_KEY
         load_test_data = dag_conf[
@@ -63,6 +57,9 @@ def load_mapping_suite_in_mongodb():
         else:
             raise KeyError(f"The key={key} is not present in context")
 
+        handle_event_message_metadata_dag_context(event_message, context)
+        if MAPPING_SUITE_PACKAGE_NAME_DAG_PARAM_KEY in dag_conf.keys():
+            event_message.mapping_suite_id = dag_conf[MAPPING_SUITE_PACKAGE_NAME_DAG_PARAM_KEY]
         event_message.end_record()
         event_logger.info(event_message)
 
@@ -70,15 +67,10 @@ def load_mapping_suite_in_mongodb():
     @event_log(is_loggable=False)
     def trigger_document_proc_pipeline(**context_args):
         event_logger: EventLogger = get_logger_from_dag_context(context_args)
-        event_message = MappingSuiteEventMessage(name=DAG_NAME)
+        event_message = MappingSuiteEventMessage()
         event_message.start_record()
 
         context = get_current_context()
-        dag_conf = context["dag_run"].conf
-
-        handle_event_message_metadata_dag_context(event_message, DAG_NAME, context)
-        if MAPPING_SUITE_PACKAGE_NAME_DAG_PARAM_KEY in dag_conf.keys():
-            event_message.mapping_suite_id = dag_conf[MAPPING_SUITE_PACKAGE_NAME_DAG_PARAM_KEY]
 
         mongodb_client = MongoClient(config.MONGO_DB_AUTH_URL)
         notice_repository = NoticeRepository(mongodb_client=mongodb_client)
@@ -92,6 +84,11 @@ def load_mapping_suite_in_mongodb():
                       }
             ).execute(context=context)
 
+        dag_conf = context["dag_run"].conf
+
+        handle_event_message_metadata_dag_context(event_message, context)
+        if MAPPING_SUITE_PACKAGE_NAME_DAG_PARAM_KEY in dag_conf.keys():
+            event_message.mapping_suite_id = dag_conf[MAPPING_SUITE_PACKAGE_NAME_DAG_PARAM_KEY]
         event_message.end_record()
         event_logger.info(event_message)
 

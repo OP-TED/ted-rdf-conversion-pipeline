@@ -17,7 +17,7 @@ class LogRepository:
     _instance = None
 
     _collection_name = "logs"
-    _database_name = config.MONGO_DB_LOGS_DATABASE_NAME
+    _database_name = config.MONGO_DB_LOGS_DATABASE_NAME or "logs_db"
 
     def __new__(cls, mongodb_client: MongoClient = None, database_name: str = _database_name):
         if cls._instance is None:

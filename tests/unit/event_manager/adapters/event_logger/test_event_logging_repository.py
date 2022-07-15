@@ -5,6 +5,8 @@ from ted_sws.event_manager.adapters.event_logging_repository import EventLogging
 
 
 def assert_event_repository(event_repository, event_message, logs_database_name):
+    assert EventLoggingRepository.get_default_database_name()
+
     _id = event_repository.add(event_message)
     assert _id
     log: dict = event_repository.collection.find_one({"_id": ObjectId(_id)})

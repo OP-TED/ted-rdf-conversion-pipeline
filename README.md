@@ -36,7 +36,7 @@ Try to follow as close as possible the Clean Code Architecture (onion architectu
 
 <hr>
 
-## Installation for semantic engineers
+## Installation for software engineers
 
 
 Make sure you have installed `Docker` and `docker-compose`.
@@ -79,6 +79,18 @@ make start-allegro-graph
 Start Airflow
 ```shell
 make start-airflow
+```
+
+## Running tests
+
+```shell
+make install-dev
+```
+
+```shell
+make test-unit
+make test-feature
+make test-e2e
 ```
 
 ## Installation for semantic engineers

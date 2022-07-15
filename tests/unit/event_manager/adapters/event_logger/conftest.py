@@ -111,7 +111,7 @@ def mongodb_handler(mongodb_client) -> EventWriterToMongoDBHandler:
 
 @pytest.fixture
 def logs_database_name() -> str:
-    return config.MONGO_DB_LOGS_DATABASE_NAME
+    return "test_logs_db"
 
 
 @pytest.fixture

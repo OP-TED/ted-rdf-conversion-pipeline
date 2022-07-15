@@ -1,7 +1,7 @@
 import pytest
 
-from ted_sws.core.model.manifestation import RDFManifestation
-from ted_sws.core.model.notice import NoticeStatus
+from ted_sws.core.model.manifestation import RDFManifestation, XMLManifestation
+from ted_sws.core.model.notice import NoticeStatus, Notice
 from ted_sws.core.model.transform import FileResource, SPARQLTestSuite, MetadataConstraints, TransformationRuleSet, \
     SHACLTestSuite, TransformationTestData, MappingSuite
 from tests import TEST_DATA_PATH
@@ -261,6 +261,12 @@ def fake_notice_F03_content(fake_repository_path, fake_mapping_suite_F03_id):
     with open(fake_repository_path / fake_mapping_suite_F03_id / "test_data" / "1" / "notice.xml") as f:
         notice_content = f.read()
     return notice_content
+
+
+@pytest.fixture
+def fake_notice_F03(fake_notice_F03_content, fake_notice_id):
+    xml_manifestation = XMLManifestation(object_data=fake_notice_F03_content)
+    return Notice(ted_id=fake_notice_id, xml_manifestation=xml_manifestation)
 
 
 @pytest.fixture

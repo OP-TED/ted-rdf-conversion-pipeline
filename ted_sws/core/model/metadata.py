@@ -27,6 +27,7 @@ class XMLMetadata(Metadata):
         Stores the metadata of an XMLManifestation.
     """
     unique_xpaths: List[str] = None
+    xpaths: List[str] = None
 
 
 class LanguageTaggedString(NamedTuple):

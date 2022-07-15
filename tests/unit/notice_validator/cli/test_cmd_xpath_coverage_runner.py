@@ -7,18 +7,27 @@ from ted_sws.notice_validator.entrypoints.cli.cmd_xpath_coverage_runner import r
 
 
 def post_process(fake_repository_path, fake_mapping_suite_id):
-    base_path = fake_repository_path / fake_mapping_suite_id / DEFAULT_OUTPUT_PATH / "notice"
-    report_path = base_path / DEFAULT_TEST_SUITE_REPORT_FOLDER
-    assert os.path.isdir(report_path)
+    base_path = fake_repository_path / fake_mapping_suite_id / DEFAULT_OUTPUT_PATH
+    notice_report_path = base_path / "notice" / DEFAULT_TEST_SUITE_REPORT_FOLDER
+    assert os.path.isdir(notice_report_path)
     report_files = []
-    for filename in os.listdir(report_path):
+    for filename in os.listdir(notice_report_path):
         if filename.startswith("xpath_cov"):
             report_files.append(filename)
-            f = os.path.join(report_path, filename)
+            f = os.path.join(notice_report_path, filename)
             assert os.path.isfile(f)
             os.remove(f)
-    assert len(report_files) == 1
-    os.rmdir(report_path)
+    assert len(report_files) == 2
+    os.rmdir(notice_report_path)
+
+    report_files = []
+    for filename in os.listdir(base_path):
+        if filename.startswith("xpath_cov"):
+            report_files.append(filename)
+            f = os.path.join(base_path, filename)
+            assert os.path.isfile(f)
+            os.remove(f)
+    assert len(report_files) == 2
 
 
 def test_cmd_xpath_coverage_runner(caplog, fake_mapping_suite_F03_id, fake_repository_path,

@@ -18,10 +18,12 @@ from ted_sws.core.adapters.vault_secrets_store import VaultSecretsStore
 
 dotenv.load_dotenv(verbose=True, override=True)
 
-RUN_ENV_NAME = "TED_SWS_RUN_ENV"
+# The RUN_ENV constants define the module execution context of the code.
+# By using them, the behaviour of global services, such as logging,
+# that cannot be injected in every function signature, can be customized on module level.
+RUN_ENV_NAME = "__TED_SWS_RUN_ENV__"
 RUN_ENV_VAL = "ted-sws"
 RUN_TEST_ENV_VAL = "test"
-
 os.environ[RUN_ENV_NAME] = RUN_ENV_VAL
 
 ENV = os.environ.get("ENVIRONMENT", default="staging")

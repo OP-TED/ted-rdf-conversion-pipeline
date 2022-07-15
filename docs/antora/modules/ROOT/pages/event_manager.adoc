@@ -49,7 +49,7 @@ There are 4 types of Event Messages (_EventMessage_), used for specific events/p
 - _MappingSuiteEventMessage_ (for mapping suite related events/processes)
 - _EventMessage_ (for generic events/processes)
 ====
-Every _EventMessage_ type is logged (if MongoDBHandler is used) in separate collections:
+Every _EventMessage_ type is logged (if MongoDBHandler is used) in separate collection:
 ====
 - _TechnicalEventMessage_ -> *technical_events*
 - _NoticeEventMessage_ -> *notice_events*

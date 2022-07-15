@@ -30,7 +30,7 @@ class EventLoggingRepository(EventLoggingRepositoryABC):
     """
     This is the base/generic events' repository class.
     """
-    _database_name = config.MONGO_DB_LOGS_DATABASE_NAME
+    _database_name = config.MONGO_DB_LOGS_DATABASE_NAME or "logs_db"
     _collection_name = "log_events"
 
     def __init__(self, mongodb_client: MongoClient = None, database_name: str = _database_name,

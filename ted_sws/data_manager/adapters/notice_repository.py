@@ -33,7 +33,7 @@ class NoticeRepository(NoticeRepositoryABC):
     """
 
     _collection_name = "notice_collection"
-    _database_name = config.MONGO_DB_AGGREGATES_DATABASE_NAME
+    _database_name = config.MONGO_DB_AGGREGATES_DATABASE_NAME or "aggregates_db"
 
     def __init__(self, mongodb_client: MongoClient, database_name: str = _database_name):
         self._database_name = database_name

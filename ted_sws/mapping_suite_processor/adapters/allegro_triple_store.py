@@ -1,12 +1,35 @@
+import abc
+
 from franz.openrdf.repository import Repository
 from franz.openrdf.sail import AllegroGraphServer
 
 
-class AllegroGraphTripleStore:
+class VersatileTripleStoreABC:
+    @abc.abstractmethod
+    def add_data_to_repository(self, file_content: str, repository_name: str):
+        """
+        Method to add triples from a string
+        :param file_content:
+        :param repository_name:
+        :return:
+        """
+
+    @abc.abstractmethod
+    def add_file_to_repository(self, file_path, repository_name):
+        """
+        Method to add triples from a file
+        :param file_path:
+        :param repository_name:
+        :return:
+        """
+
+
+class AllegroGraphVersatileTripleStore(abc.ABC):
     """
         This class is handling interactions with Allegro Graph triple store
         Note: If catalog name is not set, every operation will be executed at root level in the triple store
     """
+
     def __init__(self, host: str, user: str, password: str, catalog_name=None):
         self.host = host
         self.user = user

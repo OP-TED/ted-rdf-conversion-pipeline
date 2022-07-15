@@ -3,17 +3,18 @@
 import json
 import os
 from pathlib import Path
+from typing import List
 
 import click
 
-from ted_sws.core.model.notice import Notice
-from ted_sws.core.model.manifestation import XMLManifestation
 from ted_sws.core.adapters.cmd_runner import CmdRunner as BaseCmdRunner, DEFAULT_MAPPINGS_PATH, DEFAULT_OUTPUT_PATH
+from ted_sws.core.model.manifestation import XMLManifestation
+from ted_sws.core.model.notice import Notice
 from ted_sws.data_manager.adapters.mapping_suite_repository import MappingSuiteRepositoryInFileSystem
 from ted_sws.event_manager.adapters.logger import LOG_INFO_TEXT
 from ted_sws.mapping_suite_processor.entrypoints.cli import CONCEPTUAL_MAPPINGS_FILE
-from ted_sws.notice_validator.services.xpath_coverage_runner import CoverageRunner, coverage_notice_xpath_report
-from typing import List
+from ted_sws.notice_validator.adapters.xpath_coverage_runner import CoverageRunner
+from ted_sws.notice_validator.services.xpath_coverage_runner import coverage_notice_xpath_report
 
 OUTPUT_FOLDER = '{mappings_path}/{mapping_suite_id}/' + DEFAULT_OUTPUT_PATH
 DEFAULT_TEST_SUITE_REPORT_FOLDER = "test_suite_report"
@@ -77,8 +78,8 @@ class CmdRunner(BaseCmdRunner):
                                               self.conceptual_mappings_file_path,
                                               self.coverage_runner,
                                               self.xslt_transformer)
-        self.save_json_report(Path(str(output_path) + ".json"), self.coverage_runner.json_report(report))
-        self.save_html_report(Path(str(output_path) + ".html"), self.coverage_runner.html_report(report))
+        self.save_json_report(Path(str(output_path) + ".json"), CoverageRunner.json_report(report))
+        self.save_html_report(Path(str(output_path) + ".html"), CoverageRunner.html_report(report))
 
     def run_cmd(self):
         output_path = Path(self.output_folder)

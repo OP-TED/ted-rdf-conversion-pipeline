@@ -1,4 +1,5 @@
-from ted_sws.notice_validator.services.xpath_coverage_runner import coverage_notice_xpath_report, CoverageRunner
+from ted_sws.notice_validator.adapters.xpath_coverage_runner import CoverageRunner
+from ted_sws.notice_validator.services.xpath_coverage_runner import coverage_notice_xpath_report
 
 
 def test_xpath_coverage_runner(fake_notice_F03, fake_conceptual_mappings_F03_path, fake_xslt_transformer,

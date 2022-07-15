@@ -14,7 +14,8 @@ from ted_sws.data_manager.adapters.mapping_suite_repository import MappingSuiteR
 from ted_sws.event_manager.adapters.logger import LOG_INFO_TEXT
 from ted_sws.mapping_suite_processor.entrypoints.cli import CONCEPTUAL_MAPPINGS_FILE
 from ted_sws.notice_validator.adapters.xpath_coverage_runner import CoverageRunner
-from ted_sws.notice_validator.services.xpath_coverage_runner import coverage_notice_xpath_report
+from ted_sws.notice_validator.services.xpath_coverage_runner import coverage_notice_xpath_report, \
+    xpath_coverage_html_report, xpath_coverage_json_report
 
 OUTPUT_FOLDER = '{mappings_path}/{mapping_suite_id}/' + DEFAULT_OUTPUT_PATH
 DEFAULT_TEST_SUITE_REPORT_FOLDER = "test_suite_report"
@@ -78,8 +79,8 @@ class CmdRunner(BaseCmdRunner):
                                               self.conceptual_mappings_file_path,
                                               self.coverage_runner,
                                               self.xslt_transformer)
-        self.save_json_report(Path(str(output_path) + ".json"), CoverageRunner.json_report(report))
-        self.save_html_report(Path(str(output_path) + ".html"), CoverageRunner.html_report(report))
+        self.save_json_report(Path(str(output_path) + ".json"), xpath_coverage_json_report(report))
+        self.save_html_report(Path(str(output_path) + ".html"), xpath_coverage_html_report(report))
 
     def run_cmd(self):
         output_path = Path(self.output_folder)

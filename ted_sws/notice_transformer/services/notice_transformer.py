@@ -1,16 +1,15 @@
 import abc
 import tempfile
-from datetime import datetime
 from pathlib import Path
 
-from ted_sws.event_manager.adapters.logger import Logger, logger as root_logger, LOG_WARN_TEXT, LOG_INFO_TEXT
-from ted_sws.event_manager.domain.message_bus import message_bus
 from ted_sws.core.model.manifestation import RDFManifestation, XMLManifestation
-from ted_sws.event_manager.model.message import Log
 from ted_sws.core.model.notice import Notice, NoticeStatus
 from ted_sws.core.model.transform import MappingSuite, FileResource
 from ted_sws.data_manager.adapters.mapping_suite_repository import MappingSuiteRepositoryInFileSystem
 from ted_sws.data_manager.adapters.repository_abc import NoticeRepositoryABC, MappingSuiteRepositoryABC
+from ted_sws.event_manager.adapters.event_logger import EventLogger
+from ted_sws.event_manager.model.event_message import NoticeEventMessage
+from ted_sws.event_manager.services.logger_from_context import get_env_logger
 from ted_sws.notice_transformer.adapters.rml_mapper import RMLMapperABC, SerializationFormat as RMLSerializationFormat
 
 DATA_SOURCE_PACKAGE = "data"
@@ -92,10 +91,10 @@ class NoticeTransformer(NoticeTransformerABC):
         This class is a concrete implementation of transforming a notice using rml-mapper.
     """
 
-    def __init__(self, mapping_suite: MappingSuite, rml_mapper: RMLMapperABC, logger: Logger = root_logger):
+    def __init__(self, mapping_suite: MappingSuite, rml_mapper: RMLMapperABC, logger: EventLogger = None):
         self.mapping_suite = mapping_suite
         self.rml_mapper = rml_mapper
-        self.logger = logger
+        self.logger = get_env_logger(logger)
 
     def _write_notice_xml_manifestation_in_package(self, package_path: Path, notice: Notice):
         """
@@ -138,7 +137,7 @@ class NoticeTransformer(NoticeTransformerABC):
         }
         return "{ext}".format(ext=extensions.get(serialization, Path(filename).suffix))
 
-    def _write_resource_to_out_file(self, file_resource: FileResource, output_path: Path, idx: int = None):
+    def _write_resource_to_out_file(self, file_resource: FileResource, output_path: Path):
         filename = file_resource.file_name
         original_name = file_resource.original_name if file_resource.original_name else filename
         notice_container = self.get_test_notice_container(filename)
@@ -149,15 +148,6 @@ class NoticeTransformer(NoticeTransformerABC):
         with file_resource_path.open("w+", encoding="utf-8") as f:
             f.write(file_resource.file_content)
 
-        message_bus.handle(Log(
-            message=((LOG_INFO_TEXT.format(
-                "[" + str(idx).rjust(4, "0") + "]"
-            )) if idx is not None else "") + " :: " + str(
-                datetime.now()
-            ) + " :: " + LOG_INFO_TEXT.format(notice_container),
-            logger=self.logger
-        ))
-
     def transform_test_data(self, output_path: Path):
         """
             This method converts each file in the test data and writes the result to a file in output_path.
@@ -167,15 +157,12 @@ class NoticeTransformer(NoticeTransformerABC):
         transformation_test_data = self.mapping_suite.transformation_test_data
         output_path.mkdir(parents=True, exist_ok=True)
         test_data = transformation_test_data.test_data
-        message_bus.handle(Log(
-            message=LOG_WARN_TEXT.format(
-                "[" + str(len(test_data)).rjust(4, "0") + "]"
-            ) + " :: " + str(
-                datetime.now()
-            ) + " :: " + LOG_WARN_TEXT.format("TOTAL"),
-            logger=self.logger
-        ))
+
         for idx, data in enumerate(test_data, start=1):
+            if self.logger:
+                event_message: NoticeEventMessage = NoticeEventMessage()
+                event_message.start_record()
+
             notice = Notice(ted_id="tmp_notice", xml_manifestation=XMLManifestation(object_data=data.file_content))
             notice._status = NoticeStatus.PREPROCESSED_FOR_TRANSFORMATION
             notice_result = self.transform_notice(notice=notice)
@@ -184,7 +171,14 @@ class NoticeTransformer(NoticeTransformerABC):
                 file_content=notice_result.rdf_manifestation.object_data,
                 original_name=data.original_name
             )
-            self._write_resource_to_out_file(file_resource, output_path, idx)
+            self._write_resource_to_out_file(file_resource, output_path)
+
+            if self.logger:
+                notice_id = self.get_test_notice_container(file_resource.file_name)
+                event_message.message = notice_id
+                event_message.notice_id = notice_id
+                event_message.end_record()
+                self.logger.info(event_message)
 
     def transform_notice(self, notice: Notice) -> Notice:
         """

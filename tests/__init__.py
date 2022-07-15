@@ -6,9 +6,14 @@
 # Email: costezki.eugen@gmail.com
 
 """ """
+import os
 import pathlib
+import shutil
+import tempfile
 
-import os, shutil, tempfile
+from ted_sws import RUN_ENV_NAME, RUN_TEST_ENV_VAL
+
+os.environ[RUN_ENV_NAME] = RUN_TEST_ENV_VAL
 
 TESTS_PATH = pathlib.Path(__file__).parent.resolve()
 
@@ -21,6 +26,7 @@ class temporary_copy(object):
         It can be used when you want to perform operations on a copy in an existing directory.
         Once the context is closed, the temporary directory will be deleted.
     """
+
     def __init__(self, original_path):
         self.original_path = original_path
 
@@ -34,4 +40,3 @@ class temporary_copy(object):
 
     def __exit__(self, exc_type, exc_val, exc_tb):
         shutil.rmtree(self.path)
-        

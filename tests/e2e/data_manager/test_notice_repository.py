@@ -1,9 +1,7 @@
-import pytest
-
-from ted_sws.data_manager.adapters.notice_repository import NoticeRepository
 from ted_sws.core.model.manifestation import XMLManifestation, RDFManifestation
 from ted_sws.core.model.metadata import TEDMetadata
-from ted_sws.core.model.notice import Notice, NoticeStatus
+from ted_sws.core.model.notice import Notice
+from ted_sws.data_manager.adapters.notice_repository import NoticeRepository
 from ted_sws.notice_validator.services.shacl_test_suite_runner import validate_notice_with_shacl_suite
 from ted_sws.notice_validator.services.sparql_test_suite_runner import validate_notice_with_sparql_suite
 

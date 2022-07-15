@@ -1,6 +1,7 @@
-from tests.fakes.fake_rml_mapper import FakeRMLMapper
 import pytest
+
 from ted_sws.notice_transformer.adapters.rml_mapper import RMLMapperABC, SerializationFormat as RMLSerializationFormat
+from tests.fakes.fake_rml_mapper import FakeRMLMapper
 
 
 @pytest.fixture

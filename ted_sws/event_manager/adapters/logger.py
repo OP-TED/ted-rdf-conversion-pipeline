@@ -1,19 +1,10 @@
 import abc
-import enum
 import logging
 import sys
 from colorama import Fore
 from typing import List
 
-from ted_sws import config
 
-
-class LoggingType(enum.Enum):
-    PY = "PY"
-    DB = "DB"
-
-
-DOMAIN_LOGGING_TYPES = config.LOGGING_TYPE.split(",") if config.LOGGING_TYPE is not None else [LoggingType.PY.value]
 DEFAULT_LOGGER_LEVEL = logging.NOTSET
 DEFAULT_LOGGER_NAME = "ROOT"
 
@@ -50,13 +41,8 @@ class Logger(LoggerABC):
     def get_logger(self) -> logging.Logger:
         return self.logger
 
-    # @staticmethod
-    # def has_logging_type(logging_type: LoggingType):
-    #     return logging_type.value in DOMAIN_LOGGING_TYPES
-
     def init_handlers(self):
-        if self.logger.hasHandlers():
-            self.logger.handlers.clear()
+        self.logger.handlers.clear()
 
     def get_handlers(self) -> List:
         return self.logger.handlers
@@ -71,7 +57,7 @@ class Logger(LoggerABC):
         if not self.has_handler(handler):
             self.logger.addHandler(handler)
 
-    def add_stdout_handler(self, level: int = DEFAULT_LOGGER_LEVEL, formatter: logging.Formatter = None):
+    def add_console_handler(self, level: int = DEFAULT_LOGGER_LEVEL, formatter: logging.Formatter = None):
         console = logging.StreamHandler(sys.stdout)
         console.setLevel(level)
         if formatter is not None:

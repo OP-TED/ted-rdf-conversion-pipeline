@@ -8,8 +8,8 @@ from ted_sws.core.adapters.cmd_runner import CmdRunner as BaseCmdRunner, DEFAULT
 from ted_sws.core.model.manifestation import RDFManifestation
 from ted_sws.data_manager.adapters.mapping_suite_repository import MappingSuiteRepositoryInFileSystem
 from ted_sws.event_manager.adapters.logger import LOG_INFO_TEXT
-from ted_sws.notice_validator.services.sparql_test_suite_runner import SPARQLTestSuiteRunner, SPARQLReportBuilder
 from ted_sws.notice_validator.entrypoints.cli import DEFAULT_RDF_FOLDER, DEFAULT_TEST_SUITE_REPORT_FOLDER
+from ted_sws.notice_validator.services.sparql_test_suite_runner import SPARQLTestSuiteRunner, SPARQLReportBuilder
 
 JSON_REPORT = "sparql_{id}.json"
 HTML_REPORT = "sparql_{id}.html"
@@ -39,7 +39,8 @@ class CmdRunner(BaseCmdRunner):
         mapping_suite_repository = MappingSuiteRepositoryInFileSystem(repository_path=repository_path)
         self.mapping_suite = mapping_suite_repository.get(reference=self.mapping_suite_id)
 
-    def save_report(self, report_path, report_name, report_id, content):
+    @classmethod
+    def save_report(cls, report_path, report_name, report_id, content):
         with open(report_path / report_name.format(id=report_id), "w+") as f:
             f.write(content)
 

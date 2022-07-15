@@ -11,7 +11,7 @@ from ted_sws.mapping_suite_processor.services.conceptual_mapping_files_injection
 
 DEFAULT_OUTPUT_PATH = '{mappings_path}/{mapping_suite_id}/' + TRANSFORM_PACKAGE_NAME + '/' + MAPPINGS_PACKAGE_NAME
 DEFAULT_RML_MODULES_PATH = Path("src/mappings")
-CMD_NAME = "RML_MODULES_INJECTOR"
+CMD_NAME = "CMD_RML_MODULES_INJECTOR"
 
 """
 USAGE:

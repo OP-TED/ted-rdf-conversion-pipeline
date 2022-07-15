@@ -2,15 +2,14 @@ from pathlib import Path
 
 import pytest
 
-from ted_sws import config
 from ted_sws.event_manager.adapters.event_handler import EventHandler, EventWriterToMongoDBHandler, \
     EventWriterToFileHandler, EventWriterToConsoleHandler, EventWriterToNullHandler
 from ted_sws.event_manager.adapters.event_logging_repository import EventLoggingRepository, NoticeEventRepository, \
     TechnicalEventRepository, MappingSuiteEventRepository
+from ted_sws.event_manager.adapters.log import ConfigHandlerType
 from ted_sws.event_manager.adapters.log import SeverityLevelType
 from ted_sws.event_manager.model.event_message import EventMessage, NoticeEventMessage, MappingSuiteEventMessage, \
     TechnicalEventMessage, EventMessageLogSettings
-from ted_sws.event_manager.adapters.log import ConfigHandlerType
 
 
 @pytest.fixture
@@ -111,7 +110,7 @@ def mongodb_handler(mongodb_client) -> EventWriterToMongoDBHandler:
 
 @pytest.fixture
 def logs_database_name() -> str:
-    return "test_logs_db"
+    return EventLoggingRepository.get_default_database_name()
 
 
 @pytest.fixture

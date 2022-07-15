@@ -101,6 +101,10 @@ class EventLoggingRepository(EventLoggingRepositoryABC):
         result = self.collection.insert_one(record)
         return result.inserted_id
 
+    @classmethod
+    def get_default_database_name(cls):
+        return cls._database_name
+
 
 class TechnicalEventRepository(EventLoggingRepository):
     """

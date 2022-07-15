@@ -1,7 +1,7 @@
 import pytest
 
 from ted_sws import config
-from ted_sws.mapping_suite_processor.adapters.allegro_triple_store import AllegroGraphTripleStore
+from ted_sws.mapping_suite_processor.adapters.allegro_triple_store import AllegroGraphVersatileTripleStore
 from tests import TEST_DATA_PATH
 
 
@@ -92,5 +92,5 @@ def package_folder_path():
 
 @pytest.fixture
 def allegro_triple_store():
-    return AllegroGraphTripleStore(host=config.ALLEGRO_HOST, user=config.AGRAPH_SUPER_USER,
-                                   password=config.AGRAPH_SUPER_PASSWORD)
+    return AllegroGraphVersatileTripleStore(host=config.ALLEGRO_HOST, user=config.AGRAPH_SUPER_USER,
+                                            password=config.AGRAPH_SUPER_PASSWORD)

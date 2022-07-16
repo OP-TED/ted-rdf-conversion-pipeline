@@ -102,44 +102,44 @@ def step_impl(normalised_metadata_dict):
 
 
 @when("normalised metadata is added")
-def step_impl(raw_notice, normalised_metadata):
-    raw_notice.set_normalised_metadata(normalised_metadata=normalised_metadata)
+def step_impl(indexed_notice, normalised_metadata):
+    indexed_notice.set_normalised_metadata(normalised_metadata=normalised_metadata)
 
 
 @then("the notice object contains the normalised metadata")
-def step_impl(raw_notice):
-    assert raw_notice.normalised_metadata is not None
+def step_impl(indexed_notice):
+    assert indexed_notice.normalised_metadata is not None
 
 
 @then("the notice status is NORMALISED_METADATA")
-def step_impl(raw_notice):
-    assert raw_notice.status is NoticeStatus.NORMALISED_METADATA
+def step_impl(indexed_notice):
+    assert indexed_notice.status is NoticeStatus.NORMALISED_METADATA
 
 
 @given("the notice already contains normalised metadata")
-def step_impl(raw_notice, normalised_metadata_dict):
-    raw_notice.set_normalised_metadata(NormalisedMetadata(**normalised_metadata_dict))
-    assert raw_notice.normalised_metadata is not None
+def step_impl(indexed_notice, normalised_metadata_dict):
+    indexed_notice.set_normalised_metadata(NormalisedMetadata(**normalised_metadata_dict))
+    assert indexed_notice.normalised_metadata is not None
 
 
 @when("normalised metadata is overwritten", target_fixture="old_normalised_metadata")
-def step_impl(raw_notice, normalised_metadata):
-    assert raw_notice.normalised_metadata is not None
-    old = raw_notice.normalised_metadata
+def step_impl(indexed_notice, normalised_metadata):
+    assert indexed_notice.normalised_metadata is not None
+    old = indexed_notice.normalised_metadata
     normalised_metadata.notice_publication_number = "something else"
-    raw_notice.set_normalised_metadata(normalised_metadata=normalised_metadata)
+    indexed_notice.set_normalised_metadata(normalised_metadata=normalised_metadata)
     return old
 
 
 @then("the notice object contains the new normalised metadata")
-def step_impl(raw_notice, normalised_metadata, old_normalised_metadata):
-    assert raw_notice.normalised_metadata == normalised_metadata
-    assert raw_notice.normalised_metadata != old_normalised_metadata
+def step_impl(indexed_notice, normalised_metadata, old_normalised_metadata):
+    assert indexed_notice.normalised_metadata == normalised_metadata
+    assert indexed_notice.normalised_metadata != old_normalised_metadata
 
 
 @then("normalised notice contains no RDF manifestation")
-def step_impl(raw_notice):
-    assert raw_notice.rdf_manifestation is None
+def step_impl(indexed_notice):
+    assert indexed_notice.rdf_manifestation is None
 
 
 @then("notice contains no RDF validation")

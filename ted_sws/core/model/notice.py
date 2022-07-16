@@ -36,6 +36,7 @@ class NoticeStatus(IntEnum):
         The status of the notice in the pipeline
     """
     RAW = 10
+    INDEXED = 15
     NORMALISED_METADATA = 20
     INELIGIBLE_FOR_TRANSFORMATION = 23  # backlog status
     ELIGIBLE_FOR_TRANSFORMATION = 27  # forward status
@@ -67,7 +68,8 @@ class NoticeStatus(IntEnum):
 
 
 #  possible downstream transitions
-NOTICE_STATUS_DOWNSTREAM_TRANSITION = {NoticeStatus.RAW: [NoticeStatus.NORMALISED_METADATA],
+NOTICE_STATUS_DOWNSTREAM_TRANSITION = {NoticeStatus.RAW: [NoticeStatus.INDEXED],
+                                       NoticeStatus.INDEXED : [NoticeStatus.NORMALISED_METADATA],
                                        NoticeStatus.NORMALISED_METADATA: [NoticeStatus.INELIGIBLE_FOR_TRANSFORMATION,
                                                                           NoticeStatus.ELIGIBLE_FOR_TRANSFORMATION],
                                        NoticeStatus.INELIGIBLE_FOR_TRANSFORMATION: [
@@ -201,6 +203,16 @@ class Notice(WorkExpression):
             result.append(sparql_validation)
 
         return result
+
+
+    def set_xml_metadata(self, xml_metadata: XMLMetadata):
+        """
+
+        :param xml_metadata:
+        :return:
+        """
+        self.xml_metadata = xml_metadata
+        self.update_status_to(NoticeStatus.INDEXED)
 
     def set_preprocessed_xml_manifestation(self, preprocessed_xml_manifestation: XMLManifestation):
         """

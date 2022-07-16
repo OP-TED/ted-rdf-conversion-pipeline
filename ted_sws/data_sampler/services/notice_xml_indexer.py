@@ -56,7 +56,7 @@ def index_notice(notice: Notice, xslt_transformer=None, unique=True) -> Notice:
             xml_metadata.unique_xpaths = xpaths
         else:
             xml_metadata.xpaths = xpaths
-        notice.xml_metadata = xml_metadata
+        notice.set_xml_metadata(xml_metadata=xml_metadata)
 
     return notice
 

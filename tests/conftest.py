@@ -9,7 +9,7 @@ from click.testing import CliRunner
 from mongomock.gridfs import enable_gridfs_integration
 
 from ted_sws.core.model.manifestation import XMLManifestation
-from ted_sws.core.model.metadata import TEDMetadata, LanguageTaggedString, NormalisedMetadata
+from ted_sws.core.model.metadata import TEDMetadata, LanguageTaggedString, NormalisedMetadata, XMLMetadata
 from ted_sws.core.model.notice import Notice
 from ted_sws.metadata_normaliser.services.metadata_normalizer import TITLE_KEY, LONG_TITLE_KEY, NOTICE_TYPE_KEY, \
     NOTICE_NUMBER_KEY, OJS_TYPE_KEY, OJS_NUMBER_KEY, LANGUAGE_KEY, EU_INSTITUTION_KEY, SENT_DATE_KEY, DEADLINE_DATE_KEY, \
@@ -39,13 +39,17 @@ def notice_repository():
 def ted_document_search():
     return TedAPIAdapter(request_api=FakeRequestAPI())
 
-
 @pytest.fixture
 def raw_notice(ted_document_search, notice_repository, notice_id) -> Notice:
     document_id = notice_id
     NoticeFetcher(ted_api_adapter=ted_document_search, notice_repository=notice_repository).fetch_notice_by_id(
         document_id=document_id)
     raw_notice = notice_repository.get(reference=document_id)
+    return raw_notice
+
+@pytest.fixture
+def indexed_notice(raw_notice) -> Notice:
+    raw_notice.set_xml_metadata(XMLMetadata(unique_xpaths=["FAKE_INDEX_XPATHS"]))
     return raw_notice
 
 
@@ -103,8 +107,9 @@ def notice_2020():
     del notice_data["content"]
     ted_id = notice_data["ND"]
     original_metadata = TEDMetadata(**notice_data)
-
-    return Notice(ted_id=ted_id, xml_manifestation=xml_manifestation, original_metadata=original_metadata)
+    notice = Notice(ted_id=ted_id, xml_manifestation=xml_manifestation, original_metadata=original_metadata)
+    notice.set_xml_metadata(XMLMetadata(unique_xpaths=["FAKE_INDEX_XPATHS"]))
+    return notice
 
 
 @pytest.fixture

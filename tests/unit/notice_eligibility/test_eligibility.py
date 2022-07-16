@@ -7,11 +7,11 @@ from ted_sws.notice_eligibility.services.notice_eligibility import check_package
     notice_eligibility_checker, notice_eligibility_checker_by_id, transform_version_string_into_int
 
 
-def test_non_eligibility_by_notice(file_system_repository_path, raw_notice):
+def test_non_eligibility_by_notice(file_system_repository_path, indexed_notice):
     mapping_suite_repository = MappingSuiteRepositoryInFileSystem(repository_path=file_system_repository_path)
-    MetadataNormaliser(notice=raw_notice).normalise_metadata()
-    notice_eligibility_checker(notice=raw_notice, mapping_suite_repository=mapping_suite_repository)
-    assert raw_notice.status == NoticeStatus.INELIGIBLE_FOR_TRANSFORMATION
+    MetadataNormaliser(notice=indexed_notice).normalise_metadata()
+    notice_eligibility_checker(notice=indexed_notice, mapping_suite_repository=mapping_suite_repository)
+    assert indexed_notice.status == NoticeStatus.INELIGIBLE_FOR_TRANSFORMATION
 
 
 def test_eligibility_by_notice(file_system_repository_path, notice_2020):

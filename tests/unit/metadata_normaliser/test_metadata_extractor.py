@@ -5,8 +5,8 @@ from ted_sws.metadata_normaliser.services.xml_manifestation_metadata_extractor i
 import xml.etree.ElementTree as ET
 
 
-def test_metadata_extractor(raw_notice):
-    metadata_extractor = XMLManifestationMetadataExtractor(xml_manifestation=raw_notice.xml_manifestation).to_metadata()
+def test_metadata_extractor(indexed_notice):
+    metadata_extractor = XMLManifestationMetadataExtractor(xml_manifestation=indexed_notice.xml_manifestation).to_metadata()
     extracted_metadata_dict = metadata_extractor.dict()
 
     assert isinstance(metadata_extractor, ExtractedMetadata)
@@ -48,8 +48,8 @@ def test_metadata_extractor_2018(notice_2018):
     assert notice_2018.ted_id in extracted_metadata_dict["notice_publication_number"]
 
 
-def test_xpath_extract_data(raw_notice):
-    doc_root = ET.fromstring(raw_notice.xml_manifestation.object_data)
+def test_xpath_extract_data(indexed_notice):
+    doc_root = ET.fromstring(indexed_notice.xml_manifestation.object_data)
     namespace = {"epo": "http://publications.europa.eu/resource/schema/ted/R2.0.8/publication"}
 
     list_of_elements = doc_root.findall("epo:TRANSLATION_SECTION/epo:ML_TITLES/epo:ML_TI_DOC[@LG='EN']/",
@@ -61,8 +61,8 @@ def test_xpath_extract_data(raw_notice):
     assert "Germany" in extracted_data
 
 
-def test_xpath_extract_attribute(raw_notice):
-    doc_root = ET.fromstring(raw_notice.xml_manifestation.object_data)
+def test_xpath_extract_attribute(indexed_notice):
+    doc_root = ET.fromstring(indexed_notice.xml_manifestation.object_data)
     namespace = {"epo": "http://publications.europa.eu/resource/schema/ted/R2.0.8/publication"}
     element = doc_root.find("epo:CODED_DATA_SECTION/epo:NOTICE_DATA/epo:ISO_COUNTRY", namespaces=namespace)
 
@@ -72,8 +72,8 @@ def test_xpath_extract_attribute(raw_notice):
     assert "DE" in extracted_data
 
 
-def test_extract_code_and_value(raw_notice):
-    doc_root = ET.fromstring(raw_notice.xml_manifestation.object_data)
+def test_extract_code_and_value(indexed_notice):
+    doc_root = ET.fromstring(indexed_notice.xml_manifestation.object_data)
     namespace = {"epo": "http://publications.europa.eu/resource/schema/ted/R2.0.8/publication"}
     element = doc_root.find("epo:CODED_DATA_SECTION/epo:CODIF_DATA/epo:NC_CONTRACT_NATURE", namespaces=namespace)
 
@@ -88,16 +88,16 @@ def test_extract_code_and_value(raw_notice):
     assert extracted_data is None
 
 
-def test_get_root_of_manifestation(raw_notice):
+def test_get_root_of_manifestation(indexed_notice):
     manifestation_root = XMLManifestationMetadataExtractor(
-        xml_manifestation=raw_notice.xml_manifestation)._parse_manifestation()
+        xml_manifestation=indexed_notice.xml_manifestation)._parse_manifestation()
 
     assert isinstance(manifestation_root, ET.Element)
 
 
-def test_get_normalised_namespaces(raw_notice):
+def test_get_normalised_namespaces(indexed_notice):
     namespaces = XMLManifestationMetadataExtractor(
-        xml_manifestation=raw_notice.xml_manifestation)._get_normalised_namespaces()
+        xml_manifestation=indexed_notice.xml_manifestation)._get_normalised_namespaces()
 
     assert isinstance(namespaces, dict)
     assert "manifestation_ns", "nuts" in namespaces.keys()

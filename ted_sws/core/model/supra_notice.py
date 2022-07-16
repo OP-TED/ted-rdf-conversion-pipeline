@@ -47,4 +47,4 @@ class DailySupraNotice(SupraNotice):
         This is an aggregate over the notices published in TED in a specific day.
     """
     notice_publication_day: date = datetime.today()
-    completness_validation: SupraNoticeValidationReport = None
+    validation_report: SupraNoticeValidationReport = None

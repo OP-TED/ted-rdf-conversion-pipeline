@@ -114,8 +114,6 @@ class NoticeRepositoryInFileSystem(NoticeRepositoryABC):
                 yield self._read_notice_from_file(notice_file_path=notice_file_path)
 
 
-
-
 class NoticeRepository(NoticeRepositoryABC):
     """
        This repository is intended for storing Notice objects.

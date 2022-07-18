@@ -20,7 +20,7 @@ MAPPING_SUITE_PACKAGE_NAME = "package_F03_test"
 
 def test_notice_repository_in_file_system(notice_2018, notice_2020, notice_2021):
     notices = [notice_2018, notice_2020, notice_2021]
-    shutil.rmtree(NOTICE_REPOSITORY_PATH)
+    shutil.rmtree(NOTICE_REPOSITORY_PATH, ignore_errors=True)
     notice_repository_fs = NoticeRepositoryInFileSystem(repository_path=NOTICE_REPOSITORY_PATH)
     for notice in notices:
         notice._rdf_manifestation = RDFManifestation(object_data="test_data")
@@ -34,4 +34,4 @@ def test_notice_repository_in_file_system(notice_2018, notice_2020, notice_2021)
         assert my_notice.ted_id == notice.ted_id
         assert my_notice.xml_manifestation.object_data == notice.xml_manifestation.object_data
         assert my_notice.rdf_manifestation.object_data == notice.rdf_manifestation.object_data
-    shutil.rmtree(NOTICE_REPOSITORY_PATH)
+    shutil.rmtree(NOTICE_REPOSITORY_PATH, ignore_errors=True)

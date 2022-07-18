@@ -3,6 +3,7 @@ from datetime import timezone
 from airflow.models import DagRun, TaskInstance
 from airflow.utils.types import DagRunType
 
+INDEX_NOTICE_XML_CONTENT_TASK_ID = "index_notice_xml_content"
 NORMALISE_NOTICE_METADATA_TASK_ID = "normalise_notice_metadata"
 CHECK_ELIGIBILITY_FOR_TRANSFORMATION_TASK_ID = "check_eligibility_for_transformation"
 PREPROCESS_XML_MANIFESTATION_TASK_ID = "preprocess_xml_manifestation"

@@ -1,4 +1,5 @@
 import copy
+import json
 from datetime import datetime
 import logging
 from typing import Iterator, Union, Optional, Tuple
@@ -11,6 +12,7 @@ from ted_sws.core.model.manifestation import XMLManifestation, RDFManifestation,
 from ted_sws.core.model.metadata import NormalisedMetadata
 from ted_sws.data_manager.adapters.repository_abc import NoticeRepositoryABC
 from ted_sws.core.model.notice import Notice, NoticeStatus
+import pathlib
 
 logger = logging.getLogger(__name__)
 
@@ -25,6 +27,93 @@ NOTICE_RDF_MANIFESTATION = "rdf_manifestation"
 NOTICE_METS_MANIFESTATION = "mets_manifestation"
 METADATA_PUBLICATION_DATE = "publication_date"
 METADATA_DOCUMENT_SENT_DATE = "document_sent_date"
+
+
+class NoticeRepositoryInFileSystem(NoticeRepositoryABC):
+    """
+       This repository is intended for storing Notice objects as JSON files in file system.
+    """
+
+    def __init__(self, repository_path: pathlib.Path):
+        self.repository_path = repository_path
+        self.repository_path.mkdir(parents=True, exist_ok=True)
+
+    @staticmethod
+    def _create_notice_from_repository_result(notice_dict: dict) -> Union[Notice, None]:
+        """
+            This method allows you to create a Notice from the dictionary extracted from the repository.
+        :param notice_dict:
+        :return:
+        """
+
+        def init_object_from_dict(object_class, key):
+            if notice_dict[key]:
+                return object_class(**notice_dict[key])
+            return None
+
+        if notice_dict:
+            notice = Notice(**notice_dict)
+            notice._status = NoticeStatus[notice_dict[NOTICE_STATUS]]
+            notice._normalised_metadata = init_object_from_dict(NormalisedMetadata, NOTICE_NORMALISED_METADATA)
+            notice._preprocessed_xml_manifestation = init_object_from_dict(XMLManifestation,
+                                                                           NOTICE_PREPROCESSED_XML_MANIFESTATION)
+            notice._distilled_rdf_manifestation = init_object_from_dict(RDFManifestation,
+                                                                        NOTICE_DISTILLED_RDF_MANIFESTATION)
+            notice._rdf_manifestation = init_object_from_dict(RDFManifestation, NOTICE_RDF_MANIFESTATION)
+            notice._mets_manifestation = init_object_from_dict(METSManifestation, NOTICE_METS_MANIFESTATION)
+            return notice
+        return None
+
+    def add(self, notice: Notice):
+        """
+            This method allows you to add notice objects to the repository.
+        :param notice:
+        :return:
+        """
+        notice_file_path = self.repository_path / f"{notice.ted_id}.json"
+        notice_dict = notice.dict()
+        notice_dict[NOTICE_STATUS] = str(notice_dict[NOTICE_STATUS])
+        notice_file_path.write_text(data=json.dumps(notice_dict), encoding="utf-8")
+
+    def update(self, notice: Notice):
+        """
+            This method allows you to update notice objects to the repository
+        :param notice:
+        :return:
+        """
+        self.add(notice=notice)
+
+    def _read_notice_from_file(self, notice_file_path: pathlib.Path) -> Optional[Notice]:
+        """
+            This method provides the ability to read a notice from a JSON file.
+        :param notice_file_path:
+        :return:
+        """
+        if notice_file_path.exists() and notice_file_path.is_file():
+            notice_dict = json.loads(notice_file_path.read_text(encoding="utf-8"))
+            return NoticeRepositoryInFileSystem._create_notice_from_repository_result(notice_dict=notice_dict)
+        else:
+            return None
+
+    def get(self, reference) -> Optional[Notice]:
+        """
+            This method allows a notice to be obtained based on an identification reference.
+        :param reference:
+        :return: Notice
+        """
+        notice_file_path = self.repository_path / f"{reference}.json"
+        return self._read_notice_from_file(notice_file_path=notice_file_path)
+
+    def list(self) -> Iterator[Notice]:
+        """
+            This method allows all records to be retrieved from the repository.
+        :return: list of notices
+        """
+        for notice_file_path in self.repository_path.iterdir():
+            if notice_file_path.is_file() and notice_file_path.suffix == ".json":
+                yield self._read_notice_from_file(notice_file_path=notice_file_path)
+
+
 
 
 class NoticeRepository(NoticeRepositoryABC):

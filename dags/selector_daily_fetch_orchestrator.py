@@ -1,4 +1,5 @@
 import datetime
+from typing import List
 
 from airflow.decorators import dag, task
 from airflow.operators.python import get_current_context
@@ -17,7 +18,7 @@ from ted_sws.notice_fetcher.adapters.ted_api import TedAPIAdapter, TedRequestAPI
 from ted_sws.notice_fetcher.services.notice_fetcher import NoticeFetcher
 
 DAG_NAME = "selector_daily_fetch_orchestrator"
-
+WILD_CARD_PARAM = "wild_card"
 
 @dag(default_args=DEFAULT_DAG_ARGUMENTS,
      catchup=False,
@@ -32,11 +33,17 @@ def selector_daily_fetch_orchestrator():
         ))
     )
     def fetch_notice_from_ted():
-        current_datetime_wildcard = (datetime.datetime.now() - datetime.timedelta(days=1)).strftime("%Y%m%d*")
+        context = get_current_context()
+        dag_params = context["dag_run"].conf
+        if WILD_CARD_PARAM in dag_params.keys():
+            current_datetime_wildcard = dag_params[WILD_CARD_PARAM]
+        else:
+            current_datetime_wildcard = (datetime.datetime.now() - datetime.timedelta(days=1)).strftime("%Y%m%d*")
         mongodb_client = MongoClient(config.MONGO_DB_AUTH_URL)
-        NoticeFetcher(notice_repository=NoticeRepository(mongodb_client=mongodb_client),
+        notice_ids = NoticeFetcher(notice_repository=NoticeRepository(mongodb_client=mongodb_client),
                       ted_api_adapter=TedAPIAdapter(request_api=TedRequestAPI())).fetch_notices_by_date_wild_card(
             wildcard_date=current_datetime_wildcard)
+        return notice_ids
 
     @task
     @event_log(TechnicalEventMessage(
@@ -45,21 +52,18 @@ def selector_daily_fetch_orchestrator():
             process_type=EventMessageProcessType.DAG, process_name=DAG_NAME
         ))
     )
-    def trigger_document_proc_pipeline():
+    def trigger_document_proc_pipeline(notice_ids: List[str]):
         context = get_current_context()
-        mongodb_client = MongoClient(config.MONGO_DB_AUTH_URL)
-        notice_repository = NoticeRepository(mongodb_client=mongodb_client)
-        notices = notice_repository.get_notice_by_status(notice_status=NoticeStatus.RAW)
-        for notice in notices:
+        for notice_id in notice_ids:
             TriggerDagRunOperator(
-                task_id=f'trigger_worker_dag_{notice.ted_id}',
+                task_id=f'trigger_worker_dag_{notice_id}',
                 trigger_dag_id="worker_single_notice_process_orchestrator",
-                conf={"notice_id": notice.ted_id,
-                      "notice_status": str(notice.status)
+                conf={"notice_id": notice_id,
+                      "notice_status": str(NoticeStatus.RAW)
                       }
             ).execute(context=context)
 
-    fetch_notice_from_ted() >> trigger_document_proc_pipeline()
+    trigger_document_proc_pipeline(fetch_notice_from_ted())
 
 
 dag = selector_daily_fetch_orchestrator()

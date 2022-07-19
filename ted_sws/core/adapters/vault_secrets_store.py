@@ -5,7 +5,7 @@ import json
 import os
 import dotenv
 
-dotenv.load_dotenv(verbose=True, override=True)
+dotenv.load_dotenv(verbose=True, override=os.environ.get('IS_PRIME_ENV') != 'true')
 
 
 class SecretsStoreABC(ABC):

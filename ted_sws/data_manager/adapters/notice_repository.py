@@ -35,7 +35,7 @@ class NoticeRepositoryInFileSystem(NoticeRepositoryABC):
     """
 
     def __init__(self, repository_path: pathlib.Path):
-        self.repository_path = pathlib.Path(repository_path)
+        self.repository_path = repository_path
         self.repository_path.mkdir(parents=True, exist_ok=True)
 
     @staticmethod

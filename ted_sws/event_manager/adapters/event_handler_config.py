@@ -13,14 +13,14 @@ from ted_sws.event_manager.adapters.log import ConfigHandlerType
 NOW = datetime.now(timezone.utc)
 DEFAULT_LOGGER_NAME = "ROOT"
 DEFAULT_NULL_LOGGER_NAME = "NULL"
+DEFAULT_CONSOLE_LOGGER_NAME = "CONSOLE"
 DEFAULT_LOGGER_LOG_FILENAME = "./event_logs/{today}.log"  # EXAMPLE: ./event_logs/{today}/{hour}/{minute}.log"
 CONFIG_HANDLERS_SEP = ","
 
 HANDLERS_TYPE = List[EventHandler]
 EVENT_HANDLER_TYPE = Union[
-    EventHandler, EventWriterToConsoleHandler, EventWriterToMongoDBHandler, EventWriterToConsoleHandler
+    EventHandler, EventWriterToConsoleHandler, EventWriterToMongoDBHandler, EventWriterToFileHandler
 ]
-
 
 """
 This module contains the event handler configurations' adapters to be used by event loggers.
@@ -31,6 +31,7 @@ class EventHandlerConfigABC(abc.ABC):
     """
     This abstract class contains the definitions of main event handler config methods.
     """
+
     @abc.abstractmethod
     def get_handlers(self) -> HANDLERS_TYPE:
         """This method returns default environment handlers"""
@@ -156,6 +157,7 @@ class DAGLoggerConfig(EventHandlerConfig):
     """
     This is the event handler config class for DAG event message logging.
     """
+
     def __init__(self, mongodb_client: MongoClient = None, name: str = DEFAULT_LOGGER_NAME, filepath: Path = None,
                  handlers: HANDLERS_TYPE = None, config_handlers: str = config.DAG_LOGGER_CONFIG_HANDLERS):
         """
@@ -185,6 +187,7 @@ class CLILoggerConfig(EventHandlerConfig):
     """
     This is the event handler config class for CLI event message logging.
     """
+
     def __init__(self, mongodb_client: MongoClient = None, name: str = DEFAULT_LOGGER_NAME, filepath: Path = None,
                  handlers: HANDLERS_TYPE = None, config_handlers: str = config.CLI_LOGGER_CONFIG_HANDLERS):
         """
@@ -213,6 +216,7 @@ class NULLLoggerConfig(EventHandlerConfig):
     """
     This is the event handler config class for NULL event message logging.
     """
+
     def __init__(self, name: str = DEFAULT_NULL_LOGGER_NAME):
         """
         This is the constructor/initialization of NULL event handler config.
@@ -221,4 +225,20 @@ class NULLLoggerConfig(EventHandlerConfig):
         """
         null_handler: EventWriterToNullHandler = EventWriterToNullHandler(name=name)
         handlers = [null_handler]
+        super().__init__(handlers, handlers)
+
+
+class ConsoleLoggerConfig(EventHandlerConfig):
+    """
+    This is the event handler config class for Console event message logging.
+    """
+
+    def __init__(self, name: str = DEFAULT_CONSOLE_LOGGER_NAME):
+        """
+        This is the constructor/initialization of Console event handler config.
+
+        :param name: Base event handler's name
+        """
+        console_handler: EventWriterToConsoleHandler = EventWriterToConsoleHandler(name=name)
+        handlers = [console_handler]
         super().__init__(handlers, handlers)

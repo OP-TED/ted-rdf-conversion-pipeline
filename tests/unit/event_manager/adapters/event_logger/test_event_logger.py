@@ -1,7 +1,8 @@
-from ted_sws.event_manager.adapters.event_logger import EventLogger
-from ted_sws.event_manager.adapters.event_handler_config import CLILoggerConfig, DAGLoggerConfig
-from ted_sws.event_manager.adapters.event_handler import EventWriterToFileHandler
 import os
+
+from ted_sws.event_manager.adapters.event_handler import EventWriterToFileHandler
+from ted_sws.event_manager.adapters.event_handler_config import CLILoggerConfig, DEFAULT_CONSOLE_LOGGER_NAME
+from ted_sws.event_manager.adapters.event_logger import EventLogger
 
 
 def test_event_logger(console_handler, mongodb_handler, event_message, severity_level_info,
@@ -43,3 +44,8 @@ def test_event_logger(console_handler, mongodb_handler, event_message, severity_
 
     os.remove(event_logs_filepath)
 
+
+def test_event_logger_with_console_config(caplog, console_logger, event_message):
+    console_logger.info(event_message)
+    assert DEFAULT_CONSOLE_LOGGER_NAME in caplog.text
+    assert event_message.message in caplog.text

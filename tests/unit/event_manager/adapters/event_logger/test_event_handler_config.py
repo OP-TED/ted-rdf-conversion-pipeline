@@ -1,5 +1,6 @@
-from ted_sws.event_manager.adapters.event_handler_config import DAGLoggerConfig, CLILoggerConfig, NULLLoggerConfig
 from ted_sws.event_manager.adapters.event_handler import EventWriterToConsoleHandler, EventWriterToNullHandler
+from ted_sws.event_manager.adapters.event_handler_config import DAGLoggerConfig, CLILoggerConfig, NULLLoggerConfig, \
+    ConsoleLoggerConfig
 
 
 def test_event_handler_config(mongodb_client, event_logs_filepath, prime_config_handlers):
@@ -21,3 +22,10 @@ def test_event_null_handler_config():
     logger_config = NULLLoggerConfig()
     assert len(logger_config.get_handlers()) == 1
     assert isinstance(logger_config.get_handler(EventWriterToNullHandler), EventWriterToNullHandler)
+
+
+def test_event_console_handler_config():
+    logger_config = ConsoleLoggerConfig()
+    assert len(logger_config.get_handlers()) == 1
+    assert isinstance(logger_config.get_handler(EventWriterToConsoleHandler), EventWriterToConsoleHandler)
+

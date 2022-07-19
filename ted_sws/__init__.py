@@ -15,7 +15,7 @@ import dotenv
 
 from ted_sws.core.adapters.config_resolver import EnvConfigResolver
 
-dotenv.load_dotenv(verbose=True, override=True)
+dotenv.load_dotenv(verbose=True, override=os.environ.get('IS_PRIME_ENV') != 'true')
 
 # The RUN_ENV constants define the module execution context of the code.
 # By using them, the behaviour of global services, such as logging,
@@ -24,6 +24,7 @@ RUN_ENV_NAME = "__TED_SWS_RUN_ENV__"
 RUN_ENV_VAL = "ted-sws"
 RUN_TEST_ENV_VAL = "test"
 os.environ[RUN_ENV_NAME] = RUN_ENV_VAL
+
 
 # SECRET_PATHS = ['mongo-db', 'github']
 # SECRET_MOUNT = f'ted-{ENV}'
@@ -65,7 +66,6 @@ class MongoDBConfig:
 
 
 class RMLMapperConfig:
-
     @property
     def RML_MAPPER_PATH(self) -> str:
         return EnvConfigResolver().config_resolve()
@@ -83,6 +83,7 @@ class AllegroConfig:
     @property
     def ALLEGRO_HOST(self) -> str:
         return EnvConfigResolver().config_resolve()
+
 
 class ELKConfig:
 

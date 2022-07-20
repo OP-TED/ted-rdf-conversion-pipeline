@@ -8,8 +8,10 @@
 """ This module implements aggregates over groups of notices and the appropriate business needs, on those groups """
 import abc
 import json
-from datetime import datetime, date
-from typing import List
+from datetime import datetime, date, time
+from typing import List, Any
+
+from pydantic import Field
 
 from ted_sws.core.model import PropertyBaseModel
 from ted_sws.core.model.manifestation import Manifestation
@@ -25,7 +27,7 @@ class SupraNotice(PropertyBaseModel, abc.ABC):
         validate_assignment = True
         orm_mode = True
 
-    created_at: datetime = datetime.now()
+    created_at: datetime = datetime.now().replace(microsecond=0)
 
     notice_ids: List[str]
 
@@ -46,5 +48,5 @@ class DailySupraNotice(SupraNotice):
     """
         This is an aggregate over the notices published in TED in a specific day.
     """
-    notice_publication_day: date = datetime.today()
+    notice_publication_day: datetime = datetime.combine(datetime.today(), time())
     validation_report: SupraNoticeValidationReport = None

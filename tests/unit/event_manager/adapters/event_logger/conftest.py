@@ -4,6 +4,8 @@ import pytest
 
 from ted_sws.event_manager.adapters.event_handler import EventHandler, EventWriterToMongoDBHandler, \
     EventWriterToFileHandler, EventWriterToConsoleHandler, EventWriterToNullHandler
+from ted_sws.event_manager.adapters.event_handler_config import ConsoleLoggerConfig
+from ted_sws.event_manager.adapters.event_logger import EventLogger
 from ted_sws.event_manager.adapters.event_logging_repository import EventLoggingRepository, NoticeEventRepository, \
     TechnicalEventRepository, MappingSuiteEventRepository
 from ted_sws.event_manager.adapters.log import ConfigHandlerType
@@ -77,6 +79,14 @@ def console_handler() -> EventWriterToConsoleHandler:
     handler = EventWriterToConsoleHandler(name=name)
     handler.logger.propagate = True
     return handler
+
+
+@pytest.fixture
+def console_logger() -> EventLogger:
+    console_config: ConsoleLoggerConfig = ConsoleLoggerConfig()
+    console_config.get_console_handler().logger.propagate = True
+    console_logger: EventLogger = EventLogger(console_config)
+    return console_logger
 
 
 @pytest.fixture

@@ -7,7 +7,8 @@ from tests.e2e.dags import run_task, START_PROCESSING_NOTICE_TASK_ID, \
     VALIDATE_TRANSFORMED_RDF_MANIFESTATION_TASK_ID, CHECK_ELIGIBILITY_FOR_PACKING_BY_VALIDATION_REPORT_TASK_ID, \
     GENERATE_METS_PACKAGE_TASK_ID, CHECK_PACKAGE_INTEGRITY_BY_PACKAGE_STRUCTURE_TASK_ID, \
     PUBLISH_NOTICE_IN_CELLAR_TASK_ID, CHECK_NOTICE_PUBLIC_AVAILABILITY_IN_CELLAR_TASK_ID, \
-    CHECK_NOTICE_STATE_BEFORE_TRANSFORM_TASK_ID, CHECK_NOTICE_STATE_BEFORE_GENERATE_METS_PACKAGE_TASK_ID
+    CHECK_NOTICE_STATE_BEFORE_TRANSFORM_TASK_ID, CHECK_NOTICE_STATE_BEFORE_GENERATE_METS_PACKAGE_TASK_ID, \
+    INDEX_NOTICE_XML_CONTENT_TASK_ID
 
 DAG_ID = "worker_single_notice_process_orchestrator"
 
@@ -37,7 +38,10 @@ def test_worker_dag_steps(dag_bag, notice_repository):
 
     check_notice_status(notice_repository=notice_repository, notice_id=notice_id, notice_status=NoticeStatus.RAW)
     execute_dag_step(dag, task_id=START_PROCESSING_NOTICE_TASK_ID, dag_config=dag_config)
-
+    execute_dag_step(dag, task_id=INDEX_NOTICE_XML_CONTENT_TASK_ID, dag_config=dag_config)
+    notice = check_notice_status(notice_repository=notice_repository, notice_id=notice_id,
+                                 notice_status=NoticeStatus.INDEXED)
+    assert notice.xml_metadata is not None
     execute_dag_step(dag, task_id=NORMALISE_NOTICE_METADATA_TASK_ID, dag_config=dag_config)
     notice = check_notice_status(notice_repository=notice_repository, notice_id=notice_id,
                                  notice_status=NoticeStatus.NORMALISED_METADATA)
@@ -69,7 +73,8 @@ def test_worker_dag_steps(dag_bag, notice_repository):
     assert notice.distilled_rdf_manifestation is not None
 
     execute_dag_step(dag, task_id=VALIDATE_TRANSFORMED_RDF_MANIFESTATION_TASK_ID, dag_config=dag_config)
-    notice = check_notice_status(notice_repository=notice_repository, notice_id=notice_id, notice_status=NoticeStatus.VALIDATED)
+    notice = check_notice_status(notice_repository=notice_repository, notice_id=notice_id,
+                                 notice_status=NoticeStatus.VALIDATED)
 
     assert notice.rdf_manifestation.shacl_validations
     assert notice.rdf_manifestation.sparql_validations
@@ -85,7 +90,8 @@ def test_worker_dag_steps(dag_bag, notice_repository):
     assert notice.mets_manifestation is None
 
     execute_dag_step(dag, task_id=GENERATE_METS_PACKAGE_TASK_ID, dag_config=dag_config)
-    notice = check_notice_status(notice_repository=notice_repository, notice_id=notice_id, notice_status=NoticeStatus.PACKAGED)
+    notice = check_notice_status(notice_repository=notice_repository, notice_id=notice_id,
+                                 notice_status=NoticeStatus.PACKAGED)
 
     assert notice.mets_manifestation is not None
 

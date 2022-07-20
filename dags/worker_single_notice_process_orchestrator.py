@@ -7,6 +7,7 @@ from ted_sws.core.model.manifestation import METSManifestation
 from ted_sws.core.model.notice import NoticeStatus
 from ted_sws.data_manager.adapters.mapping_suite_repository import MappingSuiteRepositoryMongoDB
 from ted_sws.data_manager.adapters.notice_repository import NoticeRepository
+from ted_sws.data_sampler.services.notice_xml_indexer import index_notice, index_notice_by_id
 from ted_sws.metadata_normaliser.services.metadata_normalizer import normalise_notice_by_id
 
 from airflow.decorators import dag
@@ -21,12 +22,14 @@ from ted_sws.notice_validator.services.shacl_test_suite_runner import validate_n
 from ted_sws.notice_validator.services.sparql_test_suite_runner import validate_notice_by_id_with_sparql_suite
 from ted_sws.event_manager.adapters.event_logger import EventLogger
 from ted_sws.event_manager.adapters.event_log_decorator import event_log
-from ted_sws.event_manager.model.event_message import NoticeEventMessage
+from ted_sws.event_manager.model.event_message import NoticeEventMessage, EventMessageProcessType, EventMessageMetadata, \
+    TechnicalEventMessage
 from ted_sws.event_manager.services.logger_from_context import get_logger_from_dag_context, \
     handle_event_message_metadata_dag_context, get_task_id_from_dag_context
 
 NOTICE_ID = "notice_id"
 MAPPING_SUITE_ID = "mapping_suite_id"
+DAG_NAME = "worker_single_notice_process_orchestrator"
 
 
 @dag(default_args=DEFAULT_DAG_ARGUMENTS,
@@ -39,6 +42,23 @@ def worker_single_notice_process_orchestrator():
 
     :return:
     """
+
+    @event_log(TechnicalEventMessage(
+        message="index_notices",
+        metadata=EventMessageMetadata(
+            process_type=EventMessageProcessType.DAG, process_name=DAG_NAME
+        ))
+    )
+    def _index_notice_xml_content():
+        """
+
+        :param context_args:
+        :return:
+        """
+        notice_id = pull_dag_upstream(NOTICE_ID)
+        mongodb_client = MongoClient(config.MONGO_DB_AUTH_URL)
+        index_notice_by_id(notice_id=notice_id, mongodb_client=mongodb_client)
+        push_dag_downstream(NOTICE_ID, notice_id)
 
     @event_log(is_loggable=False)
     def _normalise_notice_metadata(**context_args):
@@ -317,6 +337,12 @@ def worker_single_notice_process_orchestrator():
         else:
             return "fail_on_state"
 
+    index_notice_xml_content = PythonOperator(
+        task_id="index_notice_xml_content",
+        python_callable=_index_notice_xml_content,
+        trigger_rule=TriggerRule.NONE_FAILED_MIN_ONE_SUCCESS
+    )
+
     normalise_notice_metadata = PythonOperator(
         task_id="normalise_notice_metadata",
         python_callable=_normalise_notice_metadata,
@@ -414,7 +440,7 @@ def worker_single_notice_process_orchestrator():
         python_callable=_check_notice_state_before_notice_successfully_processed,
     )
 
-    normalise_notice_metadata >> check_eligibility_for_transformation >> check_notice_state_before_transform >> [
+    index_notice_xml_content >> normalise_notice_metadata >> check_eligibility_for_transformation >> check_notice_state_before_transform >> [
         preprocess_xml_manifestation, fail_on_state]
     preprocess_xml_manifestation >> transform_notice >> resolve_entities_in_the_rdf_manifestation >> validate_transformed_rdf_manifestation >> check_eligibility_for_packing_by_validation_report
     check_eligibility_for_packing_by_validation_report >> check_notice_state_before_generate_mets_package >> [
@@ -425,7 +451,8 @@ def worker_single_notice_process_orchestrator():
         notice_successfully_processed, fail_on_state]
 
     state_skip_table = {
-        NoticeStatus.RAW: "normalise_notice_metadata",
+        NoticeStatus.RAW: "index_notice_xml_content",
+        NoticeStatus.INDEXED: "index_notice_xml_content",
         NoticeStatus.ELIGIBLE_FOR_TRANSFORMATION: "check_eligibility_for_transformation",
         NoticeStatus.ELIGIBLE_FOR_PACKAGING: "generate_mets_package",
         NoticeStatus.ELIGIBLE_FOR_PUBLISHING: "publish_notice_in_cellar",
@@ -442,7 +469,7 @@ def worker_single_notice_process_orchestrator():
         python_callable=_get_task_run,
     )
 
-    branch_task >> [normalise_notice_metadata, check_eligibility_for_transformation,
+    branch_task >> [index_notice_xml_content, check_eligibility_for_transformation,
                     check_notice_state_before_generate_mets_package, check_notice_state_before_publish_notice_in_cellar]
 
 

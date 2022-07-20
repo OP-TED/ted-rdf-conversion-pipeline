@@ -30,24 +30,26 @@ def test_setting_normalised_metadata_upstream(publicly_available_notice, normali
     assert publicly_available_notice.mets_manifestation is None
 
 
-def test_setting_normalised_metadata_downstream(raw_notice, normalised_metadata_dict):
-    raw_notice.set_normalised_metadata(NormalisedMetadata(**normalised_metadata_dict))
-    assert raw_notice.status is NoticeStatus.NORMALISED_METADATA
-    assert raw_notice.normalised_metadata is not None
-    assert raw_notice.rdf_manifestation is None
-    assert raw_notice.mets_manifestation is None
+def test_setting_normalised_metadata_downstream(indexed_notice, normalised_metadata_dict):
+    indexed_notice.update_status_to(NoticeStatus.INDEXED)
+    indexed_notice.set_normalised_metadata(NormalisedMetadata(**normalised_metadata_dict))
+    assert indexed_notice.status is NoticeStatus.NORMALISED_METADATA
+    assert indexed_notice.normalised_metadata is not None
+    assert indexed_notice.rdf_manifestation is None
+    assert indexed_notice.mets_manifestation is None
 
 
-def test_setting_rdf_manifestation_downstream(raw_notice):
+def test_setting_rdf_manifestation_downstream(indexed_notice):
     with pytest.raises(UnsupportedStatusTransition):
-        raw_notice.set_rdf_manifestation(RDFManifestation(object_data="rdf data"))
+        indexed_notice.set_rdf_manifestation(RDFManifestation(object_data="rdf data"))
 
-    raw_notice.update_status_to(NoticeStatus.NORMALISED_METADATA)
-    raw_notice.update_status_to(NoticeStatus.ELIGIBLE_FOR_TRANSFORMATION)
-    raw_notice.set_rdf_manifestation(RDFManifestation(object_data="rdf data"))
+    indexed_notice.update_status_to(NoticeStatus.INDEXED)
+    indexed_notice.update_status_to(NoticeStatus.NORMALISED_METADATA)
+    indexed_notice.update_status_to(NoticeStatus.ELIGIBLE_FOR_TRANSFORMATION)
+    indexed_notice.set_rdf_manifestation(RDFManifestation(object_data="rdf data"))
 
-    assert raw_notice.rdf_manifestation is not None
-    assert raw_notice.mets_manifestation is None
+    assert indexed_notice.rdf_manifestation is not None
+    assert indexed_notice.mets_manifestation is None
 
 
 def test_setting_rdf_manifestation_upstream(publicly_available_notice):
@@ -58,22 +60,22 @@ def test_setting_rdf_manifestation_upstream(publicly_available_notice):
     assert publicly_available_notice.status is NoticeStatus.TRANSFORMED
 
 
-def test_setting_mets_manifestation_downstream(raw_notice):
+def test_setting_mets_manifestation_downstream(indexed_notice):
     with pytest.raises(ValueError):
-        raw_notice.set_mets_manifestation(METSManifestation(object_data="mets data"))
+        indexed_notice.set_mets_manifestation(METSManifestation(object_data="mets data"))
+    indexed_notice.update_status_to(NoticeStatus.INDEXED)
+    indexed_notice.update_status_to(NoticeStatus.NORMALISED_METADATA)
+    indexed_notice.update_status_to(NoticeStatus.ELIGIBLE_FOR_TRANSFORMATION)
+    indexed_notice.update_status_to(NoticeStatus.PREPROCESSED_FOR_TRANSFORMATION)
+    indexed_notice.set_rdf_manifestation(RDFManifestation(object_data="rdf data"))
+    indexed_notice.update_status_to(NoticeStatus.DISTILLED)
+    indexed_notice.update_status_to(NoticeStatus.VALIDATED)
+    indexed_notice.update_status_to(NoticeStatus.ELIGIBLE_FOR_PACKAGING)
+    indexed_notice.set_mets_manifestation(METSManifestation(object_data="mets data"))
 
-    raw_notice.update_status_to(NoticeStatus.NORMALISED_METADATA)
-    raw_notice.update_status_to(NoticeStatus.ELIGIBLE_FOR_TRANSFORMATION)
-    raw_notice.update_status_to(NoticeStatus.PREPROCESSED_FOR_TRANSFORMATION)
-    raw_notice.set_rdf_manifestation(RDFManifestation(object_data="rdf data"))
-    raw_notice.update_status_to(NoticeStatus.DISTILLED)
-    raw_notice.update_status_to(NoticeStatus.VALIDATED)
-    raw_notice.update_status_to(NoticeStatus.ELIGIBLE_FOR_PACKAGING)
-    raw_notice.set_mets_manifestation(METSManifestation(object_data="mets data"))
-
-    assert raw_notice.status is NoticeStatus.PACKAGED
-    assert raw_notice.rdf_manifestation is not None
-    assert raw_notice.mets_manifestation is not None
+    assert indexed_notice.status is NoticeStatus.PACKAGED
+    assert indexed_notice.rdf_manifestation is not None
+    assert indexed_notice.mets_manifestation is not None
 
 
 def test_setting_mets_manifestation_upstream(publicly_available_notice):

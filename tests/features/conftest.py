@@ -2,6 +2,7 @@ import pytest
 from pymongo import MongoClient
 
 from ted_sws import config
+from ted_sws.core.model.metadata import XMLMetadata
 from ted_sws.data_manager.adapters.mapping_suite_repository import MappingSuiteRepositoryInFileSystem
 from ted_sws.data_manager.adapters.notice_repository import NoticeRepository
 
@@ -32,7 +33,9 @@ def f03_notice_2020(notice_storage, api_end_point):
                   ted_api_adapter=TedAPIAdapter(request_api=TedRequestAPI(),
                                                 ted_api_url=api_end_point)).fetch_notices_by_query(
         query=notice_search_query)
-    return notice_storage.get(reference="408313-2020")
+    notice = notice_storage.get(reference="408313-2020")
+    notice.set_xml_metadata(xml_metadata=XMLMetadata(unique_xpaths=["FAKE_INDEX_XPATHS"]))
+    return notice
 
 
 @pytest.fixture
@@ -42,7 +45,9 @@ def f18_notice_2022(notice_storage, api_end_point):
                   ted_api_adapter=TedAPIAdapter(request_api=TedRequestAPI(),
                                                 ted_api_url=api_end_point)).fetch_notices_by_query(
         query=notice_search_query)
-    return notice_storage.get(reference="067623-2022")
+    notice = notice_storage.get(reference="067623-2022")
+    notice.set_xml_metadata(xml_metadata=XMLMetadata(unique_xpaths=["FAKE_INDEX_XPATHS"]))
+    return notice
 
 
 @pytest.fixture

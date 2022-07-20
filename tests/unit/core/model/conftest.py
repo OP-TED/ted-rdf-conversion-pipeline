@@ -59,7 +59,7 @@ def raw_notice(fetched_notice_data) -> Notice:
 
 
 @pytest.fixture(scope="function")
-def transformation_eligible_notice(raw_notice) -> Notice:
-    raw_notice.set_normalised_metadata(normalised_metadata=NormalisedMetadata(**{"AA": "notice metadata "}))
-    raw_notice.update_status_to(NoticeStatus.ELIGIBLE_FOR_TRANSFORMATION)
-    return raw_notice
+def transformation_eligible_notice(indexed_notice) -> Notice:
+    indexed_notice.set_normalised_metadata(normalised_metadata=NormalisedMetadata(**{"AA": "notice metadata "}))
+    indexed_notice.update_status_to(NoticeStatus.ELIGIBLE_FOR_TRANSFORMATION)
+    return indexed_notice

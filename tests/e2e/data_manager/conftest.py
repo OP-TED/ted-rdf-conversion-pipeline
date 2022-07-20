@@ -214,6 +214,7 @@ def path_to_file_system_repository():
 
 @pytest.fixture
 def notice_with_distilled_status(notice_2020, rdf_file_content):
+
     notice_2020.update_status_to(new_status=NoticeStatus.NORMALISED_METADATA)
     notice_2020.update_status_to(new_status=NoticeStatus.ELIGIBLE_FOR_TRANSFORMATION)
     notice_2020.update_status_to(new_status=NoticeStatus.PREPROCESSED_FOR_TRANSFORMATION)

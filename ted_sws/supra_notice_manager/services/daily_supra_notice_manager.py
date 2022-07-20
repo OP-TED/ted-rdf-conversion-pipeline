@@ -8,7 +8,7 @@ from ted_sws.data_manager.adapters.supra_notice_repository import DailySupraNoti
 
 def create_and_store_in_mongo_db_daily_supra_notice(notice_ids: List[str], mongodb_client: MongoClient):
     """
-
+        This function creates and stores a DailySupraNotice in MongoDB.
     :param notice_ids:
     :param mongodb_client:
     :return:

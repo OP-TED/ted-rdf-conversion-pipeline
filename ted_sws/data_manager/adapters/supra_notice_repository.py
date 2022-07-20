@@ -1,14 +1,13 @@
 from datetime import datetime
 from typing import Optional, Iterator
 
-from pymongo import MongoClient
+from pymongo import MongoClient, ASCENDING
 
 from ted_sws import config
 from ted_sws.core.model.supra_notice import DailySupraNotice
 from ted_sws.data_manager.adapters.repository_abc import DailySupraNoticeRepositoryABC
 
-MONGODB_COLLECTION_ID = "_id"
-MONGODB_COLLECTION_ID = "notice_publication_day"
+DAILY_SUPRA_NOTICE_ID = "notice_publication_day"
 
 
 class DailySupraNoticeRepository(DailySupraNoticeRepositoryABC):
@@ -24,10 +23,11 @@ class DailySupraNoticeRepository(DailySupraNoticeRepositoryABC):
         self.mongodb_client = mongodb_client
         daily_supra_notice_db = mongodb_client[self._database_name]
         self.collection = daily_supra_notice_db[self._collection_name]
+        self.collection.create_index([(DAILY_SUPRA_NOTICE_ID, ASCENDING)])
 
     def _update_daily_supra_notice(self, daily_supra_notice: DailySupraNotice, upsert: bool = False):
         daily_supra_notice_dict = daily_supra_notice.dict()
-        self.collection.update_one({MONGODB_COLLECTION_ID: daily_supra_notice_dict[MONGODB_COLLECTION_ID]},
+        self.collection.update_one({DAILY_SUPRA_NOTICE_ID: daily_supra_notice_dict[DAILY_SUPRA_NOTICE_ID]},
                                    {"$set": daily_supra_notice_dict}, upsert=upsert)
 
     def add(self, daily_supra_notice: DailySupraNotice):
@@ -45,7 +45,7 @@ class DailySupraNoticeRepository(DailySupraNoticeRepositoryABC):
         :return:
         """
         daily_supra_notice_exist = self.collection.find_one(
-            {MONGODB_COLLECTION_ID: daily_supra_notice.notice_publication_day})
+            {DAILY_SUPRA_NOTICE_ID: daily_supra_notice.notice_publication_day})
         if daily_supra_notice_exist is not None:
             self._update_daily_supra_notice(daily_supra_notice=daily_supra_notice)
 
@@ -55,7 +55,7 @@ class DailySupraNoticeRepository(DailySupraNoticeRepositoryABC):
         :param reference:
         :return: DailySupraNotice
         """
-        result_dict = self.collection.find_one({MONGODB_COLLECTION_ID: reference})
+        result_dict = self.collection.find_one({DAILY_SUPRA_NOTICE_ID: reference})
         if result_dict is not None:
             daily_supra_notice = DailySupraNotice.parse_obj(result_dict)
             return daily_supra_notice

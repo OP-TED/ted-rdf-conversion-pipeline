@@ -1,3 +1,5 @@
+import datetime
+
 from ted_sws.data_manager.adapters.supra_notice_repository import DailySupraNoticeRepository
 
 
@@ -19,3 +21,5 @@ def test_daily_supra_notice_repository(mongodb_client, daily_supra_notice):
     assert result_supra_notice.notice_ids == daily_supra_notice.notice_ids
     result = list(daily_supra_notice_repository.list())
     assert len(result) == 1
+    result = daily_supra_notice_repository.get(reference=datetime.datetime.now())
+    assert result is None

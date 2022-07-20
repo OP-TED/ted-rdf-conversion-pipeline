@@ -9,7 +9,7 @@
 import abc
 import json
 from datetime import datetime, date, time
-from typing import List, Any
+from typing import List, Any, Optional
 
 from pydantic import Field
 
@@ -49,4 +49,4 @@ class DailySupraNotice(SupraNotice):
         This is an aggregate over the notices published in TED in a specific day.
     """
     notice_publication_day: datetime = datetime.combine(datetime.today(), time())
-    validation_report: SupraNoticeValidationReport = None
+    validation_report: Optional[SupraNoticeValidationReport]

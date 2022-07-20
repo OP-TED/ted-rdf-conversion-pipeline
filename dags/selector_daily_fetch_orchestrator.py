@@ -16,9 +16,12 @@ from ted_sws.event_manager.model.event_message import TechnicalEventMessage, Eve
     EventMessageProcessType
 from ted_sws.notice_fetcher.adapters.ted_api import TedAPIAdapter, TedRequestAPI
 from ted_sws.notice_fetcher.services.notice_fetcher import NoticeFetcher
+from ted_sws.supra_notice_manager.services.daily_supra_notice_manager import \
+    create_and_store_in_mongo_db_daily_supra_notice
 
 DAG_NAME = "selector_daily_fetch_orchestrator"
 WILD_CARD_PARAM = "wild_card"
+
 
 @dag(default_args=DEFAULT_DAG_ARGUMENTS,
      catchup=False,
@@ -41,8 +44,10 @@ def selector_daily_fetch_orchestrator():
             current_datetime_wildcard = (datetime.datetime.now() - datetime.timedelta(days=1)).strftime("%Y%m%d*")
         mongodb_client = MongoClient(config.MONGO_DB_AUTH_URL)
         notice_ids = NoticeFetcher(notice_repository=NoticeRepository(mongodb_client=mongodb_client),
-                      ted_api_adapter=TedAPIAdapter(request_api=TedRequestAPI())).fetch_notices_by_date_wild_card(
+                                   ted_api_adapter=TedAPIAdapter(
+                                       request_api=TedRequestAPI())).fetch_notices_by_date_wild_card(
             wildcard_date=current_datetime_wildcard)
+        create_and_store_in_mongo_db_daily_supra_notice(notice_ids=notice_ids, mongodb_client=mongodb_client)
         return notice_ids
 
     @task

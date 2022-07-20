@@ -4,6 +4,7 @@ import mongomock
 import pymongo
 import pytest
 
+from ted_sws.core.model.supra_notice import DailySupraNotice
 from ted_sws.core.model.transform import MetadataConstraints, FileResource, TransformationRuleSet, SHACLTestSuite, \
     SPARQLTestSuite, MappingSuite, TransformationTestData
 from tests import TEST_DATA_PATH
@@ -41,3 +42,8 @@ def fake_mapping_suite():
                                  transformation_test_data=transformation_test_data
                                  )
     return mapping_suite
+
+
+@pytest.fixture
+def daily_supra_notice():
+    return DailySupraNotice(notice_ids=["1", "2", "3"])

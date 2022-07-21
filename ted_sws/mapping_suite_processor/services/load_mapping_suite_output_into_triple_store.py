@@ -1,10 +1,10 @@
 import pathlib
 
 from ted_sws import config
-from ted_sws.mapping_suite_processor.adapters.allegro_triple_store import AllegroGraphVersatileTripleStore
+from ted_sws.data_manager.adapters.triple_store import AllegroGraphTripleStore
 
 
-def repository_exists(triple_store: AllegroGraphVersatileTripleStore, repository_name) -> bool:
+def repository_exists(triple_store: AllegroGraphTripleStore, repository_name) -> bool:
     """
     Method to check if the repository is in the triple store
     :param triple_store:
@@ -35,8 +35,8 @@ def load_mapping_suite_output_into_triple_store(package_folder_path, allegro_hos
 
     ttl_files_paths = [str(path) for path in package_folder_path.glob("output/**/*.ttl")]
 
-    triple_store = AllegroGraphVersatileTripleStore(host=allegro_host, password=allegro_password,
-                                                    user=allegro_user, catalog_name=allegro_catalog_name)
+    triple_store = AllegroGraphTripleStore(host=allegro_host, password=allegro_password,
+                                           user=allegro_user, catalog_name=allegro_catalog_name)
 
     if repository_exists(triple_store=triple_store, repository_name=package_name):
         triple_store.delete_repository(repository_name=package_name)

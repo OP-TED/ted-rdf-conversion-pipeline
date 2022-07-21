@@ -7,6 +7,7 @@ from ted_sws.core.model.manifestation import SPARQLTestSuiteValidationReport, SH
     RDFManifestation, METSManifestation, XMLManifestation
 from ted_sws.core.model.metadata import NormalisedMetadata, LanguageTaggedString, TEDMetadata
 from ted_sws.core.model.notice import Notice, NoticeStatus
+from ted_sws.data_manager.adapters.notice_repository import NoticeRepositoryInFileSystem
 from ted_sws.metadata_normaliser.services.metadata_normalizer import LANGUAGE_KEY, XSD_VERSION_KEY, E_FORMS_SUBTYPE_KEY, \
     EXTRACTED_LEGAL_BASIS_KEY, PLACE_OF_PERFORMANCE_KEY, FORM_TYPE_KEY, NOTICE_TYPE_KEY, DEADLINE_DATE_KEY, \
     SENT_DATE_KEY
@@ -127,16 +128,13 @@ from ted_sws.metadata_normaliser.services.metadata_normalizer import LANGUAGE_KE
 #     notice._preprocessed_xml_manifestation = xml_manifestation
 #     notice._status = NoticeStatus.PUBLICLY_AVAILABLE
 #     return notice
+from tests import TEST_DATA_PATH
 from tests.conftest import read_notice
+
+NOTICE_REPOSITORY_PATH = TEST_DATA_PATH / "notices"
 
 
 @pytest.fixture
-def transformed_notice():
-    notice_data = read_notice("396207_2018.json")
-    notice_content = base64.b64decode(notice_data["object_data"]).decode(encoding="utf-8")
-
-    xml_manifestation = XMLManifestation(object_data=notice_content)
-    # del notice_data["content"]
-    ted_id = notice_data["ted_id"]
-    original_metadata = TEDMetadata(**notice_data)
-    return Notice(ted_id=ted_id, xml_manifestation=xml_manifestation, original_metadata=original_metadata)
+def transformed_complete_notice():
+    test_notice_repository = NoticeRepositoryInFileSystem(repository_path=NOTICE_REPOSITORY_PATH)
+    return test_notice_repository.get("396207_2018")

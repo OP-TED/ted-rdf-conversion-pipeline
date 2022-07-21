@@ -1,15 +1,15 @@
 import pandas as pd
 
-from ted_sws.core.adapters.sparql_triple_store import TripleStoreABC
+from ted_sws.data_manager.adapters.sparql_endpoint import TripleStoreEndpointABC
 
 
-class FakeTripleStore(TripleStoreABC):
+class FakeTripleStoreEndpoint(TripleStoreEndpointABC):
     def with_query(self, sparql_query: str, substitution_variables: dict = None,
-                   sparql_prefixes: str = "") -> 'TripleStoreABC':
+                   sparql_prefixes: str = "") -> 'TripleStoreEndpointABC':
         return self
 
     def with_query_from_file(self, sparql_query_file_path: str, substitution_variables: dict = None,
-                             prefixes: str = "") -> 'TripleStoreABC':
+                             prefixes: str = "") -> 'TripleStoreEndpointABC':
         return self
 
     def fetch_tabular(self) -> pd.DataFrame:

@@ -12,9 +12,3 @@ def test_load_notice_into_triple_store(transformed_complete_notice, allegro_trip
 
     assert True
 
-    # repository_name = "notice"
-    #
-    #
-    # load_notice_into_triple_store(notice_id="asdsad")
-    #
-    # assert repository_name in allegro_triple_store.list_repositories()

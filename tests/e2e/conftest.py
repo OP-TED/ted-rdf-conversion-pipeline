@@ -29,3 +29,8 @@ def ttl_file():
 def path_ttl_file():
     path = TEST_DATA_PATH / "notice_transformer" / "test_repository" / "test_package" / "transformation" / "mappings" / "complementary_information.rml.ttl"
     return str(path)
+
+
+@pytest.fixture
+def fake_mapping_suite_id() -> str:
+    return "test_package"

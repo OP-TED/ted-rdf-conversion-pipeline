@@ -1,9 +1,9 @@
 import abc
 import logging
 import sys
-from colorama import Fore
 from typing import List
 
+from colorama import Fore
 
 DEFAULT_LOGGER_LEVEL = logging.NOTSET
 DEFAULT_LOGGER_NAME = "ROOT"

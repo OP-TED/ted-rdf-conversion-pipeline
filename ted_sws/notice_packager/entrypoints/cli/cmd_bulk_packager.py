@@ -8,18 +8,19 @@
 """
 This module provides functionalities to generate bulk/multiple notice packages for test purposes.
 """
-import click
-import os
 import base64
+import os
 from pathlib import Path
 
-from ted_sws.core.adapters.cmd_runner import CmdRunner as BaseCmdRunner
+import click
 
-from ted_sws.notice_metadata_processor.services.xml_manifestation_metadata_extractor import XMLManifestationMetadataExtractor
+from ted_sws.core.adapters.cmd_runner import CmdRunner as BaseCmdRunner
+from ted_sws.core.model.manifestation import XMLManifestation
+from ted_sws.core.model.notice import Notice
+from ted_sws.notice_metadata_processor.services.xml_manifestation_metadata_extractor import \
+    XMLManifestationMetadataExtractor
 from ted_sws.notice_packager.services.metadata_transformer import MetadataTransformer
 from ted_sws.notice_packager.services.notice_packager import create_notice_package
-from ted_sws.core.model.notice import Notice
-from ted_sws.core.model.manifestation import XMLManifestation
 
 CMD_NAME = "CMD_BULK_PACKAGER"
 DEFAULT_FILES_COUNT: int = 3000

@@ -19,7 +19,8 @@ from typing import Union
 from ted_sws.core.model.notice import Notice
 from ted_sws.data_manager.adapters.notice_repository import NoticeRepositoryABC
 from ted_sws.notice_metadata_processor.model.metadata import ExtractedMetadata
-from ted_sws.notice_metadata_processor.services.xml_manifestation_metadata_extractor import XMLManifestationMetadataExtractor
+from ted_sws.notice_metadata_processor.services.xml_manifestation_metadata_extractor import \
+    XMLManifestationMetadataExtractor
 from ted_sws.notice_packager.adapters.archiver import ArchiverFactory, ARCHIVE_ZIP_FORMAT, PATH_TYPE, \
     LIST_TYPE as PATH_LIST_TYPE
 from ted_sws.notice_packager.adapters.template_generator import TemplateGenerator

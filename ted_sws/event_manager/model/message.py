@@ -1,8 +1,9 @@
-from typing import Optional, List, Union, Any, Dict
-from ted_sws.event_manager.adapters.logger import Logger, logger as root_logger
 from datetime import datetime, timezone
+from typing import Optional, List, Union, Any, Dict
+
 from ted_sws.core.model import PropertyBaseModel
 from ted_sws.event_manager.adapters.log import LoggedBy
+from ted_sws.event_manager.adapters.logger import Logger, logger as root_logger
 
 MESSAGE_TYPE = Union[List[str], str]
 DICT_TYPE = Union[Dict[str, Any], None]

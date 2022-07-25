@@ -8,8 +8,8 @@ import click
 
 from ted_sws.core.adapters.cmd_runner import CmdRunner as BaseCmdRunner, DEFAULT_MAPPINGS_PATH
 from ted_sws.data_manager.entrypoints.cli import cmd_generate_mapping_resources
-from ted_sws.event_manager.adapters.logger import LOG_INFO_TEXT, LOG_WARN_TEXT, LOG_WARN_LEVEL
 from ted_sws.event_manager.adapters.log import SeverityLevelType
+from ted_sws.event_manager.adapters.logger import LOG_INFO_TEXT, LOG_WARN_TEXT
 from ted_sws.mapping_suite_processor.entrypoints.cli import cmd_yarrrml2rml_converter, cmd_metadata_generator, \
     cmd_sparql_generator, cmd_resources_injector
 

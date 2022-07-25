@@ -2,10 +2,10 @@ import abc
 from datetime import date
 from typing import List
 
-from ted_sws.data_manager.adapters.repository_abc import NoticeRepositoryABC
 from ted_sws.core.model.manifestation import XMLManifestation
 from ted_sws.core.model.metadata import TEDMetadata
 from ted_sws.core.model.notice import Notice
+from ted_sws.data_manager.adapters.repository_abc import NoticeRepositoryABC
 from ted_sws.notice_fetcher.adapters.ted_api_abc import TedAPIAdapterABC
 
 

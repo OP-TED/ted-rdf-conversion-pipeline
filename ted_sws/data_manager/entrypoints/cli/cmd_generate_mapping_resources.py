@@ -6,10 +6,9 @@ import click
 
 from ted_sws.core.adapters.cmd_runner import CmdRunner as BaseCmdRunner, DEFAULT_MAPPINGS_PATH
 from ted_sws.core.adapters.sparql_triple_store import SPARQLTripleStore, TripleStoreABC
-from ted_sws.resources import QUERIES_PATH, MAPPING_FILES_PATH
-from ted_sws.event_manager.adapters.logger import LOG_INFO_TEXT
 from ted_sws.data_manager.adapters.mapping_suite_repository import TRANSFORM_PACKAGE_NAME, RESOURCES_PACKAGE_NAME
-
+from ted_sws.event_manager.adapters.logger import LOG_INFO_TEXT
+from ted_sws.resources import QUERIES_PATH, MAPPING_FILES_PATH
 
 DEFAULT_OUTPUT_PATH = '{mappings_path}/{mapping_suite_id}/' + TRANSFORM_PACKAGE_NAME + '/' + RESOURCES_PACKAGE_NAME
 CMD_NAME = "NORMALISATION_RESOURCE_GENERATOR"

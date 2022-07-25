@@ -2,6 +2,7 @@ import base64
 import json
 from datetime import date
 from typing import List
+
 import requests
 
 from ted_sws import config

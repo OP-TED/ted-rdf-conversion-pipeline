@@ -1,9 +1,7 @@
-import pandas as pd
-
 from ted_sws.core.model.notice import NoticeStatus
 from ted_sws.data_manager.adapters.mapping_suite_repository import MappingSuiteRepositoryInFileSystem
 from ted_sws.notice_metadata_processor.services.metadata_normalizer import MetadataNormaliser
-from ted_sws.notice_eligibility.services.notice_eligibility import check_package, \
+from ted_sws.notice_metadata_processor.services.notice_eligibility import check_package, \
     notice_eligibility_checker, notice_eligibility_checker_by_id, transform_version_string_into_int
 
 

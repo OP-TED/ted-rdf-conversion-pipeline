@@ -1,8 +1,6 @@
 import datetime
 from typing import Tuple
 
-import pandas as pd
-
 from ted_sws.core.model.metadata import NormalisedMetadata
 from ted_sws.core.model.notice import Notice
 from ted_sws.core.model.transform import MappingSuite

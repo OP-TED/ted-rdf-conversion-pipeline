@@ -1,7 +1,7 @@
 from ted_sws.mapping_suite_processor.entrypoints.cli.cmd_mapping_suite_processor import main as cli_main
-from tests.unit.mapping_suite_processor.cli.test_cmd_metadata_generator import post_process as metadata_post_process
-from tests.unit.mapping_suite_processor.cli.test_cmd_sparql_generator import post_process as sparql_post_process
-from tests.unit.mapping_suite_processor.cli.test_cmd_yarrrml2rml_converter import post_process as rml_post_process
+from tests.e2e.mapping_suite_processor.cli.test_cmd_metadata_generator import post_process as metadata_post_process
+from tests.e2e.mapping_suite_processor.cli.test_cmd_sparql_generator import post_process as sparql_post_process
+from tests.e2e.mapping_suite_processor.cli.test_cmd_yarrrml2rml_converter import post_process as rml_post_process
 
 
 def post_process(fake_repository_path, fake_mapping_suite_id):

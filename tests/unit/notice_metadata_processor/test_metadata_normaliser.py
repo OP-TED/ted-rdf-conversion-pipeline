@@ -1,7 +1,7 @@
 import pytest
 
 from ted_sws.core.model.notice import NoticeStatus
-from ted_sws.core.service.metadata_constraints import filter_df_by_variables
+from ted_sws.notice_metadata_processor.services.metadata_constraints import filter_df_by_variables
 from ted_sws.resources.mapping_files_registry import MappingFilesRegistry
 from ted_sws.notice_metadata_processor.services.metadata_normalizer import normalise_notice, normalise_notice_by_id, \
     MetadataNormaliser, ExtractedMetadataNormaliser, FORM_NUMBER_KEY, SF_NOTICE_TYPE_KEY, LEGAL_BASIS_KEY, \

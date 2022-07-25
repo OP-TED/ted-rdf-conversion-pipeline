@@ -146,8 +146,14 @@ class API:
         return int(v) if v else 8000
 
 
+class TedAPIConfig:
+    @property
+    def TED_API_URL(self) -> str:
+        return EnvConfigResolver().config_resolve()
+
+
 class TedConfigResolver(MongoDBConfig, RMLMapperConfig, XMLProcessorConfig, ELKConfig, LoggingConfig,
-                        GitHubArtefacts, API, AllegroConfig):
+                        GitHubArtefacts, API, AllegroConfig, TedAPIConfig):
     """
         This class resolve the secrets of the ted-sws project.
     """

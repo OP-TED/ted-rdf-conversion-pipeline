@@ -13,7 +13,7 @@ This transformed metadata is what adapters expect.
 
 import datetime
 
-from ted_sws.metadata_normaliser.model.metadata import ExtractedMetadata
+from ted_sws.notice_metadata_processor.model.metadata import ExtractedMetadata
 from ted_sws.notice_packager.model.metadata import PackagerMetadata, ACTION_CREATE, LANGUAGE, REVISION, BASE_WORK, \
     BASE_TITLE
 

@@ -1,4 +1,4 @@
-from ted_sws.metadata_normaliser.services.xpath_registry import XpathRegistry
+from ted_sws.notice_metadata_processor.services.xpath_registry import XpathRegistry
 
 
 def test_xpath_registry():

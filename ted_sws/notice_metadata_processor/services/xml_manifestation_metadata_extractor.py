@@ -2,9 +2,9 @@ import xml.etree.ElementTree as ET
 from io import StringIO
 
 from ted_sws.core.model.manifestation import XMLManifestation
-from ted_sws.metadata_normaliser.model.metadata import ExtractedMetadata, LanguageTaggedString, CompositeTitle, \
+from ted_sws.notice_metadata_processor.model.metadata import ExtractedMetadata, LanguageTaggedString, CompositeTitle, \
     EncodedValue
-from ted_sws.metadata_normaliser.services.xpath_registry import XpathRegistry
+from ted_sws.notice_metadata_processor.services.xpath_registry import XpathRegistry
 
 
 class XMLManifestationMetadataExtractor:

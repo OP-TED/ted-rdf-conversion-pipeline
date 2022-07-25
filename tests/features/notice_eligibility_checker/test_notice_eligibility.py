@@ -1,7 +1,7 @@
 from pytest_bdd import scenario, given, when, then
 
 from ted_sws.core.model.notice import NoticeStatus
-from ted_sws.metadata_normaliser.services.metadata_normalizer import MetadataNormaliser
+from ted_sws.notice_metadata_processor.services.metadata_normalizer import MetadataNormaliser
 from ted_sws.notice_eligibility.services.notice_eligibility import notice_eligibility_checker
 
 

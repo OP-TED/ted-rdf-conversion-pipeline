@@ -12,7 +12,7 @@ from ted_sws.event_manager.adapters.event_logger import EventLogger
 from ted_sws.event_manager.model.event_message import NoticeEventMessage
 from ted_sws.event_manager.services.logger_from_context import get_logger_from_dag_context, \
     handle_event_message_metadata_dag_context
-from ted_sws.metadata_normaliser.services.metadata_normalizer import normalise_notice_by_id
+from ted_sws.notice_metadata_processor.services.metadata_normalizer import normalise_notice_by_id
 
 NOTICE_ID = "notice_id"
 

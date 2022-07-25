@@ -1,5 +1,5 @@
-from ted_sws.metadata_normaliser.model.metadata import ExtractedMetadata, EncodedValue
-from ted_sws.metadata_normaliser.services.xml_manifestation_metadata_extractor import extract_text_from_element, \
+from ted_sws.notice_metadata_processor.model.metadata import ExtractedMetadata, EncodedValue
+from ted_sws.notice_metadata_processor.services.xml_manifestation_metadata_extractor import extract_text_from_element, \
     extract_attribute_from_element, XMLManifestationMetadataExtractor, extract_code_and_value_from_element
 
 import xml.etree.ElementTree as ET

@@ -15,7 +15,7 @@ from pathlib import Path
 
 from ted_sws.core.adapters.cmd_runner import CmdRunner as BaseCmdRunner
 
-from ted_sws.metadata_normaliser.services.xml_manifestation_metadata_extractor import XMLManifestationMetadataExtractor
+from ted_sws.notice_metadata_processor.services.xml_manifestation_metadata_extractor import XMLManifestationMetadataExtractor
 from ted_sws.notice_packager.services.metadata_transformer import MetadataTransformer
 from ted_sws.notice_packager.services.notice_packager import create_notice_package
 from ted_sws.core.model.notice import Notice

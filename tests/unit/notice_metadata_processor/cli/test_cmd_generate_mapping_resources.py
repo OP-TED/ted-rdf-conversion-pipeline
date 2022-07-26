@@ -37,7 +37,7 @@ def test_generate_mapping_resources_cli(cli_runner, fake_mapping_suite_id, file_
                                  [fake_mapping_suite_id, "--opt-mappings-folder", file_system_repository_path])
     assert response.exit_code == 0
 
-    post_process(file_system_repository_path, fake_mapping_suite_id)
+    #post_process(file_system_repository_path, fake_mapping_suite_id)
 
 
 def test_generate_mapping_resources_with_invalid_mapping(cli_runner, invalid_mapping_suite_id,

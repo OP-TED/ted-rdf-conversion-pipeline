@@ -19,15 +19,15 @@ XML_PROCESSOR_PATH = ${PROJECT_PATH}/.saxon/saxon-he-10.6.jar
 #-----------------------------------------------------------------------------
 # Dev commands
 #-----------------------------------------------------------------------------
-install: install-dev
+install:
 	@ echo -e "$(BUILD_PRINT)Installing the requirements$(END_BUILD_PRINT)"
 	@ pip install --upgrade pip
-	@ pip install -r requirements.txt
+	@ pip install --no-cache-dir -r requirements.txt --constraint "https://raw.githubusercontent.com/apache/airflow/constraints-2.2.5/constraints-no-providers-3.8.txt"
 
 install-dev:
 	@ echo -e "$(BUILD_PRINT)Installing the dev requirements$(END_BUILD_PRINT)"
 	@ pip install --upgrade pip
-	@ pip install -r requirements.dev.txt
+	@ pip install --no-cache-dir -r requirements.dev.txt --constraint "https://raw.githubusercontent.com/apache/airflow/constraints-2.2.5/constraints-no-providers-3.8.txt"
 
 test: test-unit
 

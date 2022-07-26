@@ -14,7 +14,6 @@ import pandas as pd
 from SPARQLWrapper import SPARQLWrapper, CSV, JSON
 
 DEFAULT_ENCODING = 'utf-8'
-DEFAULT_ENDPOINT_URL = "https://publications.europa.eu/webapi/rdf/sparql"
 
 
 class SubstitutionTemplate(Template):
@@ -36,14 +35,14 @@ class SPARQLClientPool(object):
         return SPARQLClientPool.connection_pool[endpoint_url]
 
 
-class TripleStoreABC(ABC):
+class TripleStoreEndpointABC(ABC):
     """
         This class provides an abstraction for a TripleStore.
     """
 
     @abstractmethod
     def with_query(self, sparql_query: str, substitution_variables: dict = None,
-                   sparql_prefixes: str = "") -> 'TripleStoreABC':
+                   sparql_prefixes: str = "") -> 'TripleStoreEndpointABC':
         """
             This method will take a query in a string format
         :param sparql_query:
@@ -54,7 +53,7 @@ class TripleStoreABC(ABC):
 
     @abstractmethod
     def with_query_from_file(self, sparql_query_file_path: str, substitution_variables: dict = None,
-                             prefixes: str = "") -> 'TripleStoreABC':
+                             prefixes: str = "") -> 'TripleStoreEndpointABC':
         """
             This method will read a query from a file
         :param sparql_query_file_path:
@@ -78,13 +77,13 @@ class TripleStoreABC(ABC):
         """
 
 
-class SPARQLTripleStore(TripleStoreABC):
+class SPARQLTripleStoreEndpoint(TripleStoreEndpointABC):
 
-    def __init__(self, endpoint_url: str = DEFAULT_ENDPOINT_URL):
+    def __init__(self, endpoint_url: str):
         self.endpoint = SPARQLClientPool.create_or_reuse_connection(endpoint_url)
 
     def with_query(self, sparql_query: str, substitution_variables: dict = None,
-                   sparql_prefixes: str = "") -> TripleStoreABC:
+                   sparql_prefixes: str = "") -> TripleStoreEndpointABC:
         """
             Set the query text and return the reference to self for chaining.
         :return:
@@ -99,7 +98,7 @@ class SPARQLTripleStore(TripleStoreABC):
         return self
 
     def with_query_from_file(self, sparql_query_file_path: str, substitution_variables: dict = None,
-                             prefixes: str = "") -> TripleStoreABC:
+                             prefixes: str = "") -> TripleStoreEndpointABC:
         """
             Set the query text and return the reference to self for chaining.
         :return:

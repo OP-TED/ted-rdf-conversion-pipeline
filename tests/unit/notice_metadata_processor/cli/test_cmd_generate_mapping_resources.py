@@ -3,7 +3,7 @@ import os
 import pathlib
 
 from ted_sws.data_manager.entrypoints.cli.cmd_generate_mapping_resources import run as cli_run, main as cli_main
-from tests.fakes.fake_triple_store import FakeTripleStore
+from tests.fakes.fake_triple_store import FakeTripleStoreEndpoint
 
 
 def post_process(fake_repository_path, fake_mapping_suite_id):
@@ -17,7 +17,7 @@ def post_process(fake_repository_path, fake_mapping_suite_id):
 
 def test_generate_mapping_resources(tmp_path, queries_folder_path):
     output_folder_path = tmp_path
-    cli_run(triple_store=FakeTripleStore(), opt_queries_folder=str(queries_folder_path),
+    cli_run(triple_store=FakeTripleStoreEndpoint(), opt_queries_folder=str(queries_folder_path),
             opt_output_folder=str(output_folder_path))
     generated_file_paths = list(pathlib.Path(output_folder_path).rglob("*.json"))
 

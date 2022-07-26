@@ -1,7 +1,7 @@
 import pathlib
 
 from ted_sws import config
-from ted_sws.mapping_suite_processor.adapters.allegro_triple_store import AllegroGraphTripleStore
+from ted_sws.data_manager.adapters.triple_store import AllegroGraphTripleStore
 
 
 def repository_exists(triple_store: AllegroGraphTripleStore, repository_name) -> bool:

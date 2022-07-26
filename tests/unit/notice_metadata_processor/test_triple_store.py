@@ -1,12 +1,12 @@
 import pandas as pd
 
-from tests.fakes.fake_triple_store import FakeTripleStore
+from tests.fakes.fake_triple_store import FakeTripleStoreEndpoint
 
 
 def test_triple_store():
-    triple_store = FakeTripleStore()
+    triple_store = FakeTripleStoreEndpoint()
     tmp_store = triple_store.with_query(sparql_query="Use SPARQL query")
-    assert type(tmp_store) == FakeTripleStore
+    assert type(tmp_store) == FakeTripleStoreEndpoint
     assert tmp_store == triple_store
     tmp_df = tmp_store.fetch_tabular()
     assert tmp_df is not None

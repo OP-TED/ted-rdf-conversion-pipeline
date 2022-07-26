@@ -6,7 +6,6 @@ from ted_sws.core.model.transform import FileResource, SPARQLTestSuite, Metadata
     SHACLTestSuite, TransformationTestData, MappingSuite
 from tests import TEST_DATA_PATH
 
-
 @pytest.fixture
 def query_content():
     return """# title: Official name
@@ -232,10 +231,10 @@ def fake_repository_path():
 
 
 @pytest.fixture
-def fake_mapping_suite_id() -> str:
-    return "test_package"
+def invalid_mapping_suite_id() -> str:
+    return "test_invalid_package"
 
 
 @pytest.fixture
-def invalid_mapping_suite_id() -> str:
-    return "test_invalid_package"
+def cellar_sparql_endpoint():
+    return "https://publications.europa.eu/webapi/rdf/sparql"

@@ -2,8 +2,6 @@ import mongomock
 import pymongo
 import pytest
 
-from ted_sws import config
-from ted_sws.mapping_suite_processor.adapters.allegro_triple_store import AllegroGraphTripleStore
 from tests import TEST_DATA_PATH
 
 @pytest.fixture
@@ -80,34 +78,9 @@ def rml_file_result():
 
 """
 
-@pytest.fixture
-def ttl_file():
-    path = TEST_DATA_PATH / "notice_transformer" / "test_repository" / "test_package" / "transformation" / "mappings" / "award_of_contract.rml.ttl"
-    return path.read_text()
-
-
-@pytest.fixture
-def path_ttl_file():
-    path = TEST_DATA_PATH / "notice_transformer" / "test_repository" / "test_package" / "transformation" / "mappings" / "complementary_information.rml.ttl"
-    return str(path)
-
 
 @pytest.fixture
 def package_folder_path():
     return TEST_DATA_PATH / "notice_validator" / "test_repository" / "test_package"
 
 
-@pytest.fixture
-def fake_mapping_suite_id():
-    return "test_package"
-
-
-@pytest.fixture
-def file_system_repository_path():
-    return TEST_DATA_PATH / "notice_validator" / "test_repository"
-
-
-@pytest.fixture
-def allegro_triple_store():
-    return AllegroGraphTripleStore(host=config.ALLEGRO_HOST, user=config.AGRAPH_SUPER_USER,
-                                   password=config.AGRAPH_SUPER_PASSWORD)

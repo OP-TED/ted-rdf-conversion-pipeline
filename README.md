@@ -16,7 +16,8 @@
 ## Table of contents
 
 - [Developer documentation](#developer-documentation)
-- [Installation](#installation)
+- [Installation for Software Engineers](#installation-for-software-engineers)
+- [Installation for Semantic Engineers](#installation-for-semantic-engineers)
 - [Usage](#usage)
 - [Contributing](#contributing)
 - [Licence](#licence)
@@ -31,9 +32,68 @@ If you contribute to this project please refer to the following project document
 * [Enterprise architecture model file (in development)](https://drive.google.com/file/d/1YB2dPYe9E9bAR2peVraQaUANS-hXetms/view?usp=sharing)
 * [Meaningfy google Drive of the project (restricted)](https://drive.google.com/drive/folders/1wfWYDAtcaJrYTuB14VzTixr1mJUkCHYl?usp=sharing)
 
+Try to follow as close as possible the Clean Code Architecture (onion architecture), develop by writing tests first i.e. do Test Driven Development (TDD) and think of the Domain first, i.e. think Domain Driven Design (DDD).
+
 <hr>
 
-## Installation
+## Installation for software engineers
+
+
+Make sure you have installed `Docker` and `docker-compose`.
+
+Create the local `venv` and activate it.
+```shell
+pip install virtualenv
+virtualenv venv
+source venv/bin/activate
+```
+
+Install the python dependencies:
+
+```shell
+make install
+make istall-dev
+```
+
+Prepare the Airflow environment
+```shell
+make create-env-airflow
+```
+
+Set up the local infra 
+```shell
+make build-externals
+make build-airflow
+make init-rml-mapper
+make init-saxon
+```
+
+Start local infra services 
+```shell
+make start-traefik
+make start-mongo
+make start-metabase
+make start-allegro-graph
+```
+
+Start Airflow
+```shell
+make start-airflow
+```
+
+## Running tests
+
+```shell
+make install-dev
+```
+
+```shell
+make test-unit
+make test-feature
+make test-e2e
+```
+
+## Installation for semantic engineers
 ### Installation of ted-sws package within external projects using terminal
 #### 1. Using the package manager pip
 1. Go to the root folder of the project

@@ -10,7 +10,8 @@ def post_process(fake_repository_path, fake_mapping_suite_id):
     rml_post_process(fake_repository_path, fake_mapping_suite_id)
 
 
-def test_mapping_suite_processor(cli_runner, fake_mapping_suite_id, file_system_repository_path):
+def test_mapping_suite_processor(cli_runner, fake_mapping_suite_id, file_system_repository_path,
+                                 ):
     response = cli_runner.invoke(cli_main, [
         fake_mapping_suite_id,
         "--opt-mappings-folder", file_system_repository_path

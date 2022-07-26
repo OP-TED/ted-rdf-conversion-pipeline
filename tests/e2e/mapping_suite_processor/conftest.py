@@ -1,8 +1,15 @@
+import mongomock
+import pymongo
 import pytest
 
 from ted_sws import config
 from ted_sws.mapping_suite_processor.adapters.allegro_triple_store import AllegroGraphTripleStore
 from tests import TEST_DATA_PATH
+
+@pytest.fixture
+@mongomock.patch(servers=(('server.example.com', 27017),))
+def fake_mongodb_client():
+    return pymongo.MongoClient('server.example.com')
 
 
 @pytest.fixture

@@ -10,9 +10,10 @@ from ted_sws.data_manager.adapters.repository_abc import NoticeRepositoryABC, Ma
 from ted_sws.event_manager.adapters.event_logger import EventLogger
 from ted_sws.event_manager.model.event_message import NoticeEventMessage
 from ted_sws.event_manager.services.logger_from_context import get_env_logger
-from ted_sws.notice_transformer.adapters.rml_mapper import RMLMapperABC, SerializationFormat as RMLSerializationFormat
+from ted_sws.notice_transformer.adapters.rml_mapper import RMLMapperABC
 
 DATA_SOURCE_PACKAGE = "data"
+DEFAULT_TRANSFORMATION_FILE_EXTENSION = ".ttl"
 
 
 def transform_notice(notice: Notice, mapping_suite: MappingSuite, rml_mapper: RMLMapperABC) -> Notice:
@@ -93,7 +94,7 @@ def transform_test_data(mapping_suite: MappingSuite, rml_mapper: RMLMapperABC, o
         filename = file_resource.file_name
         original_name = file_resource.original_name if file_resource.original_name else filename
         notice_container = Path(filename).stem
-        out_filename = Path(original_name).stem + ".ttl"
+        out_filename = Path(original_name).stem + DEFAULT_TRANSFORMATION_FILE_EXTENSION
         file_resource_parent_path = output_path / Path(notice_container)
         file_resource_parent_path.mkdir(parents=True, exist_ok=True)
         file_resource_path = file_resource_parent_path / Path(out_filename)

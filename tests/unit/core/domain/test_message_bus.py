@@ -6,7 +6,7 @@
 import logging
 
 from ted_sws.event_manager.adapters.logger import Logger
-from ted_sws.event_manager.domain.message_bus import message_bus
+from ted_sws.event_manager.model.message_bus import message_bus
 from ted_sws.event_manager.model.message import Log
 
 TEST_LOGGER = Logger(name="TEST_MESSAGE_BUS_LOGGER", level=logging.INFO)

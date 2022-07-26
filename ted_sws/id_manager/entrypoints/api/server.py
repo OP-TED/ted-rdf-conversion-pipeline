@@ -5,7 +5,7 @@ import click
 
 from ted_sws import config
 from ted_sws.event_manager.adapters.logger import Logger, LOG_INFO_LEVEL
-from ted_sws.event_manager.domain.message_bus import message_bus
+from ted_sws.event_manager.model.message_bus import message_bus
 from ted_sws.event_manager.model.message import Log
 from ted_sws.id_manager.entrypoints.api.main import API_PREFIX
 

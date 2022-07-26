@@ -7,7 +7,7 @@ from ted_sws import config
 from ted_sws.event_manager.adapters.logger import Logger, LOG_INFO_LEVEL
 from ted_sws.event_manager.model.message_bus import message_bus
 from ted_sws.event_manager.model.message import Log
-from ted_sws.id_manager.entrypoints.api.main import API_PREFIX
+from ted_sws.notice_transformer.entrypoints.api.digest_service.main import API_PREFIX
 
 API_HOST: str = config.ID_MANAGER_API_HOST
 API_PORT: int = config.ID_MANAGER_API_PORT

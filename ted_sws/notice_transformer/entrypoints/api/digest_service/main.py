@@ -1,8 +1,8 @@
 from fastapi import FastAPI
 
-from ted_sws.id_manager.entrypoints.api.routes.hashing import route as hashing_route, \
+from ted_sws.notice_transformer.entrypoints.api.digest_service.routes.hashing import route as hashing_route, \
     ROUTE_PREFIX as HASHING_ROUTE_PREFIX
-from ted_sws.id_manager.entrypoints.api.routes.xpath import route as xpath_route, ROUTE_PREFIX as XPATH_ROUTE_PREFIX
+from ted_sws.notice_transformer.entrypoints.api.digest_service.routes.xpath import route as xpath_route, ROUTE_PREFIX as XPATH_ROUTE_PREFIX
 
 API_VERSION = "1"
 

@@ -3,7 +3,8 @@ from typing import Optional
 
 from fastapi import APIRouter
 
-from ted_sws.id_manager.entrypoints.api.common import ResponseType, single_result_response, unescape_value
+from ted_sws.notice_transformer.entrypoints.api.digest_service.common import ResponseType, single_result_response, \
+    unescape_value
 
 ROUTE_PREFIX = "/xpath"
 

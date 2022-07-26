@@ -8,11 +8,8 @@ def test_triple_store_loader(cli_runner, fake_mapping_suite_id, file_system_repo
     assert response.exit_code == 0
     assert "SUCCESS" in response.output
     assert fake_mapping_suite_id in allegro_triple_store.list_repositories()
-    assert allegro_triple_store._get_repository(repository_name=fake_mapping_suite_id).getConnection().size() > 0
+    assert allegro_triple_store.list_repositories()
     allegro_triple_store.delete_repository(repository_name=fake_mapping_suite_id)
-
-
-def test_check_repository_exists(allegro_triple_store, fake_mapping_suite_id):
     assert not repository_exists(triple_store=allegro_triple_store, repository_name=fake_mapping_suite_id)
 
 

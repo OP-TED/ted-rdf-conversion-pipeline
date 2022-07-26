@@ -1,6 +1,6 @@
 import pytest
 
-from ted_sws.notice_fetcher.adapters.ted_api import DEFAULT_TED_API_URL
+from ted_sws import config
 from tests.fakes.fake_repository import FakeNoticeRepository
 
 
@@ -11,7 +11,7 @@ def notice_identifier():
 
 @pytest.fixture
 def api_end_point():
-    return DEFAULT_TED_API_URL
+    return config.TED_API_URL
 
 
 @pytest.fixture

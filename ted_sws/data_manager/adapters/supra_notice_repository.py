@@ -1,4 +1,3 @@
-from datetime import datetime
 from typing import Optional, Iterator
 
 from pymongo import MongoClient, ASCENDING

@@ -1,3 +1,5 @@
+import inspect
+
 from decorator import decorate
 
 from ted_sws.event_manager.adapters.event_handler import DEFAULT_SEVERITY_LEVEL
@@ -6,7 +8,6 @@ from ted_sws.event_manager.adapters.event_logger import EventLogger
 from ted_sws.event_manager.adapters.log import EVENT_LOGGER_CONTEXT_KEY
 from ted_sws.event_manager.model.event_message import EventMessage, SeverityLevelType
 from ted_sws.event_manager.services.logger_from_context import get_env_logger
-import inspect
 
 DEFAULT_DAG_LOGGER_NAME = "DAG"
 

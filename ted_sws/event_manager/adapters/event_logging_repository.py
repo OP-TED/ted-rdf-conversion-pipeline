@@ -5,7 +5,6 @@ from pymongo import MongoClient, ASCENDING, DESCENDING
 from ted_sws import config
 from ted_sws.event_manager.model.event_message import EventMessage
 
-
 """
 This module contains the event logging repository adapters.
 """

@@ -6,7 +6,7 @@ from ted_sws.data_manager.adapters.notice_repository import NoticeRepository
 from ted_sws.data_sampler.services.notice_xml_indexer import index_notice
 from ted_sws.mapping_suite_processor.services.conceptual_mapping_processor import \
     mapping_suite_processor_from_github_expand_and_load_package_in_mongo_db
-from ted_sws.metadata_normaliser.services.metadata_normalizer import normalise_notice
+from ted_sws.notice_metadata_processor.services.metadata_normalizer import normalise_notice
 
 
 @pytest.fixture

@@ -1,7 +1,7 @@
 import pathlib
 
 from ted_sws import config
-from ted_sws.mapping_suite_processor.adapters.allegro_triple_store import AllegroGraphTripleStore
+from ted_sws.data_manager.adapters.triple_store import AllegroGraphTripleStore
 
 
 def repository_exists(triple_store: AllegroGraphTripleStore, repository_name) -> bool:
@@ -11,7 +11,7 @@ def repository_exists(triple_store: AllegroGraphTripleStore, repository_name) ->
     :param repository_name:
     :return:
     """
-    return True if repository_name in triple_store.list_repositories() else False
+    return repository_name in triple_store.list_repositories()
 
 
 def load_mapping_suite_output_into_triple_store(package_folder_path, allegro_host=config.ALLEGRO_HOST,

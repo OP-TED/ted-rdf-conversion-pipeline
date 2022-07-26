@@ -6,7 +6,6 @@ def test_cmd_sparql_runner(cli_runner, fake_mapping_suite_id, fake_repository_pa
     response = cli_runner.invoke(cli_main,
                                  [fake_mapping_suite_id, "--opt-mappings-folder", fake_repository_path])
     assert response.exit_code == 0
-    print(response.output)
     assert "SUCCESS" in response.output
 
     post_process(fake_repository_path, fake_mapping_suite_id)

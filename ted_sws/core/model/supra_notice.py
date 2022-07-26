@@ -7,11 +7,8 @@
 
 """ This module implements aggregates over groups of notices and the appropriate business needs, on those groups """
 import abc
-import json
-from datetime import datetime, date, time
-from typing import List, Any, Optional
-
-from pydantic import Field
+from datetime import datetime, time
+from typing import List, Optional
 
 from ted_sws.core.model import PropertyBaseModel
 from ted_sws.core.model.manifestation import Manifestation

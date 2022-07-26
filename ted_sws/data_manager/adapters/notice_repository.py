@@ -1,18 +1,19 @@
 import copy
 import json
-from datetime import datetime
 import logging
+import pathlib
+from datetime import datetime
 from typing import Iterator, Union, Optional, Tuple
 
 import gridfs
-from pymongo import MongoClient, ASCENDING
 from bson import ObjectId
+from pymongo import MongoClient, ASCENDING
+
 from ted_sws import config
 from ted_sws.core.model.manifestation import XMLManifestation, RDFManifestation, METSManifestation, Manifestation
 from ted_sws.core.model.metadata import NormalisedMetadata
-from ted_sws.data_manager.adapters.repository_abc import NoticeRepositoryABC
 from ted_sws.core.model.notice import Notice, NoticeStatus
-import pathlib
+from ted_sws.data_manager.adapters.repository_abc import NoticeRepositoryABC
 
 logger = logging.getLogger(__name__)
 
@@ -35,7 +36,7 @@ class NoticeRepositoryInFileSystem(NoticeRepositoryABC):
     """
 
     def __init__(self, repository_path: pathlib.Path):
-        self.repository_path = repository_path
+        self.repository_path = pathlib.Path(repository_path)
         self.repository_path.mkdir(parents=True, exist_ok=True)
 
     @staticmethod

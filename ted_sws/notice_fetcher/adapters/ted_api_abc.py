@@ -17,7 +17,6 @@ class RequestAPI(abc.ABC):
         """
 
 
-
 class TedAPIAdapterABC(abc.ABC):
     @abc.abstractmethod
     def get_by_id(self, document_id: str) -> dict:

@@ -1,7 +1,7 @@
 from fastapi.responses import JSONResponse, PlainTextResponse
 
-from ted_sws.id_manager.entrypoints.api.common import single_result_response, unescape_value
-from ted_sws.id_manager.entrypoints.api.server import api_server_start as cli_api_server_start
+from ted_sws.notice_transformer.entrypoints.api.digest_service.common import single_result_response, unescape_value
+from ted_sws.notice_transformer.entrypoints.api.digest_service.server import api_server_start as cli_api_server_start
 
 
 def test_single_result_response(input_value, response_type_json, response_type_raw):

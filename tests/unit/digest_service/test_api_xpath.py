@@ -1,7 +1,7 @@
 import urllib.parse
 
-from ted_sws.id_manager.entrypoints.api.main import API_PREFIX
-from ted_sws.id_manager.entrypoints.api.routes.xpath import sanitize_xpath, ROUTE_PREFIX
+from ted_sws.notice_transformer.entrypoints.api.digest_service.main import API_PREFIX
+from ted_sws.notice_transformer.entrypoints.api.digest_service.routes.xpath import sanitize_xpath, ROUTE_PREFIX
 
 URL_PREFIX = API_PREFIX + ROUTE_PREFIX
 

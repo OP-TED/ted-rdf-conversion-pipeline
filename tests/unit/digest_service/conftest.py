@@ -8,9 +8,9 @@
 import pytest
 from fastapi.testclient import TestClient
 
-from ted_sws.id_manager.entrypoints.api.common import ResponseType
-from ted_sws.id_manager.entrypoints.api.main import app
-from ted_sws.id_manager.entrypoints.api.routes.hashing import UUIDInputProcessType, UUIDNamespaceType, UUIDVersion
+from ted_sws.notice_transformer.entrypoints.api.digest_service.common import ResponseType
+from ted_sws.notice_transformer.entrypoints.api.digest_service.main import app
+from ted_sws.notice_transformer.entrypoints.api.digest_service.routes.hashing import UUIDInputProcessType, UUIDNamespaceType, UUIDVersion
 
 
 @pytest.fixture

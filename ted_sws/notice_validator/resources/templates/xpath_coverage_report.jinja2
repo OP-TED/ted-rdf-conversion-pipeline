@@ -73,9 +73,17 @@
 <ul>
     <li>Date created: {{ created_at }}</li>
     <li>Mapping suite identifier: {{ mapping_suite_id }}</li>
-    <li>Coverage: <strong>{{ coverage }}</strong>
-    <div><hr></div></li>
-    <li>Notice identifier(s):
+    <li>
+        <div><hr></div>
+        <h4>Overall coverage</h4>
+        <h3>{{ "%.2f"|format((coverage|float * 100)) }}%</h3>
+        <p>(Number of Conceptual XPATHs found in notices) / (Total number of unique XPATHs in provided notices)</p>
+    <li><div><hr></div>
+        <h4>Conceptual coverage</h4>
+        <h3>{{ "%.2f"|format((conceptual_coverage|float * 100)) }}%</h3>
+        <p>(Number of Conceptual XPATHs found in notices) / (Total number of unique Conceptual XPATHs)</p>
+    </li>
+    <li><div><hr></div>Notice identifier(s):
         <div data-role="collapsible" data-state="{% if notice_id|length > 1 %}collapsed{% endif %}"
             class="collapsible-wrapper">
             <h4><a href="#"></a></h4>
@@ -97,9 +105,9 @@
     <tr>
         <th>Title</th>
         <th>XPATH</th>
-        <th>Count</th>
-        <th>Notice</th>
-        <th>Result</th>
+        <th>Found</th>
+        <th>Notice count</th>
+        <th>Notices</th>
     </tr>
     </thead>
     <tbody>
@@ -107,6 +115,7 @@
     <tr>
         <td>{{ item.title }}</td>
         <td>{{ item.xpath }}</td>
+        <td class="{% if item.query_result %}success{% else %}error{% endif %}">{{ item.query_result }}</td>
         <td>{{ item.count }}</td>
         <td class="notice-hit">{% if item.notice_hit %}
             <div data-role="collapsible" data-state="collapsed">
@@ -116,7 +125,6 @@
                 </div>
             </div>
         {% endif %}</td>
-        <td class="{% if item.query_result %}success{% else %}error{% endif %}">{{ item.query_result }}</td>
     </tr>
     {% endfor %}
     </tbody>

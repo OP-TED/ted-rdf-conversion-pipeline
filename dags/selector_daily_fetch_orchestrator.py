@@ -10,7 +10,6 @@ from dags import DEFAULT_DAG_ARGUMENTS
 from ted_sws import config
 from ted_sws.core.model.notice import NoticeStatus
 from ted_sws.data_manager.adapters.notice_repository import NoticeRepository
-from ted_sws.data_sampler.services.notice_xml_indexer import index_notice
 from ted_sws.event_manager.adapters.event_log_decorator import event_log
 from ted_sws.event_manager.model.event_message import TechnicalEventMessage, EventMessageMetadata, \
     EventMessageProcessType

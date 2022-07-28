@@ -81,8 +81,13 @@ class CoverageRunner:
         report.xpath_covered = list(self.conceptual_xpaths & unique_notice_xpaths)
         report.xpath_not_covered = list(unique_notice_xpaths - self.conceptual_xpaths)
         report.xpath_extra = list(self.conceptual_xpaths - unique_notice_xpaths)
-        if len(unique_notice_xpaths):
-            report.coverage = len(report.xpath_covered) / len(unique_notice_xpaths)
+        unique_notice_xpaths_len = len(unique_notice_xpaths)
+        xpath_covered_len = len(report.xpath_covered)
+        conceptual_xpaths_len = len(self.conceptual_xpaths)
+        if unique_notice_xpaths_len:
+            report.coverage = xpath_covered_len / unique_notice_xpaths_len
+        if conceptual_xpaths_len:
+            report.conceptual_coverage = xpath_covered_len / conceptual_xpaths_len
 
     @classmethod
     def based_xpaths(cls, xpaths: List[str], base_xpath: str) -> List[str]:

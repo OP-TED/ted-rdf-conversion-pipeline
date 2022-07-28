@@ -1,8 +1,9 @@
+from typing import Type, List, Union
+
 from ted_sws.event_manager.adapters.event_handler import EventHandler
 from ted_sws.event_manager.adapters.event_handler_config import EventHandlerConfig
-from ted_sws.event_manager.model.event_message import EventMessage, EventMessageLogSettings
 from ted_sws.event_manager.adapters.log import SeverityLevelType
-from typing import Type, List, Union
+from ted_sws.event_manager.model.event_message import EventMessage, EventMessageLogSettings
 
 HandlerType = Union[Type[EventHandler], List[Type[EventHandler]]]
 

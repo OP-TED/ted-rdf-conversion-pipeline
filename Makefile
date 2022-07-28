@@ -19,15 +19,15 @@ XML_PROCESSOR_PATH = ${PROJECT_PATH}/.saxon/saxon-he-10.6.jar
 #-----------------------------------------------------------------------------
 # Dev commands
 #-----------------------------------------------------------------------------
-install: install-dev
+install:
 	@ echo -e "$(BUILD_PRINT)Installing the requirements$(END_BUILD_PRINT)"
 	@ pip install --upgrade pip
-	@ pip install -r requirements.txt
+	@ pip install --no-cache-dir -r requirements.txt --constraint "https://raw.githubusercontent.com/apache/airflow/constraints-2.2.5/constraints-no-providers-3.8.txt"
 
 install-dev:
 	@ echo -e "$(BUILD_PRINT)Installing the dev requirements$(END_BUILD_PRINT)"
 	@ pip install --upgrade pip
-	@ pip install -r requirements.dev.txt
+	@ pip install --no-cache-dir -r requirements.dev.txt --constraint "https://raw.githubusercontent.com/apache/airflow/constraints-2.2.5/constraints-no-providers-3.8.txt"
 
 test: test-unit
 
@@ -37,7 +37,7 @@ test-unit:
 
 test-features:
 	@ echo -e "$(BUILD_PRINT)Gherkin Features Testing ...$(END_BUILD_PRINT)"
-	@ tox -e features
+# 	@ tox -e features
 
 test-e2e:
 	@ echo -e "$(BUILD_PRINT)End to End Testing ...$(END_BUILD_PRINT)"
@@ -301,23 +301,23 @@ refresh-mapping-files:
 #-----------------------------------------------------------------------------
 # API Service commands
 #-----------------------------------------------------------------------------
-build-all-apis: build-id_manager-api
+build-all-apis: build-digest_service-api
 
-start-all-apis: start-id_manager-api
+start-all-apis: start-digest_service-api
 
-stop-all-apis: stop-id_manager-api
+stop-all-apis: stop-digest_service-api
 
-build-id_manager-api:
-	@ echo -e "$(BUILD_PRINT) Build id_manager API service $(END_BUILD_PRINT)"
+build-digest_service-api:
+	@ echo -e "$(BUILD_PRINT) Build digest_service API service $(END_BUILD_PRINT)"
 	@ docker-compose -p common --file infra/api/docker-compose.yml --env-file ${ENV_FILE} build --no-cache --force-rm
 	@ docker-compose -p common --file infra/api/docker-compose.yml --env-file ${ENV_FILE} up -d --force-recreate
 
-start-id_manager-api:
-	@ echo -e "$(BUILD_PRINT)Starting id_manager API service $(END_BUILD_PRINT)"
+start-digest_service-api:
+	@ echo -e "$(BUILD_PRINT)Starting digest_service API service $(END_BUILD_PRINT)"
 	@ docker-compose -p common --file infra/api/docker-compose.yml --env-file ${ENV_FILE} up -d
 
-stop-id_manager-api:
-	@ echo -e "$(BUILD_PRINT)Stopping id_manager API service $(END_BUILD_PRINT)"
+stop-digest_service-api:
+	@ echo -e "$(BUILD_PRINT)Stopping digest_service API service $(END_BUILD_PRINT)"
 	@ docker-compose -p common --file infra/api/docker-compose.yml --env-file ${ENV_FILE} down
 
 

@@ -8,11 +8,11 @@ import click
 from ted_sws import config
 from ted_sws.core.adapters.cmd_runner import CmdRunnerForMappingSuite as BaseCmdRunner, DEFAULT_MAPPINGS_PATH, \
     DEFAULT_OUTPUT_PATH
-from ted_sws.event_manager.adapters.logger import LOG_INFO_TEXT
 from ted_sws.data_manager.adapters.mapping_suite_repository import MappingSuiteRepositoryInFileSystem
+from ted_sws.event_manager.adapters.logger import LOG_INFO_TEXT
 from ted_sws.notice_transformer.adapters.rml_mapper import RMLMapper, SerializationFormat as RMLSerializationFormat, \
     TURTLE_SERIALIZATION_FORMAT
-from ted_sws.notice_transformer.services.notice_transformer import NoticeTransformer
+from ted_sws.notice_transformer.services.notice_transformer import transform_test_data
 
 CMD_NAME = "CMD_MAPPING_RUNNER"
 
@@ -82,9 +82,8 @@ class CmdRunner(BaseCmdRunner):
             else:
                 rml_mapper = self.rml_mapper
 
-            notice_transformer = NoticeTransformer(mapping_suite=mapping_suite, rml_mapper=rml_mapper,
-                                                   logger=self.get_logger())
-            notice_transformer.transform_test_data(output_path=fs_output_path)
+            transform_test_data(mapping_suite=mapping_suite, rml_mapper=rml_mapper, output_path=fs_output_path,
+                                logger=self.get_logger())
         except Exception as e:
             error = e
 

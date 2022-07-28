@@ -1,7 +1,8 @@
-from ted_sws import RUN_ENV_NAME, RUN_TEST_ENV_VAL
+import logging
 import os
 from enum import Enum
-import logging
+
+from ted_sws import RUN_ENV_NAME, RUN_TEST_ENV_VAL
 
 EVENT_LOGGER_CONTEXT_KEY = '__event_logger__'
 

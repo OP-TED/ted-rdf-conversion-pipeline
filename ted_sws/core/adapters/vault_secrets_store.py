@@ -1,9 +1,10 @@
-from abc import ABC, abstractmethod
-from typing import List
-import hvac
 import json
 import os
+from abc import ABC, abstractmethod
+from typing import List
+
 import dotenv
+import hvac
 
 dotenv.load_dotenv(verbose=True, override=os.environ.get('IS_PRIME_ENV') != 'true')
 

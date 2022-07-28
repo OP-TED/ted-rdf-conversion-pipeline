@@ -5,12 +5,12 @@ from pathlib import Path
 import click
 
 from ted_sws.core.adapters.cmd_runner import CmdRunner as BaseCmdRunner, DEFAULT_MAPPINGS_PATH
-from ted_sws.core.adapters.sparql_triple_store import SPARQLTripleStore, TripleStoreABC
-from ted_sws.resources import QUERIES_PATH, MAPPING_FILES_PATH
-from ted_sws.event_manager.adapters.logger import LOG_INFO_TEXT
 from ted_sws.data_manager.adapters.mapping_suite_repository import TRANSFORM_PACKAGE_NAME, RESOURCES_PACKAGE_NAME
+from ted_sws.data_manager.adapters.sparql_endpoint import SPARQLTripleStoreEndpoint, TripleStoreEndpointABC
+from ted_sws.event_manager.adapters.logger import LOG_INFO_TEXT
+from ted_sws.resources import QUERIES_PATH, MAPPING_FILES_PATH
 
-
+CELLAR_SPARQL_ENDPOINT_URL = "http://publications.europa.eu/webapi/rdf/sparql"
 DEFAULT_OUTPUT_PATH = '{mappings_path}/{mapping_suite_id}/' + TRANSFORM_PACKAGE_NAME + '/' + RESOURCES_PACKAGE_NAME
 CMD_NAME = "NORMALISATION_RESOURCE_GENERATOR"
 
@@ -29,7 +29,7 @@ class CmdRunner(BaseCmdRunner):
             self,
             queries_folder,
             output_folder,
-            triple_store: TripleStoreABC = SPARQLTripleStore()
+            triple_store: TripleStoreEndpointABC
     ):
         super().__init__(name=CMD_NAME)
         self.queries_folder_path = Path(os.path.realpath(queries_folder))
@@ -59,7 +59,7 @@ def run(mapping_suite_id=None,
         opt_queries_folder: str = str(QUERIES_PATH),
         opt_output_folder: str = str(MAPPING_FILES_PATH),
         opt_mappings_folder: str = DEFAULT_MAPPINGS_PATH,
-        triple_store: TripleStoreABC = SPARQLTripleStore()):
+        triple_store: TripleStoreEndpointABC = SPARQLTripleStoreEndpoint(endpoint_url=CELLAR_SPARQL_ENDPOINT_URL)):
     """
     This method will generate a json file for each ran SPARQL query in the resources folder
     :param mapping_suite_id:
@@ -94,7 +94,7 @@ def run(mapping_suite_id=None,
               help="Use to overwrite default OUTPUT")
 @click.option('-m', '--opt-mappings-folder', default=DEFAULT_MAPPINGS_PATH)
 def main(mapping_suite_id, opt_queries_folder, opt_output_folder, opt_mappings_folder):
-    run(mapping_suite_id, opt_queries_folder, opt_output_folder, opt_mappings_folder, SPARQLTripleStore())
+    run(mapping_suite_id, opt_queries_folder, opt_output_folder, opt_mappings_folder, SPARQLTripleStoreEndpoint(CELLAR_SPARQL_ENDPOINT_URL))
 
 
 if __name__ == '__main__':

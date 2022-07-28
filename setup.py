@@ -89,7 +89,7 @@ setup(
             "normalisation_resource_generator = ted_sws.data_manager.entrypoints.cli.cmd_generate_mapping_resources:main",
             "triple_store_loader = ted_sws.mapping_suite_processor.entrypoints.cli.cmd_triple_store_loader:main",
             "bulk_packager = ted_sws.notice_packager.entrypoints.cli.cmd_bulk_packager:main",
-            "api-id_manager-start-server = ted_sws.id_manager.entrypoints.api.server:api_server_start"
+            "api-digest_service-start-server = ted_sws.notice_transformer.entrypoints.api.digest_service.server:api_server_start"
         ],
     },
     include_package_data=True,

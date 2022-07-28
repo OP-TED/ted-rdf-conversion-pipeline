@@ -1,9 +1,10 @@
+from typing import Union
+
+from bson import ObjectId
 from pymongo import MongoClient, ASCENDING, DESCENDING
 
 from ted_sws import config
 from ted_sws.event_manager.model.message import DBProcessLog as Log
-from typing import Union
-from bson import ObjectId
 
 MONGODB_COLLECTION_ID = "_id"
 

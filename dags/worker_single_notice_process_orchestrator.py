@@ -7,14 +7,14 @@ from ted_sws.core.model.manifestation import METSManifestation
 from ted_sws.core.model.notice import NoticeStatus
 from ted_sws.data_manager.adapters.mapping_suite_repository import MappingSuiteRepositoryMongoDB
 from ted_sws.data_manager.adapters.notice_repository import NoticeRepository
-from ted_sws.data_sampler.services.notice_xml_indexer import index_notice, index_notice_by_id
-from ted_sws.metadata_normaliser.services.metadata_normalizer import normalise_notice_by_id
+from ted_sws.data_sampler.services.notice_xml_indexer import index_notice_by_id
+from ted_sws.notice_metadata_processor.services.metadata_normalizer import normalise_notice_by_id
 
 from airflow.decorators import dag
 from airflow.operators.python import get_current_context, BranchPythonOperator, PythonOperator
 
 from dags import DEFAULT_DAG_ARGUMENTS
-from ted_sws.notice_eligibility.services.notice_eligibility import notice_eligibility_checker_by_id
+from ted_sws.notice_metadata_processor.services.notice_eligibility import notice_eligibility_checker_by_id
 from ted_sws.notice_packager.services.notice_packager import create_notice_package
 from ted_sws.notice_transformer.adapters.rml_mapper import RMLMapper
 from ted_sws.notice_transformer.services.notice_transformer import transform_notice_by_id

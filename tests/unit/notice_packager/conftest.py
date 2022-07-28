@@ -12,8 +12,8 @@ from typing import Dict
 
 import pytest
 
-from ted_sws.metadata_normaliser.model.metadata import ExtractedMetadata
-from ted_sws.metadata_normaliser.services.xml_manifestation_metadata_extractor import XMLManifestationMetadataExtractor
+from ted_sws.notice_metadata_processor.model.metadata import ExtractedMetadata
+from ted_sws.notice_metadata_processor.services.xml_manifestation_metadata_extractor import XMLManifestationMetadataExtractor
 from ted_sws.notice_packager.model.metadata import PackagerMetadata, NoticeMetadata, WorkMetadata, ExpressionMetadata, \
     ManifestationMetadata
 from tests import TEST_DATA_PATH

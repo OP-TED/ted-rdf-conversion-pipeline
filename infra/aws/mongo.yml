@@ -1,0 +1,45 @@
+version: "3"
+services:
+  mongo:
+    environment:
+      MONGO_INITDB_ROOT_PASSWORD: ixnPpKPCuQQXQNbboD8doUCS4sLf
+      MONGO_INITDB_ROOT_USERNAME: root
+    image: public.ecr.aws/g5y4d1v2/meaningfy:mongo
+    logging:
+      driver: awslogs
+      options:
+        awslogs-group: /ecs/mongo-cli-task
+        awslogs-region: eu-west-3
+        awslogs-stream-prefix: ecs
+    networks:
+      ecs-local-network: null
+    volumes:
+      - mongodb-data:/data/db
+    ports:
+    - 27017:27017
+  mongo-express:
+    environment:
+      ME_CONFIG_BASICAUTH_PASSWORD: ZFDucLBEV4F3KWPyP7XnHw94Dta5
+      ME_CONFIG_BASICAUTH_USERNAME: admin
+      ME_CONFIG_MONGODB_ADMINPASSWORD: ixnPpKPCuQQXQNbboD8doUCS4sLf
+      ME_CONFIG_MONGODB_ADMINUSERNAME: root
+      ME_CONFIG_MONGODB_ENABLE_ADMIN: "true"
+      ME_CONFIG_MONGODB_SERVER: mongo
+    image: public.ecr.aws/g5y4d1v2/meaningfy:mongo-express
+    links:
+    - mongo
+    logging:
+      driver: awslogs
+      options:
+        awslogs-group: /ecs/mongo-cli-task
+        awslogs-region: eu-west-3
+        awslogs-stream-prefix: ecs
+    networks:
+      ecs-local-network: null
+    ports:
+    - 8081:8081
+networks:
+  ecs-local-network:
+    external: true
+volumes:
+  mongodb-data:

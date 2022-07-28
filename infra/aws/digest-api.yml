@@ -1,0 +1,17 @@
+version: "3"
+services:
+  digest-api:
+    image: public.ecr.aws/g5y4d1v2/meaningfy:meaningfy-digest-api
+    logging:
+      driver: awslogs
+      options:
+        awslogs-group: /ecs/digest-api-cli-task
+        awslogs-region: eu-west-3
+        awslogs-stream-prefix: ecs
+    networks:
+      ecs-local-network: null
+    ports:
+    - 8000:8000
+networks:
+  ecs-local-network:
+    external: true

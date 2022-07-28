@@ -1,0 +1,25 @@
+version: "3"
+services:
+  fuseki:
+    environment:
+      ADMIN_PASSWORD: admin
+      FUSEKI_DATASET_1: mydataset
+    image: public.ecr.aws/g5y4d1v2/meaningfy:fuseki-4.5.0
+    logging:
+      driver: awslogs
+      options:
+        awslogs-group: /ecs/fuseki-cli-task
+        awslogs-region: eu-west-3
+        awslogs-stream-prefix: ecs
+    networks:
+      ecs-local-network: null
+    volumes:
+      - fuseki-data:/fuseki-data/databases
+    ports:
+    - 3030:3030
+
+networks:
+  ecs-local-network:
+    external: true
+volumes:
+  fuseki-data:

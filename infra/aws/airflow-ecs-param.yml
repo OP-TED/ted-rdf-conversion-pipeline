@@ -1,0 +1,63 @@
+version: 1
+task_definition:
+  task_size:
+    mem_limit: 3072
+    cpu_limit: 2048
+  services:
+    postgres:
+      essential: true
+    redis:
+      essential: true
+    init:
+      essential: false
+      depends_on:
+        - container_name: "postgres"
+          condition: "HEALTHY"
+        - container_name: "redis"
+          condition: "HEALTHY"
+    init-data:
+      essential: false
+      depends_on:
+        - container_name: "init"
+          condition: "SUCCESS"
+    scheduler:
+      essential: false
+      depends_on:
+        - container_name: "init"
+          condition: "SUCCESS"
+        - container_name: "init-data"
+          condition: "SUCCESS"
+    worker:
+      essential: false
+      depends_on:
+        - container_name: "init-data"
+          condition: "SUCCESS"
+        - container_name: "scheduler"
+          condition: "START"
+    triggerer:
+      essential: false
+      depends_on:
+        - container_name: "scheduler"
+          condition: "START"
+        - container_name: "init-data"
+          condition: "SUCCESS"
+    webserver:
+      essential: false
+      depends_on:
+        - container_name: "scheduler"
+          condition: "START"
+        - container_name: "init-data"
+          condition: "SUCCESS"
+  efs_volumes:
+    - name: dags
+      filesystem_id: fs-09f99c6419d0c41ce
+      transit_encryption: ENABLED
+    - name: logs
+      filesystem_id: fs-0a8a0fea68d9270c3
+      transit_encryption: ENABLED
+    - name: ted_sws
+      filesystem_id: fs-0238f297aefe5a95d
+      transit_encryption: ENABLED
+    - name: postgres-db
+      filesystem_id: something
+      transit_encryption: ENABLED

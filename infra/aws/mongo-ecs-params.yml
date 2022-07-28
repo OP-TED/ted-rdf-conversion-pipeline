@@ -1,0 +1,6 @@
+version: 1
+task_definition:
+  efs_volumes:
+    - name: mongodb-data
+      filesystem_id: fs-0da0ab1e45ee022d0
+      transit_encryption: ENABLED

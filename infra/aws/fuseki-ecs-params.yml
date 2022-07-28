@@ -1,0 +1,6 @@
+version: 1
+task_definition:
+  efs_volumes:
+    - name: fuseki-data
+      filesystem_id: fs-0e8a6fb3658affbd2
+      transit_encryption: ENABLED

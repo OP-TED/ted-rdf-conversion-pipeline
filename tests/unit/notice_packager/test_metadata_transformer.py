@@ -7,7 +7,7 @@
 
 """ """
 
-from ted_sws.metadata_normaliser.model.metadata import ExtractedMetadata
+from ted_sws.notice_metadata_processor.model.metadata import ExtractedMetadata
 from ted_sws.notice_packager.services.metadata_transformer import MetadataTransformer
 
 

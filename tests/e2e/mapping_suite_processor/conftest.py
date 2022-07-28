@@ -1,6 +1,13 @@
+import mongomock
+import pymongo
 import pytest
 
 from tests import TEST_DATA_PATH
+
+@pytest.fixture
+@mongomock.patch(servers=(('server.example.com', 27017),))
+def fake_mongodb_client():
+    return pymongo.MongoClient('server.example.com')
 
 
 @pytest.fixture

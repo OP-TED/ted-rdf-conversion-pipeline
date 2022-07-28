@@ -109,10 +109,10 @@ class CoverageRunner:
             if self.mongodb_client is not None:
                 xpaths = get_unique_xpaths_covered_by_notices([notice.ted_id], self.mongodb_client)
             else:
-                notice = index_notice(notice, self.xslt_transformer, False)
+                notice = index_notice(notice, self.xslt_transformer)
 
-                if notice.xml_metadata and notice.xml_metadata.xpaths:
-                    xpaths = notice.xml_metadata.xpaths
+                if notice.xml_metadata and notice.xml_metadata.unique_xpaths:
+                    xpaths = notice.xml_metadata.unique_xpaths
 
             notice_xpaths[notice.ted_id] = self.based_xpaths(xpaths, self.base_xpath)
             xpaths_list += notice_xpaths[notice.ted_id]

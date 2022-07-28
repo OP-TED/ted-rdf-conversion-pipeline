@@ -1,4 +1,5 @@
 import json
+
 from ted_sws.resources import PREFIXES_PATH
 
 PREFIXES_DEFINITIONS_KEY = "prefix_definitions"

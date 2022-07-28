@@ -37,7 +37,7 @@ test-unit:
 
 test-features:
 	@ echo -e "$(BUILD_PRINT)Gherkin Features Testing ...$(END_BUILD_PRINT)"
-	@ tox -e features
+# 	@ tox -e features
 
 test-e2e:
 	@ echo -e "$(BUILD_PRINT)End to End Testing ...$(END_BUILD_PRINT)"
@@ -112,6 +112,24 @@ start-allegro-graph: build-externals
 stop-allegro-graph:
 	@ echo -e "$(BUILD_PRINT)Stopping Allegro-Graph services $(END_BUILD_PRINT)"
 	@ docker-compose -p ${ENVIRONMENT} --file ./infra/allegro-graph/docker-compose.yml --env-file ${ENV_FILE} down
+
+#	------------------------
+start-fuseki: build-externals
+	@ echo -e "$(BUILD_PRINT)Starting Fuseki services $(END_BUILD_PRINT)"
+	@ docker-compose -p ${ENVIRONMENT} --file ./infra/fuseki/docker-compose.yml --env-file ${ENV_FILE} up -d
+
+stop-fuseki:
+	@ echo -e "$(BUILD_PRINT)Stopping Fuseki services $(END_BUILD_PRINT)"
+	@ docker-compose -p ${ENVIRONMENT} --file ./infra/fuseki/docker-compose.yml --env-file ${ENV_FILE} down
+
+#	------------------------
+start-sftp: build-externals
+	@ echo -e "$(BUILD_PRINT)Starting SFTP services $(END_BUILD_PRINT)"
+	@ docker-compose -p ${ENVIRONMENT} --file ./infra/sftp/docker-compose.yml --env-file ${ENV_FILE} up -d
+
+stop-sftp:
+	@ echo -e "$(BUILD_PRINT)Stopping SFTP services $(END_BUILD_PRINT)"
+	@ docker-compose -p ${ENVIRONMENT} --file ./infra/sftp/docker-compose.yml --env-file ${ENV_FILE} down
 
 #	------------------------
 build-elasticsearch: build-externals
@@ -283,23 +301,23 @@ refresh-mapping-files:
 #-----------------------------------------------------------------------------
 # API Service commands
 #-----------------------------------------------------------------------------
-build-all-apis: build-id_manager-api
+build-all-apis: build-digest_service-api
 
-start-all-apis: start-id_manager-api
+start-all-apis: start-digest_service-api
 
-stop-all-apis: stop-id_manager-api
+stop-all-apis: stop-digest_service-api
 
-build-id_manager-api:
-	@ echo -e "$(BUILD_PRINT) Build id_manager API service $(END_BUILD_PRINT)"
+build-digest_service-api:
+	@ echo -e "$(BUILD_PRINT) Build digest_service API service $(END_BUILD_PRINT)"
 	@ docker-compose -p common --file infra/api/docker-compose.yml --env-file ${ENV_FILE} build --no-cache --force-rm
 	@ docker-compose -p common --file infra/api/docker-compose.yml --env-file ${ENV_FILE} up -d --force-recreate
 
-start-id_manager-api:
-	@ echo -e "$(BUILD_PRINT)Starting id_manager API service $(END_BUILD_PRINT)"
+start-digest_service-api:
+	@ echo -e "$(BUILD_PRINT)Starting digest_service API service $(END_BUILD_PRINT)"
 	@ docker-compose -p common --file infra/api/docker-compose.yml --env-file ${ENV_FILE} up -d
 
-stop-id_manager-api:
-	@ echo -e "$(BUILD_PRINT)Stopping id_manager API service $(END_BUILD_PRINT)"
+stop-digest_service-api:
+	@ echo -e "$(BUILD_PRINT)Stopping digest_service API service $(END_BUILD_PRINT)"
 	@ docker-compose -p common --file infra/api/docker-compose.yml --env-file ${ENV_FILE} down
 
 

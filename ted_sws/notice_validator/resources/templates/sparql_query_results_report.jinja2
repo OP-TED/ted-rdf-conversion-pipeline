@@ -86,17 +86,29 @@
         <tr>
             <td>{{ "True" }}</td>
             <td>{{ counter.true_executions }}</td>
-            <td>{{ counter.true_executions / (counter.true_executions + counter.false_executions + counter.error_executions) }}</td>
+            {% if counter.true_executions == 0 %}
+                <td>{{ 0 }}</td>
+            {% else %}
+                <td>{{ counter.true_executions / (counter.true_executions + counter.false_executions + counter.error_executions) }}</td>
+            {% endif %}
         </tr>
         <tr>
             <td>{{ "False" }}</td>
             <td>{{ counter.false_executions }}</td>
-            <td>{{ counter.false_executions / (counter.true_executions + counter.false_executions + counter.error_executions) }}</td>
+            {% if counter.false_executions == 0 %}
+                <td>{{ 0 }}</td>
+            {% else %}
+                <td>{{ counter.false_executions / (counter.true_executions + counter.false_executions + counter.error_executions) }}</td>
+            {% endif %}
         </tr>
                 <tr>
             <td>{{ "Error" }}</td>
             <td>{{ counter.error_executions }}</td>
-            <td>{{ counter.error_executions / (counter.true_executions + counter.false_executions + counter.error_executions) }}</td>
+            {% if counter.error_executions == 0 %}
+                <td>{{ 0 }}</td>
+            {% else %}
+                <td>{{ counter.error_executions / (counter.true_executions + counter.false_executions + counter.error_executions) }}</td>
+            {% endif %}
         </tr>
         </tbody>
     </table>

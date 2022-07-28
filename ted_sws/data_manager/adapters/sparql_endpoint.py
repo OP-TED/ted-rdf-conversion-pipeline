@@ -6,13 +6,12 @@
 # Email: stefan.stratulat1997@gmail.com
 
 import io
-from pathlib import Path
 from abc import ABC, abstractmethod
-from SPARQLWrapper import SPARQLWrapper, CSV, JSON
+from pathlib import Path
+from string import Template
 
 import pandas as pd
-
-from string import Template
+from SPARQLWrapper import SPARQLWrapper, CSV, JSON
 
 DEFAULT_ENCODING = 'utf-8'
 

@@ -6,7 +6,7 @@ from ted_sws.core.model.metadata import XMLMetadata
 from ted_sws.data_manager.adapters.mapping_suite_repository import MappingSuiteRepositoryInFileSystem
 from ted_sws.data_manager.adapters.notice_repository import NoticeRepository
 
-from ted_sws.notice_fetcher.adapters.ted_api import DEFAULT_TED_API_URL, TedAPIAdapter, TedRequestAPI
+from ted_sws.notice_fetcher.adapters.ted_api import TedAPIAdapter, TedRequestAPI
 from ted_sws.notice_fetcher.services.notice_fetcher import NoticeFetcher
 from tests import TEST_DATA_PATH
 
@@ -15,7 +15,7 @@ NOTICE_STORAGE_FEATURES_TEST_DB = "features_test_db_for_notice"
 
 @pytest.fixture
 def api_end_point():
-    return DEFAULT_TED_API_URL
+    return config.TED_API_URL
 
 
 @pytest.fixture

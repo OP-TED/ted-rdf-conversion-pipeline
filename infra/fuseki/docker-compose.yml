@@ -1,0 +1,37 @@
+version: '3'
+services:
+  fuseki:
+    container_name: fuseki
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      - ADMIN_PASSWORD=${FUSEKI_ADMIN_PASSWORD}
+      - FUSEKI_DATASET_1=mydataset
+    volumes:
+      - fuseki-data:/fuseki-data/databases
+    networks:
+      - fuseki-net
+      - proxy-net
+    labels:
+      #### Labels define the behavior and rules of the traefik proxy for this container ####
+      - "traefik.enable=true" # <== Enable traefik to proxy this container
+      - "traefik.http.routers.${ENVIRONMENT}-fuseki.rule=Host(`fuseki.${SUBDOMAIN}${DOMAIN}`)" # <== Your Domain Name goes here for the http rule
+      - "traefik.http.routers.${ENVIRONMENT}-fuseki.entrypoints=web" # <== Defining the entrypoint for http, **ref: line 30
+      - "traefik.http.routers.${ENVIRONMENT}-fuseki.middlewares=redirect@file" # <== This is a middleware to redirect to https
+      - "traefik.http.routers.${ENVIRONMENT}-fuseki-secured.rule=Host(`fuseki.${SUBDOMAIN}${DOMAIN}`)" # <== Your Domain Name for the https rule
+      - "traefik.http.routers.${ENVIRONMENT}-fuseki-secured.entrypoints=web-secured" # <== Defining entrypoint for https, **ref: line 31
+      - "traefik.http.routers.${ENVIRONMENT}-fuseki-secured.tls.certresolver=mytlschallenge" # <== Defining certsresolvers for https
+volumes:
+  fuseki-data:
+    
+networks:
+  fuseki-net:
+    internal: true
+    name: fuseki-net-${ENVIRONMENT}
+  proxy-net:
+    external:
+      name: proxy-net
+  common-ext:
+    external:
+      name: common-ext-${ENVIRONMENT}

@@ -18,7 +18,3 @@ class RDFFragment:
     rdf_fragment_triples: list
 
 
-class RDFFragmentProcessor:
-    """
-
-    """

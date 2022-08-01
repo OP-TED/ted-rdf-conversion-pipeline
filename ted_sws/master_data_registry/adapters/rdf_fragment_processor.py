@@ -19,5 +19,5 @@ class RDFFragmentProcessor:
 
     def get_fragment_from_file(self, rdf_file_path: pathlib.Path()):
         """
-        
+
         """

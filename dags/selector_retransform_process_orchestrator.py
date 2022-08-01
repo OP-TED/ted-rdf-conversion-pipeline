@@ -13,12 +13,11 @@ from ted_sws.event_manager.model.event_message import TechnicalEventMessage, Eve
 
 DAG_NAME = "selector_re_transform_process_orchestrator"
 
-RE_TRANSFORM_TARGET_NOTICE_STATES = [NoticeStatus.ELIGIBLE_FOR_TRANSFORMATION, NoticeStatus.NORMALISED_METADATA,
-                                     NoticeStatus.ELIGIBLE_FOR_TRANSFORMATION,
+RE_TRANSFORM_TARGET_NOTICE_STATES = [NoticeStatus.ELIGIBLE_FOR_TRANSFORMATION,
                                      NoticeStatus.PREPROCESSED_FOR_TRANSFORMATION,
                                      NoticeStatus.INELIGIBLE_FOR_TRANSFORMATION, NoticeStatus.TRANSFORMED,
-                                     NoticeStatus.DISTILLED,
-                                     NoticeStatus.VALIDATED, NoticeStatus.INELIGIBLE_FOR_PACKAGING
+                                     NoticeStatus.DISTILLED, NoticeStatus.VALIDATED,
+                                     NoticeStatus.INELIGIBLE_FOR_PACKAGING
                                      ]
 
 
@@ -39,7 +38,7 @@ def selector_re_transform_process_orchestrator():
         for target_notice_state in RE_TRANSFORM_TARGET_NOTICE_STATES:
             notices = notice_repository.get_notice_by_status(notice_status=target_notice_state)
             for notice in notices:
-                notice.update_status_to(new_status=NoticeStatus.ELIGIBLE_FOR_TRANSFORMATION)
+                notice.update_status_to(new_status=NoticeStatus.NORMALISED_METADATA)
                 notice_repository.update(notice=notice)
 
     @task
@@ -53,7 +52,7 @@ def selector_re_transform_process_orchestrator():
         context = get_current_context()
         mongodb_client = MongoClient(config.MONGO_DB_AUTH_URL)
         notice_repository = NoticeRepository(mongodb_client=mongodb_client)
-        notices = notice_repository.get_notice_by_status(notice_status=NoticeStatus.ELIGIBLE_FOR_TRANSFORMATION)
+        notices = notice_repository.get_notice_by_status(notice_status=NoticeStatus.NORMALISED_METADATA)
         for notice in notices:
             TriggerDagRunOperator(
                 task_id=f'trigger_worker_dag_{notice.ted_id}',

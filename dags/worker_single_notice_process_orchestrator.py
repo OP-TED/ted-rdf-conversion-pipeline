@@ -453,7 +453,7 @@ def worker_single_notice_process_orchestrator():
     state_skip_table = {
         NoticeStatus.RAW: "index_notice_xml_content",
         NoticeStatus.INDEXED: "index_notice_xml_content",
-        NoticeStatus.ELIGIBLE_FOR_TRANSFORMATION: "check_eligibility_for_transformation",
+        NoticeStatus.NORMALISED_METADATA: "check_eligibility_for_transformation",
         NoticeStatus.ELIGIBLE_FOR_PACKAGING: "check_notice_state_before_generate_mets_package",
         NoticeStatus.ELIGIBLE_FOR_PUBLISHING: "check_notice_state_before_publish_notice_in_cellar",
     }

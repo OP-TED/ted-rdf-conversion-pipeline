@@ -1,0 +1,11 @@
+prefix org: <http://www.w3.org/ns/org#>
+prefix epo: <http://data.europa.eu/a4g/ontology#>
+
+construct {
+  ?s ?p ?o .
+  ?o ?op ?oo . }
+{
+  values ?s <$uri>
+  ?s ?p ?o .
+  ?o ?op ?oo .
+}

@@ -1,0 +1,6 @@
+prefix org: <http://www.w3.org/ns/org#>
+prefix epo: <http://data.europa.eu/a4g/ontology#>
+SELECT ?s
+{
+  ?s a epo:Organisation .
+}

@@ -1,6 +1,8 @@
 import datetime
 from typing import Tuple
 
+import semantic_version
+
 from ted_sws.core.model.metadata import NormalisedMetadata
 from ted_sws.core.model.notice import Notice
 from ted_sws.core.model.transform import MappingSuite
@@ -35,17 +37,6 @@ def check_package(mapping_suite: MappingSuite, notice_metadata: NormalisedMetada
     return True if in_date_range and in_version_range and covered_eform_type else False
 
 
-def transform_version_string_into_int(version_string: str) -> int:
-    """
-    Transforming a version string into a number. (example_version = "1.2.3")
-    :param version_string:
-    :return:
-    """
-    version_numbers = [int(x) for x in version_string.split(".")]
-    assert len(version_numbers) == 3
-    return ((version_numbers[0] * 100) + version_numbers[1]) * 100 + version_numbers[2]
-
-
 def notice_eligibility_checker(notice: Notice, mapping_suite_repository: MappingSuiteRepositoryABC) -> Tuple:
     """
     Check if notice in eligible for transformation
@@ -60,11 +51,13 @@ def notice_eligibility_checker(notice: Notice, mapping_suite_repository: Mapping
             possible_mapping_suites.append(mapping_suite)
 
     if possible_mapping_suites:
-        best_version = max([transform_version_string_into_int(version_string=mapping_suite.version) for mapping_suite in
-                            possible_mapping_suites])
-        mapping_suite_identifier = next((mapping_suite.identifier for mapping_suite in possible_mapping_suites if
-                                         transform_version_string_into_int(
-                                             version_string=mapping_suite.version) == best_version), None)
+        best_version = possible_mapping_suites[0].version
+        mapping_suite_identifier = possible_mapping_suites[0].identifier
+        for mapping_suite in possible_mapping_suites[1:]:
+            if semantic_version.Version(mapping_suite.version) > semantic_version.Version(best_version):
+                best_version = mapping_suite.version
+                mapping_suite_identifier = mapping_suite.identifier
+
         notice.set_is_eligible_for_transformation(eligibility=True)
         return notice.ted_id, mapping_suite_identifier
     else:

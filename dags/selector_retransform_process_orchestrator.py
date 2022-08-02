@@ -8,17 +8,18 @@ from ted_sws import config
 from ted_sws.core.model.notice import NoticeStatus
 from ted_sws.data_manager.adapters.notice_repository import NoticeRepository
 from ted_sws.event_manager.adapters.event_log_decorator import event_log
+from ted_sws.event_manager.adapters.event_logger import EventLogger
 from ted_sws.event_manager.model.event_message import TechnicalEventMessage, EventMessageMetadata, \
-    EventMessageProcessType
+    EventMessageProcessType, EventMessage
+from ted_sws.event_manager.services.logger_from_context import get_logger_from_dag_context
 
 DAG_NAME = "selector_re_transform_process_orchestrator"
 
-RE_TRANSFORM_TARGET_NOTICE_STATES = [NoticeStatus.ELIGIBLE_FOR_TRANSFORMATION, NoticeStatus.NORMALISED_METADATA,
-                                     NoticeStatus.ELIGIBLE_FOR_TRANSFORMATION,
+RE_TRANSFORM_TARGET_NOTICE_STATES = [NoticeStatus.ELIGIBLE_FOR_TRANSFORMATION,
                                      NoticeStatus.PREPROCESSED_FOR_TRANSFORMATION,
                                      NoticeStatus.INELIGIBLE_FOR_TRANSFORMATION, NoticeStatus.TRANSFORMED,
-                                     NoticeStatus.DISTILLED,
-                                     NoticeStatus.VALIDATED, NoticeStatus.INELIGIBLE_FOR_PACKAGING
+                                     NoticeStatus.DISTILLED, NoticeStatus.VALIDATED,
+                                     NoticeStatus.INELIGIBLE_FOR_PACKAGING
                                      ]
 
 
@@ -33,13 +34,15 @@ def selector_re_transform_process_orchestrator():
             process_type=EventMessageProcessType.DAG, process_name=DAG_NAME
         ))
     )
-    def select_notices_for_re_transform_and_reset_status():
+    def select_notices_for_re_transform_and_reset_status(**context_args):
+        event_logger: EventLogger = get_logger_from_dag_context(context_args)
         mongodb_client = MongoClient(config.MONGO_DB_AUTH_URL)
         notice_repository = NoticeRepository(mongodb_client=mongodb_client)
         for target_notice_state in RE_TRANSFORM_TARGET_NOTICE_STATES:
+            event_logger.info(event_message=EventMessage(message=f"select notices with status : {target_notice_state}"))
             notices = notice_repository.get_notice_by_status(notice_status=target_notice_state)
             for notice in notices:
-                notice.update_status_to(new_status=NoticeStatus.ELIGIBLE_FOR_TRANSFORMATION)
+                notice.update_status_to(new_status=NoticeStatus.NORMALISED_METADATA)
                 notice_repository.update(notice=notice)
 
     @task
@@ -53,7 +56,7 @@ def selector_re_transform_process_orchestrator():
         context = get_current_context()
         mongodb_client = MongoClient(config.MONGO_DB_AUTH_URL)
         notice_repository = NoticeRepository(mongodb_client=mongodb_client)
-        notices = notice_repository.get_notice_by_status(notice_status=NoticeStatus.ELIGIBLE_FOR_TRANSFORMATION)
+        notices = notice_repository.get_notice_by_status(notice_status=NoticeStatus.NORMALISED_METADATA)
         for notice in notices:
             TriggerDagRunOperator(
                 task_id=f'trigger_worker_dag_{notice.ted_id}',

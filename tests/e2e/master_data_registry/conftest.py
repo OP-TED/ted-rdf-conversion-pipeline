@@ -1,6 +1,4 @@
 import pathlib
-from string import Template
-
 import pytest
 
 from ted_sws import config

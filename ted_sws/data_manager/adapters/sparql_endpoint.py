@@ -9,9 +9,11 @@ import io
 from abc import ABC, abstractmethod
 from pathlib import Path
 from string import Template
+from typing import List, Tuple
 
 import pandas as pd
-from SPARQLWrapper import SPARQLWrapper, CSV, JSON
+from SPARQLWrapper import SPARQLWrapper, CSV, JSON, RDF
+from rdflib import URIRef
 
 DEFAULT_ENCODING = 'utf-8'
 
@@ -73,6 +75,14 @@ class TripleStoreEndpointABC(ABC):
     def fetch_tree(self) -> dict:
         """
             This method will return the result of the SPARQL query in a dict format (json)
+        :return:
+        """
+
+    @abstractmethod
+    def fetch_rdf(self) -> List[Tuple[URIRef, URIRef, URIRef]]:
+        """
+            This method will return the result of the SPARQL query in a RDF format,
+            use this method only for SPARQL queries of type CONSTRUCT.
         :return:
         """
 
@@ -138,6 +148,15 @@ class SPARQLTripleStoreEndpoint(TripleStoreEndpointABC):
 
         self.endpoint.setReturnFormat(JSON)
         return self.endpoint.queryAndConvert()
+
+    def fetch_rdf(self) -> List[Tuple[URIRef, URIRef, URIRef]]:
+        """
+            This method will return the result of the SPARQL query in a RDF format,
+            use this method only for SPARQL queries of type CONSTRUCT.
+        :return:
+        """
+        self.endpoint.setReturnFormat(RDF)
+        return list(self.endpoint.queryAndConvert().triples((None, None, None)))
 
     def __str__(self):
         return f"from <...{str(self.endpoint.endpoint)[-30:]}> {str(self.endpoint.queryString)[:60]} ..."

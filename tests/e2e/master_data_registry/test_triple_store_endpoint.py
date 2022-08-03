@@ -1,33 +1,19 @@
-from SPARQLWrapper import XML, CSV, RDF
+from string import Template
 
 from ted_sws.data_manager.adapters.sparql_endpoint import SPARQLTripleStoreEndpoint
+from ted_sws.master_data_registry.resources import TRIPLES_BY_CET_URI_SPARQL_QUERY_TEMPLATE_PATH, \
+    RDF_FRAGMENT_BY_URI_SPARQL_QUERY_TEMPLATE_PATH
 
 
-def test_triple_store_endpoint(triple_store_endpoint_url, get_all_organisation_sparql_query, get_all_triples_by_uri_sparql_query):
+def test_triple_store_endpoint_fetch_rdf(triple_store_endpoint_url, organisation_cet_uri):
+    query = Template(TRIPLES_BY_CET_URI_SPARQL_QUERY_TEMPLATE_PATH.read_text(encoding="utf-8"))
     triple_store = SPARQLTripleStoreEndpoint(endpoint_url=triple_store_endpoint_url)
-    triple_store.with_query(sparql_query=get_all_organisation_sparql_query)
+    triple_store.with_query(sparql_query=query.substitute(uri=organisation_cet_uri))
     org_uris = triple_store.fetch_tabular()
+    rdf_fragment_query = Template(RDF_FRAGMENT_BY_URI_SPARQL_QUERY_TEMPLATE_PATH.read_text(encoding="utf-8"))
     for org_uri in org_uris["s"].tolist()[:2]:
-        triple_store.with_query(sparql_query=get_all_triples_by_uri_sparql_query.substitute(uri=org_uri))
-        org_all_triples = triple_store.fetch_tabular()
-        print(org_all_triples.to_markdown())
+        triple_store.with_query(sparql_query=rdf_fragment_query.substitute(uri=org_uri))
+        rdf_result = triple_store.fetch_rdf()
+        assert rdf_result
+        assert type(rdf_result) == list
 
-def test_triple_store_endpoint_with_construct_sparql_query(triple_store_endpoint_url):
-    query = """
-prefix org: <http://www.w3.org/ns/org#>
-prefix epo: <http://data.europa.eu/a4g/ontology#>
-
-construct { 
-  ?s ?p ?o .
-  ?o ?op ?oo . }
-{
-  values ?s <$uri>
-  ?s ?p ?o .
-  ?o ?op ?oo .                                                                                                                
-}
-    """
-    triple_store = SPARQLTripleStoreEndpoint(endpoint_url=triple_store_endpoint_url)
-    triple_store.with_query(sparql_query=query)
-    triple_store.endpoint.setReturnFormat(RDF)
-    query_result = triple_store.endpoint.queryAndConvert()
-    print(list(query_result.triples((None, None, None)))[0])

@@ -44,7 +44,6 @@ class TripleStoreEndpointABC(ABC):
         This class provides an abstraction for a TripleStore.
     """
 
-    @abstractmethod
     def with_query(self, sparql_query: str, substitution_variables: dict = None,
                    sparql_prefixes: str = "") -> 'TripleStoreEndpointABC':
         """
@@ -54,15 +53,32 @@ class TripleStoreEndpointABC(ABC):
         :param sparql_prefixes:
         :return:
         """
+        if substitution_variables:
+            template_query = SubstitutionTemplate(sparql_query)
+            sparql_query = template_query.safe_substitute(substitution_variables)
 
-    @abstractmethod
+        sparql_query = (sparql_prefixes + " " + sparql_query).strip()
+        self._set_sparql_query(sparql_query=sparql_query)
+        return self
+
     def with_query_from_file(self, sparql_query_file_path: str, substitution_variables: dict = None,
-                             prefixes: str = "") -> 'TripleStoreEndpointABC':
+                             sparql_prefixes: str = "") -> 'TripleStoreEndpointABC':
         """
             This method will read a query from a file
         :param sparql_query_file_path:
         :param substitution_variables:
-        :param prefixes:
+        :param sparql_prefixes:
+        :return:
+        """
+        sparql_query = Path(sparql_query_file_path).resolve().read_text(encoding="utf-8")
+        return self.with_query(sparql_query=sparql_query, substitution_variables=substitution_variables,
+                               sparql_prefixes=sparql_prefixes)
+
+    @abstractmethod
+    def _set_sparql_query(self, sparql_query: str):
+        """
+            This method is used to set sparql query for future query operation.
+        :param sparql_query:
         :return:
         """
 
@@ -94,39 +110,13 @@ class SPARQLTripleStoreEndpoint(TripleStoreEndpointABC):
     def __init__(self, endpoint_url: str):
         self.endpoint = SPARQLClientPool.create_or_reuse_connection(endpoint_url)
 
-    def with_query(self, sparql_query: str, substitution_variables: dict = None,
-                   sparql_prefixes: str = "") -> TripleStoreEndpointABC:
+    def _set_sparql_query(self, sparql_query: str):
         """
-            Set the query text and return the reference to self for chaining.
+            This method is used to set sparql query for future query operation.
+        :param sparql_query:
         :return:
         """
-        if substitution_variables:
-            template_query = SubstitutionTemplate(sparql_query)
-            sparql_query = template_query.safe_substitute(substitution_variables)
-
-        new_query = (sparql_prefixes + " " + sparql_query).strip()
-
-        self.endpoint.setQuery(new_query)
-        return self
-
-    def with_query_from_file(self, sparql_query_file_path: str, substitution_variables: dict = None,
-                             prefixes: str = "") -> TripleStoreEndpointABC:
-        """
-            Set the query text and return the reference to self for chaining.
-        :return:
-        """
-
-        with open(Path(sparql_query_file_path).resolve(), 'r') as file:
-            query_from_file = file.read()
-
-        if substitution_variables:
-            template_query = SubstitutionTemplate(query_from_file)
-            query_from_file = template_query.safe_substitute(substitution_variables)
-
-        new_query = (prefixes + " " + query_from_file).strip()
-
-        self.endpoint.setQuery(new_query)
-        return self
+        self.endpoint.setQuery(sparql_query)
 
     def fetch_tabular(self) -> pd.DataFrame:
         """
@@ -174,35 +164,13 @@ class SPARQLStringEndpoint(TripleStoreEndpointABC):
         self.graph.parse(data=rdf_content, format=rdf_content_format)
         self.sparql_query = None
 
-    def with_query(self, sparql_query: str, substitution_variables: dict = None,
-                   sparql_prefixes: str = "") -> TripleStoreEndpointABC:
+    def _set_sparql_query(self, sparql_query: str):
         """
-            Set the query text and return the reference to self for chaining.
-            :return:
-        """
-        if substitution_variables:
-            template_query = SubstitutionTemplate(sparql_query)
-            sparql_query = template_query.safe_substitute(substitution_variables)
-
-        new_query = (sparql_prefixes + " " + sparql_query).strip()
-        self.sparql_query = new_query
-        return self
-
-    def with_query_from_file(self, sparql_query_file_path: str, substitution_variables: dict = None,
-                             prefixes: str = "") -> TripleStoreEndpointABC:
-        """
-            Set the query text and return the reference to self for chaining.
+            This method is used to set sparql query for future query operation.
+        :param sparql_query:
         :return:
         """
-        with open(Path(sparql_query_file_path).resolve(), 'r') as file:
-            query_from_file = file.read()
-
-        if substitution_variables:
-            template_query = SubstitutionTemplate(query_from_file)
-            query_from_file = template_query.safe_substitute(substitution_variables)
-
-        self.sparql_query = (prefixes + " " + query_from_file).strip()
-        return self
+        self.sparql_query = sparql_query
 
     def fetch_tabular(self) -> pd.DataFrame:
         """
@@ -220,7 +188,7 @@ class SPARQLStringEndpoint(TripleStoreEndpointABC):
         query_result = self.graph.query(query_object=self.sparql_query)
         return json.loads(query_result.serialize(format="json"))
 
-    def fetch_rdf(self) -> rdflib.query.Result:
+    def fetch_rdf(self) -> rdflib.Graph:
         """
             This method will return the result of the SPARQL query in a RDF format,
             use this method only for SPARQL queries of type CONSTRUCT or DESCRIBE.

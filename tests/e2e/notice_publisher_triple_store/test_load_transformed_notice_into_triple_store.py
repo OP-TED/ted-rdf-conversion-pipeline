@@ -14,7 +14,7 @@ def test_load_notice_into_triple_store(transformed_complete_notice, allegro_trip
     load_notice_into_triple_store(notice_id=transformed_complete_notice.ted_id, notice_repository=fake_notice_repo,
                                   triple_store_repository=allegro_triple_store)
 
-    sparql_endpoint = allegro_triple_store.get_sparql_triple_store_endpoint(DEFAULT_NOTICE_REPOSITORY_NAME, )
+    sparql_endpoint = allegro_triple_store.get_sparql_triple_store_endpoint(DEFAULT_NOTICE_REPOSITORY_NAME)
     assert sparql_endpoint is not None
 
     df_query_result = sparql_endpoint.with_query(sparql_query=SPARQL_QUERY_TRIPLES).fetch_tabular()

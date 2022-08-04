@@ -196,9 +196,6 @@ class FusekiAdapter(TripleStoreABC):
         if response.status_code == 409:
             raise FusekiException('A repository with this name already exists.')
 
-    # def list_repositories(self) -> List[str]:
-    #     pass
-
     def add_data_to_repository(self, file_content: Union[str, bytes, bytearray], mime_type: str, repository_name: str):
         url = urljoin(self.host, f"{repository_name}/data")
         headers = {

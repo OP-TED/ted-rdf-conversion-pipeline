@@ -1,11 +1,13 @@
-from typing import List, Tuple
-
 import pandas as pd
 import rdflib
 from ted_sws.data_manager.adapters.sparql_endpoint import TripleStoreEndpointABC
 
 
 class FakeTripleStoreEndpoint(TripleStoreEndpointABC):
+
+    def _set_sparql_query(self, sparql_query: str):
+        pass
+
     def fetch_rdf(self) -> rdflib.Graph:
         return rdflib.Graph()
 

@@ -14,7 +14,7 @@ class FakeTripleStoreEndpoint(TripleStoreEndpointABC):
         return self
 
     def with_query_from_file(self, sparql_query_file_path: str, substitution_variables: dict = None,
-                             prefixes: str = "") -> TripleStoreEndpointABC:
+                             sparql_prefixes: str = "") -> TripleStoreEndpointABC:
         return self
 
     def fetch_tabular(self) -> pd.DataFrame:

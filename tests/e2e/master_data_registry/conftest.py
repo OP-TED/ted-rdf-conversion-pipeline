@@ -1,17 +1,13 @@
 import pathlib
-
 import pytest
 
-from ted_sws.notice_transformer.adapters.rml_mapper import RMLMapperABC, SerializationFormat as RMLSerializationFormat
+from ted_sws import config
 from tests import TEST_DATA_PATH
-from tests.fakes.fake_rml_mapper import FakeRMLMapper
 
 
 @pytest.fixture
-def fake_rml_mapper() -> RMLMapperABC:
-    rml_mapper = FakeRMLMapper()
-    rml_mapper.set_serialization_format(RMLSerializationFormat.TURTLE)
-    return rml_mapper
+def triple_store_endpoint_url() -> str:
+    return config.TRIPLE_STORE_ENDPOINT_URL
 
 
 @pytest.fixture

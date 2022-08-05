@@ -1,0 +1,5 @@
+prefix epo: <http://data.europa.eu/a4g/ontology#>
+SELECT DISTINCT ?s
+{
+  ?s a <$uri> .
+}

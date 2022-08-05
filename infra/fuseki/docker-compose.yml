@@ -1,7 +1,7 @@
-version: '3'
+version: '3.8'
 services:
   fuseki:
-    container_name: fuseki
+    container_name: fuseki-${ENVIRONMENT}
     build:
       context: .
       dockerfile: Dockerfile
@@ -22,9 +22,13 @@ services:
       - "traefik.http.routers.${ENVIRONMENT}-fuseki-secured.rule=Host(`fuseki.${SUBDOMAIN}${DOMAIN}`)" # <== Your Domain Name for the https rule
       - "traefik.http.routers.${ENVIRONMENT}-fuseki-secured.entrypoints=web-secured" # <== Defining entrypoint for https, **ref: line 31
       - "traefik.http.routers.${ENVIRONMENT}-fuseki-secured.tls.certresolver=mytlschallenge" # <== Defining certsresolvers for https
+
+
 volumes:
   fuseki-data:
-    
+    name: fuseki-data-${ENVIRONMENT}
+
+
 networks:
   fuseki-net:
     internal: true

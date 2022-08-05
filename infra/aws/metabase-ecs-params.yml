@@ -2,5 +2,5 @@ version: 1
 task_definition:
   efs_volumes:
     - name: metabase-postgres-db
-      filesystem_id: fs-006ff3ec458b80b2f
+      filesystem_id: ${METABASE_POSTGRES_DB_VOLUME_ID}
       transit_encryption: ENABLED

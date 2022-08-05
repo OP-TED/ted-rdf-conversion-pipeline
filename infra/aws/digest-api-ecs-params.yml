@@ -1,0 +1,14 @@
+version: 1
+task_definition:
+  ecs_network_mode: awsvpc
+run_params:
+  network_configuration:
+    awsvpc_configuration:
+      subnets:
+        - ${SUBNET_1_ID}
+        - ${SUBNET_2_ID}
+        - ${SUBNET_3_ID}
+      security_groups:
+        - $SECURITY_GROUP
+      assign_public_ip: DISABLED
+

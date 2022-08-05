@@ -50,14 +50,14 @@ task_definition:
           condition: "SUCCESS"
   efs_volumes:
     - name: dags
-      filesystem_id: fs-09f99c6419d0c41ce
+      filesystem_id: ${DAGS_VOLUME_ID}
       transit_encryption: ENABLED
     - name: logs
-      filesystem_id: fs-0a8a0fea68d9270c3
+      filesystem_id: ${LOGS_VOLUME_ID}
       transit_encryption: ENABLED
     - name: ted_sws
-      filesystem_id: fs-0238f297aefe5a95d
+      filesystem_id: ${TED_SWS_VOLUME_ID}
       transit_encryption: ENABLED
-    - name: postgres-db
-      filesystem_id: something
+    - name: airflow-postgres-db
+      filesystem_id: ${AIRFLOW_POSTGRES_DB_VOLUME_ID}
       transit_encryption: ENABLED

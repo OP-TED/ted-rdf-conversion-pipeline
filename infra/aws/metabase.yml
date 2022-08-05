@@ -3,12 +3,12 @@ services:
   metabase:
     environment:
       ENV_MB_DB_TYPE: postgres
-      ENV_MB_DB_DBNAME: metabase
-      ENV_MB_DB_PORT: 5432
-      ENV_MB_DB_USER: metabase
-      ENV_MB_DB_PASS: metabase
-      ENV_MB_DB_HOST: postgres
-      ENV_MB_ENCRYPTION_SECRET_KEY: metameta
+      ENV_MB_DB_DBNAME: ${ENV_MB_DB_DBNAME}
+      ENV_MB_DB_PORT: ${ENV_MB_DB_PORT}
+      ENV_MB_DB_USER: ${ENV_MB_DB_USER}
+      ENV_MB_DB_PASS: ${ENV_MB_DB_PASS}
+      ENV_MB_DB_HOST: postgres-metabase
+      ENV_MB_ENCRYPTION_SECRET_KEY: ${ENV_MB_ENCRYPTION_SECRET_KEY}
     image: public.ecr.aws/g5y4d1v2/meaningfy:metabase
     logging:
       driver: awslogs

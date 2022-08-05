@@ -2,8 +2,8 @@ version: "3"
 services:
   fuseki:
     environment:
-      ADMIN_PASSWORD: admin
-      FUSEKI_DATASET_1: mydataset
+      ADMIN_PASSWORD: ${FUSEKI_ADMIN_PASSWORD}
+      FUSEKI_DATASET_1: ${FUSEKI_DATASET_1}
     image: public.ecr.aws/g5y4d1v2/meaningfy:fuseki-4.5.0
     logging:
       driver: awslogs

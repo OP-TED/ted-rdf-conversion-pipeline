@@ -12,6 +12,6 @@ services:
       ecs-local-network: null
     ports:
     - 8000:8000
-networks:
-  ecs-local-network:
-    external: true
+#networks:
+#  ecs-local-network:
+#    external: true

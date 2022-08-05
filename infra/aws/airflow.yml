@@ -6,8 +6,8 @@ services:
     environment:
       _AIRFLOW_DB_UPGRADE: "true"
       _AIRFLOW_WWW_USER_CREATE: "true"
-      _AIRFLOW_WWW_USER_PASSWORD: airflow
-      _AIRFLOW_WWW_USER_USERNAME: airflow
+      _AIRFLOW_WWW_USER_PASSWORD: ${_AIRFLOW_WWW_USER_PASSWORD}
+      _AIRFLOW_WWW_USER_USERNAME: ${_AIRFLOW_WWW_USER_USERNAME}
       AIRFLOW__API__AUTH_BACKEND: airflow.api.auth.backend.basic_auth
       AIRFLOW__CELERY__BROKER_URL: redis://:@redis:6379/0
       AIRFLOW__CELERY__RESULT_BACKEND: db+postgresql://airflow:airflow@postgres/airflow
@@ -15,10 +15,10 @@ services:
       AIRFLOW__CORE__EXECUTOR: CeleryExecutor
       AIRFLOW__CORE__LOAD_EXAMPLES: "false"
       AIRFLOW__CORE__SQL_ALCHEMY_CONN: postgresql+psycopg2://airflow:airflow@postgres/airflow
-      AIRFLOW_GID: "50000"
+      AIRFLOW_GID: ${AIRFLOW_GID}
       AIRFLOW_HOME: /opt/airflow
       PYTHONPATH: /opt/airflow/
-      AIRFLOW_UID: "50000"
+      AIRFLOW_UID: ${AIRFLOW_UID}
     image: public.ecr.aws/g5y4d1v2/meaningfy:airflow-meaningfy-225
     links:
     - postgres
@@ -49,8 +49,8 @@ services:
     environment:
       _AIRFLOW_DB_UPGRADE: "true"
       _AIRFLOW_WWW_USER_CREATE: "true"
-      _AIRFLOW_WWW_USER_PASSWORD: airflow
-      _AIRFLOW_WWW_USER_USERNAME: airflow
+      _AIRFLOW_WWW_USER_PASSWORD: ${_AIRFLOW_WWW_USER_PASSWORD}
+      _AIRFLOW_WWW_USER_USERNAME: ${_AIRFLOW_WWW_USER_USERNAME}
       AIRFLOW__API__AUTH_BACKEND: airflow.api.auth.backend.basic_auth
       AIRFLOW__CELERY__BROKER_URL: redis://:@redis:6379/0
       AIRFLOW__CELERY__RESULT_BACKEND: db+postgresql://airflow:airflow@postgres/airflow
@@ -58,10 +58,10 @@ services:
       AIRFLOW__CORE__EXECUTOR: CeleryExecutor
       AIRFLOW__CORE__LOAD_EXAMPLES: "false"
       AIRFLOW__CORE__SQL_ALCHEMY_CONN: postgresql+psycopg2://airflow:airflow@postgres/airflow
-      AIRFLOW_GID: "50000"
+      AIRFLOW_GID: ${AIRFLOW_GID}
       AIRFLOW_HOME: /opt/airflow
       PYTHONPATH: /opt/airflow/
-      AIRFLOW_UID: "50000"
+      AIRFLOW_UID: ${AIRFLOW_UID}
     image: public.ecr.aws/g5y4d1v2/meaningfy:airflow-meaningfy-225
     logging:
       driver: awslogs
@@ -94,7 +94,7 @@ services:
         awslogs-region: eu-west-3
         awslogs-stream-prefix: ecs
     volumes:
-      - postgres-db:/var/lib/postgresql/data
+      - airflow-postgres-db:/var/lib/postgresql/data
     networks:
       ecs-local-network: null
   redis:
@@ -126,9 +126,9 @@ services:
       AIRFLOW__CORE__EXECUTOR: CeleryExecutor
       AIRFLOW__CORE__LOAD_EXAMPLES: "false"
       AIRFLOW__CORE__SQL_ALCHEMY_CONN: postgresql+psycopg2://airflow:airflow@postgres/airflow
-      AIRFLOW_GID: "50000"
+      AIRFLOW_GID: ${AIRFLOW_GID}
       AIRFLOW_HOME: /opt/airflow
-      AIRFLOW_UID: "50000"
+      AIRFLOW_UID: ${AIRFLOW_UID}
       PYTHONPATH: /opt/airflow/
       RML_MAPPER_PATH: /opt/airflow/.rmlmapper/rmlmapper.jar
       XML_PROCESSOR_PATH: /opt/airflow/.saxon/saxon-he-10.6.jar
@@ -164,9 +164,9 @@ services:
       AIRFLOW__CORE__EXECUTOR: CeleryExecutor
       AIRFLOW__CORE__LOAD_EXAMPLES: "false"
       AIRFLOW__CORE__SQL_ALCHEMY_CONN: postgresql+psycopg2://airflow:airflow@postgres/airflow
-      AIRFLOW_GID: "50000"
+      AIRFLOW_GID: ${AIRFLOW_GID}
       AIRFLOW_HOME: /opt/airflow/
-      AIRFLOW_UID: "50000"
+      AIRFLOW_UID: ${AIRFLOW_UID}
       PYTHONPATH: /opt/airflow/
       RML_MAPPER_PATH: /opt/airflow/.rmlmapper/rmlmapper.jar
       XML_PROCESSOR_PATH: /opt/airflow/.saxon/saxon-he-10.6.jar
@@ -199,9 +199,9 @@ services:
       AIRFLOW__CORE__EXECUTOR: CeleryExecutor
       AIRFLOW__CORE__LOAD_EXAMPLES: "false"
       AIRFLOW__CORE__SQL_ALCHEMY_CONN: postgresql+psycopg2://airflow:airflow@postgres/airflow
-      AIRFLOW_GID: "50000"
+      AIRFLOW_GID: ${AIRFLOW_GID}
       AIRFLOW_HOME: /opt/airflow
-      AIRFLOW_UID: "50000"
+      AIRFLOW_UID: ${AIRFLOW_UID}
       PYTHONPATH: /opt/airflow/
       RML_MAPPER_PATH: /opt/airflow/.rmlmapper/rmlmapper.jar
       XML_PROCESSOR_PATH: /opt/airflow/.saxon/saxon-he-10.6.jar
@@ -238,9 +238,9 @@ services:
       AIRFLOW__CORE__EXECUTOR: CeleryExecutor
       AIRFLOW__CORE__LOAD_EXAMPLES: "false"
       AIRFLOW__CORE__SQL_ALCHEMY_CONN: postgresql+psycopg2://airflow:airflow@postgres/airflow
-      AIRFLOW_GID: "50000"
+      AIRFLOW_GID: ${AIRFLOW_GID}
       AIRFLOW_HOME: /opt/airflow
-      AIRFLOW_UID: "50000"
+      AIRFLOW_UID: ${AIRFLOW_UID}
       PYTHONPATH: /opt/airflow/
       RML_MAPPER_PATH: /opt/airflow/.rmlmapper/rmlmapper.jar
       XML_PROCESSOR_PATH: /opt/airflow/.saxon/saxon-he-10.6.jar
@@ -273,4 +273,4 @@ volumes:
   dags:
   logs:
   ted_sws:
-  postgres-db:
+  airflow-postgres-db:

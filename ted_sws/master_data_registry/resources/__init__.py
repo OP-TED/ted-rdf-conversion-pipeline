@@ -1,0 +1,6 @@
+import pathlib
+
+MASTER_DATA_REGISTRY_RESOURCES_PATH = pathlib.Path(__file__).parent.resolve()
+
+TRIPLES_BY_CET_URI_SPARQL_QUERY_TEMPLATE_PATH = MASTER_DATA_REGISTRY_RESOURCES_PATH / "sparql_query_templates/get_by_cet_uri.rq"
+RDF_FRAGMENT_BY_URI_SPARQL_QUERY_TEMPLATE_PATH = MASTER_DATA_REGISTRY_RESOURCES_PATH / "sparql_query_templates/get_2_dependency_levels_for_a_uri_as_root.rq"

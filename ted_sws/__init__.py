@@ -84,6 +84,10 @@ class AllegroConfig:
     def ALLEGRO_HOST(self) -> str:
         return EnvConfigResolver().config_resolve()
 
+    @property
+    def TRIPLE_STORE_ENDPOINT_URL(self)->str:
+        return EnvConfigResolver().config_resolve()
+
 
 class ELKConfig:
 

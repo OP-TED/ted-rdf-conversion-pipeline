@@ -116,7 +116,7 @@ class AllegroGraphTripleStore(TripleStoreABC):
         """
         return self.allegro.openCatalog(name=self.catalog_name).listRepositories()
 
-    def add_data_to_repository(self, file_content: str, mime_type: str, repository_name: str = None):
+    def add_data_to_repository(self, file_content: Union[str, bytes, bytearray], mime_type: str, repository_name: str = None):
         """
         Method to add triples from a string
         :param file_content:
@@ -124,8 +124,9 @@ class AllegroGraphTripleStore(TripleStoreABC):
         :param mime_type:
         :return:
         """
+
         repository = self._get_repository(repository_name=repository_name)
-        repository.getConnection().addData(data=file_content, rdf_format=mime_type)
+        repository.getConnection().addData(data=file_content)
 
     def add_file_to_repository(self, file_path, repository_name: str = None):
         """

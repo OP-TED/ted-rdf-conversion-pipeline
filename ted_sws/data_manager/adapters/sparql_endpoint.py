@@ -104,6 +104,9 @@ class TripleStoreEndpointABC(ABC):
         :return:
         """
 
+    def add_data_to_repository(self, file_content, repository_name, mime_type):
+        pass
+
 
 class SPARQLTripleStoreEndpoint(TripleStoreEndpointABC):
 

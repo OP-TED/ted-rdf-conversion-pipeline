@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>HTML report for XPATH Coverage</title>
+    <link href="https://cdn.datatables.net/1.10.22/css/jquery.dataTables.min.css" rel="stylesheet" type="text/css">
+
+    <style type="text/css">
+        body {
+            font-family: Arial, sans-serif;
+                margin: 25px auto;
+                width: 80%;
+        }
+        h2 {
+            padding-top: 20px;
+        }
+        .error {
+            color: red;
+        }
+        .success {
+            color: green;
+        }
+        table.dataTable thead th {
+            text-align: left;
+            padding-left: 10px;
+        }
+        table td {
+            vertical-align: top;
+        }
+        .notice-hit {
+            white-space: nowrap;
+        }
+        [data-role=collapsible].collapsible-wrapper {
+            padding: 10px 0;
+        }
+        [data-role=collapsible] h4 {
+            margin: 0;
+        }
+        [data-role=collapsible] h4 a {
+            padding: 3px 10px;
+            background: #ccc;
+            width: 100%;
+            box-sizing: border-box;
+            display: block;
+            color: #111;
+            text-decoration: none;
+            margin: -3px 0;
+        }
+
+        [data-role=collapsible][data-state=collapsed] h4 a:before {
+            content: '+ expand';
+        }
+        [data-role=collapsible] h4 a:before {
+            content: '- collapse';
+        }
+        [data-role=collapsible][data-state=collapsed] .ui-collapsible-content {
+            visibility: hidden;
+            height: 0;
+            padding: 0 10px;;
+        }
+
+        [data-role=collapsible] .ui-collapsible-content {
+            padding: 10px;
+        }
+    </style>
+</head>
+<body>
+<h1>XPATH Coverage HTML report </h1>
+<hr>
+<h2>Report details: </h2>
+<ul>
+    <li>Date created: {{ created }}</li>
+    <li>Mapping suite identifier: {{ mapping_suite_identifier }}</li>
+    <li>
+        <div><hr></div>
+        <h4>Overall coverage</h4>
+        <h3>{{ "%.2f"|format((validation_result.coverage|float * 100)) }}%</h3>
+        <p>(Number of Conceptual XPATHs found in notices) / (Total number of unique XPATHs in provided notices)</p>
+    <li><div><hr></div>
+        <h4>Conceptual coverage</h4>
+        <h3>{{ "%.2f"|format((validation_result.conceptual_coverage|float * 100)) }}%</h3>
+        <p>(Number of Conceptual XPATHs found in notices) / (Total number of unique Conceptual XPATHs)</p>
+    </li>
+    <li><div><hr></div>Notice identifier(s):
+        <div data-role="collapsible" data-state="{% if notice_id|length > 1 %}collapsed{% endif %}"
+            class="collapsible-wrapper">
+            <h4><a href="#"></a></h4>
+            <div class="ui-collapsible-content">
+            {% if notice_id|length == 1 %}
+                {{ validation_result.notice_id[0] }}
+            {% else %}
+                {{ validation_result.notice_id | tojson(indent=2) | replace('\n', '<br>') }}
+            {% endif %}
+            </div>
+        </div>
+    </li>
+</ul>
+{% if xpath_assertions|length > 0 %}
+<hr>
+<h2>XPATH Assertions</h2>
+<table class="display" data-order='[[1, "asc"]]'>
+    <thead>
+    <tr>
+        <th>Title</th>
+        <th>XPATH</th>
+        <th>Found</th>
+        <th>Notice count</th>
+        <th>Notices</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for item in validation_result.xpath_assertions %}
+    <tr>
+        <td>{{ item.title }}</td>
+        <td>{{ item.xpath }}</td>
+        <td class="{% if item.query_result %}success{% else %}error{% endif %}">{{ item.query_result }}</td>
+        <td>{{ item.count }}</td>
+        <td class="notice-hit">{% if item.notice_hit %}
+            <div data-role="collapsible" data-state="collapsed">
+                <h4><a href="#"></a></h4>
+                <div class="ui-collapsible-content" data-state="collapsed">
+                    {{ item.notice_hit | tojson(indent=2) | replace('\n', '<br>') }}
+                </div>
+            </div>
+        {% endif %}</td>
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+{% endif %}
+{% if validation_result.xpath_covered|length > 0 %}
+<hr>
+<h2>XPATHs covered by Conceptual Mapping</h2>
+<table class="display">
+    <thead>
+    <tr>
+        <th>XPATH</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for xpath in validation_result.xpath_covered %}
+    <tr>
+        <td>{{ xpath }}</td>
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+{% endif %}
+{% if validation_result.xpath_not_covered|length > 0 %}
+<hr>
+<h2>XPATHs not covered by Conceptual Mapping</h2>
+<table class="display">
+    <thead>
+    <tr>
+        <th>XPATH</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for xpath in validation_result.xpath_not_covered %}
+    <tr>
+        <td>{{ xpath }}</td>
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+{% endif %}
+{% if validation_result.xpath_extra|length > 0 %}
+<hr>
+<h2>Extra XPATHs in Conceptual Mapping</h2>
+<table class="display">
+    <thead>
+    <tr>
+        <th>XPATH</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for xpath in validation_result.xpath_extra %}
+    <tr>
+        <td>{{ xpath }}</td>
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+{% endif %}
+<hr>
+</body>
+</html>
+<script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+<script type="text/javascript" src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/buttons/1.6.4/js/dataTables.buttons.min.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/buttons/1.6.4/js/buttons.print.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("[data-role=collapsible] h4 a").on("click", function(e) {
+            $p = $(this).closest("[data-role=collapsible]");
+            $p.attr("data-state", $p.attr("data-state") == "collapsed" ? "expanded" : "collapsed");
+            $c = $p.find('.ui-collapsible-content');
+            $c.attr("data-state", $c.attr("data-state") == "collapsed" ? "expanded" : "collapsed");
+            return false;
+        });
+        $("table.display").DataTable({
+            dom: 'B<"clear">lfiprtip',
+            buttons: [],
+            "lengthMenu": [[5, 15, 30, -1], [5, 15, 30, "All"]],
+            "pageLength": 15,
+            responsive: {
+                details: true
+            }
+        });
+
+    });
+
+</script>

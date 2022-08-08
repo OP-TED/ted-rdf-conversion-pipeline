@@ -6,7 +6,6 @@
 # Email: costezki.eugen@gmail.com 
 
 """ """
-import pytest
 
 from ted_sws.core.model.manifestation import XPATHCoverageValidationReport, SHACLTestSuiteValidationReport, \
     QueriedSHACLShapeValidationResult
@@ -29,6 +28,9 @@ def test_set_notice_validation(publicly_available_notice):
     xml_manifestation = publicly_available_notice.xml_manifestation
     xml_manifestation.add_validation(xml_validation)
     assert publicly_available_notice.xml_manifestation.xpath_coverage_validation
+    xml_validations = publicly_available_notice.get_xml_validation()
+    assert len(xml_validations)
+    assert xml_validation in xml_validations
 
     publicly_available_notice.set_xml_validation(xml_validation)
 

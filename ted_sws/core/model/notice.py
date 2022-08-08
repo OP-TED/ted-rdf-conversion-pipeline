@@ -206,8 +206,6 @@ class Notice(WorkExpression):
         return result
 
     def get_xml_validation(self) -> Optional[List[XMLValidationManifestation]]:
-        if not self.xml_manifestation:
-            return None
         result = []
         if self.xml_manifestation.xpath_coverage_validation:
             result.append(self.xml_manifestation.xpath_coverage_validation)
@@ -320,11 +318,7 @@ class Notice(WorkExpression):
         :param xml_validation:
         :return:
         """
-        if not self.xml_manifestation:
-            raise ValueError("Cannot set the XML validation of a non-existent XML manifestation")
-
         self.xml_manifestation.add_validation(validation=xml_validation)
-
         if self._check_status_is_validated():
             self.update_status_to(NoticeStatus.VALIDATED)
 

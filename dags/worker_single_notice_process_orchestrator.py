@@ -473,4 +473,4 @@ def old_worker_single_notice_process_orchestrator():
                     check_notice_state_before_generate_mets_package, check_notice_state_before_publish_notice_in_cellar]
 
 
-dag = worker_single_notice_process_orchestrator()
+dag = old_worker_single_notice_process_orchestrator()

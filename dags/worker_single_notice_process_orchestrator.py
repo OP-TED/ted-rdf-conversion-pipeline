@@ -29,7 +29,7 @@ from ted_sws.event_manager.services.logger_from_context import get_logger_from_d
 
 NOTICE_ID = "notice_id"
 MAPPING_SUITE_ID = "mapping_suite_id"
-DAG_NAME = "worker_single_notice_process_orchestrator"
+DAG_NAME = "old_worker_single_notice_process_orchestrator"
 
 
 @dag(default_args=DEFAULT_DAG_ARGUMENTS,
@@ -37,7 +37,7 @@ DAG_NAME = "worker_single_notice_process_orchestrator"
      max_active_runs=128,
      concurrency=128,
      tags=['worker', 'pipeline'])
-def worker_single_notice_process_orchestrator():
+def old_worker_single_notice_process_orchestrator():
     """
 
     :return:

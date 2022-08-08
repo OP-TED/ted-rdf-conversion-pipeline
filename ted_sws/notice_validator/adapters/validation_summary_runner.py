@@ -1,146 +1,156 @@
-from pathlib import Path
-from typing import List, Union, Set, Dict
+from typing import List
 
-import numpy as np
 from jinja2 import Environment, PackageLoader
 from pymongo import MongoClient
 
-from ted_sws.core.model.manifestation import XPATHCoverageValidationReport, XPATHCoverageValidationAssertion, \
-    XPATHCoverageValidationResult
+from ted_sws.core.model.manifestation import ValidationSummaryReport, XMLManifestationValidationSummaryReport, \
+    RDFManifestationValidationSummaryReport, XPATHCoverageSummaryReport, XPATHCoverageSummaryResult, \
+    SPARQLSummaryCountReport, SHACLSummarySeverityCountReport, SPARQLQueryResult, SPARQLTestSuiteValidationReport, \
+    SHACLTestSuiteValidationReport, RDFManifestation, SPARQLSummaryResult, SHACLSummaryResult
 from ted_sws.core.model.notice import Notice
-from ted_sws.core.model.transform import ConceptualMapping
-from ted_sws.data_sampler.services.notice_xml_indexer import index_notice, get_unique_xpaths_covered_by_notices
-from ted_sws.mapping_suite_processor.services.conceptual_mapping_reader import mapping_suite_read_metadata, \
-    mapping_suite_read_conceptual_mapping
-from ted_sws.notice_validator import BASE_XPATH_FIELD
-from ted_sws.data_manager.adapters.mapping_suite_repository import MappingSuiteRepositoryMongoDB
 
 TEMPLATES = Environment(loader=PackageLoader("ted_sws.notice_validator.resources", "templates"))
-XPATH_COVERAGE_REPORT_TEMPLATE = "xpath_coverage_report.jinja2"
-
-PATH_TYPE = Union[str, Path]
-XPATH_TYPE = Dict[str, List[str]]
+VALIDATION_SUMMARY_REPORT_TEMPLATE = "validation_summary_report.jinja2"
 
 
-class CoverageRunner:
-    """
-        Runs coverage measurement of the XML notice
-    """
+class ManifestationValidationSummaryRunner:
+    notices: List[Notice]
 
-    conceptual_xpaths: Set[str] = set()
-    conceptual_xpath_names: Dict[str, str] = {}
-    mongodb_client: MongoClient
-    base_xpath: str
-    mapping_suite_id: str
+    def __init__(self, notices: List[Notice]):
+        self.notices = notices
 
-    def __init__(self, mapping_suite_id: str, conceptual_mappings_file_path: PATH_TYPE = None, xslt_transformer=None,
-                 mongodb_client: MongoClient = None):
-        self.mapping_suite_id = mapping_suite_id
-        self.mongodb_client = mongodb_client
-        self.xslt_transformer = xslt_transformer
 
-        conceptual_mapping: ConceptualMapping
-        if self._db_readable():
-            mapping_suite_repository = MappingSuiteRepositoryMongoDB(mongodb_client=mongodb_client)
-            mapping_suite = mapping_suite_repository.get(reference=mapping_suite_id)
-            if mapping_suite is None:
-                raise ValueError(f'Mapping suite, with {mapping_suite_id} id, was not found')
-            conceptual_mapping: ConceptualMapping = mapping_suite.conceptual_mapping
-        else:
-            conceptual_mapping = mapping_suite_read_conceptual_mapping(Path(conceptual_mappings_file_path))
+class RDFManifestationValidationSummaryRunner(ManifestationValidationSummaryRunner):
+    @classmethod
+    def notice_sparql_summary(cls, notice: Notice, report: RDFManifestationValidationSummaryReport):
+        report_count: SPARQLSummaryCountReport = report.sparql_summary.aggregate
+        result_counts: List[SPARQLSummaryResult] = report.sparql_summary.validation_results
+        sparql_reports: List[SPARQLTestSuiteValidationReport] = notice.rdf_manifestation.sparql_validations
+        if sparql_reports:
+            for sparql_report in sparql_reports:
+                validation_results: List[SPARQLQueryResult] = sparql_report.validation_results
+                result_validation: SPARQLSummaryResult = SPARQLSummaryResult()
+                result_validation.mapping_suite_identifier = sparql_report.mapping_suite_identifier
+                result_validation.test_suite_identifier = sparql_report.test_suite_identifier
+                result_count: SPARQLSummaryCountReport = result_validation.aggregate
+                if validation_results:
+                    for validation in validation_results:
+                        if validation.result == 'True':
+                            report_count.success += 1
+                            result_count.success += 1
+                        else:
+                            report_count.fail += 1
+                            result_count.fail += 1
+                        if validation.error:
+                            report_count.error += 1
+                            result_count.error += 1
 
-        for cm_xpath in conceptual_mapping.xpaths:
-            self.conceptual_xpaths.add(cm_xpath.xpath)
-            self.conceptual_xpath_names[cm_xpath.xpath] = cm_xpath.name
-
-        self.base_xpath = conceptual_mapping.metadata.base_xpath
-
-    def _db_readable(self) -> bool:
-        return self.mongodb_client is not None
+                result_counts.append(result_validation)
 
     @classmethod
-    def find_notice_by_xpath(cls, notice_xpaths: XPATH_TYPE, xpath: str) -> Dict[str, int]:
-        notice_hit: Dict[str, int] = {k: v.count(xpath) for k, v in sorted(notice_xpaths.items()) if xpath in v}
-        return notice_hit
-
-    def xpath_assertions(self, notice_xpaths: XPATH_TYPE,
-                         xpaths_list: List[str]) -> List[XPATHCoverageValidationAssertion]:
-        xpath_assertions = []
-        for xpath in self.conceptual_xpaths:
-            xpath_assertion = XPATHCoverageValidationAssertion()
-            title = self.conceptual_xpath_names[xpath]
-            xpath_assertion.title = title if title is not np.nan else ''
-            xpath_assertion.xpath = xpath
-            xpath_assertion.count = xpaths_list.count(xpath)
-            xpath_assertion.notice_hit = self.find_notice_by_xpath(notice_xpaths, xpath)
-            xpath_assertion.query_result = xpath_assertion.count > 0
-            xpath_assertions.append(xpath_assertion)
-        return xpath_assertions
-
-    def validate_xpath_coverage_report(self, report: XPATHCoverageValidationReport, notice_xpaths: XPATH_TYPE,
-                                       xpaths_list: List[str], notice_id: List[str]):
-        unique_notice_xpaths: Set[str] = set(xpaths_list)
-
-        validation_result: XPATHCoverageValidationResult = XPATHCoverageValidationResult()
-        validation_result.notice_id = notice_id
-        validation_result.xpath_assertions = self.xpath_assertions(notice_xpaths, xpaths_list)
-        validation_result.xpath_covered = list(self.conceptual_xpaths & unique_notice_xpaths)
-        validation_result.xpath_not_covered = list(unique_notice_xpaths - self.conceptual_xpaths)
-        validation_result.xpath_extra = list(self.conceptual_xpaths - unique_notice_xpaths)
-        unique_notice_xpaths_len = len(unique_notice_xpaths)
-        xpath_covered_len = len(validation_result.xpath_covered)
-        conceptual_xpaths_len = len(self.conceptual_xpaths)
-        if unique_notice_xpaths_len:
-            validation_result.coverage = xpath_covered_len / unique_notice_xpaths_len
-        if conceptual_xpaths_len:
-            validation_result.conceptual_coverage = xpath_covered_len / conceptual_xpaths_len
-
-        report.validation_result = validation_result
+    def _manifestation(cls, notice: Notice) -> RDFManifestation:
+        return notice.rdf_manifestation
 
     @classmethod
-    def based_xpaths(cls, xpaths: List[str], base_xpath: str) -> List[str]:
-        """
+    def notice_shacl_summary(cls, notice: Notice, report: RDFManifestationValidationSummaryReport):
+        report_count: SHACLSummarySeverityCountReport = report.shacl_summary.result_severity.aggregate
+        result_counts: List[SHACLSummaryResult] = report.shacl_summary.validation_results
+        manifestation = cls._manifestation(notice)
+        shacl_reports: List[SHACLTestSuiteValidationReport] = manifestation.shacl_validations
+        if shacl_reports:
+            for shacl_report in shacl_reports:
+                validation_results = shacl_report.validation_results
+                result_validation: SHACLSummaryResult = SHACLSummaryResult()
+                result_validation.mapping_suite_identifier = shacl_report.mapping_suite_identifier
+                result_validation.test_suite_identifier = shacl_report.test_suite_identifier
+                result_count: SHACLSummarySeverityCountReport = result_validation.result_severity.aggregate
+                if validation_results:
+                    bindings = validation_results.results_dict['results']['bindings']
+                    for binding in bindings:
+                        result_severity = binding['resultSeverity']
+                        if result_severity:
+                            if result_severity['value'].endswith("#Violation"):
+                                report_count.violation += 1
+                                result_count.violation += 1
+                            elif result_severity['value'].endswith("#Info"):
+                                report_count.info += 1
+                                result_count.info += 1
+                            elif result_severity['value'].endswith("#Warning"):
+                                report_count.warning += 1
+                                result_count.warning += 1
 
-        :param xpaths:
-        :param base_xpath:
-        :return:
-        """
-        base_xpath += "/"
-        return list(filter(lambda xpath: xpath.startswith(base_xpath), xpaths))
+                result_counts.append(result_validation)
 
-    def coverage_notice_xpath(self, notices: List[Notice], mapping_suite_id) -> XPATHCoverageValidationReport:
-        report: XPATHCoverageValidationReport = XPATHCoverageValidationReport(
-            object_data="XPATHCoverageValidationReport",
-            mapping_suite_identifier=mapping_suite_id)
+    def validation_summary(self) -> RDFManifestationValidationSummaryReport:
+        notices = self.notices
+        report: RDFManifestationValidationSummaryReport = RDFManifestationValidationSummaryReport()
 
-        notice_id = []
-
-        notice_xpaths: XPATH_TYPE = {}
-        xpaths_list: List[str] = []
         for notice in notices:
-            xpaths: List[str] = []
-            notice_id.append(notice.ted_id)
-            if self._db_readable():
-                xpaths = get_unique_xpaths_covered_by_notices([notice.ted_id], self.mongodb_client)
-            else:
-                notice = index_notice(notice, self.xslt_transformer)
+            self.notice_sparql_summary(notice, report)
+            self.notice_shacl_summary(notice, report)
 
-                if notice.xml_metadata and notice.xml_metadata.unique_xpaths:
-                    xpaths = notice.xml_metadata.unique_xpaths
+        return report
 
-            notice_xpaths[notice.ted_id] = self.based_xpaths(xpaths, self.base_xpath)
-            xpaths_list += notice_xpaths[notice.ted_id]
 
-        self.validate_xpath_coverage_report(report, notice_xpaths, xpaths_list, sorted(notice_id))
+class DistilledRDFManifestationValidationSummaryRunner(RDFManifestationValidationSummaryRunner):
+    @classmethod
+    def _manifestation(cls, notice: Notice) -> RDFManifestation:
+        return notice.distilled_rdf_manifestation
+
+
+class XMLManifestationValidationSummaryRunner(ManifestationValidationSummaryRunner):
+    def validation_summary(self) -> XMLManifestationValidationSummaryReport:
+        notices = self.notices
+        report: XMLManifestationValidationSummaryReport = XMLManifestationValidationSummaryReport()
+        xpath_coverage_summary: XPATHCoverageSummaryReport = report.xpath_coverage_summary
+
+        mapping_suite_identifier = notices[0].xml_manifestation.xpath_coverage_validation.mapping_suite_identifier
+        xpath_coverage_summary.mapping_suite_identifier = mapping_suite_identifier
+
+        validation_result: XPATHCoverageSummaryResult = report.xpath_coverage_summary.validation_result
+        for notice in notices:
+            xpath_coverage_validation = notice.xml_manifestation.xpath_coverage_validation
+            if xpath_coverage_validation:
+                notice_validation_result = xpath_coverage_validation.validation_result
+                validation_result.xpath_covered += len(notice_validation_result.xpath_covered)
+                validation_result.xpath_not_covered += len(notice_validation_result.xpath_not_covered)
+
+        return report
+
+
+class ValidationSummaryRunner:
+    """
+        Runs Validation Summary
+    """
+
+    mongodb_client: MongoClient
+
+    def __init__(self):
+        pass
+
+    @classmethod
+    def validation_summary(cls, notices: List[Notice]) -> ValidationSummaryReport:
+        report: ValidationSummaryReport = ValidationSummaryReport(
+            object_data="ValidationSummaryReport"
+        )
+
+        xml_manifestation_runner = XMLManifestationValidationSummaryRunner(notices)
+        report.xml_manifestation = xml_manifestation_runner.validation_summary()
+
+        rdf_manifestation_runner = RDFManifestationValidationSummaryRunner(notices)
+        report.rdf_manifestation = rdf_manifestation_runner.validation_summary()
+
+        distilled_rdf_manifestation_runner = DistilledRDFManifestationValidationSummaryRunner(notices)
+        report.distilled_rdf_manifestation = distilled_rdf_manifestation_runner.validation_summary()
 
         return report
 
     @classmethod
-    def json_report(cls, report: XPATHCoverageValidationReport) -> dict:
+    def json_report(cls, report: ValidationSummaryReport) -> dict:
         return report.dict()
 
     @classmethod
-    def html_report(cls, report: XPATHCoverageValidationReport) -> str:
+    def html_report(cls, report: ValidationSummaryReport) -> str:
         data: dict = cls.json_report(report)
-        html_report = TEMPLATES.get_template(XPATH_COVERAGE_REPORT_TEMPLATE).render(data)
+        html_report = TEMPLATES.get_template(VALIDATION_SUMMARY_REPORT_TEMPLATE).render(data)
         return html_report

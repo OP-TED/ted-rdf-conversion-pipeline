@@ -1,20 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
+  <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>HTML report for XPATH Coverage</title>
+    <title>HTML report for SPARQL Validation</title>
     <link href="https://cdn.datatables.net/1.10.22/css/jquery.dataTables.min.css" rel="stylesheet" type="text/css">
-
     <style type="text/css">
         body {
             font-family: Arial, sans-serif;
                 margin: 25px auto;
                 width: 80%;
-        }
-        h2 {
-            padding-top: 20px;
         }
         .error {
             color: red;
@@ -22,187 +18,252 @@
         .success {
             color: green;
         }
-        table.dataTable thead th {
+        table thead th {
             text-align: left;
+        }
+        table.display thead th {
             padding-left: 10px;
         }
-        table td {
-            vertical-align: top;
-        }
-        .notice-hit {
-            white-space: nowrap;
-        }
-        [data-role=collapsible].collapsible-wrapper {
-            padding: 10px 0;
-        }
-        [data-role=collapsible] h4 {
-            margin: 0;
-        }
-        [data-role=collapsible] h4 a {
-            padding: 3px 10px;
-            background: #ccc;
-            width: 100%;
-            box-sizing: border-box;
-            display: block;
-            color: #111;
-            text-decoration: none;
-            margin: -3px 0;
-        }
-
-        [data-role=collapsible][data-state=collapsed] h4 a:before {
-            content: '+ expand';
-        }
-        [data-role=collapsible] h4 a:before {
-            content: '- collapse';
-        }
-        [data-role=collapsible][data-state=collapsed] .ui-collapsible-content {
-            visibility: hidden;
-            height: 0;
-            padding: 0 10px;;
-        }
-
-        [data-role=collapsible] .ui-collapsible-content {
-            padding: 10px;
-        }
     </style>
-</head>
-<body>
-<h1>XPATH Coverage HTML report </h1>
-<hr>
-<h2>Report details: </h2>
-<ul>
-    <li>Date created: {{ created }}</li>
-    <li>Mapping suite identifier: {{ mapping_suite_identifier }}</li>
-    <li>
-        <div><hr></div>
-        <h4>Overall coverage</h4>
-        <h3>{{ "%.2f"|format((validation_result.coverage|float * 100)) }}%</h3>
-        <p>(Number of Conceptual XPATHs found in notices) / (Total number of unique XPATHs in provided notices)</p>
-    <li><div><hr></div>
-        <h4>Conceptual coverage</h4>
-        <h3>{{ "%.2f"|format((validation_result.conceptual_coverage|float * 100)) }}%</h3>
-        <p>(Number of Conceptual XPATHs found in notices) / (Total number of unique Conceptual XPATHs)</p>
-    </li>
-    <li><div><hr></div>Notice identifier(s):
-        <div data-role="collapsible" data-state="{% if notice_id|length > 1 %}collapsed{% endif %}"
-            class="collapsible-wrapper">
-            <h4><a href="#"></a></h4>
-            <div class="ui-collapsible-content">
-            {% if notice_id|length == 1 %}
-                {{ validation_result.notice_id[0] }}
-            {% else %}
-                {{ validation_result.notice_id | tojson(indent=2) | replace('\n', '<br>') }}
-            {% endif %}
-            </div>
-        </div>
-    </li>
-</ul>
-{% if xpath_assertions|length > 0 %}
-<hr>
-<h2>XPATH Assertions</h2>
-<table class="display" data-order='[[1, "asc"]]'>
-    <thead>
-    <tr>
-        <th>Title</th>
-        <th>XPATH</th>
-        <th>Found</th>
-        <th>Notice count</th>
-        <th>Notices</th>
-    </tr>
-    </thead>
-    <tbody>
-    {% for item in validation_result.xpath_assertions %}
-    <tr>
-        <td>{{ item.title }}</td>
-        <td>{{ item.xpath }}</td>
-        <td class="{% if item.query_result %}success{% else %}error{% endif %}">{{ item.query_result }}</td>
-        <td>{{ item.count }}</td>
-        <td class="notice-hit">{% if item.notice_hit %}
-            <div data-role="collapsible" data-state="collapsed">
-                <h4><a href="#"></a></h4>
-                <div class="ui-collapsible-content" data-state="collapsed">
-                    {{ item.notice_hit | tojson(indent=2) | replace('\n', '<br>') }}
-                </div>
-            </div>
-        {% endif %}</td>
-    </tr>
+  </head>
+  <body>
+	<h1>Validation Summary HTML report </h1>
+	<hr>
+    <h2>Report details: </h2>
+    <ul>
+        <li>Date created: {{ created }}</li>
+    </ul>
+    <hr>
+    <h2>XML Manifestation</h2>
+    <p>----------</p>
+    <h3>XPATH Coverage Summary</h3>
+    <h4>Report details: </h4>
+    <ul>
+        <li>Mapping suite identifier: {{ xml_manifestation.xpath_coverage_summary.mapping_suite_identifier }}</li>
+        <li>XPATHs covered: {{ xml_manifestation.xpath_coverage_summary.validation_result.xpath_covered }}</li>
+        <li>XPATHs not covered: {{ xml_manifestation.xpath_coverage_summary.validation_result.xpath_not_covered }}</li>
+    </ul>
+
+    <hr>
+
+    <h2>RDF Manifestation</h2>
+    {% set manifestation = rdf_manifestation %}
+    <p>----------</p>
+    <h3>SPARQL Summary</h3>
+    <h4>Report details: </h4>
+    <ul>
+        <li>Success: {{ manifestation.sparql_summary.aggregate.success }}</li>
+        <li>Fail: {{ manifestation.sparql_summary.aggregate.fail }}</li>
+        <li>Error: {{ manifestation.sparql_summary.aggregate.error }}</li>
+    </ul>
+        <p>-----</p>
+    <h4>Validation results: </h4>
+     {% for result in rdf_manifestation.sparql_summary.validation_results %}
+     {% set result_total = result.aggregate.success + result.aggregate.fail + result.aggregate.error %}
+         <p>---</p>
+    <ul>
+        <li>Mapping suite identifier: {{ result.mapping_suite_identifier }}</li>
+        <li>Test suite identifier: {{ result.test_suite_identifier }}</li>
+    </ul>
+    <h5>Results summary</h5>
+    <table class="display">
+        <thead class="center aligned">
+        <tr>
+            <th>Result</th>
+            <th>Count</th>
+            <th>Ratio</th>
+            <th>Ratio (%)</th>
+        </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Success</td>
+                <td>{{ result.aggregate.success }}</td>
+                <td>{{ result.aggregate.success / result_total }}</td>
+                <td>{{ (result.aggregate.success / result_total * 100) | round(2) }}%</td>
+            </tr>
+            <tr>
+                <td>Fail</td>
+                <td>{{ result.aggregate.fail }}</td>
+                <td>{{ result.aggregate.fail / result_total }}</td>
+                <td>{{ (result.aggregate.fail / result_total * 100) | round(2) }}%</td>
+            </tr>
+            <tr>
+                <td>Error</td>
+                <td>{{ result.aggregate.error }}</td>
+                <td>{{ result.aggregate.error / result_total }}</td>
+                <td>{{ (result.aggregate.error / result_total * 100) | round(2) }}%</td>
+            </tr>
+        </tbody>
+    </table>
     {% endfor %}
-    </tbody>
-</table>
-{% endif %}
-{% if validation_result.xpath_covered|length > 0 %}
-<hr>
-<h2>XPATHs covered by Conceptual Mapping</h2>
-<table class="display">
-    <thead>
-    <tr>
-        <th>XPATH</th>
-    </tr>
-    </thead>
-    <tbody>
-    {% for xpath in validation_result.xpath_covered %}
-    <tr>
-        <td>{{ xpath }}</td>
-    </tr>
+    <p>-------</p>
+    <h3>SPARQL Summary</h3>
+    <h4>Result severity: </h4>
+    <ul>
+        <li>Info: {{ manifestation.shacl_summary.result_severity.aggregate.info }}</li>
+        <li>Warning: {{ manifestation.shacl_summary.result_severity.aggregate.warning }}</li>
+        <li>Violation: {{ manifestation.shacl_summary.result_severity.aggregate.violation }}</li>
+    </ul>
+    <p>-----</p>
+    <h4>Result severity by validation results: </h4>
+    {% for result in rdf_manifestation.shacl_summary.validation_results %}
+    {% set result_severity = result.result_severity.aggregate %}
+    {% set result_total = result_severity.info + result_severity.warning + result_severity.violation %}
+    <p>---</p>
+    <ul>
+        <li>Mapping suite identifier: {{ result.mapping_suite_identifier }}</li>
+        <li>Test suite identifier: {{ result.test_suite_identifier }}</li>
+    </ul>
+    <h5>Results summary</h5>
+        <table class="display">
+            <thead class="center aligned">
+            <tr>
+                <th>Severity</th>
+                <th>Count</th>
+                <th>Ratio</th>
+                <th>Ratio (%)</th>
+            </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Info</td>
+                    <td>{{ result_severity.info }}</td>
+                    <td>{{ result_severity.info / result_total }}</td>
+                    <td>{{ (result_severity.info / result_total * 100) | round(2) }}%</td>
+                </tr>
+                <tr>
+                    <td>Warning</td>
+                    <td>{{ result_severity.warning }}</td>
+                    <td>{{ result_severity.warning / result_total }}</td>
+                    <td>{{ (result_severity.warning / result_total * 100) | round(2) }}%</td>
+                </tr>
+                <tr>
+                    <td>Violation</td>
+                    <td>{{ result_severity.violation }}</td>
+                    <td>{{ result_severity.violation / result_total }}</td>
+                    <td>{{ (result_severity.violation / result_total * 100) | round(2) }}%</td>
+                </tr>
+            </tbody>
+        </table>
     {% endfor %}
-    </tbody>
-</table>
-{% endif %}
-{% if validation_result.xpath_not_covered|length > 0 %}
-<hr>
-<h2>XPATHs not covered by Conceptual Mapping</h2>
-<table class="display">
-    <thead>
-    <tr>
-        <th>XPATH</th>
-    </tr>
-    </thead>
-    <tbody>
-    {% for xpath in validation_result.xpath_not_covered %}
-    <tr>
-        <td>{{ xpath }}</td>
-    </tr>
+    <p>-------</p>
+
+    <hr>
+
+    <h2>Distilled RDF Manifestation</h2>
+    {% set manifestation = distilled_rdf_manifestation %}
+    <p>----------</p>
+    <h3>SPARQL Summary</h3>
+    <h4>Report details: </h4>
+    <ul>
+        <li>Success: {{ manifestation.sparql_summary.aggregate.success }}</li>
+        <li>Fail: {{ manifestation.sparql_summary.aggregate.fail }}</li>
+        <li>Error: {{ manifestation.sparql_summary.aggregate.error }}</li>
+    </ul>
+        <p>-----</p>
+    <h4>Validation results: </h4>
+     {% for result in rdf_manifestation.sparql_summary.validation_results %}
+     {% set result_total = result.aggregate.success + result.aggregate.fail + result.aggregate.error %}
+         <p>---</p>
+    <ul>
+        <li>Mapping suite identifier: {{ result.mapping_suite_identifier }}</li>
+        <li>Test suite identifier: {{ result.test_suite_identifier }}</li>
+    </ul>
+    <h5>Results summary</h5>
+    <table class="display">
+        <thead class="center aligned">
+        <tr>
+            <th>Result</th>
+            <th>Count</th>
+            <th>Ratio</th>
+            <th>Ratio (%)</th>
+        </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Success</td>
+                <td>{{ result.aggregate.success }}</td>
+                <td>{{ result.aggregate.success / result_total }}</td>
+                <td>{{ (result.aggregate.success / result_total * 100) | round(2) }}%</td>
+            </tr>
+            <tr>
+                <td>Fail</td>
+                <td>{{ result.aggregate.fail }}</td>
+                <td>{{ result.aggregate.fail / result_total }}</td>
+                <td>{{ (result.aggregate.fail / result_total * 100) | round(2) }}%</td>
+            </tr>
+            <tr>
+                <td>Error</td>
+                <td>{{ result.aggregate.error }}</td>
+                <td>{{ result.aggregate.error / result_total }}</td>
+                <td>{{ (result.aggregate.error / result_total * 100) | round(2) }}%</td>
+            </tr>
+        </tbody>
+    </table>
     {% endfor %}
-    </tbody>
-</table>
-{% endif %}
-{% if validation_result.xpath_extra|length > 0 %}
-<hr>
-<h2>Extra XPATHs in Conceptual Mapping</h2>
-<table class="display">
-    <thead>
-    <tr>
-        <th>XPATH</th>
-    </tr>
-    </thead>
-    <tbody>
-    {% for xpath in validation_result.xpath_extra %}
-    <tr>
-        <td>{{ xpath }}</td>
-    </tr>
+    <p>-------</p>
+    <h3>SPARQL Summary</h3>
+    <h4>Result severity: </h4>
+    <ul>
+        <li>Info: {{ manifestation.shacl_summary.result_severity.aggregate.info }}</li>
+        <li>Warning: {{ manifestation.shacl_summary.result_severity.aggregate.warning }}</li>
+        <li>Violation: {{ manifestation.shacl_summary.result_severity.aggregate.violation }}</li>
+    </ul>
+    <p>-----</p>
+    <h4>Result severity by validation results: </h4>
+    {% for result in rdf_manifestation.shacl_summary.validation_results %}
+    {% set result_severity = result.result_severity.aggregate %}
+    {% set result_total = result_severity.info + result_severity.warning + result_severity.violation %}
+    <p>---</p>
+    <ul>
+        <li>Mapping suite identifier: {{ result.mapping_suite_identifier }}</li>
+        <li>Test suite identifier: {{ result.test_suite_identifier }}</li>
+    </ul>
+    <h5>Results summary</h5>
+        <table class="display">
+            <thead class="center aligned">
+            <tr>
+                <th>Severity</th>
+                <th>Count</th>
+                <th>Ratio</th>
+                <th>Ratio (%)</th>
+            </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Info</td>
+                    <td>{{ result_severity.info }}</td>
+                    <td>{{ result_severity.info / result_total }}</td>
+                    <td>{{ (result_severity.info / result_total * 100) | round(2) }}%</td>
+                </tr>
+                <tr>
+                    <td>Warning</td>
+                    <td>{{ result_severity.warning }}</td>
+                    <td>{{ result_severity.warning / result_total }}</td>
+                    <td>{{ (result_severity.warning / result_total * 100) | round(2) }}%</td>
+                </tr>
+                <tr>
+                    <td>Violation</td>
+                    <td>{{ result_severity.violation }}</td>
+                    <td>{{ result_severity.violation / result_total }}</td>
+                    <td>{{ (result_severity.violation / result_total * 100) | round(2) }}%</td>
+                </tr>
+            </tbody>
+        </table>
     {% endfor %}
-    </tbody>
-</table>
-{% endif %}
-<hr>
-</body>
+    <p>-------</p>
+  </body>
 </html>
-<script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script type="text/javascript" src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
 <script type="text/javascript" src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
 <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.6.4/js/dataTables.buttons.min.js"></script>
 <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.6.4/js/buttons.print.min.js"></script>
 <script type="text/javascript">
     $(document).ready(function () {
-        $("[data-role=collapsible] h4 a").on("click", function(e) {
-            $p = $(this).closest("[data-role=collapsible]");
-            $p.attr("data-state", $p.attr("data-state") == "collapsed" ? "expanded" : "collapsed");
-            $c = $p.find('.ui-collapsible-content');
-            $c.attr("data-state", $c.attr("data-state") == "collapsed" ? "expanded" : "collapsed");
-            return false;
-        });
         $("table.display").DataTable({
-            dom: 'B<"clear">lfiprtip',
+            dom: 'B<"clear">t',
             buttons: [],
             "lengthMenu": [[5, 15, 30, -1], [5, 15, 30, "All"]],
             "pageLength": 15,

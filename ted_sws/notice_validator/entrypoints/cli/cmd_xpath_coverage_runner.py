@@ -4,8 +4,9 @@ import json
 import os
 from pathlib import Path
 from typing import List
-
+from pymongo import MongoClient
 import click
+from ted_sws import config
 
 from ted_sws.core.adapters.cmd_runner import CmdRunner as BaseCmdRunner, DEFAULT_MAPPINGS_PATH, DEFAULT_OUTPUT_PATH
 from ted_sws.core.model.manifestation import XMLManifestation
@@ -57,7 +58,8 @@ class CmdRunner(BaseCmdRunner):
 
         mapping_suite_repository = MappingSuiteRepositoryInFileSystem(repository_path=repository_path)
         self.mapping_suite = mapping_suite_repository.get(reference=self.mapping_suite_id)
-        self.coverage_runner = CoverageRunner(self.conceptual_mappings_file_path)
+        self.coverage_runner = CoverageRunner(mapping_suite_id=self.mapping_suite_id,
+                                              conceptual_mappings_file_path=self.conceptual_mappings_file_path)
 
     @classmethod
     def save_json_report(cls, output_path, json_report: dict):

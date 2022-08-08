@@ -20,6 +20,7 @@ from ted_sws.notice_transformer.adapters.rml_mapper import RMLMapper
 from ted_sws.notice_transformer.services.notice_transformer import transform_notice_by_id
 from ted_sws.notice_validator.services.shacl_test_suite_runner import validate_notice_by_id_with_shacl_suite
 from ted_sws.notice_validator.services.sparql_test_suite_runner import validate_notice_by_id_with_sparql_suite
+from ted_sws.notice_validator.services.xpath_coverage_runner import validate_xpath_coverage_notice_by_id
 from ted_sws.event_manager.adapters.event_logger import EventLogger
 from ted_sws.event_manager.adapters.event_log_decorator import event_log
 from ted_sws.event_manager.model.event_message import NoticeEventMessage, EventMessageProcessType, EventMessageMetadata, \
@@ -214,8 +215,10 @@ def worker_single_notice_process_orchestrator():
                                                 mapping_suite_repository=mapping_suite_repository)
         validate_notice_by_id_with_shacl_suite(notice_id=notice_id, mapping_suite_identifier=mapping_suite_id,
                                                notice_repository=notice_repository,
-                                               mapping_suite_repository=mapping_suite_repository
-                                               )
+                                               mapping_suite_repository=mapping_suite_repository)
+        validate_xpath_coverage_notice_by_id(notice_id=notice_id, mapping_suite_identifier=mapping_suite_id,
+                                             mapping_suite_repository=mapping_suite_repository,
+                                             mongodb_client=mongodb_client)
         push_dag_downstream(NOTICE_ID, notice_id)
         push_dag_downstream(MAPPING_SUITE_ID, mapping_suite_id)
 

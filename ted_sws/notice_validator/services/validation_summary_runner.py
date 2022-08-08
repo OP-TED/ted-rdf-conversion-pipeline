@@ -2,9 +2,8 @@ from pymongo import MongoClient
 
 from ted_sws.core.model.manifestation import ValidationSummaryReport
 from ted_sws.core.model.notice import Notice
-from ted_sws.core.model.transform import MappingSuite
 from ted_sws.data_manager.adapters.notice_repository import NoticeRepository
-from ted_sws.notice_validator.adapters.xpath_coverage_runner import CoverageRunner
+from ted_sws.notice_validator.adapters.validation_summary_runner import ValidationSummaryRunner
 
 
 class ValidationSummaryReportBuilder:
@@ -12,21 +11,22 @@ class ValidationSummaryReportBuilder:
         Given a XPATHCoverageValidationReport, generates JSON and HTML reports.
     """
 
-    def __init__(self, validation_summary_report: ValidationSummaryReport):
-        self.validation_summary_report = validation_summary_report
+    report: ValidationSummaryReport
+
+    def __init__(self, report: ValidationSummaryReport):
+        self.report = report
 
     def generate_report(self) -> ValidationSummaryReport:
-        html_report = CoverageRunner.html_report(self.validation_summary_report)
-        self.validation_summary_report.object_data = html_report
-        return self.validation_summary_report
+        html_report = ValidationSummaryRunner.html_report(self.report)
+        self.report.object_data = html_report
+        return self.report
 
 
-def validation_summary_report_notice(notice: Notice, mongodb_client: MongoClient):
-    validation_summary_report = coverage_notice_xpath_report(notices=[notice],
-                                                         mapping_suite_id=mapping_suite.identifier,
-                                                         mongodb_client=mongodb_client)
-    report_builder = XPATHCoverageReportBuilder(xpath_coverage_report=xpath_coverage_report)
-    notice.set_xml_validation(xml_validation=report_builder.generate_report())
+def validation_summary_report_notice(notice: Notice):
+    validation_summary_report = ValidationSummaryRunner()
+    notices = [notice]
+    report_builder = ValidationSummaryReportBuilder(validation_summary_report.validation_summary(notices))
+    notice.validation_summary = report_builder.generate_report()
 
 
 def validation_summary_report_notice_by_id(notice_id: str,
@@ -36,5 +36,5 @@ def validation_summary_report_notice_by_id(notice_id: str,
     if notice is None:
         raise ValueError(f'Notice, with {notice_id} id, was not found')
 
-    validation_summary_report_notice(notice=notice, mongodb_client=mongodb_client)
+    validation_summary_report_notice(notice=notice)
     notice_repository.update(notice=notice)

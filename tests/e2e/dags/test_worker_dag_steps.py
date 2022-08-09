@@ -10,7 +10,7 @@ from tests.e2e.dags import run_task, START_PROCESSING_NOTICE_TASK_ID, \
     CHECK_NOTICE_STATE_BEFORE_TRANSFORM_TASK_ID, CHECK_NOTICE_STATE_BEFORE_GENERATE_METS_PACKAGE_TASK_ID, \
     INDEX_NOTICE_XML_CONTENT_TASK_ID
 
-DAG_ID = "worker_single_notice_process_orchestrator"
+DAG_ID = "old_worker_single_notice_process_orchestrator"
 
 
 def execute_dag_step(dag, task_id: str, dag_config: dict, xcom_push_data: dict = None):

@@ -20,7 +20,7 @@ def test_load_notice_into_triple_store(transformed_complete_notice, allegro_trip
     assert df_query_result is not None
     assert len(df_query_result) > 0
 
-    df_query_result = sparql_endpoint.with_query(sparql_query=SPARQL_QUERY_GRAPH).fetch_tabular()
+    df_query_result = sparql_endpoint.with_query(sparql_query=SPARQL_QUERY_GRAPH).fetch_tree()
     assert df_query_result is not None
     assert len(df_query_result) > 0
 

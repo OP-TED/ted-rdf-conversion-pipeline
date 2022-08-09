@@ -141,8 +141,7 @@ def worker_single_notice_process_orchestrator():
         event_logger: EventLogger = get_logger_from_dag_context(context_args)
         event_message: NoticeEventMessage = NoticeEventMessage()
         event_message.start_record()
-
-        notice = pull_dag_upstream(NOTICE_ID)
+        notice = pull_dag_upstream(NOTICE_OBJECT)
         mapping_suite_id = pull_dag_upstream(MAPPING_SUITE_ID)
         mongodb_client = MongoClient(config.MONGO_DB_AUTH_URL)
         mapping_suite_repository = MappingSuiteRepositoryMongoDB(mongodb_client=mongodb_client)

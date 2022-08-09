@@ -38,11 +38,6 @@ def test_fuseki_triple_store_add_file_to_repository():
     triple_store.add_file_to_repository(rdf_file_path,
                                         repository_name="test1")
 
-def test_my_test():
-    print(config.FUSEKI_ADMIN_HOST)
-    print(config.FUSEKI_ADMIN_USER)
-    print(config.FUSEKI_ADMIN_PASSWORD)
-
 
 def test_fuseki_triple_store_get_sparql_endpoint(fuseki_triple_store):
     sparql_endpoint = fuseki_triple_store.get_sparql_triple_store_endpoint(repository_name="test1")

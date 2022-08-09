@@ -4,6 +4,7 @@ import pytest
 
 from ted_sws import config
 from ted_sws.data_manager.adapters.triple_store import FusekiAdapter, FusekiException
+from tests import TEST_DATA_PATH
 from tests.fakes.fake_repository import FakeNoticeRepository
 
 REPOSITORY_NAME = "unknown_repository_123456677"
@@ -32,8 +33,15 @@ def test_fuseki_triple_store_connection():
 
 def test_fuseki_triple_store_add_file_to_repository():
     triple_store = FusekiAdapter()
-    triple_store.add_file_to_repository(Path("/home/mihai/work/meaningfy/ted-sws/tests/test_data/example.ttl"),
+    rdf_file_path = TEST_DATA_PATH / "example.ttl"
+    assert rdf_file_path.exists()
+    triple_store.add_file_to_repository(rdf_file_path,
                                         repository_name="test1")
+
+def test_my_test():
+    print(config.FUSEKI_ADMIN_HOST)
+    print(config.FUSEKI_ADMIN_USER)
+    print(config.FUSEKI_ADMIN_PASSWORD)
 
 
 def test_fuseki_triple_store_get_sparql_endpoint(fuseki_triple_store):

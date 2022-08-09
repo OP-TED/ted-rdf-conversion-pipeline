@@ -38,4 +38,4 @@ def fake_mapping_suite_id() -> str:
 
 @pytest.fixture
 def fuseki_triple_store():
-    return FusekiAdapter(host=config.FUSEKI_HOST, user=config.FUSEKI_ADMIN_USER, password=config.FUSEKI_ADMIN_PASSWORD)
+    return FusekiAdapter(host=config.FUSEKI_ADMIN_HOST, user=config.FUSEKI_ADMIN_USER, password=config.FUSEKI_ADMIN_PASSWORD)

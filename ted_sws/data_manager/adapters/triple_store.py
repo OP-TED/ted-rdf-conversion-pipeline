@@ -166,7 +166,7 @@ RDF_MIME_TYPES = {
 
 class FusekiAdapter(TripleStoreABC):
 
-    def __init__(self, host: str = config.FUSEKI_HOST,
+    def __init__(self, host: str = config.FUSEKI_ADMIN_HOST,
                  user: str = config.FUSEKI_ADMIN_USER,
                  password: str = config.FUSEKI_ADMIN_PASSWORD):
 

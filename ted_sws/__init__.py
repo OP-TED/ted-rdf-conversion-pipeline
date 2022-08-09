@@ -165,7 +165,7 @@ class FusekiConfig:
         return EnvConfigResolver().config_resolve()
 
     @property
-    def FUSEKI_HOST(self) -> str:
+    def FUSEKI_ADMIN_HOST(self) -> str:
         return EnvConfigResolver().config_resolve()
 
 class TedConfigResolver(MongoDBConfig, RMLMapperConfig, XMLProcessorConfig, ELKConfig, LoggingConfig,

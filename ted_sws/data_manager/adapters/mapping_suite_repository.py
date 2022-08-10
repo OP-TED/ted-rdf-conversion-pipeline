@@ -8,8 +8,10 @@ from pymongo import MongoClient
 
 from ted_sws import config
 from ted_sws.core.model.transform import MappingSuite, FileResource, TransformationRuleSet, SHACLTestSuite, \
-    SPARQLTestSuite, MetadataConstraints, TransformationTestData
+    SPARQLTestSuite, MetadataConstraints, TransformationTestData, ConceptualMapping
 from ted_sws.data_manager.adapters.repository_abc import MappingSuiteRepositoryABC
+from ted_sws.mapping_suite_processor.services.conceptual_mapping_reader import CONCEPTUAL_MAPPINGS_FILE_NAME, \
+    mapping_suite_read_conceptual_mapping
 
 METADATA_FILE_NAME = "metadata.json"
 TRANSFORM_PACKAGE_NAME = "transformation"
@@ -140,6 +142,12 @@ class MappingSuiteRepositoryInFileSystem(MappingSuiteRepositoryABC):
         return [SPARQLTestSuite(identifier=sparql_test_suite_path.name,
                                 sparql_tests=self._read_file_resources(path=sparql_test_suite_path))
                 for sparql_test_suite_path in sparql_test_suite_paths]
+
+    @classmethod
+    def _read_conceptual_mapping(cls, package_path: pathlib.Path) -> ConceptualMapping:
+        return mapping_suite_read_conceptual_mapping(
+            package_path / TRANSFORM_PACKAGE_NAME / CONCEPTUAL_MAPPINGS_FILE_NAME
+        )
 
     def _write_package_metadata(self, mapping_suite: MappingSuite):
         """
@@ -297,6 +305,7 @@ class MappingSuiteRepositoryInFileSystem(MappingSuiteRepositoryABC):
             package_metadata["shacl_test_suites"] = self._read_shacl_test_suites(package_path)
             package_metadata["sparql_test_suites"] = self._read_sparql_test_suites(package_path)
             package_metadata["transformation_test_data"] = self._read_test_data_package(package_path)
+            package_metadata["conceptual_mapping"] = self._read_conceptual_mapping(package_path)
             return MappingSuite(**package_metadata)
         return None
 

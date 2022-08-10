@@ -22,7 +22,8 @@ from pydantic import Field
 
 from ted_sws.core.model import PropertyBaseModel
 from ted_sws.core.model.manifestation import METSManifestation, RDFManifestation, XMLManifestation, \
-    RDFValidationManifestation, SPARQLTestSuiteValidationReport, SHACLTestSuiteValidationReport
+    RDFValidationManifestation, SPARQLTestSuiteValidationReport, SHACLTestSuiteValidationReport, \
+    XPATHCoverageValidationReport, XMLValidationManifestation, ValidationSummaryReport
 from ted_sws.core.model.metadata import TEDMetadata, NormalisedMetadata, XMLMetadata
 
 
@@ -69,7 +70,7 @@ class NoticeStatus(IntEnum):
 
 #  possible downstream transitions
 NOTICE_STATUS_DOWNSTREAM_TRANSITION = {NoticeStatus.RAW: [NoticeStatus.INDEXED],
-                                       NoticeStatus.INDEXED : [NoticeStatus.NORMALISED_METADATA],
+                                       NoticeStatus.INDEXED: [NoticeStatus.NORMALISED_METADATA],
                                        NoticeStatus.NORMALISED_METADATA: [NoticeStatus.INELIGIBLE_FOR_TRANSFORMATION,
                                                                           NoticeStatus.ELIGIBLE_FOR_TRANSFORMATION],
                                        NoticeStatus.INELIGIBLE_FOR_TRANSFORMATION: [
@@ -162,6 +163,7 @@ class Notice(WorkExpression):
     _rdf_manifestation: Optional[RDFManifestation] = None
     _mets_manifestation: Optional[METSManifestation] = None
     xml_metadata: Optional[XMLMetadata] = None
+    validation_summary: Optional[ValidationSummaryReport] = None
 
     @property
     def preprocessed_xml_manifestation(self) -> XMLManifestation:
@@ -201,9 +203,13 @@ class Notice(WorkExpression):
             result.append(shacl_validation)
         for sparql_validation in self.distilled_rdf_manifestation.sparql_validations:
             result.append(sparql_validation)
-
         return result
 
+    def get_xml_validation(self) -> Optional[List[XMLValidationManifestation]]:
+        result = []
+        if self.xml_manifestation.xpath_coverage_validation:
+            result.append(self.xml_manifestation.xpath_coverage_validation)
+        return result
 
     def set_xml_metadata(self, xml_metadata: XMLMetadata):
         """
@@ -269,13 +275,14 @@ class Notice(WorkExpression):
 
         :return:
         """
-        if self._rdf_manifestation and self._distilled_rdf_manifestation:
-            if self._rdf_manifestation.is_validated() and self._distilled_rdf_manifestation.is_validated():
+        if self._rdf_manifestation and self._distilled_rdf_manifestation and self.xml_manifestation:
+            if self._rdf_manifestation.is_validated() and self._distilled_rdf_manifestation.is_validated() \
+                    and self.xml_manifestation.is_validated():
                 return True
         return False
 
-    def set_rdf_validation(self,
-                           rdf_validation: Union[SPARQLTestSuiteValidationReport, SHACLTestSuiteValidationReport]):
+    def set_rdf_validation(self, rdf_validation: Union[SPARQLTestSuiteValidationReport,
+                                                       SHACLTestSuiteValidationReport]):
         """
             Add an RDF validation result to the notice.
             If METS package data are available, erase them and reset the state.
@@ -290,8 +297,8 @@ class Notice(WorkExpression):
         if self._check_status_is_validated():
             self.update_status_to(NoticeStatus.VALIDATED)
 
-    def set_distilled_rdf_validation(self, rdf_validation: Union[
-        SPARQLTestSuiteValidationReport, SHACLTestSuiteValidationReport]):
+    def set_distilled_rdf_validation(self, rdf_validation: Union[SPARQLTestSuiteValidationReport,
+                                                                 SHACLTestSuiteValidationReport]):
         """
 
         :param rdf_validation:
@@ -302,6 +309,16 @@ class Notice(WorkExpression):
 
         self._distilled_rdf_manifestation.add_validation(validation=rdf_validation)
 
+        if self._check_status_is_validated():
+            self.update_status_to(NoticeStatus.VALIDATED)
+
+    def set_xml_validation(self, xml_validation: Union[XPATHCoverageValidationReport]):
+        """
+            Add an XML validation result to the notice.
+        :param xml_validation:
+        :return:
+        """
+        self.xml_manifestation.add_validation(validation=xml_validation)
         if self._check_status_is_validated():
             self.update_status_to(NoticeStatus.VALIDATED)
 

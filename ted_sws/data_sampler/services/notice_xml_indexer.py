@@ -175,7 +175,9 @@ def get_unique_xpaths_covered_by_notices(notice_ids: List[str], mongodb_client: 
     results = notice_repository.collection.aggregate([{"$match": {"ted_id": {"$in": notice_ids}}}], allowDiskUse=True)
     unique_xpaths = set()
     for result in results:
-        unique_xpaths.update(result["xml_metadata"]["unique_xpaths"])
+        xml_metadata = result["xml_metadata"]
+        if xml_metadata is not None:
+            unique_xpaths.update(result["xml_metadata"]["unique_xpaths"])
     return list(unique_xpaths)
 
 

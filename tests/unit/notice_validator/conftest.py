@@ -1,12 +1,16 @@
 import pytest
 
-from ted_sws.core.model.manifestation import RDFManifestation, XMLManifestation
+from ted_sws.core.model.manifestation import RDFManifestation, XMLManifestation, XPATHCoverageValidationReport, \
+    XPATHCoverageValidationResult, SHACLTestSuiteValidationReport, SPARQLTestSuiteValidationReport, SPARQLQueryResult
 from ted_sws.core.model.notice import NoticeStatus, Notice
 from ted_sws.core.model.transform import FileResource, SPARQLTestSuite, MetadataConstraints, TransformationRuleSet, \
     SHACLTestSuite, TransformationTestData, MappingSuite
 from tests import TEST_DATA_PATH
 from ted_sws.core.adapters.xml_preprocessor import XMLPreprocessorABC
 from tests.fakes.fake_xslt_transformer import FakeXSLTTransformer
+
+from pathlib import Path
+
 
 @pytest.fixture
 def query_content():
@@ -253,6 +257,11 @@ def fake_notice_id() -> str:
 
 
 @pytest.fixture
+def fake_mapping_suite_F03_path(fake_repository_path, fake_mapping_suite_F03_id) -> Path:
+    return fake_repository_path / fake_mapping_suite_F03_id
+
+
+@pytest.fixture
 def fake_conceptual_mappings_F03_path(fake_repository_path, fake_mapping_suite_F03_id) -> str:
     return str(fake_repository_path / fake_mapping_suite_F03_id / "transformation" / "conceptual_mappings.xlsx")
 
@@ -267,9 +276,133 @@ def fake_notice_F03_content(fake_repository_path, fake_mapping_suite_F03_id):
 @pytest.fixture
 def fake_notice_F03(fake_notice_F03_content, fake_notice_id):
     xml_manifestation = XMLManifestation(object_data=fake_notice_F03_content)
-    return Notice(ted_id=fake_notice_id, xml_manifestation=xml_manifestation)
+    notice = Notice(ted_id=fake_notice_id, xml_manifestation=xml_manifestation)
+    rdf_manifestation = RDFManifestation(object_data="RDF manifestation content",
+                                         shacl_validations=[],
+                                         sparql_validations=[]
+                                         )
+    notice._rdf_manifestation = rdf_manifestation
+    notice._distilled_rdf_manifestation = rdf_manifestation
+    return notice
 
 
 @pytest.fixture
 def fake_xslt_transformer() -> XMLPreprocessorABC:
     return FakeXSLTTransformer()
+
+
+@pytest.fixture
+def fake_validation_notice():
+    xml_manifestation = XMLManifestation(object_data="")
+    xpath_coverage_validation = {
+        "mapping_suite_identifier": 'package_F03',
+        "xpath_covered": [
+            '/TED_EXPORT/FORM_SECTION/F03_2014/LEGAL_BASIS/@VALUE',
+            '/TED_EXPORT/FORM_SECTION/F03_2014/OBJECT_CONTRACT/VAL_TOTAL/@CURRENCY'
+        ],
+        "xpath_not_covered": [
+            '/TED_EXPORT/FORM_SECTION/F03_2014/CONTRACTING_BODY/ADDRESS_CONTRACTING_BODY/COUNTRY/@VALUE',
+            '/TED_EXPORT/FORM_SECTION/F03_2014/CONTRACTING_BODY/CA_ACTIVITY/@VALUE',
+            '/TED_EXPORT/FORM_SECTION/F03_2014/AWARD_CONTRACT/AWARDED_CONTRACT/CONTRACTORS'
+        ]
+    }
+    xml_manifestation.xpath_coverage_validation = XPATHCoverageValidationReport(
+        object_data="",
+        mapping_suite_identifier="package_F03"
+    )
+    xml_manifestation.xpath_coverage_validation.validation_result = XPATHCoverageValidationResult(
+        **xpath_coverage_validation)
+    notice = Notice(ted_id="validation_notice_id", xml_manifestation=xml_manifestation)
+    sparql_validations = [SPARQLTestSuiteValidationReport(**{
+        "object_data": '62f037e2a5458a3a6776138c',
+        "created": '2022-08-07T20:49:15.500870',
+        "mapping_suite_identifier": 'package_F03',
+        "test_suite_identifier": 'cm_assertions',
+        "validation_results": [
+            {
+                "query": {
+                    "title": 'II.1.7.4 - Currency',
+                    "description": '“II.1.7.4 - Currency” in SF corresponds to “nan nan” in eForms. The corresponding XML element is /TED_EXPORT/FORM_SECTION/F03_2014/OBJECT_CONTRACT/VAL_TOTAL/@CURRENCY. The expected ontology instances are epo: epo:ResultNotice / epo:NoticeAwardInformation / epo:MonetaryValue / at-voc:currency (from currency.json) .',
+                    "query": 'PREFIX epo: <http://data.europa.eu/a4g/ontology#>\n\nASK WHERE { { ?this epo:announcesNoticeAwardInformation / epo:hasTotalAwardedValue / epo:hasCurrency ?value } UNION { ?this epo:announcesNoticeAwardInformation / epo:hasProcurementLowestReceivedTenderValue / epo:hasCurrency ?value } UNION  { ?this epo:announcesNoticeAwardInformation / epo:hasProcurementHighestReceivedTenderValue / epo:hasCurrency ?value }  }'
+                },
+                "result": 'True',
+                "error": None,
+                "identifier": 'sparql_query_46'
+            },
+            {
+                "query": {
+                    "title": "",
+                    "description": "",
+                    "query": ""
+                },
+                "result": 'False',
+                "error": "SOME_ERROR",
+                "identifier": 'sparql_query_46'
+            }
+        ]
+    })]
+    shacl_validations = [SHACLTestSuiteValidationReport(**{
+        "object_data": '62f037e2a5458a3a6776138a',
+        "created": '2022-08-07T20:49:15.500870',
+        "mapping_suite_identifier": 'package_F03',
+        "test_suite_identifier": 'epo',
+        "validation_results": {
+            "conforms": 'False',
+            "results_dict": {
+                "results": {
+                    "bindings": [
+                        {
+                            "focusNode": {
+                                "type": 'uri',
+                                "value": 'http://data.europa.eu/a4g/resource/ContactPoint/2021-S-250-663165/ab152979-15bf-30c3-b6f3-e0c554cfa9d0'
+                            },
+                            "message": {
+                                "type": 'literal',
+                                "value": 'Value is not Literal with datatype xsd:anyURI'
+                            },
+                            "resultPath": {
+                                "type": 'uri',
+                                "value": 'http://data.europa.eu/a4g/ontology#hasInternetAddress'
+                            },
+                            "resultSeverity": {
+                                "type": 'uri',
+                                "value": 'http://www.w3.org/ns/shacl#Violation'
+                            },
+                            "sourceConstraintComponent": {
+                                "type": 'uri',
+                                "value": 'http://www.w3.org/ns/shacl#DatatypeConstraintComponent'
+                            },
+                            "sourceShape": {
+                                "type": 'bnode',
+                                "value": 'Nb24b2cf50dcc4b8cbe40e95f3d032394'
+                            },
+                            "value": {
+                                "type": 'literal',
+                                "value": 'http://www.lshp.fi'
+                            }
+                        },
+                        {
+                            "resultSeverity": {
+                                "type": 'uri',
+                                "value": 'http://www.w3.org/ns/shacl#Info'
+                            }
+                        },
+                        {
+                            "resultSeverity": {
+                                "type": 'uri',
+                                "value": 'http://www.w3.org/ns/shacl#Warning'
+                            }
+                        }
+                    ]
+                }
+            }
+        }
+    })]
+
+    rdf_manifestation = RDFManifestation(object_data="RDF manifestation content",
+                                         shacl_validations=shacl_validations,
+                                         sparql_validations=sparql_validations
+                                         )
+    notice._rdf_manifestation = rdf_manifestation
+    notice._distilled_rdf_manifestation = rdf_manifestation
+    return notice

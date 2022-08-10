@@ -6,13 +6,11 @@
 # Email: costezki.eugen@gmail.com 
 
 """ """
-from pprint import pprint
 
-from deepdiff import DeepDiff
 import pytest
 from pydantic import ValidationError
 
-from ted_sws.core.model.manifestation import XMLManifestation, Manifestation, ManifestationMimeType
+from ted_sws.core.model.manifestation import XMLManifestation, ManifestationMimeType
 from ted_sws.core.model.notice import Notice, NoticeStatus
 
 
@@ -61,5 +59,3 @@ def test_notice_status_comparison():
 
     with pytest.raises(ValueError):
         assert NoticeStatus.RAW > ManifestationMimeType.TURTLE
-
-

@@ -71,16 +71,16 @@
 <hr>
 <h2>Report details: </h2>
 <ul>
-    <li>Date created: {{ created_at }}</li>
-    <li>Mapping suite identifier: {{ mapping_suite_id }}</li>
+    <li>Date created: {{ created }}</li>
+    <li>Mapping suite identifier: {{ mapping_suite_identifier }}</li>
     <li>
         <div><hr></div>
         <h4>Overall coverage</h4>
-        <h3>{{ "%.2f"|format((coverage|float * 100)) }}%</h3>
+        <h3>{{ "%.2f"|format((validation_result.coverage|float * 100)) }}%</h3>
         <p>(Number of Conceptual XPATHs found in notices) / (Total number of unique XPATHs in provided notices)</p>
     <li><div><hr></div>
         <h4>Conceptual coverage</h4>
-        <h3>{{ "%.2f"|format((conceptual_coverage|float * 100)) }}%</h3>
+        <h3>{{ "%.2f"|format((validation_result.conceptual_coverage|float * 100)) }}%</h3>
         <p>(Number of Conceptual XPATHs found in notices) / (Total number of unique Conceptual XPATHs)</p>
     </li>
     <li><div><hr></div>Notice identifier(s):
@@ -89,9 +89,9 @@
             <h4><a href="#"></a></h4>
             <div class="ui-collapsible-content">
             {% if notice_id|length == 1 %}
-                {{ notice_id[0] }}
+                {{ validation_result.notice_id[0] }}
             {% else %}
-                {{ notice_id | tojson(indent=2) | replace('\n', '<br>') }}
+                {{ validation_result.notice_id | tojson(indent=2) | replace('\n', '<br>') }}
             {% endif %}
             </div>
         </div>
@@ -111,7 +111,7 @@
     </tr>
     </thead>
     <tbody>
-    {% for item in xpath_assertions %}
+    {% for item in validation_result.xpath_assertions %}
     <tr>
         <td>{{ item.title }}</td>
         <td>{{ item.xpath }}</td>
@@ -130,7 +130,7 @@
     </tbody>
 </table>
 {% endif %}
-{% if xpath_covered|length > 0 %}
+{% if validation_result.xpath_covered|length > 0 %}
 <hr>
 <h2>XPATHs covered by Conceptual Mapping</h2>
 <table class="display">
@@ -140,7 +140,7 @@
     </tr>
     </thead>
     <tbody>
-    {% for xpath in xpath_covered %}
+    {% for xpath in validation_result.xpath_covered %}
     <tr>
         <td>{{ xpath }}</td>
     </tr>
@@ -148,7 +148,7 @@
     </tbody>
 </table>
 {% endif %}
-{% if xpath_not_covered|length > 0 %}
+{% if validation_result.xpath_not_covered|length > 0 %}
 <hr>
 <h2>XPATHs not covered by Conceptual Mapping</h2>
 <table class="display">
@@ -158,7 +158,7 @@
     </tr>
     </thead>
     <tbody>
-    {% for xpath in xpath_not_covered %}
+    {% for xpath in validation_result.xpath_not_covered %}
     <tr>
         <td>{{ xpath }}</td>
     </tr>
@@ -166,7 +166,7 @@
     </tbody>
 </table>
 {% endif %}
-{% if xpath_extra|length > 0 %}
+{% if validation_result.xpath_extra|length > 0 %}
 <hr>
 <h2>Extra XPATHs in Conceptual Mapping</h2>
 <table class="display">
@@ -176,7 +176,7 @@
     </tr>
     </thead>
     <tbody>
-    {% for xpath in xpath_extra %}
+    {% for xpath in validation_result.xpath_extra %}
     <tr>
         <td>{{ xpath }}</td>
     </tr>

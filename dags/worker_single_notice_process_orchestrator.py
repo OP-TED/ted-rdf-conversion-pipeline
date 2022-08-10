@@ -1,7 +1,7 @@
 from airflow.operators.python import get_current_context, BranchPythonOperator, PythonOperator
 from airflow.utils.trigger_rule import TriggerRule
 from pymongo import MongoClient
-
+from airflow.decorators import dag
 from dags import DEFAULT_DAG_ARGUMENTS
 from dags.dags_utils import pull_dag_upstream, push_dag_downstream
 from ted_sws import config

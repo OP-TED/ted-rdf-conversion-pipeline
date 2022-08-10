@@ -1,7 +1,6 @@
 from typing import List
 
 from jinja2 import Environment, PackageLoader
-from pymongo import MongoClient
 
 from ted_sws.core.model.manifestation import ValidationSummaryReport, XMLManifestationValidationSummaryReport, \
     RDFManifestationValidationSummaryReport, XPATHCoverageSummaryReport, XPATHCoverageSummaryResult, \
@@ -122,8 +121,6 @@ class ValidationSummaryRunner:
     """
         Runs Validation Summary
     """
-
-    mongodb_client: MongoClient
 
     def __init__(self):
         pass

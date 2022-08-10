@@ -217,8 +217,8 @@ def worker_single_notice_process_orchestrator():
                                                notice_repository=notice_repository,
                                                mapping_suite_repository=mapping_suite_repository)
         validate_xpath_coverage_notice_by_id(notice_id=notice_id, mapping_suite_identifier=mapping_suite_id,
-                                             mapping_suite_repository=mapping_suite_repository,
-                                             mongodb_client=mongodb_client)
+                                             notice_repository=notice_repository,
+                                             mapping_suite_repository=mapping_suite_repository)
         push_dag_downstream(NOTICE_ID, notice_id)
         push_dag_downstream(MAPPING_SUITE_ID, mapping_suite_id)
 

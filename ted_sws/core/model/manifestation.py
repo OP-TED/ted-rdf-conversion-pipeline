@@ -99,7 +99,9 @@ class XMLManifestation(Manifestation):
             self.xpath_coverage_validation: XPATHCoverageValidationReport = validation
 
     def is_validated(self) -> bool:
+        print("K :: ", self.xpath_coverage_validation)
         if self.xpath_coverage_validation:
+            print("K :: VALIDATED")
             return True
         return False
 

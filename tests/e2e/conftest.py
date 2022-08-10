@@ -2,7 +2,7 @@ import pytest
 from pymongo import MongoClient
 
 from ted_sws import config
-from ted_sws.data_manager.adapters.triple_store import AllegroGraphTripleStore
+from ted_sws.data_manager.adapters.triple_store import AllegroGraphTripleStore, FusekiAdapter
 from tests import TEST_DATA_PATH
 
 
@@ -34,3 +34,8 @@ def path_ttl_file():
 @pytest.fixture
 def fake_mapping_suite_id() -> str:
     return "test_package"
+
+
+@pytest.fixture
+def fuseki_triple_store():
+    return FusekiAdapter(host=config.FUSEKI_ADMIN_HOST, user=config.FUSEKI_ADMIN_USER, password=config.FUSEKI_ADMIN_PASSWORD)

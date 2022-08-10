@@ -155,9 +155,21 @@ class TedAPIConfig:
     def TED_API_URL(self) -> str:
         return EnvConfigResolver().config_resolve()
 
+class FusekiConfig:
+    @property
+    def FUSEKI_ADMIN_USER(self) -> str:
+        return EnvConfigResolver().config_resolve()
+
+    @property
+    def FUSEKI_ADMIN_PASSWORD(self) -> str:
+        return EnvConfigResolver().config_resolve()
+
+    @property
+    def FUSEKI_ADMIN_HOST(self) -> str:
+        return EnvConfigResolver().config_resolve()
 
 class TedConfigResolver(MongoDBConfig, RMLMapperConfig, XMLProcessorConfig, ELKConfig, LoggingConfig,
-                        GitHubArtefacts, API, AllegroConfig, TedAPIConfig):
+                        GitHubArtefacts, API, AllegroConfig, TedAPIConfig, FusekiConfig):
     """
         This class resolve the secrets of the ted-sws project.
     """

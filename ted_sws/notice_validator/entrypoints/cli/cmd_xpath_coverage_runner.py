@@ -13,7 +13,7 @@ from ted_sws.core.model.manifestation import XMLManifestation
 from ted_sws.core.model.notice import Notice
 from ted_sws.data_manager.adapters.mapping_suite_repository import MappingSuiteRepositoryInFileSystem
 from ted_sws.event_manager.adapters.logger import LOG_INFO_TEXT
-from ted_sws.mapping_suite_processor.entrypoints.cli import CONCEPTUAL_MAPPINGS_FILE
+from ted_sws.mapping_suite_processor.entrypoints.cli import CONCEPTUAL_MAPPINGS_FILE_TEMPLATE
 from ted_sws.notice_validator.adapters.xpath_coverage_runner import CoverageRunner
 from ted_sws.notice_validator.services.xpath_coverage_runner import coverage_notice_xpath_report, \
     xpath_coverage_html_report, xpath_coverage_json_report
@@ -106,7 +106,7 @@ def run(mapping_suite_id=None, opt_conceptual_mappings_file=None, opt_mappings_f
     if opt_conceptual_mappings_file:
         conceptual_mappings_file = opt_conceptual_mappings_file
     else:
-        conceptual_mappings_file = CONCEPTUAL_MAPPINGS_FILE.format(
+        conceptual_mappings_file = CONCEPTUAL_MAPPINGS_FILE_TEMPLATE.format(
             mappings_path=opt_mappings_folder,
             mapping_suite_id=mapping_suite_id
         )

@@ -11,6 +11,21 @@ from ted_sws.core.model.notice import NoticeStatus, Notice
 from ted_sws.data_manager.adapters.mapping_suite_repository import MappingSuiteRepositoryMongoDB
 from ted_sws.data_manager.adapters.notice_repository import NoticeRepository
 from ted_sws.data_sampler.services.notice_xml_indexer import index_notice
+from ted_sws.data_sampler.services.notice_xml_indexer import index_notice_by_id
+from ted_sws.notice_metadata_processor.services.metadata_normalizer import normalise_notice_by_id
+
+from airflow.decorators import dag
+from airflow.operators.python import get_current_context, BranchPythonOperator, PythonOperator
+
+from dags import DEFAULT_DAG_ARGUMENTS
+from ted_sws.notice_metadata_processor.services.notice_eligibility import notice_eligibility_checker_by_id
+from ted_sws.notice_packager.services.notice_packager import create_notice_package
+from ted_sws.notice_transformer.adapters.rml_mapper import RMLMapper
+from ted_sws.notice_transformer.services.notice_transformer import transform_notice_by_id
+from ted_sws.notice_validator.services.shacl_test_suite_runner import validate_notice_by_id_with_shacl_suite
+from ted_sws.notice_validator.services.sparql_test_suite_runner import validate_notice_by_id_with_sparql_suite
+from ted_sws.notice_validator.services.xpath_coverage_runner import validate_xpath_coverage_notice_by_id
+from ted_sws.event_manager.adapters.event_logger import EventLogger
 from ted_sws.event_manager.adapters.event_log_decorator import event_log
 from ted_sws.event_manager.adapters.event_logger import EventLogger
 from ted_sws.event_manager.model.event_message import NoticeEventMessage, EventMessageProcessType, EventMessageMetadata, \
@@ -190,12 +205,23 @@ def worker_single_notice_process_orchestrator():
         event_message: NoticeEventMessage = NoticeEventMessage()
         event_message.start_record()
 
-        notice = pull_dag_upstream(NOTICE_OBJECT)
-        mapping_suite = pull_dag_upstream(MAPPING_SUITE_OBJECT)
-        validate_notice_with_sparql_suite(notice=notice, mapping_suite_package=mapping_suite)
-        validate_notice_with_shacl_suite(notice=notice, mapping_suite_package=mapping_suite)
-        notice_id = notice.ted_id
-        push_dag_downstream(NOTICE_OBJECT, notice)
+        notice_id = pull_dag_upstream(NOTICE_ID)
+        mapping_suite_id = pull_dag_upstream(MAPPING_SUITE_ID)
+        mongodb_client = MongoClient(config.MONGO_DB_AUTH_URL)
+        notice_repository = NoticeRepository(mongodb_client=mongodb_client)
+        mapping_suite_repository = MappingSuiteRepositoryMongoDB(mongodb_client=mongodb_client)
+        validate_notice_by_id_with_sparql_suite(notice_id=notice_id, mapping_suite_identifier=mapping_suite_id,
+                                                notice_repository=notice_repository,
+                                                mapping_suite_repository=mapping_suite_repository)
+        validate_notice_by_id_with_shacl_suite(notice_id=notice_id, mapping_suite_identifier=mapping_suite_id,
+                                               notice_repository=notice_repository,
+                                               mapping_suite_repository=mapping_suite_repository)
+        validate_xpath_coverage_notice_by_id(notice_id=notice_id, mapping_suite_identifier=mapping_suite_id,
+                                             mapping_suite_repository=mapping_suite_repository,
+                                             mongodb_client=mongodb_client)
+        push_dag_downstream(NOTICE_ID, notice_id)
+        push_dag_downstream(MAPPING_SUITE_ID, mapping_suite_id)
+
         context = get_current_context()
 
         handle_event_message_metadata_dag_context(event_message, context)

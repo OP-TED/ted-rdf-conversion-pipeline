@@ -65,6 +65,23 @@ class TransformationTestData(MappingSuiteComponent):
     test_data: List[FileResource]
 
 
+class ConceptualMappingXPATH(MappingSuiteComponent):
+    xpath: str
+    name: str
+
+
+class ConceptualMappingMetadata(MappingSuiteComponent):
+    base_xpath: Optional[str]
+
+
+class ConceptualMapping(MappingSuiteComponent):
+    """
+
+    """
+    xpaths: List[ConceptualMappingXPATH] = []
+    metadata: Optional[ConceptualMappingMetadata]
+
+
 class MappingSuite(MappingSuiteComponent):
     """
 
@@ -81,3 +98,4 @@ class MappingSuite(MappingSuiteComponent):
     shacl_test_suites: List[SHACLTestSuite]
     sparql_test_suites: List[SPARQLTestSuite]
     transformation_test_data: TransformationTestData
+    conceptual_mapping: Optional[ConceptualMapping]

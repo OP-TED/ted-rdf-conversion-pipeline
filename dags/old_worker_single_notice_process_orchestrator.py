@@ -26,6 +26,7 @@ from ted_sws.event_manager.model.event_message import NoticeEventMessage, EventM
     TechnicalEventMessage
 from ted_sws.event_manager.services.logger_from_context import get_logger_from_dag_context, \
     handle_event_message_metadata_dag_context, get_task_id_from_dag_context
+from ted_sws.notice_validator.services.xpath_coverage_runner import validate_xpath_coverage_notice_by_id
 
 NOTICE_ID = "notice_id"
 MAPPING_SUITE_ID = "mapping_suite_id"
@@ -216,6 +217,9 @@ def old_worker_single_notice_process_orchestrator():
                                                notice_repository=notice_repository,
                                                mapping_suite_repository=mapping_suite_repository
                                                )
+        validate_xpath_coverage_notice_by_id(notice_id=notice_id, mapping_suite_identifier=mapping_suite_id,
+                                             mapping_suite_repository=mapping_suite_repository,
+                                             mongodb_client=mongodb_client)
         push_dag_downstream(NOTICE_ID, notice_id)
         push_dag_downstream(MAPPING_SUITE_ID, mapping_suite_id)
 

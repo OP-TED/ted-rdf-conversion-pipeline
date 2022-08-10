@@ -8,7 +8,7 @@ import click
 from ted_sws.core.adapters.cmd_runner import CmdRunner as BaseCmdRunner, DEFAULT_MAPPINGS_PATH
 from ted_sws.data_manager.adapters.mapping_suite_repository import VALIDATE_PACKAGE_NAME, SPARQL_PACKAGE_NAME
 from ted_sws.event_manager.adapters.logger import LOG_INFO_TEXT
-from ted_sws.mapping_suite_processor.entrypoints.cli import CONCEPTUAL_MAPPINGS_FILE
+from ted_sws.mapping_suite_processor.entrypoints.cli import CONCEPTUAL_MAPPINGS_FILE_TEMPLATE
 from ted_sws.mapping_suite_processor.services.conceptual_mapping_generate_sparql_queries import \
     mapping_suite_processor_generate_sparql_queries as generate_sparql_queries, DEFAULT_RQ_NAME
 
@@ -66,7 +66,7 @@ def run(mapping_suite_id=None, opt_conceptual_mappings_file=None, opt_output_spa
     if opt_conceptual_mappings_file:
         conceptual_mappings_file = opt_conceptual_mappings_file
     else:
-        conceptual_mappings_file = CONCEPTUAL_MAPPINGS_FILE.format(
+        conceptual_mappings_file = CONCEPTUAL_MAPPINGS_FILE_TEMPLATE.format(
             mappings_path=opt_mappings_folder,
             mapping_suite_id=mapping_suite_id
         )

@@ -9,7 +9,6 @@ import pytest
 
 def test_notice_publisher(notice_2016, mongodb_client):
     notice = notice_2016
-    notice.ted_id = "TEST_" + notice.ted_id
     notice_repository = NoticeRepository(mongodb_client=mongodb_client)
     notice_repository.add(notice)
     notice_id = notice.ted_id

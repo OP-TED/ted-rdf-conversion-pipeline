@@ -67,9 +67,8 @@ def mapping_suite_processor_from_github_expand_and_load_package_in_mongo_db(mapp
     :param load_test_data:
     :return:
     """
-    default_github_repository_url = "https://github.com/meaningfy-ws/ted-sws-artefacts.git"
     mapping_suite_package_downloader = GitHubMappingSuitePackageDownloader(
-        github_repository_url=config.GITHUB_TED_SWS_ARTEFACTS_URL or default_github_repository_url)
+        github_repository_url=config.GITHUB_TED_SWS_ARTEFACTS_URL)
     with tempfile.TemporaryDirectory() as tmp_dir:
         tmp_dir_path = pathlib.Path(tmp_dir)
         git_last_commit_hash = mapping_suite_package_downloader.download(

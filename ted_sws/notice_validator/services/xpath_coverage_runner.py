@@ -27,8 +27,9 @@ def coverage_notice_xpath_report(notices: List[Notice], mapping_suite_id,
                                  coverage_runner: CoverageRunner = None, xslt_transformer=None,
                                  notice_repository: NoticeRepository = None) -> XPATHCoverageValidationReport:
     if not coverage_runner:
+        mongodb_client = notice_repository.mongodb_client if notice_repository else None
         coverage_runner = CoverageRunner(mapping_suite_id, conceptual_mappings_file_path, xslt_transformer,
-                                         notice_repository.mongodb_client)
+                                         mongodb_client)
     report: XPATHCoverageValidationReport = coverage_runner.coverage_notice_xpath(notices, mapping_suite_id)
     return report
 

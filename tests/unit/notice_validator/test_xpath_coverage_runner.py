@@ -12,6 +12,7 @@ from ted_sws.data_manager.adapters.notice_repository import NoticeRepository
 def test_xpath_coverage_runner(fake_notice_F03, fake_conceptual_mappings_F03_path, fake_xslt_transformer,
                                fake_mapping_suite_F03_id, mongodb_client, fake_mapping_suite_F03_path,
                                invalid_mapping_suite_id):
+    notice_repository = NoticeRepository(mongodb_client=mongodb_client)
     report = coverage_notice_xpath_report([fake_notice_F03], fake_mapping_suite_F03_id,
                                           fake_conceptual_mappings_F03_path, None, fake_xslt_transformer)
     json_report = xpath_coverage_json_report(report)
@@ -30,14 +31,14 @@ def test_xpath_coverage_runner(fake_notice_F03, fake_conceptual_mappings_F03_pat
 
     report = coverage_notice_xpath_report([fake_notice_F03], fake_mapping_suite_F03_id,
                                           fake_conceptual_mappings_F03_path, None, fake_xslt_transformer,
-                                          mongodb_client)
+                                          notice_repository)
     json_report = xpath_coverage_json_report(report)
     assert isinstance(json_report, dict)
 
     with pytest.raises(ValueError):
         coverage_notice_xpath_report([fake_notice_F03], invalid_mapping_suite_id,
                                      None, None, fake_xslt_transformer,
-                                     mongodb_client)
+                                     notice_repository)
 
 
 def test_validate_xpath_coverage_notice_by_id(fake_notice_id, fake_mapping_suite_F03_id,

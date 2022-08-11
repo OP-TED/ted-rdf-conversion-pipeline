@@ -1,13 +1,12 @@
 from typing import List
 
-from pymongo import MongoClient
-
 from ted_sws.core.model.manifestation import XPATHCoverageValidationReport
 from ted_sws.core.model.notice import Notice
 from ted_sws.core.model.transform import MappingSuite
 from ted_sws.data_manager.adapters.notice_repository import NoticeRepository
 from ted_sws.data_manager.adapters.repository_abc import MappingSuiteRepositoryABC
 from ted_sws.notice_validator.adapters.xpath_coverage_runner import CoverageRunner, PATH_TYPE
+from pymongo import MongoClient
 
 
 class XPATHCoverageReportBuilder:

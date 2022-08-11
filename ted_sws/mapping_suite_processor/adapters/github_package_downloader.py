@@ -4,8 +4,8 @@ import shutil
 import subprocess
 import tempfile
 
-GITHUB_TED_SWS_ARTEFACTS_REPOSITORY_NAME = "ted-sws-artefacts"
-GITHUB_TED_SWS_ARTEFACTS_MAPPINGS_PATH = "ted-sws-artefacts/mappings"
+GITHUB_TED_SWS_ARTEFACTS_REPOSITORY_NAME = "ted-rdf-mapping"
+GITHUB_TED_SWS_ARTEFACTS_MAPPINGS_PATH = f"{GITHUB_TED_SWS_ARTEFACTS_REPOSITORY_NAME}/mappings"
 
 
 class MappingSuitePackageDownloaderABC(abc.ABC):
@@ -48,6 +48,7 @@ class GitHubMappingSuitePackageDownloader(MappingSuitePackageDownloaderABC):
                 This function return hash for last commit with git.
             :return:
             """
+            git_repository_path.mkdir(exist_ok=True, parents=True)
             result = subprocess.run(f'cd {git_repository_path} && git rev-parse origin/main', shell=True,
                                     stdout=subprocess.PIPE)
             git_head_hash = result.stdout.decode(encoding="utf-8")

@@ -8,9 +8,10 @@ services:
     environment:
       - SFTP_USER=${SFTP_USER}
       - SFTP_PASSWORD=${SFTP_PASSWORD}
+      - SFTP_PORT=${SFTP_PORT}
     command: ${SFTP_USER}:${SFTP_PASSWORD}:::upload
     ports:
-      - ${SFTP_PORT:-2235}:22
+      - ${SFTP_PORT:-2235}:${SFTP_PORT}
     networks:
       - sftp-net
       - proxy-net

@@ -25,12 +25,16 @@ class SFTPNoticePublisher(NoticePublisherABC):
         """Connects to the sftp server and returns the sftp connection object"""
 
         try:
+            cnopts = pysftp.CnOpts()
+            # TODO: to be checked/removed when SSL will be setup
+            cnopts.hostkeys = None
             # Get the sftp connection object
             self.connection = pysftp.Connection(
                 host=self.hostname,
                 username=self.username,
                 password=self.password,
                 port=self.port,
+                cnopts=cnopts
             )
         except Exception as err:
             raise Exception(err)

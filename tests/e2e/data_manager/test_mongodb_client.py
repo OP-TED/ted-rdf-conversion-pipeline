@@ -93,7 +93,8 @@ def test_mongodb_queries():
         minimal_set_of_xpaths.append(top_xpath["xpath"])
         notice_ids = top_xpath["notice_ids"]
         for notice_id in notice_ids:
-            unique_notice_ids.remove(notice_id)
+            if notice_id in unique_notice_ids:
+                unique_notice_ids.remove(notice_id)
             covered_notice_ids.append(notice_id)
 
     print("minimal_set_of_xpaths: ", minimal_set_of_xpaths)

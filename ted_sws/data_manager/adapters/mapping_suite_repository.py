@@ -113,7 +113,7 @@ class MappingSuiteRepositoryInFileSystem(MappingSuiteRepositoryABC):
         :param package_path:
         :return:
         """
-        mappings_path = package_path / MS_METADATA_FILE_NAME/ MS_MAPPINGS_FOLDER_NAME
+        mappings_path = package_path / MS_TRANSFORM_FOLDER_NAME/ MS_MAPPINGS_FOLDER_NAME
         resources_path = package_path / MS_TRANSFORM_FOLDER_NAME / MS_RESOURCES_FOLDER_NAME
         resources = self._read_file_resources(path=resources_path)
         rml_mapping_rules = self._read_file_resources(path=mappings_path)

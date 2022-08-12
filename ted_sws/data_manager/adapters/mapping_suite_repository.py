@@ -13,14 +13,16 @@ from ted_sws.data_manager.adapters.repository_abc import MappingSuiteRepositoryA
 from ted_sws.mapping_suite_processor.services.conceptual_mapping_reader import CONCEPTUAL_MAPPINGS_FILE_NAME, \
     mapping_suite_read_conceptual_mapping
 
-METADATA_FILE_NAME = "metadata.json"
-TRANSFORM_PACKAGE_NAME = "transformation"
-MAPPINGS_PACKAGE_NAME = "mappings"
-RESOURCES_PACKAGE_NAME = "resources"
-VALIDATE_PACKAGE_NAME = "validation"
-SHACL_PACKAGE_NAME = "shacl"
-SPARQL_PACKAGE_NAME = "sparql"
-TEST_DATA_PACKAGE_NAME = "test_data"
+MS_METADATA_FILE_NAME = "metadata.json"
+MS_TRANSFORM_FOLDER_NAME = "transformation"
+MS_MAPPINGS_FOLDER_NAME = "mappings"
+MS_RESOURCES_FOLDER_NAME = "resources"
+MS_VALIDATE_FOLDER_NAME = "validation"
+MS_SHACL_FOLDER_NAME = "shacl"
+MS_SPARQL_FOLDER_NAME = "sparql"
+MS_TEST_DATA_FOLDER_NAME = "test_data"
+MS_CONCEPTUAL_MAPPING_FILE_NAME = "conceptual_mappings.xlsx"
+MS_OUTPUT_FOLDER_NAME = "output"
 
 
 class MappingSuiteRepositoryMongoDB(MappingSuiteRepositoryABC):
@@ -99,7 +101,7 @@ class MappingSuiteRepositoryInFileSystem(MappingSuiteRepositoryABC):
         :param package_path:
         :return:
         """
-        package_metadata_path = package_path / METADATA_FILE_NAME
+        package_metadata_path = package_path / MS_METADATA_FILE_NAME
         package_metadata_content = package_metadata_path.read_text(encoding="utf-8")
         package_metadata = json.loads(package_metadata_content)
         package_metadata['metadata_constraints'] = MetadataConstraints(**package_metadata['metadata_constraints'])
@@ -111,8 +113,8 @@ class MappingSuiteRepositoryInFileSystem(MappingSuiteRepositoryABC):
         :param package_path:
         :return:
         """
-        mappings_path = package_path / TRANSFORM_PACKAGE_NAME / MAPPINGS_PACKAGE_NAME
-        resources_path = package_path / TRANSFORM_PACKAGE_NAME / RESOURCES_PACKAGE_NAME
+        mappings_path = package_path / MS_METADATA_FILE_NAME/ MS_MAPPINGS_FOLDER_NAME
+        resources_path = package_path / MS_TRANSFORM_FOLDER_NAME / MS_RESOURCES_FOLDER_NAME
         resources = self._read_file_resources(path=resources_path)
         rml_mapping_rules = self._read_file_resources(path=mappings_path)
         return TransformationRuleSet(resources=resources, rml_mapping_rules=rml_mapping_rules)
@@ -123,8 +125,8 @@ class MappingSuiteRepositoryInFileSystem(MappingSuiteRepositoryABC):
         :param package_path:
         :return:
         """
-        validate_path = package_path / VALIDATE_PACKAGE_NAME
-        shacl_path = validate_path / SHACL_PACKAGE_NAME
+        validate_path = package_path / MS_VALIDATE_FOLDER_NAME
+        shacl_path = validate_path / MS_SHACL_FOLDER_NAME
         shacl_test_suite_paths = [x for x in shacl_path.iterdir() if x.is_dir()]
         return [SHACLTestSuite(identifier=shacl_test_suite_path.name,
                                shacl_tests=self._read_file_resources(path=shacl_test_suite_path))
@@ -136,8 +138,8 @@ class MappingSuiteRepositoryInFileSystem(MappingSuiteRepositoryABC):
         :param package_path:
         :return:
         """
-        validate_path = package_path / VALIDATE_PACKAGE_NAME
-        sparql_path = validate_path / SPARQL_PACKAGE_NAME
+        validate_path = package_path / MS_VALIDATE_FOLDER_NAME
+        sparql_path = validate_path / MS_SPARQL_FOLDER_NAME
         sparql_test_suite_paths = [x for x in sparql_path.iterdir() if x.is_dir()]
         return [SPARQLTestSuite(identifier=sparql_test_suite_path.name,
                                 sparql_tests=self._read_file_resources(path=sparql_test_suite_path))
@@ -146,7 +148,7 @@ class MappingSuiteRepositoryInFileSystem(MappingSuiteRepositoryABC):
     @classmethod
     def _read_conceptual_mapping(cls, package_path: pathlib.Path) -> ConceptualMapping:
         return mapping_suite_read_conceptual_mapping(
-            package_path / TRANSFORM_PACKAGE_NAME / CONCEPTUAL_MAPPINGS_FILE_NAME
+            package_path / MS_TRANSFORM_FOLDER_NAME / CONCEPTUAL_MAPPINGS_FILE_NAME
         )
 
     def _write_package_metadata(self, mapping_suite: MappingSuite):
@@ -157,7 +159,7 @@ class MappingSuiteRepositoryInFileSystem(MappingSuiteRepositoryABC):
         """
         package_path = self.repository_path / mapping_suite.identifier
         package_path.mkdir(parents=True, exist_ok=True)
-        metadata_path = package_path / METADATA_FILE_NAME
+        metadata_path = package_path / MS_METADATA_FILE_NAME
         package_metadata = mapping_suite.dict()
         [package_metadata.pop(key, None) for key in
          ["transformation_rule_set", "shacl_test_suites", "sparql_test_suites"]]
@@ -216,9 +218,9 @@ class MappingSuiteRepositoryInFileSystem(MappingSuiteRepositoryABC):
         :return:
         """
         package_path = self.repository_path / mapping_suite.identifier
-        transform_path = package_path / TRANSFORM_PACKAGE_NAME
-        mappings_path = transform_path / MAPPINGS_PACKAGE_NAME
-        resources_path = transform_path / RESOURCES_PACKAGE_NAME
+        transform_path = package_path / MS_TRANSFORM_FOLDER_NAME
+        mappings_path = transform_path / MS_MAPPINGS_FOLDER_NAME
+        resources_path = transform_path / MS_RESOURCES_FOLDER_NAME
         mappings_path.mkdir(parents=True, exist_ok=True)
         resources_path.mkdir(parents=True, exist_ok=True)
         self._write_file_resources(file_resources=mapping_suite.transformation_rule_set.rml_mapping_rules,
@@ -235,9 +237,9 @@ class MappingSuiteRepositoryInFileSystem(MappingSuiteRepositoryABC):
         :return:
         """
         package_path = self.repository_path / mapping_suite.identifier
-        validate_path = package_path / VALIDATE_PACKAGE_NAME
-        sparql_path = validate_path / SPARQL_PACKAGE_NAME
-        shacl_path = validate_path / SHACL_PACKAGE_NAME
+        validate_path = package_path / MS_VALIDATE_FOLDER_NAME
+        sparql_path = validate_path / MS_SPARQL_FOLDER_NAME
+        shacl_path = validate_path / MS_SHACL_FOLDER_NAME
         sparql_path.mkdir(parents=True, exist_ok=True)
         shacl_path.mkdir(parents=True, exist_ok=True)
         shacl_test_suites = mapping_suite.shacl_test_suites
@@ -263,7 +265,7 @@ class MappingSuiteRepositoryInFileSystem(MappingSuiteRepositoryABC):
         :return:
         """
         package_path = self.repository_path / mapping_suite.identifier
-        test_data_path = package_path / TEST_DATA_PACKAGE_NAME
+        test_data_path = package_path / MS_TEST_DATA_FOLDER_NAME
         test_data_path.mkdir(parents=True, exist_ok=True)
         self._write_file_resources(file_resources=mapping_suite.transformation_test_data.test_data,
                                    path=test_data_path
@@ -275,7 +277,7 @@ class MappingSuiteRepositoryInFileSystem(MappingSuiteRepositoryABC):
         :param package_path:
         :return:
         """
-        test_data_path = package_path / TEST_DATA_PACKAGE_NAME
+        test_data_path = package_path / MS_TEST_DATA_FOLDER_NAME
         test_data = self._read_flat_file_resources(path=test_data_path)
         return TransformationTestData(test_data=test_data)
 
@@ -350,3 +352,49 @@ class MappingSuiteRepositoryInFileSystem(MappingSuiteRepositoryABC):
         :return:
         """
         shutil.rmtree(self.repository_path)
+
+
+def validate_mapping_suite_structure_lv1(package_folder_path_for_validator: pathlib.Path):
+    mandatory_paths_l1 = [
+        package_folder_path_for_validator / MS_TRANSFORM_FOLDER_NAME,
+        package_folder_path_for_validator / MS_TRANSFORM_FOLDER_NAME / MS_MAPPINGS_FOLDER_NAME,
+        package_folder_path_for_validator / MS_TRANSFORM_FOLDER_NAME / MS_RESOURCES_FOLDER_NAME,
+        package_folder_path_for_validator / MS_TRANSFORM_FOLDER_NAME / MS_CONCEPTUAL_MAPPING_FILE_NAME,
+        package_folder_path_for_validator / MS_TEST_DATA_FOLDER_NAME,
+    ]
+
+    for path_item in mandatory_paths_l1:
+        assert path_item.exists(), f"Path not found: {path_item}"
+        if path_item.is_dir():
+            assert any(path_item.iterdir()), f"Folder is empty: {path_item}"
+
+    return True
+
+
+def validate_mapping_suite_structure_lv2(package_folder_path_for_validator: pathlib.Path):
+    mandatory_paths_l2 = [
+        package_folder_path_for_validator / MS_METADATA_FILE_NAME,
+        package_folder_path_for_validator / MS_VALIDATE_FOLDER_NAME,
+        package_folder_path_for_validator / MS_VALIDATE_FOLDER_NAME / MS_SPARQL_FOLDER_NAME,
+        package_folder_path_for_validator / MS_VALIDATE_FOLDER_NAME / MS_SHACL_FOLDER_NAME,
+    ]
+
+    for path_item in mandatory_paths_l2:
+        assert path_item.exists(), f"Path not found: {path_item}"
+        if path_item.is_dir():
+            assert any(path_item.iterdir()), f"Folder is empty: {path_item}"
+
+    return True
+
+
+def validate_mapping_suite_structure_lv3(package_folder_path_for_validator: pathlib.Path):
+    mandatory_paths_l3 = [
+        package_folder_path_for_validator / MS_OUTPUT_FOLDER_NAME,
+    ]
+
+    for path_item in mandatory_paths_l3:
+        assert path_item.exists(), f"Path not found: {path_item}"
+        if path_item.is_dir():
+            assert any(path_item.iterdir()), f"Folder is empty: {path_item}"
+
+    return True

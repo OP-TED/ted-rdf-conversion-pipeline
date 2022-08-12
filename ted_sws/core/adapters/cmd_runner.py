@@ -3,7 +3,7 @@ import datetime
 import os
 from pathlib import Path
 
-from ted_sws.data_manager.adapters.mapping_suite_repository import METADATA_FILE_NAME
+from ted_sws.data_manager.adapters.mapping_suite_repository import MS_METADATA_FILE_NAME
 from ted_sws.event_manager.adapters.event_handler import EventWriterToFileHandler, EventWriterToConsoleHandler, \
     EventWriterToMongoDBHandler
 from ted_sws.event_manager.adapters.event_handler_config import CLILoggerConfig
@@ -120,4 +120,4 @@ class CmdRunnerForMappingSuite(CmdRunner):
 
     def is_mapping_suite(self, suite_id):
         suite_path = self.repository_path / Path(suite_id)
-        return os.path.isdir(suite_path) and any(f == METADATA_FILE_NAME for f in os.listdir(suite_path))
+        return os.path.isdir(suite_path) and any(f == MS_METADATA_FILE_NAME for f in os.listdir(suite_path))

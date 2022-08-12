@@ -6,14 +6,14 @@ from pathlib import Path
 import click
 
 from ted_sws.core.adapters.cmd_runner import CmdRunner as BaseCmdRunner, DEFAULT_MAPPINGS_PATH
-from ted_sws.data_manager.adapters.mapping_suite_repository import TRANSFORM_PACKAGE_NAME, MAPPINGS_PACKAGE_NAME
+from ted_sws.data_manager.adapters.mapping_suite_repository import MS_TRANSFORM_FOLDER_NAME, MS_MAPPINGS_FOLDER_NAME
 from ted_sws.event_manager.adapters.logger import LOG_INFO_TEXT
 from ted_sws.mapping_suite_processor.adapters.yarrrml2rml_converter import YARRRML2RMLConverter
 
-DEFAULT_YARRRML_INPUT_FILE = '{mappings_path}/{mapping_suite_id}/' + TRANSFORM_PACKAGE_NAME + \
+DEFAULT_YARRRML_INPUT_FILE = '{mappings_path}/{mapping_suite_id}/' + MS_TRANSFORM_FOLDER_NAME + \
                              '/technical_mappings.yarrrml.yaml'
-DEFAULT_RML_OUTPUT_FILE = '{mappings_path}/{mapping_suite_id}/' + TRANSFORM_PACKAGE_NAME + '/' + \
-                          MAPPINGS_PACKAGE_NAME + '/{output_file_name}'
+DEFAULT_RML_OUTPUT_FILE = '{mappings_path}/{mapping_suite_id}/' + MS_TRANSFORM_FOLDER_NAME + '/' + \
+                          MS_MAPPINGS_FOLDER_NAME + '/{output_file_name}'
 DEFAULT_RML_OUTPUT_FILE_NAME = 'mappings.rml.ttl'
 CMD_NAME = "CMD_YARRRML2RML_CONVERTER"
 

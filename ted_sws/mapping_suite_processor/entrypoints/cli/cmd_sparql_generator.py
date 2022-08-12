@@ -6,14 +6,14 @@ from pathlib import Path
 import click
 
 from ted_sws.core.adapters.cmd_runner import CmdRunner as BaseCmdRunner, DEFAULT_MAPPINGS_PATH
-from ted_sws.data_manager.adapters.mapping_suite_repository import VALIDATE_PACKAGE_NAME, SPARQL_PACKAGE_NAME
+from ted_sws.data_manager.adapters.mapping_suite_repository import MS_VALIDATE_FOLDER_NAME, MS_SPARQL_FOLDER_NAME
 from ted_sws.event_manager.adapters.logger import LOG_INFO_TEXT
 from ted_sws.mapping_suite_processor.entrypoints.cli import CONCEPTUAL_MAPPINGS_FILE_TEMPLATE
 from ted_sws.mapping_suite_processor.services.conceptual_mapping_generate_sparql_queries import \
     mapping_suite_processor_generate_sparql_queries as generate_sparql_queries, DEFAULT_RQ_NAME
 
-DEFAULT_OUTPUT_SPARQL_QUERIES_FOLDER = '{mappings_path}/{mapping_suite_id}/' + VALIDATE_PACKAGE_NAME + '/' + \
-                                       SPARQL_PACKAGE_NAME + '/cm_assertions'
+DEFAULT_OUTPUT_SPARQL_QUERIES_FOLDER = '{mappings_path}/{mapping_suite_id}/' + MS_VALIDATE_FOLDER_NAME + '/' + \
+                                       MS_SPARQL_FOLDER_NAME + '/cm_assertions'
 CMD_NAME = "CMD_SPARQL_GENERATOR"
 
 """

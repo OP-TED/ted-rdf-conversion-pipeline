@@ -23,7 +23,6 @@ def publish_notice(notice: Notice, publisher: SFTPPublisherABC = SFTPPublisher()
     remote_notice_path = f"{remote_folder_path}/{notice.ted_id}.zip"
     source_file = tempfile.NamedTemporaryFile()
     source_file.write(package_content)
-
     try:
         publisher.connect()
         if publisher.publish(source_path=pathlib.Path(source_file.name),
@@ -37,7 +36,7 @@ def publish_notice(notice: Notice, publisher: SFTPPublisherABC = SFTPPublisher()
 
 
 def publish_notice_by_id(notice_id: str, notice_repository: NoticeRepositoryABC,
-                         publisher: SFTPPublisherABC, remote_folder_path=None) -> bool:
+                         publisher: SFTPPublisherABC, remote_folder_path=config.SFTP_PATH) -> bool:
     """
         This function publishes the METS manifestation of a Notice, based on notice_id, in Cellar.
     """

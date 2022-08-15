@@ -1,10 +1,11 @@
+import pytest
+
 from ted_sws import config
 from ted_sws.core.model.manifestation import METSManifestation, RDFManifestation
-from ted_sws.core.model.notice import NoticeStatus, UnsupportedStatusTransition
+from ted_sws.core.model.notice import NoticeStatus
 from ted_sws.data_manager.adapters.notice_repository import NoticeRepository
-from ted_sws.notice_publisher.services.notice_publisher import publish_single_notice, NoticePublishBuilder
-from ted_sws.notice_publisher.adapters.sftp_notice_publisher import SFTPNoticePublisher
-import pytest
+from ted_sws.notice_publisher.adapters.sftp_notice_publisher import SFTPPublisher
+from ted_sws.notice_publisher.services.notice_publisher import publish_notice_by_id, publish_notice
 
 
 def test_notice_publisher(notice_2016, mongodb_client):
@@ -23,34 +24,25 @@ def test_notice_publisher(notice_2016, mongodb_client):
 
     notice_repository.update(notice)
 
-    with pytest.raises(UnsupportedStatusTransition):
-        publish_single_notice(notice, notice_repository, config.SFTP_HOST, config.SFTP_USER, config.SFTP_PASSWORD)
-
     notice._status = NoticeStatus.ELIGIBLE_FOR_PUBLISHING
 
     notice_repository.update(notice)
+    sftp_publisher = SFTPPublisher()
 
-    published = publish_single_notice(notice_id, notice_repository, config.SFTP_HOST, config.SFTP_USER,
-                                      config.SFTP_PASSWORD)
+    published = publish_notice_by_id(notice_id, notice_repository, publisher=sftp_publisher)
 
     assert published
 
     with pytest.raises(Exception):
         notice._status = NoticeStatus.ELIGIBLE_FOR_PUBLISHING
-        publish_single_notice(notice, notice_repository, config.SFTP_HOST, config.SFTP_USER, config.SFTP_PASSWORD,
-                              remote_path="/invalid_path")
-
-    with pytest.raises(Exception):
-        notice._status = NoticeStatus.ELIGIBLE_FOR_PUBLISHING
-        publish_single_notice("invalid_notice_id", notice_repository, config.SFTP_HOST, config.SFTP_USER,
-                              config.SFTP_PASSWORD)
+        publish_notice(notice, publisher=sftp_publisher,
+                       remote_folder_path="/invalid_path")
 
     with pytest.raises(ValueError):
         notice._status = NoticeStatus.ELIGIBLE_FOR_PUBLISHING
         notice._mets_manifestation = None
-        publish_single_notice(notice, notice_repository, config.SFTP_HOST, config.SFTP_USER, config.SFTP_PASSWORD)
-
-    notice_publisher = SFTPNoticePublisher(config.SFTP_HOST, config.SFTP_USER, config.SFTP_PASSWORD)
-    notice_publisher.connect()
-    publish_builder = NoticePublishBuilder(notice, notice_repository, notice_publisher)
-    notice_publisher.remove(publish_builder.build_remote_path())
+        publish_notice(notice, publisher=sftp_publisher)
+    sftp_publisher.connect()
+    sftp_publisher.remove(f"{config.SFTP_PATH}/{notice.ted_id}.zip")
+    sftp_publisher.disconnect()
+    assert not sftp_publisher.is_connected

@@ -27,7 +27,7 @@ def test_sftp_notice_publisher():
     with pytest.raises(Exception):
         sftp_publisher.publish(source_file.name + "invalid", invalid_remote_path)
 
-    with pytest.raises(ValueError):
+    with pytest.raises(Exception):
         sftp_publisher.publish(source_file.name, None)
 
     published = sftp_publisher.publish(source_file.name, remote_path)

@@ -11,7 +11,7 @@ services:
       - SFTP_PORT=${SFTP_PORT}
     command: ${SFTP_USER}:${SFTP_PASSWORD}:::upload
     ports:
-      - ${SFTP_PORT:-2235}:${SFTP_PORT}
+      - ${SFTP_PORT:-2235}:22
     networks:
       - sftp-net
       - proxy-net

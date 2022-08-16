@@ -96,7 +96,8 @@ class TedAPIAdapter(TedAPIAdapterABC):
             documents_content += response_body[RESPONSE_RESULTS]
         decoded_documents_content = []
         for document_content in documents_content:
-            document_content[DOCUMENT_CONTENT] = base64.b64decode(document_content[DOCUMENT_CONTENT]).decode(encoding="utf-8")
+            document_content[DOCUMENT_CONTENT] = base64.b64decode(document_content[DOCUMENT_CONTENT]).decode(
+                encoding="utf-8")
             decoded_documents_content.append(document_content)
 
         return decoded_documents_content

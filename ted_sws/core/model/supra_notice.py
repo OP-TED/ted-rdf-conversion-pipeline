@@ -12,6 +12,7 @@ from typing import List, Optional
 
 from ted_sws.core.model import PropertyBaseModel
 from ted_sws.core.model.manifestation import Manifestation
+from ted_sws.core.model.notice import ValidationSummaryReport
 
 
 class SupraNotice(PropertyBaseModel, abc.ABC):
@@ -47,3 +48,5 @@ class DailySupraNotice(SupraNotice):
     """
     notice_publication_day: datetime = datetime.combine(datetime.today(), time())
     validation_report: Optional[SupraNoticeValidationReport]
+    validation_summary: Optional[ValidationSummaryReport] = None
+

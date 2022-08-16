@@ -60,6 +60,8 @@ class XPATHCoverageValidationAssertion(PropertyBaseModel):
     """
 
     """
+    standard_form_field_id: Optional[str]
+    eform_bt_id: Optional[str]
     title: Optional[str]
     xpath: Optional[str]
     count: Optional[int]

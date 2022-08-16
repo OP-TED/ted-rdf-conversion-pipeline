@@ -22,29 +22,31 @@ class ManifestationValidationSummaryRunner:
 class RDFManifestationValidationSummaryRunner(ManifestationValidationSummaryRunner):
     @classmethod
     def notice_sparql_summary(cls, notice: Notice, report: RDFManifestationValidationSummaryReport):
-        report_count: SPARQLSummaryCountReport = report.sparql_summary.aggregate
-        result_counts: List[SPARQLSummaryResult] = report.sparql_summary.validation_results
-        sparql_reports: List[SPARQLTestSuiteValidationReport] = notice.rdf_manifestation.sparql_validations
-        if sparql_reports:
-            for sparql_report in sparql_reports:
-                validation_results: List[SPARQLQueryResult] = sparql_report.validation_results
-                result_validation: SPARQLSummaryResult = SPARQLSummaryResult()
-                result_validation.mapping_suite_identifier = sparql_report.mapping_suite_identifier
-                result_validation.test_suite_identifier = sparql_report.test_suite_identifier
-                result_count: SPARQLSummaryCountReport = result_validation.aggregate
-                if validation_results:
-                    for validation in validation_results:
-                        if validation.result == 'True':
-                            report_count.success += 1
-                            result_count.success += 1
-                        else:
-                            report_count.fail += 1
-                            result_count.fail += 1
-                        if validation.error:
-                            report_count.error += 1
-                            result_count.error += 1
+        manifestation = cls._manifestation(notice)
+        if manifestation:
+            report_count: SPARQLSummaryCountReport = report.sparql_summary.aggregate
+            result_counts: List[SPARQLSummaryResult] = report.sparql_summary.validation_results
+            sparql_reports: List[SPARQLTestSuiteValidationReport] = manifestation.sparql_validations
+            if sparql_reports:
+                for sparql_report in sparql_reports:
+                    validation_results: List[SPARQLQueryResult] = sparql_report.validation_results
+                    result_validation: SPARQLSummaryResult = SPARQLSummaryResult()
+                    result_validation.mapping_suite_identifier = sparql_report.mapping_suite_identifier
+                    result_validation.test_suite_identifier = sparql_report.test_suite_identifier
+                    result_count: SPARQLSummaryCountReport = result_validation.aggregate
+                    if validation_results:
+                        for validation in validation_results:
+                            if validation.result == 'True':
+                                report_count.success += 1
+                                result_count.success += 1
+                            else:
+                                report_count.fail += 1
+                                result_count.fail += 1
+                            if validation.error:
+                                report_count.error += 1
+                                result_count.error += 1
 
-                result_counts.append(result_validation)
+                    result_counts.append(result_validation)
 
     @classmethod
     def _manifestation(cls, notice: Notice) -> RDFManifestation:
@@ -52,33 +54,34 @@ class RDFManifestationValidationSummaryRunner(ManifestationValidationSummaryRunn
 
     @classmethod
     def notice_shacl_summary(cls, notice: Notice, report: RDFManifestationValidationSummaryReport):
-        report_count: SHACLSummarySeverityCountReport = report.shacl_summary.result_severity.aggregate
-        result_counts: List[SHACLSummaryResult] = report.shacl_summary.validation_results
         manifestation = cls._manifestation(notice)
-        shacl_reports: List[SHACLTestSuiteValidationReport] = manifestation.shacl_validations
-        if shacl_reports:
-            for shacl_report in shacl_reports:
-                validation_results = shacl_report.validation_results
-                result_validation: SHACLSummaryResult = SHACLSummaryResult()
-                result_validation.mapping_suite_identifier = shacl_report.mapping_suite_identifier
-                result_validation.test_suite_identifier = shacl_report.test_suite_identifier
-                result_count: SHACLSummarySeverityCountReport = result_validation.result_severity.aggregate
-                if validation_results:
-                    bindings = validation_results.results_dict['results']['bindings']
-                    for binding in bindings:
-                        result_severity = binding['resultSeverity']
-                        if result_severity:
-                            if result_severity['value'].endswith("#Violation"):
-                                report_count.violation += 1
-                                result_count.violation += 1
-                            elif result_severity['value'].endswith("#Info"):
-                                report_count.info += 1
-                                result_count.info += 1
-                            elif result_severity['value'].endswith("#Warning"):
-                                report_count.warning += 1
-                                result_count.warning += 1
+        if manifestation:
+            report_count: SHACLSummarySeverityCountReport = report.shacl_summary.result_severity.aggregate
+            result_counts: List[SHACLSummaryResult] = report.shacl_summary.validation_results
+            shacl_reports: List[SHACLTestSuiteValidationReport] = manifestation.shacl_validations
+            if shacl_reports:
+                for shacl_report in shacl_reports:
+                    validation_results = shacl_report.validation_results
+                    result_validation: SHACLSummaryResult = SHACLSummaryResult()
+                    result_validation.mapping_suite_identifier = shacl_report.mapping_suite_identifier
+                    result_validation.test_suite_identifier = shacl_report.test_suite_identifier
+                    result_count: SHACLSummarySeverityCountReport = result_validation.result_severity.aggregate
+                    if validation_results:
+                        bindings = validation_results.results_dict['results']['bindings']
+                        for binding in bindings:
+                            result_severity = binding['resultSeverity']
+                            if result_severity:
+                                if result_severity['value'].endswith("#Violation"):
+                                    report_count.violation += 1
+                                    result_count.violation += 1
+                                elif result_severity['value'].endswith("#Info"):
+                                    report_count.info += 1
+                                    result_count.info += 1
+                                elif result_severity['value'].endswith("#Warning"):
+                                    report_count.warning += 1
+                                    result_count.warning += 1
 
-                result_counts.append(result_validation)
+                    result_counts.append(result_validation)
 
     def validation_summary(self) -> RDFManifestationValidationSummaryReport:
         notices = self.notices

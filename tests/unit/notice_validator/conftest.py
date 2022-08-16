@@ -237,6 +237,21 @@ def fake_repository_path():
 
 
 @pytest.fixture
+def fake_validation_repository_path():
+    return TEST_DATA_PATH / "notice_validator" / "validation_repository"
+
+
+@pytest.fixture
+def fake_validation_mapping_suite_id() -> str:
+    return "validation_package"
+
+
+@pytest.fixture
+def fake_validation_notice_id() -> str:
+    return "292288-2021"
+
+
+@pytest.fixture
 def fake_mapping_suite_id() -> str:
     return "test_package"
 

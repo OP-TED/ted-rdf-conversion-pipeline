@@ -20,7 +20,8 @@ from ted_sws.notice_validator.services.xpath_coverage_runner import coverage_not
 
 OUTPUT_FOLDER = '{mappings_path}/{mapping_suite_id}/' + DEFAULT_OUTPUT_PATH
 DEFAULT_TEST_SUITE_REPORT_FOLDER = "test_suite_report"
-REPORT_FILE = "xpath_cov_{id}"
+REPORT_FILE = "xpath_coverage_validation"
+JSON_REPORT_FILE = REPORT_FILE + ".json"
 CMD_NAME = "CMD_XPATH_COVERAGE_RUNNER"
 
 """
@@ -90,12 +91,12 @@ class CmdRunner(BaseCmdRunner):
         for data in self.mapping_suite.transformation_test_data.test_data:
             notice: Notice = Notice(ted_id=Path(data.file_name).stem,
                                     xml_manifestation=XMLManifestation(object_data=data.file_content))
-            report_file = REPORT_FILE.format(id=notice.ted_id)
+            report_file = REPORT_FILE
             report_path = output_path / notice.ted_id / DEFAULT_TEST_SUITE_REPORT_FOLDER / report_file
             self.coverage_report(notices=[notice], output_path=report_path, label=notice.ted_id)
             notices.append(notice)
 
-        self.coverage_report(notices=notices, output_path=output_path / REPORT_FILE.format(id=self.mapping_suite_id),
+        self.coverage_report(notices=notices, output_path=output_path / REPORT_FILE,
                              label='MappingSuite[' + self.mapping_suite_id + ']')
 
         return self.run_cmd_result()

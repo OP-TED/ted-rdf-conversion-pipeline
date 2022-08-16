@@ -1,4 +1,4 @@
-import datetime
+from datetime import datetime, timedelta
 from typing import List
 
 from airflow.decorators import dag, task
@@ -40,13 +40,15 @@ def selector_daily_fetch_orchestrator():
         if WILD_CARD_PARAM in dag_params.keys():
             current_datetime_wildcard = dag_params[WILD_CARD_PARAM]
         else:
-            current_datetime_wildcard = (datetime.datetime.now() - datetime.timedelta(days=1)).strftime("%Y%m%d*")
+            current_datetime_wildcard = (datetime.now() - timedelta(days=1)).strftime("%Y%m%d*")
+        notice_publication_date = datetime.strptime(current_datetime_wildcard, "%Y%m%d*").date()
         mongodb_client = MongoClient(config.MONGO_DB_AUTH_URL)
         notice_ids = NoticeFetcher(notice_repository=NoticeRepository(mongodb_client=mongodb_client),
                                    ted_api_adapter=TedAPIAdapter(
                                        request_api=TedRequestAPI())).fetch_notices_by_date_wild_card(
             wildcard_date=current_datetime_wildcard)
-        create_and_store_in_mongo_db_daily_supra_notice(notice_ids=notice_ids, mongodb_client=mongodb_client)
+        create_and_store_in_mongo_db_daily_supra_notice(notice_ids=notice_ids, mongodb_client=mongodb_client,
+                                                        notice_publication_date=notice_publication_date)
         return notice_ids
 
     @task

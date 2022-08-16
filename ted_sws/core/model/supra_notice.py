@@ -7,7 +7,7 @@
 
 """ This module implements aggregates over groups of notices and the appropriate business needs, on those groups """
 import abc
-from datetime import datetime, time
+from datetime import datetime, date
 from typing import List, Optional
 
 from ted_sws.core.model import PropertyBaseModel
@@ -46,6 +46,6 @@ class DailySupraNotice(SupraNotice):
     """
         This is an aggregate over the notices published in TED in a specific day.
     """
-    notice_publication_day: datetime = datetime.combine(datetime.today(), time())
+    notice_publication_date: date
     validation_report: Optional[SupraNoticeValidationReport]
     validation_summary: Optional[ValidationSummaryReport] = None

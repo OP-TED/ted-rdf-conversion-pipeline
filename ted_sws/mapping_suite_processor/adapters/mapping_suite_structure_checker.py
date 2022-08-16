@@ -1,22 +1,18 @@
+import json
 import pathlib
 from typing import List
 
+from ted_sws.core.model.transform import MetadataConstraints
+from ted_sws.data_manager.adapters.mapping_suite_repository import MS_TRANSFORM_FOLDER_NAME, MS_TEST_DATA_FOLDER_NAME, \
+    MS_CONCEPTUAL_MAPPING_FILE_NAME, MS_RESOURCES_FOLDER_NAME, MS_MAPPINGS_FOLDER_NAME, MS_METADATA_FILE_NAME, \
+    MS_VALIDATE_FOLDER_NAME, MS_SPARQL_FOLDER_NAME, MS_SHACL_FOLDER_NAME, MS_OUTPUT_FOLDER_NAME, MS_TEST_SUITE_REPORT
 from ted_sws.event_manager.adapters.event_handler_config import CLILoggerConfig
 from ted_sws.event_manager.adapters.event_logger import EventLogger
 from ted_sws.event_manager.model.event_message import EventMessage
 from ted_sws.event_manager.services.logger_from_context import get_env_logger
+from ted_sws.data_manager.adapters.mapping_suite_repository import mapping_suite_read_conceptual_mapping
+from ted_sws.mapping_suite_processor.services.conceptual_mapping_reader import mapping_suite_read_metadata
 
-MS_METADATA_FILE_NAME = "metadata.json"
-MS_TRANSFORM_FOLDER_NAME = "transformation"
-MS_MAPPINGS_FOLDER_NAME = "mappings"
-MS_RESOURCES_FOLDER_NAME = "resources"
-MS_VALIDATE_FOLDER_NAME = "validation"
-MS_SHACL_FOLDER_NAME = "shacl"
-MS_SPARQL_FOLDER_NAME = "sparql"
-MS_TEST_DATA_FOLDER_NAME = "test_data"
-MS_CONCEPTUAL_MAPPING_FILE_NAME = "conceptual_mappings.xlsx"
-MS_OUTPUT_FOLDER_NAME = "output"
-MS_TEST_SUITE_REPORT = "test_suite_report"
 logger = get_env_logger(EventLogger(CLILoggerConfig()), is_cli=True)
 
 
@@ -88,12 +84,31 @@ def validate_mapping_suite_structure_lv3(package_folder_path_for_validator: path
     return assert_path(mandatory_paths_l3)
 
 
-def check_metadata_consistency(package_folder_path_for_validator: pathlib.Path):
+def check_metadata_consistency(package_folder_path_for_validator: pathlib.Path,
+                               conceptual_mappings_file_path) -> bool:
+
     """
         Read the conceptual mapping XSLX and the metadata.json and compare the contents,
         in particular paying attention to the mapping suite version and the ontology version.
     """
-    if not validate_mapping_suite_structure_lv2(package_folder_path_for_validator):
-        return False
+    # if not validate_mapping_suite_structure_lv2(package_folder_path_for_validator):
+    #     return False
+    conceptual_mappings_document = mapping_suite_read_metadata(conceptual_mappings_file_path=conceptual_mappings_file_path)
+    mapping_version = [val for val in conceptual_mappings_document.values()][4][0]
+    epo_version = [val for val in conceptual_mappings_document.values()][5][0]
 
-    ...
+    package_metadata_path = package_folder_path_for_validator / MS_METADATA_FILE_NAME
+    package_metadata_content = package_metadata_path.read_text(encoding="utf-8")
+    package_metadata = json.loads(package_metadata_content)
+    package_metadata['metadata_constraints'] = MetadataConstraints(**package_metadata['metadata_constraints'])
+    metadata_version = [val for val in package_metadata.values()][3]
+    metadata_ontology_version = [val for val in package_metadata.values()][4]
+
+    if mapping_version > metadata_version and epo_version > metadata_ontology_version:
+        return True
+    else:
+        raise TypeError('Not the same value between metadata.json [version, epo version] and conceptual_mapping_file [version, ontology_version')
+
+
+
+

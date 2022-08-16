@@ -1,4 +1,4 @@
-from datetime import datetime, time, date
+from datetime import date
 
 from ted_sws.supra_notice_manager.services.daily_supra_notice_manager import \
     create_and_store_in_mongo_db_daily_supra_notice

@@ -49,4 +49,3 @@ class DailySupraNotice(SupraNotice):
     notice_publication_day: datetime = datetime.combine(datetime.today(), time())
     validation_report: Optional[SupraNoticeValidationReport]
     validation_summary: Optional[ValidationSummaryReport] = None
-

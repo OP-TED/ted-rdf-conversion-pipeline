@@ -4,6 +4,14 @@ from enum import Enum
 
 from ted_sws import RUN_ENV_NAME, RUN_TEST_ENV_VAL
 
+from colorama import Fore
+
+LOG_ERROR_TEXT = Fore.RED + "{}" + Fore.RESET
+LOG_SUCCESS_TEXT = Fore.GREEN + "{}" + Fore.RESET
+LOG_INFO_TEXT = Fore.CYAN + "{}" + Fore.RESET
+LOG_WARN_TEXT = Fore.YELLOW + "{}" + Fore.RESET
+
+
 EVENT_LOGGER_CONTEXT_KEY = '__event_logger__'
 
 
@@ -19,11 +27,6 @@ class ConfigHandlerType(Enum):
     ConsoleHandler = "ConsoleHandler"
     FileHandler = "FileHandler"
     MongoDBHandler = "MongoDBHandler"
-
-
-class LoggedBy(Enum):
-    DECORATOR = "decorator"
-    WRITER = "writer"
 
 
 def is_env_logging_enabled() -> bool:

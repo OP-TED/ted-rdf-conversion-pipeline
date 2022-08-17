@@ -12,7 +12,7 @@ from ted_sws.core.adapters.cmd_runner import CmdRunner as BaseCmdRunner, DEFAULT
 from ted_sws.core.model.manifestation import XMLManifestation
 from ted_sws.core.model.notice import Notice
 from ted_sws.data_manager.adapters.mapping_suite_repository import MappingSuiteRepositoryInFileSystem
-from ted_sws.event_manager.adapters.logger import LOG_INFO_TEXT
+from ted_sws.event_manager.adapters.log import LOG_INFO_TEXT
 from ted_sws.mapping_suite_processor.entrypoints.cli import CONCEPTUAL_MAPPINGS_FILE_TEMPLATE
 from ted_sws.notice_validator.adapters.xpath_coverage_runner import CoverageRunner
 from ted_sws.notice_validator.services.xpath_coverage_runner import coverage_notice_xpath_report, \

@@ -370,6 +370,30 @@ Options:
   --help                                      Show this message and exit.
 ```
 
+#### CMD: validation_summary_runner
+Generates Validation Summary for Notices.
+
+Use:
+```bash
+validation_summary_runner --help
+```
+to get the Usage Help:
+```bash
+Usage: validation_summary_runner [OPTIONS] MAPPING_SUITE_ID
+
+  Generates Validation Summary for Notices
+
+Options:
+  --notice-id TEXT
+  --notice-aggregate BOOLEAN
+  -m, --opt-mappings-folder TEXT
+  --help                                      Show this message and exit.
+```
+Use cases:
+1) If only MAPPING_SUITE_ID is provided: only mapping_suite validation_summary will be generated (if --notice-aggregate=1, validation_summary will also be generated for all notices)
+2) If --notice-id (LIST, multiple notice-ids can be provided) is also provided, validation_summary will be generated only for provided notices.
+
+
 #### CMD: rml_report_generator
 Generates RML modules report file for Mapping Suite.
 

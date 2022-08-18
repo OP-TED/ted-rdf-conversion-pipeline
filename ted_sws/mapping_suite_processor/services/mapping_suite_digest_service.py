@@ -1,9 +1,12 @@
 from ted_sws.core.model.transform import MappingSuite
 from urllib.parse import urlparse
+from ted_sws import config
 
 
-def replace_digest_api_address_for_mapping_suite(mapping_suite: MappingSuite, current_digest_api_address: str,
-                                                 new_digest_api_address) -> MappingSuite:
+def update_digest_api_address_for_mapping_suite(mapping_suite: MappingSuite,
+                                                current_digest_api_address: str = config.OLD_ID_MANAGER_API_HOST,
+                                                new_digest_api_address: str = config.ID_MANAGER_API_HOST,
+                                                ) -> MappingSuite:
     """
     Replace the digest API address
 
@@ -19,14 +22,19 @@ def replace_digest_api_address_for_mapping_suite(mapping_suite: MappingSuite, cu
     :return:
     """
 
+    if not new_digest_api_address or not current_digest_api_address \
+            or new_digest_api_address == current_digest_api_address:
+        return mapping_suite
+
     urlparse(current_digest_api_address)
     urlparse(new_digest_api_address)
 
-    rml_mapping_rules = mapping_suite.transformation_rule_set.rml_mapping_rules
-    for rml_mapping_rule in rml_mapping_rules:
-        rml_mapping_rule_content = rml_mapping_rule.file_content
-        rml_mapping_rule.file_content = rml_mapping_rule_content.replace(current_digest_api_address,
-                                                                         new_digest_api_address)
+    if mapping_suite.transformation_rule_set and mapping_suite.transformation_rule_set.rml_mapping_rules:
+        rml_mapping_rules = mapping_suite.transformation_rule_set.rml_mapping_rules
+        for rml_mapping_rule in rml_mapping_rules:
+            rml_mapping_rule_content = rml_mapping_rule.file_content
+            if rml_mapping_rule_content:
+                rml_mapping_rule.file_content = rml_mapping_rule_content.replace(current_digest_api_address,
+                                                                                 new_digest_api_address)
 
     return mapping_suite
-

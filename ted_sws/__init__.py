@@ -145,6 +145,11 @@ class API:
         return v if v else "localhost"
 
     @property
+    def OLD_ID_MANAGER_API_HOST(self) -> str:
+        v: str = EnvConfigResolver().config_resolve()
+        return v if v else "localhost"
+
+    @property
     def ID_MANAGER_API_PORT(self) -> int:
         v: str = EnvConfigResolver().config_resolve()
         return int(v) if v else 8000

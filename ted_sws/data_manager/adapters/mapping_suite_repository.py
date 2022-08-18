@@ -14,7 +14,6 @@ from ted_sws.event_manager.services.logger_from_context import get_env_logger
 from ted_sws.mapping_suite_processor.services.conceptual_mapping_reader import CONCEPTUAL_MAPPINGS_FILE_NAME, \
     mapping_suite_read_conceptual_mapping
 
-
 MS_METADATA_FILE_NAME = "metadata.json"
 MS_TRANSFORM_FOLDER_NAME = "transformation"
 MS_MAPPINGS_FOLDER_NAME = "mappings"
@@ -26,7 +25,6 @@ MS_TEST_DATA_FOLDER_NAME = "test_data"
 MS_CONCEPTUAL_MAPPING_FILE_NAME = "conceptual_mappings.xlsx"
 MS_OUTPUT_FOLDER_NAME = "output"
 MS_TEST_SUITE_REPORT = "test_suite_report"
-
 
 class MappingSuiteRepositoryMongoDB(MappingSuiteRepositoryABC):
     """

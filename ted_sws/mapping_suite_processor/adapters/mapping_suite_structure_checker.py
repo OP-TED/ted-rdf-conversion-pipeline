@@ -1,4 +1,5 @@
 import json
+import os
 import pathlib
 from typing import List
 
@@ -10,10 +11,12 @@ from ted_sws.event_manager.adapters.event_handler_config import CLILoggerConfig
 from ted_sws.event_manager.adapters.event_logger import EventLogger
 from ted_sws.event_manager.model.event_message import EventMessage
 from ted_sws.event_manager.services.logger_from_context import get_env_logger
-from ted_sws.data_manager.adapters.mapping_suite_repository import mapping_suite_read_conceptual_mapping
 from ted_sws.mapping_suite_processor.services.conceptual_mapping_reader import mapping_suite_read_metadata
 
 logger = get_env_logger(EventLogger(CLILoggerConfig()), is_cli=True)
+SHACL_EPO = "shacl_epo.htlm"
+SPARQL_CM_ASSERTIONS = "sparql_cm_assertions.html"
+
 
 
 def assert_path(assertion_path_list: List[pathlib.Path]) -> bool:
@@ -55,7 +58,7 @@ def validate_mapping_suite_structure_lv1(package_folder_path_for_validator: path
     return assert_path(mandatory_paths_l1)
 
 
-def validate_mapping_suite_structure_lv2(package_folder_path_for_validator: pathlib.Path):
+def validate_mapping_suite_structure_lv2(package_folder_path_for_validator: pathlib.Path) -> bool:
     """
         Check if the expanded mapping suite structure is in place
     """
@@ -68,18 +71,23 @@ def validate_mapping_suite_structure_lv2(package_folder_path_for_validator: path
     return assert_path(mandatory_paths_l2)
 
 
-def validate_mapping_suite_structure_lv3(package_folder_path_for_validator: pathlib.Path):
+def validate_mapping_suite_structure_lv3(package_folder_path_for_validator: pathlib.Path) -> bool:
     """
         Check if the transformed and validated mapping suite structure is in place.
     """
     mandatory_paths_l3 = [
         package_folder_path_for_validator / MS_OUTPUT_FOLDER_NAME,
     ]
-
     for item in (package_folder_path_for_validator / MS_OUTPUT_FOLDER_NAME).iterdir():
         if item.is_dir():
-            mandatory_paths_l3 += item
-            mandatory_paths_l3 += item / MS_TEST_SUITE_REPORT
+            for path in item.iterdir():
+                if path.is_dir():
+                    for last_path in path.iterdir():
+                        message_path_not_found = f"Path not found: {last_path}"
+                        if SHACL_EPO and SPARQL_CM_ASSERTIONS in os.path.basename(last_path):
+                            return True
+                        else:
+                            logger.error(event_message=EventMessage(message=message_path_not_found))
 
     return assert_path(mandatory_paths_l3)
 
@@ -91,8 +99,8 @@ def check_metadata_consistency(package_folder_path_for_validator: pathlib.Path,
         Read the conceptual mapping XSLX and the metadata.json and compare the contents,
         in particular paying attention to the mapping suite version and the ontology version.
     """
-    # if not validate_mapping_suite_structure_lv2(package_folder_path_for_validator):
-    #     return False
+    if not validate_mapping_suite_structure_lv2(package_folder_path_for_validator):
+        return False
     conceptual_mappings_document = mapping_suite_read_metadata(conceptual_mappings_file_path=conceptual_mappings_file_path)
     mapping_version = [val for val in conceptual_mappings_document.values()][4][0]
     epo_version = [val for val in conceptual_mappings_document.values()][5][0]

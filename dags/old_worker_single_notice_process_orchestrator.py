@@ -209,6 +209,9 @@ def old_worker_single_notice_process_orchestrator():
         mongodb_client = MongoClient(config.MONGO_DB_AUTH_URL)
         notice_repository = NoticeRepository(mongodb_client=mongodb_client)
         mapping_suite_repository = MappingSuiteRepositoryMongoDB(mongodb_client=mongodb_client)
+        validate_xpath_coverage_notice_by_id(notice_id=notice_id, mapping_suite_identifier=mapping_suite_id,
+                                             mapping_suite_repository=mapping_suite_repository,
+                                             mongodb_client=mongodb_client)
         validate_notice_by_id_with_sparql_suite(notice_id=notice_id, mapping_suite_identifier=mapping_suite_id,
                                                 notice_repository=notice_repository,
                                                 mapping_suite_repository=mapping_suite_repository)
@@ -216,9 +219,7 @@ def old_worker_single_notice_process_orchestrator():
                                                notice_repository=notice_repository,
                                                mapping_suite_repository=mapping_suite_repository
                                                )
-        validate_xpath_coverage_notice_by_id(notice_id=notice_id, mapping_suite_identifier=mapping_suite_id,
-                                             mapping_suite_repository=mapping_suite_repository,
-                                             mongodb_client=mongodb_client)
+
         push_dag_downstream(NOTICE_ID, notice_id)
         push_dag_downstream(MAPPING_SUITE_ID, mapping_suite_id)
 

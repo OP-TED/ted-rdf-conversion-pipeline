@@ -10,13 +10,13 @@ from ted_sws.core.adapters.cmd_runner import CmdRunner as BaseCmdRunner, DEFAULT
 from ted_sws.core.model.manifestation import XMLManifestation, RDFManifestation, XPATHCoverageValidationReport, \
     SPARQLTestSuiteValidationReport, SHACLTestSuiteValidationReport, ValidationSummaryReport
 from ted_sws.core.model.notice import Notice
+from ted_sws.notice_validator.entrypoints.cli import DEFAULT_TEST_SUITE_REPORT_FOLDER
 from ted_sws.notice_validator.entrypoints.cli.cmd_shacl_runner import JSON_VALIDATIONS_REPORT as JSON_SHACL_REPORT
 from ted_sws.notice_validator.entrypoints.cli.cmd_sparql_runner import JSON_VALIDATIONS_REPORT as JSON_SPARQL_REPORT
 from ted_sws.notice_validator.entrypoints.cli.cmd_xpath_coverage_runner import JSON_REPORT_FILE as XPATH_COV_REPORT
 from ted_sws.notice_validator.services.validation_summary_runner import generate_validation_summary_report_notices
 
 OUTPUT_FOLDER = '{mappings_path}/{mapping_suite_id}/' + DEFAULT_OUTPUT_PATH
-DEFAULT_TEST_SUITE_REPORT_FOLDER = "test_suite_report"
 
 REPORT_FILE = "validation_summary_report"
 CMD_NAME = "CMD_VALIDATION_SUMMARY_RUNNER"

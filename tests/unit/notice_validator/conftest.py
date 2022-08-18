@@ -43,9 +43,9 @@ def query_content_without_description():
 @pytest.fixture
 def query_content_with_xpath():
     return """
-    # title: Official name
+    #title: Official name
     #xpath: //some/xpath/goes/here
-    # description: this is a description
+    #description: this is a description
 
     PREFIX epo: <http://data.europa.eu/a4g/ontology#>
     ASK
@@ -133,8 +133,10 @@ ORDER BY ?focusNode ?resultSeverity ?sourceConstraintComponent
 
 @pytest.fixture
 def sparql_file_one():
-    query = """# title: Title One
-# description: this is a description
+    query = """#title: Title One
+#description: this is a description
+#xpath: /TED_EXPORT/FORM_SECTION/F03_2014/OBJECT_CONTRACT/VAL_TOTAL/@CURRENCY
+
 PREFIX epo: <http://data.europa.eu/a4g/ontology#>
 ASK
 WHERE
@@ -147,8 +149,10 @@ WHERE
 
 @pytest.fixture
 def sparql_file_two():
-    query = """# title: Title Two
-# description: this is a description
+    query = """#title: Title Two
+#description: this is a description
+#xpath: /TED_EXPORT/FORM_SECTION/F03_2014/LEGAL_BASIS/@VALUE
+
 PREFIX epo: <http://data.europa.eu/a4g/ontology#>
 ASK
 WHERE
@@ -160,13 +164,47 @@ WHERE
 
 
 @pytest.fixture
+def sparql_file_select():
+    query = """#title: Title One
+#description: this is a description
+#xpath: /TED_EXPORT/FORM_SECTION/F03_2014/OBJECT_CONTRACT/VAL_TOTAL/@CURRENCY
+
+PREFIX epo: <http://data.europa.eu/a4g/ontology#>
+SELECT ?name
+WHERE
+{
+  ?this epo:playedBy / epo:hasDefaultContactPoint / epo:hasFax ?organisationContactPointFax .
+}
+    """
+    return FileResource(file_name="select_file", file_content=query)
+
+
+@pytest.fixture
 def invalid_sparql_file():
-    query = """# title: Title Two
-# description: this is a description
+    query = """#title: Title Two
+#description: this is a description
+#xpath: /some/xpath
+
 ASK
 WHERE
 {
   ?this hasName ?value .
+}
+    """
+    return FileResource(file_name="some_file", file_content=query)
+
+
+@pytest.fixture
+def false_query_sparql_file():
+    query = """#title: Title Two
+#description: this is a description
+#xpath: /some/xpath
+
+PREFIX epo: <http://data.europa.eu/a4g/ontology#>
+ASK
+WHERE
+{
+  ?this epo:hasNameFalse ?value .
 }
     """
     return FileResource(file_name="some_file", file_content=query)
@@ -190,6 +228,16 @@ def bad_shacl_test_suite(shacl_file_one, shacl_file_with_error):
 @pytest.fixture
 def sparql_test_suite_with_invalid_query(invalid_sparql_file):
     return SPARQLTestSuite(identifier="sparql_test_package", sparql_tests=[invalid_sparql_file])
+
+
+@pytest.fixture
+def sparql_test_suite_with_false_query(false_query_sparql_file):
+    return SPARQLTestSuite(identifier="sparql_test_package", sparql_tests=[false_query_sparql_file])
+
+
+@pytest.fixture
+def sparql_test_suite_with_select_query(sparql_file_select):
+    return SPARQLTestSuite(identifier="sparql_test_package", sparql_tests=[sparql_file_select])
 
 
 @pytest.fixture
@@ -257,6 +305,11 @@ def fake_mapping_suite_id() -> str:
 
 
 @pytest.fixture
+def fake_sparql_mapping_suite_id() -> str:
+    return "test_sparql_package"
+
+
+@pytest.fixture
 def fake_mapping_suite_F03_id() -> str:
     return "test_package_F03"
 
@@ -305,6 +358,29 @@ def fake_notice_F03(fake_notice_F03_content, fake_notice_id):
 def fake_xslt_transformer() -> XMLPreprocessorABC:
     return FakeXSLTTransformer()
 
+@pytest.fixture
+def fake_xml_manifestation_with_coverage_for_sparql_runner() -> XMLManifestation:
+    xml_manifestation = XMLManifestation(object_data="")
+    xpath_coverage_validation = {
+        "mapping_suite_identifier": 'package_F03',
+        "xpath_covered": [
+            '/TED_EXPORT/FORM_SECTION/F03_2014/LEGAL_BASIS/@VALUE',
+            '/TED_EXPORT/FORM_SECTION/F03_2014/OBJECT_CONTRACT/VAL_TOTAL/@CURRENCY'
+        ],
+        "xpath_not_covered": [
+            '/TED_EXPORT/FORM_SECTION/F03_2014/CONTRACTING_BODY/ADDRESS_CONTRACTING_BODY/COUNTRY/@VALUE',
+            '/TED_EXPORT/FORM_SECTION/F03_2014/CONTRACTING_BODY/CA_ACTIVITY/@VALUE',
+            '/TED_EXPORT/FORM_SECTION/F03_2014/AWARD_CONTRACT/AWARDED_CONTRACT/CONTRACTORS'
+        ]
+    }
+    xml_manifestation.xpath_coverage_validation = XPATHCoverageValidationReport(
+        object_data="",
+        mapping_suite_identifier="package_F03"
+    )
+    xml_manifestation.xpath_coverage_validation.validation_result = XPATHCoverageValidationResult(
+        **xpath_coverage_validation)
+
+    return xml_manifestation
 
 @pytest.fixture
 def fake_validation_notice():

@@ -19,6 +19,7 @@ from ted_sws.event_manager.services.logger_from_context import get_logger_from_d
 from ted_sws.notice_metadata_processor.services.metadata_normalizer import normalise_notice
 from ted_sws.notice_metadata_processor.services.notice_eligibility import notice_eligibility_checker
 from ted_sws.notice_packager.services.notice_packager import create_notice_package
+from ted_sws.notice_publisher.services.notice_publisher import publish_notice_by_id
 from ted_sws.notice_transformer.adapters.rml_mapper import RMLMapper
 from ted_sws.notice_transformer.services.notice_transformer import transform_notice
 from ted_sws.notice_validator.services.shacl_test_suite_runner import validate_notice_with_shacl_suite
@@ -200,7 +201,6 @@ def worker_single_notice_process_orchestrator():
         validate_xpath_coverage_notice(notice=notice, mapping_suite=mapping_suite, mongodb_client=mongodb_client)
         push_dag_downstream(NOTICE_OBJECT, notice)
         context = get_current_context()
-
         handle_event_message_metadata_dag_context(event_message, context)
         event_message.notice_id = notice_id
         event_message.domain_action = get_task_id_from_dag_context(context)
@@ -261,10 +261,18 @@ def worker_single_notice_process_orchestrator():
 
     def _check_package_integrity_by_package_structure():
         notice_id = pull_dag_upstream(NOTICE_ID)
+        mongodb_client = MongoClient(config.MONGO_DB_AUTH_URL)
+        notice_repository = NoticeRepository(mongodb_client=mongodb_client)
+        notice = notice_repository.get(reference=notice_id)
+        notice.update_status_to(NoticeStatus.ELIGIBLE_FOR_PUBLISHING)
+        notice_repository.update(notice=notice)
         push_dag_downstream(NOTICE_ID, notice_id)
 
     def _publish_notice_in_cellar():
         notice_id = pull_dag_upstream(NOTICE_ID)
+        mongodb_client = MongoClient(config.MONGO_DB_AUTH_URL)
+        notice_repository = NoticeRepository(mongodb_client=mongodb_client)
+        publish_notice_by_id(notice_id=notice_id, notice_repository=notice_repository)
         push_dag_downstream(NOTICE_ID, notice_id)
 
     def _check_notice_public_availability_in_cellar():

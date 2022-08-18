@@ -8,12 +8,10 @@ from pymongo import MongoClient
 from ted_sws.core.model.manifestation import XPATHCoverageValidationReport, XPATHCoverageValidationAssertion, \
     XPATHCoverageValidationResult
 from ted_sws.core.model.notice import Notice
-from ted_sws.core.model.transform import ConceptualMapping
-from ted_sws.data_sampler.services.notice_xml_indexer import index_notice, get_unique_xpaths_covered_by_notices
-from ted_sws.mapping_suite_processor.services.conceptual_mapping_reader import mapping_suite_read_metadata, \
-    mapping_suite_read_conceptual_mapping
-from ted_sws.notice_validator import BASE_XPATH_FIELD
+from ted_sws.core.model.transform import ConceptualMapping, ConceptualMappingXPATH
 from ted_sws.data_manager.adapters.mapping_suite_repository import MappingSuiteRepositoryMongoDB
+from ted_sws.data_sampler.services.notice_xml_indexer import index_notice, get_unique_xpaths_covered_by_notices
+from ted_sws.mapping_suite_processor.services.conceptual_mapping_reader import mapping_suite_read_conceptual_mapping
 
 TEMPLATES = Environment(loader=PackageLoader("ted_sws.notice_validator.resources", "templates"))
 XPATH_COVERAGE_REPORT_TEMPLATE = "xpath_coverage_report.jinja2"
@@ -28,7 +26,7 @@ class CoverageRunner:
     """
 
     conceptual_xpaths: Set[str] = set()
-    conceptual_xpath_names: Dict[str, str] = {}
+    conceptual_xpath_data: Dict[str, ConceptualMappingXPATH] = {}
     mongodb_client: MongoClient
     base_xpath: str
     mapping_suite_id: str
@@ -51,7 +49,7 @@ class CoverageRunner:
 
         for cm_xpath in conceptual_mapping.xpaths:
             self.conceptual_xpaths.add(cm_xpath.xpath)
-            self.conceptual_xpath_names[cm_xpath.xpath] = cm_xpath.name
+            self.conceptual_xpath_data[cm_xpath.xpath] = cm_xpath
 
         self.base_xpath = conceptual_mapping.metadata.base_xpath
 
@@ -68,8 +66,11 @@ class CoverageRunner:
         xpath_assertions = []
         for xpath in self.conceptual_xpaths:
             xpath_assertion = XPATHCoverageValidationAssertion()
-            title = self.conceptual_xpath_names[xpath]
+            xpath_data = self.conceptual_xpath_data[xpath]
+            title = xpath_data.name
             xpath_assertion.title = title if title is not np.nan else ''
+            xpath_assertion.standard_form_field_id = xpath_data.standard_form_field_id
+            xpath_assertion.eform_bt_id = xpath_data.eform_bt_id
             xpath_assertion.xpath = xpath
             xpath_assertion.count = xpaths_list.count(xpath)
             xpath_assertion.notice_hit = self.find_notice_by_xpath(notice_xpaths, xpath)

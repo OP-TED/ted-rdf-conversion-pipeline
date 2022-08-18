@@ -2,6 +2,7 @@ from ted_sws.core.model.manifestation import ValidationSummaryReport
 from ted_sws.core.model.notice import Notice
 from ted_sws.data_manager.adapters.notice_repository import NoticeRepository
 from ted_sws.notice_validator.adapters.validation_summary_runner import ValidationSummaryRunner
+from typing import List
 
 
 class ValidationSummaryReportBuilder:
@@ -20,11 +21,14 @@ class ValidationSummaryReportBuilder:
         return self.report
 
 
-def validation_summary_report_notice(notice: Notice):
+def generate_validation_summary_report_notices(notices: List[Notice]) -> ValidationSummaryReport:
     validation_summary_report = ValidationSummaryRunner()
-    notices = [notice]
     report_builder = ValidationSummaryReportBuilder(validation_summary_report.validation_summary(notices))
-    notice.validation_summary = report_builder.generate_report()
+    return report_builder.generate_report()
+
+
+def validation_summary_report_notice(notice: Notice):
+    notice.validation_summary = generate_validation_summary_report_notices([notice])
 
 
 def validation_summary_report_notice_by_id(notice_id: str, notice_repository: NoticeRepository):
@@ -34,3 +38,4 @@ def validation_summary_report_notice_by_id(notice_id: str, notice_repository: No
 
     validation_summary_report_notice(notice=notice)
     notice_repository.update(notice=notice)
+

@@ -1,6 +1,8 @@
 #!/usr/bin/python3
 
+import json
 from pathlib import Path
+from typing import List
 
 import click
 
@@ -9,9 +11,10 @@ from ted_sws.core.model.manifestation import RDFManifestation
 from ted_sws.data_manager.adapters.mapping_suite_repository import MappingSuiteRepositoryInFileSystem
 from ted_sws.event_manager.adapters.logger import LOG_INFO_TEXT
 from ted_sws.notice_validator.entrypoints.cli import DEFAULT_RDF_FOLDER, DEFAULT_TEST_SUITE_REPORT_FOLDER
-from ted_sws.notice_validator.services.sparql_test_suite_runner import SPARQLTestSuiteRunner, SPARQLReportBuilder
+from ted_sws.notice_validator.services.sparql_test_suite_runner import SPARQLTestSuiteRunner, SPARQLReportBuilder, \
+    SPARQLTestSuiteValidationReport
 
-JSON_REPORT = "sparql_{id}.json"
+JSON_VALIDATIONS_REPORT = "sparql_validations.json"
 HTML_REPORT = "sparql_{id}.html"
 CMD_NAME = "CMD_SPARQL_RUNNER"
 
@@ -41,7 +44,9 @@ class CmdRunner(BaseCmdRunner):
 
     @classmethod
     def save_report(cls, report_path, report_name, report_id, content):
-        with open(report_path / report_name.format(id=report_id), "w+") as f:
+        if report_id is not None:
+            report_name = report_name.format(id=report_id)
+        with open(report_path / report_name, "w+") as f:
             f.write(content)
 
     def validate(self, rdf_file, base_report_path):
@@ -51,6 +56,7 @@ class CmdRunner(BaseCmdRunner):
         report_path = base_report_path / DEFAULT_TEST_SUITE_REPORT_FOLDER
         report_path.mkdir(parents=True, exist_ok=True)
 
+        sparql_validations: List[SPARQLTestSuiteValidationReport] = []
         sparql_test_suites = self.mapping_suite.sparql_test_suites
         for sparql_test_suite in sparql_test_suites:
             test_suite_execution = SPARQLTestSuiteRunner(rdf_manifestation=rdf_manifestation,
@@ -58,11 +64,15 @@ class CmdRunner(BaseCmdRunner):
                                                          mapping_suite=self.mapping_suite).execute_test_suite()
 
             report_builder = SPARQLReportBuilder(sparql_test_suite_execution=test_suite_execution)
-            html_report = report_builder.generate_report()
+            report: SPARQLTestSuiteValidationReport = report_builder.generate_report()
 
             suite_id = sparql_test_suite.identifier
-            html_data = html_report.object_data
-            self.save_report(report_path, HTML_REPORT, suite_id, html_data)
+            self.save_report(report_path, HTML_REPORT, suite_id, report.object_data)
+            report.object_data = "SPARQLTestSuiteValidationReport"
+            sparql_validations.append(report)
+
+        self.save_report(report_path, JSON_VALIDATIONS_REPORT, None,
+                         json.dumps(sparql_validations, default=lambda o: o.dict(), sort_keys=True, indent=4))
 
     def run_cmd(self):
         error = None

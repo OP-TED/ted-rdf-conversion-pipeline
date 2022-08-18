@@ -67,7 +67,9 @@ class TransformationTestData(MappingSuiteComponent):
 
 class ConceptualMappingXPATH(MappingSuiteComponent):
     xpath: str
-    name: str
+    name: Optional[str]
+    standard_form_field_id: Optional[str]
+    eform_bt_id: Optional[str]
 
 
 class ConceptualMappingMetadata(MappingSuiteComponent):

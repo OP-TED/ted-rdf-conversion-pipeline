@@ -1,3 +1,4 @@
+from datetime import datetime, time
 from typing import Optional, Iterator
 
 from pymongo import MongoClient, ASCENDING
@@ -6,7 +7,7 @@ from ted_sws import config
 from ted_sws.core.model.supra_notice import DailySupraNotice
 from ted_sws.data_manager.adapters.repository_abc import DailySupraNoticeRepositoryABC
 
-DAILY_SUPRA_NOTICE_ID = "notice_publication_day"
+DAILY_SUPRA_NOTICE_ID = "notice_publication_date"
 
 
 class DailySupraNoticeRepository(DailySupraNoticeRepositoryABC):
@@ -26,6 +27,8 @@ class DailySupraNoticeRepository(DailySupraNoticeRepositoryABC):
 
     def _update_daily_supra_notice(self, daily_supra_notice: DailySupraNotice, upsert: bool = False):
         daily_supra_notice_dict = daily_supra_notice.dict()
+        daily_supra_notice_dict[DAILY_SUPRA_NOTICE_ID] = datetime.combine(
+            daily_supra_notice_dict[DAILY_SUPRA_NOTICE_ID], time())
         self.collection.update_one({DAILY_SUPRA_NOTICE_ID: daily_supra_notice_dict[DAILY_SUPRA_NOTICE_ID]},
                                    {"$set": daily_supra_notice_dict}, upsert=upsert)
 
@@ -43,10 +46,7 @@ class DailySupraNoticeRepository(DailySupraNoticeRepositoryABC):
         :param daily_supra_notice:
         :return:
         """
-        daily_supra_notice_exist = self.collection.find_one(
-            {DAILY_SUPRA_NOTICE_ID: daily_supra_notice.notice_publication_day})
-        if daily_supra_notice_exist is not None:
-            self._update_daily_supra_notice(daily_supra_notice=daily_supra_notice)
+        self._update_daily_supra_notice(daily_supra_notice=daily_supra_notice)
 
     def get(self, reference) -> Optional[DailySupraNotice]:
         """
@@ -54,8 +54,10 @@ class DailySupraNoticeRepository(DailySupraNoticeRepositoryABC):
         :param reference:
         :return: DailySupraNotice
         """
+        reference = datetime.combine(reference, time())
         result_dict = self.collection.find_one({DAILY_SUPRA_NOTICE_ID: reference})
         if result_dict is not None:
+            result_dict[DAILY_SUPRA_NOTICE_ID] = result_dict[DAILY_SUPRA_NOTICE_ID].date()
             daily_supra_notice = DailySupraNotice.parse_obj(result_dict)
             return daily_supra_notice
         return None

@@ -1,6 +1,9 @@
+from airflow.decorators import dag
+from airflow.operators.python import get_current_context, BranchPythonOperator, PythonOperator
 from airflow.utils.trigger_rule import TriggerRule
 from pymongo import MongoClient
 
+from dags import DEFAULT_DAG_ARGUMENTS
 from dags.dags_utils import pull_dag_upstream, push_dag_downstream
 from ted_sws import config
 from ted_sws.core.model.manifestation import METSManifestation
@@ -8,24 +11,20 @@ from ted_sws.core.model.notice import NoticeStatus
 from ted_sws.data_manager.adapters.mapping_suite_repository import MappingSuiteRepositoryMongoDB
 from ted_sws.data_manager.adapters.notice_repository import NoticeRepository
 from ted_sws.data_sampler.services.notice_xml_indexer import index_notice_by_id
-from ted_sws.notice_metadata_processor.services.metadata_normalizer import normalise_notice_by_id
-
-from airflow.decorators import dag
-from airflow.operators.python import get_current_context, BranchPythonOperator, PythonOperator
-
-from dags import DEFAULT_DAG_ARGUMENTS
-from ted_sws.notice_metadata_processor.services.notice_eligibility import notice_eligibility_checker_by_id
-from ted_sws.notice_packager.services.notice_packager import create_notice_package
-from ted_sws.notice_transformer.adapters.rml_mapper import RMLMapper
-from ted_sws.notice_transformer.services.notice_transformer import transform_notice_by_id
-from ted_sws.notice_validator.services.shacl_test_suite_runner import validate_notice_by_id_with_shacl_suite
-from ted_sws.notice_validator.services.sparql_test_suite_runner import validate_notice_by_id_with_sparql_suite
-from ted_sws.event_manager.adapters.event_logger import EventLogger
 from ted_sws.event_manager.adapters.event_log_decorator import event_log
+from ted_sws.event_manager.adapters.event_logger import EventLogger
 from ted_sws.event_manager.model.event_message import NoticeEventMessage, EventMessageProcessType, EventMessageMetadata, \
     TechnicalEventMessage
 from ted_sws.event_manager.services.logger_from_context import get_logger_from_dag_context, \
     handle_event_message_metadata_dag_context, get_task_id_from_dag_context
+from ted_sws.notice_metadata_processor.services.metadata_normalizer import normalise_notice_by_id
+from ted_sws.notice_metadata_processor.services.notice_eligibility import notice_eligibility_checker_by_id
+from ted_sws.notice_packager.services.notice_packager import create_notice_package
+from ted_sws.notice_publisher.services.notice_publisher import publish_notice_by_id
+from ted_sws.notice_transformer.adapters.rml_mapper import RMLMapper
+from ted_sws.notice_transformer.services.notice_transformer import transform_notice_by_id
+from ted_sws.notice_validator.services.shacl_test_suite_runner import validate_notice_by_id_with_shacl_suite
+from ted_sws.notice_validator.services.sparql_test_suite_runner import validate_notice_by_id_with_sparql_suite
 from ted_sws.notice_validator.services.xpath_coverage_runner import validate_xpath_coverage_notice_by_id
 
 NOTICE_ID = "notice_id"
@@ -285,10 +284,18 @@ def old_worker_single_notice_process_orchestrator():
 
     def _check_package_integrity_by_package_structure():
         notice_id = pull_dag_upstream(NOTICE_ID)
+        mongodb_client = MongoClient(config.MONGO_DB_AUTH_URL)
+        notice_repository = NoticeRepository(mongodb_client=mongodb_client)
+        notice = notice_repository.get(reference=notice_id)
+        notice.update_status_to(NoticeStatus.ELIGIBLE_FOR_PUBLISHING)
+        notice_repository.update(notice=notice)
         push_dag_downstream(NOTICE_ID, notice_id)
 
     def _publish_notice_in_cellar():
         notice_id = pull_dag_upstream(NOTICE_ID)
+        mongodb_client = MongoClient(config.MONGO_DB_AUTH_URL)
+        notice_repository = NoticeRepository(mongodb_client=mongodb_client)
+        publish_notice_by_id(notice_id=notice_id, notice_repository=notice_repository)
         push_dag_downstream(NOTICE_ID, notice_id)
 
     def _check_notice_public_availability_in_cellar():

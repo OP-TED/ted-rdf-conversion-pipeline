@@ -4,7 +4,7 @@ from ted_sws import config
 
 
 def update_digest_api_address_for_mapping_suite(mapping_suite: MappingSuite,
-                                                current_digest_api_address: str = config.OLD_ID_MANAGER_API_HOST,
+                                                current_digest_api_address: str = config.ID_MANAGER_OLD_API_HOST,
                                                 new_digest_api_address: str = config.ID_MANAGER_API_HOST,
                                                 ) -> MappingSuite:
     """

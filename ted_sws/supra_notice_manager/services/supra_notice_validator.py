@@ -42,7 +42,7 @@ def validate_and_update_daily_supra_notice(notice_publication_day: day_type, mon
     repo.update(daily_supra_notice=supra_notice)
 
 
-def validate_and_update_daily_supra_notice_manifestation(notice_publication_day: day_type, mongodb_client: MongoClient):
+def summary_validation_for_daily_supra_notice(notice_publication_day: day_type, mongodb_client: MongoClient):
     if isinstance(notice_publication_day, date):
         notice_publication_day = datetime.combine(notice_publication_day, time())
 
@@ -61,4 +61,5 @@ def validate_and_update_daily_supra_notice_manifestation(notice_publication_day:
             notices.append(notice)
 
     supra_notice.validation_summary = generate_validation_summary_report_notices(notices)
+    supra_notice.validation_summary.notice_id = []  # no notice_ids needed to be stored for supra_notice
     repo.update(daily_supra_notice=supra_notice)

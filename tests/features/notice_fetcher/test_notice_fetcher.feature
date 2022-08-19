@@ -1,21 +1,56 @@
-# Created by dude at 25/01/2022
+# Created by Stefan at 16.08.2022
 Feature: Notice fetcher
   The system is able to fetch selected TED-XML notices together with their metadata
 
-  Scenario: Fetch a TED notice
-    Given a TED REST API download endpoint
-    And correct download API parameters
-    When call to the API is made
-    Then a notice and notice metadata is received from the API
-    And the notice and notice metadata are stored
+  Scenario: Fetch notices, from TED, for a date
+    Given a date
+    And knowing the TED API endpoint
+    And knowing database endpoint
+    When notice fetching by date wildcard is executed
+    Then a list of fetched notice_ids is returned
+    And a daily notice-batch (supra-notice) is created containing the fetched notice_ids list
+    And the database contains notices with these Ids, including the XML manifestation, and the metadata
 
-  Scenario: Fail to fetch a TED notice
-    Given a TED REST API download endpoint
-    And incorrect download API parameters
-    When the call to the API is made
-    And no notice or metadata is returned
-    Then an error message is received indicating the problem
+  Scenario: Fetch a notice by id, from Ted
+    Given a notice_id
+    And knowing the TED API endpoint
+    And knowing database endpoint
+    When notice fetching by id is executed
+    Then fetched notice is available in database
+    And fetched notice have raw status
+    And fetched notice have xml_manifestation
+    And fetched notice have original_metadata
 
+  Scenario: Fetch notices by query, from Ted
+    Given a query
+    And knowing the TED API endpoint
+    And knowing database endpoint
+    When notices fetching by query is executed
+    Then a list of fetched notice_ids is returned
+    And foreach returned notice_id exist in database a notice with RAW status
+    And foreach returned notice_id exist in database a notice with xml_manifestation
+    And foreach returned notice_id exist in database a notice with original_metadata
+
+  Scenario: Fetch notices by date range, from Ted
+    Given a start_date
+    And a end_date
+    And knowing the TED API endpoint
+    And knowing database endpoint
+    When notices fetching by date range is executed
+    Then a list of fetched notice_ids is returned
+    And foreach returned notice_id exist in database a notice with RAW status
+    And foreach returned notice_id exist in database a notice with xml_manifestation
+    And foreach returned notice_id exist in database a notice with original_metadata
+
+  Scenario: Fetch notices by date wild card, from Ted
+    Given a wildcard_date
+    And knowing the TED API endpoint
+    And knowing database endpoint
+    When notices fetching by date wild card is executed
+    Then a list of fetched notice_ids is returned
+    And foreach returned notice_id exist in database a notice with RAW status
+    And foreach returned notice_id exist in database a notice with xml_manifestation
+    And foreach returned notice_id exist in database a notice with original_metadata
 
 
 

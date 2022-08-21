@@ -4,7 +4,7 @@ services:
     environment:
       ADMIN_PASSWORD: ${FUSEKI_ADMIN_PASSWORD}
       FUSEKI_DATASET_1: ${FUSEKI_DATASET_1}
-    image: public.ecr.aws/g5y4d1v2/meaningfy:fuseki-4.5.0
+    image: ${FUSEKI_IMAGE_URI}
     logging:
       driver: awslogs
       options:

@@ -2,15 +2,6 @@
 Feature: Notice fetcher
   The system is able to fetch selected TED-XML notices together with their metadata
 
-  Scenario: Fetch notices, from TED, for a date
-    Given a date
-    And knowing the TED API endpoint
-    And knowing database endpoint
-    When notice fetching by date wildcard is executed
-    Then a list of fetched notice_ids is returned
-    And a daily notice-batch (supra-notice) is created containing the fetched notice_ids list
-    And the database contains notices with these Ids, including the XML manifestation, and the metadata
-
   Scenario: Fetch a notice by id, from Ted
     Given a notice_id
     And knowing the TED API endpoint

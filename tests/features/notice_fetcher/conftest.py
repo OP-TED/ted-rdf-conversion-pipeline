@@ -8,7 +8,7 @@ from ted_sws.notice_fetcher.services.notice_fetcher import NoticeFetcher
 
 @pytest.fixture
 def fetch_notice_id():
-    return "No notice ID"
+    return "408313-2020"
 
 
 @pytest.fixture

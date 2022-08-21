@@ -1,5 +1,7 @@
 """Notice fetcher feature tests."""
 
+from datetime import date, datetime
+
 from pytest_bdd import (
     given,
     scenario,
@@ -7,11 +9,7 @@ from pytest_bdd import (
     when,
 )
 
-from datetime import date, datetime
-
 from ted_sws.core.model.notice import Notice, NoticeStatus
-from ted_sws.notice_fetcher.adapters.ted_api import TedAPIAdapter, TedRequestAPI
-from ted_sws.notice_fetcher.services.notice_fetcher import NoticeFetcher
 
 
 @scenario('test_notice_fetcher.feature', 'Fetch a notice by id, from Ted')
@@ -32,11 +30,6 @@ def test_fetch_notices_by_date_wild_card_from_ted():
 @scenario('test_notice_fetcher.feature', 'Fetch notices by query, from Ted')
 def test_fetch_notices_by_query_from_ted():
     """Fetch notices by query, from Ted."""
-
-
-@scenario('test_notice_fetcher.feature', 'Fetch notices, from TED, for a date')
-def test_fetch_notices_from_ted_for_a_date():
-    """Fetch notices, from TED, for a date."""
 
 
 @given('a date')
@@ -125,12 +118,6 @@ def notices_fetching_by_query_is_executed(notice_fetcher, fetch_query):
     return notice_ids
 
 
-@then('a daily notice-batch (supra-notice) is created containing the fetched notice_ids list')
-def a_daily_noticebatch_supranotice_is_created_containing_the_fetched_notice_ids_list():
-    """a daily notice-batch (supra-notice) is created containing the fetched notice_ids list."""
-    raise NotImplementedError
-
-
 @then('a list of fetched notice_ids is returned')
 def a_list_of_fetched_notice_ids_is_returned(fetched_notice_ids):
     """a list of fetched notice_ids is returned."""
@@ -193,9 +180,3 @@ def foreach_returned_notice_id_exist_in_database_a_notice_with_xml_manifestation
         assert notice
         assert notice.xml_manifestation
         assert notice.xml_manifestation.object_data
-
-
-@then('the database contains notices with these Ids, including the XML manifestation, and the metadata')
-def the_database_contains_notices_with_these_ids_including_the_xml_manifestation_and_the_metadata():
-    """the database contains notices with these Ids, including the XML manifestation, and the metadata."""
-    raise NotImplementedError

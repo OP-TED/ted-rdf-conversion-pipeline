@@ -4,11 +4,12 @@ import pytest
 
 from ted_sws.notice_fetcher.adapters.ted_api import TedAPIAdapter, TedRequestAPI
 from ted_sws.notice_fetcher.services.notice_fetcher import NoticeFetcher
+from tests.fakes.fake_ted_api import FakeTedApiAdapter
 
 
 @pytest.fixture
 def fetch_notice_id():
-    return "408313-2020"
+    return "067623-2022"
 
 
 @pytest.fixture
@@ -39,5 +40,4 @@ def fetch_query(fetch_wildcard_date):
 @pytest.fixture
 def notice_fetcher(notice_repository, ted_api_end_point):
     return NoticeFetcher(notice_repository=notice_repository,
-                         ted_api_adapter=TedAPIAdapter(request_api=TedRequestAPI(),
-                                                       ted_api_url=ted_api_end_point))
+                         ted_api_adapter=FakeTedApiAdapter())

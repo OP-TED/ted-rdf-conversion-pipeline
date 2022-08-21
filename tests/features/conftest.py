@@ -1,12 +1,15 @@
+import mongomock
 import pymongo
 import pytest
 
 from ted_sws import config
 from ted_sws.core.model.manifestation import METSManifestation, RDFManifestation, SHACLTestSuiteValidationReport, \
     SPARQLTestSuiteValidationReport
-from ted_sws.core.model.metadata import NormalisedMetadata
+from ted_sws.core.model.metadata import NormalisedMetadata, XMLMetadata
 from ted_sws.core.model.notice import NoticeStatus, Notice
 from ted_sws.data_manager.adapters.notice_repository import NoticeRepository
+from ted_sws.notice_fetcher.adapters.ted_api import TedAPIAdapter, TedRequestAPI
+from ted_sws.notice_fetcher.services.notice_fetcher import NoticeFetcher
 
 NOTICE_STORAGE_FEATURES_TEST_DB = "features_test_db_for_notice"
 
@@ -16,9 +19,13 @@ def mongodb_end_point():
     return config.MONGO_DB_AUTH_URL
 
 
-@pytest.fixture
-def mongodb_client(mongodb_end_point):
-    return pymongo.MongoClient(mongodb_end_point)
+@pytest.fixture(scope="function")
+@mongomock.patch(servers=(('server.example.com', 27017),))
+def mongodb_client():
+    mongo_client = pymongo.MongoClient('server.example.com')
+    for database_name in mongo_client.list_database_names():
+        mongo_client.drop_database(database_name)
+    return mongo_client
 
 
 @pytest.fixture
@@ -29,6 +36,30 @@ def ted_api_end_point():
 @pytest.fixture
 def notice_repository(mongodb_client):
     return NoticeRepository(mongodb_client=mongodb_client, database_name=NOTICE_STORAGE_FEATURES_TEST_DB)
+
+
+@pytest.fixture
+def f03_notice_2020(notice_repository, ted_api_end_point):
+    notice_search_query = {"q": "ND=[408313-2020]"}
+    NoticeFetcher(notice_repository=notice_repository,
+                  ted_api_adapter=TedAPIAdapter(request_api=TedRequestAPI(),
+                                                ted_api_url=ted_api_end_point)).fetch_notices_by_query(
+        query=notice_search_query)
+    notice = notice_repository.get(reference="408313-2020")
+    notice.set_xml_metadata(xml_metadata=XMLMetadata(unique_xpaths=["FAKE_INDEX_XPATHS"]))
+    return notice
+
+
+@pytest.fixture
+def f18_notice_2022(notice_repository, ted_api_end_point):
+    notice_search_query = {"q": "ND=[067623-2022]"}
+    NoticeFetcher(notice_repository=notice_repository,
+                  ted_api_adapter=TedAPIAdapter(request_api=TedRequestAPI(),
+                                                ted_api_url=ted_api_end_point)).fetch_notices_by_query(
+        query=notice_search_query)
+    notice = notice_repository.get(reference="067623-2022")
+    notice.set_xml_metadata(xml_metadata=XMLMetadata(unique_xpaths=["FAKE_INDEX_XPATHS"]))
+    return notice
 
 
 @pytest.fixture

@@ -37,7 +37,7 @@ test-unit:
 
 test-features:
 	@ echo -e "$(BUILD_PRINT)Gherkin Features Testing ...$(END_BUILD_PRINT)"
-# 	@ tox -e features
+	@ tox -e features
 
 test-e2e:
 	@ echo -e "$(BUILD_PRINT)End to End Testing ...$(END_BUILD_PRINT)"

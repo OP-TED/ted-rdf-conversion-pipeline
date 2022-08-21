@@ -64,3 +64,6 @@ def transformation_eligible_notice(indexed_notice, normalised_metadata_dict) -> 
     indexed_notice.update_status_to(NoticeStatus.ELIGIBLE_FOR_TRANSFORMATION)
     indexed_notice.update_status_to(NoticeStatus.PREPROCESSED_FOR_TRANSFORMATION)
     return indexed_notice
+
+
+

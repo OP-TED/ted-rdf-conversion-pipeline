@@ -4,7 +4,7 @@ services:
     environment:
       MONGO_INITDB_ROOT_PASSWORD: ${MONGO_INITDB_ROOT_PASSWORD}
       MONGO_INITDB_ROOT_USERNAME: ${MONGO_INITDB_ROOT_USERNAME}
-    image: public.ecr.aws/g5y4d1v2/meaningfy:mongo
+    image: ${MONGO_IMAGE_URI}
     logging:
       driver: awslogs
       options:

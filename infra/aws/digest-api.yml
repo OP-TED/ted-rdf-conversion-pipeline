@@ -1,7 +1,7 @@
 version: "3"
 services:
   digest-api:
-    image: public.ecr.aws/g5y4d1v2/meaningfy:meaningfy-digest-api
+    image: ${DIGEST_API_IMAGE_URI}
     logging:
       driver: awslogs
       options:

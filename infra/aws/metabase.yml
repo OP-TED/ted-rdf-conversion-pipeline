@@ -9,7 +9,7 @@ services:
       ENV_MB_DB_PASS: ${ENV_MB_DB_PASS}
       ENV_MB_DB_HOST: postgres-metabase
       ENV_MB_ENCRYPTION_SECRET_KEY: ${ENV_MB_ENCRYPTION_SECRET_KEY}
-    image: public.ecr.aws/g5y4d1v2/meaningfy:metabase
+    image: ${METABASE_IMAGE_URI}
     logging:
       driver: awslogs
       options:
@@ -26,7 +26,7 @@ services:
     environment:
       POSTGRES_PASSWORD: postgres
       METABASE_PASSWORD: metabase
-    image: public.ecr.aws/g5y4d1v2/meaningfy:metabase-postgres
+    image: ${METABASE_POSTGRES_IMAGE_URI}
     volumes:
       - metabase-postgres-db:/var/lib/postgresql/data
     logging:

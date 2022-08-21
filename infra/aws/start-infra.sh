@@ -2,13 +2,14 @@
 #curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
 #unzip awscliv2.zip
 #sudo ./aws/install
+REGION=eu-west-1
 AWS_SECRETS_MANAGER_NAME=ted_sws_2
 SERVICES=(mongo digest-api airflow fuseki metabase mongo-express)
 
 EFS_VOLUMES=(metabase_postgres_db fuseki_data ted_sws logs dags airflow_postgres_db mongo_db)
-echo "Creating env file ..."
-aws secretsmanager create-secret --secret-string file://s.json --name $AWS_SECRETS_MANAGER_NAME
-aws secretsmanager get-secret-value --secret-id $AWS_SECRETS_MANAGER_NAME | jq -r '.SecretString' | jq -r 'to_entries|map("\(.key)=\(.value|tostring)")|.[]' > .env
+#echo "Creating env file ..."
+#aws secretsmanager create-secret --secret-string file://s.json --name $AWS_SECRETS_MANAGER_NAME
+#aws secretsmanager get-secret-value --secret-id $AWS_SECRETS_MANAGER_NAME | jq -r '.SecretString' | jq -r 'to_entries|map("\(.key)=\(.value|tostring)")|.[]' > .env
 source .env
 export $(cat .env | xargs)
 
@@ -29,17 +30,17 @@ create_volume(){
 }
 
 
-echo "Creating volumes ..."
-for EFS_VOLUME in "${EFS_VOLUMES[@]}"
-do
-  create_volume $EFS_VOLUME
-done
+#echo "Creating volumes ..."
+#for EFS_VOLUME in "${EFS_VOLUMES[@]}"
+#do
+#  create_volume $EFS_VOLUME
+#done
 
 source .env
 export $(cat .env | xargs)
 
 create_cluster_config_and_profiles() {
-  ecs-cli configure --cluster $1-cluster --default-launch-type EC2 --config-name $1-cluster --region eu-west-3
+  ecs-cli configure --cluster $1-cluster --default-launch-type EC2 --config-name $1-cluster --region $REGION
   ecs-cli configure profile --access-key $ACCESS_KEY --secret-key $SECRET_KEY --profile-name $1-cluster-profile
 }
 
@@ -62,11 +63,11 @@ create_cluster $MONGO_EXPRESS_INSTANCE_TYPE mongo-express-cluster mongo-express-
 
 
 start_service_with_service_discovery(){
-  ecs-cli compose --project-name $1-service --file $1.yml --ecs-params $1-ecs-params.yml --debug service up --region eu-west-3 --ecs-profile $1-cluster-profile --cluster-config $1-cluster --private-dns-namespace ted_sws --vpc $VPC_ID --dns-type A --enable-service-discovery --create-log-groups
+  ecs-cli compose --project-name $1-service --file $1.yml --ecs-params $1-ecs-params.yml --debug service up --region $REGION --ecs-profile $1-cluster-profile --cluster-config $1-cluster --private-dns-namespace ted_sws --vpc $VPC_ID --dns-type A --enable-service-discovery --create-log-groups
 }
 
 start_service_without_service_discovery(){
-  ecs-cli compose --project-name $1-service --file $1.yml --ecs-params $1-ecs-params.yml --debug service up --region eu-west-3 --ecs-profile $1-cluster-profile --cluster-config $1-cluster --create-log-groups
+  ecs-cli compose --project-name $1-service --file $1.yml --ecs-params $1-ecs-params.yml --debug service up --region $REGION --ecs-profile $1-cluster-profile --cluster-config $1-cluster --create-log-groups
 }
 
 

@@ -19,7 +19,7 @@ services:
       AIRFLOW_HOME: /opt/airflow
       PYTHONPATH: /opt/airflow/
       AIRFLOW_UID: ${AIRFLOW_UID}
-    image: public.ecr.aws/g5y4d1v2/meaningfy:airflow-meaningfy-225
+    image: ${AIRFLOW_IMAGE_URI}
     links:
     - postgres
     - redis
@@ -62,7 +62,7 @@ services:
       AIRFLOW_HOME: /opt/airflow
       PYTHONPATH: /opt/airflow/
       AIRFLOW_UID: ${AIRFLOW_UID}
-    image: public.ecr.aws/g5y4d1v2/meaningfy:airflow-meaningfy-225
+    image: ${AIRFLOW_IMAGE_URI}
     logging:
       driver: awslogs
       options:
@@ -86,7 +86,7 @@ services:
       timeout: 5s
       interval: 30s
       retries: 3
-    image: public.ecr.aws/g5y4d1v2/meaningfy:postgres
+    image: ${AIRFLOW_POSTGRES_IMAGE_URI}
     logging:
       driver: awslogs
       options:
@@ -103,7 +103,7 @@ services:
       interval: 5s
       timeout: 30s
       retries: 10
-    image: public.ecr.aws/g5y4d1v2/meaningfy:redis
+    image: ${REDIS_IMAGE_URI}
     labels:
       ecs-local.task-definition-input.type: remote
       ecs-local.task-definition-input.value: airflow-reload-task
@@ -137,7 +137,7 @@ services:
       interval: 10s
       timeout: 10s
       retries: 5
-    image: public.ecr.aws/g5y4d1v2/meaningfy:airflow-meaningfy-225
+    image: ${AIRFLOW_IMAGE_URI}
     links:
     - postgres
     - redis
@@ -170,7 +170,7 @@ services:
       PYTHONPATH: /opt/airflow/
       RML_MAPPER_PATH: /opt/airflow/.rmlmapper/rmlmapper.jar
       XML_PROCESSOR_PATH: /opt/airflow/.saxon/saxon-he-10.6.jar
-    image: public.ecr.aws/g5y4d1v2/meaningfy:airflow-meaningfy-225
+    image: ${AIRFLOW_IMAGE_URI}
     links:
     - postgres
     - redis
@@ -205,7 +205,7 @@ services:
       PYTHONPATH: /opt/airflow/
       RML_MAPPER_PATH: /opt/airflow/.rmlmapper/rmlmapper.jar
       XML_PROCESSOR_PATH: /opt/airflow/.saxon/saxon-he-10.6.jar
-    image: public.ecr.aws/g5y4d1v2/meaningfy:airflow-meaningfy-225
+    image: ${AIRFLOW_IMAGE_URI}
     links:
     - postgres
     - redis
@@ -244,7 +244,7 @@ services:
       PYTHONPATH: /opt/airflow/
       RML_MAPPER_PATH: /opt/airflow/.rmlmapper/rmlmapper.jar
       XML_PROCESSOR_PATH: /opt/airflow/.saxon/saxon-he-10.6.jar
-    image: public.ecr.aws/g5y4d1v2/meaningfy:airflow-meaningfy-225
+    image: ${AIRFLOW_IMAGE_URI}
     labels:
       ecs-local.task-definition-input.type: remote
       ecs-local.task-definition-input.value: airflow-reload-task

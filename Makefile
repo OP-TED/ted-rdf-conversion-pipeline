@@ -307,7 +307,10 @@ start-all-apis: start-digest_service-api
 
 stop-all-apis: stop-digest_service-api
 
-build-digest_service-api:
+create-env-digest-api:
+	@ cp requirements.txt ./infra/digest_api/digest_service/project_requirements.txt
+
+build-digest_service-api: create-env-digest-api
 	@ echo -e "$(BUILD_PRINT) Build digest_service API service $(END_BUILD_PRINT)"
 	@ docker-compose -p common --file infra/api/docker-compose.yml --env-file ${ENV_FILE} build --no-cache --force-rm
 	@ docker-compose -p common --file infra/api/docker-compose.yml --env-file ${ENV_FILE} up -d --force-recreate

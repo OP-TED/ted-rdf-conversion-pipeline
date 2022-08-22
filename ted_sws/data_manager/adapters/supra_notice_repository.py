@@ -7,7 +7,7 @@ from ted_sws import config
 from ted_sws.core.model.supra_notice import DailySupraNotice
 from ted_sws.data_manager.adapters.repository_abc import DailySupraNoticeRepositoryABC
 
-DAILY_SUPRA_NOTICE_ID = "notice_publication_date"
+DAILY_SUPRA_NOTICE_ID = "notice_fetched_date"
 
 
 class DailySupraNoticeRepository(DailySupraNoticeRepositoryABC):

@@ -58,13 +58,9 @@ x-airflow-common:
     AIRFLOW__CORE__SQL_ALCHEMY_CONN: postgresql+psycopg2://airflow:airflow@ted-data.eu/airflow
     AIRFLOW__CELERY__RESULT_BACKEND: db+postgresql://airflow:airflow@ted-data.eu/airflow
     AIRFLOW__CELERY__BROKER_URL: redis://:@ted-data.eu:6379/0
-    #AIRFLOW__CORE__FERNET_KEY: ${FERNET_KEY}
     #AIRFLOW__WEBSERVER__SECRET_KEY: ${SECRET_KEY}
     IS_PRIME_ENV: 'true'
     AIRFLOW__CORE__EXECUTOR: CeleryExecutor
-    #AIRFLOW__CORE__SQL_ALCHEMY_CONN: postgresql+psycopg2://airflow:airflow@postgres/airflow
-    #AIRFLOW__CELERY__RESULT_BACKEND: db+postgresql://airflow:airflow@postgres/airflow
-    #AIRFLOW__CELERY__BROKER_URL: redis://:@redis:6379/0
     AIRFLOW__CORE__FERNET_KEY: ''
     AIRFLOW__CORE__DAGS_ARE_PAUSED_AT_CREATION: 'true'
     AIRFLOW__CORE__ENABLE_XCOM_PICKLING: "true"

@@ -108,7 +108,7 @@ build-airflow: guard-ENVIRONMENT create-env-airflow build-externals
 build-airflow-cluster: guard-ENVIRONMENT create-env-airflow-cluster build-externals
 	@ echo -e "$(BUILD_PRINT) Build Airflow services $(END_BUILD_PRINT)"
 	@ docker build -t meaningfy/airflow ./infra/airflow-cluster/
-	@ docker-compose -p ${ENVIRONMENT} --file ./infra/airflow-cluster/docker-compose.yaml --env-file ${ENV_FILE} up airflow-init
+	@ docker-compose -p ${ENVIRONMENT} --file ./infra/airflow-cluster/docker-compose.yaml --env-file ${ENV_FILE} up -d airflow-init
 
 start-airflow-cluster: build-externals
 	@ echo -e "$(BUILD_PRINT)Starting Airflow services $(END_BUILD_PRINT)"

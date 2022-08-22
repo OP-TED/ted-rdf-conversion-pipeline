@@ -31,10 +31,10 @@ def test_validate_core_structure(package_folder_path_for_validator, caplog):
 
         assert mapping_suite_validator.validate_core_structure()
 
-        print("K :: ", caplog.text)
         shutil.rmtree(Path(temp_folder))
 
         assert not mapping_suite_validator.validate_core_structure()
+        print("K :: ", caplog.text)
         assert caplog.text.count("Path not found") >= 4
         assert caplog.text.count(MS_TRANSFORM_FOLDER_NAME) >= 3
         assert MS_RESOURCES_FOLDER_NAME in caplog.text
@@ -47,13 +47,13 @@ def test_validate_expanded_structure(package_folder_path_for_validator, caplog):
         shutil.copytree(package_folder_path_for_validator, temp_folder, dirs_exist_ok=True)
         mapping_suite_validator = MappingSuiteStructureValidator(temp_folder)
         assert mapping_suite_validator.validate_expanded_structure()
-        print("K2 :: ", caplog.text)
 
         metadata_path = (pathlib.Path(temp_folder) / MS_METADATA_FILE_NAME)
         with open(metadata_path, 'r+') as f:
             f.truncate(0)
         assert metadata_path.stat().st_size == 0
         mapping_suite_validator.validate_expanded_structure()
+        print("K2 :: ", caplog.text)
         assert "File is empty" in caplog.text
         assert MS_METADATA_FILE_NAME in caplog.text
 
@@ -63,7 +63,6 @@ def test_validate_output_structure(package_folder_path_for_validator, caplog):
         shutil.copytree(package_folder_path_for_validator, temp_folder, dirs_exist_ok=True)
         mapping_suite_validator = MappingSuiteStructureValidator(temp_folder)
         assert mapping_suite_validator.validate_output_structure()
-        print("K3 :: ", caplog.text)
 
         dirpath = (pathlib.Path(temp_folder) / MS_OUTPUT_FOLDER_NAME)
         for filename in os.listdir(dirpath):
@@ -73,6 +72,7 @@ def test_validate_output_structure(package_folder_path_for_validator, caplog):
             except OSError:
                 os.remove(filepath)
         mapping_suite_validator.validate_output_structure()
+        print("K3 :: ", caplog.text)
         assert "Folder is empty" in caplog.text
         assert MS_OUTPUT_FOLDER_NAME in caplog.text
 

@@ -4,7 +4,7 @@ import shutil
 import tempfile
 from pathlib import Path
 
-from ted_sws.event_manager.adapters.event_handler_config import ConsoleLoggerConfig
+from ted_sws.event_manager.adapters.event_handler_config import ConsoleLoggerConfig, CLILoggerConfig
 from ted_sws.event_manager.services.logger_from_context import get_env_logger
 from ted_sws.event_manager.adapters.event_logger import EventLogger
 from ted_sws.data_manager.adapters.mapping_suite_repository import MS_TRANSFORM_FOLDER_NAME, \
@@ -13,12 +13,15 @@ from ted_sws.data_manager.adapters.mapping_suite_repository import MS_TRANSFORM_
 from ted_sws.mapping_suite_processor.adapters.mapping_suite_structure_checker import \
     MS_METADATA_FILE_NAME, MappingSuiteStructureValidator
 from ted_sws.mapping_suite_processor.services.conceptual_mapping_reader import mapping_suite_read_metadata
+from ted_sws.event_manager.adapters.event_logger import EventLogger
+from ted_sws.event_manager.model.event_message import EventMessage
 
 SHACL_EPO = "shacl_epo.htlm"
 SPARQL_CM_ASSERTIONS = "sparql_cm_assertions.html"
 KEY_VERSION = "Mapping Version"
 KEY_EPO = "EPO version"
-logger = get_env_logger(EventLogger(ConsoleLoggerConfig(name="LOGGER")))
+# logger = get_env_logger(EventLogger(ConsoleLoggerConfig(name="LOGGER")))
+logger = get_env_logger(EventLogger(CLILoggerConfig()), is_cli=True)
 
 
 def test_validate_core_structure(package_folder_path_for_validator, caplog):

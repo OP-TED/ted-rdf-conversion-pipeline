@@ -27,20 +27,17 @@ class SFTPPublisher(SFTPPublisherABC):
     def connect(self):
         """Connects to the sftp server and returns the sftp connection object"""
 
-        try:
-            cnopts = pysftp.CnOpts()
-            # TODO: to be checked/removed when SSL will be setup
-            cnopts.hostkeys = None
-            # Get the sftp connection object
-            self.connection = pysftp.Connection(
-                host=self.hostname,
-                username=self.username,
-                password=self.password,
-                port=self.port,
-                cnopts=cnopts
-            )
-        except Exception as err:
-            raise Exception(err)
+        cnopts = pysftp.CnOpts()
+        # TODO: to be checked/removed when SSL will be setup
+        cnopts.hostkeys = None
+        # Get the sftp connection object
+        self.connection = pysftp.Connection(
+            host=self.hostname,
+            username=self.username,
+            password=self.password,
+            port=self.port,
+            cnopts=cnopts
+        )
 
         self.is_connected = True
 
@@ -57,18 +54,12 @@ class SFTPPublisher(SFTPPublisherABC):
         """
         Publish file_content to the sftp server remote path.
        """
-        try:
-            self.connection.put(source_path, remote_path)
-            return True
-        except Exception as err:
-            raise Exception(err)
+        self.connection.put(source_path, remote_path)
+        return True
 
     def remove(self, remote_path) -> bool:
         """
 
         """
-        try:
-            self.connection.unlink(remote_path)
-            return True
-        except Exception as err:
-            raise Exception(err)
+        self.connection.unlink(remote_path)
+        return True

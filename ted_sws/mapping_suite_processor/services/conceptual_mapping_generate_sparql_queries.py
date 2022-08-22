@@ -5,14 +5,11 @@ from typing import Iterator
 import pandas as pd
 
 from ted_sws.mapping_suite_processor import CONCEPTUAL_MAPPINGS_METADATA_SHEET_NAME, \
-    CONCEPTUAL_MAPPINGS_RULES_SHEET_NAME, RULES_FIELD_XPATH, RULES_E_FORM_BT_NAME
+    CONCEPTUAL_MAPPINGS_RULES_SHEET_NAME, RULES_FIELD_XPATH, RULES_E_FORM_BT_NAME, RULES_SF_FIELD_ID, RULES_E_FORM_BT_ID
 from ted_sws.notice_validator import BASE_XPATH_FIELD
 from ted_sws.resources.prefixes import PREFIXES_DEFINITIONS
 
-
-RULES_SF_FIELD_ID = 'Standard Form Field ID (M)'
 RULES_SF_FIELD_NAME = 'Standard Form Field Name (M)'
-RULES_E_FORM_BT_ID = 'eForm BT-ID (O)'
 RULES_CLASS_PATH = 'Class path (M)'
 RULES_PROPERTY_PATH = 'Property path (M)'
 

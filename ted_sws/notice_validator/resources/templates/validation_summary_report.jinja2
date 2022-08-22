@@ -71,7 +71,6 @@
         <tr>
             <th>Result</th>
             <th>Count</th>
-            <th>Ratio</th>
             <th>Ratio (%)</th>
         </tr>
         </thead>
@@ -79,19 +78,16 @@
             <tr>
                 <td>Success</td>
                 <td>{{ result.aggregate.success }}</td>
-                <td>{{ result.aggregate.success / result_total }}</td>
                 <td>{{ (result.aggregate.success / result_total * 100) | round(2) }}%</td>
             </tr>
             <tr>
                 <td>Fail</td>
                 <td>{{ result.aggregate.fail }}</td>
-                <td>{{ result.aggregate.fail / result_total }}</td>
                 <td>{{ (result.aggregate.fail / result_total * 100) | round(2) }}%</td>
             </tr>
             <tr>
                 <td>Error</td>
                 <td>{{ result.aggregate.error }}</td>
-                <td>{{ result.aggregate.error / result_total }}</td>
                 <td>{{ (result.aggregate.error / result_total * 100) | round(2) }}%</td>
             </tr>
         </tbody>
@@ -121,7 +117,6 @@
             <tr>
                 <th>Severity</th>
                 <th>Count</th>
-                <th>Ratio</th>
                 <th>Ratio (%)</th>
             </tr>
             </thead>
@@ -129,19 +124,16 @@
                 <tr>
                     <td>Info</td>
                     <td>{{ result_severity.info }}</td>
-                    <td>{{ result_severity.info / result_total }}</td>
                     <td>{{ (result_severity.info / result_total * 100) | round(2) }}%</td>
                 </tr>
                 <tr>
                     <td>Warning</td>
                     <td>{{ result_severity.warning }}</td>
-                    <td>{{ result_severity.warning / result_total }}</td>
                     <td>{{ (result_severity.warning / result_total * 100) | round(2) }}%</td>
                 </tr>
                 <tr>
                     <td>Violation</td>
                     <td>{{ result_severity.violation }}</td>
-                    <td>{{ result_severity.violation / result_total }}</td>
                     <td>{{ (result_severity.violation / result_total * 100) | round(2) }}%</td>
                 </tr>
             </tbody>
@@ -176,7 +168,6 @@
         <tr>
             <th>Result</th>
             <th>Count</th>
-            <th>Ratio</th>
             <th>Ratio (%)</th>
         </tr>
         </thead>
@@ -184,19 +175,16 @@
             <tr>
                 <td>Success</td>
                 <td>{{ result.aggregate.success }}</td>
-                <td>{{ result.aggregate.success / result_total }}</td>
                 <td>{{ (result.aggregate.success / result_total * 100) | round(2) }}%</td>
             </tr>
             <tr>
                 <td>Fail</td>
                 <td>{{ result.aggregate.fail }}</td>
-                <td>{{ result.aggregate.fail / result_total }}</td>
                 <td>{{ (result.aggregate.fail / result_total * 100) | round(2) }}%</td>
             </tr>
             <tr>
                 <td>Error</td>
                 <td>{{ result.aggregate.error }}</td>
-                <td>{{ result.aggregate.error / result_total }}</td>
                 <td>{{ (result.aggregate.error / result_total * 100) | round(2) }}%</td>
             </tr>
         </tbody>
@@ -226,7 +214,6 @@
             <tr>
                 <th>Severity</th>
                 <th>Count</th>
-                <th>Ratio</th>
                 <th>Ratio (%)</th>
             </tr>
             </thead>
@@ -234,19 +221,16 @@
                 <tr>
                     <td>Info</td>
                     <td>{{ result_severity.info }}</td>
-                    <td>{{ result_severity.info / result_total }}</td>
                     <td>{{ (result_severity.info / result_total * 100) | round(2) }}%</td>
                 </tr>
                 <tr>
                     <td>Warning</td>
                     <td>{{ result_severity.warning }}</td>
-                    <td>{{ result_severity.warning / result_total }}</td>
                     <td>{{ (result_severity.warning / result_total * 100) | round(2) }}%</td>
                 </tr>
                 <tr>
                     <td>Violation</td>
                     <td>{{ result_severity.violation }}</td>
-                    <td>{{ result_severity.violation / result_total }}</td>
                     <td>{{ (result_severity.violation / result_total * 100) | round(2) }}%</td>
                 </tr>
             </tbody>

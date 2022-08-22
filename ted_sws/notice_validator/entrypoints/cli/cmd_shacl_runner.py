@@ -4,14 +4,18 @@ from pathlib import Path
 
 import click
 
+from typing import List
+
 from ted_sws.core.adapters.cmd_runner import CmdRunner as BaseCmdRunner, DEFAULT_MAPPINGS_PATH
 from ted_sws.core.model.manifestation import RDFManifestation, SHACLTestSuiteValidationReport
 from ted_sws.data_manager.adapters.mapping_suite_repository import MappingSuiteRepositoryInFileSystem
 from ted_sws.event_manager.adapters.logger import LOG_INFO_TEXT
 from ted_sws.notice_validator.entrypoints.cli import DEFAULT_RDF_FOLDER, DEFAULT_TEST_SUITE_REPORT_FOLDER
 from ted_sws.notice_validator.services.shacl_test_suite_runner import SHACLTestSuiteRunner, generate_shacl_report
+import json
 
 HTML_REPORT = "shacl_{id}.html"
+JSON_VALIDATIONS_REPORT = "shacl_validations.json"
 CMD_NAME = "CMD_SHACL_RUNNER"
 
 """
@@ -39,7 +43,9 @@ class CmdRunner(BaseCmdRunner):
         self.mapping_suite = mapping_suite_repository.get(reference=self.mapping_suite_id)
 
     def save_report(self, report_path, report_name, report_id, content):
-        with open(report_path / report_name.format(id=report_id), "w+") as f:
+        if report_id is not None:
+            report_name = report_name.format(id=report_id)
+        with open(report_path / report_name, "w+") as f:
             f.write(content)
 
     def validate(self, rdf_file, base_report_path):
@@ -49,6 +55,7 @@ class CmdRunner(BaseCmdRunner):
         report_path = base_report_path / DEFAULT_TEST_SUITE_REPORT_FOLDER
         report_path.mkdir(parents=True, exist_ok=True)
 
+        shacl_validations: List[SHACLTestSuiteValidationReport] = []
         shacl_test_suites = self.mapping_suite.shacl_test_suites
         for shacl_test_suite in shacl_test_suites:
             test_suite_execution = SHACLTestSuiteRunner(rdf_manifestation=rdf_manifestation,
@@ -59,8 +66,12 @@ class CmdRunner(BaseCmdRunner):
                 shacl_test_suite_execution=test_suite_execution)
 
             suite_id = shacl_test_suite.identifier
-            data = report.object_data
-            self.save_report(report_path, HTML_REPORT, suite_id, data)
+            self.save_report(report_path, HTML_REPORT, suite_id, report.object_data)
+            report.object_data = "SHACLTestSuiteValidationReport"
+            shacl_validations.append(report)
+
+        self.save_report(report_path, JSON_VALIDATIONS_REPORT, None,
+                         json.dumps(shacl_validations, default=lambda o: o.dict(), sort_keys=True, indent=4))
 
     def run_cmd(self):
         error = None

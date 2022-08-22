@@ -97,12 +97,14 @@
         </div>
     </li>
 </ul>
-{% if xpath_assertions|length > 0 %}
+{% if validation_result.xpath_assertions|length > 0 %}
 <hr>
 <h2>XPATH Assertions</h2>
-<table class="display" data-order='[[1, "asc"]]'>
+<table class="display" data-order='[[3, "asc"]]'>
     <thead>
     <tr>
+        <th>Standard Form Field ID</th>
+        <th>eForm BT-ID</th>
         <th>Title</th>
         <th>XPATH</th>
         <th>Found</th>
@@ -113,7 +115,9 @@
     <tbody>
     {% for item in validation_result.xpath_assertions %}
     <tr>
-        <td>{{ item.title }}</td>
+        <td>{{ item.standard_form_field_id if item.standard_form_field_id is not none else '' }}</td>
+        <td>{{ item.eform_bt_id if item.eform_bt_id is not none else '' }}</td>
+        <td>{{ item.title if item.title is not none else '' }}</td>
         <td>{{ item.xpath }}</td>
         <td class="{% if item.query_result %}success{% else %}error{% endif %}">{{ item.query_result }}</td>
         <td>{{ item.count }}</td>

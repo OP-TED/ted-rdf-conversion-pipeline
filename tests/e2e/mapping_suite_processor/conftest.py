@@ -89,16 +89,6 @@ def package_folder_path():
 
 
 @pytest.fixture
-def package_folder_path_for_validator():
-    return TEST_DATA_PATH / "package_F03_demo"
-
-
-@pytest.fixture
-def conceptual_mappings_file_path():
-    return TEST_DATA_PATH / "package_F03_demo" / "transformation" / "conceptual_mappings.xlsx"
-
-
-@pytest.fixture
 def mime_type():
     return RDF_MIME_TYPES
 

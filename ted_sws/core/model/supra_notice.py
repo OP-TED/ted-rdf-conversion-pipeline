@@ -45,7 +45,7 @@ class DailySupraNotice(SupraNotice):
     """
         This is an aggregate over the notices published in TED in a specific day.
     """
-    notice_publication_date: date
+    notice_fetched_date: date
     validation_report: Optional[SupraNoticeValidationReport]
 
 

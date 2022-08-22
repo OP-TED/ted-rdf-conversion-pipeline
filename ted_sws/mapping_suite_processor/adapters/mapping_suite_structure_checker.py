@@ -61,26 +61,26 @@ class MappingSuiteStructureValidator:
         ]
         return self.assert_path(mandatory_paths_l1)
 
-    def validate_expanded_structure(self, package_folder_path_for_validator: pathlib.Path) -> bool:
+    def validate_expanded_structure(self) -> bool:
         """
             Check if the expanded mapping suite structure is in place
         """
         mandatory_paths_l2 = [
-            package_folder_path_for_validator / MS_METADATA_FILE_NAME,
-            package_folder_path_for_validator / MS_VALIDATE_FOLDER_NAME,
-            package_folder_path_for_validator / MS_VALIDATE_FOLDER_NAME / MS_SPARQL_FOLDER_NAME,
-            package_folder_path_for_validator / MS_VALIDATE_FOLDER_NAME / MS_SHACL_FOLDER_NAME,
+            self.mapping_suite_path / MS_METADATA_FILE_NAME,
+            self.mapping_suite_path / MS_VALIDATE_FOLDER_NAME,
+            self.mapping_suite_path / MS_VALIDATE_FOLDER_NAME / MS_SPARQL_FOLDER_NAME,
+            self.mapping_suite_path / MS_VALIDATE_FOLDER_NAME / MS_SHACL_FOLDER_NAME,
         ]
         return self.assert_path(mandatory_paths_l2)
 
-    def validate_output_structure(self, package_folder_path_for_validator: pathlib.Path) -> bool:
+    def validate_output_structure(self) -> bool:
         """
             Check if the transformed and validated mapping suite structure is in place.
         """
         mandatory_paths_l3 = [
-            package_folder_path_for_validator / MS_OUTPUT_FOLDER_NAME,
+            self.mapping_suite_path / MS_OUTPUT_FOLDER_NAME,
         ]
-        for item in (package_folder_path_for_validator / MS_OUTPUT_FOLDER_NAME).iterdir():
+        for item in (self.mapping_suite_path / MS_OUTPUT_FOLDER_NAME).iterdir():
             if item.is_dir():
                 for path in item.iterdir():
                     if path.is_dir():
@@ -93,21 +93,19 @@ class MappingSuiteStructureValidator:
 
         return self.assert_path(mandatory_paths_l3)
 
-    def check_metadata_consistency(self, package_folder_path_for_validator: pathlib.Path,
-                                   conceptual_mappings_file_path) -> bool:
+    def check_metadata_consistency(self) -> bool:
 
         """
             Read the conceptual mapping XSLX and the metadata.json and compare the contents,
             in particular paying attention to the mapping suite version and the ontology version.
         """
-        if not self.validate_expanded_structure(package_folder_path_for_validator):
-            return False
+
         conceptual_mappings_document = mapping_suite_read_metadata(
-            conceptual_mappings_file_path=conceptual_mappings_file_path)
+            conceptual_mappings_file_path=self.mapping_suite_path / MS_TRANSFORM_FOLDER_NAME / MS_CONCEPTUAL_MAPPING_FILE_NAME)
         mapping_version = [val for val in conceptual_mappings_document.values()][4][0]
         epo_version = [val for val in conceptual_mappings_document.values()][5][0]
 
-        package_metadata_path = package_folder_path_for_validator / MS_METADATA_FILE_NAME
+        package_metadata_path = self.mapping_suite_path / MS_METADATA_FILE_NAME
         package_metadata_content = package_metadata_path.read_text(encoding="utf-8")
         package_metadata = json.loads(package_metadata_content)
         package_metadata['metadata_constraints'] = MetadataConstraints(**package_metadata['metadata_constraints'])

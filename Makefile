@@ -112,7 +112,7 @@ build-airflow-cluster: guard-ENVIRONMENT create-env-airflow-cluster build-extern
 
 start-airflow-cluster: build-externals
 	@ echo -e "$(BUILD_PRINT)Starting Airflow services $(END_BUILD_PRINT)"
-	@ docker-compose -p ${ENVIRONMENT} --file ./infra/airflow-cluster/docker-compose.yaml --env-file ${ENV_FILE} up -d --force-recreate airflow-webserver airflow-scheduler airflow-triggerer airflow-flower
+	@ docker-compose -p ${ENVIRONMENT} --file ./infra/airflow-cluster/docker-compose.yaml --env-file ${ENV_FILE} up -d --force-recreate airflow-webserver airflow-scheduler airflow-triggerer flower
 
 start-airflow-cluster-worker: build-externals
 	@ echo -e "$(BUILD_PRINT)Starting Airflow services $(END_BUILD_PRINT)"
@@ -120,7 +120,7 @@ start-airflow-cluster-worker: build-externals
 
 stop-airflow-cluster:
 	@ echo -e "$(BUILD_PRINT)Stopping Airflow Cluster $(END_BUILD_PRINT)"
-	@ docker-compose -p ${ENVIRONMENT} --file ./infra/airflow-cluster/docker-compose.yaml --env-file ${ENV_FILE} down airflow-webserver airflow-scheduler airflow-triggerer airflow-flower
+	@ docker-compose -p ${ENVIRONMENT} --file ./infra/airflow-cluster/docker-compose.yaml --env-file ${ENV_FILE} down airflow-webserver airflow-scheduler airflow-triggerer flower
 
 stop-airflow-cluster-worker:
 	@ echo -e "$(BUILD_PRINT)Stopping Airflow Cluster Worker $(END_BUILD_PRINT)"

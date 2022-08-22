@@ -8,8 +8,7 @@ def test_daily_supra_notice_manager(mongodb_client, daily_supra_notice_repositor
     notice_ids = ["1", "2", "3"]
     notice_fetched_date = date(2020, 1, 1)
     create_and_store_in_mongo_db_daily_supra_notice(notice_ids=notice_ids, mongodb_client=mongodb_client,
-                                                    notice_publication_date=notice_fetched_date
-                                                    )
+                                                    notice_fetched_date=notice_fetched_date)
     for result in daily_supra_notice_repository.list():
         assert result
     result = daily_supra_notice_repository.get(reference=notice_fetched_date)

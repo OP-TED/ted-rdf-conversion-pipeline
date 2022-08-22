@@ -37,3 +37,8 @@ def invalid_repository_path() -> str:
 
 
 
+@pytest.fixture
+def mapping_suite():
+    return TEST_DATA_PATH / "package_F03_demo"
+
+

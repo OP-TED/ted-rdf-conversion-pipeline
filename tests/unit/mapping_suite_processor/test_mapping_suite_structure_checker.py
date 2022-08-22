@@ -53,7 +53,7 @@ def test_validate_expanded_structure(package_folder_path_for_validator, caplog):
         assert MS_METADATA_FILE_NAME in caplog.text
 
 
-def test_validate_mapping_suite_structure_lv3(package_folder_path_for_validator, caplog):
+def test_validate_output_structure(package_folder_path_for_validator, caplog):
     with tempfile.TemporaryDirectory() as temp_folder:
         shutil.copytree(package_folder_path_for_validator, temp_folder, dirs_exist_ok=True)
         mapping_suite_validator = MappingSuiteStructureValidator(temp_folder)

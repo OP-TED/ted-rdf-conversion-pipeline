@@ -99,11 +99,6 @@ def conceptual_mappings_file_path():
 
 
 @pytest.fixture
-def mapping_suite():
-    return TEST_DATA_PATH / "package_F03_demo"
-
-
-@pytest.fixture
 def mime_type():
     return RDF_MIME_TYPES
 

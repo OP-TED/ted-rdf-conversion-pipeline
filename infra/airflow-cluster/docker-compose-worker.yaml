@@ -111,18 +111,9 @@ services:
       DUMB_INIT_SETSID: "0"
     restart: unless-stopped
     networks:
-      - airflow
       - common-ext
 
-
 networks:
-  airflow:
-    external:
-      name: airflow-${ENVIRONMENT}
-  networks:
   common-ext:
     external:
       name: common-ext-${ENVIRONMENT}
-  proxy-net:
-    external:
-      name: proxy-net

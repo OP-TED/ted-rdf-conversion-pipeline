@@ -131,7 +131,7 @@ stop-airflow-worker:
 
 start-airflow-cluster: start-airflow-master start-airflow-worker
 
-stop-airflow-cluster: stop-airflow-master stop-airflow-worker
+stop-airflow-cluster: stop-airflow-worker stop-airflow-master
 
 
 #---------------------------------------AIRFLOW_CLUSTER----END----TARGETS-----------------------------------------------

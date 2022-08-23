@@ -96,6 +96,8 @@ x-airflow-common:
       condition: service_healthy
     postgres:
       condition: service_healthy
+    airflow-init:
+      condition: service_completed_successfully
 
 services:
   postgres:
@@ -161,8 +163,6 @@ services:
 
     depends_on:
       <<: *airflow-common-depends-on
-#      airflow-init:
-#        condition: service_completed_successfully
 
   airflow-scheduler:
     <<: *airflow-common
@@ -179,34 +179,6 @@ services:
       - common-ext
     depends_on:
       <<: *airflow-common-depends-on
-#      airflow-init:
-#        condition: service_completed_successfully
-
-  airflow-worker:
-    <<: *airflow-common
-    container_name: airflow-worker-${ENVIRONMENT}
-    command: celery worker
-    hostname: ${HOSTNAME}
-    ports:
-      - "8793:8793"
-    healthcheck:
-      test: ["CMD-SHELL",'celery --app airflow.executors.celery_executor.app inspect ping -d "celery@$${HOSTNAME}"']
-      interval: 10s
-      timeout: 10s
-      retries: 5
-    environment:
-      <<: *airflow-common-env
-      # Required to handle warm shutdown of the celery workers properly
-      # See https://airflow.apache.org/docs/docker-stack/entrypoint.html#signal-propagation
-      DUMB_INIT_SETSID: "0"
-    restart: unless-stopped
-    networks:
-      - airflow
-      - common-ext
-    depends_on:
-      <<: *airflow-common-depends-on
-#      airflow-init:
-#        condition: service_completed_successfully
 
 
   airflow-triggerer:
@@ -224,8 +196,7 @@ services:
       - common-ext
     depends_on:
       <<: *airflow-common-depends-on
-#      airflow-init:
-#        condition: service_completed_successfully
+
 
   airflow-init:
     <<: *airflow-common
@@ -333,8 +304,6 @@ services:
       - common-ext
     depends_on:
       <<: *airflow-common-depends-on
-#      airflow-init:
-#        condition: service_completed_successfully
 
 
 volumes:

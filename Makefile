@@ -91,6 +91,14 @@ create-env-airflow:
 	@ chmod 777 ${AIRFLOW_INFRA_FOLDER}/logs ${AIRFLOW_INFRA_FOLDER}/plugins ${AIRFLOW_INFRA_FOLDER}/.env
 	@ cp requirements.txt ./infra/airflow/
 
+
+build-airflow: guard-ENVIRONMENT create-env-airflow build-externals
+	@ echo -e "$(BUILD_PRINT) Build Airflow services $(END_BUILD_PRINT)"
+	@ docker build -t meaningfy/airflow ./infra/airflow/
+	@ docker-compose -p ${ENVIRONMENT} --file ./infra/airflow/docker-compose.yaml --env-file ${ENV_FILE} up -d --force-recreate
+
+#--------------------------------------AIRFLOW_CLUSTER----BEGIN----TARGETS----------------------------------------------
+
 create-env-airflow-cluster:
 	@ echo -e "$(BUILD_PRINT) Create Airflow env $(END_BUILD_PRINT)"
 	@ echo -e "$(BUILD_PRINT) ${AIRFLOW_INFRA_FOLDER} ${ENVIRONMENT} $(END_BUILD_PRINT)"
@@ -100,31 +108,32 @@ create-env-airflow-cluster:
 	@ chmod 777 ${AIRFLOW_INFRA_FOLDER}/logs ${AIRFLOW_INFRA_FOLDER}/plugins ${AIRFLOW_INFRA_FOLDER}/.env
 	@ cp requirements.txt ./infra/airflow-cluster/
 
-build-airflow: guard-ENVIRONMENT create-env-airflow build-externals
-	@ echo -e "$(BUILD_PRINT) Build Airflow services $(END_BUILD_PRINT)"
-	@ docker build -t meaningfy/airflow ./infra/airflow/
-	@ docker-compose -p ${ENVIRONMENT} --file ./infra/airflow/docker-compose.yaml --env-file ${ENV_FILE} up -d --force-recreate
-
 build-airflow-cluster: guard-ENVIRONMENT create-env-airflow-cluster build-externals
-	@ echo -e "$(BUILD_PRINT) Build Airflow services $(END_BUILD_PRINT)"
+	@ echo -e "$(BUILD_PRINT) Build Airflow master $(END_BUILD_PRINT)"
 	@ docker build -t meaningfy/airflow ./infra/airflow-cluster/
-	@ docker-compose -p ${ENVIRONMENT} --file ./infra/airflow-cluster/docker-compose.yaml --env-file ${ENV_FILE} up -d airflow-init
 
-start-airflow-cluster: build-externals
+start-airflow-master: build-externals
 	@ echo -e "$(BUILD_PRINT)Starting Airflow services $(END_BUILD_PRINT)"
-	@ docker-compose -p ${ENVIRONMENT} --file ./infra/airflow-cluster/docker-compose.yaml --env-file ${ENV_FILE} up -d airflow-webserver airflow-scheduler airflow-triggerer flower
+	@ docker-compose -p ${ENVIRONMENT} --file ./infra/airflow-cluster/docker-compose.yaml --env-file ${ENV_FILE} up -d
 
-start-airflow-cluster-worker: build-externals
+start-airflow-worker: build-externals
 	@ echo -e "$(BUILD_PRINT)Starting Airflow services $(END_BUILD_PRINT)"
-	@ docker-compose -p ${ENVIRONMENT} --file ./infra/airflow-cluster/docker-compose.yaml --env-file ${ENV_FILE} up -d airflow-worker
+	@ docker-compose -p ${ENVIRONMENT} --file ./infra/airflow-cluster/docker-compose-worker.yaml --env-file ${ENV_FILE} up -d
 
-stop-airflow-cluster:
+stop-airflow-master:
 	@ echo -e "$(BUILD_PRINT)Stopping Airflow Cluster $(END_BUILD_PRINT)"
 	@ docker-compose -p ${ENVIRONMENT} --file ./infra/airflow-cluster/docker-compose.yaml --env-file ${ENV_FILE} down
 
-stop-airflow-cluster-worker:
+stop-airflow-worker:
 	@ echo -e "$(BUILD_PRINT)Stopping Airflow Cluster Worker $(END_BUILD_PRINT)"
-	@ docker-compose -p ${ENVIRONMENT} --file ./infra/airflow-cluster/docker-compose.yaml --env-file ${ENV_FILE} down
+	@ docker-compose -p ${ENVIRONMENT} --file ./infra/airflow-cluster/docker-compose-worker.yaml --env-file ${ENV_FILE} down
+
+start-airflow-cluster: start-airflow-master start-airflow-worker
+
+stop-airflow-cluster: stop-airflow-master stop-airflow-worker
+
+
+#---------------------------------------AIRFLOW_CLUSTER----END----TARGETS-----------------------------------------------
 
 start-airflow: build-externals
 	@ echo -e "$(BUILD_PRINT)Starting Airflow services $(END_BUILD_PRINT)"

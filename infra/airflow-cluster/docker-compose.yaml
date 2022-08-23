@@ -51,10 +51,10 @@ x-airflow-common:
     - ../../.env
   environment:
     &airflow-common-env
-    AIRFLOW__CORE__PARALLELISM: 64
-    AIRFLOW__CORE__MAX_ACTIVE_TASKS_PER_DAG: 32
+    AIRFLOW__CORE__PARALLELISM: 128
+    AIRFLOW__CORE__MAX_ACTIVE_TASKS_PER_DAG: 128
     AIRFLOW__SCHEDULER__PARSING_PROCESSES: 4
-    AIRFLOW__CELERY__WORKER_CONCURRENCY: 8
+    AIRFLOW__CELERY__WORKER_CONCURRENCY: 128
     AIRFLOW__CORE__SQL_ALCHEMY_CONN: postgresql+psycopg2://airflow:airflow@65.108.123.44/airflow
     AIRFLOW__CELERY__RESULT_BACKEND: db+postgresql://airflow:airflow@65.108.123.44/airflow
     AIRFLOW__CELERY__BROKER_URL: redis://:@65.108.123.44:6379/0

@@ -10,7 +10,8 @@ from ted_sws.core.model.manifestation import XPATHCoverageValidationReport, XPAT
 from ted_sws.core.model.notice import Notice
 from ted_sws.core.model.transform import ConceptualMapping, ConceptualMappingXPATH
 from ted_sws.data_manager.adapters.mapping_suite_repository import MappingSuiteRepositoryMongoDB
-from ted_sws.data_sampler.services.notice_xml_indexer import index_notice, get_unique_xpaths_covered_by_notices
+from ted_sws.data_sampler.services.notice_xml_indexer import index_notice, get_unique_xpaths_covered_by_notices, \
+    index_notice_native
 from ted_sws.mapping_suite_processor.services.conceptual_mapping_reader import mapping_suite_read_conceptual_mapping
 
 TEMPLATES = Environment(loader=PackageLoader("ted_sws.notice_validator.resources", "templates"))
@@ -125,6 +126,7 @@ class CoverageRunner:
                 xpaths = get_unique_xpaths_covered_by_notices([notice.ted_id], self.mongodb_client)
             else:
                 notice = index_notice(notice, self.xslt_transformer)
+                # notice = index_notice_native(notice)
 
                 if notice.xml_metadata and notice.xml_metadata.unique_xpaths:
                     xpaths = notice.xml_metadata.unique_xpaths

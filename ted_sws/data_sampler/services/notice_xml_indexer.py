@@ -9,6 +9,8 @@ from ted_sws.core.model.metadata import XMLMetadata
 from ted_sws.core.model.notice import Notice
 from ted_sws.data_manager.adapters.notice_repository import NoticeRepository
 from ted_sws.resources import XSLT_FILES_PATH
+import xml.etree.ElementTree as XMLElementTree
+import re
 
 UNIQUE_XPATHS_XSLT_FILE_PATH = "get_unique_xpaths.xsl"
 XSLT_PREFIX_RESULT = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>"
@@ -51,6 +53,50 @@ def index_notice(notice: Notice, xslt_transformer=None) -> Notice:
         xml_metadata = XMLMetadata()
         xml_metadata.unique_xpaths = xpaths
 
+        notice.set_xml_metadata(xml_metadata=xml_metadata)
+
+    return notice
+
+
+def index_notice_native(notice: Notice, base_xpath="") -> Notice:
+    def _notice_namespaces(xml_file) -> dict:
+        _namespaces = dict([node for _, node in XMLElementTree.iterparse(xml_file, events=['start-ns'])])
+        return {v: k for k, v in _namespaces.items()}
+
+    def _ns_tag(ns_tag):
+        tag = ns_tag[1]
+        ns = ns_tag[0]
+        if ns:
+            ns_alias = namespaces[ns]
+            if ns_alias:
+                return ns_alias + ":" + tag
+        return tag
+
+    def _xpath_generator(xml_file):
+        path = []
+        it = XMLElementTree.iterparse(xml_file, events=('start', 'end'))
+        for evt, el in it:
+            if evt == 'start':
+                ns_tag = re.split('[{}]', el.tag, 2)[1:]
+                path.append(_ns_tag(ns_tag))
+                xpath = "/" + '/'.join(path)
+
+                if xpath.startswith(base_xpath + "/"):
+                    attributes = list(el.attrib.keys())
+                    if len(attributes) > 0:
+                        for attr in attributes:
+                            yield xpath + "/@" + attr
+                    yield xpath
+            else:
+                path.pop()
+
+    with tempfile.NamedTemporaryFile() as fp:
+        fp.write(notice.xml_manifestation.object_data.encode("utf-8"))
+
+        namespaces = _notice_namespaces(fp.name)
+        xpaths = set(_xpath_generator(fp.name))
+        xml_metadata = XMLMetadata()
+        xml_metadata.unique_xpaths = xpaths
         notice.set_xml_metadata(xml_metadata=xml_metadata)
 
     return notice

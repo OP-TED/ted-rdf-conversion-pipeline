@@ -96,8 +96,6 @@ x-airflow-common:
       condition: service_healthy
     postgres:
       condition: service_healthy
-    airflow-init:
-      condition: service_completed_successfully
 
 services:
   postgres:
@@ -163,6 +161,8 @@ services:
 
     depends_on:
       <<: *airflow-common-depends-on
+      airflow-init:
+        condition: service_completed_successfully
 
   airflow-scheduler:
     <<: *airflow-common
@@ -179,7 +179,8 @@ services:
       - common-ext
     depends_on:
       <<: *airflow-common-depends-on
-
+      airflow-init:
+        condition: service_completed_successfully
 
   airflow-triggerer:
     <<: *airflow-common
@@ -196,7 +197,8 @@ services:
       - common-ext
     depends_on:
       <<: *airflow-common-depends-on
-
+      airflow-init:
+        condition: service_completed_successfully
 
   airflow-init:
     <<: *airflow-common
@@ -304,7 +306,8 @@ services:
       - common-ext
     depends_on:
       <<: *airflow-common-depends-on
-
+      airflow-init:
+        condition: service_completed_successfully
 
 volumes:
   postgres-db-volume:

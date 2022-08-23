@@ -10,7 +10,6 @@ from ted_sws import config
 from ted_sws.core.model.transform import MappingSuite, FileResource, TransformationRuleSet, SHACLTestSuite, \
     SPARQLTestSuite, MetadataConstraints, TransformationTestData, ConceptualMapping
 from ted_sws.data_manager.adapters.repository_abc import MappingSuiteRepositoryABC
-from ted_sws.event_manager.services.logger_from_context import get_env_logger
 from ted_sws.mapping_suite_processor.services.conceptual_mapping_reader import CONCEPTUAL_MAPPINGS_FILE_NAME, \
     mapping_suite_read_conceptual_mapping
 
@@ -25,6 +24,7 @@ MS_TEST_DATA_FOLDER_NAME = "test_data"
 MS_CONCEPTUAL_MAPPING_FILE_NAME = "conceptual_mappings.xlsx"
 MS_OUTPUT_FOLDER_NAME = "output"
 MS_TEST_SUITE_REPORT = "test_suite_report"
+
 
 class MappingSuiteRepositoryMongoDB(MappingSuiteRepositoryABC):
     """
@@ -353,5 +353,3 @@ class MappingSuiteRepositoryInFileSystem(MappingSuiteRepositoryABC):
         :return:
         """
         shutil.rmtree(self.repository_path)
-
-

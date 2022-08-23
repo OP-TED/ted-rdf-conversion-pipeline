@@ -4,27 +4,20 @@ import shutil
 import tempfile
 from pathlib import Path
 
-from ted_sws.event_manager.adapters.event_handler_config import ConsoleLoggerConfig, CLILoggerConfig
-from ted_sws.event_manager.services.logger_from_context import get_env_logger
-from ted_sws.event_manager.adapters.event_logger import EventLogger
 from ted_sws.data_manager.adapters.mapping_suite_repository import MS_TRANSFORM_FOLDER_NAME, \
-    MS_VALIDATE_FOLDER_NAME, MS_OUTPUT_FOLDER_NAME, MS_RESOURCES_FOLDER_NAME, MS_TEST_DATA_FOLDER_NAME, \
+    MS_OUTPUT_FOLDER_NAME, MS_RESOURCES_FOLDER_NAME, MS_TEST_DATA_FOLDER_NAME, \
     MS_CONCEPTUAL_MAPPING_FILE_NAME
 from ted_sws.mapping_suite_processor.adapters.mapping_suite_structure_checker import \
     MS_METADATA_FILE_NAME, MappingSuiteStructureValidator
 from ted_sws.mapping_suite_processor.services.conceptual_mapping_reader import mapping_suite_read_metadata
-from ted_sws.event_manager.adapters.event_logger import EventLogger
-from ted_sws.event_manager.model.event_message import EventMessage
 
 SHACL_EPO = "shacl_epo.htlm"
 SPARQL_CM_ASSERTIONS = "sparql_cm_assertions.html"
 KEY_VERSION = "Mapping Version"
 KEY_EPO = "EPO version"
-# logger = get_env_logger(EventLogger(ConsoleLoggerConfig(name="LOGGER")), is_cli=True)
-logger = get_env_logger(EventLogger(CLILoggerConfig()), is_cli=True)
 
 
-def test_validate_core_structure(package_folder_path_for_validator, caplog):
+def test_validate_core_structure(caplog, package_folder_path_for_validator):
     with tempfile.TemporaryDirectory() as temp_folder:
         shutil.copytree(package_folder_path_for_validator, temp_folder, dirs_exist_ok=True)
         mapping_suite_validator = MappingSuiteStructureValidator(temp_folder)
@@ -42,7 +35,7 @@ def test_validate_core_structure(package_folder_path_for_validator, caplog):
         assert MS_TEST_DATA_FOLDER_NAME in caplog.text
 
 
-def test_validate_expanded_structure(package_folder_path_for_validator, caplog):
+def test_validate_expanded_structure(caplog, package_folder_path_for_validator):
     with tempfile.TemporaryDirectory() as temp_folder:
         shutil.copytree(package_folder_path_for_validator, temp_folder, dirs_exist_ok=True)
         mapping_suite_validator = MappingSuiteStructureValidator(temp_folder)
@@ -58,7 +51,7 @@ def test_validate_expanded_structure(package_folder_path_for_validator, caplog):
         assert MS_METADATA_FILE_NAME in caplog.text
 
 
-def test_validate_output_structure(package_folder_path_for_validator, caplog):
+def test_validate_output_structure(caplog, package_folder_path_for_validator):
     with tempfile.TemporaryDirectory() as temp_folder:
         shutil.copytree(package_folder_path_for_validator, temp_folder, dirs_exist_ok=True)
         mapping_suite_validator = MappingSuiteStructureValidator(temp_folder)

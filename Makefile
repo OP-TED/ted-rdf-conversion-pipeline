@@ -109,7 +109,7 @@ create-env-airflow-cluster:
 	@ cp requirements.txt ./infra/airflow-cluster/
 
 build-airflow-cluster: guard-ENVIRONMENT create-env-airflow-cluster build-externals
-	@ echo -e "$(BUILD_PRINT) Build Airflow Master $(END_BUILD_PRINT)"
+	@ echo -e "$(BUILD_PRINT) Build Airflow Common Image $(END_BUILD_PRINT)"
 	@ docker build -t meaningfy/airflow ./infra/airflow-cluster/
 
 start-airflow-master: build-externals

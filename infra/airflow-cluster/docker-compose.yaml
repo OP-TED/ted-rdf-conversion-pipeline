@@ -76,8 +76,8 @@ x-airflow-common:
     XML_PROCESSOR_PATH: /opt/airflow/.saxon/saxon-he-10.6.jar
     DAG_LOGGER_CONFIG_HANDLERS: ${DAG_LOGGER_CONFIG_HANDLERS}
   extra_hosts:
-    - "hermes:${HERMES_IP_ADDRESS}"
-    - "srv:${SRV_IP_ADDRESS}"
+    - "worker-01-hostname:65.108.123.44"
+    - "worker-02-hostname:168.119.148.205"
   volumes:
 #    - ./config/airflow.cfg:/opt/airflow/airflow.cfg
     - ${AIRFLOW_INFRA_FOLDER}/.env:/opt/airflow/.env

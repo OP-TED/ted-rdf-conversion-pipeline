@@ -109,24 +109,24 @@ create-env-airflow-cluster:
 	@ cp requirements.txt ./infra/airflow-cluster/
 
 build-airflow-cluster: guard-ENVIRONMENT create-env-airflow-cluster build-externals
-	@ echo -e "$(BUILD_PRINT) Build Airflow master $(END_BUILD_PRINT)"
+	@ echo -e "$(BUILD_PRINT) Build Airflow Master $(END_BUILD_PRINT)"
 	@ docker build -t meaningfy/airflow ./infra/airflow-cluster/
 
 start-airflow-master: build-externals
-	@ echo -e "$(BUILD_PRINT)Starting Airflow services $(END_BUILD_PRINT)"
+	@ echo -e "$(BUILD_PRINT)Starting Airflow Master $(END_BUILD_PRINT)"
 	@ docker-compose -p ${ENVIRONMENT} --file ./infra/airflow-cluster/docker-compose.yaml --env-file ${ENV_FILE} up -d airflow-init
 	@ docker-compose -p ${ENVIRONMENT} --file ./infra/airflow-cluster/docker-compose.yaml --env-file ${ENV_FILE} up -d
 
 start-airflow-worker: build-externals
-	@ echo -e "$(BUILD_PRINT)Starting Airflow services $(END_BUILD_PRINT)"
+	@ echo -e "$(BUILD_PRINT)Starting Airflow Worker $(END_BUILD_PRINT)"
 	@ docker-compose -p ${ENVIRONMENT} --file ./infra/airflow-cluster/docker-compose-worker.yaml --env-file ${ENV_FILE} up -d
 
 stop-airflow-master:
-	@ echo -e "$(BUILD_PRINT)Stopping Airflow Cluster $(END_BUILD_PRINT)"
+	@ echo -e "$(BUILD_PRINT)Stopping Airflow Master $(END_BUILD_PRINT)"
 	@ docker-compose -p ${ENVIRONMENT} --file ./infra/airflow-cluster/docker-compose.yaml --env-file ${ENV_FILE} down
 
 stop-airflow-worker:
-	@ echo -e "$(BUILD_PRINT)Stopping Airflow Cluster Worker $(END_BUILD_PRINT)"
+	@ echo -e "$(BUILD_PRINT)Stopping Airflow Worker $(END_BUILD_PRINT)"
 	@ docker-compose -p ${ENVIRONMENT} --file ./infra/airflow-cluster/docker-compose-worker.yaml --env-file ${ENV_FILE} down
 
 start-airflow-cluster: start-airflow-master start-airflow-worker

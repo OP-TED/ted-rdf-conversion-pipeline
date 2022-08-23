@@ -158,8 +158,8 @@ services:
 
     depends_on:
       <<: *airflow-common-depends-on
-      airflow-init:
-        condition: service_completed_successfully
+#      airflow-init:
+#        condition: service_completed_successfully
 
   airflow-scheduler:
     <<: *airflow-common
@@ -176,8 +176,8 @@ services:
       - common-ext
     depends_on:
       <<: *airflow-common-depends-on
-      airflow-init:
-        condition: service_completed_successfully
+#      airflow-init:
+#        condition: service_completed_successfully
 
   airflow-worker:
     <<: *airflow-common
@@ -221,8 +221,8 @@ services:
       - common-ext
     depends_on:
       <<: *airflow-common-depends-on
-      airflow-init:
-        condition: service_completed_successfully
+#      airflow-init:
+#        condition: service_completed_successfully
 
   airflow-init:
     <<: *airflow-common
@@ -328,8 +328,8 @@ services:
       - common-ext
     depends_on:
       <<: *airflow-common-depends-on
-      airflow-init:
-        condition: service_completed_successfully
+#      airflow-init:
+#        condition: service_completed_successfully
 
 
 volumes:

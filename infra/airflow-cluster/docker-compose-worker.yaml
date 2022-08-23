@@ -116,8 +116,8 @@ services:
 
 networks:
   airflow:
-    internal: true
-    name: airflow-${ENVIRONMENT}
+    external:
+      name: airflow-${ENVIRONMENT}
   networks:
   common-ext:
     external:

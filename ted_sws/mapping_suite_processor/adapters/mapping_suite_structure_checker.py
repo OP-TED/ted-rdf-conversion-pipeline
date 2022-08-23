@@ -1,7 +1,8 @@
+import hashlib
 import json
 import os
 import pathlib
-from typing import List, Union
+from typing import List, Union, Tuple
 
 from ted_sws.core.model.transform import MetadataConstraints
 from ted_sws.data_manager.adapters.mapping_suite_repository import MS_TRANSFORM_FOLDER_NAME, MS_TEST_DATA_FOLDER_NAME, \
@@ -118,3 +119,81 @@ class MappingSuiteStructureValidator:
         else:
             raise TypeError(
                 'Not the same value between metadata.json [version, epo version] and conceptual_mapping_file [version, ontology_version')
+
+    def hash_critical_mapping_files(self) -> List[Tuple[str, str]]:
+        """
+            return a list of tuples <file path, file hash> for
+            all files in the mappings and resources folders and
+            the conceptual mapping file.
+            The list of tuples is sorted by the file relative path to
+                ensure a deterministic order.
+        """
+
+        def _hash_a_file(file_path: pathlib.Path) -> Tuple[str, str]:
+            """
+                Return a tuple of the relative file path and the file hash.
+            """
+            hashed_line = hashlib.sha256(file_path.read_bytes()).hexdigest()
+            relative_path = str(file_path).replace(str(self.mapping_suite_path), "")
+            return relative_path, hashed_line
+
+        files_to_hash = [
+            self.mapping_suite_path / MS_TRANSFORM_FOLDER_NAME / MS_CONCEPTUAL_MAPPING_FILE_NAME,
+        ]
+
+        mapping_files = filter(lambda item: item.is_file(),
+                               (self.mapping_suite_path / MS_TRANSFORM_FOLDER_NAME /
+                                MS_MAPPINGS_FOLDER_NAME).iterdir())
+
+        mapping_resource_files = filter(lambda item: item.is_file(),
+                                        (self.mapping_suite_path / MS_TRANSFORM_FOLDER_NAME /
+                                         MS_RESOURCES_FOLDER_NAME).iterdir())
+
+        files_to_hash += mapping_files
+        files_to_hash += mapping_resource_files
+
+        result = [_hash_a_file(item) for item in files_to_hash]
+        result.sort(key=lambda x: x[0])
+        return result
+
+    def hash_mapping_suite(self, with_version: str = "") -> str:
+        """
+            Returns a hash of the mapping suite.
+            Only the critical resources are hashed in the mapping suite.
+            The decission which rescources are "critical" is implemented
+            in self.hash_critical_mapping_files() function.
+
+            If "with_version" parameter is used, then it computed the mapping
+            suite hash, including the mapping suite version.
+        """
+        list_of_hashes = self.hash_critical_mapping_files()
+        signatures = [signature[1] for signature in list_of_hashes]
+        if with_version:
+            signatures += with_version
+        return hashlib.sha256(str.encode(",".join(signatures))).hexdigest()
+
+    def check_versioning(self) -> bool:
+        """
+            This function check whether the mapping suite is well versioned.
+            We want to ensure that:
+             - the version in the metadata.json is the same as the version in the conceptual mappings
+             - the version in always incremented
+             - the changes in the mapping suite are detected by comparison to the hash in the metadata.json
+             - the hash is bound to a version of the mapping suite written in the conceptual mappings
+             - the version-bound-hash and the version are written in the metadata.json and are the same
+             to the version in the conceptual mappings
+        """
+        conceptual_mappings_document = mapping_suite_read_metadata(
+            conceptual_mappings_file_path=self.mapping_suite_path / MS_TRANSFORM_FOLDER_NAME / MS_CONCEPTUAL_MAPPING_FILE_NAME)
+
+    def generate_metadata_json(self):
+
+        def read_json_file(self) -> dict:
+
+            """
+            This function reads a json file and return a dictionary of data.
+            """
+            package_metadata_path = self.mapping_suite_path / MS_METADATA_FILE_NAME
+            package_metadata_content = package_metadata_path.read_text(encoding="utf-8")
+            package_metadata = json.loads(package_metadata_content)
+            return package_metadata

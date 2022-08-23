@@ -6,14 +6,13 @@ from typing import List, Union
 from ted_sws.core.model.transform import MetadataConstraints
 from ted_sws.data_manager.adapters.mapping_suite_repository import MS_TRANSFORM_FOLDER_NAME, MS_TEST_DATA_FOLDER_NAME, \
     MS_CONCEPTUAL_MAPPING_FILE_NAME, MS_RESOURCES_FOLDER_NAME, MS_MAPPINGS_FOLDER_NAME, MS_METADATA_FILE_NAME, \
-    MS_VALIDATE_FOLDER_NAME, MS_SPARQL_FOLDER_NAME, MS_SHACL_FOLDER_NAME, MS_OUTPUT_FOLDER_NAME, MS_TEST_SUITE_REPORT
-from ted_sws.event_manager.adapters.event_handler_config import CLILoggerConfig
+    MS_VALIDATE_FOLDER_NAME, MS_SPARQL_FOLDER_NAME, MS_SHACL_FOLDER_NAME, MS_OUTPUT_FOLDER_NAME
+from ted_sws.event_manager.adapters.event_handler_config import ConsoleLoggerConfig
 from ted_sws.event_manager.adapters.event_logger import EventLogger
 from ted_sws.event_manager.model.event_message import EventMessage
 from ted_sws.event_manager.services.logger_from_context import get_env_logger
 from ted_sws.mapping_suite_processor.services.conceptual_mapping_reader import mapping_suite_read_metadata
 
-logger = get_env_logger(EventLogger(CLILoggerConfig()), is_cli=True)
 SHACL_EPO = "shacl_epo.htlm"
 SPARQL_CM_ASSERTIONS = "sparql_cm_assertions.html"
 
@@ -23,6 +22,7 @@ class MappingSuiteStructureValidator:
     def __init__(self, mapping_suite_path: Union[pathlib.Path, str]):
         self.mapping_suite_path = pathlib.Path(mapping_suite_path)
         self.is_valid = True
+        self.logger = get_env_logger(EventLogger(ConsoleLoggerConfig()), is_cli=True)
 
     def assert_path(self, assertion_path_list: List[pathlib.Path]) -> bool:
         """
@@ -31,19 +31,19 @@ class MappingSuiteStructureValidator:
         for path_item in assertion_path_list:
             message_path_not_found = f"Path not found: {path_item}"
             if not path_item.exists():
-                logger.error(event_message=EventMessage(message=message_path_not_found))
+                self.logger.error(event_message=EventMessage(message=message_path_not_found))
                 self.is_valid = False
                 continue
 
             if path_item.is_dir():
                 message_folder_empty = f"Folder is empty: {path_item}"
                 if not any(path_item.iterdir()):
-                    logger.error(event_message=EventMessage(message=message_folder_empty))
+                    self.logger.error(event_message=EventMessage(message=message_folder_empty))
                     self.is_valid = False
             else:
                 message_file_is_empty = f"File is empty: {path_item}"
                 if not path_item.stat().st_size > 0:
-                    logger.error(event_message=EventMessage(message=message_file_is_empty))
+                    self.logger.error(event_message=EventMessage(message=message_file_is_empty))
                     self.is_valid = False
 
         return self.is_valid
@@ -89,7 +89,7 @@ class MappingSuiteStructureValidator:
                             if SHACL_EPO and SPARQL_CM_ASSERTIONS in os.path.basename(last_path):
                                 return True
                             else:
-                                logger.error(event_message=EventMessage(message=message_path_not_found))
+                                self.logger.error(event_message=EventMessage(message=message_path_not_found))
 
         return self.assert_path(mandatory_paths_l3)
 

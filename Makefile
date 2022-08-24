@@ -377,3 +377,7 @@ restore-mongodb:
 	@ docker exec -it mongodb-${ENVIRONMENT} rm -rf mongodb_dump
 	@ echo -e "Finish restore data in mongodb."
 
+install-allure:
+	@ echo -e "Start install Allure commandline."
+	@ apt install npm
+	@ npm install -g allure-commandline

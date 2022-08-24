@@ -108,8 +108,8 @@ services:
       POSTGRES_USER: ${POSTGRES_USER}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
       POSTGRES_DB: airflow
-#    ports:
-#      - "5432:5432"
+    ports:
+      - "5432:5432"
     volumes:
       - postgres-db-volume:/var/lib/postgresql/data
     healthcheck:
@@ -136,8 +136,8 @@ services:
     container_name: redis-airflow-${ENVIRONMENT}
     environment:
       - REDIS_PASSWORD=${REDIS_PASSWORD}
-#    ports:
-#      - "6379:6379"
+    ports:
+      - "6379:6379"
 #    expose:
 #      - 6379
     healthcheck:
@@ -317,8 +317,8 @@ services:
     container_name: airflow-flower-${ENVIRONMENT}
     command: celery flower
     restart: unless-stopped
-#    ports:
-#      - "5555:5555"
+    ports:
+      - "5555:5555"
     networks:
       - airflow
       - proxy-net

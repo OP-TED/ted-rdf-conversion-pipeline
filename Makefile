@@ -115,7 +115,7 @@ build-airflow-cluster: guard-ENVIRONMENT create-env-airflow-cluster build-extern
 start-airflow-master: build-externals
 	@ echo -e "$(BUILD_PRINT)Starting Airflow Master $(END_BUILD_PRINT)"
 	@ docker-compose -p ${ENVIRONMENT} --file ./infra/airflow-cluster/docker-compose.yaml --env-file ${ENV_FILE} up -d airflow-init
-	@ docker-compose -p ${ENVIRONMENT} --file ./infra/airflow-cluster/docker-compose.yaml --env-file ${ENV_FILE} up -d --force-recreate
+	@ docker-compose -p ${ENVIRONMENT} --file ./infra/airflow-cluster/docker-compose.yaml --env-file ${ENV_FILE} up -d
 
 start-airflow-worker: build-externals
 	@ echo -e "$(BUILD_PRINT)Starting Airflow Worker $(END_BUILD_PRINT)"

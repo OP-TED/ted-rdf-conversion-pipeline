@@ -57,9 +57,9 @@ x-airflow-common:
     AIRFLOW__CELERY__WORKER_CONCURRENCY: 128
     AIRFLOW__CORE__SQL_ALCHEMY_POOL_SIZE: 256
     AIRFLOW__CORE__SQL_ALCHEMY_MAX_OVERFLOW: 512
-    AIRFLOW__CORE__SQL_ALCHEMY_CONN: postgresql+psycopg2://airflow:airflow@65.108.123.44/airflow
-    AIRFLOW__CELERY__RESULT_BACKEND: db+postgresql://airflow:airflow@65.108.123.44/airflow
-    AIRFLOW__CELERY__BROKER_URL: redis://:@65.108.123.44:6379/0
+    AIRFLOW__CORE__SQL_ALCHEMY_CONN: postgresql+psycopg2://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres.${SUBDOMAIN}${AIRFLOW_MASTER_DOMAIN}/airflow
+    AIRFLOW__CELERY__RESULT_BACKEND: db+postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres.${SUBDOMAIN}${AIRFLOW_MASTER_DOMAIN}/airflow
+    AIRFLOW__CELERY__BROKER_URL: redis://:${REDIS_PASSWORD}@redis.${SUBDOMAIN}${AIRFLOW_MASTER_DOMAIN}/0
     AIRFLOW__WEBSERVER__SECRET_KEY: "zqOVjqVrMstjDbKEPpYiSA=="
     IS_PRIME_ENV: 'true'
     AIRFLOW__CORE__EXECUTOR: CeleryExecutor
@@ -78,8 +78,8 @@ x-airflow-common:
     XML_PROCESSOR_PATH: /opt/airflow/.saxon/saxon-he-10.6.jar
     DAG_LOGGER_CONFIG_HANDLERS: ${DAG_LOGGER_CONFIG_HANDLERS}
   extra_hosts:
-    - "worker-01-hostname:65.108.123.44"
-    - "worker-02-hostname:168.119.148.205"
+    - "worker-01-hostname:worker.${SUBDOMAIN}${AIRFLOW_WORKER_1_DOMAIN}"
+    - "worker-02-hostname:worker.${SUBDOMAIN}${AIRFLOW_WORKER_2_DOMAIN}"
   volumes:
 #    - ./config/airflow.cfg:/opt/airflow/airflow.cfg
     - ${AIRFLOW_INFRA_FOLDER}/.env:/opt/airflow/.env
@@ -103,11 +103,11 @@ services:
     container_name: postgres-airflow-${ENVIRONMENT}
     command: postgres -c 'max_connections=1000'
     environment:
-      POSTGRES_USER: airflow
-      POSTGRES_PASSWORD: airflow
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
       POSTGRES_DB: airflow
-    ports:
-      - "5432:5432"
+#    ports:
+#      - "5432:5432"
     volumes:
       - postgres-db-volume:/var/lib/postgresql/data
     healthcheck:
@@ -117,15 +117,27 @@ services:
     restart: unless-stopped
     networks:
       - airflow
-      - common-ext
+      - proxy-net
+    labels:
+      #### Labels define the behavior and rules of the traefik proxy for this container ####
+      - "traefik.enable=true" # <== Enable traefik to proxy this container
+      - "traefik.http.routers.${ENVIRONMENT}-postgres.rule=Host(`postgres.${SUBDOMAIN}${AIRFLOW_MASTER_DOMAIN}`)" # <== Your Domain Name goes here for the http rule
+      - "traefik.http.routers.${ENVIRONMENT}-postgres.entrypoints=web" # <== Defining the entrypoint for http, **ref: line 30
+      - "traefik.http.routers.${ENVIRONMENT}-postgres.middlewares=redirect@file" # <== This is a middleware to redirect to https
+      - "traefik.http.routers.${ENVIRONMENT}-postgres-secured.rule=Host(`postgres.${SUBDOMAIN}${AIRFLOW_MASTER_DOMAIN}`)" # <== Your Domain Name for the https rule
+      - "traefik.http.routers.${ENVIRONMENT}-postgres-secured.entrypoints=web-secured" # <== Defining entrypoint for https, **ref: line 31
+      - "traefik.http.routers.${ENVIRONMENT}-postgres-secured.tls.certresolver=mytlschallenge" # <== Defining certsresolvers for https
+
 
   redis:
     image: redis:latest
     container_name: redis-airflow-${ENVIRONMENT}
-    ports:
-      - "6379:6379"
-    expose:
-      - 6379
+    environment:
+      - REDIS_PASSWORD=${REDIS_PASSWORD}
+#    ports:
+#      - "6379:6379"
+#    expose:
+#      - 6379
     healthcheck:
       test: ["CMD", "redis-cli", "ping"]
       interval: 5s
@@ -134,7 +146,17 @@ services:
     restart: unless-stopped
     networks:
       - airflow
-      - common-ext
+      - proxy-net
+    labels:
+      #### Labels define the behavior and rules of the traefik proxy for this container ####
+      - "traefik.enable=true" # <== Enable traefik to proxy this container
+      - "traefik.http.routers.${ENVIRONMENT}-redis.rule=Host(`redis.${SUBDOMAIN}${AIRFLOW_MASTER_DOMAIN}`)" # <== Your Domain Name goes here for the http rule
+      - "traefik.http.routers.${ENVIRONMENT}-redis.entrypoints=web" # <== Defining the entrypoint for http, **ref: line 30
+      - "traefik.http.routers.${ENVIRONMENT}-redis.middlewares=redirect@file" # <== This is a middleware to redirect to https
+      - "traefik.http.routers.${ENVIRONMENT}-redis-secured.rule=Host(`redis.${SUBDOMAIN}${AIRFLOW_MASTER_DOMAIN}`)" # <== Your Domain Name for the https rule
+      - "traefik.http.routers.${ENVIRONMENT}-redis-secured.entrypoints=web-secured" # <== Defining entrypoint for https, **ref: line 31
+      - "traefik.http.routers.${ENVIRONMENT}-redis-secured.tls.certresolver=mytlschallenge" # <== Defining certsresolvers for https
+
 
   airflow-webserver:
     <<: *airflow-common
@@ -147,11 +169,11 @@ services:
     labels:
       #### Labels define the behavior and rules of the traefik proxy for this container ####
       - "traefik.enable=true" # <== Enable traefik to proxy this container
-      - "traefik.http.routers.${ENVIRONMENT}-airflow.rule=Host(`airflow.${SUBDOMAIN}${DOMAIN}`)" # <== Your Domain Name goes here for the http rule
+      - "traefik.http.routers.${ENVIRONMENT}-airflow.rule=Host(`airflow.${SUBDOMAIN}${AIRFLOW_MASTER_DOMAIN}`)" # <== Your Domain Name goes here for the http rule
       - "traefik.http.routers.${ENVIRONMENT}-airflow.entrypoints=web" # <== Defining the entrypoint for http, **ref: line 30
 
       - "traefik.http.routers.airflow.middlewares=redirect@file" # <== This is a middleware to redirect to https
-      - "traefik.http.routers.${ENVIRONMENT}-airflow-secured.rule=Host(`airflow.${SUBDOMAIN}${DOMAIN}`)" # <== Your Domain Name for the https rule
+      - "traefik.http.routers.${ENVIRONMENT}-airflow-secured.rule=Host(`airflow.${SUBDOMAIN}${AIRFLOW_MASTER_DOMAIN}`)" # <== Your Domain Name for the https rule
       - "traefik.http.routers.${ENVIRONMENT}-airflow-secured.entrypoints=web-secured" # <== Defining entrypoint for https, **ref: line 31
       - "traefik.http.routers.${ENVIRONMENT}-airflow-secured.tls.certresolver=mytlschallenge" # <== Defining certsresolvers for https
       - "traefik.http.services.${ENVIRONMENT}-airflow-secured.loadbalancer.server.port=8080"
@@ -292,12 +314,20 @@ services:
     container_name: airflow-flower-${ENVIRONMENT}
     command: celery flower
     restart: unless-stopped
-    ports:
-      - "5555:5555"
+#    ports:
+#      - "5555:5555"
     networks:
       - airflow
       - proxy-net
-      - common-ext
+    labels:
+      #### Labels define the behavior and rules of the traefik proxy for this container ####
+      - "traefik.enable=true" # <== Enable traefik to proxy this container
+      - "traefik.http.routers.${ENVIRONMENT}-flower.rule=Host(`flower.${SUBDOMAIN}${AIRFLOW_MASTER_DOMAIN}`)" # <== Your Domain Name goes here for the http rule
+      - "traefik.http.routers.${ENVIRONMENT}-flower.entrypoints=web" # <== Defining the entrypoint for http, **ref: line 30
+      - "traefik.http.routers.${ENVIRONMENT}-flower.middlewares=redirect@file" # <== This is a middleware to redirect to https
+      - "traefik.http.routers.${ENVIRONMENT}-flower-secured.rule=Host(`flower.${SUBDOMAIN}${AIRFLOW_MASTER_DOMAIN}`)" # <== Your Domain Name for the https rule
+      - "traefik.http.routers.${ENVIRONMENT}-flower-secured.entrypoints=web-secured" # <== Defining entrypoint for https, **ref: line 31
+      - "traefik.http.routers.${ENVIRONMENT}-flower-secured.tls.certresolver=mytlschallenge" # <== Defining certsresolvers for https
     depends_on:
       <<: *airflow-common-depends-on
 

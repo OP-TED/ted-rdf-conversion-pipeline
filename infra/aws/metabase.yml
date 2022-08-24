@@ -14,7 +14,7 @@ services:
       driver: awslogs
       options:
         awslogs-group: /ecs/metabase-cli-task
-        awslogs-region: eu-west-3
+        awslogs-region: ${REGION}
         awslogs-stream-prefix: ecs
     networks:
       ecs-local-network: null
@@ -33,7 +33,7 @@ services:
       driver: awslogs
       options:
         awslogs-group: /ecs/metabase-cli-task
-        awslogs-region: eu-west-3
+        awslogs-region: ${REGION}
         awslogs-stream-prefix: ecs
     networks:
       ecs-local-network: null

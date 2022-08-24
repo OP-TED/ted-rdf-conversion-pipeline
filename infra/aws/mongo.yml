@@ -9,7 +9,7 @@ services:
       driver: awslogs
       options:
         awslogs-group: /ecs/mongo-cli-task
-        awslogs-region: eu-west-3
+        awslogs-region: ${REGION}
         awslogs-stream-prefix: ecs
     networks:
       ecs-local-network: null

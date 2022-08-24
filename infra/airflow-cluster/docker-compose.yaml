@@ -129,7 +129,7 @@ services:
       - "traefik.http.routers.${ENVIRONMENT}-postgres-secured.rule=Host(`postgres.${SUBDOMAIN}${AIRFLOW_MASTER_DOMAIN}`)" # <== Your Domain Name for the https rule
       - "traefik.http.routers.${ENVIRONMENT}-postgres-secured.entrypoints=web-secured" # <== Defining entrypoint for https, **ref: line 31
       - "traefik.http.routers.${ENVIRONMENT}-postgres-secured.tls.certresolver=mytlschallenge" # <== Defining certsresolvers for https
-
+      - "traefik.http.services.${ENVIRONMENT}-postgres-secured.loadbalancer.server.port=5432"
 
   redis:
     image: redis:latest
@@ -158,6 +158,7 @@ services:
       - "traefik.http.routers.${ENVIRONMENT}-redis-secured.rule=Host(`redis.${SUBDOMAIN}${AIRFLOW_MASTER_DOMAIN}`)" # <== Your Domain Name for the https rule
       - "traefik.http.routers.${ENVIRONMENT}-redis-secured.entrypoints=web-secured" # <== Defining entrypoint for https, **ref: line 31
       - "traefik.http.routers.${ENVIRONMENT}-redis-secured.tls.certresolver=mytlschallenge" # <== Defining certsresolvers for https
+      - "traefik.http.services.${ENVIRONMENT}-redis-secured.loadbalancer.server.port=6379"
 
 
   airflow-webserver:
@@ -330,7 +331,7 @@ services:
       - "traefik.http.routers.${ENVIRONMENT}-flower-secured.rule=Host(`flower.${SUBDOMAIN}${AIRFLOW_MASTER_DOMAIN}`)" # <== Your Domain Name for the https rule
       - "traefik.http.routers.${ENVIRONMENT}-flower-secured.entrypoints=web-secured" # <== Defining entrypoint for https, **ref: line 31
       - "traefik.http.routers.${ENVIRONMENT}-flower-secured.tls.certresolver=mytlschallenge" # <== Defining certsresolvers for https
-      - "traefik.http.services.${ENVIRONMENT}-agraph-secured.loadbalancer.server.port=5555"
+      - "traefik.http.services.${ENVIRONMENT}-flower-secured.loadbalancer.server.port=5555"
     depends_on:
       <<: *airflow-common-depends-on
 

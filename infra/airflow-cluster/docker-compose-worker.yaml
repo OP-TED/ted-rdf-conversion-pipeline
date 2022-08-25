@@ -115,11 +115,11 @@ services:
     labels:
       #### Labels define the behavior and rules of the traefik proxy for this container ####
       - "traefik.enable=true" # <== Enable traefik to proxy this container
-      - "traefik.http.routers.${ENVIRONMENT}-worker.rule=Host(`worker.${SUBDOMAIN}${DOMAIN}`)" # <== Your Domain Name goes here for the http rule
-      - "traefik.http.routers.${ENVIRONMENT}-worker.entrypoints=web" # <== Defining the entrypoint for http, **ref: line 30
+      - "traefik.http.routers.${ENVIRONMENT}-worker.rule=HostSNI(`*`)" # <== Your Domain Name goes here for the http rule
+      - "traefik.http.routers.${ENVIRONMENT}-worker.entrypoints=worker.${SUBDOMAIN}${DOMAIN}" # <== Defining the entrypoint for http, **ref: line 30
       - "traefik.http.routers.${ENVIRONMENT}-worker.middlewares=redirect@file" # <== This is a middleware to redirect to https
-      - "traefik.http.routers.${ENVIRONMENT}-worker-secured.rule=Host(`worker.${SUBDOMAIN}${DOMAIN}`)" # <== Your Domain Name for the https rule
-      - "traefik.http.routers.${ENVIRONMENT}-worker-secured.entrypoints=web-secured" # <== Defining entrypoint for https, **ref: line 31
+      - "traefik.http.routers.${ENVIRONMENT}-worker-secured.rule=HostSNI(`*`)" # <== Your Domain Name for the https rule
+      - "traefik.http.routers.${ENVIRONMENT}-worker-secured.entrypoints=worker.${SUBDOMAIN}${DOMAIN}" # <== Defining entrypoint for https, **ref: line 31
       - "traefik.http.routers.${ENVIRONMENT}-worker-secured.tls.certresolver=mytlschallenge" # <== Defining certsresolvers for https
 
 networks:

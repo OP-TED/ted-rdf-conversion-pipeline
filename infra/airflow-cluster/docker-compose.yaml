@@ -136,7 +136,7 @@ services:
       - "traefik.enable=true" # <== Enable traefik to proxy this container
       - "traefik.http.routers.${ENVIRONMENT}-postgres.rule=HostSNI(`*`)" # <== Your Domain Name goes here for the http rule
 #      - "traefik.http.routers.${ENVIRONMENT}-postgres.rule=HostSNI(`postgres.${SUBDOMAIN}${AIRFLOW_MASTER_DOMAIN}`)" # <== Your Domain Name goes here for the http rule
-      - "traefik.http.routers.${ENVIRONMENT}-postgres.entrypoints=web" # <== Defining the entrypoint for http, **ref: line 30
+      - "traefik.http.routers.${ENVIRONMENT}-postgres.entrypoints=postgres" # <== Defining the entrypoint for http, **ref: line 30
       - "traefik.http.routers.${ENVIRONMENT}-postgres.service=postgres" # <== Defining the entrypoint for http, **ref: line 30
       - "traefik.http.services.${ENVIRONMENT}-postgres-secured.loadbalancer.server.port=5432"
 
@@ -170,7 +170,7 @@ services:
 #      - "traefik.http.routers.${ENVIRONMENT}-redis-secured.tls.certresolver=mytlschallenge" # <== Defining certsresolvers for https
       - "traefik.http.services.${ENVIRONMENT}-redis.loadbalancer.server.port=6379"
 #      - "traefik.http.routers.${ENVIRONMENT}-redis.rule=HostSNI(`redis.${SUBDOMAIN}${AIRFLOW_MASTER_DOMAIN}`)" # <== Your Domain Name goes here for the http rule
-      - "traefik.http.routers.${ENVIRONMENT}-redis.entrypoints=web" # <== Defining the entrypoint for http, **ref: line 30
+      - "traefik.http.routers.${ENVIRONMENT}-redis.entrypoints=redis" # <== Defining the entrypoint for http, **ref: line 30
       - "traefik.http.routers.${ENVIRONMENT}-redis.service=redis"
 
 

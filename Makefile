@@ -132,6 +132,11 @@ start-airflow-cluster: start-airflow-master start-airflow-worker
 
 stop-airflow-cluster: stop-airflow-worker stop-airflow-master
 
+update-code-base-cluster:
+	@ git pull
+
+restart-airflow-cluster: stop-airflow-cluster update-code-base-cluster start-airflow-cluster
+
 
 #---------------------------------------AIRFLOW_CLUSTER----END----TARGETS-----------------------------------------------
 

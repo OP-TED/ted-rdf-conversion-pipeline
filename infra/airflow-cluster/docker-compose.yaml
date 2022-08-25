@@ -61,7 +61,7 @@ x-airflow-common:
 #    AIRFLOW__CELERY__RESULT_BACKEND: "db+postgresql://$${POSTGRES_USER}:$${POSTGRES_PASSWORD}@postgres.$${SUBDOMAIN}$${AIRFLOW_MASTER_DOMAIN}/airflow"
     AIRFLOW__CORE__SQL_ALCHEMY_CONN: postgresql+psycopg2://airflow:airflow@postgres.staging.ted-data.eu/airflow
     AIRFLOW__CELERY__RESULT_BACKEND: db+postgresql://airflow:airflow@postgres.staging.ted-data.eu/airflow
-    AIRFLOW__CELERY__BROKER_URL: redis://:g7Ex54IXbB36@redis.staging.ted-data.eu/0"
+    AIRFLOW__CELERY__BROKER_URL: redis://:@redis.staging.ted-data.eu/0"
 #    AIRFLOW__CORE__SQL_ALCHEMY_CONN: postgresql+psycopg2://airflow:airflow@65.108.123.44/airflow
 #    AIRFLOW__CELERY__RESULT_BACKEND: db+postgresql://airflow:airflow@65.108.123.44/airflow
 #    AIRFLOW__CELERY__BROKER_URL: "redis://:$${REDIS_PASSWORD}@redis.$${SUBDOMAIN}$${AIRFLOW_MASTER_DOMAIN}/0"
@@ -142,8 +142,8 @@ services:
   redis:
     image: redis:latest
     container_name: redis-airflow-${ENVIRONMENT}
-    environment:
-      - REDIS_PASSWORD=${REDIS_PASSWORD}
+#    environment:
+#      - REDIS_PASSWORD=${REDIS_PASSWORD}
     ports:
       - "6379:6379"
     expose:

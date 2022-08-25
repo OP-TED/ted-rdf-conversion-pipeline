@@ -2,7 +2,7 @@ import hashlib
 import json
 import os
 import pathlib
-from typing import List, Union, Tuple
+from typing import List, Union
 
 from ted_sws.core.model.transform import MetadataConstraints
 from ted_sws.data_manager.adapters.mapping_suite_repository import MS_TRANSFORM_FOLDER_NAME, MS_TEST_DATA_FOLDER_NAME, \
@@ -91,13 +91,9 @@ class MappingSuiteStructureValidator:
                 for path in item.iterdir():
                     if path.is_dir():
                         for last_path in path.iterdir():
-                            message_path_not_found = f"Path not found: {last_path}"
                             if SHACL_KEYWORD in os.path.basename(last_path) and SPARQL_KEYWORD in os.path.basename(
                                     last_path):
                                 pass
-                            else:
-                                self.is_valid = False
-                                self.logger.error(event_message=EventMessage(message=message_path_not_found))
 
         return self.assert_path(mandatory_paths_l3)
 
@@ -108,27 +104,25 @@ class MappingSuiteStructureValidator:
             in particular paying attention to the mapping suite version and the ontology version.
         """
 
-        # TODO: consider renaming variables to reflect coherently the logic of the function
         conceptual_mappings_document = mapping_suite_read_metadata(
             conceptual_mappings_file_path=self.mapping_suite_path / MS_TRANSFORM_FOLDER_NAME / MS_CONCEPTUAL_MAPPING_FILE_NAME)
-        mapping_version = [val for val in conceptual_mappings_document.values()][4][0]
-        epo_version = [val for val in conceptual_mappings_document.values()][5][0]
+        conceptual_mappings_version = [val for val in conceptual_mappings_document.values()][4][0]
+        conceptual_mappings_epo_version = [val for val in conceptual_mappings_document.values()][5][0]
 
         package_metadata_path = self.mapping_suite_path / MS_METADATA_FILE_NAME
         package_metadata_content = package_metadata_path.read_text(encoding="utf-8")
         package_metadata = json.loads(package_metadata_content)
         package_metadata['metadata_constraints'] = MetadataConstraints(**package_metadata['metadata_constraints'])
         metadata_version = [val for val in package_metadata.values()][3]
-        metadata_ontology_version = [val for val in package_metadata.values()][4]
+        metadata_epo_version = [val for val in package_metadata.values()][4]
 
-        if mapping_version > metadata_version and epo_version > metadata_ontology_version:
+        if conceptual_mappings_version> metadata_version and conceptual_mappings_epo_version> metadata_epo_version:
             pass
         else:
             self.is_valid = False
-            # TODO: check the variable names and that the logger message indicates the correct situation
             # TODO: assert that this logged message is generated in the tests
             self.logger.error(event_message=EventMessage(
-                message=f'Not the same value between metadata.json [version {metadata_version}, epo version {epo_version}] and conceptual_mapping_file [version {mapping_version}, ontology_version {metadata_ontology_version}]'))
+                message=f'Not the same value between metadata.json [version {metadata_version}, epo_version {metadata_epo_version}] and conceptual_mapping_file [version {conceptual_mappings_version}, epo_version {conceptual_mappings_epo_version}]'))
 
     def check_for_changes_by_version(self) -> bool:
         """

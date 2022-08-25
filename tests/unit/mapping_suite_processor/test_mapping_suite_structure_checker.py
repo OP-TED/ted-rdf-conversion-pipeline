@@ -11,8 +11,6 @@ from ted_sws.mapping_suite_processor.adapters.mapping_suite_structure_checker im
     MS_METADATA_FILE_NAME, MappingSuiteStructureValidator
 from ted_sws.mapping_suite_processor.services.conceptual_mapping_reader import mapping_suite_read_metadata
 
-SHACL_EPO = "shacl_epo.htlm"
-SPARQL_CM_ASSERTIONS = "sparql_cm_assertions.html"
 KEY_VERSION = "Mapping Version"
 KEY_EPO = "EPO version"
 
@@ -80,3 +78,4 @@ def test_check_metadata_consistency(package_folder_path_for_validator):
         mapping_version = mapping_suite_read_metadata(conceptual_mappings_file_path=conceptual_mappings_file_path)
         assert KEY_VERSION in mapping_version
         assert KEY_EPO in mapping_version
+

@@ -62,7 +62,7 @@ x-airflow-common:
 #    AIRFLOW__CELERY__BROKER_URL: "redis://:$${REDIS_PASSWORD}@redis.$${SUBDOMAIN}$${AIRFLOW_MASTER_DOMAIN}/0"
     AIRFLOW__CORE__SQL_ALCHEMY_CONN: postgresql+psycopg2://airflow:airflow@postgres.staging.ted-data.eu/airflow
     AIRFLOW__CELERY__RESULT_BACKEND: db+postgresql://airflow:airflow@postgres.staging.ted-data.eu/airflow
-    AIRFLOW__CELERY__BROKER_URL: redis://:@redis.staging.ted-data.eu/0"
+    AIRFLOW__CELERY__BROKER_URL: redis://:@redis.staging.ted-data.eu/0
     AIRFLOW__WEBSERVER__SECRET_KEY: "zqOVjqVrMstjDbKEPpYiSA=="
     IS_PRIME_ENV: 'true'
     AIRFLOW__CORE__EXECUTOR: CeleryExecutor

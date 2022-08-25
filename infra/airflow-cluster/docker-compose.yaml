@@ -57,10 +57,10 @@ x-airflow-common:
     AIRFLOW__CELERY__WORKER_CONCURRENCY: 128
     AIRFLOW__CORE__SQL_ALCHEMY_POOL_SIZE: 256
     AIRFLOW__CORE__SQL_ALCHEMY_MAX_OVERFLOW: 512
-#    AIRFLOW__CORE__SQL_ALCHEMY_CONN: postgresql+psycopg2://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres.${SUBDOMAIN}${AIRFLOW_MASTER_DOMAIN}/airflow
-    AIRFLOW__CORE__SQL_ALCHEMY_CONN: postgresql+psycopg2://airflow:airflow@65.108.123.44/airflow
-#    AIRFLOW__CELERY__RESULT_BACKEND: db+postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres.${SUBDOMAIN}${AIRFLOW_MASTER_DOMAIN}/airflow
-    AIRFLOW__CELERY__RESULT_BACKEND: db+postgresql://airflow:airflow@65.108.123.44/airflow
+    AIRFLOW__CORE__SQL_ALCHEMY_CONN: postgresql+psycopg2://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres.${SUBDOMAIN}${AIRFLOW_MASTER_DOMAIN}/airflow
+#    AIRFLOW__CORE__SQL_ALCHEMY_CONN: postgresql+psycopg2://airflow:airflow@65.108.123.44/airflow
+    AIRFLOW__CELERY__RESULT_BACKEND: db+postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres.${SUBDOMAIN}${AIRFLOW_MASTER_DOMAIN}/airflow
+#    AIRFLOW__CELERY__RESULT_BACKEND: db+postgresql://airflow:airflow@65.108.123.44/airflow
     AIRFLOW__CELERY__BROKER_URL: redis://:${REDIS_PASSWORD}@redis.${SUBDOMAIN}${AIRFLOW_MASTER_DOMAIN}/0
     AIRFLOW__WEBSERVER__SECRET_KEY: "zqOVjqVrMstjDbKEPpYiSA=="
     IS_PRIME_ENV: 'true'
@@ -128,10 +128,10 @@ services:
     labels:
       #### Labels define the behavior and rules of the traefik proxy for this container ####
       - "traefik.enable=true" # <== Enable traefik to proxy this container
-      - "traefik.http.routers.${ENVIRONMENT}-postgres.rule=Host(`postgres.${SUBDOMAIN}${AIRFLOW_MASTER_DOMAIN}`)" # <== Your Domain Name goes here for the http rule
-      - "traefik.http.routers.${ENVIRONMENT}-postgres.entrypoints=web" # <== Defining the entrypoint for http, **ref: line 30
+      - "traefik.http.routers.${ENVIRONMENT}-postgres.rule=HostSNI(`*`)" # <== Your Domain Name goes here for the http rule
+      - "traefik.http.routers.${ENVIRONMENT}-postgres.entrypoints=postgres.${SUBDOMAIN}${AIRFLOW_MASTER_DOMAIN}" # <== Defining the entrypoint for http, **ref: line 30
       - "traefik.http.routers.${ENVIRONMENT}-postgres.middlewares=redirect@file" # <== This is a middleware to redirect to https
-      - "traefik.http.routers.${ENVIRONMENT}-postgres-secured.rule=Host(`postgres.${SUBDOMAIN}${AIRFLOW_MASTER_DOMAIN}`)" # <== Your Domain Name for the https rule
+      - "traefik.http.routers.${ENVIRONMENT}-postgres-secured.rule=HostSNI(`*`)" # <== Your Domain Name for the https rule
       - "traefik.http.routers.${ENVIRONMENT}-postgres-secured.entrypoints=web-secured" # <== Defining entrypoint for https, **ref: line 31
       - "traefik.http.routers.${ENVIRONMENT}-postgres-secured.tls.certresolver=mytlschallenge" # <== Defining certsresolvers for https
       - "traefik.http.services.${ENVIRONMENT}-postgres-secured.loadbalancer.server.port=5432"

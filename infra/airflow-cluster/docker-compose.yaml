@@ -322,6 +322,8 @@ services:
     restart: unless-stopped
 #    ports:
 #      - "5555:5555"
+    expose:
+      - 5555
     networks:
       - airflow
       - proxy-net

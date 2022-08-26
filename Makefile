@@ -342,16 +342,16 @@ create-env-digest-api:
 
 build-digest_service-api: create-env-digest-api
 	@ echo -e "$(BUILD_PRINT) Build digest_service API service $(END_BUILD_PRINT)"
-	@ docker-compose -p common --file infra/api/docker-compose.yml --env-file ${ENV_FILE} build --no-cache --force-rm
-	@ docker-compose -p common --file infra/api/docker-compose.yml --env-file ${ENV_FILE} up -d --force-recreate
+	@ docker-compose -p common --file infra/digest_api/docker-compose.yml --env-file ${ENV_FILE} build --no-cache --force-rm
+	@ docker-compose -p common --file infra/digest_api/docker-compose.yml --env-file ${ENV_FILE} up -d --force-recreate
 
 start-digest_service-api:
 	@ echo -e "$(BUILD_PRINT)Starting digest_service API service $(END_BUILD_PRINT)"
-	@ docker-compose -p common --file infra/api/docker-compose.yml --env-file ${ENV_FILE} up -d
+	@ docker-compose -p common --file infra/digest_api/docker-compose.yml --env-file ${ENV_FILE} up -d
 
 stop-digest_service-api:
 	@ echo -e "$(BUILD_PRINT)Stopping digest_service API service $(END_BUILD_PRINT)"
-	@ docker-compose -p common --file infra/api/docker-compose.yml --env-file ${ENV_FILE} down
+	@ docker-compose -p common --file infra/digest_api/docker-compose.yml --env-file ${ENV_FILE} down
 
 
 dump-mongodb:

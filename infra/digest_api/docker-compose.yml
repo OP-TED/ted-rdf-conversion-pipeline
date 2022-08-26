@@ -4,7 +4,6 @@ services:
   api-digest_service:
     container_name: api-digest_service-container
     build:
-      context: ../..
       dockerfile: ./infra/digest_api/Dockerfile
     env_file: ../../.env
     networks:

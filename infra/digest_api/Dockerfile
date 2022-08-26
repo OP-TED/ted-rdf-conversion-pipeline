@@ -2,7 +2,7 @@ FROM docker.io/python:3.8-slim-buster
 EXPOSE 8000
 
 WORKDIR /usr/src/api/id_manager
-COPY ../../ted_sws /usr/src/api/id_manager/ted_sws
+COPY . /usr/src/api/id_manager
 COPY digest_service /usr/src/api/id_manager
 
 RUN pip install --upgrade pip

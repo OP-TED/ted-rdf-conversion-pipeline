@@ -1,7 +1,7 @@
 source .env
 export $(cat .env | xargs)
 
-SERVICES_WITHOUT_DNS=(airflow metabase mongo-express)
+SERVICES_WITHOUT_DNS=(airflow metabase)
 SERVICES_WITH_DNS_CREATION=(mongo digest-api fuseki)
 
 create_service_with_service_discovery(){

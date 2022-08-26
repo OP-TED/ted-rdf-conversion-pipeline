@@ -1,6 +1,6 @@
 source .env
 export $(cat .env | xargs)
-CLUSTERS=(mongo digest-api airflow fuseki metabase mongo-express)
+CLUSTERS=(mongo digest-api airflow fuseki metabase)
 
 create_cluster_config_and_profiles() {
   ecs-cli configure --cluster $1-cluster --default-launch-type EC2 --config-name $1-cluster --region $REGION
@@ -23,4 +23,3 @@ create_cluster $DIGEST_API_INSTANCE_TYPE digest-api-cluster digest-api-cluster-p
 create_cluster $AIRFLOW_INSTANCE_TYPE airflow-cluster airflow-cluster-profile
 create_cluster $FUSEKI_INSTANCE_TYPE fuseki-cluster fuseki-cluster-profile
 create_cluster $METABASE_INSTANCE_TYPE metabase-cluster metabase-cluster-profile
-create_cluster $MONGO_EXPRESS_INSTANCE_TYPE mongo-express-cluster mongo-express-cluster-profile

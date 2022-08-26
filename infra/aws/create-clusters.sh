@@ -15,7 +15,7 @@ done
 create_cluster() {
   echo "VPC ID is $VPC_ID"
   echo "Creating cluster for $1"
-  ecs-cli up --force --instance-role ecsInstanceRole --extra-user-data botocore.sh --keypair tedSWS --size 1 --instance-type $1 --cluster-config $2 --ecs-profile $3 --vpc $VPC_ID --subnets $SUBNET_1_ID,$SUBNET_2_ID --security-group $SECURITY_GROUP
+  ecs-cli up --force --instance-role ecsInstanceRole --size 1 --instance-type $1 --cluster-config $2 --ecs-profile $3 --vpc $VPC_ID --subnets $SUBNET_1_ID,$SUBNET_2_ID --security-group $SECURITY_GROUP
 }
 
 create_cluster $MONGO_INSTANCE_TYPE mongo-cluster mongo-cluster-profile

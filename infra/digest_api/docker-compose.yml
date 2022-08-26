@@ -2,7 +2,6 @@ version: '3.8'
 
 services:
   api-digest_service:
-    container_name: api-digest_service
     build:
       context: .
     env_file: ../../.env

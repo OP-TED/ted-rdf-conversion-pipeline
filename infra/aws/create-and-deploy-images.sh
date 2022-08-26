@@ -10,6 +10,7 @@ REDIS_IMAGE=docker.io/redis:7.0.4-alpine3.16
 IMAGES_TO_BE_BUILD=(airflow digest_api metabase_postgres)
 IMAGES_FROM_DOCKER_HUB=(fuseki airflow_postgres metabase mongo redis)
 
+make create-env-digest-api
 touch .repositories_ids
 
 create_repository(){

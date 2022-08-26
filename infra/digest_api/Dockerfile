@@ -1,7 +1,5 @@
-FROM python:3.8-slim-buster
+FROM docker.io/python:3.8-slim-buster
 EXPOSE 8000
-
-RUN bash -c 'echo $ID_MANAGER_API_PORT'
 
 WORKDIR /usr/src/api/id_manager
 COPY . /usr/src/api/id_manager

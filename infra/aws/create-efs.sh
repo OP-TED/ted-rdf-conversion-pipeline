@@ -15,7 +15,6 @@ create_volume(){
   sleep 5
   aws efs create-mount-target --file-system-id $FILE_SYSTEM_ID --subnet-id $SUBNET_1_ID
   aws efs create-mount-target --file-system-id $FILE_SYSTEM_ID --subnet-id $SUBNET_2_ID
-  aws efs create-mount-target --file-system-id $FILE_SYSTEM_ID --subnet-id $SUBNET_3_ID
   echo "Volume $1 successfully created "
 }
 

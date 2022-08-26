@@ -8,9 +8,9 @@ from tests.e2e.dags import run_task, START_PROCESSING_NOTICE_TASK_ID, \
     GENERATE_METS_PACKAGE_TASK_ID, CHECK_PACKAGE_INTEGRITY_BY_PACKAGE_STRUCTURE_TASK_ID, \
     PUBLISH_NOTICE_IN_CELLAR_TASK_ID, CHECK_NOTICE_PUBLIC_AVAILABILITY_IN_CELLAR_TASK_ID, \
     CHECK_NOTICE_STATE_BEFORE_TRANSFORM_TASK_ID, CHECK_NOTICE_STATE_BEFORE_GENERATE_METS_PACKAGE_TASK_ID, \
-    INDEX_NOTICE_XML_CONTENT_TASK_ID
+    INDEX_NOTICE_XML_CONTENT_TASK_ID, CHECK_NOTICE_STATE_BEFORE_PUBLISH_NOTICE_IN_CELLAR_TASK_ID
 
-DAG_ID = "worker_single_notice_process_orchestrator"
+DAG_ID = "old_worker_single_notice_process_orchestrator"
 
 
 def execute_dag_step(dag, task_id: str, dag_config: dict, xcom_push_data: dict = None):
@@ -95,13 +95,15 @@ def test_worker_dag_steps(dag_bag, notice_repository):
 
     assert notice.mets_manifestation is not None
 
+    execute_dag_step(dag, task_id=CHECK_PACKAGE_INTEGRITY_BY_PACKAGE_STRUCTURE_TASK_ID, dag_config=dag_config)
+    check_notice_status(notice_repository=notice_repository, notice_id=notice_id,
+                        notice_status=NoticeStatus.ELIGIBLE_FOR_PUBLISHING)
+
+    execute_dag_step(dag, task_id=CHECK_NOTICE_STATE_BEFORE_PUBLISH_NOTICE_IN_CELLAR_TASK_ID, dag_config=dag_config)
+    execute_dag_step(dag, task_id=PUBLISH_NOTICE_IN_CELLAR_TASK_ID, dag_config=dag_config)
+    check_notice_status(notice_repository=notice_repository, notice_id=notice_id, notice_status=NoticeStatus.PUBLISHED)
+
     # TODO: add this steps when publish notice in cellar will work
-    # execute_dag_step(dag, task_id=CHECK_PACKAGE_INTEGRITY_BY_PACKAGE_STRUCTURE_TASK_ID, xcom_push_data=XCOM_DEFAULT)
-    # check_notice_status(notice_repository=notice_repository, notice_status=NoticeStatus.ELIGIBLE_FOR_PUBLISHING)
-    #
-    # execute_dag_step(dag, task_id=PUBLISH_NOTICE_IN_CELLAR_TASK_ID, xcom_push_data=XCOM_DEFAULT)
-    # check_notice_status(notice_repository=notice_repository, notice_status=NoticeStatus.PUBLISHED)
-    #
     # execute_dag_step(dag, task_id=CHECK_NOTICE_PUBLIC_AVAILABILITY_IN_CELLAR_TASK_ID, xcom_push_data=XCOM_DEFAULT)
     # check_notice_status(notice_repository=notice_repository, notice_status=NoticeStatus.PUBLICLY_AVAILABLE)
 

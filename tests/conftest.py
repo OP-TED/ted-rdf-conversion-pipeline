@@ -39,6 +39,7 @@ def notice_repository():
 def ted_document_search():
     return TedAPIAdapter(request_api=FakeRequestAPI())
 
+
 @pytest.fixture
 def raw_notice(ted_document_search, notice_repository, notice_id) -> Notice:
     document_id = notice_id
@@ -46,6 +47,7 @@ def raw_notice(ted_document_search, notice_repository, notice_id) -> Notice:
         document_id=document_id)
     raw_notice = notice_repository.get(reference=document_id)
     return raw_notice
+
 
 @pytest.fixture
 def indexed_notice(raw_notice) -> Notice:

@@ -2,7 +2,9 @@ import mongomock
 import pymongo
 import pytest
 
+from ted_sws.data_manager.adapters.triple_store import RDF_MIME_TYPES
 from tests import TEST_DATA_PATH
+
 
 @pytest.fixture
 @mongomock.patch(servers=(('server.example.com', 27017),))
@@ -13,6 +15,7 @@ def fake_mongodb_client():
 @pytest.fixture
 def file_system_repository_path():
     return TEST_DATA_PATH / "notice_transformer" / "mapping_suite_processor_repository"
+
 
 @pytest.fixture
 def yarrrml_file_content():
@@ -28,6 +31,7 @@ mappings:
       - [a, foaf:Person]
       - [ex:name, $(firstname)]
 """
+
 
 @pytest.fixture
 def rml_file_result():
@@ -84,3 +88,6 @@ def package_folder_path():
     return TEST_DATA_PATH / "notice_validator" / "test_repository" / "test_package"
 
 
+@pytest.fixture
+def mime_type():
+    return RDF_MIME_TYPES

@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import datetime, date
 
 import mongomock
 import pymongo
@@ -46,4 +46,4 @@ def fake_mapping_suite():
 
 @pytest.fixture
 def daily_supra_notice():
-    return DailySupraNotice(notice_ids=["1", "2", "3"])
+    return DailySupraNotice(notice_ids=["1", "2", "3"], notice_fetched_date=date.today())

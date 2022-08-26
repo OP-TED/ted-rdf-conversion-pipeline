@@ -11,7 +11,6 @@ from ted_sws.data_manager.adapters.mapping_suite_repository import MappingSuiteR
 from ted_sws.data_manager.adapters.notice_repository import NoticeRepository
 from ted_sws.mapping_suite_processor.adapters.github_package_downloader import GitHubMappingSuitePackageDownloader
 
-CONCEPTUAL_MAPPINGS_FILE_NAME = "conceptual_mappings.xlsx"
 CONCEPTUAL_MAPPINGS_ASSERTIONS = "cm_assertions"
 SHACL_SHAPE_INJECTION_FOLDER = "ap_data_shape"
 SHACL_SHAPE_RESOURCES_FOLDER = "shacl_shapes"
@@ -36,6 +35,7 @@ def mapping_suite_processor_load_package_in_mongo_db(mapping_suite_package_path:
     :param git_last_commit_hash:
     :return:
     """
+
     mapping_suite_repository_path = mapping_suite_package_path.parent
     mapping_suite_package_name = mapping_suite_package_path.name
     mapping_suite_repository_in_file_system = MappingSuiteRepositoryInFileSystem(
@@ -67,9 +67,8 @@ def mapping_suite_processor_from_github_expand_and_load_package_in_mongo_db(mapp
     :param load_test_data:
     :return:
     """
-    default_github_repository_url = "https://github.com/meaningfy-ws/ted-sws-artefacts.git"
     mapping_suite_package_downloader = GitHubMappingSuitePackageDownloader(
-        github_repository_url=config.GITHUB_TED_SWS_ARTEFACTS_URL or default_github_repository_url)
+        github_repository_url=config.GITHUB_TED_SWS_ARTEFACTS_URL)
     with tempfile.TemporaryDirectory() as tmp_dir:
         tmp_dir_path = pathlib.Path(tmp_dir)
         git_last_commit_hash = mapping_suite_package_downloader.download(

@@ -7,7 +7,7 @@ def test_xpath_coverage_runner(fake_notice_F03, fake_conceptual_mappings_F03_pat
                                           fake_conceptual_mappings_F03_path)
     json_report = xpath_coverage_json_report(report)
     assert isinstance(json_report, dict)
-    assert json_report["coverage"]
+    assert json_report["validation_result"]["coverage"]
 
     html_report = xpath_coverage_html_report(report)
     assert fake_notice_F03.ted_id in html_report

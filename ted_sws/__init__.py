@@ -84,6 +84,10 @@ class AllegroConfig:
     def ALLEGRO_HOST(self) -> str:
         return EnvConfigResolver().config_resolve()
 
+    @property
+    def TRIPLE_STORE_ENDPOINT_URL(self)->str:
+        return EnvConfigResolver().config_resolve()
+
 
 class ELKConfig:
 
@@ -151,9 +155,44 @@ class TedAPIConfig:
     def TED_API_URL(self) -> str:
         return EnvConfigResolver().config_resolve()
 
+class FusekiConfig:
+    @property
+    def FUSEKI_ADMIN_USER(self) -> str:
+        return EnvConfigResolver().config_resolve()
+
+    @property
+    def FUSEKI_ADMIN_PASSWORD(self) -> str:
+        return EnvConfigResolver().config_resolve()
+
+    @property
+    def FUSEKI_ADMIN_HOST(self) -> str:
+        return EnvConfigResolver().config_resolve()
+
+class SFTPConfig:
+    @property
+    def SFTP_HOST(self) -> str:
+        return EnvConfigResolver().config_resolve()
+
+    @property
+    def SFTP_PORT(self) -> int:
+        v = EnvConfigResolver().config_resolve()
+        return int(v) if v is not None else 22
+
+    @property
+    def SFTP_USER(self) -> str:
+        return EnvConfigResolver().config_resolve()
+
+    @property
+    def SFTP_PASSWORD(self)->str:
+        return EnvConfigResolver().config_resolve()
+
+    @property
+    def SFTP_PATH(self)->str:
+        return EnvConfigResolver().config_resolve()
+
 
 class TedConfigResolver(MongoDBConfig, RMLMapperConfig, XMLProcessorConfig, ELKConfig, LoggingConfig,
-                        GitHubArtefacts, API, AllegroConfig, TedAPIConfig):
+                        GitHubArtefacts, API, AllegroConfig, TedAPIConfig, SFTPConfig, FusekiConfig):
     """
         This class resolve the secrets of the ted-sws project.
     """

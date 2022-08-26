@@ -45,7 +45,8 @@ limit ~value
 def test_sparql_triple_store_with_query_from_file(cellar_sparql_endpoint):
     query_path = TEST_DATA_PATH / "sparql_queries" / "buyer_legal_type.rq"
     substitution_variables = {"value": 10}
-    execute_query = SPARQLTripleStoreEndpoint(endpoint_url=cellar_sparql_endpoint).with_query_from_file(sparql_query_file_path=query_path, substitution_variables=substitution_variables)
+    execute_query = SPARQLTripleStoreEndpoint(endpoint_url=cellar_sparql_endpoint).with_query_from_file(
+        sparql_query_file_path=query_path, substitution_variables=substitution_variables)
 
     tabular_results = execute_query.fetch_tabular()
     tree_results = execute_query.fetch_tree()

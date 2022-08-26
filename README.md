@@ -13,6 +13,8 @@
 ![UTest build](https://github.com/meaningfy-ws/ted-sws/actions/workflows/unit-tests.yml/badge.svg?branch=main)
 ![E2E Test build](https://github.com/meaningfy-ws/ted-sws/actions/workflows/unit-tests-hermes.yml/badge.svg?branch=main)
 
+[![codecov](https://codecov.io/gh/OP-TED/ted-rdf-conversion-pipeline/branch/main/graph/badge.svg?token=DzceZJWLaL)](https://codecov.io/gh/OP-TED/ted-rdf-conversion-pipeline) [CodeCov Icicle](https://codecov.io/gh/OP-TED/ted-rdf-conversion-pipeline/branch/main/graphs/icicle.svg?token=DzceZJWLaL)
+
 ## Table of contents
 
 - [Developer documentation](#developer-documentation)

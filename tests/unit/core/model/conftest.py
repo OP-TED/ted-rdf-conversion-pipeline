@@ -10,7 +10,8 @@
 import pytest
 
 from ted_sws.core.model.manifestation import XMLManifestation, RDFManifestation, METSManifestation, \
-    RDFValidationManifestation, SHACLTestSuiteValidationReport, SPARQLTestSuiteValidationReport
+    RDFValidationManifestation, SHACLTestSuiteValidationReport, SPARQLTestSuiteValidationReport, \
+    XPATHCoverageValidationReport
 from ted_sws.core.model.metadata import TEDMetadata, NormalisedMetadata
 from ted_sws.core.model.notice import Notice, NoticeStatus
 
@@ -34,15 +35,21 @@ def publicly_available_notice(fetched_notice_data, normalised_metadata_dict) -> 
                                                       test_suite_identifier="shacl_test_id",
                                                       mapping_suite_identifier="mapping_suite_id",
                                                       validation_results=[])
+    xpath_coverage_validation = XPATHCoverageValidationReport(object_data="This is validation report!",
+                                                              test_suite_identifier="shacl_test_id",
+                                                              mapping_suite_identifier="mapping_suite_id",
+                                                              validation_result=None)
     notice = Notice(ted_id=ted_id, original_metadata=original_metadata,
                     xml_manifestation=xml_manifestation)
     notice._rdf_manifestation = RDFManifestation(object_data="RDF manifestation content",
                                                  shacl_validations=[shacl_validation],
-                                                 sparql_validations=[sparql_validation]
+                                                 sparql_validations=[sparql_validation],
+                                                 xpath_coverage_validation=xpath_coverage_validation
                                                  )
     notice._distilled_rdf_manifestation = RDFManifestation(object_data="RDF manifestation content",
                                                            shacl_validations=[shacl_validation],
-                                                           sparql_validations=[sparql_validation]
+                                                           sparql_validations=[sparql_validation],
+                                                           xpath_coverage_validation=xpath_coverage_validation
                                                            )
     notice._mets_manifestation = METSManifestation(object_data="METS manifestation content")
     notice._normalised_metadata = NormalisedMetadata(**normalised_metadata_dict)

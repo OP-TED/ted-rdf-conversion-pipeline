@@ -16,6 +16,8 @@ import pandas as pd
 import rdflib
 from SPARQLWrapper import SPARQLWrapper, CSV, JSON, RDF
 
+from ted_sws import config
+
 DEFAULT_ENCODING = 'utf-8'
 DEFAULT_RDF_FILE_FORMAT = "n3"
 
@@ -35,7 +37,12 @@ class SPARQLClientPool(object):
     @staticmethod
     def create_or_reuse_connection(endpoint_url: str):
         if endpoint_url not in SPARQLClientPool.connection_pool:
-            SPARQLClientPool.connection_pool[endpoint_url] = SPARQLWrapper(endpoint_url)
+            sparql_wrapper = SPARQLWrapper(endpoint_url)
+            sparql_wrapper.setCredentials(
+                user=config.AGRAPH_SUPER_USER,
+                passwd=config.AGRAPH_SUPER_PASSWORD
+            )
+            SPARQLClientPool.connection_pool[endpoint_url] = sparql_wrapper
         return SPARQLClientPool.connection_pool[endpoint_url]
 
 

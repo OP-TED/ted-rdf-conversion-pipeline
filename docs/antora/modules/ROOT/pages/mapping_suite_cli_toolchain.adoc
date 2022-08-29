@@ -1,0 +1,376 @@
+= Mapping Suite CLI toolchain
+
+This set of instructions is prepared fo semantic engineers who intend to work with mapping suites.
+
+== Installation instructions for semantic engineers
+
+It is required to use Python version 3.8 or greater on a Linux machine.
+
+Open a Linux terminal and clone the `ted-rdf-mapping` project.
+
+[source,bash]
+----
+git clone https://github.com/OP-TED/ted-rdf-mapping
+cd ted-rdf-mapping
+----
+
+Create a virtual Python environment and activate it.
+
+[source]
+----
+pip install virtualenv # install first
+python -m venv ./venv # Create a virtual environment named venv
+source ./venv/bin/activate # to active the environment
+----
+
+If you already have the `venv` created then every time you work on the mapping suites, please remember to activate it.
+
+[source,bash]
+----
+source ./venv/bin/activate # to active the environment
+----
+
+Install the TED-SWS CLIs as a Python package using the  `pip` package manager.
+
+[source,bash]
+----
+pip install git+https://github.com/OP-TED/ted-rdf-conversion-pipeline#egg=ted-sws
+----
+
+== Usage
+CLI tools (commands/console-scripts) described in this section are developed for mapping suite generation, processing, validation, testing, and other purposes.
+
+To use any of these CLI commands using `MAPPING_SUITE_ID` argument should be enough for general purpose.
+
+=== CMD: normalisation_resource_generator
+Generates all resources files needed for notice mapping suite transformation.
+
+Use:
+
+[source,bash]
+----
+normalisation_resource_generator --help
+----
+to get the Usage Help:
+
+[source,bash]
+----
+Usage: normalisation_resource_generator [OPTIONS] [MAPPING_SUITE_ID]
+
+Options:
+  -i, --opt-queries-folder TEXT               Use to overwrite default INPUT
+  -o, --opt-output-folder TEXT                Use to overwrite default OUTPUT
+  -m, --opt-mappings-folder TEXT
+  --help                                      Show this message and exit.
+----
+
+=== CMD: resources_injector
+Injects the requested resources from Conceptual Mappings into the MappingSuite.
+
+Use:
+
+[source,bash]
+----
+resources_injector --help
+----
+to get the Usage Help:
+
+[source,bash]
+----
+Usage: resources_injector [OPTIONS] [MAPPING_SUITE_ID]
+
+  Injects the requested resources from Conceptual Mappings into the MappingSuite
+
+Options:
+  -i, --opt-conceptual-mappings-file TEXT     Use to overwrite default INPUT
+  -o, --opt-output-folder TEXT                Use to overwrite default OUTPUT
+  -r, --opt-resources-folder TEXT
+  -m, --opt-mappings-folder TEXT
+  --help                                      Show this message and exit.
+----
+
+=== CMD: rml_modules_injector
+Injects the requested RML modules from Conceptual Mappings into the MappingSuite.
+
+Use:
+
+[source,bash]
+----
+rml_modules_injector --help
+----
+to get the Usage Help:
+
+[source,bash]
+----
+Usage: rml_modules_injector [OPTIONS] [MAPPING_SUITE_ID]
+
+  Injects the requested RML modules from Conceptual Mappings into the MappingSuite
+
+Options:
+  -i, --opt-conceptual-mappings-file TEXT     Use to overwrite default INPUT
+  -o, --opt-output-folder TEXT                Use to overwrite default OUTPUT
+  -c, --opt-clean BOOLEAN                     Use to clean the OUTPUT folder
+  -r, --opt-rml-modules-folder TEXT
+  -m, --opt-mappings-folder TEXT
+  --help                                      Show this message and exit.
+----
+
+=== CMD: metadata_generator
+Generates metadata.json file from Conceptual Mappings file data.
+
+Use:
+
+[source,bash]
+----
+metadata_generator --help
+----
+to get the Usage Help:
+
+[source,bash]
+----
+Usage: metadata_generator [OPTIONS] [MAPPING_SUITE_ID]
+
+  Generates Metadata from Conceptual Mappings.
+
+Options:
+  -i, --opt-conceptual-mappings-file TEXT     Use to overwrite default INPUT
+  -o, --opt-output-metadata-file TEXT         Use to overwrite default OUTPUT
+  -m, --opt-mappings-folder TEXT
+  --help                                      Show this message and exit.
+----
+
+=== CMD: yarrrml2rml_converter
+Converts YARRRML data to RML data.
+
+Use:
+
+[source,bash]
+----
+yarrrml2rml_converter --help
+----
+to get the Usage Help:
+
+[source,bash]
+----
+Usage: yarrrml2rml_converter [OPTIONS] [MAPPING_SUITE_ID] [RML_OUTPUT_FILE_NAME]
+
+  Converts YARRRML to RML. Skip RML_OUTPUT_FILE_NAME to use the default name.
+
+Options:
+  -i, --opt-yarrrml-input-file TEXT           Use to overwrite default INPUT
+  -o, --opt-rml-output-file TEXT              Use to overwrite default OUTPUT
+  -m, --opt-mappings-folder TEXT
+  --help                                      Show this message and exit.
+----
+
+=== CMD: sparql_generator
+Generates SPARQL queries from Conceptual Mappings file data.
+
+Use:
+
+[source,bash]
+----
+sparql_generator --help
+----
+to get the Usage Help:
+
+[source,bash]
+----
+Usage: sparql_generator [OPTIONS] [MAPPING_SUITE_ID]
+
+  Generates SPARQL queries from Conceptual Mappings.
+
+Options:
+  -i, --opt-conceptual-mappings-file TEXT         Use to overwrite default INPUT
+  -o, --opt-output-sparql-queries-folder TEXT     Use to overwrite default OUTPUT
+  -rq-name, --opt-rq-name TEXT
+  -m, --opt-mappings-folder TEXT
+  --help                                          Show this message and exit.
+----
+
+=== CMD: mapping_runner
+Transforms the Test Mapping Suites.
+
+Use:
+
+[source,bash]
+----
+mapping_runner --help
+----
+to get the Usage Help:
+
+[source,bash]
+----
+Usage: mapping_runner [OPTIONS] [MAPPING_SUITE_ID] [SERIALIZATION_FORMAT]
+
+  Transforms the Test Mapping Suites (identified by mapping-suite-id). If no
+  mapping-suite-id is provided, all mapping suites from mappings directory
+  will be processed.
+
+Options:
+  --opt-mapping-suite-id TEXT                 MappingSuite ID to be processed (leave empty
+                                              to process all Mapping Suites).
+  --opt-serialization-format TEXT             Serialization format (turtle (default),
+                                              nquads, trig, trix, jsonld, hdt).
+  --opt-mappings-folder TEXT
+  --opt-output-folder TEXT
+  --help                                      Show this message and exit.
+----
+
+=== CMD: mapping_suite_processor
+Processes Mapping Suite (identified by mapping-suite-id).
+
+By default, successively runs the following commands:
+
+[source,bash]
+----
+- normalisation_resource_generator
+- resources_injector
+- metadata_generator
+- yarrrml2rml_converter
+- sparql_generator
+----
+
+Use:
+
+[source,bash]
+----
+mapping_suite_processor --help
+----
+to get the Usage Help:
+
+[source,bash]
+----
+Usage: mapping_suite_processor [OPTIONS] MAPPING_SUITE_ID
+
+  Processes Mapping Suite (identified by mapping-suite-id): -
+  normalisation_resource_generator - metadata_generator -
+  yarrrml2rml_converter - sparql_generator
+
+Options:
+  -c, --opt-commands [normalisation_resource_generator|resources_injector|metadata_generator|yarrrml2rml_converter|sparql_generator]
+  -m, --opt-mappings-folder TEXT
+  --help                                      Show this message and exit.
+----
+Use:
+
+[source,bash]
+----
+mapping_suite_processor -c COMMAND1 -c COMMAND2 ...
+----
+to set custom commands (order) to be executed
+
+
+=== CMD: sparql_runner
+Generates SPARQL Validation Reports for RDF files.
+
+Use:
+
+[source,bash]
+----
+sparql_runner --help
+----
+to get the Usage Help:
+
+[source,bash]
+----
+Usage: sparql_runner [OPTIONS] [MAPPING_SUITE_ID]
+
+  Generates Validation Reports for RDF files
+
+Options:
+  -m, --opt-mappings-folder TEXT
+  --help                                      Show this message and exit.
+----
+
+=== CMD: xpath_coverage_runner
+Generates Coverage Reports for Notices
+
+Use:
+
+[source,bash]
+----
+xpath_coverage_runner --help
+----
+to get the Usage Help:
+
+[source,bash]
+----
+Usage: xpath_coverage_runner [OPTIONS] [MAPPING_SUITE_ID]
+
+  Generates Coverage Reports for Notices
+
+Options:
+  -i, --opt-conceptual-mappings-file TEXT     Use to overwrite default INPUT
+  -m, --opt-mappings-folder TEXT
+
+  --help                                      Show this message and exit.
+----
+
+=== CMD: shacl_runner
+Generates SHACL Validation Reports for RDF files.
+
+Use:
+
+[source,bash]
+----
+shacl_runner --help
+----
+to get the Usage Help:
+
+[source,bash]
+----
+Usage: shacl_runner [OPTIONS] [MAPPING_SUITE_ID]
+
+  Generates SHACL Validation Reports for RDF files
+
+Options:
+  -m, --opt-mappings-folder TEXT
+  --help                                      Show this message and exit.
+----
+
+=== CMD: rml_report_generator
+Generates RML modules report file for Mapping Suite.
+
+Use:
+
+[source,bash]
+----
+rml_report_generator --help
+----
+to get the Usage Help:
+
+[source,bash]
+----
+Usage: rml_report_generator [OPTIONS] [MAPPING_SUITE_ID]
+
+  Generates RML modules report file for Mapping Suite.
+
+Options:
+  -m, --opt-mappings-folder TEXT
+  --help                                      Show this message and exit.
+----
+
+=== CMD: triple_store_loader
+Loads the MappingSuite output into Triple Store.
+
+Use:
+
+[source,bash]
+----
+triple_store_loader --help
+----
+to get the Usage Help:
+
+[source,bash]
+----
+Usage: triple_store_loader [OPTIONS] [MAPPING_SUITE_ID]
+
+  Loads the MappingSuite output into Triple Store.
+
+Options:
+  -c, --opt-catalog-name TEXT
+  -m, --opt-mappings-folder TEXT
+  --help                                      Show this message and exit.
+
+----

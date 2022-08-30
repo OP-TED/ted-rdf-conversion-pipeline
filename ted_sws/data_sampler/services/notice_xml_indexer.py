@@ -30,7 +30,7 @@ def index_notice_by_id(notice_id: str, mongodb_client: MongoClient):
     notice_repository.update(notice=notice)
 
 
-def index_notice(notice: Notice, xslt_transformer=None) -> Notice:
+def index_notice_xslt(notice: Notice, xslt_transformer=None) -> Notice:
     """
         This function selects unique XPath from XMlManifestation from a notice and indexes notices with these unique XPath.
     :param notice:
@@ -58,7 +58,7 @@ def index_notice(notice: Notice, xslt_transformer=None) -> Notice:
     return notice
 
 
-def index_notice_ntaive(notice: Notice, base_xpath="") -> Notice:
+def index_notice(notice: Notice, base_xpath="") -> Notice:
     def _notice_namespaces(xml_file) -> dict:
         _namespaces = dict([node for _, node in XMLElementTree.iterparse(xml_file, events=['start-ns'])])
         return {v: k for k, v in _namespaces.items()}
@@ -78,7 +78,8 @@ def index_notice_ntaive(notice: Notice, base_xpath="") -> Notice:
         for evt, el in it:
             if evt == 'start':
                 ns_tag = re.split('[{}]', el.tag, 2)[1:]
-                path.append(_ns_tag(ns_tag))
+                path.append(_ns_tag(ns_tag) if len(ns_tag) > 1 else el.tag)
+
                 xpath = "/" + '/'.join(path)
 
                 if xpath.startswith(base_xpath + "/"):

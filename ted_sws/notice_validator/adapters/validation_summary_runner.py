@@ -21,8 +21,26 @@ class ManifestationValidationSummaryRunner:
 
 class RDFManifestationValidationSummaryRunner(ManifestationValidationSummaryRunner):
     @classmethod
-    def notice_sparql_summary(cls, notice: Notice, report: RDFManifestationValidationSummaryReport):
-        manifestation = cls._manifestation(notice)
+    def sparql_summary_result(cls, sparql_report: SPARQLTestSuiteValidationReport,
+                              result_counts: List[SPARQLSummaryResult]) -> (bool, SPARQLSummaryResult):
+        mapping_suite_id = sparql_report.mapping_suite_identifier
+        test_suite_id = sparql_report.test_suite_identifier
+        found = list(filter(
+            lambda r: r.mapping_suite_identifier == mapping_suite_id and r.test_suite_identifier == test_suite_id,
+            result_counts
+        ))
+        is_found: bool = found and len(found) > 0
+        result_validation: SPARQLSummaryResult
+        if is_found:
+            result_validation = found[0]
+        else:
+            result_validation = SPARQLSummaryResult()
+            result_validation.mapping_suite_identifier = sparql_report.mapping_suite_identifier
+            result_validation.test_suite_identifier = sparql_report.test_suite_identifier
+        return not is_found, result_validation
+
+    def notice_sparql_summary(self, notice: Notice, report: RDFManifestationValidationSummaryReport):
+        manifestation = self._manifestation(notice)
         if manifestation:
             report_count: SPARQLSummaryCountReport = report.sparql_summary.aggregate
             result_counts: List[SPARQLSummaryResult] = report.sparql_summary.validation_results
@@ -30,9 +48,7 @@ class RDFManifestationValidationSummaryRunner(ManifestationValidationSummaryRunn
             if sparql_reports:
                 for sparql_report in sparql_reports:
                     validation_results: List[SPARQLQueryResult] = sparql_report.validation_results
-                    result_validation: SPARQLSummaryResult = SPARQLSummaryResult()
-                    result_validation.mapping_suite_identifier = sparql_report.mapping_suite_identifier
-                    result_validation.test_suite_identifier = sparql_report.test_suite_identifier
+                    is_new, result_validation = self.sparql_summary_result(sparql_report, result_counts)
                     result_count: SPARQLSummaryCountReport = result_validation.aggregate
                     if validation_results:
                         for validation in validation_results:
@@ -46,15 +62,34 @@ class RDFManifestationValidationSummaryRunner(ManifestationValidationSummaryRunn
                                 report_count.error += 1
                                 result_count.error += 1
 
-                    result_counts.append(result_validation)
+                    if is_new:
+                        result_counts.append(result_validation)
 
     @classmethod
     def _manifestation(cls, notice: Notice) -> RDFManifestation:
         return notice.rdf_manifestation
 
     @classmethod
-    def notice_shacl_summary(cls, notice: Notice, report: RDFManifestationValidationSummaryReport):
-        manifestation = cls._manifestation(notice)
+    def shacl_summary_result(cls, shacl_report: SHACLTestSuiteValidationReport,
+                             result_counts: List[SHACLSummaryResult]) -> (bool, SHACLSummaryResult):
+        mapping_suite_id = shacl_report.mapping_suite_identifier
+        test_suite_id = shacl_report.test_suite_identifier
+        found = list(filter(
+            lambda r: r.mapping_suite_identifier == mapping_suite_id and r.test_suite_identifier == test_suite_id,
+            result_counts
+        ))
+        is_found: bool = found and len(found) > 0
+        result_validation: SHACLSummaryResult
+        if is_found:
+            result_validation = found[0]
+        else:
+            result_validation = SHACLSummaryResult()
+            result_validation.mapping_suite_identifier = shacl_report.mapping_suite_identifier
+            result_validation.test_suite_identifier = shacl_report.test_suite_identifier
+        return not is_found, result_validation
+
+    def notice_shacl_summary(self, notice: Notice, report: RDFManifestationValidationSummaryReport):
+        manifestation = self._manifestation(notice)
         if manifestation:
             report_count: SHACLSummarySeverityCountReport = report.shacl_summary.result_severity.aggregate
             result_counts: List[SHACLSummaryResult] = report.shacl_summary.validation_results
@@ -62,9 +97,7 @@ class RDFManifestationValidationSummaryRunner(ManifestationValidationSummaryRunn
             if shacl_reports:
                 for shacl_report in shacl_reports:
                     validation_results = shacl_report.validation_results
-                    result_validation: SHACLSummaryResult = SHACLSummaryResult()
-                    result_validation.mapping_suite_identifier = shacl_report.mapping_suite_identifier
-                    result_validation.test_suite_identifier = shacl_report.test_suite_identifier
+                    is_new, result_validation = self.shacl_summary_result(shacl_report, result_counts)
                     result_count: SHACLSummarySeverityCountReport = result_validation.result_severity.aggregate
                     if validation_results:
                         bindings = validation_results.results_dict['results']['bindings']
@@ -81,7 +114,8 @@ class RDFManifestationValidationSummaryRunner(ManifestationValidationSummaryRunn
                                     report_count.warning += 1
                                     result_count.warning += 1
 
-                    result_counts.append(result_validation)
+                    if is_new:
+                        result_counts.append(result_validation)
 
     def validation_summary(self) -> RDFManifestationValidationSummaryReport:
         notices = self.notices
@@ -106,8 +140,10 @@ class XMLManifestationValidationSummaryRunner(ManifestationValidationSummaryRunn
         report: XMLManifestationValidationSummaryReport = XMLManifestationValidationSummaryReport()
         xpath_coverage_summary: XPATHCoverageSummaryReport = report.xpath_coverage_summary
 
-        mapping_suite_identifier = notices[0].xml_manifestation.xpath_coverage_validation.mapping_suite_identifier
-        xpath_coverage_summary.mapping_suite_identifier = mapping_suite_identifier
+        xml_manifestation = notices[0].xml_manifestation
+        if xml_manifestation.xpath_coverage_validation:
+            mapping_suite_identifier = xml_manifestation.xpath_coverage_validation.mapping_suite_identifier
+            xpath_coverage_summary.mapping_suite_identifier = mapping_suite_identifier
 
         validation_result: XPATHCoverageSummaryResult = report.xpath_coverage_summary.validation_result
         for notice in notices:

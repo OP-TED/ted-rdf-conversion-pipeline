@@ -200,9 +200,9 @@ def worker_single_notice_process_orchestrator():
         mapping_suite = pull_dag_upstream(MAPPING_SUITE_OBJECT)
         mongodb_client = MongoClient(config.MONGO_DB_AUTH_URL)
 
+        validate_xpath_coverage_notice(notice=notice, mapping_suite=mapping_suite, mongodb_client=mongodb_client)
         validate_notice_with_sparql_suite(notice=notice, mapping_suite_package=mapping_suite)
         validate_notice_with_shacl_suite(notice=notice, mapping_suite_package=mapping_suite)
-        validate_xpath_coverage_notice(notice=notice, mapping_suite=mapping_suite, mongodb_client=mongodb_client)
         push_dag_downstream(NOTICE_OBJECT, notice)
         context = get_current_context()
         handle_event_message_metadata_dag_context(event_message, context)

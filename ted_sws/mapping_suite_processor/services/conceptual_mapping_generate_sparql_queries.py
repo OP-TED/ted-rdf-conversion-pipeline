@@ -53,7 +53,8 @@ def sparql_validation_generator(data: pd.DataFrame, base_xpath: str) -> Iterator
               f"#description: “{sf_field_id} - {sf_field_name}” in SF corresponds to “{e_form_bt_id} " \
               f"{e_form_bt_name}” in eForms. The corresponding XML element is " \
               f"{concat_field_xpath(base_xpath, field_xpath)}. " \
-              f"The expected ontology instances are epo: {class_path} ." \
+              f"The expected ontology instances are epo: {class_path} .\n" \
+              f"#xpath: {concat_field_xpath(base_xpath, field_xpath, separator=',')}" \
               "\n" + "\n" + "\n".join(prefixes) + "\n\n" \
                                                   f"ASK WHERE {{ {property_path} }}"
 

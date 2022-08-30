@@ -127,6 +127,7 @@ class SPARQLQuery(PropertyBaseModel):
     """
     title: Optional[str]
     description: Optional[str]
+    xpath: Optional[List[str]] = []
     query: str
 
 
@@ -136,6 +137,9 @@ class SPARQLQueryResult(PropertyBaseModel):
     """
     query: SPARQLQuery
     result: Optional[str]
+    query_result: Optional[str]
+    fields_covered: Optional[bool] = True
+    missing_fields: Optional[List[str]] = []
     error: Optional[str]
     identifier: Optional[str]
 

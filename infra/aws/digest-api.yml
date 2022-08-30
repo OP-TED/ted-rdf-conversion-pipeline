@@ -1,0 +1,17 @@
+version: "3"
+services:
+  digest-api:
+    image: ${DIGEST_API_IMAGE_URI}
+    logging:
+      driver: awslogs
+      options:
+        awslogs-group: /ecs/digest-api-cli-task
+        awslogs-region: ${REGION}
+        awslogs-stream-prefix: ecs
+    networks:
+      ecs-local-network: null
+    ports:
+    - 8000:8000
+networks:
+  ecs-local-network:
+    external: true

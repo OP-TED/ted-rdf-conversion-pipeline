@@ -7,12 +7,15 @@ from typing import List
 import click
 
 from ted_sws.core.adapters.cmd_runner import CmdRunner as BaseCmdRunner, DEFAULT_MAPPINGS_PATH
-from ted_sws.core.model.manifestation import RDFManifestation
+from ted_sws.core.model.manifestation import RDFManifestation, XMLManifestation
 from ted_sws.data_manager.adapters.mapping_suite_repository import MappingSuiteRepositoryInFileSystem
-from ted_sws.event_manager.adapters.logger import LOG_INFO_TEXT
+from ted_sws.event_manager.adapters.log import LOG_INFO_TEXT
 from ted_sws.notice_validator.entrypoints.cli import DEFAULT_RDF_FOLDER, DEFAULT_TEST_SUITE_REPORT_FOLDER
 from ted_sws.notice_validator.services.sparql_test_suite_runner import SPARQLTestSuiteRunner, SPARQLReportBuilder, \
     SPARQLTestSuiteValidationReport
+from ted_sws.notice_validator.entrypoints.cli.cmd_xpath_coverage_runner import JSON_REPORT_FILE as XPATH_JSON_FILE, \
+    DEFAULT_TEST_SUITE_REPORT_FOLDER
+from ted_sws.core.model.manifestation import XPATHCoverageValidationReport
 
 JSON_VALIDATIONS_REPORT = "sparql_validations.json"
 HTML_REPORT = "sparql_{id}.html"
@@ -49,9 +52,14 @@ class CmdRunner(BaseCmdRunner):
         with open(report_path / report_name, "w+") as f:
             f.write(content)
 
-    def validate(self, rdf_file, base_report_path):
+    def validate(self, rdf_file, xpath_report, base_report_path):
         self.log("Validating " + LOG_INFO_TEXT.format(rdf_file.name) + " ... ")
         rdf_manifestation = RDFManifestation(object_data=rdf_file.read_text(encoding="utf-8"))
+        xml_manifestation = None
+        if xpath_report:
+            xml_manifestation = XMLManifestation(object_data="",
+                                                 xpath_coverage_validation=XPATHCoverageValidationReport(
+                                                     **xpath_report))
 
         report_path = base_report_path / DEFAULT_TEST_SUITE_REPORT_FOLDER
         report_path.mkdir(parents=True, exist_ok=True)
@@ -60,6 +68,7 @@ class CmdRunner(BaseCmdRunner):
         sparql_test_suites = self.mapping_suite.sparql_test_suites
         for sparql_test_suite in sparql_test_suites:
             test_suite_execution = SPARQLTestSuiteRunner(rdf_manifestation=rdf_manifestation,
+                                                         xml_manifestation=xml_manifestation,
                                                          sparql_test_suite=sparql_test_suite,
                                                          mapping_suite=self.mapping_suite).execute_test_suite()
 
@@ -84,7 +93,9 @@ class CmdRunner(BaseCmdRunner):
                     base_report_path = rdf_path / d.name
                     for f in d.iterdir():
                         if f.is_file():
-                            self.validate(rdf_file=f, base_report_path=base_report_path)
+                            xpath_file = f.parent / DEFAULT_TEST_SUITE_REPORT_FOLDER / XPATH_JSON_FILE
+                            xpath_report = json.load(open(xpath_file, "r")) if xpath_file.exists() else None
+                            self.validate(rdf_file=f, xpath_report=xpath_report, base_report_path=base_report_path)
         except Exception as e:
             error = e
 

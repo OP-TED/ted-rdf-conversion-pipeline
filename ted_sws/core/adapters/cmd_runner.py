@@ -8,8 +8,7 @@ from ted_sws.event_manager.adapters.event_handler import EventWriterToFileHandle
     EventWriterToMongoDBHandler
 from ted_sws.event_manager.adapters.event_handler_config import CLILoggerConfig
 from ted_sws.event_manager.adapters.event_logger import EventLogger
-from ted_sws.event_manager.adapters.log import SeverityLevelType
-from ted_sws.event_manager.adapters.logger import LOG_ERROR_TEXT, LOG_SUCCESS_TEXT
+from ted_sws.event_manager.adapters.log import SeverityLevelType, LOG_ERROR_TEXT, LOG_SUCCESS_TEXT
 from ted_sws.event_manager.model.event_message import EventMessage, EventMessageLogSettings
 from ted_sws.event_manager.services.logger_from_context import get_env_logger
 

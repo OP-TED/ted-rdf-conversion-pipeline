@@ -1,4 +1,4 @@
-from datetime import datetime, date
+from datetime import date
 
 import mongomock
 import pymongo

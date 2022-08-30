@@ -10,13 +10,13 @@ from ted_sws.core.adapters.cmd_runner import CmdRunner as BaseCmdRunner, DEFAULT
 from ted_sws.core.model.manifestation import XMLManifestation, RDFManifestation, XPATHCoverageValidationReport, \
     SPARQLTestSuiteValidationReport, SHACLTestSuiteValidationReport, ValidationSummaryReport
 from ted_sws.core.model.notice import Notice
+from ted_sws.notice_validator.entrypoints.cli import DEFAULT_TEST_SUITE_REPORT_FOLDER
 from ted_sws.notice_validator.entrypoints.cli.cmd_shacl_runner import JSON_VALIDATIONS_REPORT as JSON_SHACL_REPORT
 from ted_sws.notice_validator.entrypoints.cli.cmd_sparql_runner import JSON_VALIDATIONS_REPORT as JSON_SPARQL_REPORT
 from ted_sws.notice_validator.entrypoints.cli.cmd_xpath_coverage_runner import JSON_REPORT_FILE as XPATH_COV_REPORT
 from ted_sws.notice_validator.services.validation_summary_runner import generate_validation_summary_report_notices
 
 OUTPUT_FOLDER = '{mappings_path}/{mapping_suite_id}/' + DEFAULT_OUTPUT_PATH
-DEFAULT_TEST_SUITE_REPORT_FOLDER = "test_suite_report"
 
 REPORT_FILE = "validation_summary_report"
 CMD_NAME = "CMD_VALIDATION_SUMMARY_RUNNER"
@@ -34,21 +34,25 @@ class CmdRunner(BaseCmdRunner):
 
     notice_ids: List[str] = []
     notices: List[Notice] = []
+    for_mapping_suite: bool = False
 
     def __init__(
             self,
             mapping_suite_id,
             notice_id: List[str],
+            notice_aggregate: bool,
             mappings_path
     ):
         super().__init__(name=CMD_NAME)
         self.mapping_suite_id = mapping_suite_id
         self.mappings_path = mappings_path
+        self.notice_aggregate = notice_aggregate
         self.output_path = Path(OUTPUT_FOLDER.format(mappings_path=self.mappings_path,
                                                      mapping_suite_id=self.mapping_suite_id))
         if notice_id and len(notice_id) > 0:
             self.notice_ids = notice_id
         else:
+            self.for_mapping_suite = True
             self.notice_ids = self._read_output_notice_ids()
 
     def _notice_output_report_folder(self, notice_id) -> Path:
@@ -114,12 +118,11 @@ class CmdRunner(BaseCmdRunner):
 
         return notice_ids
 
-    def _generate_notice_report(self, notice: Notice):
-        self.log("Generating validation summary report for Notice(" + notice.ted_id + ") ... ")
+    def _generate_report(self, notices: List[Notice], label: str, output_path: Path):
+        self.log("Generating validation summary report for {label} ... ".format(label=label))
 
-        report: ValidationSummaryReport = generate_validation_summary_report_notices([notice])
+        report: ValidationSummaryReport = generate_validation_summary_report_notices(notices)
 
-        output_path = self._notice_output_report_folder(notice.ted_id)
         self.save_html_report(output_path, report.object_data)
         del report.object_data
         self.save_json_report(output_path, report.dict())
@@ -131,17 +134,25 @@ class CmdRunner(BaseCmdRunner):
         for notice_id in self.notice_ids:
             notice_path = self.output_path / notice_id
             notice = self.generate_notice(notice_path)
-            self._generate_notice_report(notice)
+            if self.for_mapping_suite or self.notice_aggregate:
+                self.notices.append(notice)
+            if not self.for_mapping_suite or self.notice_aggregate:
+                self._generate_report([notice], "Notice(" + notice.ted_id + ")",
+                                      self._notice_output_report_folder(notice.ted_id))
+
+        if self.notices and len(self.notices) > 0:
+            self._generate_report(self.notices, "MappingSuite(" + self.mapping_suite_id + ")", self.output_path)
 
     def run_cmd(self):
         self.validation_summary()
         return self.run_cmd_result()
 
 
-def run(mapping_suite_id=None, notice_id=None, opt_mappings_folder=DEFAULT_MAPPINGS_PATH):
+def run(mapping_suite_id=None, notice_id=None, notice_aggregate=False, opt_mappings_folder=DEFAULT_MAPPINGS_PATH):
     cmd = CmdRunner(
         mapping_suite_id=mapping_suite_id,
         notice_id=notice_id,
+        notice_aggregate=notice_aggregate,
         mappings_path=opt_mappings_folder
     )
     cmd.run()
@@ -150,12 +161,13 @@ def run(mapping_suite_id=None, notice_id=None, opt_mappings_folder=DEFAULT_MAPPI
 @click.command()
 @click.argument('mapping-suite-id', nargs=1, required=True)
 @click.option('--notice-id', required=False, multiple=True, default=None)
+@click.option('--notice-aggregate', required=False, default=False, type=click.BOOL)
 @click.option('-m', '--opt-mappings-folder', default=DEFAULT_MAPPINGS_PATH)
-def main(mapping_suite_id, notice_id, opt_mappings_folder):
+def main(mapping_suite_id, notice_id, notice_aggregate, opt_mappings_folder):
     """
     Generates Validation Summary for Notices
     """
-    run(mapping_suite_id, notice_id, opt_mappings_folder)
+    run(mapping_suite_id, notice_id, notice_aggregate, opt_mappings_folder)
 
 
 if __name__ == '__main__':

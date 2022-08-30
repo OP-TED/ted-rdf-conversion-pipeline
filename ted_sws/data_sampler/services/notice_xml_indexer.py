@@ -94,7 +94,7 @@ def index_notice(notice: Notice, base_xpath="") -> Notice:
         fp.write(notice.xml_manifestation.object_data.encode("utf-8"))
 
         namespaces = _notice_namespaces(fp.name)
-        xpaths = set(_xpath_generator(fp.name))
+        xpaths = list(set(_xpath_generator(fp.name)))
         xml_metadata = XMLMetadata()
         xml_metadata.unique_xpaths = xpaths
         notice.set_xml_metadata(xml_metadata=xml_metadata)

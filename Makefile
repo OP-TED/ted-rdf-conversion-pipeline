@@ -37,7 +37,7 @@ test-unit:
 
 test-features:
 	@ echo -e "$(BUILD_PRINT)Gherkin Features Testing ...$(END_BUILD_PRINT)"
-# 	@ tox -e features
+	@ tox -e features
 
 test-e2e:
 	@ echo -e "$(BUILD_PRINT)End to End Testing ...$(END_BUILD_PRINT)"
@@ -91,10 +91,40 @@ create-env-airflow:
 	@ chmod 777 ${AIRFLOW_INFRA_FOLDER}/logs ${AIRFLOW_INFRA_FOLDER}/plugins ${AIRFLOW_INFRA_FOLDER}/.env
 	@ cp requirements.txt ./infra/airflow/
 
+create-env-airflow-cluster:
+	@ echo -e "$(BUILD_PRINT) Create Airflow env $(END_BUILD_PRINT)"
+	@ echo -e "$(BUILD_PRINT) ${AIRFLOW_INFRA_FOLDER} ${ENVIRONMENT} $(END_BUILD_PRINT)"
+	@ mkdir -p ${AIRFLOW_INFRA_FOLDER}/logs ${AIRFLOW_INFRA_FOLDER}/plugins ${AIRFLOW_INFRA_FOLDER}/.env
+	@ ln -s -f -n ${PROJECT_PATH}/dags ${AIRFLOW_INFRA_FOLDER}/dags
+	@ ln -s -f -n ${PROJECT_PATH}/ted_sws ${AIRFLOW_INFRA_FOLDER}/ted_sws
+	@ chmod 777 ${AIRFLOW_INFRA_FOLDER}/logs ${AIRFLOW_INFRA_FOLDER}/plugins ${AIRFLOW_INFRA_FOLDER}/.env
+	@ cp requirements.txt ./infra/airflow-cluster/
+
 build-airflow: guard-ENVIRONMENT create-env-airflow build-externals
 	@ echo -e "$(BUILD_PRINT) Build Airflow services $(END_BUILD_PRINT)"
 	@ docker build -t meaningfy/airflow ./infra/airflow/
 	@ docker-compose -p ${ENVIRONMENT} --file ./infra/airflow/docker-compose.yaml --env-file ${ENV_FILE} up -d --force-recreate
+
+build-airflow-cluster: guard-ENVIRONMENT create-env-airflow-cluster build-externals
+	@ echo -e "$(BUILD_PRINT) Build Airflow services $(END_BUILD_PRINT)"
+	@ docker build -t meaningfy/airflow ./infra/airflow-cluster/
+	@ docker-compose -p ${ENVIRONMENT} --file ./infra/airflow-cluster/docker-compose.yaml --env-file ${ENV_FILE} up -d airflow-init
+
+start-airflow-cluster: build-externals
+	@ echo -e "$(BUILD_PRINT)Starting Airflow services $(END_BUILD_PRINT)"
+	@ docker-compose -p ${ENVIRONMENT} --file ./infra/airflow-cluster/docker-compose.yaml --env-file ${ENV_FILE} up -d --force-recreate airflow-webserver airflow-scheduler airflow-triggerer flower
+
+start-airflow-cluster-worker: build-externals
+	@ echo -e "$(BUILD_PRINT)Starting Airflow services $(END_BUILD_PRINT)"
+	@ docker-compose -p ${ENVIRONMENT} --file ./infra/airflow-cluster/docker-compose.yaml --env-file ${ENV_FILE} up -d airflow-worker
+
+stop-airflow-cluster:
+	@ echo -e "$(BUILD_PRINT)Stopping Airflow Cluster $(END_BUILD_PRINT)"
+	@ docker-compose -p ${ENVIRONMENT} --file ./infra/airflow-cluster/docker-compose.yaml --env-file ${ENV_FILE} down airflow-webserver airflow-scheduler airflow-triggerer flower
+
+stop-airflow-cluster-worker:
+	@ echo -e "$(BUILD_PRINT)Stopping Airflow Cluster Worker $(END_BUILD_PRINT)"
+	@ docker-compose -p ${ENVIRONMENT} --file ./infra/airflow-cluster/docker-compose.yaml --env-file ${ENV_FILE} down airflow-worker
 
 start-airflow: build-externals
 	@ echo -e "$(BUILD_PRINT)Starting Airflow services $(END_BUILD_PRINT)"
@@ -337,3 +367,7 @@ restore-mongodb:
 	@ docker exec -it mongodb-${ENVIRONMENT} rm -rf mongodb_dump
 	@ echo -e "Finish restore data in mongodb."
 
+install-allure:
+	@ echo -e "Start install Allure commandline."
+	@ apt install npm
+	@ npm install -g allure-commandline

@@ -1,8 +1,7 @@
 from typing import Dict, Any, MutableMapping, Union
 
-from ted_sws.event_manager.adapters.event_handler_config import CLILoggerConfig, NULLLoggerConfig
+from ted_sws.event_manager.adapters.event_handler_config import NULLLoggerConfig, ConsoleLoggerConfig
 from ted_sws.event_manager.adapters.event_logger import EventLogger
-from ted_sws.event_manager.adapters.log import ConfigHandlerType
 from ted_sws.event_manager.adapters.log import EVENT_LOGGER_CONTEXT_KEY
 from ted_sws.event_manager.adapters.log import is_env_logging_enabled
 from ted_sws.event_manager.model.event_message import EventMessage, EventMessageProcessType, EventMessageMetadata
@@ -28,7 +27,7 @@ def get_env_logger(logger: EventLogger, is_cli: bool = False) -> EventLogger:
     if is_env_logging_enabled():
         return logger
     elif is_cli:
-        logger_config = CLILoggerConfig(config_handlers=ConfigHandlerType.ConsoleHandler.value)
+        logger_config = ConsoleLoggerConfig()
         logger_config.get_console_handler().logger.propagate = True
         return EventLogger(logger_config)
     else:

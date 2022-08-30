@@ -48,7 +48,7 @@ def selector_daily_fetch_orchestrator():
                                        request_api=TedRequestAPI())).fetch_notices_by_date_wild_card(
             wildcard_date=current_datetime_wildcard)
         create_and_store_in_mongo_db_daily_supra_notice(notice_ids=notice_ids, mongodb_client=mongodb_client,
-                                                        notice_publication_date=notice_publication_date)
+                                                        notice_fetched_date=notice_publication_date)
         return notice_ids
 
     @task

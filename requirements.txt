@@ -9,7 +9,6 @@ apache-airflow==2.2.5
 hvac==0.11.2
 SPARQLWrapper==1.8.5
 pandas==1.3.5
-pymessagebus~=1.2
 click~=8.1.0
 openpyxl==3.0.9
 colorama~=0.4
@@ -21,5 +20,5 @@ agraph-python==101.0.10
 decorator~=5.1.1
 urllib3[secure]
 semantic-version==2.10.0
-pysftp
+pysftp~=0.2.9
 

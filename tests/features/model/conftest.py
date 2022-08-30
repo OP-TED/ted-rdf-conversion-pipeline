@@ -1,12 +1,3 @@
-#!/usr/bin/python3
-
-# conftest.py
-# Date:  29/01/2022
-# Author: Eugeniu Costetchi
-# Email: costezki.eugen@gmail.com 
-
-""" """
-
 import pytest
 
 from ted_sws.core.model.manifestation import XMLManifestation, RDFManifestation, METSManifestation, \
@@ -64,3 +55,6 @@ def transformation_eligible_notice(indexed_notice, normalised_metadata_dict) -> 
     indexed_notice.update_status_to(NoticeStatus.ELIGIBLE_FOR_TRANSFORMATION)
     indexed_notice.update_status_to(NoticeStatus.PREPROCESSED_FOR_TRANSFORMATION)
     return indexed_notice
+
+
+

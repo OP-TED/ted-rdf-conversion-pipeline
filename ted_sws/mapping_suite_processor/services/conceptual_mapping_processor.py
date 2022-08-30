@@ -10,6 +10,8 @@ from ted_sws.data_manager.adapters.mapping_suite_repository import MappingSuiteR
     MappingSuiteRepositoryMongoDB
 from ted_sws.data_manager.adapters.notice_repository import NoticeRepository
 from ted_sws.mapping_suite_processor.adapters.github_package_downloader import GitHubMappingSuitePackageDownloader
+from ted_sws.mapping_suite_processor.services.mapping_suite_digest_service import \
+    update_digest_api_address_for_mapping_suite
 
 CONCEPTUAL_MAPPINGS_ASSERTIONS = "cm_assertions"
 SHACL_SHAPE_INJECTION_FOLDER = "ap_data_shape"
@@ -41,6 +43,8 @@ def mapping_suite_processor_load_package_in_mongo_db(mapping_suite_package_path:
     mapping_suite_repository_in_file_system = MappingSuiteRepositoryInFileSystem(
         repository_path=mapping_suite_repository_path)
     mapping_suite_in_memory = mapping_suite_repository_in_file_system.get(reference=mapping_suite_package_name)
+
+    update_digest_api_address_for_mapping_suite(mapping_suite_in_memory)
 
     if git_last_commit_hash is not None:
         mapping_suite_in_memory.git_latest_commit_hash = git_last_commit_hash

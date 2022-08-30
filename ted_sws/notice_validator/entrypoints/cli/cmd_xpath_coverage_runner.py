@@ -4,22 +4,21 @@ import json
 import os
 from pathlib import Path
 from typing import List
-from pymongo import MongoClient
+
 import click
-from ted_sws import config
 
 from ted_sws.core.adapters.cmd_runner import CmdRunner as BaseCmdRunner, DEFAULT_MAPPINGS_PATH, DEFAULT_OUTPUT_PATH
 from ted_sws.core.model.manifestation import XMLManifestation
 from ted_sws.core.model.notice import Notice
 from ted_sws.data_manager.adapters.mapping_suite_repository import MappingSuiteRepositoryInFileSystem
-from ted_sws.event_manager.adapters.logger import LOG_INFO_TEXT
+from ted_sws.event_manager.adapters.log import LOG_INFO_TEXT
 from ted_sws.mapping_suite_processor.entrypoints.cli import CONCEPTUAL_MAPPINGS_FILE_TEMPLATE
 from ted_sws.notice_validator.adapters.xpath_coverage_runner import CoverageRunner
+from ted_sws.notice_validator.entrypoints.cli import DEFAULT_TEST_SUITE_REPORT_FOLDER
 from ted_sws.notice_validator.services.xpath_coverage_runner import coverage_notice_xpath_report, \
     xpath_coverage_html_report, xpath_coverage_json_report
 
 OUTPUT_FOLDER = '{mappings_path}/{mapping_suite_id}/' + DEFAULT_OUTPUT_PATH
-DEFAULT_TEST_SUITE_REPORT_FOLDER = "test_suite_report"
 REPORT_FILE = "xpath_coverage_validation"
 JSON_REPORT_FILE = REPORT_FILE + ".json"
 CMD_NAME = "CMD_XPATH_COVERAGE_RUNNER"

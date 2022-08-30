@@ -64,7 +64,6 @@ def index_notice(notice: Notice, base_xpath="") -> Notice:
         return {v: k for k, v in _namespaces.items()}
 
     def _ns_tag(ns_tag):
-        print("K :: ", ns_tag)
         tag = ns_tag[1]
         ns = ns_tag[0]
         if ns:

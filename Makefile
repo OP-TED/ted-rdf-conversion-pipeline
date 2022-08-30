@@ -374,5 +374,5 @@ restore-mongodb:
 
 install-allure:
 	@ echo -e "Start install Allure commandline."
-	@ sudo apt install npm
+	@ sudo apt -y install npm
 	@ npm install -g allure-commandline

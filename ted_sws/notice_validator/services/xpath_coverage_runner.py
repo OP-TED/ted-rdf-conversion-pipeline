@@ -25,11 +25,10 @@ class XPATHCoverageReportBuilder:
 
 def coverage_notice_xpath_report(notices: List[Notice], mapping_suite_id,
                                  conceptual_mappings_file_path: PATH_TYPE = None,
-                                 coverage_runner: CoverageRunner = None, xslt_transformer=None,
+                                 coverage_runner: CoverageRunner = None,
                                  mongodb_client: MongoClient = None) -> XPATHCoverageValidationReport:
     if not coverage_runner:
-        coverage_runner = CoverageRunner(mapping_suite_id, conceptual_mappings_file_path, xslt_transformer,
-                                         mongodb_client)
+        coverage_runner = CoverageRunner(mapping_suite_id, conceptual_mappings_file_path, mongodb_client)
     report: XPATHCoverageValidationReport = coverage_runner.coverage_notice_xpath(notices, mapping_suite_id)
     return report
 

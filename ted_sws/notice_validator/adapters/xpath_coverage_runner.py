@@ -10,8 +10,7 @@ from ted_sws.core.model.manifestation import XPATHCoverageValidationReport, XPAT
 from ted_sws.core.model.notice import Notice
 from ted_sws.core.model.transform import ConceptualMapping, ConceptualMappingXPATH
 from ted_sws.data_manager.adapters.mapping_suite_repository import MappingSuiteRepositoryMongoDB
-from ted_sws.data_sampler.services.notice_xml_indexer import index_notice, get_unique_xpaths_covered_by_notices, \
-    index_notice_native
+from ted_sws.data_sampler.services.notice_xml_indexer import index_notice, get_unique_xpaths_covered_by_notices
 from ted_sws.mapping_suite_processor.services.conceptual_mapping_reader import mapping_suite_read_conceptual_mapping
 
 TEMPLATES = Environment(loader=PackageLoader("ted_sws.notice_validator.resources", "templates"))
@@ -32,11 +31,10 @@ class CoverageRunner:
     base_xpath: str
     mapping_suite_id: str
 
-    def __init__(self, mapping_suite_id: str, conceptual_mappings_file_path: PATH_TYPE = None, xslt_transformer=None,
+    def __init__(self, mapping_suite_id: str, conceptual_mappings_file_path: PATH_TYPE = None,
                  mongodb_client: MongoClient = None):
         self.mapping_suite_id = mapping_suite_id
         self.mongodb_client = mongodb_client
-        self.xslt_transformer = xslt_transformer
 
         conceptual_mapping: ConceptualMapping
         if self._db_readable():
@@ -125,8 +123,7 @@ class CoverageRunner:
             if self._db_readable():
                 xpaths = get_unique_xpaths_covered_by_notices([notice.ted_id], self.mongodb_client)
             else:
-                notice = index_notice(notice, self.xslt_transformer)
-                # notice = index_notice_native(notice)
+                notice = index_notice(notice)
 
                 if notice.xml_metadata and notice.xml_metadata.unique_xpaths:
                     xpaths = notice.xml_metadata.unique_xpaths

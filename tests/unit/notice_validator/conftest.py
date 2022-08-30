@@ -2,14 +2,12 @@ from pathlib import Path
 
 import pytest
 
-from ted_sws.core.adapters.xml_preprocessor import XMLPreprocessorABC
 from ted_sws.core.model.manifestation import RDFManifestation, XMLManifestation, XPATHCoverageValidationReport, \
     XPATHCoverageValidationResult, SHACLTestSuiteValidationReport, SPARQLTestSuiteValidationReport
 from ted_sws.core.model.notice import NoticeStatus, Notice
 from ted_sws.core.model.transform import FileResource, SPARQLTestSuite, MetadataConstraints, TransformationRuleSet, \
     SHACLTestSuite, TransformationTestData, MappingSuite
 from tests import TEST_DATA_PATH
-from tests.fakes.fake_xslt_transformer import FakeXSLTTransformer
 
 
 @pytest.fixture
@@ -353,10 +351,6 @@ def fake_notice_F03(fake_notice_F03_content, fake_notice_id):
     notice._distilled_rdf_manifestation = rdf_manifestation
     return notice
 
-
-@pytest.fixture
-def fake_xslt_transformer() -> XMLPreprocessorABC:
-    return FakeXSLTTransformer()
 
 @pytest.fixture
 def fake_xml_manifestation_with_coverage_for_sparql_runner() -> XMLManifestation:

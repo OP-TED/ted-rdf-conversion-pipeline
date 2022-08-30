@@ -9,11 +9,11 @@ from ted_sws.notice_validator.services.xpath_coverage_runner import coverage_not
 from ted_sws.data_manager.adapters.notice_repository import NoticeRepository
 
 
-def test_xpath_coverage_runner(fake_notice_F03, fake_conceptual_mappings_F03_path, fake_xslt_transformer,
+def test_xpath_coverage_runner(fake_notice_F03, fake_conceptual_mappings_F03_path,
                                fake_mapping_suite_F03_id, mongodb_client, fake_mapping_suite_F03_path,
                                invalid_mapping_suite_id):
     report = coverage_notice_xpath_report([fake_notice_F03], fake_mapping_suite_F03_id,
-                                          fake_conceptual_mappings_F03_path, None, fake_xslt_transformer)
+                                          fake_conceptual_mappings_F03_path, None)
     json_report = xpath_coverage_json_report(report)
     assert isinstance(json_report, dict)
     assert "mapping_suite_identifier" in json_report
@@ -29,20 +29,16 @@ def test_xpath_coverage_runner(fake_notice_F03, fake_conceptual_mappings_F03_pat
     assert mapping_suite
 
     report = coverage_notice_xpath_report([fake_notice_F03], fake_mapping_suite_F03_id,
-                                          fake_conceptual_mappings_F03_path, None, fake_xslt_transformer,
-                                          mongodb_client)
+                                          fake_conceptual_mappings_F03_path, None, mongodb_client)
     json_report = xpath_coverage_json_report(report)
     assert isinstance(json_report, dict)
 
     with pytest.raises(ValueError):
-        coverage_notice_xpath_report([fake_notice_F03], invalid_mapping_suite_id,
-                                     None, None, fake_xslt_transformer,
-                                     mongodb_client)
+        coverage_notice_xpath_report([fake_notice_F03], invalid_mapping_suite_id, None, None, mongodb_client)
 
 
-def test_validate_xpath_coverage_notice_by_id(fake_notice_id, fake_mapping_suite_F03_id,
-                                              mongodb_client, fake_repository_path, fake_notice_F03_content,
-                                              fake_notice_F03):
+def test_validate_xpath_coverage_notice_by_id(fake_notice_id, fake_mapping_suite_F03_id, mongodb_client,
+                                              fake_repository_path, fake_notice_F03_content, fake_notice_F03):
     mapping_suite_repository_fs = MappingSuiteRepositoryInFileSystem(repository_path=fake_repository_path)
     mapping_suite = mapping_suite_repository_fs.get(fake_mapping_suite_F03_id)
     mapping_suite_repository_db = MappingSuiteRepositoryMongoDB(mongodb_client=mongodb_client)

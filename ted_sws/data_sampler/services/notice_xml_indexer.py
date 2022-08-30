@@ -30,7 +30,7 @@ def index_notice_by_id(notice_id: str, mongodb_client: MongoClient):
     notice_repository.update(notice=notice)
 
 
-def index_notice(notice: Notice, xslt_transformer=None) -> Notice:
+def index_notice_xslt(notice: Notice, xslt_transformer=None) -> Notice:
     """
         This function selects unique XPath from XMlManifestation from a notice and indexes notices with these unique XPath.
     :param notice:
@@ -58,7 +58,7 @@ def index_notice(notice: Notice, xslt_transformer=None) -> Notice:
     return notice
 
 
-def index_notice_native(notice: Notice, base_xpath="") -> Notice:
+def index_notice(notice: Notice, base_xpath="") -> Notice:
     def _notice_namespaces(xml_file) -> dict:
         _namespaces = dict([node for _, node in XMLElementTree.iterparse(xml_file, events=['start-ns'])])
         return {v: k for k, v in _namespaces.items()}

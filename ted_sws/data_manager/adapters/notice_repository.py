@@ -84,7 +84,8 @@ class NoticeRepositoryInFileSystem(NoticeRepositoryABC):
         """
         self.add(notice=notice)
 
-    def _read_notice_from_file(self, notice_file_path: pathlib.Path) -> Optional[Notice]:
+    @classmethod
+    def _read_notice_from_file(cls, notice_file_path: pathlib.Path) -> Optional[Notice]:
         """
             This method provides the ability to read a notice from a JSON file.
         :param notice_file_path:

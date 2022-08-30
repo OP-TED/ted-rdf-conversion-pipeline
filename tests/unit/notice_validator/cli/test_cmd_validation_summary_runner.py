@@ -32,13 +32,22 @@ def test_cmd_validation_summary_runner_for_notice(cli_runner, fake_validation_ma
 
 def test_cmd_validation_summary_runner_for_mapping_suite(cli_runner, fake_validation_mapping_suite_id,
                                                          fake_validation_repository_path, fake_validation_notice_id):
-    response = cli_runner.invoke(cli_main, [fake_validation_mapping_suite_id,
+    response = cli_runner.invoke(cli_main, [fake_validation_mapping_suite_id, "--notice-aggregate", True,
                                             "--opt-mappings-folder", fake_validation_repository_path])
     assert response.exit_code == 0
     assert "SUCCESS" in response.output
 
-    for resource in (
-            fake_validation_repository_path / fake_validation_mapping_suite_id / DEFAULT_OUTPUT_PATH).iterdir():
+    output_path = fake_validation_repository_path / fake_validation_mapping_suite_id / DEFAULT_OUTPUT_PATH
+
+    html_mapping_suite_report = output_path / "validation_summary_report.html"
+    assert os.path.isfile(html_mapping_suite_report)
+    os.remove(html_mapping_suite_report)
+
+    json_mapping_suite_report = output_path / "validation_summary_report.json"
+    assert os.path.isfile(json_mapping_suite_report)
+    os.remove(json_mapping_suite_report)
+
+    for resource in output_path.iterdir():
         if resource.is_dir():
             notice_id = resource.stem
             post_process_for_notice(fake_validation_repository_path, fake_validation_mapping_suite_id, notice_id)

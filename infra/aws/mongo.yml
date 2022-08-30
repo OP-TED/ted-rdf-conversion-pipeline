@@ -1,0 +1,24 @@
+version: "3"
+services:
+  mongo:
+    environment:
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_INITDB_ROOT_PASSWORD}
+      MONGO_INITDB_ROOT_USERNAME: ${MONGO_INITDB_ROOT_USERNAME}
+    image: ${MONGO_IMAGE_URI}
+    logging:
+      driver: awslogs
+      options:
+        awslogs-group: /ecs/mongo-cli-task
+        awslogs-region: ${REGION}
+        awslogs-stream-prefix: ecs
+    networks:
+      ecs-local-network: null
+    volumes:
+      - mongodb-data:/data/db
+    ports:
+    - 27017:27017
+networks:
+  ecs-local-network:
+    external: true
+volumes:
+  mongodb-data:

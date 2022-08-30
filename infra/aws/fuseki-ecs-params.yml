@@ -1,0 +1,16 @@
+version: 1
+task_definition:
+  efs_volumes:
+    - name: fuseki-data
+      filesystem_id: ${FUSEKI_DATA_VOLUME_ID}
+      transit_encryption: ENABLED
+  ecs_network_mode: awsvpc
+run_params:
+  network_configuration:
+    awsvpc_configuration:
+      subnets:
+        - $SUBNET_1_ID
+        - $SUBNET_2_ID
+      security_groups:
+        - $SECURITY_GROUP
+      assign_public_ip: DISABLED

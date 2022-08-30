@@ -5,7 +5,7 @@ from typing import Tuple, List
 from jinja2 import Environment, PackageLoader
 
 from ted_sws.core.model.manifestation import RDFManifestation, SPARQLQueryResult, \
-    SPARQLTestSuiteValidationReport, SPARQLQuery
+    SPARQLTestSuiteValidationReport, SPARQLQuery, XMLManifestation
 from ted_sws.core.model.notice import Notice
 from ted_sws.core.model.transform import SPARQLTestSuite, MappingSuite, FileResource
 from ted_sws.data_manager.adapters.repository_abc import NoticeRepositoryABC, MappingSuiteRepositoryABC
@@ -16,8 +16,10 @@ SPARQL_TEST_SUITE_EXECUTION_HTML_REPORT_TEMPLATE = "sparql_query_results_report.
 
 QUERY_METADATA_TITLE = "title"
 QUERY_METADATA_DESCRIPTION = "description"
+QUERY_METADATA_XPATH = "xpath"
 DEFAULT_QUERY_TITLE = "untitled query"
 DEFAULT_QUERY_DESCRIPTION = "un-described query"
+DEFAULT_QUERY_XPATH = []
 
 
 class SPARQLTestSuiteRunner:
@@ -27,8 +29,9 @@ class SPARQLTestSuiteRunner:
     """
 
     def __init__(self, rdf_manifestation: RDFManifestation, sparql_test_suite: SPARQLTestSuite,
-                 mapping_suite: MappingSuite):
+                 mapping_suite: MappingSuite, xml_manifestation: XMLManifestation = None):
         self.rdf_manifestation = rdf_manifestation
+        self.xml_manifestation = xml_manifestation
         self.sparql_test_suite = sparql_test_suite
         self.mapping_suite = mapping_suite
 
@@ -49,8 +52,39 @@ class SPARQLTestSuiteRunner:
             if QUERY_METADATA_TITLE in metadata else DEFAULT_QUERY_TITLE
         description = metadata[QUERY_METADATA_DESCRIPTION] \
             if QUERY_METADATA_DESCRIPTION in metadata else DEFAULT_QUERY_DESCRIPTION
+        xpath = metadata[QUERY_METADATA_XPATH].split(",") if QUERY_METADATA_XPATH in metadata and metadata[
+            QUERY_METADATA_XPATH] else DEFAULT_QUERY_XPATH
         query = cls._sanitize_query(file_resource.file_content)
-        return SPARQLQuery(title=title, description=description, query=query)
+        return SPARQLQuery(title=title, description=description, xpath=xpath, query=query)
+
+    def _process_sparql_ask_result(self, query_result, sparql_query: SPARQLQuery,
+                                   sparql_query_result: SPARQLQueryResult):
+        ask_answer = query_result.askAnswer
+        sparql_query_result.query_result = str(ask_answer)
+
+        result = ask_answer
+
+        xpath_coverage_validation = None
+        if self.xml_manifestation:
+            xpath_coverage_validation = self.xml_manifestation.xpath_coverage_validation
+        if xpath_coverage_validation and xpath_coverage_validation.validation_result:
+            xpath_validation_result = xpath_coverage_validation.validation_result
+
+            sparql_query_result.fields_covered = any(
+                map(lambda v: v in xpath_validation_result.xpath_covered, sparql_query.xpath))
+
+            sparql_query_xpath = set(sparql_query.xpath)
+            xpaths_in_notice = sparql_query_xpath & set(xpath_validation_result.xpath_covered)
+            if len(xpaths_in_notice) < len(sparql_query_xpath):
+                sparql_query_result.missing_fields = list(sparql_query_xpath - xpaths_in_notice)
+
+            if not ask_answer and not sparql_query_result.fields_covered:
+                result = True
+            elif (not ask_answer and sparql_query_result.fields_covered) or (
+                    ask_answer and not sparql_query_result.fields_covered):
+                result = False
+
+        sparql_query_result.result = str(result)
 
     def execute_test_suite(self) -> SPARQLTestSuiteValidationReport:
         """
@@ -63,14 +97,15 @@ class SPARQLTestSuiteRunner:
                                                                 validation_results=[],
                                                                 object_data="SPARQLTestSuiteExecution")
         for query_file_resource in self.sparql_test_suite.sparql_tests:
-            sparql_query = self._sparql_query_from_file_resource(file_resource=query_file_resource)
+            sparql_query: SPARQLQuery = self._sparql_query_from_file_resource(file_resource=query_file_resource)
             sparql_query_result = SPARQLQueryResult(query=sparql_query)
             try:
                 sparql_query_result.identifier = Path(query_file_resource.file_name).stem
                 query_result = sparql_runner.query(sparql_query.query)
-                sparql_query_result.result = str(
-                    query_result.askAnswer) if query_result.type == "ASK" else query_result.serialize(
-                    format="json")
+                if query_result.type == "ASK":
+                    self._process_sparql_ask_result(query_result, sparql_query, sparql_query_result)
+                else:
+                    sparql_query_result.query_result = query_result.serialize(format="json")
             except Exception as e:
                 sparql_query_result.error = str(e)[:100]
             test_suite_executions.validation_results.append(sparql_query_result)
@@ -105,6 +140,7 @@ def validate_notice_with_sparql_suite(notice: Notice, mapping_suite_package: Map
         reports = []
         for sparql_test_suite in sparql_test_suites:
             test_suite_execution = SPARQLTestSuiteRunner(rdf_manifestation=rdf_manifestation,
+                                                         xml_manifestation=notice.xml_manifestation,
                                                          sparql_test_suite=sparql_test_suite,
                                                          mapping_suite=mapping_suite_package).execute_test_suite()
             report_builder = SPARQLReportBuilder(sparql_test_suite_execution=test_suite_execution)

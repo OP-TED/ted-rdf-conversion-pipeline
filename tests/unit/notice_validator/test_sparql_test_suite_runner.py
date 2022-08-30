@@ -8,9 +8,12 @@ from ted_sws.notice_validator.services.sparql_test_suite_runner import SPARQLTes
     validate_notice_with_sparql_suite, validate_notice_by_id_with_sparql_suite, extract_metadata_from_sparql_query
 
 
-def test_sparql_query_test_suite_runner(rdf_file_content, sparql_test_suite, dummy_mapping_suite, sparql_file_one):
+def test_sparql_query_test_suite_runner(rdf_file_content, sparql_test_suite, dummy_mapping_suite, sparql_file_one,
+                                        fake_xml_manifestation_with_coverage_for_sparql_runner):
     rdf_manifestation = RDFManifestation(object_data=rdf_file_content)
-    sparql_runner = SPARQLTestSuiteRunner(rdf_manifestation=rdf_manifestation, sparql_test_suite=sparql_test_suite,
+    sparql_runner = SPARQLTestSuiteRunner(rdf_manifestation=rdf_manifestation,
+                                          xml_manifestation=fake_xml_manifestation_with_coverage_for_sparql_runner,
+                                          sparql_test_suite=sparql_test_suite,
                                           mapping_suite=dummy_mapping_suite)
 
     list_of_file_resources = sparql_test_suite.sparql_tests
@@ -23,7 +26,7 @@ def test_sparql_query_test_suite_runner(rdf_file_content, sparql_test_suite, dum
         assert query.query
         assert "this is a description" == query.description
 
-    query_meta = ["# title", "# description"]
+    query_meta = ["#title", "#description", "#xpath"]
     for meta in query_meta:
         assert meta in sparql_file_one.file_content
     sanitized_query = sparql_runner._sanitize_query(sparql_file_one.file_content)
@@ -47,6 +50,26 @@ def test_sparql_query_test_suite_runner_error(sparql_test_suite_with_invalid_que
     assert sparql_runner.validation_results[0].error
     assert isinstance(sparql_runner.validation_results[0].error, str)
     assert "Expected" in sparql_runner.validation_results[0].error
+
+
+def test_sparql_query_test_suite_runner_false(sparql_test_suite_with_false_query, dummy_mapping_suite,
+                                              rdf_file_content, fake_xml_manifestation_with_coverage_for_sparql_runner):
+    sparql_runner = SPARQLTestSuiteRunner(rdf_manifestation=RDFManifestation(object_data=rdf_file_content),
+                                          xml_manifestation=fake_xml_manifestation_with_coverage_for_sparql_runner,
+                                          sparql_test_suite=sparql_test_suite_with_false_query,
+                                          mapping_suite=dummy_mapping_suite).execute_test_suite()
+    assert sparql_runner.validation_results[0].result == 'True'
+    assert sparql_runner.validation_results[0].query_result == 'False'
+
+
+def test_sparql_query_test_suite_runner_select(sparql_test_suite_with_false_query, dummy_mapping_suite,
+                                               rdf_file_content, sparql_test_suite_with_select_query,
+                                               fake_xml_manifestation_with_coverage_for_sparql_runner):
+    sparql_runner = SPARQLTestSuiteRunner(rdf_manifestation=RDFManifestation(object_data=rdf_file_content),
+                                          xml_manifestation=fake_xml_manifestation_with_coverage_for_sparql_runner,
+                                          sparql_test_suite=sparql_test_suite_with_select_query,
+                                          mapping_suite=dummy_mapping_suite).execute_test_suite()
+    assert isinstance(sparql_runner.validation_results[0].query_result, bytes)
 
 
 def test_sparql_report_builder(rdf_file_content, sparql_test_suite, dummy_mapping_suite):

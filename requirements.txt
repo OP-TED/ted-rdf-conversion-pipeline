@@ -20,5 +20,5 @@ agraph-python==101.0.10
 decorator~=5.1.1
 urllib3[secure]
 semantic-version==2.10.0
-pysftp
+pysftp~=0.2.9
 

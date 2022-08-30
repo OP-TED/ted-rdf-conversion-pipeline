@@ -75,7 +75,11 @@ def worker_single_notice_process_orchestrator():
 
         notice: Notice = pull_dag_upstream(NOTICE_OBJECT)
         normalised_notice = normalise_notice(notice=notice)
-        push_dag_downstream(NOTICE_OBJECT, normalised_notice)
+
+        mongodb_client = MongoClient(config.MONGO_DB_AUTH_URL)
+        notice_repository = NoticeRepository(mongodb_client=mongodb_client)
+        notice_repository.update(notice=normalised_notice)
+        push_dag_downstream(NOTICE_ID, notice.ted_id)
 
         context = get_current_context()
 
@@ -92,14 +96,14 @@ def worker_single_notice_process_orchestrator():
         event_message: NoticeEventMessage = NoticeEventMessage()
         event_message.start_record()
 
-        notice = pull_dag_upstream(NOTICE_OBJECT)
+        notice_id = pull_dag_upstream(NOTICE_ID)
         mongodb_client = MongoClient(config.MONGO_DB_AUTH_URL)
         notice_repository = NoticeRepository(mongodb_client=mongodb_client)
+        notice = notice_repository.get(reference=notice_id)
         mapping_suite_repository = MappingSuiteRepositoryMongoDB(mongodb_client=mongodb_client)
         result = notice_eligibility_checker(notice=notice, mapping_suite_repository=mapping_suite_repository)
         notice_repository.update(notice=notice)
         mapping_suite_id = None
-        notice_id = notice.ted_id
         if result:
             notice_id, mapping_suite_id = result
             push_dag_downstream(MAPPING_SUITE_ID, mapping_suite_id)
@@ -441,6 +445,7 @@ def worker_single_notice_process_orchestrator():
     state_skip_table = {
         NoticeStatus.RAW: "index_notice_xml_content",
         NoticeStatus.INDEXED: "index_notice_xml_content",
+        NoticeStatus.ELIGIBLE_FOR_TRANSFORMATION: "check_eligibility_for_transformation",
         NoticeStatus.NORMALISED_METADATA: "check_eligibility_for_transformation",
         NoticeStatus.ELIGIBLE_FOR_PACKAGING: "check_notice_state_before_generate_mets_package",
         NoticeStatus.ELIGIBLE_FOR_PUBLISHING: "check_notice_state_before_publish_notice_in_cellar",

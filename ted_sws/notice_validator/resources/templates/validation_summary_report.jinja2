@@ -24,6 +24,38 @@
         table.display thead th {
             padding-left: 10px;
         }
+        [data-role=collapsible].collapsible-wrapper {
+            padding: 10px 0;
+        }
+        [data-role=collapsible] h4 {
+            margin: 0;
+        }
+        [data-role=collapsible] h4 a {
+            padding: 3px 10px;
+            background: #ccc;
+            width: 100%;
+            box-sizing: border-box;
+            display: block;
+            color: #111;
+            text-decoration: none;
+            margin: -3px 0;
+        }
+
+        [data-role=collapsible][data-state=collapsed] h4 a:before {
+            content: '+ expand';
+        }
+        [data-role=collapsible] h4 a:before {
+            content: '- collapse';
+        }
+        [data-role=collapsible][data-state=collapsed] .ui-collapsible-content {
+            visibility: hidden;
+            height: 0;
+            padding: 0 10px;;
+        }
+
+        [data-role=collapsible] .ui-collapsible-content {
+            padding: 10px;
+        }
     </style>
   </head>
   <body>
@@ -32,6 +64,19 @@
     <h2>Report details: </h2>
     <ul>
         <li>Date created: {{ created }}</li>
+        <li><div><hr></div>Notice identifier(s):
+            <div data-role="collapsible" data-state="{% if notice_id|length > 1 %}collapsed{% endif %}"
+                class="collapsible-wrapper">
+                <h4><a href="#"></a></h4>
+                <div class="ui-collapsible-content">
+                {% if notice_id|length == 1 %}
+                    {{ notice_id[0] }}
+                {% else %}
+                    {{ notice_id | tojson(indent=2) | replace('\n', '<br>') }}
+                {% endif %}
+                </div>
+            </div>
+        </li>
     </ul>
     <hr>
     <h2>XML Manifestation</h2>
@@ -191,7 +236,7 @@
     </table>
     {% endfor %}
     <p>-------</p>
-    <h3>SPARQL Summary</h3>
+    <h3>SHACL Summary</h3>
     <h4>Result severity: </h4>
     <ul>
         <li>Info: {{ manifestation.shacl_summary.result_severity.aggregate.info }}</li>
@@ -246,6 +291,13 @@
 <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.6.4/js/buttons.print.min.js"></script>
 <script type="text/javascript">
     $(document).ready(function () {
+        $("[data-role=collapsible] h4 a").on("click", function(e) {
+            $p = $(this).closest("[data-role=collapsible]");
+            $p.attr("data-state", $p.attr("data-state") == "collapsed" ? "expanded" : "collapsed");
+            $c = $p.find('.ui-collapsible-content');
+            $c.attr("data-state", $c.attr("data-state") == "collapsed" ? "expanded" : "collapsed");
+            return false;
+        });
         $("table.display").DataTable({
             dom: 'B<"clear">t',
             buttons: [],

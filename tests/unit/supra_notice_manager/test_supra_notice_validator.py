@@ -2,11 +2,11 @@ from datetime import datetime, time
 
 import pytest
 
+from ted_sws.data_manager.adapters.notice_repository import NoticeRepository
 from ted_sws.supra_notice_manager.services.daily_supra_notice_manager import \
     create_and_store_in_mongo_db_daily_supra_notice
 from ted_sws.supra_notice_manager.services.supra_notice_validator import validate_and_update_daily_supra_notice, \
-    validate_and_update_daily_supra_notice_manifestation
-from ted_sws.data_manager.adapters.notice_repository import NoticeRepository
+    summary_validation_for_daily_supra_notice
 
 
 def test_supra_notice_validator(mongodb_client, daily_supra_notice_repository, fake_request_api):
@@ -27,11 +27,11 @@ def test_supra_notice_validator(mongodb_client, daily_supra_notice_repository, f
     assert not result.validation_report.is_valid()
 
 
-def test_supra_notice_manifestation_validator(mongodb_client, daily_supra_notice_repository, fake_notice_F03):
+def test_summary_validation_for_daily_supra_notice(mongodb_client, daily_supra_notice_repository, fake_notice_F03):
     today = datetime.combine(datetime.today(), time())
 
     with pytest.raises(ValueError):
-        validate_and_update_daily_supra_notice_manifestation(today, mongodb_client)
+        summary_validation_for_daily_supra_notice(today, mongodb_client)
 
     notice_repository = NoticeRepository(mongodb_client=mongodb_client)
     notice = fake_notice_F03
@@ -39,8 +39,7 @@ def test_supra_notice_manifestation_validator(mongodb_client, daily_supra_notice
 
     notice_ids = [notice.ted_id]
     create_and_store_in_mongo_db_daily_supra_notice(notice_ids=notice_ids, mongodb_client=mongodb_client)
-    validate_and_update_daily_supra_notice_manifestation(today, mongodb_client)
+    summary_validation_for_daily_supra_notice(today, mongodb_client)
     result = daily_supra_notice_repository.get(reference=today)
     assert result
     assert result.validation_summary
-

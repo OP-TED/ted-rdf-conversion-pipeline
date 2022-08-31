@@ -30,12 +30,10 @@ def post_process(fake_repository_path, fake_mapping_suite_id):
     assert len(report_files) == 2
 
 
-def test_cmd_xpath_coverage_runner(caplog, fake_mapping_suite_F03_id, fake_repository_path,
-                                   fake_xslt_transformer):
+def test_cmd_xpath_coverage_runner(caplog, fake_mapping_suite_F03_id, fake_repository_path):
     cli_run(
         mapping_suite_id=fake_mapping_suite_F03_id,
-        opt_mappings_folder=fake_repository_path,
-        xslt_transformer=fake_xslt_transformer
+        opt_mappings_folder=fake_repository_path
     )
 
     assert "SUCCESS" in caplog.text
@@ -43,13 +41,11 @@ def test_cmd_xpath_coverage_runner(caplog, fake_mapping_suite_F03_id, fake_repos
     post_process(fake_repository_path, fake_mapping_suite_F03_id)
 
 
-def test_cmd_xpath_coverage_runner_with_invalid_input(caplog, fake_repository_path, invalid_mapping_suite_id,
-                                                      fake_xslt_transformer):
+def test_cmd_xpath_coverage_runner_with_invalid_input(caplog, fake_repository_path, invalid_mapping_suite_id):
     with pytest.raises(FileNotFoundError):
         cli_run(
             mapping_suite_id=invalid_mapping_suite_id,
             opt_mappings_folder=fake_repository_path,
-            opt_conceptual_mappings_file="invalid",
-            xslt_transformer=fake_xslt_transformer
+            opt_conceptual_mappings_file="invalid"
         )
         assert "FAILED" in caplog.text

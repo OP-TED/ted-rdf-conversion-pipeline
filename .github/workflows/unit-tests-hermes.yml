@@ -30,8 +30,8 @@ jobs:
       - name: Get RML mapper
         run: make init-rml-mapper
 
-      - name: Get Allure
-        run: make install-allure
+#      - name: Get Allure
+#        run: make install-allure
 
 #      - name: Start staging infra
 #        run: make start-project-services

@@ -21,11 +21,11 @@ jobs:
       - name: Make envfile
         run: make staging-dotenv-file
 
-      - name: Get RML mapper
-        run: make init-rml-mapper
-
       - name: Get Saxon
         run: make init-saxon
+
+      - name: Get RML mapper
+        run: make init-rml-mapper
 
       - name: Get Allure
         run: make install-allure

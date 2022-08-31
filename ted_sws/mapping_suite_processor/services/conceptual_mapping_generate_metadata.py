@@ -5,6 +5,7 @@ from datetime import datetime
 import pandas as pd
 
 from ted_sws.mapping_suite_processor import CONCEPTUAL_MAPPINGS_METADATA_SHEET_NAME
+from ted_sws.mapping_suite_processor.services.conceptual_mapping_reader import mapping_suite_read_metadata
 
 VERSION_FIELD = 'Mapping Version'
 EPO_VERSION_FIELD = 'EPO version'
@@ -70,10 +71,7 @@ def mapping_suite_processor_generate_metadata(conceptual_mappings_file_path: pat
     :param output_metadata_file_path:
     :return:
     """
-    with open(conceptual_mappings_file_path, 'rb') as excel_file:
-        conceptual_mappings_metadata_df = pd.read_excel(excel_file, sheet_name=CONCEPTUAL_MAPPINGS_METADATA_SHEET_NAME)
-        raw_metadata = conceptual_mappings_metadata_df.set_index('Field').T.to_dict('list')
-        metadata = generate_metadata(raw_metadata=raw_metadata)
+    metadata = generate_metadata(raw_metadata=mapping_suite_read_metadata(conceptual_mappings_file_path))
 
     with open(output_metadata_file_path, 'w') as metadata_file:
         metadata_file.write(metadata)

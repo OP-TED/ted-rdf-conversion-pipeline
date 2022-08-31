@@ -38,14 +38,12 @@ class CmdRunner(BaseCmdRunner):
             self,
             mapping_suite_id,
             conceptual_mappings_file,
-            mappings_path,
-            xslt_transformer
+            mappings_path
     ):
         super().__init__(name=CMD_NAME)
         self.mapping_suite_id = mapping_suite_id
         self.mappings_path = mappings_path
         self.conceptual_mappings_file_path = Path(os.path.realpath(conceptual_mappings_file))
-        self.xslt_transformer = xslt_transformer
         self.output_folder = OUTPUT_FOLDER.format(mappings_path=self.mappings_path,
                                                   mapping_suite_id=self.mapping_suite_id)
 
@@ -79,8 +77,7 @@ class CmdRunner(BaseCmdRunner):
         report = coverage_notice_xpath_report(notices,
                                               self.mapping_suite_id,
                                               self.conceptual_mappings_file_path,
-                                              self.coverage_runner,
-                                              self.xslt_transformer)
+                                              self.coverage_runner)
         self.save_json_report(Path(str(output_path) + ".json"), xpath_coverage_json_report(report))
         self.save_html_report(Path(str(output_path) + ".html"), xpath_coverage_html_report(report))
 
@@ -101,8 +98,7 @@ class CmdRunner(BaseCmdRunner):
         return self.run_cmd_result()
 
 
-def run(mapping_suite_id=None, opt_conceptual_mappings_file=None, opt_mappings_folder=DEFAULT_MAPPINGS_PATH,
-        xslt_transformer=None):
+def run(mapping_suite_id=None, opt_conceptual_mappings_file=None, opt_mappings_folder=DEFAULT_MAPPINGS_PATH):
     if opt_conceptual_mappings_file:
         conceptual_mappings_file = opt_conceptual_mappings_file
     else:
@@ -114,8 +110,7 @@ def run(mapping_suite_id=None, opt_conceptual_mappings_file=None, opt_mappings_f
     cmd = CmdRunner(
         mapping_suite_id=mapping_suite_id,
         conceptual_mappings_file=conceptual_mappings_file,
-        mappings_path=opt_mappings_folder,
-        xslt_transformer=xslt_transformer
+        mappings_path=opt_mappings_folder
     )
     cmd.run()
 

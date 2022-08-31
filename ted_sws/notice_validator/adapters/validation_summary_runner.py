@@ -169,6 +169,7 @@ class ValidationSummaryRunner:
         report: ValidationSummaryReport = ValidationSummaryReport(
             object_data="ValidationSummaryReport"
         )
+        report.notice_id = list(map(lambda notice: notice.ted_id, notices))
 
         xml_manifestation_runner = XMLManifestationValidationSummaryRunner(notices)
         report.xml_manifestation = xml_manifestation_runner.validation_summary()

@@ -130,7 +130,7 @@ services:
       - "traefik.tcp.routers.${ENVIRONMENT}-postgres.rule=HostSNI(`*`)" # <== Your Domain Name goes here for the http rule
 #      - "traefik.tcp.routers.${ENVIRONMENT}-postgres.rule=HostSNI(`postgres.${SUBDOMAIN}${AIRFLOW_MASTER_DOMAIN}`)" # <== Your Domain Name goes here for the http rule
       - "traefik.tcp.routers.${ENVIRONMENT}-postgres.entrypoints=postgres" # <== Defining the entrypoint for http, **ref: line 30
-      - "traefik.tcp.routers.${ENVIRONMENT}-postgres.service=postgres" # <== Defining the entrypoint for http, **ref: line 30
+      - "traefik.tcp.routers.${ENVIRONMENT}-postgres.service=postgres-airflow-${ENVIRONMENT}" # <== Defining the entrypoint for http, **ref: line 30
       - "traefik.tcp.services.${ENVIRONMENT}-postgres.loadbalancer.server.port=5432"
 
   redis:
@@ -164,7 +164,7 @@ services:
       - "traefik.tcp.services.${ENVIRONMENT}-redis.loadbalancer.server.port=6379"
 #      - "traefik.http.routers.${ENVIRONMENT}-redis.rule=HostSNI(`redis.${SUBDOMAIN}${AIRFLOW_MASTER_DOMAIN}`)" # <== Your Domain Name goes here for the http rule
       - "traefik.tcp.routers.${ENVIRONMENT}-redis.entrypoints=redis" # <== Defining the entrypoint for http, **ref: line 30
-      - "traefik.tcp.routers.${ENVIRONMENT}-redis.service=redis"
+      - "traefik.tcp.routers.${ENVIRONMENT}-redis.service=redis-airflow-${ENVIRONMENT}"
 
 
 

@@ -1,0 +1,296 @@
+[
+    {
+        "created": "2022-08-31T17:51:43.151633",
+        "mapping_suite_identifier": "package_F03_demo",
+        "object_data": "SHACLTestSuiteValidationReport",
+        "test_suite_identifier": "epo",
+        "validation_results": {
+            "conforms": "False",
+            "error": null,
+            "identifier": "epo",
+            "results_dict": {
+                "head": {
+                    "vars": [
+                        "focusNode",
+                        "message",
+                        "resultPath",
+                        "resultSeverity",
+                        "sourceConstraintComponent",
+                        "sourceShape",
+                        "value"
+                    ]
+                },
+                "results": {
+                    "bindings": [
+                        {
+                            "focusNode": {
+                                "type": "uri",
+                                "value": "http://data.europa.eu/a4g/resource/ContactPoint/2021-S-131-348503/ab152979-15bf-30c3-b6f3-e0c554cfa9d0"
+                            },
+                            "message": {
+                                "type": "literal",
+                                "value": "Value is not Literal with datatype xsd:anyURI"
+                            },
+                            "resultPath": {
+                                "type": "uri",
+                                "value": "http://data.europa.eu/a4g/ontology#hasInternetAddress"
+                            },
+                            "resultSeverity": {
+                                "type": "uri",
+                                "value": "http://www.w3.org/ns/shacl#Violation"
+                            },
+                            "sourceConstraintComponent": {
+                                "type": "uri",
+                                "value": "http://www.w3.org/ns/shacl#DatatypeConstraintComponent"
+                            },
+                            "sourceShape": {
+                                "type": "bnode",
+                                "value": "N501bd6546c684f2691b8acf5be439bf9"
+                            },
+                            "value": {
+                                "type": "literal",
+                                "value": "http://www.comune.pisa.it"
+                            }
+                        },
+                        {
+                            "focusNode": {
+                                "type": "uri",
+                                "value": "http://data.europa.eu/a4g/resource/Contract/2021-S-131-348503/0c434fb4-13b2-3f81-9fb1-7ec07b891bd2"
+                            },
+                            "message": {
+                                "type": "literal",
+                                "value": "Less than 1 values on <http://data.europa.eu/a4g/resource/Contract/2021-S-131-348503/0c434fb4-13b2-3f81-9fb1-7ec07b891bd2>->:signedBySignatory"
+                            },
+                            "resultPath": {
+                                "type": "uri",
+                                "value": "http://data.europa.eu/a4g/ontology#signedBySignatory"
+                            },
+                            "resultSeverity": {
+                                "type": "uri",
+                                "value": "http://www.w3.org/ns/shacl#Violation"
+                            },
+                            "sourceConstraintComponent": {
+                                "type": "uri",
+                                "value": "http://www.w3.org/ns/shacl#MinCountConstraintComponent"
+                            },
+                            "sourceShape": {
+                                "type": "bnode",
+                                "value": "N7b942483e0c54cd3b33f6274a85d665d"
+                            }
+                        },
+                        {
+                            "focusNode": {
+                                "type": "uri",
+                                "value": "http://data.europa.eu/a4g/resource/Lot/2021-S-131-348503/cbac108a-b047-3e09-a114-28c43d5b8706"
+                            },
+                            "message": {
+                                "type": "literal",
+                                "value": "Value does not have class :LotSpecificTerm"
+                            },
+                            "resultPath": {
+                                "type": "uri",
+                                "value": "http://data.europa.eu/a4g/ontology#isSubjectToLotSpecificTerm"
+                            },
+                            "resultSeverity": {
+                                "type": "uri",
+                                "value": "http://www.w3.org/ns/shacl#Violation"
+                            },
+                            "sourceConstraintComponent": {
+                                "type": "uri",
+                                "value": "http://www.w3.org/ns/shacl#ClassConstraintComponent"
+                            },
+                            "sourceShape": {
+                                "type": "bnode",
+                                "value": "Na459d0bd59244ce0ad9630dbe5b47ebb"
+                            },
+                            "value": {
+                                "type": "uri",
+                                "value": "http://data.europa.eu/a4g/resource/ReviewTerm/2021-S-131-348503/c396feff-0750-3296-8f73-f0464e1726ac"
+                            }
+                        },
+                        {
+                            "focusNode": {
+                                "type": "uri",
+                                "value": "http://data.europa.eu/a4g/resource/Lot/2021-S-131-348503/cbac108a-b047-3e09-a114-28c43d5b8706"
+                            },
+                            "message": {
+                                "type": "literal",
+                                "value": "Value does not have class :ContractSpecificTerm"
+                            },
+                            "resultPath": {
+                                "type": "uri",
+                                "value": "http://data.europa.eu/a4g/ontology#foreseesContractSpecificTerm"
+                            },
+                            "resultSeverity": {
+                                "type": "uri",
+                                "value": "http://www.w3.org/ns/shacl#Violation"
+                            },
+                            "sourceConstraintComponent": {
+                                "type": "uri",
+                                "value": "http://www.w3.org/ns/shacl#ClassConstraintComponent"
+                            },
+                            "sourceShape": {
+                                "type": "bnode",
+                                "value": "N349981ffb3d94c4fb6ba0fc93d348145"
+                            },
+                            "value": {
+                                "type": "uri",
+                                "value": "http://data.europa.eu/a4g/resource/ContractTerm/2021-S-131-348503/cbac108a-b047-3e09-a114-28c43d5b8706"
+                            }
+                        },
+                        {
+                            "focusNode": {
+                                "type": "uri",
+                                "value": "http://data.europa.eu/a4g/resource/Procedure/2021-S-131-348503/58509ec4-99dc-3865-9935-58d7ebd66d29"
+                            },
+                            "message": {
+                                "type": "literal",
+                                "value": "Value does not have class :TechniqueUsage"
+                            },
+                            "resultPath": {
+                                "type": "uri",
+                                "value": "http://data.europa.eu/a4g/ontology#usesTechnique"
+                            },
+                            "resultSeverity": {
+                                "type": "uri",
+                                "value": "http://www.w3.org/ns/shacl#Violation"
+                            },
+                            "sourceConstraintComponent": {
+                                "type": "uri",
+                                "value": "http://www.w3.org/ns/shacl#ClassConstraintComponent"
+                            },
+                            "sourceShape": {
+                                "type": "bnode",
+                                "value": "N625032fc01954e4bbe0649b64e578bc5"
+                            },
+                            "value": {
+                                "type": "uri",
+                                "value": "http://data.europa.eu/a4g/resource/EAuctionTechnique/2021-S-131-348503/1f8688eb-32e7-368b-ad1c-2e76f17321dd"
+                            }
+                        },
+                        {
+                            "focusNode": {
+                                "type": "uri",
+                                "value": "http://data.europa.eu/a4g/resource/Procedure/2021-S-131-348503/58509ec4-99dc-3865-9935-58d7ebd66d29"
+                            },
+                            "message": {
+                                "type": "literal",
+                                "value": "Value does not have class :TechniqueUsage"
+                            },
+                            "resultPath": {
+                                "type": "uri",
+                                "value": "http://data.europa.eu/a4g/ontology#usesTechnique"
+                            },
+                            "resultSeverity": {
+                                "type": "uri",
+                                "value": "http://www.w3.org/ns/shacl#Violation"
+                            },
+                            "sourceConstraintComponent": {
+                                "type": "uri",
+                                "value": "http://www.w3.org/ns/shacl#ClassConstraintComponent"
+                            },
+                            "sourceShape": {
+                                "type": "bnode",
+                                "value": "N625032fc01954e4bbe0649b64e578bc5"
+                            },
+                            "value": {
+                                "type": "uri",
+                                "value": "http://data.europa.eu/a4g/resource/DynamicPurchaseSystemTechniqueUsage/2021-S-131-348503/1f8688eb-32e7-368b-ad1c-2e76f17321dd"
+                            }
+                        },
+                        {
+                            "focusNode": {
+                                "type": "uri",
+                                "value": "http://data.europa.eu/a4g/resource/ResultNotice/2021-S-131-348503/58509ec4-99dc-3865-9935-58d7ebd66d29"
+                            },
+                            "message": {
+                                "type": "literal",
+                                "value": "Value does not have class :AgentInRole"
+                            },
+                            "resultPath": {
+                                "type": "uri",
+                                "value": "http://data.europa.eu/a4g/ontology#refersToRole"
+                            },
+                            "resultSeverity": {
+                                "type": "uri",
+                                "value": "http://www.w3.org/ns/shacl#Violation"
+                            },
+                            "sourceConstraintComponent": {
+                                "type": "uri",
+                                "value": "http://www.w3.org/ns/shacl#ClassConstraintComponent"
+                            },
+                            "sourceShape": {
+                                "type": "bnode",
+                                "value": "N4e2197c02ea8445e882de36f041226ec"
+                            },
+                            "value": {
+                                "type": "uri",
+                                "value": "http://data.europa.eu/a4g/resource/Buyer/2021-S-131-348503/f3b5cfa6-95c6-37b5-9667-808a141fe995"
+                            }
+                        },
+                        {
+                            "focusNode": {
+                                "type": "uri",
+                                "value": "http://data.europa.eu/a4g/resource/ResultNotice/2021-S-131-348503/58509ec4-99dc-3865-9935-58d7ebd66d29"
+                            },
+                            "message": {
+                                "type": "literal",
+                                "value": "Value does not have class :AgentInRole"
+                            },
+                            "resultPath": {
+                                "type": "uri",
+                                "value": "http://data.europa.eu/a4g/ontology#refersToRole"
+                            },
+                            "resultSeverity": {
+                                "type": "uri",
+                                "value": "http://www.w3.org/ns/shacl#Violation"
+                            },
+                            "sourceConstraintComponent": {
+                                "type": "uri",
+                                "value": "http://www.w3.org/ns/shacl#ClassConstraintComponent"
+                            },
+                            "sourceShape": {
+                                "type": "bnode",
+                                "value": "N4e2197c02ea8445e882de36f041226ec"
+                            },
+                            "value": {
+                                "type": "uri",
+                                "value": "http://data.europa.eu/a4g/resource/Reviewer/2021-S-131-348503/de2507f9-ae25-37c8-809c-0109efe10669"
+                            }
+                        },
+                        {
+                            "focusNode": {
+                                "type": "uri",
+                                "value": "http://data.europa.eu/a4g/resource/ResultNotice/2021-S-131-348503/58509ec4-99dc-3865-9935-58d7ebd66d29"
+                            },
+                            "message": {
+                                "type": "literal",
+                                "value": "Value does not have class :AgentInRole"
+                            },
+                            "resultPath": {
+                                "type": "uri",
+                                "value": "http://data.europa.eu/a4g/ontology#announcesRole"
+                            },
+                            "resultSeverity": {
+                                "type": "uri",
+                                "value": "http://www.w3.org/ns/shacl#Violation"
+                            },
+                            "sourceConstraintComponent": {
+                                "type": "uri",
+                                "value": "http://www.w3.org/ns/shacl#ClassConstraintComponent"
+                            },
+                            "sourceShape": {
+                                "type": "bnode",
+                                "value": "Nbebb4b715ef04a7c919da05b78c0dcd4"
+                            },
+                            "value": {
+                                "type": "uri",
+                                "value": "http://data.europa.eu/a4g/resource/WinnerRole/2021-S-131-348503/b9a7c460-794b-36b5-a069-6e9a637315f4"
+                            }
+                        }
+                    ]
+                }
+            }
+        }
+    }
+]

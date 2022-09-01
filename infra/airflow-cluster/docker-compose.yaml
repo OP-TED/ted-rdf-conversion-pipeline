@@ -135,6 +135,8 @@ services:
   redis:
     image: redis:5.0.14
     container_name: redis-airflow-${ENVIRONMENT}
+    command: >
+      --requirepass ${REDIS_PASSWORD}
     environment:
       - REDIS_PASSWORD=${REDIS_PASSWORD}
     ports:

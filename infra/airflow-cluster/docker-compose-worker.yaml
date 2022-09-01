@@ -94,8 +94,6 @@ services:
     container_name: airflow-worker-${ENVIRONMENT}
     command: celery worker
     hostname: worker.${SUBDOMAIN}${DOMAIN}
-#    ports:
-#      - "8793:8793"
     healthcheck:
       test: ["CMD-SHELL",'celery --app airflow.executors.celery_executor.app inspect ping -d "celery@worker.$${SUBDOMAIN}$${DOMAIN}}"']
       interval: 10s
@@ -109,15 +107,6 @@ services:
     restart: unless-stopped
     networks:
       - proxy-net
-#    labels:
-#      #### Labels define the behavior and rules of the traefik proxy for this container ####
-#      - "traefik.enable=true" # <== Enable traefik to proxy this container
-#      - "traefik.http.routers.${ENVIRONMENT}-worker.rule=HostSNI(`*`)" # <== Your Domain Name goes here for the http rule
-#      - "traefik.http.routers.${ENVIRONMENT}-worker.entrypoints=worker.${SUBDOMAIN}${DOMAIN}" # <== Defining the entrypoint for http, **ref: line 30
-#      - "traefik.http.routers.${ENVIRONMENT}-worker.middlewares=redirect@file" # <== This is a middleware to redirect to https
-#      - "traefik.http.routers.${ENVIRONMENT}-worker-secured.rule=HostSNI(`*`)" # <== Your Domain Name for the https rule
-#      - "traefik.http.routers.${ENVIRONMENT}-worker-secured.entrypoints=worker.${SUBDOMAIN}${DOMAIN}" # <== Defining entrypoint for https, **ref: line 31
-#      - "traefik.http.routers.${ENVIRONMENT}-worker-secured.tls.certresolver=mytlschallenge" # <== Defining certsresolvers for https
 
 networks:
   proxy-net:

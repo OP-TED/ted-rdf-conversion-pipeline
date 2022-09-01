@@ -205,7 +205,7 @@ services:
     <<: *airflow-common
     container_name: airflow-worker-${ENVIRONMENT}
     command: celery worker
-    hostname: worker.${SUBDOMAIN}${DOMAIN}
+    hostname: ${AIRFLOW_WORKER_HOSTNAME}.local_worker.${SUBDOMAIN}
     healthcheck:
       test: ["CMD-SHELL",'celery --app airflow.executors.celery_executor.app inspect ping -d "celery@$${HOSTNAME}"']
       interval: 10s

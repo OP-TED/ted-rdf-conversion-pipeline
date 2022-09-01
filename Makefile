@@ -128,15 +128,6 @@ stop-airflow-worker:
 	@ echo -e "$(BUILD_PRINT)Stopping Airflow Worker $(END_BUILD_PRINT)"
 	@ docker-compose -p ${ENVIRONMENT} --file ./infra/airflow-cluster/docker-compose-worker.yaml --env-file ${ENV_FILE} down
 
-start-airflow-cluster: start-airflow-master start-airflow-worker
-
-stop-airflow-cluster: stop-airflow-worker stop-airflow-master
-
-update-code-base-cluster:
-	@ git pull
-
-restart-airflow-cluster: stop-airflow-cluster update-code-base-cluster start-airflow-cluster
-
 
 #---------------------------------------AIRFLOW_CLUSTER----END----TARGETS-----------------------------------------------
 
@@ -256,6 +247,7 @@ staging-dotenv-file: guard-VAULT_ADDR guard-VAULT_TOKEN vault-installed
 	@ echo RML_MAPPER_PATH=${RML_MAPPER_PATH} >> .env
 	@ echo XML_PROCESSOR_PATH=${XML_PROCESSOR_PATH} >> .env
 	@ echo AIRFLOW_INFRA_FOLDER=~/airflow-infra/staging >> .env
+	@ echo "AIRFLOW_WORKER_HOSTNAME=$(hostname)" >> .env
 	@ vault kv get -format="json" ted-staging/airflow | jq -r ".data.data | keys[] as \$$k | \"\(\$$k)=\(.[\$$k])\"" >> .env
 	@ vault kv get -format="json" ted-staging/mongo-db | jq -r ".data.data | keys[] as \$$k | \"\(\$$k)=\(.[\$$k])\"" >> .env
 	@ vault kv get -format="json" ted-staging/metabase | jq -r ".data.data | keys[] as \$$k | \"\(\$$k)=\(.[\$$k])\"" >> .env
@@ -274,6 +266,7 @@ dev-dotenv-file: guard-VAULT_ADDR guard-VAULT_TOKEN vault-installed
 	@ echo RML_MAPPER_PATH=${RML_MAPPER_PATH} >> .env
 	@ echo XML_PROCESSOR_PATH=${XML_PROCESSOR_PATH} >> .env
 	@ echo AIRFLOW_INFRA_FOLDER=${AIRFLOW_INFRA_FOLDER} >> .env
+	@ echo "AIRFLOW_WORKER_HOSTNAME=$(hostname)" >> .env
 	@ vault kv get -format="json" ted-dev/airflow | jq -r ".data.data | keys[] as \$$k | \"\(\$$k)=\(.[\$$k])\"" >> .env
 	@ vault kv get -format="json" ted-dev/mongo-db | jq -r ".data.data | keys[] as \$$k | \"\(\$$k)=\(.[\$$k])\"" >> .env
 	@ vault kv get -format="json" ted-dev/metabase | jq -r ".data.data | keys[] as \$$k | \"\(\$$k)=\(.[\$$k])\"" >> .env
@@ -292,6 +285,7 @@ prod-dotenv-file: guard-VAULT_ADDR guard-VAULT_TOKEN vault-installed
 	@ echo RML_MAPPER_PATH=${RML_MAPPER_PATH} >> .env
 	@ echo XML_PROCESSOR_PATH=${XML_PROCESSOR_PATH} >> .env
 	@ echo AIRFLOW_INFRA_FOLDER=~/airflow-infra/prod >> .env
+	@ echo "AIRFLOW_WORKER_HOSTNAME=$(hostname)" >> .env
 	@ vault kv get -format="json" ted-prod/airflow | jq -r ".data.data | keys[] as \$$k | \"\(\$$k)=\(.[\$$k])\"" >> .env
 	@ vault kv get -format="json" ted-prod/mongo-db | jq -r ".data.data | keys[] as \$$k | \"\(\$$k)=\(.[\$$k])\"" >> .env
 	@ vault kv get -format="json" ted-prod/metabase | jq -r ".data.data | keys[] as \$$k | \"\(\$$k)=\(.[\$$k])\"" >> .env

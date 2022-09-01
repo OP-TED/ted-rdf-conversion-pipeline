@@ -59,7 +59,7 @@ x-airflow-common:
     AIRFLOW__CORE__SQL_ALCHEMY_MAX_OVERFLOW: 512
     AIRFLOW__CORE__SQL_ALCHEMY_CONN: "postgresql+psycopg2://${POSTGRES_USER}:${POSTGRES_USER}@postgres.${SUBDOMAIN}${AIRFLOW_MASTER_DOMAIN}/airflow"
     AIRFLOW__CELERY__RESULT_BACKEND: "db+postgresql://${POSTGRES_USER}:${POSTGRES_USER}@postgres.${SUBDOMAIN}${AIRFLOW_MASTER_DOMAIN}/airflow"
-    AIRFLOW__CELERY__BROKER_URL: "redis://:${REDIS_PASSWORD}@redis.${SUBDOMAIN}${AIRFLOW_MASTER_DOMAIN}/0"
+    AIRFLOW__CELERY__BROKER_URL: "redis://airflow:${REDIS_PASSWORD}@redis.${SUBDOMAIN}${AIRFLOW_MASTER_DOMAIN}/0"
 #    AIRFLOW__CELERY__BROKER_URL: "redis://:$${REDIS_PASSWORD}@redis.$${SUBDOMAIN}$${AIRFLOW_MASTER_DOMAIN}/0"
     AIRFLOW__WEBSERVER__SECRET_KEY: "zqOVjqVrMstjDbKEPpYiSA=="
     IS_PRIME_ENV: 'true'
@@ -133,9 +133,10 @@ services:
 #      - "traefik.tcp.services.${ENVIRONMENT}-postgres.loadbalancer.server.port=5435"
 
   redis:
-    image: redis:latest
+    image: redis:7.0.4-alpine3.16
     container_name: redis-airflow-${ENVIRONMENT}
     environment:
+      - REDIS_USER=airflow
       - REDIS_PASSWORD=${REDIS_PASSWORD}
     ports:
       - "6379:6379"

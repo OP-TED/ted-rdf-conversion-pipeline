@@ -93,7 +93,7 @@ services:
     <<: *airflow-common
     container_name: airflow-worker-${ENVIRONMENT}
     command: celery worker
-    hostname: ${AIRFLOW_WORKER_HOSTNAME}.remote_worker.${SUBDOMAIN}
+    hostname: ${AIRFLOW_WORKER_HOSTNAME}.${SUBDOMAIN}remote_worker
     ports:
       - "8793:8793"
     healthcheck:

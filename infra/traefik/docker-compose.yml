@@ -8,7 +8,7 @@ services:
       - "80:80" # <== http
       - "8080:8080" # <== :8080 is where the dashboard runs on
       - "443:443" # <== https
-#      - "5432:5432" # PostgreSQL port
+      - "5432:5432" # PostgreSQL port
 #      - "6379:6379" # Redis port
     volumes:
       - ./letsencrypt:/letsencrypt # <== Volume for certs (TLS)

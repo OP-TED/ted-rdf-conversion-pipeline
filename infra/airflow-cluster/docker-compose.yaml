@@ -283,6 +283,8 @@ services:
       - .:/sources
     networks:
       - airflow
+    depends_on:
+      <<: *airflow-common-depends-on
 
   airflow-cli:
     <<: *airflow-common

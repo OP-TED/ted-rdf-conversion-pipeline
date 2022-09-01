@@ -1,3 +1,5 @@
+
+import pytest
 from deepdiff import DeepDiff
 
 from ted_sws.data_manager.adapters.mapping_suite_repository import MappingSuiteRepositoryMongoDB, \
@@ -66,3 +68,4 @@ def test_inter_transactions_mapping_suite_repositories(mongodb_client, file_syst
     assert DeepDiff(result_mapping_suite, fake_mapping_suite) == {}
     mapping_suite_repository_file_system.clear_repository()
     mongodb_client.drop_database(MappingSuiteRepositoryMongoDB._database_name)
+

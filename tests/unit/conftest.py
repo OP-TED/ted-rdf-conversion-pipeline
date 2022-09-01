@@ -27,3 +27,8 @@ def rdf_content(rdf_file_path) -> str:
 @pytest.fixture
 def organisation_cet_uri() -> str:
     return "http://data.europa.eu/a4g/ontology#Organisation"
+
+
+@pytest.fixture
+def package_folder_path_for_validator():
+    return pathlib.Path(TEST_DATA_PATH / "package_F03_demo")

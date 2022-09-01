@@ -29,7 +29,7 @@ def mapping_suite_read_metadata(conceptual_mappings_file_path: pathlib.Path) -> 
 def mapping_suite_read_conceptual_mapping(conceptual_mappings_file_path: pathlib.Path) -> \
         Union[ConceptualMapping, None]:
     """
-        This feature allows you to read the c1onceptual mapping in a package.
+        This feature allows you to read the conceptual mapping in a package.
     :param conceptual_mappings_file_path:
     :param metadata:
     :return:

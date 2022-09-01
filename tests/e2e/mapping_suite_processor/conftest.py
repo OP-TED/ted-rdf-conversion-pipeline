@@ -91,3 +91,4 @@ def package_folder_path():
 @pytest.fixture
 def mime_type():
     return RDF_MIME_TYPES
+

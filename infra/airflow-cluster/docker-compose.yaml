@@ -148,11 +148,11 @@ services:
     labels:
       #### Labels define the behavior and rules of the traefik proxy for this container ####
       - "traefik.enable=true" # <== Enable traefik to proxy this container
-      - "traefik.http.routers.${ENVIRONMENT}-airflow.rule=Host(`airflow.${SUBDOMAIN}${AIRFLOW_MASTER_DOMAIN}`)" # <== Your Domain Name goes here for the http rule
+      - "traefik.http.routers.${ENVIRONMENT}-airflow.rule=Host(`airflow.${SUBDOMAIN}${DOMAIN}`)" # <== Your Domain Name goes here for the http rule
       - "traefik.http.routers.${ENVIRONMENT}-airflow.entrypoints=web" # <== Defining the entrypoint for http, **ref: line 30
 
       - "traefik.http.routers.airflow.middlewares=redirect@file" # <== This is a middleware to redirect to https
-      - "traefik.http.routers.${ENVIRONMENT}-airflow-secured.rule=Host(`airflow.${SUBDOMAIN}${AIRFLOW_MASTER_DOMAIN}`)" # <== Your Domain Name for the https rule
+      - "traefik.http.routers.${ENVIRONMENT}-airflow-secured.rule=Host(`airflow.${SUBDOMAIN}${DOMAIN}`)" # <== Your Domain Name for the https rule
       - "traefik.http.routers.${ENVIRONMENT}-airflow-secured.entrypoints=web-secured" # <== Defining entrypoint for https, **ref: line 31
       - "traefik.http.routers.${ENVIRONMENT}-airflow-secured.tls.certresolver=mytlschallenge" # <== Defining certsresolvers for https
       - "traefik.http.services.${ENVIRONMENT}-airflow-secured.loadbalancer.server.port=8080"
@@ -337,10 +337,10 @@ services:
     labels:
       #### Labels define the behavior and rules of the traefik proxy for this container ####
       - "traefik.enable=true" # <== Enable traefik to proxy this container
-      - "traefik.http.routers.${ENVIRONMENT}-flower.rule=Host(`flower.${SUBDOMAIN}${AIRFLOW_MASTER_DOMAIN}`)" # <== Your Domain Name goes here for the http rule
+      - "traefik.http.routers.${ENVIRONMENT}-flower.rule=Host(`flower.${SUBDOMAIN}${DOMAIN}`)" # <== Your Domain Name goes here for the http rule
       - "traefik.http.routers.${ENVIRONMENT}-flower.entrypoints=web" # <== Defining the entrypoint for http, **ref: line 30
       - "traefik.http.routers.${ENVIRONMENT}-flower.middlewares=redirect@file" # <== This is a middleware to redirect to https
-      - "traefik.http.routers.${ENVIRONMENT}-flower-secured.rule=Host(`flower.${SUBDOMAIN}${AIRFLOW_MASTER_DOMAIN}`)" # <== Your Domain Name for the https rule
+      - "traefik.http.routers.${ENVIRONMENT}-flower-secured.rule=Host(`flower.${SUBDOMAIN}${DOMAIN}`)" # <== Your Domain Name for the https rule
       - "traefik.http.routers.${ENVIRONMENT}-flower-secured.entrypoints=web-secured" # <== Defining entrypoint for https, **ref: line 31
       - "traefik.http.routers.${ENVIRONMENT}-flower-secured.tls.certresolver=mytlschallenge" # <== Defining certsresolvers for https
       - "traefik.http.services.${ENVIRONMENT}-flower-secured.loadbalancer.server.port=5555"

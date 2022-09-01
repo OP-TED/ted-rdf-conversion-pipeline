@@ -57,8 +57,8 @@ x-airflow-common:
     AIRFLOW__CELERY__WORKER_CONCURRENCY: 128
     AIRFLOW__CORE__SQL_ALCHEMY_POOL_SIZE: 256
     AIRFLOW__CORE__SQL_ALCHEMY_MAX_OVERFLOW: 512
-    AIRFLOW__CORE__SQL_ALCHEMY_CONN: "postgresql+psycopg2://${POSTGRES_USER}:${POSTGRES_USER}@postgres.${SUBDOMAIN}${AIRFLOW_MASTER_DOMAIN}/airflow"
-    AIRFLOW__CELERY__RESULT_BACKEND: "db+postgresql://${POSTGRES_USER}:${POSTGRES_USER}@postgres.${SUBDOMAIN}${AIRFLOW_MASTER_DOMAIN}/airflow"
+    AIRFLOW__CORE__SQL_ALCHEMY_CONN: "postgresql+psycopg2://${POSTGRES_USER}:${POSTGRES_USER}@postgres.${SUBDOMAIN}${DOMAIN}/airflow"
+    AIRFLOW__CELERY__RESULT_BACKEND: "db+postgresql://${POSTGRES_USER}:${POSTGRES_USER}@postgres.${SUBDOMAIN}${DOMAIN}/airflow"
     AIRFLOW__CELERY__BROKER_URL: "redis://:${REDIS_PASSWORD}@redis.${SUBDOMAIN}${AIRFLOW_MASTER_DOMAIN}:6379/0"
     AIRFLOW__WEBSERVER__SECRET_KEY: "zqOVjqVrMstjDbKEPpYiSA=="
     IS_PRIME_ENV: 'true'
@@ -97,7 +97,7 @@ services:
     ports:
       - "8793:8793"
     healthcheck:
-      test: ["CMD-SHELL",'celery --app airflow.executors.celery_executor.app inspect ping -d "celery@worker.$${SUBDOMAIN}$${DOMAIN}}"']
+      test: ["CMD-SHELL",'celery --app airflow.executors.celery_executor.app inspect ping -d "celery@$${HOSTNAME}"']
       interval: 10s
       timeout: 10s
       retries: 5

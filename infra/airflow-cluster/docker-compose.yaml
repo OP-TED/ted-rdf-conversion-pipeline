@@ -57,8 +57,8 @@ x-airflow-common:
     AIRFLOW__CELERY__WORKER_CONCURRENCY: 128
     AIRFLOW__CORE__SQL_ALCHEMY_POOL_SIZE: 256
     AIRFLOW__CORE__SQL_ALCHEMY_MAX_OVERFLOW: 512
-    AIRFLOW__CORE__SQL_ALCHEMY_CONN: "postgresql+psycopg2://${POSTGRES_USER}:${POSTGRES_USER}@postgres.${SUBDOMAIN}${AIRFLOW_MASTER_DOMAIN}:5432/airflow"
-    AIRFLOW__CELERY__RESULT_BACKEND: "db+postgresql://${POSTGRES_USER}:${POSTGRES_USER}@postgres.${SUBDOMAIN}${AIRFLOW_MASTER_DOMAIN}:5432/airflow"
+    AIRFLOW__CORE__SQL_ALCHEMY_CONN: "postgresql+psycopg2://${POSTGRES_USER}:${POSTGRES_USER}@postgres.${SUBDOMAIN}${AIRFLOW_MASTER_DOMAIN}/airflow"
+    AIRFLOW__CELERY__RESULT_BACKEND: "db+postgresql://${POSTGRES_USER}:${POSTGRES_USER}@postgres.${SUBDOMAIN}${AIRFLOW_MASTER_DOMAIN}/airflow"
     AIRFLOW__CELERY__BROKER_URL: "redis://:@redis.${SUBDOMAIN}${AIRFLOW_MASTER_DOMAIN}:6379/0"
 #    AIRFLOW__CELERY__BROKER_URL: "redis://:$${REDIS_PASSWORD}@redis.$${SUBDOMAIN}$${AIRFLOW_MASTER_DOMAIN}/0"
     AIRFLOW__WEBSERVER__SECRET_KEY: "zqOVjqVrMstjDbKEPpYiSA=="
@@ -109,8 +109,8 @@ services:
       POSTGRES_USER: airflow
       POSTGRES_PASSWORD: airflow
       POSTGRES_DB: airflow
-#    ports:
-#      - "5432:5432"
+    ports:
+      - "5432:5432"
     expose:
       - 5432
     volumes:
@@ -127,10 +127,10 @@ services:
     labels:
       #### Labels define the behavior and rules of the traefik proxy for this container ####
       - "traefik.enable=true" # <== Enable traefik to proxy this container
-      - "traefik.tcp.routers.${ENVIRONMENT}-postgres.rule=HostSNI(`*`)" # <== Your Domain Name goes here for the http rule
-#      - "traefik.tcp.routers.${ENVIRONMENT}-postgres.rule=HostSNI(`postgres.${SUBDOMAIN}${AIRFLOW_MASTER_DOMAIN}`)" # <== Your Domain Name goes here for the http rule
+#      - "traefik.tcp.routers.${ENVIRONMENT}-postgres.rule=HostSNI(`*`)" # <== Your Domain Name goes here for the http rule
+      - "traefik.tcp.routers.${ENVIRONMENT}-postgres.rule=HostSNI(`postgres.${SUBDOMAIN}${AIRFLOW_MASTER_DOMAIN}`)" # <== Your Domain Name goes here for the http rule
       - "traefik.tcp.routers.${ENVIRONMENT}-postgres.entrypoints=postgres" # <== Defining the entrypoint for http, **ref: line 30
-      - "traefik.tcp.routers.${ENVIRONMENT}-postgres.service=postgres-airflow-${ENVIRONMENT}" # <== Defining the entrypoint for http, **ref: line 30
+      - "traefik.tcp.routers.${ENVIRONMENT}-postgres.service=${ENVIRONMENT}-postgres" # <== Defining the entrypoint for http, **ref: line 30
       - "traefik.tcp.services.${ENVIRONMENT}-postgres.loadbalancer.server.port=5432"
 
   redis:

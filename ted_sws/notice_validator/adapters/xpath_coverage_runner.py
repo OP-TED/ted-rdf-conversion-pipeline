@@ -31,11 +31,10 @@ class CoverageRunner:
     base_xpath: str
     mapping_suite_id: str
 
-    def __init__(self, mapping_suite_id: str, conceptual_mappings_file_path: PATH_TYPE = None, xslt_transformer=None,
+    def __init__(self, mapping_suite_id: str, conceptual_mappings_file_path: PATH_TYPE = None,
                  mongodb_client: MongoClient = None):
         self.mapping_suite_id = mapping_suite_id
         self.mongodb_client = mongodb_client
-        self.xslt_transformer = xslt_transformer
 
         conceptual_mapping: ConceptualMapping
         if self._db_readable():
@@ -124,7 +123,7 @@ class CoverageRunner:
             if self._db_readable():
                 xpaths = get_unique_xpaths_covered_by_notices([notice.ted_id], self.mongodb_client)
             else:
-                notice = index_notice(notice, self.xslt_transformer)
+                notice = index_notice(notice)
 
                 if notice.xml_metadata and notice.xml_metadata.unique_xpaths:
                     xpaths = notice.xml_metadata.unique_xpaths

@@ -4,8 +4,10 @@ from datetime import datetime
 
 import pandas as pd
 
-from ted_sws.mapping_suite_processor import CONCEPTUAL_MAPPINGS_METADATA_SHEET_NAME
+from ted_sws.data_manager.adapters.mapping_suite_repository import MS_TRANSFORM_FOLDER_NAME, MS_METADATA_FILE_NAME
 from ted_sws.mapping_suite_processor.adapters.mapping_suite_hasher import MappingSuiteHasher
+from ted_sws.mapping_suite_processor.services.conceptual_mapping_reader import mapping_suite_read_metadata, \
+    CONCEPTUAL_MAPPINGS_FILE_NAME
 
 # This set of constants refers to fields in teh Conceptual Mapping file
 VERSION_FIELD = 'Mapping Version'
@@ -44,8 +46,6 @@ def generate_metadata(raw_metadata: dict) -> dict:
     :return:
     """
 
-    # TODO: add the mapping suite hash to the metadata.json
-
     def get_list_from_raw_metadata(field_key: str) -> list:
         data = raw_metadata[field_key][0]
         if pd.notna(data):
@@ -68,31 +68,32 @@ def generate_metadata(raw_metadata: dict) -> dict:
     return metadata
 
 
-def mapping_suite_processor_generate_metadata(conceptual_mappings_file_path: pathlib.Path,
-                                              output_metadata_file_path: pathlib.Path):
+def mapping_suite_processor_generate_metadata(mapping_suite_path: pathlib.Path,
+                                              output_metadata_file_path: pathlib.Path = None,
+                                              conceptual_mappings_file_path: pathlib.Path = None):
     """
         This function reads metadata from conceptual_mapping_file and generates metadata for a mapping suite package.
             The result is written to the output_metadata_file file.
-    :param conceptual_mappings_file_path:
+    :param mapping_suite_path:
     :param output_metadata_file_path:
+    :param conceptual_mappings_file_path:
     :return:
     """
-    # TODO: please refacor this UGLY hack, and make the "mapping_suite_processor_generate_metadata"
-    #  function operate on the mapping_suite_path rather than the path to conceptual mapping file
-    # TODO: !!! REUSE mapping_suite_read_metadata from conceptual_mapping_reader
-    mapping_suite_path = conceptual_mappings_file_path.parent.parent
+
+    if output_metadata_file_path is None:
+        output_metadata_file_path = mapping_suite_path / MS_METADATA_FILE_NAME
+
+    if conceptual_mappings_file_path is None:
+        conceptual_mappings_file_path = mapping_suite_path / MS_TRANSFORM_FOLDER_NAME / CONCEPTUAL_MAPPINGS_FILE_NAME
 
     metadata = {}
-
-    with open(conceptual_mappings_file_path, 'rb') as excel_file:
-        conceptual_mappings_metadata_df = pd.read_excel(excel_file, sheet_name=CONCEPTUAL_MAPPINGS_METADATA_SHEET_NAME)
-        raw_metadata = conceptual_mappings_metadata_df.set_index('Field').T.to_dict('list')
-
-        conceptual_mapping_metadata = generate_metadata(raw_metadata=raw_metadata)
-        metadata.update(conceptual_mapping_metadata)
+    raw_metadata = mapping_suite_read_metadata(conceptual_mappings_file_path)
+    conceptual_mapping_metadata = generate_metadata(raw_metadata=raw_metadata)
+    metadata.update(conceptual_mapping_metadata)
 
     hashing_metadata = {MAPPING_SUITE_HASH: MappingSuiteHasher(mapping_suite_path).hash_mapping_suite(
-        with_version=metadata[VERSION_KEY])}
+        with_version=metadata[VERSION_KEY]
+    )}
     metadata.update(hashing_metadata)
 
     with open(output_metadata_file_path, 'w') as metadata_file:

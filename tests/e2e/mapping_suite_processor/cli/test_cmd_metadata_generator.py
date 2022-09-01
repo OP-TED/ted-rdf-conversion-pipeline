@@ -19,15 +19,17 @@ def test_metadata_generator(cli_runner, fake_mapping_suite_id, file_system_repos
     post_process(file_system_repository_path, fake_mapping_suite_id)
 
 
-def test_metadata_generator_with_non_existing_input(cli_runner, file_system_repository_path):
-    response = cli_runner.invoke(cli_main, ["-i", "non_existing_dir/non_existing_file",
+def test_metadata_generator_with_non_existing_input(cli_runner, file_system_repository_path, fake_mapping_suite_id):
+    response = cli_runner.invoke(cli_main, [fake_mapping_suite_id,
+                                            "-i", "non_existing_dir/non_existing_file",
                                             "-o", "non_existing_dir/non_existing_file",
                                             "--opt-mappings-folder", file_system_repository_path])
     assert "No such file" in response.output
 
 
-def test_sparql_generator_with_invalid_input(cli_runner, file_system_repository_path, fake_mapping_suite_id):
-    response = cli_runner.invoke(cli_main, ["-i", str(file_system_repository_path / fake_mapping_suite_id /
+def test_metadata_generator_with_invalid_input(cli_runner, file_system_repository_path, fake_mapping_suite_id):
+    response = cli_runner.invoke(cli_main, [fake_mapping_suite_id,
+                                            "-i", str(file_system_repository_path / fake_mapping_suite_id /
                                                       "transformation" / "invalid_conceptual_mappings.xlsx"),
                                             "--opt-mappings-folder", file_system_repository_path])
     assert "FAILED" in response.output

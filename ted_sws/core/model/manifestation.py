@@ -250,6 +250,7 @@ class RDFManifestationValidationSummaryReport(PropertyBaseModel):
 
 
 class ValidationSummaryReport(ValidationManifestation):
+    notice_id: Optional[List[str]] = []
     xml_manifestation: Optional[XMLManifestationValidationSummaryReport] = XMLManifestationValidationSummaryReport()
     rdf_manifestation: Optional[RDFManifestationValidationSummaryReport] = RDFManifestationValidationSummaryReport()
     distilled_rdf_manifestation: Optional[

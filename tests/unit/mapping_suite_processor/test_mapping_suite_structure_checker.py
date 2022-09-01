@@ -55,7 +55,8 @@ def test_validate_output_structure(caplog, package_folder_path_for_validator):
 
         dirpath = (pathlib.Path(temp_folder) / MS_OUTPUT_FOLDER_NAME)
 
-        notice_report_path = dirpath / os.listdir(dirpath)[0] / MS_TEST_SUITE_REPORT
+        notice_id = next(f for f in os.listdir(dirpath) if os.path.isdir(os.path.join(dirpath, f)))
+        notice_report_path = dirpath / notice_id / MS_TEST_SUITE_REPORT
         for f in os.listdir(notice_report_path):
             os.remove(os.path.join(notice_report_path, f))
 

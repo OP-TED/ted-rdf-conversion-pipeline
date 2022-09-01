@@ -60,11 +60,11 @@ x-airflow-common:
     AIRFLOW__CORE__SQL_ALCHEMY_CONN: "postgresql+psycopg2://${POSTGRES_USER}:${POSTGRES_USER}@postgres.${SUBDOMAIN}${AIRFLOW_MASTER_DOMAIN}/airflow"
     AIRFLOW__CELERY__RESULT_BACKEND: "db+postgresql://${POSTGRES_USER}:${POSTGRES_USER}@postgres.${SUBDOMAIN}${AIRFLOW_MASTER_DOMAIN}/airflow"
     AIRFLOW__CELERY__BROKER_URL: "redis://:${REDIS_PASSWORD}@redis.${SUBDOMAIN}${AIRFLOW_MASTER_DOMAIN}/0"
-#    AIRFLOW__CELERY__BROKER_URL: "redis://:$${REDIS_PASSWORD}@redis.$${SUBDOMAIN}$${AIRFLOW_MASTER_DOMAIN}/0"
     AIRFLOW__WEBSERVER__SECRET_KEY: "zqOVjqVrMstjDbKEPpYiSA=="
     IS_PRIME_ENV: 'true'
     AIRFLOW__CORE__EXECUTOR: CeleryExecutor
-    AIRFLOW__CORE__FERNET_KEY: 'M9NmXPlfIszmYCVjp3nJNQEocpmNQtKQdG-Kxdvfgm8='
+    AIRFLOW__CORE__FERNET_KEY: ''
+#    AIRFLOW__CORE__FERNET_KEY: 'M9NmXPlfIszmYCVjp3nJNQEocpmNQtKQdG-Kxdvfgm8='
     AIRFLOW__CORE__DAGS_ARE_PAUSED_AT_CREATION: 'true'
     AIRFLOW__CORE__ENABLE_XCOM_PICKLING: "true"
     AIRFLOW__CORE__LOAD_EXAMPLES: 'false'
@@ -78,11 +78,6 @@ x-airflow-common:
     RML_MAPPER_PATH: /opt/airflow/.rmlmapper/rmlmapper.jar
     XML_PROCESSOR_PATH: /opt/airflow/.saxon/saxon-he-10.6.jar
     DAG_LOGGER_CONFIG_HANDLERS: ${DAG_LOGGER_CONFIG_HANDLERS}
-#  extra_hosts:
-#    - "worker-01-hostname:worker.${SUBDOMAIN}${AIRFLOW_WORKER_1_DOMAIN}"
-#    - "worker-02-hostname:worker.${SUBDOMAIN}${AIRFLOW_WORKER_2_DOMAIN}"
-#    - "worker-01-hostname:65.108.123.44"
-#    - "worker-02-hostname:168.119.148.205"
   volumes:
 #    - ./config/airflow.cfg:/opt/airflow/airflow.cfg
     - ${AIRFLOW_INFRA_FOLDER}/.env:/opt/airflow/.env
@@ -300,6 +295,7 @@ services:
       - airflow
     networks:
       - airflow
+      - common-ext
 
   flower:
     <<: *airflow-common

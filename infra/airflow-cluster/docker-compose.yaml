@@ -59,7 +59,7 @@ x-airflow-common:
     AIRFLOW__CORE__SQL_ALCHEMY_MAX_OVERFLOW: 512
     AIRFLOW__CORE__SQL_ALCHEMY_CONN: "postgresql+psycopg2://${POSTGRES_USER}:${POSTGRES_USER}@postgres.${SUBDOMAIN}${AIRFLOW_MASTER_DOMAIN}/airflow"
     AIRFLOW__CELERY__RESULT_BACKEND: "db+postgresql://${POSTGRES_USER}:${POSTGRES_USER}@postgres.${SUBDOMAIN}${AIRFLOW_MASTER_DOMAIN}/airflow"
-    AIRFLOW__CELERY__BROKER_URL: "redis://:@redis.${SUBDOMAIN}${AIRFLOW_MASTER_DOMAIN}:6379/0"
+    AIRFLOW__CELERY__BROKER_URL: "redis://:${REDIS_PASSWORD}@redis.${SUBDOMAIN}${AIRFLOW_MASTER_DOMAIN}/0"
 #    AIRFLOW__CELERY__BROKER_URL: "redis://:$${REDIS_PASSWORD}@redis.$${SUBDOMAIN}$${AIRFLOW_MASTER_DOMAIN}/0"
     AIRFLOW__WEBSERVER__SECRET_KEY: "zqOVjqVrMstjDbKEPpYiSA=="
     IS_PRIME_ENV: 'true'
@@ -110,9 +110,7 @@ services:
       POSTGRES_PASSWORD: airflow
       POSTGRES_DB: airflow
     ports:
-      - "5435:5432"
-    expose:
-      - 5432
+      - "5432:5432"
     volumes:
       - postgres-db-volume:/var/lib/postgresql/data
     healthcheck:
@@ -124,25 +122,23 @@ services:
       - airflow
       - proxy-net
       - common-ext
-    labels:
-      #### Labels define the behavior and rules of the traefik proxy for this container ####
-      - "traefik.enable=true" # <== Enable traefik to proxy this container
-#      - "traefik.tcp.routers.${ENVIRONMENT}-postgres.rule=HostSNI(`*`)" # <== Your Domain Name goes here for the http rule
-      - "traefik.tcp.routers.${ENVIRONMENT}-postgres.rule=HostSNI(`postgres.${SUBDOMAIN}${AIRFLOW_MASTER_DOMAIN}`)" # <== Your Domain Name goes here for the http rule
-#      - "traefik.tcp.routers.${ENVIRONMENT}-postgres.rule=Host(`postgres.${SUBDOMAIN}${AIRFLOW_MASTER_DOMAIN}`)" # <== Your Domain Name goes here for the http rule
-      - "traefik.tcp.routers.${ENVIRONMENT}-postgres.entrypoints=postgres" # <== Defining the entrypoint for http, **ref: line 30
-      - "traefik.tcp.routers.${ENVIRONMENT}-postgres.service=${ENVIRONMENT}-postgres" # <== Defining the entrypoint for http, **ref: line 30
-      - "traefik.tcp.services.${ENVIRONMENT}-postgres.loadbalancer.server.port=5435"
+#    labels:
+#      #### Labels define the behavior and rules of the traefik proxy for this container ####
+#      - "traefik.enable=true" # <== Enable traefik to proxy this container
+##      - "traefik.tcp.routers.${ENVIRONMENT}-postgres.rule=HostSNI(`*`)" # <== Your Domain Name goes here for the http rule
+#      - "traefik.tcp.routers.${ENVIRONMENT}-postgres.rule=HostSNI(`postgres.${SUBDOMAIN}${AIRFLOW_MASTER_DOMAIN}`)" # <== Your Domain Name goes here for the http rule
+##      - "traefik.tcp.routers.${ENVIRONMENT}-postgres.rule=Host(`postgres.${SUBDOMAIN}${AIRFLOW_MASTER_DOMAIN}`)" # <== Your Domain Name goes here for the http rule
+#      - "traefik.tcp.routers.${ENVIRONMENT}-postgres.entrypoints=postgres" # <== Defining the entrypoint for http, **ref: line 30
+#      - "traefik.tcp.routers.${ENVIRONMENT}-postgres.service=${ENVIRONMENT}-postgres" # <== Defining the entrypoint for http, **ref: line 30
+#      - "traefik.tcp.services.${ENVIRONMENT}-postgres.loadbalancer.server.port=5435"
 
   redis:
     image: redis:latest
     container_name: redis-airflow-${ENVIRONMENT}
-#    environment:
-#      - REDIS_PASSWORD=${REDIS_PASSWORD}
-#    ports:
-#      - "6379:6379"
-    expose:
-      - 6379
+    environment:
+      - REDIS_PASSWORD=${REDIS_PASSWORD}
+    ports:
+      - "6379:6379"
     healthcheck:
       test: ["CMD", "redis-cli", "ping"]
       interval: 5s
@@ -153,19 +149,19 @@ services:
       - airflow
       - proxy-net
       - common-ext
-    labels:
-      #### Labels define the behavior and rules of the traefik proxy for this container ####
-      - "traefik.enable=true" # <== Enable traefik to proxy this container
-      - "traefik.tcp.routers.${ENVIRONMENT}-redis.rule=HostSNI(`*`)" # <== Your Domain Name goes here for the http rule
-#      - "traefik.http.routers.${ENVIRONMENT}-redis.entrypoints=redis.${SUBDOMAIN}${AIRFLOW_MASTER_DOMAIN}" # <== Defining the entrypoint for http, **ref: line 30
-#      - "traefik.http.routers.${ENVIRONMENT}-redis.middlewares=redirect@file" # <== This is a middleware to redirect to https
-#      - "traefik.http.routers.${ENVIRONMENT}-redis-secured.rule=HostSNI(`*`)" # <== Your Domain Name for the https rule
-#      - "traefik.http.routers.${ENVIRONMENT}-redis-secured.entrypoints=redis.${SUBDOMAIN}${AIRFLOW_MASTER_DOMAIN}" # <== Defining entrypoint for https, **ref: line 31
-#      - "traefik.http.routers.${ENVIRONMENT}-redis-secured.tls.certresolver=mytlschallenge" # <== Defining certsresolvers for https
-      - "traefik.tcp.services.${ENVIRONMENT}-redis.loadbalancer.server.port=6379"
-#      - "traefik.http.routers.${ENVIRONMENT}-redis.rule=HostSNI(`redis.${SUBDOMAIN}${AIRFLOW_MASTER_DOMAIN}`)" # <== Your Domain Name goes here for the http rule
-      - "traefik.tcp.routers.${ENVIRONMENT}-redis.entrypoints=redis" # <== Defining the entrypoint for http, **ref: line 30
-      - "traefik.tcp.routers.${ENVIRONMENT}-redis.service=redis-airflow-${ENVIRONMENT}"
+#    labels:
+#      #### Labels define the behavior and rules of the traefik proxy for this container ####
+#      - "traefik.enable=true" # <== Enable traefik to proxy this container
+#      - "traefik.tcp.routers.${ENVIRONMENT}-redis.rule=HostSNI(`*`)" # <== Your Domain Name goes here for the http rule
+##      - "traefik.http.routers.${ENVIRONMENT}-redis.entrypoints=redis.${SUBDOMAIN}${AIRFLOW_MASTER_DOMAIN}" # <== Defining the entrypoint for http, **ref: line 30
+##      - "traefik.http.routers.${ENVIRONMENT}-redis.middlewares=redirect@file" # <== This is a middleware to redirect to https
+##      - "traefik.http.routers.${ENVIRONMENT}-redis-secured.rule=HostSNI(`*`)" # <== Your Domain Name for the https rule
+##      - "traefik.http.routers.${ENVIRONMENT}-redis-secured.entrypoints=redis.${SUBDOMAIN}${AIRFLOW_MASTER_DOMAIN}" # <== Defining entrypoint for https, **ref: line 31
+##      - "traefik.http.routers.${ENVIRONMENT}-redis-secured.tls.certresolver=mytlschallenge" # <== Defining certsresolvers for https
+#      - "traefik.tcp.services.${ENVIRONMENT}-redis.loadbalancer.server.port=6379"
+##      - "traefik.http.routers.${ENVIRONMENT}-redis.rule=HostSNI(`redis.${SUBDOMAIN}${AIRFLOW_MASTER_DOMAIN}`)" # <== Your Domain Name goes here for the http rule
+#      - "traefik.tcp.routers.${ENVIRONMENT}-redis.entrypoints=redis" # <== Defining the entrypoint for http, **ref: line 30
+#      - "traefik.tcp.routers.${ENVIRONMENT}-redis.service=redis-airflow-${ENVIRONMENT}"
 
 
 

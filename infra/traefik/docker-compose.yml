@@ -8,7 +8,7 @@ services:
       - "80:80" # <== http
       - "8080:8080" # <== :8080 is where the dashboard runs on
       - "443:443" # <== https
-      - "5432:5432" # PostgreSQL port
+#      - "5432:5432" # PostgreSQL port
 #      - "6379:6379" # Redis port
     volumes:
       - ./letsencrypt:/letsencrypt # <== Volume for certs (TLS)
@@ -19,7 +19,7 @@ services:
     command:
       #### These are the CLI commands that will configure Traefik and tell it how to work! ####
       ## API Settings - https://docs.traefik.io/operations/api/, endpoints - https://docs.traefik.io/operations/api/#endpoints ##
-      - --api.insecure=true # <== Enabling insecure api, NOT RECOMMENDED FOR PRODUCTION
+      - --api.insecure=false # <== Enabling insecure api, NOT RECOMMENDED FOR PRODUCTION
       - --api.dashboard=true # <== Enabling the dashboard to view services, middlewares, routers, etc...
       - --api.debug=true # <== Enabling additional endpoints for debugging and profiling
       ## Log Settings (options: ERROR, DEBUG, PANIC, FATAL, WARN, INFO) - https://docs.traefik.io/observability/logs/ ##

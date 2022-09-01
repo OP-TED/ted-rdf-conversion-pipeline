@@ -247,7 +247,7 @@ staging-dotenv-file: guard-VAULT_ADDR guard-VAULT_TOKEN vault-installed
 	@ echo RML_MAPPER_PATH=${RML_MAPPER_PATH} >> .env
 	@ echo XML_PROCESSOR_PATH=${XML_PROCESSOR_PATH} >> .env
 	@ echo AIRFLOW_INFRA_FOLDER=~/airflow-infra/staging >> .env
-	@ echo AIRFLOW_WORKER_HOSTNAME=$(hostname) >> .env
+	@ echo AIRFLOW_WORKER_HOSTNAME=${HOSTNAME} >> .env
 	@ vault kv get -format="json" ted-staging/airflow | jq -r ".data.data | keys[] as \$$k | \"\(\$$k)=\(.[\$$k])\"" >> .env
 	@ vault kv get -format="json" ted-staging/mongo-db | jq -r ".data.data | keys[] as \$$k | \"\(\$$k)=\(.[\$$k])\"" >> .env
 	@ vault kv get -format="json" ted-staging/metabase | jq -r ".data.data | keys[] as \$$k | \"\(\$$k)=\(.[\$$k])\"" >> .env

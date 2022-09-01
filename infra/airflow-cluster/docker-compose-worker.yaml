@@ -1,0 +1,116 @@
+# Licensed to the Apache Software Foundation (ASF) under one
+# or more contributor license agreements.  See the NOTICE file
+# distributed with this work for additional information
+# regarding copyright ownership.  The ASF licenses this file
+# to you under the Apache License, Version 2.0 (the
+# "License"); you may not use this file except in compliance
+# with the License.  You may obtain a copy of the License at
+#
+#   http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing,
+# software distributed under the License is distributed on an
+# "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+# KIND, either express or implied.  See the License for the
+# specific language governing permissions and limitations
+# under the License.
+#
+
+# Basic Airflow cluster configuration for CeleryExecutor with Redis and PostgreSQL.
+#
+# WARNING: This configuration is for local development. Do not use it in a production deployment.
+#
+# This configuration supports basic configuration using environment variables or an .env file
+# The following variables are supported:
+#
+# AIRFLOW_IMAGE_NAME           - Docker image name used to run Airflow.
+#                                Default: apache/airflow:|version|
+# AIRFLOW_UID                  - User ID in Airflow containers
+#                                Default: 50000
+# Those configurations are useful mostly in case of standalone testing/running Airflow in test/try-out mode
+#
+# _AIRFLOW_WWW_USER_USERNAME   - Username for the administrator account (if requested).
+#                                Default: airflow
+# _AIRFLOW_WWW_USER_PASSWORD   - Password for the administrator account (if requested).
+#                                Default: airflow
+# _PIP_ADDITIONAL_REQUIREMENTS - Additional PIP requirements to add when starting all containers.
+#                                Default: ''
+#
+# Feel free to modify this file to suit your needs.
+---
+version: '3'
+x-airflow-common:
+  &airflow-common
+  # In order to add custom dependencies or upgrade provider packages you can use your extended image.
+  # Comment the image line, place your Dockerfile in the directory where you placed the docker-compose.yaml
+  # and uncomment the "build" line below, Then run `docker-compose build` to build the images.
+  #image: ${AIRFLOW_IMAGE_NAME:-apache/airflow:2.2.2-python3.8}
+  #build: .
+  image: meaningfy/airflow:latest
+  env_file:
+    - ../../.env
+  environment:
+    &airflow-common-env
+    AIRFLOW__CORE__PARALLELISM: 128
+    AIRFLOW__CORE__MAX_ACTIVE_TASKS_PER_DAG: 128
+    AIRFLOW__SCHEDULER__PARSING_PROCESSES: 4
+    AIRFLOW__CELERY__WORKER_CONCURRENCY: 128
+    AIRFLOW__CORE__SQL_ALCHEMY_POOL_SIZE: 256
+    AIRFLOW__CORE__SQL_ALCHEMY_MAX_OVERFLOW: 512
+    AIRFLOW__CORE__SQL_ALCHEMY_CONN: "postgresql+psycopg2://${POSTGRES_USER}:${POSTGRES_USER}@postgres.${SUBDOMAIN}${DOMAIN}/airflow"
+    AIRFLOW__CELERY__RESULT_BACKEND: "db+postgresql://${POSTGRES_USER}:${POSTGRES_USER}@postgres.${SUBDOMAIN}${DOMAIN}/airflow"
+    AIRFLOW__CELERY__BROKER_URL: "redis://:${REDIS_PASSWORD}@redis.${SUBDOMAIN}${DOMAIN}:6379/0"
+    AIRFLOW__WEBSERVER__SECRET_KEY: "zqOVjqVrMstjDbKEPpYiSA=="
+    IS_PRIME_ENV: 'true'
+    AIRFLOW__CORE__EXECUTOR: CeleryExecutor
+    AIRFLOW__CORE__FERNET_KEY: ''
+    AIRFLOW__CORE__DAGS_ARE_PAUSED_AT_CREATION: 'true'
+    AIRFLOW__CORE__ENABLE_XCOM_PICKLING: "true"
+    AIRFLOW__CORE__LOAD_EXAMPLES: 'false'
+    AIRFLOW__API__AUTH_BACKEND: 'airflow.api.auth.backend.basic_auth'
+    _PIP_ADDITIONAL_REQUIREMENTS: ${_PIP_ADDITIONAL_REQUIREMENTS:-}
+    VAULT_TOKEN: ${VAULT_TOKEN}
+    VAULT_ADDR: ${VAULT_ADDR}
+    ENVIRONMENT: ${ENVIRONMENT}
+    PYTHONPATH: /opt/airflow/
+    AIRFLOW_HOME: /opt/airflow
+    RML_MAPPER_PATH: /opt/airflow/.rmlmapper/rmlmapper.jar
+    XML_PROCESSOR_PATH: /opt/airflow/.saxon/saxon-he-10.6.jar
+    DAG_LOGGER_CONFIG_HANDLERS: ${DAG_LOGGER_CONFIG_HANDLERS}
+  volumes:
+#    - ./config/airflow.cfg:/opt/airflow/airflow.cfg
+    - ${AIRFLOW_INFRA_FOLDER}/.env:/opt/airflow/.env
+    - ${AIRFLOW_INFRA_FOLDER}/dags:/opt/airflow/dags
+    - ${AIRFLOW_INFRA_FOLDER}/logs:/opt/airflow/logs
+    - ${AIRFLOW_INFRA_FOLDER}/plugins:/opt/airflow/plugins
+    - ${AIRFLOW_INFRA_FOLDER}/ted_sws:/opt/airflow/ted_sws
+    - ${AIRFLOW_INFRA_FOLDER}/tests:/opt/airflow/tests
+  user: "${AIRFLOW_UID:-50000}:0"
+  command: bash -c "export PYTHONPATH='/opt/airflow/'"
+
+services:
+  airflow-worker:
+    <<: *airflow-common
+    container_name: airflow-worker-${ENVIRONMENT}
+    command: celery worker
+    hostname: ${AIRFLOW_WORKER_HOSTNAME}.${SUBDOMAIN}remote_worker
+    ports:
+      - "8793:8793"
+    healthcheck:
+      test: ["CMD-SHELL",'celery --app airflow.executors.celery_executor.app inspect ping -d "celery@$${HOSTNAME}"']
+      interval: 10s
+      timeout: 10s
+      retries: 5
+    environment:
+      <<: *airflow-common-env
+      # Required to handle warm shutdown of the celery workers properly
+      # See https://airflow.apache.org/docs/docker-stack/entrypoint.html#signal-propagation
+      DUMB_INIT_SETSID: "0"
+    restart: unless-stopped
+    networks:
+      - proxy-net
+
+networks:
+  proxy-net:
+    external:
+      name: proxy-net

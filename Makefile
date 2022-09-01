@@ -14,6 +14,7 @@ PROJECT_PATH = $(shell pwd)
 AIRFLOW_INFRA_FOLDER ?= ${PROJECT_PATH}/.airflow
 RML_MAPPER_PATH = ${PROJECT_PATH}/.rmlmapper/rmlmapper.jar
 XML_PROCESSOR_PATH = ${PROJECT_PATH}/.saxon/saxon-he-10.6.jar
+HOSTNAME = $(shell hostname)
 
 
 #-----------------------------------------------------------------------------
@@ -91,6 +92,14 @@ create-env-airflow:
 	@ chmod 777 ${AIRFLOW_INFRA_FOLDER}/logs ${AIRFLOW_INFRA_FOLDER}/plugins ${AIRFLOW_INFRA_FOLDER}/.env
 	@ cp requirements.txt ./infra/airflow/
 
+
+build-airflow: guard-ENVIRONMENT create-env-airflow build-externals
+	@ echo -e "$(BUILD_PRINT) Build Airflow services $(END_BUILD_PRINT)"
+	@ docker build -t meaningfy/airflow ./infra/airflow/
+	@ docker-compose -p ${ENVIRONMENT} --file ./infra/airflow/docker-compose.yaml --env-file ${ENV_FILE} up -d --force-recreate
+
+#--------------------------------------AIRFLOW_CLUSTER----BEGIN----TARGETS----------------------------------------------
+
 create-env-airflow-cluster:
 	@ echo -e "$(BUILD_PRINT) Create Airflow env $(END_BUILD_PRINT)"
 	@ echo -e "$(BUILD_PRINT) ${AIRFLOW_INFRA_FOLDER} ${ENVIRONMENT} $(END_BUILD_PRINT)"
@@ -100,31 +109,28 @@ create-env-airflow-cluster:
 	@ chmod 777 ${AIRFLOW_INFRA_FOLDER}/logs ${AIRFLOW_INFRA_FOLDER}/plugins ${AIRFLOW_INFRA_FOLDER}/.env
 	@ cp requirements.txt ./infra/airflow-cluster/
 
-build-airflow: guard-ENVIRONMENT create-env-airflow build-externals
-	@ echo -e "$(BUILD_PRINT) Build Airflow services $(END_BUILD_PRINT)"
-	@ docker build -t meaningfy/airflow ./infra/airflow/
-	@ docker-compose -p ${ENVIRONMENT} --file ./infra/airflow/docker-compose.yaml --env-file ${ENV_FILE} up -d --force-recreate
-
 build-airflow-cluster: guard-ENVIRONMENT create-env-airflow-cluster build-externals
-	@ echo -e "$(BUILD_PRINT) Build Airflow services $(END_BUILD_PRINT)"
+	@ echo -e "$(BUILD_PRINT) Build Airflow Common Image $(END_BUILD_PRINT)"
 	@ docker build -t meaningfy/airflow ./infra/airflow-cluster/
-	@ docker-compose -p ${ENVIRONMENT} --file ./infra/airflow-cluster/docker-compose.yaml --env-file ${ENV_FILE} up -d airflow-init
 
-start-airflow-cluster: build-externals
-	@ echo -e "$(BUILD_PRINT)Starting Airflow services $(END_BUILD_PRINT)"
-	@ docker-compose -p ${ENVIRONMENT} --file ./infra/airflow-cluster/docker-compose.yaml --env-file ${ENV_FILE} up -d --force-recreate airflow-webserver airflow-scheduler airflow-triggerer flower
+start-airflow-master: build-externals
+	@ echo -e "$(BUILD_PRINT)Starting Airflow Master $(END_BUILD_PRINT)"
+	@ docker-compose -p ${ENVIRONMENT} --file ./infra/airflow-cluster/docker-compose.yaml --env-file ${ENV_FILE} up -d --force-recreate
 
-start-airflow-cluster-worker: build-externals
-	@ echo -e "$(BUILD_PRINT)Starting Airflow services $(END_BUILD_PRINT)"
-	@ docker-compose -p ${ENVIRONMENT} --file ./infra/airflow-cluster/docker-compose.yaml --env-file ${ENV_FILE} up -d airflow-worker
+start-airflow-worker: build-externals
+	@ echo -e "$(BUILD_PRINT)Starting Airflow Worker $(END_BUILD_PRINT)"
+	@ docker-compose -p ${ENVIRONMENT} --file ./infra/airflow-cluster/docker-compose-worker.yaml --env-file ${ENV_FILE} up -d
 
-stop-airflow-cluster:
-	@ echo -e "$(BUILD_PRINT)Stopping Airflow Cluster $(END_BUILD_PRINT)"
-	@ docker-compose -p ${ENVIRONMENT} --file ./infra/airflow-cluster/docker-compose.yaml --env-file ${ENV_FILE} down airflow-webserver airflow-scheduler airflow-triggerer flower
+stop-airflow-master:
+	@ echo -e "$(BUILD_PRINT)Stopping Airflow Master $(END_BUILD_PRINT)"
+	@ docker-compose -p ${ENVIRONMENT} --file ./infra/airflow-cluster/docker-compose.yaml --env-file ${ENV_FILE} down
 
-stop-airflow-cluster-worker:
-	@ echo -e "$(BUILD_PRINT)Stopping Airflow Cluster Worker $(END_BUILD_PRINT)"
-	@ docker-compose -p ${ENVIRONMENT} --file ./infra/airflow-cluster/docker-compose.yaml --env-file ${ENV_FILE} down airflow-worker
+stop-airflow-worker:
+	@ echo -e "$(BUILD_PRINT)Stopping Airflow Worker $(END_BUILD_PRINT)"
+	@ docker-compose -p ${ENVIRONMENT} --file ./infra/airflow-cluster/docker-compose-worker.yaml --env-file ${ENV_FILE} down
+
+
+#---------------------------------------AIRFLOW_CLUSTER----END----TARGETS-----------------------------------------------
 
 start-airflow: build-externals
 	@ echo -e "$(BUILD_PRINT)Starting Airflow services $(END_BUILD_PRINT)"
@@ -242,6 +248,7 @@ staging-dotenv-file: guard-VAULT_ADDR guard-VAULT_TOKEN vault-installed
 	@ echo RML_MAPPER_PATH=${RML_MAPPER_PATH} >> .env
 	@ echo XML_PROCESSOR_PATH=${XML_PROCESSOR_PATH} >> .env
 	@ echo AIRFLOW_INFRA_FOLDER=~/airflow-infra/staging >> .env
+	@ echo AIRFLOW_WORKER_HOSTNAME=${HOSTNAME} >> .env
 	@ vault kv get -format="json" ted-staging/airflow | jq -r ".data.data | keys[] as \$$k | \"\(\$$k)=\(.[\$$k])\"" >> .env
 	@ vault kv get -format="json" ted-staging/mongo-db | jq -r ".data.data | keys[] as \$$k | \"\(\$$k)=\(.[\$$k])\"" >> .env
 	@ vault kv get -format="json" ted-staging/metabase | jq -r ".data.data | keys[] as \$$k | \"\(\$$k)=\(.[\$$k])\"" >> .env
@@ -260,6 +267,7 @@ dev-dotenv-file: guard-VAULT_ADDR guard-VAULT_TOKEN vault-installed
 	@ echo RML_MAPPER_PATH=${RML_MAPPER_PATH} >> .env
 	@ echo XML_PROCESSOR_PATH=${XML_PROCESSOR_PATH} >> .env
 	@ echo AIRFLOW_INFRA_FOLDER=${AIRFLOW_INFRA_FOLDER} >> .env
+	@ echo AIRFLOW_WORKER_HOSTNAME=${HOSTNAME} >> .env
 	@ vault kv get -format="json" ted-dev/airflow | jq -r ".data.data | keys[] as \$$k | \"\(\$$k)=\(.[\$$k])\"" >> .env
 	@ vault kv get -format="json" ted-dev/mongo-db | jq -r ".data.data | keys[] as \$$k | \"\(\$$k)=\(.[\$$k])\"" >> .env
 	@ vault kv get -format="json" ted-dev/metabase | jq -r ".data.data | keys[] as \$$k | \"\(\$$k)=\(.[\$$k])\"" >> .env
@@ -278,6 +286,7 @@ prod-dotenv-file: guard-VAULT_ADDR guard-VAULT_TOKEN vault-installed
 	@ echo RML_MAPPER_PATH=${RML_MAPPER_PATH} >> .env
 	@ echo XML_PROCESSOR_PATH=${XML_PROCESSOR_PATH} >> .env
 	@ echo AIRFLOW_INFRA_FOLDER=~/airflow-infra/prod >> .env
+	@ echo AIRFLOW_WORKER_HOSTNAME=${HOSTNAME} >> .env
 	@ vault kv get -format="json" ted-prod/airflow | jq -r ".data.data | keys[] as \$$k | \"\(\$$k)=\(.[\$$k])\"" >> .env
 	@ vault kv get -format="json" ted-prod/mongo-db | jq -r ".data.data | keys[] as \$$k | \"\(\$$k)=\(.[\$$k])\"" >> .env
 	@ vault kv get -format="json" ted-prod/metabase | jq -r ".data.data | keys[] as \$$k | \"\(\$$k)=\(.[\$$k])\"" >> .env

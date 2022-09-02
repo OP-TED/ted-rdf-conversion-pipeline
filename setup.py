@@ -87,6 +87,7 @@ setup(
             "rml_modules_injector = ted_sws.mapping_suite_processor.entrypoints.cli.cmd_rml_modules_injector:main",
             "yarrrml2rml_converter = ted_sws.mapping_suite_processor.entrypoints.cli.cmd_yarrrml2rml_converter:main",
             "mapping_runner = ted_sws.notice_transformer.entrypoints.cli.cmd_mapping_runner:main",
+            "mapping_suite_validator = ted_sws.mapping_suite_processor.entrypoints.cli.cmd_mapping_suite_validator:main",
             "normalisation_resource_generator = ted_sws.data_manager.entrypoints.cli.cmd_generate_mapping_resources:main",
             "triple_store_loader = ted_sws.mapping_suite_processor.entrypoints.cli.cmd_triple_store_loader:main",
             "bulk_packager = ted_sws.notice_packager.entrypoints.cli.cmd_bulk_packager:main",

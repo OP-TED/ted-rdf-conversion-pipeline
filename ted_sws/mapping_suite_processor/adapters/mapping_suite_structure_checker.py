@@ -75,6 +75,7 @@ class MappingSuiteStructureValidator:
         ]
         return self.assert_path(mandatory_paths_l1)
 
+
     def validate_expanded_structure(self) -> bool:
         """
             Check if the expanded mapping suite structure is in place
@@ -182,3 +183,17 @@ class MappingSuiteStructureValidator:
             success = False
 
         return success
+
+    def is_valid(self) -> bool:
+        validate_core_structure: bool = self.validate_core_structure()
+        validate_expanded_structure: bool = self.validate_expanded_structure()
+        validate_output_structure: bool = self.validate_output_structure()
+        check_metadata_consistency: bool = self.check_metadata_consistency()
+        check_for_changes_by_version: bool = self.check_for_changes_by_version()
+
+        return \
+            validate_core_structure \
+            and validate_expanded_structure \
+            and validate_output_structure \
+            and check_metadata_consistency \
+            and check_for_changes_by_version

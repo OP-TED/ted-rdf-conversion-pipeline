@@ -10,7 +10,7 @@ from ted_sws.data_manager.adapters.mapping_suite_repository import MS_TRANSFORM_
     MS_VALIDATE_FOLDER_NAME, MS_SPARQL_FOLDER_NAME, MS_SHACL_FOLDER_NAME, MS_OUTPUT_FOLDER_NAME, MS_TEST_SUITE_REPORT
 from ted_sws.event_manager.adapters.event_handler_config import ConsoleLoggerConfig
 from ted_sws.event_manager.adapters.event_logger import EventLogger
-from ted_sws.event_manager.model.event_message import EventMessage
+from ted_sws.event_manager.model.event_message import EventMessage, EventMessageLogSettings
 from ted_sws.event_manager.services.logger_from_context import get_env_logger
 from ted_sws.mapping_suite_processor.adapters.mapping_suite_hasher import MappingSuiteHasher
 from ted_sws.mapping_suite_processor.services.conceptual_mapping_generate_metadata import VERSION_FIELD, \
@@ -32,6 +32,7 @@ class MappingSuiteStructureValidator:
         self.logger = get_env_logger(EventLogger(
             ConsoleLoggerConfig(name="MappingSuiteStructureValidator")
         ), is_cli=True)
+        self.log_settings = EventMessageLogSettings(**{"briefly": True})
 
     def assert_path(self, assertion_path_list: List[pathlib.Path]) -> bool:
         """
@@ -41,19 +42,22 @@ class MappingSuiteStructureValidator:
         for path_item in assertion_path_list:
             message_path_not_found = f"Path not found: {path_item}"
             if not path_item.exists():
-                self.logger.error(event_message=EventMessage(message=message_path_not_found))
+                self.logger.error(event_message=EventMessage(message=message_path_not_found),
+                                  settings=self.log_settings)
                 success = False
                 continue
 
             if path_item.is_dir():
                 message_folder_empty = f"Folder is empty: {path_item}"
                 if not any(path_item.iterdir()):
-                    self.logger.error(event_message=EventMessage(message=message_folder_empty))
+                    self.logger.error(event_message=EventMessage(message=message_folder_empty),
+                                      settings=self.log_settings)
                     success = False
             else:
                 message_file_is_empty = f"File is empty: {path_item}"
-                if not path_item.stat().st_size > 0:
-                    self.logger.error(event_message=EventMessage(message=message_file_is_empty))
+                if path_item.stat().st_size <= 0:
+                    self.logger.error(event_message=EventMessage(message=message_file_is_empty),
+                                      settings=self.log_settings)
                     success = False
 
         return success
@@ -103,7 +107,8 @@ class MappingSuiteStructureValidator:
                     report_count += 1
             if report_count < self.reports_min_count:
                 self.logger.error(
-                    event_message=EventMessage(message=f"{notice_path.stem} has missing validation reports."))
+                    event_message=EventMessage(message=f"{notice_path.stem} has missing validation reports."),
+                    settings=self.log_settings)
                 success = False
                 break
 
@@ -132,12 +137,12 @@ class MappingSuiteStructureValidator:
         metadata_epo_version = [val for val in package_metadata.values()][4]
 
         if not (
-                conceptual_mappings_version > metadata_version
-                and conceptual_mappings_epo_version > metadata_epo_version
+                conceptual_mappings_version >= metadata_version
+                and conceptual_mappings_epo_version >= metadata_epo_version
         ):
             event_message = EventMessage(
                 message=f'Not the same value between metadata.json [version {metadata_version}, epo_version {metadata_epo_version}] and conceptual_mapping_file [version {conceptual_mappings_version}, epo_version {conceptual_mappings_epo_version}]')
-            self.logger.error(event_message=event_message)
+            self.logger.error(event_message=event_message, settings=self.log_settings)
             success = False
 
         return success
@@ -172,7 +177,8 @@ class MappingSuiteStructureValidator:
                         f'Conceptual Mappings ({version_in_cm}) '
                         f'does not correspond to the ones in the metadata.json file '
                         f'({metadata_json.get(MAPPING_SUITE_HASH)}, {metadata_json.get(VERSION_KEY)}). '
-                        f'Consider increasing the version and regenerating the metadata.json'))
+                        f'Consider increasing the version and regenerating the metadata.json'),
+                settings=self.log_settings)
             success = False
 
         return success

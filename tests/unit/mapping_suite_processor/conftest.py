@@ -39,18 +39,23 @@ def invalid_repository_path() -> str:
 
 
 @pytest.fixture
-def package_folder_path_for_validator():
-    return TEST_DATA_PATH / "package_F03_demo"
+def mapping_suite_id():
+    return "package_F03_demo"
 
 
 @pytest.fixture
-def conceptual_mappings_file_path():
-    return TEST_DATA_PATH / "package_F03_demo" / "transformation" / "conceptual_mappings.xlsx"
+def package_folder_path_for_validator(mapping_suite_id):
+    return TEST_DATA_PATH / mapping_suite_id
 
 
 @pytest.fixture
-def mapping_suite():
-    return TEST_DATA_PATH / "package_F03_demo"
+def conceptual_mappings_file_path(mapping_suite_id):
+    return TEST_DATA_PATH / mapping_suite_id / "transformation" / "conceptual_mappings.xlsx"
+
+
+@pytest.fixture
+def mapping_suite(mapping_suite_id):
+    return TEST_DATA_PATH / mapping_suite_id
 
 
 @pytest.fixture

@@ -66,6 +66,10 @@ class MappingSuiteStructureValidator:
         """
             Check whether the core mapping suite structure is in place.
         """
+        self.logger.info(
+            event_message=EventMessage(
+                message="Check whether the core mapping suite structure is in place."),
+            settings=self.log_settings)
         mandatory_paths_l1 = [
             self.mapping_suite_path / MS_TRANSFORM_FOLDER_NAME,
             self.mapping_suite_path / MS_TRANSFORM_FOLDER_NAME / MS_MAPPINGS_FOLDER_NAME,
@@ -75,11 +79,15 @@ class MappingSuiteStructureValidator:
         ]
         return self.assert_path(mandatory_paths_l1)
 
-
     def validate_expanded_structure(self) -> bool:
         """
             Check if the expanded mapping suite structure is in place
         """
+        self.logger.info(
+            event_message=EventMessage(
+                message="Check if the expanded mapping suite structure is in place."),
+            settings=self.log_settings)
+
         mandatory_paths_l2 = [
             self.mapping_suite_path / MS_METADATA_FILE_NAME,
             self.mapping_suite_path / MS_VALIDATE_FOLDER_NAME,
@@ -92,6 +100,11 @@ class MappingSuiteStructureValidator:
         """
             Check if the transformed and validated mapping suite structure is in place.
         """
+
+        self.logger.info(
+            event_message=EventMessage(
+                message="Check if the transformed and validated mapping suite structure is in place."),
+            settings=self.log_settings)
 
         success = True
 
@@ -121,7 +134,10 @@ class MappingSuiteStructureValidator:
             Read the conceptual mapping XSLX and the metadata.json and compare the contents,
             in particular paying attention to the mapping suite version and the ontology version.
         """
-
+        self.logger.info(
+            event_message=EventMessage(
+                message="Read the conceptual mapping XSLX and the metadata.json and compare the contents."),
+            settings=self.log_settings)
         success = True
 
         conceptual_mappings_document = mapping_suite_read_metadata(
@@ -160,6 +176,10 @@ class MappingSuiteStructureValidator:
              - the version-bound-hash and the version are written in the metadata.json and are the same
              to the version in the conceptual mappings
         """
+        self.logger.info(
+            event_message=EventMessage(
+                message="Check whether the mapping suite is well versioned and no changes detected."),
+            settings=self.log_settings)
         success = True
 
         conceptual_mapping_metadata = mapping_suite_read_metadata(
@@ -167,8 +187,7 @@ class MappingSuiteStructureValidator:
 
         metadata_json = json.loads((self.mapping_suite_path / MS_METADATA_FILE_NAME).read_text())
 
-        version_in_cm = conceptual_mapping_metadata[VERSION_FIELD]
-
+        version_in_cm = conceptual_mapping_metadata[VERSION_FIELD][0]
         mapping_suite_versioned_hash = MappingSuiteHasher(self.mapping_suite_path).hash_mapping_suite(
             with_version=version_in_cm)
 

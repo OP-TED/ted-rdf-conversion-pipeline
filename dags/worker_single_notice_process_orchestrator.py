@@ -36,7 +36,7 @@ DAG_NAME = "worker_single_notice_process_orchestrator"
 @dag(default_args=DEFAULT_DAG_ARGUMENTS,
      schedule_interval=None,
      max_active_runs=256,
-     concurrency=256,
+     max_active_tasks=256,
      tags=['worker', 'pipeline'])
 def worker_single_notice_process_orchestrator():
     """

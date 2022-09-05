@@ -10,21 +10,47 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>HTML report for SPARQL Validation</title>
     <link href="https://cdn.datatables.net/1.10.22/css/jquery.dataTables.min.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
     <style type="text/css">
         body {
             font-family: Arial, sans-serif;
                 margin: 25px auto;
                 width: 80%;
         }
-        .error {
-            color: red;
-        }
-        .success {
-            color: green;
+        table th, table td {
+            vertical-align: top;
         }
         table thead th {
             text-align: left;
         }
+        .success {
+          color: #3c763d;
+        }
+        .info {
+          color: #31708f;
+        }
+        .warning {
+          color: #8a6d3b;
+        }
+        .danger {
+          color: #a94442;
+        }
+        .strong {
+            font-weight: bold;
+        }
+        .dialog h4 {
+            margin: 0 0 10px;
+        }
+        .dialog ul, .dialog ol {
+            margin-top: 0;
+        }
+        .dialog {
+            display: none;
+        }
+        .dialog li {
+            margin-bottom: 5px;
+        }
+
     </style>
   </head>
   <body>
@@ -45,6 +71,7 @@
             <th>Description</th>
             <th>Query content</th>
             <th>Result</th>
+            <th>Details</th>
             <th>Error</th>
         </tr>
      </thead>
@@ -57,9 +84,46 @@
         {% for result in validation_results %}
             <tr>
                 <td>{{ result.query.title }}</td>
-                <td>{{ result.query.description }}</td>
+                <td>
+                    <button class="open-dialog">Description</button>
+                    <div class="dialog" title="{{ result.query.title }}">
+                        {{ result.query.description }}
+                    </div>
+                </td>
                 <td>{{ result.query.query | e | replace('\n', '<br>') }}</td>
-                <td{% if result.result == "True" %} class="success" {% else %} class="error" {% endif %}>{{ result.result }}</td>
+                <td{% if result.result == "True" and result.fields_covered %} class="strong success" {% elif result.result == "True" and not result.fields_covered %} class="strong warning" {% else %} class="strong danger" {% endif %}>{{ result.result }}</td>
+                <td>
+                    <button class="open-dialog">Details</button>
+                    <div class="dialog" title="{{ result.query.title }}">
+                    <ul>
+                    <li>Query result: {{ result.query_result }}</li>
+                    {% if result.query.xpath|length == 0 %}
+                        <li>No XPATHs provided</li>
+                    {% endif %}
+                    <li>Fields are covered: {{ result.fields_covered }}</li>
+                    {% if result.query.xpath|length > 0 %}
+                        <li>
+                        <h4 class="info">Fields:</h4>
+                        <ol>
+                        {% for field in result.query.xpath %}
+                            <li>{{ field }}</li>
+                        {% endfor %}
+                        </ol>
+                        </li>
+                    {% endif %}
+                    {% if result.missing_fields|length > 0 %}
+                        <li>
+                        <h4 class="danger">Missing fields:</h4>
+                        <ol>
+                        {% for field in result.missing_fields %}
+                            <li>{{ field }}</li>
+                        {% endfor %}
+                        </ol>
+                        </li>
+                    {% endif %}
+                    </ul>
+                    </div>
+                </td>
                 <td>{{ result.error }}</td>
             </tr>
             {% if result.result == "True" %}
@@ -132,6 +196,23 @@
             }
         });
 
+        $(document).on('click', '.open-dialog', function () {
+            $dialog = $(this).next('.dialog');
+            $dialog.dialog({
+                        width: 600,
+                        modal: true,
+                        buttons: {
+                                        "Close": function(event, ui) {
+                                          $dialog.dialog('destroy');
+                                        }
+                                     },
+                        close: function(event, ui) {
+                                    $dialog.dialog('destroy');
+                                }
+                        })
+            $dialog.dialog('open');
+            return false;
+        });
     });
 
 </script>

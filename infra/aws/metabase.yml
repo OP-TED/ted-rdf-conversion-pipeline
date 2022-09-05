@@ -1,0 +1,45 @@
+version: "3"
+services:
+  metabase:
+    environment:
+      ENV_MB_DB_TYPE: postgres
+      ENV_MB_DB_DBNAME: ${ENV_MB_DB_DBNAME}
+      ENV_MB_DB_PORT: ${ENV_MB_DB_PORT}
+      ENV_MB_DB_USER: ${ENV_MB_DB_USER}
+      ENV_MB_DB_PASS: ${ENV_MB_DB_PASS}
+      ENV_MB_DB_HOST: postgres-metabase
+      ENV_MB_ENCRYPTION_SECRET_KEY: ${ENV_MB_ENCRYPTION_SECRET_KEY}
+    image: ${METABASE_IMAGE_URI}
+    logging:
+      driver: awslogs
+      options:
+        awslogs-group: /ecs/metabase-cli-task
+        awslogs-region: ${REGION}
+        awslogs-stream-prefix: ecs
+    networks:
+      ecs-local-network: null
+    links:
+      - postgres-metabase
+    ports:
+    - 3000:3000
+  postgres-metabase:
+    environment:
+      POSTGRES_PASSWORD: postgres
+      METABASE_PASSWORD: metabase
+    image: ${METABASE_POSTGRES_IMAGE_URI}
+    volumes:
+      - metabase-postgres-db:/var/lib/postgresql/data
+    logging:
+      driver: awslogs
+      options:
+        awslogs-group: /ecs/metabase-cli-task
+        awslogs-region: ${REGION}
+        awslogs-stream-prefix: ecs
+    networks:
+      ecs-local-network: null
+
+networks:
+  ecs-local-network:
+    external: true
+volumes:
+  metabase-postgres-db:

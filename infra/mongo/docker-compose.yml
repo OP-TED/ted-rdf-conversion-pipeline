@@ -1,7 +1,7 @@
 version: "3.8"
 services:
   mongodb:
-    image: mongo
+    image: mongo:5.0.10
     container_name: mongodb-${ENVIRONMENT}
     environment:
         - MONGO_INITDB_ROOT_USERNAME=${MONGO_INITDB_ROOT_USERNAME}

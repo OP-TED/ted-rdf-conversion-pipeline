@@ -7,8 +7,9 @@ import click
 
 from ted_sws.core.adapters.cmd_runner import CmdRunner as BaseCmdRunner, DEFAULT_MAPPINGS_PATH
 from ted_sws.data_manager.adapters.mapping_suite_repository import MS_METADATA_FILE_NAME
-from ted_sws.event_manager.adapters.logger import LOG_INFO_TEXT
-from ted_sws.mapping_suite_processor.entrypoints.cli import CONCEPTUAL_MAPPINGS_FILE_TEMPLATE
+from ted_sws.event_manager.adapters.log import LOG_INFO_TEXT
+from ted_sws.mapping_suite_processor.entrypoints.cli import CONCEPTUAL_MAPPINGS_FILE_TEMPLATE, \
+    MAPPING_SUITE_FILE_TEMPLATE
 from ted_sws.mapping_suite_processor.services.conceptual_mapping_generate_metadata import \
     mapping_suite_processor_generate_metadata as generate_metadata
 
@@ -29,10 +30,12 @@ class CmdRunner(BaseCmdRunner):
 
     def __init__(
             self,
+            mapping_suite_path,
             conceptual_mappings_file,
             output_metadata_file
     ):
         super().__init__(name=CMD_NAME)
+        self.mapping_suite_path = mapping_suite_path
         self.conceptual_mappings_file_path = Path(os.path.realpath(conceptual_mappings_file))
         self.output_metadata_file_path = Path(os.path.realpath(output_metadata_file))
 
@@ -52,7 +55,11 @@ class CmdRunner(BaseCmdRunner):
 
         error = None
         try:
-            generate_metadata(conceptual_mappings_file_path, output_metadata_file_path)
+            generate_metadata(
+                mapping_suite_path=self.mapping_suite_path,
+                conceptual_mappings_file_path=conceptual_mappings_file_path,
+                output_metadata_file_path=output_metadata_file_path
+            )
         except Exception as e:
             error = e
 
@@ -61,6 +68,11 @@ class CmdRunner(BaseCmdRunner):
 
 def run(mapping_suite_id=None, opt_conceptual_mappings_file=None, opt_output_metadata_file=None,
         opt_mappings_folder=DEFAULT_MAPPINGS_PATH):
+    mapping_suite_path = Path(MAPPING_SUITE_FILE_TEMPLATE.format(
+        mappings_path=opt_mappings_folder,
+        mapping_suite_id=mapping_suite_id
+    ))
+
     if opt_conceptual_mappings_file:
         conceptual_mappings_file = opt_conceptual_mappings_file
     else:
@@ -79,6 +91,7 @@ def run(mapping_suite_id=None, opt_conceptual_mappings_file=None, opt_output_met
         )
 
     cmd = CmdRunner(
+        mapping_suite_path=mapping_suite_path,
         conceptual_mappings_file=conceptual_mappings_file,
         output_metadata_file=output_metadata_file
     )

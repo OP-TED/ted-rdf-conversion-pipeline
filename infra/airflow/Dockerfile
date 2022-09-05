@@ -1,4 +1,4 @@
-FROM apache/airflow:2.2.5-python3.8
+FROM docker.io/apache/airflow:2.2.5-python3.8
 
 # quick sudo
 USER root

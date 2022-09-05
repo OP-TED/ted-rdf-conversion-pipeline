@@ -51,17 +51,19 @@ x-airflow-common:
     - ../../.env
   environment:
     &airflow-common-env
-    AIRFLOW__CORE__PARALLELISM: 64
-    AIRFLOW__CORE__MAX_ACTIVE_TASKS_PER_DAG: 32
-    AIRFLOW__SCHEDULER__PARSING_PROCESSES: 4
-    AIRFLOW__CELERY__WORKER_CONCURRENCY: 8
-    AIRFLOW__CORE__SQL_ALCHEMY_CONN: postgresql+psycopg2://airflow:airflow@ted-data.eu/airflow
-    AIRFLOW__CELERY__RESULT_BACKEND: db+postgresql://airflow:airflow@ted-data.eu/airflow
-    AIRFLOW__CELERY__BROKER_URL: redis://:@ted-data.eu:6379/0
+    AIRFLOW__CORE__PARALLELISM: 128
+    AIRFLOW__CORE__MAX_ACTIVE_TASKS_PER_DAG: 128
+    AIRFLOW__SCHEDULER__PARSING_PROCESSES: 12
+    AIRFLOW__CELERY__WORKER_CONCURRENCY: 64
+    AIRFLOW__CORE__SQL_ALCHEMY_POOL_SIZE: 256
+    AIRFLOW__CORE__SQL_ALCHEMY_MAX_OVERFLOW: 512
+    AIRFLOW__CORE__SQL_ALCHEMY_CONN: "postgresql+psycopg2://${POSTGRES_USER}:${POSTGRES_USER}@postgres/airflow"
+    AIRFLOW__CELERY__RESULT_BACKEND: "db+postgresql://${POSTGRES_USER}:${POSTGRES_USER}@postgres/airflow"
+    AIRFLOW__CELERY__BROKER_URL: "redis://:${REDIS_PASSWORD}@redis:6379/0"
     AIRFLOW__WEBSERVER__SECRET_KEY: "zqOVjqVrMstjDbKEPpYiSA=="
     IS_PRIME_ENV: 'true'
     AIRFLOW__CORE__EXECUTOR: CeleryExecutor
-    AIRFLOW__CORE__FERNET_KEY: 'M9NmXPlfIszmYCVjp3nJNQEocpmNQtKQdG-Kxdvfgm8='
+    AIRFLOW__CORE__FERNET_KEY: ''
     AIRFLOW__CORE__DAGS_ARE_PAUSED_AT_CREATION: 'true'
     AIRFLOW__CORE__ENABLE_XCOM_PICKLING: "true"
     AIRFLOW__CORE__LOAD_EXAMPLES: 'false'
@@ -75,9 +77,6 @@ x-airflow-common:
     RML_MAPPER_PATH: /opt/airflow/.rmlmapper/rmlmapper.jar
     XML_PROCESSOR_PATH: /opt/airflow/.saxon/saxon-he-10.6.jar
     DAG_LOGGER_CONFIG_HANDLERS: ${DAG_LOGGER_CONFIG_HANDLERS}
-  extra_hosts:
-    - "hermes-worker:${HERMES_IP_ADDRESS}"
-    - "srv-worker:${SRV_IP_ADDRESS}"
   volumes:
 #    - ./config/airflow.cfg:/opt/airflow/airflow.cfg
     - ${AIRFLOW_INFRA_FOLDER}/.env:/opt/airflow/.env
@@ -99,9 +98,10 @@ services:
   postgres:
     image: postgres:13
     container_name: postgres-airflow-${ENVIRONMENT}
+    command: postgres -c 'max_connections=1000'
     environment:
-      POSTGRES_USER: airflow
-      POSTGRES_PASSWORD: airflow
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_USER}
       POSTGRES_DB: airflow
     ports:
       - "5432:5432"
@@ -114,15 +114,18 @@ services:
     restart: unless-stopped
     networks:
       - airflow
+      - proxy-net
       - common-ext
 
   redis:
-    image: redis:latest
+    image: redis:5.0.14
     container_name: redis-airflow-${ENVIRONMENT}
+    command: >
+      --requirepass ${REDIS_PASSWORD}
+    environment:
+      - REDIS_PASSWORD=${REDIS_PASSWORD}
     ports:
       - "6379:6379"
-    expose:
-      - 6379
     healthcheck:
       test: ["CMD", "redis-cli", "ping"]
       interval: 5s
@@ -131,6 +134,7 @@ services:
     restart: unless-stopped
     networks:
       - airflow
+      - proxy-net
       - common-ext
 
   airflow-webserver:
@@ -161,9 +165,6 @@ services:
       airflow-init:
         condition: service_completed_successfully
 
-
-
-
   airflow-scheduler:
     <<: *airflow-common
     container_name: airflow-scheduler-${ENVIRONMENT}
@@ -173,32 +174,6 @@ services:
       interval: 10s
       timeout: 10s
       retries: 5
-    restart: unless-stopped
-    networks:
-      - airflow
-      - common-ext
-    depends_on:
-      <<: *airflow-common-depends-on
-      airflow-init:
-        condition: service_completed_successfully
-
-  airflow-worker:
-    <<: *airflow-common
-    container_name: airflow-worker-${ENVIRONMENT}
-    command: celery worker
-    hostname: ${WORKER_HOSTNAME}
-    ports:
-      - "8793:8793"
-    healthcheck:
-      test: ["CMD-SHELL",'celery --app airflow.executors.celery_executor.app inspect ping -d "celery@$${HOSTNAME}"']
-      interval: 10s
-      timeout: 10s
-      retries: 5
-    environment:
-      <<: *airflow-common-env
-      # Required to handle warm shutdown of the celery workers properly
-      # See https://airflow.apache.org/docs/docker-stack/entrypoint.html#signal-propagation
-      DUMB_INIT_SETSID: "0"
     restart: unless-stopped
     networks:
       - airflow
@@ -225,6 +200,31 @@ services:
       <<: *airflow-common-depends-on
       airflow-init:
         condition: service_completed_successfully
+
+  airflow-worker:
+    <<: *airflow-common
+    container_name: airflow-worker-${ENVIRONMENT}
+    command: celery worker
+    hostname: ${AIRFLOW_WORKER_HOSTNAME}.${SUBDOMAIN}local_worker
+    healthcheck:
+      test: ["CMD-SHELL",'celery --app airflow.executors.celery_executor.app inspect ping -d "celery@$${HOSTNAME}"']
+      interval: 10s
+      timeout: 10s
+      retries: 5
+    environment:
+      <<: *airflow-common-env
+      # Required to handle warm shutdown of the celery workers properly
+      # See https://airflow.apache.org/docs/docker-stack/entrypoint.html#signal-propagation
+      DUMB_INIT_SETSID: "0"
+    restart: unless-stopped
+    networks:
+      - airflow
+      - common-ext
+    depends_on:
+      <<: *airflow-common-depends-on
+      airflow-init:
+        condition: service_completed_successfully
+
 
   airflow-init:
     <<: *airflow-common
@@ -302,6 +302,8 @@ services:
       - .:/sources
     networks:
       - airflow
+    depends_on:
+      <<: *airflow-common-depends-on
 
   airflow-cli:
     <<: *airflow-common
@@ -324,10 +326,24 @@ services:
     container_name: airflow-flower-${ENVIRONMENT}
     command: celery flower
     restart: unless-stopped
+    ports:
+      - "5555:5555"
+    expose:
+      - 5555
     networks:
       - airflow
       - proxy-net
       - common-ext
+    labels:
+      #### Labels define the behavior and rules of the traefik proxy for this container ####
+      - "traefik.enable=true" # <== Enable traefik to proxy this container
+      - "traefik.http.routers.${ENVIRONMENT}-flower.rule=Host(`flower.${SUBDOMAIN}${DOMAIN}`)" # <== Your Domain Name goes here for the http rule
+      - "traefik.http.routers.${ENVIRONMENT}-flower.entrypoints=web" # <== Defining the entrypoint for http, **ref: line 30
+      - "traefik.http.routers.${ENVIRONMENT}-flower.middlewares=redirect@file" # <== This is a middleware to redirect to https
+      - "traefik.http.routers.${ENVIRONMENT}-flower-secured.rule=Host(`flower.${SUBDOMAIN}${DOMAIN}`)" # <== Your Domain Name for the https rule
+      - "traefik.http.routers.${ENVIRONMENT}-flower-secured.entrypoints=web-secured" # <== Defining entrypoint for https, **ref: line 31
+      - "traefik.http.routers.${ENVIRONMENT}-flower-secured.tls.certresolver=mytlschallenge" # <== Defining certsresolvers for https
+      - "traefik.http.services.${ENVIRONMENT}-flower-secured.loadbalancer.server.port=5555"
     depends_on:
       <<: *airflow-common-depends-on
       airflow-init:

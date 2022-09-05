@@ -6,7 +6,7 @@ import click
 
 from ted_sws.core.adapters.cmd_runner import CmdRunner as BaseCmdRunner, DEFAULT_MAPPINGS_PATH, DEFAULT_OUTPUT_PATH
 from ted_sws.data_manager.adapters.mapping_suite_repository import MappingSuiteRepositoryInFileSystem
-from ted_sws.event_manager.adapters.logger import LOG_INFO_TEXT
+from ted_sws.event_manager.adapters.log import LOG_INFO_TEXT
 from ted_sws.rml_to_html.services.rml_to_html import rml_files_to_html_report
 
 DEFAULT_OUTPUT_FOLDER = '{mappings_path}/{mapping_suite_id}/' + DEFAULT_OUTPUT_PATH

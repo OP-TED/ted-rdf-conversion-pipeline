@@ -8,7 +8,7 @@ from ted_sws.core.adapters.cmd_runner import CmdRunner as BaseCmdRunner, DEFAULT
 from ted_sws.data_manager.adapters.mapping_suite_repository import MS_TRANSFORM_FOLDER_NAME, \
     MS_RESOURCES_FOLDER_NAME
 from ted_sws.data_manager.adapters.sparql_endpoint import SPARQLTripleStoreEndpoint, TripleStoreEndpointABC
-from ted_sws.event_manager.adapters.logger import LOG_INFO_TEXT
+from ted_sws.event_manager.adapters.log import LOG_INFO_TEXT
 from ted_sws.resources import QUERIES_PATH, MAPPING_FILES_PATH
 
 CELLAR_SPARQL_ENDPOINT_URL = "http://publications.europa.eu/webapi/rdf/sparql"

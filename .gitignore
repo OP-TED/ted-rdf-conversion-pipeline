@@ -122,3 +122,9 @@ tests/test_data/notice_transformer/mapping_suite_processor_repository/test_packa
 tests/test_data/notice_transformer/mapping_suite_processor_repository/test_package_fake/transformation/resources/main_activity.json
 tests/test_data/notice_transformer/mapping_suite_processor_repository/test_package_fake/transformation/resources/nuts.json
 infra/airflow-cluster/requirements.txt
+node_modules
+tests/reports/allure/report/
+tests/reports/allure/test_results/
+package-lock.json
+package.json
+/infra/digest_api/digest_service/project_requirements.txt

@@ -21,8 +21,8 @@ DATE_WILD_CARD_KEY = "date_wild_card"
 
 
 @dag(default_args=DEFAULT_DAG_ARGUMENTS,
-     max_active_runs=64,
-     max_active_tasks=64,
+     max_active_runs=128,
+     max_active_tasks=128,
      schedule_interval=None,
      tags=['worker', 'fetch_notices_per_day'])
 def fetch_notices_per_day_worker():

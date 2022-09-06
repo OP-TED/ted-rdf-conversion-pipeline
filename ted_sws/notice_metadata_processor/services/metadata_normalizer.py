@@ -147,13 +147,14 @@ class ExtractedMetadataNormaliser:
         :param value:
         :return:
         """
-        form_number_parts = re.split(r"(?=\d)", value, 1)
-        if len(form_number_parts) == 2:
-            text_part: str = form_number_parts[0] if form_number_parts[0] else "F"
-            number_part: str = form_number_parts[1]
-            if text_part.isalpha() and number_part.isdecimal():
-                number_part = "0" + number_part if number_part and len(number_part) < 2 else number_part
-                return text_part + number_part
+        if value:
+            form_number_parts = re.split(r"(?=\d)", value, 1)
+            if len(form_number_parts) == 2:
+                text_part: str = form_number_parts[0] if form_number_parts[0] else "F"
+                number_part: str = form_number_parts[1]
+                if text_part.isalpha() and number_part.isdecimal():
+                    number_part = "0" + number_part if number_part and len(number_part) < 2 else number_part
+                    return text_part + number_part
         return value
 
     @classmethod

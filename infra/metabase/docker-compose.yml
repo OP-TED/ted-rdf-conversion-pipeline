@@ -29,7 +29,7 @@ services:
       - ENV_MB_ENCRYPTION_SECRET_KEY=${ENV_MB_ENCRYPTION_SECRET_KEY}
     networks:
       - metabase-net
-      - proxy-net
+#      - proxy-net
     labels:
       #### Labels define the behavior and rules of the traefik proxy for this container ####
       - "traefik.enable=true" # <== Enable traefik to proxy this container

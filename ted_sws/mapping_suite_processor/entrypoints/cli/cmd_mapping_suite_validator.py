@@ -32,7 +32,7 @@ class CmdRunner(BaseCmdRunner):
     def run_cmd(self):
         mapping_suite_path: Path = Path(self.mappings_path).resolve() / Path(self.mapping_suite_id)
         is_valid: bool = validate_mapping_suite(mapping_suite_path)
-        self.run_cmd_result(Exception("Mapping Suite has an invalid structure") if not is_valid else None)
+        return self.run_cmd_result(Exception("Mapping Suite has an invalid structure") if not is_valid else None)
 
 
 def run(mapping_suite_id=None, opt_mappings_folder=DEFAULT_MAPPINGS_PATH):
@@ -40,7 +40,7 @@ def run(mapping_suite_id=None, opt_mappings_folder=DEFAULT_MAPPINGS_PATH):
         mapping_suite_id=mapping_suite_id,
         mappings_path=opt_mappings_folder
     )
-    cmd.run()
+    return cmd.run()
 
 
 @click.command()
@@ -50,7 +50,7 @@ def main(mapping_suite_id, opt_mappings_folder):
     """
     Validates a Mapping Suite (structure)
     """
-    run(mapping_suite_id, opt_mappings_folder)
+    return run(mapping_suite_id, opt_mappings_folder)
 
 
 if __name__ == '__main__':

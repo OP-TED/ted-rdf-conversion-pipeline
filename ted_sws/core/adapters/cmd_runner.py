@@ -90,10 +90,15 @@ class CmdRunner(CmdRunnerABC):
 
     def run(self):
         self.on_begin()
-        self.run_cmd()
+        result = self.run_cmd()
         self.on_end()
+        return result
 
     def run_cmd(self):
+        """
+
+        :return:
+        """
         pass
 
     def run_cmd_result(self, error: Exception = None, msg: str = None, errmsg: str = None) -> bool:

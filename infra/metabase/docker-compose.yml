@@ -14,8 +14,6 @@ services:
       - ./services/postgres/:/docker-entrypoint-initdb.d/
     networks:
       - metabase-net
-    ports:
-      - "5435:5432"
 
 
   metabase:
@@ -25,14 +23,14 @@ services:
     environment:
       - ENV_MB_DB_TYPE=postgres
       - ENV_MB_DB_DBNAME=${ENV_MB_DB_DBNAME}
-      - ENV_MB_DB_PORT=5435
+      - ENV_MB_DB_PORT=${ENV_MB_DB_PORT}
       - ENV_MB_DB_USER=${ENV_MB_DB_USER}
       - ENV_MB_DB_PASS=${ENV_MB_DB_PASS}
       - ENV_MB_DB_HOST=metabase-postgres-${ENVIRONMENT}
       - ENV_MB_ENCRYPTION_SECRET_KEY=${ENV_MB_ENCRYPTION_SECRET_KEY}
     networks:
       - metabase-net
-#      - proxy-net
+      - proxy-net
     labels:
       #### Labels define the behavior and rules of the traefik proxy for this container ####
       - "traefik.enable=true" # <== Enable traefik to proxy this container

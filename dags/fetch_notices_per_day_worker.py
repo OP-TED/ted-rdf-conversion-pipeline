@@ -20,7 +20,11 @@ DAG_NAME = "fetch_notices_per_day_worker"
 DATE_WILD_CARD_KEY = "date_wild_card"
 
 
-@dag(default_args=DEFAULT_DAG_ARGUMENTS, schedule_interval=None, tags=['worker', 'fetch_notices_per_day'])
+@dag(default_args=DEFAULT_DAG_ARGUMENTS,
+     max_active_runs=64,
+     max_active_tasks=64,
+     schedule_interval=None,
+     tags=['worker', 'fetch_notices_per_day'])
 def fetch_notices_per_day_worker():
     @task
     @event_log(TechnicalEventMessage(

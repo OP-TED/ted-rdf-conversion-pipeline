@@ -4,7 +4,7 @@ services:
 
   postgres:
     container_name: metabase-postgres-${ENVIRONMENT}
-    restart: "always"
+    restart: unless-stopped
     image: postgres:14.4-alpine
     environment:
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
@@ -17,7 +17,7 @@ services:
 
   metabase:
     container_name: metabase-${ENVIRONMENT}
-    restart: "always"
+    restart: unless-stopped
     image: metabase/metabase:v0.43.4
     environment:
       - ENV_MB_DB_TYPE=postgres

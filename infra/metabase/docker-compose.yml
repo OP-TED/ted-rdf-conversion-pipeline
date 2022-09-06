@@ -47,7 +47,7 @@ volumes:
 
 networks:
   metabase-net:
-    internal: false
+    internal: true
     name: metabase-net-${ENVIRONMENT}
   proxy-net:
     external:

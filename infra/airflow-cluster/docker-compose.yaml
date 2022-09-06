@@ -54,8 +54,8 @@ x-airflow-common:
     AIRFLOW__CORE__PARALLELISM: 256
     AIRFLOW__CORE__MAX_ACTIVE_TASKS_PER_DAG: 256
     AIRFLOW__CORE__NON_POOLED_TASK_SLOT_COUNT: 256
-    AIRFLOW__SCHEDULER__PARSING_PROCESSES: 24
-    AIRFLOW__CELERY__WORKER_CONCURRENCY: 64
+    AIRFLOW__SCHEDULER__PARSING_PROCESSES: 12
+    AIRFLOW__CELERY__WORKER_CONCURRENCY: 12
     AIRFLOW__CORE__SQL_ALCHEMY_POOL_SIZE: 256
     AIRFLOW__CORE__SQL_ALCHEMY_MAX_OVERFLOW: 512
     AIRFLOW__CORE__SQL_ALCHEMY_CONN: "postgresql+psycopg2://${POSTGRES_USER}:${POSTGRES_USER}@postgres/airflow"
@@ -202,29 +202,29 @@ services:
       airflow-init:
         condition: service_completed_successfully
 
-#  airflow-worker:
-#    <<: *airflow-common
-#    container_name: airflow-worker-${ENVIRONMENT}
-#    command: celery worker
-#    hostname: ${AIRFLOW_WORKER_HOSTNAME}.${SUBDOMAIN}local_worker
-#    healthcheck:
-#      test: ["CMD-SHELL",'celery --app airflow.executors.celery_executor.app inspect ping -d "celery@$${HOSTNAME}"']
-#      interval: 10s
-#      timeout: 10s
-#      retries: 5
-#    environment:
-#      <<: *airflow-common-env
-#      # Required to handle warm shutdown of the celery workers properly
-#      # See https://airflow.apache.org/docs/docker-stack/entrypoint.html#signal-propagation
-#      DUMB_INIT_SETSID: "0"
-#    restart: unless-stopped
-#    networks:
-#      - airflow
-#      - common-ext
-#    depends_on:
-#      <<: *airflow-common-depends-on
-#      airflow-init:
-#        condition: service_completed_successfully
+  airflow-worker:
+    <<: *airflow-common
+    container_name: airflow-worker-${ENVIRONMENT}
+    command: celery worker
+    hostname: ${AIRFLOW_WORKER_HOSTNAME}.${SUBDOMAIN}local_worker
+    healthcheck:
+      test: ["CMD-SHELL",'celery --app airflow.executors.celery_executor.app inspect ping -d "celery@$${HOSTNAME}"']
+      interval: 10s
+      timeout: 10s
+      retries: 5
+    environment:
+      <<: *airflow-common-env
+      # Required to handle warm shutdown of the celery workers properly
+      # See https://airflow.apache.org/docs/docker-stack/entrypoint.html#signal-propagation
+      DUMB_INIT_SETSID: "0"
+    restart: unless-stopped
+    networks:
+      - airflow
+      - common-ext
+    depends_on:
+      <<: *airflow-common-depends-on
+      airflow-init:
+        condition: service_completed_successfully
 
 
   airflow-init:

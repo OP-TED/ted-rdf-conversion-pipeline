@@ -32,7 +32,8 @@ class CmdRunner(BaseCmdRunner):
     def run_cmd(self):
         mapping_suite_path: Path = Path(self.mappings_path).resolve() / Path(self.mapping_suite_id)
         is_valid: bool = validate_mapping_suite(mapping_suite_path)
-        return self.run_cmd_result(Exception("Mapping Suite has an invalid structure") if not is_valid else None)
+        result = self.run_cmd_result(Exception("Mapping Suite has an invalid structure") if not is_valid else None)
+        return 0 if result else 1
 
 
 def run(mapping_suite_id=None, opt_mappings_folder=DEFAULT_MAPPINGS_PATH):

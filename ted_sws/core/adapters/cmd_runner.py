@@ -99,7 +99,6 @@ class CmdRunner(CmdRunnerABC):
 
         :return:
         """
-        pass
 
     def run_cmd_result(self, error: Exception = None, msg: str = None, errmsg: str = None) -> bool:
         if error:

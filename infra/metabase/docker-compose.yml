@@ -10,7 +10,7 @@ services:
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
       - METABASE_PASSWORD=${METABASE_PASSWORD}
     volumes:
-      - postgres_volume:/var/lib/postgresql/data/
+      - metabase_postgres_volume:/var/lib/postgresql/data/
       - ./services/postgres/:/docker-entrypoint-initdb.d/
     networks:
       - metabase-net
@@ -42,8 +42,8 @@ services:
 
 
 volumes:
-  postgres_volume:
-    name: postgres-volume-${ENVIRONMENT}
+  metabase_postgres_volume:
+    name: metabase-postgres-volume-${ENVIRONMENT}
 
 networks:
   metabase-net:

@@ -1,4 +1,5 @@
 import abc
+import re
 from datetime import datetime
 from typing import Dict, Tuple, List
 
@@ -137,12 +138,22 @@ class ExtractedMetadataNormaliser:
     @classmethod
     def normalise_form_number(cls, value: str) -> str:
         """
-        Normalise form number to be F{number} format
+        Normalise form number to be F{number} format.
+        ##Decided to keep normalisation of the input data
+            Rules:
+            * The form number should start with a letter ("F", "T")
+            * The form number isn't always a number (CEI,EEIG)
+            * If the number is between 1 - 9 then it must have 0 as prefix (F02 not F2)
         :param value:
         :return:
         """
-        if value and not value.startswith("F") and not value[0].isalpha():
-            return "F" + value
+        form_number_parts = re.split(r"(?=\d)", value, 1)
+        if len(form_number_parts) == 2:
+            text_part: str = form_number_parts[0] if form_number_parts[0] else "F"
+            number_part: str = form_number_parts[1]
+            if text_part.isalpha() and number_part.isdecimal():
+                number_part = "0" + number_part if number_part and len(number_part) < 2 else number_part
+                return text_part + number_part
         return value
 
     @classmethod
@@ -168,7 +179,8 @@ class ExtractedMetadataNormaliser:
                 filter_map.query(f"{FORM_NUMBER_KEY}=='{variables[FORM_NUMBER_KEY]}'").to_dict(orient='records')[0]
         except:
             raise Exception(
-                f"This notice doesn't have a form number or the extracted form number is not in the mapping. Form number found is {form_number}")
+                f"This notice doesn't have a form number or the extracted form number is not in the mapping. "
+                f"Form number found is {form_number}, document code is {document_type_code} and legal basis is {legal_basis}")
 
         for key, value in filter_variables.items():
             if value == 0:

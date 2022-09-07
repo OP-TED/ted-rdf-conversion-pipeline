@@ -1,11 +1,11 @@
-from ted_sws.mapping_suite_processor.entrypoints.cli.cmd_mapping_suite_validator import main as cli_main
-from ted_sws.data_manager.adapters.mapping_suite_repository import MS_METADATA_FILE_NAME, MS_TRANSFORM_FOLDER_NAME, \
-    MS_MAPPINGS_FOLDER_NAME
-from tests import TEST_DATA_PATH
-import tempfile
 import shutil
+import tempfile
 from pathlib import Path
-import os
+
+from ted_sws.data_manager.adapters.mapping_suite_repository import MS_TRANSFORM_FOLDER_NAME, MS_MAPPINGS_FOLDER_NAME
+from ted_sws.mapping_suite_processor.entrypoints.cli.cmd_mapping_suite_validator import main as cli_main, \
+    MS_VALIDATOR_ERROR_EXIT_CODE
+from tests import TEST_DATA_PATH
 
 
 def test_mapping_suite_validator(cli_runner, mapping_suite_id):
@@ -23,5 +23,5 @@ def test_mapping_suite_validator(cli_runner, mapping_suite_id):
 
         response = cli_runner.invoke(cli_main, [mapping_suite_id, "--opt-mappings-folder",
                                                 temp_folder])
-        assert response.exit_code == os.EX_CONFIG
+        assert response.exit_code == MS_VALIDATOR_ERROR_EXIT_CODE
         assert "FAILED" in response.output

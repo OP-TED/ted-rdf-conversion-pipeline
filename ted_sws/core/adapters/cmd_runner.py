@@ -2,6 +2,7 @@ import abc
 import datetime
 import os
 from pathlib import Path
+import sys
 
 from ted_sws.data_manager.adapters.mapping_suite_repository import MS_METADATA_FILE_NAME
 from ted_sws.event_manager.adapters.event_handler import EventWriterToFileHandler, EventWriterToConsoleHandler, \
@@ -14,6 +15,7 @@ from ted_sws.event_manager.services.logger_from_context import get_env_logger
 
 DEFAULT_MAPPINGS_PATH = 'mappings'
 DEFAULT_OUTPUT_PATH = 'output'
+DEFAULT_EXIT_CODE = os.EX_OK
 
 
 class CmdRunnerABC(abc.ABC):
@@ -51,6 +53,7 @@ class CmdRunner(CmdRunnerABC):
         self.name = name
         self.begin_time = None
         self.end_time = None
+        self.exit_code = DEFAULT_EXIT_CODE
 
         if logger is None:
             logger = get_env_logger(EventLogger(CLILoggerConfig(name=name)), is_cli=True)
@@ -116,6 +119,11 @@ class CmdRunner(CmdRunnerABC):
             now=str(self.end_time),
             time=self.end_time - self.begin_time
         ))
+        self.exit(self.exit_code)
+
+    @classmethod
+    def exit(cls, exit_code=DEFAULT_EXIT_CODE):
+        sys.exit(exit_code)
 
 
 class CmdRunnerForMappingSuite(CmdRunner):

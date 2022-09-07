@@ -410,7 +410,8 @@ def fake_validation_notice():
                     "description": '“II.1.7.4 - Currency” in SF corresponds to “nan nan” in eForms. The corresponding XML element is /TED_EXPORT/FORM_SECTION/F03_2014/OBJECT_CONTRACT/VAL_TOTAL/@CURRENCY. The expected ontology instances are epo: epo:ResultNotice / epo:NoticeAwardInformation / epo:MonetaryValue / at-voc:currency (from currency.json) .',
                     "query": 'PREFIX epo: <http://data.europa.eu/a4g/ontology#>\n\nASK WHERE { { ?this epo:announcesNoticeAwardInformation / epo:hasTotalAwardedValue / epo:hasCurrency ?value } UNION { ?this epo:announcesNoticeAwardInformation / epo:hasProcurementLowestReceivedTenderValue / epo:hasCurrency ?value } UNION  { ?this epo:announcesNoticeAwardInformation / epo:hasProcurementHighestReceivedTenderValue / epo:hasCurrency ?value }  }'
                 },
-                "result": 'True',
+                "result": 'valid',
+                "query_result": 'True',
                 "error": None,
                 "identifier": 'sparql_query_46'
             },
@@ -420,7 +421,8 @@ def fake_validation_notice():
                     "description": "",
                     "query": ""
                 },
-                "result": 'False',
+                "result": 'error',
+                "query_result": 'False',
                 "error": "SOME_ERROR",
                 "identifier": 'sparql_query_46'
             }

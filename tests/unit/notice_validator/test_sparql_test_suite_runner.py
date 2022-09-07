@@ -1,7 +1,7 @@
 import pytest
 
 from ted_sws.core.model.manifestation import RDFManifestation, RDFValidationManifestation, SPARQLQuery, \
-    SPARQLQueryResult
+    SPARQLQueryResult, SPARQLQueryRefinedResultType
 from ted_sws.core.model.notice import NoticeStatus
 from ted_sws.data_manager.adapters.mapping_suite_repository import MappingSuiteRepositoryInFileSystem
 from ted_sws.notice_validator.services.sparql_test_suite_runner import SPARQLTestSuiteRunner, SPARQLReportBuilder, \
@@ -38,8 +38,8 @@ def test_sparql_query_test_suite_runner(rdf_file_content, sparql_test_suite, dum
     for execution in test_suite_executions:
         assert isinstance(execution, SPARQLQueryResult)
 
-    assert test_suite_executions[1].result == "True"
-    assert test_suite_executions[0].result == "False"
+    assert test_suite_executions[1].result == SPARQLQueryRefinedResultType.VALID
+    assert test_suite_executions[0].result == SPARQLQueryRefinedResultType.INVALID
 
 
 def test_sparql_query_test_suite_runner_error(sparql_test_suite_with_invalid_query, dummy_mapping_suite,
@@ -58,7 +58,7 @@ def test_sparql_query_test_suite_runner_false(sparql_test_suite_with_false_query
                                           xml_manifestation=fake_xml_manifestation_with_coverage_for_sparql_runner,
                                           sparql_test_suite=sparql_test_suite_with_false_query,
                                           mapping_suite=dummy_mapping_suite).execute_test_suite()
-    assert sparql_runner.validation_results[0].result == 'True'
+    assert sparql_runner.validation_results[0].result == SPARQLQueryRefinedResultType.WARNING
     assert sparql_runner.validation_results[0].query_result == 'False'
 
 

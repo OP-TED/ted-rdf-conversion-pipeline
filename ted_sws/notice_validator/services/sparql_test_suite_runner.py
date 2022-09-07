@@ -5,7 +5,7 @@ from typing import Tuple, List
 from jinja2 import Environment, PackageLoader
 
 from ted_sws.core.model.manifestation import RDFManifestation, SPARQLQueryResult, \
-    SPARQLTestSuiteValidationReport, SPARQLQuery, XMLManifestation
+    SPARQLTestSuiteValidationReport, SPARQLQuery, XMLManifestation, SPARQLQueryRefinedResultType
 from ted_sws.core.model.notice import Notice
 from ted_sws.core.model.transform import SPARQLTestSuite, MappingSuite, FileResource
 from ted_sws.data_manager.adapters.repository_abc import NoticeRepositoryABC, MappingSuiteRepositoryABC
@@ -78,13 +78,20 @@ class SPARQLTestSuiteRunner:
             if len(xpaths_in_notice) < len(sparql_query_xpath):
                 sparql_query_result.missing_fields = list(sparql_query_xpath - xpaths_in_notice)
 
-            if not ask_answer and not sparql_query_result.fields_covered:
-                result = True
+            # Initial result
+            result: SPARQLQueryRefinedResultType = \
+                SPARQLQueryRefinedResultType.VALID if ask_answer else SPARQLQueryRefinedResultType.INVALID
+
+            # Refined result
+            if ask_answer and sparql_query_result.fields_covered:
+                result = SPARQLQueryRefinedResultType.VALID
+            elif not ask_answer and not sparql_query_result.fields_covered:
+                result = SPARQLQueryRefinedResultType.WARNING
             elif (not ask_answer and sparql_query_result.fields_covered) or (
                     ask_answer and not sparql_query_result.fields_covered):
-                result = False
+                result = SPARQLQueryRefinedResultType.INVALID
 
-        sparql_query_result.result = str(result)
+        sparql_query_result.result = result
 
     def execute_test_suite(self) -> SPARQLTestSuiteValidationReport:
         """
@@ -108,6 +115,7 @@ class SPARQLTestSuiteRunner:
                     sparql_query_result.query_result = query_result.serialize(format="json")
             except Exception as e:
                 sparql_query_result.error = str(e)[:100]
+                sparql_query_result.result = SPARQLQueryRefinedResultType.ERROR
             test_suite_executions.validation_results.append(sparql_query_result)
         return test_suite_executions
 

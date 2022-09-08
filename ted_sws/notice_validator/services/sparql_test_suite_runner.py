@@ -62,7 +62,9 @@ class SPARQLTestSuiteRunner:
         ask_answer = query_result.askAnswer
         sparql_query_result.query_result = str(ask_answer)
 
-        result = ask_answer
+        # Initial result
+        result: SPARQLQueryRefinedResultType = \
+            SPARQLQueryRefinedResultType.VALID if ask_answer else SPARQLQueryRefinedResultType.INVALID
 
         xpath_coverage_validation = None
         if self.xml_manifestation:
@@ -77,10 +79,6 @@ class SPARQLTestSuiteRunner:
             xpaths_in_notice = sparql_query_xpath & set(xpath_validation_result.xpath_covered)
             if len(xpaths_in_notice) < len(sparql_query_xpath):
                 sparql_query_result.missing_fields = list(sparql_query_xpath - xpaths_in_notice)
-
-            # Initial result
-            result: SPARQLQueryRefinedResultType = \
-                SPARQLQueryRefinedResultType.VALID if ask_answer else SPARQLQueryRefinedResultType.INVALID
 
             # Refined result
             if ask_answer and sparql_query_result.fields_covered:

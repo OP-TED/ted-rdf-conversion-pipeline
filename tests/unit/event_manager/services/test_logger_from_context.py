@@ -4,22 +4,31 @@ from unittest import mock
 import pytest
 
 from ted_sws import RUN_ENV_NAME, RUN_ENV_VAL
-from ted_sws.event_manager.adapters.event_handler_config import DAGLoggerConfig, NULLLoggerConfig
+from ted_sws.event_manager.adapters.event_handler_config import DAGLoggerConfig, NULLLoggerConfig, DEFAULT_LOGGER_NAME, \
+    DEFAULT_CONSOLE_LOGGER_NAME
 from ted_sws.event_manager.adapters.event_log_decorator import EVENT_LOGGER_CONTEXT_KEY
 from ted_sws.event_manager.adapters.event_logger import EventLogger
 from ted_sws.event_manager.adapters.log import ConfigHandlerType
 from ted_sws.event_manager.model.event_message import EventMessage, EventMessageProcessType, EventMessageMetadata
 from ted_sws.event_manager.services.logger_from_context import get_logger_from_dag_context, \
     handle_event_message_metadata_context, handle_event_message_metadata_dag_context, get_logger, get_cli_logger, \
-    get_task_id_from_dag_context, get_dag_id_from_dag_context, get_dag_run_id_from_dag_context, get_env_logger
+    get_task_id_from_dag_context, get_dag_id_from_dag_context, get_dag_run_id_from_dag_context, get_env_logger, \
+    get_console_logger
 
 
 def test_get_logger():
     assert isinstance(get_logger(), EventLogger)
+    assert isinstance(get_logger(name="TEST_LOGGER"), EventLogger)
 
 
 def test_get_cli_logger():
     assert isinstance(get_cli_logger(), EventLogger)
+    assert isinstance(get_cli_logger(name="TEST_LOGGER"), EventLogger)
+
+
+def test_get_console_logger():
+    assert isinstance(get_console_logger(), EventLogger)
+    assert isinstance(get_console_logger(name="TEST_LOGGER"), EventLogger)
 
 
 def test_get_logger_from_dag_context():

@@ -14,24 +14,6 @@ This module contains event logger tools.
 """
 
 
-def get_logger(name: str = None) -> EventLogger:
-    return get_env_logger(EventLogger(DAGLoggerConfig(
-        name=DAGLoggerConfig.init_logger_name(name)
-    )))
-
-
-def get_cli_logger(name: str = None) -> EventLogger:
-    return get_env_logger(EventLogger(CLILoggerConfig(
-        name=CLILoggerConfig.init_logger_name(name)
-    )), is_cli=True)
-
-
-def get_console_logger(name: str = None) -> EventLogger:
-    return get_env_logger(EventLogger(
-        ConsoleLoggerConfig(name=name)
-    ), is_cli=True)
-
-
 def get_env_logger(logger: EventLogger, is_cli: bool = False) -> EventLogger:
     """
     This method returns the event logger, based on environment:
@@ -51,6 +33,35 @@ def get_env_logger(logger: EventLogger, is_cli: bool = False) -> EventLogger:
         return EventLogger(logger_config)
     else:
         return EventLogger(NULLLoggerConfig())
+
+
+global_logger: EventLogger = get_env_logger(EventLogger(DAGLoggerConfig()))
+global_cli_logger: EventLogger = get_env_logger(EventLogger(CLILoggerConfig()), is_cli=True)
+global_console_logger: EventLogger = get_env_logger(EventLogger(ConsoleLoggerConfig()), is_cli=True)
+
+
+def get_logger(name: str = None) -> EventLogger:
+    if name is None:
+        return global_logger
+    return get_env_logger(EventLogger(DAGLoggerConfig(
+        name=DAGLoggerConfig.init_logger_name(name)
+    )))
+
+
+def get_cli_logger(name: str = None) -> EventLogger:
+    if name is None:
+        return global_cli_logger
+    return get_env_logger(EventLogger(CLILoggerConfig(
+        name=CLILoggerConfig.init_logger_name(name)
+    )), is_cli=True)
+
+
+def get_console_logger(name: str = None) -> EventLogger:
+    if name is None:
+        return global_console_logger
+    return get_env_logger(EventLogger(ConsoleLoggerConfig(
+        name=ConsoleLoggerConfig.init_logger_name(name)
+    )), is_cli=True)
 
 
 def get_logger_from_dag_context(dag_context: dict) -> EventLogger:

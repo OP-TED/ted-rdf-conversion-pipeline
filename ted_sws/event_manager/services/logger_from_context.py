@@ -14,13 +14,13 @@ This module contains event logger tools.
 """
 
 
-def get_logger(name: str = None):
+def get_logger(name: str = None) -> EventLogger:
     return get_env_logger(EventLogger(DAGLoggerConfig(
         name=DAGLoggerConfig.init_logger_name(name)
     )))
 
 
-def get_cli_logger(name: str = None):
+def get_cli_logger(name: str = None) -> EventLogger:
     return get_env_logger(EventLogger(CLILoggerConfig(
         name=CLILoggerConfig.init_logger_name(name)
     )), is_cli=True)

@@ -1,6 +1,7 @@
 from typing import Dict, Any, MutableMapping, Union
 
-from ted_sws.event_manager.adapters.event_handler_config import NULLLoggerConfig, ConsoleLoggerConfig
+from ted_sws.event_manager.adapters.event_handler_config import NULLLoggerConfig, ConsoleLoggerConfig, \
+    DAGLoggerConfig, CLILoggerConfig
 from ted_sws.event_manager.adapters.event_logger import EventLogger
 from ted_sws.event_manager.adapters.log import EVENT_LOGGER_CONTEXT_KEY
 from ted_sws.event_manager.adapters.log import is_env_logging_enabled
@@ -11,6 +12,18 @@ ContextType = Union[Dict[str, Any], MutableMapping[str, Any]]
 """
 This module contains event logger tools.
 """
+
+
+def get_logger(name: str = None):
+    return get_env_logger(EventLogger(DAGLoggerConfig(
+        name=DAGLoggerConfig.init_logger_name(name)
+    )))
+
+
+def get_cli_logger(name: str = None):
+    return get_env_logger(EventLogger(CLILoggerConfig(
+        name=CLILoggerConfig.init_logger_name(name)
+    )), is_cli=True)
 
 
 def get_env_logger(logger: EventLogger, is_cli: bool = False) -> EventLogger:

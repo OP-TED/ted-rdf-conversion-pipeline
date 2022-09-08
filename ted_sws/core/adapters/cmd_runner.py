@@ -1,21 +1,22 @@
 import abc
 import datetime
 import os
-from pathlib import Path
 import sys
+from pathlib import Path
 
 from ted_sws.data_manager.adapters.mapping_suite_repository import MS_METADATA_FILE_NAME
 from ted_sws.event_manager.adapters.event_handler import EventWriterToFileHandler, EventWriterToConsoleHandler, \
     EventWriterToMongoDBHandler
-from ted_sws.event_manager.adapters.event_handler_config import CLILoggerConfig
 from ted_sws.event_manager.adapters.event_logger import EventLogger
 from ted_sws.event_manager.adapters.log import SeverityLevelType, LOG_ERROR_TEXT, LOG_SUCCESS_TEXT
 from ted_sws.event_manager.model.event_message import EventMessage, EventMessageLogSettings
-from ted_sws.event_manager.services.logger_from_context import get_env_logger
+from ted_sws.event_manager.services.logger_from_context import get_cli_logger
+from ted_sws.event_manager.services.log import log_debug
 
 DEFAULT_MAPPINGS_PATH = 'mappings'
 DEFAULT_OUTPUT_PATH = 'output'
-DEFAULT_EXIT_CODE = os.EX_OK
+EXIT_CODE_OK = os.EX_OK
+DEFAULT_EXIT_CODE = EXIT_CODE_OK
 
 
 class CmdRunnerABC(abc.ABC):
@@ -56,7 +57,7 @@ class CmdRunner(CmdRunnerABC):
         self.exit_code = DEFAULT_EXIT_CODE
 
         if logger is None:
-            logger = get_env_logger(EventLogger(CLILoggerConfig(name=name)), is_cli=True)
+            logger = get_cli_logger(name=name)
 
         self.logger = logger
 
@@ -123,7 +124,8 @@ class CmdRunner(CmdRunnerABC):
 
     @classmethod
     def exit(cls, exit_code=DEFAULT_EXIT_CODE):
-        sys.exit(exit_code)
+        if exit_code > EXIT_CODE_OK:
+            sys.exit(exit_code)
 
 
 class CmdRunnerForMappingSuite(CmdRunner):

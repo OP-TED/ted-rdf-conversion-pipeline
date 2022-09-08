@@ -35,7 +35,7 @@ def notice_batch_worker():
         dag_conf = context["dag_run"].conf
 
         if NOTICE_BATCH_KEY not in dag_conf.keys():
-            raise f"Config key [{NOTICE_BATCH_KEY}] is not present in dag context"
+            raise Exception(f"Config key [{NOTICE_BATCH_KEY}] is not present in dag context")
 
         notice_ids_batch = dag_conf[NOTICE_BATCH_KEY]
         mongodb_client = MongoClient(config.MONGO_DB_AUTH_URL)

@@ -90,13 +90,12 @@ x-airflow-common:
 services:
   postgres:
     image: postgres:13
+    command: -p 5433
     container_name: postgres-airflow-${ENVIRONMENT}
     environment:
       POSTGRES_USER: airflow
       POSTGRES_PASSWORD: airflow
       POSTGRES_DB: airflow
-    expose:
-      - 5433
     volumes:
       - postgres-db-volume:/var/lib/postgresql/data
     healthcheck:

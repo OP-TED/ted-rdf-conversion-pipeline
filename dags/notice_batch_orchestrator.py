@@ -61,7 +61,7 @@ def notice_batch_orchestrator():
             TriggerDagRunOperator(
                 task_id=f'trigger_notice_batch_worker_dag_{notice_batch_counter}',
                 trigger_dag_id="notice_batch_worker",
-                conf={NOTICE_BATCH_KEY: [notice.ted_id for notice in notice_batch]}
+                conf={NOTICE_BATCH_KEY: list(notice_batch)}
             ).execute(context=context)
             notice_batch_counter += 1
 

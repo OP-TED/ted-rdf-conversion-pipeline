@@ -1,6 +1,4 @@
 import json
-import json
-import os
 import pathlib
 from typing import List, Union
 
@@ -8,10 +6,8 @@ from ted_sws.core.model.transform import MetadataConstraints
 from ted_sws.data_manager.adapters.mapping_suite_repository import MS_TRANSFORM_FOLDER_NAME, MS_TEST_DATA_FOLDER_NAME, \
     MS_CONCEPTUAL_MAPPING_FILE_NAME, MS_RESOURCES_FOLDER_NAME, MS_MAPPINGS_FOLDER_NAME, MS_METADATA_FILE_NAME, \
     MS_VALIDATE_FOLDER_NAME, MS_SPARQL_FOLDER_NAME, MS_SHACL_FOLDER_NAME, MS_OUTPUT_FOLDER_NAME, MS_TEST_SUITE_REPORT
-from ted_sws.event_manager.adapters.event_handler_config import ConsoleLoggerConfig
-from ted_sws.event_manager.adapters.event_logger import EventLogger
 from ted_sws.event_manager.model.event_message import EventMessage, EventMessageLogSettings
-from ted_sws.event_manager.services.logger_from_context import get_env_logger
+from ted_sws.event_manager.services.logger_from_context import get_console_logger
 from ted_sws.mapping_suite_processor.adapters.mapping_suite_hasher import MappingSuiteHasher
 from ted_sws.mapping_suite_processor.services.conceptual_mapping_generate_metadata import VERSION_FIELD, \
     MAPPING_SUITE_HASH, VERSION_KEY
@@ -29,9 +25,7 @@ class MappingSuiteStructureValidator:
 
     def __init__(self, mapping_suite_path: Union[pathlib.Path, str]):
         self.mapping_suite_path = pathlib.Path(mapping_suite_path)
-        self.logger = get_env_logger(EventLogger(
-            ConsoleLoggerConfig(name="MappingSuiteStructureValidator")
-        ), is_cli=True)
+        self.logger = get_console_logger(name="MappingSuiteStructureValidator")
         self.log_settings = EventMessageLogSettings(**{"briefly": True})
 
     def assert_path(self, assertion_path_list: List[pathlib.Path]) -> bool:

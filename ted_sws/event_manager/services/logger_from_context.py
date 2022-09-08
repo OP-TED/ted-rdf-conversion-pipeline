@@ -26,6 +26,12 @@ def get_cli_logger(name: str = None) -> EventLogger:
     )), is_cli=True)
 
 
+def get_console_logger(name: str = None) -> EventLogger:
+    return get_env_logger(EventLogger(
+        ConsoleLoggerConfig(name=name)
+    ), is_cli=True)
+
+
 def get_env_logger(logger: EventLogger, is_cli: bool = False) -> EventLogger:
     """
     This method returns the event logger, based on environment:

@@ -53,9 +53,9 @@ x-airflow-common:
     &airflow-common-env
     IS_PRIME_ENV: 'true'
     AIRFLOW__CORE__EXECUTOR: CeleryExecutor
-    AIRFLOW__CORE__SQL_ALCHEMY_CONN: postgresql+psycopg2://airflow:airflow@postgres/airflow
-    AIRFLOW__CELERY__RESULT_BACKEND: db+postgresql://airflow:airflow@postgres/airflow
-    AIRFLOW__CELERY__BROKER_URL: redis://:@redis:6379/0
+    AIRFLOW__CORE__SQL_ALCHEMY_CONN: postgresql+psycopg2://airflow:airflow@postgres:5433/airflow
+    AIRFLOW__CELERY__RESULT_BACKEND: db+postgresql://airflow:airflow@postgres:5433/airflow
+    AIRFLOW__CELERY__BROKER_URL: redis://:@redis:6380/0
     AIRFLOW__CORE__FERNET_KEY: ''
     AIRFLOW__CORE__DAGS_ARE_PAUSED_AT_CREATION: 'true'
     AIRFLOW__CORE__ENABLE_XCOM_PICKLING: "true"
@@ -95,6 +95,8 @@ services:
       POSTGRES_USER: airflow
       POSTGRES_PASSWORD: airflow
       POSTGRES_DB: airflow
+    expose:
+      - 5433
     volumes:
       - postgres-db-volume:/var/lib/postgresql/data
     healthcheck:
@@ -109,7 +111,7 @@ services:
     image: redis:7.0.4-alpine3.16
     container_name: redis-airflow-${ENVIRONMENT}
     expose:
-      - 6379
+      - 6380
     healthcheck:
       test: ["CMD", "redis-cli", "ping"]
       interval: 5s

@@ -97,14 +97,15 @@
     <h3>SPARQL Summary</h3>
     <h4>Report details: </h4>
     <ul>
-        <li>Success: {{ manifestation.sparql_summary.aggregate.success }}</li>
-        <li>Fail: {{ manifestation.sparql_summary.aggregate.fail }}</li>
+        <li>Valid: {{ manifestation.sparql_summary.aggregate.valid }}</li>
+        <li>Invalid: {{ manifestation.sparql_summary.aggregate.invalid }}</li>
+        <li>Warning: {{ manifestation.sparql_summary.aggregate.warning }}</li>
         <li>Error: {{ manifestation.sparql_summary.aggregate.error }}</li>
     </ul>
         <p>-----</p>
     <h4>Validation results: </h4>
      {% for result in rdf_manifestation.sparql_summary.validation_results %}
-     {% set result_total = result.aggregate.success + result.aggregate.fail + result.aggregate.error %}
+     {% set result_total = result.aggregate.valid + result.aggregate.invalid + result.aggregate.warning + result.aggregate.error %}
          <p>---</p>
     <ul>
         <li>Mapping suite identifier: {{ result.mapping_suite_identifier }}</li>
@@ -121,14 +122,19 @@
         </thead>
         <tbody>
             <tr>
-                <td>Success</td>
-                <td>{{ result.aggregate.success }}</td>
-                <td>{{ (result.aggregate.success / result_total * 100) | round(2) }}%</td>
+                <td>Valid</td>
+                <td>{{ result.aggregate.valid }}</td>
+                <td>{{ (result.aggregate.valid / result_total * 100) | round(2) }}%</td>
             </tr>
             <tr>
-                <td>Fail</td>
-                <td>{{ result.aggregate.fail }}</td>
-                <td>{{ (result.aggregate.fail / result_total * 100) | round(2) }}%</td>
+                <td>Invalid</td>
+                <td>{{ result.aggregate.invalid }}</td>
+                <td>{{ (result.aggregate.invalid / result_total * 100) | round(2) }}%</td>
+            </tr>
+            <tr>
+                <td>Warning</td>
+                <td>{{ result.aggregate.warning }}</td>
+                <td>{{ (result.aggregate.warning / result_total * 100) | round(2) }}%</td>
             </tr>
             <tr>
                 <td>Error</td>
@@ -194,14 +200,15 @@
     <h3>SPARQL Summary</h3>
     <h4>Report details: </h4>
     <ul>
-        <li>Success: {{ manifestation.sparql_summary.aggregate.success }}</li>
-        <li>Fail: {{ manifestation.sparql_summary.aggregate.fail }}</li>
+        <li>Valid: {{ manifestation.sparql_summary.aggregate.valid }}</li>
+        <li>Invalid: {{ manifestation.sparql_summary.aggregate.invalid }}</li>
+        <li>Warning: {{ manifestation.sparql_summary.aggregate.warning }}</li>
         <li>Error: {{ manifestation.sparql_summary.aggregate.error }}</li>
     </ul>
         <p>-----</p>
     <h4>Validation results: </h4>
      {% for result in rdf_manifestation.sparql_summary.validation_results %}
-     {% set result_total = result.aggregate.success + result.aggregate.fail + result.aggregate.error %}
+     {% set result_total = result.aggregate.valid + result.aggregate.invalid + result.aggregate.warning + result.aggregate.error %}
          <p>---</p>
     <ul>
         <li>Mapping suite identifier: {{ result.mapping_suite_identifier }}</li>
@@ -218,14 +225,19 @@
         </thead>
         <tbody>
             <tr>
-                <td>Success</td>
-                <td>{{ result.aggregate.success }}</td>
-                <td>{{ (result.aggregate.success / result_total * 100) | round(2) }}%</td>
+                <td>Valid</td>
+                <td>{{ result.aggregate.valid }}</td>
+                <td>{{ (result.aggregate.valid / result_total * 100) | round(2) }}%</td>
             </tr>
             <tr>
-                <td>Fail</td>
-                <td>{{ result.aggregate.fail }}</td>
-                <td>{{ (result.aggregate.fail / result_total * 100) | round(2) }}%</td>
+                <td>Invalid</td>
+                <td>{{ result.aggregate.invalid }}</td>
+                <td>{{ (result.aggregate.invalid / result_total * 100) | round(2) }}%</td>
+            </tr>
+            <tr>
+                <td>Warning</td>
+                <td>{{ result.aggregate.warning }}</td>
+                <td>{{ (result.aggregate.warning / result_total * 100) | round(2) }}%</td>
             </tr>
             <tr>
                 <td>Error</td>

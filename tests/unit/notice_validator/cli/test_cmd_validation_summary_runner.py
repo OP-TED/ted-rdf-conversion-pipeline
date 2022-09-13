@@ -23,6 +23,7 @@ def test_cmd_validation_summary_runner_for_notice(cli_runner, fake_validation_ma
     response = cli_runner.invoke(cli_main,
                                  [fake_validation_mapping_suite_id, "--notice-id", fake_validation_notice_id,
                                   "--opt-mappings-folder", fake_validation_repository_path])
+
     assert response.exit_code == 0
     assert "SUCCESS" in response.output
 

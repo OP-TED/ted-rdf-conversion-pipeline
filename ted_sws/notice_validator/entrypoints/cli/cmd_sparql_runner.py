@@ -98,7 +98,6 @@ class CmdRunner(BaseCmdRunner):
                             self.validate(rdf_file=f, xpath_report=xpath_report, base_report_path=base_report_path)
         except Exception as e:
             error = e
-
         return self.run_cmd_result(error)
 
 

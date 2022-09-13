@@ -18,6 +18,8 @@ NOTICE_ID = "notice_id"
 
 
 @dag(default_args=DEFAULT_DAG_ARGUMENTS,
+     max_active_runs=256,
+     max_active_tasks=256,
      schedule_interval=None,
      tags=['worker', 'index_and_normalise_notice'])
 def index_and_normalise_notice_worker():

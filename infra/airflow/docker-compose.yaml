@@ -324,7 +324,6 @@ networks:
   airflow:
     internal: true
     name: airflow-${ENVIRONMENT}
-  networks:
   common-ext:
     external:
       name: common-ext-${ENVIRONMENT}

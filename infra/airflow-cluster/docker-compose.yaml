@@ -51,12 +51,15 @@ x-airflow-common:
     - ../../.env
   environment:
     &airflow-common-env
-    AIRFLOW__CORE__PARALLELISM: 128
-    AIRFLOW__CORE__MAX_ACTIVE_TASKS_PER_DAG: 128
-    AIRFLOW__SCHEDULER__PARSING_PROCESSES: 12
-    AIRFLOW__CELERY__WORKER_CONCURRENCY: 64
-    AIRFLOW__CORE__SQL_ALCHEMY_POOL_SIZE: 256
-    AIRFLOW__CORE__SQL_ALCHEMY_MAX_OVERFLOW: 512
+    AIRFLOW__CORE__PARALLELISM: 256
+    AIRFLOW__CORE__MAX_ACTIVE_TASKS_PER_DAG: 256
+    AIRFLOW__CORE__NON_POOLED_TASK_SLOT_COUNT: 256
+    AIRFLOW__SCHEDULER__PARSING_PROCESSES: 8
+    AIRFLOW__SCHEDULER__SCHEDULER_HEARTBEAT_SEC: 1
+    AIRFLOW__SCHEDULER__MAX_DAGRUNS_PER_LOOP_TO_SCHEDULE: 128
+    AIRFLOW__CELERY__WORKER_CONCURRENCY: 16
+    AIRFLOW__CORE__SQL_ALCHEMY_POOL_SIZE: 512
+    AIRFLOW__CORE__SQL_ALCHEMY_MAX_OVERFLOW: 1024
     AIRFLOW__CORE__SQL_ALCHEMY_CONN: "postgresql+psycopg2://${POSTGRES_USER}:${POSTGRES_USER}@postgres/airflow"
     AIRFLOW__CELERY__RESULT_BACKEND: "db+postgresql://${POSTGRES_USER}:${POSTGRES_USER}@postgres/airflow"
     AIRFLOW__CELERY__BROKER_URL: "redis://:${REDIS_PASSWORD}@redis:6379/0"
@@ -86,6 +89,11 @@ x-airflow-common:
     - ${AIRFLOW_INFRA_FOLDER}/ted_sws:/opt/airflow/ted_sws
     - ${AIRFLOW_INFRA_FOLDER}/tests:/opt/airflow/tests
   user: "${AIRFLOW_UID:-50000}:0"
+  extra_hosts:
+    - "hermes:65.108.123.44"
+    - "newton:65.109.3.225"
+    - "pascal:65.21.59.9"
+    - "srv.meaningfy.ws:168.119.148.205"
   command: bash -c "export PYTHONPATH='/opt/airflow/'"
   depends_on:
     &airflow-common-depends-on
@@ -205,7 +213,7 @@ services:
     <<: *airflow-common
     container_name: airflow-worker-${ENVIRONMENT}
     command: celery worker
-    hostname: ${AIRFLOW_WORKER_HOSTNAME}.${SUBDOMAIN}local_worker
+    hostname: ${AIRFLOW_WORKER_HOSTNAME}
     healthcheck:
       test: ["CMD-SHELL",'celery --app airflow.executors.celery_executor.app inspect ping -d "celery@$${HOSTNAME}"']
       interval: 10s

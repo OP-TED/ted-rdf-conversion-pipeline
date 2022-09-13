@@ -6,7 +6,8 @@ from ted_sws.resources.mapping_files_registry import MappingFilesRegistry
 from ted_sws.notice_metadata_processor.services.metadata_normalizer import normalise_notice, normalise_notice_by_id, \
     MetadataNormaliser, ExtractedMetadataNormaliser, FORM_NUMBER_KEY, SF_NOTICE_TYPE_KEY, LEGAL_BASIS_KEY, \
     DOCUMENT_CODE_KEY
-from ted_sws.notice_metadata_processor.services.xml_manifestation_metadata_extractor import XMLManifestationMetadataExtractor
+from ted_sws.notice_metadata_processor.services.xml_manifestation_metadata_extractor import \
+    XMLManifestationMetadataExtractor
 
 
 def test_metadata_normaliser_by_notice(indexed_notice):
@@ -40,28 +41,36 @@ def test_metadata_normaliser(indexed_notice):
 
 
 def test_normalise_form_number(indexed_notice):
-    extracted_metadata = XMLManifestationMetadataExtractor(xml_manifestation=indexed_notice.xml_manifestation).to_metadata()
+    extracted_metadata = XMLManifestationMetadataExtractor(
+        xml_manifestation=indexed_notice.xml_manifestation).to_metadata()
     extracted_metadata_normaliser = ExtractedMetadataNormaliser(extracted_metadata=extracted_metadata)
-    assert "18" == extracted_metadata.extracted_form_number
-    assert "F18" == extracted_metadata_normaliser.normalise_form_number(value=extracted_metadata.extracted_form_number)
-    assert "T01" == extracted_metadata_normaliser.normalise_form_number(value="T01")
-    assert None == extracted_metadata_normaliser.normalise_form_number(value=None)
+    assert extracted_metadata_normaliser.normalise_form_number("FFFSA") == "FFFSA"
+    assert extracted_metadata_normaliser.normalise_form_number("F18") == "F18"
+    assert extracted_metadata_normaliser.normalise_form_number("F01") == "F01"
+    assert extracted_metadata_normaliser.normalise_form_number("F2") == "F02"
+    assert extracted_metadata_normaliser.normalise_form_number("22") == "F22"
+    assert extracted_metadata_normaliser.normalise_form_number("2") == "F02"
+    assert extracted_metadata_normaliser.normalise_form_number("F") == "F"
+    assert extracted_metadata_normaliser.normalise_form_number("TX01") == "TX01"
+    assert extracted_metadata_normaliser.normalise_form_number("TX1") == "TX01"
+    assert extracted_metadata_normaliser.normalise_form_number("FX03FG") == "FX03FG"
+    assert extracted_metadata_normaliser.normalise_form_number("1F03FG") == "1F03FG"
 
 
 def test_normalise_legal_basis(indexed_notice):
-    extracted_metadata = XMLManifestationMetadataExtractor(xml_manifestation=indexed_notice.xml_manifestation).to_metadata()
+    extracted_metadata = XMLManifestationMetadataExtractor(
+        xml_manifestation=indexed_notice.xml_manifestation).to_metadata()
     extracted_metadata_normaliser = ExtractedMetadataNormaliser(extracted_metadata=extracted_metadata)
     assert "2009/81/EC" == extracted_metadata.legal_basis_directive
     assert "32009L0081" == extracted_metadata_normaliser.normalise_legal_basis_value(
         value=extracted_metadata.legal_basis_directive)
 
-
 def test_get_map_value(indexed_notice):
-    extracted_metadata = XMLManifestationMetadataExtractor(xml_manifestation=indexed_notice.xml_manifestation).to_metadata()
+    extracted_metadata = XMLManifestationMetadataExtractor(
+        xml_manifestation=indexed_notice.xml_manifestation).to_metadata()
     extracted_metadata_normaliser = ExtractedMetadataNormaliser(extracted_metadata=extracted_metadata)
     value = extracted_metadata_normaliser.get_map_value(mapping=MappingFilesRegistry().countries, value="DE")
     assert value == "http://publications.europa.eu/resource/authority/country/DEU"
-
 
 def test_filter_df_by_variables():
     df = MappingFilesRegistry().ef_notice_df
@@ -71,9 +80,9 @@ def test_filter_df_by_variables():
     assert len(filtered_df.index) == 3
     assert "32014L0024" in filtered_df["eform_legal_basis"].values
 
-
 def test_get_form_type_and_notice_type(indexed_notice):
-    extracted_metadata = XMLManifestationMetadataExtractor(xml_manifestation=indexed_notice.xml_manifestation).to_metadata()
+    extracted_metadata = XMLManifestationMetadataExtractor(
+        xml_manifestation=indexed_notice.xml_manifestation).to_metadata()
     extracted_metadata_normaliser = ExtractedMetadataNormaliser(extracted_metadata=extracted_metadata)
     form_type, notice_type, legal_basis, eforms_subtype = extracted_metadata_normaliser.get_form_type_and_notice_type(
         ef_map=MappingFilesRegistry().ef_notice_df,
@@ -86,9 +95,9 @@ def test_get_form_type_and_notice_type(indexed_notice):
     assert "32014L0024" == legal_basis
     assert "16" == eforms_subtype
 
-
 def test_get_filter_values(indexed_notice):
-    extracted_metadata = XMLManifestationMetadataExtractor(xml_manifestation=indexed_notice.xml_manifestation).to_metadata()
+    extracted_metadata = XMLManifestationMetadataExtractor(
+        xml_manifestation=indexed_notice.xml_manifestation).to_metadata()
     extracted_metadata_normaliser = ExtractedMetadataNormaliser(extracted_metadata=extracted_metadata)
     filter_map = MappingFilesRegistry().filter_map_df
     filter_variables_dict = extracted_metadata_normaliser.get_filter_variables_values(form_number="F07",
@@ -108,7 +117,6 @@ def test_get_filter_values(indexed_notice):
                                                                   extracted_notice_type=None,
                                                                   document_type_code="7",
                                                                   legal_basis="legal")
-
 
 def test_normalising_process_on_failed_notice_in_dag(notice_2021):
     extracted_metadata = XMLManifestationMetadataExtractor(

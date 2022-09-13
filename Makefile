@@ -201,11 +201,11 @@ stop-mongo:
 
 start-metabase: build-externals
 	@ echo -e "$(BUILD_PRINT)Starting the Metabase services $(END_BUILD_PRINT)"
-	@ docker-compose -p ${ENVIRONMENT} --file ./infra/metabase/docker-compose.yml --env-file ${ENV_FILE} up -d
+	@ docker-compose -p metabase-${ENVIRONMENT} --file ./infra/metabase/docker-compose.yml --env-file ${ENV_FILE} up -d
 
 stop-metabase:
 	@ echo -e "$(BUILD_PRINT)Stopping the Metabase services $(END_BUILD_PRINT)"
-	@ docker-compose -p ${ENVIRONMENT} --file ./infra/metabase/docker-compose.yml --env-file ${ENV_FILE} down
+	@ docker-compose -p metabase-${ENVIRONMENT} --file ./infra/metabase/docker-compose.yml --env-file ${ENV_FILE} down
 
 init-rml-mapper:
 	@ echo -e "RMLMapper folder initialisation!"
@@ -242,7 +242,7 @@ staging-dotenv-file: guard-VAULT_ADDR guard-VAULT_TOKEN vault-installed
 	@ echo -e "$(BUILD_PRINT)Creating .env.staging file $(END_BUILD_PRINT)"
 	@ echo VAULT_ADDR=${VAULT_ADDR} > .env
 	@ echo VAULT_TOKEN=${VAULT_TOKEN} >> .env
-	@ echo DOMAIN=ted-data.eu >> .env
+	@ echo DOMAIN=vocbench.com >> .env
 	@ echo ENVIRONMENT=staging >> .env
 	@ echo SUBDOMAIN=staging. >> .env
 	@ echo RML_MAPPER_PATH=${RML_MAPPER_PATH} >> .env
@@ -287,6 +287,7 @@ prod-dotenv-file: guard-VAULT_ADDR guard-VAULT_TOKEN vault-installed
 	@ echo XML_PROCESSOR_PATH=${XML_PROCESSOR_PATH} >> .env
 	@ echo AIRFLOW_INFRA_FOLDER=~/airflow-infra/prod >> .env
 	@ echo AIRFLOW_WORKER_HOSTNAME=${HOSTNAME} >> .env
+	@ echo AIRFLOW_CELERY_WORKER_CONCURRENCY=32 >> .env
 	@ vault kv get -format="json" ted-prod/airflow | jq -r ".data.data | keys[] as \$$k | \"\(\$$k)=\(.[\$$k])\"" >> .env
 	@ vault kv get -format="json" ted-prod/mongo-db | jq -r ".data.data | keys[] as \$$k | \"\(\$$k)=\(.[\$$k])\"" >> .env
 	@ vault kv get -format="json" ted-prod/metabase | jq -r ".data.data | keys[] as \$$k | \"\(\$$k)=\(.[\$$k])\"" >> .env

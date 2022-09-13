@@ -4,20 +4,21 @@ services:
 
   postgres:
     container_name: metabase-postgres-${ENVIRONMENT}
-    restart: "always"
+    restart: unless-stopped
     image: postgres:14.4-alpine
     environment:
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
       - METABASE_PASSWORD=${METABASE_PASSWORD}
     volumes:
-      - postgres_volume:/var/lib/postgresql/data/
+      - metabase_postgres_volume:/var/lib/postgresql/data/
       - ./services/postgres/:/docker-entrypoint-initdb.d/
     networks:
       - metabase-net
 
+
   metabase:
     container_name: metabase-${ENVIRONMENT}
-    restart: "always"
+    restart: unless-stopped
     image: metabase/metabase:v0.43.4
     environment:
       - ENV_MB_DB_TYPE=postgres
@@ -42,12 +43,12 @@ services:
 
 
 volumes:
-  postgres_volume:
-    name: postgres-volume-${ENVIRONMENT}
+  metabase_postgres_volume:
+    name: metabase-postgres-volume-${ENVIRONMENT}
 
 networks:
   metabase-net:
-    internal: false
+    internal: true
     name: metabase-net-${ENVIRONMENT}
   proxy-net:
     external:

@@ -37,11 +37,13 @@ class CmdRunner(BaseCmdRunner):
     def __init__(
             self,
             mapping_suite_id,
+            notice_id: List[str],
             conceptual_mappings_file,
             mappings_path
     ):
         super().__init__(name=CMD_NAME)
         self.mapping_suite_id = mapping_suite_id
+        self.notice_id = notice_id
         self.mappings_path = mappings_path
         self.conceptual_mappings_file_path = Path(os.path.realpath(conceptual_mappings_file))
         self.output_folder = OUTPUT_FOLDER.format(mappings_path=self.mappings_path,
@@ -85,7 +87,10 @@ class CmdRunner(BaseCmdRunner):
         output_path = Path(self.output_folder)
         notices: List[Notice] = []
         for data in self.mapping_suite.transformation_test_data.test_data:
-            notice: Notice = Notice(ted_id=Path(data.file_name).stem,
+            notice_id = Path(data.file_name).stem
+            if self.notice_id and len(self.notice_id) > 0 and notice_id not in self.notice_id:
+                continue
+            notice: Notice = Notice(ted_id=notice_id,
                                     xml_manifestation=XMLManifestation(object_data=data.file_content))
             report_file = REPORT_FILE
             report_path = output_path / notice.ted_id / DEFAULT_TEST_SUITE_REPORT_FOLDER / report_file
@@ -98,7 +103,7 @@ class CmdRunner(BaseCmdRunner):
         return self.run_cmd_result()
 
 
-def run(mapping_suite_id=None, opt_conceptual_mappings_file=None, opt_mappings_folder=DEFAULT_MAPPINGS_PATH):
+def run(mapping_suite_id=None, notice_id=None, opt_conceptual_mappings_file=None, opt_mappings_folder=DEFAULT_MAPPINGS_PATH):
     if opt_conceptual_mappings_file:
         conceptual_mappings_file = opt_conceptual_mappings_file
     else:
@@ -109,6 +114,7 @@ def run(mapping_suite_id=None, opt_conceptual_mappings_file=None, opt_mappings_f
 
     cmd = CmdRunner(
         mapping_suite_id=mapping_suite_id,
+        notice_id=notice_id,
         conceptual_mappings_file=conceptual_mappings_file,
         mappings_path=opt_mappings_folder
     )
@@ -117,13 +123,14 @@ def run(mapping_suite_id=None, opt_conceptual_mappings_file=None, opt_mappings_f
 
 @click.command()
 @click.argument('mapping-suite-id', nargs=1, required=False)
+@click.option('--notice-id', required=False, multiple=True, default=None)
 @click.option('-i', '--opt-conceptual-mappings-file', help="Use to overwrite default INPUT")
 @click.option('-m', '--opt-mappings-folder', default=DEFAULT_MAPPINGS_PATH)
-def main(mapping_suite_id, opt_conceptual_mappings_file, opt_mappings_folder):
+def main(mapping_suite_id, notice_id, opt_conceptual_mappings_file, opt_mappings_folder):
     """
     Generates Coverage Reports for Notices
     """
-    run(mapping_suite_id, opt_conceptual_mappings_file, opt_mappings_folder)
+    run(mapping_suite_id, notice_id, opt_conceptual_mappings_file, opt_mappings_folder)
 
 
 if __name__ == '__main__':

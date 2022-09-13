@@ -32,17 +32,20 @@ class CmdRunner(BaseCmdRunner):
     def __init__(
             self,
             mapping_suite_id,
+            notice_id: List[str],
             mappings_path
     ):
         super().__init__(name=CMD_NAME)
         self.mapping_suite_id = mapping_suite_id
+        self.notice_id = notice_id
         self.mappings_path = mappings_path
 
         repository_path = Path(self.mappings_path)
         mapping_suite_repository = MappingSuiteRepositoryInFileSystem(repository_path=repository_path)
         self.mapping_suite = mapping_suite_repository.get(reference=self.mapping_suite_id)
 
-    def save_report(self, report_path, report_name, report_id, content):
+    @classmethod
+    def save_report(cls, report_path, report_name, report_id, content):
         if report_id is not None:
             report_name = report_name.format(id=report_id)
         with open(report_path / report_name, "w+") as f:
@@ -80,7 +83,10 @@ class CmdRunner(BaseCmdRunner):
                                                       mapping_suite_id=self.mapping_suite_id))
             for d in rdf_path.iterdir():
                 if d.is_dir():
-                    base_report_path = rdf_path / d.name
+                    notice_id = d.name
+                    if self.notice_id and len(self.notice_id) > 0 and notice_id not in self.notice_id:
+                        continue
+                    base_report_path = rdf_path / notice_id
                     for f in d.iterdir():
                         if f.is_file():
                             self.validate(rdf_file=f, base_report_path=base_report_path)
@@ -90,9 +96,10 @@ class CmdRunner(BaseCmdRunner):
         return self.run_cmd_result(error)
 
 
-def run(mapping_suite_id=None, opt_mappings_folder=DEFAULT_MAPPINGS_PATH):
+def run(mapping_suite_id=None, notice_id=None, opt_mappings_folder=DEFAULT_MAPPINGS_PATH):
     cmd = CmdRunner(
         mapping_suite_id=mapping_suite_id,
+        notice_id=notice_id,
         mappings_path=opt_mappings_folder
     )
     cmd.run()
@@ -100,12 +107,13 @@ def run(mapping_suite_id=None, opt_mappings_folder=DEFAULT_MAPPINGS_PATH):
 
 @click.command()
 @click.argument('mapping-suite-id', nargs=1, required=False)
+@click.option('--notice-id', required=False, multiple=True, default=None)
 @click.option('-m', '--opt-mappings-folder', default=DEFAULT_MAPPINGS_PATH)
 def main(mapping_suite_id, opt_mappings_folder):
     """
     Generates SHACL Validation Reports for RDF files
     """
-    run(mapping_suite_id, opt_mappings_folder)
+    run(mapping_suite_id, notice_id, opt_mappings_folder)
 
 
 if __name__ == '__main__':

@@ -1,5 +1,6 @@
 import tempfile
 from pathlib import Path
+from typing import List
 
 from ted_sws.core.model.manifestation import RDFManifestation, XMLManifestation
 from ted_sws.core.model.notice import Notice, NoticeStatus
@@ -63,12 +64,13 @@ def transform_notice_by_id(notice_id: str, mapping_suite_id: str, notice_reposit
 
 
 def transform_test_data(mapping_suite: MappingSuite, rml_mapper: RMLMapperABC, output_path: Path,
-                        logger: EventLogger = None):
+                        notice_ids: List[str] = None, logger: EventLogger = None):
     """
         This function converts each file in the test data and writes the result to a file in output_path.
     :param mapping_suite:
     :param rml_mapper:
     :param output_path:
+    :param notice_ids:
     :param logger:
     :return:
     """
@@ -78,6 +80,12 @@ def transform_test_data(mapping_suite: MappingSuite, rml_mapper: RMLMapperABC, o
     test_data = transformation_test_data.test_data
 
     for idx, data in enumerate(test_data, start=1):
+        filename = data.file_name
+        notice_id = Path(filename).stem
+
+        if notice_ids and len(notice_ids) > 0 and notice_id not in notice_ids:
+            continue
+
         if logger:
             event_message: NoticeEventMessage = NoticeEventMessage()
             event_message.start_record()
@@ -86,22 +94,19 @@ def transform_test_data(mapping_suite: MappingSuite, rml_mapper: RMLMapperABC, o
         notice._status = NoticeStatus.PREPROCESSED_FOR_TRANSFORMATION
         notice_result = transform_notice(notice, mapping_suite, rml_mapper)
         file_resource = FileResource(
-            file_name=data.file_name,
+            file_name=filename,
             file_content=notice_result.rdf_manifestation.object_data,
             original_name=data.original_name
         )
-        filename = file_resource.file_name
         original_name = file_resource.original_name if file_resource.original_name else filename
-        notice_container = Path(filename).stem
         out_filename = Path(original_name).stem + DEFAULT_TRANSFORMATION_FILE_EXTENSION
-        file_resource_parent_path = output_path / Path(notice_container)
+        file_resource_parent_path = output_path / Path(notice_id)
         file_resource_parent_path.mkdir(parents=True, exist_ok=True)
         file_resource_path = file_resource_parent_path / Path(out_filename)
         with file_resource_path.open("w+", encoding="utf-8") as f:
             f.write(file_resource.file_content)
 
         if logger:
-            notice_id = notice_container
             event_message.message = notice_id
             event_message.notice_id = notice_id
             event_message.end_record()

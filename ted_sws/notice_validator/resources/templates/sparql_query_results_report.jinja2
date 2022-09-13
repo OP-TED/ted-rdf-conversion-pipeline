@@ -23,7 +23,7 @@
         table thead th {
             text-align: left;
         }
-        .success {
+        .success, .valid {
           color: #3c763d;
         }
         .info {
@@ -32,7 +32,7 @@
         .warning {
           color: #8a6d3b;
         }
-        .danger {
+        .danger, .invalid, .error {
           color: #a94442;
         }
         .strong {
@@ -48,7 +48,7 @@
             display: none;
         }
         .dialog li {
-            margin-bottom: 5px;
+            margin-bottom: 8px;
         }
 
     </style>
@@ -72,7 +72,6 @@
             <th>Query content</th>
             <th>Result</th>
             <th>Details</th>
-            <th>Error</th>
         </tr>
      </thead>
     <tbody>
@@ -91,7 +90,7 @@
                     </div>
                 </td>
                 <td>{{ result.query.query | e | replace('\n', '<br>') }}</td>
-                <td{% if result.result == "True" and result.fields_covered %} class="strong success" {% elif result.result == "True" and not result.fields_covered %} class="strong warning" {% else %} class="strong danger" {% endif %}>{{ result.result }}</td>
+                <td class="strong {{ result.result }}">{{ result.result }}</td>
                 <td>
                     <button class="open-dialog">Details</button>
                     <div class="dialog" title="{{ result.query.title }}">
@@ -121,12 +120,17 @@
                         </ol>
                         </li>
                     {% endif %}
+                    {% if result.error and (result.error|length > 0) %}
+                        <li>
+                            <h4 class="danger strong">ERROR:</h4>
+                            {{ result.error }}
+                        </li>
+                    {% endif %}
                     </ul>
                     </div>
                 </td>
-                <td>{{ result.error }}</td>
             </tr>
-            {% if result.result == "True" %}
+            {% if result.query_result == "True" %}
                 {{ increment(counter, 'true_executions') }}
             {% elif result.error %}
                 {{ increment(counter, 'error_executions') }}
@@ -199,7 +203,7 @@
         $(document).on('click', '.open-dialog', function () {
             $dialog = $(this).next('.dialog');
             $dialog.dialog({
-                        width: 600,
+                        width: 800,
                         modal: true,
                         buttons: {
                                         "Close": function(event, ui) {

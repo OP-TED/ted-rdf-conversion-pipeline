@@ -30,8 +30,8 @@ Two sets of installation instruction are foreseen: one for the software engineer
 The software engineers need these instructions to deploy on a local or a single machine testing server.
 The semantic engineers need a set of CLI tools that help develop, validate and publish mapping suites.
 
-* [Demo & Testing installation instructions for software engineers](https://docs.ted.europa.eu/ted-rdf-conversion-pipeline/ted-sws/_attachments/ted-sws-architecture/demo_installation.html)
-* [Installation & Usage instructions for the Mapping Suite CLI toolchain](https://docs.ted.europa.eu/ted-rdf-conversion-pipeline/ted-sws/_attachments/ted-sws-architecture/mapping_suite_cli_toolchain.html)
+* [Demo & Testing installation instructions for software engineers](https://docs.ted.europa.eu/ted-rdf-conversion-pipeline/ted-sws/demo_installation.html)
+* [Installation & Usage instructions for the Mapping Suite CLI toolchain](https://docs.ted.europa.eu/ted-rdf-conversion-pipeline/ted-sws/mapping_suite_cli_toolchain.html)
 
 ## Contributing
 

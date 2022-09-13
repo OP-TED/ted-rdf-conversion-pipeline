@@ -25,6 +25,16 @@ class ManifestationMimeType(Enum):
     TURTLE = "text/turtle"
 
 
+class SPARQLQueryRefinedResultType(Enum):
+    """
+    The aggregated SPARQL Query result
+    """
+    VALID = "valid"
+    INVALID = "invalid"
+    ERROR = "error"
+    WARNING = "warning"
+
+
 class Manifestation(PropertyBaseModel):
     """
         A manifestation that embodies a FRBR Work/Expression.
@@ -136,12 +146,15 @@ class SPARQLQueryResult(PropertyBaseModel):
     Stores SPARQL query execution result
     """
     query: SPARQLQuery
-    result: Optional[str]
+    result: Optional[SPARQLQueryRefinedResultType]
     query_result: Optional[str]
     fields_covered: Optional[bool] = True
     missing_fields: Optional[List[str]] = []
     error: Optional[str]
     identifier: Optional[str]
+
+    class Config:
+        use_enum_values = True
 
 
 class SPARQLTestSuiteValidationReport(RDFValidationManifestation):
@@ -207,8 +220,9 @@ class XMLManifestationValidationSummaryReport(PropertyBaseModel):
 
 
 class SPARQLSummaryCountReport(PropertyBaseModel):
-    success: Optional[int] = 0
-    fail: Optional[int] = 0
+    valid: Optional[int] = 0
+    invalid: Optional[int] = 0
+    warning: Optional[int] = 0
     error: Optional[int] = 0
 
 

@@ -3,14 +3,15 @@
 import os
 from pathlib import Path
 from typing import Tuple, List, Dict
-from ordered_set import OrderedSet
 
 import click
+from ordered_set import OrderedSet
 
 from ted_sws.core.adapters.cmd_runner import CmdRunner as BaseCmdRunner, DEFAULT_MAPPINGS_PATH
 from ted_sws.event_manager.adapters.log import SeverityLevelType, LOG_INFO_TEXT, LOG_WARN_TEXT
 from ted_sws.mapping_suite_processor.entrypoints.cli import cmd_resources_injector, cmd_rml_modules_injector, \
     cmd_sparql_generator, cmd_triple_store_loader, cmd_metadata_generator, cmd_mapping_suite_validator
+from ted_sws.mapping_suite_processor.entrypoints.cli.cmd_rml_modules_injector import DEFAULT_RML_MODULES_PATH
 from ted_sws.notice_transformer.entrypoints.cli import cmd_mapping_runner
 from ted_sws.notice_validator.entrypoints.cli import cmd_xpath_coverage_runner, cmd_sparql_runner, cmd_shacl_runner, \
     cmd_validation_summary_runner
@@ -31,6 +32,8 @@ DEFAULT_COMMANDS: Tuple = (
     "metadata_generator"
 )
 DEFAULT_GROUPS: Dict = {
+    "inject_resources": ["resources_injector", "rml_modules_injector"],
+    "generate_resources": ["sparql_generator", "rml_report_generator"],
     "update_resources": ["resources_injector", "rml_modules_injector", "sparql_generator", "rml_report_generator"],
     "transform_notices": ["mapping_runner"],
     "validate_notices": ["xpath_coverage_runner", "sparql_runner", "shacl_runner", "validation_summary_runner"],
@@ -55,6 +58,7 @@ class CmdRunner(BaseCmdRunner):
             mapping_suite_id,
             notice_id: List[str],
             mappings_path,
+            rml_modules_folder,
             command: List[str] = None,
             group: List[str] = None
     ):
@@ -63,12 +67,12 @@ class CmdRunner(BaseCmdRunner):
         self.mapping_suite_id = mapping_suite_id
         self.notice_id = self._init_list_input_opts(notice_id)
         self.mappings_path = mappings_path
+        self.rml_modules_folder = rml_modules_folder
         self.group = []
         self.command = []
         if not (group and len(group) > 0):
             self.command = self._valid_cmds(self._init_list_input_opts(command or DEFAULT_COMMANDS))
         else:
-            self.command = []
             valid_groups = self._valid_groups(self._init_list_input_opts(group))
             for valid_group in valid_groups:
                 self.command += DEFAULT_GROUPS[valid_group]
@@ -98,7 +102,8 @@ class CmdRunner(BaseCmdRunner):
         elif cmd == 'rml_modules_injector':
             cmd_rml_modules_injector.run(
                 mapping_suite_id=self.mapping_suite_id,
-                opt_mappings_folder=self.mappings_path
+                opt_mappings_folder=self.mappings_path,
+                opt_rml_modules_folder=self.rml_modules_folder
             )
         elif cmd == 'sparql_generator':
             cmd_sparql_generator.run(
@@ -176,7 +181,9 @@ class CmdRunner(BaseCmdRunner):
 
     def run_cmd(self):
         if len(self.group) > 0:
-            self.log(LOG_INFO_TEXT.format(self.group) + " command groups:")
+            self.log(LOG_WARN_TEXT.format("Groups: ") + str(self.group))
+        if len(self.notice_id) > 0:
+            self.log(LOG_WARN_TEXT.format("Notices: ") + str(self.notice_id))
         if len(self.command):
             self.log("Running " + LOG_INFO_TEXT.format(self.command) + " commands for " + LOG_INFO_TEXT.format(
                 f"MappingSuite[{self.mapping_suite_id}]"
@@ -190,14 +197,15 @@ class CmdRunner(BaseCmdRunner):
             self.log(LOG_WARN_TEXT.format("#######"))
 
 
-def run(mapping_suite_id, notice_id, opt_mappings_folder=DEFAULT_MAPPINGS_PATH, command=DEFAULT_COMMANDS,
-        group=None):
+def run(mapping_suite_id, notice_id, command=DEFAULT_COMMANDS,
+        group=None, opt_mappings_folder=DEFAULT_MAPPINGS_PATH, opt_rml_modules_folder=DEFAULT_RML_MODULES_PATH):
     cmd = CmdRunner(
         mapping_suite_id=mapping_suite_id,
         notice_id=list(notice_id),
-        mappings_path=opt_mappings_folder,
         command=list(command),
-        group=list(group)
+        group=list(group),
+        mappings_path=opt_mappings_folder,
+        rml_modules_folder=opt_rml_modules_folder
     )
     cmd.run()
 
@@ -209,7 +217,8 @@ def run(mapping_suite_id, notice_id, opt_mappings_folder=DEFAULT_MAPPINGS_PATH, 
 @click.option('-c', '--command', multiple=True, help=",".join(DEFAULT_COMMANDS))
 @click.option('-g', '--group', multiple=True, help=",".join(tuple(DEFAULT_GROUPS)))
 @click.option('-m', '--opt-mappings-folder', default=DEFAULT_MAPPINGS_PATH)
-def main(mapping_suite_id, notice_id, opt_mappings_folder, command, group):
+@click.option('-r', '--opt-rml-modules-folder', default=str(DEFAULT_RML_MODULES_PATH))
+def main(mapping_suite_id, notice_id, command, group, opt_mappings_folder, opt_rml_modules_folder):
     """
     Processes Mapping Suite (identified by mapping-suite-id):
     - resources_injector
@@ -225,7 +234,7 @@ def main(mapping_suite_id, notice_id, opt_mappings_folder, command, group):
     - mapping_suite_validator
     - metadata_generator
     """
-    run(mapping_suite_id, notice_id, opt_mappings_folder, command, group)
+    run(mapping_suite_id, notice_id, command, group, opt_mappings_folder, opt_rml_modules_folder)
 
 
 if __name__ == '__main__':

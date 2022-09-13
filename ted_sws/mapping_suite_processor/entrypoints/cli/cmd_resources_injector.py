@@ -1,4 +1,5 @@
 import os
+import shutil
 from pathlib import Path
 
 import click
@@ -46,6 +47,7 @@ class CmdRunner(BaseCmdRunner):
     def run_cmd(self):
         error = None
         try:
+            shutil.rmtree(self.output_folder_path)
             self.output_folder_path.mkdir(parents=True, exist_ok=True)
             inject_resources(conceptual_mappings_file_path=self.conceptual_mappings_file_path,
                              resources_folder_path=self.resources_folder_path,

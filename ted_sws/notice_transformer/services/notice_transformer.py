@@ -6,7 +6,7 @@ from ted_sws.core.model.notice import Notice, NoticeStatus
 from ted_sws.core.model.transform import MappingSuite, FileResource
 from ted_sws.data_manager.adapters.mapping_suite_repository import MappingSuiteRepositoryInFileSystem
 from ted_sws.data_manager.adapters.repository_abc import NoticeRepositoryABC, MappingSuiteRepositoryABC
-from ted_sws.event_manager.adapters.event_logger import EventLogger
+from ted_sws.event_manager.adapters.event_logger import EventLogger, EventMessageLogSettings
 from ted_sws.event_manager.model.event_message import NoticeEventMessage
 from ted_sws.event_manager.services.logger_from_context import get_env_logger
 from ted_sws.notice_transformer.adapters.rml_mapper import RMLMapperABC
@@ -105,4 +105,4 @@ def transform_test_data(mapping_suite: MappingSuite, rml_mapper: RMLMapperABC, o
             event_message.message = notice_id
             event_message.notice_id = notice_id
             event_message.end_record()
-            logger.info(event_message)
+            logger.info(event_message, settings=EventMessageLogSettings(**{"briefly": True}))

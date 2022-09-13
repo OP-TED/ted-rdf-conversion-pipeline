@@ -1,6 +1,7 @@
 from ted_sws.event_manager.model.event_message import EventMessage, TechnicalEventMessage, NoticeEventMessage, \
     MappingSuiteEventMessage
-from ted_sws.event_manager.services.logger_from_context import get_logger
+from ted_sws.event_manager.adapters.event_logger import EventMessageLogSettings
+from ted_sws.event_manager.services.logger_from_context import get_logger, get_cli_logger
 
 
 def log_info(message: str, name: str = None):
@@ -66,3 +67,9 @@ def log_mapping_suite_debug(message: str, name: str = None):
 def log_mapping_suite_warning(message: str, name: str = None):
     get_logger(name=name).warning(event_message=MappingSuiteEventMessage(message=message))
 
+
+def log_cli_brief_notice_info(message: str, name: str = None):
+    get_cli_logger(name=name).info(
+        event_message=NoticeEventMessage(message=message),
+        settings=EventMessageLogSettings(**{"briefly": True})
+    )

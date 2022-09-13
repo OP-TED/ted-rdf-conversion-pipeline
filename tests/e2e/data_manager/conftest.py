@@ -238,3 +238,13 @@ def invalid_mapping_suite_id() -> str:
 @pytest.fixture
 def cellar_sparql_endpoint():
     return "https://publications.europa.eu/webapi/rdf/sparql"
+
+
+@pytest.fixture
+def notice_uri():
+    return 'https://op.europa.eu/en/publication-detail/-/publication/1ff5ff3c-e203-4c6a-a255-30a41c1c6b4b'
+
+
+@pytest.fixture
+def notice_id_from_celler():
+    return "1ff5ff3c-e203-4c6a-a255-30a41c1c6b4b"

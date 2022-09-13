@@ -1,7 +1,7 @@
 import datetime
 from typing import Tuple
 
-import semantic_version
+# import semantic_version
 
 from ted_sws.core.model.metadata import NormalisedMetadata
 from ted_sws.core.model.notice import Notice

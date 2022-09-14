@@ -11,7 +11,7 @@ def test_sparql_generator(cli_runner, fake_mapping_suite_id, file_system_reposit
         shutil.copytree(file_system_repository_path, temp_mapping_suite_path, dirs_exist_ok=True)
 
         response = cli_runner.invoke(cli_main,
-                                     [fake_mapping_suite_id, "--opt-mappings-folder", file_system_repository_path])
+                                     [fake_mapping_suite_id, "--opt-mappings-folder", temp_mapping_suite_path])
         assert response.exit_code == 0
         assert "SUCCESS" in response.output
 

@@ -109,7 +109,7 @@ def run(mapping_suite_id=None, notice_id=None, opt_mappings_folder=DEFAULT_MAPPI
 @click.argument('mapping-suite-id', nargs=1, required=False)
 @click.option('--notice-id', required=False, multiple=True, default=None)
 @click.option('-m', '--opt-mappings-folder', default=DEFAULT_MAPPINGS_PATH)
-def main(mapping_suite_id, opt_mappings_folder):
+def main(mapping_suite_id, notice_id, opt_mappings_folder):
     """
     Generates SHACL Validation Reports for RDF files
     """

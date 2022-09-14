@@ -220,19 +220,28 @@ def run(mapping_suite_id, notice_id, command=DEFAULT_COMMANDS,
 @click.option('-r', '--opt-rml-modules-folder', default=str(DEFAULT_RML_MODULES_PATH))
 def main(mapping_suite_id, notice_id, command, group, opt_mappings_folder, opt_rml_modules_folder):
     """
-    Processes Mapping Suite (identified by mapping-suite-id):
-    - resources_injector
-    - rml_modules_injector
-    - sparql_generator
-    - rml_report_generator
-    - mapping_runner
-    - xpath_coverage_runner
-    - sparql_runner
-    - shacl_runner
-    - validation_summary_runner
-    - triple_store_loader
-    - mapping_suite_validator
-    - metadata_generator
+    Processes Mapping Suite (identified by mapping-suite-id):\n
+    - by commands:\n
+        --- resources_injector\n
+        --- rml_modules_injector\n
+        --- sparql_generator\n
+        --- rml_report_generator\n
+        --- mapping_runner\n
+        --- xpath_coverage_runner\n
+        --- sparql_runner\n
+        --- shacl_runner\n
+        --- validation_summary_runner\n
+        --- triple_store_loader\n
+        --- mapping_suite_validator\n
+        --- metadata_generator\n
+    - by groups:\n
+        --- "inject_resources": ["resources_injector", "rml_modules_injector"]\n
+        --- "generate_resources": ["sparql_generator", "rml_report_generator"]\n
+        --- "update_resources": ["resources_injector", "rml_modules_injector", "sparql_generator", "rml_report_generator"]\n
+        --- "transform_notices": ["mapping_runner"]\n
+        --- "validate_notices": ["xpath_coverage_runner", "sparql_runner", "shacl_runner", "validation_summary_runner"]\n
+        --- "upload_notices": ["triple_store_loader"]\n
+        --- "validate_mapping_suite": ["mapping_suite_validator"]
     """
     run(mapping_suite_id, notice_id, command, group, opt_mappings_folder, opt_rml_modules_folder)
 

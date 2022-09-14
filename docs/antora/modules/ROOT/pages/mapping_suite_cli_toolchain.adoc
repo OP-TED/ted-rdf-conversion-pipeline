@@ -220,15 +220,29 @@ Options:
 === CMD: mapping_suite_processor
 Processes Mapping Suite (identified by mapping-suite-id).
 
-By default, successively runs the following commands:
-
 [source,bash]
 ----
-- normalisation_resource_generator
-- resources_injector
-- metadata_generator
-- yarrrml2rml_converter
-- sparql_generator
+    - by commands:
+        --- resources_injector
+        --- rml_modules_injector
+        --- sparql_generator
+        --- rml_report_generator
+        --- mapping_runner
+        --- xpath_coverage_runner
+        --- sparql_runner
+        --- shacl_runner
+        --- validation_summary_runner
+        --- triple_store_loader
+        --- mapping_suite_validator
+        --- metadata_generator
+    - by groups:
+        --- "inject_resources": ["resources_injector", "rml_modules_injector"],
+        --- "generate_resources": ["sparql_generator", "rml_report_generator"],
+        --- "update_resources": ["resources_injector", "rml_modules_injector", "sparql_generator", "rml_report_generator"],
+        --- "transform_notices": ["mapping_runner"],
+        --- "validate_notices": ["xpath_coverage_runner", "sparql_runner", "shacl_runner", "validation_summary_runner"],
+        --- "upload_notices": ["triple_store_loader"],
+        --- "validate_mapping_suite": ["mapping_suite_validator"]
 ----
 
 Use:
@@ -244,21 +258,49 @@ to get the Usage Help:
 Usage: mapping_suite_processor [OPTIONS] MAPPING_SUITE_ID
 
   Processes Mapping Suite (identified by mapping-suite-id): -
-  normalisation_resource_generator - metadata_generator -
-  yarrrml2rml_converter - sparql_generator
+  resources_injector - rml_modules_injector - sparql_generator -
+  rml_report_generator - mapping_runner - xpath_coverage_runner -
+  sparql_runner - shacl_runner - validation_summary_runner -
+  triple_store_loader - mapping_suite_validator - metadata_generator
 
 Options:
-  -c, --opt-commands [normalisation_resource_generator|resources_injector|metadata_generator|yarrrml2rml_converter|sparql_generator]
+  -n, --notice-id TEXT            Provide notices to be used where applicable
+  -c, --command TEXT              resources_injector,rml_modules_injector,spar
+                                  ql_generator,rml_report_generator,mapping_ru
+                                  nner,xpath_coverage_runner,sparql_runner,sha
+                                  cl_runner,validation_summary_runner,triple_s
+                                  tore_loader,mapping_suite_validator,metadata
+                                  _generator
+  -g, --group TEXT                inject_resources,generate_resources,update_r
+                                  esources,transform_notices,validate_notices,
+                                  upload_notices,validate_mapping_suite
   -m, --opt-mappings-folder TEXT
-  --help                                      Show this message and exit.
+  -r, --opt-rml-modules-folder TEXT
+  --help                          Show this message and exit.
 ----
 Use:
 
 [source,bash]
 ----
 mapping_suite_processor -c COMMAND1 -c COMMAND2 ...
+or
+mapping_suite_processor --command=COMMAND1,COMMAND2
 ----
 to set custom commands (order) to be executed
+[source,bash]
+----
+mapping_suite_processor -g GROUP1 -g GROUP2 ...
+or
+mapping_suite_processor --group=GROUP1,GROUP2
+----
+to set custom command groups to be executed
+[source,bash]
+----
+mapping_suite_processor -n NOTICE_ID1 -n NOTICE_ID2 ...
+or
+mapping_suite_processor --notice-id=NOTICE_ID1,NOTICE_ID2
+----
+to set notice ids to be used (where applicable)
 
 
 === CMD: sparql_runner
@@ -372,5 +414,28 @@ Options:
   -c, --opt-catalog-name TEXT
   -m, --opt-mappings-folder TEXT
   --help                                      Show this message and exit.
+
+----
+
+=== CMD: mapping_suite_validator
+Validates a Mapping Suite (structure)
+
+Use:
+
+[source,bash]
+----
+mapping_suite_validator --help
+----
+to get the Usage Help:
+
+[source,bash]
+----
+Usage: mapping_suite_validator [OPTIONS] [MAPPING_SUITE_ID]
+
+  Validates a Mapping Suite (structure)
+
+Options:
+  -m, --opt-mappings-folder TEXT
+  --help                          Show this message and exit.
 
 ----

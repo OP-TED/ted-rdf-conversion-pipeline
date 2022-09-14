@@ -52,7 +52,7 @@ class CmdRunner(BaseCmdRunner):
     def run_cmd(self):
         error = None
         try:
-            shutil.rmtree(self.output_folder_path)
+            shutil.rmtree(self.output_folder_path, ignore_errors=True)
             self.output_folder_path.mkdir(parents=True, exist_ok=True)
             inject_rml_modules(conceptual_mappings_file_path=self.conceptual_mappings_file_path,
                                rml_modules_folder_path=self.rml_modules_folder_path,

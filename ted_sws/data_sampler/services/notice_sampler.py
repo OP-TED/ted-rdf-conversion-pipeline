@@ -18,7 +18,7 @@ RUNNER_NAME = "NOTICE_SAMPLER_RUNNER"
 
 class NoticeSamplerRunner(CmdRunner):
 
-    def __init__(self, mongodb_client: MongoClient, storage_path: pathlib.Path, top_k: int = None):
+    def __init__(self, mongodb_client: MongoClient, storage_path: pathlib.Path,notice_filter:dict = None, top_k: int = None):
         """
 
         :param mongodb_client:
@@ -32,6 +32,7 @@ class NoticeSamplerRunner(CmdRunner):
         self.storage_path = storage_path / RESULT_NOTICE_SAMPLES_FOLDER_NAME
         self.storage_path.mkdir(parents=True, exist_ok=True)
         self.sf_notice_df = MappingFilesRegistry().sf_notice_df
+        self.notice_filter = notice_filter
 
     def _store_samples_by_notice_ids(self, storage_samples_path: pathlib.Path, notice_ids: List[str]):
         """
@@ -70,7 +71,9 @@ class NoticeSamplerRunner(CmdRunner):
             self.log(message="-" * 50)
             self.log(message=f"Get notice_ids by form_number = [{form_number}]...")
             selected_notice_ids = get_notice_ids_by_form_number(form_number=form_number,
-                                                                mongodb_client=self.mongodb_client)
+                                                                mongodb_client=self.mongodb_client,
+                                                                notice_filter=self.notice_filter
+                                                                )
             self.log(message=f"Retrieved {len(selected_notice_ids)} notice_ids by form_number = [{form_number}]...")
             self._store_samples_by_notice_ids(storage_samples_path=notice_samples_path, notice_ids=selected_notice_ids)
             self.log(message="-" * 50)
@@ -86,11 +89,14 @@ class NoticeSamplerRunner(CmdRunner):
         for eforms_subtype in eforms_subtypes:
             notice_samples_path = self.storage_path / f"eforms_subtype_{eforms_subtype}"
             notice_samples_path.mkdir(parents=True, exist_ok=True)
-            self.log(message="-"*50)
+            self.log(message="-" * 50)
             self.log(message=f"Get notice_ids by eforms_subtype = [{eforms_subtype}]...")
             selected_notice_ids = get_notice_ids_by_eforms_subtype(eforms_subtype=str(eforms_subtype),
-                                                                   mongodb_client=self.mongodb_client)
-            self.log(message=f"Retrieved {len(selected_notice_ids)} notice_ids by eforms_subtype = [{eforms_subtype}]...")
+                                                                   mongodb_client=self.mongodb_client,
+                                                                   notice_filter=self.notice_filter
+                                                                   )
+            self.log(
+                message=f"Retrieved {len(selected_notice_ids)} notice_ids by eforms_subtype = [{eforms_subtype}]...")
             self._store_samples_by_notice_ids(storage_samples_path=notice_samples_path, notice_ids=selected_notice_ids)
             self.log(message="-" * 50)
         self.log(message="Finish notice sampler for eforms_subtypes.")
@@ -104,16 +110,19 @@ class NoticeSamplerRunner(CmdRunner):
         self.execute_notice_sampler_foreach_form_number()
 
 
-def store_notice_samples_in_file_system(mongodb_client: MongoClient, storage_path: pathlib.Path, top_k: int = None):
+def store_notice_samples_in_file_system(mongodb_client: MongoClient, storage_path: pathlib.Path,
+                                        notice_filter: dict = None, top_k: int = None):
     """
         This function store notice samples in file system. Notices are selected by form number and eforms_subtypes.
     :param mongodb_client:
     :param storage_path:
+    :param notice_filter:
     :param top_k:
     :return:
     """
     notice_sampler = NoticeSamplerRunner(mongodb_client=mongodb_client,
                                          storage_path=storage_path,
+                                         notice_filter=notice_filter,
                                          top_k=top_k
                                          )
     notice_sampler.run()

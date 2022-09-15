@@ -1,7 +1,0 @@
-from ted_sws.data_manager.services.check_availability_of_notice_in_celler import check_availability_of_notice_in_celler
-
-
-def test_check_availability_of_notice_in_celler(notice_id_from_celler, notice_uri, cellar_sparql_endpoint):
-    check_availability_of_notice_in_celler(notice_id=notice_id_from_celler, notice_uri=notice_uri, cellar_sparql_endpoint=cellar_sparql_endpoint)
-
-

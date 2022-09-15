@@ -5,7 +5,8 @@ from jinja2 import Environment, PackageLoader
 from ted_sws.core.model.manifestation import ValidationSummaryReport, XMLManifestationValidationSummaryReport, \
     RDFManifestationValidationSummaryReport, XPATHCoverageSummaryReport, XPATHCoverageSummaryResult, \
     SPARQLSummaryCountReport, SHACLSummarySeverityCountReport, SPARQLQueryResult, SPARQLTestSuiteValidationReport, \
-    SHACLTestSuiteValidationReport, RDFManifestation, SPARQLSummaryResult, SHACLSummaryResult
+    SHACLTestSuiteValidationReport, RDFManifestation, SPARQLSummaryResult, SHACLSummaryResult, \
+    SPARQLQueryRefinedResultType
 from ted_sws.core.model.notice import Notice
 
 TEMPLATES = Environment(loader=PackageLoader("ted_sws.notice_validator.resources", "templates"))
@@ -52,13 +53,16 @@ class RDFManifestationValidationSummaryRunner(ManifestationValidationSummaryRunn
                     result_count: SPARQLSummaryCountReport = result_validation.aggregate
                     if validation_results:
                         for validation in validation_results:
-                            if validation.result == 'True':
-                                report_count.success += 1
-                                result_count.success += 1
-                            else:
-                                report_count.fail += 1
-                                result_count.fail += 1
-                            if validation.error:
+                            if validation.result == SPARQLQueryRefinedResultType.VALID.value:
+                                report_count.valid += 1
+                                result_count.valid += 1
+                            elif validation.result == SPARQLQueryRefinedResultType.INVALID.value:
+                                report_count.invalid += 1
+                                result_count.invalid += 1
+                            elif validation.result == SPARQLQueryRefinedResultType.WARNING.value:
+                                report_count.warning += 1
+                                result_count.warning += 1
+                            elif validation.result == SPARQLQueryRefinedResultType.ERROR.value:
                                 report_count.error += 1
                                 result_count.error += 1
 
@@ -162,7 +166,9 @@ class ValidationSummaryRunner:
     """
 
     def __init__(self):
-        pass
+        """
+
+        """
 
     @classmethod
     def validation_summary(cls, notices: List[Notice]) -> ValidationSummaryReport:

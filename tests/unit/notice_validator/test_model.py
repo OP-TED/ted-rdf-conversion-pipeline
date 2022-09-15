@@ -9,16 +9,16 @@ def test_sparql_query(query_content):
 
 def test_sparql_query_result(query_content):
     sparql_query = SPARQLQuery(query=query_content)
-    sparql_query_result = SPARQLQueryResult(query=sparql_query, result="pass")
-    assert "pass" == sparql_query_result.result
+    sparql_query_result = SPARQLQueryResult(query=sparql_query, query_result="pass")
+    assert "pass" == sparql_query_result.query_result
     assert isinstance(sparql_query_result, SPARQLQueryResult)
     assert "ASK" in sparql_query_result.query.query
 
 
 def test_sparql_test_suite_execution(query_content):
     sparql_query = SPARQLQuery(query=query_content)
-    sparql_query_result_one = SPARQLQueryResult(query=sparql_query, result="pass")
-    sparql_query_result_two = SPARQLQueryResult(query=sparql_query, result="fail")
+    sparql_query_result_one = SPARQLQueryResult(query=sparql_query, query_result="pass")
+    sparql_query_result_two = SPARQLQueryResult(query=sparql_query, query_result="fail")
     execution_results = [sparql_query_result_one, sparql_query_result_two]
     test_suite_execution = SPARQLTestSuiteValidationReport(test_suite_identifier="cool",
                                                            mapping_suite_identifier="awesome",

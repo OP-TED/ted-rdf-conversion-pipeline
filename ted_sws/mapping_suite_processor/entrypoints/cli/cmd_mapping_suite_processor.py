@@ -1,6 +1,5 @@
 #!/usr/bin/python3
 
-import os
 from pathlib import Path
 from typing import Tuple, List, Dict
 
@@ -17,28 +16,41 @@ from ted_sws.notice_validator.entrypoints.cli import cmd_xpath_coverage_runner, 
     cmd_validation_summary_runner
 from ted_sws.rml_to_html.entrypoints.cli import cmd_rml_report_generator
 
+MAPPING_SUITE_VALIDATOR = "mapping_suite_validator"
+METADATA_GENERATOR = "metadata_generator"
+TRIPLE_STORE_LOADER = "triple_store_loader"
+VALIDATION_SUMMARY_RUNNER = "validation_summary_runner"
+SHACL_RUNNER = "shacl_runner"
+SPARQL_RUNNER = "sparql_runner"
+XPATH_COVERAGE_RUNNER = "xpath_coverage_runner"
+MAPPING_RUNNER = "mapping_runner"
+RML_REPORT_GENERATOR = "rml_report_generator"
+SPARQL_GENERATOR = "sparql_generator"
+RML_MODULES_INJECTOR = "rml_modules_injector"
+RESOURCES_INJECTOR = "resources_injector"
+
 DEFAULT_COMMANDS: Tuple = (
-    "resources_injector",
-    "rml_modules_injector",
-    "sparql_generator",
-    "rml_report_generator",
-    "mapping_runner",
-    "xpath_coverage_runner",
-    "sparql_runner",
-    "shacl_runner",
-    "validation_summary_runner",
-    "triple_store_loader",
-    "metadata_generator",
-    "mapping_suite_validator"
+    RESOURCES_INJECTOR,
+    RML_MODULES_INJECTOR,
+    SPARQL_GENERATOR,
+    RML_REPORT_GENERATOR,
+    MAPPING_RUNNER,
+    XPATH_COVERAGE_RUNNER,
+    SPARQL_RUNNER,
+    SHACL_RUNNER,
+    VALIDATION_SUMMARY_RUNNER,
+    TRIPLE_STORE_LOADER,
+    METADATA_GENERATOR,
+    MAPPING_SUITE_VALIDATOR
 )
 DEFAULT_GROUPS: Dict = {
-    "inject_resources": ["resources_injector", "rml_modules_injector"],
-    "generate_resources": ["sparql_generator", "rml_report_generator"],
-    "update_resources": ["resources_injector", "rml_modules_injector", "sparql_generator", "rml_report_generator"],
-    "transform_notices": ["mapping_runner"],
-    "validate_notices": ["xpath_coverage_runner", "sparql_runner", "shacl_runner", "validation_summary_runner"],
-    "upload_notices": ["triple_store_loader"],
-    "validate_mapping_suite": ["mapping_suite_validator"]
+    "inject_resources": [RESOURCES_INJECTOR, RML_MODULES_INJECTOR],
+    "generate_resources": [SPARQL_GENERATOR, RML_REPORT_GENERATOR],
+    "update_resources": [RESOURCES_INJECTOR, RML_MODULES_INJECTOR, SPARQL_GENERATOR, RML_REPORT_GENERATOR],
+    "transform_notices": [MAPPING_RUNNER],
+    "validate_notices": [XPATH_COVERAGE_RUNNER, SPARQL_RUNNER, SHACL_RUNNER, VALIDATION_SUMMARY_RUNNER],
+    "upload_notices": [TRIPLE_STORE_LOADER],
+    "validate_mapping_suite": [MAPPING_SUITE_VALIDATOR]
 }
 CMD_NAME = "CMD_MAPPING_SUITE_PROCESSOR"
 
@@ -53,14 +65,17 @@ class CmdRunner(BaseCmdRunner):
     Keeps the logic to be used by Mapping Suite Processor
     """
 
+    groups: List[str] = []
+    commands: List[str] = []
+
     def __init__(
             self,
             mapping_suite_id,
             notice_ids: List[str],
             mappings_path,
             rml_modules_folder,
-            command: List[str] = None,
-            group: List[str] = None
+            commands: List[str] = None,
+            groups: List[str] = None
     ):
         super().__init__(name=CMD_NAME)
 
@@ -68,93 +83,97 @@ class CmdRunner(BaseCmdRunner):
         self.notice_ids = self._init_list_input_opts(notice_ids)
         self.mappings_path = mappings_path
         self.rml_modules_folder = rml_modules_folder
-        self.group = []
-        self.command = []
-        if not group:
-            self.command = self._valid_cmds(self._init_list_input_opts(command or DEFAULT_COMMANDS))
+
+        if not groups:
+            self.commands = self._valid_cmds(self._init_list_input_opts(commands or DEFAULT_COMMANDS))
         else:
-            valid_groups = self._valid_groups(self._init_list_input_opts(group))
+            valid_groups = self._valid_groups(self._init_list_input_opts(groups))
             for valid_group in valid_groups:
-                self.command += DEFAULT_GROUPS[valid_group]
+                self.commands += DEFAULT_GROUPS[valid_group]
 
-            self.group = valid_groups
+            self.groups = valid_groups
 
-        mapping_suite_path = Path(os.path.realpath(mappings_path)) / Path(mapping_suite_id)
+        mapping_suite_path = Path(mappings_path).resolve() / Path(mapping_suite_id)
         if not mapping_suite_path.is_dir():
             error_msg = f"No such MappingSuite[{mapping_suite_id}]"
             self.log_failed_msg(error_msg)
             raise FileNotFoundError(error_msg)
 
     def _cmd(self, cmd: str):
-        if cmd == 'resources_injector':
+        if cmd == RESOURCES_INJECTOR:
             cmd_resources_injector.run(
                 mapping_suite_id=self.mapping_suite_id,
                 opt_mappings_folder=self.mappings_path
             )
-        elif cmd == 'rml_modules_injector':
+        elif cmd == RML_MODULES_INJECTOR:
             cmd_rml_modules_injector.run(
                 mapping_suite_id=self.mapping_suite_id,
                 opt_mappings_folder=self.mappings_path,
                 opt_rml_modules_folder=self.rml_modules_folder
             )
-        elif cmd == 'sparql_generator':
+        elif cmd == SPARQL_GENERATOR:
             cmd_sparql_generator.run(
                 mapping_suite_id=self.mapping_suite_id,
                 opt_mappings_folder=self.mappings_path
             )
-        elif cmd == 'rml_report_generator':
+        elif cmd == RML_REPORT_GENERATOR:
             cmd_rml_report_generator.run(
                 mapping_suite_id=self.mapping_suite_id,
                 opt_mappings_folder=self.mappings_path
             )
-        elif cmd == 'mapping_runner':
+        elif cmd == MAPPING_RUNNER:
             cmd_mapping_runner.run(
                 mapping_suite_id=self.mapping_suite_id,
                 notice_id=self.notice_ids,
                 opt_mappings_folder=self.mappings_path
             )
-        elif cmd == 'xpath_coverage_runner':
+        elif cmd == XPATH_COVERAGE_RUNNER:
             cmd_xpath_coverage_runner.run(
                 mapping_suite_id=self.mapping_suite_id,
                 notice_id=self.notice_ids,
                 opt_mappings_folder=self.mappings_path
             )
-        elif cmd == 'sparql_runner':
+        elif cmd == SPARQL_RUNNER:
             cmd_sparql_runner.run(
                 mapping_suite_id=self.mapping_suite_id,
                 notice_id=self.notice_ids,
                 opt_mappings_folder=self.mappings_path
             )
-        elif cmd == 'shacl_runner':
+        elif cmd == SHACL_RUNNER:
             cmd_shacl_runner.run(
                 mapping_suite_id=self.mapping_suite_id,
                 notice_id=self.notice_ids,
                 opt_mappings_folder=self.mappings_path
             )
-        elif cmd == 'validation_summary_runner':
+        elif cmd == VALIDATION_SUMMARY_RUNNER:
             cmd_validation_summary_runner.run(
                 mapping_suite_id=self.mapping_suite_id,
                 notice_id=self.notice_ids,
                 opt_mappings_folder=self.mappings_path
             )
-        elif cmd == 'triple_store_loader':
+        elif cmd == TRIPLE_STORE_LOADER:
             cmd_triple_store_loader.run(
                 mapping_suite_id=self.mapping_suite_id,
                 opt_mappings_folder=self.mappings_path
             )
-        elif cmd == 'mapping_suite_validator':
+        elif cmd == MAPPING_SUITE_VALIDATOR:
             cmd_mapping_suite_validator.run(
                 mapping_suite_id=self.mapping_suite_id,
                 opt_mappings_folder=self.mappings_path
             )
-        elif cmd == 'metadata_generator':
+        elif cmd == METADATA_GENERATOR:
             cmd_metadata_generator.run(
                 mapping_suite_id=self.mapping_suite_id,
                 opt_mappings_folder=self.mappings_path
             )
 
-    def _valid_groups(self, group):
-        group_set = OrderedSet(group)
+    def _valid_groups(self, groups):
+        """
+        This method will trim non-existing input groups. Provided input groups must be present in DEFAULT_GROUPS.
+        :param groups:
+        :return:
+        """
+        group_set = OrderedSet(groups)
         default_group_set = OrderedSet(tuple(DEFAULT_GROUPS))
         invalid_groups = group_set - default_group_set
         if invalid_groups:
@@ -162,8 +181,13 @@ class CmdRunner(BaseCmdRunner):
                 LOG_WARN_TEXT.format("The following groups will be skipped (invalid): " + ",".join(invalid_groups)))
         return list(group_set & default_group_set)
 
-    def _valid_cmds(self, command):
-        command_set = OrderedSet(command)
+    def _valid_cmds(self, commands):
+        """
+        This method will trim non-existing input commands. Provided input commands must be present in DEFAULT_COMMANDS.
+        :param commands:
+        :return:
+        """
+        command_set = OrderedSet(commands)
         default_command_set = OrderedSet(DEFAULT_COMMANDS)
         invalid_cmds = command_set - default_command_set
         if invalid_cmds:
@@ -174,13 +198,13 @@ class CmdRunner(BaseCmdRunner):
     def run_cmd(self):
         super().run_cmd()
 
-        if self.group:
-            self.log(LOG_WARN_TEXT.format("Groups: ") + str(self.group))
-        if self.command:
-            self.log(LOG_WARN_TEXT.format("Commands: ") + str(self.command))
+        if self.groups:
+            self.log(LOG_WARN_TEXT.format("Groups: ") + str(self.groups))
+        if self.commands:
+            self.log(LOG_WARN_TEXT.format("Commands: ") + str(self.commands))
             self.log(LOG_WARN_TEXT.format("#######"))
 
-            for cmd in self.command:
+            for cmd in self.commands:
                 self.log(LOG_WARN_TEXT.format("# " + cmd), SeverityLevelType.WARNING)
                 self._cmd(cmd)
 
@@ -192,8 +216,8 @@ def run(mapping_suite_id, notice_id, command=DEFAULT_COMMANDS,
     cmd = CmdRunner(
         mapping_suite_id=mapping_suite_id,
         notice_ids=list(notice_id or []),
-        command=list(command),
-        group=list(group),
+        commands=list(command),
+        groups=list(group or []),
         mappings_path=opt_mappings_folder,
         rml_modules_folder=opt_rml_modules_folder
     )

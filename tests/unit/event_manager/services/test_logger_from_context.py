@@ -4,8 +4,7 @@ from unittest import mock
 import pytest
 
 from ted_sws import RUN_ENV_NAME, RUN_ENV_VAL
-from ted_sws.event_manager.adapters.event_handler_config import DAGLoggerConfig, NULLLoggerConfig, DEFAULT_LOGGER_NAME, \
-    DEFAULT_CONSOLE_LOGGER_NAME
+from ted_sws.event_manager.adapters.event_handler_config import DAGLoggerConfig, NullLoggerConfig
 from ted_sws.event_manager.adapters.event_log_decorator import EVENT_LOGGER_CONTEXT_KEY
 from ted_sws.event_manager.adapters.event_logger import EventLogger
 from ted_sws.event_manager.adapters.log import ConfigHandlerType
@@ -88,5 +87,5 @@ def test_handle_event_message_metadata_context():
 
 @mock.patch.dict(os.environ, {RUN_ENV_NAME: RUN_ENV_VAL})
 def test_get_env_logger(monkeypatch):
-    logger = get_env_logger(EventLogger(NULLLoggerConfig()))
+    logger = get_env_logger(EventLogger(NullLoggerConfig()))
     assert isinstance(logger, EventLogger)

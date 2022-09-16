@@ -7,7 +7,8 @@ from typing import List
 
 import click
 
-from ted_sws.core.adapters.cmd_runner import CmdRunner as BaseCmdRunner, DEFAULT_MAPPINGS_PATH, DEFAULT_OUTPUT_PATH
+from ted_sws.core.adapters.cmd_runner import CmdRunnerForMappingSuite as BaseCmdRunner, DEFAULT_MAPPINGS_PATH, \
+    DEFAULT_OUTPUT_PATH
 from ted_sws.core.model.manifestation import XMLManifestation
 from ted_sws.core.model.notice import Notice
 from ted_sws.data_manager.adapters.mapping_suite_repository import MappingSuiteRepositoryInFileSystem
@@ -43,7 +44,7 @@ class CmdRunner(BaseCmdRunner):
     ):
         super().__init__(name=CMD_NAME)
         self.mapping_suite_id = mapping_suite_id
-        self.notice_id = notice_id
+        self.notice_id = self._init_list_input_opts(notice_id)
         self.mappings_path = mappings_path
         self.conceptual_mappings_file_path = Path(os.path.realpath(conceptual_mappings_file))
         self.output_folder = OUTPUT_FOLDER.format(mappings_path=self.mappings_path,
@@ -84,6 +85,8 @@ class CmdRunner(BaseCmdRunner):
         self.save_html_report(Path(str(output_path) + ".html"), xpath_coverage_html_report(report))
 
     def run_cmd(self):
+        super().run_cmd()
+
         output_path = Path(self.output_folder)
         notices: List[Notice] = []
         for data in self.mapping_suite.transformation_test_data.test_data:
@@ -103,7 +106,8 @@ class CmdRunner(BaseCmdRunner):
         return self.run_cmd_result()
 
 
-def run(mapping_suite_id=None, notice_id=None, opt_conceptual_mappings_file=None, opt_mappings_folder=DEFAULT_MAPPINGS_PATH):
+def run(mapping_suite_id=None, notice_id=None, opt_conceptual_mappings_file=None,
+        opt_mappings_folder=DEFAULT_MAPPINGS_PATH):
     if opt_conceptual_mappings_file:
         conceptual_mappings_file = opt_conceptual_mappings_file
     else:

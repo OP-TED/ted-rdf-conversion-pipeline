@@ -7,7 +7,7 @@ from typing import Tuple, List, Dict
 import click
 from ordered_set import OrderedSet
 
-from ted_sws.core.adapters.cmd_runner import CmdRunner as BaseCmdRunner, DEFAULT_MAPPINGS_PATH
+from ted_sws.core.adapters.cmd_runner import CmdRunnerForMappingSuite as BaseCmdRunner, DEFAULT_MAPPINGS_PATH
 from ted_sws.event_manager.adapters.log import SeverityLevelType, LOG_INFO_TEXT, LOG_WARN_TEXT
 from ted_sws.mapping_suite_processor.entrypoints.cli import cmd_resources_injector, cmd_rml_modules_injector, \
     cmd_sparql_generator, cmd_triple_store_loader, cmd_metadata_generator, cmd_mapping_suite_validator
@@ -84,14 +84,6 @@ class CmdRunner(BaseCmdRunner):
             error_msg = f"No such MappingSuite[{mapping_suite_id}]"
             self.log_failed_msg(error_msg)
             raise FileNotFoundError(error_msg)
-
-    @classmethod
-    def _init_list_input_opts(cls, input_val):
-        input_set = OrderedSet()
-        if len(input_val) > 0:
-            for item in input_val:
-                input_set |= OrderedSet(map(lambda x: x.strip(), item.split(",")))
-        return list(input_set)
 
     def _cmd(self, cmd: str):
         if cmd == 'resources_injector':
@@ -180,14 +172,12 @@ class CmdRunner(BaseCmdRunner):
         return list(command_set & default_command_set)
 
     def run_cmd(self):
+        super().run_cmd()
+
         if len(self.group) > 0:
             self.log(LOG_WARN_TEXT.format("Groups: ") + str(self.group))
-        if len(self.notice_id) > 0:
-            self.log(LOG_WARN_TEXT.format("Notices: ") + str(self.notice_id))
         if len(self.command):
-            self.log("Running " + LOG_INFO_TEXT.format(self.command) + " commands for " + LOG_INFO_TEXT.format(
-                f"MappingSuite[{self.mapping_suite_id}]"
-            ) + " ... ")
+            self.log(LOG_WARN_TEXT.format("Commands: ") + str(self.command))
             self.log(LOG_WARN_TEXT.format("#######"))
 
             for cmd in self.command:

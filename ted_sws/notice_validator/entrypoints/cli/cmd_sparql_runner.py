@@ -6,7 +6,7 @@ from typing import List
 
 import click
 
-from ted_sws.core.adapters.cmd_runner import CmdRunner as BaseCmdRunner, DEFAULT_MAPPINGS_PATH
+from ted_sws.core.adapters.cmd_runner import CmdRunnerForMappingSuite as BaseCmdRunner, DEFAULT_MAPPINGS_PATH
 from ted_sws.core.model.manifestation import RDFManifestation, XMLManifestation
 from ted_sws.core.model.manifestation import XPATHCoverageValidationReport
 from ted_sws.data_manager.adapters.mapping_suite_repository import MappingSuiteRepositoryInFileSystem
@@ -40,7 +40,7 @@ class CmdRunner(BaseCmdRunner):
     ):
         super().__init__(name=CMD_NAME)
         self.mapping_suite_id = mapping_suite_id
-        self.notice_id = notice_id
+        self.notice_id = self._init_list_input_opts(notice_id)
         self.mappings_path = mappings_path
 
         repository_path = Path(self.mappings_path)
@@ -86,6 +86,8 @@ class CmdRunner(BaseCmdRunner):
                          json.dumps(sparql_validations, default=lambda o: o.dict(), sort_keys=True, indent=4))
 
     def run_cmd(self):
+        super().run_cmd()
+
         error = None
         try:
             rdf_path = Path(DEFAULT_RDF_FOLDER.format(mappings_path=self.mappings_path,

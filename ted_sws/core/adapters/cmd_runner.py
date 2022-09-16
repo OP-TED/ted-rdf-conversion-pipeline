@@ -3,12 +3,15 @@ import datetime
 import os
 import sys
 from pathlib import Path
+from typing import List
+
+from ordered_set import OrderedSet
 
 from ted_sws.data_manager.adapters.mapping_suite_repository import MS_METADATA_FILE_NAME
 from ted_sws.event_manager.adapters.event_handler import EventWriterToFileHandler, EventWriterToConsoleHandler, \
     EventWriterToMongoDBHandler
 from ted_sws.event_manager.adapters.event_logger import EventLogger
-from ted_sws.event_manager.adapters.log import SeverityLevelType, LOG_ERROR_TEXT, LOG_SUCCESS_TEXT
+from ted_sws.event_manager.adapters.log import SeverityLevelType, LOG_ERROR_TEXT, LOG_SUCCESS_TEXT, LOG_WARN_TEXT
 from ted_sws.event_manager.model.event_message import EventMessage, EventMessageLogSettings
 from ted_sws.event_manager.services.logger_from_context import get_cli_logger
 
@@ -129,7 +132,23 @@ class CmdRunner(CmdRunnerABC):
 
 class CmdRunnerForMappingSuite(CmdRunner):
     repository_path: Path
+    mapping_suite_id: str
+    notice_id: List[str]
 
     def is_mapping_suite(self, suite_id):
         suite_path = self.repository_path / Path(suite_id)
         return os.path.isdir(suite_path) and any(f == MS_METADATA_FILE_NAME for f in os.listdir(suite_path))
+
+    @classmethod
+    def _init_list_input_opts(cls, input_val):
+        input_set = OrderedSet()
+        if len(input_val) > 0:
+            for item in input_val:
+                input_set |= OrderedSet(map(lambda x: x.strip(), item.split(",")))
+        return list(input_set)
+
+    def run_cmd(self):
+        if self.mapping_suite_id:
+            self.log(LOG_WARN_TEXT.format("MappingSuite: ") + self.mapping_suite_id)
+        if self.notice_id and len(self.notice_id) > 0:
+            self.log(LOG_WARN_TEXT.format("Notices: ") + str(self.notice_id))

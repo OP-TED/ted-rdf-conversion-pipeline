@@ -28,8 +28,8 @@ DEFAULT_COMMANDS: Tuple = (
     "shacl_runner",
     "validation_summary_runner",
     "triple_store_loader",
-    "mapping_suite_validator",
-    "metadata_generator"
+    "metadata_generator",
+    "mapping_suite_validator"
 )
 DEFAULT_GROUPS: Dict = {
     "inject_resources": ["resources_injector", "rml_modules_injector"],
@@ -232,8 +232,8 @@ def main(mapping_suite_id, notice_id, command, group, opt_mappings_folder, opt_r
         --- shacl_runner\n
         --- validation_summary_runner\n
         --- triple_store_loader\n
-        --- mapping_suite_validator\n
         --- metadata_generator\n
+        --- mapping_suite_validator\n
     - by groups:\n
         --- "inject_resources": ["resources_injector", "rml_modules_injector"]\n
         --- "generate_resources": ["sparql_generator", "rml_report_generator"]\n

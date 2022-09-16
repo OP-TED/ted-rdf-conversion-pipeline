@@ -38,11 +38,13 @@ pip install git+https://github.com/OP-TED/ted-rdf-conversion-pipeline#egg=ted-sw
 ----
 
 == Usage
+
 CLI tools (commands/console-scripts) described in this section are developed for mapping suite generation, processing, validation, testing, and other purposes.
 
 To use any of these CLI commands using `MAPPING_SUITE_ID` argument should be enough for general purpose.
 
 === CMD: normalisation_resource_generator
+
 Generates all resources files needed for notice mapping suite transformation.
 
 Use:
@@ -51,6 +53,7 @@ Use:
 ----
 normalisation_resource_generator --help
 ----
+
 to get the Usage Help:
 
 [source,bash]
@@ -65,6 +68,7 @@ Options:
 ----
 
 === CMD: resources_injector
+
 Injects the requested resources from Conceptual Mappings into the MappingSuite.
 
 Use:
@@ -73,6 +77,7 @@ Use:
 ----
 resources_injector --help
 ----
+
 to get the Usage Help:
 
 [source,bash]
@@ -90,6 +95,7 @@ Options:
 ----
 
 === CMD: rml_modules_injector
+
 Injects the requested RML modules from Conceptual Mappings into the MappingSuite.
 
 Use:
@@ -98,6 +104,7 @@ Use:
 ----
 rml_modules_injector --help
 ----
+
 to get the Usage Help:
 
 [source,bash]
@@ -116,6 +123,7 @@ Options:
 ----
 
 === CMD: metadata_generator
+
 Generates metadata.json file from Conceptual Mappings file data.
 
 Use:
@@ -124,6 +132,7 @@ Use:
 ----
 metadata_generator --help
 ----
+
 to get the Usage Help:
 
 [source,bash]
@@ -140,6 +149,7 @@ Options:
 ----
 
 === CMD: yarrrml2rml_converter
+
 Converts YARRRML data to RML data.
 
 Use:
@@ -148,6 +158,7 @@ Use:
 ----
 yarrrml2rml_converter --help
 ----
+
 to get the Usage Help:
 
 [source,bash]
@@ -164,6 +175,7 @@ Options:
 ----
 
 === CMD: sparql_generator
+
 Generates SPARQL queries from Conceptual Mappings file data.
 
 Use:
@@ -172,6 +184,7 @@ Use:
 ----
 sparql_generator --help
 ----
+
 to get the Usage Help:
 
 [source,bash]
@@ -189,6 +202,7 @@ Options:
 ----
 
 === CMD: mapping_runner
+
 Transforms the Test Mapping Suites.
 
 Use:
@@ -197,6 +211,7 @@ Use:
 ----
 mapping_runner --help
 ----
+
 to get the Usage Help:
 
 [source,bash]
@@ -218,6 +233,7 @@ Options:
 ----
 
 === CMD: mapping_suite_processor
+
 Processes Mapping Suite (identified by mapping-suite-id).
 
 [source,bash]
@@ -233,8 +249,8 @@ Processes Mapping Suite (identified by mapping-suite-id).
         --- shacl_runner
         --- validation_summary_runner
         --- triple_store_loader
-        --- mapping_suite_validator
         --- metadata_generator
+        --- mapping_suite_validator
     - by groups:
         --- "inject_resources": ["resources_injector", "rml_modules_injector"],
         --- "generate_resources": ["sparql_generator", "rml_report_generator"],
@@ -251,6 +267,7 @@ Use:
 ----
 mapping_suite_processor --help
 ----
+
 to get the Usage Help:
 
 [source,bash]
@@ -269,8 +286,8 @@ Options:
                                   ql_generator,rml_report_generator,mapping_ru
                                   nner,xpath_coverage_runner,sparql_runner,sha
                                   cl_runner,validation_summary_runner,triple_s
-                                  tore_loader,mapping_suite_validator,metadata
-                                  _generator
+                                  tore_loader,metadata_generator,mapping_suite
+                                  _validator
   -g, --group TEXT                inject_resources,generate_resources,update_r
                                   esources,transform_notices,validate_notices,
                                   upload_notices,validate_mapping_suite
@@ -278,6 +295,7 @@ Options:
   -r, --opt-rml-modules-folder TEXT
   --help                          Show this message and exit.
 ----
+
 Use:
 
 [source,bash]
@@ -286,24 +304,29 @@ mapping_suite_processor -c COMMAND1 -c COMMAND2 ...
 or
 mapping_suite_processor --command=COMMAND1,COMMAND2
 ----
+
 to set custom commands (order) to be executed
 [source,bash]
+
 ----
 mapping_suite_processor -g GROUP1 -g GROUP2 ...
 or
 mapping_suite_processor --group=GROUP1,GROUP2
 ----
+
 to set custom command groups to be executed
 [source,bash]
+
 ----
 mapping_suite_processor -n NOTICE_ID1 -n NOTICE_ID2 ...
 or
 mapping_suite_processor --notice-id=NOTICE_ID1,NOTICE_ID2
 ----
+
 to set notice ids to be used (where applicable)
 
-
 === CMD: sparql_runner
+
 Generates SPARQL Validation Reports for RDF files.
 
 Use:
@@ -312,6 +335,7 @@ Use:
 ----
 sparql_runner --help
 ----
+
 to get the Usage Help:
 
 [source,bash]
@@ -326,6 +350,7 @@ Options:
 ----
 
 === CMD: xpath_coverage_runner
+
 Generates Coverage Reports for Notices
 
 Use:
@@ -334,6 +359,7 @@ Use:
 ----
 xpath_coverage_runner --help
 ----
+
 to get the Usage Help:
 
 [source,bash]
@@ -350,6 +376,7 @@ Options:
 ----
 
 === CMD: shacl_runner
+
 Generates SHACL Validation Reports for RDF files.
 
 Use:
@@ -358,6 +385,7 @@ Use:
 ----
 shacl_runner --help
 ----
+
 to get the Usage Help:
 
 [source,bash]
@@ -372,6 +400,7 @@ Options:
 ----
 
 === CMD: rml_report_generator
+
 Generates RML modules report file for Mapping Suite.
 
 Use:
@@ -380,6 +409,7 @@ Use:
 ----
 rml_report_generator --help
 ----
+
 to get the Usage Help:
 
 [source,bash]
@@ -394,6 +424,7 @@ Options:
 ----
 
 === CMD: triple_store_loader
+
 Loads the MappingSuite output into Triple Store.
 
 Use:
@@ -402,6 +433,7 @@ Use:
 ----
 triple_store_loader --help
 ----
+
 to get the Usage Help:
 
 [source,bash]
@@ -418,6 +450,7 @@ Options:
 ----
 
 === CMD: mapping_suite_validator
+
 Validates a Mapping Suite (structure)
 
 Use:
@@ -426,6 +459,7 @@ Use:
 ----
 mapping_suite_validator --help
 ----
+
 to get the Usage Help:
 
 [source,bash]

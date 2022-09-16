@@ -110,4 +110,4 @@ def transform_test_data(mapping_suite: MappingSuite, rml_mapper: RMLMapperABC, o
             event_message.message = notice_id
             event_message.notice_id = notice_id
             event_message.end_record()
-            logger.info(event_message, settings=EventMessageLogSettings(**{"briefly": True}))
+            logger.info(event_message, settings=EventMessageLogSettings(briefly=True))

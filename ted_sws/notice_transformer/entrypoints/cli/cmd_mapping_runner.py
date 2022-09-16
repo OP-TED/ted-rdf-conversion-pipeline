@@ -30,7 +30,7 @@ class CmdRunner(BaseCmdRunner):
     def __init__(
             self,
             mapping_suite_id,
-            notice_id: List[str],
+            notice_ids: List[str],
             serialization_format_value,
             mappings_path=DEFAULT_MAPPINGS_PATH,
             output_path=DEFAULT_OUTPUT_PATH,
@@ -42,7 +42,7 @@ class CmdRunner(BaseCmdRunner):
         self.mapping_suite_id = mapping_suite_id
         self.serialization_format_value = serialization_format_value
         self.rml_mapper = rml_mapper
-        self.notice_id = self._init_list_input_opts(notice_id)
+        self.notice_ids = self._init_list_input_opts(notice_ids)
 
     def run_cmd(self):
         super().run_cmd()
@@ -84,7 +84,7 @@ class CmdRunner(BaseCmdRunner):
                 rml_mapper = self.rml_mapper
 
             transform_test_data(mapping_suite=mapping_suite, rml_mapper=rml_mapper, output_path=fs_output_path,
-                                notice_ids=self.notice_id, logger=self.get_logger())
+                                notice_ids=self.notice_ids, logger=self.get_logger())
         except Exception as e:
             error = e
 
@@ -105,7 +105,7 @@ def run(mapping_suite_id=None, notice_id=None, serialization_format=TURTLE_SERIA
 
     cmd = CmdRunner(
         mapping_suite_id=mapping_suite_id,
-        notice_id=list(notice_id or []),
+        notice_ids=list(notice_id or []),
         serialization_format_value=serialization_format,
         mappings_path=mappings_path,
         output_path=output_path,

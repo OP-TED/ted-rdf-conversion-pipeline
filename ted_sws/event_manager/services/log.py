@@ -71,5 +71,5 @@ def log_mapping_suite_warning(message: str, name: str = None):
 def log_cli_brief_notice_info(message: str, name: str = None):
     get_cli_logger(name=name).info(
         event_message=NoticeEventMessage(message=message),
-        settings=EventMessageLogSettings(**{"briefly": True})
+        settings=EventMessageLogSettings(briefly=True)
     )

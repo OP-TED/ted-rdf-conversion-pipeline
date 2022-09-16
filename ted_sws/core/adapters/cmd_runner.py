@@ -73,7 +73,7 @@ class CmdRunner(CmdRunnerABC):
     def log(self, message: str, severity_level: SeverityLevelType = SeverityLevelType.INFO):
         self.logger.log(severity_level, EventMessage(**{"message": message}),
                         handler_type=EventWriterToConsoleHandler,
-                        settings=EventMessageLogSettings(**{"briefly": True}))
+                        settings=EventMessageLogSettings(briefly=True))
 
         self.logger.log(severity_level,
                         EventMessage(**{"message": message, "caller_name": __name__ + "." + self.name}),
@@ -133,7 +133,7 @@ class CmdRunner(CmdRunnerABC):
 class CmdRunnerForMappingSuite(CmdRunner):
     repository_path: Path
     mapping_suite_id: str
-    notice_id: List[str]
+    notice_ids: List[str]
 
     def is_mapping_suite(self, suite_id):
         suite_path = self.repository_path / Path(suite_id)
@@ -141,6 +141,13 @@ class CmdRunnerForMappingSuite(CmdRunner):
 
     @classmethod
     def _init_list_input_opts(cls, input_val) -> List:
+        """
+        This method takes command line arguments (with multiple values), each element of which can have
+        comma separated values and generate a list from all the values, also removing duplicates.
+        Example: for "--input=value2,value1 --input=value3,value1", the method will return [value2, value1, value3]
+        :param input_val:
+        :return: a list of unified, deduplicated, input values
+        """
         input_set = OrderedSet()
         if input_val and len(input_val) > 0:
             for item in input_val:
@@ -148,10 +155,18 @@ class CmdRunnerForMappingSuite(CmdRunner):
         return list(input_set)
 
     def skip_notice(self, notice_id: str) -> bool:
-        return self.notice_id and len(self.notice_id) > 0 and notice_id not in self.notice_id
+        """
+        This method will skip the iteration step for notice_id (where notices can be retrieved only by iterating
+        through a list of values, such as files, directories) that is not present in the provided list of
+        input notice_ids
+        :param notice_id:
+        :return: True if input notice_ids provided and notice_id not present and False if there is no input notice_ids
+        provided or notice_id is present in the input
+        """
+        return self.notice_ids and notice_id not in self.notice_ids
 
     def run_cmd(self):
         if self.mapping_suite_id:
             self.log(LOG_WARN_TEXT.format("MappingSuite: ") + self.mapping_suite_id)
-        if self.notice_id and len(self.notice_id) > 0:
-            self.log(LOG_WARN_TEXT.format("Notices: ") + str(self.notice_id))
+        if self.notice_ids:
+            self.log(LOG_WARN_TEXT.format("Notices: ") + str(self.notice_ids))

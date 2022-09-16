@@ -1,6 +1,6 @@
 from typing import Dict, Any, MutableMapping, Union
 
-from ted_sws.event_manager.adapters.event_handler_config import NULLLoggerConfig, ConsoleLoggerConfig, \
+from ted_sws.event_manager.adapters.event_handler_config import NullLoggerConfig, ConsoleLoggerConfig, \
     DAGLoggerConfig, CLILoggerConfig
 from ted_sws.event_manager.adapters.event_logger import EventLogger
 from ted_sws.event_manager.adapters.log import EVENT_LOGGER_CONTEXT_KEY
@@ -32,7 +32,7 @@ def get_env_logger(logger: EventLogger, is_cli: bool = False) -> EventLogger:
         logger_config.get_console_handler().logger.propagate = True
         return EventLogger(logger_config)
     else:
-        return EventLogger(NULLLoggerConfig())
+        return EventLogger(NullLoggerConfig())
 
 
 global_logger: EventLogger = get_env_logger(EventLogger(DAGLoggerConfig()))

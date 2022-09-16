@@ -38,13 +38,13 @@ class CmdRunner(BaseCmdRunner):
     def __init__(
             self,
             mapping_suite_id,
-            notice_id: List[str],
+            notice_ids: List[str],
             conceptual_mappings_file,
             mappings_path
     ):
         super().__init__(name=CMD_NAME)
         self.mapping_suite_id = mapping_suite_id
-        self.notice_id = self._init_list_input_opts(notice_id)
+        self.notice_ids = self._init_list_input_opts(notice_ids)
         self.mappings_path = mappings_path
         self.conceptual_mappings_file_path = Path(os.path.realpath(conceptual_mappings_file))
         self.output_folder = OUTPUT_FOLDER.format(mappings_path=self.mappings_path,
@@ -118,7 +118,7 @@ def run(mapping_suite_id=None, notice_id=None, opt_conceptual_mappings_file=None
 
     cmd = CmdRunner(
         mapping_suite_id=mapping_suite_id,
-        notice_id=list(notice_id or []),
+        notice_ids=list(notice_id or []),
         conceptual_mappings_file=conceptual_mappings_file,
         mappings_path=opt_mappings_folder
     )

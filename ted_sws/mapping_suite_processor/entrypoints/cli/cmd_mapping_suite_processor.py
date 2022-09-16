@@ -56,7 +56,7 @@ class CmdRunner(BaseCmdRunner):
     def __init__(
             self,
             mapping_suite_id,
-            notice_id: List[str],
+            notice_ids: List[str],
             mappings_path,
             rml_modules_folder,
             command: List[str] = None,
@@ -65,12 +65,12 @@ class CmdRunner(BaseCmdRunner):
         super().__init__(name=CMD_NAME)
 
         self.mapping_suite_id = mapping_suite_id
-        self.notice_id = self._init_list_input_opts(notice_id)
+        self.notice_ids = self._init_list_input_opts(notice_ids)
         self.mappings_path = mappings_path
         self.rml_modules_folder = rml_modules_folder
         self.group = []
         self.command = []
-        if not (group and len(group) > 0):
+        if not group:
             self.command = self._valid_cmds(self._init_list_input_opts(command or DEFAULT_COMMANDS))
         else:
             valid_groups = self._valid_groups(self._init_list_input_opts(group))
@@ -110,31 +110,31 @@ class CmdRunner(BaseCmdRunner):
         elif cmd == 'mapping_runner':
             cmd_mapping_runner.run(
                 mapping_suite_id=self.mapping_suite_id,
-                notice_id=self.notice_id,
+                notice_id=self.notice_ids,
                 opt_mappings_folder=self.mappings_path
             )
         elif cmd == 'xpath_coverage_runner':
             cmd_xpath_coverage_runner.run(
                 mapping_suite_id=self.mapping_suite_id,
-                notice_id=self.notice_id,
+                notice_id=self.notice_ids,
                 opt_mappings_folder=self.mappings_path
             )
         elif cmd == 'sparql_runner':
             cmd_sparql_runner.run(
                 mapping_suite_id=self.mapping_suite_id,
-                notice_id=self.notice_id,
+                notice_id=self.notice_ids,
                 opt_mappings_folder=self.mappings_path
             )
         elif cmd == 'shacl_runner':
             cmd_shacl_runner.run(
                 mapping_suite_id=self.mapping_suite_id,
-                notice_id=self.notice_id,
+                notice_id=self.notice_ids,
                 opt_mappings_folder=self.mappings_path
             )
         elif cmd == 'validation_summary_runner':
             cmd_validation_summary_runner.run(
                 mapping_suite_id=self.mapping_suite_id,
-                notice_id=self.notice_id,
+                notice_id=self.notice_ids,
                 opt_mappings_folder=self.mappings_path
             )
         elif cmd == 'triple_store_loader':
@@ -157,7 +157,7 @@ class CmdRunner(BaseCmdRunner):
         group_set = OrderedSet(group)
         default_group_set = OrderedSet(tuple(DEFAULT_GROUPS))
         invalid_groups = group_set - default_group_set
-        if len(invalid_groups) > 0:
+        if invalid_groups:
             self.log(
                 LOG_WARN_TEXT.format("The following groups will be skipped (invalid): " + ",".join(invalid_groups)))
         return list(group_set & default_group_set)
@@ -166,7 +166,7 @@ class CmdRunner(BaseCmdRunner):
         command_set = OrderedSet(command)
         default_command_set = OrderedSet(DEFAULT_COMMANDS)
         invalid_cmds = command_set - default_command_set
-        if len(invalid_cmds) > 0:
+        if invalid_cmds:
             self.log(
                 LOG_WARN_TEXT.format("The following commands will be skipped (invalid): " + ",".join(invalid_cmds)))
         return list(command_set & default_command_set)
@@ -174,9 +174,9 @@ class CmdRunner(BaseCmdRunner):
     def run_cmd(self):
         super().run_cmd()
 
-        if len(self.group) > 0:
+        if self.group:
             self.log(LOG_WARN_TEXT.format("Groups: ") + str(self.group))
-        if len(self.command):
+        if self.command:
             self.log(LOG_WARN_TEXT.format("Commands: ") + str(self.command))
             self.log(LOG_WARN_TEXT.format("#######"))
 
@@ -191,7 +191,7 @@ def run(mapping_suite_id, notice_id, command=DEFAULT_COMMANDS,
         group=None, opt_mappings_folder=DEFAULT_MAPPINGS_PATH, opt_rml_modules_folder=DEFAULT_RML_MODULES_PATH):
     cmd = CmdRunner(
         mapping_suite_id=mapping_suite_id,
-        notice_id=list(notice_id or []),
+        notice_ids=list(notice_id or []),
         command=list(command),
         group=list(group),
         mappings_path=opt_mappings_folder,

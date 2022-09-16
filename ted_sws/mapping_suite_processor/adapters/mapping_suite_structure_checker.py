@@ -26,7 +26,7 @@ class MappingSuiteStructureValidator:
     def __init__(self, mapping_suite_path: Union[pathlib.Path, str]):
         self.mapping_suite_path = pathlib.Path(mapping_suite_path)
         self.logger = get_console_logger(name="MappingSuiteStructureValidator")
-        self.log_settings = EventMessageLogSettings(**{"briefly": True})
+        self.log_settings = EventMessageLogSettings(briefly=True)
 
     def assert_path(self, assertion_path_list: List[pathlib.Path]) -> bool:
         """

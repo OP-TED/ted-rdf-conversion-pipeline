@@ -35,13 +35,14 @@ class SPARQLClientPool(object):
     connection_pool = {}
 
     @staticmethod
-    def create_or_reuse_connection(endpoint_url: str):
+    def create_or_reuse_connection(endpoint_url: str, use_env_credentials: bool = True):
         if endpoint_url not in SPARQLClientPool.connection_pool:
             sparql_wrapper = SPARQLWrapper(endpoint_url)
-            sparql_wrapper.setCredentials(
-                user=config.AGRAPH_SUPER_USER,
-                passwd=config.AGRAPH_SUPER_PASSWORD
-            )
+            if use_env_credentials:
+                sparql_wrapper.setCredentials(
+                    user=config.AGRAPH_SUPER_USER,
+                    passwd=config.AGRAPH_SUPER_PASSWORD
+                )
             SPARQLClientPool.connection_pool[endpoint_url] = sparql_wrapper
         return SPARQLClientPool.connection_pool[endpoint_url]
 
@@ -117,8 +118,8 @@ class TripleStoreEndpointABC(ABC):
 
 class SPARQLTripleStoreEndpoint(TripleStoreEndpointABC):
 
-    def __init__(self, endpoint_url: str):
-        self.endpoint = SPARQLClientPool.create_or_reuse_connection(endpoint_url)
+    def __init__(self, endpoint_url: str, use_env_credentials: bool = True):
+        self.endpoint = SPARQLClientPool.create_or_reuse_connection(endpoint_url, use_env_credentials)
 
     def _set_sparql_query(self, sparql_query: str):
         """

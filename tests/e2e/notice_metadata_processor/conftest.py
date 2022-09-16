@@ -233,8 +233,3 @@ def fake_repository_path():
 @pytest.fixture
 def invalid_mapping_suite_id() -> str:
     return "test_invalid_package"
-
-
-@pytest.fixture
-def cellar_sparql_endpoint():
-    return "https://publications.europa.eu/webapi/rdf/sparql"

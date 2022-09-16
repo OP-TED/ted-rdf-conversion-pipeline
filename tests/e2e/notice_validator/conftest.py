@@ -41,3 +41,13 @@ def fake_notice_F03_content(fake_repository_path, fake_mapping_suite_F03_id):
 def fake_notice_F03(fake_notice_F03_content, fake_notice_id):
     xml_manifestation = XMLManifestation(object_data=fake_notice_F03_content)
     return Notice(ted_id=fake_notice_id, xml_manifestation=xml_manifestation)
+
+
+@pytest.fixture
+def valid_cellar_uri():
+    return 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'
+
+
+@pytest.fixture
+def invalid_cellar_uri():
+    return 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type-invalid'

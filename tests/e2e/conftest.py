@@ -39,3 +39,8 @@ def fake_mapping_suite_id() -> str:
 @pytest.fixture
 def fuseki_triple_store():
     return FusekiAdapter(host=config.FUSEKI_ADMIN_HOST, user=config.FUSEKI_ADMIN_USER, password=config.FUSEKI_ADMIN_PASSWORD)
+
+
+@pytest.fixture
+def cellar_sparql_endpoint():
+    return "https://publications.europa.eu/webapi/rdf/sparql"

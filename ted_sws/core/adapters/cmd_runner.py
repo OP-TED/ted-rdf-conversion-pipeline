@@ -140,9 +140,9 @@ class CmdRunnerForMappingSuite(CmdRunner):
         return os.path.isdir(suite_path) and any(f == MS_METADATA_FILE_NAME for f in os.listdir(suite_path))
 
     @classmethod
-    def _init_list_input_opts(cls, input_val):
+    def _init_list_input_opts(cls, input_val) -> List:
         input_set = OrderedSet()
-        if len(input_val) > 0:
+        if input_val and len(input_val) > 0:
             for item in input_val:
                 input_set |= OrderedSet(map(lambda x: x.strip(), item.split(",")))
         return list(input_set)

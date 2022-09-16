@@ -8,7 +8,7 @@ import click
 from ordered_set import OrderedSet
 
 from ted_sws.core.adapters.cmd_runner import CmdRunnerForMappingSuite as BaseCmdRunner, DEFAULT_MAPPINGS_PATH
-from ted_sws.event_manager.adapters.log import SeverityLevelType, LOG_INFO_TEXT, LOG_WARN_TEXT
+from ted_sws.event_manager.adapters.log import SeverityLevelType, LOG_WARN_TEXT
 from ted_sws.mapping_suite_processor.entrypoints.cli import cmd_resources_injector, cmd_rml_modules_injector, \
     cmd_sparql_generator, cmd_triple_store_loader, cmd_metadata_generator, cmd_mapping_suite_validator
 from ted_sws.mapping_suite_processor.entrypoints.cli.cmd_rml_modules_injector import DEFAULT_RML_MODULES_PATH
@@ -191,7 +191,7 @@ def run(mapping_suite_id, notice_id, command=DEFAULT_COMMANDS,
         group=None, opt_mappings_folder=DEFAULT_MAPPINGS_PATH, opt_rml_modules_folder=DEFAULT_RML_MODULES_PATH):
     cmd = CmdRunner(
         mapping_suite_id=mapping_suite_id,
-        notice_id=list(notice_id),
+        notice_id=list(notice_id or []),
         command=list(command),
         group=list(group),
         mappings_path=opt_mappings_folder,

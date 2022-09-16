@@ -95,7 +95,7 @@ class CmdRunner(BaseCmdRunner):
             for d in rdf_path.iterdir():
                 if d.is_dir():
                     notice_id = d.name
-                    if self.notice_id and len(self.notice_id) > 0 and notice_id not in self.notice_id:
+                    if self.skip_notice(notice_id):
                         continue
                     base_report_path = rdf_path / notice_id
                     for f in d.iterdir():
@@ -111,7 +111,7 @@ class CmdRunner(BaseCmdRunner):
 def run(mapping_suite_id=None, notice_id=None, opt_mappings_folder=DEFAULT_MAPPINGS_PATH):
     cmd = CmdRunner(
         mapping_suite_id=mapping_suite_id,
-        notice_id=notice_id,
+        notice_id=list(notice_id or []),
         mappings_path=opt_mappings_folder
     )
     cmd.run()

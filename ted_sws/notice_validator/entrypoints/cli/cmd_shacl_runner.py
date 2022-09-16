@@ -1,10 +1,10 @@
 #!/usr/bin/python3
 
+import json
 from pathlib import Path
+from typing import List
 
 import click
-
-from typing import List
 
 from ted_sws.core.adapters.cmd_runner import CmdRunnerForMappingSuite as BaseCmdRunner, DEFAULT_MAPPINGS_PATH
 from ted_sws.core.model.manifestation import RDFManifestation, SHACLTestSuiteValidationReport
@@ -12,7 +12,6 @@ from ted_sws.data_manager.adapters.mapping_suite_repository import MappingSuiteR
 from ted_sws.event_manager.adapters.log import LOG_INFO_TEXT
 from ted_sws.notice_validator.entrypoints.cli import DEFAULT_RDF_FOLDER, DEFAULT_TEST_SUITE_REPORT_FOLDER
 from ted_sws.notice_validator.services.shacl_test_suite_runner import SHACLTestSuiteRunner, generate_shacl_report
-import json
 
 HTML_REPORT = "shacl_{id}.html"
 JSON_VALIDATIONS_REPORT = "shacl_validations.json"
@@ -86,7 +85,7 @@ class CmdRunner(BaseCmdRunner):
             for d in rdf_path.iterdir():
                 if d.is_dir():
                     notice_id = d.name
-                    if self.notice_id and len(self.notice_id) > 0 and notice_id not in self.notice_id:
+                    if self.skip_notice(notice_id):
                         continue
                     base_report_path = rdf_path / notice_id
                     for f in d.iterdir():
@@ -101,7 +100,7 @@ class CmdRunner(BaseCmdRunner):
 def run(mapping_suite_id=None, notice_id=None, opt_mappings_folder=DEFAULT_MAPPINGS_PATH):
     cmd = CmdRunner(
         mapping_suite_id=mapping_suite_id,
-        notice_id=notice_id,
+        notice_id=list(notice_id or []),
         mappings_path=opt_mappings_folder
     )
     cmd.run()

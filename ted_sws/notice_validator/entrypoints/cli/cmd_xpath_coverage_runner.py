@@ -91,7 +91,7 @@ class CmdRunner(BaseCmdRunner):
         notices: List[Notice] = []
         for data in self.mapping_suite.transformation_test_data.test_data:
             notice_id = Path(data.file_name).stem
-            if self.notice_id and len(self.notice_id) > 0 and notice_id not in self.notice_id:
+            if self.skip_notice(notice_id):
                 continue
             notice: Notice = Notice(ted_id=notice_id,
                                     xml_manifestation=XMLManifestation(object_data=data.file_content))
@@ -118,7 +118,7 @@ def run(mapping_suite_id=None, notice_id=None, opt_conceptual_mappings_file=None
 
     cmd = CmdRunner(
         mapping_suite_id=mapping_suite_id,
-        notice_id=notice_id,
+        notice_id=list(notice_id or []),
         conceptual_mappings_file=conceptual_mappings_file,
         mappings_path=opt_mappings_folder
     )

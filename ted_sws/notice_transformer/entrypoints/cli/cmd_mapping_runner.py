@@ -10,7 +10,6 @@ from ted_sws import config
 from ted_sws.core.adapters.cmd_runner import CmdRunnerForMappingSuite as BaseCmdRunner, DEFAULT_MAPPINGS_PATH, \
     DEFAULT_OUTPUT_PATH
 from ted_sws.data_manager.adapters.mapping_suite_repository import MappingSuiteRepositoryInFileSystem
-from ted_sws.event_manager.adapters.log import LOG_INFO_TEXT
 from ted_sws.notice_transformer.adapters.rml_mapper import RMLMapper, SerializationFormat as RMLSerializationFormat, \
     TURTLE_SERIALIZATION_FORMAT
 from ted_sws.notice_transformer.services.notice_transformer import transform_test_data
@@ -106,7 +105,7 @@ def run(mapping_suite_id=None, notice_id=None, serialization_format=TURTLE_SERIA
 
     cmd = CmdRunner(
         mapping_suite_id=mapping_suite_id,
-        notice_id=notice_id,
+        notice_id=list(notice_id or []),
         serialization_format_value=serialization_format,
         mappings_path=mappings_path,
         output_path=output_path,

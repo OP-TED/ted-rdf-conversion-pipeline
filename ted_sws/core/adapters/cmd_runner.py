@@ -147,6 +147,9 @@ class CmdRunnerForMappingSuite(CmdRunner):
                 input_set |= OrderedSet(map(lambda x: x.strip(), item.split(",")))
         return list(input_set)
 
+    def skip_notice(self, notice_id: str) -> bool:
+        return self.notice_id and len(self.notice_id) > 0 and notice_id not in self.notice_id
+
     def run_cmd(self):
         if self.mapping_suite_id:
             self.log(LOG_WARN_TEXT.format("MappingSuite: ") + self.mapping_suite_id)

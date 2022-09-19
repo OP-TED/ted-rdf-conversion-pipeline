@@ -352,16 +352,29 @@ Options:
 <div class="paragraph">
 <p>Processes Mapping Suite (identified by mapping-suite-id).</p>
 </div>
-<div class="paragraph">
-<p>By default, successively runs the following commands:</p>
-</div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">- normalisation_resource_generator
-- resources_injector
-- metadata_generator
-- yarrrml2rml_converter
-- sparql_generator</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">    - by commands:
+        --- resources_injector
+        --- rml_modules_injector
+        --- sparql_generator
+        --- rml_report_generator
+        --- mapping_runner
+        --- xpath_coverage_runner
+        --- sparql_runner
+        --- shacl_runner
+        --- validation_summary_runner
+        --- triple_store_loader
+        --- metadata_generator
+        --- mapping_suite_validator
+    - by groups:
+        --- "inject_resources": ["resources_injector", "rml_modules_injector"],
+        --- "generate_resources": ["sparql_generator", "rml_report_generator"],
+        --- "update_resources": ["resources_injector", "rml_modules_injector", "sparql_generator", "rml_report_generator"],
+        --- "transform_notices": ["mapping_runner"],
+        --- "validate_notices": ["xpath_coverage_runner", "sparql_runner", "shacl_runner", "validation_summary_runner"],
+        --- "upload_notices": ["triple_store_loader"],
+        --- "validate_mapping_suite": ["mapping_suite_validator"]</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -380,13 +393,25 @@ Options:
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">Usage: mapping_suite_processor [OPTIONS] MAPPING_SUITE_ID
 
   Processes Mapping Suite (identified by mapping-suite-id): -
-  normalisation_resource_generator - metadata_generator -
-  yarrrml2rml_converter - sparql_generator
+  resources_injector - rml_modules_injector - sparql_generator -
+  rml_report_generator - mapping_runner - xpath_coverage_runner -
+  sparql_runner - shacl_runner - validation_summary_runner -
+  triple_store_loader - mapping_suite_validator - metadata_generator
 
 Options:
-  -c, --opt-commands [normalisation_resource_generator|resources_injector|metadata_generator|yarrrml2rml_converter|sparql_generator]
+  -n, --notice-id TEXT            Provide notices to be used where applicable
+  -c, --command TEXT              resources_injector,rml_modules_injector,spar
+                                  ql_generator,rml_report_generator,mapping_ru
+                                  nner,xpath_coverage_runner,sparql_runner,sha
+                                  cl_runner,validation_summary_runner,triple_s
+                                  tore_loader,metadata_generator,mapping_suite
+                                  _validator
+  -g, --group TEXT                inject_resources,generate_resources,update_r
+                                  esources,transform_notices,validate_notices,
+                                  upload_notices,validate_mapping_suite
   -m, --opt-mappings-folder TEXT
-  --help                                      Show this message and exit.</code></pre>
+  -r, --opt-rml-modules-folder TEXT
+  --help                          Show this message and exit.</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -394,11 +419,33 @@ Options:
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">mapping_suite_processor -c COMMAND1 -c COMMAND2 ...</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">mapping_suite_processor -c COMMAND1 -c COMMAND2 ...
+or
+mapping_suite_processor --command=COMMAND1,COMMAND2</code></pre>
 </div>
 </div>
 <div class="paragraph">
 <p>to set custom commands (order) to be executed</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">mapping_suite_processor -g GROUP1 -g GROUP2 ...
+or
+mapping_suite_processor --group=GROUP1,GROUP2</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>to set custom command groups to be executed</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">mapping_suite_processor -n NOTICE_ID1 -n NOTICE_ID2 ...
+or
+mapping_suite_processor --notice-id=NOTICE_ID1,NOTICE_ID2</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>to set notice ids to be used (where applicable)</p>
 </div>
 </div>
 <div class="sect2">
@@ -544,6 +591,34 @@ Options:
 </div>
 </div>
 </div>
+<div class="sect2">
+<h3 id="_cmd_mapping_suite_validator"><a class="anchor" href="#_cmd_mapping_suite_validator"></a>CMD: mapping_suite_validator</h3>
+<div class="paragraph">
+<p>Validates a Mapping Suite (structure)</p>
+</div>
+<div class="paragraph">
+<p>Use:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">mapping_suite_validator --help</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>to get the Usage Help:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">Usage: mapping_suite_validator [OPTIONS] [MAPPING_SUITE_ID]
+
+  Validates a Mapping Suite (structure)
+
+Options:
+  -m, --opt-mappings-folder TEXT
+  --help                          Show this message and exit.</code></pre>
+</div>
+</div>
+</div>
 </div>
 </div>
 </article>
@@ -552,7 +627,7 @@ Options:
 </div>
 <div>
 </div>
-<script src="../_/js/site.js"></script>
+<script id="site-script" src="../_/js/site.js" data-ui-root-path="../_"></script>
 <script async src="../_/js/vendor/highlight.js"></script>
   </body>
 </html>

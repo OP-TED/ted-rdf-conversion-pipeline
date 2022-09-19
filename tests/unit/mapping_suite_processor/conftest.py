@@ -60,7 +60,7 @@ def mapping_suite(mapping_suite_id):
 
 @pytest.fixture
 def fake_mapping_suite():
-    rml_modules_path = TEST_DATA_PATH / "mapping_suite_processor" / "digest_service" / "rml_modules"
+    rml_modules_path = TEST_DATA_PATH / "mapping_suite_processor" / "rml_modules"
     rml_mapping_rule_files = rml_modules_path.glob("*")
     rml_mapping_rule_file_resources = []
     for rml_mapping_rule_file in rml_mapping_rule_files:

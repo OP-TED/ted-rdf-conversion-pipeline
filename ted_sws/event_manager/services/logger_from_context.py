@@ -1,6 +1,6 @@
 from typing import Dict, Any, MutableMapping, Union
 
-from ted_sws.event_manager.adapters.event_handler_config import NULLLoggerConfig, ConsoleLoggerConfig, \
+from ted_sws.event_manager.adapters.event_handler_config import NullLoggerConfig, ConsoleLoggerConfig, \
     DAGLoggerConfig, CLILoggerConfig
 from ted_sws.event_manager.adapters.event_logger import EventLogger
 from ted_sws.event_manager.adapters.log import EVENT_LOGGER_CONTEXT_KEY
@@ -12,18 +12,6 @@ ContextType = Union[Dict[str, Any], MutableMapping[str, Any]]
 """
 This module contains event logger tools.
 """
-
-
-def get_logger(name: str = None) -> EventLogger:
-    return get_env_logger(EventLogger(DAGLoggerConfig(
-        name=DAGLoggerConfig.init_logger_name(name)
-    )))
-
-
-def get_cli_logger(name: str = None) -> EventLogger:
-    return get_env_logger(EventLogger(CLILoggerConfig(
-        name=CLILoggerConfig.init_logger_name(name)
-    )), is_cli=True)
 
 
 def get_env_logger(logger: EventLogger, is_cli: bool = False) -> EventLogger:
@@ -44,7 +32,36 @@ def get_env_logger(logger: EventLogger, is_cli: bool = False) -> EventLogger:
         logger_config.get_console_handler().logger.propagate = True
         return EventLogger(logger_config)
     else:
-        return EventLogger(NULLLoggerConfig())
+        return EventLogger(NullLoggerConfig())
+
+
+global_logger: EventLogger = get_env_logger(EventLogger(DAGLoggerConfig()))
+global_cli_logger: EventLogger = get_env_logger(EventLogger(CLILoggerConfig()), is_cli=True)
+global_console_logger: EventLogger = get_env_logger(EventLogger(ConsoleLoggerConfig()), is_cli=True)
+
+
+def get_logger(name: str = None) -> EventLogger:
+    if name is None:
+        return global_logger
+    return get_env_logger(EventLogger(DAGLoggerConfig(
+        name=DAGLoggerConfig.init_logger_name(name)
+    )))
+
+
+def get_cli_logger(name: str = None) -> EventLogger:
+    if name is None:
+        return global_cli_logger
+    return get_env_logger(EventLogger(CLILoggerConfig(
+        name=CLILoggerConfig.init_logger_name(name)
+    )), is_cli=True)
+
+
+def get_console_logger(name: str = None) -> EventLogger:
+    if name is None:
+        return global_console_logger
+    return get_env_logger(EventLogger(ConsoleLoggerConfig(
+        name=ConsoleLoggerConfig.init_logger_name(name)
+    )), is_cli=True)
 
 
 def get_logger_from_dag_context(dag_context: dict) -> EventLogger:

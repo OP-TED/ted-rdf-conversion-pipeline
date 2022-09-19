@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 
 from pathlib import Path
+import sys, os
 
 import click
 
@@ -8,6 +9,7 @@ from ted_sws.core.adapters.cmd_runner import CmdRunner as BaseCmdRunner, DEFAULT
 from ted_sws.mapping_suite_processor.services.mapping_suite_validation_service import validate_mapping_suite
 
 CMD_NAME = "CMD_MAPPING_SUITE_VALIDATOR"
+MS_VALIDATOR_ERROR_EXIT_CODE = os.EX_CONFIG
 
 """
 USAGE:
@@ -32,7 +34,9 @@ class CmdRunner(BaseCmdRunner):
     def run_cmd(self):
         mapping_suite_path: Path = Path(self.mappings_path).resolve() / Path(self.mapping_suite_id)
         is_valid: bool = validate_mapping_suite(mapping_suite_path)
-        self.run_cmd_result(Exception("Mapping Suite has an invalid structure") if not is_valid else None)
+        result = self.run_cmd_result(Exception("Mapping Suite has an invalid structure") if not is_valid else None)
+        if not result:
+            self.exit_code = MS_VALIDATOR_ERROR_EXIT_CODE
 
 
 def run(mapping_suite_id=None, opt_mappings_folder=DEFAULT_MAPPINGS_PATH):
@@ -40,7 +44,7 @@ def run(mapping_suite_id=None, opt_mappings_folder=DEFAULT_MAPPINGS_PATH):
         mapping_suite_id=mapping_suite_id,
         mappings_path=opt_mappings_folder
     )
-    cmd.run()
+    return cmd.run()
 
 
 @click.command()
@@ -50,7 +54,7 @@ def main(mapping_suite_id, opt_mappings_folder):
     """
     Validates a Mapping Suite (structure)
     """
-    run(mapping_suite_id, opt_mappings_folder)
+    return run(mapping_suite_id, opt_mappings_folder)
 
 
 if __name__ == '__main__':

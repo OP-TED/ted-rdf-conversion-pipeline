@@ -1,19 +1,24 @@
 import abc
 import datetime
 import os
+import sys
 from pathlib import Path
+from typing import List
+
+from ordered_set import OrderedSet
 
 from ted_sws.data_manager.adapters.mapping_suite_repository import MS_METADATA_FILE_NAME
 from ted_sws.event_manager.adapters.event_handler import EventWriterToFileHandler, EventWriterToConsoleHandler, \
     EventWriterToMongoDBHandler
-from ted_sws.event_manager.adapters.event_handler_config import CLILoggerConfig
 from ted_sws.event_manager.adapters.event_logger import EventLogger
-from ted_sws.event_manager.adapters.log import SeverityLevelType, LOG_ERROR_TEXT, LOG_SUCCESS_TEXT
+from ted_sws.event_manager.adapters.log import SeverityLevelType, LOG_ERROR_TEXT, LOG_SUCCESS_TEXT, LOG_WARN_TEXT
 from ted_sws.event_manager.model.event_message import EventMessage, EventMessageLogSettings
-from ted_sws.event_manager.services.logger_from_context import get_env_logger
+from ted_sws.event_manager.services.logger_from_context import get_cli_logger
 
 DEFAULT_MAPPINGS_PATH = 'mappings'
 DEFAULT_OUTPUT_PATH = 'output'
+EXIT_CODE_OK = os.EX_OK
+DEFAULT_EXIT_CODE = EXIT_CODE_OK
 
 
 class CmdRunnerABC(abc.ABC):
@@ -51,9 +56,10 @@ class CmdRunner(CmdRunnerABC):
         self.name = name
         self.begin_time = None
         self.end_time = None
+        self.exit_code = DEFAULT_EXIT_CODE
 
         if logger is None:
-            logger = get_env_logger(EventLogger(CLILoggerConfig(name=name)), is_cli=True)
+            logger = get_cli_logger(name=name)
 
         self.logger = logger
 
@@ -67,7 +73,7 @@ class CmdRunner(CmdRunnerABC):
     def log(self, message: str, severity_level: SeverityLevelType = SeverityLevelType.INFO):
         self.logger.log(severity_level, EventMessage(**{"message": message}),
                         handler_type=EventWriterToConsoleHandler,
-                        settings=EventMessageLogSettings(**{"briefly": True}))
+                        settings=EventMessageLogSettings(briefly=True))
 
         self.logger.log(severity_level,
                         EventMessage(**{"message": message, "caller_name": __name__ + "." + self.name}),
@@ -90,11 +96,15 @@ class CmdRunner(CmdRunnerABC):
 
     def run(self):
         self.on_begin()
-        self.run_cmd()
+        result = self.run_cmd()
         self.on_end()
+        return result
 
     def run_cmd(self):
-        pass
+        """
+
+        :return:
+        """
 
     def run_cmd_result(self, error: Exception = None, msg: str = None, errmsg: str = None) -> bool:
         if error:
@@ -112,11 +122,51 @@ class CmdRunner(CmdRunnerABC):
             now=str(self.end_time),
             time=self.end_time - self.begin_time
         ))
+        self.exit(self.exit_code)
+
+    @classmethod
+    def exit(cls, exit_code=DEFAULT_EXIT_CODE):
+        if exit_code > EXIT_CODE_OK:
+            sys.exit(exit_code)
 
 
 class CmdRunnerForMappingSuite(CmdRunner):
     repository_path: Path
+    mapping_suite_id: str
+    notice_ids: List[str]
 
     def is_mapping_suite(self, suite_id):
         suite_path = self.repository_path / Path(suite_id)
         return os.path.isdir(suite_path) and any(f == MS_METADATA_FILE_NAME for f in os.listdir(suite_path))
+
+    @classmethod
+    def _init_list_input_opts(cls, input_val) -> List:
+        """
+        This method takes command line arguments (with multiple values), each element of which can have
+        comma separated values and generate a list from all the values, also removing duplicates.
+        Example: for "--input=value2,value1 --input=value3,value1", the method will return [value2, value1, value3]
+        :param input_val:
+        :return: a list of unified, deduplicated, input values
+        """
+        input_set = OrderedSet()
+        if input_val and len(input_val) > 0:
+            for item in input_val:
+                input_set |= OrderedSet(map(lambda x: x.strip(), item.split(",")))
+        return list(input_set)
+
+    def skip_notice(self, notice_id: str) -> bool:
+        """
+        This method will skip the iteration step for notice_id (where notices can be retrieved only by iterating
+        through a list of values, such as files, directories) that is not present in the provided list of
+        input notice_ids
+        :param notice_id:
+        :return: True if input notice_ids provided and notice_id not present and False if there is no input notice_ids
+        provided or notice_id is present in the input
+        """
+        return self.notice_ids and notice_id not in self.notice_ids
+
+    def run_cmd(self):
+        if self.mapping_suite_id:
+            self.log(LOG_WARN_TEXT.format("MappingSuite: ") + self.mapping_suite_id)
+        if self.notice_ids:
+            self.log(LOG_WARN_TEXT.format("Notices: ") + str(self.notice_ids))

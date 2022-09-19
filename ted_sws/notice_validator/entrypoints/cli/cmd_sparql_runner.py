@@ -6,16 +6,16 @@ from typing import List
 
 import click
 
-from ted_sws.core.adapters.cmd_runner import CmdRunner as BaseCmdRunner, DEFAULT_MAPPINGS_PATH
+from ted_sws.core.adapters.cmd_runner import CmdRunnerForMappingSuite as BaseCmdRunner, DEFAULT_MAPPINGS_PATH
 from ted_sws.core.model.manifestation import RDFManifestation, XMLManifestation
+from ted_sws.core.model.manifestation import XPATHCoverageValidationReport
 from ted_sws.data_manager.adapters.mapping_suite_repository import MappingSuiteRepositoryInFileSystem
 from ted_sws.event_manager.adapters.log import LOG_INFO_TEXT
-from ted_sws.notice_validator.entrypoints.cli import DEFAULT_RDF_FOLDER, DEFAULT_TEST_SUITE_REPORT_FOLDER
-from ted_sws.notice_validator.services.sparql_test_suite_runner import SPARQLTestSuiteRunner, SPARQLReportBuilder, \
-    SPARQLTestSuiteValidationReport
+from ted_sws.notice_validator.entrypoints.cli import DEFAULT_RDF_FOLDER
 from ted_sws.notice_validator.entrypoints.cli.cmd_xpath_coverage_runner import JSON_REPORT_FILE as XPATH_JSON_FILE, \
     DEFAULT_TEST_SUITE_REPORT_FOLDER
-from ted_sws.core.model.manifestation import XPATHCoverageValidationReport
+from ted_sws.notice_validator.services.sparql_test_suite_runner import SPARQLTestSuiteRunner, SPARQLReportBuilder, \
+    SPARQLTestSuiteValidationReport
 
 JSON_VALIDATIONS_REPORT = "sparql_validations.json"
 HTML_REPORT = "sparql_{id}.html"
@@ -35,10 +35,12 @@ class CmdRunner(BaseCmdRunner):
     def __init__(
             self,
             mapping_suite_id,
+            notice_ids: List[str],
             mappings_path
     ):
         super().__init__(name=CMD_NAME)
         self.mapping_suite_id = mapping_suite_id
+        self.notice_ids = self._init_list_input_opts(notice_ids)
         self.mappings_path = mappings_path
 
         repository_path = Path(self.mappings_path)
@@ -84,13 +86,18 @@ class CmdRunner(BaseCmdRunner):
                          json.dumps(sparql_validations, default=lambda o: o.dict(), sort_keys=True, indent=4))
 
     def run_cmd(self):
+        super().run_cmd()
+
         error = None
         try:
             rdf_path = Path(DEFAULT_RDF_FOLDER.format(mappings_path=self.mappings_path,
                                                       mapping_suite_id=self.mapping_suite_id))
             for d in rdf_path.iterdir():
                 if d.is_dir():
-                    base_report_path = rdf_path / d.name
+                    notice_id = d.name
+                    if self.skip_notice(notice_id):
+                        continue
+                    base_report_path = rdf_path / notice_id
                     for f in d.iterdir():
                         if f.is_file():
                             xpath_file = f.parent / DEFAULT_TEST_SUITE_REPORT_FOLDER / XPATH_JSON_FILE
@@ -101,9 +108,10 @@ class CmdRunner(BaseCmdRunner):
         return self.run_cmd_result(error)
 
 
-def run(mapping_suite_id=None, opt_mappings_folder=DEFAULT_MAPPINGS_PATH):
+def run(mapping_suite_id=None, notice_id=None, opt_mappings_folder=DEFAULT_MAPPINGS_PATH):
     cmd = CmdRunner(
         mapping_suite_id=mapping_suite_id,
+        notice_ids=list(notice_id or []),
         mappings_path=opt_mappings_folder
     )
     cmd.run()
@@ -111,12 +119,13 @@ def run(mapping_suite_id=None, opt_mappings_folder=DEFAULT_MAPPINGS_PATH):
 
 @click.command()
 @click.argument('mapping-suite-id', nargs=1, required=False)
+@click.option('--notice-id', required=False, multiple=True, default=None)
 @click.option('-m', '--opt-mappings-folder', default=DEFAULT_MAPPINGS_PATH)
-def main(mapping_suite_id, opt_mappings_folder):
+def main(mapping_suite_id, notice_id, opt_mappings_folder):
     """
     Generates SPARQL Validation Reports for RDF files
     """
-    run(mapping_suite_id, opt_mappings_folder)
+    run(mapping_suite_id, notice_id, opt_mappings_folder)
 
 
 if __name__ == '__main__':

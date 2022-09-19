@@ -1,22 +1,7 @@
-import json
-import pathlib
-import shutil
 import tempfile
 
-import deepdiff
-from deepdiff import DeepDiff
-from pymongo import MongoClient
-
-from ted_sws import config
 from ted_sws.core.model.manifestation import RDFManifestation
-from ted_sws.data_manager.adapters.notice_repository import NoticeRepository, NoticeRepositoryInFileSystem
-from ted_sws.mapping_suite_processor.services.conceptual_mapping_processor import \
-    mapping_suite_processor_from_github_expand_and_load_package_in_mongo_db
-from tests import TEST_DATA_PATH
-
-NOTICE_REPOSITORY_NAME = "notice_repository"
-NOTICE_REPOSITORY_PATH = TEST_DATA_PATH / NOTICE_REPOSITORY_NAME
-MAPPING_SUITE_PACKAGE_NAME = "package_F03_test"
+from ted_sws.data_manager.adapters.notice_repository import NoticeRepositoryInFileSystem
 
 
 def test_notice_repository_in_file_system(notice_2018, notice_2020, notice_2021):

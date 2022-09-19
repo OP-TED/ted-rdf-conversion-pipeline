@@ -27,6 +27,11 @@ def fake_mapping_suite_id() -> str:
 
 
 @pytest.fixture
+def fake_test_mapping_suite_id() -> str:
+    return "test_package"
+
+
+@pytest.fixture
 def invalid_mapping_suite_id() -> str:
     return "test_invalid_package"
 
@@ -34,6 +39,4 @@ def invalid_mapping_suite_id() -> str:
 @pytest.fixture
 def invalid_repository_path() -> str:
     return "non_existing_dir"
-
-
 

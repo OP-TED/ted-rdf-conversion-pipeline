@@ -212,7 +212,7 @@ class CLILoggerConfig(EventHandlerConfig):
         super().__init__(handlers, prime_handlers)
 
 
-class NULLLoggerConfig(EventHandlerConfig):
+class NullLoggerConfig(EventHandlerConfig):
     """
     This is the event handler config class for NULL event message logging.
     """

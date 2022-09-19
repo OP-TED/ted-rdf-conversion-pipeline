@@ -1,35 +1,40 @@
-import os
+import shutil
+import tempfile
+from pathlib import Path
 
 from ted_sws.mapping_suite_processor.entrypoints.cli.cmd_metadata_generator import main as cli_main
 
 
-def post_process(fake_repository_path, fake_mapping_suite_id):
-    output_dir_path = fake_repository_path / fake_mapping_suite_id
-    output_file_path = output_dir_path / "metadata.json"
-    assert os.path.isdir(output_dir_path)
-    assert os.path.isfile(output_file_path)
-    os.remove(output_file_path)
+def test_metadata_generator(cli_runner, fake_test_mapping_suite_id, file_system_repository_path):
+    with tempfile.TemporaryDirectory() as temp_folder:
+        temp_mapping_suite_path = Path(temp_folder)
+        shutil.copytree(file_system_repository_path, temp_mapping_suite_path, dirs_exist_ok=True)
+
+        response = cli_runner.invoke(cli_main,
+                                     [fake_test_mapping_suite_id, "--opt-mappings-folder", temp_mapping_suite_path])
+        assert response.exit_code == 0
+        assert "SUCCESS" in response.output
 
 
-def test_metadata_generator(cli_runner, fake_mapping_suite_id, file_system_repository_path):
-    response = cli_runner.invoke(cli_main,
-                                 [fake_mapping_suite_id, "--opt-mappings-folder", file_system_repository_path])
-    assert response.exit_code == 0
-    assert "SUCCESS" in response.output
-    post_process(file_system_repository_path, fake_mapping_suite_id)
+def test_metadata_generator_with_non_existing_input(cli_runner, file_system_repository_path, fake_test_mapping_suite_id):
+    with tempfile.TemporaryDirectory() as temp_folder:
+        temp_mapping_suite_path = Path(temp_folder)
+        shutil.copytree(file_system_repository_path, temp_mapping_suite_path, dirs_exist_ok=True)
+
+        response = cli_runner.invoke(cli_main, [fake_test_mapping_suite_id,
+                                                "-i", "non_existing_dir/non_existing_file",
+                                                "-o", "non_existing_dir/non_existing_file",
+                                                "--opt-mappings-folder", temp_mapping_suite_path])
+        assert "No such file" in response.output
 
 
-def test_metadata_generator_with_non_existing_input(cli_runner, file_system_repository_path, fake_mapping_suite_id):
-    response = cli_runner.invoke(cli_main, [fake_mapping_suite_id,
-                                            "-i", "non_existing_dir/non_existing_file",
-                                            "-o", "non_existing_dir/non_existing_file",
-                                            "--opt-mappings-folder", file_system_repository_path])
-    assert "No such file" in response.output
+def test_metadata_generator_with_invalid_input(cli_runner, file_system_repository_path, fake_test_mapping_suite_id):
+    with tempfile.TemporaryDirectory() as temp_folder:
+        temp_mapping_suite_path = Path(temp_folder)
+        shutil.copytree(file_system_repository_path, temp_mapping_suite_path, dirs_exist_ok=True)
 
-
-def test_metadata_generator_with_invalid_input(cli_runner, file_system_repository_path, fake_mapping_suite_id):
-    response = cli_runner.invoke(cli_main, [fake_mapping_suite_id,
-                                            "-i", str(file_system_repository_path / fake_mapping_suite_id /
-                                                      "transformation" / "invalid_conceptual_mappings.xlsx"),
-                                            "--opt-mappings-folder", file_system_repository_path])
-    assert "FAILED" in response.output
+        response = cli_runner.invoke(cli_main, [fake_test_mapping_suite_id,
+                                                "-i", str(temp_mapping_suite_path / fake_test_mapping_suite_id /
+                                                          "transformation" / "invalid_conceptual_mappings.xlsx"),
+                                                "--opt-mappings-folder", temp_mapping_suite_path])
+        assert "FAILED" in response.output

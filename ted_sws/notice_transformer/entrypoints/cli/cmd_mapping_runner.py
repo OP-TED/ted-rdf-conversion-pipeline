@@ -2,6 +2,7 @@
 
 import os
 from pathlib import Path
+from typing import List
 
 import click
 
@@ -9,7 +10,6 @@ from ted_sws import config
 from ted_sws.core.adapters.cmd_runner import CmdRunnerForMappingSuite as BaseCmdRunner, DEFAULT_MAPPINGS_PATH, \
     DEFAULT_OUTPUT_PATH
 from ted_sws.data_manager.adapters.mapping_suite_repository import MappingSuiteRepositoryInFileSystem
-from ted_sws.event_manager.adapters.log import LOG_INFO_TEXT
 from ted_sws.notice_transformer.adapters.rml_mapper import RMLMapper, SerializationFormat as RMLSerializationFormat, \
     TURTLE_SERIALIZATION_FORMAT
 from ted_sws.notice_transformer.services.notice_transformer import transform_test_data
@@ -30,6 +30,7 @@ class CmdRunner(BaseCmdRunner):
     def __init__(
             self,
             mapping_suite_id,
+            notice_ids: List[str],
             serialization_format_value,
             mappings_path=DEFAULT_MAPPINGS_PATH,
             output_path=DEFAULT_OUTPUT_PATH,
@@ -41,8 +42,11 @@ class CmdRunner(BaseCmdRunner):
         self.mapping_suite_id = mapping_suite_id
         self.serialization_format_value = serialization_format_value
         self.rml_mapper = rml_mapper
+        self.notice_ids = self._init_list_input_opts(notice_ids)
 
     def run_cmd(self):
+        super().run_cmd()
+
         if self.mapping_suite_id:
             self.transform(self.mapping_suite_id, self.serialization_format_value)
         else:
@@ -53,9 +57,6 @@ class CmdRunner(BaseCmdRunner):
         """
         Transforms the Test Mapping Suites (identified by mapping_suite_id)
         """
-        self.log(
-            "Running process for " + LOG_INFO_TEXT.format("MappingSuite[" + mapping_suite_id + "]") + " ... "
-        )
 
         if not self.is_mapping_suite(mapping_suite_id):
             self.log_failed_msg("Not a MappingSuite!")
@@ -83,7 +84,7 @@ class CmdRunner(BaseCmdRunner):
                 rml_mapper = self.rml_mapper
 
             transform_test_data(mapping_suite=mapping_suite, rml_mapper=rml_mapper, output_path=fs_output_path,
-                                logger=self.get_logger())
+                                notice_ids=self.notice_ids, logger=self.get_logger())
         except Exception as e:
             error = e
 
@@ -91,7 +92,8 @@ class CmdRunner(BaseCmdRunner):
         return self.run_cmd_result(error, msg, msg)
 
 
-def run(mapping_suite_id=None, serialization_format=TURTLE_SERIALIZATION_FORMAT.value, opt_mapping_suite_id=None,
+def run(mapping_suite_id=None, notice_id=None, serialization_format=TURTLE_SERIALIZATION_FORMAT.value,
+        opt_mapping_suite_id=None,
         opt_serialization_format=None, opt_mappings_folder=DEFAULT_MAPPINGS_PATH, opt_output_folder=DEFAULT_OUTPUT_PATH,
         rml_mapper=None):
     if opt_mapping_suite_id:
@@ -103,6 +105,7 @@ def run(mapping_suite_id=None, serialization_format=TURTLE_SERIALIZATION_FORMAT.
 
     cmd = CmdRunner(
         mapping_suite_id=mapping_suite_id,
+        notice_ids=list(notice_id or []),
         serialization_format_value=serialization_format,
         mappings_path=mappings_path,
         output_path=output_path,
@@ -113,6 +116,7 @@ def run(mapping_suite_id=None, serialization_format=TURTLE_SERIALIZATION_FORMAT.
 
 @click.command()
 @click.argument('mapping-suite-id', nargs=1, required=False)
+@click.option('--notice-id', required=False, multiple=True, default=None)
 @click.argument('serialization-format', nargs=1, required=False, default=TURTLE_SERIALIZATION_FORMAT.value)
 @click.option('--opt-mapping-suite-id', default=None,
               help='MappingSuite ID to be processed (leave empty to process all Mapping Suites).')
@@ -120,13 +124,15 @@ def run(mapping_suite_id=None, serialization_format=TURTLE_SERIALIZATION_FORMAT.
               help='Serialization format (turtle (default), nquads, trig, trix, jsonld, hdt).')
 @click.option('--opt-mappings-folder', default=DEFAULT_MAPPINGS_PATH)
 @click.option('--opt-output-folder', default=DEFAULT_OUTPUT_PATH)
-def main(mapping_suite_id, serialization_format, opt_mapping_suite_id, opt_serialization_format, opt_mappings_folder,
+def main(mapping_suite_id, notice_id, serialization_format, opt_mapping_suite_id, opt_serialization_format,
+         opt_mappings_folder,
          opt_output_folder):
     """
     Transforms the Test Mapping Suites (identified by mapping-suite-id).
     If no mapping-suite-id is provided, all mapping suites from mappings directory will be processed.
     """
-    run(mapping_suite_id, serialization_format, opt_mapping_suite_id, opt_serialization_format, opt_mappings_folder,
+    run(mapping_suite_id, notice_id, serialization_format, opt_mapping_suite_id, opt_serialization_format,
+        opt_mappings_folder,
         opt_output_folder)
 
 

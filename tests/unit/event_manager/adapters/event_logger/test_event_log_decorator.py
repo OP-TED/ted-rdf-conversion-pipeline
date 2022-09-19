@@ -4,7 +4,7 @@ from unittest import mock
 import pytest
 
 from ted_sws import RUN_ENV_NAME, RUN_ENV_VAL
-from ted_sws.event_manager.adapters.event_handler_config import DAGLoggerConfig, NULLLoggerConfig
+from ted_sws.event_manager.adapters.event_handler_config import DAGLoggerConfig, NullLoggerConfig
 from ted_sws.event_manager.adapters.event_log_decorator import event_log
 from ted_sws.event_manager.adapters.event_logger import EventLogger
 from ted_sws.event_manager.adapters.log import ConfigHandlerType
@@ -39,7 +39,7 @@ def assert_dag_event_log_decorator(caplog, event_message, **kwargs):
 @event_log()
 def assert_event_log_decorator_within_test_env(**kwargs):
     logger = get_logger_from_dag_context(kwargs)
-    assert isinstance(logger.event_handler_config, NULLLoggerConfig)
+    assert isinstance(logger.event_handler_config, NullLoggerConfig)
 
 
 @mock.patch.dict(os.environ, {RUN_ENV_NAME: RUN_ENV_VAL})

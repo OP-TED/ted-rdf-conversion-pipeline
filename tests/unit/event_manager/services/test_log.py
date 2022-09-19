@@ -1,7 +1,7 @@
 from ted_sws.event_manager.services.log import log_debug, log_error, log_info, log_warning, log_technical_debug, \
     log_technical_error, log_technical_info, log_technical_warning, log_notice_warning, log_notice_error, \
     log_notice_debug, log_notice_info, log_mapping_suite_debug, log_mapping_suite_info, log_mapping_suite_error, \
-    log_mapping_suite_warning
+    log_mapping_suite_warning, log_cli_brief_notice_info
 
 
 def test_log_info():
@@ -66,3 +66,7 @@ def test_log_mapping_suite_debug():
 
 def test_log_mapping_suite_warning():
     log_mapping_suite_warning("TEST_MAPPING_SUITE_WARNING_MESSAGE")
+
+
+def test_log_cli_brief_notice_info():
+    log_cli_brief_notice_info("TEST_BRIEF_NOTICE_INFO_MESSAGE")

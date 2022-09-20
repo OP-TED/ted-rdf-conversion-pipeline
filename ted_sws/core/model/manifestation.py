@@ -186,7 +186,7 @@ class RDFManifestation(Manifestation):
     """
         Transformed manifestation in RDF format
     """
-
+    mapping_suite_id = "unknown_mapping_suite_id"
     shacl_validations: List[SHACLTestSuiteValidationReport] = []
     sparql_validations: List[SPARQLTestSuiteValidationReport] = []
 
@@ -194,7 +194,7 @@ class RDFManifestation(Manifestation):
         if type(validation) == SHACLTestSuiteValidationReport:
             shacl_validation: SHACLTestSuiteValidationReport = validation
             if shacl_validation not in self.shacl_validations:
-                self.shacl_validations.append(shacl_validation)
+                self.shacl_validations.appendD(shacl_validation)
         elif type(validation) == SPARQLTestSuiteValidationReport:
             sparql_validation: SPARQLTestSuiteValidationReport = validation
             if sparql_validation not in self.sparql_validations:

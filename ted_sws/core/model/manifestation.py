@@ -186,6 +186,7 @@ class RDFManifestation(Manifestation):
     """
         Transformed manifestation in RDF format
     """
+
     shacl_validations: List[SHACLTestSuiteValidationReport] = []
     sparql_validations: List[SPARQLTestSuiteValidationReport] = []
 

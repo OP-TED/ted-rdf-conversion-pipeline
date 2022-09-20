@@ -51,7 +51,7 @@ def notice_validation_pipeline(notice: Notice) -> NoticePipelineOutput:
     """
 
     """
-    mapping_suite_id = notice.get_distilled_rdf_validation().mapping_suite_id
+    mapping_suite_id = notice.distilled_rdf_manifestation.mapping_suite_id
     mongodb_client = MongoClient(config.MONGO_DB_AUTH_URL)
     mapping_suite_repository = MappingSuiteRepositoryMongoDB(mongodb_client=mongodb_client)
     mapping_suite = mapping_suite_repository.get(reference=mapping_suite_id)

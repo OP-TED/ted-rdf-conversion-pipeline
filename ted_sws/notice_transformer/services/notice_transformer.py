@@ -35,7 +35,9 @@ def transform_notice(notice: Notice, mapping_suite: MappingSuite, rml_mapper: RM
         with notice_path.open("w", encoding="utf-8") as file:
             file.write(notice.xml_manifestation.object_data)
         rdf_result = rml_mapper.execute(package_path=package_path)
-        notice.set_rdf_manifestation(rdf_manifestation=RDFManifestation(object_data=rdf_result))
+        notice.set_rdf_manifestation(
+            rdf_manifestation=RDFManifestation(mapping_suite_id=mapping_suite.identifier,
+                                               object_data=rdf_result))
     return notice
 
 

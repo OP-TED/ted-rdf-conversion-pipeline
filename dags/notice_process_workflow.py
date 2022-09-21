@@ -66,7 +66,7 @@ def notice_process_workflow():
     )
 
     selector_branch_before_transformation = BranchPythonOperator(
-        task_id=START_PROCESSING_TASK_ID,
+        task_id=SELECTOR_BRANCH_BEFORE_TRANSFORMATION_TASK_ID,
         python_callable=_selector_branch_before_transformation,
     )
 

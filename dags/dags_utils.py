@@ -34,3 +34,16 @@ def push_dag_downstream(key, value):
     """
     context = get_current_context()
     return context[TASK_INSTANCE].xcom_push(key=str(key), value=value)
+
+
+def get_dag_param(key: str, raise_error: bool = False):
+    """
+
+    """
+    context = get_current_context()
+    dag_params = context["dag_run"].conf
+    if key in dag_params.keys():
+        return dag_params[key]
+    if raise_error:
+        raise Exception(f"Config key [{key}] is not present in dag context")
+    return None

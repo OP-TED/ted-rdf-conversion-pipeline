@@ -1,5 +1,6 @@
 import pathlib
 import tempfile
+from typing import List
 
 from pymongo import MongoClient
 
@@ -28,7 +29,7 @@ def mapping_suite_processor_load_package_in_mongo_db(mapping_suite_package_path:
                                                      mongodb_client: MongoClient,
                                                      load_test_data: bool = False,
                                                      git_last_commit_hash: str = None
-                                                     ):
+                                                     ) -> List[str]:
     """
         This feature allows you to upload a mapping suite package to MongoDB.
     :param mapping_suite_package_path:
@@ -49,21 +50,24 @@ def mapping_suite_processor_load_package_in_mongo_db(mapping_suite_package_path:
     if git_last_commit_hash is not None:
         mapping_suite_in_memory.git_latest_commit_hash = git_last_commit_hash
 
+    result_notice_ids = []
     if load_test_data:
         tests_data = mapping_suite_in_memory.transformation_test_data.test_data
         notice_repository = NoticeRepository(mongodb_client=mongodb_client)
         for test_data in tests_data:
-            notice_repository.add(notice=Notice(ted_id=test_data.file_name.split(".")[0],
+            notice_id = test_data.file_name.split(".")[0]
+            notice_repository.add(notice=Notice(ted_id=notice_id,
                                                 xml_manifestation=XMLManifestation(object_data=test_data.file_content)))
-
+            result_notice_ids.append(notice_id)
     mapping_suite_repository_mongo_db = MappingSuiteRepositoryMongoDB(mongodb_client=mongodb_client)
     mapping_suite_repository_mongo_db.add(mapping_suite=mapping_suite_in_memory)
+    return result_notice_ids
 
 
 def mapping_suite_processor_from_github_expand_and_load_package_in_mongo_db(mapping_suite_package_name: str,
                                                                             mongodb_client: MongoClient,
                                                                             load_test_data: bool = False
-                                                                            ):
+                                                                            ) -> List[str]:
     """
         This feature is intended to download a mapping_suite_package from GitHub and process it for upload to MongoDB.
     :param mapping_suite_package_name:
@@ -79,8 +83,10 @@ def mapping_suite_processor_from_github_expand_and_load_package_in_mongo_db(mapp
             mapping_suite_package_name=mapping_suite_package_name,
             output_mapping_suite_package_path=tmp_dir_path)
         mapping_suite_package_path = tmp_dir_path / mapping_suite_package_name
-        mapping_suite_processor_load_package_in_mongo_db(mapping_suite_package_path=mapping_suite_package_path,
-                                                         mongodb_client=mongodb_client,
-                                                         load_test_data=load_test_data,
-                                                         git_last_commit_hash=git_last_commit_hash
-                                                         )
+        result_notice_ids = mapping_suite_processor_load_package_in_mongo_db(
+            mapping_suite_package_path=mapping_suite_package_path,
+            mongodb_client=mongodb_client,
+            load_test_data=load_test_data,
+            git_last_commit_hash=git_last_commit_hash
+        )
+    return result_notice_ids

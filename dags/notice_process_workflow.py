@@ -36,25 +36,26 @@ def notice_process_workflow():
 
     def _start_processing():
         notice_ids = get_dag_param(key=NOTICE_IDS_KEY, raise_error=True)
-        start_with_step_name = get_dag_param(key=START_WITH_STEP_NAME_KEY, raise_error=True)
+        start_with_step_name = get_dag_param(key=START_WITH_STEP_NAME_KEY,
+                                             default_value=NOTICE_NORMALISATION_PIPELINE_TASK_ID)
         push_dag_downstream(key=NOTICE_IDS_KEY, value=notice_ids)
         return start_with_step_name
 
     def _selector_branch_before_transformation():
-        return NOTICE_TRANSFORMATION_PIPELINE_TASK_ID if get_dag_param(
-            key=EXECUTE_ONLY_ONE_STEP_KEY) else STOP_PROCESSING_TASK_ID
+        return STOP_PROCESSING_TASK_ID if get_dag_param(
+            key=EXECUTE_ONLY_ONE_STEP_KEY) else NOTICE_TRANSFORMATION_PIPELINE_TASK_ID
 
     def _selector_branch_before_validation():
-        return NOTICE_VALIDATION_PIPELINE_TASK_ID if get_dag_param(
-            key=EXECUTE_ONLY_ONE_STEP_KEY) else STOP_PROCESSING_TASK_ID
+        return STOP_PROCESSING_TASK_ID if get_dag_param(
+            key=EXECUTE_ONLY_ONE_STEP_KEY) else NOTICE_VALIDATION_PIPELINE_TASK_ID
 
     def _selector_branch_before_package():
-        return NOTICE_PACKAGE_PIPELINE_TASK_ID if get_dag_param(
-            key=EXECUTE_ONLY_ONE_STEP_KEY) else STOP_PROCESSING_TASK_ID
+        return STOP_PROCESSING_TASK_ID if get_dag_param(
+            key=EXECUTE_ONLY_ONE_STEP_KEY) else NOTICE_PACKAGE_PIPELINE_TASK_ID
 
     def _selector_branch_before_publish():
-        return NOTICE_PUBLISH_PIPELINE_TASK_ID if get_dag_param(
-            key=EXECUTE_ONLY_ONE_STEP_KEY) else STOP_PROCESSING_TASK_ID
+        return STOP_PROCESSING_TASK_ID if get_dag_param(
+            key=EXECUTE_ONLY_ONE_STEP_KEY) else NOTICE_PUBLISH_PIPELINE_TASK_ID
 
     def _stop_processing():
         """

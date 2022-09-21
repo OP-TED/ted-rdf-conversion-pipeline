@@ -1,3 +1,5 @@
+from typing import Any
+
 from airflow.operators.python import get_current_context
 
 TASK_INSTANCE = "ti"
@@ -36,7 +38,7 @@ def push_dag_downstream(key, value):
     return context[TASK_INSTANCE].xcom_push(key=str(key), value=value)
 
 
-def get_dag_param(key: str, raise_error: bool = False):
+def get_dag_param(key: str, raise_error: bool = False, default_value: Any = None):
     """
 
     """
@@ -46,4 +48,4 @@ def get_dag_param(key: str, raise_error: bool = False):
         return dag_params[key]
     if raise_error:
         raise Exception(f"Config key [{key}] is not present in dag context")
-    return None
+    return default_value

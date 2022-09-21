@@ -6,6 +6,8 @@ from airflow.utils.trigger_rule import TriggerRule
 from pymongo import MongoClient
 
 from dags import DEFAULT_DAG_ARGUMENTS
+from dags.dags_utils import push_dag_downstream, pull_dag_upstream
+from dags.operators.DagBatchPipelineOperator import NOTICE_IDS_KEY
 from ted_sws import config
 from ted_sws.core.model.notice import NoticeStatus
 from ted_sws.data_manager.adapters.notice_repository import NoticeRepository
@@ -46,17 +48,18 @@ def load_mapping_suite_in_mongodb():
         key = MAPPING_SUITE_PACKAGE_NAME_DAG_PARAM_KEY
         load_test_data = dag_conf[
             LOAD_TEST_DATA_DAG_PARAM_KEY] if LOAD_TEST_DATA_DAG_PARAM_KEY in dag_conf.keys() else False
-        if key in dag_conf.keys():
-            mapping_suite_package_name = dag_conf[key]
-            mongodb_client = MongoClient(config.MONGO_DB_AUTH_URL)
-            mapping_suite_processor_from_github_expand_and_load_package_in_mongo_db(
-                mapping_suite_package_name=mapping_suite_package_name,
-                mongodb_client=mongodb_client,
-                load_test_data=load_test_data
-            )
-        else:
+        if key not in dag_conf.keys():
             raise KeyError(f"The key={key} is not present in context")
 
+        mapping_suite_package_name = dag_conf[key]
+        mongodb_client = MongoClient(config.MONGO_DB_AUTH_URL)
+        notice_ids = mapping_suite_processor_from_github_expand_and_load_package_in_mongo_db(
+            mapping_suite_package_name=mapping_suite_package_name,
+            mongodb_client=mongodb_client,
+            load_test_data=load_test_data
+        )
+        if load_test_data:
+            push_dag_downstream(key=NOTICE_IDS_KEY, value=notice_ids)
         handle_event_message_metadata_dag_context(event_message, context)
         if MAPPING_SUITE_PACKAGE_NAME_DAG_PARAM_KEY in dag_conf.keys():
             event_message.mapping_suite_id = dag_conf[MAPPING_SUITE_PACKAGE_NAME_DAG_PARAM_KEY]
@@ -72,17 +75,12 @@ def load_mapping_suite_in_mongodb():
 
         context = get_current_context()
 
-        mongodb_client = MongoClient(config.MONGO_DB_AUTH_URL)
-        notice_repository = NoticeRepository(mongodb_client=mongodb_client)
-        notices = notice_repository.get_notice_by_status(notice_status=NoticeStatus.RAW)
-        for notice in notices:
-            TriggerDagRunOperator(
-                task_id=f'trigger_worker_dag_{notice.ted_id}',
-                trigger_dag_id="worker_single_notice_process_orchestrator",
-                conf={"notice_id": notice.ted_id,
-                      "notice_status": str(notice.status)
-                      }
-            ).execute(context=context)
+        notice_ids = pull_dag_upstream(key=NOTICE_IDS_KEY)
+        TriggerDagRunOperator(
+            task_id=f'trigger_worker_dag_{len(notice_ids)}',
+            trigger_dag_id="notice_process_workflow",
+            conf={NOTICE_IDS_KEY: notice_ids}
+        ).execute(context=context)
 
         dag_conf = context["dag_run"].conf
 
@@ -98,6 +96,7 @@ def load_mapping_suite_in_mongodb():
         load_test_data = dag_conf[
             LOAD_TEST_DATA_DAG_PARAM_KEY] if LOAD_TEST_DATA_DAG_PARAM_KEY in dag_conf.keys() else False
         if load_test_data:
+            push_dag_downstream(key=NOTICE_IDS_KEY, value=pull_dag_upstream(key=NOTICE_IDS_KEY))
             return [TRIGGER_DOCUMENT_PROC_PIPELINE_TASK_ID]
         return [FINISH_LOADING_MAPPING_SUITE_TASK_ID]
 

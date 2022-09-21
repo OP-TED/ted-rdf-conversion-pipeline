@@ -1,6 +1,6 @@
-name: ted-sws
+name: ted-conversion
 version: master
-title: ted-sws documentation
+title: XML to RDF Conversion
 start_page: ROOT:index.adoc
 nav:
 - modules/ROOT/nav.adoc

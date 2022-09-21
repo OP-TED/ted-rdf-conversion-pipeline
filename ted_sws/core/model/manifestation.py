@@ -186,6 +186,7 @@ class RDFManifestation(Manifestation):
     """
         Transformed manifestation in RDF format
     """
+    mapping_suite_id = "unknown_mapping_suite_id"
     shacl_validations: List[SHACLTestSuiteValidationReport] = []
     sparql_validations: List[SPARQLTestSuiteValidationReport] = []
 

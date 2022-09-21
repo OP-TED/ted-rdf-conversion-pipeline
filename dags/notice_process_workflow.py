@@ -119,4 +119,4 @@ def notice_process_workflow():
     notice_package_step >> selector_branch_before_publish >> notice_publish_step
 
 
-worker_dag = notice_process_workflow()
+dag = notice_process_workflow()

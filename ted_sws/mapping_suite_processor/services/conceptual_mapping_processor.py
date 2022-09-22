@@ -60,27 +60,40 @@ def mapping_suite_processor_load_package_in_mongo_db(mapping_suite_package_path:
     mapping_suite_repository_mongo_db.add(mapping_suite=mapping_suite_in_memory)
 
 
-def mapping_suite_processor_from_github_expand_and_load_package_in_mongo_db(mapping_suite_package_name: str,
-                                                                            mongodb_client: MongoClient,
-                                                                            load_test_data: bool = False
+def mapping_suite_processor_from_github_expand_and_load_package_in_mongo_db(mongodb_client: MongoClient,
+                                                                            mapping_suite_package_name: str = None,
+                                                                            load_test_data: bool = False,
+                                                                            github_repository_url: str = config.GITHUB_TED_SWS_ARTEFACTS_URL,
+                                                                            branch_name: str = "main",
+                                                                            tag_name: str = ""
                                                                             ):
     """
         This feature is intended to download a mapping_suite_package from GitHub and process it for upload to MongoDB.
+    :param github_repository_url:
+    :param branch_name:
+    :param tag_name:
     :param mapping_suite_package_name:
     :param mongodb_client:
     :param load_test_data:
     :return:
     """
     mapping_suite_package_downloader = GitHubMappingSuitePackageDownloader(
-        github_repository_url=config.GITHUB_TED_SWS_ARTEFACTS_URL)
+        github_repository_url=github_repository_url, branch_name=branch_name, tag_name=tag_name)
     with tempfile.TemporaryDirectory() as tmp_dir:
         tmp_dir_path = pathlib.Path(tmp_dir)
-        git_last_commit_hash = mapping_suite_package_downloader.download(
-            mapping_suite_package_name=mapping_suite_package_name,
-            output_mapping_suite_package_path=tmp_dir_path)
-        mapping_suite_package_path = tmp_dir_path / mapping_suite_package_name
-        mapping_suite_processor_load_package_in_mongo_db(mapping_suite_package_path=mapping_suite_package_path,
-                                                         mongodb_client=mongodb_client,
-                                                         load_test_data=load_test_data,
-                                                         git_last_commit_hash=git_last_commit_hash
-                                                         )
+        git_last_commit_hash = mapping_suite_package_downloader.download(output_mapping_suite_package_path=tmp_dir_path)
+        if mapping_suite_package_name:
+            mapping_suite_package_path = tmp_dir_path / mapping_suite_package_name
+            mapping_suite_processor_load_package_in_mongo_db(mapping_suite_package_path=mapping_suite_package_path,
+                                                             mongodb_client=mongodb_client,
+                                                             load_test_data=load_test_data,
+                                                             git_last_commit_hash=git_last_commit_hash
+                                                             )
+        else:
+            for path in pathlib.Path(tmp_dir_path).iterdir():
+                mapping_suite_processor_load_package_in_mongo_db(
+                    mapping_suite_package_path=path,
+                    mongodb_client=mongodb_client,
+                    load_test_data=load_test_data,
+                    git_last_commit_hash=git_last_commit_hash
+                )

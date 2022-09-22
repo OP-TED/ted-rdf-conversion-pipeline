@@ -52,8 +52,10 @@ class MappingSuiteRepositoryMongoDB(MappingSuiteRepositoryABC):
         :return:
         """
         mapping_suite_dict = mapping_suite.dict()
-        mapping_suite_dict["_id"] = mapping_suite_dict["identifier"]
-        self.collection.update_one({'_id': mapping_suite_dict["_id"]}, {"$set": mapping_suite_dict}, upsert=True)
+        mapping_suite_dict["_id"] = f'{mapping_suite_dict["identifier"]}_v{mapping_suite_dict["version"]}'
+        mapping_suite_exist = self.collection.find_one({"_id": mapping_suite_dict["_id"]})
+        if mapping_suite_exist is not None:
+            self.collection.update_one({'_id': mapping_suite_dict["_id"]}, {"$set": mapping_suite_dict}, upsert=True)
 
     def update(self, mapping_suite: MappingSuite):
         """
@@ -62,7 +64,7 @@ class MappingSuiteRepositoryMongoDB(MappingSuiteRepositoryABC):
         :return:
         """
         mapping_suite_dict = mapping_suite.dict()
-        mapping_suite_dict["_id"] = mapping_suite_dict["identifier"]
+        mapping_suite_dict["_id"] = f'{mapping_suite_dict["identifier"]}_v{mapping_suite_dict["version"]}'
         self.collection.update_one({'_id': mapping_suite_dict["_id"]}, {"$set": mapping_suite_dict})
 
     def get(self, reference) -> MappingSuite:

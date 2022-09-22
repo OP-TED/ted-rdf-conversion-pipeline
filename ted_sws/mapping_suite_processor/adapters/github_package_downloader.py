@@ -14,7 +14,7 @@ class MappingSuitePackageDownloaderABC(abc.ABC):
     """
 
     @abc.abstractmethod
-    def download(self, mapping_suite_package_name: str, output_mapping_suite_package_path: pathlib.Path):
+    def download(self, output_mapping_suite_package_path: pathlib.Path):
         """
             This method downloads a mapping_suite_package and loads it at the output_mapping_suite_package_path provided.
         :param mapping_suite_package_name:
@@ -28,14 +28,18 @@ class GitHubMappingSuitePackageDownloader(MappingSuitePackageDownloaderABC):
         This class downloads mapping_suite_package from GitHub.
     """
 
-    def __init__(self, github_repository_url: str):
+    def __init__(self, github_repository_url: str, branch_name: str, tag_name: str):
         """
-
+        Option can be branch or tag, not both
         :param github_repository_url:
+        :param branch_name:
+        :param tag_name:
         """
         self.github_repository_url = github_repository_url
+        self.branch_name = branch_name
+        self.tag_name = tag_name
 
-    def download(self, mapping_suite_package_name: str, output_mapping_suite_package_path: pathlib.Path) -> str:
+    def download(self, output_mapping_suite_package_path: pathlib.Path) -> str:
         """
             This method downloads a mapping_suite_package and loads it at the output_mapping_suite_package_path provided.
         :param mapping_suite_package_name:
@@ -49,20 +53,21 @@ class GitHubMappingSuitePackageDownloader(MappingSuitePackageDownloaderABC):
             :return:
             """
             git_repository_path.mkdir(exist_ok=True, parents=True)
-            result = subprocess.run(f'cd {git_repository_path} && git rev-parse origin/main', shell=True,
-                                    stdout=subprocess.PIPE)
+            result = subprocess.run(
+                f'cd {git_repository_path} && git rev-parse {self.tag_name if self.tag_name else self.branch_name}',
+                shell=True,
+                stdout=subprocess.PIPE)
             git_head_hash = result.stdout.decode(encoding="utf-8")
             return git_head_hash
 
         with tempfile.TemporaryDirectory() as tmp_dir:
             temp_dir_path = pathlib.Path(tmp_dir)
-            bash_script = f"cd {temp_dir_path} && git clone {self.github_repository_url}"
+            bash_script = f"cd {temp_dir_path} && git clone --branch {self.tag_name if self.tag_name else self.branch_name} {self.github_repository_url}"
             subprocess.run(bash_script, shell=True,
                            stdout=subprocess.DEVNULL,
                            stderr=subprocess.STDOUT)
             git_last_commit_hash = get_git_head_hash(
                 git_repository_path=temp_dir_path / GITHUB_TED_SWS_ARTEFACTS_REPOSITORY_NAME)
-            downloaded_tmp_mapping_suite_path = temp_dir_path / GITHUB_TED_SWS_ARTEFACTS_MAPPINGS_PATH / mapping_suite_package_name
-            mapping_suite_package_path = output_mapping_suite_package_path / mapping_suite_package_name
-            shutil.copytree(downloaded_tmp_mapping_suite_path, mapping_suite_package_path, dirs_exist_ok=True)
+            downloaded_tmp_mapping_suite_path = temp_dir_path / GITHUB_TED_SWS_ARTEFACTS_MAPPINGS_PATH
+            shutil.copytree(downloaded_tmp_mapping_suite_path, output_mapping_suite_package_path, dirs_exist_ok=True)
         return git_last_commit_hash

@@ -92,8 +92,9 @@ def notice_process_workflow():
         python_callable=_stop_processing,
     )
 
-    notice_normalisation_step = NoticeBatchPipelineOperator(task_id=NOTICE_NORMALISATION_PIPELINE_TASK_ID,
-                                                            python_callable=notice_normalisation_pipeline,
+
+    notice_normalisation_step = NoticeBatchPipelineOperator(python_callable=notice_normalisation_pipeline,
+                                                            task_id=NOTICE_NORMALISATION_PIPELINE_TASK_ID,
                                                             trigger_rule=TriggerRule.NONE_FAILED_MIN_ONE_SUCCESS
                                                             )
 

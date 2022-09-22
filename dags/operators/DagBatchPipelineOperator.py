@@ -1,6 +1,7 @@
-from typing import Any
+from typing import Any, List
 
 from airflow.models import BaseOperator
+from airflow.operators.trigger_dagrun import TriggerDagRunOperator
 from pymongo import MongoClient
 
 from dags.dags_utils import pull_dag_upstream, push_dag_downstream
@@ -32,7 +33,7 @@ class NoticeBatchPipelineOperator(BaseOperator):
             This method executes the python_callable for each notice_id in the notice_ids batch.
         """
         notice_ids = pull_dag_upstream(key=NOTICE_IDS_KEY)
-        if notice_ids:
+        if not notice_ids:
             raise Exception(f"XCOM key [{NOTICE_IDS_KEY}] is not present in context!")
         notice_repository = NoticeRepository(mongodb_client=MongoClient(config.MONGO_DB_AUTH_URL))
         processed_notice_ids = []
@@ -47,3 +48,18 @@ class NoticeBatchPipelineOperator(BaseOperator):
             except Exception as e:
                 log_error(message=str(e))
         push_dag_downstream(key=NOTICE_IDS_KEY, value=processed_notice_ids)
+
+
+class TriggerNoticeBatchPipelineOperator(TriggerDagRunOperator):
+    ui_color = ' #1bd5ff'
+    ui_fgcolor = '#000000'
+
+    def __init__(
+            self,
+            notice_ids: List[str],
+            start_with_step_name: str,
+            *args,
+            execute_only_one_step: bool = False,
+            **kwargs) -> None:
+        super().__init__(*args, **kwargs)
+        self.python_callable = python_callable

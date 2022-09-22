@@ -40,7 +40,7 @@ services:
     command:
     - |-
       /bin/bash -c "rm -rf /dags/* /ted_sws/* /temp/* && cd temp &&
-      git clone https://github.com/meaningfy-ws/ted-sws.git &&
+      git clone https://github.com/OP-TED/ted-rdf-conversion-pipeline.git &&
       cp -r ted-sws/dags/* ../dags &&
       cp -r ted-sws/ted_sws/* ../ted_sws"
     entrypoint:

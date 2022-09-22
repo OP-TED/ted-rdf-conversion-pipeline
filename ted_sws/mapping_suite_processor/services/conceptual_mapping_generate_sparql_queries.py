@@ -47,7 +47,7 @@ def sparql_validation_generator(data: pd.DataFrame, base_xpath: str) -> Iterator
         class_path = row[RULES_CLASS_PATH]
         property_path = row[RULES_PROPERTY_PATH]
         prefixes = [SPARQL_PREFIX_LINE.format(
-            prefix=prefix, value=PREFIXES_DEFINITIONS.get(prefix)
+            prefix=prefix, value=PREFIXES_DEFINITIONS.get(key=prefix,value="^")
         ) for prefix in get_sparql_prefixes(property_path)]
         yield f"#title: {sf_field_id} - {sf_field_name}\n" \
               f"#description: “{sf_field_id} - {sf_field_name}” in SF corresponds to “{e_form_bt_id} " \

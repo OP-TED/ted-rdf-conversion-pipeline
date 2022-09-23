@@ -1,3 +1,4 @@
+from airflow.operators.dummy import DummyOperator
 from airflow.operators.python import BranchPythonOperator
 from airflow.decorators import dag
 from airflow.utils.trigger_rule import TriggerRule
@@ -57,10 +58,6 @@ def notice_process_workflow():
         return STOP_PROCESSING_TASK_ID if get_dag_param(
             key=EXECUTE_ONLY_ONE_STEP_KEY) else NOTICE_PUBLISH_PIPELINE_TASK_ID
 
-    def _stop_processing():
-        """
-
-        """
 
     start_processing = BranchPythonOperator(
         task_id=START_PROCESSING_TASK_ID,
@@ -87,9 +84,9 @@ def notice_process_workflow():
         python_callable=_selector_branch_before_publish,
     )
 
-    stop_processing = BranchPythonOperator(
+    stop_processing = DummyOperator(
         task_id=STOP_PROCESSING_TASK_ID,
-        python_callable=_stop_processing,
+        trigger_rule=TriggerRule.NONE_FAILED_MIN_ONE_SUCCESS
     )
 
 

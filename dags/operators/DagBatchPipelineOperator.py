@@ -62,4 +62,13 @@ class TriggerNoticeBatchPipelineOperator(TriggerDagRunOperator):
             execute_only_one_step: bool = False,
             **kwargs) -> None:
         super().__init__(*args, **kwargs)
-        self.python_callable = python_callable
+        self.notice_ids = notice_ids
+        self.start_with_step_name = start_with_step_name
+        self.execute_only_one_step = execute_only_one_step
+
+    def execute(self, context: Any):
+
+        super().execute(context=context)
+
+
+

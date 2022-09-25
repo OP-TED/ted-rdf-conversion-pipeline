@@ -44,6 +44,8 @@ def mapping_suite_read_conceptual_mapping(conceptual_mappings_file_path: pathlib
     with open(conceptual_mappings_file_path, 'rb') as excel_file:
         base_xpath = metadata[BASE_XPATH_FIELD][0]
         rules_df = pd.read_excel(excel_file, sheet_name=CONCEPTUAL_MAPPINGS_RULES_SHEET_NAME, header=1)
+        rules_df[RULES_SF_FIELD_ID].ffill(axis="index", inplace=True)
+        rules_df[RULES_SF_FIELD_NAME].ffill(axis="index", inplace=True)
         df_xpaths = rules_df[RULES_FIELD_XPATH].tolist()
         df_sform_field_names = rules_df[RULES_SF_FIELD_NAME].tolist()
         df_sform_field_ids = rules_df[RULES_SF_FIELD_ID].tolist()
@@ -55,14 +57,10 @@ def mapping_suite_read_conceptual_mapping(conceptual_mappings_file_path: pathlib
                     if xpath:
                         xpath = base_xpath + "/" + xpath
                         if xpath not in processed_xpaths:
-                            form_fields = []
-                            if df_sform_field_ids[idx] is not np.nan:
-                                form_fields.append(df_sform_field_ids[idx])
-                            if df_sform_field_names[idx] is not np.nan:
-                                form_fields.append(df_sform_field_names[idx])
+                            form_fields = [df_sform_field_ids[idx], df_sform_field_names[idx]]
                             cm_xpath: ConceptualMappingXPATH = ConceptualMappingXPATH(
                                 xpath=xpath,
-                                form_field=" - ".join(form_fields)
+                                form_field=" - ".join([item for item in form_fields if not pd.isnull(item)])
                             )
                             conceptual_mapping_xpaths.append(cm_xpath)
                             processed_xpaths.add(xpath)

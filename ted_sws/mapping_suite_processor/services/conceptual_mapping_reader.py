@@ -6,7 +6,7 @@ import pandas as pd
 
 from ted_sws.core.model.transform import ConceptualMapping, ConceptualMappingXPATH, ConceptualMappingMetadata
 from ted_sws.mapping_suite_processor import CONCEPTUAL_MAPPINGS_METADATA_SHEET_NAME, \
-    CONCEPTUAL_MAPPINGS_RULES_SHEET_NAME, RULES_FIELD_XPATH, RULES_E_FORM_BT_NAME, RULES_SF_FIELD_ID, RULES_E_FORM_BT_ID
+    CONCEPTUAL_MAPPINGS_RULES_SHEET_NAME, RULES_FIELD_XPATH, RULES_SF_FIELD_ID, RULES_SF_FIELD_NAME
 from ted_sws.notice_validator import BASE_XPATH_FIELD
 
 CONCEPTUAL_MAPPINGS_FILE_NAME = "conceptual_mappings.xlsx"
@@ -45,8 +45,7 @@ def mapping_suite_read_conceptual_mapping(conceptual_mappings_file_path: pathlib
         base_xpath = metadata[BASE_XPATH_FIELD][0]
         rules_df = pd.read_excel(excel_file, sheet_name=CONCEPTUAL_MAPPINGS_RULES_SHEET_NAME, header=1)
         df_xpaths = rules_df[RULES_FIELD_XPATH].tolist()
-        df_bt_names = rules_df[RULES_E_FORM_BT_NAME].tolist()
-        df_eform_bt_ids = rules_df[RULES_E_FORM_BT_ID].tolist()
+        df_sform_field_names = rules_df[RULES_SF_FIELD_NAME].tolist()
         df_sform_field_ids = rules_df[RULES_SF_FIELD_ID].tolist()
         processed_xpaths = set()
         for idx, xpath_row in enumerate(df_xpaths):
@@ -56,15 +55,14 @@ def mapping_suite_read_conceptual_mapping(conceptual_mappings_file_path: pathlib
                     if xpath:
                         xpath = base_xpath + "/" + xpath
                         if xpath not in processed_xpaths:
-                            xpath_name = df_bt_names[idx] if df_bt_names[idx] is not np.nan else None
-                            eform_bt_id = df_eform_bt_ids[idx] if df_eform_bt_ids[idx] is not np.nan else None
-                            sform_field_id = df_sform_field_ids[idx] if df_sform_field_ids[idx] is not np.nan else None
-
+                            form_fields = []
+                            if df_sform_field_ids[idx] is not np.nan:
+                                form_fields.append(df_sform_field_ids[idx])
+                            if df_sform_field_names[idx] is not np.nan:
+                                form_fields.append(df_sform_field_names[idx])
                             cm_xpath: ConceptualMappingXPATH = ConceptualMappingXPATH(
                                 xpath=xpath,
-                                name=xpath_name,
-                                standard_form_field_id=sform_field_id,
-                                eform_bt_id=eform_bt_id
+                                form_field=" - ".join(form_fields)
                             )
                             conceptual_mapping_xpaths.append(cm_xpath)
                             processed_xpaths.add(xpath)

@@ -5,11 +5,11 @@ from typing import Iterator
 import pandas as pd
 
 from ted_sws.mapping_suite_processor import CONCEPTUAL_MAPPINGS_METADATA_SHEET_NAME, \
-    CONCEPTUAL_MAPPINGS_RULES_SHEET_NAME, RULES_FIELD_XPATH, RULES_E_FORM_BT_NAME, RULES_SF_FIELD_ID, RULES_E_FORM_BT_ID
+    CONCEPTUAL_MAPPINGS_RULES_SHEET_NAME, RULES_FIELD_XPATH, RULES_E_FORM_BT_NAME, RULES_SF_FIELD_ID, \
+    RULES_E_FORM_BT_ID, RULES_SF_FIELD_NAME
 from ted_sws.notice_validator import BASE_XPATH_FIELD
 from ted_sws.resources.prefixes import PREFIXES_DEFINITIONS
 
-RULES_SF_FIELD_NAME = 'Standard Form Field Name (M)'
 RULES_CLASS_PATH = 'Class path (M)'
 RULES_PROPERTY_PATH = 'Property path (M)'
 
@@ -51,7 +51,7 @@ def sparql_validation_generator(data: pd.DataFrame, base_xpath: str) -> Iterator
         ) for prefix in get_sparql_prefixes(property_path)]
         yield f"#title: {sf_field_id} - {sf_field_name}\n" \
               f"#description: “{sf_field_id} - {sf_field_name}” in SF corresponds to “{e_form_bt_id} " \
-              f"{e_form_bt_name}” in eForms. The corresponding XML element is " \
+              f"{e_form_bt_name}” in eForms (Provisional/Indicative). The corresponding XML element is " \
               f"{concat_field_xpath(base_xpath, field_xpath)}. " \
               f"The expected ontology instances are epo: {class_path} .\n" \
               f"#xpath: {concat_field_xpath(base_xpath, field_xpath, separator=',')}" \
@@ -73,6 +73,8 @@ def mapping_suite_processor_generate_sparql_queries(conceptual_mappings_file_pat
         conceptual_mappings_rules_df = pd.read_excel(excel_file, sheet_name=CONCEPTUAL_MAPPINGS_RULES_SHEET_NAME)
         conceptual_mappings_rules_df.columns = conceptual_mappings_rules_df.iloc[0]
         conceptual_mappings_rules_df = conceptual_mappings_rules_df[1:]
+        conceptual_mappings_rules_df[RULES_SF_FIELD_ID].ffill(axis="index", inplace=True)
+        conceptual_mappings_rules_df[RULES_SF_FIELD_NAME].ffill(axis="index", inplace=True)
         conceptual_mappings_rules_df = conceptual_mappings_rules_df[
             conceptual_mappings_rules_df[RULES_PROPERTY_PATH].notnull()]
         metadata_df = pd.read_excel(excel_file, sheet_name=CONCEPTUAL_MAPPINGS_METADATA_SHEET_NAME)

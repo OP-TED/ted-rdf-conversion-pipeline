@@ -13,7 +13,7 @@ def test_sparql_generator(cli_runner, fake_mapping_suite_id, file_system_reposit
         response = cli_runner.invoke(cli_main,
                                      [fake_mapping_suite_id, "--opt-mappings-folder", temp_mapping_suite_path])
         assert response.exit_code == 0
-        # assert "SUCCESS" in response.output
+        assert "SUCCESS" in response.output
 
 
 def test_sparql_generator_with_non_existing_input(cli_runner, file_system_repository_path):

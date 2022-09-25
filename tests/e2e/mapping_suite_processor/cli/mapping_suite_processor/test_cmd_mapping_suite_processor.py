@@ -19,7 +19,7 @@ def test_mapping_suite_processor(cli_runner, fake_mapping_suite_id, file_system_
         ])
         assert response.exit_code == 0
         assert "SUCCESS" in response.output
-        # assert "FAILED" not in response.output
+        assert "FAILED" not in response.output
 
         for cmd in DEFAULT_COMMANDS:
             assert cmd in response.output
@@ -32,7 +32,7 @@ def test_mapping_suite_processor(cli_runner, fake_mapping_suite_id, file_system_
         ])
         assert response.exit_code == 0
         assert "SUCCESS" in response.output
-        # assert "FAILED" not in response.output
+        assert "FAILED" not in response.output
 
         groups = ['inject_resources', 'invalid_group']
         response = cli_runner.invoke(cli_main, [
@@ -44,7 +44,7 @@ def test_mapping_suite_processor(cli_runner, fake_mapping_suite_id, file_system_
         ])
         assert response.exit_code == 0
         assert "SUCCESS" in response.output
-        # assert "FAILED" not in response.output
+        assert "FAILED" not in response.output
         assert "inject_resources" in response.output
         assert "groups will be skipped (invalid): invalid_group" in response.output
 
@@ -57,7 +57,7 @@ def test_mapping_suite_processor(cli_runner, fake_mapping_suite_id, file_system_
         ])
         assert response.exit_code == 0
         assert "SUCCESS" in response.output
-        # assert "FAILED" not in response.output
+        assert "FAILED" not in response.output
         assert "resources_injector" in response.output
         assert "commands will be skipped (invalid): invalid_command" in response.output
 

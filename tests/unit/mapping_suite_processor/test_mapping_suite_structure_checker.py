@@ -57,7 +57,7 @@ def test_validate_output_structure(caplog, package_folder_path_for_validator):
 
         notice_id = next(f for f in os.listdir(dirpath) if os.path.isdir(os.path.join(dirpath, f)))
         notice_report_path = dirpath / notice_id / MS_TEST_SUITE_REPORT
-        for f in os.listdir(notice_report_path):
+        for f in os.listdir(notice_report_path)[1:]:
             os.remove(os.path.join(notice_report_path, f))
 
         assert not mapping_suite_validator.validate_output_structure()

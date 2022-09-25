@@ -33,7 +33,7 @@ class NoticeBatchPipelineOperator(BaseOperator):
         """
         notice_ids = pull_dag_upstream(key=NOTICE_IDS_KEY)
         if notice_ids:
-            raise Exception(f"XCOM key [{NOTICE_IDS_KEY}] is not present in context!")
+            raise Exception(f"XCOM key=[{NOTICE_IDS_KEY}] is not present in context!")
         notice_repository = NoticeRepository(mongodb_client=MongoClient(config.MONGO_DB_AUTH_URL))
         processed_notice_ids = []
         for notice_id in notice_ids:

@@ -23,7 +23,7 @@ SELECTOR_BRANCH_BEFORE_TRANSFORMATION_TASK_ID = "selector_branch_before_transfor
 SELECTOR_BRANCH_BEFORE_VALIDATION_TASK_ID = "selector_branch_before_validation"
 SELECTOR_BRANCH_BEFORE_PACKAGE_TASK_ID = "selector_branch_before_package"
 SELECTOR_BRANCH_BEFORE_PUBLISH_TASK_ID = "selector_branch_before_publish"
-
+DAG_NAME = "notice_process_workflow"
 
 @dag(default_args=DEFAULT_DAG_ARGUMENTS,
      schedule_interval=None,

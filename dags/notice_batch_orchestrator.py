@@ -1,5 +1,5 @@
 from itertools import chain, islice
-from typing import Iterator
+from typing import Iterator, Iterable
 
 from airflow.decorators import dag, task
 from airflow.operators.python import get_current_context
@@ -23,7 +23,7 @@ NOTICE_BATCH_SIZE_DEFAULT = 5000
 NOTICE_STATUS_VALUE_DEFAULT = "RAW"
 
 
-def chunks(iterable, chunk_size: int):
+def chunks(iterable: Iterable, chunk_size: int):
     iterator = iter(iterable)
     for first in iterator:
         yield chain([first], islice(iterator, chunk_size - 1))

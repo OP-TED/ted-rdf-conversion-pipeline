@@ -1,16 +1,18 @@
 from typing import Any, List
-
+from uuid import uuid4
 from airflow.models import BaseOperator
 from airflow.operators.trigger_dagrun import TriggerDagRunOperator
 from pymongo import MongoClient
 
-from dags.dags_utils import pull_dag_upstream, push_dag_downstream
+from dags.dags_utils import pull_dag_upstream, push_dag_downstream, chunks
 from dags.pipelines.pipeline_protocols import NoticePipelineCallable
 from ted_sws import config
 from ted_sws.data_manager.adapters.notice_repository import NoticeRepository
 from ted_sws.event_manager.services.log import log_error
 
 NOTICE_IDS_KEY = "notice_ids"
+DEFAULT_NUBER_OF_CELERY_WORKERS = 144
+NOTICE_PROCESS_WORKFLOW_DAG_NAME = "notice_process_workflow"
 
 
 class NoticeBatchPipelineOperator(BaseOperator):
@@ -50,7 +52,7 @@ class NoticeBatchPipelineOperator(BaseOperator):
         push_dag_downstream(key=NOTICE_IDS_KEY, value=processed_notice_ids)
 
 
-class TriggerNoticeBatchPipelineOperator(TriggerDagRunOperator):
+class TriggerNoticeBatchPipelineOperator(BaseOperator):
     ui_color = ' #1bd5ff'
     ui_fgcolor = '#000000'
 
@@ -59,16 +61,19 @@ class TriggerNoticeBatchPipelineOperator(TriggerDagRunOperator):
             notice_ids: List[str],
             start_with_step_name: str,
             *args,
+            batch_size: int = None,
             execute_only_one_step: bool = False,
             **kwargs) -> None:
         super().__init__(*args, **kwargs)
         self.notice_ids = notice_ids
         self.start_with_step_name = start_with_step_name
         self.execute_only_one_step = execute_only_one_step
+        self.batch_size = batch_size if batch_size else 1 + len(notice_ids) // DEFAULT_NUBER_OF_CELERY_WORKERS
 
     def execute(self, context: Any):
-
-        super().execute(context=context)
-
-
-
+        for notice_batch in chunks(self.notice_ids, chunk_size=self.batch_size):
+            TriggerDagRunOperator(
+                task_id=f'trigger_worker_dag_{uuid4().hex}',
+                trigger_dag_id=NOTICE_PROCESS_WORKFLOW_DAG_NAME,
+                conf={NOTICE_IDS_KEY: list(notice_batch)}
+            ).execute(context=context)

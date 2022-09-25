@@ -39,10 +39,6 @@ class MetadataTransformer:
         return value.replace(NORM_SEP, DENORM_SEP)
 
     @classmethod
-    def __year(cls, metadata: PackagerMetadata) -> str:
-        return metadata.notice.id.split(NORM_SEP)[1]
-
-    @classmethod
     def from_notice_metadata(cls, notice_metadata: ExtractedMetadata) -> PackagerMetadata:
         _date = datetime.datetime.now()
         _revision = REVISION
@@ -53,11 +49,11 @@ class MetadataTransformer:
         metadata.notice.id = cls.normalize_value(notice_metadata.notice_publication_number)
 
         # WORK
-        metadata.work.uri = f"{BASE_WORK}{cls.__year(metadata)}/{metadata.notice.id}"
+        metadata.work.uri = publication_notice_uri(metadata.notice.id)
         title_search = [t.title.text for t in notice_metadata.title if t.title.language == LANGUAGE.upper()]
         if len(title_search) > 0:
             metadata.work.title = {LANGUAGE: title_search[0]}
-        metadata.work.date_creation = datetime.datetime\
+        metadata.work.date_creation = datetime.datetime \
             .strptime(notice_metadata.publication_date, '%Y%m%d').strftime('%Y-%m-%d')
         metadata.work.dataset_version = _date.strftime('%Y%m%d') + '-' + _revision
 
@@ -65,3 +61,11 @@ class MetadataTransformer:
         metadata.expression.title = {LANGUAGE: BASE_TITLE + " " + metadata.notice.id}
 
         return metadata
+
+
+def publication_notice_year(notice_id):
+    return notice_id.split(NORM_SEP)[1]
+
+
+def publication_notice_uri(notice_id):
+    return f"{BASE_WORK}{publication_notice_year(notice_id)}/{notice_id}"

@@ -70,7 +70,6 @@ def _generate_subject_type(class_path: str, cl_dfs: dict, field_xpath: str) -> s
 
 
 def _generate_object_type(class_path: str, cl_dfs: dict, field_xpath: str) -> str:
-
     # Temporary solution
     class_path = class_path.split(' / ')[-1]
     if 'at-voc:' in class_path:
@@ -81,7 +80,8 @@ def _generate_object_type(class_path: str, cl_dfs: dict, field_xpath: str) -> st
     return f"?value rdf:type {object_reference} ." if object_reference else ''
 
 
-def sparql_validation_generator(data: pd.DataFrame, base_xpath: str, controlled_list_dfs: dict, prefixes_definitions: dict) -> Iterator[str]:
+def sparql_validation_generator(data: pd.DataFrame, base_xpath: str, controlled_list_dfs: dict,
+                                prefixes_definitions: dict) -> Iterator[str]:
     """
         This function generates SPARQL queries based on data in the dataframe.
     :param prefixes_definitions:
@@ -175,7 +175,8 @@ def mapping_suite_processor_generate_sparql_queries(conceptual_mappings_file_pat
         metadata = metadata_df.set_index('Field').T.to_dict('list')
         base_xpath = metadata[BASE_XPATH_FIELD][0]
 
-    sparql_queries = sparql_validation_generator(conceptual_mappings_rules_df, base_xpath, controlled_list_dfs, prefixes_definitions)
+    sparql_queries = sparql_validation_generator(conceptual_mappings_rules_df, base_xpath, controlled_list_dfs,
+                                                 prefixes_definitions)
 
     output_sparql_queries_folder_path.mkdir(parents=True, exist_ok=True)
     for index, sparql_query in enumerate(sparql_queries):

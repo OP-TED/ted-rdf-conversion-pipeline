@@ -36,32 +36,41 @@ def get_env_logger(logger: EventLogger, is_cli: bool = False) -> EventLogger:
 
 
 global_logger: EventLogger = get_env_logger(EventLogger(DAGLoggerConfig()))
+global_loggers: Dict[str, EventLogger] = {}
 global_cli_logger: EventLogger = get_env_logger(EventLogger(CLILoggerConfig()), is_cli=True)
+global_cli_loggers: Dict[str, EventLogger] = {}
 global_console_logger: EventLogger = get_env_logger(EventLogger(ConsoleLoggerConfig()), is_cli=True)
+global_console_loggers: Dict[str, EventLogger] = {}
 
 
 def get_logger(name: str = None) -> EventLogger:
     if name is None:
         return global_logger
-    return get_env_logger(EventLogger(DAGLoggerConfig(
-        name=DAGLoggerConfig.init_logger_name(name)
-    )))
+    if name not in global_loggers:
+        global_loggers[name] = get_env_logger(EventLogger(DAGLoggerConfig(
+            name=DAGLoggerConfig.init_logger_name(name)
+        )))
+    return global_loggers.get(name)
 
 
 def get_cli_logger(name: str = None) -> EventLogger:
     if name is None:
         return global_cli_logger
-    return get_env_logger(EventLogger(CLILoggerConfig(
-        name=CLILoggerConfig.init_logger_name(name)
-    )), is_cli=True)
+    if name not in global_cli_loggers:
+        global_cli_loggers[name] = get_env_logger(EventLogger(CLILoggerConfig(
+            name=CLILoggerConfig.init_logger_name(name)
+        )), is_cli=True)
+    return global_cli_loggers.get(name)
 
 
 def get_console_logger(name: str = None) -> EventLogger:
     if name is None:
         return global_console_logger
-    return get_env_logger(EventLogger(ConsoleLoggerConfig(
-        name=ConsoleLoggerConfig.init_logger_name(name)
-    )), is_cli=True)
+    if name not in global_console_loggers:
+        global_console_loggers[name] = get_env_logger(EventLogger(ConsoleLoggerConfig(
+            name=ConsoleLoggerConfig.init_logger_name(name)
+        )), is_cli=True)
+    return global_console_loggers.get(name)
 
 
 def get_logger_from_dag_context(dag_context: dict) -> EventLogger:

@@ -101,3 +101,6 @@ class MappingSuite(MappingSuiteComponent):
     sparql_test_suites: List[SPARQLTestSuite]
     transformation_test_data: TransformationTestData
     conceptual_mapping: Optional[ConceptualMapping]
+
+    def get_mongodb_id(self) -> str:
+        return f"{self.identifier}_v{self.version}"

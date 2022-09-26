@@ -11,8 +11,7 @@ from ted_sws.mapping_suite_processor.entrypoints.cli import CONCEPTUAL_MAPPINGS_
 def test_mapping_suite_processor_generate_sparql_queries(caplog, fake_mapping_suite_id, file_system_repository_path):
     with tempfile.TemporaryDirectory() as temp_folder:
         temp_mapping_suite_path = Path(temp_folder)
-        shutil.copytree(file_system_repository_path, temp_mapping_suite_path,
-                        dirs_exist_ok=True)
+        shutil.copytree(file_system_repository_path, temp_mapping_suite_path, dirs_exist_ok=True)
 
         conceptual_mappings_file_path = Path(CONCEPTUAL_MAPPINGS_FILE_TEMPLATE.format(
             mappings_path=temp_mapping_suite_path,

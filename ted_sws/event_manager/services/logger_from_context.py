@@ -46,31 +46,25 @@ global_console_loggers: Dict[str, EventLogger] = {}
 def get_logger(name: str = None) -> EventLogger:
     if name is None:
         return global_logger
-    if name not in global_loggers:
-        global_loggers[name] = get_env_logger(EventLogger(DAGLoggerConfig(
-            name=DAGLoggerConfig.init_logger_name(name)
-        )))
-    return global_loggers.get(name)
+    return get_env_logger(EventLogger(DAGLoggerConfig(
+        name=DAGLoggerConfig.init_logger_name(name)
+    )))
 
 
 def get_cli_logger(name: str = None) -> EventLogger:
     if name is None:
         return global_cli_logger
-    if name not in global_cli_loggers:
-        global_cli_loggers[name] = get_env_logger(EventLogger(CLILoggerConfig(
-            name=CLILoggerConfig.init_logger_name(name)
-        )), is_cli=True)
-    return global_cli_loggers.get(name)
+    return get_env_logger(EventLogger(CLILoggerConfig(
+        name=CLILoggerConfig.init_logger_name(name)
+    )), is_cli=True)
 
 
 def get_console_logger(name: str = None) -> EventLogger:
     if name is None:
         return global_console_logger
-    if name not in global_console_loggers:
-        global_console_loggers[name] = get_env_logger(EventLogger(ConsoleLoggerConfig(
-            name=ConsoleLoggerConfig.init_logger_name(name)
-        )), is_cli=True)
-    return global_console_loggers.get(name)
+    return get_env_logger(EventLogger(ConsoleLoggerConfig(
+        name=ConsoleLoggerConfig.init_logger_name(name)
+    )), is_cli=True)
 
 
 def get_logger_from_dag_context(dag_context: dict) -> EventLogger:

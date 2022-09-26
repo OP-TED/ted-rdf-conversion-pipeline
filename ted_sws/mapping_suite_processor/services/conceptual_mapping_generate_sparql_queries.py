@@ -97,14 +97,21 @@ def sparql_validation_generator(data: pd.DataFrame, base_xpath: str, controlled_
         field_xpath = row[RULES_FIELD_XPATH]
         class_path = row[RULES_CLASS_PATH]
         property_path = row[RULES_PROPERTY_PATH]
-        prefixes = [SPARQL_PREFIX_LINE.format(
-            prefix=prefix, value=PREFIXES_DEFINITIONS.get(prefix)
-        ) for prefix in get_sparql_prefixes(property_path)]
 
         subject_type = _generate_subject_type(class_path, controlled_list_dfs, field_xpath) \
             if '?this' in property_path else ''
         object_type = _generate_object_type(class_path, controlled_list_dfs, field_xpath) \
             if '?value' in property_path else ''
+
+        prefixes_string = property_path
+        if subject_type:
+            prefixes_string += subject_type
+        if object_type:
+            prefixes_string += object_type
+
+        prefixes = [SPARQL_PREFIX_LINE.format(
+            prefix=prefix, value=PREFIXES_DEFINITIONS.get(prefix)
+        ) for prefix in get_sparql_prefixes(prefixes_string)]
 
         yield f"#title: {sf_field_id} - {sf_field_name}\n" \
               f"#description: “{sf_field_id} - {sf_field_name}” in SF corresponds to “{e_form_bt_id} " \

@@ -80,7 +80,7 @@ def load_mapping_suite_in_mongodb():
     finish_step = DummyOperator(task_id=FINISH_LOADING_MAPPING_SUITE_TASK_ID,
                                 trigger_rule=TriggerRule.NONE_FAILED_MIN_ONE_SUCCESS)
 
-    trigger_document_proc_pipeline = TriggerNoticeBatchPipelineOperator()
+    trigger_document_proc_pipeline = TriggerNoticeBatchPipelineOperator(task_id=TRIGGER_DOCUMENT_PROC_PIPELINE_TASK_ID)
     fetch_mapping_suite_package_from_github_into_mongodb() >> branch_task
     trigger_document_proc_pipeline >> finish_step
     branch_task >> [trigger_document_proc_pipeline, finish_step]

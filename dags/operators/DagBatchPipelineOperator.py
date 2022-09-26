@@ -1,7 +1,6 @@
-from typing import Any, List
+from typing import Any
 from uuid import uuid4
 from airflow.models import BaseOperator
-from airflow.operators.python import get_current_context
 from airflow.operators.trigger_dagrun import TriggerDagRunOperator
 from pymongo import MongoClient
 

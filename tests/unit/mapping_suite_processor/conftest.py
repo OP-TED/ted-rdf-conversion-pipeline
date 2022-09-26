@@ -13,6 +13,11 @@ def file_system_repository_path():
 
 
 @pytest.fixture
+def test_package_identifier_with_version():
+    return "test_package_v0.1"
+
+
+@pytest.fixture
 def rml_modules_path():
     return TEST_DATA_PATH / "rml_modules"
 

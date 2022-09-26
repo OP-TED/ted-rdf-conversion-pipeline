@@ -4,7 +4,7 @@
 # Date:  07/02/2022
 # Author: Eugeniu Costetchi
 # Email: costezki.eugen@gmail.com
-# Package PIP install location: https://github.com/meaningfy-ws/ted-sws/archive/main.zip
+# Package PIP install location: https://github.com/OP-TED/ted-rdf-conversion-pipeline/archive/main.zip
 """ """
 
 import codecs
@@ -53,7 +53,7 @@ setup(
     author_email="eugen@meaningfy.ws",
     maintainer="Meaningfy Team",
     maintainer_email="ted-sws@meaningfy.ws",
-    url="https://github.com/meaningfy-ws/ted-sws",
+    url="https://github.com/OP-TED/ted-rdf-conversion-pipeline",
     license="Apache License 2.0",
     platforms=["any"],
     python_requires=">=3.7",

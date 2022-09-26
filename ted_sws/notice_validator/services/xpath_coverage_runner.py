@@ -43,7 +43,7 @@ def xpath_coverage_html_report(report: XPATHCoverageValidationReport) -> str:
 
 def validate_xpath_coverage_notice(notice: Notice, mapping_suite: MappingSuite, mongodb_client: MongoClient):
     xpath_coverage_report = coverage_notice_xpath_report(notices=[notice],
-                                                         mapping_suite_id=mapping_suite.identifier,
+                                                         mapping_suite_id=mapping_suite.get_mongodb_id(),
                                                          mongodb_client=mongodb_client)
     report_builder = XPATHCoverageReportBuilder(xpath_coverage_report=xpath_coverage_report)
     notice.set_xml_validation(xml_validation=report_builder.generate_report())

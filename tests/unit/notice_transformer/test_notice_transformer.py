@@ -23,7 +23,8 @@ def test_notice_transformer_by_id_function(fake_rml_mapper, mongodb_client, fake
     notice_id = notice_2018.ted_id
     mapping_suite_repository = MappingSuiteRepositoryMongoDB(mongodb_client=mongodb_client)
     mapping_suite_repository.add(mapping_suite=fake_mapping_suite)
-    transform_notice_by_id(notice_id, fake_mapping_suite.identifier, notice_repository, mapping_suite_repository,
+    mapping_suite_id = fake_mapping_suite.get_mongodb_id()
+    transform_notice_by_id(notice_id, mapping_suite_id, notice_repository, mapping_suite_repository,
                            fake_rml_mapper)
     result_notice = notice_repository.get(reference=notice_id)
     assert result_notice.status == NoticeStatus.TRANSFORMED

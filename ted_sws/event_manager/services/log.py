@@ -73,3 +73,24 @@ def log_cli_brief_notice_info(message: str, name: str = None):
         event_message=NoticeEventMessage(message=message),
         settings=EventMessageLogSettings(briefly=True)
     )
+
+
+def log_cli_brief_notice_error(message: str, name: str = None):
+    get_cli_logger(name=name).error(
+        event_message=NoticeEventMessage(message=message),
+        settings=EventMessageLogSettings(briefly=True)
+    )
+
+
+def log_cli_brief_info(message: str, name: str = None):
+    get_cli_logger(name=name).info(
+        event_message=EventMessage(message=message),
+        settings=EventMessageLogSettings(briefly=True)
+    )
+
+
+def log_cli_brief_error(message: str, name: str = None):
+    get_cli_logger(name=name).error(
+        event_message=EventMessage(message=message),
+        settings=EventMessageLogSettings(briefly=True)
+    )

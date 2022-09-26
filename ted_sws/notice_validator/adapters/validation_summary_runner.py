@@ -56,6 +56,9 @@ class RDFManifestationValidationSummaryRunner(ManifestationValidationSummaryRunn
                             if validation.result == SPARQLQueryRefinedResultType.VALID.value:
                                 report_count.valid += 1
                                 result_count.valid += 1
+                            if validation.result == SPARQLQueryRefinedResultType.UNVERIFIABLE.value:
+                                report_count.unverifiable += 1
+                                result_count.unverifiable += 1
                             elif validation.result == SPARQLQueryRefinedResultType.INVALID.value:
                                 report_count.invalid += 1
                                 result_count.invalid += 1

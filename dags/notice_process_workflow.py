@@ -10,8 +10,6 @@ from dags.operators.DagBatchPipelineOperator import NoticeBatchPipelineOperator,
 from dags.pipelines.notice_processor_pipelines import notice_normalisation_pipeline, notice_transformation_pipeline, \
     notice_validation_pipeline, notice_package_pipeline, notice_publish_pipeline
 
-
-
 NOTICE_NORMALISATION_PIPELINE_TASK_ID = "notice_normalisation_pipeline"
 NOTICE_TRANSFORMATION_PIPELINE_TASK_ID = "notice_transformation_pipeline"
 NOTICE_VALIDATION_PIPELINE_TASK_ID = "notice_validation_pipeline"
@@ -24,6 +22,7 @@ SELECTOR_BRANCH_BEFORE_VALIDATION_TASK_ID = "selector_branch_before_validation"
 SELECTOR_BRANCH_BEFORE_PACKAGE_TASK_ID = "selector_branch_before_package"
 SELECTOR_BRANCH_BEFORE_PUBLISH_TASK_ID = "selector_branch_before_publish"
 DAG_NAME = "notice_process_workflow"
+
 
 @dag(default_args=DEFAULT_DAG_ARGUMENTS,
      schedule_interval=None,
@@ -58,7 +57,6 @@ def notice_process_workflow():
         return STOP_PROCESSING_TASK_ID if get_dag_param(
             key=EXECUTE_ONLY_ONE_STEP_KEY) else NOTICE_PUBLISH_PIPELINE_TASK_ID
 
-
     start_processing = BranchPythonOperator(
         task_id=START_PROCESSING_TASK_ID,
         python_callable=_start_processing,
@@ -88,7 +86,6 @@ def notice_process_workflow():
         task_id=STOP_PROCESSING_TASK_ID,
         trigger_rule=TriggerRule.NONE_FAILED_MIN_ONE_SUCCESS
     )
-
 
     notice_normalisation_step = NoticeBatchPipelineOperator(python_callable=notice_normalisation_pipeline,
                                                             task_id=NOTICE_NORMALISATION_PIPELINE_TASK_ID,

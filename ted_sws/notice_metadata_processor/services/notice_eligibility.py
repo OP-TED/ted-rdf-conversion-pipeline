@@ -53,13 +53,15 @@ def notice_eligibility_checker(notice: Notice, mapping_suite_repository: Mapping
     if possible_mapping_suites:
         best_version = possible_mapping_suites[0].version
         mapping_suite_identifier = possible_mapping_suites[0].identifier
+        mapping_suite_identifier_with_version = f"{mapping_suite_identifier}_v{best_version}"
         for mapping_suite in possible_mapping_suites[1:]:
             if semantic_version.Version(mapping_suite.version) > semantic_version.Version(best_version):
                 best_version = mapping_suite.version
                 mapping_suite_identifier = mapping_suite.identifier
+                mapping_suite_identifier_with_version = f"{mapping_suite_identifier}_v{best_version}"
 
         notice.set_is_eligible_for_transformation(eligibility=True)
-        return notice.ted_id, mapping_suite_identifier
+        return notice.ted_id, mapping_suite_identifier_with_version
     else:
         notice.set_is_eligible_for_transformation(eligibility=False)
 

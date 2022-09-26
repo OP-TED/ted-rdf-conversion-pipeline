@@ -54,7 +54,7 @@ class MappingSuiteRepositoryMongoDB(MappingSuiteRepositoryABC):
         mapping_suite_dict = mapping_suite.dict()
         mapping_suite_dict["_id"] = f'{mapping_suite_dict["identifier"]}_v{mapping_suite_dict["version"]}'
         mapping_suite_exist = self.collection.find_one({"_id": mapping_suite_dict["_id"]})
-        if mapping_suite_exist is not None:
+        if mapping_suite_exist is None:
             self.collection.update_one({'_id': mapping_suite_dict["_id"]}, {"$set": mapping_suite_dict}, upsert=True)
 
     def update(self, mapping_suite: MappingSuite):

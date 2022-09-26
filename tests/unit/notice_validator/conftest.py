@@ -311,6 +311,9 @@ def fake_sparql_mapping_suite_id() -> str:
 def fake_mapping_suite_F03_id() -> str:
     return "test_package_F03"
 
+@pytest.fixture
+def fake_mapping_suite_F03_id_with_version() -> str:
+    return "test_package_F03_v0.0.1"
 
 @pytest.fixture
 def invalid_mapping_suite_id() -> str:

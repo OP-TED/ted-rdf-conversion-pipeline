@@ -27,17 +27,14 @@ class GitHubMappingSuitePackageDownloader(MappingSuitePackageDownloaderABC):
     """
         This class downloads mapping_suite_package from GitHub.
     """
-
-    def __init__(self, github_repository_url: str, branch_name: str, tag_name: str):
+    def __init__(self, github_repository_url: str, branch_or_tag_name: str):
         """
         Option can be branch or tag, not both
         :param github_repository_url:
-        :param branch_name:
-        :param tag_name:
+        :param branch_or_tag_name:
         """
         self.github_repository_url = github_repository_url
-        self.branch_name = branch_name
-        self.tag_name = tag_name
+        self.branch_or_tag_name = branch_or_tag_name
 
     def download(self, output_mapping_suite_package_path: pathlib.Path) -> str:
         """
@@ -54,7 +51,7 @@ class GitHubMappingSuitePackageDownloader(MappingSuitePackageDownloaderABC):
             """
             git_repository_path.mkdir(exist_ok=True, parents=True)
             result = subprocess.run(
-                f'cd {git_repository_path} && git rev-parse {self.tag_name if self.tag_name else self.branch_name}',
+                f'cd {git_repository_path} && git rev-parse {self.branch_or_tag_name}',
                 shell=True,
                 stdout=subprocess.PIPE)
             git_head_hash = result.stdout.decode(encoding="utf-8")
@@ -62,7 +59,7 @@ class GitHubMappingSuitePackageDownloader(MappingSuitePackageDownloaderABC):
 
         with tempfile.TemporaryDirectory() as tmp_dir:
             temp_dir_path = pathlib.Path(tmp_dir)
-            bash_script = f"cd {temp_dir_path} && git clone --branch {self.tag_name if self.tag_name else self.branch_name} {self.github_repository_url}"
+            bash_script = f"cd {temp_dir_path} && git clone --branch {self.branch_or_tag_name} {self.github_repository_url}"
             subprocess.run(bash_script, shell=True,
                            stdout=subprocess.DEVNULL,
                            stderr=subprocess.STDOUT)

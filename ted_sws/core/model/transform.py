@@ -91,7 +91,7 @@ class MappingSuite(MappingSuiteComponent):
     created_at: str = datetime.now().isoformat()
     identifier: str = "no_id"
     title: str = "no_title"
-    version: str = "0.1"
+    version: str = "0.1.1"
     ontology_version: str = "0.0.1"
     xsd_version: str = "no_xsd_version"
     git_latest_commit_hash: str = "no_hash"

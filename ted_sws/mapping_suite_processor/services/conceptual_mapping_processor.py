@@ -12,6 +12,7 @@ from ted_sws.data_manager.adapters.notice_repository import NoticeRepository
 from ted_sws.mapping_suite_processor.adapters.github_package_downloader import GitHubMappingSuitePackageDownloader
 from ted_sws.mapping_suite_processor.services.mapping_suite_digest_service import \
     update_digest_api_address_for_mapping_suite
+from ted_sws.mapping_suite_processor.services.mapping_suite_validation_service import validate_mapping_suite
 
 CONCEPTUAL_MAPPINGS_ASSERTIONS = "cm_assertions"
 SHACL_SHAPE_INJECTION_FOLDER = "ap_data_shape"
@@ -22,6 +23,7 @@ SPARQL_QUERIES_RESOURCES_FOLDER = "queries"
 SPARQL_QUERIES_INJECTION_FOLDER = "business_queries"
 PROD_ARCHIVE_SUFFIX = "prod"
 DEMO_ARCHIVE_SUFFIX = "demo"
+DEFAULT_BRANCH_NAME = "main"
 
 
 def mapping_suite_processor_load_package_in_mongo_db(mapping_suite_package_path: pathlib.Path,
@@ -64,35 +66,30 @@ def mapping_suite_processor_from_github_expand_and_load_package_in_mongo_db(mong
                                                                             mapping_suite_package_name: str = None,
                                                                             load_test_data: bool = False,
                                                                             github_repository_url: str = config.GITHUB_TED_SWS_ARTEFACTS_URL,
-                                                                            branch_name: str = "main",
-                                                                            tag_name: str = ""
+                                                                            branch_or_tag_name: str = DEFAULT_BRANCH_NAME
                                                                             ):
     """
         This feature is intended to download a mapping_suite_package from GitHub and process it for upload to MongoDB.
     :param github_repository_url:
-    :param branch_name:
-    :param tag_name:
+    :param branch_or_tag_name:
     :param mapping_suite_package_name:
     :param mongodb_client:
     :param load_test_data:
     :return:
     """
     mapping_suite_package_downloader = GitHubMappingSuitePackageDownloader(
-        github_repository_url=github_repository_url, branch_name=branch_name, tag_name=tag_name)
+        github_repository_url=github_repository_url, branch_or_tag_name=branch_or_tag_name)
     with tempfile.TemporaryDirectory() as tmp_dir:
         tmp_dir_path = pathlib.Path(tmp_dir)
         git_last_commit_hash = mapping_suite_package_downloader.download(output_mapping_suite_package_path=tmp_dir_path)
-        if mapping_suite_package_name:
-            mapping_suite_package_path = tmp_dir_path / mapping_suite_package_name
-            mapping_suite_processor_load_package_in_mongo_db(mapping_suite_package_path=mapping_suite_package_path,
-                                                             mongodb_client=mongodb_client,
-                                                             load_test_data=load_test_data,
-                                                             git_last_commit_hash=git_last_commit_hash
-                                                             )
-        else:
-            for path in pathlib.Path(tmp_dir_path).iterdir():
+
+        mapping_suite_package_paths = [
+            tmp_dir_path / mapping_suite_package_name] if mapping_suite_package_name else tmp_dir_path.iterdir()
+
+        for mapping_suite_package_path in mapping_suite_package_paths:
+            if validate_mapping_suite(mapping_suite_path=mapping_suite_package_path):
                 mapping_suite_processor_load_package_in_mongo_db(
-                    mapping_suite_package_path=path,
+                    mapping_suite_package_path=mapping_suite_package_path,
                     mongodb_client=mongodb_client,
                     load_test_data=load_test_data,
                     git_last_commit_hash=git_last_commit_hash

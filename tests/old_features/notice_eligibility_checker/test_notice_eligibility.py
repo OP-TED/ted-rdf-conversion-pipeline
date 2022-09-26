@@ -24,7 +24,7 @@ def step_impl(notice, notice_storage, mapping_suite_repository_in_file_system):
 @then("a validation test set is found")
 def step_impl(eligibility_result):
     assert isinstance(eligibility_result, tuple)
-    assert "test_package2" in eligibility_result
+    assert "test_package_v2.1.6" in eligibility_result
     assert "408313-2020" in eligibility_result
 
 

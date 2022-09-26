@@ -65,11 +65,12 @@ def index_notice(notice: Notice, base_xpath="") -> Notice:
 
     def _ns_tag(ns_tag):
         tag = ns_tag[1]
-        ns = ns_tag[0]
-        if ns:
-            ns_alias = namespaces[ns]
-            if ns_alias:
-                return ns_alias + ":" + tag
+        # Use just the tag, ignoring the namespace
+        # ns = ns_tag[0]
+        # if ns:
+        #     ns_alias = namespaces[ns]
+        #     if ns_alias:
+        #         return ns_alias + ":" + tag
         return tag
 
     def _xpath_generator(xml_file):

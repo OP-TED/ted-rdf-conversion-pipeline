@@ -47,6 +47,7 @@ def test_sparql_query_test_suite_runner_error(sparql_test_suite_with_invalid_que
     sparql_runner = SPARQLTestSuiteRunner(rdf_manifestation=RDFManifestation(object_data=rdf_file_content),
                                           sparql_test_suite=sparql_test_suite_with_invalid_query,
                                           mapping_suite=dummy_mapping_suite).execute_test_suite()
+
     assert sparql_runner.validation_results[0].error
     assert isinstance(sparql_runner.validation_results[0].error, str)
     assert "Expected" in sparql_runner.validation_results[0].error
@@ -58,7 +59,8 @@ def test_sparql_query_test_suite_runner_false(sparql_test_suite_with_false_query
                                           xml_manifestation=fake_xml_manifestation_with_coverage_for_sparql_runner,
                                           sparql_test_suite=sparql_test_suite_with_false_query,
                                           mapping_suite=dummy_mapping_suite).execute_test_suite()
-    assert sparql_runner.validation_results[0].result == SPARQLQueryRefinedResultType.WARNING
+
+    assert sparql_runner.validation_results[0].result == SPARQLQueryRefinedResultType.UNVERIFIABLE
     assert sparql_runner.validation_results[0].query_result == 'False'
 
 
@@ -69,6 +71,7 @@ def test_sparql_query_test_suite_runner_select(sparql_test_suite_with_false_quer
                                           xml_manifestation=fake_xml_manifestation_with_coverage_for_sparql_runner,
                                           sparql_test_suite=sparql_test_suite_with_select_query,
                                           mapping_suite=dummy_mapping_suite).execute_test_suite()
+
     assert isinstance(sparql_runner.validation_results[0].query_result, bytes)
 
 

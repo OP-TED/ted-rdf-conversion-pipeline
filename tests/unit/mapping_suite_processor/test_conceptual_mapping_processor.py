@@ -7,7 +7,9 @@ from ted_sws.mapping_suite_processor.services.conceptual_mapping_generate_metada
 from tests import temporary_copy
 import os
 import json
-
+from ted_sws.mapping_suite_processor.services.conceptual_mapping_generate_sparql_queries import \
+    mapping_suite_processor_generate_sparql_queries
+import pathlib
 
 def test_mapping_suite_processor_upload_in_mongodb(file_system_repository_path, mongodb_client):
     with temporary_copy(file_system_repository_path) as tmp_mapping_suite_package_path:

@@ -45,8 +45,3 @@ def test_mapping_suite_processor_generate_metadata(file_system_repository_path):
             output_metadata_file_path=output_metadata_file_path
         )
         assert output_metadata_file_path.is_file()
-
-def test_mapping_suite_processor_generate_sparql_queries():
-    conecptual_mapping_path = 'C:/Users/user/Desktop/test_sparql_generator/conceptual_mappings.xlsx'
-    out_folder = 'C:/Users/user/Desktop/test_sparql_generator/sparql'
-    mapping_suite_processor_generate_sparql_queries(pathlib.Path(conecptual_mapping_path), pathlib.Path(out_folder))

@@ -1,6 +1,7 @@
 from typing import Any, List
 from uuid import uuid4
 from airflow.models import BaseOperator
+from airflow.operators.python import get_current_context
 from airflow.operators.trigger_dagrun import TriggerDagRunOperator
 from pymongo import MongoClient
 
@@ -11,8 +12,11 @@ from ted_sws.data_manager.adapters.notice_repository import NoticeRepository
 from ted_sws.event_manager.services.log import log_error
 
 NOTICE_IDS_KEY = "notice_ids"
+START_WITH_STEP_NAME_KEY = "start_with_step_name"
+EXECUTE_ONLY_ONE_STEP_KEY = "execute_only_one_step"
 DEFAULT_NUBER_OF_CELERY_WORKERS = 144
 NOTICE_PROCESS_WORKFLOW_DAG_NAME = "notice_process_workflow"
+DEFAULT_START_WITH_TASK_ID = "notice_normalisation_pipeline"
 
 
 class NoticeBatchPipelineOperator(BaseOperator):
@@ -58,22 +62,32 @@ class TriggerNoticeBatchPipelineOperator(BaseOperator):
 
     def __init__(
             self,
-            notice_ids: List[str],
-            start_with_step_name: str,
             *args,
+            start_with_step_name: str = None,
             batch_size: int = None,
             execute_only_one_step: bool = False,
+            push_result: bool = False,
             **kwargs) -> None:
         super().__init__(*args, **kwargs)
-        self.notice_ids = notice_ids
-        self.start_with_step_name = start_with_step_name
+        self.start_with_step_name = start_with_step_name if start_with_step_name else DEFAULT_START_WITH_TASK_ID
         self.execute_only_one_step = execute_only_one_step
-        self.batch_size = batch_size if batch_size else 1 + len(notice_ids) // DEFAULT_NUBER_OF_CELERY_WORKERS
+        self.push_result = push_result
+        self.batch_size = batch_size
 
     def execute(self, context: Any):
-        for notice_batch in chunks(self.notice_ids, chunk_size=self.batch_size):
-            TriggerDagRunOperator(
-                task_id=f'trigger_worker_dag_{uuid4().hex}',
-                trigger_dag_id=NOTICE_PROCESS_WORKFLOW_DAG_NAME,
-                conf={NOTICE_IDS_KEY: list(notice_batch)}
-            ).execute(context=context)
+        notice_ids = pull_dag_upstream(key=NOTICE_IDS_KEY)
+        if notice_ids:
+            batch_size = self.batch_size if self.batch_size else 1 + len(notice_ids) // DEFAULT_NUBER_OF_CELERY_WORKERS
+            for notice_batch in chunks(notice_ids, chunk_size=batch_size):
+                TriggerDagRunOperator(
+                    task_id=f'trigger_worker_dag_{uuid4().hex}',
+                    trigger_dag_id=NOTICE_PROCESS_WORKFLOW_DAG_NAME,
+                    conf={
+                        NOTICE_IDS_KEY: list(notice_batch),
+                        START_WITH_STEP_NAME_KEY: self.start_with_step_name,
+                        EXECUTE_ONLY_ONE_STEP_KEY: self.execute_only_one_step
+                    }
+                ).execute(context=context)
+
+        if self.push_result:
+            push_dag_downstream(key=NOTICE_IDS_KEY, value=notice_ids)

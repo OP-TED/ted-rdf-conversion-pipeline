@@ -5,12 +5,12 @@ from airflow.utils.trigger_rule import TriggerRule
 
 from dags import DEFAULT_DAG_ARGUMENTS
 from dags.dags_utils import push_dag_downstream, get_dag_param
-from dags.operators.DagBatchPipelineOperator import NoticeBatchPipelineOperator, NOTICE_IDS_KEY
+from dags.operators.DagBatchPipelineOperator import NoticeBatchPipelineOperator, NOTICE_IDS_KEY, \
+    EXECUTE_ONLY_ONE_STEP_KEY, START_WITH_STEP_NAME_KEY
 from dags.pipelines.notice_processor_pipelines import notice_normalisation_pipeline, notice_transformation_pipeline, \
     notice_validation_pipeline, notice_package_pipeline, notice_publish_pipeline
 
-START_WITH_STEP_NAME_KEY = "start_with_step_name"
-EXECUTE_ONLY_ONE_STEP_KEY = "execute_only_one_step"
+
 
 NOTICE_NORMALISATION_PIPELINE_TASK_ID = "notice_normalisation_pipeline"
 NOTICE_TRANSFORMATION_PIPELINE_TASK_ID = "notice_transformation_pipeline"

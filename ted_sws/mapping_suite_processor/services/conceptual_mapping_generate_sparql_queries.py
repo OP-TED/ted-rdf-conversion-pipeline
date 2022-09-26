@@ -28,7 +28,6 @@ SPARQL_LOGGER_NAME = "SPARQL"
 
 def get_sparql_prefixes(sparql_q: str) -> set:
     finds: list = re.findall(SPARQL_PREFIX_PATTERN, sparql_q)
-    finds.append('rdf')
     return set(finds)
 
 

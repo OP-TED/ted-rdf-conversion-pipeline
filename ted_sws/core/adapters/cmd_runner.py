@@ -165,8 +165,9 @@ class CmdRunnerForMappingSuite(CmdRunner):
         """
         return self.notice_ids and notice_id not in self.notice_ids
 
-    def run_cmd(self):
-        if self.mapping_suite_id:
+    def on_begin(self):
+        super().on_begin()
+        if hasattr(self, "mapping_suite_id") and self.mapping_suite_id:
             self.log(LOG_WARN_TEXT.format("MappingSuite: ") + self.mapping_suite_id)
-        if self.notice_ids:
+        if hasattr(self, "notice_ids") and self.notice_ids:
             self.log(LOG_WARN_TEXT.format("Notices: ") + str(self.notice_ids))

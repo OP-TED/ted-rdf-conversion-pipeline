@@ -125,6 +125,8 @@ def sparql_validation_generator(data: pd.DataFrame, base_xpath: str, controlled_
 
             prefixes.append(SPARQL_PREFIX_LINE.format(prefix=prefix, value=prefix_value))
 
+        subject_type_display = ('\n\t\t' + subject_type) if subject_type else ''
+        object_type_display = ('\n\t\t' + object_type) if object_type else ''
         yield f"#title: {sparql_title}\n" \
               f"#description: “{sparql_title}” in SF corresponds to “{e_form_bt_id} " \
               f"{e_form_bt_name}” in eForms. The corresponding XML element is " \
@@ -132,10 +134,10 @@ def sparql_validation_generator(data: pd.DataFrame, base_xpath: str, controlled_
               f"The expected ontology instances are epo: {class_path} .\n" \
               f"#xpath: {concat_field_xpath(base_xpath, field_xpath, separator=',')}" \
               "\n" + "\n" + "\n".join(prefixes) + "\n\n" \
-                                                  f"ASK WHERE {{ \n\t\t" \
-                                                  f"{subject_type}\n\t\t" \
-                                                  f"{object_type}\n\t\t" \
-                                                  f"{property_path} }}"
+                                                  f"ASK WHERE {{ " \
+                                                  f"{subject_type_display}" \
+                                                  f"{object_type_display}" \
+                                                  f"\n\t\t{property_path} }}"
 
 
 def _process_concept_mapping_sheet(sheet: pd.DataFrame) -> pd.DataFrame:

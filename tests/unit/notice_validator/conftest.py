@@ -379,6 +379,7 @@ def fake_xml_manifestation_with_coverage_for_sparql_runner() -> XMLManifestation
 
     return xml_manifestation
 
+
 @pytest.fixture
 def fake_validation_notice():
     xml_manifestation = XMLManifestation(object_data="")

@@ -17,7 +17,7 @@ from tests import TESTS_PATH
 AIRFLOW_DAG_FOLDER = TESTS_PATH.parent.resolve() / "dags"
 
 MAPPING_SUITE_ID = "package_F03_test"
-MAPPING_SUITE_ID_WITH_VERSION = "package_F03_test_v2.2.0"
+MAPPING_SUITE_ID_WITH_VERSION = "package_F03_test_v2.3.0"
 
 
 @pytest.fixture(scope="session")

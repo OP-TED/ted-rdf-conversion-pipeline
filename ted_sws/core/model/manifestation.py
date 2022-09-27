@@ -30,6 +30,7 @@ class SPARQLQueryRefinedResultType(Enum):
     The aggregated SPARQL Query result
     """
     VALID = "valid"
+    UNVERIFIABLE = "unverifiable"
     INVALID = "invalid"
     ERROR = "error"
     WARNING = "warning"
@@ -70,9 +71,7 @@ class XPATHCoverageValidationAssertion(PropertyBaseModel):
     """
 
     """
-    standard_form_field_id: Optional[str]
-    eform_bt_id: Optional[str]
-    title: Optional[str]
+    form_field: Optional[str]
     xpath: Optional[str]
     count: Optional[int]
     notice_hit: Optional[Dict[str, int]]
@@ -222,6 +221,7 @@ class XMLManifestationValidationSummaryReport(PropertyBaseModel):
 
 class SPARQLSummaryCountReport(PropertyBaseModel):
     valid: Optional[int] = 0
+    unverifiable: Optional[int] = 0
     invalid: Optional[int] = 0
     warning: Optional[int] = 0
     error: Optional[int] = 0

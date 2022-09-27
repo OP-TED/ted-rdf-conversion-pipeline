@@ -89,7 +89,7 @@ def mapping_suite_processor_from_github_expand_and_load_package_in_mongo_db(mong
         git_last_commit_hash = mapping_suite_package_downloader.download(output_mapping_suite_package_path=tmp_dir_path)
 
         mapping_suite_package_paths = [
-            tmp_dir_path / mapping_suite_package_name] if mapping_suite_package_name else tmp_dir_path.iterdir()
+            tmp_dir_path / mapping_suite_package_name] if mapping_suite_package_name else list(tmp_dir_path.iterdir())
         result_notice_ids = []
         for mapping_suite_package_path in mapping_suite_package_paths:
             if validate_mapping_suite(mapping_suite_path=mapping_suite_package_path):

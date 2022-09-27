@@ -66,10 +66,8 @@ class CoverageRunner:
         for xpath in self.conceptual_xpaths:
             xpath_assertion = XPATHCoverageValidationAssertion()
             xpath_data = self.conceptual_xpath_data[xpath]
-            title = xpath_data.name
-            xpath_assertion.title = title if title is not np.nan else ''
-            xpath_assertion.standard_form_field_id = xpath_data.standard_form_field_id
-            xpath_assertion.eform_bt_id = xpath_data.eform_bt_id
+            form_field = xpath_data.form_field
+            xpath_assertion.form_field = form_field if form_field is not np.nan else ''
             xpath_assertion.xpath = xpath
             xpath_assertion.count = xpaths_list.count(xpath)
             xpath_assertion.notice_hit = self.find_notice_by_xpath(notice_xpaths, xpath)

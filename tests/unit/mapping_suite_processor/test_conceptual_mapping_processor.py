@@ -11,7 +11,7 @@ from ted_sws.mapping_suite_processor.services.conceptual_mapping_generate_sparql
     mapping_suite_processor_generate_sparql_queries
 import pathlib
 
-def test_mapping_suite_processor_upload_in_mongodb(file_system_repository_path, mongodb_client):
+def test_mapping_suite_processor_upload_in_mongodb(file_system_repository_path, mongodb_client,test_package_identifier_with_version):
     with temporary_copy(file_system_repository_path) as tmp_mapping_suite_package_path:
         mapping_suite_package_path = tmp_mapping_suite_package_path / "test_package"
         mapping_suite_processor_load_package_in_mongo_db(mapping_suite_package_path=mapping_suite_package_path,
@@ -21,7 +21,7 @@ def test_mapping_suite_processor_upload_in_mongodb(file_system_repository_path, 
         mapping_suite = mapping_suite_repository.get(reference=mapping_suite_package_path.name)
         assert mapping_suite
         mapping_suite_repository = MappingSuiteRepositoryMongoDB(mongodb_client=mongodb_client)
-        mapping_suite = mapping_suite_repository.get(reference=mapping_suite_package_path.name)
+        mapping_suite = mapping_suite_repository.get(reference=test_package_identifier_with_version)
         assert mapping_suite
 
     mongodb_client.drop_database(MappingSuiteRepositoryMongoDB._database_name)

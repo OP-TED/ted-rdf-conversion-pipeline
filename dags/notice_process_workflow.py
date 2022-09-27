@@ -15,12 +15,12 @@ NOTICE_TRANSFORMATION_PIPELINE_TASK_ID = "notice_transformation_pipeline"
 NOTICE_VALIDATION_PIPELINE_TASK_ID = "notice_validation_pipeline"
 NOTICE_PACKAGE_PIPELINE_TASK_ID = "notice_package_pipeline"
 NOTICE_PUBLISH_PIPELINE_TASK_ID = "notice_publish_pipeline"
-START_PROCESSING_TASK_ID = 'start_processing'
+BRANCH_SELECTOR_TASK_ID = 'branch_selector'
 STOP_PROCESSING_TASK_ID = "stop_processing"
-SELECTOR_BRANCH_BEFORE_TRANSFORMATION_TASK_ID = "selector_branch_before_transformation"
-SELECTOR_BRANCH_BEFORE_VALIDATION_TASK_ID = "selector_branch_before_validation"
-SELECTOR_BRANCH_BEFORE_PACKAGE_TASK_ID = "selector_branch_before_package"
-SELECTOR_BRANCH_BEFORE_PUBLISH_TASK_ID = "selector_branch_before_publish"
+SELECTOR_BRANCH_BEFORE_TRANSFORMATION_TASK_ID = "switch_to_transformation"
+SELECTOR_BRANCH_BEFORE_VALIDATION_TASK_ID = "switch_to_validation"
+SELECTOR_BRANCH_BEFORE_PACKAGE_TASK_ID = "switch_to_package"
+SELECTOR_BRANCH_BEFORE_PUBLISH_TASK_ID = "switch_to_publish"
 DAG_NAME = "notice_process_workflow"
 
 
@@ -58,7 +58,7 @@ def notice_process_workflow():
             key=EXECUTE_ONLY_ONE_STEP_KEY) else NOTICE_PUBLISH_PIPELINE_TASK_ID
 
     start_processing = BranchPythonOperator(
-        task_id=START_PROCESSING_TASK_ID,
+        task_id=BRANCH_SELECTOR_TASK_ID,
         python_callable=_start_processing,
     )
 

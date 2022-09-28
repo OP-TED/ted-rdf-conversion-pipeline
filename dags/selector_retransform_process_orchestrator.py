@@ -44,7 +44,6 @@ def selector_re_transform_process_orchestrator():
 
     trigger_notice_process_workflow = TriggerNoticeBatchPipelineOperator(
         task_id=TRIGGER_NOTICE_PROCESS_WORKFLOW_TASK_ID,
-        execute_only_one_step=get_dag_param(key=EXECUTE_ONLY_ONE_STEP_KEY),
         start_with_step_name=NOTICE_TRANSFORMATION_PIPELINE_TASK_ID
     )
     select_notices_for_re_transform() >> trigger_notice_process_workflow

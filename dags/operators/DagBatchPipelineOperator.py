@@ -4,7 +4,7 @@ from airflow.models import BaseOperator
 from airflow.operators.trigger_dagrun import TriggerDagRunOperator
 from pymongo import MongoClient
 
-from dags.dags_utils import pull_dag_upstream, push_dag_downstream, chunks
+from dags.dags_utils import pull_dag_upstream, push_dag_downstream, chunks, get_dag_param
 from dags.pipelines.pipeline_protocols import NoticePipelineCallable
 from ted_sws import config
 from ted_sws.data_manager.adapters.notice_repository import NoticeRepository
@@ -64,7 +64,7 @@ class TriggerNoticeBatchPipelineOperator(BaseOperator):
             *args,
             start_with_step_name: str = None,
             batch_size: int = None,
-            execute_only_one_step: bool = False,
+            execute_only_one_step: bool = None,
             push_result: bool = False,
             **kwargs) -> None:
         super().__init__(*args, **kwargs)
@@ -74,6 +74,8 @@ class TriggerNoticeBatchPipelineOperator(BaseOperator):
         self.batch_size = batch_size
 
     def execute(self, context: Any):
+        if self.execute_only_one_step is None:
+            self.execute_only_one_step = get_dag_param(key=EXECUTE_ONLY_ONE_STEP_KEY, default_value=False)
         notice_ids = pull_dag_upstream(key=NOTICE_IDS_KEY)
         if notice_ids:
             batch_size = self.batch_size if self.batch_size else 1 + len(notice_ids) // DEFAULT_NUBER_OF_CELERY_WORKERS

@@ -14,12 +14,14 @@ PUBLICATION_DATE = "normalised_metadata.publication_date"
 
 
 def build_selector_mongodb_filter(notice_status: str, form_number: str = None,
-                                  start_date: datetime = None, end_date: datetime = None,
+                                  start_date: str = None, end_date: str = None,
                                   xsd_version: str = None) -> dict:
     mongodb_filter = {NOTICE_STATUS: notice_status}
     if form_number:
         mongodb_filter[FORM_NUMBER] = form_number
     if start_date and end_date:
+        start_date = datetime.strptime(start_date, "%y-%m-%d")
+        end_date = datetime.strptime(end_date, "%y-%m-%d")
         mongodb_filter[PUBLICATION_DATE] = {'$gte': start_date, '$lte': end_date}
     if xsd_version:
         mongodb_filter[XSD_VERSION] = xsd_version
@@ -27,7 +29,7 @@ def build_selector_mongodb_filter(notice_status: str, form_number: str = None,
 
 
 def notice_ids_selector_by_status(notice_statuses: List[NoticeStatus], form_number: str = None,
-                                  start_date: datetime = None, end_date: datetime = None,
+                                  start_date: str = None, end_date: str = None,
                                   xsd_version: str = None) -> List[str]:
     mongodb_client = MongoClient(config.MONGO_DB_AUTH_URL)
     notice_repository = NoticeRepository(mongodb_client=mongodb_client)

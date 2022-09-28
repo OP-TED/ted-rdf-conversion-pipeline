@@ -8,7 +8,9 @@ from dags.dags_utils import pull_dag_upstream, push_dag_downstream, chunks, get_
 from dags.pipelines.pipeline_protocols import NoticePipelineCallable
 from ted_sws import config
 from ted_sws.data_manager.adapters.notice_repository import NoticeRepository
+from ted_sws.event_manager.model.event_message import EventMessage, NoticeEventMessage
 from ted_sws.event_manager.services.log import log_error
+from ted_sws.event_manager.services.logger_from_context import get_logger
 
 NOTICE_IDS_KEY = "notice_ids"
 START_WITH_STEP_NAME_KEY = "start_with_step_name"
@@ -37,21 +39,37 @@ class NoticeBatchPipelineOperator(BaseOperator):
         """
             This method executes the python_callable for each notice_id in the notice_ids batch.
         """
+        logger = get_logger()
         notice_ids = pull_dag_upstream(key=NOTICE_IDS_KEY)
         if not notice_ids:
             raise Exception(f"XCOM key [{NOTICE_IDS_KEY}] is not present in context!")
         notice_repository = NoticeRepository(mongodb_client=MongoClient(config.MONGO_DB_AUTH_URL))
         processed_notice_ids = []
+        pipeline_name = self.python_callable.__name__
+        number_of_notices = len(notice_ids)
+        batch_event_message = EventMessage(
+            message=f"Batch processing for pipeline = [{pipeline_name}] with {number_of_notices} notices.",
+            kwargs={"pipeline_name": pipeline_name,
+                    "number_of_notices": number_of_notices}
+        )
+        batch_event_message.start_record()
         for notice_id in notice_ids:
             try:
+                notice_event = NoticeEventMessage(notice_id=notice_id, domain_action=pipeline_name)
+                notice_event.start_record()
                 notice = notice_repository.get(reference=notice_id)
                 result_notice_pipeline = self.python_callable(notice)
                 if result_notice_pipeline.store_result:
                     notice_repository.update(notice=result_notice_pipeline.notice)
                 if result_notice_pipeline.processed:
                     processed_notice_ids.append(notice_id)
+                notice_event.end_record()
+                logger.info(event_message=notice_event)
             except Exception as e:
                 log_error(message=str(e))
+        batch_event_message.end_record()
+        logger.info(event_message=batch_event_message)
+
         push_dag_downstream(key=NOTICE_IDS_KEY, value=processed_notice_ids)
 
 

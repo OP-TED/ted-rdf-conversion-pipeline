@@ -37,7 +37,9 @@ def notice_fetch_by_date_workflow():
         notice_ids = notice_fetcher_by_date_pipeline(date_wild_card=get_dag_param(key=WILD_CARD_DAG_KEY))
         push_dag_downstream(key=NOTICE_IDS_KEY, value=notice_ids)
 
-    trigger_complete_workflow = TriggerNoticeBatchPipelineOperator(task_id=TRIGGER_COMPLETE_WORKFLOW_TASK_ID)
+    trigger_complete_workflow = TriggerNoticeBatchPipelineOperator(task_id=TRIGGER_COMPLETE_WORKFLOW_TASK_ID,
+                                                                   execute_only_one_step=False
+                                                                   )
     trigger_normalisation_workflow = TriggerNoticeBatchPipelineOperator(
         task_id=TRIGGER_PARTIAL_WORKFLOW_TASK_ID,
         batch_size=BATCH_SIZE,

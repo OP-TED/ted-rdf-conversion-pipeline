@@ -102,14 +102,10 @@ def sparql_validation_generator(data: pd.DataFrame, base_xpath: str, controlled_
 
         subject_type = _generate_subject_type(class_path, controlled_list_dfs, field_xpath) \
             if '?this' in property_path else ''
-        object_type = _generate_object_type(class_path, controlled_list_dfs, field_xpath) \
-            if '?value' in property_path else ''
 
         prefixes_string = property_path
         if subject_type:
             prefixes_string += subject_type
-        if object_type:
-            prefixes_string += object_type
 
         sparql_title_parts = [sf_field_id, sf_field_name]
         sparql_title = " - ".join([item for item in sparql_title_parts if not pd.isnull(item)])
@@ -126,7 +122,6 @@ def sparql_validation_generator(data: pd.DataFrame, base_xpath: str, controlled_
             prefixes.append(SPARQL_PREFIX_LINE.format(prefix=prefix, value=prefix_value))
 
         subject_type_display = ('\n\t\t' + subject_type) if subject_type else ''
-        object_type_display = ('\n\t\t' + object_type) if object_type else ''
         yield f"#title: {sparql_title}\n" \
               f"#description: “{sparql_title}” in SF corresponds to “{e_form_bt_id} " \
               f"{e_form_bt_name}” in eForms. The corresponding XML element is " \
@@ -136,7 +131,6 @@ def sparql_validation_generator(data: pd.DataFrame, base_xpath: str, controlled_
               "\n" + "\n" + "\n".join(prefixes) + "\n\n" \
                                                   f"ASK WHERE {{ " \
                                                   f"{subject_type_display}" \
-                                                  f"{object_type_display}" \
                                                   f"\n\t\t{property_path} }}"
 
 

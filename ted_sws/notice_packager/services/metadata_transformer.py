@@ -17,8 +17,11 @@ from ted_sws.notice_metadata_processor.model.metadata import ExtractedMetadata
 from ted_sws.notice_packager.model.metadata import PackagerMetadata, ACTION_CREATE, LANGUAGE, REVISION, BASE_WORK, \
     BASE_TITLE
 
-NORM_SEP = '_'
-DENORM_SEP = '-'
+# This is used in pipeline
+NORMALIZED_SEPARATOR = '_'
+
+# This is used in TED API
+DENORMALIZED_SEPARATOR = '-'
 
 
 class MetadataTransformer:
@@ -32,11 +35,23 @@ class MetadataTransformer:
 
     @classmethod
     def normalize_value(cls, value: str) -> str:
-        return value.replace(DENORM_SEP, NORM_SEP)
+        """
+        The initial (TED API) separator is replaced with pipeline's one.
+        This is used when notice comes in from API
+        :param value:
+        :return:
+        """
+        return value.replace(DENORMALIZED_SEPARATOR, NORMALIZED_SEPARATOR)
 
     @classmethod
     def denormalize_value(cls, value: str) -> str:
-        return value.replace(NORM_SEP, DENORM_SEP)
+        """
+        The pipeline's separator is replaced with initial (TED API)'s one.
+        This is used when notice goes out to API
+        :param value:
+        :return:
+        """
+        return value.replace(NORMALIZED_SEPARATOR, DENORMALIZED_SEPARATOR)
 
     @classmethod
     def from_notice_metadata(cls, notice_metadata: ExtractedMetadata) -> PackagerMetadata:
@@ -64,7 +79,7 @@ class MetadataTransformer:
 
 
 def publication_notice_year(notice_id):
-    return notice_id.split(NORM_SEP)[1]
+    return notice_id.split(NORMALIZED_SEPARATOR)[1]
 
 
 def publication_notice_uri(notice_id):

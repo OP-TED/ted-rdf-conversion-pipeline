@@ -67,9 +67,7 @@ class TransformationTestData(MappingSuiteComponent):
 
 class ConceptualMappingXPATH(MappingSuiteComponent):
     xpath: str
-    name: Optional[str]
-    standard_form_field_id: Optional[str]
-    eform_bt_id: Optional[str]
+    form_field: Optional[str]
 
 
 class ConceptualMappingMetadata(MappingSuiteComponent):
@@ -91,7 +89,7 @@ class MappingSuite(MappingSuiteComponent):
     created_at: str = datetime.now().isoformat()
     identifier: str = "no_id"
     title: str = "no_title"
-    version: str = "0.1"
+    version: str = "0.1.1"
     ontology_version: str = "0.0.1"
     xsd_version: str = "no_xsd_version"
     git_latest_commit_hash: str = "no_hash"
@@ -101,3 +99,6 @@ class MappingSuite(MappingSuiteComponent):
     sparql_test_suites: List[SPARQLTestSuite]
     transformation_test_data: TransformationTestData
     conceptual_mapping: Optional[ConceptualMapping]
+
+    def get_mongodb_id(self) -> str:
+        return f"{self.identifier}_v{self.version}"

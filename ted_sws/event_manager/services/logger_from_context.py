@@ -36,8 +36,11 @@ def get_env_logger(logger: EventLogger, is_cli: bool = False) -> EventLogger:
 
 
 global_logger: EventLogger = get_env_logger(EventLogger(DAGLoggerConfig()))
+global_loggers: Dict[str, EventLogger] = {}
 global_cli_logger: EventLogger = get_env_logger(EventLogger(CLILoggerConfig()), is_cli=True)
+global_cli_loggers: Dict[str, EventLogger] = {}
 global_console_logger: EventLogger = get_env_logger(EventLogger(ConsoleLoggerConfig()), is_cli=True)
+global_console_loggers: Dict[str, EventLogger] = {}
 
 
 def get_logger(name: str = None) -> EventLogger:

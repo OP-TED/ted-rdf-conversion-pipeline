@@ -86,7 +86,7 @@ setup(
             "validation_summary_runner = ted_sws.notice_validator.entrypoints.cli.cmd_validation_summary_runner:main",
             "triple_store_loader = ted_sws.mapping_suite_processor.entrypoints.cli.cmd_triple_store_loader:main",
             "mapping_suite_validator = ted_sws.mapping_suite_processor.entrypoints.cli.cmd_mapping_suite_validator:main",
-            "metadata_generator = ted_sws.mapping_suite_processor.entrypoints.cli.cmd_mapping_suite_validator:main",
+            "metadata_generator = ted_sws.mapping_suite_processor.entrypoints.cli.cmd_metadata_generator:main",
 
             "mapping_suite_processor = ted_sws.mapping_suite_processor.entrypoints.cli.cmd_mapping_suite_processor:main",
             "yarrrml2rml_converter = ted_sws.mapping_suite_processor.entrypoints.cli.cmd_yarrrml2rml_converter:main",

@@ -311,6 +311,9 @@ def fake_sparql_mapping_suite_id() -> str:
 def fake_mapping_suite_F03_id() -> str:
     return "test_package_F03"
 
+@pytest.fixture
+def fake_mapping_suite_F03_id_with_version() -> str:
+    return "test_package_F03_v0.0.1"
 
 @pytest.fixture
 def invalid_mapping_suite_id() -> str:
@@ -375,6 +378,7 @@ def fake_xml_manifestation_with_coverage_for_sparql_runner() -> XMLManifestation
         **xpath_coverage_validation)
 
     return xml_manifestation
+
 
 @pytest.fixture
 def fake_validation_notice():

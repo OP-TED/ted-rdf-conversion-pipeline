@@ -84,9 +84,10 @@ class SPARQLTestSuiteRunner:
             if ask_answer and sparql_query_result.fields_covered:
                 result = SPARQLQueryRefinedResultType.VALID
             elif not ask_answer and not sparql_query_result.fields_covered:
+                result = SPARQLQueryRefinedResultType.UNVERIFIABLE
+            elif ask_answer and not sparql_query_result.fields_covered:
                 result = SPARQLQueryRefinedResultType.WARNING
-            elif (not ask_answer and sparql_query_result.fields_covered) or (
-                    ask_answer and not sparql_query_result.fields_covered):
+            elif not ask_answer and sparql_query_result.fields_covered:
                 result = SPARQLQueryRefinedResultType.INVALID
 
         sparql_query_result.result = result

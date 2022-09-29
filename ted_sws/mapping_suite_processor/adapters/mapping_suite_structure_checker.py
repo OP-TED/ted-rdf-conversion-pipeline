@@ -108,19 +108,24 @@ class MappingSuiteStructureValidator:
         mandatory_paths_l3 = [
             self.mapping_suite_path / MS_OUTPUT_FOLDER_NAME,
         ]
-        for notice_path in _iter_dir(self.mapping_suite_path / MS_OUTPUT_FOLDER_NAME):
-            report_count = 0
-            for report in (notice_path / MS_TEST_SUITE_REPORT).iterdir():
-                if any(keyword in report.name for keyword in REPORTS_KEYWORDS):
-                    report_count += 1
-            if report_count < self.reports_min_count:
-                self.logger.error(
-                    event_message=EventMessage(message=f"{notice_path.stem} has missing validation reports."),
-                    settings=self.log_settings)
-                success = False
-                break
 
-        return success and self.assert_path(mandatory_paths_l3)
+        success = success and self.assert_path(mandatory_paths_l3)
+        if success:
+            for notice_path in _iter_dir(self.mapping_suite_path / MS_OUTPUT_FOLDER_NAME):
+                report_count = 0
+                success = success and self.assert_path([notice_path / MS_TEST_SUITE_REPORT])
+                if success:
+                    for report in (notice_path / MS_TEST_SUITE_REPORT).iterdir():
+                        if any(keyword in report.name for keyword in REPORTS_KEYWORDS):
+                            report_count += 1
+                    if report_count < self.reports_min_count:
+                        self.logger.error(
+                            event_message=EventMessage(message=f"{notice_path.stem} has missing validation reports."),
+                            settings=self.log_settings)
+                        success = False
+                        break
+
+        return success
 
     def check_metadata_consistency(self, package_metadata_path=None) -> bool:
 

@@ -1,6 +1,15 @@
+from itertools import islice, chain
+from typing import Any, Iterable
+
 from airflow.operators.python import get_current_context
 
 TASK_INSTANCE = "ti"
+
+
+def chunks(iterable: Iterable, chunk_size: int):
+    iterator = iter(iterable)
+    for first in iterator:
+        yield chain([first], islice(iterator, chunk_size - 1))
 
 
 def select_first_non_none(data):
@@ -34,3 +43,16 @@ def push_dag_downstream(key, value):
     """
     context = get_current_context()
     return context[TASK_INSTANCE].xcom_push(key=str(key), value=value)
+
+
+def get_dag_param(key: str, raise_error: bool = False, default_value: Any = None):
+    """
+
+    """
+    context = get_current_context()
+    dag_params = context["dag_run"].conf
+    if key in dag_params.keys():
+        return dag_params[key]
+    if raise_error:
+        raise Exception(f"Config key [{key}] is not present in dag context")
+    return default_value

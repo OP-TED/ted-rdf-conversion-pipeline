@@ -1,10 +1,12 @@
+from typing import List
+
 from airflow.operators.dummy import DummyOperator
 from airflow.operators.python import BranchPythonOperator
 from airflow.decorators import dag
 from airflow.utils.trigger_rule import TriggerRule
 
 from dags import DEFAULT_DAG_ARGUMENTS
-from dags.dags_utils import push_dag_downstream, get_dag_param
+from dags.dags_utils import push_dag_downstream, get_dag_param, smart_xcom_push, smart_xcom_forward
 from dags.operators.DagBatchPipelineOperator import NoticeBatchPipelineOperator, NOTICE_IDS_KEY, \
     EXECUTE_ONLY_ONE_STEP_KEY, START_WITH_STEP_NAME_KEY
 from dags.pipelines.notice_processor_pipelines import notice_normalisation_pipeline, notice_transformation_pipeline, \
@@ -24,6 +26,15 @@ SELECTOR_BRANCH_BEFORE_PUBLISH_TASK_ID = "switch_to_publish"
 DAG_NAME = "notice_process_workflow"
 
 
+def branch_selector(result_branch: str, xcom_forward_keys: List[str] = [NOTICE_IDS_KEY]) -> str:
+    if get_dag_param(key=EXECUTE_ONLY_ONE_STEP_KEY):
+        return STOP_PROCESSING_TASK_ID
+    else:
+        for xcom_forward_key in xcom_forward_keys:
+            smart_xcom_forward(key=xcom_forward_key, destination_task_id=result_branch)
+        return result_branch
+
+
 @dag(default_args=DEFAULT_DAG_ARGUMENTS,
      schedule_interval=None,
      max_active_runs=256,
@@ -38,24 +49,20 @@ def notice_process_workflow():
         notice_ids = get_dag_param(key=NOTICE_IDS_KEY, raise_error=True)
         start_with_step_name = get_dag_param(key=START_WITH_STEP_NAME_KEY,
                                              default_value=NOTICE_NORMALISATION_PIPELINE_TASK_ID)
-        push_dag_downstream(key=NOTICE_IDS_KEY, value=notice_ids)
+        smart_xcom_push(key=NOTICE_IDS_KEY, value=notice_ids, destination_task_id=start_with_step_name)
         return start_with_step_name
 
     def _selector_branch_before_transformation():
-        return STOP_PROCESSING_TASK_ID if get_dag_param(
-            key=EXECUTE_ONLY_ONE_STEP_KEY) else NOTICE_TRANSFORMATION_PIPELINE_TASK_ID
+        return branch_selector(NOTICE_TRANSFORMATION_PIPELINE_TASK_ID)
 
     def _selector_branch_before_validation():
-        return STOP_PROCESSING_TASK_ID if get_dag_param(
-            key=EXECUTE_ONLY_ONE_STEP_KEY) else NOTICE_VALIDATION_PIPELINE_TASK_ID
+        return branch_selector(NOTICE_VALIDATION_PIPELINE_TASK_ID)
 
     def _selector_branch_before_package():
-        return STOP_PROCESSING_TASK_ID if get_dag_param(
-            key=EXECUTE_ONLY_ONE_STEP_KEY) else NOTICE_PACKAGE_PIPELINE_TASK_ID
+        return branch_selector(NOTICE_PACKAGE_PIPELINE_TASK_ID)
 
     def _selector_branch_before_publish():
-        return STOP_PROCESSING_TASK_ID if get_dag_param(
-            key=EXECUTE_ONLY_ONE_STEP_KEY) else NOTICE_PUBLISH_PIPELINE_TASK_ID
+        return branch_selector(NOTICE_PUBLISH_PIPELINE_TASK_ID)
 
     start_processing = BranchPythonOperator(
         task_id=BRANCH_SELECTOR_TASK_ID,

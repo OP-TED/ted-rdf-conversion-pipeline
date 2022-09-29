@@ -4,7 +4,8 @@ from airflow.models import BaseOperator
 from airflow.operators.trigger_dagrun import TriggerDagRunOperator
 from pymongo import MongoClient
 
-from dags.dags_utils import pull_dag_upstream, push_dag_downstream, chunks, get_dag_param
+from dags.dags_utils import pull_dag_upstream, push_dag_downstream, chunks, get_dag_param, smart_xcom_pull, \
+    smart_xcom_push
 from dags.pipelines.pipeline_protocols import NoticePipelineCallable
 from ted_sws import config
 from ted_sws.data_manager.adapters.notice_repository import NoticeRepository
@@ -37,7 +38,7 @@ class NoticeBatchPipelineOperator(BaseOperator):
         """
             This method executes the python_callable for each notice_id in the notice_ids batch.
         """
-        notice_ids = pull_dag_upstream(key=NOTICE_IDS_KEY)
+        notice_ids = smart_xcom_pull(key=NOTICE_IDS_KEY)
         if not notice_ids:
             raise Exception(f"XCOM key [{NOTICE_IDS_KEY}] is not present in context!")
         notice_repository = NoticeRepository(mongodb_client=MongoClient(config.MONGO_DB_AUTH_URL))
@@ -52,7 +53,7 @@ class NoticeBatchPipelineOperator(BaseOperator):
                     processed_notice_ids.append(notice_id)
             except Exception as e:
                 log_error(message=str(e))
-        push_dag_downstream(key=NOTICE_IDS_KEY, value=processed_notice_ids)
+        smart_xcom_push(key=NOTICE_IDS_KEY, value=processed_notice_ids)
 
 
 class TriggerNoticeBatchPipelineOperator(BaseOperator):

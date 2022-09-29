@@ -345,6 +345,15 @@ class NoticeRepository(NoticeRepositoryABC):
             notice = self.load_notice_fields_from_grid_fs(notice)
             yield notice
 
+    def get_notice_ids_by_status(self, notice_status: NoticeStatus) -> Iterator[str]:
+        """
+            This method provides notice_ids based on notices status.
+        :param notice_status:
+        :return:
+        """
+        for result_dict in self.collection.find({NOTICE_STATUS: str(notice_status)}, {NOTICE_TED_ID: 1}):
+            yield result_dict[NOTICE_TED_ID]
+
     def list(self) -> Iterator[Notice]:
         """
             This method allows all records to be retrieved from the repository.

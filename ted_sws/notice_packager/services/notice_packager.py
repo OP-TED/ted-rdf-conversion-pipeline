@@ -16,6 +16,7 @@ from pathlib import Path
 from tempfile import TemporaryDirectory
 from typing import Union
 
+from ted_sws.core.model.manifestation import METSManifestation
 from ted_sws.core.model.notice import Notice
 from ted_sws.data_manager.adapters.notice_repository import NoticeRepositoryABC
 from ted_sws.notice_metadata_processor.model.metadata import ExtractedMetadata
@@ -64,6 +65,17 @@ def create_notice_package(in_data: IN_DATA_TYPE, rdf_content: RDF_CONTENT_TYPE =
     notice_packager.add_extra_files(extra_files)
 
     return notice_packager.pack(save_to)
+
+
+def package_notice(notice: Notice) -> Notice:
+    """
+        This function generate METSPackage and set Notice METSManifestation.
+    """
+    mets_manifestation_content = create_notice_package(in_data=notice,
+                                                       rdf_content=notice.distilled_rdf_manifestation.object_data.encode(
+                                                           "utf-8"))
+    notice.set_mets_manifestation(mets_manifestation=METSManifestation(object_data=mets_manifestation_content))
+    return notice
 
 
 class NoticePackager:

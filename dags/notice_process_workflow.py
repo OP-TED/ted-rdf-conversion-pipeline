@@ -1,12 +1,12 @@
 from typing import List
 
 from airflow.operators.dummy import DummyOperator
-from airflow.operators.python import BranchPythonOperator
+from airflow.operators.python import BranchPythonOperator, PythonOperator
 from airflow.decorators import dag
 from airflow.utils.trigger_rule import TriggerRule
 
 from dags import DEFAULT_DAG_ARGUMENTS
-from dags.dags_utils import get_dag_param, smart_xcom_push, smart_xcom_forward
+from dags.dags_utils import get_dag_param, smart_xcom_push, smart_xcom_forward, smart_xcom_pull
 from dags.operators.DagBatchPipelineOperator import NoticeBatchPipelineOperator, NOTICE_IDS_KEY, \
     EXECUTE_ONLY_ONE_STEP_KEY, START_WITH_STEP_NAME_KEY
 from dags.pipelines.notice_processor_pipelines import notice_normalisation_pipeline, notice_transformation_pipeline, \
@@ -27,12 +27,10 @@ DAG_NAME = "notice_process_workflow"
 
 
 def branch_selector(result_branch: str, xcom_forward_keys: List[str] = [NOTICE_IDS_KEY]) -> str:
-    if get_dag_param(key=EXECUTE_ONLY_ONE_STEP_KEY):
-        return STOP_PROCESSING_TASK_ID
-    else:
-        for xcom_forward_key in xcom_forward_keys:
-            smart_xcom_forward(key=xcom_forward_key, destination_task_id=result_branch)
-        return result_branch
+    result_branch = result_branch if get_dag_param(key=EXECUTE_ONLY_ONE_STEP_KEY) else STOP_PROCESSING_TASK_ID
+    for xcom_forward_key in xcom_forward_keys:
+        smart_xcom_forward(key=xcom_forward_key, destination_task_id=result_branch)
+    return result_branch
 
 
 @dag(default_args=DEFAULT_DAG_ARGUMENTS,
@@ -64,6 +62,11 @@ def notice_process_workflow():
     def _selector_branch_before_publish():
         return branch_selector(NOTICE_PUBLISH_PIPELINE_TASK_ID)
 
+    def _stop_processing():
+        notice_ids = smart_xcom_pull(key=NOTICE_IDS_KEY)
+        if not notice_ids:
+            raise Exception(f"No notice has been processed!")
+
     start_processing = BranchPythonOperator(
         task_id=BRANCH_SELECTOR_TASK_ID,
         python_callable=_start_processing,
@@ -89,10 +92,12 @@ def notice_process_workflow():
         python_callable=_selector_branch_before_publish,
     )
 
-    stop_processing = DummyOperator(
+    stop_processing = PythonOperator(
         task_id=STOP_PROCESSING_TASK_ID,
-        trigger_rule=TriggerRule.NONE_FAILED_MIN_ONE_SUCCESS
+        trigger_rule=TriggerRule.NONE_FAILED_MIN_ONE_SUCCESS,
+        python_callable=_stop_processing
     )
+
 
     notice_normalisation_step = NoticeBatchPipelineOperator(python_callable=notice_normalisation_pipeline,
                                                             task_id=NOTICE_NORMALISATION_PIPELINE_TASK_ID,

@@ -89,3 +89,8 @@ def non_existing_rdf_files_path():
 @pytest.fixture
 def invalid_rdf_files_path():
     return TEST_DATA_PATH / "notice_packager" / "mets_packages" / "invalid_rdfs"
+
+
+@pytest.fixture
+def notice_id():
+    return "196390_2016"

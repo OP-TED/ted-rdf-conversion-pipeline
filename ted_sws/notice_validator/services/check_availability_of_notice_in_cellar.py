@@ -19,9 +19,10 @@ def generate_notice_uri_from_notice_id(notice_id: str) -> str:
     return 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type-invalid'
 
 
-def validate_notice_availability_in_cellar(notice: Notice) -> Notice:
+def validate_notice_availability_in_cellar(notice: Notice, notice_uri: str = None) -> Notice:
     if notice.status == NoticeStatus.PUBLISHED:
-        notice_uri = generate_notice_uri_from_notice_id(notice_id=notice.ted_id)
+        if not notice_uri:
+            notice_uri = generate_notice_uri_from_notice_id(notice_id=notice.ted_id)
         if check_availability_of_notice_in_cellar(notice_uri=notice_uri):
             notice.update_status_to(new_status=NoticeStatus.PUBLICLY_AVAILABLE)
         else:

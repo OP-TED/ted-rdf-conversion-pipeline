@@ -73,6 +73,7 @@ def notice_publish_pipeline(notice: Notice, mongodb_client: MongoClient) -> Noti
     """
 
     """
+    notice.set_is_eligible_for_publishing(eligibility=True)
     result = publish_notice(notice=notice)
     if result:
         return NoticePipelineOutput(notice=notice)

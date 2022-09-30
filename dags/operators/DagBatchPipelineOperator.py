@@ -41,12 +41,13 @@ class NoticeBatchPipelineOperator(BaseOperator):
         notice_ids = smart_xcom_pull(key=NOTICE_IDS_KEY)
         if not notice_ids:
             raise Exception(f"XCOM key [{NOTICE_IDS_KEY}] is not present in context!")
-        notice_repository = NoticeRepository(mongodb_client=MongoClient(config.MONGO_DB_AUTH_URL))
+        mongodb_client = MongoClient(config.MONGO_DB_AUTH_URL)
+        notice_repository = NoticeRepository(mongodb_client=mongodb_client)
         processed_notice_ids = []
         for notice_id in notice_ids:
             try:
                 notice = notice_repository.get(reference=notice_id)
-                result_notice_pipeline = self.python_callable(notice)
+                result_notice_pipeline = self.python_callable(notice, mongodb_client)
                 if result_notice_pipeline.store_result:
                     notice_repository.update(notice=result_notice_pipeline.notice)
                 if result_notice_pipeline.processed:

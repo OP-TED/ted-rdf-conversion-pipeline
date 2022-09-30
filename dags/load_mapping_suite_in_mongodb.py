@@ -58,6 +58,7 @@ def load_mapping_suite_in_mongodb():
             branch_or_tag_name=branch_or_tag_name,
             github_repository_url=github_repository_url
         )
+        notice_ids = list(set(notice_ids))
         if load_test_data:
             push_dag_downstream(key=NOTICE_IDS_KEY, value=notice_ids)
         handle_event_message_metadata_dag_context(event_message, context)

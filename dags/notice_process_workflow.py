@@ -25,9 +25,19 @@ SELECTOR_BRANCH_BEFORE_PACKAGE_TASK_ID = "switch_to_package"
 SELECTOR_BRANCH_BEFORE_PUBLISH_TASK_ID = "switch_to_publish"
 DAG_NAME = "notice_process_workflow"
 
+BRANCH_SELECTOR_MAP = {NOTICE_NORMALISATION_PIPELINE_TASK_ID: NOTICE_NORMALISATION_PIPELINE_TASK_ID,
+                       NOTICE_TRANSFORMATION_PIPELINE_TASK_ID: SELECTOR_BRANCH_BEFORE_TRANSFORMATION_TASK_ID,
+                       NOTICE_VALIDATION_PIPELINE_TASK_ID: SELECTOR_BRANCH_BEFORE_VALIDATION_TASK_ID,
+                       NOTICE_PACKAGE_PIPELINE_TASK_ID: SELECTOR_BRANCH_BEFORE_PACKAGE_TASK_ID,
+                       NOTICE_PUBLISH_PIPELINE_TASK_ID: SELECTOR_BRANCH_BEFORE_PUBLISH_TASK_ID
+                       }
+
 
 def branch_selector(result_branch: str, xcom_forward_keys: List[str] = [NOTICE_IDS_KEY]) -> str:
-    result_branch = STOP_PROCESSING_TASK_ID if get_dag_param(key=EXECUTE_ONLY_ONE_STEP_KEY) else result_branch
+    start_with_step_name = get_dag_param(key=START_WITH_STEP_NAME_KEY,
+                                         default_value=NOTICE_NORMALISATION_PIPELINE_TASK_ID)
+    if start_with_step_name != result_branch:
+        result_branch = STOP_PROCESSING_TASK_ID if get_dag_param(key=EXECUTE_ONLY_ONE_STEP_KEY) else result_branch
     for xcom_forward_key in xcom_forward_keys:
         smart_xcom_forward(key=xcom_forward_key, destination_task_id=result_branch)
     return result_branch
@@ -47,8 +57,9 @@ def notice_process_workflow():
         notice_ids = get_dag_param(key=NOTICE_IDS_KEY, raise_error=True)
         start_with_step_name = get_dag_param(key=START_WITH_STEP_NAME_KEY,
                                              default_value=NOTICE_NORMALISATION_PIPELINE_TASK_ID)
-        smart_xcom_push(key=NOTICE_IDS_KEY, value=notice_ids, destination_task_id=start_with_step_name)
-        return start_with_step_name
+        task_id = BRANCH_SELECTOR_MAP[start_with_step_name]
+        smart_xcom_push(key=NOTICE_IDS_KEY, value=notice_ids, destination_task_id=task_id)
+        return task_id
 
     def _selector_branch_before_transformation():
         return branch_selector(NOTICE_TRANSFORMATION_PIPELINE_TASK_ID)
@@ -98,7 +109,6 @@ def notice_process_workflow():
         python_callable=_stop_processing
     )
 
-
     notice_normalisation_step = NoticeBatchPipelineOperator(python_callable=notice_normalisation_pipeline,
                                                             task_id=NOTICE_NORMALISATION_PIPELINE_TASK_ID,
                                                             trigger_rule=TriggerRule.NONE_FAILED_MIN_ONE_SUCCESS
@@ -123,8 +133,9 @@ def notice_process_workflow():
                                                       trigger_rule=TriggerRule.NONE_FAILED_MIN_ONE_SUCCESS
                                                       )
 
-    start_processing >> [notice_normalisation_step, notice_transformation_step, notice_validation_step,
-                         notice_package_step, notice_publish_step]
+    start_processing >> [notice_normalisation_step, selector_branch_before_transformation,
+                         selector_branch_before_validation,
+                         selector_branch_before_package, selector_branch_before_publish]
     [selector_branch_before_transformation, selector_branch_before_validation,
      selector_branch_before_package, selector_branch_before_publish, notice_publish_step] >> stop_processing
     notice_normalisation_step >> selector_branch_before_transformation >> notice_transformation_step

@@ -49,7 +49,9 @@ def smart_xcom_pull(key: str):
     context = get_current_context()
     task_id = context[TASK_INSTANCE].task_id
     selected_upstream_task_ids = [selected_task_id
-                                  for selected_task_id in context[TASK_INSTANCE].xcom_pull(key=task_id, task_ids=context[TASK_INSTANCE].upstream_task_ids)
+                                  for selected_task_id in context[TASK_INSTANCE].xcom_pull(key=task_id,
+                                                                                           task_ids=context[
+                                                                                               'task'].upstream_task_ids)
                                   if selected_task_id
                                   ]
     if selected_upstream_task_ids:
@@ -60,7 +62,7 @@ def smart_xcom_pull(key: str):
 def smart_xcom_push(key: str, value: Any, destination_task_id: str = None):
     context = get_current_context()
     current_task_id = context[TASK_INSTANCE].task_id
-    task_ids = [destination_task_id] if destination_task_id else context[TASK_INSTANCE].downstream_task_ids
+    task_ids = [destination_task_id] if destination_task_id else context['task'].downstream_task_ids
     for task_id in task_ids:
         context[TASK_INSTANCE].xcom_push(key=task_id, value=current_task_id)
     context[TASK_INSTANCE].xcom_push(key=key, value=value)

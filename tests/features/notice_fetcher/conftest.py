@@ -2,7 +2,6 @@ from datetime import date
 
 import pytest
 
-from ted_sws.notice_fetcher.adapters.ted_api import TedAPIAdapter, TedRequestAPI
 from ted_sws.notice_fetcher.services.notice_fetcher import NoticeFetcher
 from tests.fakes.fake_ted_api import FakeTedApiAdapter
 

@@ -6,7 +6,7 @@ from airflow.decorators import dag
 from airflow.utils.trigger_rule import TriggerRule
 
 from dags import DEFAULT_DAG_ARGUMENTS
-from dags.dags_utils import push_dag_downstream, get_dag_param, smart_xcom_push, smart_xcom_forward
+from dags.dags_utils import get_dag_param, smart_xcom_push, smart_xcom_forward
 from dags.operators.DagBatchPipelineOperator import NoticeBatchPipelineOperator, NOTICE_IDS_KEY, \
     EXECUTE_ONLY_ONE_STEP_KEY, START_WITH_STEP_NAME_KEY
 from dags.pipelines.notice_processor_pipelines import notice_normalisation_pipeline, notice_transformation_pipeline, \

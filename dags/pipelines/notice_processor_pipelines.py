@@ -16,7 +16,7 @@ from ted_sws.notice_validator.services.sparql_test_suite_runner import validate_
 from ted_sws.notice_validator.services.xpath_coverage_runner import validate_xpath_coverage_notice
 
 
-def notice_normalisation_pipeline(notice: Notice) -> NoticePipelineOutput:
+def notice_normalisation_pipeline(notice: Notice, mongodb_client: MongoClient) -> NoticePipelineOutput:
     """
 
     """
@@ -26,11 +26,10 @@ def notice_normalisation_pipeline(notice: Notice) -> NoticePipelineOutput:
     return NoticePipelineOutput(notice=normalised_notice)
 
 
-def notice_transformation_pipeline(notice: Notice) -> NoticePipelineOutput:
+def notice_transformation_pipeline(notice: Notice, mongodb_client: MongoClient) -> NoticePipelineOutput:
     """
 
     """
-    mongodb_client = MongoClient(config.MONGO_DB_AUTH_URL)
     mapping_suite_repository = MappingSuiteRepositoryMongoDB(mongodb_client=mongodb_client)
     result = notice_eligibility_checker(notice=notice, mapping_suite_repository=mapping_suite_repository)
     if not result:
@@ -47,12 +46,11 @@ def notice_transformation_pipeline(notice: Notice) -> NoticePipelineOutput:
     return NoticePipelineOutput(notice=transformed_notice)
 
 
-def notice_validation_pipeline(notice: Notice) -> NoticePipelineOutput:
+def notice_validation_pipeline(notice: Notice, mongodb_client: MongoClient) -> NoticePipelineOutput:
     """
 
     """
     mapping_suite_id = notice.distilled_rdf_manifestation.mapping_suite_id
-    mongodb_client = MongoClient(config.MONGO_DB_AUTH_URL)
     mapping_suite_repository = MappingSuiteRepositoryMongoDB(mongodb_client=mongodb_client)
     mapping_suite = mapping_suite_repository.get(reference=mapping_suite_id)
     validate_xpath_coverage_notice(notice=notice, mapping_suite=mapping_suite, mongodb_client=mongodb_client)
@@ -61,7 +59,7 @@ def notice_validation_pipeline(notice: Notice) -> NoticePipelineOutput:
     return NoticePipelineOutput(notice=notice)
 
 
-def notice_package_pipeline(notice: Notice) -> NoticePipelineOutput:
+def notice_package_pipeline(notice: Notice, mongodb_client: MongoClient) -> NoticePipelineOutput:
     """
 
     """
@@ -71,7 +69,7 @@ def notice_package_pipeline(notice: Notice) -> NoticePipelineOutput:
     return NoticePipelineOutput(notice=packaged_notice)
 
 
-def notice_publish_pipeline(notice: Notice) -> NoticePipelineOutput:
+def notice_publish_pipeline(notice: Notice, mongodb_client: MongoClient) -> NoticePipelineOutput:
     """
 
     """

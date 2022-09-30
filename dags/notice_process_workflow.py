@@ -27,7 +27,7 @@ DAG_NAME = "notice_process_workflow"
 
 
 def branch_selector(result_branch: str, xcom_forward_keys: List[str] = [NOTICE_IDS_KEY]) -> str:
-    result_branch = result_branch if get_dag_param(key=EXECUTE_ONLY_ONE_STEP_KEY) else STOP_PROCESSING_TASK_ID
+    result_branch = STOP_PROCESSING_TASK_ID if get_dag_param(key=EXECUTE_ONLY_ONE_STEP_KEY) else result_branch
     for xcom_forward_key in xcom_forward_keys:
         smart_xcom_forward(key=xcom_forward_key, destination_task_id=result_branch)
     return result_branch

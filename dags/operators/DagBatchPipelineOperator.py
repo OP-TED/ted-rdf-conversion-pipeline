@@ -72,7 +72,8 @@ class NoticeBatchPipelineOperator(BaseOperator):
         
         batch_event_message.end_record()
         logger.info(event_message=batch_event_message)
-
+        if not processed_notice_ids:
+            raise Exception(f"No notice has been processed!")
         smart_xcom_push(key=NOTICE_IDS_KEY, value=processed_notice_ids)
 
 

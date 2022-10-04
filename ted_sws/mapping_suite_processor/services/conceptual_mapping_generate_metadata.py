@@ -89,4 +89,4 @@ def mapping_suite_processor_generate_metadata(mapping_suite_path: pathlib.Path,
     metadata.update(hashing_metadata)
 
     with open(output_metadata_file_path, 'w') as metadata_file:
-        metadata_file.write(json.dumps(metadata))
+        metadata_file.write(json.dumps(metadata, indent=2))

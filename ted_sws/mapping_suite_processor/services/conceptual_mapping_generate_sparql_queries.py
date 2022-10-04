@@ -26,9 +26,9 @@ SPARQL_PREFIX_LINE = 'PREFIX {prefix}: <{value}>'
 SPARQL_LOGGER_NAME = "SPARQL"
 
 
-def get_sparql_prefixes(sparql_q: str) -> set:
+def get_sparql_prefixes(sparql_q: str) -> list:
     finds: list = re.findall(SPARQL_PREFIX_PATTERN, sparql_q)
-    return set(finds)
+    return sorted(set(finds))
 
 
 def concat_field_xpath(base_xpath: str, field_xpath: str, separator: str = ", ") -> str:
@@ -69,15 +69,23 @@ def _generate_subject_type(class_path: str, cl_dfs: dict, field_xpath: str) -> s
     return f"?this rdf:type {subject_reference} ." if subject_reference else ''
 
 
-def _generate_object_type(class_path: str, cl_dfs: dict, field_xpath: str) -> str:
-    # Temporary solution
-    class_path = class_path.split(' / ')[-1]
-    if 'at-voc:' in class_path:
-        return ''
-
-    object_reference = _get_elem_reference(class_path, cl_dfs,
-                                           field_xpath.split('/') if not pd.isna(field_xpath) else '')
-    return f"?value rdf:type {object_reference} ." if object_reference else ''
+# Could be used later
+# def _generate_object_type(class_path: str, cl_dfs: dict, field_xpath: str) -> str:
+#     """
+#     This method determines SPARQL query object type base on some rules
+#     :param class_path:
+#     :param cl_dfs:
+#     :param field_xpath:
+#     :return:
+#     """
+#     # Temporary solution (could be used in the future)
+#     class_path = class_path.split(' / ')[-1]
+#     if 'at-voc:' in class_path:
+#         return ''
+#
+#     object_reference = _get_elem_reference(class_path, cl_dfs,
+#                                            field_xpath.split('/') if not pd.isna(field_xpath) else '')
+#     return f"?value rdf:type {object_reference} ." if object_reference else ''
 
 
 def sparql_validation_generator(data: pd.DataFrame, base_xpath: str, controlled_list_dfs: dict,

@@ -12,8 +12,10 @@ import os
 
 import pytest
 
+from ted_sws.core.model.manifestation import RDFManifestation
+from ted_sws.core.model.notice import Notice, NoticeStatus
 from ted_sws.notice_packager.model.metadata import ACTION_CREATE, ACTION_UPDATE
-from ted_sws.notice_packager.services.notice_packager import create_notice_package
+from ted_sws.notice_packager.services.notice_packager import create_notice_package, package_notice
 from tests import TEST_DATA_PATH
 
 
@@ -49,9 +51,17 @@ def test_notice_packager_with_wrong_input_data_type(notice_sample_metadata):
         create_notice_package(input_data)
 
 
-def test_notice_packager_with_notice(notice_2018):
+def test_notice_packager_with_notice(notice_2018, rdf_content):
     encoded_package_content = create_notice_package(notice_2018)
     assert encoded_package_content is not None
+
+    assert not notice_2018.mets_manifestation
+    rdf_manifestation = RDFManifestation(object_data=rdf_content)
+    notice_2018._status = NoticeStatus.ELIGIBLE_FOR_PACKAGING
+    notice_2018._rdf_manifestation = rdf_manifestation
+    notice_2018._distilled_rdf_manifestation = rdf_manifestation
+    packaged_notice = package_notice(notice_2018)
+    assert packaged_notice.mets_manifestation
 
 
 def test_notice_packager_with_notice_id(notice_2018, notice_repository):

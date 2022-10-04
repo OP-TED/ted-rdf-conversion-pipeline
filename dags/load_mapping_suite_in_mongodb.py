@@ -24,8 +24,8 @@ LOAD_TEST_DATA_DAG_PARAM_KEY = 'load_test_data'
 BRANCH_OR_TAG_NAME_DAG_PARAM_KEY = "branch_or_tag_name"
 GITHUB_REPOSITORY_URL_DAG_PARAM_KEY = "github_repository_url"
 
-TRIGGER_DOCUMENT_PROC_PIPELINE_TASK_ID = "trigger_document_proc_pipeline"
 FINISH_LOADING_MAPPING_SUITE_TASK_ID = "finish_loading_mapping_suite"
+TRIGGER_DOCUMENT_PROC_PIPELINE_TASK_ID = "trigger_document_proc_pipeline"
 CHECK_IF_LOAD_TEST_DATA_TASK_ID = "check_if_load_test_data"
 
 

@@ -185,16 +185,18 @@ class NoticePackager:
         with open(package_path, "rb") as f:
             raw_archive_content = f.read()
 
-        # TODO: clear out the return
         if save_to is None:
+            # If no save_to path is specified, then just return the package content as string
             archive_content = base64.b64encode(raw_archive_content)
             return str(archive_content, 'utf-8')
         else:
-            if save_to:  # file or folder to save the archive to
+            if save_to:
+                # If save_to path is not empty, then create, write the package and return the destination path
                 save_to_path = Path(save_to)
                 if os.path.isdir(save_to_path):
                     save_to_path /= archive_name
                 self.__write_to_file(save_to_path, raw_archive_content, 'wb')
                 return str(save_to_path)
-            else:  # save_to=""
+            else:
+                # If save_to is empty (save_to="") then return the created package source path
                 return package_path

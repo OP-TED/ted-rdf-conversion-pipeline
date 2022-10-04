@@ -6,20 +6,11 @@ import pandas as pd
 
 from ted_sws.data_manager.adapters.mapping_suite_repository import MS_TRANSFORM_FOLDER_NAME, MS_METADATA_FILE_NAME
 from ted_sws.mapping_suite_processor.adapters.mapping_suite_hasher import MappingSuiteHasher
+from ted_sws.mapping_suite_processor.services.conceptual_mapping_reader import IDENTIFIER_FIELD, TITLE_FIELD, \
+    DESCRIPTION_FIELD, VERSION_FIELD, EPO_VERSION_FIELD, E_FORMS_SUBTYPE_FIELD, START_DATE_FIELD, END_DATE_FIELD, \
+    MIN_XSD_VERSION_FIELD, MAX_XSD_VERSION_FIELD
 from ted_sws.mapping_suite_processor.services.conceptual_mapping_reader import mapping_suite_read_metadata, \
     CONCEPTUAL_MAPPINGS_FILE_NAME
-
-# This set of constants refers to fields in teh Conceptual Mapping file
-VERSION_FIELD = 'Mapping Version'
-EPO_VERSION_FIELD = 'EPO version'
-DESCRIPTION_FIELD = "Description"
-TITLE_FIELD = 'Title'
-IDENTIFIER_FIELD = 'Identifier'
-E_FORMS_SUBTYPE_FIELD = "eForms Subtype"
-START_DATE_FIELD = "Start Date"
-END_DATE_FIELD = "End Date"
-MIN_XSD_VERSION_FIELD = "Min XSD Version"
-MAX_XSD_VERSION_FIELD = "Max XSD Version"
 
 # This set of constants refers to keys in metadata.json corresponding to the fields Conceptual Mapping file
 E_FORMS_SUBTYPE_KEY = "eforms_subtype"
@@ -46,18 +37,19 @@ def generate_metadata(raw_metadata: dict) -> dict:
     :return:
     """
 
-    def get_list_from_raw_metadata(field_key: str) -> list:
+    def get_list_from_raw_metadata(raw_metadata: dict, field_key: str) -> list:
         data = raw_metadata[field_key][0]
         if pd.notna(data):
             return [x.strip() for x in str(data).split(',')]
         else:
             return []
 
-    constraints = {E_FORMS_SUBTYPE_KEY: [int(float(x)) for x in get_list_from_raw_metadata(E_FORMS_SUBTYPE_FIELD)],
-                   START_DATE_KEY: get_list_from_raw_metadata(START_DATE_FIELD),
-                   END_DATE_KEY: get_list_from_raw_metadata(END_DATE_FIELD),
-                   MIN_XSD_VERSION_KEY: get_list_from_raw_metadata(MIN_XSD_VERSION_FIELD),
-                   MAX_XSD_VERSION_KEY: get_list_from_raw_metadata(MAX_XSD_VERSION_FIELD)}
+    constraints = {
+        E_FORMS_SUBTYPE_KEY: [int(float(x)) for x in get_list_from_raw_metadata(raw_metadata, E_FORMS_SUBTYPE_FIELD)],
+        START_DATE_KEY: get_list_from_raw_metadata(raw_metadata, START_DATE_FIELD),
+        END_DATE_KEY: get_list_from_raw_metadata(raw_metadata, END_DATE_FIELD),
+        MIN_XSD_VERSION_KEY: get_list_from_raw_metadata(raw_metadata, MIN_XSD_VERSION_FIELD),
+        MAX_XSD_VERSION_KEY: get_list_from_raw_metadata(raw_metadata, MAX_XSD_VERSION_FIELD)}
 
     metadata = {TITLE_KEY: raw_metadata[TITLE_FIELD][0], IDENTIFIER_KEY: raw_metadata[IDENTIFIER_FIELD][0],
                 CREATED_KEY: datetime.now().isoformat(), VERSION_KEY: raw_metadata[VERSION_FIELD][0],

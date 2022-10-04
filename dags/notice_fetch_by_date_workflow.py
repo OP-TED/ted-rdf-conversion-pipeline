@@ -48,7 +48,8 @@ def notice_fetch_by_date_workflow():
         execute_only_one_step=True)
 
     def _branch_selector():
-        trigger_complete_workflow = get_dag_param(key=TRIGGER_COMPLETE_WORKFLOW_DAG_KEY, default_value=False)
+        trigger_complete_workflow = get_dag_param(key=TRIGGER_COMPLETE_WORKFLOW_DAG_KEY,
+                                                  default_value=True)
         push_dag_downstream(key=NOTICE_IDS_KEY, value=pull_dag_upstream(key=NOTICE_IDS_KEY))
         if trigger_complete_workflow:
             return [TRIGGER_COMPLETE_WORKFLOW_TASK_ID]

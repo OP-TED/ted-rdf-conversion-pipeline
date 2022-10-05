@@ -1,5 +1,7 @@
 from typing import Protocol
 
+from pymongo import MongoClient
+
 from ted_sws.core.model.notice import Notice
 
 
@@ -13,7 +15,7 @@ class NoticePipelineOutput:
 
 class NoticePipelineCallable(Protocol):
 
-    def __call__(self, notice: Notice) -> NoticePipelineOutput:
+    def __call__(self, notice: Notice, mongodb_client: MongoClient) -> NoticePipelineOutput:
         """
 
         """

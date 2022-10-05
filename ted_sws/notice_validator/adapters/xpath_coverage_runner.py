@@ -46,8 +46,6 @@ class CoverageRunner:
         else:
             conceptual_mapping = mapping_suite_read_conceptual_mapping(Path(conceptual_mappings_file_path))
 
-        print("K :: ", conceptual_mapping)
-
         for cm_xpath in conceptual_mapping.xpaths:
             self.conceptual_xpaths.add(cm_xpath.xpath)
             self.conceptual_xpath_data[cm_xpath.xpath] = cm_xpath

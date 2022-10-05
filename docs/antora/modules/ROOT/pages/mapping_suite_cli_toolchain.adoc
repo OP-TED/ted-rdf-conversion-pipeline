@@ -473,3 +473,54 @@ Options:
   --help                          Show this message and exit.
 
 ----
+
+=== CMD: conceptual_mapping_differ
+
+Generate reports (JSON, HTML) with differences between 2 Conceptual Mappings
+
+Use:
+
+[source,bash]
+----
+conceptual_mapping_differ --help
+----
+
+to get the Usage Help:
+
+[source,bash]
+----
+Usage: conceptual_mapping_differ [OPTIONS]
+
+  Generate reports (JSON, HTML) with differences between 2 Conceptual Mappings
+
+Options:
+  --mapping-suite-id TEXT         Mapping Suite IDs
+  --file TEXT                     Conceptual Mappings files
+  --branch TEXT                   GIT branches or tags
+  -m, --opt-mappings-folder TEXT
+  -o, --opt-output-folder TEXT
+  --help                          Show this message and exit.
+
+----
+Use for:
+
+[source,bash]
+----
+* --file vs --file
+# conceptual_mapping_differ --file=<CONCEPTUAL_MAPPINGS_FILE1> --file=<CONCEPTUAL_MAPPINGS_FILE2>
+
+* --mapping-suite-id vs --file
+# conceptual_mapping_differ --mapping-suite-id=<MAPPING_SUITE_ID1> --file=<CONCEPTUAL_MAPPINGS_FILE2>
+
+* --mapping-suite-id vs --mapping-suite-id
+# conceptual_mapping_differ --mapping-suite-id=<MAPPING_SUITE_ID1> --mapping-suite-id=<MAPPING_SUITE_ID2>
+
+* --branch vs --mapping-suite-id
+# conceptual_mapping_differ --branch=<BRANCH1> --mapping-suite-id=<MAPPING_SUITE_ID2>
+
+* --branch vs --file
+# conceptual_mapping_differ --branch=<BRANCH1> --file=<FILE2>
+
+* --branch vs --branch
+# conceptual_mapping_differ --branch=<BRANCH1> --branch=<BRANCH2>
+----

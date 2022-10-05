@@ -1,17 +1,17 @@
+import json
+import os
+
 from ted_sws.data_manager.adapters.mapping_suite_repository import MappingSuiteRepositoryInFileSystem, \
     MappingSuiteRepositoryMongoDB, MS_METADATA_FILE_NAME
-from ted_sws.mapping_suite_processor.services.conceptual_mapping_processor import \
-    mapping_suite_processor_load_package_in_mongo_db
 from ted_sws.mapping_suite_processor.services.conceptual_mapping_generate_metadata import \
     mapping_suite_processor_generate_metadata, MAPPING_SUITE_HASH
+from ted_sws.mapping_suite_processor.services.conceptual_mapping_processor import \
+    mapping_suite_processor_load_package_in_mongo_db
 from tests import temporary_copy
-import os
-import json
-from ted_sws.mapping_suite_processor.services.conceptual_mapping_generate_sparql_queries import \
-    mapping_suite_processor_generate_sparql_queries
-import pathlib
 
-def test_mapping_suite_processor_upload_in_mongodb(file_system_repository_path, mongodb_client,test_package_identifier_with_version):
+
+def test_mapping_suite_processor_upload_in_mongodb(file_system_repository_path, mongodb_client,
+                                                   test_package_identifier_with_version):
     with temporary_copy(file_system_repository_path) as tmp_mapping_suite_package_path:
         mapping_suite_package_path = tmp_mapping_suite_package_path / "test_package"
         mapping_suite_processor_load_package_in_mongo_db(mapping_suite_package_path=mapping_suite_package_path,

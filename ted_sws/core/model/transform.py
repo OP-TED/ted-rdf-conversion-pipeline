@@ -27,22 +27,11 @@ class FileResource(MappingSuiteComponent):
     original_name: Optional[str]
 
 
-class MappingSuiteMetadataConstraintsObject(MappingSuiteComponent):
-    """
-    This class contains Mapping Suite Metadata Constraints Object model structure
-    """
-    eforms_subtype: List[int]
-    start_date: List[str]
-    end_date: List[str]
-    min_xsd_version: List[str]
-    max_xsd_version: List[str]
-
-
 class MetadataConstraints(MappingSuiteComponent):
     """
 
     """
-    constraints: MappingSuiteMetadataConstraintsObject
+    constraints: dict
 
 
 class TransformationRuleSet(MappingSuiteComponent):
@@ -81,6 +70,12 @@ class ConceptualMappingXPATH(MappingSuiteComponent):
     form_field: Optional[str]
 
 
+class ConceptualMappingDiff(MappingSuiteComponent):
+    """"""
+    metadata: Optional[dict]
+    data: Optional[dict]
+
+
 class ConceptualMappingMetadataConstraints(PropertyBaseModel):
     """
     This class contains Mapping Suite Conceptual Mapping Metadata Constraints Object model structure
@@ -109,30 +104,30 @@ class ConceptualMappingRule(MappingSuiteComponent):
     """
 
     """
-    standard_form_field_id: str
-    standard_form_field_name: str
-    eform_bt_id: str
-    eform_bt_name: str
-    field_xpath: List[str]
-    field_xpath_condition: List[str]
-    class_path: List[str]
-    property_path: List[str]
-    triple_fingerprint: List[str]
-    fragment_fingerprint: List[str]
+    standard_form_field_id: Optional[str]
+    standard_form_field_name: Optional[str]
+    eform_bt_id: Optional[str]
+    eform_bt_name: Optional[str]
+    field_xpath: Optional[List[str]]
+    field_xpath_condition: Optional[List[str]]
+    class_path: Optional[List[str]]
+    property_path: Optional[List[str]]
+    triple_fingerprint: Optional[List[str]]
+    fragment_fingerprint: Optional[List[str]]
 
 
 class ConceptualMappingResource(MappingSuiteComponent):
     """
 
     """
-    file_name: str
+    file_name: Optional[str]
 
 
 class ConceptualMappingRMLModule(MappingSuiteComponent):
     """
 
     """
-    file_name: str
+    file_name: Optional[str]
 
 
 class ConceptualMapping(MappingSuiteComponent):

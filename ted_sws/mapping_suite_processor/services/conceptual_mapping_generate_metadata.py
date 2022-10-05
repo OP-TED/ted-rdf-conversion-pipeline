@@ -4,13 +4,13 @@ from datetime import datetime
 
 import pandas as pd
 
-from ted_sws.data_manager.adapters.mapping_suite_repository import MS_TRANSFORM_FOLDER_NAME, MS_METADATA_FILE_NAME
+from ted_sws.data_manager.adapters.mapping_suite_repository import MS_TRANSFORM_FOLDER_NAME, MS_METADATA_FILE_NAME, \
+    MS_CONCEPTUAL_MAPPING_FILE_NAME
 from ted_sws.mapping_suite_processor.adapters.mapping_suite_hasher import MappingSuiteHasher
 from ted_sws.mapping_suite_processor.services.conceptual_mapping_reader import IDENTIFIER_FIELD, TITLE_FIELD, \
     DESCRIPTION_FIELD, VERSION_FIELD, EPO_VERSION_FIELD, E_FORMS_SUBTYPE_FIELD, START_DATE_FIELD, END_DATE_FIELD, \
     MIN_XSD_VERSION_FIELD, MAX_XSD_VERSION_FIELD
-from ted_sws.mapping_suite_processor.services.conceptual_mapping_reader import mapping_suite_read_metadata, \
-    CONCEPTUAL_MAPPINGS_FILE_NAME
+from ted_sws.mapping_suite_processor.services.conceptual_mapping_reader import mapping_suite_read_metadata
 
 # This set of constants refers to keys in metadata.json corresponding to the fields Conceptual Mapping file
 E_FORMS_SUBTYPE_KEY = "eforms_subtype"
@@ -76,7 +76,7 @@ def mapping_suite_processor_generate_metadata(mapping_suite_path: pathlib.Path,
         output_metadata_file_path = mapping_suite_path / MS_METADATA_FILE_NAME
 
     if conceptual_mappings_file_path is None:
-        conceptual_mappings_file_path = mapping_suite_path / MS_TRANSFORM_FOLDER_NAME / CONCEPTUAL_MAPPINGS_FILE_NAME
+        conceptual_mappings_file_path = mapping_suite_path / MS_TRANSFORM_FOLDER_NAME / MS_CONCEPTUAL_MAPPING_FILE_NAME
 
     metadata = {}
     raw_metadata = mapping_suite_read_metadata(conceptual_mappings_file_path)

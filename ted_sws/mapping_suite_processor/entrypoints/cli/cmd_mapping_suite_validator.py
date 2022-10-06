@@ -5,7 +5,7 @@ import sys, os
 
 import click
 
-from ted_sws.core.adapters.cmd_runner import CmdRunner as BaseCmdRunner, DEFAULT_MAPPINGS_PATH
+from ted_sws.core.adapters.cmd_runner import CmdRunnerForMappingSuite as BaseCmdRunner, DEFAULT_MAPPINGS_PATH
 from ted_sws.mapping_suite_processor.services.mapping_suite_validation_service import validate_mapping_suite
 
 CMD_NAME = "CMD_MAPPING_SUITE_VALIDATOR"
@@ -32,6 +32,7 @@ class CmdRunner(BaseCmdRunner):
         self.mappings_path = mappings_path
 
     def run_cmd(self):
+        super().run_cmd()
         mapping_suite_path: Path = Path(self.mappings_path).resolve() / Path(self.mapping_suite_id)
         is_valid: bool = validate_mapping_suite(mapping_suite_path)
         result = self.run_cmd_result(Exception("Mapping Suite has an invalid structure") if not is_valid else None)

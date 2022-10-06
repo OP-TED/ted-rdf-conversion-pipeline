@@ -83,5 +83,16 @@ def package_folder_path():
 
 
 @pytest.fixture
+def package_F03_folder_path():
+    return TEST_DATA_PATH / "notice_validator" / "test_repository" / "test_package_F03"
+
+
+@pytest.fixture
 def mime_type():
     return RDF_MIME_TYPES
+
+
+@pytest.fixture
+def github_mapping_suite_id():
+    return "package_F03"
+

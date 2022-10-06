@@ -10,8 +10,7 @@ from ted_sws import config
 from ted_sws.core.model.transform import MappingSuite, FileResource, TransformationRuleSet, SHACLTestSuite, \
     SPARQLTestSuite, MetadataConstraints, TransformationTestData, ConceptualMapping
 from ted_sws.data_manager.adapters.repository_abc import MappingSuiteRepositoryABC
-from ted_sws.mapping_suite_processor.services.conceptual_mapping_reader import CONCEPTUAL_MAPPINGS_FILE_NAME, \
-    mapping_suite_read_conceptual_mapping
+from ted_sws.mapping_suite_processor.services.conceptual_mapping_reader import mapping_suite_read_conceptual_mapping
 
 MS_METADATA_FILE_NAME = "metadata.json"
 MS_TRANSFORM_FOLDER_NAME = "transformation"
@@ -151,7 +150,7 @@ class MappingSuiteRepositoryInFileSystem(MappingSuiteRepositoryABC):
     @classmethod
     def _read_conceptual_mapping(cls, package_path: pathlib.Path) -> ConceptualMapping:
         return mapping_suite_read_conceptual_mapping(
-            package_path / MS_TRANSFORM_FOLDER_NAME / CONCEPTUAL_MAPPINGS_FILE_NAME
+            package_path / MS_TRANSFORM_FOLDER_NAME / MS_CONCEPTUAL_MAPPING_FILE_NAME
         )
 
     def _write_package_metadata(self, mapping_suite: MappingSuite):

@@ -2,9 +2,9 @@ import pathlib
 import shutil
 
 import pandas as pd
+from ted_sws.mapping_suite_processor import CONCEPTUAL_MAPPINGS_RESOURCES_SHEET_NAME, \
+    CONCEPTUAL_MAPPINGS_RML_MODULES_SHEET_NAME
 
-CONCEPTUAL_MAPPINGS_RESOURCES_SHEET_NAME = "Resources"
-CONCEPTUAL_MAPPINGS_RML_MODULES_SHEET_NAME = "RML_Modules"
 FILE_NAME_KEY = "File name"
 
 

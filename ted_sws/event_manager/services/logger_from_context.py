@@ -44,6 +44,11 @@ global_console_loggers: Dict[str, EventLogger] = {}
 
 
 def get_logger(name: str = None) -> EventLogger:
+    """
+    This method returns a global (DAG) logger or a custom named DAG logger
+    :param name:
+    :return:
+    """
     if name is None:
         return global_logger
     return get_env_logger(EventLogger(DAGLoggerConfig(
@@ -52,6 +57,12 @@ def get_logger(name: str = None) -> EventLogger:
 
 
 def get_cli_logger(name: str = None) -> EventLogger:
+    """
+    This method returns a global (CLI) logger or a custom named CLI logger
+
+    :param name:
+    :return:
+    """
     if name is None:
         return global_cli_logger
     return get_env_logger(EventLogger(CLILoggerConfig(
@@ -60,6 +71,12 @@ def get_cli_logger(name: str = None) -> EventLogger:
 
 
 def get_console_logger(name: str = None) -> EventLogger:
+    """
+    This method returns a global (console-only) logger or a custom named console-only logger
+
+    :param name:
+    :return:
+    """
     if name is None:
         return global_console_logger
     return get_env_logger(EventLogger(ConsoleLoggerConfig(

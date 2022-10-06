@@ -59,9 +59,11 @@ def index_notice_xslt(notice: Notice, xslt_transformer=None) -> Notice:
 
 
 def index_notice(notice: Notice, base_xpath="") -> Notice:
-    def _notice_namespaces(xml_file) -> dict:
-        _namespaces = dict([node for _, node in XMLElementTree.iterparse(xml_file, events=['start-ns'])])
-        return {v: k for k, v in _namespaces.items()}
+
+    # To be removed later if will not be used
+    # def _notice_namespaces(xml_file) -> dict:
+    #     _namespaces = dict([node for _, node in XMLElementTree.iterparse(xml_file, events=['start-ns'])])
+    #     return {v: k for k, v in _namespaces.items()}
 
     def _ns_tag(ns_tag):
         tag = ns_tag[1]

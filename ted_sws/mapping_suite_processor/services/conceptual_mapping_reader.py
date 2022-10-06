@@ -48,11 +48,11 @@ def _read_list_from_pd_multiline_value(value: str) -> list:
 
 
 def _df_to_dict(df: pd.DataFrame, key: str) -> dict:
-    return df.set_index(key).T.to_dict('list')
+    return df.copy().set_index(key).T.to_dict('list')
 
 
 def _df_to_list(df: pd.DataFrame) -> list:
-    return df.tolist()
+    return df.copy().tolist()
 
 
 def mapping_suite_read_metadata(conceptual_mappings_file_path: Path) -> Dict:
@@ -104,8 +104,7 @@ def _read_conceptual_mapping_rules(df: pd.DataFrame) -> List[ConceptualMappingRu
     """
 
     df.columns = df.iloc[0]
-    rules_df = df[1:]
-
+    rules_df = df[1:].copy()
     rules_df[RULES_SF_FIELD_ID].ffill(axis="index", inplace=True)
     rules_df[RULES_SF_FIELD_NAME].ffill(axis="index", inplace=True)
 

@@ -23,9 +23,8 @@ def test_cmd_conceptual_mapping_differ(caplog, cli_runner, fake_test_mapping_sui
 
         response = cli_runner.invoke(cli_main,
                                      ["--mapping-suite-id", fake_test_mapping_suite_id, "--mapping-suite-id",
-                                      fake_test_mapping_suite_id,
-                                      "--opt-mappings-folder", temp_mapping_suite_path, "--opt-output-folder",
-                                      temp_folder])
+                                      fake_test_mapping_suite_id, "--opt-mappings-folder", temp_mapping_suite_path,
+                                      "--opt-output-folder", temp_folder])
 
         assert response.exit_code == 0
         assert "SUCCESS" in response.output
@@ -52,3 +51,10 @@ def test_cmd_conceptual_mapping_differ(caplog, cli_runner, fake_test_mapping_sui
         assert "FAILED" in response.output
         assert "Cannot do a diff" in response.output
 
+        response = cli_runner.invoke(cli_main,
+                                     ["--branch", "main", "--mapping-suite-id", "package_F03_test",
+                                      "--opt-mappings-folder", temp_mapping_suite_path, "--opt-output-folder",
+                                      temp_folder])
+
+        assert response.exit_code == 0
+        assert "SUCCESS" in response.output

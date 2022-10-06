@@ -46,8 +46,6 @@ class CmdRunner(BaseCmdRunner):
         repository_path = Path(self.mappings_path)
         mapping_suite_repository = MappingSuiteRepositoryInFileSystem(repository_path=repository_path)
         self.mapping_suite = mapping_suite_repository.get(reference=self.mapping_suite_id)
-        self.log("K :: " + str(repository_path))
-
 
     @classmethod
     def save_report(cls, report_path, report_name, report_id, content):

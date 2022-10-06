@@ -64,7 +64,7 @@ class CmdRunner(CmdRunnerABC):
         self.logger = logger
 
     @classmethod
-    def _init_list_input_opts_split(cls, input_val) -> List:
+    def _init_list_input_opts_split(cls, input_val: List[str]) -> List:
         input_list = []
         if input_val and len(input_val) > 0:
             for item in input_val:
@@ -72,7 +72,7 @@ class CmdRunner(CmdRunnerABC):
         return input_list
 
     @classmethod
-    def _init_list_input_opts(cls, input_val) -> List:
+    def _init_list_input_opts(cls, input_val: List[str]) -> List:
         """
         This method takes command line arguments (with multiple values), each element of which can have
         comma separated values and generate a list from all the values, also removing duplicates.

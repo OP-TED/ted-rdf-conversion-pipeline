@@ -39,6 +39,8 @@ def mapping_suite_diff_files_conceptual_mappings(filepaths: List[Path]) -> dict:
     :return:
     """
     assert filepaths and len(filepaths) == 2
+    assert filepaths[0].is_file()
+    assert filepaths[1].is_file()
     return mapping_suite_diff_conceptual_mappings([
         mapping_suite_read_conceptual_mapping(filepaths[0]),
         mapping_suite_read_conceptual_mapping(filepaths[1])
@@ -54,7 +56,6 @@ def mapping_suite_diff_repo_conceptual_mappings(branch_or_tag_name: List[str], m
     1) repo vs file
     2) repo vs repo
 
-    :param github_repository_url:
     :param mapping_suite_id:
     :param branch_or_tag_name:
     :param filepath:
@@ -79,6 +80,7 @@ def mapping_suite_diff_repo_conceptual_mappings(branch_or_tag_name: List[str], m
     filepath1 = Path(temp_file1.name)
 
     if filepath:
+        assert filepath.is_file()
         filepath2 = filepath
     else:
         if len(branch_or_tag_name) < 2:

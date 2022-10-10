@@ -5,6 +5,8 @@ from pymongo import MongoClient
 from pymongo.command_cursor import CommandCursor
 
 from ted_sws import config
+from ted_sws.data_manager.services.create_notice_collection_materialised_view import \
+    create_notice_collection_materialised_view, NOTICES_MATERIALISED_VIEW_NAME
 
 
 def test_mongodb_client(notice_2016):
@@ -143,3 +145,12 @@ def test_mongo_db_query_2():
     ])
     for r in result:
         print(r)
+
+
+def test_create_matview_for_notices():
+    uri = config.MONGO_DB_AUTH_URL
+    mongodb_client = MongoClient(uri)
+    create_notice_collection_materialised_view(mongo_client=mongodb_client)
+    db = mongodb_client[config.MONGO_DB_AGGREGATES_DATABASE_NAME]
+    assert NOTICES_MATERIALISED_VIEW_NAME in db.list_collection_names()
+    assert 'form_number', 'form_type' in db[NOTICES_MATERIALISED_VIEW_NAME].find_one().keys()

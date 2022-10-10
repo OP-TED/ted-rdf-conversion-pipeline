@@ -130,6 +130,8 @@ class NoticeRepository(NoticeRepositoryABC):
         notice_db = mongodb_client[self._database_name]
         self.file_storage = gridfs.GridFS(notice_db)
         self.collection = notice_db[self._collection_name]
+        self.collection.create_index([("created_at", ASCENDING)])
+        self.collection.create_index([("status", ASCENDING)])
         self.file_storage_collection = notice_db["fs.files"]
         self.file_storage_collection.create_index([("notice_id", ASCENDING)])
 

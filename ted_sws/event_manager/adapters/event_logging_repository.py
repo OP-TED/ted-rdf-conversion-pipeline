@@ -62,6 +62,7 @@ class EventLoggingRepository(EventLoggingRepositoryABC):
         self.collection.create_index([("year", DESCENDING)])
         self.collection.create_index([("month", ASCENDING)])
         self.collection.create_index([("day", ASCENDING)])
+        self.collection.create_index([("caller_name", ASCENDING)])
 
     @classmethod
     def prepare_record(cls, event_message: EventMessage) -> dict:

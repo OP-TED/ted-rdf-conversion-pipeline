@@ -20,8 +20,8 @@ def build_selector_mongodb_filter(notice_status: str, form_number: str = None,
     if form_number:
         mongodb_filter[FORM_NUMBER] = form_number
     if start_date and end_date:
-        start_date = datetime.strptime(start_date, "%y-%m-%d")
-        end_date = datetime.strptime(end_date, "%y-%m-%d")
+        start_date = datetime.strptime(start_date, "%Y-%m-%d")
+        end_date = datetime.strptime(end_date, "%Y-%m-%d")
         mongodb_filter[PUBLICATION_DATE] = {'$gte': start_date, '$lte': end_date}
     if xsd_version:
         mongodb_filter[XSD_VERSION] = xsd_version

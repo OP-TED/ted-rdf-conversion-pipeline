@@ -59,9 +59,11 @@ def index_notice_xslt(notice: Notice, xslt_transformer=None) -> Notice:
 
 
 def index_notice(notice: Notice, base_xpath="") -> Notice:
-    def _notice_namespaces(xml_file) -> dict:
-        _namespaces = dict([node for _, node in XMLElementTree.iterparse(xml_file, events=['start-ns'])])
-        return {v: k for k, v in _namespaces.items()}
+
+    # To be removed later if will not be used
+    # def _notice_namespaces(xml_file) -> dict:
+    #     _namespaces = dict([node for _, node in XMLElementTree.iterparse(xml_file, events=['start-ns'])])
+    #     return {v: k for k, v in _namespaces.items()}
 
     def _ns_tag(ns_tag):
         tag = ns_tag[1]
@@ -95,7 +97,8 @@ def index_notice(notice: Notice, base_xpath="") -> Notice:
     with tempfile.NamedTemporaryFile() as fp:
         fp.write(notice.xml_manifestation.object_data.encode("utf-8"))
 
-        namespaces = _notice_namespaces(fp.name)
+        # Not used for the moment (to be removed in the future if feature is not wanted back)
+        # namespaces = _notice_namespaces(fp.name)
         xpaths = list(set(_xpath_generator(fp.name)))
         xml_metadata = XMLMetadata()
         xml_metadata.unique_xpaths = xpaths

@@ -63,6 +63,29 @@ class CmdRunner(CmdRunnerABC):
 
         self.logger = logger
 
+    @classmethod
+    def _init_list_input_opts_split(cls, input_val: List[str]) -> List:
+        input_list = []
+        if input_val and len(input_val) > 0:
+            for item in input_val:
+                input_list += map(lambda x: x.strip(), item.split(","))
+        return input_list
+
+    @classmethod
+    def _init_list_input_opts(cls, input_val: List[str]) -> List:
+        """
+        This method takes command line arguments (with multiple values), each element of which can have
+        comma separated values and generate a list from all the values, also removing duplicates.
+        Example: for "--input=value2,value1 --input=value3,value1", the method will return [value2, value1, value3]
+        :param input_val:
+        :return: a list of unified, deduplicated, input values
+        """
+        input_set = OrderedSet()
+        if input_val and len(input_val) > 0:
+            for item in input_val:
+                input_set |= OrderedSet(map(lambda x: x.strip(), item.split(",")))
+        return list(input_set)
+
     def get_logger(self) -> EventLogger:
         return self.logger
 
@@ -139,21 +162,6 @@ class CmdRunnerForMappingSuite(CmdRunner):
         suite_path = self.repository_path / Path(suite_id)
         return os.path.isdir(suite_path) and any(f == MS_METADATA_FILE_NAME for f in os.listdir(suite_path))
 
-    @classmethod
-    def _init_list_input_opts(cls, input_val) -> List:
-        """
-        This method takes command line arguments (with multiple values), each element of which can have
-        comma separated values and generate a list from all the values, also removing duplicates.
-        Example: for "--input=value2,value1 --input=value3,value1", the method will return [value2, value1, value3]
-        :param input_val:
-        :return: a list of unified, deduplicated, input values
-        """
-        input_set = OrderedSet()
-        if input_val and len(input_val) > 0:
-            for item in input_val:
-                input_set |= OrderedSet(map(lambda x: x.strip(), item.split(",")))
-        return list(input_set)
-
     def skip_notice(self, notice_id: str) -> bool:
         """
         This method will skip the iteration step for notice_id (where notices can be retrieved only by iterating
@@ -165,8 +173,9 @@ class CmdRunnerForMappingSuite(CmdRunner):
         """
         return self.notice_ids and notice_id not in self.notice_ids
 
-    def run_cmd(self):
-        if self.mapping_suite_id:
+    def on_begin(self):
+        super().on_begin()
+        if hasattr(self, "mapping_suite_id") and self.mapping_suite_id:
             self.log(LOG_WARN_TEXT.format("MappingSuite: ") + self.mapping_suite_id)
-        if self.notice_ids:
+        if hasattr(self, "notice_ids") and self.notice_ids:
             self.log(LOG_WARN_TEXT.format("Notices: ") + str(self.notice_ids))

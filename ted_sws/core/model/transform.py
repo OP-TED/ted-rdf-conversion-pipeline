@@ -70,8 +70,64 @@ class ConceptualMappingXPATH(MappingSuiteComponent):
     form_field: Optional[str]
 
 
+class ConceptualMappingDiff(MappingSuiteComponent):
+    """"""
+    metadata: Optional[dict]
+    data: Optional[dict]
+
+
+class ConceptualMappingMetadataConstraints(PropertyBaseModel):
+    """
+    This class contains Mapping Suite Conceptual Mapping Metadata Constraints Object model structure
+    """
+    eforms_subtype: Optional[List[str]]
+    start_date: Optional[str]
+    end_date: Optional[str]
+    min_xsd_version: Optional[str]
+    max_xsd_version: Optional[str]
+
+
 class ConceptualMappingMetadata(MappingSuiteComponent):
+    """
+
+    """
+    identifier: Optional[str]
+    title: Optional[str]
+    description: Optional[str]
+    mapping_version: Optional[str]
+    epo_version: Optional[str]
     base_xpath: Optional[str]
+    metadata_constraints: Optional[ConceptualMappingMetadataConstraints]
+
+
+class ConceptualMappingRule(MappingSuiteComponent):
+    """
+
+    """
+    standard_form_field_id: Optional[str]
+    standard_form_field_name: Optional[str]
+    eform_bt_id: Optional[str]
+    eform_bt_name: Optional[str]
+    field_xpath: Optional[List[str]]
+    field_xpath_condition: Optional[List[str]]
+    class_path: Optional[List[str]]
+    property_path: Optional[List[str]]
+    triple_fingerprint: Optional[List[str]]
+    fragment_fingerprint: Optional[List[str]]
+
+
+class ConceptualMappingResource(MappingSuiteComponent):
+    """
+
+    """
+    file_name: Optional[str]
+
+
+class ConceptualMappingRMLModule(MappingSuiteComponent):
+    """
+
+    """
+    file_name: Optional[str]
 
 
 class ConceptualMapping(MappingSuiteComponent):
@@ -80,6 +136,9 @@ class ConceptualMapping(MappingSuiteComponent):
     """
     xpaths: List[ConceptualMappingXPATH] = []
     metadata: Optional[ConceptualMappingMetadata]
+    rules: List[ConceptualMappingRule] = []
+    resources: List[ConceptualMappingResource] = []
+    rml_modules: List[ConceptualMappingRMLModule] = []
 
 
 class MappingSuite(MappingSuiteComponent):

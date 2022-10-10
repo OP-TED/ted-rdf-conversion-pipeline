@@ -1,9 +1,11 @@
 from datetime import timedelta, datetime
 
 from airflow.decorators import dag, task
+from airflow.operators.python import get_current_context
 from pymongo import MongoClient
 
 from dags import DEFAULT_DAG_ARGUMENTS
+from dags.dags_utils import get_dag_param
 from ted_sws import config
 from ted_sws.data_manager.adapters.notice_repository import NoticeRepository
 from ted_sws.data_manager.adapters.supra_notice_repository import DailySupraNoticeRepository
@@ -16,6 +18,15 @@ from ted_sws.supra_notice_manager.services.supra_notice_validator import validat
     summary_validation_for_daily_supra_notice
 
 DAG_NAME = "notice_daily_validation_workflow"
+NOTICE_PUBLICATION_DATE_DAG_CONF_KEY = "notice_publication_date"
+
+
+def get_notice_publication_date():
+    notice_publication_date = get_dag_param(key=NOTICE_PUBLICATION_DATE_DAG_CONF_KEY)
+    if notice_publication_date:
+        return datetime.strptime(notice_publication_date, "%Y%m%d")
+    else:
+        return datetime.now() - timedelta(days=2)
 
 
 @dag(default_args=DEFAULT_DAG_ARGUMENTS,
@@ -31,7 +42,7 @@ def notice_daily_validation_workflow():
         ))
     )
     def validate_fetched_notices():
-        publication_date = datetime.now() - timedelta(days=2)
+        publication_date = get_notice_publication_date()
         mongodb_client = MongoClient(config.MONGO_DB_AUTH_URL)
         validate_and_update_daily_supra_notice(notice_publication_day=publication_date,
                                                mongodb_client=mongodb_client
@@ -45,7 +56,7 @@ def notice_daily_validation_workflow():
         ))
     )
     def summarize_validation_for_daily_supra_notice():
-        publication_date = datetime.now() - timedelta(days=2)
+        publication_date = get_notice_publication_date()
         mongodb_client = MongoClient(config.MONGO_DB_AUTH_URL)
         summary_validation_for_daily_supra_notice(notice_publication_day=publication_date,
                                                   mongodb_client=mongodb_client
@@ -59,7 +70,7 @@ def notice_daily_validation_workflow():
         ))
     )
     def validate_availability_of_notice_in_cellar():
-        notice_publication_day = datetime.now() - timedelta(days=2)
+        notice_publication_day = get_notice_publication_date()
         mongodb_client = MongoClient(config.MONGO_DB_AUTH_URL)
         repo = DailySupraNoticeRepository(mongodb_client=mongodb_client)
         supra_notice = repo.get(reference=notice_publication_day)

@@ -144,8 +144,7 @@ def sparql_validation_generator(data: pd.DataFrame, base_xpath: str, controlled_
 
 def _process_concept_mapping_sheet(sheet: pd.DataFrame) -> pd.DataFrame:
     sheet.columns = sheet.iloc[0]
-    sheet = sheet[1:]
-    return sheet
+    return sheet[1:].copy()
 
 
 def mapping_suite_processor_generate_sparql_queries(conceptual_mappings_file_path: pathlib.Path,

@@ -2,7 +2,7 @@ from ted_sws.notice_validator.entrypoints.cli.cmd_sparql_runner import main as c
 from tests.unit.notice_validator.cli import post_process
 
 
-def test_cmd_sparql_runner(cli_runner, fake_sparql_mapping_suite_id, fake_repository_path, fake_rml_mapper):
+def test_cmd_sparql_runner(cli_runner, fake_sparql_mapping_suite_id, fake_repository_path):
     response = cli_runner.invoke(cli_main,
                                  [fake_sparql_mapping_suite_id, "--opt-mappings-folder", fake_repository_path])
     assert response.exit_code == 0

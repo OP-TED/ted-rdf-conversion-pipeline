@@ -153,4 +153,6 @@ def test_create_matview_for_notices():
     create_notice_collection_materialised_view(mongo_client=mongodb_client)
     db = mongodb_client[config.MONGO_DB_AGGREGATES_DATABASE_NAME]
     assert NOTICES_MATERIALISED_VIEW_NAME in db.list_collection_names()
-    assert 'form_number', 'form_type' in db[NOTICES_MATERIALISED_VIEW_NAME].find_one().keys()
+    fields_in_the_materialised_view = db[NOTICES_MATERIALISED_VIEW_NAME].find_one().keys()
+    assert 'form_type' in fields_in_the_materialised_view
+    assert 'form_number' in fields_in_the_materialised_view

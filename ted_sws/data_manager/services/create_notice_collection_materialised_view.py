@@ -1,4 +1,4 @@
-from pymongo import MongoClient
+from pymongo import MongoClient, ASCENDING, DESCENDING
 
 from ted_sws import config
 
@@ -35,3 +35,11 @@ def create_notice_collection_materialised_view(mongo_client: MongoClient):
             }
         }
     ])
+    materialised_view = database[NOTICES_MATERIALISED_VIEW_NAME]
+    materialised_view.create_index([("created_at", DESCENDING)])
+    materialised_view.create_index([("publication_date", DESCENDING)])
+    materialised_view.create_index([("eu_institution", ASCENDING)])
+    materialised_view.create_index([("status", ASCENDING)])
+    materialised_view.create_index([("form_number", ASCENDING)])
+    materialised_view.create_index([("form_number", ASCENDING), ("status", ASCENDING)])
+    materialised_view.create_index([("form_number", ASCENDING), ("legal_basis_directive", ASCENDING)])

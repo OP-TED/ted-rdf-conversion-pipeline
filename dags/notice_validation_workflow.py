@@ -43,7 +43,6 @@ def notice_daily_validation_workflow():
     )
     def validate_fetched_notices():
         publication_date = get_notice_publication_date()
-        print(publication_date)
         mongodb_client = MongoClient(config.MONGO_DB_AUTH_URL)
         validate_and_update_daily_supra_notice(notice_publication_day=publication_date,
                                                mongodb_client=mongodb_client

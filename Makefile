@@ -212,13 +212,17 @@ init-rml-mapper:
 	@ mkdir -p ./.rmlmapper
 	@ wget -c https://api.bitbucket.org/2.0/repositories/Dragos0000/rml-mapper/src/master/rmlmapper.jar -P ./.rmlmapper
 
+init-limes:
+	@ echo -e "Limes folder initialisation!"
+	@ mkdir -p ./.limes
+	@ wget -c https://github.com/dice-group/LIMES/releases/download/1.7.9/limes.jar -P ./.limes
 
 init-saxon:
 	@ echo -e "$(BUILD_PRINT)Saxon folder initialization $(END_BUILD_PRINT)"
 	@ wget -c https://kumisystems.dl.sourceforge.net/project/saxon/Saxon-HE/10/Java/SaxonHE10-6J.zip -P .saxon/
 	@ cd .saxon && unzip SaxonHE10-6J.zip && rm -rf SaxonHE10-6J.zip
 
-start-project-services: | start-airflow start-mongo init-rml-mapper start-allegro-graph start-metabase
+start-project-services: | start-airflow start-mongo init-rml-mapper init-limes start-allegro-graph start-metabase
 stop-project-services: | stop-airflow stop-mongo stop-allegro-graph stop-metabase
 
 #-----------------------------------------------------------------------------

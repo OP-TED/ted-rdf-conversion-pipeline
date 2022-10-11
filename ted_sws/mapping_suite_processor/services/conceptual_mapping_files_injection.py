@@ -50,8 +50,8 @@ def mapping_suite_processor_inject_rml_modules(conceptual_mappings_file_path: pa
         shutil.copy(src_rml_module_file_path, dest_rml_module_file_path)
 
 
-def mapping_suite_processor_inject_shacl_shapes(shacl_shape_file_path: pathlib.Path,
-                                                output_shacl_shape_folder_path: pathlib.Path):
+def mapping_suite_processor_inject_shacl_shape(shacl_shape_file_path: pathlib.Path,
+                                               output_shacl_shape_folder_path: pathlib.Path):
     """
         This function copies a shacl_shape file to the desired directory.
     :param shacl_shape_file_path:
@@ -60,6 +60,17 @@ def mapping_suite_processor_inject_shacl_shapes(shacl_shape_file_path: pathlib.P
     """
     dest_shacl_shape_file_path = output_shacl_shape_folder_path / shacl_shape_file_path.name
     shutil.copy(shacl_shape_file_path, dest_shacl_shape_file_path)
+
+
+def mapping_suite_processor_inject_shacl_shapes(shacl_shape_folder_path: pathlib.Path,
+                                                output_shacl_shape_folder_path: pathlib.Path):
+    """
+        This function copies shacl_shape files folder to the desired directory.
+    :param shacl_shape_folder_path:
+    :param output_shacl_shape_folder_path:
+    :return:
+    """
+    shutil.copytree(shacl_shape_folder_path, output_shacl_shape_folder_path, dirs_exist_ok=True)
 
 
 def mapping_suite_processor_inject_sparql_queries(sparql_queries_folder_path: pathlib.Path,
@@ -71,4 +82,4 @@ def mapping_suite_processor_inject_sparql_queries(sparql_queries_folder_path: pa
     :param output_sparql_queries_folder_path:
     :return:
     """
-    shutil.copytree(sparql_queries_folder_path, output_sparql_queries_folder_path)
+    shutil.copytree(sparql_queries_folder_path, output_sparql_queries_folder_path, dirs_exist_ok=True)

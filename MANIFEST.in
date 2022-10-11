@@ -1,1 +1,1 @@
-recursive-include ted_sws *.rq *.json *.jinja2 *.csv *.rml.ttl *.xsl
+recursive-include ted_sws *.rq *.json *.jinja2 *.csv *.rml.ttl *.xsl *.rdf

@@ -147,10 +147,11 @@ class XMLManifestationValidationSummaryRunner(ManifestationValidationSummaryRunn
         report: XMLManifestationValidationSummaryReport = XMLManifestationValidationSummaryReport()
         xpath_coverage_summary: XPATHCoverageSummaryReport = report.xpath_coverage_summary
 
-        xml_manifestation = notices[0].xml_manifestation
-        if xml_manifestation.xpath_coverage_validation:
-            mapping_suite_identifier = xml_manifestation.xpath_coverage_validation.mapping_suite_identifier
-            xpath_coverage_summary.mapping_suite_identifier = mapping_suite_identifier
+        if len(notices) > 0:
+            xml_manifestation = notices[0].xml_manifestation
+            if xml_manifestation.xpath_coverage_validation:
+                mapping_suite_identifier = xml_manifestation.xpath_coverage_validation.mapping_suite_identifier
+                xpath_coverage_summary.mapping_suite_identifier = mapping_suite_identifier
 
         validation_result: XPATHCoverageSummaryResult = report.xpath_coverage_summary.validation_result
         for notice in notices:

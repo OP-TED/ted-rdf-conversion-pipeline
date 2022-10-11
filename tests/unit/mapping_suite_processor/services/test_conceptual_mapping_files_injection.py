@@ -6,7 +6,8 @@ from pathlib import Path
 from ted_sws.mapping_suite_processor.entrypoints.cli import CONCEPTUAL_MAPPINGS_FILE_TEMPLATE
 from ted_sws.mapping_suite_processor.services.conceptual_mapping_files_injection import \
     mapping_suite_processor_inject_resources, mapping_suite_processor_inject_shacl_shapes, \
-    mapping_suite_processor_inject_sparql_queries, mapping_suite_processor_inject_rml_modules
+    mapping_suite_processor_inject_shacl_shape, mapping_suite_processor_inject_sparql_queries, \
+    mapping_suite_processor_inject_rml_modules
 
 
 def test_mapping_suite_processor_inject_resources(fake_mapping_suite_id, file_system_repository_path,
@@ -58,12 +59,28 @@ def test_mapping_suite_processor_inject_shacl_shapes(fake_mapping_suite_id, file
         temp_mapping_suite_path = Path(temp_folder)
         shutil.copytree(file_system_repository_path, temp_mapping_suite_path, dirs_exist_ok=True)
 
+        output_folder_path = Path(temp_folder) / "_shacl_shapes"
+        output_folder_path.mkdir(exist_ok=True)
+
+        mapping_suite_processor_inject_shacl_shapes(
+            shacl_shape_folder_path=resources_shacl_files_path,
+            output_shacl_shape_folder_path=output_folder_path)
+
+        assert any(output_folder_path.iterdir())
+
+
+def test_mapping_suite_processor_inject_shacl_shape(fake_mapping_suite_id, file_system_repository_path,
+                                                     resources_shacl_files_path):
+    with tempfile.TemporaryDirectory() as temp_folder:
+        temp_mapping_suite_path = Path(temp_folder)
+        shutil.copytree(file_system_repository_path, temp_mapping_suite_path, dirs_exist_ok=True)
+
         random_file = random.choice([x for x in resources_shacl_files_path.iterdir()])
 
         output_folder_path = Path(temp_folder) / "_shacl_shapes"
         output_folder_path.mkdir(exist_ok=True)
 
-        mapping_suite_processor_inject_shacl_shapes(
+        mapping_suite_processor_inject_shacl_shape(
             shacl_shape_file_path=random_file,
             output_shacl_shape_folder_path=output_folder_path)
 

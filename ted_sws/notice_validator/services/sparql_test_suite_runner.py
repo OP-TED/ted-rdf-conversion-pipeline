@@ -116,6 +116,8 @@ class SPARQLTestSuiteRunner:
                 sparql_query_result.error = str(e)[:100]
                 sparql_query_result.result = SPARQLQueryRefinedResultType.ERROR
             test_suite_executions.validation_results.append(sparql_query_result)
+
+        test_suite_executions.validation_results.sort(key=lambda x: x.query.title)
         return test_suite_executions
 
 
@@ -152,7 +154,7 @@ def validate_notice_with_sparql_suite(notice: Notice, mapping_suite_package: Map
                                                          mapping_suite=mapping_suite_package).execute_test_suite()
             report_builder = SPARQLReportBuilder(sparql_test_suite_execution=test_suite_execution)
             reports.append(report_builder.generate_report())
-        return reports
+        return sorted(reports, key=lambda x: x.test_suite_identifier)
 
     for report in sparql_validation(rdf_manifestation=notice.rdf_manifestation):
         notice.set_rdf_validation(rdf_validation=report)

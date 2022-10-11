@@ -80,7 +80,7 @@ class CoverageRunner:
         unique_notice_xpaths: Set[str] = set(xpaths_list)
 
         validation_result: XPATHCoverageValidationResult = XPATHCoverageValidationResult()
-        validation_result.notice_id = notice_id
+        validation_result.notice_id = sorted(notice_id)
         validation_result.xpath_assertions = self.xpath_assertions(notice_xpaths, xpaths_list)
         validation_result.xpath_covered = list(self.conceptual_xpaths & unique_notice_xpaths)
         validation_result.xpath_not_covered = list(unique_notice_xpaths - self.conceptual_xpaths)
@@ -129,7 +129,7 @@ class CoverageRunner:
             notice_xpaths[notice.ted_id] = self.based_xpaths(xpaths, self.base_xpath)
             xpaths_list += notice_xpaths[notice.ted_id]
 
-        self.validate_xpath_coverage_report(report, notice_xpaths, xpaths_list, sorted(notice_id))
+        self.validate_xpath_coverage_report(report, notice_xpaths, xpaths_list, notice_id)
 
         return report
 

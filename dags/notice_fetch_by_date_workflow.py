@@ -2,6 +2,7 @@ from airflow.decorators import dag, task
 from airflow.operators.dummy import DummyOperator
 from airflow.operators.python import BranchPythonOperator
 from airflow.utils.trigger_rule import TriggerRule
+from airflow.timetables.trigger import CronTriggerTimetable
 
 from dags import DEFAULT_DAG_ARGUMENTS
 from dags.dags_utils import get_dag_param, push_dag_downstream, pull_dag_upstream
@@ -23,7 +24,7 @@ FINISH_FETCH_BY_DATE_TASK_ID = "finish_fetch_by_date"
 
 @dag(default_args=DEFAULT_DAG_ARGUMENTS,
      catchup=False,
-     schedule_interval="0 3 * * *",
+     timetable=CronTriggerTimetable('0 3 * * *', timezone='UTC'),
      tags=['selector', 'daily-fetch'])
 def notice_fetch_by_date_workflow():
     @task

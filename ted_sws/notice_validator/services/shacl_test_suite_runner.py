@@ -42,6 +42,13 @@ class SHACLTestSuiteRunner:
             shacl_shape_validation_result.results_dict = json.loads(
                 result_graph.query(shacl_shape_result_query).serialize(
                     format='json').decode("UTF-8"))
+
+            if (shacl_shape_validation_result.results_dict
+                    and shacl_shape_validation_result.results_dict["results"]
+                    and shacl_shape_validation_result.results_dict["results"]["bindings"]):
+                shacl_shape_validation_result.results_dict["results"]["bindings"].sort(
+                    key=lambda x: x["focusNode"]["value"])
+
         except Exception as e:
             shacl_shape_validation_result.error = str(e)[:100]
 
@@ -80,7 +87,7 @@ def validate_notice_with_shacl_suite(notice: Notice, mapping_suite_package: Mapp
                                                         mapping_suite=mapping_suite_package).execute_test_suite()
             reports.append(generate_shacl_report(shacl_test_suite_execution=test_suite_execution))
 
-        return reports
+        return sorted(reports, key=lambda x: x.test_suite_identifier)
 
     for report in shacl_validation(rdf_manifestation=notice.rdf_manifestation):
         notice.set_rdf_validation(rdf_validation=report)

@@ -213,7 +213,7 @@ def mapping_suite_read_conceptual_mapping(conceptual_mappings_file_path: Path) -
         conceptual_mapping.rml_modules = _read_conceptual_mapping_rml_modules(
             dfs[CONCEPTUAL_MAPPINGS_RML_MODULES_SHEET_NAME])
         conceptual_mapping.xpaths = _read_conceptual_mapping_xpaths(
-            rules_df=dfs[CONCEPTUAL_MAPPINGS_RULES_SHEET_NAME],
+            rules_df=dfs[CONCEPTUAL_MAPPINGS_RULES_SHEET_NAME][1:].copy(),
             base_xpath=metadata.base_xpath
         )
 

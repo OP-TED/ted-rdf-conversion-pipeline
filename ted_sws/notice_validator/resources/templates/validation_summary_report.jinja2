@@ -12,11 +12,20 @@
                 margin: 25px auto;
                 width: 80%;
         }
-        .error {
-            color: red;
+        .success, .valid, .unverifiable {
+          color: #3c763d;
         }
-        .success {
-            color: green;
+        .info {
+          color: #31708f;
+        }
+        .warning {
+          color: #8a6d3b;
+        }
+        .danger, .invalid, .error {
+          color: #a94442;
+        }
+        .strong {
+            font-weight: bold;
         }
         table thead th {
             text-align: left;
@@ -72,7 +81,11 @@
                 {% if notice_id|length == 1 %}
                     {{ notice_id[0] }}
                 {% else %}
-                    {{ notice_id | tojson(indent=2) | replace('\n', '<br>') }}
+                    <ul>
+                    {% for nid in notice_id %}
+                        <li><a href="{{ nid }}/test_suite_report/validation_summary_report.html" target="_blank">{{ nid }}</a></li>
+                    {% endfor %}
+                    </ul>
                 {% endif %}
                 </div>
             </div>
@@ -97,22 +110,23 @@
     <h3>SPARQL Summary</h3>
     <h4>Report details: </h4>
     <ul>
-        <li>Valid: {{ manifestation.sparql_summary.aggregate.valid }}</li>
-        <li>Invalid: {{ manifestation.sparql_summary.aggregate.invalid }}</li>
-        <li>Warning: {{ manifestation.sparql_summary.aggregate.warning }}</li>
-        <li>Error: {{ manifestation.sparql_summary.aggregate.error }}</li>
+        <li class="strong valid">Valid: {{ manifestation.sparql_summary.aggregate.valid }}</li>
+        <li class="strong unverifiable">Unverifiable: {{ manifestation.sparql_summary.aggregate.unverifiable }}</li>
+        <li class="strong warning">Warning: {{ manifestation.sparql_summary.aggregate.warning }}</li>
+        <li class="strong invalid">Invalid: {{ manifestation.sparql_summary.aggregate.invalid }}</li>
+        <li class="strong error">Error: {{ manifestation.sparql_summary.aggregate.error }}</li>
     </ul>
         <p>-----</p>
     <h4>Validation results: </h4>
      {% for result in rdf_manifestation.sparql_summary.validation_results %}
-     {% set result_total = result.aggregate.valid + result.aggregate.invalid + result.aggregate.warning + result.aggregate.error %}
+     {% set result_total = result.aggregate.valid + result.aggregate.unverifiable + result.aggregate.invalid + result.aggregate.warning + result.aggregate.error %}
          <p>---</p>
     <ul>
         <li>Mapping suite identifier: {{ result.mapping_suite_identifier }}</li>
         <li>Test suite identifier: {{ result.test_suite_identifier }}</li>
     </ul>
     <h5>Results summary</h5>
-    <table class="display">
+    <table class="display" data-order='[[0, "asc"]]'>
         <thead class="center aligned">
         <tr>
             <th>Result</th>
@@ -122,22 +136,27 @@
         </thead>
         <tbody>
             <tr>
-                <td>Valid</td>
+                <td class="strong valid">Valid</td>
                 <td>{{ result.aggregate.valid }}</td>
                 <td>{{ (result.aggregate.valid / result_total * 100) | round(2) }}%</td>
             </tr>
             <tr>
-                <td>Invalid</td>
+                <td class="strong unverifiable">Unverifiable</td>
+                <td>{{ result.aggregate.unverifiable }}</td>
+                <td>{{ (result.aggregate.unverifiable / result_total * 100) | round(2) }}%</td>
+            </tr>
+            <tr>
+                <td class="strong invalid">Invalid</td>
                 <td>{{ result.aggregate.invalid }}</td>
                 <td>{{ (result.aggregate.invalid / result_total * 100) | round(2) }}%</td>
             </tr>
             <tr>
-                <td>Warning</td>
+                <td class="strong warning">Warning</td>
                 <td>{{ result.aggregate.warning }}</td>
                 <td>{{ (result.aggregate.warning / result_total * 100) | round(2) }}%</td>
             </tr>
             <tr>
-                <td>Error</td>
+                <td class="strong error">Error</td>
                 <td>{{ result.aggregate.error }}</td>
                 <td>{{ (result.aggregate.error / result_total * 100) | round(2) }}%</td>
             </tr>
@@ -200,22 +219,23 @@
     <h3>SPARQL Summary</h3>
     <h4>Report details: </h4>
     <ul>
-        <li>Valid: {{ manifestation.sparql_summary.aggregate.valid }}</li>
-        <li>Invalid: {{ manifestation.sparql_summary.aggregate.invalid }}</li>
-        <li>Warning: {{ manifestation.sparql_summary.aggregate.warning }}</li>
-        <li>Error: {{ manifestation.sparql_summary.aggregate.error }}</li>
+        <li class="strong valid">Valid: {{ manifestation.sparql_summary.aggregate.valid }}</li>
+        <li class="strong unverifiable">Unverifiable: {{ manifestation.sparql_summary.aggregate.unverifiable }}</li>
+        <li class="strong warning">Warning: {{ manifestation.sparql_summary.aggregate.warning }}</li>
+        <li class="strong invalid">Invalid: {{ manifestation.sparql_summary.aggregate.invalid }}</li>
+        <li class="strong error">Error: {{ manifestation.sparql_summary.aggregate.error }}</li>
     </ul>
         <p>-----</p>
     <h4>Validation results: </h4>
      {% for result in rdf_manifestation.sparql_summary.validation_results %}
-     {% set result_total = result.aggregate.valid + result.aggregate.invalid + result.aggregate.warning + result.aggregate.error %}
+     {% set result_total = result.aggregate.valid + result.aggregate.unverifiable + result.aggregate.invalid + result.aggregate.warning + result.aggregate.error %}
          <p>---</p>
     <ul>
         <li>Mapping suite identifier: {{ result.mapping_suite_identifier }}</li>
         <li>Test suite identifier: {{ result.test_suite_identifier }}</li>
     </ul>
     <h5>Results summary</h5>
-    <table class="display">
+    <table class="display" data-order='[[0, "asc"]]'>
         <thead class="center aligned">
         <tr>
             <th>Result</th>
@@ -225,22 +245,27 @@
         </thead>
         <tbody>
             <tr>
-                <td>Valid</td>
+                <td class="strong valid">Valid</td>
                 <td>{{ result.aggregate.valid }}</td>
                 <td>{{ (result.aggregate.valid / result_total * 100) | round(2) }}%</td>
             </tr>
             <tr>
-                <td>Invalid</td>
+                <td class="strong unverifiable">Unverifiable</td>
+                <td>{{ result.aggregate.unverifiable }}</td>
+                <td>{{ (result.aggregate.unverifiable / result_total * 100) | round(2) }}%</td>
+            </tr>
+            <tr>
+                <td class="strong invalid">Invalid</td>
                 <td>{{ result.aggregate.invalid }}</td>
                 <td>{{ (result.aggregate.invalid / result_total * 100) | round(2) }}%</td>
             </tr>
             <tr>
-                <td>Warning</td>
+                <td class="strong warning">Warning</td>
                 <td>{{ result.aggregate.warning }}</td>
                 <td>{{ (result.aggregate.warning / result_total * 100) | round(2) }}%</td>
             </tr>
             <tr>
-                <td>Error</td>
+                <td class="strong error">Error</td>
                 <td>{{ result.aggregate.error }}</td>
                 <td>{{ (result.aggregate.error / result_total * 100) | round(2) }}%</td>
             </tr>

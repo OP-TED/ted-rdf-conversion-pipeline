@@ -84,14 +84,18 @@
         <p>(Number of Conceptual XPATHs found in notices) / (Total number of unique Conceptual XPATHs)</p>
     </li>
     <li><div><hr></div>Notice identifier(s):
-        <div data-role="collapsible" data-state="{% if notice_id|length > 1 %}collapsed{% endif %}"
+        <div data-role="collapsible" data-state="{% if validation_result.notice_id|length > 1 %}collapsed{% endif %}"
             class="collapsible-wrapper">
             <h4><a href="#"></a></h4>
             <div class="ui-collapsible-content">
-            {% if notice_id|length == 1 %}
+            {% if validation_result.notice_id|length == 1 %}
                 {{ validation_result.notice_id[0] }}
             {% else %}
-                {{ validation_result.notice_id | tojson(indent=2) | replace('\n', '<br>') }}
+                <ul>
+                {% for nid in validation_result.notice_id %}
+                    <li><a href="{{ nid }}/test_suite_report/xpath_coverage_validation.html" target="_blank">{{ nid }}</a></li>
+                {% endfor %}
+                </ul>
             {% endif %}
             </div>
         </div>
@@ -133,7 +137,7 @@
 {% if validation_result.xpath_covered|length > 0 %}
 <hr>
 <h2>XPATHs covered by Conceptual Mapping</h2>
-<table class="display">
+<table class="display" data-order='[[0, "asc"]]'>
     <thead>
     <tr>
         <th>XPATH</th>
@@ -151,7 +155,7 @@
 {% if validation_result.xpath_not_covered|length > 0 %}
 <hr>
 <h2>XPATHs not covered by Conceptual Mapping</h2>
-<table class="display">
+<table class="display" data-order='[[0, "asc"]]'>
     <thead>
     <tr>
         <th>XPATH</th>
@@ -169,7 +173,7 @@
 {% if validation_result.xpath_extra|length > 0 %}
 <hr>
 <h2>Extra XPATHs in Conceptual Mapping</h2>
-<table class="display">
+<table class="display" data-order='[[0, "asc"]]'>
     <thead>
     <tr>
         <th>XPATH</th>

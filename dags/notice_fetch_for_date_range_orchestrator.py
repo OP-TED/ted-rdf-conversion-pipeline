@@ -45,13 +45,14 @@ def notice_fetch_for_date_range_orchestrator():
         context: Any = get_current_context()
         start_date = get_dag_param(key=START_DATE_KEY, raise_error=True)
         end_date = get_dag_param(key=END_DATE_KEY, raise_error=True)
+        trigger_complete_workflow = get_dag_param(key=TRIGGER_COMPLETE_WORKFLOW_DAG_KEY, raise_error=True)
         date_wildcards = generate_wildcards_foreach_day_in_range(start_date, end_date)
         for date_wildcard in date_wildcards:
             TriggerDagRunOperator(
                 task_id=f'trigger_notice_fetch_by_date_workflow_dag_{date_wildcard[:-1]}',
                 trigger_dag_id="notice_fetch_by_date_workflow",
                 conf={WILD_CARD_DAG_KEY: date_wildcard,
-                      TRIGGER_COMPLETE_WORKFLOW_DAG_KEY: False
+                      TRIGGER_COMPLETE_WORKFLOW_DAG_KEY: True if trigger_complete_workflow else False,
                       }
             ).execute(context=context)
 

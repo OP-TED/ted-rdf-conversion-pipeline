@@ -5,7 +5,7 @@ from pymongo import MongoClient
 
 from ted_sws import config
 from ted_sws.core.model.notice import NoticeStatus
-from ted_sws.data_manager.adapters.notice_repository import NoticeRepository
+from ted_sws.data_manager.adapters.notice_repository import NoticeRepository, NOTICE_TED_ID
 
 NOTICE_STATUS = "status"
 FORM_NUMBER = "normalised_metadata.form_number"
@@ -41,6 +41,7 @@ def notice_ids_selector_by_status(notice_statuses: List[NoticeStatus], form_numb
                                                        end_date=end_date,
                                                        xsd_version=xsd_version
                                                        )
-        notice_ids.extend(list(notice_repository.collection.find(mongodb_filter)))
+        mongodb_result_iterator = notice_repository.collection.find(mongodb_filter, {NOTICE_TED_ID: 1})
+        notice_ids.extend([result_dict[NOTICE_TED_ID] for result_dict in mongodb_result_iterator])
 
-    return notice_ids
+        return notice_ids

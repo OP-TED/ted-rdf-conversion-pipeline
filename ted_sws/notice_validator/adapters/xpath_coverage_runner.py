@@ -73,7 +73,7 @@ class CoverageRunner:
             xpath_assertion.notice_hit = self.find_notice_by_xpath(notice_xpaths, xpath)
             xpath_assertion.query_result = xpath_assertion.count > 0
             xpath_assertions.append(xpath_assertion)
-        return xpath_assertions
+        return sorted(xpath_assertions, key=lambda x: x.form_field)
 
     def validate_xpath_coverage_report(self, report: XPATHCoverageValidationReport, notice_xpaths: XPATH_TYPE,
                                        xpaths_list: List[str], notice_id: List[str]):
@@ -82,9 +82,9 @@ class CoverageRunner:
         validation_result: XPATHCoverageValidationResult = XPATHCoverageValidationResult()
         validation_result.notice_id = notice_id
         validation_result.xpath_assertions = self.xpath_assertions(notice_xpaths, xpaths_list)
-        validation_result.xpath_covered = list(self.conceptual_xpaths & unique_notice_xpaths)
-        validation_result.xpath_not_covered = list(unique_notice_xpaths - self.conceptual_xpaths)
-        validation_result.xpath_extra = list(self.conceptual_xpaths - unique_notice_xpaths)
+        validation_result.xpath_covered = sorted(list(self.conceptual_xpaths & unique_notice_xpaths))
+        validation_result.xpath_not_covered = sorted(list(unique_notice_xpaths - self.conceptual_xpaths))
+        validation_result.xpath_extra = sorted(list(self.conceptual_xpaths - unique_notice_xpaths))
         unique_notice_xpaths_len = len(unique_notice_xpaths)
         xpath_covered_len = len(validation_result.xpath_covered)
         conceptual_xpaths_len = len(self.conceptual_xpaths)

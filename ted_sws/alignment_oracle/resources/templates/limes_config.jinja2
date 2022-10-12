@@ -1,45 +1,45 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE LIMES SYSTEM "limes.dtd">
 <LIMES>
-    {% for label, namespace in prefixes.items() %}
+    {% for label, namespace in prefixes.items() -%}
 	<PREFIX>
   		<NAMESPACE>{{namespace}}</NAMESPACE>
   		<LABEL>{{label}}</LABEL>
 	</PREFIX>
-	{% endfor %}
+	{%- endfor %}
 	<SOURCE>
 		<ID>{{ source.id }}</ID>
 		<ENDPOINT>{{ source.sparql_endpoint }}</ENDPOINT>
 		<VAR>{{ source.sparql_variable }}</VAR>
 		<PAGESIZE>2000</PAGESIZE>
-        {% for restriction in source.sparql_restrictions %}
+        {% for restriction in source.sparql_restrictions -%}
 		<RESTRICTION>{{ restriction }}</RESTRICTION>
-        {% endfor %}
-        {% for property in source.sparql_properties %}
+        {%- endfor %}
+        {% for property in source.sparql_properties -%}
 		<PROPERTY>{{ property }}</PROPERTY>
-        {% endfor %}
+        {%- endfor %}
 	</SOURCE>
 	<TARGET>
 		<ID>{{ target.id }}</ID>
 		<ENDPOINT>{{ target.sparql_endpoint }}</ENDPOINT>
 		<VAR>{{ target.sparql_variable }}</VAR>
 		<PAGESIZE>2000</PAGESIZE>
-        {% for restriction in target.sparql_restrictions %}
+        {% for restriction in target.sparql_restrictions -%}
 		<RESTRICTION>{{ restriction }}</RESTRICTION>
-		{% endfor %}
-        {% for property in target.sparql_properties %}
+		{%- endfor %}
+        {% for property in target.sparql_properties -%}
         <PROPERTY>{{ property }}</PROPERTY>
-        {% endfor %}
+        {%- endfor %}
 	</TARGET>
 	<METRIC>{{ alignment_metric }}</METRIC>
 	<ACCEPTANCE>
 		<THRESHOLD>{{ acceptance.threshold }}</THRESHOLD>
-		<FILE>{{ acceptance.file_name }}</FILE>
+		<FILE>{{ acceptance.result_file_path }}</FILE>
 		<RELATION>{{ acceptance.relation }}</RELATION>
 	</ACCEPTANCE>
 	<REVIEW>
 		<THRESHOLD>{{ review.threshold }}</THRESHOLD>
-		<FILE>{{ review.file_name }}</FILE>
+		<FILE>{{ review.result_file_path }}</FILE>
 		<RELATION>{{ review.relation }}</RELATION>
 	</REVIEW>
 	<EXECUTION>
@@ -47,5 +47,5 @@
 		<PLANNER>default</PLANNER>
 		<ENGINE>default</ENGINE>
 	</EXECUTION>
-	<OUTPUT>{{ results_file_format }}</OUTPUT>
+	<OUTPUT>{{ result_file_format }}</OUTPUT>
 </LIMES>

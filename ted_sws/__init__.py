@@ -75,6 +75,12 @@ class RMLMapperConfig:
         return EnvConfigResolver().config_resolve()
 
 
+class LimesAlignmentConfig:
+    @property
+    def LIMES_ALIGNMENT_PATH(self) -> str:
+        return EnvConfigResolver().config_resolve()
+
+
 class AllegroConfig:
     @property
     def AGRAPH_SUPER_USER(self) -> str:
@@ -210,7 +216,8 @@ class SPARQLConfig:
 
 
 class TedConfigResolver(MongoDBConfig, RMLMapperConfig, XMLProcessorConfig, ELKConfig, LoggingConfig,
-                        GitHubArtefacts, API, AllegroConfig, TedAPIConfig, SFTPConfig, FusekiConfig, SPARQLConfig):
+                        GitHubArtefacts, API, AllegroConfig, TedAPIConfig, SFTPConfig, FusekiConfig,
+                        SPARQLConfig, LimesAlignmentConfig):
     """
         This class resolve the secrets of the ted-sws project.
     """

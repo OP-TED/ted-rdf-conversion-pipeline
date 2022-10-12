@@ -9,7 +9,9 @@
 
 __version__ = "0.0.1"
 
+import json
 import os
+import pathlib
 
 import dotenv
 
@@ -25,11 +27,13 @@ RUN_ENV_VAL = "ted-sws"
 RUN_TEST_ENV_VAL = "test"
 os.environ[RUN_ENV_NAME] = RUN_ENV_VAL
 
-
 # SECRET_PATHS = ['mongo-db', 'github']
 # SECRET_MOUNT = f'ted-{ENV}'
 # VaultSecretsStore.default_secret_mount = SECRET_MOUNT
 # VaultSecretsStore.default_secret_paths = SECRET_PATHS
+
+PROJECT_PATH = pathlib.Path(__file__).parent.resolve()
+SPARQL_PREFIXES_PATH = PROJECT_PATH / "resources" / "prefixes" / "prefixes.json"
 
 
 class MongoDBConfig:
@@ -85,7 +89,7 @@ class AllegroConfig:
         return EnvConfigResolver().config_resolve()
 
     @property
-    def TRIPLE_STORE_ENDPOINT_URL(self)->str:
+    def TRIPLE_STORE_ENDPOINT_URL(self) -> str:
         return EnvConfigResolver().config_resolve()
 
 
@@ -160,6 +164,7 @@ class TedAPIConfig:
     def TED_API_URL(self) -> str:
         return EnvConfigResolver().config_resolve()
 
+
 class FusekiConfig:
     @property
     def FUSEKI_ADMIN_USER(self) -> str:
@@ -172,6 +177,7 @@ class FusekiConfig:
     @property
     def FUSEKI_ADMIN_HOST(self) -> str:
         return EnvConfigResolver().config_resolve()
+
 
 class SFTPConfig:
     @property
@@ -188,16 +194,23 @@ class SFTPConfig:
         return EnvConfigResolver().config_resolve()
 
     @property
-    def SFTP_PASSWORD(self)->str:
+    def SFTP_PASSWORD(self) -> str:
         return EnvConfigResolver().config_resolve()
 
     @property
-    def SFTP_PATH(self)->str:
+    def SFTP_PATH(self) -> str:
         return EnvConfigResolver().config_resolve()
 
 
+class SPARQLConfig:
+
+    @property
+    def SPARQL_PREFIXES(self) -> dict:
+        return json.loads(SPARQL_PREFIXES_PATH.read_text(encoding="utf-8"))["prefix_definitions"]
+
+
 class TedConfigResolver(MongoDBConfig, RMLMapperConfig, XMLProcessorConfig, ELKConfig, LoggingConfig,
-                        GitHubArtefacts, API, AllegroConfig, TedAPIConfig, SFTPConfig, FusekiConfig):
+                        GitHubArtefacts, API, AllegroConfig, TedAPIConfig, SFTPConfig, FusekiConfig, SPARQLConfig):
     """
         This class resolve the secrets of the ted-sws project.
     """

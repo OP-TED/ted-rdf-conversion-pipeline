@@ -2,7 +2,6 @@ import string
 import random
 
 from pymongo import MongoClient
-from pymongo.command_cursor import CommandCursor
 
 from ted_sws import config
 from ted_sws.data_manager.services.create_notice_collection_materialised_view import \
@@ -52,16 +51,12 @@ def test_mongodb_queries():
     mongodb_client.drop_database('test')
     test_db = mongodb_client['test']
     objects_collection = test_db['objects']
-    print(type(objects_collection))
     for i in range(0, 20):
         objects_collection.insert_one(random_object())
 
     unique_xpaths = objects_collection.distinct("xpath")
-    print(type(unique_xpaths))
 
     unique_notice_ids = objects_collection.distinct("notices")
-    print("unique_notice_ids: ", unique_notice_ids)
-    print("unique_xpaths: ", unique_xpaths)
     minimal_set_of_xpaths = []
     covered_notice_ids = []
     while len(unique_notice_ids):
@@ -89,8 +84,6 @@ def test_mongodb_queries():
             if len(tmp_result):
                 xpaths.append(tmp_result[0])
 
-        # for xpath in xpaths:
-        #  print(xpath)
         top_xpath = sorted(xpaths, key=lambda d: d['count_notices'], reverse=True)[0]
         minimal_set_of_xpaths.append(top_xpath["xpath"])
         notice_ids = top_xpath["notice_ids"]
@@ -99,9 +92,6 @@ def test_mongodb_queries():
                 unique_notice_ids.remove(notice_id)
             covered_notice_ids.append(notice_id)
 
-    print("minimal_set_of_xpaths: ", minimal_set_of_xpaths)
-    print("covered_notice_ids: ", covered_notice_ids)
-
 
 def test_mongo_db_query_2():
     uri = config.MONGO_DB_AUTH_URL
@@ -109,25 +99,18 @@ def test_mongo_db_query_2():
     mongodb_client.drop_database('test')
     test_db = mongodb_client['test']
     objects_collection = test_db['objects']
-    print(type(objects_collection))
     for i in range(0, 3):
         objects_collection.insert_one(random_object())
 
     unique_xpaths = objects_collection.distinct("xpath")
-    print(type(unique_xpaths))
 
     unique_notice_ids = objects_collection.distinct("notices")
-    print("unique_notice_ids: ", unique_notice_ids)
-    print("unique_xpaths: ", unique_xpaths)
     result = objects_collection.aggregate([
         {
             "$group": {"_id": None,
                        "xpaths": {"$push": "$xpath"}
                        }
         },
-        # {"$project": {"_id": 0,
-        #               "xpaths": 1,
-        #               }},
         {
             "$project": {
                 "_id": 0,
@@ -143,8 +126,6 @@ def test_mongo_db_query_2():
             }
         }
     ])
-    for r in result:
-        print(r)
 
 
 def test_create_matview_for_notices():

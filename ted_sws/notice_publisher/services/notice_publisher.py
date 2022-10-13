@@ -41,8 +41,6 @@ def publish_notice_by_id(notice_id: str, notice_repository: NoticeRepositoryABC,
     """
         This function publishes the METS manifestation of a Notice, based on notice_id, in Cellar.
     """
-    publisher = publisher if publisher else SFTPPublisher()
-    remote_folder_path = remote_folder_path if remote_folder_path else config.SFTP_PATH
     notice = notice_repository.get(reference=notice_id)
     result = publish_notice(notice=notice, publisher=publisher, remote_folder_path=remote_folder_path)
     if result:

@@ -9,12 +9,13 @@ from ted_sws.notice_publisher.adapters.sftp_notice_publisher import SFTPPublishe
 from ted_sws.notice_publisher.adapters.sftp_publisher_abc import SFTPPublisherABC
 
 
-def publish_notice(notice: Notice, publisher: SFTPPublisherABC = SFTPPublisher(),
-                   remote_folder_path=config.SFTP_PATH) -> bool:
+def publish_notice(notice: Notice, publisher: SFTPPublisherABC = None,
+                   remote_folder_path: str = None) -> bool:
     """
         This function publishes the METS manifestation for a Notice in Cellar.
     """
-
+    publisher = publisher if publisher else SFTPPublisher()
+    remote_folder_path = remote_folder_path if remote_folder_path else config.SFTP_PATH
     mets_manifestation = notice.mets_manifestation
     if not mets_manifestation or not mets_manifestation.object_data:
         raise ValueError("Notice does not have a METS manifestation to be published.")
@@ -25,7 +26,7 @@ def publish_notice(notice: Notice, publisher: SFTPPublisherABC = SFTPPublisher()
     source_file.write(package_content)
     try:
         publisher.connect()
-        if publisher.publish(source_path=pathlib.Path(source_file.name),
+        if publisher.publish(source_path=str(pathlib.Path(source_file.name)),
                              remote_path=remote_notice_path):
             notice.update_status_to(NoticeStatus.PUBLISHED)
         publisher.disconnect()
@@ -36,7 +37,7 @@ def publish_notice(notice: Notice, publisher: SFTPPublisherABC = SFTPPublisher()
 
 
 def publish_notice_by_id(notice_id: str, notice_repository: NoticeRepositoryABC,
-                         publisher: SFTPPublisherABC = SFTPPublisher(), remote_folder_path=config.SFTP_PATH) -> bool:
+                         publisher: SFTPPublisherABC = None, remote_folder_path: str = None) -> bool:
     """
         This function publishes the METS manifestation of a Notice, based on notice_id, in Cellar.
     """

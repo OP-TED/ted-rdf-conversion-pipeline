@@ -1,10 +1,10 @@
 import pathlib
 
 from ted_sws import config
-from ted_sws.data_manager.adapters.triple_store import AllegroGraphTripleStore
+from ted_sws.data_manager.adapters.triple_store import AllegroGraphTripleStore, FusekiAdapter, TripleStoreABC
 
 
-def repository_exists(triple_store: AllegroGraphTripleStore, repository_name) -> bool:
+def repository_exists(triple_store: TripleStoreABC, repository_name) -> bool:
     """
     Method to check if the repository is in the triple store
     :param triple_store:
@@ -14,18 +14,34 @@ def repository_exists(triple_store: AllegroGraphTripleStore, repository_name) ->
     return repository_name in triple_store.list_repositories()
 
 
-def load_mapping_suite_output_into_triple_store(package_folder_path, allegro_host=config.ALLEGRO_HOST,
-                                                allegro_user=config.AGRAPH_SUPER_USER,
-                                                allegro_password=config.AGRAPH_SUPER_PASSWORD,
-                                                allegro_catalog_name: str = None):
+
+def load_mapping_suite_output_into_fuseki_triple_store(package_folder_path,
+                                                triple_store_host=config.FUSEKI_ADMIN_HOST,
+                                                triple_store_user=config.FUSEKI_ADMIN_USER,
+                                                triple_store_password=config.FUSEKI_ADMIN_PASSWORD,
+                                                ):
+    """
+    Method to create a repository in the Fuseki triple store and load all ttl files from the output folder of a mapping suite
+    package. Name of the repository will be auto-generated from the folder name.
+    :param package_folder_path:
+    :param triple_store_host:
+    :param triple_store_user:
+    :param triple_store_password:
+    :return:
+    """
+    triple_store = FusekiAdapter(host=triple_store_host, password=triple_store_password,
+                                 user=triple_store_user)
+    load_mapping_suite_output_into_triple_store(package_folder_path, triple_store)
+
+
+def load_mapping_suite_output_into_triple_store(package_folder_path,
+                                                triple_store: TripleStoreABC
+                                                ):
     """
     Method to create a repository in the triple store and load all ttl files from the output folder of a mapping suite
     package. Name of the repository will be auto-generated from the folder name.
     :param package_folder_path:
-    :param allegro_host:
-    :param allegro_user:
-    :param allegro_password:
-    :param allegro_catalog_name:
+    :param triple_store:
     :return:
     """
     package_folder_path = pathlib.Path(package_folder_path)
@@ -33,10 +49,9 @@ def load_mapping_suite_output_into_triple_store(package_folder_path, allegro_hos
     assert metadata_file.exists()
     package_name = package_folder_path.stem
 
-    ttl_files_paths = [str(path) for path in package_folder_path.glob("output/**/*.ttl")]
+    ttl_files_paths = [path for path in package_folder_path.glob("output/**/*.ttl")]
 
-    triple_store = AllegroGraphTripleStore(host=allegro_host, password=allegro_password,
-                                           user=allegro_user, catalog_name=allegro_catalog_name)
+
 
     if repository_exists(triple_store=triple_store, repository_name=package_name):
         triple_store.delete_repository(repository_name=package_name)

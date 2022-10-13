@@ -3,7 +3,10 @@ from typing import List
 from pydantic import BaseModel
 
 
-class DataSource(BaseModel):
+class LimesDataSource(BaseModel):
+    """
+        This class provide a model for LIMES alignment engine data source.
+    """
     id: str
     sparql_endpoint: str
     sparql_variable: str
@@ -11,17 +14,23 @@ class DataSource(BaseModel):
     sparql_properties: List[str]
 
 
-class DataResult(BaseModel):
+class LimesDataResult(BaseModel):
+    """
+        This class provide a model for LIMES alignment engine result.
+    """
     threshold: float
     result_file_path: str
     relation: str
 
 
 class LimesConfigParams(BaseModel):
+    """
+        This class provide a model for LIMES alignment engine configurations.
+    """
     prefixes: dict
-    source: DataSource
-    target: DataSource
+    source: LimesDataSource
+    target: LimesDataSource
     alignment_metric: str
-    acceptance: DataResult
-    review: DataResult
+    acceptance: LimesDataResult
+    review: LimesDataResult
     result_file_format: str

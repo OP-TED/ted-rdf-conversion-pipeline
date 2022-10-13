@@ -1,5 +1,3 @@
-import mongomock
-import pymongo
 import pytest
 
 from ted_sws.data_manager.adapters.triple_store import RDF_MIME_TYPES

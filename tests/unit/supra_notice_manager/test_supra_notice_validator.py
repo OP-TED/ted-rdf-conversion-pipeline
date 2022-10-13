@@ -18,7 +18,8 @@ def test_supra_notice_validator(mongodb_client, daily_supra_notice_repository, f
     api_document_id = "067623-2022"
 
     notice_ids = ["1", "2", "3"]
-    create_and_store_in_mongo_db_daily_supra_notice(notice_ids=notice_ids, mongodb_client=mongodb_client)
+    create_and_store_in_mongo_db_daily_supra_notice(notice_ids=notice_ids, mongodb_client=mongodb_client,
+                                                    notice_fetched_date=today)
     validate_and_update_daily_supra_notice(today, mongodb_client, fake_request_api)
     result = daily_supra_notice_repository.get(reference=today)
     assert result

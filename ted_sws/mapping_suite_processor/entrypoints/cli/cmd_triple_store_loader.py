@@ -25,21 +25,18 @@ class CmdRunner(BaseCmdRunner):
     def __init__(
             self,
             mapping_suite_id,
-            package_folder,
-            catalog_name
+            package_folder
     ):
         super().__init__(name=CMD_NAME)
         self.mapping_suite_id = mapping_suite_id
         self.package_folder_path = Path(os.path.realpath(package_folder))
-        self.catalog_name = catalog_name
 
     def run_cmd(self):
         self.log("Loading " + LOG_INFO_TEXT.format(self.mapping_suite_id) + " to Triple Store ... ")
         error = None
         try:
             load_mapping_suite_output_into_triple_store(
-                package_folder_path=self.package_folder_path,
-                allegro_catalog_name=self.catalog_name
+                package_folder_path=self.package_folder_path
             )
         except Exception as e:
             error = e
@@ -48,13 +45,11 @@ class CmdRunner(BaseCmdRunner):
 
 
 def run(mapping_suite_id=None,
-        opt_catalog_name=None,
         opt_mappings_folder=DEFAULT_MAPPINGS_PATH
         ):
     """
     This method will load the MappingSuite output into Triple Store
     :param mapping_suite_id:
-    :param opt_catalog_name:
     :param opt_mappings_folder:
     :return:
     """
@@ -64,28 +59,21 @@ def run(mapping_suite_id=None,
         mapping_suite_id=mapping_suite_id
     )
 
-    if opt_catalog_name:
-        catalog_name = opt_catalog_name
-    else:
-        catalog_name = None
-
     cmd = CmdRunner(
         mapping_suite_id=mapping_suite_id,
-        package_folder=package_folder,
-        catalog_name=catalog_name
+        package_folder=package_folder
     )
     cmd.run()
 
 
 @click.command()
 @click.argument('mapping-suite-id', nargs=1, required=False)
-@click.option('-c', '--opt-catalog-name', default=None)
 @click.option('-m', '--opt-mappings-folder', default=DEFAULT_MAPPINGS_PATH)
-def main(mapping_suite_id, opt_catalog_name, opt_mappings_folder):
+def main(mapping_suite_id, opt_mappings_folder):
     """
     Loads the MappingSuite output into Triple Store.
     """
-    run(mapping_suite_id, opt_catalog_name, opt_mappings_folder)
+    run(mapping_suite_id, opt_mappings_folder)
 
 
 if __name__ == '__main__':

@@ -44,14 +44,14 @@ class SFTPPublisher(SFTPPublisherABC):
     def __del__(self):
         self.disconnect()
 
-    def publish(self, source_path, remote_path) -> bool:
+    def publish(self, source_path: str, remote_path: str) -> bool:
         """
         Publish file_content to the sftp server remote path.
        """
         self.connection.put(source_path, remote_path)
         return True
 
-    def remove(self, remote_path) -> bool:
+    def remove(self, remote_path: str) -> bool:
         """
 
         """

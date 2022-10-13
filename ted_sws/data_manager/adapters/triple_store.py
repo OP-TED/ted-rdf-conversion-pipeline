@@ -263,3 +263,18 @@ class FusekiAdapter(TripleStoreABC):
         endpoint_url = urljoin(self.host, repository_name + "/sparql")
         sparql_endpoint = SPARQLTripleStoreEndpoint(endpoint_url=endpoint_url)
         return sparql_endpoint
+
+    def _get_repository(self, repository_name: str) -> dict:
+        """
+        Method to get a repository in order to execute operations on it
+        :param repository_name:
+        :return:
+        """
+        response = requests.get(urljoin(self.host, f"/$/datasets/{repository_name}"),
+                                auth=HTTPBasicAuth(self.user,
+                                                   self.password))
+
+        if response.status_code != 200:
+            raise FusekiException(f"Fuseki server request ({response.url}) returned response {response.status_code}")
+
+        return response.json()

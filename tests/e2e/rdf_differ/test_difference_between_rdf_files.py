@@ -1,9 +1,7 @@
-import codecs
 
 import rdflib
 from rdflib import Graph, RDF
-from rdflib.compare import isomorphic, graph_diff
-from bs4 import BeautifulSoup
+
 from ted_sws.rdf_differ.services.difference_between_rdf_files import rdf_differ_service
 
 

@@ -5,7 +5,7 @@ from rdflib import Graph
 from rdflib.compare import isomorphic, graph_diff
 
 
-def rdf_differ_service(first_rml_file: str, second_rml_file: str):
+def _rdf_differ_html_report(first_rml_file: str, second_rml_file: str):
     """
     Given two RML files representing turtle-encoded RDF,
     check whether they represent the same graph.

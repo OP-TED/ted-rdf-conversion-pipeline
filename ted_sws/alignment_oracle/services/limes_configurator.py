@@ -4,7 +4,7 @@ from typing import List
 from jinja2 import Environment, PackageLoader
 
 from ted_sws import config
-from ted_sws.alignment_oracle.model.limes_config import LimesConfigParams, DataSource, DataResult
+from ted_sws.alignment_oracle.model.limes_config import LimesConfigParams, LimesDataSource, LimesDataResult
 
 TEMPLATES = Environment(loader=PackageLoader("ted_sws.alignment_oracle.resources", "templates"))
 LIMES_CONFIG_TEMPLATE = "limes_config.jinja2"
@@ -36,26 +36,26 @@ def generate_default_limes_config_params(sparql_endpoint: str,
     acceptance_file_path = str(result_dir_path / DEFAULT_ACCEPTANCE_FILE_NAME)
     review_file_path = str(result_dir_path / DEFAULT_REVIEW_FILE_NAME)
     return LimesConfigParams(prefixes=DEFAULT_PREFIXES,
-                             source=DataSource(id=DEFAULT_SOURCE_ID,
-                                               sparql_endpoint=sparql_endpoint,
-                                               sparql_variable=DEFAULT_SOURCE_SPARQL_VAR,
-                                               sparql_restrictions=source_sparql_restrictions,
-                                               sparql_properties=source_sparql_properties
-                                               ),
-                             target=DataSource(id=DEFAULT_TARGET_ID,
-                                               sparql_endpoint=sparql_endpoint,
-                                               sparql_variable=DEFAULT_TARGET_SPARQL_VAR,
-                                               sparql_restrictions=target_sparql_restrictions,
-                                               sparql_properties=target_sparql_properties
-                                               ),
+                             source=LimesDataSource(id=DEFAULT_SOURCE_ID,
+                                                    sparql_endpoint=sparql_endpoint,
+                                                    sparql_variable=DEFAULT_SOURCE_SPARQL_VAR,
+                                                    sparql_restrictions=source_sparql_restrictions,
+                                                    sparql_properties=source_sparql_properties
+                                                    ),
+                             target=LimesDataSource(id=DEFAULT_TARGET_ID,
+                                                    sparql_endpoint=sparql_endpoint,
+                                                    sparql_variable=DEFAULT_TARGET_SPARQL_VAR,
+                                                    sparql_restrictions=target_sparql_restrictions,
+                                                    sparql_properties=target_sparql_properties
+                                                    ),
                              alignment_metric=alignment_metric,
-                             acceptance=DataResult(threshold=DEFAULT_ACCEPTANCE_THRESHOLD,
-                                                   result_file_path=acceptance_file_path,
-                                                   relation=DEFAULT_RELATION
-                                                   ),
-                             review=DataResult(threshold=DEFAULT_REVIEW_THRESHOLD,
-                                               result_file_path=review_file_path,
-                                               relation=DEFAULT_RELATION
-                                               ),
+                             acceptance=LimesDataResult(threshold=DEFAULT_ACCEPTANCE_THRESHOLD,
+                                                        result_file_path=acceptance_file_path,
+                                                        relation=DEFAULT_RELATION
+                                                        ),
+                             review=LimesDataResult(threshold=DEFAULT_REVIEW_THRESHOLD,
+                                                    result_file_path=review_file_path,
+                                                    relation=DEFAULT_RELATION
+                                                    ),
                              result_file_format=DEFAULT_RESULT_FILE_FORMAT
                              )

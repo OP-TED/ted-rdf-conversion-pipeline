@@ -18,6 +18,7 @@
         {% for property in source.sparql_properties -%}
 		<PROPERTY>{{ property }}</PROPERTY>
         {%- endfor %}
+
 	</SOURCE>
 	<TARGET>
 		<ID>{{ target.id }}</ID>
@@ -30,6 +31,7 @@
         {% for property in target.sparql_properties -%}
         <PROPERTY>{{ property }}</PROPERTY>
         {%- endfor %}
+        <TYPE>SPARQL</TYPE>
 	</TARGET>
 	<METRIC>{{ alignment_metric }}</METRIC>
 	<ACCEPTANCE>

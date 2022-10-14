@@ -7,7 +7,8 @@ from ted_sws.alignment_oracle.services.limes_configurator import generate_defaul
 
 def test_alignment_links_generation(limes_sparql_endpoint):
     with tempfile.TemporaryDirectory() as tmp_dir_path:
-        limes_config_params = generate_default_limes_config_params(sparql_endpoint=limes_sparql_endpoint,
+        limes_config_params = generate_default_limes_config_params(source_sparql_endpoint=limes_sparql_endpoint,
+                                                                   target_sparql_endpoint=limes_sparql_endpoint,
                                                                    result_dir_path=pathlib.Path(tmp_dir_path),
                                                                    alignment_metric="ADD(Jaccard(x.epo:hasLegalName, y.epo:hasLegalName), Jaccard(x.street, y.street))",
                                                                    source_sparql_restrictions=["?x a org:Organization"],

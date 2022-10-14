@@ -42,3 +42,4 @@ def generate_rdf_differ_html_report(first_rml_file: str, second_rml_file: str) -
         html_differences_report += "<hr>"
     html_differences_report += "</body></html>"
     return html_differences_report
+

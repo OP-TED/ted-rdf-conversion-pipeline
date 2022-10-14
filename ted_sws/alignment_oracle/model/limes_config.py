@@ -13,6 +13,7 @@ class LimesDataSource(BaseModel):
     sparql_variable: str
     sparql_restrictions: List[str]
     sparql_properties: List[str]
+    data_type: str
 
 
 class LimesDataResult(BaseModel):

@@ -19,6 +19,7 @@ DEFAULT_RESULT_FILE_FORMAT = "NT"
 DEFAULT_RELATION = "owl:sameAs"
 DEFAULT_SOURCE_ID = "default_source_id"
 DEFAULT_TARGET_ID = "default_target_id"
+DEFAULT_SOURCE_DATA_TYPE = "SPARQL"
 
 
 def generate_xml_config_from_limes_config(limes_config_params: LimesConfigParams) -> str:
@@ -58,13 +59,15 @@ def generate_default_limes_config_params(source_sparql_endpoint: str,
                                                     sparql_endpoint=source_sparql_endpoint,
                                                     sparql_variable=DEFAULT_SOURCE_SPARQL_VAR,
                                                     sparql_restrictions=source_sparql_restrictions,
-                                                    sparql_properties=source_sparql_properties
+                                                    sparql_properties=source_sparql_properties,
+                                                    data_type=DEFAULT_SOURCE_DATA_TYPE
                                                     ),
                              target=LimesDataSource(id=DEFAULT_TARGET_ID,
                                                     sparql_endpoint=target_sparql_endpoint,
                                                     sparql_variable=DEFAULT_TARGET_SPARQL_VAR,
                                                     sparql_restrictions=target_sparql_restrictions,
-                                                    sparql_properties=target_sparql_properties
+                                                    sparql_properties=target_sparql_properties,
+                                                    data_type=DEFAULT_SOURCE_DATA_TYPE
                                                     ),
                              alignment_metric=alignment_metric,
                              acceptance=LimesDataResult(threshold=DEFAULT_ACCEPTANCE_THRESHOLD,

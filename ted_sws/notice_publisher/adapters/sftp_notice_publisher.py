@@ -9,19 +9,13 @@ class SFTPPublisher(SFTPPublisherABC):
 
     """
 
-    connection: pysftp.Connection = None
-    default_host = config.SFTP_HOST
-    default_user = config.SFTP_USER
-    default_pass = config.SFTP_PASSWORD
-    default_port = config.SFTP_PORT
-
-    def __init__(self, hostname=default_host, username=default_user, password=default_pass, port=default_port):
+    def __init__(self, hostname: str = None, username: str = None, password: str = None, port: str = None):
         """Constructor Method"""
-        # Set connection object to None (initial value)
-        self.hostname = hostname
-        self.username = username
-        self.password = password
-        self.port = port
+        self.hostname = hostname if hostname else config.SFTP_HOST
+        self.username = username if username else config.SFTP_USER
+        self.password = password if password else config.SFTP_PASSWORD
+        self.port = port if port else config.SFTP_PORT
+        self.connection = None
         self.is_connected = False
 
     def connect(self):
@@ -50,14 +44,14 @@ class SFTPPublisher(SFTPPublisherABC):
     def __del__(self):
         self.disconnect()
 
-    def publish(self, source_path, remote_path) -> bool:
+    def publish(self, source_path: str, remote_path: str) -> bool:
         """
         Publish file_content to the sftp server remote path.
        """
         self.connection.put(source_path, remote_path)
         return True
 
-    def remove(self, remote_path) -> bool:
+    def remove(self, remote_path: str) -> bool:
         """
 
         """

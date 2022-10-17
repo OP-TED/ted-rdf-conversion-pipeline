@@ -13,6 +13,7 @@ from ted_sws.notice_transformer.adapters.rml_mapper import RMLMapper
 from ted_sws.notice_transformer.services.notice_transformer import transform_notice
 from ted_sws.notice_validator.services.shacl_test_suite_runner import validate_notice_with_shacl_suite
 from ted_sws.notice_validator.services.sparql_test_suite_runner import validate_notice_with_sparql_suite
+from ted_sws.notice_validator.services.validation_summary_runner import validation_summary_report_notice
 from ted_sws.notice_validator.services.xpath_coverage_runner import validate_xpath_coverage_notice
 
 
@@ -56,6 +57,7 @@ def notice_validation_pipeline(notice: Notice, mongodb_client: MongoClient) -> N
     validate_xpath_coverage_notice(notice=notice, mapping_suite=mapping_suite, mongodb_client=mongodb_client)
     validate_notice_with_sparql_suite(notice=notice, mapping_suite_package=mapping_suite)
     validate_notice_with_shacl_suite(notice=notice, mapping_suite_package=mapping_suite)
+    validation_summary_report_notice(notice=notice)
     return NoticePipelineOutput(notice=notice)
 
 

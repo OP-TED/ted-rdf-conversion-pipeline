@@ -9,7 +9,7 @@ class SFTPPublisher(SFTPPublisherABC):
 
     """
 
-    def __init__(self, hostname: str = None, username: str = None, password: str = None, port: str = None):
+    def __init__(self, hostname: str = None, username: str = None, password: str = None, port: int = None):
         """Constructor Method"""
         self.hostname = hostname if hostname else config.SFTP_HOST
         self.username = username if username else config.SFTP_USER

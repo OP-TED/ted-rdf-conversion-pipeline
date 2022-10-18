@@ -28,12 +28,11 @@ class SPARQLTestSuiteRunner:
     """
 
     def __init__(self, rdf_manifestation: RDFManifestation, sparql_test_suite: SPARQLTestSuite,
-                 mapping_suite: MappingSuite, xml_manifestation: XMLManifestation = None, notice_id: str = None):
+                 mapping_suite: MappingSuite, xml_manifestation: XMLManifestation = None):
         self.rdf_manifestation = rdf_manifestation
         self.xml_manifestation = xml_manifestation
         self.sparql_test_suite = sparql_test_suite
         self.mapping_suite = mapping_suite
-        self.notice_id = notice_id
 
     @classmethod
     def _sanitize_query(cls, query: str) -> str:
@@ -83,7 +82,6 @@ class SPARQLTestSuiteRunner:
             # Refined result
             if ask_answer and sparql_query_result.fields_covered:
                 result = SPARQLQueryRefinedResultType.VALID
-                sparql_query_result.result_notice.valid.append()
             elif not ask_answer and not sparql_query_result.fields_covered:
                 result = SPARQLQueryRefinedResultType.UNVERIFIABLE
             elif ask_answer and not sparql_query_result.fields_covered:

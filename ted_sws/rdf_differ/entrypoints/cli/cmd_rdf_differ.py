@@ -82,3 +82,4 @@ def main(first_file, second_file, output_folder):
 
 if __name__ == '__main__':
     main()
+

@@ -135,6 +135,7 @@
         </tr>
         </thead>
         <tbody>
+            {% if result_total > 0 %}
             <tr>
                 <td class="strong valid">Valid</td>
                 <td>{{ result.aggregate.valid }}</td>
@@ -160,6 +161,11 @@
                 <td>{{ result.aggregate.error }}</td>
                 <td>{{ (result.aggregate.error / result_total * 100) | round(2) }}%</td>
             </tr>
+            {% else %}
+            <tr>
+                <td>No results</td>
+            </tr>
+            {% endif %}
         </tbody>
     </table>
     {% endfor %}
@@ -191,6 +197,7 @@
             </tr>
             </thead>
             <tbody>
+                {% if result_total > 0 %}
                 <tr>
                     <td>Info</td>
                     <td>{{ result_severity.info }}</td>
@@ -206,6 +213,11 @@
                     <td>{{ result_severity.violation }}</td>
                     <td>{{ (result_severity.violation / result_total * 100) | round(2) }}%</td>
                 </tr>
+                {% else %}
+                <tr>
+                    <td>No results</td>
+                </tr>
+                {% endif %}
             </tbody>
         </table>
     {% endfor %}
@@ -244,6 +256,7 @@
         </tr>
         </thead>
         <tbody>
+            {% if result_total > 0 %}
             <tr>
                 <td class="strong valid">Valid</td>
                 <td>{{ result.aggregate.valid }}</td>
@@ -269,6 +282,11 @@
                 <td>{{ result.aggregate.error }}</td>
                 <td>{{ (result.aggregate.error / result_total * 100) | round(2) }}%</td>
             </tr>
+            {% else %}
+            <tr>
+                <td>No results</td>
+            </tr>
+            {% endif %}
         </tbody>
     </table>
     {% endfor %}
@@ -300,6 +318,7 @@
             </tr>
             </thead>
             <tbody>
+                {% if result_total > 0 %}
                 <tr>
                     <td>Info</td>
                     <td>{{ result_severity.info }}</td>
@@ -315,6 +334,11 @@
                     <td>{{ result_severity.violation }}</td>
                     <td>{{ (result_severity.violation / result_total * 100) | round(2) }}%</td>
                 </tr>
+                {% else %}
+                <tr>
+                    <td>No results</td>
+                </tr>
+                {% endif %}
             </tbody>
         </table>
     {% endfor %}

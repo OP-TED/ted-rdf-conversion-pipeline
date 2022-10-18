@@ -501,7 +501,6 @@ Options:
   -o, --opt-output-folder TEXT
   --help                          Show this message and exit.
 
-
 ----
 Use for:
 
@@ -525,5 +524,32 @@ Use for:
 
 * --branch + --mapping-suite-id (remote) vs --mapping-suite-id (local)
 # conceptual_mapping_differ --branch=<BRANCH> --mapping-suite-id=<MAPPING_SUITE_ID>
+
+----
+
+=== CMD: rdf_differ
+
+Given two RML files representing turtle-encoded RDF, check whether they
+represent the same graph.
+
+Use:
+
+[source,bash]
+----
+rdf_differ --help
+----
+
+to get the Usage Help:
+
+[source,bash]
+----
+Usage: rdf_differ [OPTIONS] FIRST_FILE SECOND_FILE
+
+  Given two RML files representing turtle-encoded RDF, check whether they
+  represent the same graph.
+
+Options:
+  -o, --output-folder TEXT
+  --help                    Show this message and exit.
 
 ----

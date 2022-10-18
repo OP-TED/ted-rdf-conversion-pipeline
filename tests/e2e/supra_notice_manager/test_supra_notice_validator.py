@@ -1,7 +1,5 @@
 from datetime import datetime, time
 
-import pytest
-
 from ted_sws.supra_notice_manager.services.daily_supra_notice_manager import \
     create_and_store_in_mongo_db_daily_supra_notice
 from ted_sws.supra_notice_manager.services.supra_notice_validator import validate_and_update_daily_supra_notice

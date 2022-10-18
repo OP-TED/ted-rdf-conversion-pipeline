@@ -24,8 +24,8 @@ jobs:
       - name: Get Saxon
         run: make init-saxon
 
-      - name: Run command
-        run: echo "Echo"
+      - name: Get Limes
+        run: make init-limes
 
       - name: Get RML mapper
         run: make init-rml-mapper

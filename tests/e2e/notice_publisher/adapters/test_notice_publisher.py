@@ -7,7 +7,7 @@ from ted_sws.notice_publisher.adapters.sftp_notice_publisher import SFTPPublishe
 
 
 def test_sftp_notice_publisher():
-    sftp_publisher = SFTPPublisher(port="123")
+    sftp_publisher = SFTPPublisher(port=123)
 
     with pytest.raises(Exception):
         sftp_publisher.connect()

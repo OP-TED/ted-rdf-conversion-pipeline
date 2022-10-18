@@ -6,7 +6,8 @@ from ted_sws.alignment_oracle.services.limes_configurator import generate_xml_co
 
 
 def test_alignment_oracle_model():
-    limes_config_params = generate_default_limes_config_params(sparql_endpoint="sparql_endpoint",
+    limes_config_params = generate_default_limes_config_params(source_sparql_endpoint="sparql_endpoint",
+                                                               target_sparql_endpoint="sparql_endpoint",
                                                                result_dir_path=pathlib.Path("."),
                                                                alignment_metric="ADD(Jaccard(x.epo:hasName, y.epo:hasName), Jaccard(x.street, y.street))",
                                                                source_sparql_restrictions=["?x a epo:Organisation"],

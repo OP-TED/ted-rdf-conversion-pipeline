@@ -48,8 +48,8 @@ def test_notice_unpacking_in_file_system():
     uri = config.MONGO_DB_AUTH_URL
     mongodb_client = MongoClient(uri)
     notice_repository = NoticeRepository(mongodb_client=mongodb_client)
-    unpacking_folder = pathlib.Path("./unpacking_result")
-    for notice in itertools.islice(notice_repository.list(), 5):
+    unpacking_folder = pathlib.Path("./unpacking_notice_result")
+    for notice in notice_repository.list():
         if notice.status == NoticeStatus.PUBLISHED:
             notice_unpacking_folder = unpacking_folder / notice.ted_id
             notice_unpacking_folder.mkdir(parents=True, exist_ok=True)

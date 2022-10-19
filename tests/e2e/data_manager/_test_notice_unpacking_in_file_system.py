@@ -1,9 +1,11 @@
 import base64
+import itertools
 import json
 import pathlib
 from typing import Union
 
 from pymongo import MongoClient
+import zipfile
 
 from ted_sws import config
 from ted_sws.core.model.notice import Notice, NoticeStatus
@@ -21,9 +23,15 @@ def unpack_notice(notice: Notice, unpack_path: pathlib.Path):
     write_in_file(notice.rdf_manifestation.object_data, "rdf_manifestation.ttl")
     write_in_file(notice.distilled_rdf_manifestation.object_data, "distilled_rdf_manifestation.ttl")
     write_in_file(notice.xml_manifestation.object_data, "xml_manifestation.xml")
+    write_in_file(notice.validation_summary.object_data, "validation_summary.html")
+    write_in_file(json.dumps(notice.xml_metadata.dict()), "xml_metadata.json")
+    mets_package_file_name = "mets_manifestation.zip"
+    unpack_mets_package_dir_name = "mets_manifestation"
     write_in_file(base64.b64decode(notice.mets_manifestation.object_data.encode(encoding="utf-8")),
-                  "mets_manifestation.zip")
-
+                  mets_package_file_name)
+    mets_package_path = unpack_path / "mets_manifestation.zip"
+    with zipfile.ZipFile(mets_package_path.absolute(), 'r') as zip_ref:
+        zip_ref.extractall(unpack_path / unpack_mets_package_dir_name)
     for shacl_validation in notice.rdf_manifestation.shacl_validations:
         write_in_file(shacl_validation.object_data, "shacl_validation.html")
         shacl_validation_json = json.dumps(shacl_validation.validation_results.dict())
@@ -37,12 +45,12 @@ def unpack_notice(notice: Notice, unpack_path: pathlib.Path):
 
 
 def test_notice_unpacking_in_file_system():
-    uri = "MONGODB_AUTH_URL"
+    uri = config.MONGO_DB_AUTH_URL
     mongodb_client = MongoClient(uri)
     notice_repository = NoticeRepository(mongodb_client=mongodb_client)
     unpacking_folder = pathlib.Path("./unpacking_result")
-    for notice in notice_repository.list():
-        if notice.status == NoticeStatus.PACKAGED:
+    for notice in itertools.islice(notice_repository.list(), 5):
+        if notice.status == NoticeStatus.PUBLISHED:
             notice_unpacking_folder = unpacking_folder / notice.ted_id
             notice_unpacking_folder.mkdir(parents=True, exist_ok=True)
             unpack_notice(notice=notice, unpack_path=notice_unpacking_folder)

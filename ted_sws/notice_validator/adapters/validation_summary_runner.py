@@ -56,7 +56,7 @@ class RDFManifestationValidationSummaryRunner(ManifestationValidationSummaryRunn
                             if validation.result == SPARQLQueryRefinedResultType.VALID.value:
                                 report_count.valid += 1
                                 result_count.valid += 1
-                            if validation.result == SPARQLQueryRefinedResultType.UNVERIFIABLE.value:
+                            elif validation.result == SPARQLQueryRefinedResultType.UNVERIFIABLE.value:
                                 report_count.unverifiable += 1
                                 result_count.unverifiable += 1
                             elif validation.result == SPARQLQueryRefinedResultType.INVALID.value:
@@ -179,7 +179,7 @@ class ValidationSummaryRunner:
         report: ValidationSummaryReport = ValidationSummaryReport(
             object_data="ValidationSummaryReport"
         )
-        report.notice_id = list(map(lambda notice: notice.ted_id, notices))
+        report.notice_id = sorted(list(map(lambda notice: notice.ted_id, notices)))
 
         xml_manifestation_runner = XMLManifestationValidationSummaryRunner(notices)
         report.xml_manifestation = xml_manifestation_runner.validation_summary()

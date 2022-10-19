@@ -10,6 +10,8 @@
 """
 from pathlib import Path
 
+import pytest
+
 REPOSITORY_NAME = "this_is_a_test_repository"
 SPARQL_QUERY = "select * {?s ?p ?o} limit 10"
 
@@ -47,6 +49,8 @@ def _triple_store_loading_data(triple_store, path_ttl_file):
 
 def test_fuseki_repository_creation(fuseki_triple_store):
     _triple_store_repository_creation(fuseki_triple_store)
+    with pytest.raises(ValueError):
+        fuseki_triple_store.create_repository(repository_name='')
 
 
 def test_fuseki_loading_data(fuseki_triple_store, path_ttl_file):

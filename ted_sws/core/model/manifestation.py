@@ -222,8 +222,8 @@ class XMLManifestationValidationSummaryReport(PropertyBaseModel):
 class SPARQLSummaryCountReport(PropertyBaseModel):
     valid: Optional[int] = 0
     unverifiable: Optional[int] = 0
-    invalid: Optional[int] = 0
     warning: Optional[int] = 0
+    invalid: Optional[int] = 0
     error: Optional[int] = 0
 
 

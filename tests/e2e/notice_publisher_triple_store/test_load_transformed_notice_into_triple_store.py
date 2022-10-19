@@ -1,6 +1,7 @@
 from ted_sws.notice_publisher_triple_store.services.load_transformed_notice_into_triple_store import \
     load_notice_into_triple_store, DEFAULT_NOTICE_REPOSITORY_NAME
 from tests.fakes.fake_repository import FakeNoticeRepository
+import pytest
 
 SPARQL_QUERY_TRIPLES = "select * {?s ?p ?o}"
 SPARQL_QUERY_GRAPH = "SELECT ?g {  GRAPH ?g { ?s ?p ?o  } }"
@@ -27,3 +28,7 @@ def test_load_notice_into_triple_store(transformed_complete_notice, allegro_trip
     df_query_result = sparql_endpoint.with_query(sparql_query=SPARQL_QUERY_FIXED_URI).fetch_tabular()
     assert df_query_result is not None
     assert len(df_query_result) > 0
+
+    with pytest.raises(ValueError):
+        load_notice_into_triple_store(notice_id="invalid_notice_id", notice_repository=fake_notice_repo,
+                                      triple_store_repository=allegro_triple_store)

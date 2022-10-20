@@ -18,8 +18,8 @@ def test_get_rdf_fragments_by_cet_uri_from_file(rdf_file_path, organisation_cet_
         assert type(rdf_fragment) == rdflib.Graph
 
 
-def test_get_rdf_fragments_by_cet_uri_from_notice(notice_with_distilled_rdf_manifestation, organisation_cet_uri):
-    rdf_fragments = get_rdf_fragment_by_cet_uri_from_notice(notice=notice_with_distilled_rdf_manifestation,
+def test_get_rdf_fragments_by_cet_uri_from_notice(notice_with_rdf_manifestation, organisation_cet_uri):
+    rdf_fragments = get_rdf_fragment_by_cet_uri_from_notice(notice=notice_with_rdf_manifestation,
                                                             cet_uri=organisation_cet_uri
                                                             )
     assert len(rdf_fragments) == 3

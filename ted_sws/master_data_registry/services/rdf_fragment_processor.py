@@ -22,8 +22,7 @@ from ted_sws.master_data_registry.resources import RDF_FRAGMENT_BY_URI_SPARQL_QU
 RDFTriple = Tuple[rdflib.term.Node, rdflib.term.Node, rdflib.term.Node]
 
 DEFAULT_RDF_FILE_FORMAT = "n3"
-RDF_FRAGMENT_ROOT_NODE_TYPE = "http://www.meaningfy.ws/mdr#RootNode"
-RDF_FRAGMENT_FROM_NOTICE_PROPERTY = "http://www.meaningfy.ws/mdr#fromNotice"
+RDF_FRAGMENT_FROM_NOTICE_PROPERTY = rdflib.URIRef("http://www.meaningfy.ws/mdr#fromNotice")
 
 
 def get_subjects_by_cet_uri(sparql_endpoint: SPARQLStringEndpoint, cet_uri: str) -> List[str]:
@@ -72,10 +71,7 @@ def get_rdf_fragment_by_cet_uri_from_string(rdf_content: str, cet_uri: str,
     root_uris = get_subjects_by_cet_uri(sparql_endpoint=sparql_endpoint, cet_uri=cet_uri)
     rdf_fragments = []
     for root_uri in root_uris:
-        rdf_fragment = get_rdf_fragment_by_root_uri(sparql_endpoint=sparql_endpoint, root_uri=root_uri,
-                                                    inject_triples=[(rdflib.URIRef(root_uri), rdflib.RDF.type,
-                                                                     rdflib.URIRef(RDF_FRAGMENT_ROOT_NODE_TYPE))]
-                                                    )
+        rdf_fragment = get_rdf_fragment_by_root_uri(sparql_endpoint=sparql_endpoint, root_uri=root_uri)
         rdf_fragments.append(rdf_fragment)
     return rdf_fragments
 
@@ -102,16 +98,14 @@ def get_rdf_fragment_by_cet_uri_from_notice(notice: Notice, cet_uri: str) -> Lis
     :param cet_uri:
     :return:
     """
-    sparql_endpoint = SPARQLStringEndpoint(rdf_content=notice.distilled_rdf_manifestation.object_data,
+    sparql_endpoint = SPARQLStringEndpoint(rdf_content=notice.rdf_manifestation.object_data,
                                            rdf_content_format=DEFAULT_RDF_FILE_FORMAT)
     root_uris = get_subjects_by_cet_uri(sparql_endpoint=sparql_endpoint, cet_uri=cet_uri)
     rdf_fragments = []
     for root_uri in root_uris:
         rdf_fragment = get_rdf_fragment_by_root_uri(sparql_endpoint=sparql_endpoint, root_uri=root_uri,
-                                                    inject_triples=[(rdflib.URIRef(root_uri), rdflib.RDF.type,
-                                                                     rdflib.URIRef(RDF_FRAGMENT_ROOT_NODE_TYPE)),
-                                                                    (rdflib.URIRef(root_uri),
-                                                                     rdflib.URIRef(RDF_FRAGMENT_FROM_NOTICE_PROPERTY),
+                                                    inject_triples=[(rdflib.URIRef(root_uri),
+                                                                     RDF_FRAGMENT_FROM_NOTICE_PROPERTY,
                                                                      rdflib.Literal(notice.ted_id))
                                                                     ]
                                                     )

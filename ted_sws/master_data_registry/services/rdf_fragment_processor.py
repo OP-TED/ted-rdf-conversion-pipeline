@@ -16,6 +16,7 @@ import rdflib
 
 from ted_sws.core.model.notice import Notice
 from ted_sws.data_manager.adapters.sparql_endpoint import SPARQLStringEndpoint
+from ted_sws.data_manager.adapters.triple_store import TripleStoreABC
 from ted_sws.master_data_registry.resources import RDF_FRAGMENT_BY_URI_SPARQL_QUERY_TEMPLATE_PATH, \
     TRIPLES_BY_CET_URI_SPARQL_QUERY_TEMPLATE_PATH
 
@@ -111,3 +112,13 @@ def get_rdf_fragment_by_cet_uri_from_notice(notice: Notice, cet_uri: str) -> Lis
                                                     )
         rdf_fragments.append(rdf_fragment)
     return rdf_fragments
+
+
+def write_rdf_fragments_to_triple_store(rdf_fragments: List[rdflib.Graph], triple_store: TripleStoreABC,
+                                        repository_name: str):
+    """
+        This function write rdf fragments to triple store.
+    :param rdf_fragments:
+    :param triple_store:
+    :return:
+    """

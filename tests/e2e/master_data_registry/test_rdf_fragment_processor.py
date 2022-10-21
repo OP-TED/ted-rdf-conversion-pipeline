@@ -32,4 +32,4 @@ def test_write_rdf_fragments_in_triple_store(notice_with_rdf_manifestation, orga
     assert isinstance(result_graph, rdflib.Graph)
     assert similar(result_graph, initial_graph)
 
-    fuseki_triple_store.delete_repository(repository_name=TMP_TEST_REPOSITORY_NAME)
+    # fuseki_triple_store.delete_repository(repository_name=TMP_TEST_REPOSITORY_NAME)

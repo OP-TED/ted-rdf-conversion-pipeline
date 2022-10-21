@@ -233,6 +233,6 @@ def notice_2021():
 def notice_with_rdf_manifestation():
     notice = Notice(ted_id="002705-2021", original_metadata={},
                     xml_manifestation=XMLManifestation(object_data="No XML data"))
-    rdf_content_path = TEST_DATA_PATH / "example.ttl"
+    rdf_content_path = TEST_DATA_PATH / "rdf_manifestations" / "002705-2021.ttl"
     notice._rdf_manifestation = RDFManifestation(object_data=rdf_content_path.read_text(encoding="utf-8"))
     return notice

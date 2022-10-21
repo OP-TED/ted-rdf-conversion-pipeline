@@ -1,10 +1,7 @@
-from pathlib import Path
 
 import pytest
-from ted_sws import config
 from ted_sws.data_manager.adapters.triple_store import FusekiAdapter, FusekiException
 from tests import TEST_DATA_PATH
-from tests.fakes.fake_repository import FakeNoticeRepository
 
 REPOSITORY_NAME = "unknown_repository_123456677"
 SPARQL_QUERY_TRIPLES = "select * {?s ?p ?o} limit 10"

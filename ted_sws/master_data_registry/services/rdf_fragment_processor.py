@@ -16,14 +16,14 @@ import rdflib
 
 from ted_sws.core.model.notice import Notice
 from ted_sws.data_manager.adapters.sparql_endpoint import SPARQLStringEndpoint
+from ted_sws.data_manager.adapters.triple_store import TripleStoreABC
 from ted_sws.master_data_registry.resources import RDF_FRAGMENT_BY_URI_SPARQL_QUERY_TEMPLATE_PATH, \
     TRIPLES_BY_CET_URI_SPARQL_QUERY_TEMPLATE_PATH
 
 RDFTriple = Tuple[rdflib.term.Node, rdflib.term.Node, rdflib.term.Node]
 
 DEFAULT_RDF_FILE_FORMAT = "n3"
-RDF_FRAGMENT_ROOT_NODE_TYPE = "http://www.meaningfy.ws/mdr#RootNode"
-RDF_FRAGMENT_FROM_NOTICE_PROPERTY = "http://www.meaningfy.ws/mdr#fromNotice"
+RDF_FRAGMENT_FROM_NOTICE_PROPERTY = rdflib.URIRef("http://www.meaningfy.ws/mdr#fromNotice")
 
 
 def get_subjects_by_cet_uri(sparql_endpoint: SPARQLStringEndpoint, cet_uri: str) -> List[str]:
@@ -72,10 +72,7 @@ def get_rdf_fragment_by_cet_uri_from_string(rdf_content: str, cet_uri: str,
     root_uris = get_subjects_by_cet_uri(sparql_endpoint=sparql_endpoint, cet_uri=cet_uri)
     rdf_fragments = []
     for root_uri in root_uris:
-        rdf_fragment = get_rdf_fragment_by_root_uri(sparql_endpoint=sparql_endpoint, root_uri=root_uri,
-                                                    inject_triples=[(rdflib.URIRef(root_uri), rdflib.RDF.type,
-                                                                     rdflib.URIRef(RDF_FRAGMENT_ROOT_NODE_TYPE))]
-                                                    )
+        rdf_fragment = get_rdf_fragment_by_root_uri(sparql_endpoint=sparql_endpoint, root_uri=root_uri)
         rdf_fragments.append(rdf_fragment)
     return rdf_fragments
 
@@ -102,18 +99,34 @@ def get_rdf_fragment_by_cet_uri_from_notice(notice: Notice, cet_uri: str) -> Lis
     :param cet_uri:
     :return:
     """
-    sparql_endpoint = SPARQLStringEndpoint(rdf_content=notice.distilled_rdf_manifestation.object_data,
+    sparql_endpoint = SPARQLStringEndpoint(rdf_content=notice.rdf_manifestation.object_data,
                                            rdf_content_format=DEFAULT_RDF_FILE_FORMAT)
     root_uris = get_subjects_by_cet_uri(sparql_endpoint=sparql_endpoint, cet_uri=cet_uri)
     rdf_fragments = []
     for root_uri in root_uris:
         rdf_fragment = get_rdf_fragment_by_root_uri(sparql_endpoint=sparql_endpoint, root_uri=root_uri,
-                                                    inject_triples=[(rdflib.URIRef(root_uri), rdflib.RDF.type,
-                                                                     rdflib.URIRef(RDF_FRAGMENT_ROOT_NODE_TYPE)),
-                                                                    (rdflib.URIRef(root_uri),
-                                                                     rdflib.URIRef(RDF_FRAGMENT_FROM_NOTICE_PROPERTY),
+                                                    inject_triples=[(rdflib.URIRef(root_uri),
+                                                                     RDF_FRAGMENT_FROM_NOTICE_PROPERTY,
                                                                      rdflib.Literal(notice.ted_id))
                                                                     ]
                                                     )
         rdf_fragments.append(rdf_fragment)
     return rdf_fragments
+
+
+def write_rdf_fragments_in_triple_store(rdf_fragments: List[rdflib.Graph], triple_store: TripleStoreABC,
+                                        repository_name: str):
+    """
+        This function write rdf fragments to triple store.
+    :param rdf_fragments:
+    :param triple_store:
+    :param repository_name:
+    :return:
+    """
+    merged_rdf_fragments = rdflib.Graph()
+    for rdf_fragment in rdf_fragments:
+        merged_rdf_fragments = merged_rdf_fragments + rdf_fragment
+
+    triple_store.add_data_to_repository(
+        file_content=str(merged_rdf_fragments.serialize(format="nt")).encode(encoding="utf-8"), mime_type="text/n3",
+        repository_name=repository_name)

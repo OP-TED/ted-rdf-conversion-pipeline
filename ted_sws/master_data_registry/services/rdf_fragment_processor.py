@@ -114,11 +114,19 @@ def get_rdf_fragment_by_cet_uri_from_notice(notice: Notice, cet_uri: str) -> Lis
     return rdf_fragments
 
 
-def write_rdf_fragments_to_triple_store(rdf_fragments: List[rdflib.Graph], triple_store: TripleStoreABC,
+def write_rdf_fragments_in_triple_store(rdf_fragments: List[rdflib.Graph], triple_store: TripleStoreABC,
                                         repository_name: str):
     """
         This function write rdf fragments to triple store.
     :param rdf_fragments:
     :param triple_store:
+    :param repository_name:
     :return:
     """
+    merged_rdf_fragments = rdflib.Graph()
+    for rdf_fragment in rdf_fragments:
+        merged_rdf_fragments = merged_rdf_fragments + rdf_fragment
+
+    triple_store.add_data_to_repository(
+        file_content=str(merged_rdf_fragments.serialize(format="nt")).encode(encoding="utf-8"), mime_type="text/n3",
+        repository_name=repository_name)

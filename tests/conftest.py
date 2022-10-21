@@ -8,7 +8,7 @@ import pytest
 from click.testing import CliRunner
 from mongomock.gridfs import enable_gridfs_integration
 
-from ted_sws.core.model.manifestation import XMLManifestation
+from ted_sws.core.model.manifestation import XMLManifestation, RDFManifestation
 from ted_sws.core.model.metadata import TEDMetadata, LanguageTaggedString, NormalisedMetadata, XMLMetadata
 from ted_sws.core.model.notice import Notice
 from ted_sws.notice_metadata_processor.services.metadata_normalizer import TITLE_KEY, LONG_TITLE_KEY, NOTICE_TYPE_KEY, \
@@ -227,3 +227,12 @@ def notice_2021():
     original_metadata = TEDMetadata(**notice_data)
 
     return Notice(ted_id=ted_id, xml_manifestation=xml_manifestation, original_metadata=original_metadata)
+
+
+@pytest.fixture
+def notice_with_rdf_manifestation():
+    notice = Notice(ted_id="002705-2021", original_metadata={},
+                    xml_manifestation=XMLManifestation(object_data="No XML data"))
+    rdf_content_path = TEST_DATA_PATH / "example.ttl"
+    notice._rdf_manifestation = RDFManifestation(object_data=rdf_content_path.read_text(encoding="utf-8"))
+    return notice

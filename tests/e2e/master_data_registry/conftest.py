@@ -12,7 +12,7 @@ def triple_store_endpoint_url() -> str:
 
 @pytest.fixture
 def rdf_file_path() -> pathlib.Path:
-    return TEST_DATA_PATH / "example.ttl"
+    return TEST_DATA_PATH / "rdf_manifestations" / "002705-2021.ttl"
 
 
 @pytest.fixture
@@ -22,4 +22,4 @@ def rdf_content(rdf_file_path) -> str:
 
 @pytest.fixture
 def organisation_cet_uri() -> str:
-    return "http://data.europa.eu/a4g/ontology#Organisation"
+    return "http://www.w3.org/ns/org#Organization"

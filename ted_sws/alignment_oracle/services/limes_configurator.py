@@ -4,8 +4,7 @@ from typing import List
 from jinja2 import Environment, PackageLoader
 
 from ted_sws import config
-from ted_sws.alignment_oracle.model.limes_config import LimesConfigParams, LimesDataSource, LimesDataResult, \
-    LimesConfigGenerator
+from ted_sws.alignment_oracle.model.limes_config import LimesConfigParams, LimesDataSource, LimesDataResult
 
 TEMPLATES = Environment(loader=PackageLoader("ted_sws.alignment_oracle.resources", "templates"))
 LIMES_CONFIG_TEMPLATE = "limes_config.jinja2"
@@ -22,7 +21,6 @@ DEFAULT_SOURCE_ID = "default_source_id"
 DEFAULT_TARGET_ID = "default_target_id"
 DEFAULT_SOURCE_DATA_TYPE = "SPARQL"
 
-LIMES_CONFIGURATORS_MAPPING = {}
 
 def generate_xml_config_from_limes_config(limes_config_params: LimesConfigParams) -> str:
     """
@@ -97,21 +95,10 @@ def generate_organisation_cet_limes_config_params(source_sparql_endpoint: str,
     return generate_default_limes_config_params(source_sparql_endpoint=source_sparql_endpoint,
                                                 target_sparql_endpoint=target_sparql_endpoint,
                                                 result_dir_path=result_dir_path,
-                                                alignment_metric="ADD(Jaccard(x.epo:hasLegalName, y.epo:hasLegalName), Jaccard(x.street, y.street))",
+                                                alignment_metric="ExactMatch(x.legal_name, y.legal_name)",
                                                 source_sparql_restrictions=["?x a org:Organization"],
-                                                source_sparql_properties=["epo:hasLegalName",
-                                                                          "legal:registeredAddress/locn:thoroughfare RENAME street"
-                                                                          ],
+                                                source_sparql_properties=["epo:hasLegalName AS nolang->lowercase RENAME legal_name"],
                                                 target_sparql_restrictions=["?y a org:Organization"],
-                                                target_sparql_properties=["epo:hasLegalName",
-                                                                          "legal:registeredAddress/locn:thoroughfare RENAME street"
+                                                target_sparql_properties=["epo:hasLegalName AS nolang->lowercase RENAME legal_name"
                                                                           ]
                                                 )
-
-
-def get_limes_config_generator_by_cet_uri(cet_uri: str)->LimesConfigGenerator:
-    if cet_uri in LIMES_CONFIGURATORS_MAPPING.keys():
-        return LIMES_CONFIGURATORS_MAPPING[cet_uri]
-    else:
-        raise Exception("Invalid CET URI!")
-

@@ -116,7 +116,8 @@ class AllegroGraphTripleStore(TripleStoreABC):
         """
         return self.allegro.openCatalog(name=self.catalog_name).listRepositories()
 
-    def add_data_to_repository(self, file_content: Union[str, bytes, bytearray], mime_type: str, repository_name: str = None):
+    def add_data_to_repository(self, file_content: Union[str, bytes, bytearray], mime_type: str,
+                               repository_name: str = None):
         """
         Method to add triples from a string
         :param file_content:
@@ -260,8 +261,8 @@ class FusekiAdapter(TripleStoreABC):
         identifying the repository
         :return: the query url
         """
-        endpoint_url = urljoin(self.host, repository_name + "/sparql")
-        sparql_endpoint = SPARQLTripleStoreEndpoint(endpoint_url=endpoint_url)
+        endpoint_url = urljoin(self.host, f"/{repository_name}/sparql")
+        sparql_endpoint = SPARQLTripleStoreEndpoint(endpoint_url=endpoint_url, user=self.user, password=self.password)
         return sparql_endpoint
 
     def _get_repository(self, repository_name: str) -> dict:

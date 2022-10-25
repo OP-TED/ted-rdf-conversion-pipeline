@@ -1,5 +1,5 @@
 import json
-from typing import List
+from typing import List, Union
 
 from jinja2 import Environment, PackageLoader
 
@@ -10,10 +10,10 @@ from ted_sws.core.model.transform import MappingSuite, SHACLTestSuite
 from ted_sws.data_manager.adapters.repository_abc import NoticeRepositoryABC, MappingSuiteRepositoryABC
 from ted_sws.notice_validator.adapters.shacl_runner import SHACLRunner
 from ted_sws.resources import SHACL_RESULT_QUERY_PATH
+from ted_sws.notice_validator.services import NOTICE_ID_FIELD
 
 TEMPLATES = Environment(loader=PackageLoader("ted_sws.notice_validator.resources", "templates"))
 SHACL_TEST_SUITE_EXECUTION_HTML_REPORT_TEMPLATE = "shacl_shape_validation_results_report.jinja2"
-NOTICE_ID_FIELD = "notice_id"
 
 
 class SHACLTestSuiteRunner:
@@ -74,7 +74,7 @@ def generate_shacl_report(shacl_test_suite_execution: SHACLTestSuiteValidationRe
     return shacl_test_suite_execution
 
 
-def validate_notice_with_shacl_suite(notice: Notice, mapping_suite_package: MappingSuite):
+def validate_notice_with_shacl_suite(notice: Union[Notice, List[Notice]], mapping_suite_package: MappingSuite):
     """
     Validates a notice with a shacl test suites
     :param notice:
@@ -82,22 +82,27 @@ def validate_notice_with_shacl_suite(notice: Notice, mapping_suite_package: Mapp
     :return:
     """
 
-    def shacl_validation(rdf_manifestation: RDFManifestation) -> List[SHACLTestSuiteValidationReport]:
+    def shacl_validation(notice_item: Notice, rdf_manifestation: RDFManifestation) \
+            -> List[SHACLTestSuiteValidationReport]:
         reports = []
         shacl_test_suites = mapping_suite_package.shacl_test_suites
         for shacl_test_suite in shacl_test_suites:
             test_suite_execution = SHACLTestSuiteRunner(rdf_manifestation=rdf_manifestation,
                                                         shacl_test_suite=shacl_test_suite,
                                                         mapping_suite=mapping_suite_package).execute_test_suite()
-            reports.append(generate_shacl_report(shacl_test_suite_execution=test_suite_execution))
+            reports.append(generate_shacl_report(shacl_test_suite_execution=test_suite_execution,
+                                                 notice_ids=[notice_item.ted_id]))
 
         return sorted(reports, key=lambda x: x.test_suite_identifier)
 
-    for report in shacl_validation(rdf_manifestation=notice.rdf_manifestation):
-        notice.set_rdf_validation(rdf_validation=report)
+    notices = notice if isinstance(notice, List) else [notice]
 
-    for report in shacl_validation(rdf_manifestation=notice.distilled_rdf_manifestation):
-        notice.set_distilled_rdf_validation(rdf_validation=report)
+    for notice in notices:
+        for report in shacl_validation(notice_item=notice, rdf_manifestation=notice.rdf_manifestation):
+            notice.set_rdf_validation(rdf_validation=report)
+
+        for report in shacl_validation(notice_item=notice, rdf_manifestation=notice.distilled_rdf_manifestation):
+            notice.set_distilled_rdf_validation(rdf_validation=report)
 
 
 def validate_notice_by_id_with_shacl_suite(notice_id: str, mapping_suite_identifier: str,

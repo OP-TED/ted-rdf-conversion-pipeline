@@ -8,4 +8,4 @@ def test_deduplicate_entities_by_cet_uri(notice_with_rdf_manifestation, organisa
                                                       cet_uri=organisation_cet_uri)
 
 
-    print(alignment_graph.serialize(format="nt"))
+    #print(alignment_graph.serialize(format="nt"))

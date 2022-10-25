@@ -10,7 +10,7 @@ from ted_sws.core.model.transform import MappingSuite, SHACLTestSuite
 from ted_sws.data_manager.adapters.repository_abc import NoticeRepositoryABC, MappingSuiteRepositoryABC
 from ted_sws.notice_validator.adapters.shacl_runner import SHACLRunner
 from ted_sws.resources import SHACL_RESULT_QUERY_PATH
-from ted_sws.notice_validator.services import NOTICE_ID_FIELD
+from ted_sws.notice_validator.services import NOTICE_IDS_FIELD
 
 TEMPLATES = Environment(loader=PackageLoader("ted_sws.notice_validator.resources", "templates"))
 SHACL_TEST_SUITE_EXECUTION_HTML_REPORT_TEMPLATE = "shacl_shape_validation_results_report.jinja2"
@@ -68,7 +68,7 @@ def generate_shacl_report(shacl_test_suite_execution: SHACLTestSuiteValidationRe
     :return:
     """
     template_data: dict = shacl_test_suite_execution.dict()
-    template_data[NOTICE_ID_FIELD] = notice_ids
+    template_data[NOTICE_IDS_FIELD] = notice_ids
     html_report = TEMPLATES.get_template(SHACL_TEST_SUITE_EXECUTION_HTML_REPORT_TEMPLATE).render(template_data)
     shacl_test_suite_execution.object_data = html_report
     return shacl_test_suite_execution

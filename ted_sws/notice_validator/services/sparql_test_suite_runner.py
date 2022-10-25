@@ -10,7 +10,7 @@ from ted_sws.core.model.notice import Notice
 from ted_sws.core.model.transform import SPARQLTestSuite, MappingSuite, FileResource
 from ted_sws.data_manager.adapters.repository_abc import NoticeRepositoryABC, MappingSuiteRepositoryABC
 from ted_sws.notice_validator.adapters.sparql_runner import SPARQLRunner
-from ted_sws.notice_validator.services import NOTICE_ID_FIELD
+from ted_sws.notice_validator.services import NOTICE_IDS_FIELD
 
 TEMPLATES = Environment(loader=PackageLoader("ted_sws.notice_validator.resources", "templates"))
 SPARQL_TEST_SUITE_EXECUTION_HTML_REPORT_TEMPLATE = "sparql_query_results_report.jinja2"
@@ -131,9 +131,9 @@ class SPARQLReportBuilder:
         self.notice_ids = notice_ids
 
     def generate_report(self) -> SPARQLTestSuiteValidationReport:
-        tpl_data: dict = self.sparql_test_suite_execution.dict()
-        tpl_data[NOTICE_ID_FIELD] = self.notice_ids
-        html_report = TEMPLATES.get_template(SPARQL_TEST_SUITE_EXECUTION_HTML_REPORT_TEMPLATE).render(tpl_data)
+        template_data: dict = self.sparql_test_suite_execution.dict()
+        template_data[NOTICE_IDS_FIELD] = self.notice_ids
+        html_report = TEMPLATES.get_template(SPARQL_TEST_SUITE_EXECUTION_HTML_REPORT_TEMPLATE).render(template_data)
         self.sparql_test_suite_execution.object_data = html_report
         return self.sparql_test_suite_execution
 

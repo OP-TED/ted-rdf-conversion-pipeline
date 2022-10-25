@@ -1,1 +1,1 @@
-NOTICE_ID_FIELD = "notice_id"
+NOTICE_IDS_FIELD = "notice_ids"

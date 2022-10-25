@@ -13,6 +13,7 @@ from ted_sws.resources import SHACL_RESULT_QUERY_PATH
 
 TEMPLATES = Environment(loader=PackageLoader("ted_sws.notice_validator.resources", "templates"))
 SHACL_TEST_SUITE_EXECUTION_HTML_REPORT_TEMPLATE = "shacl_shape_validation_results_report.jinja2"
+NOTICE_ID_FIELD = "notice_id"
 
 
 class SHACLTestSuiteRunner:
@@ -59,16 +60,16 @@ class SHACLTestSuiteRunner:
 
 
 def generate_shacl_report(shacl_test_suite_execution: SHACLTestSuiteValidationReport,
-                          notice_id: List[str] = None) -> SHACLTestSuiteValidationReport:
+                          notice_ids: List[str] = None) -> SHACLTestSuiteValidationReport:
     """
         This function generate html report after SHACL test execution.
-    :param notice_id:
+    :param notice_ids:
     :param shacl_test_suite_execution:
     :return:
     """
-    tpl_data: dict = shacl_test_suite_execution.dict()
-    tpl_data["notice_id"] = notice_id
-    html_report = TEMPLATES.get_template(SHACL_TEST_SUITE_EXECUTION_HTML_REPORT_TEMPLATE).render(tpl_data)
+    template_data: dict = shacl_test_suite_execution.dict()
+    template_data[NOTICE_ID_FIELD] = notice_ids
+    html_report = TEMPLATES.get_template(SHACL_TEST_SUITE_EXECUTION_HTML_REPORT_TEMPLATE).render(template_data)
     shacl_test_suite_execution.object_data = html_report
     return shacl_test_suite_execution
 

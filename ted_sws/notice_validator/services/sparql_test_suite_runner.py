@@ -145,14 +145,14 @@ def validate_notice_with_sparql_suite(notice: Union[Notice, List[Notice]], mappi
     :return:
     """
 
-    def sparql_validation(_notice: Notice) \
+    def sparql_validation(notice_item: Notice) \
             -> List[SPARQLTestSuiteValidationReport]:
-        rdf_manifestation: RDFManifestation = _notice.rdf_manifestation
+        rdf_manifestation: RDFManifestation = notice_item.rdf_manifestation
         sparql_test_suites = mapping_suite_package.sparql_test_suites
         reports = []
         for sparql_test_suite in sparql_test_suites:
             test_suite_execution = SPARQLTestSuiteRunner(rdf_manifestation=rdf_manifestation,
-                                                         xml_manifestation=notice.xml_manifestation,
+                                                         xml_manifestation=notice_item.xml_manifestation,
                                                          sparql_test_suite=sparql_test_suite,
                                                          mapping_suite=mapping_suite_package
                                                          ).execute_test_suite()
@@ -162,11 +162,11 @@ def validate_notice_with_sparql_suite(notice: Union[Notice, List[Notice]], mappi
 
     notices = notice if isinstance(notice, List) else [notice]
 
-    for _notice in notices:
-        for report in sparql_validation(_notice=_notice):
+    for notice in notices:
+        for report in sparql_validation(notice_item=notice):
             notice.set_rdf_validation(rdf_validation=report)
 
-        for report in sparql_validation(_notice=_notice):
+        for report in sparql_validation(notice_item=notice):
             notice.set_distilled_rdf_validation(rdf_validation=report)
 
 

@@ -50,7 +50,7 @@ class CmdRunner(BaseCmdRunner):
         with open(report_path / report_name, "w+") as f:
             f.write(content)
 
-    def validate(self, rdf_file, base_report_path, notice_id: List[str] = None):
+    def validate(self, rdf_file, base_report_path, notice_ids: List[str] = None):
         self.log("Validating " + LOG_INFO_TEXT.format(rdf_file.name) + " ... ")
         rdf_manifestation = RDFManifestation(object_data=rdf_file.read_text(encoding="utf-8"))
 
@@ -65,7 +65,7 @@ class CmdRunner(BaseCmdRunner):
                                                         mapping_suite=self.mapping_suite).execute_test_suite()
 
             report: SHACLTestSuiteValidationReport = generate_shacl_report(
-                shacl_test_suite_execution=test_suite_execution, notice_id=notice_id)
+                shacl_test_suite_execution=test_suite_execution, notice_ids=notice_ids)
 
             suite_id = shacl_test_suite.identifier
             self.save_report(report_path, HTML_REPORT, suite_id, report.object_data)
@@ -90,7 +90,7 @@ class CmdRunner(BaseCmdRunner):
                     base_report_path = rdf_path / notice_id
                     for f in d.iterdir():
                         if f.is_file():
-                            self.validate(rdf_file=f, base_report_path=base_report_path, notice_id=[notice_id])
+                            self.validate(rdf_file=f, base_report_path=base_report_path, notice_ids=[notice_id])
         except Exception as e:
             error = e
 

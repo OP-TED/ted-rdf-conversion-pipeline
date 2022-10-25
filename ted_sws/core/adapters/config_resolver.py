@@ -59,6 +59,25 @@ class ConfigResolverABC(ABC):
         raise NotImplementedError
 
 
+class AirflowConfigResolver(ConfigResolverABC):
+    """
+        This class aims to search for configurations in Airflow environment variables.
+    """
+
+    def _config_resolve(config_name: str, default_value: str = None):
+        """
+            This method retrieve configuration values from Airflow environment.
+        :param default_value:
+        :return:
+        """
+        from airflow.models import Variable
+        value = Variable.get(key=config_name, default_var=default_value)
+        logger.debug(
+            "[Airflow ENV] Value of '" + str(config_name) + "' is " + str(value) + "(supplied default is '" + str(
+                default_value) + "')")
+        return value
+
+
 class EnvConfigResolver(ConfigResolverABC):
     """
         This class aims to search for configurations in environment variables.

@@ -254,14 +254,22 @@ class FusekiAdapter(TripleStoreABC):
         result = loads(response_text)
         return [d_item['ds.name'][1:] for d_item in result['datasets']]
 
-    def get_sparql_triple_store_endpoint(self, repository_name: str = None) -> TripleStoreEndpointABC:
+    def get_sparql_triple_store_endpoint_url(self, repository_name: str) -> str:
         """
             Helper method to create the url for querying.
+        :param repository_name:
+        :return:
+        """
+        return urljoin(self.host, f"/{repository_name}/sparql")
+
+    def get_sparql_triple_store_endpoint(self, repository_name: str = None) -> TripleStoreEndpointABC:
+        """
+            Helper method to create the triple store endpoint for querying.
         :param repository_name: The dataset identifier. This should be short alphanumeric string uniquely
         identifying the repository
         :return: the query url
         """
-        endpoint_url = urljoin(self.host, f"/{repository_name}/sparql")
+        endpoint_url = self.get_sparql_triple_store_endpoint_url(repository_name=repository_name)
         sparql_endpoint = SPARQLTripleStoreEndpoint(endpoint_url=endpoint_url, user=self.user, password=self.password)
         return sparql_endpoint
 

@@ -1,35 +1,20 @@
 import pathlib
 import tempfile
 from io import StringIO
-from string import Template
-from typing import List, Set
-
+from typing import List, Set, Tuple, Dict
 import rdflib
 from rdflib import RDF, URIRef, OWL
 
 from ted_sws.alignment_oracle.services.generate_alignment_links import generate_alignment_links, TURTLE_SOURCE_DATA_TYPE
 from ted_sws.alignment_oracle.services.limes_config_resolver import get_limes_config_generator_by_cet_uri
 from ted_sws.core.model.notice import Notice
-from ted_sws.data_manager.adapters.triple_store import FusekiAdapter
-from ted_sws.master_data_registry.resources import RDF_FRAGMENT_BY_URI_SPARQL_QUERY_TEMPLATE_PATH
+from ted_sws.data_manager.adapters.triple_store import FusekiAdapter, TripleStoreABC
 from ted_sws.master_data_registry.services.rdf_fragment_processor import get_rdf_fragments_by_cet_uri_from_notices, \
-    merge_rdf_fragments_into_graph, write_rdf_fragments_in_triple_store
+    merge_rdf_fragments_into_graph, write_rdf_fragments_in_triple_store, RDF_FRAGMENT_FROM_NOTICE_PROPERTY
 
 MDR_TEMPORARY_FUSEKI_DATASET_NAME = "tmp_mdr_dataset"
 MDR_FUSEKI_DATASET_NAME = "mdr_dataset"
-MDR_FUSEKI_URL = "https://fuseki.ted-data.eu/mdr_dataset/query"
 MDR_CANONICAL_CET_PROPERTY = rdflib.term.URIRef("http://www.meaningfy.ws/mdr#isCanonicalEntity")
-
-
-def init_master_data_registry() -> FusekiAdapter:
-    """
-        This function is used for master data registry initialisation.
-    :return:
-    """
-    triple_store = FusekiAdapter()
-    if MDR_FUSEKI_DATASET_NAME not in triple_store.list_repositories():
-        triple_store.create_repository(repository_name=MDR_FUSEKI_DATASET_NAME)
-    return triple_store
 
 
 def generate_mdr_alignment_links(merged_rdf_fragments: rdflib.Graph, cet_uri: str,
@@ -82,7 +67,7 @@ def clean_mdr_alignment_links(source_subjects: Set[rdflib.term.URIRef], alignmen
 
 def reduce_link_set(alignment_graph: rdflib.Graph, source_subjects: set) -> rdflib.Graph:
     """
-
+        This function reduce number of alignment links from alignment graph.
     :param alignment_graph:
     :param source_subjects:
     :return:
@@ -92,7 +77,7 @@ def reduce_link_set(alignment_graph: rdflib.Graph, source_subjects: set) -> rdfl
     while found_transition:
         found_transition = False
         alignment_graph = clean_mdr_alignment_links(source_subjects=source_subjects,
-                                                  alignment_graph=alignment_graph)
+                                                    alignment_graph=alignment_graph)
         for triple in iter(alignment_graph):
             save_current_triple = True
             for transition_triple in alignment_graph.triples(triple=(triple[2], OWL.sameAs, None)):
@@ -106,51 +91,116 @@ def reduce_link_set(alignment_graph: rdflib.Graph, source_subjects: set) -> rdfl
     return reduced_graph
 
 
-def register_new_cet_in_mdr(root_uri: rdflib.term.URIRef, rdf_fragment: rdflib.Graph, mdr_sparql_endpoint: str):
+def filter_new_canonical_entities(cet_rdf_fragments: List[rdflib.Graph], cet_uri: str,
+                                  alignment_graph: rdflib.Graph) -> Tuple[Dict, Dict]:
     """
-
-    :param root_uri:
-    :param rdf_fragment:
-    :param mdr_sparql_endpoint:
-    :return:
-    """
-    # rdf_fragment.add((root_uri,))
-
-
-def deduplicate_entities_by_cet_uri(notices: List[Notice], cet_uri: str,
-                                    mdr_sparql_endpoint: str = MDR_FUSEKI_URL) -> rdflib.Graph:
-    """
-
-    :param notices:
+        This function filter new canonical CETs fragments by simple CETs fragments.
+    :param cet_rdf_fragments:
     :param cet_uri:
+    :param alignment_graph:
     :return:
     """
-    cet_rdf_fragments = get_rdf_fragments_by_cet_uri_from_notices(notices=notices, cet_uri=cet_uri)
+    new_canonical_entities = dict()
+    non_canonical_entities = dict()
+
     cet_rdf_fragments_dict = {
         next(cet_rdf_fragment.triples(triple=(None, RDF.type, URIRef(cet_uri))))[0]: cet_rdf_fragment
         for cet_rdf_fragment in cet_rdf_fragments}
+    source_subjects = set(cet_rdf_fragments_dict.keys())
+
+    for subject in source_subjects:
+        if next(alignment_graph.triples(triple=(subject, OWL.sameAs, None)), None) is not None:
+            non_canonical_entities[subject] = cet_rdf_fragments_dict[subject]
+        else:
+            new_canonical_entities[subject] = cet_rdf_fragments_dict[subject]
+
+    return new_canonical_entities, non_canonical_entities
+
+
+def register_new_cets_in_mdr(new_canonical_entities: Dict[rdflib.URIRef, rdflib.Graph], triple_store: TripleStoreABC,
+                             mdr_dataset_name: str):
+    """
+        This function register new canonical CETs in MDR.
+    :param new_canonical_entities:
+    :param triple_store:
+    :param mdr_dataset_name:
+    :return:
+    """
+    for root_uri, cet_rdf_fragment in new_canonical_entities.items():
+        cet_rdf_fragment.add(triple=(rdflib.term.URIRef(root_uri),
+                                     MDR_CANONICAL_CET_PROPERTY,
+                                     rdflib.term.Literal(True)))
+    write_rdf_fragments_in_triple_store(rdf_fragments=list(new_canonical_entities.values()), triple_store=triple_store,
+                                        repository_name=mdr_dataset_name)
+
+
+def inject_similarity_links_in_notices(notices: List[Notice],
+                                       cet_rdf_fragments_dict: Dict[rdflib.URIRef, rdflib.Graph],
+                                       alignment_graph: rdflib.Graph):
+    """
+        This function inject similarity links in Notice distilled rdf manifestation.
+    :param notices:
+    :param cet_rdf_fragments_dict:
+    :param alignment_graph:
+    :return:
+    """
+    notices_dict = {notice.ted_id: notice for notice in notices}
+
+    for root_uri, cet_rdf_fragment in cet_rdf_fragments_dict.items():
+        notice_id = str(next(cet_rdf_fragment.triples(triple=(root_uri, RDF_FRAGMENT_FROM_NOTICE_PROPERTY, None)))[2])
+        notice = notices_dict[notice_id]
+        inject_links = rdflib.Graph()
+        for triple in alignment_graph.triples(triple=(root_uri, OWL.sameAs, None)):
+            inject_links.add(triple)
+        notice.distilled_rdf_manifestation.object_data = '\n'.join([notice.distilled_rdf_manifestation.object_data,
+                                                                    str(inject_links.serialize(format="nt"))])
+
+
+def create_mdr_alignment_links(cet_rdf_fragments: List[rdflib.Graph], cet_uri: str,
+                               mdr_sparql_endpoint: str) -> rdflib.Graph:
+    """
+        This function create alignment links for input with MDR for concrete CET URI.
+    :param cet_rdf_fragments:
+    :param cet_uri:
+    :param mdr_sparql_endpoint:
+    :return:
+    """
     merged_rdf_fragments = merge_rdf_fragments_into_graph(rdf_fragments=cet_rdf_fragments)
-    triple_store = init_master_data_registry()
     alignment_graph = generate_mdr_alignment_links(merged_rdf_fragments=merged_rdf_fragments, cet_uri=cet_uri)
     alignment_graph += generate_mdr_alignment_links(merged_rdf_fragments=merged_rdf_fragments, cet_uri=cet_uri,
-                                                       mdr_sparql_endpoint=mdr_sparql_endpoint)
-    source_subjects = set(cet_rdf_fragments_dict.keys())
+                                                    mdr_sparql_endpoint=mdr_sparql_endpoint)
+    source_subjects = {next(cet_rdf_fragment.triples(triple=(None, RDF.type, URIRef(cet_uri))))[0]
+                       for cet_rdf_fragment in cet_rdf_fragments}
     reduced_link_set = reduce_link_set(alignment_graph=alignment_graph, source_subjects=source_subjects)
-    new_canonical_entities = []
-    notices_dict = {}
-    for subject in source_subjects:
-        cet_rdf_fragment: rdflib.Graph = cet_rdf_fragments_dict[subject]
-        if next(reduced_link_set.triples(triple=(subject, OWL.sameAs, None)), None) is not None:
-            print("Ref CET:", subject.split("/")[-1])
-            for triple in reduced_link_set.triples(triple=(subject, OWL.sameAs, None)):
-                print("Triple:", triple)
-        else:
-            cet_rdf_fragment.add(triple=(rdflib.term.URIRef(subject),
-                                         MDR_CANONICAL_CET_PROPERTY,
-                                         rdflib.term.Literal(True)))
-            new_canonical_entities.append(cet_rdf_fragment)
+    return reduced_link_set
 
-    write_rdf_fragments_in_triple_store(rdf_fragments=new_canonical_entities, triple_store=triple_store,
-                                        repository_name=MDR_FUSEKI_DATASET_NAME)
 
-    return alignment_graph
+def deduplicate_entities_by_cet_uri(notices: List[Notice], cet_uri: str,
+                                    mdr_dataset_name: str = MDR_FUSEKI_DATASET_NAME):
+    """
+        This function deduplicate entities by specific CET for each notice from batch of notices.
+    :param notices:
+    :param cet_uri:
+    :param mdr_dataset_name:
+    :return:
+    """
+    triple_store = FusekiAdapter()
+    if MDR_FUSEKI_DATASET_NAME not in triple_store.list_repositories():
+        triple_store.create_repository(repository_name=mdr_dataset_name)
+    mdr_sparql_endpoint = triple_store.get_sparql_triple_store_endpoint_url(repository_name=mdr_dataset_name)
+    cet_rdf_fragments = get_rdf_fragments_by_cet_uri_from_notices(notices=notices, cet_uri=cet_uri)
+
+    cet_alignment_links = create_mdr_alignment_links(cet_rdf_fragments=cet_rdf_fragments, cet_uri=cet_uri,
+                                                     mdr_sparql_endpoint=mdr_sparql_endpoint)
+
+    new_canonical_cet_fragments_dict, non_canonical_cet_fragments_dict = filter_new_canonical_entities(
+        cet_rdf_fragments=cet_rdf_fragments,
+        cet_uri=cet_uri,
+        alignment_graph=cet_alignment_links
+    )
+
+    register_new_cets_in_mdr(new_canonical_entities=new_canonical_cet_fragments_dict, triple_store=triple_store,
+                             mdr_dataset_name=mdr_dataset_name)
+
+    inject_similarity_links_in_notices(notices=notices, cet_rdf_fragments_dict=non_canonical_cet_fragments_dict,
+                                       alignment_graph=cet_alignment_links)

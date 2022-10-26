@@ -10,7 +10,7 @@ from mongomock.gridfs import enable_gridfs_integration
 
 from ted_sws.core.model.manifestation import XMLManifestation, RDFManifestation
 from ted_sws.core.model.metadata import TEDMetadata, LanguageTaggedString, NormalisedMetadata, XMLMetadata
-from ted_sws.core.model.notice import Notice
+from ted_sws.core.model.notice import Notice, NoticeStatus
 from ted_sws.notice_metadata_processor.services.metadata_normalizer import TITLE_KEY, LONG_TITLE_KEY, NOTICE_TYPE_KEY, \
     NOTICE_NUMBER_KEY, OJS_TYPE_KEY, OJS_NUMBER_KEY, LANGUAGE_KEY, EU_INSTITUTION_KEY, SENT_DATE_KEY, DEADLINE_DATE_KEY, \
     BUYER_COUNTRY_KEY, BUYER_NAME_KEY, BUYER_CITY_KEY, PUBLICATION_DATE_KEY, FORM_NUMBER_KEY, \
@@ -235,4 +235,5 @@ def notice_with_rdf_manifestation():
                     xml_manifestation=XMLManifestation(object_data="No XML data"))
     rdf_content_path = TEST_DATA_PATH / "rdf_manifestations" / "002705-2021.ttl"
     notice._rdf_manifestation = RDFManifestation(object_data=rdf_content_path.read_text(encoding="utf-8"))
+    notice._status = NoticeStatus.TRANSFORMED
     return notice

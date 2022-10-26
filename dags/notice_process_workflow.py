@@ -1,6 +1,5 @@
 from typing import List
 
-from airflow.operators.dummy import DummyOperator
 from airflow.operators.python import BranchPythonOperator, PythonOperator
 from airflow.decorators import dag
 from airflow.utils.trigger_rule import TriggerRule

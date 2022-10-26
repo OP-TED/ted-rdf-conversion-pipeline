@@ -41,9 +41,6 @@ def notice_transformation_pipeline(notice: Notice, mongodb_client: MongoClient) 
     mapping_suite = mapping_suite_repository.get(reference=mapping_suite_id)
     rml_mapper = RMLMapper(rml_mapper_path=config.RML_MAPPER_PATH)
     transformed_notice = transform_notice(notice=notice, mapping_suite=mapping_suite, rml_mapper=rml_mapper)
-    # TODO: Implement RDF distilation
-    transformed_notice.set_distilled_rdf_manifestation(
-        distilled_rdf_manifestation=transformed_notice.rdf_manifestation.copy())
     return NoticePipelineOutput(notice=transformed_notice)
 
 

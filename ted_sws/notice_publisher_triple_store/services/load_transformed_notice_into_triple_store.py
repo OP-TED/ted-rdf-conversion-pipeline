@@ -14,7 +14,8 @@ def load_rdf_manifestation_into_triple_store(rdf_manifestation: RDFManifestation
                                              mime_type: str = DEFAULT_NOTICE_RDF_MANIFESTATION_MIME_TYPE
                                              ):
     """
-
+     Method to create a repository in the Fuseki triple store and load rdf manifestation of an transformed complete notice.
+     Name of the repository is given by default.
     :param rdf_manifestation:
     :param triple_store_repository:
     :param repository_name:

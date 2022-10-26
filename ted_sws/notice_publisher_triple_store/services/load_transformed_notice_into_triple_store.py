@@ -1,21 +1,33 @@
 """
     This module implements functionality to load a given notice into a triple store.
 """
-from ted_sws.data_manager.adapters.repository_abc import NoticeRepositoryABC
+from ted_sws.core.model.manifestation import RDFManifestation
 from ted_sws.data_manager.adapters.triple_store import TripleStoreABC, RDF_MIME_TYPES
 
 DEFAULT_NOTICE_REPOSITORY_NAME = "notices"
+DEFAULT_NOTICE_RDF_MANIFESTATION_MIME_TYPE = RDF_MIME_TYPES["turtle"]
 
 
-def load_notice_into_triple_store(notice_id: str, notice_repository: NoticeRepositoryABC,
-                                  triple_store_repository: TripleStoreABC,
-                                  repository_name: str = DEFAULT_NOTICE_REPOSITORY_NAME):
+def load_rdf_manifestation_into_triple_store(rdf_manifestation: RDFManifestation,
+                                             triple_store_repository: TripleStoreABC,
+                                             repository_name: str= DEFAULT_NOTICE_REPOSITORY_NAME,
+                                             mime_type: str = DEFAULT_NOTICE_RDF_MANIFESTATION_MIME_TYPE
+                                             ):
     """
 
+    :param rdf_manifestation:
+    :param triple_store_repository:
+    :param repository_name:
+    :param mime_type:
+    :return:
     """
-    notice = notice_repository.get(reference=notice_id)
-    if notice is None:
-        raise ValueError('Notice, with "%s" notice_id, was not found' % notice_id)
-    mime_type = RDF_MIME_TYPES
-    rdf_manifestation_string = notice.rdf_manifestation.object_data
-    triple_store_repository.add_data_to_repository(file_content=rdf_manifestation_string.encode(encoding='utf-8'), repository_name=repository_name, mime_type=mime_type)
+    if rdf_manifestation is None:
+        raise Exception("RDF Manifestation is None!")
+    if rdf_manifestation.object_data is None:
+        raise Exception("RDF Manifestation object data is None!")
+    rdf_manifestation_string = rdf_manifestation.object_data
+    if repository_name not in triple_store_repository.list_repositories():
+        triple_store_repository.create_repository(repository_name=repository_name)
+    triple_store_repository.add_data_to_repository(file_content=rdf_manifestation_string.encode(encoding='utf-8'),
+                                                   repository_name=repository_name, mime_type=mime_type)
+

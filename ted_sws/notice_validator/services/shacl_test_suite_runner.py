@@ -58,14 +58,17 @@ class SHACLTestSuiteRunner:
                                               object_data="SHACLTestSuiteExecution")
 
 
-def generate_shacl_report(shacl_test_suite_execution: SHACLTestSuiteValidationReport) -> SHACLTestSuiteValidationReport:
+def generate_shacl_report(shacl_test_suite_execution: SHACLTestSuiteValidationReport,
+                          notice_id: List[str] = None) -> SHACLTestSuiteValidationReport:
     """
         This function generate html report after SHACL test execution.
+    :param notice_id:
     :param shacl_test_suite_execution:
     :return:
     """
-    html_report = TEMPLATES.get_template(SHACL_TEST_SUITE_EXECUTION_HTML_REPORT_TEMPLATE).render(
-        shacl_test_suite_execution.dict())
+    tpl_data: dict = shacl_test_suite_execution.dict()
+    tpl_data["notice_id"] = notice_id
+    html_report = TEMPLATES.get_template(SHACL_TEST_SUITE_EXECUTION_HTML_REPORT_TEMPLATE).render(tpl_data)
     shacl_test_suite_execution.object_data = html_report
     return shacl_test_suite_execution
 

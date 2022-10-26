@@ -14,6 +14,7 @@ PROJECT_PATH = $(shell pwd)
 AIRFLOW_INFRA_FOLDER ?= ${PROJECT_PATH}/.airflow
 RML_MAPPER_PATH = ${PROJECT_PATH}/.rmlmapper/rmlmapper.jar
 XML_PROCESSOR_PATH = ${PROJECT_PATH}/.saxon/saxon-he-10.6.jar
+LIMES_ALIGNMENT_PATH = $(PROJECT_PATH)/.limes/limes.jar
 HOSTNAME = $(shell hostname)
 
 
@@ -212,13 +213,17 @@ init-rml-mapper:
 	@ mkdir -p ./.rmlmapper
 	@ wget -c https://api.bitbucket.org/2.0/repositories/Dragos0000/rml-mapper/src/master/rmlmapper.jar -P ./.rmlmapper
 
+init-limes:
+	@ echo -e "Limes folder initialisation!"
+	@ mkdir -p ./.limes
+	@ wget -c https://github.com/dice-group/LIMES/releases/download/1.7.9/limes.jar -P ./.limes
 
 init-saxon:
 	@ echo -e "$(BUILD_PRINT)Saxon folder initialization $(END_BUILD_PRINT)"
 	@ wget -c https://kumisystems.dl.sourceforge.net/project/saxon/Saxon-HE/10/Java/SaxonHE10-6J.zip -P .saxon/
 	@ cd .saxon && unzip SaxonHE10-6J.zip && rm -rf SaxonHE10-6J.zip
 
-start-project-services: | start-airflow start-mongo init-rml-mapper start-allegro-graph start-metabase
+start-project-services: | start-airflow start-mongo init-rml-mapper init-limes start-allegro-graph start-metabase
 stop-project-services: | stop-airflow stop-mongo stop-allegro-graph stop-metabase
 
 #-----------------------------------------------------------------------------
@@ -246,6 +251,7 @@ staging-dotenv-file: guard-VAULT_ADDR guard-VAULT_TOKEN vault-installed
 	@ echo ENVIRONMENT=staging >> .env
 	@ echo SUBDOMAIN=staging. >> .env
 	@ echo RML_MAPPER_PATH=${RML_MAPPER_PATH} >> .env
+	@ echo LIMES_ALIGNMENT_PATH=${LIMES_ALIGNMENT_PATH} >> .env
 	@ echo XML_PROCESSOR_PATH=${XML_PROCESSOR_PATH} >> .env
 	@ echo AIRFLOW_INFRA_FOLDER=~/airflow-infra/staging >> .env
 	@ echo AIRFLOW_WORKER_HOSTNAME=${HOSTNAME} >> .env
@@ -255,6 +261,7 @@ staging-dotenv-file: guard-VAULT_ADDR guard-VAULT_TOKEN vault-installed
 	@ vault kv get -format="json" ted-staging/ted-sws | jq -r ".data.data | keys[] as \$$k | \"\(\$$k)=\(.[\$$k])\"" >> .env
 	@ vault kv get -format="json" ted-staging/agraph | jq -r ".data.data | keys[] as \$$k | \"\(\$$k)=\(.[\$$k])\"" >> .env
 	@ vault kv get -format="json" ted-staging/github | jq -r ".data.data | keys[] as \$$k | \"\(\$$k)=\(.[\$$k])\"" >> .env
+	@ vault kv get -format="json" ted-staging/minio | jq -r ".data.data | keys[] as \$$k | \"\(\$$k)=\(.[\$$k])\"" >> .env
 
 
 dev-dotenv-file: guard-VAULT_ADDR guard-VAULT_TOKEN vault-installed
@@ -265,6 +272,7 @@ dev-dotenv-file: guard-VAULT_ADDR guard-VAULT_TOKEN vault-installed
 	@ echo ENVIRONMENT=dev >> .env
 	@ echo SUBDOMAIN= >> .env
 	@ echo RML_MAPPER_PATH=${RML_MAPPER_PATH} >> .env
+	@ echo LIMES_ALIGNMENT_PATH=${LIMES_ALIGNMENT_PATH} >> .env
 	@ echo XML_PROCESSOR_PATH=${XML_PROCESSOR_PATH} >> .env
 	@ echo AIRFLOW_INFRA_FOLDER=${AIRFLOW_INFRA_FOLDER} >> .env
 	@ echo AIRFLOW_WORKER_HOSTNAME=${HOSTNAME} >> .env
@@ -274,6 +282,7 @@ dev-dotenv-file: guard-VAULT_ADDR guard-VAULT_TOKEN vault-installed
 	@ vault kv get -format="json" ted-dev/agraph | jq -r ".data.data | keys[] as \$$k | \"\(\$$k)=\(.[\$$k])\"" >> .env
 	@ vault kv get -format="json" ted-dev/ted-sws | jq -r ".data.data | keys[] as \$$k | \"\(\$$k)=\(.[\$$k])\"" >> .env
 	@ vault kv get -format="json" ted-dev/github | jq -r ".data.data | keys[] as \$$k | \"\(\$$k)=\(.[\$$k])\"" >> .env
+	@ vault kv get -format="json" ted-dev/minio | jq -r ".data.data | keys[] as \$$k | \"\(\$$k)=\(.[\$$k])\"" >> .env
 
 
 prod-dotenv-file: guard-VAULT_ADDR guard-VAULT_TOKEN vault-installed
@@ -284,6 +293,7 @@ prod-dotenv-file: guard-VAULT_ADDR guard-VAULT_TOKEN vault-installed
 	@ echo ENVIRONMENT=prod >> .env
 	@ echo SUBDOMAIN= >> .env
 	@ echo RML_MAPPER_PATH=${RML_MAPPER_PATH} >> .env
+	@ echo LIMES_ALIGNMENT_PATH=${LIMES_ALIGNMENT_PATH} >> .env
 	@ echo XML_PROCESSOR_PATH=${XML_PROCESSOR_PATH} >> .env
 	@ echo AIRFLOW_INFRA_FOLDER=~/airflow-infra/prod >> .env
 	@ echo AIRFLOW_WORKER_HOSTNAME=${HOSTNAME} >> .env
@@ -294,6 +304,7 @@ prod-dotenv-file: guard-VAULT_ADDR guard-VAULT_TOKEN vault-installed
 	@ vault kv get -format="json" ted-prod/agraph | jq -r ".data.data | keys[] as \$$k | \"\(\$$k)=\(.[\$$k])\"" >> .env
 	@ vault kv get -format="json" ted-prod/ted-sws | jq -r ".data.data | keys[] as \$$k | \"\(\$$k)=\(.[\$$k])\"" >> .env
 	@ vault kv get -format="json" ted-prod/github | jq -r ".data.data | keys[] as \$$k | \"\(\$$k)=\(.[\$$k])\"" >> .env
+	@ vault kv get -format="json" ted-prod/minio | jq -r ".data.data | keys[] as \$$k | \"\(\$$k)=\(.[\$$k])\"" >> .env
 
 local-dotenv-file: rml-mapper-path-add-dotenv-file
 

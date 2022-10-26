@@ -114,3 +114,6 @@ tests/reports/allure/test_results/
 package-lock.json
 package.json
 /infra/digest_api/digest_service/project_requirements.txt
+.limes/*
+*.ser
+.DS_Store

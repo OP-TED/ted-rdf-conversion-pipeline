@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE LIMES SYSTEM "limes.dtd">
+<LIMES>
+    {% for label, namespace in prefixes.items() -%}
+	<PREFIX>
+  		<NAMESPACE>{{namespace}}</NAMESPACE>
+  		<LABEL>{{label}}</LABEL>
+	</PREFIX>
+	{%- endfor %}
+	<SOURCE>
+		<ID>{{ source.id }}</ID>
+		<ENDPOINT>{{ source.sparql_endpoint }}</ENDPOINT>
+		<VAR>{{ source.sparql_variable }}</VAR>
+		<PAGESIZE>2000</PAGESIZE>
+        {% for restriction in source.sparql_restrictions -%}
+		<RESTRICTION>{{ restriction }}</RESTRICTION>
+        {%- endfor %}
+        {% for property in source.sparql_properties -%}
+		<PROPERTY>{{ property }}</PROPERTY>
+        {%- endfor %}
+        <TYPE>{{ source.data_type }}</TYPE>
+	</SOURCE>
+	<TARGET>
+		<ID>{{ target.id }}</ID>
+		<ENDPOINT>{{ target.sparql_endpoint }}</ENDPOINT>
+		<VAR>{{ target.sparql_variable }}</VAR>
+		<PAGESIZE>2000</PAGESIZE>
+        {% for restriction in target.sparql_restrictions -%}
+		<RESTRICTION>{{ restriction }}</RESTRICTION>
+		{%- endfor %}
+        {% for property in target.sparql_properties -%}
+        <PROPERTY>{{ property }}</PROPERTY>
+        {%- endfor %}
+        <TYPE>{{ target.data_type }}</TYPE>
+	</TARGET>
+	<METRIC>{{ alignment_metric }}</METRIC>
+	<ACCEPTANCE>
+		<THRESHOLD>{{ acceptance.threshold }}</THRESHOLD>
+		<FILE>{{ acceptance.result_file_path }}</FILE>
+		<RELATION>{{ acceptance.relation }}</RELATION>
+	</ACCEPTANCE>
+	<REVIEW>
+		<THRESHOLD>{{ review.threshold }}</THRESHOLD>
+		<FILE>{{ review.result_file_path }}</FILE>
+		<RELATION>{{ review.relation }}</RELATION>
+	</REVIEW>
+	<EXECUTION>
+		<REWRITER>default</REWRITER>
+		<PLANNER>default</PLANNER>
+		<ENGINE>default</ENGINE>
+	</EXECUTION>
+	<OUTPUT>{{ result_file_format }}</OUTPUT>
+</LIMES>

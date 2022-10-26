@@ -44,4 +44,4 @@ def notice_ids_selector_by_status(notice_statuses: List[NoticeStatus], form_numb
         mongodb_result_iterator = notice_repository.collection.find(mongodb_filter, {NOTICE_TED_ID: 1})
         notice_ids.extend([result_dict[NOTICE_TED_ID] for result_dict in mongodb_result_iterator])
 
-        return notice_ids
+    return notice_ids

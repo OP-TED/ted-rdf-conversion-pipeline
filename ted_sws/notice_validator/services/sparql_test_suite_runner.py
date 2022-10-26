@@ -1,6 +1,6 @@
 import re
 from pathlib import Path
-from typing import Tuple, List
+from typing import Tuple, List, Union
 
 from jinja2 import Environment, PackageLoader
 
@@ -24,7 +24,6 @@ DEFAULT_QUERY_XPATH = []
 
 class SPARQLTestSuiteRunner:
     """
-
         One of the assumptions is that all the SPARQL queries are of type ASK.
     """
 
@@ -126,17 +125,19 @@ class SPARQLReportBuilder:
         Given a SPARQLQueryResult, generates JSON and HTML reports.
     """
 
-    def __init__(self, sparql_test_suite_execution: SPARQLTestSuiteValidationReport):
+    def __init__(self, sparql_test_suite_execution: SPARQLTestSuiteValidationReport, notice_id: List[str] = None):
         self.sparql_test_suite_execution = sparql_test_suite_execution
+        self.notice_id = notice_id
 
     def generate_report(self) -> SPARQLTestSuiteValidationReport:
-        html_report = TEMPLATES.get_template(SPARQL_TEST_SUITE_EXECUTION_HTML_REPORT_TEMPLATE).render(
-            self.sparql_test_suite_execution.dict())
+        tpl_data: dict = self.sparql_test_suite_execution.dict()
+        tpl_data["notice_id"] = self.notice_id
+        html_report = TEMPLATES.get_template(SPARQL_TEST_SUITE_EXECUTION_HTML_REPORT_TEMPLATE).render(tpl_data)
         self.sparql_test_suite_execution.object_data = html_report
         return self.sparql_test_suite_execution
 
 
-def validate_notice_with_sparql_suite(notice: Notice, mapping_suite_package: MappingSuite):
+def validate_notice_with_sparql_suite(notice: Union[Notice, List[Notice]], mapping_suite_package: MappingSuite):
     """
     Validates a notice with a sparql test suites
     :param notice:
@@ -144,23 +145,29 @@ def validate_notice_with_sparql_suite(notice: Notice, mapping_suite_package: Map
     :return:
     """
 
-    def sparql_validation(rdf_manifestation: RDFManifestation) -> List[SPARQLTestSuiteValidationReport]:
+    def sparql_validation(_notice: Notice) \
+            -> List[SPARQLTestSuiteValidationReport]:
+        rdf_manifestation: RDFManifestation = _notice.rdf_manifestation
         sparql_test_suites = mapping_suite_package.sparql_test_suites
         reports = []
         for sparql_test_suite in sparql_test_suites:
             test_suite_execution = SPARQLTestSuiteRunner(rdf_manifestation=rdf_manifestation,
                                                          xml_manifestation=notice.xml_manifestation,
                                                          sparql_test_suite=sparql_test_suite,
-                                                         mapping_suite=mapping_suite_package).execute_test_suite()
+                                                         mapping_suite=mapping_suite_package
+                                                         ).execute_test_suite()
             report_builder = SPARQLReportBuilder(sparql_test_suite_execution=test_suite_execution)
             reports.append(report_builder.generate_report())
         return sorted(reports, key=lambda x: x.test_suite_identifier)
 
-    for report in sparql_validation(rdf_manifestation=notice.rdf_manifestation):
-        notice.set_rdf_validation(rdf_validation=report)
+    notices = notice if isinstance(notice, List) else [notice]
 
-    for report in sparql_validation(rdf_manifestation=notice.distilled_rdf_manifestation):
-        notice.set_distilled_rdf_validation(rdf_validation=report)
+    for _notice in notices:
+        for report in sparql_validation(_notice=_notice):
+            notice.set_rdf_validation(rdf_validation=report)
+
+        for report in sparql_validation(_notice=_notice):
+            notice.set_distilled_rdf_validation(rdf_validation=report)
 
 
 def validate_notice_by_id_with_sparql_suite(notice_id: str, mapping_suite_identifier: str,

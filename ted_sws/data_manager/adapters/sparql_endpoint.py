@@ -35,14 +35,13 @@ class SPARQLClientPool(object):
     connection_pool = {}
 
     @staticmethod
-    def create_or_reuse_connection(endpoint_url: str, use_env_credentials: bool = True):
+    def create_or_reuse_connection(endpoint_url: str, user: str, password: str):
         if endpoint_url not in SPARQLClientPool.connection_pool:
             sparql_wrapper = SPARQLWrapper(endpoint_url)
-            if use_env_credentials:
-                sparql_wrapper.setCredentials(
-                    user=config.AGRAPH_SUPER_USER,
-                    passwd=config.AGRAPH_SUPER_PASSWORD
-                )
+            sparql_wrapper.setCredentials(
+                user=user,
+                passwd=password
+            )
             SPARQLClientPool.connection_pool[endpoint_url] = sparql_wrapper
         return SPARQLClientPool.connection_pool[endpoint_url]
 
@@ -118,8 +117,10 @@ class TripleStoreEndpointABC(ABC):
 
 class SPARQLTripleStoreEndpoint(TripleStoreEndpointABC):
 
-    def __init__(self, endpoint_url: str, use_env_credentials: bool = True):
-        self.endpoint = SPARQLClientPool.create_or_reuse_connection(endpoint_url, use_env_credentials)
+    def __init__(self, endpoint_url: str, user: str = None, password: str = None):
+        user = user if user else config.AGRAPH_SUPER_USER
+        password = password if password else config.AGRAPH_SUPER_PASSWORD
+        self.endpoint = SPARQLClientPool.create_or_reuse_connection(endpoint_url, user, password)
 
     def _set_sparql_query(self, sparql_query: str):
         """
@@ -158,7 +159,6 @@ class SPARQLTripleStoreEndpoint(TripleStoreEndpointABC):
             use this method only for SPARQL queries of type CONSTRUCT or DESCRIBE.
         :return:
         """
-        self.endpoint.setReturnFormat(RDF)
         return self.endpoint.queryAndConvert()
 
     def __str__(self):

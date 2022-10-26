@@ -215,9 +215,23 @@ class SPARQLConfig:
         return json.loads(SPARQL_PREFIXES_PATH.read_text(encoding="utf-8"))["prefix_definitions"]
 
 
+class S3TripleStoreConfig:
+    @property
+    def S3_TRIPLE_STORE_USER(self) -> str:
+        return EnvConfigResolver().config_resolve()
+
+    @property
+    def S3_TRIPLE_STORE_PASSWORD(self) -> str:
+        return EnvConfigResolver().config_resolve()
+
+    @property
+    def S3_TRIPLE_STORE_HOST(self) -> str:
+        return EnvConfigResolver().config_resolve()
+
+
 class TedConfigResolver(MongoDBConfig, RMLMapperConfig, XMLProcessorConfig, ELKConfig, LoggingConfig,
                         GitHubArtefacts, API, AllegroConfig, TedAPIConfig, SFTPConfig, FusekiConfig,
-                        SPARQLConfig, LimesAlignmentConfig):
+                        SPARQLConfig, LimesAlignmentConfig, S3TripleStoreConfig):
     """
         This class resolve the secrets of the ted-sws project.
     """

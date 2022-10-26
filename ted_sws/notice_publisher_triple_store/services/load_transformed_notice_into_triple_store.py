@@ -2,7 +2,7 @@
     This module implements functionality to load a given notice into a triple store.
 """
 from ted_sws.data_manager.adapters.repository_abc import NoticeRepositoryABC
-from ted_sws.data_manager.adapters.triple_store import TripleStoreEndpointABC, RDF_MIME_TYPES
+from ted_sws.data_manager.adapters.triple_store import TripleStoreEndpointABC, RDF_MIME_TYPES, S3TripleStoreAdapter
 
 DEFAULT_NOTICE_REPOSITORY_NAME = "notices"
 
@@ -18,4 +18,18 @@ def load_notice_into_triple_store(notice_id: str, notice_repository: NoticeRepos
         raise ValueError('Notice, with "%s" notice_id, was not found' % notice_id)
     mime_type = RDF_MIME_TYPES
     rdf_manifestation_string = notice.rdf_manifestation.object_data
-    triple_store_repository.add_data_to_repository(file_content=rdf_manifestation_string, repository_name=repository_name, mime_type=mime_type)
+    triple_store_repository.add_data_to_repository(file_content=rdf_manifestation_string,
+                                                   repository_name=repository_name, mime_type=mime_type)
+
+
+def load_notice_into_s3_triple_store(notice_id: str, notice_repository: NoticeRepositoryABC,
+                                     repository_name: str = DEFAULT_NOTICE_REPOSITORY_NAME) -> S3TripleStoreAdapter:
+    """
+
+    """
+    s3_triple_store_repository = S3TripleStoreAdapter()
+    load_notice_into_triple_store(notice_id=notice_id, notice_repository=notice_repository,
+                                  triple_store_repository=s3_triple_store_repository,
+                                  repository_name=repository_name)
+
+    return s3_triple_store_repository

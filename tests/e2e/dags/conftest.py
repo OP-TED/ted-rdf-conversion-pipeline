@@ -45,13 +45,6 @@ def mapping_suite_id_with_version():
 
 
 @pytest.fixture
-def mongodb_client():
-    mongodb_client = MongoClient(config.MONGO_DB_AUTH_URL)
-    mongodb_client.drop_database(config.MONGO_DB_AGGREGATES_DATABASE_NAME)
-    return mongodb_client
-
-
-@pytest.fixture
 def notice_repository(mongodb_client, mapping_suite_id):
     mapping_suite_processor_from_github_expand_and_load_package_in_mongo_db(
         mapping_suite_package_name=mapping_suite_id,

@@ -1,11 +1,5 @@
-from datetime import datetime
 from typing import List
-
-from pymongo import MongoClient
-
-from ted_sws import config
 from ted_sws.core.model.notice import NoticeStatus
-from ted_sws.data_manager.adapters.notice_repository import NoticeRepository, NOTICE_TED_ID
 
 NOTICE_STATUS = "status"
 FORM_NUMBER = "normalised_metadata.form_number"
@@ -16,6 +10,7 @@ PUBLICATION_DATE = "normalised_metadata.publication_date"
 def build_selector_mongodb_filter(notice_status: str, form_number: str = None,
                                   start_date: str = None, end_date: str = None,
                                   xsd_version: str = None) -> dict:
+    from datetime import datetime
     mongodb_filter = {NOTICE_STATUS: notice_status}
     if form_number:
         mongodb_filter[FORM_NUMBER] = form_number
@@ -31,6 +26,10 @@ def build_selector_mongodb_filter(notice_status: str, form_number: str = None,
 def notice_ids_selector_by_status(notice_statuses: List[NoticeStatus], form_number: str = None,
                                   start_date: str = None, end_date: str = None,
                                   xsd_version: str = None) -> List[str]:
+    from pymongo import MongoClient
+    from ted_sws import config
+    from ted_sws.data_manager.adapters.notice_repository import NoticeRepository, NOTICE_TED_ID
+
     mongodb_client = MongoClient(config.MONGO_DB_AUTH_URL)
     notice_repository = NoticeRepository(mongodb_client=mongodb_client)
     notice_ids = []

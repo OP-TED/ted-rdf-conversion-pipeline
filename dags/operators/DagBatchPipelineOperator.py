@@ -1,4 +1,4 @@
-from typing import Any
+from typing import Any, Protocol, List
 from uuid import uuid4
 from airflow.models import BaseOperator
 from airflow.operators.trigger_dagrun import TriggerDagRunOperator
@@ -21,6 +21,16 @@ NOTICE_PROCESS_WORKFLOW_DAG_NAME = "notice_process_workflow"
 DEFAULT_START_WITH_TASK_ID = "notice_normalisation_pipeline"
 
 
+class BatchPipelineCallable(Protocol):
+
+    def __call__(self, notice_ids: List[str], mongodb_client: MongoClient) -> List[str]:
+        """
+        :param notice_ids:
+        :param mongodb_client:
+        :return: List of notice_ids what was processed.
+        """
+
+
 class NoticeBatchPipelineOperator(BaseOperator):
     """
 
@@ -29,16 +39,18 @@ class NoticeBatchPipelineOperator(BaseOperator):
     ui_color = '#e7cff6'
     ui_fgcolor = '#000000'
 
-    def __init__(
-            self,
-            python_callable: NoticePipelineCallable,
-            *args, **kwargs) -> None:
+    def __init__(self, *args,
+                 notice_pipeline_callable: NoticePipelineCallable = None,
+                 batch_pipeline_callable: BatchPipelineCallable = None,
+                 **kwargs) -> None:
         super().__init__(*args, **kwargs)
-        self.python_callable = python_callable
+        self.notice_pipeline_callable = notice_pipeline_callable
+        self.batch_pipeline_callable = batch_pipeline_callable
 
     def execute(self, context: Any):
         """
-            This method executes the python_callable for each notice_id in the notice_ids batch.
+            This method can execute the notice_pipeline_callable for each notice_id in the notice_ids batch or
+            can execute the batch_pipeline_callable for whole notice_ids batch at once.
         """
         logger = get_logger()
         notice_ids = smart_xcom_pull(key=NOTICE_IDS_KEY)
@@ -47,7 +59,7 @@ class NoticeBatchPipelineOperator(BaseOperator):
         mongodb_client = MongoClient(config.MONGO_DB_AUTH_URL)
         notice_repository = NoticeRepository(mongodb_client=mongodb_client)
         processed_notice_ids = []
-        pipeline_name = self.python_callable.__name__
+        pipeline_name = self.notice_pipeline_callable.__name__
         number_of_notices = len(notice_ids)
         batch_event_message = EventMessage(
             message=f"Batch processing for pipeline = [{pipeline_name}] with {number_of_notices} notices.",
@@ -55,21 +67,24 @@ class NoticeBatchPipelineOperator(BaseOperator):
                     "number_of_notices": number_of_notices}
         )
         batch_event_message.start_record()
-        for notice_id in notice_ids:
-            try:
-                notice_event = NoticeEventMessage(notice_id=notice_id, domain_action=pipeline_name)
-                notice_event.start_record()
-                notice = notice_repository.get(reference=notice_id)
-                result_notice_pipeline = self.python_callable(notice, mongodb_client)
-                if result_notice_pipeline.store_result:
-                    notice_repository.update(notice=result_notice_pipeline.notice)
-                if result_notice_pipeline.processed:
-                    processed_notice_ids.append(notice_id)
-                notice_event.end_record()
-                logger.info(event_message=notice_event)
-            except Exception as e:
-                log_error(message=str(e))
-        
+        if self.batch_pipeline_callable is not None:
+            processed_notice_ids.extend(
+                self.batch_pipeline_callable(notice_ids=notice_ids, mongodb_client=mongodb_client))
+        elif self.notice_pipeline_callable is not None:
+            for notice_id in notice_ids:
+                try:
+                    notice_event = NoticeEventMessage(notice_id=notice_id, domain_action=pipeline_name)
+                    notice_event.start_record()
+                    notice = notice_repository.get(reference=notice_id)
+                    result_notice_pipeline = self.notice_pipeline_callable(notice, mongodb_client)
+                    if result_notice_pipeline.store_result:
+                        notice_repository.update(notice=result_notice_pipeline.notice)
+                    if result_notice_pipeline.processed:
+                        processed_notice_ids.append(notice_id)
+                    notice_event.end_record()
+                    logger.info(event_message=notice_event)
+                except Exception as e:
+                    log_error(message=str(e))
         batch_event_message.end_record()
         logger.info(event_message=batch_event_message)
         if not processed_notice_ids:

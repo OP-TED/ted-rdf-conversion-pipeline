@@ -15,4 +15,4 @@ def notice_rdf_s3_bucket_name():
 
 @pytest.fixture
 def s3_publisher() -> S3Publisher:
-    return S3Publisher()
+    return S3Publisher(ssl_verify=False)

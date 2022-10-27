@@ -54,7 +54,7 @@ class CmdRunner(BaseCmdRunner):
         with open(report_path / report_name, "w+") as f:
             f.write(content)
 
-    def validate(self, rdf_file, xpath_report, base_report_path, notice_id: List[str] = None):
+    def validate(self, rdf_file, xpath_report, base_report_path, notice_ids: List[str] = None):
         self.log("Validating " + LOG_INFO_TEXT.format(rdf_file.name) + " ... ")
         rdf_manifestation = RDFManifestation(object_data=rdf_file.read_text(encoding="utf-8"))
         xml_manifestation = None
@@ -74,7 +74,8 @@ class CmdRunner(BaseCmdRunner):
                                                          sparql_test_suite=sparql_test_suite,
                                                          mapping_suite=self.mapping_suite).execute_test_suite()
 
-            report_builder = SPARQLReportBuilder(sparql_test_suite_execution=test_suite_execution, notice_id=notice_id)
+            report_builder = SPARQLReportBuilder(sparql_test_suite_execution=test_suite_execution,
+                                                 notice_ids=notice_ids)
             report: SPARQLTestSuiteValidationReport = report_builder.generate_report()
 
             suite_id = sparql_test_suite.identifier
@@ -103,7 +104,7 @@ class CmdRunner(BaseCmdRunner):
                             xpath_file = f.parent / DEFAULT_TEST_SUITE_REPORT_FOLDER / XPATH_JSON_FILE
                             xpath_report = json.load(open(xpath_file, "r")) if xpath_file.exists() else None
                             self.validate(rdf_file=f, xpath_report=xpath_report, base_report_path=base_report_path,
-                                          notice_id=[notice_id])
+                                          notice_ids=[notice_id])
         except Exception as e:
             error = e
         return self.run_cmd_result(error)

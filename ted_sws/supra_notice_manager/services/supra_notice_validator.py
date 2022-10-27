@@ -3,6 +3,7 @@ from typing import Union
 
 from pymongo import MongoClient
 
+from ted_sws.core.model.manifestation import ValidationSummaryReport
 from ted_sws.core.model.supra_notice import SupraNoticeValidationReport, DailySupraNotice
 from ted_sws.data_manager.adapters.supra_notice_repository import DailySupraNoticeRepository
 from ted_sws.notice_fetcher.adapters.ted_api import TedAPIAdapter, RequestAPI, TedRequestAPI
@@ -64,5 +65,6 @@ def summary_validation_for_daily_supra_notice(notice_publication_day: day_type, 
             notices.append(notice)
 
     supra_notice.validation_summary = generate_validation_summary_report_notices(notices)
-    supra_notice.validation_summary.notice_id = []  # no notice_ids needed to be stored for supra_notice
+    # no notice_ids needed to be stored for supra_notice
+    # supra_notice.validation_summary.notice_ids = []
     repo.update(daily_supra_notice=supra_notice)

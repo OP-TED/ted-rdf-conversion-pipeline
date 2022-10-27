@@ -37,12 +37,6 @@ def package_folder_path_for_validator():
 
 
 @pytest.fixture
-@mongomock.patch(servers=(('server.example.com', 27017),))
-def mongodb_client():
-    return pymongo.MongoClient('server.example.com')
-
-
-@pytest.fixture
 def fake_mapping_suite_id() -> str:
     return "test_package_fake"
 

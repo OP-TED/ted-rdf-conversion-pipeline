@@ -19,7 +19,7 @@ EXECUTE_ONLY_ONE_STEP_KEY = "execute_only_one_step"
 DEFAULT_NUBER_OF_CELERY_WORKERS = 144
 NOTICE_PROCESS_WORKFLOW_DAG_NAME = "notice_process_workflow"
 DEFAULT_START_WITH_TASK_ID = "notice_normalisation_pipeline"
-
+DEFAULT_PIPELINE_NAME_FOR_LOGS  = "unknown_pipeline_name"
 
 class BatchPipelineCallable(Protocol):
 
@@ -59,7 +59,11 @@ class NoticeBatchPipelineOperator(BaseOperator):
         mongodb_client = MongoClient(config.MONGO_DB_AUTH_URL)
         notice_repository = NoticeRepository(mongodb_client=mongodb_client)
         processed_notice_ids = []
-        pipeline_name = self.notice_pipeline_callable.__name__
+        pipeline_name = DEFAULT_PIPELINE_NAME_FOR_LOGS
+        if self.notice_pipeline_callable:
+            pipeline_name = self.notice_pipeline_callable.__name__
+        elif self.batch_pipeline_callable:
+            pipeline_name = self.batch_pipeline_callable.__name__
         number_of_notices = len(notice_ids)
         batch_event_message = EventMessage(
             message=f"Batch processing for pipeline = [{pipeline_name}] with {number_of_notices} notices.",

@@ -1,7 +1,6 @@
 from airflow.decorators import dag, task
 from airflow.operators.dummy import DummyOperator
 from airflow.operators.python import get_current_context, BranchPythonOperator
-from airflow.operators.trigger_dagrun import TriggerDagRunOperator
 from airflow.utils.trigger_rule import TriggerRule
 from pymongo import MongoClient
 

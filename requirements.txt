@@ -24,4 +24,4 @@ pysftp~=0.2.9
 ordered-set~=4.0.2
 json2html
 minio~=7.1.1
-certifi~=2020.12.5
+certifi

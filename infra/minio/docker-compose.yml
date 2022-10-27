@@ -22,7 +22,9 @@ services:
       - "traefik.http.routers.${ENVIRONMENT}-minio.middlewares=redirect@file" # <== This is a middleware to redirect to https
       - "traefik.http.routers.${ENVIRONMENT}-minio-secured.rule=Host(`minio.${SUBDOMAIN}${DOMAIN}`)" # <== Your Domain Name for the https rule
       - "traefik.http.routers.${ENVIRONMENT}-minio-secured.entrypoints=web-secured" # <== Defining entrypoint for https, **ref: line 31
-      - "traefik.http.routers.${ENVIRONMENT}-minio-secured.tls.certresolver=mytlschallenge" # <== Defining certsresolvers for https
+      - "traefik.http.routers.${ENVIRONMENT}-minio-secured.tls=true"
+#      - "traefik.http.routers.${ENVIRONMENT}-minio-secured.tls.domains[0].main=minio.${SUBDOMAIN}${DOMAIN}"
+#      - "traefik.http.routers.${ENVIRONMENT}-minio-secured.tls.certResolver=mytlschallenge" # <== Defining certsresolvers for https
 
 
 volumes:

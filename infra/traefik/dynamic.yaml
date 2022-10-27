@@ -5,3 +5,8 @@ http:
     redirect:
       redirectScheme:
         scheme: https
+
+#tls:
+#  certificates:
+#    - certFile: "/etc/certs/minio.localhost.pem"
+#      keyFile: "/etc/certs/minio.localhost-key.pem"

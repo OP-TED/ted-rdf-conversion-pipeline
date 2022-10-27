@@ -279,16 +279,3 @@ class FusekiAdapter(TripleStoreABC):
             raise FusekiException(f"Fuseki server request ({response.url}) returned response {response.status_code}")
 
         return response.json()
-
-
-class S3TripleStoreAdapter(TripleStoreABC, FusekiAdapter):
-    """
-    This adapter is to be used to interact with triple store server on S3 bucket.
-    """
-    def __init__(self, host: str = config.S3_TRIPLE_STORE_HOST,
-                 user: str = config.S3_TRIPLE_STORE_USER,
-                 password: str = config.S3_TRIPLE_STORE_PASSWORD):
-
-        self.host = host
-        self.user = user
-        self.password = password

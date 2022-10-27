@@ -21,5 +21,9 @@ RUN wget -c https://kumisystems.dl.sourceforge.net/project/saxon/Saxon-HE/10/Jav
 RUN cd .saxon && unzip SaxonHE10-6J.zip && rm -rf SaxonHE10-6J.zip
 
 
+RUN mkdir -p ./.limes
+RUN wget -c https://github.com/dice-group/LIMES/releases/download/1.7.9/limes.jar -P ./.limes
+
+
 RUN pip install --upgrade pip
 RUN pip install --no-cache-dir -r requirements.txt --constraint "https://raw.githubusercontent.com/apache/airflow/constraints-2.4.1/constraints-no-providers-3.8.txt"

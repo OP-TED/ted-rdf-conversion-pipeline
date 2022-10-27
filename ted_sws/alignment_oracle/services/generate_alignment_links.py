@@ -29,11 +29,14 @@ def generate_alignment_links(limes_config_params: LimesConfigParams, threshold: 
                                                   use_caching=use_caching)
     limes_alignment_engine.execute(limes_config_params=limes_config_params)
     review_result_path = pathlib.Path(limes_config_params.review.result_file_path)
-    review_result_content = review_result_path.read_text(encoding="utf-8")
+    review_result_content = ""
+    if review_result_path.exists():
+        review_result_content = review_result_path.read_text(encoding="utf-8")
     if limes_config_params.acceptance.threshold == DEFAULT_MAX_ACCEPTANCE_THRESHOLD:
         acceptance_result_path = pathlib.Path(limes_config_params.acceptance.result_file_path)
-        acceptance_result_content = acceptance_result_path.read_text(encoding="utf-8")
-        review_result_content += acceptance_result_content
+        if acceptance_result_path.exists():
+            acceptance_result_content = acceptance_result_path.read_text(encoding="utf-8")
+            review_result_content += acceptance_result_content
     return review_result_content
 
 

@@ -19,13 +19,13 @@ def sparql_endpoint_test_helper(sparql_endpoint: TripleStoreEndpointABC, uri: st
     query_table_result = sparql_endpoint.with_query(sparql_query=sparql_query).fetch_tabular()
     assert query_table_result is not None
     assert type(query_table_result) == pd.DataFrame
-    assert len(query_table_result) == 3
+    assert len(query_table_result) == 51
     query_dict_result = sparql_endpoint.with_query(sparql_query=sparql_query).fetch_tree()
     assert query_dict_result is not None
     assert type(query_dict_result) == dict
     assert RESULTS_DICT_KEY in query_dict_result.keys()
     assert BINDINGS_DICT_KEY in query_dict_result[RESULTS_DICT_KEY].keys()
-    assert len(query_dict_result[RESULTS_DICT_KEY][BINDINGS_DICT_KEY]) == 3
+    assert len(query_dict_result[RESULTS_DICT_KEY][BINDINGS_DICT_KEY]) == 51
     with pytest.raises(Exception) as exc_info:
         sparql_endpoint.with_query(sparql_query=sparql_query).fetch_rdf()
     assert str(exc_info.value) == "Fetch RDF method work only with CONSTRUCT and DESCRIBE sparql queries!"

@@ -14,7 +14,7 @@ class LimesAlignmentEngine:
 
     def __init__(self, limes_executable_path: pathlib.Path, use_caching: bool = None):
         self.limes_executable_path = limes_executable_path
-        self.use_caching = use_caching if use_caching else True
+        self.use_caching = use_caching if use_caching is not None else True
 
     def execute(self, limes_config_params: LimesConfigParams):
         """

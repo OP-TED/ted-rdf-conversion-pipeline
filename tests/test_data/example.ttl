@@ -105,7 +105,7 @@
   epo:hasTitle """
                     Rammeaftale om Eures-kommunikation og Den Europæiske Arbejdsmarkedsmyndigheds arrangementstyring
                         — Parti 2: Eures online-jobdage
-                    
+
                 """;
   epo:includesLotAwardOutcome <http://data.europa.eu/a4g/resource/LotAwardOutcome/2021/S-024-057196/48aedb8880cab8c45637abc7493ecddd> .
 
@@ -196,7 +196,7 @@
   epo:hasTitle """
                     Rammeaftale om Eures-kommunikation og Den Europæiske Arbejdsmarkedsmyndigheds arrangementstyring
                         (fire partier)
-                    
+
                 """;
   epo:isAccelerated "false"^^xsd:boolean .
 

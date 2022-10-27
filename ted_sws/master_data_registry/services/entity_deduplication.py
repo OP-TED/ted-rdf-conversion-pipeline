@@ -185,7 +185,7 @@ def deduplicate_entities_by_cet_uri(notices: List[Notice], cet_uri: str,
     :return:
     """
     triple_store = FusekiAdapter()
-    if MDR_FUSEKI_DATASET_NAME not in triple_store.list_repositories():
+    if mdr_dataset_name not in triple_store.list_repositories():
         triple_store.create_repository(repository_name=mdr_dataset_name)
     mdr_sparql_endpoint = triple_store.get_sparql_triple_store_endpoint_url(repository_name=mdr_dataset_name)
     cet_rdf_fragments = get_rdf_fragments_by_cet_uri_from_notices(notices=notices, cet_uri=cet_uri)

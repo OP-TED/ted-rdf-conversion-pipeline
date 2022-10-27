@@ -4,6 +4,7 @@ from ted_sws import config
 
 NOTICE_COLLECTION_NAME = "notice_collection"
 NOTICES_MATERIALISED_VIEW_NAME = "notices_collection_materialised_view"
+NOTICE_EVENTS_COLLECTION_NAME = "notice_events"
 
 
 def create_notice_collection_materialised_view(mongo_client: MongoClient):
@@ -29,7 +30,25 @@ def create_notice_collection_materialised_view(mongo_client: MongoClient):
                 "xsd_version": "$normalised_metadata.xsd_version",
                 "publication_date": "$normalised_metadata.publication_date",
             }
-        }, {
+        },
+        {
+            "$lookup":
+                {
+                    "from": f"{NOTICE_EVENTS_COLLECTION_NAME}",
+                    "localField": "_id",
+                    "foreignField": "notice_id",
+                    "as": "notice_logs",
+                    "pipeline": [
+                        {
+                            "$group": {
+                                "_id": "$notice_id",
+                                "exec_time": {"$sum": "$duration"}
+                            }
+                        }
+                    ]
+                },
+        },
+        {
             "$merge": {
                 "into": NOTICES_MATERIALISED_VIEW_NAME
             }

@@ -50,6 +50,7 @@ def create_notice_collection_materialised_view(mongo_client: MongoClient):
                     ]
                 },
         },
+        {"$unwind": '$notice_logs'},
         {
             "$merge": {
                 "into": NOTICES_MATERIALISED_VIEW_NAME
@@ -68,13 +69,14 @@ def create_notice_collection_materialised_view(mongo_client: MongoClient):
     batch_collection = database[LOG_EVENTS_COLLECTION_NAME]
     batch_collection.aggregate([
         {
-          "$group": {
-              "_id": {
-                  "process_id": "$metadata.process_id",
-                  "nr_of_notices": "$kwargs.number_of_notices"
-              },
-              "exec_time": {"$sum": "$duration"}
-          }
+            "$group": {
+                "_id": {"process_id": "$metadata.process_id",
+                        "nr_of_notices": "$kwargs.number_of_notices",
+                        "caller_name": "execute"
+                        },
+                "exec_time": {"$sum": "$duration"},
+                "nr_of_pipelines": {"$sum": 1}
+            }
         },
         {
             "$merge": {

@@ -16,7 +16,7 @@ RML_MAPPER_PATH = ${PROJECT_PATH}/.rmlmapper/rmlmapper.jar
 XML_PROCESSOR_PATH = ${PROJECT_PATH}/.saxon/saxon-he-10.6.jar
 LIMES_ALIGNMENT_PATH = $(PROJECT_PATH)/.limes/limes.jar
 HOSTNAME = $(shell hostname)
-
+CAROOT = $(shell pwd)/infra/traefik/certs
 
 #-----------------------------------------------------------------------------
 # Dev commands
@@ -397,3 +397,22 @@ install-allure:
 	@ echo -e "Start install Allure commandline."
 	@ sudo apt -y install npm
 	@ sudo npm install -g allure-commandline
+
+ install-mkcert:
+	@ mkdir -p .ssl && cd .ssl && rm -rf *
+	@ curl -JLO "https://dl.filippo.io/mkcert/latest?for=linux/amd64"
+	@ chmod +x mkcert-v*-linux-amd64
+	@ sudo mv mkcert-v*-linux-amd64 /usr/local/bin/mkcert
+	@ cd ..
+	@ sudo apt install ca-certificates
+
+traefik-certs:
+	@ cd infra/traefik && mkdir -p certs && cd certs && sudo rm -rf *
+	@ CAROOT=${CAROOT} mkcert -install
+	@ echo -e "Generating 'minio' certificates ..." && echo ${CAROOT}
+	@ sudo echo $(mkcert -CAROOT)
+	@ cd infra/traefik/certs && mkcert minio.${SUBDOMAIN}${DOMAIN}
+	@ cd infra/traefik/certs && cat minio.${SUBDOMAIN}${DOMAIN}.pem > minio.${SUBDOMAIN}${DOMAIN}-fullchain.pem
+	@ cd infra/traefik/certs && cat ${CAROOT}/rootCA.pem >> minio.${SUBDOMAIN}${DOMAIN}-fullchain.pem
+	@ sudo rm -rf /usr/share/ca-certificates/minio.${SUBDOMAIN}${DOMAIN}*
+	@ sudo cp infra/traefik/certs/minio.${SUBDOMAIN}${DOMAIN}* /usr/share/ca-certificates

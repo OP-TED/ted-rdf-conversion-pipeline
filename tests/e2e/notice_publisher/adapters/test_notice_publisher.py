@@ -4,6 +4,8 @@ import pytest
 
 from ted_sws import config
 from ted_sws.notice_publisher.adapters.sftp_notice_publisher import SFTPPublisher
+from ted_sws.notice_publisher.adapters.s3_notice_publisher import S3Publisher
+import ssl
 
 
 def test_sftp_notice_publisher():
@@ -38,3 +40,10 @@ def test_sftp_notice_publisher():
 
     sftp_publisher.disconnect()
 
+
+def test_s3_notice_publisher():
+    s3_publisher = S3Publisher(ssl_verify=True)
+    assert s3_publisher.client._http.connection_pool_kw['cert_reqs'] == ssl.CERT_REQUIRED.name
+
+    s3_publisher = S3Publisher(ssl_verify=False)
+    assert s3_publisher.client._http.connection_pool_kw['cert_reqs'] == ssl.CERT_NONE

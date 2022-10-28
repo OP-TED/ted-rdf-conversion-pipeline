@@ -30,9 +30,7 @@ def create_notice_collection_materialised_view(mongo_client: MongoClient):
                 "publication_date": "$normalised_metadata.publication_date",
             }
         }, {
-            "$merge": {
-                "into": NOTICES_MATERIALISED_VIEW_NAME
-            }
+            "$out": NOTICES_MATERIALISED_VIEW_NAME
         }
     ])
     materialised_view = database[NOTICES_MATERIALISED_VIEW_NAME]

@@ -5,6 +5,8 @@ from ted_sws import config
 NOTICE_COLLECTION_NAME = "notice_collection"
 NOTICES_MATERIALISED_VIEW_NAME = "notices_collection_materialised_view"
 NOTICE_EVENTS_COLLECTION_NAME = "notice_events"
+NOTICE_PROCESS_BATCH_COLLECTION_NAME = "batch_events"
+LOG_EVENTS_COLLECTION_NAME = "log_events"
 
 
 def create_notice_collection_materialised_view(mongo_client: MongoClient):
@@ -62,3 +64,21 @@ def create_notice_collection_materialised_view(mongo_client: MongoClient):
     materialised_view.create_index([("form_number", ASCENDING)])
     materialised_view.create_index([("form_number", ASCENDING), ("status", ASCENDING)])
     materialised_view.create_index([("form_number", ASCENDING), ("legal_basis_directive", ASCENDING)])
+
+    batch_collection = database[LOG_EVENTS_COLLECTION_NAME]
+    batch_collection.aggregate([
+        {
+          "$group": {
+              "_id": {
+                  "process_id": "$metadata.process_id",
+                  "nr_of_notices": "$kwargs.number_of_notices"
+              },
+              "exec_time": {"$sum": "$duration"}
+          }
+        },
+        {
+            "$merge": {
+                "into": NOTICE_PROCESS_BATCH_COLLECTION_NAME
+            }
+        }
+    ])

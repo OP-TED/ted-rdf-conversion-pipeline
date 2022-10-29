@@ -54,7 +54,8 @@ class CmdRunner(BaseCmdRunner):
             for notice_id in self.notice_ids:
                 rdf_file_name = notice_id + DEFAULT_TRANSFORMATION_FILE_EXTENSION
                 rdf_path = Path(self.output_folder) / notice_id / rdf_file_name
-                self.rdf_files.append(rdf_path)
+                if rdf_path.is_file():
+                    self.rdf_files.append(rdf_path)
 
         self.rdf_files += self._init_list_input_opts_split(rdf_files)
 

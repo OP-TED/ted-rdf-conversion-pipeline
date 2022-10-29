@@ -705,6 +705,66 @@ Options:
 </div>
 </div>
 </div>
+<div class="sect2">
+<h3 id="_cmd_s3_rdf_publisher"><a class="anchor" href="#_cmd_s3_rdf_publisher"></a>CMD: s3_rdf_publisher</h3>
+<div class="paragraph">
+<p>Publish RDF content to S3 bucket</p>
+</div>
+<div class="paragraph">
+<p>Use:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">s3_rdf_publisher --help</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>to get the Usage Help:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">Usage: s3_rdf_publisher [OPTIONS]
+
+  Publish RDF content to S3 bucket. --rdf-file[list] OR --mapping-suite-
+  id[value] OR (--mapping-suite-id[value] AND --notice-id[list]) must be
+  provided!
+
+  Make sure to have set up these variables in .env file:
+
+  S3_PUBLISH_HOST, S3_PUBLISH_NOTICE_RDF_BUCKET (this will be overwritten by
+  CLI option, if provided), S3_PUBLISH_USER, S3_PUBLISH_PASSWORD,
+  S3_PUBLISH_REGION=eu-central-1, S3_PUBLISH_SECURE=1, S3_PUBLISH_SSL_VERIFY=0
+
+Options:
+  -f, --rdf-file TEXT             '--rdf-file=RDF_FILE' or '-f
+                                  RDF_FILE1,RDF_FILE2'
+  -ms-id, --mapping-suite-id TEXT
+  -n, --notice-id TEXT            '--notice-id=NOTICE_ID' or '-n
+                                  NOTICE_ID1,NOTICE_ID2'
+  -no-n, --skip-notice-id TEXT    notices to be skipped when only --mapping-
+                                  suite-id is provided
+  -b, --bucket-name TEXT          S3 Bucket
+  -o, --object-name TEXT          '--object-name=OBJECT_NAME' or '-o
+                                  OBJECT_NAME1,OBJECT_NAME2'
+  -m, --mappings-folder TEXT
+  --help                          Show this message and exit.</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Usage example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">s3_rdf_publisher package_F03 -n 000163-2021 -n 006737-2021 -o object_name_for_000163-2021 -o object_name_for_006737-2021 -b bucket_name -f some_rdf_file_path
+
+Use --skip-notice-id for notices to be skipped when only --mapping-suite-id is provided (if only --mapping-suite-id is provided all mapping-suite its RDFs will be published).
+
+# --object-name (-o) will be used to fullfill RDF object_name in order of insertion (--notice-id list, followed by --rdf-file list): first --object-name will be used for first RDF and so on (otherwise, if no corresponding object_name found for RDF, order of insertion is preserved, the object_name will be the same as provided RDF file)
+
+--rdf-file[list] OR --mapping-suite-id[value] OR (--mapping-suite-id[value] AND --notice-id[list]) must be provided!</code></pre>
+</div>
+</div>
+</div>
 </div>
 </div>
 </article>

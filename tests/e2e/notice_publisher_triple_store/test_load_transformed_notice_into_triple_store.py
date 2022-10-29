@@ -1,5 +1,7 @@
+from ted_sws.core.model.manifestation import RDFManifestation
 from ted_sws.notice_publisher_triple_store.services.load_transformed_notice_into_triple_store import \
     load_rdf_manifestation_into_triple_store
+import pytest
 
 SPARQL_QUERY_TRIPLES = "select * {?s ?p ?o}"
 SPARQL_QUERY_GRAPH = "SELECT ?g {  GRAPH ?g { ?s ?p ?o  } }"
@@ -8,7 +10,6 @@ TMP_FUSEKI_DATASET_NAME = "tmp_dataset_for_tests"
 
 
 def test_load_notice_into_triple_store(transformed_complete_notice, fuseki_triple_store):
-    fuseki_triple_store.create_repository(repository_name=TMP_FUSEKI_DATASET_NAME)
     load_rdf_manifestation_into_triple_store(rdf_manifestation=transformed_complete_notice.distilled_rdf_manifestation,
                                              triple_store_repository=fuseki_triple_store,
                                              repository_name=TMP_FUSEKI_DATASET_NAME)
@@ -29,3 +30,10 @@ def test_load_notice_into_triple_store(transformed_complete_notice, fuseki_tripl
     assert len(df_query_result) > 0
 
     fuseki_triple_store.delete_repository(repository_name=TMP_FUSEKI_DATASET_NAME)
+
+    with pytest.raises(Exception):
+        load_rdf_manifestation_into_triple_store(rdf_manifestation=RDFManifestation(object_data=''),
+                                                 triple_store_repository=fuseki_triple_store,
+                                                 repository_name=TMP_FUSEKI_DATASET_NAME)
+
+

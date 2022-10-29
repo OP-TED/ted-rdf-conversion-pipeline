@@ -22,10 +22,9 @@ def load_rdf_manifestation_into_triple_store(rdf_manifestation: RDFManifestation
     :param mime_type:
     :return:
     """
-    if rdf_manifestation is None:
-        raise Exception("RDF Manifestation is None!")
-    if rdf_manifestation.object_data is None:
-        raise Exception("RDF Manifestation object data is None!")
+    if not rdf_manifestation or not rdf_manifestation.object_data:
+        raise Exception("RDF Manifestation is invalid!")
+
     rdf_manifestation_string = rdf_manifestation.object_data
     if repository_name not in triple_store_repository.list_repositories():
         triple_store_repository.create_repository(repository_name=repository_name)

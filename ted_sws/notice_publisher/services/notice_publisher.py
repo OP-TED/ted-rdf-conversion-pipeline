@@ -2,6 +2,7 @@ import base64
 import pathlib
 import tempfile
 
+from ted_sws.core.model.manifestation import RDFManifestation
 from ted_sws.notice_publisher.model.s3_publish_result import S3PublishResult
 
 from ted_sws import config
@@ -13,8 +14,8 @@ from ted_sws.notice_publisher.adapters.s3_notice_publisher import S3Publisher
 from ted_sws.notice_transformer.services.notice_transformer import DEFAULT_TRANSFORMATION_FILE_EXTENSION
 from ted_sws.notice_packager import DEFAULT_NOTICE_PACKAGE_EXTENSION
 
-DEFAULT_NOTICE_S3_BUCKET_NAME = "notice"
-DEFAULT_NOTICE_RDF_S3_BUCKET_NAME = "notice-rdf"
+DEFAULT_NOTICE_S3_BUCKET_NAME = config.S3_PUBLISH_NOTICE_BUCKET or "notice"
+DEFAULT_NOTICE_RDF_S3_BUCKET_NAME = config.S3_PUBLISH_NOTICE_RDF_BUCKET or "notice-rdf"
 
 
 def publish_notice(notice: Notice, publisher: SFTPPublisherABC = None,
@@ -90,17 +91,14 @@ def publish_notice_rdf_into_s3(notice: Notice, s3_publisher: S3Publisher = S3Pub
     """
 
     """
-    rdf_manifestation = notice.rdf_manifestation
-    if not rdf_manifestation or not rdf_manifestation.object_data:
-        raise ValueError("Notice does not have a RDF manifestation to be published.")
-
-    rdf_content = base64.b64decode(bytes(rdf_manifestation.object_data, encoding='utf-8'), validate=True)
-    result: S3PublishResult = s3_publisher.publish(
-        bucket_name=bucket_name,
+    rdf_manifestation: RDFManifestation = notice.rdf_manifestation
+    result: bool = publish_notice_rdf_content_into_s3(
+        rdf_manifestation=rdf_manifestation,
         object_name=f"{notice.ted_id}{DEFAULT_TRANSFORMATION_FILE_EXTENSION}",
-        data=rdf_content)
-
-    return bool(result)
+        s3_publisher=s3_publisher,
+        bucket_name=bucket_name
+    )
+    return result
 
 
 def publish_notice_rdf_into_s3_by_id(notice_id: str, notice_repository: NoticeRepositoryABC,
@@ -109,3 +107,18 @@ def publish_notice_rdf_into_s3_by_id(notice_id: str, notice_repository: NoticeRe
     notice = notice_repository.get(reference=notice_id)
     return publish_notice_rdf_into_s3(notice=notice, bucket_name=bucket_name, s3_publisher=s3_publisher)
 
+
+def publish_notice_rdf_content_into_s3(rdf_manifestation: RDFManifestation,
+                                       object_name: str,
+                                       s3_publisher: S3Publisher = S3Publisher(),
+                                       bucket_name: str = DEFAULT_NOTICE_RDF_S3_BUCKET_NAME) -> bool:
+    if not rdf_manifestation or not rdf_manifestation.object_data:
+        raise ValueError("Notice does not have a RDF manifestation to be published.")
+
+    rdf_content = base64.b64decode(bytes(rdf_manifestation.object_data, encoding='utf-8'), validate=True)
+    result: S3PublishResult = s3_publisher.publish(
+        bucket_name=bucket_name,
+        object_name=object_name,
+        data=rdf_content)
+
+    return bool(result)

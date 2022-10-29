@@ -240,6 +240,14 @@ class S3PublishConfig:
     def S3_PUBLISH_SSL_VERIFY(self) -> bool:
         return True if EnvConfigResolver().config_resolve() == "1" else False
 
+    @property
+    def S3_PUBLISH_NOTICE_BUCKET(self) -> str:
+        return EnvConfigResolver().config_resolve()
+
+    @property
+    def S3_PUBLISH_NOTICE_RDF_BUCKET(self) -> str:
+        return EnvConfigResolver().config_resolve()
+
 
 class TedConfigResolver(MongoDBConfig, RMLMapperConfig, XMLProcessorConfig, ELKConfig, LoggingConfig,
                         GitHubArtefacts, API, AllegroConfig, TedAPIConfig, SFTPConfig, FusekiConfig,

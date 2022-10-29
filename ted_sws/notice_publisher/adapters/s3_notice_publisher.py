@@ -11,6 +11,9 @@ from urllib3.response import HTTPResponse
 from ted_sws import config
 from ted_sws.notice_publisher.model.s3_publish_result import S3PublishResult
 
+DEFAULT_S3_OBJECT_CONTENT_TYPE = "application/octet-stream"
+DEFAULT_S3_RDF_CONTENT_TYPE = "text/plain; charset=utf-8"
+
 
 class S3Publisher:
     """
@@ -54,18 +57,45 @@ class S3Publisher:
                 )
             )
 
-    def publish(self, bucket_name: str, object_name: str, data: bytes, metadata: dict = None) -> S3PublishResult:
+    def create_bucket_if_not_exists(self, bucket_name: str):
         if not self.client.bucket_exists(bucket_name):
             self.client.make_bucket(bucket_name)
+
+    def publish(self, bucket_name: str, object_name: str, data: bytes, metadata: dict = None,
+                content_type=DEFAULT_S3_OBJECT_CONTENT_TYPE) -> S3PublishResult:
+        self.create_bucket_if_not_exists(bucket_name)
 
         result = self.client.put_object(
             bucket_name=bucket_name,
             object_name=object_name,
             data=io.BytesIO(data),
             length=len(data),
-            metadata=(metadata or {})
+            metadata=(metadata or {}),
+            content_type=content_type
         )
         return result
+
+    def rdf_bucket_policy(self, bucket_name: str):
+        return self.bucket_public_policy(bucket_name)
+
+    def bucket_public_policy(self, bucket_name: str):
+        return {
+            "Version": "2012-10-17",
+            "Statement": [
+                {
+                    "Effect": "Allow",
+                    "Principal": {"AWS": "*"},
+                    "Action": ["s3:GetBucketLocation", "s3:ListBucket"],
+                    "Resource": "arn:aws:s3:::" + bucket_name,
+                },
+                {
+                    "Effect": "Allow",
+                    "Principal": {"AWS": "*"},
+                    "Action": "s3:GetObject",
+                    "Resource": "arn:aws:s3:::" + bucket_name + "/*",
+                },
+            ],
+        }
 
     def is_published(self, bucket_name: str, object_name: str, version_id=None) -> bool:
         try:

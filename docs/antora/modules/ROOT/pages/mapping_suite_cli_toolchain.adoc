@@ -575,6 +575,12 @@ Usage: s3_rdf_publisher [OPTIONS]
   id[value] OR (--mapping-suite-id[value] AND --notice-id[list]) must be
   provided!
 
+  Make sure to have set up these variables in .env file:
+
+  S3_PUBLISH_HOST, S3_PUBLISH_NOTICE_RDF_BUCKET (this will be overwritten by
+  CLI option, if provided), S3_PUBLISH_USER, S3_PUBLISH_PASSWORD,
+  S3_PUBLISH_REGION=eu-central-1, S3_PUBLISH_SECURE=1, S3_PUBLISH_SSL_VERIFY=0
+
 Options:
   -f, --rdf-file TEXT             '--rdf-file=RDF_FILE' or '-f
                                   RDF_FILE1,RDF_FILE2'

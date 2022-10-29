@@ -1,12 +1,15 @@
 import base64
+import json
 from pathlib import Path
 from typing import List
+from urllib.parse import urljoin, urlparse
 
 import click
 
 from ted_sws.core.adapters.cmd_runner import CmdRunnerForMappingSuite as BaseCmdRunner, DEFAULT_MAPPINGS_PATH, \
     DEFAULT_OUTPUT_PATH
 from ted_sws.core.model.manifestation import RDFManifestation
+from ted_sws.event_manager.adapters.log import LOG_INFO_TEXT, LOG_WARN_TEXT
 from ted_sws.notice_publisher.adapters.s3_notice_publisher import S3Publisher
 from ted_sws.notice_publisher.services.notice_publisher import publish_notice_rdf_content_into_s3, \
     DEFAULT_NOTICE_RDF_S3_BUCKET_NAME
@@ -64,7 +67,18 @@ class CmdRunner(BaseCmdRunner):
 
         self.s3_publisher = s3_publisher
 
+    def set_policy(self):
+        self.s3_publisher.create_bucket_if_not_exists(self.bucket_name)
+        policy = self.s3_publisher.rdf_bucket_policy(self.bucket_name)
+        self.s3_publisher.client.set_bucket_policy(self.bucket_name, json.dumps(policy))
+
+    def object_url(self, bucket_name: str, object_name: str) -> str:
+        url = self.s3_publisher.client.get_presigned_url("GET", self.bucket_name, object_name)
+        return urljoin(url, urlparse(url).path)
+
     def run_cmd(self):
+        self.set_policy()
+        self.log(LOG_WARN_TEXT.format("---"))
         for idx, rdf_file_name in enumerate(self.rdf_files):
             rdf_file_path = Path(rdf_file_name)
             with open(rdf_file_path, "rb") as rdf_file:
@@ -80,6 +94,9 @@ class CmdRunner(BaseCmdRunner):
                 object_name=object_name,
                 s3_publisher=self.s3_publisher
             )
+
+            self.log(LOG_INFO_TEXT.format(f"URL :: {self.object_url(self.bucket_name, object_name)}"))
+            self.log(LOG_WARN_TEXT.format("---"))
 
         return self.run_cmd_result()
 
@@ -116,6 +133,15 @@ def main(rdf_file, mapping_suite_id, notice_id, skip_notice_id, bucket_name, obj
     """
     Publish RDF content to S3 bucket.
     --rdf-file[list] OR --mapping-suite-id[value] OR (--mapping-suite-id[value] AND --notice-id[list]) must be provided!
+
+    Make sure to have set up these variables in .env file:\n
+    S3_PUBLISH_HOST,
+    S3_PUBLISH_NOTICE_RDF_BUCKET (this will be overwritten by CLI option, if provided),
+    S3_PUBLISH_USER,
+    S3_PUBLISH_PASSWORD,
+    S3_PUBLISH_REGION=eu-central-1,
+    S3_PUBLISH_SECURE=1,
+    S3_PUBLISH_SSL_VERIFY=0
     """
     run(rdf_file, mapping_suite_id, notice_id, skip_notice_id, bucket_name, object_name, mappings_folder)
 

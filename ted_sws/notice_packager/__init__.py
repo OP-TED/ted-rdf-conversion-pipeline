@@ -6,3 +6,5 @@
 # Email: costezki.eugen@gmail.com 
 
 """ """
+
+DEFAULT_NOTICE_PACKAGE_EXTENSION = ".zip"

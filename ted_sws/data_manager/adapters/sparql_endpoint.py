@@ -112,7 +112,13 @@ class TripleStoreEndpointABC(ABC):
         """
 
     def add_data_to_repository(self, file_content, repository_name, mime_type):
-        pass
+        """
+
+        :param file_content:
+        :param repository_name:
+        :param mime_type:
+        :return:
+        """
 
 
 class SPARQLTripleStoreEndpoint(TripleStoreEndpointABC):

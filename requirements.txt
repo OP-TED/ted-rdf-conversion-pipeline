@@ -22,4 +22,6 @@ urllib3[secure]
 semantic-version==2.10.0
 pysftp~=0.2.9
 ordered-set~=4.0.2
-json2html
+json2html~=1.3.0
+minio~=7.1.1
+certifi

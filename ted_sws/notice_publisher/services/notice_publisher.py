@@ -90,7 +90,7 @@ def publish_notice_rdf_into_s3(notice: Notice, s3_publisher: S3Publisher = S3Pub
     """
 
     """
-    rdf_manifestation: RDFManifestation = notice.rdf_manifestation
+    rdf_manifestation: RDFManifestation = notice.distilled_rdf_manifestation
     result: bool = publish_notice_rdf_content_into_s3(
         rdf_manifestation=rdf_manifestation,
         object_name=f"{notice.ted_id}{DEFAULT_TRANSFORMATION_FILE_EXTENSION}",

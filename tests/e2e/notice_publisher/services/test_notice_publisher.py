@@ -66,6 +66,7 @@ def test_s3_notice_publisher(notice_2016, fake_mongodb_client, notice_s3_bucket_
 
     notice._status = NoticeStatus.VALIDATED
     notice.set_rdf_manifestation(rdf_manifestation)
+    notice.set_distilled_rdf_manifestation(rdf_manifestation)
     notice._status = NoticeStatus.ELIGIBLE_FOR_PACKAGING
     notice.set_mets_manifestation(mets_manifestation)
 

@@ -123,6 +123,7 @@ def test_s3_notice_rdf_publisher(notice_2016, fake_mongodb_client, notice_rdf_s3
 
     with pytest.raises(ValueError):
         notice._rdf_manifestation = None
+        notice._distilled_rdf_manifestation = None
         publish_notice_rdf_into_s3(notice, s3_publisher=s3_publisher)
 
     s3_publisher.remove_object(bucket_name=notice_rdf_s3_bucket_name, object_name=object_name)

@@ -108,6 +108,7 @@ def test_s3_notice_rdf_publisher(notice_2016, fake_mongodb_client, notice_rdf_s3
     rdf_manifestation = RDFManifestation(object_data="dGhpcyBpcyBhIHRlc3QgUkRG")
     notice._status = NoticeStatus.VALIDATED
     notice.set_rdf_manifestation(rdf_manifestation)
+    notice.set_distilled_rdf_manifestation(rdf_manifestation)
     notice_repository.update(notice)
 
     publish_result: bool = publish_notice_rdf_into_s3_by_id(

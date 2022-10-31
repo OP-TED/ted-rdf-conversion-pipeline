@@ -14,6 +14,8 @@ from ted_sws import config
 from ted_sws.data_manager.adapters.sparql_endpoint import TripleStoreEndpointABC, SPARQLTripleStoreEndpoint
 
 
+FUSEKI_REPOSITORY_ALREADY_EXIST_ERROR_MSG = 'A repository with this name already exists.'
+
 class TripleStoreABC:
     @abc.abstractmethod
     def create_repository(self, repository_name: str):
@@ -196,7 +198,7 @@ class FusekiAdapter(TripleStoreABC):
                                  data=data)
 
         if response.status_code == 409:
-            raise FusekiException('A repository with this name already exists.')
+            raise FusekiException(FUSEKI_REPOSITORY_ALREADY_EXIST_ERROR_MSG)
 
     def add_data_to_repository(self, file_content: Union[str, bytes, bytearray], mime_type: str, repository_name: str):
         url = urljoin(self.host, f"{repository_name}/data")

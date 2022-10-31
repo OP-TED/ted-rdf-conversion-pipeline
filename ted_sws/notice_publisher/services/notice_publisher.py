@@ -114,7 +114,7 @@ def publish_notice_rdf_content_into_s3(rdf_manifestation: RDFManifestation,
     if not rdf_manifestation or not rdf_manifestation.object_data:
         raise ValueError("Notice does not have a RDF manifestation to be published.")
 
-    rdf_content = base64.b64decode(bytes(rdf_manifestation.object_data, encoding='utf-8'), validate=True)
+    rdf_content = bytes(rdf_manifestation.object_data, encoding='utf-8')
     result: S3PublishResult = s3_publisher.publish(
         bucket_name=bucket_name,
         object_name=object_name,

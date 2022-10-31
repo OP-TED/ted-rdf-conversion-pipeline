@@ -185,15 +185,15 @@ class Notice(WorkExpression):
     def mets_manifestation(self) -> METSManifestation:
         return self._mets_manifestation
 
-    def get_rdf_validation(self) -> Optional[List[RDFValidationManifestation]]:
-        if not self.rdf_manifestation:
-            return None
-        result = []
-        for shacl_validation in self.rdf_manifestation.shacl_validations:
-            result.append(shacl_validation)
-        for sparql_validation in self.rdf_manifestation.sparql_validations:
-            result.append(sparql_validation)
-        return result
+    # def get_rdf_validation(self) -> Optional[List[RDFValidationManifestation]]:
+    #     if not self.rdf_manifestation:
+    #         return None
+    #     result = []
+    #     for shacl_validation in self.rdf_manifestation.shacl_validations:
+    #         result.append(shacl_validation)
+    #     for sparql_validation in self.rdf_manifestation.sparql_validations:
+    #         result.append(sparql_validation)
+    #     return result
 
     def get_distilled_rdf_validation(self) -> Optional[List[RDFValidationManifestation]]:
         if not self.distilled_rdf_manifestation:
@@ -265,37 +265,33 @@ class Notice(WorkExpression):
         if self.rdf_manifestation == rdf_manifestation:
             return
         self._rdf_manifestation = rdf_manifestation
-        if (not rdf_manifestation.sparql_validations) and (not rdf_manifestation.shacl_validations):
-            self.update_status_to(NoticeStatus.TRANSFORMED)
-        else:
-            self.update_status_to(NoticeStatus.VALIDATED)
+        self.update_status_to(NoticeStatus.TRANSFORMED)
 
     def _check_status_is_validated(self) -> bool:
         """
 
         :return:
         """
-        if self._rdf_manifestation and self._distilled_rdf_manifestation and self.xml_manifestation:
-            if self._rdf_manifestation.is_validated() and self._distilled_rdf_manifestation.is_validated() \
-                    and self.xml_manifestation.is_validated():
+        if self._distilled_rdf_manifestation and self.xml_manifestation:
+            if self._distilled_rdf_manifestation.is_validated() and self.xml_manifestation.is_validated():
                 return True
         return False
 
-    def set_rdf_validation(self, rdf_validation: Union[SPARQLTestSuiteValidationReport,
-                                                       SHACLTestSuiteValidationReport]):
-        """
-            Add an RDF validation result to the notice.
-            If METS package data are available, erase them and reset the state.
-        :param rdf_validation:
-        :return:
-        """
-        if not self.rdf_manifestation:
-            raise ValueError("Cannot set the RDF validation of a non-existent RDF manifestation")
-
-        self._rdf_manifestation.add_validation(validation=rdf_validation)
-
-        if self._check_status_is_validated():
-            self.update_status_to(NoticeStatus.VALIDATED)
+    # def set_rdf_validation(self, rdf_validation: Union[SPARQLTestSuiteValidationReport,
+    #                                                    SHACLTestSuiteValidationReport]):
+    #     """
+    #         Add an RDF validation result to the notice.
+    #         If METS package data are available, erase them and reset the state.
+    #     :param rdf_validation:
+    #     :return:
+    #     """
+    #     if not self.rdf_manifestation:
+    #         raise ValueError("Cannot set the RDF validation of a non-existent RDF manifestation")
+    #
+    #     self._rdf_manifestation.add_validation(validation=rdf_validation)
+    #
+    #     if self._check_status_is_validated():
+    #         self.update_status_to(NoticeStatus.VALIDATED)
 
     def set_distilled_rdf_validation(self, rdf_validation: Union[SPARQLTestSuiteValidationReport,
                                                                  SHACLTestSuiteValidationReport]):
@@ -403,7 +399,7 @@ class Notice(WorkExpression):
 
     def update_status_to(self, new_status: NoticeStatus):
         """
-        Will update the status downstream only if the transition is unsupported. All upstream transitions are
+            Will update the status downstream only if the transition is unsupported. All upstream transitions are
         supported, which leads to erasing any data associated with a downstream status. For example if current state
         is "published", and teh state is regressed to "validated" then the METS data are lost.
 

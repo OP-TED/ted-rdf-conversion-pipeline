@@ -146,7 +146,7 @@ class SPARQLTripleStoreEndpoint(TripleStoreEndpointABC):
 
         self.endpoint.setReturnFormat(CSV)
         query_result = self.endpoint.queryAndConvert()
-        return pd.read_csv(io.StringIO(str(query_result, encoding=DEFAULT_ENCODING)))
+        return pd.read_csv(str(query_result, encoding=DEFAULT_ENCODING))
 
     def fetch_tree(self):
         """

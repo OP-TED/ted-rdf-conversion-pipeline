@@ -35,7 +35,6 @@ def index_notice_xslt(notice: Notice, xslt_transformer=None) -> Notice:
         This function selects unique XPath from XMlManifestation from a notice and indexes notices with these unique XPath.
     :param notice:
     :param xslt_transformer:
-    :param unique:
     :return:
     """
 

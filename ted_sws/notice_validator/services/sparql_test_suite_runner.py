@@ -164,8 +164,8 @@ def validate_notice_with_sparql_suite(notice: Union[Notice, List[Notice]], mappi
     notices = notice if isinstance(notice, List) else [notice]
 
     for notice in notices:
-        for report in sparql_validation(notice_item=notice, rdf_manifestation=notice.rdf_manifestation):
-            notice.set_rdf_validation(rdf_validation=report)
+        # for report in sparql_validation(notice_item=notice, rdf_manifestation=notice.rdf_manifestation):
+        #     notice.set_rdf_validation(rdf_validation=report)
 
         for report in sparql_validation(notice_item=notice, rdf_manifestation=notice.distilled_rdf_manifestation):
             notice.set_distilled_rdf_validation(rdf_validation=report)

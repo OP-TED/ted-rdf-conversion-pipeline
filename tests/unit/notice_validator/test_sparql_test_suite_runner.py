@@ -94,14 +94,14 @@ def test_validate_notice_with_sparql_suite(notice_with_distilled_status, dummy_m
     assert notice.rdf_manifestation
     assert notice.distilled_rdf_manifestation
     validate_notice_with_sparql_suite(notice=notice, mapping_suite_package=dummy_mapping_suite)
-    rdf_validation = notice.get_rdf_validation()
+    # rdf_validation = notice.get_rdf_validation()
     distilled_rdf_validation = notice.get_distilled_rdf_validation()
     assert notice.status == NoticeStatus.DISTILLED
-    assert isinstance(rdf_validation, list)
-    assert len(rdf_validation) == 1
-    assert isinstance(rdf_validation[0], RDFValidationManifestation)
-    assert rdf_validation[0].object_data
-    assert rdf_validation[0].validation_results
+    # assert isinstance(rdf_validation, list)
+    # assert len(rdf_validation) == 1
+    # assert isinstance(rdf_validation[0], RDFValidationManifestation)
+    # assert rdf_validation[0].object_data
+    # assert rdf_validation[0].validation_results
     assert isinstance(distilled_rdf_validation, list)
     assert len(distilled_rdf_validation) == 1
     assert isinstance(distilled_rdf_validation[0], RDFValidationManifestation)
@@ -121,10 +121,10 @@ def test_validate_notice_by_id_with_sparql_suite(notice_with_distilled_status, r
                                             mapping_suite_identifier="test_package")
 
     assert notice.status == NoticeStatus.DISTILLED
-    assert isinstance(notice.get_rdf_validation(), list)
-    assert len(notice.get_rdf_validation()) == 1
-    assert isinstance(notice.get_rdf_validation()[0], RDFValidationManifestation)
-    assert notice.get_rdf_validation()[0].object_data
+    assert isinstance(notice.get_distilled_rdf_validation(), list)
+    assert len(notice.get_distilled_rdf_validation()) == 1
+    assert isinstance(notice.get_distilled_rdf_validation()[0], RDFValidationManifestation)
+    assert notice.get_distilled_rdf_validation()[0].object_data
 
     with pytest.raises(ValueError):
         validate_notice_by_id_with_sparql_suite(notice_id="408313-202085569",

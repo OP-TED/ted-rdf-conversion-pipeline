@@ -123,7 +123,6 @@ class ExtractedMetadataNormaliser:
     def normalise_legal_basis_value(cls, value: str) -> str:
         """
         Transforms and returns Legal Basis value
-        :param mapping:
         :param value:
         :return:
         """

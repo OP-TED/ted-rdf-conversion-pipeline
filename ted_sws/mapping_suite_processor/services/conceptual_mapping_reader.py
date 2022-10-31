@@ -194,7 +194,6 @@ def mapping_suite_read_conceptual_mapping(conceptual_mappings_file_path: Path) -
     """
         This feature allows you to read the conceptual mapping in a package.
     :param conceptual_mappings_file_path:
-    :param metadata:
     :return:
     """
 

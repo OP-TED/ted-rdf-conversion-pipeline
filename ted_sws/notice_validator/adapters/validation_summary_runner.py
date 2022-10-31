@@ -184,8 +184,8 @@ class ValidationSummaryRunner:
         xml_manifestation_runner = XMLManifestationValidationSummaryRunner(notices)
         report.xml_manifestation = xml_manifestation_runner.validation_summary()
 
-        rdf_manifestation_runner = RDFManifestationValidationSummaryRunner(notices)
-        report.rdf_manifestation = rdf_manifestation_runner.validation_summary()
+        # rdf_manifestation_runner = RDFManifestationValidationSummaryRunner(notices)
+        # report.rdf_manifestation = rdf_manifestation_runner.validation_summary()
 
         distilled_rdf_manifestation_runner = DistilledRDFManifestationValidationSummaryRunner(notices)
         report.distilled_rdf_manifestation = distilled_rdf_manifestation_runner.validation_summary()

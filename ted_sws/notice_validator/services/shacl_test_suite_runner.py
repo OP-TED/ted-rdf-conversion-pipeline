@@ -98,8 +98,8 @@ def validate_notice_with_shacl_suite(notice: Union[Notice, List[Notice]], mappin
     notices = notice if isinstance(notice, List) else [notice]
 
     for notice in notices:
-        for report in shacl_validation(notice_item=notice, rdf_manifestation=notice.rdf_manifestation):
-            notice.set_rdf_validation(rdf_validation=report)
+        # for report in shacl_validation(notice_item=notice, rdf_manifestation=notice.rdf_manifestation):
+        #     notice.set_rdf_validation(rdf_validation=report)
 
         for report in shacl_validation(notice_item=notice, rdf_manifestation=notice.distilled_rdf_manifestation):
             notice.set_distilled_rdf_validation(rdf_validation=report)

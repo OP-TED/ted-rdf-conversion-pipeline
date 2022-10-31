@@ -18,7 +18,7 @@ def test_validation_summary_runner(fake_validation_notice, mongodb_client):
     assert notice.validation_summary.object_data
     assert notice.validation_summary.notice_ids
     assert notice.validation_summary.xml_manifestation
-    assert notice.validation_summary.rdf_manifestation
+    # assert notice.validation_summary.rdf_manifestation
     assert notice.validation_summary.distilled_rdf_manifestation
 
 
@@ -27,5 +27,5 @@ def test_generate_validation_summary_report_notices(fake_validation_notice):
     assert report
     assert report.notice_ids == [fake_validation_notice.ted_id]
     assert report.xml_manifestation.xpath_coverage_summary.mapping_suite_identifier == fake_validation_notice.xml_manifestation.xpath_coverage_validation.mapping_suite_identifier
-    assert report.rdf_manifestation
+    # assert report.rdf_manifestation
     assert report.distilled_rdf_manifestation

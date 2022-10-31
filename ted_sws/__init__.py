@@ -15,7 +15,7 @@ import pathlib
 
 import dotenv
 
-from ted_sws.core.adapters.config_resolver import EnvConfigResolver
+from ted_sws.core.adapters.config_resolver import EnvConfigResolver, AirflowAndEnvConfigResolver
 
 dotenv.load_dotenv(verbose=True, override=os.environ.get('IS_PRIME_ENV') != 'true')
 
@@ -188,24 +188,24 @@ class FusekiConfig:
 class SFTPConfig:
     @property
     def SFTP_HOST(self) -> str:
-        return EnvConfigResolver().config_resolve()
+        return AirflowAndEnvConfigResolver().config_resolve()
 
     @property
     def SFTP_PORT(self) -> int:
-        v = EnvConfigResolver().config_resolve()
+        v = AirflowAndEnvConfigResolver().config_resolve()
         return int(v) if v is not None else 22
 
     @property
     def SFTP_USER(self) -> str:
-        return EnvConfigResolver().config_resolve()
+        return AirflowAndEnvConfigResolver().config_resolve()
 
     @property
     def SFTP_PASSWORD(self) -> str:
-        return EnvConfigResolver().config_resolve()
+        return AirflowAndEnvConfigResolver().config_resolve()
 
     @property
     def SFTP_PATH(self) -> str:
-        return EnvConfigResolver().config_resolve()
+        return AirflowAndEnvConfigResolver().config_resolve()
 
 
 class SPARQLConfig:
@@ -218,35 +218,35 @@ class SPARQLConfig:
 class S3PublishConfig:
     @property
     def S3_PUBLISH_USER(self) -> str:
-        return EnvConfigResolver().config_resolve()
+        return AirflowAndEnvConfigResolver().config_resolve()
 
     @property
     def S3_PUBLISH_PASSWORD(self) -> str:
-        return EnvConfigResolver().config_resolve()
+        return AirflowAndEnvConfigResolver().config_resolve()
 
     @property
     def S3_PUBLISH_HOST(self) -> str:
-        return EnvConfigResolver().config_resolve()
+        return AirflowAndEnvConfigResolver().config_resolve()
 
     @property
     def S3_PUBLISH_SECURE(self) -> bool:
-        return True if EnvConfigResolver().config_resolve() == "1" else False
+        return True if AirflowAndEnvConfigResolver().config_resolve() == "1" else False
 
     @property
     def S3_PUBLISH_REGION(self) -> str:
-        return EnvConfigResolver().config_resolve()
+        return AirflowAndEnvConfigResolver().config_resolve()
 
     @property
     def S3_PUBLISH_SSL_VERIFY(self) -> bool:
-        return True if EnvConfigResolver().config_resolve() == "1" else False
+        return True if AirflowAndEnvConfigResolver().config_resolve() == "1" else False
 
     @property
     def S3_PUBLISH_NOTICE_BUCKET(self) -> str:
-        return EnvConfigResolver().config_resolve()
+        return AirflowAndEnvConfigResolver().config_resolve()
 
     @property
     def S3_PUBLISH_NOTICE_RDF_BUCKET(self) -> str:
-        return EnvConfigResolver().config_resolve()
+        return AirflowAndEnvConfigResolver().config_resolve()
 
 
 class TedConfigResolver(MongoDBConfig, RMLMapperConfig, XMLProcessorConfig, ELKConfig, LoggingConfig,

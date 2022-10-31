@@ -81,7 +81,7 @@ class AirflowAndEnvConfigResolver(ConfigResolverABC):
     """
 
     def concrete_config_resolve(self, config_name: str, default_value: str = None):
-        value = AirflowConfigResolver().concrete_config_resolve(config_name=config_name, default_value=default_value)
+        value = AirflowConfigResolver().concrete_config_resolve(config_name=config_name)
         if value is not None:
             return value
         else:
@@ -106,7 +106,7 @@ class VaultAndEnvConfigResolver(ConfigResolverABC):
     """
 
     def concrete_config_resolve(self, config_name: str, default_value: str = None):
-        value = VaultConfigResolver().concrete_config_resolve(config_name, default_value)
+        value = VaultConfigResolver().concrete_config_resolve(config_name)
         if value is not None:
             os.environ[config_name] = str(value)
             return value

@@ -90,7 +90,7 @@ def publish_notice_rdf_into_s3(notice: Notice, s3_publisher: S3Publisher = S3Pub
     """
 
     """
-    rdf_manifestation: RDFManifestation = notice.rdf_manifestation
+    rdf_manifestation: RDFManifestation = notice.distilled_rdf_manifestation
     result: bool = publish_notice_rdf_content_into_s3(
         rdf_manifestation=rdf_manifestation,
         object_name=f"{notice.ted_id}{DEFAULT_TRANSFORMATION_FILE_EXTENSION}",
@@ -114,7 +114,7 @@ def publish_notice_rdf_content_into_s3(rdf_manifestation: RDFManifestation,
     if not rdf_manifestation or not rdf_manifestation.object_data:
         raise ValueError("Notice does not have a RDF manifestation to be published.")
 
-    rdf_content = base64.b64decode(bytes(rdf_manifestation.object_data, encoding='utf-8'), validate=True)
+    rdf_content = bytes(rdf_manifestation.object_data, encoding='utf-8')
     result: S3PublishResult = s3_publisher.publish(
         bucket_name=bucket_name,
         object_name=object_name,

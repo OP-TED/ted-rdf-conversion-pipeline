@@ -149,23 +149,19 @@ def step_impl(indexed_notice, normalised_metadata, old_normalised_metadata):
 
 @then("normalised notice contains no RDF manifestation")
 def step_impl(indexed_notice):
-    assert indexed_notice.rdf_manifestation is None
+    assert indexed_notice.distilled_rdf_manifestation is None
 
 
 @then("notice contains no RDF validation")
 def step_impl(transformation_eligible_notice):
     assert transformation_eligible_notice
-    print(
-        f"transformation_eligible_notice.get_rdf_validation() = {transformation_eligible_notice.get_rdf_validation()}")
-    assert transformation_eligible_notice.get_rdf_validation() == []
+    assert transformation_eligible_notice.get_distilled_rdf_validation() == []
 
 
 @then("notice not contains RDF validation")
 def step_impl(transformation_eligible_notice):
     assert transformation_eligible_notice
-    print(
-        f"transformation_eligible_notice.get_rdf_validation() = {transformation_eligible_notice.get_rdf_validation()}")
-    assert transformation_eligible_notice.get_rdf_validation() is None
+    assert transformation_eligible_notice.get_distilled_rdf_validation() is None
 
 
 @then("notice contains no METS manifestation")
@@ -180,12 +176,12 @@ def step_impl():
 
 @when("RDF manifestation is added")
 def step_impl(transformation_eligible_notice, rdf_manifestation):
-    transformation_eligible_notice.set_rdf_manifestation(rdf_manifestation)
+    transformation_eligible_notice.set_distilled_rdf_manifestation(rdf_manifestation)
 
 
 @then("the notice object contains the RDF manifestation")
 def step_impl(transformation_eligible_notice, rdf_manifestation):
-    assert transformation_eligible_notice.rdf_manifestation == rdf_manifestation
+    assert transformation_eligible_notice.distilled_rdf_manifestation == rdf_manifestation
 
 
 @then("the notice status is TRANSFORMED")
@@ -195,14 +191,14 @@ def step_impl(transformation_eligible_notice):
 
 @given("the notice already contains an RDF manifestation")
 def step_impl(transformation_eligible_notice, rdf_manifestation):
-    transformation_eligible_notice.set_rdf_manifestation(
-        rdf_manifestation=RDFManifestation(object_data="data some data"))
+    transformation_eligible_notice.set_distilled_rdf_manifestation(
+        distilled_rdf_manifestation=RDFManifestation(object_data="data some data"))
 
 
 @when("the RDF manifestation is overwritten", target_fixture="old_rdf_manifestation")
 def step_impl(transformation_eligible_notice, rdf_manifestation):
     old_manifestation = transformation_eligible_notice.rdf_manifestation
-    transformation_eligible_notice.set_rdf_manifestation(rdf_manifestation)
+    transformation_eligible_notice.set_distilled_rdf_manifestation(rdf_manifestation)
     return old_manifestation
 
 
@@ -229,12 +225,12 @@ def step_impl(transformation_eligible_notice):
 @when("RDF validation report is added an exception is raised")
 def step_impl(transformation_eligible_notice, rdf_validation):
     with pytest.raises(Exception):
-        transformation_eligible_notice.set_rdf_validation(rdf_validation)
+        transformation_eligible_notice.set_distilled_rdf_validation(rdf_validation)
 
 
 @then("the notice object contains the RDF validation report")
 def step_impl(transformation_eligible_notice):
-    assert transformation_eligible_notice.get_rdf_validation() is not None
+    assert transformation_eligible_notice.get_distilled_rdf_validation() is not None
 
 
 @then("the notice status is VALIDATED")
@@ -340,7 +336,7 @@ def step_impl(transformation_eligible_notice):
 @when("RDF validation report is added")
 def step_impl(transformation_eligible_notice, rdf_validation):
     transformation_eligible_notice.update_status_to(NoticeStatus.DISTILLED)
-    transformation_eligible_notice.set_rdf_validation(rdf_validation)
+    transformation_eligible_notice.set_distilled_rdf_validation(rdf_validation)
 
 
 @given("a packaging eligible notice", target_fixture="packaging_eligible_notice")

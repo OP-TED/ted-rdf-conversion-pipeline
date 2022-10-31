@@ -7,11 +7,11 @@ services:
     restart: unless-stopped
     image: postgres:14.4-alpine
     environment:
-      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
-      - METABASE_PASSWORD=${METABASE_PASSWORD}
+      - POSTGRES_DB=${ENV_MB_DB_DBNAME}
+      - POSTGRES_USER=${ENV_MB_DB_USER}
+      - POSTGRES_PASSWORD=${ENV_MB_DB_PASS}
     volumes:
       - metabase_postgres_volume:/var/lib/postgresql/data/
-      - ./services/postgres/:/docker-entrypoint-initdb.d/
     networks:
       - metabase-net
 

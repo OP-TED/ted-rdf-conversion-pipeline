@@ -260,6 +260,7 @@ staging-dotenv-file: guard-VAULT_ADDR guard-VAULT_TOKEN vault-installed
 	@ vault kv get -format="json" ted-staging/metabase | jq -r ".data.data | keys[] as \$$k | \"\(\$$k)=\(.[\$$k])\"" >> .env
 	@ vault kv get -format="json" ted-staging/ted-sws | jq -r ".data.data | keys[] as \$$k | \"\(\$$k)=\(.[\$$k])\"" >> .env
 	@ vault kv get -format="json" ted-staging/agraph | jq -r ".data.data | keys[] as \$$k | \"\(\$$k)=\(.[\$$k])\"" >> .env
+	@ vault kv get -format="json" ted-staging/fuseki | jq -r ".data.data | keys[] as \$$k | \"\(\$$k)=\(.[\$$k])\"" >> .env
 	@ vault kv get -format="json" ted-staging/github | jq -r ".data.data | keys[] as \$$k | \"\(\$$k)=\(.[\$$k])\"" >> .env
 	@ vault kv get -format="json" ted-staging/minio | jq -r ".data.data | keys[] as \$$k | \"\(\$$k)=\(.[\$$k])\"" >> .env
 
@@ -280,6 +281,7 @@ dev-dotenv-file: guard-VAULT_ADDR guard-VAULT_TOKEN vault-installed
 	@ vault kv get -format="json" ted-dev/mongo-db | jq -r ".data.data | keys[] as \$$k | \"\(\$$k)=\(.[\$$k])\"" >> .env
 	@ vault kv get -format="json" ted-dev/metabase | jq -r ".data.data | keys[] as \$$k | \"\(\$$k)=\(.[\$$k])\"" >> .env
 	@ vault kv get -format="json" ted-dev/agraph | jq -r ".data.data | keys[] as \$$k | \"\(\$$k)=\(.[\$$k])\"" >> .env
+	@ vault kv get -format="json" ted-dev/fuseki | jq -r ".data.data | keys[] as \$$k | \"\(\$$k)=\(.[\$$k])\"" >> .env
 	@ vault kv get -format="json" ted-dev/ted-sws | jq -r ".data.data | keys[] as \$$k | \"\(\$$k)=\(.[\$$k])\"" >> .env
 	@ vault kv get -format="json" ted-dev/github | jq -r ".data.data | keys[] as \$$k | \"\(\$$k)=\(.[\$$k])\"" >> .env
 	@ vault kv get -format="json" ted-dev/minio | jq -r ".data.data | keys[] as \$$k | \"\(\$$k)=\(.[\$$k])\"" >> .env
@@ -302,6 +304,7 @@ prod-dotenv-file: guard-VAULT_ADDR guard-VAULT_TOKEN vault-installed
 	@ vault kv get -format="json" ted-prod/mongo-db | jq -r ".data.data | keys[] as \$$k | \"\(\$$k)=\(.[\$$k])\"" >> .env
 	@ vault kv get -format="json" ted-prod/metabase | jq -r ".data.data | keys[] as \$$k | \"\(\$$k)=\(.[\$$k])\"" >> .env
 	@ vault kv get -format="json" ted-prod/agraph | jq -r ".data.data | keys[] as \$$k | \"\(\$$k)=\(.[\$$k])\"" >> .env
+	@ vault kv get -format="json" ted-prod/fuseki | jq -r ".data.data | keys[] as \$$k | \"\(\$$k)=\(.[\$$k])\"" >> .env
 	@ vault kv get -format="json" ted-prod/ted-sws | jq -r ".data.data | keys[] as \$$k | \"\(\$$k)=\(.[\$$k])\"" >> .env
 	@ vault kv get -format="json" ted-prod/github | jq -r ".data.data | keys[] as \$$k | \"\(\$$k)=\(.[\$$k])\"" >> .env
 	@ vault kv get -format="json" ted-prod/minio | jq -r ".data.data | keys[] as \$$k | \"\(\$$k)=\(.[\$$k])\"" >> .env

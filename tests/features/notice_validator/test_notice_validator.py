@@ -77,14 +77,14 @@ def the_notice_sparql_validation_is_executed(notice_with_distilled_status, mappi
 def the_notice_have_shacl_validation_reports_for_each_rdf_manifestation(shacl_validated_notice):
     """the notice have SHACL validation reports for each RDF manifestation."""
     notice = shacl_validated_notice
-    rdf_validation = notice.get_rdf_validation()
+    # rdf_validation = notice.get_rdf_validation()
     distilled_rdf_validation = notice.get_distilled_rdf_validation()
     assert notice.status == NoticeStatus.DISTILLED
-    assert isinstance(rdf_validation, list)
-    assert len(rdf_validation) == 1
-    assert isinstance(rdf_validation[0], SHACLTestSuiteValidationReport)
-    assert rdf_validation[0].object_data
-    assert rdf_validation[0].validation_results
+    # assert isinstance(rdf_validation, list)
+    # assert len(rdf_validation) == 1
+    # assert isinstance(rdf_validation[0], SHACLTestSuiteValidationReport)
+    # assert rdf_validation[0].object_data
+    # assert rdf_validation[0].validation_results
     assert isinstance(distilled_rdf_validation, list)
     assert len(distilled_rdf_validation) == 1
     assert isinstance(distilled_rdf_validation[0], SHACLTestSuiteValidationReport)
@@ -96,14 +96,14 @@ def the_notice_have_shacl_validation_reports_for_each_rdf_manifestation(shacl_va
 def the_notice_have_sparql_validation_reports_for_each_rdf_manifestation(sparql_validated_notice):
     """the notice have SPARQL validation reports for each RDF manifestation."""
     notice = sparql_validated_notice
-    rdf_validation = notice.get_rdf_validation()
+    # rdf_validation = notice.get_rdf_validation()
     distilled_rdf_validation = notice.get_distilled_rdf_validation()
     assert notice.status == NoticeStatus.DISTILLED
-    assert isinstance(rdf_validation, list)
-    assert len(rdf_validation) == 1
-    assert isinstance(rdf_validation[0], SPARQLTestSuiteValidationReport)
-    assert rdf_validation[0].object_data
-    assert rdf_validation[0].validation_results
+    # assert isinstance(rdf_validation, list)
+    # assert len(rdf_validation) == 1
+    # assert isinstance(rdf_validation[0], SPARQLTestSuiteValidationReport)
+    # assert rdf_validation[0].object_data
+    # assert rdf_validation[0].validation_results
     assert isinstance(distilled_rdf_validation, list)
     assert len(distilled_rdf_validation) == 1
     assert isinstance(distilled_rdf_validation[0], SPARQLTestSuiteValidationReport)

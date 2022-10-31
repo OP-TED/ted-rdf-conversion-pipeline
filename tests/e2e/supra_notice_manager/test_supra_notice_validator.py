@@ -14,6 +14,8 @@ def test_supra_notice_validator(mongodb_client, daily_supra_notice_repository):
     validate_and_update_daily_supra_notice(day, mongodb_client)
     result = daily_supra_notice_repository.get(reference=day)
     assert result
-    assert result.validation_report.missing_notice_ids
-    assert notice_ids[0] not in result.validation_report.missing_notice_ids
-    assert not result.validation_report.is_valid()
+    assert result.notice_ids is not None
+    if result.validation_report.missing_notice_ids is not None:
+        assert result.validation_report.missing_notice_ids
+        assert notice_ids[0] not in result.validation_report.missing_notice_ids
+        assert not result.validation_report.is_valid()

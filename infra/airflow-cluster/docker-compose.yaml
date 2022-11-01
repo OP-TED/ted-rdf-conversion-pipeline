@@ -60,8 +60,8 @@ x-airflow-common:
     AIRFLOW__CELERY__WORKER_CONCURRENCY: 16
     AIRFLOW__CORE__SQL_ALCHEMY_POOL_SIZE: 512
     AIRFLOW__CORE__SQL_ALCHEMY_MAX_OVERFLOW: 1024
-    AIRFLOW__CORE__SQL_ALCHEMY_CONN: "postgresql+psycopg2://${POSTGRES_USER}:${POSTGRES_USER}@postgres/airflow"
-    AIRFLOW__CELERY__RESULT_BACKEND: "db+postgresql://${POSTGRES_USER}:${POSTGRES_USER}@postgres/airflow"
+    AIRFLOW__CORE__SQL_ALCHEMY_CONN: "postgresql+psycopg2://${AIRFLOW_POSTGRES_USER}:${AIRFLOW_POSTGRES_PASSWORD}@postgres/${AIRFLOW_POSTGRES_DB_NAME}"
+    AIRFLOW__CELERY__RESULT_BACKEND: "db+postgresql://${AIRFLOW_POSTGRES_USER}:${AIRFLOW_POSTGRES_PASSWORD}@postgres/${AIRFLOW_POSTGRES_DB_NAME}"
     AIRFLOW__CELERY__BROKER_URL: "redis://:${REDIS_PASSWORD}@redis:6379/0"
     AIRFLOW__WEBSERVER__SECRET_KEY: "zqOVjqVrMstjDbKEPpYiSA=="
     IS_PRIME_ENV: 'true'
@@ -79,6 +79,7 @@ x-airflow-common:
     AIRFLOW_HOME: /opt/airflow
     RML_MAPPER_PATH: /opt/airflow/.rmlmapper/rmlmapper.jar
     XML_PROCESSOR_PATH: /opt/airflow/.saxon/saxon-he-10.6.jar
+    LIMES_ALIGNMENT_PATH: /opt/airflow/.limes/limes.jar
     DAG_LOGGER_CONFIG_HANDLERS: ${DAG_LOGGER_CONFIG_HANDLERS}
   volumes:
 #    - ./config/airflow.cfg:/opt/airflow/airflow.cfg
@@ -108,9 +109,9 @@ services:
     container_name: postgres-airflow-${ENVIRONMENT}
     command: postgres -c 'max_connections=1000'
     environment:
-      POSTGRES_USER: ${POSTGRES_USER}
-      POSTGRES_PASSWORD: ${POSTGRES_USER}
-      POSTGRES_DB: airflow
+      POSTGRES_USER: ${AIRFLOW_POSTGRES_USER}
+      POSTGRES_PASSWORD: ${AIRFLOW_POSTGRES_PASSWORD}
+      POSTGRES_DB: ${AIRFLOW_POSTGRES_DB_NAME}
     ports:
       - "5432:5432"
     volumes:

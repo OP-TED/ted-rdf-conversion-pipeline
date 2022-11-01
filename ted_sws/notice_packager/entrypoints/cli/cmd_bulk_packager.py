@@ -21,6 +21,7 @@ from ted_sws.notice_metadata_processor.services.xml_manifestation_metadata_extra
     XMLManifestationMetadataExtractor
 from ted_sws.notice_packager.services.metadata_transformer import MetadataTransformer
 from ted_sws.notice_packager.services.notice_packager import create_notice_package
+from ted_sws.notice_packager import DEFAULT_NOTICE_PACKAGE_EXTENSION
 
 CMD_NAME = "CMD_BULK_PACKAGER"
 DEFAULT_FILES_COUNT: int = 3000
@@ -66,14 +67,14 @@ class CmdRunner(BaseCmdRunner):
         return self.run_cmd_result(error)
 
     @classmethod
-    def generate_package(cls, notice_id, output_path, rdf_file_path, pkg_name) -> str:
+    def generate_package(cls, notice_id, output_path, rdf_file_path, pkg_name):
 
         with open(rdf_file_path, "r") as f:
             rdf_content = f.read()
 
             encoded_rdf_content = base64.b64encode(bytes(rdf_content, 'utf-8'))
 
-            output_file = output_path / (pkg_name + ".zip")
+            output_file = output_path / (pkg_name + DEFAULT_NOTICE_PACKAGE_EXTENSION)
 
             notice = PackageNotice(ted_id=notice_id)
             notice_metadata = XMLManifestationMetadataExtractor(

@@ -10,6 +10,7 @@ from ted_sws.core.model.notice import Notice
 from ted_sws.core.model.transform import SPARQLTestSuite, MappingSuite, FileResource
 from ted_sws.data_manager.adapters.repository_abc import NoticeRepositoryABC, MappingSuiteRepositoryABC
 from ted_sws.notice_validator.adapters.sparql_runner import SPARQLRunner
+from ted_sws.notice_validator.services import NOTICE_IDS_FIELD
 
 TEMPLATES = Environment(loader=PackageLoader("ted_sws.notice_validator.resources", "templates"))
 SPARQL_TEST_SUITE_EXECUTION_HTML_REPORT_TEMPLATE = "sparql_query_results_report.jinja2"
@@ -125,14 +126,14 @@ class SPARQLReportBuilder:
         Given a SPARQLQueryResult, generates JSON and HTML reports.
     """
 
-    def __init__(self, sparql_test_suite_execution: SPARQLTestSuiteValidationReport, notice_id: List[str] = None):
+    def __init__(self, sparql_test_suite_execution: SPARQLTestSuiteValidationReport, notice_ids: List[str] = None):
         self.sparql_test_suite_execution = sparql_test_suite_execution
-        self.notice_id = notice_id
+        self.notice_ids = notice_ids
 
     def generate_report(self) -> SPARQLTestSuiteValidationReport:
-        tpl_data: dict = self.sparql_test_suite_execution.dict()
-        tpl_data["notice_id"] = self.notice_id
-        html_report = TEMPLATES.get_template(SPARQL_TEST_SUITE_EXECUTION_HTML_REPORT_TEMPLATE).render(tpl_data)
+        template_data: dict = self.sparql_test_suite_execution.dict()
+        template_data[NOTICE_IDS_FIELD] = self.notice_ids
+        html_report = TEMPLATES.get_template(SPARQL_TEST_SUITE_EXECUTION_HTML_REPORT_TEMPLATE).render(template_data)
         self.sparql_test_suite_execution.object_data = html_report
         return self.sparql_test_suite_execution
 
@@ -145,28 +146,28 @@ def validate_notice_with_sparql_suite(notice: Union[Notice, List[Notice]], mappi
     :return:
     """
 
-    def sparql_validation(_notice: Notice) \
+    def sparql_validation(notice_item: Notice, rdf_manifestation: RDFManifestation) \
             -> List[SPARQLTestSuiteValidationReport]:
-        rdf_manifestation: RDFManifestation = _notice.rdf_manifestation
-        sparql_test_suites = mapping_suite_package.sparql_test_suites
         reports = []
+        sparql_test_suites = mapping_suite_package.sparql_test_suites
         for sparql_test_suite in sparql_test_suites:
             test_suite_execution = SPARQLTestSuiteRunner(rdf_manifestation=rdf_manifestation,
-                                                         xml_manifestation=notice.xml_manifestation,
+                                                         xml_manifestation=notice_item.xml_manifestation,
                                                          sparql_test_suite=sparql_test_suite,
                                                          mapping_suite=mapping_suite_package
                                                          ).execute_test_suite()
-            report_builder = SPARQLReportBuilder(sparql_test_suite_execution=test_suite_execution)
+            report_builder = SPARQLReportBuilder(sparql_test_suite_execution=test_suite_execution,
+                                                 notice_ids=[notice_item.ted_id])
             reports.append(report_builder.generate_report())
         return sorted(reports, key=lambda x: x.test_suite_identifier)
 
     notices = notice if isinstance(notice, List) else [notice]
 
-    for _notice in notices:
-        for report in sparql_validation(_notice=_notice):
+    for notice in notices:
+        for report in sparql_validation(notice_item=notice, rdf_manifestation=notice.rdf_manifestation):
             notice.set_rdf_validation(rdf_validation=report)
 
-        for report in sparql_validation(_notice=_notice):
+        for report in sparql_validation(notice_item=notice, rdf_manifestation=notice.distilled_rdf_manifestation):
             notice.set_distilled_rdf_validation(rdf_validation=report)
 
 

@@ -1,6 +1,5 @@
 from typing import List
 
-from airflow.operators.dummy import DummyOperator
 from airflow.operators.python import BranchPythonOperator, PythonOperator
 from airflow.decorators import dag
 from airflow.utils.trigger_rule import TriggerRule
@@ -9,11 +8,13 @@ from dags import DEFAULT_DAG_ARGUMENTS
 from dags.dags_utils import get_dag_param, smart_xcom_push, smart_xcom_forward, smart_xcom_pull
 from dags.operators.DagBatchPipelineOperator import NoticeBatchPipelineOperator, NOTICE_IDS_KEY, \
     EXECUTE_ONLY_ONE_STEP_KEY, START_WITH_STEP_NAME_KEY
+from dags.pipelines.notice_batch_processor_pipelines import notices_batch_distillation_pipeline
 from dags.pipelines.notice_processor_pipelines import notice_normalisation_pipeline, notice_transformation_pipeline, \
     notice_validation_pipeline, notice_package_pipeline, notice_publish_pipeline
 
 NOTICE_NORMALISATION_PIPELINE_TASK_ID = "notice_normalisation_pipeline"
 NOTICE_TRANSFORMATION_PIPELINE_TASK_ID = "notice_transformation_pipeline"
+NOTICE_DISTILLATION_PIPELINE_TASK_ID = "notice_distillation_pipeline"
 NOTICE_VALIDATION_PIPELINE_TASK_ID = "notice_validation_pipeline"
 NOTICE_PACKAGE_PIPELINE_TASK_ID = "notice_package_pipeline"
 NOTICE_PUBLISH_PIPELINE_TASK_ID = "notice_publish_pipeline"
@@ -113,29 +114,29 @@ def notice_process_workflow():
         python_callable=_stop_processing
     )
 
-    notice_normalisation_step = NoticeBatchPipelineOperator(python_callable=notice_normalisation_pipeline,
+    notice_normalisation_step = NoticeBatchPipelineOperator(notice_pipeline_callable=notice_normalisation_pipeline,
                                                             task_id=NOTICE_NORMALISATION_PIPELINE_TASK_ID,
-                                                            trigger_rule=TriggerRule.NONE_FAILED_MIN_ONE_SUCCESS
-                                                            )
+                                                            trigger_rule=TriggerRule.NONE_FAILED_MIN_ONE_SUCCESS)
 
-    notice_transformation_step = NoticeBatchPipelineOperator(task_id=NOTICE_TRANSFORMATION_PIPELINE_TASK_ID,
-                                                             python_callable=notice_transformation_pipeline,
-                                                             trigger_rule=TriggerRule.NONE_FAILED_MIN_ONE_SUCCESS
-                                                             )
+    notice_transformation_step = NoticeBatchPipelineOperator(notice_pipeline_callable=notice_transformation_pipeline,
+                                                             task_id=NOTICE_TRANSFORMATION_PIPELINE_TASK_ID,
+                                                             trigger_rule=TriggerRule.NONE_FAILED_MIN_ONE_SUCCESS)
 
-    notice_validation_step = NoticeBatchPipelineOperator(task_id=NOTICE_VALIDATION_PIPELINE_TASK_ID,
-                                                         python_callable=notice_validation_pipeline,
-                                                         trigger_rule=TriggerRule.NONE_FAILED_MIN_ONE_SUCCESS
-                                                         )
-    notice_package_step = NoticeBatchPipelineOperator(task_id=NOTICE_PACKAGE_PIPELINE_TASK_ID,
-                                                      python_callable=notice_package_pipeline,
-                                                      trigger_rule=TriggerRule.NONE_FAILED_MIN_ONE_SUCCESS
-                                                      )
+    notice_distillation_step = NoticeBatchPipelineOperator(batch_pipeline_callable=notices_batch_distillation_pipeline,
+                                                           task_id=NOTICE_DISTILLATION_PIPELINE_TASK_ID,
+                                                           trigger_rule=TriggerRule.NONE_FAILED_MIN_ONE_SUCCESS
+                                                           )
 
-    notice_publish_step = NoticeBatchPipelineOperator(task_id=NOTICE_PUBLISH_PIPELINE_TASK_ID,
-                                                      python_callable=notice_publish_pipeline,
-                                                      trigger_rule=TriggerRule.NONE_FAILED_MIN_ONE_SUCCESS
-                                                      )
+    notice_validation_step = NoticeBatchPipelineOperator(notice_pipeline_callable=notice_validation_pipeline,
+                                                         task_id=NOTICE_VALIDATION_PIPELINE_TASK_ID,
+                                                         trigger_rule=TriggerRule.NONE_FAILED_MIN_ONE_SUCCESS)
+    notice_package_step = NoticeBatchPipelineOperator(notice_pipeline_callable=notice_package_pipeline,
+                                                      task_id=NOTICE_PACKAGE_PIPELINE_TASK_ID,
+                                                      trigger_rule=TriggerRule.NONE_FAILED_MIN_ONE_SUCCESS)
+
+    notice_publish_step = NoticeBatchPipelineOperator(notice_pipeline_callable=notice_publish_pipeline,
+                                                      task_id=NOTICE_PUBLISH_PIPELINE_TASK_ID,
+                                                      trigger_rule=TriggerRule.NONE_FAILED_MIN_ONE_SUCCESS)
 
     start_processing >> [notice_normalisation_step, selector_branch_before_transformation,
                          selector_branch_before_validation,
@@ -143,7 +144,7 @@ def notice_process_workflow():
     [selector_branch_before_transformation, selector_branch_before_validation,
      selector_branch_before_package, selector_branch_before_publish, notice_publish_step] >> stop_processing
     notice_normalisation_step >> selector_branch_before_transformation >> notice_transformation_step
-    notice_transformation_step >> selector_branch_before_validation >> notice_validation_step
+    notice_transformation_step >> notice_distillation_step >> selector_branch_before_validation >> notice_validation_step
     notice_validation_step >> selector_branch_before_package >> notice_package_step
     notice_package_step >> selector_branch_before_publish >> notice_publish_step
 

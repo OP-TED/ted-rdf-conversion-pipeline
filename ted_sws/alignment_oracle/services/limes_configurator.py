@@ -95,13 +95,10 @@ def generate_organisation_cet_limes_config_params(source_sparql_endpoint: str,
     return generate_default_limes_config_params(source_sparql_endpoint=source_sparql_endpoint,
                                                 target_sparql_endpoint=target_sparql_endpoint,
                                                 result_dir_path=result_dir_path,
-                                                alignment_metric="ADD(Jaccard(x.epo:hasLegalName, y.epo:hasLegalName), Jaccard(x.street, y.street))",
+                                                alignment_metric="ExactMatch(x.legal_name, y.legal_name)",
                                                 source_sparql_restrictions=["?x a org:Organization"],
-                                                source_sparql_properties=["epo:hasLegalName",
-                                                                          "legal:registeredAddress/locn:thoroughfare RENAME street"
-                                                                          ],
+                                                source_sparql_properties=["epo:hasLegalName AS nolang->lowercase RENAME legal_name"],
                                                 target_sparql_restrictions=["?y a org:Organization"],
-                                                target_sparql_properties=["epo:hasLegalName",
-                                                                          "legal:registeredAddress/locn:thoroughfare RENAME street"
+                                                target_sparql_properties=["epo:hasLegalName AS nolang->lowercase RENAME legal_name"
                                                                           ]
                                                 )

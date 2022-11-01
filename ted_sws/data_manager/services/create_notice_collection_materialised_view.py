@@ -52,9 +52,7 @@ def create_notice_collection_materialised_view(mongo_client: MongoClient):
         },
         {"$unwind": '$notice_logs'},
         {
-            "$merge": {
-                "into": NOTICES_MATERIALISED_VIEW_NAME
-            }
+            "$out": NOTICES_MATERIALISED_VIEW_NAME
         }
     ])
     materialised_view = database[NOTICES_MATERIALISED_VIEW_NAME]
@@ -64,7 +62,6 @@ def create_notice_collection_materialised_view(mongo_client: MongoClient):
     materialised_view.create_index([("status", ASCENDING)])
     materialised_view.create_index([("form_number", ASCENDING)])
     materialised_view.create_index([("form_number", ASCENDING), ("status", ASCENDING)])
-    materialised_view.create_index([("form_number", ASCENDING), ("legal_basis_directive", ASCENDING)])
 
     batch_collection = database[LOG_EVENTS_COLLECTION_NAME]
     batch_collection.aggregate([
@@ -79,8 +76,6 @@ def create_notice_collection_materialised_view(mongo_client: MongoClient):
             }
         },
         {
-            "$merge": {
-                "into": NOTICE_PROCESS_BATCH_COLLECTION_NAME
-            }
+            "$out": NOTICE_PROCESS_BATCH_COLLECTION_NAME
         }
     ])

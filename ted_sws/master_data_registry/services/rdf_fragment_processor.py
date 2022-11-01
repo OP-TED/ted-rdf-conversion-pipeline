@@ -114,19 +114,54 @@ def get_rdf_fragment_by_cet_uri_from_notice(notice: Notice, cet_uri: str) -> Lis
     return rdf_fragments
 
 
+def get_rdf_fragments_by_cet_uri_from_notices(notices: List[Notice], cet_uri: str) -> List[rdflib.Graph]:
+    """
+        This function foreach Notice extracts from a Notice RDF content a list of RDFFragments dependent on a CET URI.
+    :param notices:
+    :param cet_uri:
+    :return:
+    """
+    rdf_fragments = []
+    for notice in notices:
+        rdf_fragments.extend(get_rdf_fragment_by_cet_uri_from_notice(notice=notice, cet_uri=cet_uri))
+    return rdf_fragments
+
+
+def merge_rdf_fragments_into_graph(rdf_fragments: List[rdflib.Graph]) -> rdflib.Graph:
+    """
+        This function merge rdf fragments into single graph.
+    :param rdf_fragments:
+    :return:
+    """
+    merged_graph = rdflib.Graph()
+    for rdf_fragment in rdf_fragments:
+        merged_graph += rdf_fragment
+    return merged_graph
+
+
+def write_rdf_fragments_in_file(rdf_fragments: List[rdflib.Graph], file_path: pathlib.Path):
+    """
+        This function write rdf fragments in file.
+    :param rdf_fragments:
+    :param file_path:
+    :return:
+    """
+    merged_graph = merge_rdf_fragments_into_graph(rdf_fragments=rdf_fragments)
+    with open(file_path, "w") as file:
+        file.write(str(merged_graph.serialize(format="nt")))
+
+
 def write_rdf_fragments_in_triple_store(rdf_fragments: List[rdflib.Graph], triple_store: TripleStoreABC,
                                         repository_name: str):
     """
-        This function write rdf fragments to triple store.
+        This function write rdf fragments in triple store.
     :param rdf_fragments:
     :param triple_store:
     :param repository_name:
     :return:
     """
-    merged_rdf_fragments = rdflib.Graph()
-    for rdf_fragment in rdf_fragments:
-        merged_rdf_fragments = merged_rdf_fragments + rdf_fragment
+    merged_graph = merge_rdf_fragments_into_graph(rdf_fragments=rdf_fragments)
 
-    triple_store.add_data_to_repository(
-        file_content=str(merged_rdf_fragments.serialize(format="nt")).encode(encoding="utf-8"), mime_type="text/n3",
-        repository_name=repository_name)
+    triple_store.add_data_to_repository(file_content=str(merged_graph.serialize(format="nt")).encode(encoding="utf-8"),
+                                        mime_type="text/n3",
+                                        repository_name=repository_name)

@@ -63,16 +63,16 @@
     <li>Date created: {{ created }}</li>
     <li>SHACL test suite identifier: {{ test_suite_identifier }}</li>
     <li>Mapping suite identifier: {{ mapping_suite_identifier }}</li>
-    {% if notice_id %}
+    {% if notice_ids %}
     <li><div><hr></div>Notice identifier(s):
-        <div data-role="collapsible" data-state="{% if notice_id|length > 1 %}collapsed{% endif %}"
+        <div data-role="collapsible" data-state="{% if notice_ids|length > 1 %}collapsed{% endif %}"
             class="collapsible-wrapper">
             <h4><a href="#"></a></h4>
             <div class="ui-collapsible-content">
-            {% if notice_id|length == 1 %}
-                {{ notice_id[0] }}
+            {% if notice_ids|length == 1 %}
+                {{ notice_ids[0] }}
             {% else %}
-                {{ notice_id | tojson(indent=2) | replace('\n', '<br>') }}
+                {{ notice_ids | tojson(indent=2) | replace('\n', '<br>') }}
             {% endif %}
             </div>
         </div>

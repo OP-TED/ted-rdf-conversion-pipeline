@@ -93,6 +93,7 @@ setup(
             "mapping_suite_processor = ted_sws.mapping_suite_processor.entrypoints.cli.cmd_mapping_suite_processor:main",
             "yarrrml2rml_converter = ted_sws.mapping_suite_processor.entrypoints.cli.cmd_yarrrml2rml_converter:main",
             "normalisation_resource_generator = ted_sws.data_manager.entrypoints.cli.cmd_generate_mapping_resources:main",
+            "s3_rdf_publisher = ted_sws.notice_publisher.entrypoints.cli.cmd_s3_rdf_publisher:main",
             "bulk_packager = ted_sws.notice_packager.entrypoints.cli.cmd_bulk_packager:main",
             "api-digest_service-start-server = ted_sws.notice_transformer.entrypoints.api.digest_service.server:api_server_start"
         ],

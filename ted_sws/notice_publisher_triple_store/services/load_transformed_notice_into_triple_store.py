@@ -10,7 +10,7 @@ DEFAULT_NOTICE_RDF_MANIFESTATION_MIME_TYPE = RDF_MIME_TYPES["turtle"]
 
 def load_rdf_manifestation_into_triple_store(rdf_manifestation: RDFManifestation,
                                              triple_store_repository: TripleStoreABC,
-                                             repository_name: str= DEFAULT_NOTICE_REPOSITORY_NAME,
+                                             repository_name: str = DEFAULT_NOTICE_REPOSITORY_NAME,
                                              mime_type: str = DEFAULT_NOTICE_RDF_MANIFESTATION_MIME_TYPE
                                              ):
     """
@@ -22,13 +22,11 @@ def load_rdf_manifestation_into_triple_store(rdf_manifestation: RDFManifestation
     :param mime_type:
     :return:
     """
-    if rdf_manifestation is None:
-        raise Exception("RDF Manifestation is None!")
-    if rdf_manifestation.object_data is None:
-        raise Exception("RDF Manifestation object data is None!")
+    if not rdf_manifestation or not rdf_manifestation.object_data:
+        raise Exception("RDF Manifestation is invalid!")
+
     rdf_manifestation_string = rdf_manifestation.object_data
     if repository_name not in triple_store_repository.list_repositories():
         triple_store_repository.create_repository(repository_name=repository_name)
     triple_store_repository.add_data_to_repository(file_content=rdf_manifestation_string.encode(encoding='utf-8'),
                                                    repository_name=repository_name, mime_type=mime_type)
-

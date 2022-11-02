@@ -8,6 +8,7 @@
 """ """
 from typing import List, Optional
 
+from pydantic import Field
 from pydantic.annotated_types import NamedTuple
 
 from ted_sws.core.model import PropertyBaseModel
@@ -85,16 +86,17 @@ class TEDMetadata(Metadata):
     """
         Stores notice original metadata
     """
-    AA: str = None
+    AA: List[str] = None
     AC: str = None
-    CY: str = None
+    CY: List[str] = None
     DD: str = None
     DI: str = None
     DS: str = None
-    DT: str = None
-    MA: str = None
-    NC: str = None
+    DT: List[str] = None
+    MA: List[str] = None
+    NC: List[str] = None
     ND: str = None
+    NL: int = None
     OC: List[str] = None
     OJ: str = None
     OL: str = None
@@ -103,9 +105,15 @@ class TEDMetadata(Metadata):
     PD: str = None
     PR: str = None
     RC: List[str] = None
-    RN: int = None
+    RN: List[int] = None
     RP: str = None
     TD: str = None
     TVH: str = None
     TVL: str = None
     TY: str = None
+    award_criterion_type: str = Field(default=None, alias='award-criterion-type')
+    corporate_body: List[str] = Field(default=None, alias='corporate-body')
+    funding: List[str] = None
+    notice_identifier: str = Field(default=None, alias='notice-identifier')
+    notice_type: str = Field(default=None, alias='notice-type')
+    notice_version: str = Field(default=None, alias='notice-version')

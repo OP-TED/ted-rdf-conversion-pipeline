@@ -96,7 +96,7 @@ class TEDMetadata(Metadata):
     MA: List[str] = None
     NC: List[str] = None
     ND: str = None
-    NL: int = None
+    NL: str = None
     OC: List[str] = None
     OJ: str = None
     OL: str = None
@@ -105,7 +105,7 @@ class TEDMetadata(Metadata):
     PD: str = None
     PR: str = None
     RC: List[str] = None
-    RN: List[int] = None
+    RN: List[str] = None
     RP: str = None
     TD: str = None
     TVH: str = None

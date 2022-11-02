@@ -72,7 +72,8 @@ def create_notice_collection_materialised_view(mongo_client: MongoClient):
                         "caller_name": "execute"
                         },
                 "exec_time": {"$sum": "$duration"},
-                "nr_of_pipelines": {"$sum": 1}
+                "nr_of_pipelines": {"$sum": 1},
+                "batch_nr_of_notices": {"$last": "$kwargs.number_of_notices"}
             }
         },
         {

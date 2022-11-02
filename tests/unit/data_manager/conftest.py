@@ -11,12 +11,6 @@ from tests import TEST_DATA_PATH
 
 
 @pytest.fixture
-@mongomock.patch(servers=(('server.example.com', 27017),))
-def mongodb_client():
-    return pymongo.MongoClient('server.example.com')
-
-
-@pytest.fixture
 def file_system_repository_path():
     return TEST_DATA_PATH / "notice_transformer" / "test_file_system_repository"
 

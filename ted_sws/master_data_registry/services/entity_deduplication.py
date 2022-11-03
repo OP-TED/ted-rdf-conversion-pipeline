@@ -138,12 +138,13 @@ def register_new_cets_in_mdr(new_canonical_entities: Dict[rdflib.URIRef, rdflib.
 
 def inject_similarity_links_in_notices(notices: List[Notice],
                                        cet_rdf_fragments_dict: Dict[rdflib.URIRef, rdflib.Graph],
-                                       alignment_graph: rdflib.Graph):
+                                       alignment_graph: rdflib.Graph, inject_reflexive_links: bool = False):
     """
         This function inject similarity links in Notice distilled rdf manifestation.
     :param notices:
     :param cet_rdf_fragments_dict:
     :param alignment_graph:
+    :param inject_reflexive_links:
     :return:
     """
     notices_dict = {notice.ted_id: notice for notice in notices}
@@ -152,8 +153,11 @@ def inject_similarity_links_in_notices(notices: List[Notice],
         notice_id = str(next(cet_rdf_fragment.triples(triple=(root_uri, RDF_FRAGMENT_FROM_NOTICE_PROPERTY, None)))[2])
         notice = notices_dict[notice_id]
         inject_links = rdflib.Graph()
-        for triple in alignment_graph.triples(triple=(root_uri, OWL.sameAs, None)):
-            inject_links.add(triple)
+        if inject_reflexive_links:
+            for triple in alignment_graph.triples(triple=(root_uri, OWL.sameAs, None)):
+                inject_links.add(triple)
+        else:
+            inject_links.add((root_uri, OWL.sameAs, root_uri))
         notice.distilled_rdf_manifestation.object_data = '\n'.join([notice.distilled_rdf_manifestation.object_data,
                                                                     str(inject_links.serialize(format="nt"))])
 
@@ -211,3 +215,5 @@ def deduplicate_entities_by_cet_uri(notices: List[Notice], cet_uri: str,
 
     inject_similarity_links_in_notices(notices=notices, cet_rdf_fragments_dict=non_canonical_cet_fragments_dict,
                                        alignment_graph=cet_alignment_links)
+    inject_similarity_links_in_notices(notices=notices, cet_rdf_fragments_dict=new_canonical_cet_fragments_dict,
+                                       alignment_graph=cet_alignment_links, inject_reflexive_links=True)

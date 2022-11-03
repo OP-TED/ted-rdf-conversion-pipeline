@@ -49,24 +49,6 @@ def generate_mdr_alignment_links(merged_rdf_fragments: rdflib.Graph, cet_uri: st
     return alignment_graph
 
 
-def clean_mdr_alignment_links(source_subjects: Set[rdflib.term.URIRef], alignment_graph: rdflib.Graph) -> rdflib.Graph:
-    """
-        Clear redundant links from alignment graph.
-    :param source_subjects:
-    :param alignment_graph:
-    :return:
-    """
-    for source_triple in alignment_graph.triples(triple=(None, OWL.sameAs, None)):
-        rdf_subject, rdf_predicate, rdf_object = source_triple
-        if (rdf_subject != rdf_object) and (rdf_subject in source_subjects):
-            for target_triple in alignment_graph.triples(triple=(rdf_object, OWL.sameAs, rdf_subject)):
-                alignment_graph.remove(triple=target_triple)
-        else:
-            alignment_graph.remove(triple=source_triple)
-
-    return alignment_graph
-
-
 def reduce_link_set(alignment_graph: rdflib.Graph, source_subjects: set) -> rdflib.Graph:
     """
         This function reduce number of alignment links from alignment graph.
@@ -74,22 +56,30 @@ def reduce_link_set(alignment_graph: rdflib.Graph, source_subjects: set) -> rdfl
     :param source_subjects:
     :return:
     """
-    reduced_graph = rdflib.Graph()
+
+    def copy_rdf_graph(graph: rdflib.Graph) -> rdflib.Graph:
+        copy_graph = rdflib.Graph()
+        for graph_triple in iter(graph):
+            copy_graph.add(graph_triple)
+        return copy_graph
+
+    reduced_graph = copy_rdf_graph(graph=alignment_graph)
     found_transition = True
     while found_transition:
         found_transition = False
-        alignment_graph = clean_mdr_alignment_links(source_subjects=source_subjects,
-                                                    alignment_graph=alignment_graph)
-        for triple in iter(alignment_graph):
-            save_current_triple = True
-            for transition_triple in alignment_graph.triples(triple=(triple[2], OWL.sameAs, None)):
-                save_current_triple = False
-                found_transition = True
-                alignment_graph.add((triple[0], triple[1], transition_triple[2]))
-            if save_current_triple:
-                reduced_graph.add(triple)
+        for triple in alignment_graph.triples(triple=(None, OWL.sameAs, None)):
+            if (triple[0] != triple[2]) and (triple[0] in source_subjects):
+                for transition_triple in alignment_graph.triples(triple=(triple[2], OWL.sameAs, None)):
+                    found_transition = True
+                    reduced_graph.remove(triple=transition_triple)
+                    # print(transition_triple)
+                    reduced_graph.add(triple=(triple[0], triple[1], transition_triple[2]))
             else:
-                alignment_graph.remove(triple)
+                reduced_graph.remove(triple=triple)
+                # print(triple)
+        if found_transition:
+            alignment_graph = copy_rdf_graph(graph=reduced_graph)
+
     return reduced_graph
 
 
@@ -154,10 +144,10 @@ def inject_similarity_links_in_notices(notices: List[Notice],
         notice = notices_dict[notice_id]
         inject_links = rdflib.Graph()
         if inject_reflexive_links:
+            inject_links.add((root_uri, OWL.sameAs, root_uri))
+        else:
             for triple in alignment_graph.triples(triple=(root_uri, OWL.sameAs, None)):
                 inject_links.add(triple)
-        else:
-            inject_links.add((root_uri, OWL.sameAs, root_uri))
         notice.distilled_rdf_manifestation.object_data = '\n'.join([notice.distilled_rdf_manifestation.object_data,
                                                                     str(inject_links.serialize(format="nt"))])
 
@@ -178,6 +168,7 @@ def create_mdr_alignment_links(cet_rdf_fragments: List[rdflib.Graph], cet_uri: s
     source_subjects = {next(cet_rdf_fragment.triples(triple=(None, RDF.type, URIRef(cet_uri))))[0]
                        for cet_rdf_fragment in cet_rdf_fragments}
     reduced_link_set = reduce_link_set(alignment_graph=alignment_graph, source_subjects=source_subjects)
+
     return reduced_link_set
 
 

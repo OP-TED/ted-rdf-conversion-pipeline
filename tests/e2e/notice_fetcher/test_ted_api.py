@@ -8,12 +8,10 @@ from ted_sws.notice_fetcher.adapters.ted_api import TedAPIAdapter, TedRequestAPI
 def test_ted_api():
     ted = TedAPIAdapter(request_api=TedRequestAPI())
     xml_text = "<NOTICE_DATA>"
-
     notice_by_id = ted.get_by_id(document_id="67623-2022")
     notice_by_date = ted.get_by_range_date(start_date=datetime.date(2022, 2, 3), end_date=datetime.date(2022, 2, 3))
     notice_by_date_wildcard = ted.get_by_wildcard_date(wildcard_date="20220203*")
     notice_by_query = ted.get_by_query(query={"q": "ND=[67623-2022]"})
-
     assert xml_text in notice_by_id["content"]
     assert isinstance(notice_by_id, dict)
     assert len(notice_by_date) == 95

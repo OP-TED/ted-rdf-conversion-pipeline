@@ -6,6 +6,7 @@ from ted_sws.core.model.transform import FileResource, SPARQLTestSuite, Metadata
     SHACLTestSuite, TransformationTestData, MappingSuite
 from tests import TEST_DATA_PATH
 
+
 @pytest.fixture
 def query_content():
     return """# title: Official name
@@ -207,11 +208,6 @@ def dummy_mapping_suite(sparql_test_suite, shacl_test_suite):
 
 
 @pytest.fixture
-def path_to_file_system_repository():
-    return TEST_DATA_PATH / "notice_transformer" / "test_repository"
-
-
-@pytest.fixture
 def notice_with_distilled_status(notice_2020, rdf_file_content):
 
     notice_2020.update_status_to(new_status=NoticeStatus.NORMALISED_METADATA)
@@ -225,11 +221,3 @@ def notice_with_distilled_status(notice_2020, rdf_file_content):
     return notice_2020
 
 
-@pytest.fixture
-def fake_repository_path():
-    return TEST_DATA_PATH / "notice_validator" / "test_repository"
-
-
-@pytest.fixture
-def invalid_mapping_suite_id() -> str:
-    return "test_invalid_package"

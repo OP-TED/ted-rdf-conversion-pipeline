@@ -19,6 +19,7 @@ def mongodb_client():
         mongodb_client.drop_database(database)
     return mongodb_client
 
+
 @pytest.fixture
 def notice_repository_with_indexed_notices(mongodb_client) -> NoticeRepository:
 

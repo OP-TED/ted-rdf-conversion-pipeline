@@ -16,10 +16,5 @@ def rml_non_existing_test_package_path() -> Path:
 
 
 @pytest.fixture
-def fake_mapping_suite_id() -> str:
-    return "test_package"
-
-
-@pytest.fixture
 def fake_repository_path() -> Path:
     return TEST_DATA_PATH / "notice_transformer" / "test_repository"

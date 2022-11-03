@@ -11,10 +11,10 @@ class SFTPPublisher(SFTPPublisherABC):
 
     def __init__(self, hostname: str = None, username: str = None, password: str = None, port: int = None):
         """Constructor Method"""
-        self.hostname = hostname if hostname else config.SFTP_HOST
-        self.username = username if username else config.SFTP_USER
-        self.password = password if password else config.SFTP_PASSWORD
-        self.port = port if port else config.SFTP_PORT
+        self.hostname = hostname if hostname else config.SFTP_PUBLISH_HOST
+        self.username = username if username else config.SFTP_PUBLISH_USER
+        self.password = password if password else config.SFTP_PUBLISH_PASSWORD
+        self.port = port if port else config.SFTP_PUBLISH_PORT
         self.connection = None
         self.is_connected = False
 

@@ -187,24 +187,24 @@ class FusekiConfig:
 
 class SFTPConfig:
     @property
-    def SFTP_HOST(self) -> str:
+    def SFTP_PUBLISH_HOST(self) -> str:
         return AirflowAndEnvConfigResolver().config_resolve()
 
     @property
-    def SFTP_PORT(self) -> int:
+    def SFTP_PUBLISH_PORT(self) -> int:
         v = AirflowAndEnvConfigResolver().config_resolve()
         return int(v) if v is not None else 22
 
     @property
-    def SFTP_USER(self) -> str:
+    def SFTP_PUBLISH_USER(self) -> str:
         return AirflowAndEnvConfigResolver().config_resolve()
 
     @property
-    def SFTP_PASSWORD(self) -> str:
+    def SFTP_PUBLISH_PASSWORD(self) -> str:
         return AirflowAndEnvConfigResolver().config_resolve()
 
     @property
-    def SFTP_PATH(self) -> str:
+    def SFTP_PUBLISH_PATH(self) -> str:
         return AirflowAndEnvConfigResolver().config_resolve()
 
 

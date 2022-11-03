@@ -2,9 +2,9 @@ version: "3"
 services:
   sftp:
     environment:
-      - SFTP_USER=${SFTP_USER}
-      - SFTP_PASSWORD=${SFTP_PASSWORD}
-      - SFTP_PORT=${SFTP_PORT}
+      - SFTP_USER=${SFTP_PUBLISH_USER}
+      - SFTP_PASSWORD=${SFTP_PUBLISH_PASSWORD}
+      - SFTP_PORT=${SFTP_PUBLISH_PORT}
     image: ${SFTP_IMAGE_URI}
     command: ${SFTP_USER}:${SFTP_PASSWORD}:::upload
     logging:

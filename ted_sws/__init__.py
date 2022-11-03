@@ -150,12 +150,12 @@ class GitHubArtefacts:
 
 class API:
     @property
-    def ID_MANAGER_API_HOST(self) -> str:
+    def ID_MANAGER_PROD_API_HOST(self) -> str:
         v: str = EnvConfigResolver().config_resolve()
         return v if v else "localhost"
 
     @property
-    def ID_MANAGER_OLD_API_HOST(self) -> str:
+    def ID_MANAGER_DEV_API_HOST(self) -> str:
         v: str = EnvConfigResolver().config_resolve()
         return v if v else "localhost"
 

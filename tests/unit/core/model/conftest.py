@@ -19,7 +19,7 @@ from ted_sws.core.model.notice import Notice, NoticeStatus
 @pytest.fixture
 def fetched_notice_data():
     ted_id = "ted_id1"
-    original_metadata = TEDMetadata(**{"AA": "Value here"})
+    original_metadata = TEDMetadata(**{"AA": ["Value here"]})
     xml_manifestation = XMLManifestation(object_data="XML manifestation content")
     return ted_id, original_metadata, xml_manifestation
 

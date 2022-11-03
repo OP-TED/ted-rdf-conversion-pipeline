@@ -17,7 +17,7 @@ def step_impl():
 
 @given("original TED notice metadata notice_metadata", target_fixture="ted_metadata")
 def step_impl():
-    return TEDMetadata(**{"AA": "clever value"})
+    return TEDMetadata(**{"AA": ["clever value"]})
 
 
 @given("the XML content of the notice xml_content", target_fixture="notice_content")

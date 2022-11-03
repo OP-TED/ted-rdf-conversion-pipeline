@@ -6,28 +6,40 @@ services:
     environment:
       _AIRFLOW_DB_UPGRADE: "true"
       _AIRFLOW_WWW_USER_CREATE: "true"
+      AIRFLOW__CORE__PARALLELISM: 256
+      AIRFLOW__CORE__MAX_ACTIVE_TASKS_PER_DAG: 256
+      AIRFLOW__CORE__NON_POOLED_TASK_SLOT_COUNT: 256
+      AIRFLOW__SCHEDULER__PARSING_PROCESSES: 8
+      AIRFLOW__SCHEDULER__SCHEDULER_HEARTBEAT_SEC: 1
+      AIRFLOW__SCHEDULER__MAX_DAGRUNS_PER_LOOP_TO_SCHEDULE: 128
+      AIRFLOW__CELERY__WORKER_CONCURRENCY: 16
+      AIRFLOW__CORE__SQL_ALCHEMY_POOL_SIZE: 512
+      AIRFLOW__CORE__SQL_ALCHEMY_MAX_OVERFLOW: 1024
       _AIRFLOW_WWW_USER_PASSWORD: ${_AIRFLOW_WWW_USER_PASSWORD}
       _AIRFLOW_WWW_USER_USERNAME: ${_AIRFLOW_WWW_USER_USERNAME}
       AIRFLOW__API__AUTH_BACKEND: airflow.api.auth.backend.basic_auth
-      AIRFLOW__CELERY__BROKER_URL: redis://:@redis:6379/0
-      AIRFLOW__CELERY__RESULT_BACKEND: db+postgresql://airflow:airflow@postgres/airflow
+      AIRFLOW__CELERY__BROKER_URL: ${AIRFLOW__CELERY__BROKER_URL}
+      AIRFLOW__CELERY__RESULT_BACKEND: ${AIRFLOW__CELERY__RESULT_BACKEND}
+      AIRFLOW__WEBSERVER__SECRET_KEY: ${AIRFLOW__WEBSERVER__SECRET_KEY}
+      IS_PRIME_ENV: 'true'
       AIRFLOW__CORE__DAGS_ARE_PAUSED_AT_CREATION: "true"
+      AIRFLOW__CORE__ENABLE_XCOM_PICKLING: "true"
       AIRFLOW__CORE__EXECUTOR: CeleryExecutor
       AIRFLOW__CORE__LOAD_EXAMPLES: "false"
-      AIRFLOW__CORE__SQL_ALCHEMY_CONN: postgresql+psycopg2://airflow:airflow@postgres/airflow
+      AIRFLOW__CORE__SQL_ALCHEMY_CONN: ${AIRFLOW__CORE__SQL_ALCHEMY_CONN}
       AIRFLOW_GID: ${AIRFLOW_GID}
       AIRFLOW_HOME: /opt/airflow
       PYTHONPATH: /opt/airflow/
+      LIMES_ALIGNMENT_PATH: /opt/airflow/.limes/limes.jar
+      RML_MAPPER_PATH: /opt/airflow/.rmlmapper/rmlmapper.jar
+      XML_PROCESSOR_PATH: /opt/airflow/.saxon/saxon-he-10.6.jar
       AIRFLOW_UID: ${AIRFLOW_UID}
     image: ${AIRFLOW_IMAGE_URI}
-    links:
-    - postgres
-    - redis
     logging:
       driver: awslogs
       options:
-        awslogs-group: /ecs/airflow-cluster-task
-        awslogs-region: eu-west-3
+        awslogs-group: /ecs/airflow-cluster-master-task/
+        awslogs-region: ${REGION}
         awslogs-stream-prefix: ecs
     networks:
       ecs-local-network: null
@@ -36,100 +48,34 @@ services:
       - "logs:/opt/airflow/logs"
       - "ted_sws:/opt/airflow/ted_sws"
 
-  init-data:
-    command:
-    - |-
-      /bin/bash -c "rm -rf /dags/* /ted_sws/* /temp/* && cd temp &&
-      git clone https://github.com/OP-TED/ted-rdf-conversion-pipeline.git &&
-      cp -r ted-sws/dags/* ../dags &&
-      cp -r ted-sws/ted_sws/* ../ted_sws"
-    entrypoint:
-    - /bin/bash
-    - -c
-    environment:
-      _AIRFLOW_DB_UPGRADE: "true"
-      _AIRFLOW_WWW_USER_CREATE: "true"
-      _AIRFLOW_WWW_USER_PASSWORD: ${_AIRFLOW_WWW_USER_PASSWORD}
-      _AIRFLOW_WWW_USER_USERNAME: ${_AIRFLOW_WWW_USER_USERNAME}
-      AIRFLOW__API__AUTH_BACKEND: airflow.api.auth.backend.basic_auth
-      AIRFLOW__CELERY__BROKER_URL: redis://:@redis:6379/0
-      AIRFLOW__CELERY__RESULT_BACKEND: db+postgresql://airflow:airflow@postgres/airflow
-      AIRFLOW__CORE__DAGS_ARE_PAUSED_AT_CREATION: "true"
-      AIRFLOW__CORE__EXECUTOR: CeleryExecutor
-      AIRFLOW__CORE__LOAD_EXAMPLES: "false"
-      AIRFLOW__CORE__SQL_ALCHEMY_CONN: postgresql+psycopg2://airflow:airflow@postgres/airflow
-      AIRFLOW_GID: ${AIRFLOW_GID}
-      AIRFLOW_HOME: /opt/airflow
-      PYTHONPATH: /opt/airflow/
-      AIRFLOW_UID: ${AIRFLOW_UID}
-    image: ${AIRFLOW_IMAGE_URI}
-    logging:
-      driver: awslogs
-      options:
-        awslogs-group: /ecs/airflow-cluster-task
-        awslogs-region: eu-west-3
-        awslogs-stream-prefix: ecs
-    networks:
-      ecs-local-network: null
-    volumes:
-      - "dags:/opt/airflow/dags"
-      - "logs:/opt/airflow/logs"
-      - "ted_sws:/opt/airflow/ted_sws"
-
-  postgres:
-    environment:
-      POSTGRES_DB: airflow
-      POSTGRES_PASSWORD: airflow
-      POSTGRES_USER: airflow
-    healthcheck:
-      test: ["CMD", "pg_isready", "-U", "airflow"]
-      timeout: 5s
-      interval: 30s
-      retries: 3
-    image: ${AIRFLOW_POSTGRES_IMAGE_URI}
-    logging:
-      driver: awslogs
-      options:
-        awslogs-group: /ecs/airflow-cluster-task
-        awslogs-region: eu-west-3
-        awslogs-stream-prefix: ecs
-    volumes:
-      - airflow-postgres-db:/var/lib/postgresql/data
-    networks:
-      ecs-local-network: null
-  redis:
-    healthcheck:
-      test: ["CMD", "redis-cli", "ping"]
-      interval: 5s
-      timeout: 30s
-      retries: 10
-    image: ${REDIS_IMAGE_URI}
-    labels:
-      ecs-local.task-definition-input.type: remote
-      ecs-local.task-definition-input.value: airflow-reload-task
-    logging:
-      driver: awslogs
-      options:
-        awslogs-group: /ecs/airflow-cluster-task
-        awslogs-region: eu-west-3
-        awslogs-stream-prefix: ecs
-    networks:
-      ecs-local-network: null
   scheduler:
     command:
     - scheduler
     environment:
+      AIRFLOW__CORE__PARALLELISM: 256
+      AIRFLOW__CORE__MAX_ACTIVE_TASKS_PER_DAG: 256
+      AIRFLOW__CORE__NON_POOLED_TASK_SLOT_COUNT: 256
+      AIRFLOW__SCHEDULER__PARSING_PROCESSES: 8
+      AIRFLOW__SCHEDULER__SCHEDULER_HEARTBEAT_SEC: 1
+      AIRFLOW__SCHEDULER__MAX_DAGRUNS_PER_LOOP_TO_SCHEDULE: 128
+      AIRFLOW__CELERY__WORKER_CONCURRENCY: 8
+      AIRFLOW__CORE__SQL_ALCHEMY_POOL_SIZE: 512
+      AIRFLOW__CORE__SQL_ALCHEMY_MAX_OVERFLOW: 1024
+      AIRFLOW__WEBSERVER__SECRET_KEY: ${AIRFLOW__WEBSERVER__SECRET_KEY}
+      IS_PRIME_ENV: 'true'
       AIRFLOW__API__AUTH_BACKEND: airflow.api.auth.backend.basic_auth
-      AIRFLOW__CELERY__BROKER_URL: redis://:@redis:6379/0
-      AIRFLOW__CELERY__RESULT_BACKEND: db+postgresql://airflow:airflow@postgres/airflow
+      AIRFLOW__CELERY__BROKER_URL: ${AIRFLOW__CELERY__BROKER_URL}
+      AIRFLOW__CELERY__RESULT_BACKEND: ${AIRFLOW__CELERY__RESULT_BACKEND}
       AIRFLOW__CORE__DAGS_ARE_PAUSED_AT_CREATION: "true"
       AIRFLOW__CORE__EXECUTOR: CeleryExecutor
       AIRFLOW__CORE__LOAD_EXAMPLES: "false"
-      AIRFLOW__CORE__SQL_ALCHEMY_CONN: postgresql+psycopg2://airflow:airflow@postgres/airflow
+      AIRFLOW__CORE__ENABLE_XCOM_PICKLING: "true"
+      AIRFLOW__CORE__SQL_ALCHEMY_CONN: ${AIRFLOW__CORE__SQL_ALCHEMY_CONN}
       AIRFLOW_GID: ${AIRFLOW_GID}
       AIRFLOW_HOME: /opt/airflow
       AIRFLOW_UID: ${AIRFLOW_UID}
       PYTHONPATH: /opt/airflow/
+      LIMES_ALIGNMENT_PATH: /opt/airflow/.limes/limes.jar
       RML_MAPPER_PATH: /opt/airflow/.rmlmapper/rmlmapper.jar
       XML_PROCESSOR_PATH: /opt/airflow/.saxon/saxon-he-10.6.jar
     healthcheck:
@@ -138,14 +84,11 @@ services:
       timeout: 10s
       retries: 5
     image: ${AIRFLOW_IMAGE_URI}
-    links:
-    - postgres
-    - redis
     logging:
       driver: awslogs
       options:
-        awslogs-group: /ecs/airflow-cluster-task
-        awslogs-region: eu-west-3
+        awslogs-group: /ecs/airflow-cluster-master-task/
+        awslogs-region: ${REGION}
         awslogs-stream-prefix: ecs
     networks:
       ecs-local-network: null
@@ -157,30 +100,38 @@ services:
     command:
     - triggerer
     environment:
+      AIRFLOW__CORE__PARALLELISM: 256
+      AIRFLOW__CORE__MAX_ACTIVE_TASKS_PER_DAG: 256
+      AIRFLOW__CORE__NON_POOLED_TASK_SLOT_COUNT: 256
+      AIRFLOW__SCHEDULER__PARSING_PROCESSES: 8
+      AIRFLOW__SCHEDULER__SCHEDULER_HEARTBEAT_SEC: 1
+      AIRFLOW__SCHEDULER__MAX_DAGRUNS_PER_LOOP_TO_SCHEDULE: 128
+      AIRFLOW__CELERY__WORKER_CONCURRENCY: 16
+      AIRFLOW__CORE__SQL_ALCHEMY_POOL_SIZE: 512
+      AIRFLOW__CORE__SQL_ALCHEMY_MAX_OVERFLOW: 1024
+      AIRFLOW__WEBSERVER__SECRET_KEY: "zqOVjqVrMstjDbKEPpYiSA=="
+      IS_PRIME_ENV: 'true'
       AIRFLOW__API__AUTH_BACKEND: airflow.api.auth.backend.basic_auth
-      AIRFLOW__CELERY__BROKER_URL: redis://:@redis:6379/0
-      AIRFLOW__CELERY__RESULT_BACKEND: db+postgresql://airflow:airflow@postgres/airflow
+      AIRFLOW__CELERY__BROKER_URL: ${AIRFLOW__CELERY__BROKER_URL}
+      AIRFLOW__CELERY__RESULT_BACKEND: ${AIRFLOW__CELERY__RESULT_BACKEND}
       AIRFLOW__CORE__DAGS_ARE_PAUSED_AT_CREATION: "true"
       AIRFLOW__CORE__EXECUTOR: CeleryExecutor
       AIRFLOW__CORE__LOAD_EXAMPLES: "false"
-      AIRFLOW__CORE__SQL_ALCHEMY_CONN: postgresql+psycopg2://airflow:airflow@postgres/airflow
+      AIRFLOW__CORE__ENABLE_XCOM_PICKLING: "true"
+      AIRFLOW__CORE__SQL_ALCHEMY_CONN: ${AIRFLOW__CORE__SQL_ALCHEMY_CONN}
       AIRFLOW_GID: ${AIRFLOW_GID}
-      AIRFLOW_HOME: /opt/airflow/
+      AIRFLOW_HOME: /opt/airflow
       AIRFLOW_UID: ${AIRFLOW_UID}
       PYTHONPATH: /opt/airflow/
+      LIMES_ALIGNMENT_PATH: /opt/airflow/.limes/limes.jar
       RML_MAPPER_PATH: /opt/airflow/.rmlmapper/rmlmapper.jar
       XML_PROCESSOR_PATH: /opt/airflow/.saxon/saxon-he-10.6.jar
     image: ${AIRFLOW_IMAGE_URI}
-    links:
-    - postgres
-    - redis
-    - scheduler
-    - worker
     logging:
       driver: awslogs
       options:
-        awslogs-group: /ecs/airflow-cluster-task
-        awslogs-region: eu-west-3
+        awslogs-group: /ecs/airflow-cluster-master-task/
+        awslogs-region: ${REGION}
         awslogs-stream-prefix: ecs
     networks:
       ecs-local-network: null
@@ -192,71 +143,90 @@ services:
     command:
     - webserver
     environment:
+      AIRFLOW__CORE__PARALLELISM: 256
+      AIRFLOW__CORE__MAX_ACTIVE_TASKS_PER_DAG: 256
+      AIRFLOW__CORE__NON_POOLED_TASK_SLOT_COUNT: 256
+      AIRFLOW__SCHEDULER__PARSING_PROCESSES: 8
+      AIRFLOW__SCHEDULER__SCHEDULER_HEARTBEAT_SEC: 1
+      AIRFLOW__SCHEDULER__MAX_DAGRUNS_PER_LOOP_TO_SCHEDULE: 128
+      AIRFLOW__CELERY__WORKER_CONCURRENCY: 16
+      AIRFLOW__CORE__SQL_ALCHEMY_POOL_SIZE: 512
+      AIRFLOW__CORE__SQL_ALCHEMY_MAX_OVERFLOW: 1024
+      AIRFLOW__WEBSERVER__SECRET_KEY: "zqOVjqVrMstjDbKEPpYiSA=="
+      IS_PRIME_ENV: 'true'
       AIRFLOW__API__AUTH_BACKEND: airflow.api.auth.backend.basic_auth
-      AIRFLOW__CELERY__BROKER_URL: redis://:@redis:6379/0
-      AIRFLOW__CELERY__RESULT_BACKEND: db+postgresql://airflow:airflow@postgres/airflow
+      AIRFLOW__CELERY__BROKER_URL: ${AIRFLOW__CELERY__BROKER_URL}
+      AIRFLOW__CELERY__RESULT_BACKEND: ${AIRFLOW__CELERY__RESULT_BACKEND}
       AIRFLOW__CORE__DAGS_ARE_PAUSED_AT_CREATION: "true"
       AIRFLOW__CORE__EXECUTOR: CeleryExecutor
       AIRFLOW__CORE__LOAD_EXAMPLES: "false"
-      AIRFLOW__CORE__SQL_ALCHEMY_CONN: postgresql+psycopg2://airflow:airflow@postgres/airflow
+      AIRFLOW__CORE__ENABLE_XCOM_PICKLING: "true"
+      AIRFLOW__CORE__SQL_ALCHEMY_CONN: ${AIRFLOW__CORE__SQL_ALCHEMY_CONN}
       AIRFLOW_GID: ${AIRFLOW_GID}
       AIRFLOW_HOME: /opt/airflow
       AIRFLOW_UID: ${AIRFLOW_UID}
       PYTHONPATH: /opt/airflow/
+      LIMES_ALIGNMENT_PATH: /opt/airflow/.limes/limes.jar
       RML_MAPPER_PATH: /opt/airflow/.rmlmapper/rmlmapper.jar
       XML_PROCESSOR_PATH: /opt/airflow/.saxon/saxon-he-10.6.jar
     image: ${AIRFLOW_IMAGE_URI}
-    links:
-    - postgres
-    - redis
-    - worker
-    - scheduler
     logging:
       driver: awslogs
       options:
-        awslogs-group: /ecs/airflow-cluster-task
-        awslogs-region: eu-west-3
+        awslogs-group: /ecs/airflow-cluster-master-task/
+        awslogs-region: ${REGION}
         awslogs-stream-prefix: ecs
     networks:
       ecs-local-network: null
     ports:
-    - 8878:8080
+    - 8080:8080
     volumes:
       - "dags:/opt/airflow/dags"
       - "logs:/opt/airflow/logs"
       - "ted_sws:/opt/airflow/ted_sws"
 
-  worker:
+  flower:
     command:
     - celery
-    - worker
+    - flower
     environment:
+      AIRFLOW__CORE__PARALLELISM: 256
+      AIRFLOW__CORE__MAX_ACTIVE_TASKS_PER_DAG: 256
+      AIRFLOW__CORE__NON_POOLED_TASK_SLOT_COUNT: 256
+      AIRFLOW__SCHEDULER__PARSING_PROCESSES: 8
+      AIRFLOW__SCHEDULER__SCHEDULER_HEARTBEAT_SEC: 1
+      AIRFLOW__SCHEDULER__MAX_DAGRUNS_PER_LOOP_TO_SCHEDULE: 128
+      AIRFLOW__CELERY__WORKER_CONCURRENCY: 16
+      AIRFLOW__CORE__SQL_ALCHEMY_POOL_SIZE: 512
+      AIRFLOW__CORE__SQL_ALCHEMY_MAX_OVERFLOW: 1024
+      AIRFLOW__WEBSERVER__SECRET_KEY: "zqOVjqVrMstjDbKEPpYiSA=="
+      IS_PRIME_ENV: 'true'
       AIRFLOW__API__AUTH_BACKEND: airflow.api.auth.backend.basic_auth
-      AIRFLOW__CELERY__BROKER_URL: redis://:@redis:6379/0
-      AIRFLOW__CELERY__RESULT_BACKEND: db+postgresql://airflow:airflow@postgres/airflow
+      AIRFLOW__CELERY__BROKER_URL: redis://:@airflow-redis-001.pc0ugh.0001.euw1.cache.amazonaws.com:6379/0
+      AIRFLOW__CELERY__RESULT_BACKEND: db+postgresql://airflow:airflowairflow@airflow-rds.ccyj5sy3f9gc.eu-west-1.rds.amazonaws.com/airflow
       AIRFLOW__CORE__DAGS_ARE_PAUSED_AT_CREATION: "true"
       AIRFLOW__CORE__EXECUTOR: CeleryExecutor
       AIRFLOW__CORE__LOAD_EXAMPLES: "false"
-      AIRFLOW__CORE__SQL_ALCHEMY_CONN: postgresql+psycopg2://airflow:airflow@postgres/airflow
+      AIRFLOW__CORE__ENABLE_XCOM_PICKLING: "true"
+      AIRFLOW__CORE__SQL_ALCHEMY_CONN: postgresql+psycopg2://airflow:airflowairflow@airflow-rds.ccyj5sy3f9gc.eu-west-1.rds.amazonaws.com/airflow
       AIRFLOW_GID: ${AIRFLOW_GID}
       AIRFLOW_HOME: /opt/airflow
       AIRFLOW_UID: ${AIRFLOW_UID}
       PYTHONPATH: /opt/airflow/
+      LIMES_ALIGNMENT_PATH: /opt/airflow/.limes/limes.jar
       RML_MAPPER_PATH: /opt/airflow/.rmlmapper/rmlmapper.jar
       XML_PROCESSOR_PATH: /opt/airflow/.saxon/saxon-he-10.6.jar
     image: ${AIRFLOW_IMAGE_URI}
     labels:
       ecs-local.task-definition-input.type: remote
       ecs-local.task-definition-input.value: airflow-reload-task
-    links:
-    - postgres
-    - redis
-    - scheduler
+    ports:
+    - 5555:5555
     logging:
       driver: awslogs
       options:
-        awslogs-group: /ecs/airflow-cluster-task
-        awslogs-region: eu-west-3
+        awslogs-group: /ecs/airflow-cluster-master-task/
+        awslogs-region: ${REGION}
         awslogs-stream-prefix: ecs
     networks:
       ecs-local-network: null
@@ -273,4 +243,3 @@ volumes:
   dags:
   logs:
   ted_sws:
-  airflow-postgres-db:

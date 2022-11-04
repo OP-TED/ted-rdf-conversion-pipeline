@@ -12,7 +12,7 @@ from ted_sws.data_manager.adapters.notice_repository import NoticeRepository
 
 @pytest.fixture
 def sftp_remote_folder_path():
-    return config.SFTP_PATH
+    return config.SFTP_PUBLISH_PATH
 
 
 @pytest.fixture(scope="function")
@@ -42,4 +42,4 @@ def notice_repository(mongodb_client, publish_eligible_notice):
 
 @pytest.fixture
 def sftp_endpoint():
-    return config.SFTP_HOST
+    return config.SFTP_PUBLISH_HOST

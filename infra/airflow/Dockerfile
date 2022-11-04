@@ -13,7 +13,7 @@ COPY requirements.txt /opt/airflow
 
 # working in the /opt/airflow
 WORKDIR /opt/airflow
-RUN mkdir -p ./.rmlmapper
+RUN mkdir -p ./.rmlmapper ./dags ./ted_sws ./temp
 RUN wget -c https://api.bitbucket.org/2.0/repositories/Dragos0000/rml-mapper/src/master/rmlmapper.jar -P ./.rmlmapper
 
 

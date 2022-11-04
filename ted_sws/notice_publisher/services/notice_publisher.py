@@ -23,7 +23,7 @@ def publish_notice(notice: Notice, publisher: SFTPPublisherABC = None,
         This function publishes the METS manifestation for a Notice in Cellar.
     """
     publisher = publisher if publisher else SFTPPublisher()
-    remote_folder_path = remote_folder_path if remote_folder_path else config.SFTP_PATH
+    remote_folder_path = remote_folder_path if remote_folder_path else config.SFTP_PUBLISH_PATH
     mets_manifestation = notice.mets_manifestation
     if not mets_manifestation or not mets_manifestation.object_data:
         raise ValueError("Notice does not have a METS manifestation to be published.")

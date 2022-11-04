@@ -14,7 +14,7 @@ def test_sftp_notice_publisher():
     with pytest.raises(Exception):
         sftp_publisher.connect()
 
-    sftp_publisher.port = config.SFTP_PORT
+    sftp_publisher.port = config.SFTP_PUBLISH_PORT
     sftp_publisher.connect()
 
     source_file = tempfile.NamedTemporaryFile()

@@ -13,9 +13,6 @@ def notice_fetcher_by_date_pipeline(date_wild_card: str = None) -> List[str]:
     date_wild_card = date_wild_card if date_wild_card else (datetime.now() - timedelta(days=1)).strftime("%Y%m%d*")
     notice_publication_date = datetime.strptime(date_wild_card, "%Y%m%d*").date()
     mongodb_client = MongoClient(config.MONGO_DB_AUTH_URL)
-    print("*"*50)
-    print("TED_API_URL=", config.TED_API_URL)
-    print("*"*50)
     notice_ids = NoticeFetcher(notice_repository=NoticeRepository(mongodb_client=mongodb_client),
                                ted_api_adapter=TedAPIAdapter(
                                    request_api=TedRequestAPI())).fetch_notices_by_date_wild_card(

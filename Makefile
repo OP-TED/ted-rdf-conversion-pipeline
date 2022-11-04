@@ -88,7 +88,7 @@ create-env-airflow:
 	@ echo -e "$(BUILD_PRINT) Create Airflow env $(END_BUILD_PRINT)"
 	@ echo -e "$(BUILD_PRINT) ${AIRFLOW_INFRA_FOLDER} ${ENVIRONMENT} $(END_BUILD_PRINT)"
 	@ mkdir -p ${AIRFLOW_INFRA_FOLDER}/logs ${AIRFLOW_INFRA_FOLDER}/plugins
-	@ ln -s -f -n ${PROJECT_PATH}/.env ${AIRFLOW_INFRA_FOLDER}/.env
+	@ ln -s -f ${PROJECT_PATH}/.env ${AIRFLOW_INFRA_FOLDER}/.env
 	@ ln -s -f -n ${PROJECT_PATH}/dags ${AIRFLOW_INFRA_FOLDER}/dags
 	@ ln -s -f -n ${PROJECT_PATH}/ted_sws ${AIRFLOW_INFRA_FOLDER}/ted_sws
 	@ chmod 777 ${AIRFLOW_INFRA_FOLDER}/logs ${AIRFLOW_INFRA_FOLDER}/plugins ${AIRFLOW_INFRA_FOLDER}/.env

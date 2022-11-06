@@ -1,0 +1,27 @@
+version: "3"
+services:
+  sftp:
+    environment:
+      - SFTP_USER=${SFTP_PUBLISH_USER}
+      - SFTP_PASSWORD=${SFTP_PUBLISH_PASSWORD}
+      - SFTP_PORT=${SFTP_PUBLISH_PORT}
+    image: ${SFTP_IMAGE_URI}
+    command: ${SFTP_USER}:${SFTP_PASSWORD}:::upload
+    logging:
+      driver: awslogs
+      options:
+        awslogs-group: /ecs/sftp-cli-task
+        awslogs-region: ${REGION}
+        awslogs-stream-prefix: ecs
+    networks:
+      ecs-local-network: null
+    volumes:
+      - sftp-data:/home
+#    ports:
+#      - 222:22
+
+networks:
+  ecs-local-network:
+    external: true
+volumes:
+  sftp-data:

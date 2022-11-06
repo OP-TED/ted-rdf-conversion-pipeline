@@ -48,7 +48,7 @@ def test_notice_publisher(notice_2016, fake_mongodb_client):
         notice._mets_manifestation = None
         publish_notice(notice, publisher=sftp_publisher)
     sftp_publisher.connect()
-    sftp_publisher.remove(f"{config.SFTP_PATH}/{notice.ted_id}{DEFAULT_NOTICE_PACKAGE_EXTENSION}")
+    sftp_publisher.remove(f"{config.SFTP_PUBLISH_PATH}/{notice.ted_id}{DEFAULT_NOTICE_PACKAGE_EXTENSION}")
     sftp_publisher.disconnect()
     assert not sftp_publisher.is_connected
 

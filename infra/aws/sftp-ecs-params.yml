@@ -1,9 +1,13 @@
 version: 1
 task_definition:
   ecs_network_mode: awsvpc
+  task_execution_role: "ecsTaskExecutionRole"
+  task_size:
+    mem_limit: 16384
+    cpu_limit: 4096
   efs_volumes:
-    - name: mongodb-data
-      filesystem_id: ${MONGO_DB_VOLUME_ID}
+    - name: sftp-data
+      filesystem_id: ${SFTP_DATA_VOLUME_ID}
       transit_encryption: ENABLED
 run_params:
   network_configuration:

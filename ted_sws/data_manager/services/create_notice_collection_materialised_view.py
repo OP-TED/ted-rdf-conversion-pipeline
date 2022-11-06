@@ -4,6 +4,9 @@ from ted_sws import config
 
 NOTICE_COLLECTION_NAME = "notice_collection"
 NOTICES_MATERIALISED_VIEW_NAME = "notices_collection_materialised_view"
+NOTICE_EVENTS_COLLECTION_NAME = "notice_events"
+NOTICE_PROCESS_BATCH_COLLECTION_NAME = "batch_events"
+LOG_EVENTS_COLLECTION_NAME = "log_events"
 
 
 def create_notice_collection_materialised_view(mongo_client: MongoClient):
@@ -29,7 +32,26 @@ def create_notice_collection_materialised_view(mongo_client: MongoClient):
                 "xsd_version": "$normalised_metadata.xsd_version",
                 "publication_date": "$normalised_metadata.publication_date",
             }
-        }, {
+        },
+        {
+            "$lookup":
+                {
+                    "from": f"{NOTICE_EVENTS_COLLECTION_NAME}",
+                    "localField": "_id",
+                    "foreignField": "notice_id",
+                    "as": "notice_logs",
+                    "pipeline": [
+                        {
+                            "$group": {
+                                "_id": "$notice_id",
+                                "exec_time": {"$sum": "$duration"}
+                            }
+                        }
+                    ]
+                },
+        },
+        {"$unwind": '$notice_logs'},
+        {
             "$out": NOTICES_MATERIALISED_VIEW_NAME
         }
     ])
@@ -40,3 +62,21 @@ def create_notice_collection_materialised_view(mongo_client: MongoClient):
     materialised_view.create_index([("status", ASCENDING)])
     materialised_view.create_index([("form_number", ASCENDING)])
     materialised_view.create_index([("form_number", ASCENDING), ("status", ASCENDING)])
+
+    batch_collection = database[LOG_EVENTS_COLLECTION_NAME]
+    batch_collection.aggregate([
+        {
+            "$group": {
+                "_id": {"process_id": "$metadata.process_id",
+                        "nr_of_notices": "$kwargs.number_of_notices",
+                        "caller_name": "execute"
+                        },
+                "exec_time": {"$sum": "$duration"},
+                "nr_of_pipelines": {"$sum": 1},
+                "batch_nr_of_notices": {"$last": "$kwargs.number_of_notices"}
+            }
+        },
+        {
+            "$out": NOTICE_PROCESS_BATCH_COLLECTION_NAME
+        }
+    ])

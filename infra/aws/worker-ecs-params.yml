@@ -5,6 +5,16 @@ task_definition:
   task_size:
     mem_limit: 16384
     cpu_limit: 4096
+  efs_volumes:
+    - name: dags
+      filesystem_id: ${DAGS_VOLUME_ID}
+      transit_encryption: ENABLED
+    - name: logs
+      filesystem_id: ${LOGS_VOLUME_ID}
+      transit_encryption: ENABLED
+    - name: ted_sws
+      filesystem_id: ${TED_SWS_VOLUME_ID}
+      transit_encryption: ENABLED
 run_params:
   network_configuration:
     awsvpc_configuration:

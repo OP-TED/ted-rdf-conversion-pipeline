@@ -8,7 +8,9 @@ from rdflib import RDF, URIRef, OWL
 from ted_sws.alignment_oracle.services.generate_alignment_links import generate_alignment_links, TURTLE_SOURCE_DATA_TYPE
 from ted_sws.alignment_oracle.services.limes_config_resolver import get_limes_config_generator_by_cet_uri
 from ted_sws.core.model.notice import Notice
-from ted_sws.data_manager.adapters.triple_store import FusekiAdapter, TripleStoreABC
+from ted_sws.data_manager.adapters.triple_store import FusekiAdapter, TripleStoreABC, FusekiException, \
+    FUSEKI_REPOSITORY_ALREADY_EXIST_ERROR_MSG
+from ted_sws.event_manager.services.log import log_error
 from ted_sws.master_data_registry.services.rdf_fragment_processor import get_rdf_fragments_by_cet_uri_from_notices, \
     merge_rdf_fragments_into_graph, write_rdf_fragments_in_triple_store, RDF_FRAGMENT_FROM_NOTICE_PROPERTY
 
@@ -136,12 +138,13 @@ def register_new_cets_in_mdr(new_canonical_entities: Dict[rdflib.URIRef, rdflib.
 
 def inject_similarity_links_in_notices(notices: List[Notice],
                                        cet_rdf_fragments_dict: Dict[rdflib.URIRef, rdflib.Graph],
-                                       alignment_graph: rdflib.Graph):
+                                       alignment_graph: rdflib.Graph, inject_reflexive_links: bool = False):
     """
         This function inject similarity links in Notice distilled rdf manifestation.
     :param notices:
     :param cet_rdf_fragments_dict:
     :param alignment_graph:
+    :param inject_reflexive_links:
     :return:
     """
     notices_dict = {notice.ted_id: notice for notice in notices}
@@ -150,8 +153,11 @@ def inject_similarity_links_in_notices(notices: List[Notice],
         notice_id = str(next(cet_rdf_fragment.triples(triple=(root_uri, RDF_FRAGMENT_FROM_NOTICE_PROPERTY, None)))[2])
         notice = notices_dict[notice_id]
         inject_links = rdflib.Graph()
-        for triple in alignment_graph.triples(triple=(root_uri, OWL.sameAs, None)):
-            inject_links.add(triple)
+        if inject_reflexive_links:
+            for triple in alignment_graph.triples(triple=(root_uri, OWL.sameAs, None)):
+                inject_links.add(triple)
+        else:
+            inject_links.add((root_uri, OWL.sameAs, root_uri))
         notice.distilled_rdf_manifestation.object_data = '\n'.join([notice.distilled_rdf_manifestation.object_data,
                                                                     str(inject_links.serialize(format="nt"))])
 
@@ -186,7 +192,12 @@ def deduplicate_entities_by_cet_uri(notices: List[Notice], cet_uri: str,
     """
     triple_store = FusekiAdapter()
     if mdr_dataset_name not in triple_store.list_repositories():
-        triple_store.create_repository(repository_name=mdr_dataset_name)
+        try:
+            triple_store.create_repository(repository_name=mdr_dataset_name)
+        except Exception as exception:
+            if str(exception) != FUSEKI_REPOSITORY_ALREADY_EXIST_ERROR_MSG:
+                log_error(message=str(exception))
+
     mdr_sparql_endpoint = triple_store.get_sparql_triple_store_endpoint_url(repository_name=mdr_dataset_name)
     cet_rdf_fragments = get_rdf_fragments_by_cet_uri_from_notices(notices=notices, cet_uri=cet_uri)
 
@@ -204,3 +215,5 @@ def deduplicate_entities_by_cet_uri(notices: List[Notice], cet_uri: str,
 
     inject_similarity_links_in_notices(notices=notices, cet_rdf_fragments_dict=non_canonical_cet_fragments_dict,
                                        alignment_graph=cet_alignment_links)
+    inject_similarity_links_in_notices(notices=notices, cet_rdf_fragments_dict=new_canonical_cet_fragments_dict,
+                                       alignment_graph=cet_alignment_links, inject_reflexive_links=True)

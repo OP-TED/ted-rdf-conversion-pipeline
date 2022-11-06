@@ -9,7 +9,6 @@ from ted_sws.data_manager.adapters.triple_store import AllegroGraphTripleStore, 
 from tests import TEST_DATA_PATH
 
 
-
 @pytest.fixture
 def mongodb_client():
     uri = config.MONGO_DB_AUTH_URL
@@ -59,3 +58,17 @@ def fake_mongodb_client():
         mongo_client.drop_database(database_name)
     return mongo_client
 
+
+@pytest.fixture
+def invalid_mapping_suite_id() -> str:
+    return "test_invalid_package"
+
+
+@pytest.fixture
+def fake_repository_path():
+    return TEST_DATA_PATH / "notice_validator" / "test_repository"
+
+
+@pytest.fixture
+def path_to_file_system_repository():
+    return TEST_DATA_PATH / "notice_transformer" / "test_repository"

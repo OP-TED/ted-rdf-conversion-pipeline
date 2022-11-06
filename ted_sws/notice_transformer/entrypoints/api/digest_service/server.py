@@ -9,7 +9,7 @@ from ted_sws.event_manager.adapters.event_logger import EventLogger
 from ted_sws.event_manager.model.event_message import EventMessage
 from ted_sws.event_manager.services.logger_from_context import get_env_logger
 
-API_HOST: str = config.ID_MANAGER_API_HOST
+API_HOST: str = config.ID_MANAGER_PROD_API_HOST
 API_PORT: int = config.ID_MANAGER_API_PORT
 
 

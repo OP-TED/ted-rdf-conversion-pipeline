@@ -90,8 +90,7 @@ def notice_2015():
 @pytest.fixture
 def notice_2018():
     notice_data = read_notice("045279-2018.json")
-    notice_content = base64.b64decode(notice_data["content"]).decode(encoding="utf-8")
-    xml_manifestation = XMLManifestation(object_data=notice_content)
+    xml_manifestation = XMLManifestation(object_data=notice_data["content"])
 
     del notice_data["content"]
     ted_id = notice_data["ND"]

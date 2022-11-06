@@ -11,7 +11,7 @@ from ted_sws import config
 from ted_sws.data_manager.adapters.notice_repository import NoticeRepository
 from ted_sws.event_manager.model.event_message import EventMessage, NoticeEventMessage
 from ted_sws.event_manager.services.log import log_error
-from ted_sws.event_manager.services.logger_from_context import get_logger
+from ted_sws.event_manager.services.logger_from_context import get_logger, handle_event_message_metadata_dag_context
 
 NOTICE_IDS_KEY = "notice_ids"
 START_WITH_STEP_NAME_KEY = "start_with_step_name"
@@ -71,6 +71,7 @@ class NoticeBatchPipelineOperator(BaseOperator):
             kwargs={"pipeline_name": pipeline_name,
                     "number_of_notices": number_of_notices}
         )
+        handle_event_message_metadata_dag_context(batch_event_message, context)
         batch_event_message.start_record()
         if self.batch_pipeline_callable is not None:
             processed_notice_ids.extend(

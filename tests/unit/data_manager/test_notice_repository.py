@@ -12,30 +12,30 @@ NOTICE_TED_ID = "123456"
 def test_notice_repository_create(mongodb_client):
     mongodb_client.drop_database(NoticeRepository._database_name)
     notice_repository = NoticeRepository(mongodb_client=mongodb_client)
-    notice = Notice(ted_id=NOTICE_TED_ID, original_metadata=TEDMetadata(**{"AA": "Metadata"}),
+    notice = Notice(ted_id=NOTICE_TED_ID, original_metadata=TEDMetadata(**{"AA": ["Metadata"]}),
                     xml_manifestation=XMLManifestation(object_data="HELLO"))
     notice_repository.add(notice)
     result_notice = notice_repository.get(reference=NOTICE_TED_ID)
     assert result_notice
     assert result_notice.ted_id == NOTICE_TED_ID
-    assert result_notice.original_metadata.AA == "Metadata"
+    assert result_notice.original_metadata.AA == ["Metadata"]
     result_notices = list(notice_repository.list())
     assert result_notices
     assert len(result_notices) == 1
     notice_repository.add(notice)
-    notice.original_metadata = TEDMetadata(**{"AA": "Updated metadata"})
+    notice.original_metadata = TEDMetadata(**{"AA": ["Updated metadata"]})
     notice_repository.update(notice)
     result_notice = notice_repository.get(reference=NOTICE_TED_ID)
     assert result_notice
     assert result_notice.ted_id == NOTICE_TED_ID
-    assert result_notice.original_metadata.AA == "Updated metadata"
+    assert result_notice.original_metadata.AA == ["Updated metadata"]
     mongodb_client.drop_database(NoticeRepository._database_name)
 
 
 def test_notice_repository_get_notice_by_status(mongodb_client):
     mongodb_client.drop_database(NoticeRepository._database_name)
     notice_repository = NoticeRepository(mongodb_client=mongodb_client)
-    notice = Notice(ted_id=NOTICE_TED_ID, original_metadata=TEDMetadata(**{"AA": "Metadata"}),
+    notice = Notice(ted_id=NOTICE_TED_ID, original_metadata=TEDMetadata(**{"AA": ["Metadata"]}),
                     xml_manifestation=XMLManifestation(object_data="HELLO"))
     notice_repository.add(notice)
     result_notices = notice_repository.get_notice_by_status(notice_status=NoticeStatus.RAW)
@@ -49,7 +49,7 @@ def test_notice_repository_default_database_name(mongodb_client):
 
 def test_notice_repository_create_notice_from_repository_result(mongodb_client):
     notice_repository = NoticeRepository(mongodb_client=mongodb_client)
-    notice = Notice(ted_id=NOTICE_TED_ID, original_metadata=TEDMetadata(**{"AA": "Metadata"}),
+    notice = Notice(ted_id=NOTICE_TED_ID, original_metadata=TEDMetadata(**{"AA": ["Metadata"]}),
                     xml_manifestation=XMLManifestation(object_data="HELLO"))
     notice_repository.add(notice)
     result_dict = notice_repository.collection.find_one({"ted_id": notice.ted_id})

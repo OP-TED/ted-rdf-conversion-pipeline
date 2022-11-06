@@ -6,12 +6,12 @@ services:
     volumes:
       - sftp-data:/home
     environment:
-      - SFTP_USER=${SFTP_USER}
-      - SFTP_PASSWORD=${SFTP_PASSWORD}
-      - SFTP_PORT=${SFTP_PORT}
-    command: ${SFTP_USER}:${SFTP_PASSWORD}:::upload
+      - SFTP_USER=${SFTP_PUBLISH_USER}
+      - SFTP_PASSWORD=${SFTP_PUBLISH_PASSWORD}
+      - SFTP_PORT=${SFTP_PUBLISH_PORT}
+    command: ${SFTP_PUBLISH_USER}:${SFTP_PUBLISH_PASSWORD}:::upload
     ports:
-      - ${SFTP_PORT:-2235}:22
+      - ${SFTP_PUBLISH_PORT:-2235}:22
     networks:
       - sftp-net
       - proxy-net

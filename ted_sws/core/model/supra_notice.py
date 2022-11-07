@@ -35,9 +35,10 @@ class SupraNoticeValidationReport(Manifestation):
         Result of checking whether all the notices published in TED are present in the internal database.
     """
     missing_notice_ids: Optional[List[str]]
+    not_published_notice_ids: Optional[List[str]]
 
     def is_valid(self):
-        if not self.missing_notice_ids:
+        if not self.missing_notice_ids and not self.not_published_notice_ids:
             return True
         return False
 

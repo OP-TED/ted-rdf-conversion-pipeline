@@ -49,14 +49,23 @@ def notice_validation_pipeline(notice: Notice, mongodb_client: MongoClient) -> N
     from ted_sws.notice_validator.services.validation_summary_runner import validation_summary_report_notice
     from ted_sws.notice_validator.services.xpath_coverage_runner import validate_xpath_coverage_notice
     from ted_sws.data_manager.adapters.mapping_suite_repository import MappingSuiteRepositoryMongoDB
+    from ted_sws.event_manager.services.log import log_notice_info
 
     mapping_suite_id = notice.distilled_rdf_manifestation.mapping_suite_id
     mapping_suite_repository = MappingSuiteRepositoryMongoDB(mongodb_client=mongodb_client)
     mapping_suite = mapping_suite_repository.get(reference=mapping_suite_id)
+    log_notice_info(message="Validation :: XPATH coverage :: START", notice_id=notice.ted_id)
     validate_xpath_coverage_notice(notice=notice, mapping_suite=mapping_suite, mongodb_client=mongodb_client)
+    log_notice_info(message="Validation :: XPATH coverage :: END", notice_id=notice.ted_id)
+    log_notice_info(message="Validation :: SPARQL :: START", notice_id=notice.ted_id)
     validate_notice_with_sparql_suite(notice=notice, mapping_suite_package=mapping_suite)
+    log_notice_info(message="Validation :: SPARQL :: END", notice_id=notice.ted_id)
+    log_notice_info(message="Validation :: SHACL :: START", notice_id=notice.ted_id)
     validate_notice_with_shacl_suite(notice=notice, mapping_suite_package=mapping_suite)
+    log_notice_info(message="Validation :: SHACL :: END", notice_id=notice.ted_id)
+    log_notice_info(message="Validation :: Summary :: START", notice_id=notice.ted_id)
     validation_summary_report_notice(notice=notice)
+    log_notice_info(message="Validation :: Summary :: END", notice_id=notice.ted_id)
     return NoticePipelineOutput(notice=notice)
 
 

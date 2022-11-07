@@ -68,6 +68,18 @@ class MongoDBConfig:
     def MONGO_DB_AGGREGATES_DATABASE_NAME(self) -> str:
         return EnvConfigResolver().config_resolve()
 
+    @property
+    def AIRFLOW_POSTGRES_DB_NAME(self) -> str:
+        return EnvConfigResolver().config_resolve()
+
+    @property
+    def AIRFLOW_POSTGRES_PASSWORD(self) -> str:
+        return EnvConfigResolver().config_resolve()
+
+    @property
+    def AIRFLOW_POSTGRES_USER(self) -> str:
+        return EnvConfigResolver().config_resolve()
+
 
 class RMLMapperConfig:
     @property

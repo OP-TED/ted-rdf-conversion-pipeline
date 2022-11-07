@@ -6,5 +6,5 @@ from ted_sws.data_manager.adapters.supra_notice_repository import DailySupraNoti
 
 
 @pytest.fixture
-def daily_supra_notice_repository(mongodb_client) -> DailySupraNoticeRepository:
-    return DailySupraNoticeRepository(mongodb_client=mongodb_client)
+def daily_supra_notice_repository(fake_mongodb_client) -> DailySupraNoticeRepository:
+    return DailySupraNoticeRepository(mongodb_client=fake_mongodb_client)

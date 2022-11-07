@@ -1,5 +1,5 @@
 from pymongo import MongoClient, ASCENDING, DESCENDING
-
+from ted_sws.data_manager.services import MONGO_DB_AGGREGATES_DATABASE_DEFAULT_NAME
 from ted_sws import config
 
 NOTICE_COLLECTION_NAME = "notice_collection"
@@ -8,7 +8,7 @@ NOTICE_EVENTS_COLLECTION_NAME = "notice_events"
 
 
 def create_notice_collection_materialised_view(mongo_client: MongoClient):
-    database = mongo_client[config.MONGO_DB_AGGREGATES_DATABASE_NAME or "aggregates_db"]
+    database = mongo_client[config.MONGO_DB_AGGREGATES_DATABASE_NAME or MONGO_DB_AGGREGATES_DATABASE_DEFAULT_NAME]
     notice_collection = database[NOTICE_COLLECTION_NAME]
     notice_collection.aggregate([
         {
@@ -45,7 +45,7 @@ def create_notice_collection_materialised_view(mongo_client: MongoClient):
 
 
 def update_notice_collection_materialised_view(mongo_client: MongoClient):
-    database = mongo_client[config.MONGO_DB_AGGREGATES_DATABASE_NAME or "aggregates_db"]
+    database = mongo_client[config.MONGO_DB_AGGREGATES_DATABASE_NAME or MONGO_DB_AGGREGATES_DATABASE_DEFAULT_NAME]
     notice_collection = database[NOTICE_COLLECTION_NAME]
     notice_collection.aggregate([
         {

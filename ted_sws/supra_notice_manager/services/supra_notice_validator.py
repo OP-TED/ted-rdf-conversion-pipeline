@@ -90,7 +90,6 @@ def validate_and_update_supra_notice_availability_in_cellar(notice_publication_d
             notice = notice_repository.get(reference=notice_id)
             if notice:
                 old_notice_status = notice.status
-                notice._status = NoticeStatus.PUBLISHED
                 notice = validate_notice_availability_in_cellar(notice=notice)
                 if notice.status == NoticeStatus.PUBLICLY_UNAVAILABLE:
                     not_published_notice_ids.append(notice_id)

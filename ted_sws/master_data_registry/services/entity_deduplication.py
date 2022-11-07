@@ -49,11 +49,12 @@ def generate_mdr_alignment_links(merged_rdf_fragments: rdflib.Graph, cet_uri: st
     return alignment_graph
 
 
-def reduce_link_set(alignment_graph: rdflib.Graph, source_subjects: set) -> rdflib.Graph:
+def reduce_link_set(alignment_graph: rdflib.Graph, source_subjects: set, canonical_cets: set) -> rdflib.Graph:
     """
         This function reduce number of alignment links from alignment graph.
     :param alignment_graph:
     :param source_subjects:
+    :param canonical_cets:
     :return:
     """
 
@@ -67,19 +68,18 @@ def reduce_link_set(alignment_graph: rdflib.Graph, source_subjects: set) -> rdfl
     found_transition = True
     while found_transition:
         found_transition = False
-        for triple in alignment_graph.triples(triple=(None, OWL.sameAs, None)):
-            if (triple[0] != triple[2]) and (triple[0] in source_subjects):
-                for transition_triple in alignment_graph.triples(triple=(triple[2], OWL.sameAs, None)):
-                    found_transition = True
-                    reduced_graph.remove(triple=transition_triple)
-                    # print(transition_triple)
-                    reduced_graph.add(triple=(triple[0], triple[1], transition_triple[2]))
-            else:
-                reduced_graph.remove(triple=triple)
-                # print(triple)
+        for canonical_cet in canonical_cets:
+            for triple in alignment_graph.triples(triple=(None, OWL.sameAs, canonical_cet)):
+                if (triple[0] != triple[2]) and (triple[0] in source_subjects):
+                    for transition_triple in alignment_graph.triples(triple=(None, OWL.sameAs, triple[0])):
+                        found_transition = True
+                        reduced_graph.remove(triple=transition_triple)
+                        if triple[2] != transition_triple[0]:
+                            reduced_graph.add(triple=(transition_triple[0], transition_triple[1], triple[2]))
+                else:
+                    reduced_graph.remove(triple=triple)
         if found_transition:
             alignment_graph = copy_rdf_graph(graph=reduced_graph)
-
     return reduced_graph
 
 
@@ -162,12 +162,20 @@ def create_mdr_alignment_links(cet_rdf_fragments: List[rdflib.Graph], cet_uri: s
     :return:
     """
     merged_rdf_fragments = merge_rdf_fragments_into_graph(rdf_fragments=cet_rdf_fragments)
-    alignment_graph = generate_mdr_alignment_links(merged_rdf_fragments=merged_rdf_fragments, cet_uri=cet_uri)
-    alignment_graph += generate_mdr_alignment_links(merged_rdf_fragments=merged_rdf_fragments, cet_uri=cet_uri,
-                                                    mdr_sparql_endpoint=mdr_sparql_endpoint)
+    local_alignment_graph = generate_mdr_alignment_links(merged_rdf_fragments=merged_rdf_fragments, cet_uri=cet_uri)
+    mdr_alignment_graph = generate_mdr_alignment_links(merged_rdf_fragments=merged_rdf_fragments, cet_uri=cet_uri,
+                                                       mdr_sparql_endpoint=mdr_sparql_endpoint)
+    canonical_cets = {triple[2] for triple in iter(mdr_alignment_graph)}
+    alignment_graph = local_alignment_graph + mdr_alignment_graph
+
     source_subjects = {next(cet_rdf_fragment.triples(triple=(None, RDF.type, URIRef(cet_uri))))[0]
                        for cet_rdf_fragment in cet_rdf_fragments}
-    reduced_link_set = reduce_link_set(alignment_graph=alignment_graph, source_subjects=source_subjects)
+    if not canonical_cets:
+        canonical_cets = source_subjects
+    else:
+        source_subjects.difference_update(canonical_cets)
+    reduced_link_set = reduce_link_set(alignment_graph=alignment_graph, source_subjects=source_subjects,
+                                       canonical_cets=canonical_cets)
 
     return reduced_link_set
 

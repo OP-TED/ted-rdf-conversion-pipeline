@@ -50,4 +50,4 @@ def test_deduplicate_entities_by_cet_uri(notice_with_rdf_manifestation, organisa
     for triple in canonical_cets_same_as_triples:
         assert str(triple[2]) in canonical_cets_set
 
-    # fuseki_triple_store.delete_repository(repository_name=TEST_MDR_REPOSITORY)
+    fuseki_triple_store.delete_repository(repository_name=TEST_MDR_REPOSITORY)

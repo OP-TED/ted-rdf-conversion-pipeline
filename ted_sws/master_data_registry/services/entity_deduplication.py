@@ -80,6 +80,8 @@ def reduce_link_set(alignment_graph: rdflib.Graph, source_subjects: set, canonic
                     reduced_graph.remove(triple=triple)
         if found_transition:
             alignment_graph = copy_rdf_graph(graph=reduced_graph)
+            canonical_cets = [canonical_cet for canonical_cet in canonical_cets
+                              if next(alignment_graph.triples(triple=(None,OWL.sameAs , canonical_cet)),None)]
     return reduced_graph
 
 

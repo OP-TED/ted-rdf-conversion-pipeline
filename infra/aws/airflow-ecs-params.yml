@@ -1,53 +1,28 @@
 version: 1
 task_definition:
   task_size:
-    mem_limit: 3072
-    cpu_limit: 2048
+    mem_limit: 61440
+    cpu_limit: 8192
+  ecs_network_mode: awsvpc
+  task_execution_role: "ecsTaskExecutionRole"
   services:
-    postgres:
-      essential: true
-    redis:
-      essential: true
     init:
       essential: false
-      depends_on:
-        - container_name: "postgres"
-          condition: "HEALTHY"
-        - container_name: "redis"
-          condition: "HEALTHY"
-    init-data:
-      essential: false
-      depends_on:
-        - container_name: "init"
-          condition: "SUCCESS"
     scheduler:
       essential: false
       depends_on:
         - container_name: "init"
           condition: "SUCCESS"
-        - container_name: "init-data"
-          condition: "SUCCESS"
-    worker:
-      essential: false
-      depends_on:
-        - container_name: "init-data"
-          condition: "SUCCESS"
-        - container_name: "scheduler"
-          condition: "START"
     triggerer:
       essential: false
       depends_on:
         - container_name: "scheduler"
           condition: "START"
-        - container_name: "init-data"
-          condition: "SUCCESS"
     webserver:
       essential: false
       depends_on:
         - container_name: "scheduler"
           condition: "START"
-        - container_name: "init-data"
-          condition: "SUCCESS"
   efs_volumes:
     - name: dags
       filesystem_id: ${DAGS_VOLUME_ID}
@@ -58,6 +33,12 @@ task_definition:
     - name: ted_sws
       filesystem_id: ${TED_SWS_VOLUME_ID}
       transit_encryption: ENABLED
-    - name: airflow-postgres-db
-      filesystem_id: ${AIRFLOW_POSTGRES_DB_VOLUME_ID}
-      transit_encryption: ENABLED
+run_params:
+  network_configuration:
+    awsvpc_configuration:
+      subnets:
+        - $SUBNET_1_ID
+        - $SUBNET_2_ID
+      security_groups:
+        - $SECURITY_GROUP
+      assign_public_ip: DISABLED

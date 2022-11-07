@@ -1,0 +1,55 @@
+version: "3"
+services:
+  worker:
+    command:
+    - celery
+    - worker
+    environment:
+      AIRFLOW__CORE__PARALLELISM: 256
+      AIRFLOW__CORE__MAX_ACTIVE_TASKS_PER_DAG: 256
+      AIRFLOW__CORE__NON_POOLED_TASK_SLOT_COUNT: 256
+      AIRFLOW__SCHEDULER__PARSING_PROCESSES: 8
+      AIRFLOW__CELERY__WORKER_CONCURRENCY: 16
+      AIRFLOW__CORE__SQL_ALCHEMY_POOL_SIZE: 512
+      AIRFLOW__CORE__SQL_ALCHEMY_MAX_OVERFLOW: 1024
+      AIRFLOW__WEBSERVER__SECRET_KEY: ${AIRFLOW__WEBSERVER__SECRET_KEY}
+      IS_PRIME_ENV: 'true'
+      AIRFLOW__API__AUTH_BACKEND: airflow.api.auth.backend.basic_auth
+      AIRFLOW__CELERY__BROKER_URL: ${AIRFLOW__CELERY__BROKER_URL}
+      AIRFLOW__CELERY__RESULT_BACKEND: ${AIRFLOW__CELERY__RESULT_BACKEND}
+      AIRFLOW__CORE__DAGS_ARE_PAUSED_AT_CREATION: "true"
+      AIRFLOW__CORE__EXECUTOR: CeleryExecutor
+      AIRFLOW__CORE__LOAD_EXAMPLES: "false"
+      AIRFLOW__CORE__ENABLE_XCOM_PICKLING: "true"
+      AIRFLOW__CORE__SQL_ALCHEMY_CONN: ${AIRFLOW__CORE__SQL_ALCHEMY_CONN}
+      AIRFLOW_GID: ${AIRFLOW_GID}
+      AIRFLOW_HOME: /opt/airflow
+      AIRFLOW_UID: ${AIRFLOW_UID}
+      PYTHONPATH: /opt/airflow/
+      LIMES_ALIGNMENT_PATH: /opt/airflow/.limes/limes.jar
+      RML_MAPPER_PATH: /opt/airflow/.rmlmapper/rmlmapper.jar
+      XML_PROCESSOR_PATH: /opt/airflow/.saxon/saxon-he-10.6.jar
+    image: ${AIRFLOW_IMAGE_URI}
+#    hostname: "worker1"
+    ports:
+      - "8793:8793"
+    logging:
+      driver: awslogs
+      options:
+        awslogs-group: /ecs/airflow-worker-task/
+        awslogs-region: ${REGION}
+        awslogs-stream-prefix: ecs
+    networks:
+      ecs-local-network: null
+    volumes:
+      - "dags:/opt/airflow/dags"
+      - "logs:/opt/airflow/logs"
+      - "ted_sws:/opt/airflow/ted_sws"
+networks:
+  ecs-local-network:
+    external: true
+
+volumes:
+  dags:
+  logs:
+  ted_sws:

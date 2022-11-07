@@ -1,4 +1,4 @@
-EFS_VOLUMES=(metabase_postgres_db fuseki_data ted_sws logs dags airflow_postgres_db mongo_db)
+EFS_VOLUMES=(sftp_data fuseki_data ted_sws logs dags)
 source .env
 export $(cat .env | xargs)
 

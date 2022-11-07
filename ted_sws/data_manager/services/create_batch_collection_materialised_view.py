@@ -7,6 +7,12 @@ LOG_EVENTS_COLLECTION_NAME = "log_events"
 
 
 def create_batch_collection_materialised_view(mongo_client: MongoClient):
+    """
+    Generates a collection in given mongodb client with documents about batch data by aggregating event logs taking
+    execution time, nr of pipelines and nr of notices for every process workflow dag run.
+
+    :param mongo_client: mongodb client to connect
+    """
     database = mongo_client[config.MONGO_DB_AGGREGATES_DATABASE_NAME or MONGO_DB_AGGREGATES_DATABASE_DEFAULT_NAME]
     batch_collection = database[LOG_EVENTS_COLLECTION_NAME]
     batch_collection.aggregate([

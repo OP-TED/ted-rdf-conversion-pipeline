@@ -45,6 +45,11 @@ def create_notice_collection_materialised_view(mongo_client: MongoClient):
 
 
 def update_notice_collection_materialised_view(mongo_client: MongoClient):
+    """
+    Updates notice collection materialised view with logs about notice execution time.
+
+    :param mongo_client: mongodb client to connect
+    """
     database = mongo_client[config.MONGO_DB_AGGREGATES_DATABASE_NAME or MONGO_DB_AGGREGATES_DATABASE_DEFAULT_NAME]
     notice_collection = database[NOTICE_COLLECTION_NAME]
     notice_collection.aggregate([

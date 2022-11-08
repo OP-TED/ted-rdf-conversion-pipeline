@@ -1,16 +1,14 @@
 from pymongo import MongoClient, ASCENDING, DESCENDING
-
+from ted_sws.data_manager.services import MONGO_DB_AGGREGATES_DATABASE_DEFAULT_NAME
 from ted_sws import config
 
 NOTICE_COLLECTION_NAME = "notice_collection"
 NOTICES_MATERIALISED_VIEW_NAME = "notices_collection_materialised_view"
 NOTICE_EVENTS_COLLECTION_NAME = "notice_events"
-NOTICE_PROCESS_BATCH_COLLECTION_NAME = "batch_events"
-LOG_EVENTS_COLLECTION_NAME = "log_events"
 
 
 def create_notice_collection_materialised_view(mongo_client: MongoClient):
-    database = mongo_client[config.MONGO_DB_AGGREGATES_DATABASE_NAME or "aggregates_db"]
+    database = mongo_client[config.MONGO_DB_AGGREGATES_DATABASE_NAME or MONGO_DB_AGGREGATES_DATABASE_DEFAULT_NAME]
     notice_collection = database[NOTICE_COLLECTION_NAME]
     notice_collection.aggregate([
         {
@@ -34,6 +32,28 @@ def create_notice_collection_materialised_view(mongo_client: MongoClient):
             }
         },
         {
+            "$out": NOTICES_MATERIALISED_VIEW_NAME
+        }
+    ])
+    materialised_view = database[NOTICES_MATERIALISED_VIEW_NAME]
+    materialised_view.create_index([("created_at", DESCENDING)])
+    materialised_view.create_index([("publication_date", DESCENDING)])
+    materialised_view.create_index([("eu_institution", ASCENDING)])
+    materialised_view.create_index([("status", ASCENDING)])
+    materialised_view.create_index([("form_number", ASCENDING)])
+    materialised_view.create_index([("form_number", ASCENDING), ("status", ASCENDING)])
+
+
+def update_notice_collection_materialised_view(mongo_client: MongoClient):
+    """
+    Updates notice collection materialised view with logs about notice execution time.
+
+    :param mongo_client: mongodb client to connect
+    """
+    database = mongo_client[config.MONGO_DB_AGGREGATES_DATABASE_NAME or MONGO_DB_AGGREGATES_DATABASE_DEFAULT_NAME]
+    notice_collection = database[NOTICE_COLLECTION_NAME]
+    notice_collection.aggregate([
+        {
             "$lookup":
                 {
                     "from": f"{NOTICE_EVENTS_COLLECTION_NAME}",
@@ -50,33 +70,10 @@ def create_notice_collection_materialised_view(mongo_client: MongoClient):
                     ]
                 },
         },
-        {"$unwind": '$notice_logs'},
         {
-            "$out": NOTICES_MATERIALISED_VIEW_NAME
-        }
-    ])
-    materialised_view = database[NOTICES_MATERIALISED_VIEW_NAME]
-    materialised_view.create_index([("created_at", DESCENDING)])
-    materialised_view.create_index([("publication_date", DESCENDING)])
-    materialised_view.create_index([("eu_institution", ASCENDING)])
-    materialised_view.create_index([("status", ASCENDING)])
-    materialised_view.create_index([("form_number", ASCENDING)])
-    materialised_view.create_index([("form_number", ASCENDING), ("status", ASCENDING)])
-
-    batch_collection = database[LOG_EVENTS_COLLECTION_NAME]
-    batch_collection.aggregate([
-        {
-            "$group": {
-                "_id": {"process_id": "$metadata.process_id",
-                        "nr_of_notices": "$kwargs.number_of_notices",
-                        "caller_name": "execute"
-                        },
-                "exec_time": {"$sum": "$duration"},
-                "nr_of_pipelines": {"$sum": 1},
-                "batch_nr_of_notices": {"$last": "$kwargs.number_of_notices"}
-            }
+            "$unwind": '$notice_logs'
         },
         {
-            "$out": NOTICE_PROCESS_BATCH_COLLECTION_NAME
+            "$out": NOTICES_MATERIALISED_VIEW_NAME
         }
     ])

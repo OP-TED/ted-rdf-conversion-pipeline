@@ -3,8 +3,10 @@ from pymongo import MongoClient
 
 from dags import DEFAULT_DAG_ARGUMENTS
 from ted_sws import config
+from ted_sws.data_manager.services.create_batch_collection_materialised_view import \
+    create_batch_collection_materialised_view
 from ted_sws.data_manager.services.create_notice_collection_materialised_view import \
-    create_notice_collection_materialised_view
+    create_notice_collection_materialised_view, update_notice_collection_materialised_view
 
 DAG_NAME = "daily_materialized_view_update"
 
@@ -15,10 +17,17 @@ DAG_NAME = "daily_materialized_view_update"
      tags=['mongodb', 'daily-views-update'])
 def daily_materialized_view_update():
     @task
-    def update_materialized_view():
-        create_notice_collection_materialised_view(mongo_client=MongoClient(config.MONGO_DB_AUTH_URL))
+    def create_materialised_view():
+        mongo_client = MongoClient(config.MONGO_DB_AUTH_URL)
+        create_notice_collection_materialised_view(mongo_client=mongo_client)
 
-    update_materialized_view()
+    @task
+    def update_materialised_view_with_logs():
+        mongo_client = MongoClient(config.MONGO_DB_AUTH_URL)
+        update_notice_collection_materialised_view(mongo_client=mongo_client)
+        create_batch_collection_materialised_view(mongo_client=mongo_client)
+
+    create_materialised_view() >> update_materialised_view_with_logs()
 
 
 dag = daily_materialized_view_update()

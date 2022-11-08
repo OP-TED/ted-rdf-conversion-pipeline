@@ -11,17 +11,21 @@ This module provides functionalities to generate bulk/multiple notice packages f
 import base64
 import os
 from pathlib import Path
+from typing import List
 
 import click
+from pymongo import MongoClient
 
+from ted_sws import config
 from ted_sws.core.adapters.cmd_runner import CmdRunner as BaseCmdRunner
 from ted_sws.core.model.manifestation import XMLManifestation
 from ted_sws.core.model.notice import Notice
+from ted_sws.data_manager.adapters.notice_repository import NoticeRepository
 from ted_sws.notice_metadata_processor.services.xml_manifestation_metadata_extractor import \
     XMLManifestationMetadataExtractor
-from ted_sws.notice_packager.services.metadata_transformer import MetadataTransformer
-from ted_sws.notice_packager.services.notice_packager import create_notice_package
 from ted_sws.notice_packager import DEFAULT_NOTICE_PACKAGE_EXTENSION
+from ted_sws.notice_packager.services.metadata_transformer import MetadataTransformer
+from ted_sws.notice_packager.services.notice_packager import create_notice_package, package_notice_and_save_to
 
 CMD_NAME = "CMD_BULK_PACKAGER"
 DEFAULT_FILES_COUNT: int = 3000
@@ -35,32 +39,46 @@ class PackageNotice(Notice):
 
 
 class CmdRunner(BaseCmdRunner):
-    def __init__(self, rdf_files_folder, output_folder, pkgs_count: int):
+    def __init__(self, rdf_files_folder, output_folder, pkgs_count: int, notice_ids: List = None,
+                 mongodb_client=MongoClient(config.MONGO_DB_AUTH_URL)):
         super().__init__(name=CMD_NAME)
-        self.rdf_files_path = Path(os.path.realpath(rdf_files_folder))
         self.output_path = Path(os.path.realpath(output_folder))
-        self.pkgs_count = pkgs_count
-        if not self.rdf_files_path.is_dir():
-            error_msg = f"No such folder :: [{rdf_files_folder}]"
-            self.log_failed_msg(error_msg)
-            raise FileNotFoundError(error_msg)
+        if notice_ids:
+            self.notice_repository = NoticeRepository(mongodb_client=mongodb_client)
+            self.notices = []
+            for notice_id in notice_ids:
+                self.notices.append(self.notice_repository.get(reference=notice_id))
+        else:
+            self.rdf_files_path = Path(os.path.realpath(rdf_files_folder))
+            self.pkgs_count = pkgs_count
+            if not self.rdf_files_path.is_dir():
+                error_msg = f"No such folder :: [{rdf_files_folder}]"
+                self.log_failed_msg(error_msg)
+                raise FileNotFoundError(error_msg)
 
     def run_cmd(self):
         error = None
         try:
             self.output_path.mkdir(parents=True, exist_ok=True)
-            rdf_files = [Path(str(f_path)) for f in os.listdir(self.rdf_files_path) if
-                         os.path.isfile(f_path := os.path.join(self.rdf_files_path, f))]
-            rdf_files_count = len(rdf_files)
-            base_idx = 100000
-            year = 2021
+            if self.notices:
+                for notice in self.notices:
+                    output_file = self.output_path / (notice.ted_id + DEFAULT_NOTICE_PACKAGE_EXTENSION)
+                    self.log("Saving package to " + str(output_file))
+                    package_notice_and_save_to(notice=notice,
+                                               save_to=output_file)
+            else:
+                rdf_files = [Path(str(f_path)) for f in os.listdir(self.rdf_files_path) if
+                             os.path.isfile(f_path := os.path.join(self.rdf_files_path, f))]
+                rdf_files_count = len(rdf_files)
+                base_idx = 100000
+                year = 2021
 
-            for i in range(self.pkgs_count):
-                rdf_idx = i % rdf_files_count
-                rdf_file_path = rdf_files[rdf_idx]
-                notice_id = str(base_idx + i) + "_" + str(year)
-                pkg_name = notice_id
-                self.generate_package(notice_id, self.output_path, rdf_file_path, pkg_name)
+                for i in range(self.pkgs_count):
+                    rdf_idx = i % rdf_files_count
+                    rdf_file_path = rdf_files[rdf_idx]
+                    notice_id = str(base_idx + i) + "_" + str(year)
+                    pkg_name = notice_id
+                    self.generate_package(notice_id, self.output_path, rdf_file_path, pkg_name)
         except Exception as e:
             error = e
 
@@ -88,20 +106,22 @@ class CmdRunner(BaseCmdRunner):
             )
 
 
-def run(rdf_files_count, output_folder, pkgs_count):
-    cmd = CmdRunner(rdf_files_count, output_folder, pkgs_count)
+def run(rdf_files_count=None, output_folder=None, pkgs_count=None, notice_id=None,
+        mongodb_client=MongoClient(config.MONGO_DB_AUTH_URL)):
+    cmd = CmdRunner(rdf_files_count, output_folder, pkgs_count, list(notice_id or []), mongodb_client)
     cmd.run()
 
 
 @click.command()
-@click.argument('rdf-files-folder', nargs=1)
-@click.argument('output-folder', nargs=1)
+@click.argument('rdf-files-folder', nargs=1, required=False)
 @click.argument('pkgs-count', nargs=1, type=click.INT, required=False, default=DEFAULT_FILES_COUNT)
-def main(rdf_files_folder, output_folder, pkgs_count):
+@click.option('--output-folder', required=False)
+@click.option('--notice-id', required=False, multiple=True, default=None)
+def main(rdf_files_folder, pkgs_count, output_folder, notice_id):
     """
-    Generates <PKGS_COUNT> test METS packages
+    Generates test METS packages
     """
-    run(rdf_files_folder, output_folder, pkgs_count)
+    run(rdf_files_folder, output_folder, pkgs_count, notice_id)
 
 
 if __name__ == '__main__':

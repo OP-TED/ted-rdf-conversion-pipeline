@@ -79,6 +79,16 @@ def package_notice(notice: Notice) -> Notice:
     return notice
 
 
+def package_notice_and_save_to(notice: Notice, save_to: PATH_TYPE = None) -> str:
+    """
+        This function package a Notice to save_to location.
+    """
+    return create_notice_package(in_data=notice,
+                                 rdf_content=notice.distilled_rdf_manifestation.object_data.encode(
+                                     "utf-8"),
+                                 save_to=save_to)
+
+
 class NoticePackager:
     """
     This class will manage the steps/methods of notice packager creation

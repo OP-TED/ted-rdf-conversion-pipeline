@@ -3,16 +3,21 @@ import tempfile
 from io import StringIO
 from typing import List, Set, Tuple, Dict
 import rdflib
+from pymongo import MongoClient
 from rdflib import RDF, URIRef, OWL
+from collections import defaultdict
 
 from ted_sws.alignment_oracle.services.generate_alignment_links import generate_alignment_links, TURTLE_SOURCE_DATA_TYPE
 from ted_sws.alignment_oracle.services.limes_config_resolver import get_limes_config_generator_by_cet_uri
 from ted_sws.core.model.notice import Notice
+from ted_sws.data_manager.adapters.notice_repository import NoticeRepository
+from ted_sws.data_manager.adapters.sparql_endpoint import SPARQLStringEndpoint
 from ted_sws.data_manager.adapters.triple_store import FusekiAdapter, TripleStoreABC, FusekiException, \
     FUSEKI_REPOSITORY_ALREADY_EXIST_ERROR_MSG
 from ted_sws.event_manager.services.log import log_error
 from ted_sws.master_data_registry.services.rdf_fragment_processor import get_rdf_fragments_by_cet_uri_from_notices, \
-    merge_rdf_fragments_into_graph, write_rdf_fragments_in_triple_store, RDF_FRAGMENT_FROM_NOTICE_PROPERTY
+    merge_rdf_fragments_into_graph, write_rdf_fragments_in_triple_store, RDF_FRAGMENT_FROM_NOTICE_PROPERTY, \
+    get_subjects_by_cet_uri
 
 MDR_TEMPORARY_FUSEKI_DATASET_NAME = "tmp_mdr_dataset"
 MDR_FUSEKI_DATASET_NAME = "mdr_dataset"
@@ -81,7 +86,7 @@ def reduce_link_set(alignment_graph: rdflib.Graph, source_subjects: set, canonic
         if found_transition:
             alignment_graph = copy_rdf_graph(graph=reduced_graph)
             canonical_cets = [canonical_cet for canonical_cet in canonical_cets
-                              if next(alignment_graph.triples(triple=(None,OWL.sameAs , canonical_cet)),None)]
+                              if next(alignment_graph.triples(triple=(None, OWL.sameAs, canonical_cet)), None)]
     return reduced_graph
 
 
@@ -218,3 +223,45 @@ def deduplicate_entities_by_cet_uri(notices: List[Notice], cet_uri: str,
                                        alignment_graph=cet_alignment_links)
     inject_similarity_links_in_notices(notices=notices, cet_rdf_fragments_dict=new_canonical_cet_fragments_dict,
                                        alignment_graph=cet_alignment_links, inject_reflexive_links=True)
+
+
+def deduplicate_procedure_entities(notices: List[Notice], procedure_cet_uri: str, mongodb_client: MongoClient):
+    """
+         This function deduplicate procedure entities for each notice from batch of notices.
+    :param notices:
+    :param procedure_cet_uri:
+    :param mongodb_client:
+    :return:
+    """
+    notice_families = defaultdict(list)
+    for notice in notices:
+        if notice.original_metadata and notice.original_metadata.RN:
+            parent_notice_id = notice.original_metadata.RN[0]
+            parent_notice_id = f"{parent_notice_id[4:]}-{parent_notice_id[:4]}"
+            notice_families[parent_notice_id].append(notice)
+
+    parent_uries = {}
+    notice_repository = NoticeRepository(mongodb_client=mongodb_client)
+    for parent_notice_id in notice_families.keys():
+        parent_notice = notice_repository.get(reference=parent_notice_id)
+        if parent_notice and parent_notice.rdf_manifestation and parent_notice.rdf_manifestation.object_data:
+            rdf_content = parent_notice.rdf_manifestation.object_data
+            sparql_endpoint = SPARQLStringEndpoint(rdf_content=rdf_content)
+            result_uris = get_subjects_by_cet_uri(sparql_endpoint=sparql_endpoint, cet_uri=procedure_cet_uri)
+            assert len(result_uris) == 1
+            parent_procedure_uri = rdflib.URIRef(result_uris[0])
+            parent_uries[parent_notice_id] = parent_procedure_uri
+
+    for parent_uri_key in parent_uries.keys():
+        parent_uri = parent_uries[parent_uri_key]
+        for child_notice in notice_families[parent_uri_key]:
+            rdf_content = child_notice.rdf_manifestation.object_data
+            sparql_endpoint = SPARQLStringEndpoint(rdf_content=rdf_content)
+            result_uris = get_subjects_by_cet_uri(sparql_endpoint=sparql_endpoint, cet_uri=procedure_cet_uri)
+            assert len(result_uris) == 1
+            child_procedure_uri = rdflib.URIRef(result_uris[0])
+            inject_links = rdflib.Graph()
+            inject_links.add((child_procedure_uri, OWL.sameAs, parent_uri))
+            child_notice.distilled_rdf_manifestation.object_data = '\n'.join(
+                [child_notice.distilled_rdf_manifestation.object_data,
+                 str(inject_links.serialize(format="nt"))])

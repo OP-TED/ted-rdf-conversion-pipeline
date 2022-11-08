@@ -23,3 +23,8 @@ def rdf_content(rdf_file_path) -> str:
 @pytest.fixture
 def organisation_cet_uri() -> str:
     return "http://www.w3.org/ns/org#Organization"
+
+
+@pytest.fixture
+def procedure_cet_uri() -> str:
+    return "http://data.europa.eu/a4g/ontology#Procedure"

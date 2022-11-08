@@ -106,7 +106,7 @@ class RDFManifestationValidationSummaryRunner(ManifestationValidationSummaryRunn
                     validation_results = shacl_report.validation_results
                     is_new, result_validation = self.shacl_summary_result(shacl_report, result_counts)
                     result_count: SHACLSummarySeverityCountReport = result_validation.result_severity.aggregate
-                    if validation_results:
+                    if validation_results and validation_results.results_dict:
                         bindings = validation_results.results_dict['results']['bindings']
                         for binding in bindings:
                             result_severity = binding['resultSeverity']

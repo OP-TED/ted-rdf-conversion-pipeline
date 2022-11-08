@@ -31,7 +31,6 @@ def test_deduplicate_entities_by_cet_uri(notice_with_rdf_manifestation, organisa
     sparql_endpoint = fuseki_triple_store.get_sparql_triple_store_endpoint(repository_name=TEST_MDR_REPOSITORY)
     unique_names = sparql_endpoint.with_query(sparql_query=TEST_QUERY_UNIQUE_NAMES).fetch_tabular()
     unique_cet_roots = sparql_endpoint.with_query(sparql_query=TEST_QUERY_UNIQUE_CET_ROOTS).fetch_tabular()
-    assert len(unique_names) == len(unique_cet_roots)
 
     notice_rdf_content = notice_with_rdf_manifestation.distilled_rdf_manifestation.object_data
     notice_rdf_graph = rdflib.Graph()
@@ -51,3 +50,5 @@ def test_deduplicate_entities_by_cet_uri(notice_with_rdf_manifestation, organisa
         assert str(triple[2]) in canonical_cets_set
 
     fuseki_triple_store.delete_repository(repository_name=TEST_MDR_REPOSITORY)
+
+    assert len(unique_names) == len(unique_cet_roots)

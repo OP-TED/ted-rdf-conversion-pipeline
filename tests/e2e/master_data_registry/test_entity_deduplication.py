@@ -2,7 +2,9 @@ import rdflib
 from rdflib import OWL
 
 from ted_sws.data_manager.adapters.triple_store import FusekiAdapter
-from ted_sws.master_data_registry.services.entity_deduplication import deduplicate_entities_by_cet_uri
+
+from ted_sws.master_data_registry.services.entity_deduplication import deduplicate_entities_by_cet_uri, \
+    deduplicate_procedure_entities
 
 TEST_MDR_REPOSITORY = "tmp_mdr_test_repository"
 TEST_QUERY_UNIQUE_NAMES = """SELECT distinct ?name
@@ -16,6 +18,8 @@ WHERE { ?s a <http://www.w3.org/ns/org#Organization> .
 ?s <http://www.meaningfy.ws/mdr#isCanonicalEntity> True .
 }
 """
+CHILD_NOTICE_ID = "003544-2021"
+PARENT_NOTICE_ID = "445564-2020"
 
 
 def test_deduplicate_entities_by_cet_uri(notice_with_rdf_manifestation, organisation_cet_uri):
@@ -31,7 +35,7 @@ def test_deduplicate_entities_by_cet_uri(notice_with_rdf_manifestation, organisa
     sparql_endpoint = fuseki_triple_store.get_sparql_triple_store_endpoint(repository_name=TEST_MDR_REPOSITORY)
     unique_names = sparql_endpoint.with_query(sparql_query=TEST_QUERY_UNIQUE_NAMES).fetch_tabular()
     unique_cet_roots = sparql_endpoint.with_query(sparql_query=TEST_QUERY_UNIQUE_CET_ROOTS).fetch_tabular()
-
+    assert len(unique_names) == len(unique_cet_roots)
     notice_rdf_content = notice_with_rdf_manifestation.distilled_rdf_manifestation.object_data
     notice_rdf_graph = rdflib.Graph()
     notice_rdf_graph.parse(data=notice_rdf_content, format="ttl")
@@ -51,4 +55,14 @@ def test_deduplicate_entities_by_cet_uri(notice_with_rdf_manifestation, organisa
 
     fuseki_triple_store.delete_repository(repository_name=TEST_MDR_REPOSITORY)
 
-    assert len(unique_names) == len(unique_cet_roots)
+
+def test_deduplicate_procedure_entities(child_notice, procedure_cet_uri, notice_procedure_uri,
+                                        fake_mongodb_client_with_parent_notice):
+    deduplicate_procedure_entities(notices=[child_notice], procedure_cet_uri=procedure_cet_uri,
+                                   mongodb_client=fake_mongodb_client_with_parent_notice)
+
+    notice_rdf_content = child_notice.distilled_rdf_manifestation.object_data
+    notice_rdf_graph = rdflib.Graph()
+    notice_rdf_graph.parse(data=notice_rdf_content, format="ttl")
+
+    assert len(list(notice_rdf_graph.triples((notice_procedure_uri, OWL.sameAs, notice_procedure_uri)))) == 1

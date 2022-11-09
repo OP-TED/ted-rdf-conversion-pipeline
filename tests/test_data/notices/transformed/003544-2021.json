@@ -1,0 +1,605 @@
+{
+  "created_at": "2022-11-09T14:23:57.955000",
+  "version_number": 0,
+  "ted_id": "003544-2021",
+  "original_metadata": {
+    "AA": [
+      "body-pl"
+    ],
+    "AC": "1",
+    "CY": [
+      "DEU"
+    ],
+    "DD": null,
+    "DI": "32014L0024",
+    "DS": "2021-01-02",
+    "DT": null,
+    "MA": [
+      "8"
+    ],
+    "NC": [
+      "works"
+    ],
+    "ND": "003544-2021",
+    "NL": null,
+    "OC": [
+      "45000000",
+      "45200000",
+      "45230000",
+      "45232000",
+      "45232400",
+      "45232450",
+      "45232451"
+    ],
+    "OJ": "004/2021",
+    "OL": "de",
+    "OY": [
+      "DE",
+      "DEE",
+      "DEE0",
+      "DEE06"
+    ],
+    "PC": [
+      "45000000",
+      "45200000",
+      "45230000",
+      "45232000",
+      "45232400",
+      "45232450",
+      "45232451"
+    ],
+    "PD": "2021-01-07",
+    "PR": "open",
+    "RC": [
+      "DEE",
+      "DEE0",
+      "DEE06",
+      "DEU",
+      "spcy"
+    ],
+    "RN": [
+      "2020445564"
+    ],
+    "RP": "5",
+    "TD": "7",
+    "TVH": "7941130.09",
+    "TVL": "7941130.09",
+    "TY": "9",
+    "award_criterion_type": null,
+    "corporate_body": null,
+    "funding": null,
+    "notice_identifier": null,
+    "notice_type": null,
+    "notice_version": null
+  },
+  "xml_manifestation": {
+    "object_data": "<?xml version=\"1.0\" encoding=\"UTF-8\"?><TED_EXPORT xmlns:xlink=\"http://www.w3.org/1999/xlink\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns=\"http://publications.europa.eu/resource/schema/ted/R2.0.9/publication\" xmlns:n2016=\"http://publications.europa.eu/resource/schema/ted/2016/nuts\" xsi:schemaLocation=\"http://publications.europa.eu/resource/schema/ted/R2.0.9/publication TED_EXPORT.xsd\" VERSION=\"R2.0.9.S03.E01\" DOC_ID=\"003544-2021\" EDITION=\"2021004\"><TECHNICAL_SECTION><RECEPTION_ID>21-000070-001</RECEPTION_ID><DELETION_DATE>20210412</DELETION_DATE><FORM_LG_LIST>DE </FORM_LG_LIST><COMMENTS>From Convertor</COMMENTS></TECHNICAL_SECTION><LINKS_SECTION><XML_SCHEMA_DEFINITION_LINK xlink:type=\"simple\" xlink:href=\"http://ted.europa.eu\" xlink:title=\"TED WEBSITE\"/><OFFICIAL_FORMS_LINK xlink:type=\"simple\" xlink:href=\"http://ted.europa.eu\"/><FORMS_LABELS_LINK xlink:type=\"simple\" xlink:href=\"http://ted.europa.eu\"/><ORIGINAL_CPV_LINK xlink:type=\"simple\" xlink:href=\"http://ted.europa.eu\"/><ORIGINAL_NUTS_LINK xlink:type=\"simple\" xlink:href=\"http://ted.europa.eu\"/></LINKS_SECTION><CODED_DATA_SECTION><REF_OJS><COLL_OJ>S</COLL_OJ><NO_OJ>4</NO_OJ><DATE_PUB>20210107</DATE_PUB></REF_OJS><NOTICE_DATA><NO_DOC_OJS>2021/S 004-003544</NO_DOC_OJS><URI_LIST><URI_DOC LG=\"DE\">http://ted.europa.eu/udl?uri=TED:NOTICE:003544-2021:TEXT:DE:HTML</URI_DOC></URI_LIST><LG_ORIG>DE</LG_ORIG><ISO_COUNTRY VALUE=\"DE\"/><IA_URL_GENERAL>https://laf.sachsen-anhalt.de/</IA_URL_GENERAL><ORIGINAL_CPV CODE=\"45232451\">Drainage and surface works</ORIGINAL_CPV><n2016:PERFORMANCE_NUTS CODE=\"DEE06\">Jerichower Land</n2016:PERFORMANCE_NUTS><n2016:CA_CE_NUTS CODE=\"DEE03\">Magdeburg, Kreisfreie Stadt</n2016:CA_CE_NUTS><n2016:TENDERER_NUTS CODE=\"DEG03\">Jena, Kreisfreie Stadt</n2016:TENDERER_NUTS><VALUES><VALUE TYPE=\"PROCUREMENT_TOTAL\" CURRENCY=\"EUR\">7941130.09</VALUE></VALUES><REF_NOTICE><NO_DOC_OJS>2020/S 185-445564</NO_DOC_OJS></REF_NOTICE></NOTICE_DATA><CODIF_DATA><DS_DATE_DISPATCH>20210102</DS_DATE_DISPATCH><AA_AUTHORITY_TYPE CODE=\"6\">Body governed by public law</AA_AUTHORITY_TYPE><TD_DOCUMENT_TYPE CODE=\"7\">Contract award notice</TD_DOCUMENT_TYPE><NC_CONTRACT_NATURE CODE=\"1\">Works</NC_CONTRACT_NATURE><PR_PROC CODE=\"1\">Open procedure</PR_PROC><RP_REGULATION CODE=\"5\">European Union, with participation by GPA countries</RP_REGULATION><TY_TYPE_BID CODE=\"9\">Not applicable</TY_TYPE_BID><AC_AWARD_CRIT CODE=\"1\">Lowest price</AC_AWARD_CRIT><MA_MAIN_ACTIVITIES CODE=\"8\">Other</MA_MAIN_ACTIVITIES><HEADING>01A03</HEADING><INITIATOR>01</INITIATOR></CODIF_DATA></CODED_DATA_SECTION><TRANSLATION_SECTION><ML_TITLES><ML_TI_DOC LG=\"BG\"><TI_CY>\u0413ep\u043ca\u043d\u0438\u044f</TI_CY><TI_TOWN>\u041c\u0430\u0433\u0434\u0435\u0431\u0443\u0440\u0433</TI_TOWN><TI_TEXT><P>\u0414\u0440\u0435\u043d\u0430\u0436\u043d\u0438 \u0440\u0430\u0431\u043e\u0442\u0438 \u0438 \u0440\u0430\u0431\u043e\u0442\u0438 \u043d\u0430 \u043f\u043e\u0432\u044a\u0440\u0445\u043d\u043e\u0441\u0442\u0442\u0430</P></TI_TEXT></ML_TI_DOC><ML_TI_DOC LG=\"CS\"><TI_CY>N\u011bmecko</TI_CY><TI_TOWN>Magdeburg</TI_TOWN><TI_TEXT><P>Dren\u00e1\u017en\u00ed a\u00a0povrchov\u00e9 pr\u00e1ce</P></TI_TEXT></ML_TI_DOC><ML_TI_DOC LG=\"DA\"><TI_CY>Tyskland</TI_CY><TI_TOWN>Magdeburg</TI_TOWN><TI_TEXT><P>Dr\u00e6ningsarbejde og overjordiske arbejder</P></TI_TEXT></ML_TI_DOC><ML_TI_DOC LG=\"DE\"><TI_CY>Deutschland</TI_CY><TI_TOWN>Magdeburg</TI_TOWN><TI_TEXT><P>Entw\u00e4sserungs- und Oberfl\u00e4chenarbeiten</P></TI_TEXT></ML_TI_DOC><ML_TI_DOC LG=\"EL\"><TI_CY>\u0393\u03b5\u03c1\u03bc\u03b1\u03bd\u03af\u03b1</TI_CY><TI_TOWN>\u039c\u03b1\u03b3\u03b4\u03b5\u03bc\u03b2\u03bf\u03cd\u03c1\u03b3\u03bf</TI_TOWN><TI_TEXT><P>\u0395\u03c1\u03b3\u03b1\u03c3\u03af\u03b5\u03c2 \u03c3\u03b5 \u03b4\u03af\u03ba\u03c4\u03c5\u03bf \u03b1\u03c0\u03bf\u03c3\u03c4\u03c1\u03ac\u03b3\u03b3\u03b9\u03c3\u03b7\u03c2 \u03ba\u03b1\u03b9 \u03ad\u03c1\u03b3\u03b1 \u03b5\u03c0\u03b9\u03c6\u03b1\u03bd\u03b5\u03af\u03b1\u03c2</P></TI_TEXT></ML_TI_DOC><ML_TI_DOC LG=\"EN\"><TI_CY>Germany</TI_CY><TI_TOWN>Magdeburg</TI_TOWN><TI_TEXT><P>Drainage and surface works</P></TI_TEXT></ML_TI_DOC><ML_TI_DOC LG=\"ES\"><TI_CY>Alemania</TI_CY><TI_TOWN>Magdeburgo</TI_TOWN><TI_TEXT><P>Trabajos de drenaje y de superficie</P></TI_TEXT></ML_TI_DOC><ML_TI_DOC LG=\"ET\"><TI_CY>Saksamaa</TI_CY><TI_TOWN>Magdeburg</TI_TOWN><TI_TEXT><P>Drenaa\u017ei- ja pinnat\u00f6\u00f6d</P></TI_TEXT></ML_TI_DOC><ML_TI_DOC LG=\"FI\"><TI_CY>Saksa</TI_CY><TI_TOWN>Magdeburg</TI_TOWN><TI_TEXT><P>Vedenpoisto- ja pintaty\u00f6t</P></TI_TEXT></ML_TI_DOC><ML_TI_DOC LG=\"FR\"><TI_CY>Allemagne</TI_CY><TI_TOWN>Magdebourg</TI_TOWN><TI_TEXT><P>Travaux de drainage et travaux de surface</P></TI_TEXT></ML_TI_DOC><ML_TI_DOC LG=\"GA\"><TI_CY>Ghearm\u00e1in, an</TI_CY><TI_TOWN>Madgeburg</TI_TOWN><TI_TEXT><P>Drainage and surface works</P></TI_TEXT></ML_TI_DOC><ML_TI_DOC LG=\"HR\"><TI_CY>Njema\u010dka</TI_CY><TI_TOWN>Magdeburg</TI_TOWN><TI_TEXT><P>Drena\u017eni i povr\u0161inski radovi</P></TI_TEXT></ML_TI_DOC><ML_TI_DOC LG=\"HU\"><TI_CY>N\u00e9metorsz\u00e1g</TI_CY><TI_TOWN>Magdeburg</TI_TOWN><TI_TEXT><P>V\u00edzelvezet\u00e9s \u00e9s felsz\u00edni munka</P></TI_TEXT></ML_TI_DOC><ML_TI_DOC LG=\"IT\"><TI_CY>Germania</TI_CY><TI_TOWN>Magdeburgo</TI_TOWN><TI_TEXT><P>Lavori di drenaggio e di superficie</P></TI_TEXT></ML_TI_DOC><ML_TI_DOC LG=\"LT\"><TI_CY>Vokietija, VFR</TI_CY><TI_TOWN>Magdeburgas</TI_TOWN><TI_TEXT><P>Drena\u017eo ir pavir\u0161iaus darbai</P></TI_TEXT></ML_TI_DOC><ML_TI_DOC LG=\"LV\"><TI_CY>V\u0101cija</TI_CY><TI_TOWN>Magdeburga</TI_TOWN><TI_TEXT><P>Dren\u0101\u017eas un virszemes darbi</P></TI_TEXT></ML_TI_DOC><ML_TI_DOC LG=\"MT\"><TI_CY>il-\u0120ermanja</TI_CY><TI_TOWN>Magdeburg</TI_TOWN><TI_TEXT><P>Xog\u0127ol tad-drena\u0121\u0121 u\u00a0ta\u2019 l-u\u010bu\u0127</P></TI_TEXT></ML_TI_DOC><ML_TI_DOC LG=\"NL\"><TI_CY>Duitsland</TI_CY><TI_TOWN>Magdeburg</TI_TOWN><TI_TEXT><P>Afwaterings- en oppervlaktewerkzaamheden</P></TI_TEXT></ML_TI_DOC><ML_TI_DOC LG=\"PL\"><TI_CY>Niemcy</TI_CY><TI_TOWN>Magdeburg</TI_TOWN><TI_TEXT><P>Roboty odwadniaj\u0105ce i\u00a0nawierzchniowe</P></TI_TEXT></ML_TI_DOC><ML_TI_DOC LG=\"PT\"><TI_CY>Alemanha</TI_CY><TI_TOWN>Magdeburgo</TI_TOWN><TI_TEXT><P>Obras de drenagem e pavimenta\u00e7\u00e3o</P></TI_TEXT></ML_TI_DOC><ML_TI_DOC LG=\"RO\"><TI_CY>Germania</TI_CY><TI_TOWN>Magdeburg</TI_TOWN><TI_TEXT><P>Lucr\u0103ri de drenaj \u015fi lucr\u0103ri de suprafa\u0163\u0103</P></TI_TEXT></ML_TI_DOC><ML_TI_DOC LG=\"SK\"><TI_CY>Nemecko</TI_CY><TI_TOWN>Magdeburg</TI_TOWN><TI_TEXT><P>Odvod\u0148ovacie a\u00a0povrchov\u00e9 pr\u00e1ce</P></TI_TEXT></ML_TI_DOC><ML_TI_DOC LG=\"SL\"><TI_CY>Nem\u010dija</TI_CY><TI_TOWN>Magdeburg</TI_TOWN><TI_TEXT><P>Dela na odvodnjavanju in dela na povr\u0161ini</P></TI_TEXT></ML_TI_DOC><ML_TI_DOC LG=\"SV\"><TI_CY>Tyskland</TI_CY><TI_TOWN>Magdeburg</TI_TOWN><TI_TEXT><P>Dr\u00e4nerings- och markanl\u00e4ggningar</P></TI_TEXT></ML_TI_DOC></ML_TITLES><ML_AA_NAMES><AA_NAME LG=\"DE\">Land Sachsen-Anhalt vertreten durch Landesamt f\u00fcr Geologie und Bergwesen (LAGB) Sachsen-Anhalt Halle vertreten in Amtshilfe durch Landesanstalt f\u00fcr Altlastenfreistellung (LAF) des Landes Sachsen-Anhalt</AA_NAME></ML_AA_NAMES></TRANSLATION_SECTION><FORM_SECTION><F03_2014 CATEGORY=\"ORIGINAL\" FORM=\"F03\" LG=\"DE\"><LEGAL_BASIS VALUE=\"32014L0024\"/><CONTRACTING_BODY><ADDRESS_CONTRACTING_BODY><OFFICIALNAME>Land Sachsen-Anhalt vertreten durch Landesamt f\u00fcr Geologie und Bergwesen (LAGB) Sachsen-Anhalt Halle vertreten in Amtshilfe durch Landesanstalt f\u00fcr Altlastenfreistellung (LAF) des Landes Sachsen-Anhalt</OFFICIALNAME><ADDRESS>Maxim-Gorki-Stra\u00dfe 10</ADDRESS><TOWN>Magdeburg</TOWN><POSTAL_CODE>39108</POSTAL_CODE><COUNTRY VALUE=\"DE\"/><PHONE>+49 391-7444048</PHONE><E_MAIL>moeve@laf-lsa.de</E_MAIL><FAX>+49 391-7444070</FAX><n2016:NUTS CODE=\"DEE03\"/><URL_GENERAL>https://laf.sachsen-anhalt.de/</URL_GENERAL></ADDRESS_CONTRACTING_BODY><CA_TYPE VALUE=\"BODY_PUBLIC\"/><CA_ACTIVITY_OTHER>Altlastensanierung i.S.v. Artikel 1 \u00a7 4 Absatz 3 URaG</CA_ACTIVITY_OTHER></CONTRACTING_BODY><OBJECT_CONTRACT><TITLE><P>Gefahrenabwehr TTB Vehlitz, BA 1</P></TITLE><REFERENCE_NUMBER>V III-10-1b</REFERENCE_NUMBER><CPV_MAIN><CPV_CODE CODE=\"45232451\"/></CPV_MAIN><TYPE_CONTRACT CTYPE=\"WORKS\"/><SHORT_DESCR><P>Zur (Langzeit-) Sicherung des Standortes TTB Vehlitz ist vorgesehen, das Teilfeld I zu profilieren sowie die Teilfelder II Nord und S\u00fcd zu profilieren und mit qualifizierten Oberfl\u00e4chenabdichtungssystemen gem. DepV abzudichten. Hierzu geh\u00f6rt ferner die Herstellung einer funktionierenden Oberfl\u00e4chenentw\u00e4sserung innerhalb des Tontagebaus einschl. der Wiederherstellung der Vorfeldentw\u00e4sserung und der Vorflut sowie der Umr\u00fcstung des bereits vorhandenen Gasfassungssystems.</P></SHORT_DESCR><VAL_TOTAL CURRENCY=\"EUR\">7941130.09</VAL_TOTAL><NO_LOT_DIVISION/><OBJECT_DESCR ITEM=\"1\"><n2016:NUTS CODE=\"DEE06\"/><MAIN_SITE><P>Tontagebau Vehlitz</P><P>39291 Gommern OT Vehlitz</P></MAIN_SITE><SHORT_DESCR><P>Im Zuge der Sicherungsarbeiten sind folgende Leistungen durchzuf\u00fchren, die u. a. von einer externen Fremdpr\u00fcfung gem. DepV/ BQS 9-1 \u00fcberpr\u00fcft werden (TF I rd. 3 ha und TF II rd. 7,7 ha):</P><P>\u2014 Herstellung der geplanten Profilierungskonturen unter Verwendung des Ton- und Bodenmaterials im Bereich der Halde 1 sowie der s\u00fcdlich des TF I vorhandenen Bodenmiete;</P><P>\u2014 Herstellung einer Dr\u00e4nage zur Fassung des dem TF II S\u00fcd zuflie\u00dfenden hypodermischen Abflusses (Bodenwasserabfluss unterhalb der Oberfl\u00e4che);</P><P>\u2014 Verl\u00e4ngerung der Kollektorrohre der vorh. Gasbrunnen sowie der Grundwassermessstellen (Zug um Zug gem\u00e4\u00df Baufortschritt);</P><P>\u2014 Herstellung einer gasg\u00e4ngigen Trag- und Ausgleichsschicht im TF II Nord und S\u00fcd, d \u2265 20 cm;</P><P>\u2014 Herstellung Feinplanum;</P><P>\u2014 Herstellung Sandauflager f\u00fcr die GTD aus z.B. Kiessand 0/8, d \u2265 10 cm;</P><P>\u2014 Verlegung der GTD gem\u00e4\u00df den Vorgaben der Verlegeanleitung des Herstellers, mit fachgerechter Einbindung der Gasbrunnen und der Grundwassermessstellen (GWM) sowie Anschluss an die Entw\u00e4sserungsgr\u00e4ben;</P><P>\u2014 Verlegung der KDB mit BAM-Zulassung, d \u2265 2,5 mm, gem\u00e4\u00df Verlegeplan und den Vorgaben der BAM-Zulassung sowie der Standsicherheitsberechnungen, mit fachgerechter Einbindung der Gasbrunnen und der GWM sowie Anschluss an die Entw\u00e4sserungsgr\u00e4ben;</P><P>\u2014 Verlegung des geosynthetischen Drainelementes (GDE) mit BAM-Zulassung gem\u00e4\u00df Verlegeplan und den Vorgaben der BAM-Zulassung, mit fachgerechter Einbindung der Gasbrunnen und der GWM sowie Anschluss an die Entw\u00e4sserungsgr\u00e4ben;</P><P>\u2014 Herstellung der geplanten Einrichtungen zur gezielten Fassung und Ableitung des Oberfl\u00e4chenwassers im Bereich TF I (tlw.) und TF II Nord und S\u00fcd einschl. der im Entw\u00e4sserungsrigolenbereich geplanten Kontroll- und Wartungssch\u00e4chte;</P><P>\u2014 Herstellen eines Schotterkeils im TF II Nord entlang des Ostgrabens einschl. Verlegung eines Trenn- und Filtervlieses auf der R\u00fcckseite des Schotterkeils;</P><P>\u2014 Einbau von verdichtungsf\u00e4higem Boden als Unterbau f\u00fcr die Zufahrt und die Wartungswege, einschl. Einbau einer Frostschutzschicht aus Material 0/56 sowie einer ungebundenen Oberfl\u00e4chenbefestigung aus Schotter 0/32;</P><P>\u2014 Verlegung der Gasabsaugleitungen im TF II Nord und S\u00fcd mit Anschluss an die vorhandenen Gasbrunnen und die Gassammelstationen(GSS) in einer Bettungsschicht aus z. B. Sand 0/4;</P><P>\u2014 Einbau einer mind. 1,0 m m\u00e4chtigen Rekultivierungsschicht gem. DepV (bestehend aus 0,80 m Unterboden und 0,20 m Oberboden) mit anschlie\u00dfender Rasenansaat, einschlie\u00dflich Verlegung PEHD-Rohre da 110 innerhalb der Rekultivierungsschicht mit Anschluss an die Gasbrunnen;</P><P>\u2014 Herstellen/Ert\u00fcchtigung und Ausbau des S\u00fcd- und Ostgrabens;</P><P>\u2014 Herstellung und Abdichtung Westbecken (KDB mit Schutzvlies), einschl. Errichtung Doppelpumpstation und Verlegung Druckleitung bis zum geplanten Einleitpunkt im Bereich des S\u00fcdgrabens;</P><P>\u2014 Umsetzen der Verdichter-/Fackelanlage und der beiden Gassammelstationen GSS 1 und GSS 2 (einschl. Verl\u00e4ngerung der Stromzuf\u00fchrung bis zum neuen Standort der Verdichter-/Fackelanlage);</P><P>\u2014 R\u00fcckbau des alten Kondensatsammelschachtes und Errichtung eines neuen Kondensatsammelschachtes;</P><P>\u2014 Verlegung der Gasverbindungsleitungen (Gut-/Schlechtgas) mit Anschluss an die GSS, die Verdichter-/Fackelanlage sowie den neu zu errichtenden Kondensatsammelschacht</P><P>\u2014 Herstellung von Setzungspegeln;</P><P>\u2014 Verlegung Niederspannungs- und Datenkabel sowie Anschluss Niederspannungskabel an vorh. Mittelspannungsschaltanlage (Trafo).</P></SHORT_DESCR><AC><AC_PRICE/></AC><NO_OPTIONS/><NO_EU_PROGR_RELATED/></OBJECT_DESCR></OBJECT_CONTRACT><PROCEDURE><PT_OPEN/><CONTRACT_COVERED_GPA/><NOTICE_NUMBER_OJ>2020/S 185-445564</NOTICE_NUMBER_OJ></PROCEDURE><AWARD_CONTRACT ITEM=\"1\"><CONTRACT_NO>V III-10-1b</CONTRACT_NO><TITLE><P>Gefahrenabwehr TTB Vehlitz, BA 1</P></TITLE><AWARDED_CONTRACT><DATE_CONCLUSION_CONTRACT>2020-11-30</DATE_CONCLUSION_CONTRACT><TENDERS><NB_TENDERS_RECEIVED>4</NB_TENDERS_RECEIVED><NB_TENDERS_RECEIVED_SME>1</NB_TENDERS_RECEIVED_SME><NB_TENDERS_RECEIVED_OTHER_EU>0</NB_TENDERS_RECEIVED_OTHER_EU><NB_TENDERS_RECEIVED_NON_EU>0</NB_TENDERS_RECEIVED_NON_EU><NB_TENDERS_RECEIVED_EMEANS>4</NB_TENDERS_RECEIVED_EMEANS></TENDERS><CONTRACTORS><NO_AWARDED_TO_GROUP/><CONTRACTOR><ADDRESS_CONTRACTOR><OFFICIALNAME>TS Bau GmbH</OFFICIALNAME><ADDRESS>Am Flutgraben 1</ADDRESS><TOWN>Jena</TOWN><POSTAL_CODE>07743</POSTAL_CODE><COUNTRY VALUE=\"DE\"/><n2016:NUTS CODE=\"DEG03\"/></ADDRESS_CONTRACTOR><SME/></CONTRACTOR></CONTRACTORS><VALUES><VAL_TOTAL CURRENCY=\"EUR\">7941130.09</VAL_TOTAL></VALUES></AWARDED_CONTRACT></AWARD_CONTRACT><COMPLEMENTARY_INFO><INFO_ADD><P>Zur Best\u00e4tigung der Einhaltung von an die Vertragsausf\u00fchrungen gestellte Anforderungen sind die folgenden Erkl\u00e4rungen mit dem Angebot einzureichen:</P><P>1. Erkl\u00e4rung zur Tariftreue und Entgeltgleichheit (siehe Formblatt zu \u00a7 10 Abs. 1 und 3 LVG LSA);</P><P>2. Erkl\u00e4rung zur Beachtung der Kernarbeitsnormen der Internationalen Arbeitsorganisation (siehe Formblatt zu \u00a7 12 LVG LSA);</P><P>3. Falls erforderlich: Nachunternehmererkl\u00e4rung \u201eTariftreue und Entgeltgleichheit\u201c auf der Grundlage von \u00a7 10 und 15 Absatz 2 LVG Sachsen-Anhalt;</P><P>4. Falls erforderlich: Nachunternehmererkl\u00e4rung \u201eBeachtung der ILO-Kernarbeitsnormen\u201c auf der Grundlage von \u00a7 12 und 15 Absatz 2 LVG Sachsen-Anhalt;</P><P>5. Falls erforderlich: Erkl\u00e4rung zum Nachunternehmereinsatz (siehe Formblatt zu \u00a7 13 Abs. 2 und 4 LVG LSA);</P><P>6. Falls erforderlich: Erkl\u00e4rung der Bieter-/ Arbeitsgemeinschaft.</P><P>Im Falle von Bietergemeinschaften sind die in Nr. 1 und 6 aufgef\u00fchrten Erkl\u00e4rungen von allen Mitgliedern der Bietergemeinschaft vorzulegen.</P><P>Weitere Angabe in Form der \u201eVordrucke f\u00fcr Bietereigenerkl\u00e4rungen\u201c (Formbl\u00e4tter / Vordrucke der Vergabestelle).</P><P>1.1. Vordruck Nr. 3.1 Eigenerkl\u00e4rungen zu Ausschlussgr\u00fcnden gem\u00e4\u00df \u00a7 6e EU VOB/A.</P></INFO_ADD><ADDRESS_REVIEW_BODY><OFFICIALNAME>Landesverwaltungsamt Sachsen-Anhalt, 1. und 2. Vergabekammer</OFFICIALNAME><ADDRESS>Ernst-Kamieth-Stra\u00dfe 2</ADDRESS><TOWN>Halle (Saale)</TOWN><POSTAL_CODE>06112</POSTAL_CODE><COUNTRY VALUE=\"DE\"/><PHONE>+49 345-5141529</PHONE><E_MAIL>vergabekammer@lvwa.sachsen-anhalt.de</E_MAIL><FAX>+49 345-5141115</FAX></ADDRESS_REVIEW_BODY><REVIEW_PROCEDURE><P>Entsprechend der Regelungen in \u00a7 160 GWB:</P><P>\u00a7 160 Einleitung, Antrag</P><P>(1) Die Vergabekammer leitet ein Nachpr\u00fcfungsverfahren nur auf Antrag ein.</P><P>(2) Antragsbefugt ist jedes Unternehmen, das ein Interesse an dem \u00f6ffentlichen Auftrag oder der Konzession hat und eine Verletzung in seinen Rechten nach \u00a7 97 Absatz 6 durch Nichtbeachtung von Vergabevorschriften geltend macht. Dabei ist darzulegen, dass dem Unternehmen durch die behauptete Verletzung der Vergabevorschriften ein Schaden entstanden ist oder zu entstehen droht.</P><P>(3) Der Antrag ist unzul\u00e4ssig, soweit</P><P>1. der Antragsteller den geltend gemachten Versto\u00df gegen Vergabevorschriften vor Einreichen des Nachpr\u00fcfungsantrags erkannt und gegen\u00fcber dem Auftraggeber nicht innerhalb einer Frist von 10 Kalendertagen ger\u00fcgt hat; der Ablauf der Frist nach \u00a7 134 Absatz 2 bleibt unber\u00fchrt,</P><P>2. Verst\u00f6\u00dfe gegen Vergabevorschriften, die aufgrund der Bekanntmachung erkennbar sind, nicht sp\u00e4testens bis zum Ablauf der in der Bekanntmachung benannten Frist zur Bewerbung oder zur Angebotsabgabe gegen\u00fcber dem Auftraggeber ger\u00fcgt werden,</P><P>3. Verst\u00f6\u00dfe gegen Vergabevorschriften, die erst in den Vergabeunterlagen erkennbar sind, nicht sp\u00e4testens bis zum Ablauf der Frist zur Bewerbung oder zur Angebotsabgabe gegen\u00fcber dem Auftraggeber ger\u00fcgt werden,</P><P>4. mehr als 15 Kalendertage nach Eingang der Mitteilung des Auftraggebers, einer R\u00fcge nicht abhelfen zu wollen, vergangen sind.</P><P>Satz 1 gilt nicht bei einem Antrag auf Feststellung der Unwirksamkeit des Vertrags nach \u00a7 135 Absatz 1 Nummer 2. \u00a7 134 Absatz 1 Satz 2 bleibt unber\u00fchrt.</P></REVIEW_PROCEDURE><DATE_DISPATCH_NOTICE>2021-01-02</DATE_DISPATCH_NOTICE></COMPLEMENTARY_INFO></F03_2014></FORM_SECTION></TED_EXPORT>",
+    "xpath_coverage_validation": null
+  },
+  "xml_metadata": {
+    "unique_xpaths": [
+      "/TED_EXPORT/FORM_SECTION/F03_2014/AWARD_CONTRACT/AWARDED_CONTRACT/VALUES",
+      "/TED_EXPORT/CODED_DATA_SECTION/NOTICE_DATA/VALUES",
+      "/TED_EXPORT/FORM_SECTION/F03_2014/AWARD_CONTRACT/AWARDED_CONTRACT/VALUES/VAL_TOTAL/@CURRENCY",
+      "/TED_EXPORT/TRANSLATION_SECTION/ML_TITLES/ML_TI_DOC",
+      "/TED_EXPORT/FORM_SECTION/F03_2014/AWARD_CONTRACT/AWARDED_CONTRACT/TENDERS/NB_TENDERS_RECEIVED_SME",
+      "/TED_EXPORT/FORM_SECTION/F03_2014/AWARD_CONTRACT/AWARDED_CONTRACT/VALUES/VAL_TOTAL",
+      "/TED_EXPORT/CODED_DATA_SECTION/NOTICE_DATA/ISO_COUNTRY/@VALUE",
+      "/TED_EXPORT/LINKS_SECTION/OFFICIAL_FORMS_LINK",
+      "/TED_EXPORT/CODED_DATA_SECTION/CODIF_DATA/TD_DOCUMENT_TYPE/@CODE",
+      "/TED_EXPORT/CODED_DATA_SECTION/CODIF_DATA/RP_REGULATION",
+      "/TED_EXPORT/LINKS_SECTION/OFFICIAL_FORMS_LINK/@{http://www.w3.org/1999/xlink}type",
+      "/TED_EXPORT/LINKS_SECTION/ORIGINAL_NUTS_LINK/@{http://www.w3.org/1999/xlink}href",
+      "/TED_EXPORT/FORM_SECTION/F03_2014/AWARD_CONTRACT/AWARDED_CONTRACT/CONTRACTORS/CONTRACTOR/ADDRESS_CONTRACTOR/TOWN",
+      "/TED_EXPORT/FORM_SECTION/F03_2014/OBJECT_CONTRACT/OBJECT_DESCR/MAIN_SITE/P",
+      "/TED_EXPORT/CODED_DATA_SECTION/NOTICE_DATA/ORIGINAL_CPV/@CODE",
+      "/TED_EXPORT/FORM_SECTION/F03_2014/COMPLEMENTARY_INFO/ADDRESS_REVIEW_BODY/POSTAL_CODE",
+      "/TED_EXPORT/TECHNICAL_SECTION",
+      "/TED_EXPORT/@VERSION",
+      "/TED_EXPORT/FORM_SECTION/F03_2014/CONTRACTING_BODY/ADDRESS_CONTRACTING_BODY/OFFICIALNAME",
+      "/TED_EXPORT/CODED_DATA_SECTION/NOTICE_DATA/PERFORMANCE_NUTS",
+      "/TED_EXPORT/FORM_SECTION/F03_2014/OBJECT_CONTRACT/OBJECT_DESCR/MAIN_SITE",
+      "/TED_EXPORT/FORM_SECTION/F03_2014/OBJECT_CONTRACT/TYPE_CONTRACT/@CTYPE",
+      "/TED_EXPORT/CODED_DATA_SECTION/REF_OJS",
+      "/TED_EXPORT/CODED_DATA_SECTION/CODIF_DATA/AA_AUTHORITY_TYPE",
+      "/TED_EXPORT/LINKS_SECTION/XML_SCHEMA_DEFINITION_LINK",
+      "/TED_EXPORT/CODED_DATA_SECTION/CODIF_DATA",
+      "/TED_EXPORT/CODED_DATA_SECTION/NOTICE_DATA/URI_LIST/URI_DOC/@LG",
+      "/TED_EXPORT/TRANSLATION_SECTION/ML_TITLES/ML_TI_DOC/TI_TEXT/P",
+      "/TED_EXPORT/@{http://www.w3.org/2001/XMLSchema-instance}schemaLocation",
+      "/TED_EXPORT/FORM_SECTION/F03_2014/OBJECT_CONTRACT",
+      "/TED_EXPORT/FORM_SECTION/F03_2014/COMPLEMENTARY_INFO/ADDRESS_REVIEW_BODY/TOWN",
+      "/TED_EXPORT/CODED_DATA_SECTION/NOTICE_DATA/REF_NOTICE",
+      "/TED_EXPORT/CODED_DATA_SECTION/NOTICE_DATA/TENDERER_NUTS",
+      "/TED_EXPORT/FORM_SECTION/F03_2014/AWARD_CONTRACT/AWARDED_CONTRACT/CONTRACTORS/CONTRACTOR/ADDRESS_CONTRACTOR/COUNTRY",
+      "/TED_EXPORT/FORM_SECTION/F03_2014/COMPLEMENTARY_INFO/ADDRESS_REVIEW_BODY/ADDRESS",
+      "/TED_EXPORT/FORM_SECTION/F03_2014/OBJECT_CONTRACT/VAL_TOTAL",
+      "/TED_EXPORT/FORM_SECTION",
+      "/TED_EXPORT/TRANSLATION_SECTION/ML_TITLES/ML_TI_DOC/TI_CY",
+      "/TED_EXPORT/FORM_SECTION/F03_2014/PROCEDURE/PT_OPEN",
+      "/TED_EXPORT/CODED_DATA_SECTION/NOTICE_DATA/NO_DOC_OJS",
+      "/TED_EXPORT/CODED_DATA_SECTION/NOTICE_DATA/VALUES/VALUE/@CURRENCY",
+      "/TED_EXPORT/FORM_SECTION/F03_2014/CONTRACTING_BODY/ADDRESS_CONTRACTING_BODY/TOWN",
+      "/TED_EXPORT/CODED_DATA_SECTION/NOTICE_DATA/URI_LIST/URI_DOC",
+      "/TED_EXPORT/CODED_DATA_SECTION/NOTICE_DATA/REF_NOTICE/NO_DOC_OJS",
+      "/TED_EXPORT/FORM_SECTION/F03_2014/CONTRACTING_BODY/ADDRESS_CONTRACTING_BODY/URL_GENERAL",
+      "/TED_EXPORT/CODED_DATA_SECTION/REF_OJS/NO_OJ",
+      "/TED_EXPORT/FORM_SECTION/F03_2014/COMPLEMENTARY_INFO",
+      "/TED_EXPORT/FORM_SECTION/F03_2014/@CATEGORY",
+      "/TED_EXPORT/FORM_SECTION/F03_2014/@LG",
+      "/TED_EXPORT/CODED_DATA_SECTION/REF_OJS/COLL_OJ",
+      "/TED_EXPORT/FORM_SECTION/F03_2014/OBJECT_CONTRACT/OBJECT_DESCR/AC/AC_PRICE",
+      "/TED_EXPORT/FORM_SECTION/F03_2014/AWARD_CONTRACT/CONTRACT_NO",
+      "/TED_EXPORT/LINKS_SECTION/ORIGINAL_NUTS_LINK",
+      "/TED_EXPORT/FORM_SECTION/F03_2014",
+      "/TED_EXPORT/TRANSLATION_SECTION/ML_TITLES",
+      "/TED_EXPORT/FORM_SECTION/F03_2014/AWARD_CONTRACT/AWARDED_CONTRACT/CONTRACTORS",
+      "/TED_EXPORT/FORM_SECTION/F03_2014/OBJECT_CONTRACT/TITLE",
+      "/TED_EXPORT/TRANSLATION_SECTION",
+      "/TED_EXPORT/FORM_SECTION/F03_2014/COMPLEMENTARY_INFO/REVIEW_PROCEDURE",
+      "/TED_EXPORT/FORM_SECTION/F03_2014/AWARD_CONTRACT/AWARDED_CONTRACT/TENDERS/NB_TENDERS_RECEIVED_NON_EU",
+      "/TED_EXPORT/TECHNICAL_SECTION/RECEPTION_ID",
+      "/TED_EXPORT/FORM_SECTION/F03_2014/AWARD_CONTRACT/AWARDED_CONTRACT/CONTRACTORS/NO_AWARDED_TO_GROUP",
+      "/TED_EXPORT/CODED_DATA_SECTION/CODIF_DATA/RP_REGULATION/@CODE",
+      "/TED_EXPORT/FORM_SECTION/F03_2014/AWARD_CONTRACT/AWARDED_CONTRACT/CONTRACTORS/CONTRACTOR/ADDRESS_CONTRACTOR/NUTS/@CODE",
+      "/TED_EXPORT/FORM_SECTION/F03_2014/OBJECT_CONTRACT/CPV_MAIN/CPV_CODE/@CODE",
+      "/TED_EXPORT/FORM_SECTION/F03_2014/OBJECT_CONTRACT/OBJECT_DESCR/NUTS/@CODE",
+      "/TED_EXPORT/FORM_SECTION/F03_2014/OBJECT_CONTRACT/TYPE_CONTRACT",
+      "/TED_EXPORT/FORM_SECTION/F03_2014/PROCEDURE/NOTICE_NUMBER_OJ",
+      "/TED_EXPORT/TECHNICAL_SECTION/DELETION_DATE",
+      "/TED_EXPORT/LINKS_SECTION/FORMS_LABELS_LINK/@{http://www.w3.org/1999/xlink}href",
+      "/TED_EXPORT/FORM_SECTION/F03_2014/OBJECT_CONTRACT/SHORT_DESCR",
+      "/TED_EXPORT/CODED_DATA_SECTION/CODIF_DATA/AA_AUTHORITY_TYPE/@CODE",
+      "/TED_EXPORT/TECHNICAL_SECTION/COMMENTS",
+      "/TED_EXPORT/CODED_DATA_SECTION/CODIF_DATA/TY_TYPE_BID/@CODE",
+      "/TED_EXPORT/FORM_SECTION/F03_2014/AWARD_CONTRACT/AWARDED_CONTRACT/TENDERS/NB_TENDERS_RECEIVED_EMEANS",
+      "/TED_EXPORT/FORM_SECTION/F03_2014/PROCEDURE/CONTRACT_COVERED_GPA",
+      "/TED_EXPORT/CODED_DATA_SECTION/NOTICE_DATA/ISO_COUNTRY",
+      "/TED_EXPORT/LINKS_SECTION/ORIGINAL_CPV_LINK/@{http://www.w3.org/1999/xlink}href",
+      "/TED_EXPORT/FORM_SECTION/F03_2014/OBJECT_CONTRACT/TITLE/P",
+      "/TED_EXPORT/FORM_SECTION/F03_2014/COMPLEMENTARY_INFO/ADDRESS_REVIEW_BODY/COUNTRY/@VALUE",
+      "/TED_EXPORT/CODED_DATA_SECTION/NOTICE_DATA/VALUES/VALUE/@TYPE",
+      "/TED_EXPORT/FORM_SECTION/F03_2014/CONTRACTING_BODY/ADDRESS_CONTRACTING_BODY/E_MAIL",
+      "/TED_EXPORT/FORM_SECTION/F03_2014/COMPLEMENTARY_INFO/REVIEW_PROCEDURE/P",
+      "/TED_EXPORT/FORM_SECTION/F03_2014/AWARD_CONTRACT/@ITEM",
+      "/TED_EXPORT/FORM_SECTION/F03_2014/OBJECT_CONTRACT/OBJECT_DESCR",
+      "/TED_EXPORT/FORM_SECTION/F03_2014/CONTRACTING_BODY/ADDRESS_CONTRACTING_BODY/COUNTRY",
+      "/TED_EXPORT/CODED_DATA_SECTION/NOTICE_DATA/CA_CE_NUTS/@CODE",
+      "/TED_EXPORT/LINKS_SECTION/FORMS_LABELS_LINK",
+      "/TED_EXPORT/FORM_SECTION/F03_2014/CONTRACTING_BODY/ADDRESS_CONTRACTING_BODY/PHONE",
+      "/TED_EXPORT/FORM_SECTION/F03_2014/AWARD_CONTRACT/AWARDED_CONTRACT/TENDERS/NB_TENDERS_RECEIVED",
+      "/TED_EXPORT/CODED_DATA_SECTION/NOTICE_DATA/VALUES/VALUE",
+      "/TED_EXPORT/CODED_DATA_SECTION/NOTICE_DATA/URI_LIST",
+      "/TED_EXPORT/FORM_SECTION/F03_2014/CONTRACTING_BODY/ADDRESS_CONTRACTING_BODY/COUNTRY/@VALUE",
+      "/TED_EXPORT/FORM_SECTION/F03_2014/COMPLEMENTARY_INFO/INFO_ADD/P",
+      "/TED_EXPORT/FORM_SECTION/F03_2014/AWARD_CONTRACT/AWARDED_CONTRACT/CONTRACTORS/CONTRACTOR/SME",
+      "/TED_EXPORT/LINKS_SECTION/FORMS_LABELS_LINK/@{http://www.w3.org/1999/xlink}type",
+      "/TED_EXPORT/FORM_SECTION/F03_2014/OBJECT_CONTRACT/CPV_MAIN",
+      "/TED_EXPORT/FORM_SECTION/F03_2014/AWARD_CONTRACT/AWARDED_CONTRACT/DATE_CONCLUSION_CONTRACT",
+      "/TED_EXPORT/FORM_SECTION/F03_2014/OBJECT_CONTRACT/OBJECT_DESCR/SHORT_DESCR",
+      "/TED_EXPORT/FORM_SECTION/F03_2014/AWARD_CONTRACT/AWARDED_CONTRACT/CONTRACTORS/CONTRACTOR/ADDRESS_CONTRACTOR/OFFICIALNAME",
+      "/TED_EXPORT/LINKS_SECTION/XML_SCHEMA_DEFINITION_LINK/@{http://www.w3.org/1999/xlink}type",
+      "/TED_EXPORT/CODED_DATA_SECTION/CODIF_DATA/INITIATOR",
+      "/TED_EXPORT",
+      "/TED_EXPORT/FORM_SECTION/F03_2014/AWARD_CONTRACT/AWARDED_CONTRACT/CONTRACTORS/CONTRACTOR/ADDRESS_CONTRACTOR/ADDRESS",
+      "/TED_EXPORT/CODED_DATA_SECTION/CODIF_DATA/AC_AWARD_CRIT",
+      "/TED_EXPORT/FORM_SECTION/F03_2014/COMPLEMENTARY_INFO/ADDRESS_REVIEW_BODY/FAX",
+      "/TED_EXPORT/LINKS_SECTION",
+      "/TED_EXPORT/CODED_DATA_SECTION/NOTICE_DATA/LG_ORIG",
+      "/TED_EXPORT/FORM_SECTION/F03_2014/COMPLEMENTARY_INFO/ADDRESS_REVIEW_BODY/E_MAIL",
+      "/TED_EXPORT/TRANSLATION_SECTION/ML_AA_NAMES",
+      "/TED_EXPORT/CODED_DATA_SECTION/CODIF_DATA/NC_CONTRACT_NATURE",
+      "/TED_EXPORT/FORM_SECTION/F03_2014/OBJECT_CONTRACT/OBJECT_DESCR/NO_OPTIONS",
+      "/TED_EXPORT/FORM_SECTION/F03_2014/AWARD_CONTRACT/AWARDED_CONTRACT",
+      "/TED_EXPORT/CODED_DATA_SECTION/NOTICE_DATA/ORIGINAL_CPV",
+      "/TED_EXPORT/FORM_SECTION/F03_2014/COMPLEMENTARY_INFO/INFO_ADD",
+      "/TED_EXPORT/LINKS_SECTION/ORIGINAL_NUTS_LINK/@{http://www.w3.org/1999/xlink}type",
+      "/TED_EXPORT/TRANSLATION_SECTION/ML_TITLES/ML_TI_DOC/TI_TEXT",
+      "/TED_EXPORT/LINKS_SECTION/ORIGINAL_CPV_LINK",
+      "/TED_EXPORT/LINKS_SECTION/OFFICIAL_FORMS_LINK/@{http://www.w3.org/1999/xlink}href",
+      "/TED_EXPORT/FORM_SECTION/F03_2014/CONTRACTING_BODY/ADDRESS_CONTRACTING_BODY/NUTS",
+      "/TED_EXPORT/CODED_DATA_SECTION",
+      "/TED_EXPORT/FORM_SECTION/F03_2014/OBJECT_CONTRACT/OBJECT_DESCR/AC",
+      "/TED_EXPORT/FORM_SECTION/F03_2014/CONTRACTING_BODY/CA_TYPE/@VALUE",
+      "/TED_EXPORT/FORM_SECTION/F03_2014/CONTRACTING_BODY/ADDRESS_CONTRACTING_BODY/POSTAL_CODE",
+      "/TED_EXPORT/FORM_SECTION/F03_2014/CONTRACTING_BODY/ADDRESS_CONTRACTING_BODY/NUTS/@CODE",
+      "/TED_EXPORT/FORM_SECTION/F03_2014/PROCEDURE",
+      "/TED_EXPORT/FORM_SECTION/F03_2014/COMPLEMENTARY_INFO/ADDRESS_REVIEW_BODY/PHONE",
+      "/TED_EXPORT/CODED_DATA_SECTION/CODIF_DATA/TY_TYPE_BID",
+      "/TED_EXPORT/FORM_SECTION/F03_2014/OBJECT_CONTRACT/VAL_TOTAL/@CURRENCY",
+      "/TED_EXPORT/CODED_DATA_SECTION/CODIF_DATA/AC_AWARD_CRIT/@CODE",
+      "/TED_EXPORT/FORM_SECTION/F03_2014/CONTRACTING_BODY/CA_TYPE",
+      "/TED_EXPORT/CODED_DATA_SECTION/CODIF_DATA/HEADING",
+      "/TED_EXPORT/FORM_SECTION/F03_2014/@FORM",
+      "/TED_EXPORT/FORM_SECTION/F03_2014/OBJECT_CONTRACT/REFERENCE_NUMBER",
+      "/TED_EXPORT/CODED_DATA_SECTION/CODIF_DATA/PR_PROC/@CODE",
+      "/TED_EXPORT/CODED_DATA_SECTION/REF_OJS/DATE_PUB",
+      "/TED_EXPORT/LINKS_SECTION/XML_SCHEMA_DEFINITION_LINK/@{http://www.w3.org/1999/xlink}href",
+      "/TED_EXPORT/CODED_DATA_SECTION/NOTICE_DATA",
+      "/TED_EXPORT/@DOC_ID",
+      "/TED_EXPORT/LINKS_SECTION/XML_SCHEMA_DEFINITION_LINK/@{http://www.w3.org/1999/xlink}title",
+      "/TED_EXPORT/FORM_SECTION/F03_2014/CONTRACTING_BODY/ADDRESS_CONTRACTING_BODY",
+      "/TED_EXPORT/FORM_SECTION/F03_2014/AWARD_CONTRACT/AWARDED_CONTRACT/CONTRACTORS/CONTRACTOR",
+      "/TED_EXPORT/FORM_SECTION/F03_2014/LEGAL_BASIS",
+      "/TED_EXPORT/FORM_SECTION/F03_2014/AWARD_CONTRACT/AWARDED_CONTRACT/TENDERS",
+      "/TED_EXPORT/FORM_SECTION/F03_2014/AWARD_CONTRACT/TITLE/P",
+      "/TED_EXPORT/CODED_DATA_SECTION/CODIF_DATA/MA_MAIN_ACTIVITIES",
+      "/TED_EXPORT/FORM_SECTION/F03_2014/AWARD_CONTRACT/AWARDED_CONTRACT/CONTRACTORS/CONTRACTOR/ADDRESS_CONTRACTOR/COUNTRY/@VALUE",
+      "/TED_EXPORT/FORM_SECTION/F03_2014/OBJECT_CONTRACT/OBJECT_DESCR/NO_EU_PROGR_RELATED",
+      "/TED_EXPORT/FORM_SECTION/F03_2014/CONTRACTING_BODY/ADDRESS_CONTRACTING_BODY/ADDRESS",
+      "/TED_EXPORT/FORM_SECTION/F03_2014/AWARD_CONTRACT/AWARDED_CONTRACT/CONTRACTORS/CONTRACTOR/ADDRESS_CONTRACTOR/POSTAL_CODE",
+      "/TED_EXPORT/CODED_DATA_SECTION/CODIF_DATA/MA_MAIN_ACTIVITIES/@CODE",
+      "/TED_EXPORT/FORM_SECTION/F03_2014/CONTRACTING_BODY/ADDRESS_CONTRACTING_BODY/FAX",
+      "/TED_EXPORT/FORM_SECTION/F03_2014/OBJECT_CONTRACT/SHORT_DESCR/P",
+      "/TED_EXPORT/FORM_SECTION/F03_2014/AWARD_CONTRACT/AWARDED_CONTRACT/TENDERS/NB_TENDERS_RECEIVED_OTHER_EU",
+      "/TED_EXPORT/FORM_SECTION/F03_2014/OBJECT_CONTRACT/OBJECT_DESCR/NUTS",
+      "/TED_EXPORT/FORM_SECTION/F03_2014/COMPLEMENTARY_INFO/ADDRESS_REVIEW_BODY",
+      "/TED_EXPORT/FORM_SECTION/F03_2014/LEGAL_BASIS/@VALUE",
+      "/TED_EXPORT/CODED_DATA_SECTION/CODIF_DATA/TD_DOCUMENT_TYPE",
+      "/TED_EXPORT/TRANSLATION_SECTION/ML_TITLES/ML_TI_DOC/TI_TOWN",
+      "/TED_EXPORT/FORM_SECTION/F03_2014/CONTRACTING_BODY/CA_ACTIVITY_OTHER",
+      "/TED_EXPORT/FORM_SECTION/F03_2014/OBJECT_CONTRACT/OBJECT_DESCR/SHORT_DESCR/P",
+      "/TED_EXPORT/FORM_SECTION/F03_2014/AWARD_CONTRACT/TITLE",
+      "/TED_EXPORT/FORM_SECTION/F03_2014/OBJECT_CONTRACT/NO_LOT_DIVISION",
+      "/TED_EXPORT/CODED_DATA_SECTION/CODIF_DATA/DS_DATE_DISPATCH",
+      "/TED_EXPORT/@EDITION",
+      "/TED_EXPORT/CODED_DATA_SECTION/CODIF_DATA/PR_PROC",
+      "/TED_EXPORT/TRANSLATION_SECTION/ML_TITLES/ML_TI_DOC/@LG",
+      "/TED_EXPORT/TRANSLATION_SECTION/ML_AA_NAMES/AA_NAME",
+      "/TED_EXPORT/FORM_SECTION/F03_2014/OBJECT_CONTRACT/CPV_MAIN/CPV_CODE",
+      "/TED_EXPORT/CODED_DATA_SECTION/NOTICE_DATA/PERFORMANCE_NUTS/@CODE",
+      "/TED_EXPORT/FORM_SECTION/F03_2014/OBJECT_CONTRACT/OBJECT_DESCR/@ITEM",
+      "/TED_EXPORT/LINKS_SECTION/ORIGINAL_CPV_LINK/@{http://www.w3.org/1999/xlink}type",
+      "/TED_EXPORT/TRANSLATION_SECTION/ML_AA_NAMES/AA_NAME/@LG",
+      "/TED_EXPORT/CODED_DATA_SECTION/NOTICE_DATA/TENDERER_NUTS/@CODE",
+      "/TED_EXPORT/CODED_DATA_SECTION/CODIF_DATA/NC_CONTRACT_NATURE/@CODE",
+      "/TED_EXPORT/FORM_SECTION/F03_2014/AWARD_CONTRACT",
+      "/TED_EXPORT/TECHNICAL_SECTION/FORM_LG_LIST",
+      "/TED_EXPORT/FORM_SECTION/F03_2014/COMPLEMENTARY_INFO/ADDRESS_REVIEW_BODY/COUNTRY",
+      "/TED_EXPORT/FORM_SECTION/F03_2014/CONTRACTING_BODY",
+      "/TED_EXPORT/FORM_SECTION/F03_2014/AWARD_CONTRACT/AWARDED_CONTRACT/CONTRACTORS/CONTRACTOR/ADDRESS_CONTRACTOR/NUTS",
+      "/TED_EXPORT/CODED_DATA_SECTION/NOTICE_DATA/IA_URL_GENERAL",
+      "/TED_EXPORT/FORM_SECTION/F03_2014/COMPLEMENTARY_INFO/ADDRESS_REVIEW_BODY/OFFICIALNAME",
+      "/TED_EXPORT/FORM_SECTION/F03_2014/AWARD_CONTRACT/AWARDED_CONTRACT/CONTRACTORS/CONTRACTOR/ADDRESS_CONTRACTOR",
+      "/TED_EXPORT/CODED_DATA_SECTION/NOTICE_DATA/CA_CE_NUTS",
+      "/TED_EXPORT/FORM_SECTION/F03_2014/COMPLEMENTARY_INFO/DATE_DISPATCH_NOTICE"
+    ]
+  },
+  "validation_summary": null,
+  "distilled_rdf_manifestation": {
+    "object_data": "@prefix cccev: <http://data.europa.eu/m8g/> .\n@prefix dct: <http://purl.org/dc/terms/> .\n@prefix epd: <http://data.europa.eu/a4g/resource/> .\n@prefix epo: <http://data.europa.eu/a4g/ontology#> .\n@prefix legal: <https://www.w3.org/ns/legal#> .\n@prefix locn: <http://www.w3.org/ns/locn#> .\n@prefix org: <http://www.w3.org/ns/org#> .\n@prefix owl: <http://www.w3.org/2002/07/owl#> .\n@prefix ql: <http://semweb.mmlab.be/ns/ql#> .\n@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .\n@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .\n@prefix rml: <http://semweb.mmlab.be/ns/rml#> .\n@prefix rr: <http://www.w3.org/ns/r2rml#> .\n@prefix skos: <http://www.w3.org/2004/02/skos/core#> .\n@prefix tedm: <http://data.europa.eu/a4g/mapping/sf-rml/> .\n@prefix time: <http://www.w3.org/2006/time#> .\n@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\n\n<http://data.europa.eu/a4g/resource/AwardCriterionPrice/2021-S-004-003544/cea6c4e8-8bd0-3457-a165-46d870d5a6f4>\n  a epo:AwardCriterion;\n  epo:hasAwardCriterionType <http://publications.europa.eu/resource/authority/award-criterion-type/price> .\n\n<http://data.europa.eu/a4g/resource/Buyer/2021-S-004-003544/f3b5cfa6-95c6-37b5-9667-808a141fe995>\n  a epo:Buyer;\n  epo:hasContactPointInRole <http://data.europa.eu/a4g/resource/ContactPoint/2021-S-004-003544/ab152979-15bf-30c3-b6f3-e0c554cfa9d0>;\n  epo:playedBy <http://data.europa.eu/a4g/resource/Organisation/2021-S-004-003544/ab152979-15bf-30c3-b6f3-e0c554cfa9d0> .\n\n<http://data.europa.eu/a4g/resource/ContactPoint/2021-S-004-003544/ab152979-15bf-30c3-b6f3-e0c554cfa9d0>\n  a cccev:ContactPoint;\n  epo:hasFax \"+49 391-7444070\";\n  epo:hasInternetAddress \"https://laf.sachsen-anhalt.de/\";\n  cccev:email \"moeve@laf-lsa.de\";\n  cccev:telephone \"+49 391-7444048\" .\n\n<http://data.europa.eu/a4g/resource/Contract/2021-S-004-003544/0c434fb4-13b2-3f81-9fb1-7ec07b891bd2>\n  a epo:Contract;\n  epo:hasContractConclusionDate \"2020-11-30\"^^xsd:date;\n  epo:hasID <http://data.europa.eu/a4g/resource/ContractIdentifier/2021-S-004-003544/0c434fb4-13b2-3f81-9fb1-7ec07b891bd2>;\n  epo:hasTitle \"Gefahrenabwehr TTB Vehlitz, BA 1\"@de;\n  epo:includesLot <http://data.europa.eu/a4g/resource/Lot/2021-S-004-003544/cbac108a-b047-3e09-a114-28c43d5b8706>;\n  epo:includesLotAwardOutcome <http://data.europa.eu/a4g/resource/LotAwardOutcome/2021-S-004-003544/0c434fb4-13b2-3f81-9fb1-7ec07b891bd2> .\n\n<http://data.europa.eu/a4g/resource/ContractIdentifier/2021-S-004-003544/0c434fb4-13b2-3f81-9fb1-7ec07b891bd2>\n  a epo:Identifier;\n  epo:hasIdentifierValue \"V III-10-1b\" .\n\n<http://data.europa.eu/a4g/resource/ContractOrganisation/2021-S-004-003544/b9a7c460-794b-36b5-a069-6e9a637315f4>\n  a epo:Business, org:Organization;\n  epo:hasBusinessSize <http://publications.europa.eu/resource/authority/economic-operator-size/sme>;\n  epo:hasLegalName \"TS Bau GmbH\"@de;\n  legal:registeredAddress <http://data.europa.eu/a4g/resource/ContractOrganisationAddress/2021-S-004-003544/b9a7c460-794b-36b5-a069-6e9a637315f4> .\n\n<http://data.europa.eu/a4g/resource/ContractOrganisationAddress/2021-S-004-003544/b9a7c460-794b-36b5-a069-6e9a637315f4>\n  a locn:Address;\n  epo:hasCountryCode <http://publications.europa.eu/resource/authority/country/DEU>;\n  epo:hasNutsCode <http://data.europa.eu/nuts/code/DEG03>;\n  locn:postCode \"07743\";\n  locn:postName \"Jena\";\n  locn:thoroughfare \"Am Flutgraben 1\" .\n\n<http://data.europa.eu/a4g/resource/ContractTerm/2021-S-004-003544/cbac108a-b047-3e09-a114-28c43d5b8706>\n  a epo:ContractTerm;\n  epo:definesSpecificPlaceOfPerformance <http://data.europa.eu/a4g/resource/ContractTermLocation/2021-S-004-003544/cbac108a-b047-3e09-a114-28c43d5b8706>;\n  epo:hasOptions false .\n\n<http://data.europa.eu/a4g/resource/ContractTermLocation/2021-S-004-003544/cbac108a-b047-3e09-a114-28c43d5b8706>\n  a dct:Location;\n  epo:hasNutsCode <http://data.europa.eu/nuts/code/DEE06>;\n  locn:address <http://data.europa.eu/a4g/resource/ContractTermeLocationAddress/2021-S-004-003544/cbac108a-b047-3e09-a114-28c43d5b8706> .\n\n<http://data.europa.eu/a4g/resource/ContractTermeLocationAddress/2021-S-004-003544/cbac108a-b047-3e09-a114-28c43d5b8706>\n  a locn:Address;\n  locn:fullAddress \"Tontagebau Vehlitz39291 Gommern OT Vehlitz\"@de .\n\n<http://data.europa.eu/a4g/resource/Lot/2021-S-004-003544/cbac108a-b047-3e09-a114-28c43d5b8706>\n  a epo:Lot;\n  epo:foreseesContractSpecificTerm <http://data.europa.eu/a4g/resource/ContractTerm/2021-S-004-003544/cbac108a-b047-3e09-a114-28c43d5b8706>;\n  epo:hasDescription \"Im Zuge der Sicherungsarbeiten sind folgende Leistungen durchzuf\u00fchren, die u. a. von einer externen Fremdpr\u00fcfung gem. DepV/ BQS 9-1 \u00fcberpr\u00fcft werden (TF I rd. 3 ha und TF II rd. 7,7 ha):\u2014 Herstellung der geplanten Profilierungskonturen unter Verwendung des Ton- und Bodenmaterials im Bereich der Halde 1 sowie der s\u00fcdlich des TF I vorhandenen Bodenmiete;\u2014 Herstellung einer Dr\u00e4nage zur Fassung des dem TF II S\u00fcd zuflie\u00dfenden hypodermischen Abflusses (Bodenwasserabfluss unterhalb der Oberfl\u00e4che);\u2014 Verl\u00e4ngerung der Kollektorrohre der vorh. Gasbrunnen sowie der Grundwassermessstellen (Zug um Zug gem\u00e4\u00df Baufortschritt);\u2014 Herstellung einer gasg\u00e4ngigen Trag- und Ausgleichsschicht im TF II Nord und S\u00fcd, d \u2265 20 cm;\u2014 Herstellung Feinplanum;\u2014 Herstellung Sandauflager f\u00fcr die GTD aus z.B. Kiessand 0/8, d \u2265 10 cm;\u2014 Verlegung der GTD gem\u00e4\u00df den Vorgaben der Verlegeanleitung des Herstellers, mit fachgerechter Einbindung der Gasbrunnen und der Grundwassermessstellen (GWM) sowie Anschluss an die Entw\u00e4sserungsgr\u00e4ben;\u2014 Verlegung der KDB mit BAM-Zulassung, d \u2265 2,5 mm, gem\u00e4\u00df Verlegeplan und den Vorgaben der BAM-Zulassung sowie der Standsicherheitsberechnungen, mit fachgerechter Einbindung der Gasbrunnen und der GWM sowie Anschluss an die Entw\u00e4sserungsgr\u00e4ben;\u2014 Verlegung des geosynthetischen Drainelementes (GDE) mit BAM-Zulassung gem\u00e4\u00df Verlegeplan und den Vorgaben der BAM-Zulassung, mit fachgerechter Einbindung der Gasbrunnen und der GWM sowie Anschluss an die Entw\u00e4sserungsgr\u00e4ben;\u2014 Herstellung der geplanten Einrichtungen zur gezielten Fassung und Ableitung des Oberfl\u00e4chenwassers im Bereich TF I (tlw.) und TF II Nord und S\u00fcd einschl. der im Entw\u00e4sserungsrigolenbereich geplanten Kontroll- und Wartungssch\u00e4chte;\u2014 Herstellen eines Schotterkeils im TF II Nord entlang des Ostgrabens einschl. Verlegung eines Trenn- und Filtervlieses auf der R\u00fcckseite des Schotterkeils;\u2014 Einbau von verdichtungsf\u00e4higem Boden als Unterbau f\u00fcr die Zufahrt und die Wartungswege, einschl. Einbau einer Frostschutzschicht aus Material 0/56 sowie einer ungebundenen Oberfl\u00e4chenbefestigung aus Schotter 0/32;\u2014 Verlegung der Gasabsaugleitungen im TF II Nord und S\u00fcd mit Anschluss an die vorhandenen Gasbrunnen und die Gassammelstationen(GSS) in einer Bettungsschicht aus z. B. Sand 0/4;\u2014 Einbau einer mind. 1,0 m m\u00e4chtigen Rekultivierungsschicht gem. DepV (bestehend aus 0,80 m Unterboden und 0,20 m Oberboden) mit anschlie\u00dfender Rasenansaat, einschlie\u00dflich Verlegung PEHD-Rohre da 110 innerhalb der Rekultivierungsschicht mit Anschluss an die Gasbrunnen;\u2014 Herstellen/Ert\u00fcchtigung und Ausbau des S\u00fcd- und Ostgrabens;\u2014 Herstellung und Abdichtung Westbecken (KDB mit Schutzvlies), einschl. Errichtung Doppelpumpstation und Verlegung Druckleitung bis zum geplanten Einleitpunkt im Bereich des S\u00fcdgrabens;\u2014 Umsetzen der Verdichter-/Fackelanlage und der beiden Gassammelstationen GSS 1 und GSS 2 (einschl. Verl\u00e4ngerung der Stromzuf\u00fchrung bis zum neuen Standort der Verdichter-/Fackelanlage);\u2014 R\u00fcckbau des alten Kondensatsammelschachtes und Errichtung eines neuen Kondensatsammelschachtes;\u2014 Verlegung der Gasverbindungsleitungen (Gut-/Schlechtgas) mit Anschluss an die GSS, die Verdichter-/Fackelanlage sowie den neu zu errichtenden Kondensatsammelschacht\u2014 Herstellung von Setzungspegeln;\u2014 Verlegung Niederspannungs- und Datenkabel sowie Anschluss Niederspannungskabel an vorh. Mittelspannungsschaltanlage (Trafo).\"@de;\n  epo:isSubjectToLotSpecificTerm <http://data.europa.eu/a4g/resource/ReviewTerm/2021-S-004-003544/c396feff-0750-3296-8f73-f0464e1726ac>;\n  epo:isUsingEUFunds false;\n  epo:specifiesAwardCriterion <http://data.europa.eu/a4g/resource/AwardCriterionPrice/2021-S-004-003544/cea6c4e8-8bd0-3457-a165-46d870d5a6f4> .\n\n<http://data.europa.eu/a4g/resource/LotAwardOutcome/2021-S-004-003544/0c434fb4-13b2-3f81-9fb1-7ec07b891bd2>\n  a epo:LotAwardOutcome;\n  epo:comprisesTenderAwardOutcome <http://data.europa.eu/a4g/resource/TenderAwardOutcome/2021-S-004-003544/82b174c6-1f18-3b11-acf2-00977eeddafc>;\n  epo:describesLot <http://data.europa.eu/a4g/resource/Lot/2021-S-004-003544/cbac108a-b047-3e09-a114-28c43d5b8706>;\n  epo:hasAwardStatus <http://publications.europa.eu/resource/authority/winner-selection-status/selec-w> .\n\n<http://data.europa.eu/a4g/resource/Notice/2021-S-004-003544/1f8688eb-32e7-368b-ad1c-2e76f17321dd>\n  a epo:Notice;\n  epo:hasID <http://data.europa.eu/a4g/resource/NoticeIdentifier/2021-S-004-003544/1f8688eb-32e7-368b-ad1c-2e76f17321dd> .\n\n<http://data.europa.eu/a4g/resource/NoticeAwardInformation/2021-S-004-003544/58509ec4-99dc-3865-9935-58d7ebd66d29>\n  a epo:NoticeAwardInformation;\n  epo:hasTotalAwardedValue <http://data.europa.eu/a4g/resource/ProcurementMonetaryValue/2021-S-004-003544/58509ec4-99dc-3865-9935-58d7ebd66d29> .\n\n<http://data.europa.eu/a4g/resource/NoticeIdentifier/2021-S-004-003544/1f8688eb-32e7-368b-ad1c-2e76f17321dd>\n  a epo:Identifier;\n  epo:hasIdentifierValue \"2020/S 185-445564\" .\n\n<http://data.europa.eu/a4g/resource/Organisation/2021-S-004-003544/ab152979-15bf-30c3-b6f3-e0c554cfa9d0>\n  a org:Organization;\n  epo:hasBuyerType <http://publications.europa.eu/resource/authority/buyer-legal-type/body-pl>;\n  epo:hasLegalName \"Land Sachsen-Anhalt vertreten durch Landesamt f\u00fcr Geologie und Bergwesen (LAGB) Sachsen-Anhalt Halle vertreten in Amtshilfe durch Landesanstalt f\u00fcr Altlastenfreistellung (LAF) des Landes Sachsen-Anhalt\"@de;\n  epo:hasMainActivityDescription \"Altlastensanierung i.S.v. Artikel 1 \u00a7 4 Absatz 3 URaG\";\n  legal:registeredAddress <http://data.europa.eu/a4g/resource/OrganisationAddress/2021-S-004-003544/ab152979-15bf-30c3-b6f3-e0c554cfa9d0> .\n\n<http://data.europa.eu/a4g/resource/OrganisationAddress/2021-S-004-003544/ab152979-15bf-30c3-b6f3-e0c554cfa9d0>\n  a locn:Address;\n  epo:hasCountryCode <http://publications.europa.eu/resource/authority/country/DEU>;\n  epo:hasNutsCode <http://data.europa.eu/nuts/code/DEE03>;\n  locn:postCode \"39108\";\n  locn:postName \"Magdeburg\";\n  locn:thoroughfare \"Maxim-Gorki-Stra\u00dfe 10\" .\n\n<http://data.europa.eu/a4g/resource/Procedure/2021-S-004-003544/58509ec4-99dc-3865-9935-58d7ebd66d29>\n  a epo:Procedure;\n  epo:foreseesContractSpecificTerm <http://data.europa.eu/a4g/resource/ContractTerm/2021-S-004-003544/cbac108a-b047-3e09-a114-28c43d5b8706>;\n  epo:hasAdditionalInformation \"Zur Best\u00e4tigung der Einhaltung von an die Vertragsausf\u00fchrungen gestellte Anforderungen sind die folgenden Erkl\u00e4rungen mit dem Angebot einzureichen:1. Erkl\u00e4rung zur Tariftreue und Entgeltgleichheit (siehe Formblatt zu \u00a7 10 Abs. 1 und 3 LVG LSA);2. Erkl\u00e4rung zur Beachtung der Kernarbeitsnormen der Internationalen Arbeitsorganisation (siehe Formblatt zu \u00a7 12 LVG LSA);3. Falls erforderlich: Nachunternehmererkl\u00e4rung \u201eTariftreue und Entgeltgleichheit\u201c auf der Grundlage von \u00a7 10 und 15 Absatz 2 LVG Sachsen-Anhalt;4. Falls erforderlich: Nachunternehmererkl\u00e4rung \u201eBeachtung der ILO-Kernarbeitsnormen\u201c auf der Grundlage von \u00a7 12 und 15 Absatz 2 LVG Sachsen-Anhalt;5. Falls erforderlich: Erkl\u00e4rung zum Nachunternehmereinsatz (siehe Formblatt zu \u00a7 13 Abs. 2 und 4 LVG LSA);6. Falls erforderlich: Erkl\u00e4rung der Bieter-/ Arbeitsgemeinschaft.Im Falle von Bietergemeinschaften sind die in Nr. 1 und 6 aufgef\u00fchrten Erkl\u00e4rungen von allen Mitgliedern der Bietergemeinschaft vorzulegen.Weitere Angabe in Form der \u201eVordrucke f\u00fcr Bietereigenerkl\u00e4rungen\u201c (Formbl\u00e4tter / Vordrucke der Vergabestelle).1.1. Vordruck Nr. 3.1 Eigenerkl\u00e4rungen zu Ausschlussgr\u00fcnden gem\u00e4\u00df \u00a7 6e EU VOB/A.\"@de;\n  epo:hasDescription \"Zur (Langzeit-) Sicherung des Standortes TTB Vehlitz ist vorgesehen, das Teilfeld I zu profilieren sowie die Teilfelder II Nord und S\u00fcd zu profilieren und mit qualifizierten Oberfl\u00e4chenabdichtungssystemen gem. DepV abzudichten. Hierzu geh\u00f6rt ferner die Herstellung einer funktionierenden Oberfl\u00e4chenentw\u00e4sserung innerhalb des Tontagebaus einschl. der Wiederherstellung der Vorfeldentw\u00e4sserung und der Vorflut sowie der Umr\u00fcstung des bereits vorhandenen Gasfassungssystems.\"@de;\n  epo:hasID <http://data.europa.eu/a4g/resource/ProcedureIdentifier/2021-S-004-003544/58509ec4-99dc-3865-9935-58d7ebd66d29>;\n  epo:hasLegalBasis <http://publications.europa.eu/resource/authority/legal-basis/32014L0024>;\n  epo:hasOverallPurpose <http://data.europa.eu/a4g/resource/ProcedurePurpose/2021-S-004-003544/58509ec4-99dc-3865-9935-58d7ebd66d29>;\n  epo:hasProcedureType <http://publications.europa.eu/resource/authority/procurement-procedure-type/open>;\n  epo:hasProcurementScopeDividedIntoLot <http://data.europa.eu/a4g/resource/Lot/2021-S-004-003544/cbac108a-b047-3e09-a114-28c43d5b8706>;\n  epo:hasTitle \"Gefahrenabwehr TTB Vehlitz, BA 1\"@de;\n  epo:isAccelerated false;\n  epo:isCoveredByGPA true;\n  epo:isSubjectToProcedureSpecificTerm <http://data.europa.eu/a4g/resource/ProcedureSpecificTerm/2021-S-004-003544/f3b5cfa6-95c6-37b5-9667-808a141fe995> .\n\n<http://data.europa.eu/a4g/resource/ProcedureIdentifier/2021-S-004-003544/58509ec4-99dc-3865-9935-58d7ebd66d29>\n  a epo:Identifier;\n  epo:hasIdentifierValue \"V III-10-1b\" .\n\n<http://data.europa.eu/a4g/resource/ProcedurePurpose/2021-S-004-003544/58509ec4-99dc-3865-9935-58d7ebd66d29>\n  a epo:Purpose;\n  epo:hasContractNatureType <http://publications.europa.eu/resource/authority/contract-nature/works>;\n  epo:hasMainClassification <http://data.europa.eu/cpv/cpv/45232451> .\n\n<http://data.europa.eu/a4g/resource/ProcedureSpecificTerm/2021-S-004-003544/f3b5cfa6-95c6-37b5-9667-808a141fe995>\n  a epo:ProcedureSpecificTerm .\n\n<http://data.europa.eu/a4g/resource/ProcurementMonetaryValue/2021-S-004-003544/58509ec4-99dc-3865-9935-58d7ebd66d29>\n  a epo:MonetaryValue;\n  epo:hasAmountValue 7941130.09;\n  epo:hasCurrency <http://publications.europa.eu/resource/authority/currency/EUR> .\n\n<http://data.europa.eu/a4g/resource/ProcurementProcessInformation/2021-S-004-003544/1f8688eb-32e7-368b-ad1c-2e76f17321dd>\n  a epo:ProcurementProcessInformation;\n  epo:concernsPreviousNotice <http://data.europa.eu/a4g/resource/Notice/2021-S-004-003544/1f8688eb-32e7-368b-ad1c-2e76f17321dd>;\n  epo:concernsProcedure <http://data.europa.eu/a4g/resource/Procedure/2021-S-004-003544/58509ec4-99dc-3865-9935-58d7ebd66d29> .\n\n<http://data.europa.eu/a4g/resource/ResultNotice/2021-S-004-003544/58509ec4-99dc-3865-9935-58d7ebd66d29>\n  a epo:ResultNotice;\n  epo:announcesContract <http://data.europa.eu/a4g/resource/Contract/2021-S-004-003544/0c434fb4-13b2-3f81-9fb1-7ec07b891bd2>;\n  epo:announcesNoticeAwardInformation <http://data.europa.eu/a4g/resource/NoticeAwardInformation/2021-S-004-003544/58509ec4-99dc-3865-9935-58d7ebd66d29>;\n  epo:announcesRole <http://data.europa.eu/a4g/resource/Reviewer/2021-S-004-003544/de2507f9-ae25-37c8-809c-0109efe10669>,\n    <http://data.europa.eu/a4g/resource/WinnerRole/2021-S-004-003544/b9a7c460-794b-36b5-a069-6e9a637315f4>;\n  epo:announcesTender <http://data.europa.eu/a4g/resource/Tender/2021-S-004-003544/82b174c6-1f18-3b11-acf2-00977eeddafc>;\n  epo:hasDispatchDate \"2021-01-02\";\n  epo:refersToLot <http://data.europa.eu/a4g/resource/Lot/2021-S-004-003544/cbac108a-b047-3e09-a114-28c43d5b8706>;\n  epo:refersToPrevious <http://data.europa.eu/a4g/resource/Notice/2021-S-004-003544/1f8688eb-32e7-368b-ad1c-2e76f17321dd>;\n  epo:refersToProcedure <http://data.europa.eu/a4g/resource/Procedure/2021-S-004-003544/58509ec4-99dc-3865-9935-58d7ebd66d29>;\n  epo:refersToRole <http://data.europa.eu/a4g/resource/Buyer/2021-S-004-003544/f3b5cfa6-95c6-37b5-9667-808a141fe995> .\n\n<http://data.europa.eu/a4g/resource/ReviewTerm/2021-S-004-003544/c396feff-0750-3296-8f73-f0464e1726ac>\n  a epo:ReviewTerm;\n  epo:hasReviewDeadlineInformation \"Entsprechend der Regelungen in \u00a7 160 GWB:\u00a7 160 Einleitung, Antrag(1) Die Vergabekammer leitet ein Nachpr\u00fcfungsverfahren nur auf Antrag ein.(2) Antragsbefugt ist jedes Unternehmen, das ein Interesse an dem \u00f6ffentlichen Auftrag oder der Konzession hat und eine Verletzung in seinen Rechten nach \u00a7 97 Absatz 6 durch Nichtbeachtung von Vergabevorschriften geltend macht. Dabei ist darzulegen, dass dem Unternehmen durch die behauptete Verletzung der Vergabevorschriften ein Schaden entstanden ist oder zu entstehen droht.(3) Der Antrag ist unzul\u00e4ssig, soweit1. der Antragsteller den geltend gemachten Versto\u00df gegen Vergabevorschriften vor Einreichen des Nachpr\u00fcfungsantrags erkannt und gegen\u00fcber dem Auftraggeber nicht innerhalb einer Frist von 10 Kalendertagen ger\u00fcgt hat; der Ablauf der Frist nach \u00a7 134 Absatz 2 bleibt unber\u00fchrt,2. Verst\u00f6\u00dfe gegen Vergabevorschriften, die aufgrund der Bekanntmachung erkennbar sind, nicht sp\u00e4testens bis zum Ablauf der in der Bekanntmachung benannten Frist zur Bewerbung oder zur Angebotsabgabe gegen\u00fcber dem Auftraggeber ger\u00fcgt werden,3. Verst\u00f6\u00dfe gegen Vergabevorschriften, die erst in den Vergabeunterlagen erkennbar sind, nicht sp\u00e4testens bis zum Ablauf der Frist zur Bewerbung oder zur Angebotsabgabe gegen\u00fcber dem Auftraggeber ger\u00fcgt werden,4. mehr als 15 Kalendertage nach Eingang der Mitteilung des Auftraggebers, einer R\u00fcge nicht abhelfen zu wollen, vergangen sind.Satz 1 gilt nicht bei einem Antrag auf Feststellung der Unwirksamkeit des Vertrags nach \u00a7 135 Absatz 1 Nummer 2. \u00a7 134 Absatz 1 Satz 2 bleibt unber\u00fchrt.\" .\n\n<http://data.europa.eu/a4g/resource/Reviewer/2021-S-004-003544/de2507f9-ae25-37c8-809c-0109efe10669>\n  a epo:Reviewer;\n  epo:playedBy <http://data.europa.eu/a4g/resource/ReviewerOrganisation/2021-S-004-003544/de2507f9-ae25-37c8-809c-0109efe10669> .\n\n<http://data.europa.eu/a4g/resource/ReviewerContactPoint/2021-S-004-003544/de2507f9-ae25-37c8-809c-0109efe10669>\n  a cccev:ContactPoint;\n  epo:hasFax \"+49 345-5141115\";\n  cccev:email \"vergabekammer@lvwa.sachsen-anhalt.de\";\n  cccev:telephone \"+49 345-5141529\" .\n\n<http://data.europa.eu/a4g/resource/ReviewerOrganisation/2021-S-004-003544/de2507f9-ae25-37c8-809c-0109efe10669>\n  a org:Organization;\n  epo:hasLegalName \"Landesverwaltungsamt Sachsen-Anhalt, 1. und 2. Vergabekammer\"@de;\n  epo:hasPrimaryContactPoint <http://data.europa.eu/a4g/resource/ReviewerContactPoint/2021-S-004-003544/de2507f9-ae25-37c8-809c-0109efe10669>;\n  legal:registeredAddress <http://data.europa.eu/a4g/resource/ReviewerOrganisationAddress/2021-S-004-003544/de2507f9-ae25-37c8-809c-0109efe10669> .\n\n<http://data.europa.eu/a4g/resource/ReviewerOrganisationAddress/2021-S-004-003544/de2507f9-ae25-37c8-809c-0109efe10669>\n  a locn:Address;\n  epo:hasCountryCode <http://publications.europa.eu/resource/authority/country/DEU>;\n  locn:postCode \"06112\";\n  locn:postName \"Halle (Saale)\";\n  locn:thoroughfare \"Ernst-Kamieth-Stra\u00dfe 2\" .\n\n<http://data.europa.eu/a4g/resource/SubmissionStatisticalInformation/2021-S-004-003544/82b174c6-1f18-3b11-acf2-00977eeddafc>\n  a epo:SubmissionStatisticalInformation;\n  epo:concernsSubmissionsForLot <http://data.europa.eu/a4g/resource/Lot/2021-S-004-003544/cbac108a-b047-3e09-a114-28c43d5b8706>;\n  epo:hasEUReceivedTenders 0;\n  epo:hasElectronicTenders 4;\n  epo:hasReceivedNonEUTenders 0;\n  epo:hasReceivedSMETenders 1;\n  epo:hasReceivedTenders 4 .\n\n<http://data.europa.eu/a4g/resource/Tender/2021-S-004-003544/82b174c6-1f18-3b11-acf2-00977eeddafc>\n  a epo:Tender;\n  epo:hasFinancialOfferValue <http://data.europa.eu/a4g/resource/TenderMonetaryValue/2021-S-004-003544/82b174c6-1f18-3b11-acf2-00977eeddafc>;\n  epo:isSubmittedForLot <http://data.europa.eu/a4g/resource/Lot/2021-S-004-003544/cbac108a-b047-3e09-a114-28c43d5b8706> .\n\n<http://data.europa.eu/a4g/resource/TenderAwardOutcome/2021-S-004-003544/82b174c6-1f18-3b11-acf2-00977eeddafc>\n  a epo:TenderAwardOutcome;\n  epo:awardsLotToWinner <http://data.europa.eu/a4g/resource/WinnerRole/2021-S-004-003544/b9a7c460-794b-36b5-a069-6e9a637315f4>;\n  epo:describesTender <http://data.europa.eu/a4g/resource/Tender/2021-S-004-003544/82b174c6-1f18-3b11-acf2-00977eeddafc> .\n\n<http://data.europa.eu/a4g/resource/TenderMonetaryValue/2021-S-004-003544/82b174c6-1f18-3b11-acf2-00977eeddafc>\n  a epo:MonetaryValue;\n  epo:hasAmountValue 7941130.09;\n  epo:hasCurrency <http://publications.europa.eu/resource/authority/currency/EUR> .\n\n<http://data.europa.eu/a4g/resource/WinnerRole/2021-S-004-003544/b9a7c460-794b-36b5-a069-6e9a637315f4>\n  a epo:Winner;\n  epo:playedBy <http://data.europa.eu/a4g/resource/ContractOrganisation/2021-S-004-003544/b9a7c460-794b-36b5-a069-6e9a637315f4> .\n",
+    "shacl_validations": [],
+    "sparql_validations": [],
+    "mapping_suite_id": "package_F03_v3.5.0"
+  },
+  "mets_manifestation": null,
+  "normalised_metadata": {
+    "title": [
+      [
+        "\u0414\u0440\u0435\u043d\u0430\u0436\u043d\u0438 \u0440\u0430\u0431\u043e\u0442\u0438 \u0438 \u0440\u0430\u0431\u043e\u0442\u0438 \u043d\u0430 \u043f\u043e\u0432\u044a\u0440\u0445\u043d\u043e\u0441\u0442\u0442\u0430",
+        "BG"
+      ],
+      [
+        "Dren\u00e1\u017en\u00ed a\u00a0povrchov\u00e9 pr\u00e1ce",
+        "CS"
+      ],
+      [
+        "Dr\u00e6ningsarbejde og overjordiske arbejder",
+        "DA"
+      ],
+      [
+        "Entw\u00e4sserungs- und Oberfl\u00e4chenarbeiten",
+        "DE"
+      ],
+      [
+        "\u0395\u03c1\u03b3\u03b1\u03c3\u03af\u03b5\u03c2 \u03c3\u03b5 \u03b4\u03af\u03ba\u03c4\u03c5\u03bf \u03b1\u03c0\u03bf\u03c3\u03c4\u03c1\u03ac\u03b3\u03b3\u03b9\u03c3\u03b7\u03c2 \u03ba\u03b1\u03b9 \u03ad\u03c1\u03b3\u03b1 \u03b5\u03c0\u03b9\u03c6\u03b1\u03bd\u03b5\u03af\u03b1\u03c2",
+        "EL"
+      ],
+      [
+        "Drainage and surface works",
+        "EN"
+      ],
+      [
+        "Trabajos de drenaje y de superficie",
+        "ES"
+      ],
+      [
+        "Drenaa\u017ei- ja pinnat\u00f6\u00f6d",
+        "ET"
+      ],
+      [
+        "Vedenpoisto- ja pintaty\u00f6t",
+        "FI"
+      ],
+      [
+        "Travaux de drainage et travaux de surface",
+        "FR"
+      ],
+      [
+        "Drainage and surface works",
+        "GA"
+      ],
+      [
+        "Drena\u017eni i povr\u0161inski radovi",
+        "HR"
+      ],
+      [
+        "V\u00edzelvezet\u00e9s \u00e9s felsz\u00edni munka",
+        "HU"
+      ],
+      [
+        "Lavori di drenaggio e di superficie",
+        "IT"
+      ],
+      [
+        "Drena\u017eo ir pavir\u0161iaus darbai",
+        "LT"
+      ],
+      [
+        "Dren\u0101\u017eas un virszemes darbi",
+        "LV"
+      ],
+      [
+        "Xog\u0127ol tad-drena\u0121\u0121 u\u00a0ta\u2019 l-u\u010bu\u0127",
+        "MT"
+      ],
+      [
+        "Afwaterings- en oppervlaktewerkzaamheden",
+        "NL"
+      ],
+      [
+        "Roboty odwadniaj\u0105ce i\u00a0nawierzchniowe",
+        "PL"
+      ],
+      [
+        "Obras de drenagem e pavimenta\u00e7\u00e3o",
+        "PT"
+      ],
+      [
+        "Lucr\u0103ri de drenaj \u015fi lucr\u0103ri de suprafa\u0163\u0103",
+        "RO"
+      ],
+      [
+        "Odvod\u0148ovacie a\u00a0povrchov\u00e9 pr\u00e1ce",
+        "SK"
+      ],
+      [
+        "Dela na odvodnjavanju in dela na povr\u0161ini",
+        "SL"
+      ],
+      [
+        "Dr\u00e4nerings- och markanl\u00e4ggningar",
+        "SV"
+      ]
+    ],
+    "long_title": [
+      [
+        "\u0413ep\u043ca\u043d\u0438\u044f :: \u041c\u0430\u0433\u0434\u0435\u0431\u0443\u0440\u0433 :: \u0414\u0440\u0435\u043d\u0430\u0436\u043d\u0438 \u0440\u0430\u0431\u043e\u0442\u0438 \u0438 \u0440\u0430\u0431\u043e\u0442\u0438 \u043d\u0430 \u043f\u043e\u0432\u044a\u0440\u0445\u043d\u043e\u0441\u0442\u0442\u0430",
+        "BG"
+      ],
+      [
+        "N\u011bmecko :: Magdeburg :: Dren\u00e1\u017en\u00ed a\u00a0povrchov\u00e9 pr\u00e1ce",
+        "CS"
+      ],
+      [
+        "Tyskland :: Magdeburg :: Dr\u00e6ningsarbejde og overjordiske arbejder",
+        "DA"
+      ],
+      [
+        "Deutschland :: Magdeburg :: Entw\u00e4sserungs- und Oberfl\u00e4chenarbeiten",
+        "DE"
+      ],
+      [
+        "\u0393\u03b5\u03c1\u03bc\u03b1\u03bd\u03af\u03b1 :: \u039c\u03b1\u03b3\u03b4\u03b5\u03bc\u03b2\u03bf\u03cd\u03c1\u03b3\u03bf :: \u0395\u03c1\u03b3\u03b1\u03c3\u03af\u03b5\u03c2 \u03c3\u03b5 \u03b4\u03af\u03ba\u03c4\u03c5\u03bf \u03b1\u03c0\u03bf\u03c3\u03c4\u03c1\u03ac\u03b3\u03b3\u03b9\u03c3\u03b7\u03c2 \u03ba\u03b1\u03b9 \u03ad\u03c1\u03b3\u03b1 \u03b5\u03c0\u03b9\u03c6\u03b1\u03bd\u03b5\u03af\u03b1\u03c2",
+        "EL"
+      ],
+      [
+        "Germany :: Magdeburg :: Drainage and surface works",
+        "EN"
+      ],
+      [
+        "Alemania :: Magdeburgo :: Trabajos de drenaje y de superficie",
+        "ES"
+      ],
+      [
+        "Saksamaa :: Magdeburg :: Drenaa\u017ei- ja pinnat\u00f6\u00f6d",
+        "ET"
+      ],
+      [
+        "Saksa :: Magdeburg :: Vedenpoisto- ja pintaty\u00f6t",
+        "FI"
+      ],
+      [
+        "Allemagne :: Magdebourg :: Travaux de drainage et travaux de surface",
+        "FR"
+      ],
+      [
+        "Ghearm\u00e1in, an :: Madgeburg :: Drainage and surface works",
+        "GA"
+      ],
+      [
+        "Njema\u010dka :: Magdeburg :: Drena\u017eni i povr\u0161inski radovi",
+        "HR"
+      ],
+      [
+        "N\u00e9metorsz\u00e1g :: Magdeburg :: V\u00edzelvezet\u00e9s \u00e9s felsz\u00edni munka",
+        "HU"
+      ],
+      [
+        "Germania :: Magdeburgo :: Lavori di drenaggio e di superficie",
+        "IT"
+      ],
+      [
+        "Vokietija, VFR :: Magdeburgas :: Drena\u017eo ir pavir\u0161iaus darbai",
+        "LT"
+      ],
+      [
+        "V\u0101cija :: Magdeburga :: Dren\u0101\u017eas un virszemes darbi",
+        "LV"
+      ],
+      [
+        "il-\u0120ermanja :: Magdeburg :: Xog\u0127ol tad-drena\u0121\u0121 u\u00a0ta\u2019 l-u\u010bu\u0127",
+        "MT"
+      ],
+      [
+        "Duitsland :: Magdeburg :: Afwaterings- en oppervlaktewerkzaamheden",
+        "NL"
+      ],
+      [
+        "Niemcy :: Magdeburg :: Roboty odwadniaj\u0105ce i\u00a0nawierzchniowe",
+        "PL"
+      ],
+      [
+        "Alemanha :: Magdeburgo :: Obras de drenagem e pavimenta\u00e7\u00e3o",
+        "PT"
+      ],
+      [
+        "Germania :: Magdeburg :: Lucr\u0103ri de drenaj \u015fi lucr\u0103ri de suprafa\u0163\u0103",
+        "RO"
+      ],
+      [
+        "Nemecko :: Magdeburg :: Odvod\u0148ovacie a\u00a0povrchov\u00e9 pr\u00e1ce",
+        "SK"
+      ],
+      [
+        "Nem\u010dija :: Magdeburg :: Dela na odvodnjavanju in dela na povr\u0161ini",
+        "SL"
+      ],
+      [
+        "Tyskland :: Magdeburg :: Dr\u00e4nerings- och markanl\u00e4ggningar",
+        "SV"
+      ]
+    ],
+    "notice_publication_number": "003544-2021",
+    "publication_date": "2021-01-07T00:00:00",
+    "ojs_issue_number": "4",
+    "ojs_type": "S",
+    "city_of_buyer": [
+      [
+        "\u041c\u0430\u0433\u0434\u0435\u0431\u0443\u0440\u0433",
+        "BG"
+      ],
+      [
+        "Magdeburg",
+        "CS"
+      ],
+      [
+        "Magdeburg",
+        "DA"
+      ],
+      [
+        "Magdeburg",
+        "DE"
+      ],
+      [
+        "\u039c\u03b1\u03b3\u03b4\u03b5\u03bc\u03b2\u03bf\u03cd\u03c1\u03b3\u03bf",
+        "EL"
+      ],
+      [
+        "Magdeburg",
+        "EN"
+      ],
+      [
+        "Magdeburgo",
+        "ES"
+      ],
+      [
+        "Magdeburg",
+        "ET"
+      ],
+      [
+        "Magdeburg",
+        "FI"
+      ],
+      [
+        "Magdebourg",
+        "FR"
+      ],
+      [
+        "Madgeburg",
+        "GA"
+      ],
+      [
+        "Magdeburg",
+        "HR"
+      ],
+      [
+        "Magdeburg",
+        "HU"
+      ],
+      [
+        "Magdeburgo",
+        "IT"
+      ],
+      [
+        "Magdeburgas",
+        "LT"
+      ],
+      [
+        "Magdeburga",
+        "LV"
+      ],
+      [
+        "Magdeburg",
+        "MT"
+      ],
+      [
+        "Magdeburg",
+        "NL"
+      ],
+      [
+        "Magdeburg",
+        "PL"
+      ],
+      [
+        "Magdeburgo",
+        "PT"
+      ],
+      [
+        "Magdeburg",
+        "RO"
+      ],
+      [
+        "Magdeburg",
+        "SK"
+      ],
+      [
+        "Magdeburg",
+        "SL"
+      ],
+      [
+        "Magdeburg",
+        "SV"
+      ]
+    ],
+    "name_of_buyer": [
+      [
+        "Land Sachsen-Anhalt vertreten durch Landesamt f\u00fcr Geologie und Bergwesen (LAGB) Sachsen-Anhalt Halle vertreten in Amtshilfe durch Landesanstalt f\u00fcr Altlastenfreistellung (LAF) des Landes Sachsen-Anhalt",
+        "DE"
+      ]
+    ],
+    "original_language": "http://publications.europa.eu/resource/authority/language/DEU",
+    "country_of_buyer": "http://publications.europa.eu/resource/authority/country/DEU",
+    "eu_institution": false,
+    "document_sent_date": "2021-01-02T00:00:00",
+    "deadline_for_submission": null,
+    "notice_type": "http://publications.europa.eu/resource/authority/notice-type/can-standard",
+    "form_type": "http://publications.europa.eu/resource/authority/form-type/result",
+    "place_of_performance": [
+      "http://data.europa.eu/nuts/code/DEE06"
+    ],
+    "extracted_legal_basis_directive": "http://publications.europa.eu/resource/authority/legal-basis/32014L0024",
+    "legal_basis_directive": "http://publications.europa.eu/resource/authority/legal-basis/32014L0024",
+    "form_number": "F03",
+    "eforms_subtype": "29",
+    "xsd_version": "R2.0.9.S03.E01"
+  },
+  "preprocessed_xml_manifestation": null,
+  "rdf_manifestation": {
+    "object_data": "@prefix cccev: <http://data.europa.eu/m8g/> .\n@prefix dct: <http://purl.org/dc/terms/> .\n@prefix epd: <http://data.europa.eu/a4g/resource/> .\n@prefix epo: <http://data.europa.eu/a4g/ontology#> .\n@prefix legal: <https://www.w3.org/ns/legal#> .\n@prefix locn: <http://www.w3.org/ns/locn#> .\n@prefix org: <http://www.w3.org/ns/org#> .\n@prefix owl: <http://www.w3.org/2002/07/owl#> .\n@prefix ql: <http://semweb.mmlab.be/ns/ql#> .\n@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .\n@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .\n@prefix rml: <http://semweb.mmlab.be/ns/rml#> .\n@prefix rr: <http://www.w3.org/ns/r2rml#> .\n@prefix skos: <http://www.w3.org/2004/02/skos/core#> .\n@prefix tedm: <http://data.europa.eu/a4g/mapping/sf-rml/> .\n@prefix time: <http://www.w3.org/2006/time#> .\n@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\n\n<http://data.europa.eu/a4g/resource/AwardCriterionPrice/2021-S-004-003544/cea6c4e8-8bd0-3457-a165-46d870d5a6f4>\n  a epo:AwardCriterion;\n  epo:hasAwardCriterionType <http://publications.europa.eu/resource/authority/award-criterion-type/price> .\n\n<http://data.europa.eu/a4g/resource/Buyer/2021-S-004-003544/f3b5cfa6-95c6-37b5-9667-808a141fe995>\n  a epo:Buyer;\n  epo:hasContactPointInRole <http://data.europa.eu/a4g/resource/ContactPoint/2021-S-004-003544/ab152979-15bf-30c3-b6f3-e0c554cfa9d0>;\n  epo:playedBy <http://data.europa.eu/a4g/resource/Organisation/2021-S-004-003544/ab152979-15bf-30c3-b6f3-e0c554cfa9d0> .\n\n<http://data.europa.eu/a4g/resource/ContactPoint/2021-S-004-003544/ab152979-15bf-30c3-b6f3-e0c554cfa9d0>\n  a cccev:ContactPoint;\n  epo:hasFax \"+49 391-7444070\";\n  epo:hasInternetAddress \"https://laf.sachsen-anhalt.de/\";\n  cccev:email \"moeve@laf-lsa.de\";\n  cccev:telephone \"+49 391-7444048\" .\n\n<http://data.europa.eu/a4g/resource/Contract/2021-S-004-003544/0c434fb4-13b2-3f81-9fb1-7ec07b891bd2>\n  a epo:Contract;\n  epo:hasContractConclusionDate \"2020-11-30\"^^xsd:date;\n  epo:hasID <http://data.europa.eu/a4g/resource/ContractIdentifier/2021-S-004-003544/0c434fb4-13b2-3f81-9fb1-7ec07b891bd2>;\n  epo:hasTitle \"Gefahrenabwehr TTB Vehlitz, BA 1\"@de;\n  epo:includesLot <http://data.europa.eu/a4g/resource/Lot/2021-S-004-003544/cbac108a-b047-3e09-a114-28c43d5b8706>;\n  epo:includesLotAwardOutcome <http://data.europa.eu/a4g/resource/LotAwardOutcome/2021-S-004-003544/0c434fb4-13b2-3f81-9fb1-7ec07b891bd2> .\n\n<http://data.europa.eu/a4g/resource/ContractIdentifier/2021-S-004-003544/0c434fb4-13b2-3f81-9fb1-7ec07b891bd2>\n  a epo:Identifier;\n  epo:hasIdentifierValue \"V III-10-1b\" .\n\n<http://data.europa.eu/a4g/resource/ContractOrganisation/2021-S-004-003544/b9a7c460-794b-36b5-a069-6e9a637315f4>\n  a epo:Business, org:Organization;\n  epo:hasBusinessSize <http://publications.europa.eu/resource/authority/economic-operator-size/sme>;\n  epo:hasLegalName \"TS Bau GmbH\"@de;\n  legal:registeredAddress <http://data.europa.eu/a4g/resource/ContractOrganisationAddress/2021-S-004-003544/b9a7c460-794b-36b5-a069-6e9a637315f4> .\n\n<http://data.europa.eu/a4g/resource/ContractOrganisationAddress/2021-S-004-003544/b9a7c460-794b-36b5-a069-6e9a637315f4>\n  a locn:Address;\n  epo:hasCountryCode <http://publications.europa.eu/resource/authority/country/DEU>;\n  epo:hasNutsCode <http://data.europa.eu/nuts/code/DEG03>;\n  locn:postCode \"07743\";\n  locn:postName \"Jena\";\n  locn:thoroughfare \"Am Flutgraben 1\" .\n\n<http://data.europa.eu/a4g/resource/ContractTerm/2021-S-004-003544/cbac108a-b047-3e09-a114-28c43d5b8706>\n  a epo:ContractTerm;\n  epo:definesSpecificPlaceOfPerformance <http://data.europa.eu/a4g/resource/ContractTermLocation/2021-S-004-003544/cbac108a-b047-3e09-a114-28c43d5b8706>;\n  epo:hasOptions false .\n\n<http://data.europa.eu/a4g/resource/ContractTermLocation/2021-S-004-003544/cbac108a-b047-3e09-a114-28c43d5b8706>\n  a dct:Location;\n  epo:hasNutsCode <http://data.europa.eu/nuts/code/DEE06>;\n  locn:address <http://data.europa.eu/a4g/resource/ContractTermeLocationAddress/2021-S-004-003544/cbac108a-b047-3e09-a114-28c43d5b8706> .\n\n<http://data.europa.eu/a4g/resource/ContractTermeLocationAddress/2021-S-004-003544/cbac108a-b047-3e09-a114-28c43d5b8706>\n  a locn:Address;\n  locn:fullAddress \"Tontagebau Vehlitz39291 Gommern OT Vehlitz\"@de .\n\n<http://data.europa.eu/a4g/resource/Lot/2021-S-004-003544/cbac108a-b047-3e09-a114-28c43d5b8706>\n  a epo:Lot;\n  epo:foreseesContractSpecificTerm <http://data.europa.eu/a4g/resource/ContractTerm/2021-S-004-003544/cbac108a-b047-3e09-a114-28c43d5b8706>;\n  epo:hasDescription \"Im Zuge der Sicherungsarbeiten sind folgende Leistungen durchzuf\u00fchren, die u. a. von einer externen Fremdpr\u00fcfung gem. DepV/ BQS 9-1 \u00fcberpr\u00fcft werden (TF I rd. 3 ha und TF II rd. 7,7 ha):\u2014 Herstellung der geplanten Profilierungskonturen unter Verwendung des Ton- und Bodenmaterials im Bereich der Halde 1 sowie der s\u00fcdlich des TF I vorhandenen Bodenmiete;\u2014 Herstellung einer Dr\u00e4nage zur Fassung des dem TF II S\u00fcd zuflie\u00dfenden hypodermischen Abflusses (Bodenwasserabfluss unterhalb der Oberfl\u00e4che);\u2014 Verl\u00e4ngerung der Kollektorrohre der vorh. Gasbrunnen sowie der Grundwassermessstellen (Zug um Zug gem\u00e4\u00df Baufortschritt);\u2014 Herstellung einer gasg\u00e4ngigen Trag- und Ausgleichsschicht im TF II Nord und S\u00fcd, d \u2265 20 cm;\u2014 Herstellung Feinplanum;\u2014 Herstellung Sandauflager f\u00fcr die GTD aus z.B. Kiessand 0/8, d \u2265 10 cm;\u2014 Verlegung der GTD gem\u00e4\u00df den Vorgaben der Verlegeanleitung des Herstellers, mit fachgerechter Einbindung der Gasbrunnen und der Grundwassermessstellen (GWM) sowie Anschluss an die Entw\u00e4sserungsgr\u00e4ben;\u2014 Verlegung der KDB mit BAM-Zulassung, d \u2265 2,5 mm, gem\u00e4\u00df Verlegeplan und den Vorgaben der BAM-Zulassung sowie der Standsicherheitsberechnungen, mit fachgerechter Einbindung der Gasbrunnen und der GWM sowie Anschluss an die Entw\u00e4sserungsgr\u00e4ben;\u2014 Verlegung des geosynthetischen Drainelementes (GDE) mit BAM-Zulassung gem\u00e4\u00df Verlegeplan und den Vorgaben der BAM-Zulassung, mit fachgerechter Einbindung der Gasbrunnen und der GWM sowie Anschluss an die Entw\u00e4sserungsgr\u00e4ben;\u2014 Herstellung der geplanten Einrichtungen zur gezielten Fassung und Ableitung des Oberfl\u00e4chenwassers im Bereich TF I (tlw.) und TF II Nord und S\u00fcd einschl. der im Entw\u00e4sserungsrigolenbereich geplanten Kontroll- und Wartungssch\u00e4chte;\u2014 Herstellen eines Schotterkeils im TF II Nord entlang des Ostgrabens einschl. Verlegung eines Trenn- und Filtervlieses auf der R\u00fcckseite des Schotterkeils;\u2014 Einbau von verdichtungsf\u00e4higem Boden als Unterbau f\u00fcr die Zufahrt und die Wartungswege, einschl. Einbau einer Frostschutzschicht aus Material 0/56 sowie einer ungebundenen Oberfl\u00e4chenbefestigung aus Schotter 0/32;\u2014 Verlegung der Gasabsaugleitungen im TF II Nord und S\u00fcd mit Anschluss an die vorhandenen Gasbrunnen und die Gassammelstationen(GSS) in einer Bettungsschicht aus z. B. Sand 0/4;\u2014 Einbau einer mind. 1,0 m m\u00e4chtigen Rekultivierungsschicht gem. DepV (bestehend aus 0,80 m Unterboden und 0,20 m Oberboden) mit anschlie\u00dfender Rasenansaat, einschlie\u00dflich Verlegung PEHD-Rohre da 110 innerhalb der Rekultivierungsschicht mit Anschluss an die Gasbrunnen;\u2014 Herstellen/Ert\u00fcchtigung und Ausbau des S\u00fcd- und Ostgrabens;\u2014 Herstellung und Abdichtung Westbecken (KDB mit Schutzvlies), einschl. Errichtung Doppelpumpstation und Verlegung Druckleitung bis zum geplanten Einleitpunkt im Bereich des S\u00fcdgrabens;\u2014 Umsetzen der Verdichter-/Fackelanlage und der beiden Gassammelstationen GSS 1 und GSS 2 (einschl. Verl\u00e4ngerung der Stromzuf\u00fchrung bis zum neuen Standort der Verdichter-/Fackelanlage);\u2014 R\u00fcckbau des alten Kondensatsammelschachtes und Errichtung eines neuen Kondensatsammelschachtes;\u2014 Verlegung der Gasverbindungsleitungen (Gut-/Schlechtgas) mit Anschluss an die GSS, die Verdichter-/Fackelanlage sowie den neu zu errichtenden Kondensatsammelschacht\u2014 Herstellung von Setzungspegeln;\u2014 Verlegung Niederspannungs- und Datenkabel sowie Anschluss Niederspannungskabel an vorh. Mittelspannungsschaltanlage (Trafo).\"@de;\n  epo:isSubjectToLotSpecificTerm <http://data.europa.eu/a4g/resource/ReviewTerm/2021-S-004-003544/c396feff-0750-3296-8f73-f0464e1726ac>;\n  epo:isUsingEUFunds false;\n  epo:specifiesAwardCriterion <http://data.europa.eu/a4g/resource/AwardCriterionPrice/2021-S-004-003544/cea6c4e8-8bd0-3457-a165-46d870d5a6f4> .\n\n<http://data.europa.eu/a4g/resource/LotAwardOutcome/2021-S-004-003544/0c434fb4-13b2-3f81-9fb1-7ec07b891bd2>\n  a epo:LotAwardOutcome;\n  epo:comprisesTenderAwardOutcome <http://data.europa.eu/a4g/resource/TenderAwardOutcome/2021-S-004-003544/82b174c6-1f18-3b11-acf2-00977eeddafc>;\n  epo:describesLot <http://data.europa.eu/a4g/resource/Lot/2021-S-004-003544/cbac108a-b047-3e09-a114-28c43d5b8706>;\n  epo:hasAwardStatus <http://publications.europa.eu/resource/authority/winner-selection-status/selec-w> .\n\n<http://data.europa.eu/a4g/resource/Notice/2021-S-004-003544/1f8688eb-32e7-368b-ad1c-2e76f17321dd>\n  a epo:Notice;\n  epo:hasID <http://data.europa.eu/a4g/resource/NoticeIdentifier/2021-S-004-003544/1f8688eb-32e7-368b-ad1c-2e76f17321dd> .\n\n<http://data.europa.eu/a4g/resource/NoticeAwardInformation/2021-S-004-003544/58509ec4-99dc-3865-9935-58d7ebd66d29>\n  a epo:NoticeAwardInformation;\n  epo:hasTotalAwardedValue <http://data.europa.eu/a4g/resource/ProcurementMonetaryValue/2021-S-004-003544/58509ec4-99dc-3865-9935-58d7ebd66d29> .\n\n<http://data.europa.eu/a4g/resource/NoticeIdentifier/2021-S-004-003544/1f8688eb-32e7-368b-ad1c-2e76f17321dd>\n  a epo:Identifier;\n  epo:hasIdentifierValue \"2020/S 185-445564\" .\n\n<http://data.europa.eu/a4g/resource/Organisation/2021-S-004-003544/ab152979-15bf-30c3-b6f3-e0c554cfa9d0>\n  a org:Organization;\n  epo:hasBuyerType <http://publications.europa.eu/resource/authority/buyer-legal-type/body-pl>;\n  epo:hasLegalName \"Land Sachsen-Anhalt vertreten durch Landesamt f\u00fcr Geologie und Bergwesen (LAGB) Sachsen-Anhalt Halle vertreten in Amtshilfe durch Landesanstalt f\u00fcr Altlastenfreistellung (LAF) des Landes Sachsen-Anhalt\"@de;\n  epo:hasMainActivityDescription \"Altlastensanierung i.S.v. Artikel 1 \u00a7 4 Absatz 3 URaG\";\n  legal:registeredAddress <http://data.europa.eu/a4g/resource/OrganisationAddress/2021-S-004-003544/ab152979-15bf-30c3-b6f3-e0c554cfa9d0> .\n\n<http://data.europa.eu/a4g/resource/OrganisationAddress/2021-S-004-003544/ab152979-15bf-30c3-b6f3-e0c554cfa9d0>\n  a locn:Address;\n  epo:hasCountryCode <http://publications.europa.eu/resource/authority/country/DEU>;\n  epo:hasNutsCode <http://data.europa.eu/nuts/code/DEE03>;\n  locn:postCode \"39108\";\n  locn:postName \"Magdeburg\";\n  locn:thoroughfare \"Maxim-Gorki-Stra\u00dfe 10\" .\n\n<http://data.europa.eu/a4g/resource/Procedure/2021-S-004-003544/58509ec4-99dc-3865-9935-58d7ebd66d29>\n  a epo:Procedure;\n  epo:foreseesContractSpecificTerm <http://data.europa.eu/a4g/resource/ContractTerm/2021-S-004-003544/cbac108a-b047-3e09-a114-28c43d5b8706>;\n  epo:hasAdditionalInformation \"Zur Best\u00e4tigung der Einhaltung von an die Vertragsausf\u00fchrungen gestellte Anforderungen sind die folgenden Erkl\u00e4rungen mit dem Angebot einzureichen:1. Erkl\u00e4rung zur Tariftreue und Entgeltgleichheit (siehe Formblatt zu \u00a7 10 Abs. 1 und 3 LVG LSA);2. Erkl\u00e4rung zur Beachtung der Kernarbeitsnormen der Internationalen Arbeitsorganisation (siehe Formblatt zu \u00a7 12 LVG LSA);3. Falls erforderlich: Nachunternehmererkl\u00e4rung \u201eTariftreue und Entgeltgleichheit\u201c auf der Grundlage von \u00a7 10 und 15 Absatz 2 LVG Sachsen-Anhalt;4. Falls erforderlich: Nachunternehmererkl\u00e4rung \u201eBeachtung der ILO-Kernarbeitsnormen\u201c auf der Grundlage von \u00a7 12 und 15 Absatz 2 LVG Sachsen-Anhalt;5. Falls erforderlich: Erkl\u00e4rung zum Nachunternehmereinsatz (siehe Formblatt zu \u00a7 13 Abs. 2 und 4 LVG LSA);6. Falls erforderlich: Erkl\u00e4rung der Bieter-/ Arbeitsgemeinschaft.Im Falle von Bietergemeinschaften sind die in Nr. 1 und 6 aufgef\u00fchrten Erkl\u00e4rungen von allen Mitgliedern der Bietergemeinschaft vorzulegen.Weitere Angabe in Form der \u201eVordrucke f\u00fcr Bietereigenerkl\u00e4rungen\u201c (Formbl\u00e4tter / Vordrucke der Vergabestelle).1.1. Vordruck Nr. 3.1 Eigenerkl\u00e4rungen zu Ausschlussgr\u00fcnden gem\u00e4\u00df \u00a7 6e EU VOB/A.\"@de;\n  epo:hasDescription \"Zur (Langzeit-) Sicherung des Standortes TTB Vehlitz ist vorgesehen, das Teilfeld I zu profilieren sowie die Teilfelder II Nord und S\u00fcd zu profilieren und mit qualifizierten Oberfl\u00e4chenabdichtungssystemen gem. DepV abzudichten. Hierzu geh\u00f6rt ferner die Herstellung einer funktionierenden Oberfl\u00e4chenentw\u00e4sserung innerhalb des Tontagebaus einschl. der Wiederherstellung der Vorfeldentw\u00e4sserung und der Vorflut sowie der Umr\u00fcstung des bereits vorhandenen Gasfassungssystems.\"@de;\n  epo:hasID <http://data.europa.eu/a4g/resource/ProcedureIdentifier/2021-S-004-003544/58509ec4-99dc-3865-9935-58d7ebd66d29>;\n  epo:hasLegalBasis <http://publications.europa.eu/resource/authority/legal-basis/32014L0024>;\n  epo:hasOverallPurpose <http://data.europa.eu/a4g/resource/ProcedurePurpose/2021-S-004-003544/58509ec4-99dc-3865-9935-58d7ebd66d29>;\n  epo:hasProcedureType <http://publications.europa.eu/resource/authority/procurement-procedure-type/open>;\n  epo:hasProcurementScopeDividedIntoLot <http://data.europa.eu/a4g/resource/Lot/2021-S-004-003544/cbac108a-b047-3e09-a114-28c43d5b8706>;\n  epo:hasTitle \"Gefahrenabwehr TTB Vehlitz, BA 1\"@de;\n  epo:isAccelerated false;\n  epo:isCoveredByGPA true;\n  epo:isSubjectToProcedureSpecificTerm <http://data.europa.eu/a4g/resource/ProcedureSpecificTerm/2021-S-004-003544/f3b5cfa6-95c6-37b5-9667-808a141fe995> .\n\n<http://data.europa.eu/a4g/resource/ProcedureIdentifier/2021-S-004-003544/58509ec4-99dc-3865-9935-58d7ebd66d29>\n  a epo:Identifier;\n  epo:hasIdentifierValue \"V III-10-1b\" .\n\n<http://data.europa.eu/a4g/resource/ProcedurePurpose/2021-S-004-003544/58509ec4-99dc-3865-9935-58d7ebd66d29>\n  a epo:Purpose;\n  epo:hasContractNatureType <http://publications.europa.eu/resource/authority/contract-nature/works>;\n  epo:hasMainClassification <http://data.europa.eu/cpv/cpv/45232451> .\n\n<http://data.europa.eu/a4g/resource/ProcedureSpecificTerm/2021-S-004-003544/f3b5cfa6-95c6-37b5-9667-808a141fe995>\n  a epo:ProcedureSpecificTerm .\n\n<http://data.europa.eu/a4g/resource/ProcurementMonetaryValue/2021-S-004-003544/58509ec4-99dc-3865-9935-58d7ebd66d29>\n  a epo:MonetaryValue;\n  epo:hasAmountValue 7941130.09;\n  epo:hasCurrency <http://publications.europa.eu/resource/authority/currency/EUR> .\n\n<http://data.europa.eu/a4g/resource/ProcurementProcessInformation/2021-S-004-003544/1f8688eb-32e7-368b-ad1c-2e76f17321dd>\n  a epo:ProcurementProcessInformation;\n  epo:concernsPreviousNotice <http://data.europa.eu/a4g/resource/Notice/2021-S-004-003544/1f8688eb-32e7-368b-ad1c-2e76f17321dd>;\n  epo:concernsProcedure <http://data.europa.eu/a4g/resource/Procedure/2021-S-004-003544/58509ec4-99dc-3865-9935-58d7ebd66d29> .\n\n<http://data.europa.eu/a4g/resource/ResultNotice/2021-S-004-003544/58509ec4-99dc-3865-9935-58d7ebd66d29>\n  a epo:ResultNotice;\n  epo:announcesContract <http://data.europa.eu/a4g/resource/Contract/2021-S-004-003544/0c434fb4-13b2-3f81-9fb1-7ec07b891bd2>;\n  epo:announcesNoticeAwardInformation <http://data.europa.eu/a4g/resource/NoticeAwardInformation/2021-S-004-003544/58509ec4-99dc-3865-9935-58d7ebd66d29>;\n  epo:announcesRole <http://data.europa.eu/a4g/resource/Reviewer/2021-S-004-003544/de2507f9-ae25-37c8-809c-0109efe10669>,\n    <http://data.europa.eu/a4g/resource/WinnerRole/2021-S-004-003544/b9a7c460-794b-36b5-a069-6e9a637315f4>;\n  epo:announcesTender <http://data.europa.eu/a4g/resource/Tender/2021-S-004-003544/82b174c6-1f18-3b11-acf2-00977eeddafc>;\n  epo:hasDispatchDate \"2021-01-02\";\n  epo:refersToLot <http://data.europa.eu/a4g/resource/Lot/2021-S-004-003544/cbac108a-b047-3e09-a114-28c43d5b8706>;\n  epo:refersToPrevious <http://data.europa.eu/a4g/resource/Notice/2021-S-004-003544/1f8688eb-32e7-368b-ad1c-2e76f17321dd>;\n  epo:refersToProcedure <http://data.europa.eu/a4g/resource/Procedure/2021-S-004-003544/58509ec4-99dc-3865-9935-58d7ebd66d29>;\n  epo:refersToRole <http://data.europa.eu/a4g/resource/Buyer/2021-S-004-003544/f3b5cfa6-95c6-37b5-9667-808a141fe995> .\n\n<http://data.europa.eu/a4g/resource/ReviewTerm/2021-S-004-003544/c396feff-0750-3296-8f73-f0464e1726ac>\n  a epo:ReviewTerm;\n  epo:hasReviewDeadlineInformation \"Entsprechend der Regelungen in \u00a7 160 GWB:\u00a7 160 Einleitung, Antrag(1) Die Vergabekammer leitet ein Nachpr\u00fcfungsverfahren nur auf Antrag ein.(2) Antragsbefugt ist jedes Unternehmen, das ein Interesse an dem \u00f6ffentlichen Auftrag oder der Konzession hat und eine Verletzung in seinen Rechten nach \u00a7 97 Absatz 6 durch Nichtbeachtung von Vergabevorschriften geltend macht. Dabei ist darzulegen, dass dem Unternehmen durch die behauptete Verletzung der Vergabevorschriften ein Schaden entstanden ist oder zu entstehen droht.(3) Der Antrag ist unzul\u00e4ssig, soweit1. der Antragsteller den geltend gemachten Versto\u00df gegen Vergabevorschriften vor Einreichen des Nachpr\u00fcfungsantrags erkannt und gegen\u00fcber dem Auftraggeber nicht innerhalb einer Frist von 10 Kalendertagen ger\u00fcgt hat; der Ablauf der Frist nach \u00a7 134 Absatz 2 bleibt unber\u00fchrt,2. Verst\u00f6\u00dfe gegen Vergabevorschriften, die aufgrund der Bekanntmachung erkennbar sind, nicht sp\u00e4testens bis zum Ablauf der in der Bekanntmachung benannten Frist zur Bewerbung oder zur Angebotsabgabe gegen\u00fcber dem Auftraggeber ger\u00fcgt werden,3. Verst\u00f6\u00dfe gegen Vergabevorschriften, die erst in den Vergabeunterlagen erkennbar sind, nicht sp\u00e4testens bis zum Ablauf der Frist zur Bewerbung oder zur Angebotsabgabe gegen\u00fcber dem Auftraggeber ger\u00fcgt werden,4. mehr als 15 Kalendertage nach Eingang der Mitteilung des Auftraggebers, einer R\u00fcge nicht abhelfen zu wollen, vergangen sind.Satz 1 gilt nicht bei einem Antrag auf Feststellung der Unwirksamkeit des Vertrags nach \u00a7 135 Absatz 1 Nummer 2. \u00a7 134 Absatz 1 Satz 2 bleibt unber\u00fchrt.\" .\n\n<http://data.europa.eu/a4g/resource/Reviewer/2021-S-004-003544/de2507f9-ae25-37c8-809c-0109efe10669>\n  a epo:Reviewer;\n  epo:playedBy <http://data.europa.eu/a4g/resource/ReviewerOrganisation/2021-S-004-003544/de2507f9-ae25-37c8-809c-0109efe10669> .\n\n<http://data.europa.eu/a4g/resource/ReviewerContactPoint/2021-S-004-003544/de2507f9-ae25-37c8-809c-0109efe10669>\n  a cccev:ContactPoint;\n  epo:hasFax \"+49 345-5141115\";\n  cccev:email \"vergabekammer@lvwa.sachsen-anhalt.de\";\n  cccev:telephone \"+49 345-5141529\" .\n\n<http://data.europa.eu/a4g/resource/ReviewerOrganisation/2021-S-004-003544/de2507f9-ae25-37c8-809c-0109efe10669>\n  a org:Organization;\n  epo:hasLegalName \"Landesverwaltungsamt Sachsen-Anhalt, 1. und 2. Vergabekammer\"@de;\n  epo:hasPrimaryContactPoint <http://data.europa.eu/a4g/resource/ReviewerContactPoint/2021-S-004-003544/de2507f9-ae25-37c8-809c-0109efe10669>;\n  legal:registeredAddress <http://data.europa.eu/a4g/resource/ReviewerOrganisationAddress/2021-S-004-003544/de2507f9-ae25-37c8-809c-0109efe10669> .\n\n<http://data.europa.eu/a4g/resource/ReviewerOrganisationAddress/2021-S-004-003544/de2507f9-ae25-37c8-809c-0109efe10669>\n  a locn:Address;\n  epo:hasCountryCode <http://publications.europa.eu/resource/authority/country/DEU>;\n  locn:postCode \"06112\";\n  locn:postName \"Halle (Saale)\";\n  locn:thoroughfare \"Ernst-Kamieth-Stra\u00dfe 2\" .\n\n<http://data.europa.eu/a4g/resource/SubmissionStatisticalInformation/2021-S-004-003544/82b174c6-1f18-3b11-acf2-00977eeddafc>\n  a epo:SubmissionStatisticalInformation;\n  epo:concernsSubmissionsForLot <http://data.europa.eu/a4g/resource/Lot/2021-S-004-003544/cbac108a-b047-3e09-a114-28c43d5b8706>;\n  epo:hasEUReceivedTenders 0;\n  epo:hasElectronicTenders 4;\n  epo:hasReceivedNonEUTenders 0;\n  epo:hasReceivedSMETenders 1;\n  epo:hasReceivedTenders 4 .\n\n<http://data.europa.eu/a4g/resource/Tender/2021-S-004-003544/82b174c6-1f18-3b11-acf2-00977eeddafc>\n  a epo:Tender;\n  epo:hasFinancialOfferValue <http://data.europa.eu/a4g/resource/TenderMonetaryValue/2021-S-004-003544/82b174c6-1f18-3b11-acf2-00977eeddafc>;\n  epo:isSubmittedForLot <http://data.europa.eu/a4g/resource/Lot/2021-S-004-003544/cbac108a-b047-3e09-a114-28c43d5b8706> .\n\n<http://data.europa.eu/a4g/resource/TenderAwardOutcome/2021-S-004-003544/82b174c6-1f18-3b11-acf2-00977eeddafc>\n  a epo:TenderAwardOutcome;\n  epo:awardsLotToWinner <http://data.europa.eu/a4g/resource/WinnerRole/2021-S-004-003544/b9a7c460-794b-36b5-a069-6e9a637315f4>;\n  epo:describesTender <http://data.europa.eu/a4g/resource/Tender/2021-S-004-003544/82b174c6-1f18-3b11-acf2-00977eeddafc> .\n\n<http://data.europa.eu/a4g/resource/TenderMonetaryValue/2021-S-004-003544/82b174c6-1f18-3b11-acf2-00977eeddafc>\n  a epo:MonetaryValue;\n  epo:hasAmountValue 7941130.09;\n  epo:hasCurrency <http://publications.europa.eu/resource/authority/currency/EUR> .\n\n<http://data.europa.eu/a4g/resource/WinnerRole/2021-S-004-003544/b9a7c460-794b-36b5-a069-6e9a637315f4>\n  a epo:Winner;\n  epo:playedBy <http://data.europa.eu/a4g/resource/ContractOrganisation/2021-S-004-003544/b9a7c460-794b-36b5-a069-6e9a637315f4> .\n",
+    "shacl_validations": [],
+    "sparql_validations": [],
+    "mapping_suite_id": "package_F03_v3.5.0"
+  },
+  "status": "DISTILLED"
+}

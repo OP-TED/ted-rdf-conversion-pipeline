@@ -10,7 +10,7 @@ from ted_sws.data_manager.services.create_notice_collection_materialised_view im
 
 DAG_NAME = "daily_materialized_view_update"
 
-
+#iou
 @dag(default_args=DEFAULT_DAG_ARGUMENTS,
      catchup=False,
      schedule_interval="0 5 * * *",
@@ -22,12 +22,12 @@ def daily_materialized_view_update():
         create_notice_collection_materialised_view(mongo_client=mongo_client)
 
     @task
-    def update_materialised_view_with_logs():
+    def aggregate_batch_logs():
         mongo_client = MongoClient(config.MONGO_DB_AUTH_URL)
-        update_notice_collection_materialised_view(mongo_client=mongo_client)
         create_batch_collection_materialised_view(mongo_client=mongo_client)
 
-    create_materialised_view() >> update_materialised_view_with_logs()
+    create_materialised_view()
+    aggregate_batch_logs()
 
 
 dag = daily_materialized_view_update()

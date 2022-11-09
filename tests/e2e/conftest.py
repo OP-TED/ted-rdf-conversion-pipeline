@@ -4,6 +4,7 @@ import pytest
 from pymongo import MongoClient
 
 from ted_sws import config
+from ted_sws.data_manager.adapters.notice_repository import NoticeRepository
 from ted_sws.data_manager.adapters.triple_store import AllegroGraphTripleStore, FusekiAdapter
 
 from tests import TEST_DATA_PATH
@@ -72,3 +73,8 @@ def fake_repository_path():
 @pytest.fixture
 def path_to_file_system_repository():
     return TEST_DATA_PATH / "notice_transformer" / "test_repository"
+
+
+@pytest.fixture
+def fake_notice_repository(fake_mongodb_client):
+    return NoticeRepository(mongodb_client=fake_mongodb_client)

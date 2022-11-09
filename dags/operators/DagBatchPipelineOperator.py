@@ -19,7 +19,8 @@ EXECUTE_ONLY_ONE_STEP_KEY = "execute_only_one_step"
 DEFAULT_NUBER_OF_CELERY_WORKERS = 144
 NOTICE_PROCESS_WORKFLOW_DAG_NAME = "notice_process_workflow"
 DEFAULT_START_WITH_TASK_ID = "notice_normalisation_pipeline"
-DEFAULT_PIPELINE_NAME_FOR_LOGS  = "unknown_pipeline_name"
+DEFAULT_PIPELINE_NAME_FOR_LOGS = "unknown_pipeline_name"
+
 
 class BatchPipelineCallable(Protocol):
 

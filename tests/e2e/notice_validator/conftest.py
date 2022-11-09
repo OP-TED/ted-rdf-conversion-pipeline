@@ -2,7 +2,6 @@ import pytest
 
 from ted_sws.core.model.manifestation import XMLManifestation
 from ted_sws.core.model.notice import Notice
-from tests import TEST_DATA_PATH
 
 
 @pytest.fixture

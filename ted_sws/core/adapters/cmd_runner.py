@@ -17,7 +17,7 @@ from ted_sws.event_manager.services.logger_from_context import get_cli_logger
 
 DEFAULT_MAPPINGS_PATH = 'mappings'
 DEFAULT_OUTPUT_PATH = 'output'
-EXIT_CODE_OK = os.EX_OK
+EXIT_CODE_OK = 0  # os.EX_OK
 DEFAULT_EXIT_CODE = EXIT_CODE_OK
 
 

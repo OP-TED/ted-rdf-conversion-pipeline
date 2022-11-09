@@ -26,8 +26,7 @@ def daily_materialized_view_update():
         mongo_client = MongoClient(config.MONGO_DB_AUTH_URL)
         create_batch_collection_materialised_view(mongo_client=mongo_client)
 
-    create_materialised_view()
-    aggregate_batch_logs()
+    create_materialised_view() >> aggregate_batch_logs()
 
 
 dag = daily_materialized_view_update()

@@ -142,7 +142,6 @@ def test_create_matview_for_notices():
         assert 'form_type' in fields_in_the_materialised_view
         assert 'form_number' in fields_in_the_materialised_view
         assert 'eforms_subtype' in fields_in_the_materialised_view
-        assert 'execution_time' in fields_in_the_materialised_view
 
 
 def test_create_matview_for_batches():

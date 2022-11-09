@@ -238,7 +238,7 @@ class S3PublishConfig:
 
     @property
     def S3_PUBLISH_SSL_VERIFY(self) -> bool:
-        return True if AirflowAndEnvConfigResolver().config_resolve() == "1" else False
+        return AirflowAndEnvConfigResolver().config_resolve() == "1"
 
     @property
     def S3_PUBLISH_NOTICE_BUCKET(self) -> str:
@@ -247,6 +247,10 @@ class S3PublishConfig:
     @property
     def S3_PUBLISH_NOTICE_RDF_BUCKET(self) -> str:
         return AirflowAndEnvConfigResolver().config_resolve()
+
+    @property
+    def S3_PUBLISH_ENABLED(self) -> bool:
+        return AirflowAndEnvConfigResolver().config_resolve() == "1"
 
 
 class TedConfigResolver(MongoDBConfig, RMLMapperConfig, XMLProcessorConfig, ELKConfig, LoggingConfig,

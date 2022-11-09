@@ -36,7 +36,6 @@ def test_deduplicate_entities_by_cet_uri(notice_with_rdf_manifestation, organisa
     unique_names = sparql_endpoint.with_query(sparql_query=TEST_QUERY_UNIQUE_NAMES).fetch_tabular()
     unique_cet_roots = sparql_endpoint.with_query(sparql_query=TEST_QUERY_UNIQUE_CET_ROOTS).fetch_tabular()
     assert len(unique_names) == len(unique_cet_roots)
-
     notice_rdf_content = notice_with_rdf_manifestation.distilled_rdf_manifestation.object_data
     notice_rdf_graph = rdflib.Graph()
     notice_rdf_graph.parse(data=notice_rdf_content, format="ttl")

@@ -4,8 +4,11 @@ import random
 from pymongo import MongoClient
 
 from ted_sws import config
+from ted_sws.data_manager.services.create_batch_collection_materialised_view import \
+    create_batch_collection_materialised_view, NOTICE_PROCESS_BATCH_COLLECTION_NAME
 from ted_sws.data_manager.services.create_notice_collection_materialised_view import \
-    create_notice_collection_materialised_view, NOTICES_MATERIALISED_VIEW_NAME
+    create_notice_collection_materialised_view, NOTICES_MATERIALISED_VIEW_NAME, \
+    update_notice_collection_materialised_view
 
 
 def test_mongodb_client(notice_2016):
@@ -139,4 +142,22 @@ def test_create_matview_for_notices():
         fields_in_the_materialised_view = document.keys()
         assert 'form_type' in fields_in_the_materialised_view
         assert 'form_number' in fields_in_the_materialised_view
+
+
+def test_update_matview_for_notices():
+    uri = config.MONGO_DB_AUTH_URL
+    mongodb_client = MongoClient(uri)
+    update_notice_collection_materialised_view(mongo_client=mongodb_client)
+    create_batch_collection_materialised_view(mongo_client=mongodb_client)
+    db = mongodb_client[config.MONGO_DB_AGGREGATES_DATABASE_NAME]
+    assert NOTICES_MATERIALISED_VIEW_NAME in db.list_collection_names()
+    document = db[NOTICES_MATERIALISED_VIEW_NAME].find_one()
+    if document is not None:
+        fields_in_the_materialised_view = document.keys()
         assert 'notice_logs' in fields_in_the_materialised_view
+    document = db[NOTICE_PROCESS_BATCH_COLLECTION_NAME].find_one()
+    if document is not None:
+        fields_in_the_materialised_view = document.keys()
+        assert 'exec_time' in fields_in_the_materialised_view
+        assert 'nr_of_pipelines' in fields_in_the_materialised_view
+        assert 'batch_nr_of_notices' in fields_in_the_materialised_view

@@ -26,11 +26,11 @@ def test_metadata_transformer(notice_sample_metadata: ExtractedMetadata):
     assert hasattr(template_metadata, "manifestation")
 
 
-def test_publication_notice_year(notice_id):
-    year = publication_notice_year(notice_id)
-    assert year == "2016"
+def test_publication_notice_year(notice_sample_metadata):
+    year = publication_notice_year(notice_sample_metadata)
+    assert year == "2018"
 
 
-def test_publication_notice_uri(notice_id):
-    uri = publication_notice_uri(notice_id)
-    assert uri == "http://data.europa.eu/a4g/resource/2016/196390_2016"
+def test_publication_notice_uri(notice_id, notice_sample_metadata):
+    uri = publication_notice_uri(notice_id, notice_sample_metadata)
+    assert uri == "http://data.europa.eu/a4g/resource/2018/196390_2018"

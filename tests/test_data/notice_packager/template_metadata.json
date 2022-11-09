@@ -9,7 +9,7 @@
   },
   "work": {
     "do_not_index": "true",
-    "date_document": "2021-08-01",
+    "date_document": "2016-08-01",
     "created_by_agent": "PUBL",
     "dataset_published_by_agent": "PUBL",
     "datetime_transmission": "2021-08-01T00:01:00",
@@ -34,7 +34,7 @@
   },
   "manifestation": {
     "type": "E_PROCUREMENT_ONTOLOGY",
-    "date_publication": "2021-08-01",
+    "date_publication": "2016-08-01",
     "distribution_has_status_distribution_status": "COMPLETED",
     "distribution_has_media_type_concept_media_type": "RDF"
   }

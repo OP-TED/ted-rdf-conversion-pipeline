@@ -33,7 +33,7 @@ DISTRIBUTION_STATUS = "COMPLETED"
 MEDIA_TYPE = "RDF"
 LANGUAGES = ["en"]
 LANGUAGE = LANGUAGES[0]
-USES_LANGUAGE = "MULL"
+USES_LANGUAGE = "MUL"
 
 ACTION_CREATE = "create"
 ACTION_UPDATE = "update"
@@ -85,7 +85,7 @@ class WorkMetadata(Metadata):
     dataset_published_by_agent: str = WORK_AGENT
     datetime_transmission: str = datetime.datetime.now().isoformat()
     title: Optional[Dict[str, str]] = None
-    date_creation: Optional[str] = None
+    date_creation: Optional[str] = datetime.datetime.now().strftime('%Y-%m-%d')
     concept_type_dataset: str = CONCEPT_TYPE_DATASET
     dataset_version: Optional[str] = None
     dataset_keyword: List[str] = DATASET_KEYWORD

@@ -142,3 +142,17 @@ def test_create_matview_for_notices():
         assert 'form_type' in fields_in_the_materialised_view
         assert 'form_number' in fields_in_the_materialised_view
         assert 'execution_time' in fields_in_the_materialised_view
+
+
+def test_create_matview_for_batches():
+    uri = config.MONGO_DB_AUTH_URL
+    mongodb_client = MongoClient(uri)
+    create_batch_collection_materialised_view(mongo_client=mongodb_client)
+    db = mongodb_client[config.MONGO_DB_AGGREGATES_DATABASE_NAME]
+    assert NOTICE_PROCESS_BATCH_COLLECTION_NAME in db.list_collection_names()
+    document = db[NOTICE_PROCESS_BATCH_COLLECTION_NAME].find_one()
+    if document is not None:
+        fields_in_the_materialised_view = document.keys()
+        assert 'exec_time' in fields_in_the_materialised_view
+        assert 'nr_of_pipelines' in fields_in_the_materialised_view
+        assert 'batch_nr_of_notices' in fields_in_the_materialised_view

@@ -1,26 +1,10 @@
-from typing import Tuple
-
 import rdflib
 from rdflib import OWL
 
-from ted_sws import config
-from ted_sws.core.model.notice import Notice, NoticeStatus
-from ted_sws.data_manager.adapters.mapping_suite_repository import MappingSuiteRepositoryMongoDB
-from ted_sws.data_manager.adapters.notice_repository import NoticeRepository
-from ted_sws.data_manager.adapters.sparql_endpoint import SPARQLStringEndpoint
 from ted_sws.data_manager.adapters.triple_store import FusekiAdapter
-from ted_sws.data_sampler.services.notice_xml_indexer import index_notice
-from ted_sws.mapping_suite_processor.services.conceptual_mapping_processor import \
-    mapping_suite_processor_from_github_expand_and_load_package_in_mongo_db
+
 from ted_sws.master_data_registry.services.entity_deduplication import deduplicate_entities_by_cet_uri, \
     deduplicate_procedure_entities
-from ted_sws.master_data_registry.services.rdf_fragment_processor import get_subjects_by_cet_uri
-from ted_sws.notice_fetcher.adapters.ted_api import TedAPIAdapter, TedRequestAPI
-from ted_sws.notice_fetcher.services.notice_fetcher import NoticeFetcher
-from ted_sws.notice_metadata_processor.services.metadata_normalizer import normalise_notice
-from ted_sws.notice_metadata_processor.services.notice_eligibility import notice_eligibility_checker
-from ted_sws.notice_transformer.adapters.rml_mapper import RMLMapper
-from ted_sws.notice_transformer.services.notice_transformer import transform_notice
 
 TEST_MDR_REPOSITORY = "tmp_mdr_test_repository"
 TEST_QUERY_UNIQUE_NAMES = """SELECT distinct ?name
@@ -73,52 +57,13 @@ def test_deduplicate_entities_by_cet_uri(notice_with_rdf_manifestation, organisa
     fuseki_triple_store.delete_repository(repository_name=TEST_MDR_REPOSITORY)
 
 
-def execute_transform_pipeline(notice_id: str, mongodb_client, procedure_cet_uri) -> Tuple[rdflib.URIRef, Notice]:
-    notice_repository = NoticeRepository(mongodb_client=mongodb_client)
-    notice_fetcher = NoticeFetcher(notice_repository=notice_repository,
-                                   ted_api_adapter=TedAPIAdapter(
-                                       request_api=TedRequestAPI()))
-
-    notice_fetcher.fetch_notice_by_id(notice_id)
-    notice = notice_repository.get(reference=notice_id)
-    indexed_notice = index_notice(notice=notice)
-    normalised_notice = normalise_notice(notice=indexed_notice)
-    mapping_suite_repository = MappingSuiteRepositoryMongoDB(mongodb_client=mongodb_client)
-    result = notice_eligibility_checker(notice=normalised_notice, mapping_suite_repository=mapping_suite_repository)
-    assert result is not None
-    notice_id, mapping_suite_id = result
-    normalised_notice.update_status_to(new_status=NoticeStatus.PREPROCESSED_FOR_TRANSFORMATION)
-    mapping_suite = mapping_suite_repository.get(reference=mapping_suite_id)
-    rml_mapper = RMLMapper(rml_mapper_path=config.RML_MAPPER_PATH)
-    transformed_notice = transform_notice(notice=normalised_notice, mapping_suite=mapping_suite, rml_mapper=rml_mapper)
-    transformed_notice.set_distilled_rdf_manifestation(
-        distilled_rdf_manifestation=transformed_notice.rdf_manifestation.copy())
-    notice_repository.update(notice=transformed_notice)
-    rdf_content = transformed_notice.rdf_manifestation.object_data
-    sparql_endpoint = SPARQLStringEndpoint(rdf_content=rdf_content)
-    result_uris = get_subjects_by_cet_uri(sparql_endpoint=sparql_endpoint, cet_uri=procedure_cet_uri)
-    assert len(result_uris) == 1
-    parent_procedure_uri = rdflib.URIRef(result_uris[0])
-
-    return parent_procedure_uri, transformed_notice
-
-
-def test_deduplicate_procedure_entities(procedure_cet_uri, fake_mongodb_client):
-    mapping_suite_processor_from_github_expand_and_load_package_in_mongo_db(mongodb_client=fake_mongodb_client,
-                                                                            mapping_suite_package_name="package_F03")
-
-    child_procedure_uri, child_notice = execute_transform_pipeline(notice_id=CHILD_NOTICE_ID,
-                                                                   mongodb_client=fake_mongodb_client,
-                                                                   procedure_cet_uri=procedure_cet_uri)
-    parent_procedure_uri, parent_notice = execute_transform_pipeline(notice_id=PARENT_NOTICE_ID,
-                                                                     mongodb_client=fake_mongodb_client,
-                                                                     procedure_cet_uri=procedure_cet_uri)
-
+def test_deduplicate_procedure_entities(child_notice, procedure_cet_uri, notice_procedure_uri,
+                                        fake_mongodb_client_with_parent_notice):
     deduplicate_procedure_entities(notices=[child_notice], procedure_cet_uri=procedure_cet_uri,
-                                   mongodb_client=fake_mongodb_client)
+                                   mongodb_client=fake_mongodb_client_with_parent_notice)
 
     notice_rdf_content = child_notice.distilled_rdf_manifestation.object_data
     notice_rdf_graph = rdflib.Graph()
     notice_rdf_graph.parse(data=notice_rdf_content, format="ttl")
 
-    assert len(list(notice_rdf_graph.triples((child_procedure_uri, OWL.sameAs, parent_procedure_uri)))) == 1
+    assert len(list(notice_rdf_graph.triples((notice_procedure_uri, OWL.sameAs, notice_procedure_uri)))) == 1

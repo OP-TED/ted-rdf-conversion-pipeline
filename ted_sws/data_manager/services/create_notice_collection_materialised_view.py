@@ -65,3 +65,4 @@ def create_notice_collection_materialised_view(mongo_client: MongoClient):
     materialised_view.create_index([("status", ASCENDING)])
     materialised_view.create_index([("form_number", ASCENDING)])
     materialised_view.create_index([("form_number", ASCENDING), ("status", ASCENDING)])
+    materialised_view.create_index([("execution_time", ASCENDING)])

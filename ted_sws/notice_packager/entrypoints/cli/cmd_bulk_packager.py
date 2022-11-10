@@ -25,7 +25,8 @@ from ted_sws.notice_metadata_processor.services.xml_manifestation_metadata_extra
     XMLManifestationMetadataExtractor
 from ted_sws.notice_packager import DEFAULT_NOTICE_PACKAGE_EXTENSION
 from ted_sws.notice_packager.services.metadata_transformer import MetadataTransformer
-from ted_sws.notice_packager.services.notice_packager import create_notice_package, package_notice_and_save_to
+from ted_sws.notice_packager.services.notice_packager import create_notice_package, package_notice_and_save_to, \
+    ARCHIVE_NAME_FORMAT
 
 CMD_NAME = "CMD_BULK_PACKAGER"
 DEFAULT_FILES_COUNT: int = 3000
@@ -62,7 +63,7 @@ class CmdRunner(BaseCmdRunner):
             self.output_path.mkdir(parents=True, exist_ok=True)
             if self.notices:
                 for notice in self.notices:
-                    output_file = self.output_path / (notice.ted_id + DEFAULT_NOTICE_PACKAGE_EXTENSION)
+                    output_file = self.output_path / ARCHIVE_NAME_FORMAT.format(publication_work_identifier())
                     self.log("Saving package to " + str(output_file))
                     package_notice_and_save_to(notice=notice,
                                                save_to=output_file)

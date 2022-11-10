@@ -29,9 +29,9 @@ from ted_sws.notice_packager.model.metadata import ACTION_CREATE
 from ted_sws.notice_packager.services.metadata_transformer import MetadataTransformer
 from ted_sws.notice_packager import DEFAULT_NOTICE_PACKAGE_EXTENSION
 
-ARCHIVE_NAME_FORMAT = "eProcurement_notice_{notice_id}" + DEFAULT_NOTICE_PACKAGE_EXTENSION
+ARCHIVE_NAME_FORMAT = "{work_identifier}_{action}" + DEFAULT_NOTICE_PACKAGE_EXTENSION
 FILE_METS_XML_FORMAT = "{notice_id}-0.mets.xml.dmd.rdf"
-FILE_METS_ACTION_FORMAT = "{notice_id}_mets2{action}.mets.xml"
+FILE_METS_ACTION_FORMAT = "{work_identifier}_{action}.mets.xml"
 FILE_TMD_FORMAT = "techMDID001.tmd.rdf"
 FILE_RDF_FORMAT = "{notice_id}.rdf"
 
@@ -79,7 +79,7 @@ def package_notice(notice: Notice) -> Notice:
     return notice
 
 
-def package_notice_and_save_to(notice: Notice, save_to: PATH_TYPE = None) -> str:
+def package_notice_and_save_to(notice: Notice, save_to: PATH_TYPE = None, work_identifier: str = None) -> str:
     """
         This function package a Notice to save_to location.
     """

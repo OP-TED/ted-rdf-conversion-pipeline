@@ -15,7 +15,7 @@ import pathlib
 
 import dotenv
 
-from ted_sws.core.adapters.config_resolver import EnvConfigResolver, AirflowAndEnvConfigResolver
+from ted_sws.core.adapters.config_resolver import EnvConfigResolver, AirflowAndEnvConfigResolver, env_property
 
 dotenv.load_dotenv(verbose=True, override=os.environ.get('IS_PRIME_ENV') != 'true')
 
@@ -38,174 +38,168 @@ SPARQL_PREFIXES_PATH = PROJECT_PATH / "resources" / "prefixes" / "prefixes.json"
 
 class MongoDBConfig:
 
-    @property
-    def MONGO_DB_AUTH_URL(self) -> str:
+    @env_property()
+    def MONGO_DB_AUTH_URL(self, config_value: str) -> str:
         if self.ENVIRONMENT == "dev" and self.AIRFLOW__CORE__EXECUTOR:
             return self.MONGO_DB_AUTH_URL_DEV_CONTAINER
-        return EnvConfigResolver().config_resolve()
+        return config_value
 
-    @property
-    def MONGO_DB_AUTH_URL_DEV_CONTAINER(self) -> str:
+    @env_property()
+    def MONGO_DB_AUTH_URL_DEV_CONTAINER(self, config_value: str) -> str:
         """
         This variable is to be used only on dev environment when execution is done from a docker container as oppose to
         development host environment
         """
-        return EnvConfigResolver().config_resolve()
+        return config_value
 
-    @property
-    def ENVIRONMENT(self) -> str:
-        return EnvConfigResolver().config_resolve()
+    @env_property()
+    def ENVIRONMENT(self, config_value: str) -> str:
+        return config_value
 
-    @property
-    def AIRFLOW__CORE__EXECUTOR(self) -> str:
-        return EnvConfigResolver().config_resolve()
+    @env_property()
+    def AIRFLOW__CORE__EXECUTOR(self, config_value: str) -> str:
+        return config_value
 
-    @property
-    def MONGO_DB_PORT(self) -> int:
-        return int(EnvConfigResolver().config_resolve())
+    @env_property()
+    def MONGO_DB_PORT(self, config_value: str) -> int:
+        return int(config_value)
 
-    @property
-    def MONGO_DB_AGGREGATES_DATABASE_NAME(self) -> str:
-        return EnvConfigResolver().config_resolve()
+    @env_property()
+    def MONGO_DB_AGGREGATES_DATABASE_NAME(self, config_value: str) -> str:
+        return config_value
 
 
 class RMLMapperConfig:
-    @property
-    def RML_MAPPER_PATH(self) -> str:
-        return EnvConfigResolver().config_resolve()
+    @env_property()
+    def RML_MAPPER_PATH(self, config_value: str) -> str:
+        return config_value
 
 
 class LimesAlignmentConfig:
-    @property
-    def LIMES_ALIGNMENT_PATH(self) -> str:
-        return EnvConfigResolver().config_resolve()
+    @env_property()
+    def LIMES_ALIGNMENT_PATH(self, config_value: str) -> str:
+        return config_value
 
 
 class AllegroConfig:
-    @property
-    def AGRAPH_SUPER_USER(self) -> str:
-        return EnvConfigResolver().config_resolve()
+    @env_property()
+    def AGRAPH_SUPER_USER(self, config_value: str) -> str:
+        return config_value
 
-    @property
-    def AGRAPH_SUPER_PASSWORD(self) -> str:
-        return EnvConfigResolver().config_resolve()
+    @env_property()
+    def AGRAPH_SUPER_PASSWORD(self, config_value: str) -> str:
+        return config_value
 
-    @property
-    def ALLEGRO_HOST(self) -> str:
-        return EnvConfigResolver().config_resolve()
+    @env_property()
+    def ALLEGRO_HOST(self, config_value: str) -> str:
+        return config_value
 
-    @property
-    def TRIPLE_STORE_ENDPOINT_URL(self) -> str:
-        return EnvConfigResolver().config_resolve()
+    @env_property()
+    def TRIPLE_STORE_ENDPOINT_URL(self, config_value: str) -> str:
+        return config_value
 
 
 class ELKConfig:
 
-    @property
-    def ELK_HOST(self) -> str:
-        return EnvConfigResolver().config_resolve()
+    @env_property()
+    def ELK_HOST(self, config_value: str) -> str:
+        return config_value
 
-    @property
-    def ELK_PORT(self) -> int:
-        v: str = EnvConfigResolver().config_resolve()
-        return int(v) if v is not None else None
+    @env_property()
+    def ELK_PORT(self, config_value: str) -> int:
+        return int(config_value) if config_value is not None else None
 
-    @property
-    def ELK_VERSION(self) -> int:
-        v: str = EnvConfigResolver().config_resolve()
-        return int(v) if v is not None else None
+    @env_property()
+    def ELK_VERSION(self, config_value: str) -> int:
+        return int(config_value) if config_value is not None else None
 
 
 class LoggingConfig:
-    @property
-    def MONGO_DB_LOGS_DATABASE_NAME(self) -> str:
-        return EnvConfigResolver().config_resolve()
+    @env_property()
+    def MONGO_DB_LOGS_DATABASE_NAME(self, config_value: str) -> str:
+        return config_value
 
-    @property
-    def DAG_LOGGER_CONFIG_HANDLERS(self) -> str:
-        return EnvConfigResolver().config_resolve()
+    @env_property()
+    def DAG_LOGGER_CONFIG_HANDLERS(self, config_value: str) -> str:
+        return config_value
 
-    @property
-    def CLI_LOGGER_CONFIG_HANDLERS(self) -> str:
-        return EnvConfigResolver().config_resolve()
+    @env_property()
+    def CLI_LOGGER_CONFIG_HANDLERS(self, config_value: str) -> str:
+        return config_value
 
-    @property
-    def LOGGER_LOG_FILENAME(self) -> str:
-        return EnvConfigResolver().config_resolve()
+    @env_property()
+    def LOGGER_LOG_FILENAME(self, config_value: str) -> str:
+        return config_value
 
 
 class XMLProcessorConfig:
 
-    @property
-    def XML_PROCESSOR_PATH(self) -> str:
-        return EnvConfigResolver().config_resolve()
+    @env_property()
+    def XML_PROCESSOR_PATH(self, config_value: str) -> str:
+        return config_value
 
 
 class GitHubArtefacts:
 
-    @property
-    def GITHUB_TED_SWS_ARTEFACTS_URL(self) -> str:
-        return EnvConfigResolver().config_resolve()
+    @env_property()
+    def GITHUB_TED_SWS_ARTEFACTS_URL(self, config_value: str) -> str:
+        return config_value
 
 
 class API:
-    @property
-    def ID_MANAGER_PROD_API_HOST(self) -> str:
-        v: str = EnvConfigResolver().config_resolve()
-        return v if v else "localhost"
+    @env_property(default_value="localhost")
+    def ID_MANAGER_PROD_API_HOST(self, config_value: str) -> str:
+        return config_value
 
-    @property
-    def ID_MANAGER_DEV_API_HOST(self) -> str:
-        v: str = EnvConfigResolver().config_resolve()
-        return v if v else "localhost"
+    @env_property(default_value="local_host")
+    def ID_MANAGER_DEV_API_HOST(self, config_value: str) -> str:
+        return config_value
 
-    @property
-    def ID_MANAGER_API_PORT(self) -> int:
-        v: str = EnvConfigResolver().config_resolve()
-        return int(v) if v else 8000
+    @env_property(default_value="8000")
+    def ID_MANAGER_API_PORT(self, config_value: str) -> int:
+        return int(config_value)
 
 
 class TedAPIConfig:
-    @property
-    def TED_API_URL(self) -> str:
-        return EnvConfigResolver().config_resolve()
+    @env_property()
+    def TED_API_URL(self, config_value: str) -> str:
+        return config_value
 
 
 class FusekiConfig:
-    @property
-    def FUSEKI_ADMIN_USER(self) -> str:
-        return EnvConfigResolver().config_resolve()
+    @env_property()
+    def FUSEKI_ADMIN_USER(self, config_value: str) -> str:
+        return config_value
 
-    @property
-    def FUSEKI_ADMIN_PASSWORD(self) -> str:
-        return EnvConfigResolver().config_resolve()
+    @env_property()
+    def FUSEKI_ADMIN_PASSWORD(self, config_value: str) -> str:
+        return config_value
 
-    @property
-    def FUSEKI_ADMIN_HOST(self) -> str:
-        return EnvConfigResolver().config_resolve()
+    @env_property()
+    def FUSEKI_ADMIN_HOST(self, config_value: str) -> str:
+        return config_value
 
 
 class SFTPConfig:
-    @property
-    def SFTP_PUBLISH_HOST(self) -> str:
-        return AirflowAndEnvConfigResolver().config_resolve()
+    @env_property(config_resolver_class=AirflowAndEnvConfigResolver)
+    def SFTP_PUBLISH_HOST(self, config_value: str) -> str:
+        return config_value
 
-    @property
-    def SFTP_PUBLISH_PORT(self) -> int:
-        v = AirflowAndEnvConfigResolver().config_resolve()
-        return int(v) if v is not None else 22
+    @env_property(config_resolver_class=AirflowAndEnvConfigResolver, default_value="22")
+    def SFTP_PUBLISH_PORT(self, config_value: str) -> int:
+        return int(config_value)
 
-    @property
-    def SFTP_PUBLISH_USER(self) -> str:
-        return AirflowAndEnvConfigResolver().config_resolve()
+    @env_property(config_resolver_class=AirflowAndEnvConfigResolver)
+    def SFTP_PUBLISH_USER(self, config_value: str) -> str:
+        return config_value
 
-    @property
-    def SFTP_PUBLISH_PASSWORD(self) -> str:
-        return AirflowAndEnvConfigResolver().config_resolve()
+    @env_property(config_resolver_class=AirflowAndEnvConfigResolver)
+    def SFTP_PUBLISH_PASSWORD(self, config_value: str) -> str:
+        return config_value
 
-    @property
-    def SFTP_PUBLISH_PATH(self) -> str:
-        return AirflowAndEnvConfigResolver().config_resolve()
+    @env_property(config_resolver_class=AirflowAndEnvConfigResolver)
+    def SFTP_PUBLISH_PATH(self, config_value: str) -> str:
+        return config_value
 
 
 class SPARQLConfig:
@@ -216,41 +210,41 @@ class SPARQLConfig:
 
 
 class S3PublishConfig:
-    @property
-    def S3_PUBLISH_USER(self) -> str:
-        return AirflowAndEnvConfigResolver().config_resolve()
+    @env_property(config_resolver_class=AirflowAndEnvConfigResolver)
+    def S3_PUBLISH_USER(self, config_value: str) -> str:
+        return config_value
 
-    @property
-    def S3_PUBLISH_PASSWORD(self) -> str:
-        return AirflowAndEnvConfigResolver().config_resolve()
+    @env_property(config_resolver_class=AirflowAndEnvConfigResolver)
+    def S3_PUBLISH_PASSWORD(self, config_value: str) -> str:
+        return config_value
 
-    @property
-    def S3_PUBLISH_HOST(self) -> str:
-        return AirflowAndEnvConfigResolver().config_resolve()
+    @env_property(config_resolver_class=AirflowAndEnvConfigResolver)
+    def S3_PUBLISH_HOST(self, config_value: str) -> str:
+        return config_value
 
-    @property
-    def S3_PUBLISH_SECURE(self) -> bool:
-        return True if AirflowAndEnvConfigResolver().config_resolve() == "1" else False
+    @env_property(config_resolver_class=AirflowAndEnvConfigResolver)
+    def S3_PUBLISH_SECURE(self, config_value: str) -> bool:
+        return config_value == "1"
 
-    @property
-    def S3_PUBLISH_REGION(self) -> str:
-        return AirflowAndEnvConfigResolver().config_resolve()
+    @env_property(config_resolver_class=AirflowAndEnvConfigResolver)
+    def S3_PUBLISH_REGION(self, config_value: str) -> str:
+        return config_value
 
-    @property
-    def S3_PUBLISH_SSL_VERIFY(self) -> bool:
-        return AirflowAndEnvConfigResolver().config_resolve() == "1"
+    @env_property(config_resolver_class=AirflowAndEnvConfigResolver)
+    def S3_PUBLISH_SSL_VERIFY(self, config_value: str) -> bool:
+        return config_value == "1"
 
-    @property
-    def S3_PUBLISH_NOTICE_BUCKET(self) -> str:
-        return AirflowAndEnvConfigResolver().config_resolve()
+    @env_property(config_resolver_class=AirflowAndEnvConfigResolver, default_value="notice")
+    def S3_PUBLISH_NOTICE_BUCKET(self, config_value: str) -> str:
+        return config_value
 
-    @property
-    def S3_PUBLISH_NOTICE_RDF_BUCKET(self) -> str:
-        return AirflowAndEnvConfigResolver().config_resolve()
+    @env_property(config_resolver_class=AirflowAndEnvConfigResolver, default_value="notice-rdf")
+    def S3_PUBLISH_NOTICE_RDF_BUCKET(self, config_value: str) -> str:
+        return config_value
 
-    @property
-    def S3_PUBLISH_ENABLED(self) -> bool:
-        return AirflowAndEnvConfigResolver().config_resolve() == "1"
+    @env_property(config_resolver_class=AirflowAndEnvConfigResolver)
+    def S3_PUBLISH_ENABLED(self, config_value: str) -> bool:
+        return config_value == "1"
 
 
 class TedConfigResolver(MongoDBConfig, RMLMapperConfig, XMLProcessorConfig, ELKConfig, LoggingConfig,

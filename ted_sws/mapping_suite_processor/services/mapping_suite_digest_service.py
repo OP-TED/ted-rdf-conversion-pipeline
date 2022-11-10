@@ -4,8 +4,8 @@ from ted_sws import config
 
 
 def update_digest_api_address_for_mapping_suite(mapping_suite: MappingSuite,
-                                                current_digest_api_address: str = config.ID_MANAGER_DEV_API_HOST,
-                                                new_digest_api_address: str = config.ID_MANAGER_PROD_API_HOST,
+                                                current_digest_api_address: str = None,
+                                                new_digest_api_address: str = None,
                                                 ) -> MappingSuite:
     """
     Replace the digest API address
@@ -21,6 +21,10 @@ def update_digest_api_address_for_mapping_suite(mapping_suite: MappingSuite,
     :param new_digest_api_address:
     :return:
     """
+    if current_digest_api_address is None:
+        current_digest_api_address = config.ID_MANAGER_DEV_API_HOST
+    if new_digest_api_address is None:
+        new_digest_api_address = config.ID_MANAGER_PROD_API_HOST
 
     if not new_digest_api_address or not current_digest_api_address \
             or new_digest_api_address == current_digest_api_address:

@@ -31,8 +31,8 @@ class XMLPreprocessor(XMLPreprocessorABC):
         This class provides XML preprocessing
     """
 
-    def __init__(self, path_to_processor: pathlib.Path = config.XML_PROCESSOR_PATH):
-        self.path_to_processor = path_to_processor
+    def __init__(self, path_to_processor: pathlib.Path = None):
+        self.path_to_processor = path_to_processor if path_to_processor else config.XML_PROCESSOR_PATH
 
     def _generate_xslt_command(self, xml_path, xslt_path):
         """

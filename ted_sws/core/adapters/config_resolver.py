@@ -12,6 +12,7 @@ import inspect
 import logging
 import os
 from abc import ABC, abstractmethod
+from typing import Type
 
 from ted_sws.core.adapters.vault_secrets_store import VaultSecretsStore
 
@@ -113,3 +114,23 @@ class VaultAndEnvConfigResolver(ConfigResolverABC):
         else:
             value = EnvConfigResolver().concrete_config_resolve(config_name, default_value)
             return value
+
+
+def env_property(config_resolver_class: Type[ConfigResolverABC] = EnvConfigResolver,
+                 default_value: str = None):
+    """
+        This function provide decorator mechanism for config resolver.
+    :param config_resolver_class:
+    :param default_value:
+    :return:
+    """
+    def wrap(func):
+        @property
+        def wrapped_f(self, *args, **kwargs):
+            config_value = config_resolver_class().concrete_config_resolve(config_name=func.__name__,
+                                                                           default_value=default_value)
+            return func(self, config_value, *args, **kwargs)
+
+        return wrapped_f
+
+    return wrap

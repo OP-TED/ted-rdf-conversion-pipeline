@@ -1,5 +1,5 @@
-import string
 import random
+import string
 
 from pymongo import MongoClient
 
@@ -7,7 +7,8 @@ from ted_sws import config
 from ted_sws.data_manager.services.create_batch_collection_materialised_view import \
     create_batch_collection_materialised_view, NOTICE_PROCESS_BATCH_COLLECTION_NAME
 from ted_sws.data_manager.services.create_notice_collection_materialised_view import \
-    create_notice_collection_materialised_view, NOTICES_MATERIALISED_VIEW_NAME
+    create_notice_collection_materialised_view, NOTICES_MATERIALISED_VIEW_NAME, NOTICE_KPI_COLLECTION_NAME, \
+    create_notice_kpi_collection
 
 
 def test_mongodb_client(notice_2016):
@@ -140,6 +141,23 @@ def test_create_matview_for_notices():
     if document is not None:
         fields_in_the_materialised_view = document.keys()
         assert 'form_type' in fields_in_the_materialised_view
+        assert 'form_number' in fields_in_the_materialised_view
+        assert 'eforms_subtype' in fields_in_the_materialised_view
+        assert 'eu_institution' in fields_in_the_materialised_view
+        assert 'extracted_legal_basis_directive' in fields_in_the_materialised_view
+        assert 'ojs_type' in fields_in_the_materialised_view
+        assert 'legal_basis_directive' in fields_in_the_materialised_view
+        assert 'country_of_buyer' in fields_in_the_materialised_view
+        assert 'notice_type' in fields_in_the_materialised_view
+        assert 'xsd_version' in fields_in_the_materialised_view
+        assert 'publication_date' in fields_in_the_materialised_view
+
+    create_notice_kpi_collection(mongo_client=mongodb_client)
+    assert NOTICE_KPI_COLLECTION_NAME in db.list_collection_names()
+    document = db[NOTICE_KPI_COLLECTION_NAME].find_one()
+    if document is not None:
+        fields_in_the_materialised_view = document.keys()
+        assert 'exec_time' in fields_in_the_materialised_view
         assert 'form_number' in fields_in_the_materialised_view
         assert 'eforms_subtype' in fields_in_the_materialised_view
 

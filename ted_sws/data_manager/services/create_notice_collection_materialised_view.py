@@ -51,7 +51,11 @@ def create_notice_collection_materialised_view(mongo_client: MongoClient):
     materialised_view.create_index([("execution_time", ASCENDING)])
 
 
-def update_notice_collection_materialised_view(mongo_client: MongoClient):
+def create_notice_kpi_collection(mongo_client: MongoClient):
+    """
+    Creates a collection with kpi for existing notices.
+    :param mongo_client: MongoDB client to connect
+    """
     database = mongo_client[config.MONGO_DB_AGGREGATES_DATABASE_NAME or MONGO_DB_AGGREGATES_DATABASE_DEFAULT_NAME]
     notice_events_collection = database[NOTICE_EVENTS_COLLECTION_NAME]
     notice_events_collection.aggregate([

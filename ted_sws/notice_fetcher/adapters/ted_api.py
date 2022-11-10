@@ -42,14 +42,15 @@ class TedAPIAdapter(TedAPIAdapterABC):
     This class will fetch documents content
     """
 
-    def __init__(self, request_api: RequestAPI, ted_api_url: str = config.TED_API_URL):
+    def __init__(self, request_api: RequestAPI, ted_api_url: str = None):
         """
         The constructor will take the API url as a parameter
         :param request_api:
         :param ted_api_url:
         """
+
         self.request_api = request_api
-        self.ted_api_url = ted_api_url
+        self.ted_api_url = ted_api_url if ted_api_url else config.TED_API_URL
 
     def get_by_wildcard_date(self, wildcard_date: str) -> List[dict]:
         """

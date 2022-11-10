@@ -45,7 +45,7 @@ class MongoDBConfig:
         return config_value
 
     @env_property()
-    def MONGO_DB_AUTH_URL_DEV_CONTAINER(self, config_value) -> str:
+    def MONGO_DB_AUTH_URL_DEV_CONTAINER(self, config_value: str) -> str:
         """
         This variable is to be used only on dev environment when execution is done from a docker container as oppose to
         development host environment
@@ -234,11 +234,11 @@ class S3PublishConfig:
     def S3_PUBLISH_SSL_VERIFY(self, config_value: str) -> bool:
         return config_value == "1"
 
-    @env_property(config_resolver_class=AirflowAndEnvConfigResolver)
+    @env_property(config_resolver_class=AirflowAndEnvConfigResolver, default_value="notice")
     def S3_PUBLISH_NOTICE_BUCKET(self, config_value: str) -> str:
         return config_value
 
-    @env_property(config_resolver_class=AirflowAndEnvConfigResolver)
+    @env_property(config_resolver_class=AirflowAndEnvConfigResolver, default_value="notice-rdf")
     def S3_PUBLISH_NOTICE_RDF_BUCKET(self, config_value: str) -> str:
         return config_value
 

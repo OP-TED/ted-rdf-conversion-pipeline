@@ -159,7 +159,7 @@ class DAGLoggerConfig(EventHandlerConfig):
     """
 
     def __init__(self, mongodb_client: MongoClient = None, name: str = DEFAULT_LOGGER_NAME, filepath: Path = None,
-                 handlers: HANDLERS_TYPE = None, config_handlers: str = config.DAG_LOGGER_CONFIG_HANDLERS):
+                 handlers: HANDLERS_TYPE = None, config_handlers: str = None):
         """
         This is the constructor/initialization of DAG event handler config.
 
@@ -169,6 +169,7 @@ class DAGLoggerConfig(EventHandlerConfig):
         :param handlers: Forced event handlers
         :param config_handlers: Environment config event handlers for DAG
         """
+        config_handlers = config_handlers if config_handlers else config.DAG_LOGGER_CONFIG_HANDLERS
         handlers, prime_handlers = self._init_handlers(
             config_handlers=config_handlers,
             default_handlers=[
@@ -189,7 +190,7 @@ class CLILoggerConfig(EventHandlerConfig):
     """
 
     def __init__(self, mongodb_client: MongoClient = None, name: str = DEFAULT_LOGGER_NAME, filepath: Path = None,
-                 handlers: HANDLERS_TYPE = None, config_handlers: str = config.CLI_LOGGER_CONFIG_HANDLERS):
+                 handlers: HANDLERS_TYPE = None, config_handlers: str = None):
         """
         This is the constructor/initialization of CLI event handler config.
 
@@ -199,6 +200,7 @@ class CLILoggerConfig(EventHandlerConfig):
         :param handlers: Forced event handlers
         :param config_handlers: Environment config event handlers for CLI
         """
+        config_handlers = config_handlers if config_handlers else config.CLI_LOGGER_CONFIG_HANDLERS
         handlers, prime_handlers = self._init_handlers(
             config_handlers=config_handlers,
             default_handlers=[

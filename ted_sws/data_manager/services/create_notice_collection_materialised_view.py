@@ -60,6 +60,16 @@ def create_notice_kpi_collection(mongo_client: MongoClient):
     notice_events_collection = database[NOTICE_EVENTS_COLLECTION_NAME]
     notice_events_collection.aggregate([
         {
+            "$match": {
+                "_id": 1,
+                "$caller_name": "execute",
+                "$duration": 1,
+                "$notice_id": 1,
+                "$notice_form_number": 1,
+                "$notice_eforms_subtype": 1
+            }
+        },
+        {
             "$group": {
                 "_id": "$notice_id",
                 "exec_time": {"$sum": "$duration"},

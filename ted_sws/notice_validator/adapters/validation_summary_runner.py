@@ -12,11 +12,14 @@ from ted_sws.core.model.notice import Notice
 TEMPLATES = Environment(loader=PackageLoader("ted_sws.notice_validator.resources", "templates"))
 VALIDATION_SUMMARY_REPORT_TEMPLATE = "validation_summary_report.jinja2"
 
+MAPPING_SUITE_IDENTIFIER = "mapping_suite_identifier"
+TEST_SUITE_IDENTIFIER = "test_suite_identifier"
+
 
 def find_validation_results(results: List, result: dict):
     found_results = list(filter(
         lambda record: record.mapping_suite_identifier == result[
-            "mapping_suite_identifier"] and record.test_suite_identifier == result["test_suite_identifier"],
+            MAPPING_SUITE_IDENTIFIER] and record.test_suite_identifier == result[TEST_SUITE_IDENTIFIER],
         results
     ))
     return found_results
@@ -36,8 +39,8 @@ class RDFManifestationValidationSummaryRunner(ManifestationValidationSummaryRunn
         mapping_suite_id = sparql_report.mapping_suite_identifier
         test_suite_id = sparql_report.test_suite_identifier
 
-        found_results = find_validation_results(result_counts, {"mapping_suite_identifier": mapping_suite_id,
-                                                                "test_suite_identifier": test_suite_id})
+        found_results = find_validation_results(result_counts, {MAPPING_SUITE_IDENTIFIER: mapping_suite_id,
+                                                                TEST_SUITE_IDENTIFIER: test_suite_id})
         is_found: bool = found_results and len(found_results) > 0
         result_validation: SPARQLSummaryResult
         if is_found:
@@ -89,8 +92,8 @@ class RDFManifestationValidationSummaryRunner(ManifestationValidationSummaryRunn
                              result_counts: List[SHACLSummaryResult]) -> (bool, SHACLSummaryResult):
         mapping_suite_id = shacl_report.mapping_suite_identifier
         test_suite_id = shacl_report.test_suite_identifier
-        found_results = find_validation_results(result_counts, {"mapping_suite_identifier": mapping_suite_id,
-                                                                "test_suite_identifier": test_suite_id})
+        found_results = find_validation_results(result_counts, {MAPPING_SUITE_IDENTIFIER: mapping_suite_id,
+                                                                TEST_SUITE_IDENTIFIER: test_suite_id})
         is_found: bool = found_results and len(found_results) > 0
         result_validation: SHACLSummaryResult
         if is_found:

@@ -60,7 +60,7 @@ class SHACLTestSuiteRunner:
 
 
 def generate_shacl_report(shacl_test_suite_execution: SHACLTestSuiteValidationReport,
-                          notice_ids: List[str] = None) -> SHACLTestSuiteValidationReport:
+                          notice_ids: List[str] = None, with_html: bool = False) -> SHACLTestSuiteValidationReport:
     """
         This function generate html report after SHACL test execution.
     :param notice_ids:

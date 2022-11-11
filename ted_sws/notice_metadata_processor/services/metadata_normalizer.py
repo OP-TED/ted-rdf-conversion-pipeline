@@ -216,16 +216,18 @@ class ExtractedMetadataNormaliser:
                                              sf_notice_type=filter_variables[SF_NOTICE_TYPE_KEY],
                                              legal_basis=filter_variables[LEGAL_BASIS_KEY],
                                              document_code=filter_variables[DOCUMENT_CODE_KEY])
-        if filtered_df.empty:
-            log_error(
-                message=f"This notice can't be mapped with the current mapping files (standard forms mapping and eforms mapping)."
-                        f"Searched values: form number={form_number}, extracted_notice_type {extracted_notice_type},"
-                        f" legal_basis {legal_basis}, document_code {document_type_code}. "
-                        f"Therefore form_type, notice_type, legal_basis and eforms_subtype fields can't be normalised")
-        form_type = filtered_df[FORM_TYPE_KEY].values[0]
-        notice_type = filtered_df[E_FORM_NOTICE_TYPE_COLUMN].values[0]
-        legal_basis = filtered_df[E_FORM_LEGAL_BASIS_COLUMN].values[0]
-        eforms_subtype = filtered_df[E_FORMS_SUBTYPE_KEY].values[0]
+        try:
+            form_type = filtered_df[FORM_TYPE_KEY].values[0]
+            notice_type = filtered_df[E_FORM_NOTICE_TYPE_COLUMN].values[0]
+            legal_basis = filtered_df[E_FORM_LEGAL_BASIS_COLUMN].values[0]
+            eforms_subtype = filtered_df[E_FORMS_SUBTYPE_KEY].values[0]
+        except:
+            raise Exception(
+                f"This notice can't be mapped with the current mapping files (standard forms mapping and eforms mapping)."
+                f"Searched values: form number={form_number}, extracted_notice_type {extracted_notice_type},"
+                f" legal_basis {legal_basis}, document_code {document_type_code}. "
+                f"Therefore form_type, notice_type, legal_basis and eforms_subtype fields can't be normalised")
+
         return form_type, notice_type, legal_basis, eforms_subtype
 
     def get_map_list_value_by_code(self, mapping: Dict, listing: List):

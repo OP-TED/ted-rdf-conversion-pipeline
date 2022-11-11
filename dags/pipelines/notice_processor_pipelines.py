@@ -1,6 +1,7 @@
 from pymongo import MongoClient
 from dags.pipelines.pipeline_protocols import NoticePipelineOutput
 from ted_sws.core.model.notice import Notice, NoticeStatus
+from ted_sws.event_manager.services.log import log_notice_error
 
 
 def notice_normalisation_pipeline(notice: Notice, mongodb_client: MongoClient) -> NoticePipelineOutput:
@@ -30,6 +31,12 @@ def notice_transformation_pipeline(notice: Notice, mongodb_client: MongoClient) 
     mapping_suite_repository = MappingSuiteRepositoryMongoDB(mongodb_client=mongodb_client)
     result = notice_eligibility_checker(notice=notice, mapping_suite_repository=mapping_suite_repository)
     if not result:
+        log_notice_error(
+            message=f"This notice {notice.ted_id} is not eligible for transformation. Notice info: "
+                    f"form_number=[{notice.normalised_metadata.form_number}],"
+                    f" eform_subtype=[{notice.normalised_metadata.eforms_subtype}], "
+                    f"xsd_version=[{notice.normalised_metadata.xsd_version}]. Check mapping suites!",
+            notice_id=notice.ted_id, domain_action=notice_transformation_pipeline.__name__)
         return NoticePipelineOutput(notice=notice, processed=False)
     notice_id, mapping_suite_id = result
     # TODO: Implement XML preprocessing

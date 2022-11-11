@@ -12,6 +12,18 @@ from ted_sws.core.model.notice import Notice
 TEMPLATES = Environment(loader=PackageLoader("ted_sws.notice_validator.resources", "templates"))
 VALIDATION_SUMMARY_REPORT_TEMPLATE = "validation_summary_report.jinja2"
 
+MAPPING_SUITE_IDENTIFIER = "mapping_suite_identifier"
+TEST_SUITE_IDENTIFIER = "test_suite_identifier"
+
+
+def find_validation_results(results: List, result: dict):
+    found_results = list(filter(
+        lambda record: record.mapping_suite_identifier == result[
+            MAPPING_SUITE_IDENTIFIER] and record.test_suite_identifier == result[TEST_SUITE_IDENTIFIER],
+        results
+    ))
+    return found_results
+
 
 class ManifestationValidationSummaryRunner:
     notices: List[Notice]
@@ -26,14 +38,13 @@ class RDFManifestationValidationSummaryRunner(ManifestationValidationSummaryRunn
                               result_counts: List[SPARQLSummaryResult]) -> (bool, SPARQLSummaryResult):
         mapping_suite_id = sparql_report.mapping_suite_identifier
         test_suite_id = sparql_report.test_suite_identifier
-        found = list(filter(
-            lambda r: r.mapping_suite_identifier == mapping_suite_id and r.test_suite_identifier == test_suite_id,
-            result_counts
-        ))
-        is_found: bool = found and len(found) > 0
+
+        found_results = find_validation_results(result_counts, {MAPPING_SUITE_IDENTIFIER: mapping_suite_id,
+                                                                TEST_SUITE_IDENTIFIER: test_suite_id})
+        is_found: bool = found_results and len(found_results) > 0
         result_validation: SPARQLSummaryResult
         if is_found:
-            result_validation = found[0]
+            result_validation = found_results[0]
         else:
             result_validation = SPARQLSummaryResult()
             result_validation.mapping_suite_identifier = sparql_report.mapping_suite_identifier
@@ -81,14 +92,12 @@ class RDFManifestationValidationSummaryRunner(ManifestationValidationSummaryRunn
                              result_counts: List[SHACLSummaryResult]) -> (bool, SHACLSummaryResult):
         mapping_suite_id = shacl_report.mapping_suite_identifier
         test_suite_id = shacl_report.test_suite_identifier
-        found = list(filter(
-            lambda r: r.mapping_suite_identifier == mapping_suite_id and r.test_suite_identifier == test_suite_id,
-            result_counts
-        ))
-        is_found: bool = found and len(found) > 0
+        found_results = find_validation_results(result_counts, {MAPPING_SUITE_IDENTIFIER: mapping_suite_id,
+                                                                TEST_SUITE_IDENTIFIER: test_suite_id})
+        is_found: bool = found_results and len(found_results) > 0
         result_validation: SHACLSummaryResult
         if is_found:
-            result_validation = found[0]
+            result_validation = found_results[0]
         else:
             result_validation = SHACLSummaryResult()
             result_validation.mapping_suite_identifier = shacl_report.mapping_suite_identifier

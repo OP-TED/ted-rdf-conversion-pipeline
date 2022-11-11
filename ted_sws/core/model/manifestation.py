@@ -189,14 +189,27 @@ class RDFManifestation(Manifestation):
     shacl_validations: List[SHACLTestSuiteValidationReport] = []
     sparql_validations: List[SPARQLTestSuiteValidationReport] = []
 
+    def validation_exists(self, validation, validations):
+        """
+        Checks if a a [shacl|sparql] validation was already performed and exists in saved validations
+        :param validation:
+        :param validations:
+        :return:
+        """
+        return next(filter(
+            (lambda record: record.mapping_suite_identifier == validation.mapping_suite_identifier and
+                            record.test_suite_identifier == validation.test_suite_identifier),
+            validations
+        ), None)
+
     def add_validation(self, validation: Union[SPARQLTestSuiteValidationReport, SHACLTestSuiteValidationReport]):
         if type(validation) == SHACLTestSuiteValidationReport:
             shacl_validation: SHACLTestSuiteValidationReport = validation
-            if shacl_validation not in self.shacl_validations:
+            if not self.validation_exists(shacl_validation, self.shacl_validations):
                 self.shacl_validations.append(shacl_validation)
         elif type(validation) == SPARQLTestSuiteValidationReport:
             sparql_validation: SPARQLTestSuiteValidationReport = validation
-            if sparql_validation not in self.sparql_validations:
+            if not self.validation_exists(sparql_validation, self.sparql_validations):
                 self.sparql_validations.append(sparql_validation)
 
     def is_validated(self) -> bool:

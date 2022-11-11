@@ -64,7 +64,7 @@ class SPARQLTestSuiteRunner:
 
         # Initial result
         result: SPARQLQueryRefinedResultType = \
-            SPARQLQueryRefinedResultType.VALID if ask_answer else SPARQLQueryRefinedResultType.INVALID
+            SPARQLQueryRefinedResultType.VALID.value if ask_answer else SPARQLQueryRefinedResultType.INVALID.value
 
         xpath_coverage_validation = None
         if self.xml_manifestation:
@@ -82,13 +82,13 @@ class SPARQLTestSuiteRunner:
 
             # Refined result
             if ask_answer and sparql_query_result.fields_covered:
-                result = SPARQLQueryRefinedResultType.VALID
+                result = SPARQLQueryRefinedResultType.VALID.value
             elif not ask_answer and not sparql_query_result.fields_covered:
-                result = SPARQLQueryRefinedResultType.UNVERIFIABLE
+                result = SPARQLQueryRefinedResultType.UNVERIFIABLE.value
             elif ask_answer and not sparql_query_result.fields_covered:
-                result = SPARQLQueryRefinedResultType.WARNING
+                result = SPARQLQueryRefinedResultType.WARNING.value
             elif not ask_answer and sparql_query_result.fields_covered:
-                result = SPARQLQueryRefinedResultType.INVALID
+                result = SPARQLQueryRefinedResultType.INVALID.value
 
         sparql_query_result.result = result
 
@@ -114,7 +114,7 @@ class SPARQLTestSuiteRunner:
                     sparql_query_result.query_result = query_result.serialize(format="json")
             except Exception as e:
                 sparql_query_result.error = str(e)[:100]
-                sparql_query_result.result = SPARQLQueryRefinedResultType.ERROR
+                sparql_query_result.result = SPARQLQueryRefinedResultType.ERROR.value
             test_suite_executions.validation_results.append(sparql_query_result)
 
         test_suite_executions.validation_results.sort(key=lambda x: x.query.title)
@@ -141,11 +141,13 @@ class SPARQLReportBuilder:
         return self.sparql_test_suite_execution
 
 
-def validate_notice_with_sparql_suite(notice: Union[Notice, List[Notice]], mapping_suite_package: MappingSuite):
+def validate_notice_with_sparql_suite(notice: Union[Notice, List[Notice]], mapping_suite_package: MappingSuite,
+                                      execute_full_validation: bool = True):
     """
     Validates a notice with a sparql test suites
     :param notice:
     :param mapping_suite_package:
+    :param execute_full_validation:
     :return:
     """
 
@@ -167,8 +169,9 @@ def validate_notice_with_sparql_suite(notice: Union[Notice, List[Notice]], mappi
     notices = notice if isinstance(notice, List) else [notice]
 
     for notice in notices:
-        for report in sparql_validation(notice_item=notice, rdf_manifestation=notice.rdf_manifestation):
-            notice.set_rdf_validation(rdf_validation=report)
+        if execute_full_validation:
+            for report in sparql_validation(notice_item=notice, rdf_manifestation=notice.rdf_manifestation):
+                notice.set_rdf_validation(rdf_validation=report)
 
         for report in sparql_validation(notice_item=notice, rdf_manifestation=notice.distilled_rdf_manifestation):
             notice.set_distilled_rdf_validation(rdf_validation=report)

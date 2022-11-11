@@ -61,12 +61,12 @@ def create_notice_kpi_collection(mongo_client: MongoClient):
     notice_events_collection.aggregate([
         {
             "$match": {
-                "_id": 1,
+                "_id": True,
                 "$caller_name": "execute",
-                "$duration": 1,
-                "$notice_id": 1,
-                "$notice_form_number": 1,
-                "$notice_eforms_subtype": 1
+                "$duration": True,
+                "$notice_id": True,
+                "$notice_form_number": True,
+                "$notice_eforms_subtype": True
             }
         },
         {

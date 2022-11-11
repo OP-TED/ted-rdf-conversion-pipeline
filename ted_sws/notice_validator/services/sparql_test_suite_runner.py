@@ -138,11 +138,13 @@ class SPARQLReportBuilder:
         return self.sparql_test_suite_execution
 
 
-def validate_notice_with_sparql_suite(notice: Union[Notice, List[Notice]], mapping_suite_package: MappingSuite):
+def validate_notice_with_sparql_suite(notice: Union[Notice, List[Notice]], mapping_suite_package: MappingSuite,
+                                      execute_full_validation: bool = True):
     """
     Validates a notice with a sparql test suites
     :param notice:
     :param mapping_suite_package:
+    :param execute_full_validation:
     :return:
     """
 
@@ -164,8 +166,9 @@ def validate_notice_with_sparql_suite(notice: Union[Notice, List[Notice]], mappi
     notices = notice if isinstance(notice, List) else [notice]
 
     for notice in notices:
-        for report in sparql_validation(notice_item=notice, rdf_manifestation=notice.rdf_manifestation):
-            notice.set_rdf_validation(rdf_validation=report)
+        if execute_full_validation:
+            for report in sparql_validation(notice_item=notice, rdf_manifestation=notice.rdf_manifestation):
+                notice.set_rdf_validation(rdf_validation=report)
 
         for report in sparql_validation(notice_item=notice, rdf_manifestation=notice.distilled_rdf_manifestation):
             notice.set_distilled_rdf_validation(rdf_validation=report)

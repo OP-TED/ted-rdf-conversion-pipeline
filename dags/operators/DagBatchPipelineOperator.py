@@ -88,6 +88,9 @@ class NoticeBatchPipelineOperator(BaseOperator):
                     if result_notice_pipeline.processed:
                         processed_notice_ids.append(notice_id)
                     notice_event.end_record()
+                    if notice.normalised_metadata:
+                        notice_event.notice_form_number = notice.normalised_metadata.form_number
+                        notice_event.notice_eforms_subtype = notice.normalised_metadata.eforms_subtype
                     logger.info(event_message=notice_event)
                 except Exception as e:
                     log_notice_error(message=str(e), notice_id=notice_id, domain_action=pipeline_name)

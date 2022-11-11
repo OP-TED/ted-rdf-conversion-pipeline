@@ -276,8 +276,7 @@ class Notice(WorkExpression):
         :return:
         """
         if self._rdf_manifestation and self._distilled_rdf_manifestation and self.xml_manifestation:
-            if self._rdf_manifestation.is_validated() and self._distilled_rdf_manifestation.is_validated() \
-                    and self.xml_manifestation.is_validated():
+            if self._distilled_rdf_manifestation.is_validated() and self.xml_manifestation.is_validated():
                 return True
         return False
 
@@ -293,9 +292,6 @@ class Notice(WorkExpression):
             raise ValueError("Cannot set the RDF validation of a non-existent RDF manifestation")
 
         self._rdf_manifestation.add_validation(validation=rdf_validation)
-
-        if self._check_status_is_validated():
-            self.update_status_to(NoticeStatus.VALIDATED)
 
     def set_distilled_rdf_validation(self, rdf_validation: Union[SPARQLTestSuiteValidationReport,
                                                                  SHACLTestSuiteValidationReport]):

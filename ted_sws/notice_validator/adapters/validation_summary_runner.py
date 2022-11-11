@@ -13,6 +13,15 @@ TEMPLATES = Environment(loader=PackageLoader("ted_sws.notice_validator.resources
 VALIDATION_SUMMARY_REPORT_TEMPLATE = "validation_summary_report.jinja2"
 
 
+def find_validation_result(results: List, result: dict):
+    found = list(filter(
+        lambda r: r.mapping_suite_identifier == result["mapping_suite_identifier"] and r.test_suite_identifier ==
+                  result["test_suite_identifier"],
+        results
+    ))
+    return found
+
+
 class ManifestationValidationSummaryRunner:
     notices: List[Notice]
 
@@ -26,10 +35,9 @@ class RDFManifestationValidationSummaryRunner(ManifestationValidationSummaryRunn
                               result_counts: List[SPARQLSummaryResult]) -> (bool, SPARQLSummaryResult):
         mapping_suite_id = sparql_report.mapping_suite_identifier
         test_suite_id = sparql_report.test_suite_identifier
-        found = list(filter(
-            lambda r: r.mapping_suite_identifier == mapping_suite_id and r.test_suite_identifier == test_suite_id,
-            result_counts
-        ))
+
+        found = find_validation_result(result_counts, {"mapping_suite_identifier": mapping_suite_id,
+                                                       "test_suite_identifier": test_suite_id})
         is_found: bool = found and len(found) > 0
         result_validation: SPARQLSummaryResult
         if is_found:
@@ -81,10 +89,8 @@ class RDFManifestationValidationSummaryRunner(ManifestationValidationSummaryRunn
                              result_counts: List[SHACLSummaryResult]) -> (bool, SHACLSummaryResult):
         mapping_suite_id = shacl_report.mapping_suite_identifier
         test_suite_id = shacl_report.test_suite_identifier
-        found = list(filter(
-            lambda r: r.mapping_suite_identifier == mapping_suite_id and r.test_suite_identifier == test_suite_id,
-            result_counts
-        ))
+        found = find_validation_result(result_counts, {"mapping_suite_identifier": mapping_suite_id,
+                                                       "test_suite_identifier": test_suite_id})
         is_found: bool = found and len(found) > 0
         result_validation: SHACLSummaryResult
         if is_found:

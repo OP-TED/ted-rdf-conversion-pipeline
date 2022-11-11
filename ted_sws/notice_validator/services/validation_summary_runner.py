@@ -38,4 +38,3 @@ def validation_summary_report_notice_by_id(notice_id: str, notice_repository: No
 
     validation_summary_report_notice(notice=notice)
     notice_repository.update(notice=notice)
-

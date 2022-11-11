@@ -64,7 +64,7 @@ class SPARQLTestSuiteRunner:
 
         # Initial result
         result: SPARQLQueryRefinedResultType = \
-            SPARQLQueryRefinedResultType.VALID if ask_answer else SPARQLQueryRefinedResultType.INVALID
+            SPARQLQueryRefinedResultType.VALID.value if ask_answer else SPARQLQueryRefinedResultType.INVALID.value
 
         xpath_coverage_validation = None
         if self.xml_manifestation:
@@ -82,13 +82,13 @@ class SPARQLTestSuiteRunner:
 
             # Refined result
             if ask_answer and sparql_query_result.fields_covered:
-                result = SPARQLQueryRefinedResultType.VALID
+                result = SPARQLQueryRefinedResultType.VALID.value
             elif not ask_answer and not sparql_query_result.fields_covered:
-                result = SPARQLQueryRefinedResultType.UNVERIFIABLE
+                result = SPARQLQueryRefinedResultType.UNVERIFIABLE.value
             elif ask_answer and not sparql_query_result.fields_covered:
-                result = SPARQLQueryRefinedResultType.WARNING
+                result = SPARQLQueryRefinedResultType.WARNING.value
             elif not ask_answer and sparql_query_result.fields_covered:
-                result = SPARQLQueryRefinedResultType.INVALID
+                result = SPARQLQueryRefinedResultType.INVALID.value
 
         sparql_query_result.result = result
 
@@ -114,7 +114,7 @@ class SPARQLTestSuiteRunner:
                     sparql_query_result.query_result = query_result.serialize(format="json")
             except Exception as e:
                 sparql_query_result.error = str(e)[:100]
-                sparql_query_result.result = SPARQLQueryRefinedResultType.ERROR
+                sparql_query_result.result = SPARQLQueryRefinedResultType.ERROR.value
             test_suite_executions.validation_results.append(sparql_query_result)
 
         test_suite_executions.validation_results.sort(key=lambda x: x.query.title)

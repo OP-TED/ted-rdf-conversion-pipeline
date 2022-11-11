@@ -63,8 +63,6 @@ def notice_eligibility_checker(notice: Notice, mapping_suite_repository: Mapping
         return notice.ted_id, mapping_suite_identifier_with_version
     else:
         notice.set_is_eligible_for_transformation(eligibility=False)
-        log_notice_error(message=f"No MappingSuite was found for this notice form_number=[{notice.normalised_metadata.form_number}], eform_subtype=[{notice.normalised_metadata.eforms_subtype}], xsd_version=[{notice.normalised_metadata.xsd_version}]!",
-                         notice_id=notice.ted_id)
 
 
 def notice_eligibility_checker_by_id(notice_id: str, notice_repository: NoticeRepositoryABC,

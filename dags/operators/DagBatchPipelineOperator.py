@@ -10,7 +10,7 @@ from dags.pipelines.pipeline_protocols import NoticePipelineCallable
 from ted_sws import config
 from ted_sws.data_manager.adapters.notice_repository import NoticeRepository
 from ted_sws.event_manager.model.event_message import EventMessage, NoticeEventMessage
-from ted_sws.event_manager.services.log import log_error
+from ted_sws.event_manager.services.log import log_notice_error
 from ted_sws.event_manager.services.logger_from_context import get_logger, handle_event_message_metadata_dag_context
 
 NOTICE_IDS_KEY = "notice_ids"
@@ -90,7 +90,8 @@ class NoticeBatchPipelineOperator(BaseOperator):
                     notice_event.end_record()
                     logger.info(event_message=notice_event)
                 except Exception as e:
-                    log_error(message=str(e))
+                    log_notice_error(message=str(e), notice_id=notice_id, domain_action=pipeline_name)
+
         batch_event_message.end_record()
         logger.info(event_message=batch_event_message)
         if not processed_notice_ids:

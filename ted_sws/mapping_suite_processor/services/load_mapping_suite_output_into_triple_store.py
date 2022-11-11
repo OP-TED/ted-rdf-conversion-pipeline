@@ -28,9 +28,10 @@ def load_mapping_suite_output_into_fuseki_triple_store(package_folder_path,
     :param triple_store_password:
     :return:
     """
+
     triple_store = FusekiAdapter(host=triple_store_host or config.FUSEKI_ADMIN_HOST,
-                                 password=triple_store_password or config.FUSEKI_ADMIN_USER,
-                                 user=triple_store_user or config.FUSEKI_ADMIN_PASSWORD)
+                                 password=triple_store_password or config.FUSEKI_ADMIN_PASSWORD,
+                                 user=triple_store_user or config.FUSEKI_ADMIN_USER)
     load_mapping_suite_output_into_triple_store(package_folder_path, triple_store)
 
 

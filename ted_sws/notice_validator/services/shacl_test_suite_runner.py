@@ -67,10 +67,11 @@ def generate_shacl_report(shacl_test_suite_execution: SHACLTestSuiteValidationRe
     :param shacl_test_suite_execution:
     :return:
     """
-    template_data: dict = shacl_test_suite_execution.dict()
-    template_data[NOTICE_IDS_FIELD] = notice_ids
-    html_report = TEMPLATES.get_template(SHACL_TEST_SUITE_EXECUTION_HTML_REPORT_TEMPLATE).render(template_data)
-    shacl_test_suite_execution.object_data = html_report
+    if with_html:
+        template_data: dict = shacl_test_suite_execution.dict()
+        template_data[NOTICE_IDS_FIELD] = notice_ids
+        html_report = TEMPLATES.get_template(SHACL_TEST_SUITE_EXECUTION_HTML_REPORT_TEMPLATE).render(template_data)
+        shacl_test_suite_execution.object_data = html_report
     return shacl_test_suite_execution
 
 

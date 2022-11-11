@@ -126,15 +126,18 @@ class SPARQLReportBuilder:
         Given a SPARQLQueryResult, generates JSON and HTML reports.
     """
 
-    def __init__(self, sparql_test_suite_execution: SPARQLTestSuiteValidationReport, notice_ids: List[str] = None):
+    def __init__(self, sparql_test_suite_execution: SPARQLTestSuiteValidationReport, notice_ids: List[str] = None,
+                 with_html: bool = False):
         self.sparql_test_suite_execution = sparql_test_suite_execution
         self.notice_ids = notice_ids
+        self.with_html = with_html
 
     def generate_report(self) -> SPARQLTestSuiteValidationReport:
-        template_data: dict = self.sparql_test_suite_execution.dict()
-        template_data[NOTICE_IDS_FIELD] = self.notice_ids
-        html_report = TEMPLATES.get_template(SPARQL_TEST_SUITE_EXECUTION_HTML_REPORT_TEMPLATE).render(template_data)
-        self.sparql_test_suite_execution.object_data = html_report
+        if self.with_html:
+            template_data: dict = self.sparql_test_suite_execution.dict()
+            template_data[NOTICE_IDS_FIELD] = self.notice_ids
+            html_report = TEMPLATES.get_template(SPARQL_TEST_SUITE_EXECUTION_HTML_REPORT_TEMPLATE).render(template_data)
+            self.sparql_test_suite_execution.object_data = html_report
         return self.sparql_test_suite_execution
 
 

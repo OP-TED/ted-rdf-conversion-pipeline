@@ -75,7 +75,7 @@ class CmdRunner(BaseCmdRunner):
                                                          mapping_suite=self.mapping_suite).execute_test_suite()
 
             report_builder = SPARQLReportBuilder(sparql_test_suite_execution=test_suite_execution,
-                                                 notice_ids=notice_ids)
+                                                 notice_ids=notice_ids, with_html=True)
             report: SPARQLTestSuiteValidationReport = report_builder.generate_report()
 
             suite_id = sparql_test_suite.identifier

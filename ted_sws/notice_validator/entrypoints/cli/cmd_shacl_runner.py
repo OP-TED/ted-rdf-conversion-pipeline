@@ -65,7 +65,7 @@ class CmdRunner(BaseCmdRunner):
                                                         mapping_suite=self.mapping_suite).execute_test_suite()
 
             report: SHACLTestSuiteValidationReport = generate_shacl_report(
-                shacl_test_suite_execution=test_suite_execution, notice_ids=notice_ids)
+                shacl_test_suite_execution=test_suite_execution, notice_ids=notice_ids, with_html=True)
 
             suite_id = shacl_test_suite.identifier
             self.save_report(report_path, HTML_REPORT, suite_id, report.object_data)

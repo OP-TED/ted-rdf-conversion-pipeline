@@ -121,7 +121,7 @@ class CmdRunner(BaseCmdRunner):
     def _generate_report(self, notices: List[Notice], label: str, output_path: Path):
         self.log("Generating validation summary report for {label} ... ".format(label=label))
 
-        report: ValidationSummaryReport = generate_validation_summary_report_notices(notices)
+        report: ValidationSummaryReport = generate_validation_summary_report_notices(notices, with_html=True)
 
         self.save_html_report(output_path, report.object_data)
         del report.object_data

@@ -64,7 +64,6 @@ def notice_validation_pipeline(notice: Notice, mongodb_client: MongoClient) -> N
     validate_notice_with_shacl_suite(notice=notice, mapping_suite_package=mapping_suite)
     log_notice_info(message="Validation :: SHACL :: END", notice_id=notice.ted_id)
     log_notice_info(message="Validation :: Summary :: START", notice_id=notice.ted_id)
-    print("K :: ", notice.rdf_manifestation.sparql_validations)
     validation_summary_report_notice(notice=notice)
     log_notice_info(message="Validation :: Summary :: END", notice_id=notice.ted_id)
     return NoticePipelineOutput(notice=notice)

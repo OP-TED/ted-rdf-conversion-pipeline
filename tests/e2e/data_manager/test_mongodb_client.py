@@ -156,10 +156,11 @@ def test_create_matview_for_notices():
     assert NOTICE_KPI_COLLECTION_NAME in db.list_collection_names()
     document = db[NOTICE_KPI_COLLECTION_NAME].find_one()
     if document is not None:
-        fields_in_the_materialised_view = document.keys()
-        assert 'exec_time' in fields_in_the_materialised_view
-        assert 'form_number' in fields_in_the_materialised_view
-        assert 'eforms_subtype' in fields_in_the_materialised_view
+        fields_in_the_kpi_collection = document.keys()
+        assert 'exec_time' in fields_in_the_kpi_collection
+        assert 'form_number' in fields_in_the_kpi_collection
+        assert 'eforms_subtype' in fields_in_the_kpi_collection
+        assert 'status' in fields_in_the_kpi_collection
 
 
 def test_create_matview_for_batches():

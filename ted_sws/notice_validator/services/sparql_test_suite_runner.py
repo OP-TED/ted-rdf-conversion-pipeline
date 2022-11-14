@@ -131,7 +131,7 @@ class SPARQLReportBuilder:
         """
         :param sparql_test_suite_execution:
         :param notice_ids:
-        :param with_html:
+        :param with_html: generate HTML report
         """
         self.sparql_test_suite_execution = sparql_test_suite_execution
         self.notice_ids = notice_ids

@@ -204,18 +204,6 @@ class NoticeRepository(NoticeRepositoryABC):
         load_large_field(large_field=notice.mets_manifestation)
         load_large_field(large_field=notice.distilled_rdf_manifestation)
         load_large_field(large_field=notice.preprocessed_xml_manifestation)
-        if notice.rdf_manifestation:
-            for validation_report in notice.rdf_manifestation.shacl_validations:
-                load_large_field(validation_report)
-            for validation_report in notice.rdf_manifestation.sparql_validations:
-                load_large_field(validation_report)
-
-        if notice.distilled_rdf_manifestation:
-            for validation_report in notice.distilled_rdf_manifestation.shacl_validations:
-                load_large_field(validation_report)
-
-            for validation_report in notice.distilled_rdf_manifestation.sparql_validations:
-                load_large_field(validation_report)
 
         return notice
 

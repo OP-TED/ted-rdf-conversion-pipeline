@@ -126,11 +126,11 @@ def env_property(config_resolver_class: Type[ConfigResolverABC] = EnvConfigResol
     """
     def wrap(func):
         @property
-        def wrapped_f(self, *args, **kwargs):
+        def wrapped_function(self, *args, **kwargs):
             config_value = config_resolver_class().concrete_config_resolve(config_name=func.__name__,
                                                                            default_value=default_value)
             return func(self, config_value, *args, **kwargs)
 
-        return wrapped_f
+        return wrapped_function
 
     return wrap

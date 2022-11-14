@@ -29,10 +29,9 @@ class EventLoggingRepository(EventLoggingRepositoryABC):
     """
     This is the base/generic events' repository class.
     """
-    _database_name = config.MONGO_DB_LOGS_DATABASE_NAME or "logs_db"
     _collection_name = "log_events"
 
-    def __init__(self, mongodb_client: MongoClient = None, database_name: str = _database_name,
+    def __init__(self, mongodb_client: MongoClient = None, database_name: str = None,
                  collection_name: str = _collection_name):
         """
         This is the constructor/initialization of base/generic event logging repository.
@@ -41,7 +40,7 @@ class EventLoggingRepository(EventLoggingRepositoryABC):
         :param database_name: The database name
         :param collection_name: The collection name
         """
-        self._database_name = database_name
+        self._database_name = database_name or config.MONGO_DB_LOGS_DATABASE_NAME
         self._collection_name = collection_name
         if mongodb_client is None:
             mongodb_client = MongoClient(config.MONGO_DB_AUTH_URL)
@@ -101,19 +100,14 @@ class EventLoggingRepository(EventLoggingRepositoryABC):
         result = self.collection.insert_one(record)
         return result.inserted_id
 
-    @classmethod
-    def get_default_database_name(cls):
-        return cls._database_name
-
 
 class TechnicalEventRepository(EventLoggingRepository):
     """
     This is the technical events' repository class.
     """
-    _database_name = EventLoggingRepository._database_name
     _collection_name = "technical_events"
 
-    def __init__(self, mongodb_client: MongoClient, database_name: str = _database_name,
+    def __init__(self, mongodb_client: MongoClient, database_name: str = None,
                  collection_name: str = _collection_name):
         """
         This is the constructor/initialization of technical event logging repository.
@@ -129,10 +123,9 @@ class NoticeEventRepository(EventLoggingRepository):
     """
     This is the notice events' repository class.
     """
-    _database_name = EventLoggingRepository._database_name
     _collection_name = "notice_events"
 
-    def __init__(self, mongodb_client: MongoClient, database_name: str = _database_name,
+    def __init__(self, mongodb_client: MongoClient, database_name: str = None,
                  collection_name: str = _collection_name):
         """
         This is the constructor/initialization of notice event logging repository.
@@ -148,10 +141,9 @@ class MappingSuiteEventRepository(EventLoggingRepository):
     """
     This is the mapping suite events' repository class.
     """
-    _database_name = EventLoggingRepository._database_name
     _collection_name = "mapping_suite_events"
 
-    def __init__(self, mongodb_client: MongoClient, database_name: str = _database_name,
+    def __init__(self, mongodb_client: MongoClient, database_name: str = None,
                  collection_name: str = _collection_name):
         """
         This is the constructor/initialization of mapping suite event logging repository.

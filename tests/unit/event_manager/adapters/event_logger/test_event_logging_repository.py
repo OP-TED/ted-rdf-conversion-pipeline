@@ -5,8 +5,6 @@ from ted_sws.event_manager.adapters.event_logging_repository import EventLogging
 
 
 def assert_event_repository(event_repository, event_message, logs_database_name):
-    assert EventLoggingRepository.get_default_database_name()
-
     _id = event_repository.add(event_message)
     assert _id
     log: dict = event_repository.collection.find_one({"_id": ObjectId(_id)})
@@ -44,4 +42,3 @@ def test_mapping_suite_event_repository(logs_database_name, mapping_suite_event_
 def test_event_logging_repository_wo_collection(mongodb_client, logs_database_name):
     with pytest.raises(ValueError):
         EventLoggingRepository(mongodb_client=mongodb_client, database_name=logs_database_name, collection_name='')
-

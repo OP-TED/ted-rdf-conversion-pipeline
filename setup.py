@@ -89,7 +89,6 @@ setup(
             "metadata_generator = ted_sws.mapping_suite_processor.entrypoints.cli.cmd_metadata_generator:main",
             "conceptual_mapping_differ = ted_sws.mapping_suite_processor.entrypoints.cli.cmd_conceptual_mapping_differ:main",
             "rdf_differ = ted_sws.rdf_differ.entrypoints.cli.cmd_rdf_differ:main",
-
             "mapping_suite_processor = ted_sws.mapping_suite_processor.entrypoints.cli.cmd_mapping_suite_processor:main",
             "yarrrml2rml_converter = ted_sws.mapping_suite_processor.entrypoints.cli.cmd_yarrrml2rml_converter:main",
             "normalisation_resource_generator = ted_sws.data_manager.entrypoints.cli.cmd_generate_mapping_resources:main",

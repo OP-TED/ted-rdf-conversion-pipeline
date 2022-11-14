@@ -38,20 +38,28 @@ class NoticeStatus(IntEnum):
     """
     RAW = 10
     INDEXED = 15
+    # STATES FOR RE-TRANSFORM ---BEGIN---
     NORMALISED_METADATA = 20
     INELIGIBLE_FOR_TRANSFORMATION = 23  # backlog status
     ELIGIBLE_FOR_TRANSFORMATION = 27  # forward status
     PREPROCESSED_FOR_TRANSFORMATION = 29
     TRANSFORMED = 30
+    # STATES FOR RE-VALIDATE---BEGIN---
     DISTILLED = 35
+    # STATES FOR RE-TRANSFORM ---END---
+    # STATES FOR RE-VALIDATE---END---
+    # STATES FOR RE-PACKAGE ---BEGIN---
     VALIDATED = 40
     INELIGIBLE_FOR_PACKAGING = 43  # backlog status
     ELIGIBLE_FOR_PACKAGING = 47  # forward status
+    # STATES FOR RE-PACKAGE ---END---
+    # STATES FOR RE-PUBLISH ---BEGIN---
     PACKAGED = 50
     INELIGIBLE_FOR_PUBLISHING = 53  # backlog status
     ELIGIBLE_FOR_PUBLISHING = 57  # forward status
+    # STATES FOR RE-PUBLISH ---END---
     PUBLISHED = 60
-    PUBLICLY_UNAVAILABLE = 63  # to be investigated if more fine-grained checks can be adopted
+    PUBLICLY_UNAVAILABLE = 63  # to be investigated if more fine-grained checks can be adopted #TODO: Revalidate for public availability.
     PUBLICLY_AVAILABLE = 67  # forward status
 
     def __lt__(self, other):

@@ -10,7 +10,7 @@ def notice_normalisation_pipeline(notice: Notice, mongodb_client: MongoClient) -
     """
     from ted_sws.data_sampler.services.notice_xml_indexer import index_notice
     from ted_sws.notice_metadata_processor.services.metadata_normalizer import normalise_notice
-
+    notice.update_status_to(new_status=NoticeStatus.RAW)
     indexed_notice = index_notice(notice=notice)
     normalised_notice = normalise_notice(notice=indexed_notice)
 
@@ -27,7 +27,7 @@ def notice_transformation_pipeline(notice: Notice, mongodb_client: MongoClient) 
     from ted_sws.notice_transformer.services.notice_transformer import transform_notice
     from ted_sws.notice_transformer.adapters.rml_mapper import RMLMapper
     from ted_sws.data_manager.adapters.mapping_suite_repository import MappingSuiteRepositoryMongoDB
-
+    notice.update_status_to(new_status=NoticeStatus.NORMALISED_METADATA)
     mapping_suite_repository = MappingSuiteRepositoryMongoDB(mongodb_client=mongodb_client)
     result = notice_eligibility_checker(notice=notice, mapping_suite_repository=mapping_suite_repository)
     if not result:
@@ -57,7 +57,7 @@ def notice_validation_pipeline(notice: Notice, mongodb_client: MongoClient) -> N
     from ted_sws.notice_validator.services.xpath_coverage_runner import validate_xpath_coverage_notice
     from ted_sws.data_manager.adapters.mapping_suite_repository import MappingSuiteRepositoryMongoDB
     from ted_sws.event_manager.services.log import log_notice_info
-
+    notice.update_status_to(new_status=NoticeStatus.DISTILLED)
     mapping_suite_id = notice.distilled_rdf_manifestation.mapping_suite_id
     mapping_suite_repository = MappingSuiteRepositoryMongoDB(mongodb_client=mongodb_client)
     mapping_suite = mapping_suite_repository.get(reference=mapping_suite_id)
@@ -82,6 +82,7 @@ def notice_package_pipeline(notice: Notice, mongodb_client: MongoClient) -> Noti
     """
     from ted_sws.notice_packager.services.notice_packager import package_notice
 
+    notice.update_status_to(new_status=NoticeStatus.VALIDATED)
     # TODO: Implement notice package eligiblity
     notice.set_is_eligible_for_packaging(eligibility=True)
     packaged_notice = package_notice(notice=notice)
@@ -95,7 +96,7 @@ def notice_publish_pipeline(notice: Notice, mongodb_client: MongoClient) -> Noti
     from ted_sws.notice_publisher.services.notice_publisher import publish_notice, publish_notice_rdf_into_s3
     from ted_sws.event_manager.services.log import log_notice_error
     from ted_sws import config
-
+    notice.update_status_to(new_status=NoticeStatus.PACKAGED)
     if config.S3_PUBLISH_ENABLED:
         published_into_s3 = publish_notice_rdf_into_s3(notice=notice)
         if not published_into_s3:
@@ -106,4 +107,5 @@ def notice_publish_pipeline(notice: Notice, mongodb_client: MongoClient) -> Noti
     if result:
         return NoticePipelineOutput(notice=notice)
     else:
+        notice.set_is_eligible_for_publishing(eligibility=False)
         return NoticePipelineOutput(notice=notice, processed=False)

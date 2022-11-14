@@ -73,7 +73,8 @@ def create_notice_kpi_collection(mongo_client: MongoClient):
                 "_id": "$notice_id",
                 "exec_time": {"$sum": "$duration"},
                 "form_number": {"$first": "$notice_form_number"},
-                "eforms_subtype": {"$first": "$notice_eforms_subtype"}
+                "eforms_subtype": {"$first": "$notice_eforms_subtype"},
+                "status": {"$first": "$notice_status"},
             }
         },
         {

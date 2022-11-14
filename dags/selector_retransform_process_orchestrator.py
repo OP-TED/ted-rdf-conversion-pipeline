@@ -13,7 +13,10 @@ from ted_sws.event_manager.model.event_message import TechnicalEventMessage, Eve
 
 DAG_NAME = "selector_re_transform_process_orchestrator"
 
-RE_TRANSFORM_TARGET_NOTICE_STATES = [NoticeStatus.NORMALISED_METADATA, NoticeStatus.INELIGIBLE_FOR_TRANSFORMATION]
+RE_TRANSFORM_TARGET_NOTICE_STATES = [NoticeStatus.NORMALISED_METADATA, NoticeStatus.INELIGIBLE_FOR_TRANSFORMATION,
+                                     NoticeStatus.ELIGIBLE_FOR_TRANSFORMATION, NoticeStatus.PREPROCESSED_FOR_TRANSFORMATION,
+                                     NoticeStatus.TRANSFORMED, NoticeStatus.DISTILLED
+                                     ]
 TRIGGER_NOTICE_PROCESS_WORKFLOW_TASK_ID = "trigger_notice_process_workflow"
 FORM_NUMBER_DAG_PARAM = "form_number"
 START_DATE_DAG_PARAM = "start_date"

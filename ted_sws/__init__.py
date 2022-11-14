@@ -64,7 +64,7 @@ class MongoDBConfig:
     def MONGO_DB_PORT(self, config_value: str) -> int:
         return int(config_value)
 
-    @env_property()
+    @env_property(default_value="aggregates_db")
     def MONGO_DB_AGGREGATES_DATABASE_NAME(self, config_value: str) -> str:
         return config_value
 
@@ -151,7 +151,7 @@ class API:
     def ID_MANAGER_PROD_API_HOST(self, config_value: str) -> str:
         return config_value
 
-    @env_property(default_value="local_host")
+    @env_property(default_value="localhost")
     def ID_MANAGER_DEV_API_HOST(self, config_value: str) -> str:
         return config_value
 

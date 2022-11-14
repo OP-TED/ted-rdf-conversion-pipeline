@@ -13,7 +13,9 @@ from ted_sws.event_manager.model.event_message import TechnicalEventMessage, Eve
 
 DAG_NAME = "selector_re_publish_process_orchestrator"
 
-RE_PUBLISH_TARGET_NOTICE_STATES = [NoticeStatus.PUBLICLY_UNAVAILABLE, NoticeStatus.ELIGIBLE_FOR_PUBLISHING]
+RE_PUBLISH_TARGET_NOTICE_STATES = [NoticeStatus.ELIGIBLE_FOR_PUBLISHING, NoticeStatus.INELIGIBLE_FOR_PUBLISHING,
+                                   NoticeStatus.PACKAGED
+                                   ]
 TRIGGER_NOTICE_PROCESS_WORKFLOW_TASK_ID = "trigger_notice_process_workflow"
 FORM_NUMBER_DAG_PARAM = "form_number"
 START_DATE_DAG_PARAM = "start_date"

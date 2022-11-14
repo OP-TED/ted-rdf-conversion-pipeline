@@ -11,8 +11,7 @@ from ted_sws.data_manager.adapters.notice_repository import NoticeRepository
 
 def test_xpath_coverage_runner(fake_notice_F03, fake_conceptual_mappings_F03_path,
                                fake_mapping_suite_F03_id, fake_mapping_suite_F03_id_with_version, mongodb_client,
-                               fake_mapping_suite_F03_path,
-                               invalid_mapping_suite_id):
+                               fake_mapping_suite_F03_path, invalid_mapping_suite_id):
     report = coverage_notice_xpath_report([fake_notice_F03], fake_mapping_suite_F03_id,
                                           fake_conceptual_mappings_F03_path, None)
     json_report = xpath_coverage_json_report(report)
@@ -51,7 +50,8 @@ def test_validate_xpath_coverage_notice_by_id(fake_notice_id, fake_mapping_suite
             notice_id=fake_notice_id,
             mapping_suite_identifier=fake_mapping_suite_F03_id,
             mapping_suite_repository=mapping_suite_repository_db,
-            mongodb_client=mongodb_client)
+            mongodb_client=mongodb_client,
+            with_html=True)
 
     notice_repository.add(fake_notice_F03)
 

@@ -79,7 +79,7 @@ def test_sparql_report_builder(rdf_file_content, sparql_test_suite, dummy_mappin
     rdf_manifestation = RDFManifestation(object_data=rdf_file_content)
     sparql_runner = SPARQLTestSuiteRunner(rdf_manifestation=rdf_manifestation, sparql_test_suite=sparql_test_suite,
                                           mapping_suite=dummy_mapping_suite)
-    report_builder = SPARQLReportBuilder(sparql_test_suite_execution=sparql_runner.execute_test_suite())
+    report_builder = SPARQLReportBuilder(sparql_test_suite_execution=sparql_runner.execute_test_suite(), with_html=True)
     report = report_builder.generate_report()
 
     assert report

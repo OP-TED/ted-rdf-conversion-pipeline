@@ -39,6 +39,7 @@ class CmdRunner(BaseCmdRunner):
             mappings_path
     ):
         super().__init__(name=CMD_NAME)
+        self.with_html = True
         self.mapping_suite_id = mapping_suite_id
         self.notice_ids = self._init_list_input_opts(notice_ids)
         self.mappings_path = mappings_path
@@ -75,7 +76,7 @@ class CmdRunner(BaseCmdRunner):
                                                          mapping_suite=self.mapping_suite).execute_test_suite()
 
             report_builder = SPARQLReportBuilder(sparql_test_suite_execution=test_suite_execution,
-                                                 notice_ids=notice_ids)
+                                                 notice_ids=notice_ids, with_html=self.with_html)
             report: SPARQLTestSuiteValidationReport = report_builder.generate_report()
 
             suite_id = sparql_test_suite.identifier

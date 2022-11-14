@@ -14,12 +14,19 @@ class XPATHCoverageReportBuilder:
         Given a XPATHCoverageValidationReport, generates JSON and HTML reports.
     """
 
-    def __init__(self, xpath_coverage_report: XPATHCoverageValidationReport):
+    def __init__(self, xpath_coverage_report: XPATHCoverageValidationReport, with_html: bool = False):
+        """
+
+        :param xpath_coverage_report:
+        :param with_html: generate HTML report
+        """
         self.xpath_coverage_report = xpath_coverage_report
+        self.with_html = with_html
 
     def generate_report(self) -> XPATHCoverageValidationReport:
-        html_report = CoverageRunner.html_report(self.xpath_coverage_report)
-        self.xpath_coverage_report.object_data = html_report
+        if self.with_html:
+            html_report = xpath_coverage_html_report(self.xpath_coverage_report)
+            self.xpath_coverage_report.object_data = html_report
         return self.xpath_coverage_report
 
 
@@ -41,17 +48,35 @@ def xpath_coverage_html_report(report: XPATHCoverageValidationReport) -> str:
     return CoverageRunner.html_report(report)
 
 
-def validate_xpath_coverage_notice(notice: Notice, mapping_suite: MappingSuite, mongodb_client: MongoClient):
+def validate_xpath_coverage_notice(notice: Notice, mapping_suite: MappingSuite, mongodb_client: MongoClient,
+                                   with_html: bool = False):
+    """
+
+    :param notice:
+    :param mapping_suite:
+    :param mongodb_client:
+    :param with_html: generate HTML report
+    :return:
+    """
     xpath_coverage_report = coverage_notice_xpath_report(notices=[notice],
                                                          mapping_suite_id=mapping_suite.get_mongodb_id(),
                                                          mongodb_client=mongodb_client)
-    report_builder = XPATHCoverageReportBuilder(xpath_coverage_report=xpath_coverage_report)
+    report_builder = XPATHCoverageReportBuilder(xpath_coverage_report=xpath_coverage_report, with_html=with_html)
     notice.set_xml_validation(xml_validation=report_builder.generate_report())
 
 
 def validate_xpath_coverage_notice_by_id(notice_id: str, mapping_suite_identifier: str,
                                          mapping_suite_repository: MappingSuiteRepositoryABC,
-                                         mongodb_client: MongoClient):
+                                         mongodb_client: MongoClient, with_html: bool = False):
+    """
+
+    :param notice_id:
+    :param mapping_suite_identifier:
+    :param mapping_suite_repository:
+    :param mongodb_client:
+    :param with_html: generate HTML report
+    :return:
+    """
     notice_repository = NoticeRepository(mongodb_client=mongodb_client)
     notice = notice_repository.get(reference=notice_id)
     if notice is None:
@@ -60,5 +85,6 @@ def validate_xpath_coverage_notice_by_id(notice_id: str, mapping_suite_identifie
     mapping_suite = mapping_suite_repository.get(reference=mapping_suite_identifier)
     if mapping_suite is None:
         raise ValueError(f'Mapping suite, with {mapping_suite_identifier} id, was not found')
-    validate_xpath_coverage_notice(notice=notice, mapping_suite=mapping_suite, mongodb_client=mongodb_client)
+    validate_xpath_coverage_notice(notice=notice, mapping_suite=mapping_suite, mongodb_client=mongodb_client,
+                                   with_html=with_html)
     notice_repository.update(notice=notice)

@@ -15,6 +15,11 @@ class XPATHCoverageReportBuilder:
     """
 
     def __init__(self, xpath_coverage_report: XPATHCoverageValidationReport, with_html: bool = False):
+        """
+
+        :param xpath_coverage_report:
+        :param with_html: generate HTML report
+        """
         self.xpath_coverage_report = xpath_coverage_report
         self.with_html = with_html
 
@@ -45,6 +50,14 @@ def xpath_coverage_html_report(report: XPATHCoverageValidationReport) -> str:
 
 def validate_xpath_coverage_notice(notice: Notice, mapping_suite: MappingSuite, mongodb_client: MongoClient,
                                    with_html: bool = False):
+    """
+
+    :param notice:
+    :param mapping_suite:
+    :param mongodb_client:
+    :param with_html: generate HTML report
+    :return:
+    """
     xpath_coverage_report = coverage_notice_xpath_report(notices=[notice],
                                                          mapping_suite_id=mapping_suite.get_mongodb_id(),
                                                          mongodb_client=mongodb_client)
@@ -55,6 +68,15 @@ def validate_xpath_coverage_notice(notice: Notice, mapping_suite: MappingSuite, 
 def validate_xpath_coverage_notice_by_id(notice_id: str, mapping_suite_identifier: str,
                                          mapping_suite_repository: MappingSuiteRepositoryABC,
                                          mongodb_client: MongoClient, with_html: bool = False):
+    """
+
+    :param notice_id:
+    :param mapping_suite_identifier:
+    :param mapping_suite_repository:
+    :param mongodb_client:
+    :param with_html: generate HTML report
+    :return:
+    """
     notice_repository = NoticeRepository(mongodb_client=mongodb_client)
     notice = notice_repository.get(reference=notice_id)
     if notice is None:

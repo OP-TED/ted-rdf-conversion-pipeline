@@ -63,6 +63,7 @@ def generate_shacl_report(shacl_test_suite_execution: SHACLTestSuiteValidationRe
                           notice_ids: List[str] = None, with_html: bool = False) -> SHACLTestSuiteValidationReport:
     """
         This function generate html report after SHACL test execution.
+    :param with_html: generate HTML report
     :param notice_ids:
     :param shacl_test_suite_execution:
     :return:
@@ -76,16 +77,17 @@ def generate_shacl_report(shacl_test_suite_execution: SHACLTestSuiteValidationRe
 
 
 def validate_notice_with_shacl_suite(notice: Union[Notice, List[Notice]], mapping_suite_package: MappingSuite,
-                                     execute_full_validation: bool = True):
+                                     execute_full_validation: bool = True, with_html: bool = False):
     """
     Validates a notice with a shacl test suites
+    :param with_html: generate HTML report
     :param notice:
     :param mapping_suite_package:
     :param execute_full_validation:
     :return:
     """
 
-    def shacl_validation(notice_item: Notice, rdf_manifestation: RDFManifestation) \
+    def shacl_validation(notice_item: Notice, rdf_manifestation: RDFManifestation, with_html: bool = False) \
             -> List[SHACLTestSuiteValidationReport]:
         reports = []
         shacl_test_suites = mapping_suite_package.shacl_test_suites
@@ -94,7 +96,7 @@ def validate_notice_with_shacl_suite(notice: Union[Notice, List[Notice]], mappin
                                                         shacl_test_suite=shacl_test_suite,
                                                         mapping_suite=mapping_suite_package).execute_test_suite()
             reports.append(generate_shacl_report(shacl_test_suite_execution=test_suite_execution,
-                                                 notice_ids=[notice_item.ted_id]))
+                                                 notice_ids=[notice_item.ted_id], with_html=with_html))
 
         return sorted(reports, key=lambda x: x.test_suite_identifier)
 
@@ -102,18 +104,22 @@ def validate_notice_with_shacl_suite(notice: Union[Notice, List[Notice]], mappin
 
     for notice in notices:
         if execute_full_validation:
-            for report in shacl_validation(notice_item=notice, rdf_manifestation=notice.rdf_manifestation):
+            for report in shacl_validation(notice_item=notice, rdf_manifestation=notice.rdf_manifestation,
+                                           with_html=with_html):
                 notice.set_rdf_validation(rdf_validation=report)
 
-        for report in shacl_validation(notice_item=notice, rdf_manifestation=notice.distilled_rdf_manifestation):
+        for report in shacl_validation(notice_item=notice, rdf_manifestation=notice.distilled_rdf_manifestation,
+                                       with_html=with_html):
             notice.set_distilled_rdf_validation(rdf_validation=report)
 
 
 def validate_notice_by_id_with_shacl_suite(notice_id: str, mapping_suite_identifier: str,
                                            notice_repository: NoticeRepositoryABC,
-                                           mapping_suite_repository: MappingSuiteRepositoryABC):
+                                           mapping_suite_repository: MappingSuiteRepositoryABC,
+                                           with_html: bool = False):
     """
     Validates a notice by id with a shacl test suites
+    :param with_html: generate HTML report
     :param notice_id:
     :param mapping_suite_identifier:
     :param notice_repository:
@@ -127,5 +133,5 @@ def validate_notice_by_id_with_shacl_suite(notice_id: str, mapping_suite_identif
     mapping_suite_package = mapping_suite_repository.get(reference=mapping_suite_identifier)
     if mapping_suite_package is None:
         raise ValueError(f'Mapping suite package, with {mapping_suite_identifier} id, was not found')
-    validate_notice_with_shacl_suite(notice=notice, mapping_suite_package=mapping_suite_package)
+    validate_notice_with_shacl_suite(notice=notice, mapping_suite_package=mapping_suite_package, with_html=with_html)
     notice_repository.update(notice=notice)

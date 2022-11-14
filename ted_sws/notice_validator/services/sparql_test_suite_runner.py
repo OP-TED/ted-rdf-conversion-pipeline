@@ -128,6 +128,11 @@ class SPARQLReportBuilder:
 
     def __init__(self, sparql_test_suite_execution: SPARQLTestSuiteValidationReport, notice_ids: List[str] = None,
                  with_html: bool = False):
+        """
+        :param sparql_test_suite_execution:
+        :param notice_ids:
+        :param with_html:
+        """
         self.sparql_test_suite_execution = sparql_test_suite_execution
         self.notice_ids = notice_ids
         self.with_html = with_html
@@ -142,16 +147,17 @@ class SPARQLReportBuilder:
 
 
 def validate_notice_with_sparql_suite(notice: Union[Notice, List[Notice]], mapping_suite_package: MappingSuite,
-                                      execute_full_validation: bool = True):
+                                      execute_full_validation: bool = True, with_html: bool = False):
     """
     Validates a notice with a sparql test suites
+    :param with_html: generate HTML report
     :param notice:
     :param mapping_suite_package:
     :param execute_full_validation:
     :return:
     """
 
-    def sparql_validation(notice_item: Notice, rdf_manifestation: RDFManifestation) \
+    def sparql_validation(notice_item: Notice, rdf_manifestation: RDFManifestation, with_html: bool = False) \
             -> List[SPARQLTestSuiteValidationReport]:
         reports = []
         sparql_test_suites = mapping_suite_package.sparql_test_suites
@@ -162,7 +168,7 @@ def validate_notice_with_sparql_suite(notice: Union[Notice, List[Notice]], mappi
                                                          mapping_suite=mapping_suite_package
                                                          ).execute_test_suite()
             report_builder = SPARQLReportBuilder(sparql_test_suite_execution=test_suite_execution,
-                                                 notice_ids=[notice_item.ted_id])
+                                                 notice_ids=[notice_item.ted_id], with_html=with_html)
             reports.append(report_builder.generate_report())
         return sorted(reports, key=lambda x: x.test_suite_identifier)
 
@@ -170,18 +176,22 @@ def validate_notice_with_sparql_suite(notice: Union[Notice, List[Notice]], mappi
 
     for notice in notices:
         if execute_full_validation:
-            for report in sparql_validation(notice_item=notice, rdf_manifestation=notice.rdf_manifestation):
+            for report in sparql_validation(notice_item=notice, rdf_manifestation=notice.rdf_manifestation,
+                                            with_html=with_html):
                 notice.set_rdf_validation(rdf_validation=report)
 
-        for report in sparql_validation(notice_item=notice, rdf_manifestation=notice.distilled_rdf_manifestation):
+        for report in sparql_validation(notice_item=notice, rdf_manifestation=notice.distilled_rdf_manifestation,
+                                        with_html=with_html):
             notice.set_distilled_rdf_validation(rdf_validation=report)
 
 
 def validate_notice_by_id_with_sparql_suite(notice_id: str, mapping_suite_identifier: str,
                                             notice_repository: NoticeRepositoryABC,
-                                            mapping_suite_repository: MappingSuiteRepositoryABC):
+                                            mapping_suite_repository: MappingSuiteRepositoryABC,
+                                            with_html: bool = False):
     """
     Validates a notice by id with a sparql test suites
+    :param with_html: generate HTML report
     :param notice_id:
     :param mapping_suite_identifier:
     :param notice_repository:
@@ -195,7 +205,7 @@ def validate_notice_by_id_with_sparql_suite(notice_id: str, mapping_suite_identi
     mapping_suite_package = mapping_suite_repository.get(reference=mapping_suite_identifier)
     if mapping_suite_package is None:
         raise ValueError(f'Mapping suite package, with {mapping_suite_identifier} id, was not found')
-    validate_notice_with_sparql_suite(notice=notice, mapping_suite_package=mapping_suite_package)
+    validate_notice_with_sparql_suite(notice=notice, mapping_suite_package=mapping_suite_package, with_html=with_html)
     notice_repository.update(notice=notice)
 
 

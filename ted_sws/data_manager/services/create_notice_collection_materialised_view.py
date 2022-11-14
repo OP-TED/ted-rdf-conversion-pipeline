@@ -64,7 +64,8 @@ def create_notice_kpi_collection(mongo_client: MongoClient):
                 "caller_name": "execute",
                 "duration": {"$ne": None},
                 "notice_form_number": {"$ne": None},
-                "notice_eforms_subtype": {"$ne": None}
+                "notice_eforms_subtype": {"$ne": None},
+                "notice_status": {"$ne": None},
             }
         },
         {

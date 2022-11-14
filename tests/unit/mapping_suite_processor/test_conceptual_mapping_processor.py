@@ -11,7 +11,7 @@ from tests import temporary_copy
 
 
 def test_mapping_suite_processor_upload_in_mongodb(file_system_repository_path, mongodb_client,
-                                                   test_package_identifier_with_version):
+                                                   test_package_identifier_with_version, aggregates_database_name):
     with temporary_copy(file_system_repository_path) as tmp_mapping_suite_package_path:
         mapping_suite_package_path = tmp_mapping_suite_package_path / "test_package"
         mapping_suite_processor_load_package_in_mongo_db(mapping_suite_package_path=mapping_suite_package_path,
@@ -24,7 +24,7 @@ def test_mapping_suite_processor_upload_in_mongodb(file_system_repository_path, 
         mapping_suite = mapping_suite_repository.get(reference=test_package_identifier_with_version)
         assert mapping_suite
 
-    mongodb_client.drop_database(MappingSuiteRepositoryMongoDB._database_name)
+    mongodb_client.drop_database(aggregates_database_name)
 
 
 def test_mapping_suite_processor_generate_metadata(file_system_repository_path):

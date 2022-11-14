@@ -115,7 +115,7 @@ class ELKConfig:
 
 
 class LoggingConfig:
-    @env_property()
+    @env_property(default_value="aggregates_db")
     def MONGO_DB_LOGS_DATABASE_NAME(self, config_value: str) -> str:
         return config_value
 

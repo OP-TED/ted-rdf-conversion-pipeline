@@ -9,8 +9,8 @@ enable_gridfs_integration()
 NOTICE_TED_ID = "123456"
 
 
-def test_notice_repository_create(mongodb_client, notice_repository_database_name):
-    mongodb_client.drop_database(notice_repository_database_name)
+def test_notice_repository_create(mongodb_client, aggregates_database_name):
+    mongodb_client.drop_database(aggregates_database_name)
     notice_repository = NoticeRepository(mongodb_client=mongodb_client)
     notice = Notice(ted_id=NOTICE_TED_ID, original_metadata=TEDMetadata(**{"AA": ["Metadata"]}),
                     xml_manifestation=XMLManifestation(object_data="HELLO"))
@@ -29,11 +29,11 @@ def test_notice_repository_create(mongodb_client, notice_repository_database_nam
     assert result_notice
     assert result_notice.ted_id == NOTICE_TED_ID
     assert result_notice.original_metadata.AA == ["Updated metadata"]
-    mongodb_client.drop_database(notice_repository_database_name)
+    mongodb_client.drop_database(aggregates_database_name)
 
 
-def test_notice_repository_get_notice_by_status(mongodb_client, notice_repository_database_name):
-    mongodb_client.drop_database(notice_repository_database_name)
+def test_notice_repository_get_notice_by_status(mongodb_client, aggregates_database_name):
+    mongodb_client.drop_database(aggregates_database_name)
     notice_repository = NoticeRepository(mongodb_client=mongodb_client)
     notice = Notice(ted_id=NOTICE_TED_ID, original_metadata=TEDMetadata(**{"AA": ["Metadata"]}),
                     xml_manifestation=XMLManifestation(object_data="HELLO"))
@@ -43,9 +43,9 @@ def test_notice_repository_get_notice_by_status(mongodb_client, notice_repositor
         assert result_notice.status == NoticeStatus.RAW
 
 
-def test_notice_repository_default_database_name(mongodb_client,notice_repository_database_name):
+def test_notice_repository_default_database_name(mongodb_client, aggregates_database_name):
     notice_repository = NoticeRepository(mongodb_client=mongodb_client)
-    assert notice_repository._database_name == notice_repository_database_name
+    assert notice_repository._database_name == aggregates_database_name
 
 def test_notice_repository_create_notice_from_repository_result(mongodb_client):
     notice_repository = NoticeRepository(mongodb_client=mongodb_client)

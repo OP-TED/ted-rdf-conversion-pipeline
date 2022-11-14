@@ -2,6 +2,7 @@ from pathlib import Path
 
 import pytest
 
+from ted_sws import config
 from ted_sws.event_manager.adapters.event_handler import EventHandler, EventWriterToMongoDBHandler, \
     EventWriterToFileHandler, EventWriterToConsoleHandler, EventWriterToNullHandler
 from ted_sws.event_manager.adapters.event_handler_config import ConsoleLoggerConfig
@@ -120,7 +121,7 @@ def mongodb_handler(mongodb_client) -> EventWriterToMongoDBHandler:
 
 @pytest.fixture
 def logs_database_name() -> str:
-    return EventLoggingRepository.get_default_database_name()
+    return config.MONGO_DB_LOGS_DATABASE_NAME
 
 
 @pytest.fixture

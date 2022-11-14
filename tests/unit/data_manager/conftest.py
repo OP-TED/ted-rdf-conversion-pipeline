@@ -1,10 +1,5 @@
 from datetime import date
-
-import mongomock
-import pymongo
 import pytest
-
-from ted_sws import config
 from ted_sws.core.model.supra_notice import DailySupraNotice
 from ted_sws.core.model.transform import MetadataConstraints, FileResource, TransformationRuleSet, SHACLTestSuite, \
     SPARQLTestSuite, MappingSuite, TransformationTestData
@@ -47,8 +42,3 @@ def daily_supra_notice():
 @pytest.fixture
 def fake_mapping_suite_identifier_with_version(fake_mapping_suite):
     return fake_mapping_suite.get_mongodb_id()
-
-
-@pytest.fixture
-def notice_repository_database_name():
-    return config.MONGO_DB_AGGREGATES_DATABASE_NAME

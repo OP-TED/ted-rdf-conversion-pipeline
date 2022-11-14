@@ -31,16 +31,15 @@ class MappingSuiteRepositoryMongoDB(MappingSuiteRepositoryABC):
     """
 
     _collection_name = "mapping_suite_collection"
-    _database_name = config.MONGO_DB_AGGREGATES_DATABASE_NAME or "aggregates_db"
 
-    def __init__(self, mongodb_client: MongoClient, database_name: str = _database_name):
+    def __init__(self, mongodb_client: MongoClient, database_name: str = None):
         """
 
         :param mongodb_client:
         :param database_name:
         """
         mongodb_client = mongodb_client
-        self._database_name = database_name
+        self._database_name = database_name or config.MONGO_DB_AGGREGATES_DATABASE_NAME
         notice_db = mongodb_client[self._database_name]
         self.collection = notice_db[self._collection_name]
 

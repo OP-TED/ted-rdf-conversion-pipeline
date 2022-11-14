@@ -16,10 +16,9 @@ class DailySupraNoticeRepository(DailySupraNoticeRepositoryABC):
     """
 
     _collection_name = "daily_supra_notice_collection"
-    _database_name = config.MONGO_DB_AGGREGATES_DATABASE_NAME or "aggregates_db"
 
-    def __init__(self, mongodb_client: MongoClient, database_name: str = _database_name):
-        self._database_name = database_name
+    def __init__(self, mongodb_client: MongoClient, database_name: str = None):
+        self._database_name = database_name or config.MONGO_DB_AGGREGATES_DATABASE_NAME
         self.mongodb_client = mongodb_client
         daily_supra_notice_db = mongodb_client[self._database_name]
         self.collection = daily_supra_notice_db[self._collection_name]

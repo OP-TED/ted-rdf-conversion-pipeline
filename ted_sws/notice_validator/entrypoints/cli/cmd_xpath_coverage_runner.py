@@ -43,6 +43,7 @@ class CmdRunner(BaseCmdRunner):
             mappings_path
     ):
         super().__init__(name=CMD_NAME)
+        self.with_html = True
         self.mapping_suite_id = mapping_suite_id
         self.notice_ids = self._init_list_input_opts(notice_ids)
         self.mappings_path = mappings_path
@@ -82,7 +83,8 @@ class CmdRunner(BaseCmdRunner):
                                               self.conceptual_mappings_file_path,
                                               self.coverage_runner)
         self.save_json_report(Path(str(output_path) + ".json"), xpath_coverage_json_report(report))
-        self.save_html_report(Path(str(output_path) + ".html"), xpath_coverage_html_report(report))
+        if self.with_html:
+            self.save_html_report(Path(str(output_path) + ".html"), xpath_coverage_html_report(report))
 
     def run_cmd(self):
         super().run_cmd()

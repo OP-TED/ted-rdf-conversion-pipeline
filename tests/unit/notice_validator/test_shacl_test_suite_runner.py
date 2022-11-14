@@ -33,7 +33,7 @@ def test_shacl_report_builder(rdf_file_content, shacl_test_suite, dummy_mapping_
     rdf_manifestation = RDFManifestation(object_data=rdf_file_content)
     sparql_runner = SHACLTestSuiteRunner(rdf_manifestation=rdf_manifestation, shacl_test_suite=shacl_test_suite,
                                          mapping_suite=dummy_mapping_suite)
-    report = generate_shacl_report(shacl_test_suite_execution=sparql_runner.execute_test_suite())
+    report = generate_shacl_report(shacl_test_suite_execution=sparql_runner.execute_test_suite(), with_html=True)
     assert isinstance(report, RDFValidationManifestation)
     assert report.object_data
     assert "shacl_test_package" in report.object_data

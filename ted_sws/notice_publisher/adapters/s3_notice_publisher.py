@@ -20,13 +20,19 @@ class S3Publisher:
     This adapter is to be used to interact with triple store server on S3 bucket.
     """
 
-    def __init__(self, host: str = config.S3_PUBLISH_HOST,
-                 user: str = config.S3_PUBLISH_USER,
-                 password: str = config.S3_PUBLISH_PASSWORD,
-                 secure: bool = config.S3_PUBLISH_SECURE,
-                 region: str = config.S3_PUBLISH_REGION,
-                 ssl_verify: bool = config.S3_PUBLISH_SSL_VERIFY):
+    def __init__(self, host: str = None,
+                 user: str = None,
+                 password: str = None,
+                 secure: bool = None,
+                 region: str = None,
+                 ssl_verify: bool = None):
 
+        host = host or config.S3_PUBLISH_HOST
+        user = user or config.S3_PUBLISH_USER
+        password = password or config.S3_PUBLISH_PASSWORD
+        secure = secure if secure is not None else config.S3_PUBLISH_SECURE
+        region = region or config.S3_PUBLISH_REGION
+        ssl_verify = ssl_verify if ssl_verify is not None else config.S3_PUBLISH_SSL_VERIFY
         if ssl_verify:
             self.client = Minio(
                 host,

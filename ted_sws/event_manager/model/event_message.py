@@ -109,6 +109,9 @@ class NoticeEventMessage(EventMessage):
     """
     notice_id: Optional[str] = None
     domain_action: Optional[str] = None
+    notice_form_number: Optional[str] = None
+    notice_eforms_subtype: Optional[str] = None
+    notice_status: Optional[str] = None
 
 
 class MappingSuiteEventMessage(EventMessage):

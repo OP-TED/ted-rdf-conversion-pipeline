@@ -8,15 +8,16 @@ from dags.dags_utils import pull_dag_upstream, push_dag_downstream, chunks, get_
     smart_xcom_push
 from dags.pipelines.pipeline_protocols import NoticePipelineCallable
 from ted_sws import config
+from ted_sws.core.model.notice import NoticeStatus
 from ted_sws.data_manager.adapters.notice_repository import NoticeRepository
 from ted_sws.event_manager.model.event_message import EventMessage, NoticeEventMessage
-from ted_sws.event_manager.services.log import log_error
+from ted_sws.event_manager.services.log import log_notice_error
 from ted_sws.event_manager.services.logger_from_context import get_logger, handle_event_message_metadata_dag_context
 
 NOTICE_IDS_KEY = "notice_ids"
 START_WITH_STEP_NAME_KEY = "start_with_step_name"
 EXECUTE_ONLY_ONE_STEP_KEY = "execute_only_one_step"
-DEFAULT_NUBER_OF_CELERY_WORKERS = 144
+DEFAULT_NUBER_OF_CELERY_WORKERS = 144 #TODO: revise this config
 NOTICE_PROCESS_WORKFLOW_DAG_NAME = "notice_process_workflow"
 DEFAULT_START_WITH_TASK_ID = "notice_normalisation_pipeline"
 DEFAULT_PIPELINE_NAME_FOR_LOGS = "unknown_pipeline_name"
@@ -88,9 +89,14 @@ class NoticeBatchPipelineOperator(BaseOperator):
                     if result_notice_pipeline.processed:
                         processed_notice_ids.append(notice_id)
                     notice_event.end_record()
+                    if notice.normalised_metadata:
+                        notice_event.notice_form_number = notice.normalised_metadata.form_number
+                        notice_event.notice_eforms_subtype = notice.normalised_metadata.eforms_subtype
+                        notice_event.notice_status = str(notice.status)
                     logger.info(event_message=notice_event)
                 except Exception as e:
-                    log_error(message=str(e))
+                    log_notice_error(message=str(e), notice_id=notice_id, domain_action=pipeline_name)
+
         batch_event_message.end_record()
         logger.info(event_message=batch_event_message)
         if not processed_notice_ids:

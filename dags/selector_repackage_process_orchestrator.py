@@ -13,6 +13,7 @@ from ted_sws.event_manager.model.event_message import TechnicalEventMessage, Eve
 DAG_NAME = "selector_re_package_process_orchestrator"
 
 RE_PACKAGE_TARGET_NOTICE_STATES = [NoticeStatus.VALIDATED, NoticeStatus.INELIGIBLE_FOR_PACKAGING,
+                                   NoticeStatus.ELIGIBLE_FOR_PACKAGING,
                                    NoticeStatus.INELIGIBLE_FOR_PUBLISHING]
 TRIGGER_NOTICE_PROCESS_WORKFLOW_TASK_ID = "trigger_notice_process_workflow"
 FORM_NUMBER_DAG_PARAM = "form_number"

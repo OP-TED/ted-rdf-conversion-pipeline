@@ -11,11 +11,12 @@ from ted_sws.core.adapters.cmd_runner import CmdRunnerForMappingSuite as BaseCmd
 from ted_sws.core.model.manifestation import RDFManifestation
 from ted_sws.event_manager.adapters.log import LOG_INFO_TEXT, LOG_WARN_TEXT
 from ted_sws.notice_publisher.adapters.s3_notice_publisher import S3Publisher
-from ted_sws.notice_publisher.services.notice_publisher import publish_notice_rdf_content_into_s3, \
-    DEFAULT_NOTICE_RDF_S3_BUCKET_NAME
+from ted_sws.notice_publisher.services.notice_publisher import publish_notice_rdf_content_into_s3
+
 from ted_sws.notice_transformer.services.notice_transformer import DEFAULT_TRANSFORMATION_FILE_EXTENSION
 
 CMD_NAME = "CMD_S3_RDF_PUBLISHER"
+DEFAULT_NOTICE_RDF_S3_BUCKET_NAME = "notice-rdf"
 OUTPUT_FOLDER = '{mappings_path}/{mapping_suite_id}/' + DEFAULT_OUTPUT_PATH
 
 """

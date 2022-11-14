@@ -95,15 +95,17 @@ def log_notice_info(message: str, notice_id: str = None, name: str = None):
     get_logger(name=name).info(event_message=NoticeEventMessage(message=message, notice_id=notice_id))
 
 
-def log_notice_error(message: str, notice_id: str = None, name: str = None):
+def log_notice_error(message: str, notice_id: str = None, name: str = None, domain_action: str = None):
     """
     Logs ERROR NoticeEventMessage, using global (DAG) logger or a custom named one
+    :param domain_action:
     :param message:
     :param notice_id:
     :param name: Logger name (None to use the global logger)
     :return:
     """
-    get_logger(name=name).error(event_message=NoticeEventMessage(message=message, notice_id=notice_id))
+    get_logger(name=name).error(
+        event_message=NoticeEventMessage(message=message, notice_id=notice_id, domain_action=domain_action))
 
 
 def log_notice_debug(message: str, notice_id: str = None, name: str = None):

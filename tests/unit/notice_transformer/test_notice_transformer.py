@@ -32,7 +32,7 @@ def test_notice_transformer_by_id_function(fake_rml_mapper, mongodb_client, fake
 
 def test_notice_transformer_by_id_function_with_invalid_ids(fake_rml_mapper, mongodb_client, fake_mapping_suite,
                                                             notice_2018,
-                                                            notice_repository):
+                                                            notice_repository, aggregates_database_name):
     notice_2018._status = NoticeStatus.PREPROCESSED_FOR_TRANSFORMATION
     notice_id = notice_2018.ted_id
     mapping_suite_repository = MappingSuiteRepositoryMongoDB(mongodb_client=mongodb_client)
@@ -42,7 +42,7 @@ def test_notice_transformer_by_id_function_with_invalid_ids(fake_rml_mapper, mon
     result_notice = notice_repository.get(reference=notice_id)
     assert result_notice is None
     notice_repository.add(notice=notice_2018)
-    mongodb_client.drop_database(MappingSuiteRepositoryMongoDB._database_name)
+    mongodb_client.drop_database(aggregates_database_name)
     with pytest.raises(Exception):
         transform_notice_by_id(notice_id, fake_mapping_suite.identifier, notice_repository, mapping_suite_repository,
                                fake_rml_mapper)

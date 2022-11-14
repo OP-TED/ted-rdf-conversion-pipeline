@@ -1,13 +1,19 @@
 from pymongo import MongoClient, ASCENDING, DESCENDING
-from ted_sws.data_manager.services import MONGO_DB_AGGREGATES_DATABASE_DEFAULT_NAME
+
 from ted_sws import config
+from ted_sws.data_manager.services import MONGO_DB_AGGREGATES_DATABASE_DEFAULT_NAME
 
 NOTICE_COLLECTION_NAME = "notice_collection"
 NOTICES_MATERIALISED_VIEW_NAME = "notices_collection_materialised_view"
 NOTICE_EVENTS_COLLECTION_NAME = "notice_events"
+NOTICE_KPI_COLLECTION_NAME = "notice_kpi"
 
 
 def create_notice_collection_materialised_view(mongo_client: MongoClient):
+    """
+    Creates a collection with materialized view used on metabase by aggregating notices collection.
+    :param mongo_client: MongoDB client to connect
+    """
     database = mongo_client[config.MONGO_DB_AGGREGATES_DATABASE_NAME or MONGO_DB_AGGREGATES_DATABASE_DEFAULT_NAME]
     notice_collection = database[NOTICE_COLLECTION_NAME]
     notice_collection.aggregate([
@@ -42,38 +48,36 @@ def create_notice_collection_materialised_view(mongo_client: MongoClient):
     materialised_view.create_index([("status", ASCENDING)])
     materialised_view.create_index([("form_number", ASCENDING)])
     materialised_view.create_index([("form_number", ASCENDING), ("status", ASCENDING)])
+    materialised_view.create_index([("execution_time", ASCENDING)])
 
 
-def update_notice_collection_materialised_view(mongo_client: MongoClient):
+def create_notice_kpi_collection(mongo_client: MongoClient):
     """
-    Updates notice collection materialised view with logs about notice execution time.
-
-    :param mongo_client: mongodb client to connect
+    Creates a collection with kpi for existing notices.
+    :param mongo_client: MongoDB client to connect
     """
     database = mongo_client[config.MONGO_DB_AGGREGATES_DATABASE_NAME or MONGO_DB_AGGREGATES_DATABASE_DEFAULT_NAME]
-    notice_collection = database[NOTICE_COLLECTION_NAME]
-    notice_collection.aggregate([
+    notice_events_collection = database[NOTICE_EVENTS_COLLECTION_NAME]
+    notice_events_collection.aggregate([
         {
-            "$lookup":
-                {
-                    "from": f"{NOTICE_EVENTS_COLLECTION_NAME}",
-                    "localField": "_id",
-                    "foreignField": "notice_id",
-                    "as": "notice_logs",
-                    "pipeline": [
-                        {
-                            "$group": {
-                                "_id": "$notice_id",
-                                "exec_time": {"$sum": "$duration"}
-                            }
-                        }
-                    ]
-                },
+            "$match": {
+                "caller_name": "execute",
+                "duration": {"$ne": None},
+                "notice_form_number": {"$ne": None},
+                "notice_eforms_subtype": {"$ne": None},
+                "notice_status": {"$ne": None},
+            }
         },
         {
-            "$unwind": '$notice_logs'
+            "$group": {
+                "_id": "$notice_id",
+                "exec_time": {"$sum": "$duration"},
+                "form_number": {"$first": "$notice_form_number"},
+                "eforms_subtype": {"$first": "$notice_eforms_subtype"},
+                "status": {"$first": "$notice_status"},
+            }
         },
         {
-            "$out": NOTICES_MATERIALISED_VIEW_NAME
+            "$out": NOTICE_KPI_COLLECTION_NAME
         }
     ])

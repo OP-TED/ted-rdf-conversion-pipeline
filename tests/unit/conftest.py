@@ -4,6 +4,7 @@ import mongomock
 import pymongo
 import pytest
 
+from ted_sws import config
 from ted_sws.notice_transformer.adapters.rml_mapper import RMLMapperABC, SerializationFormat as RMLSerializationFormat
 from tests import TEST_DATA_PATH
 from tests.fakes.fake_rml_mapper import FakeRMLMapper
@@ -44,3 +45,8 @@ def fake_mapping_suite_id() -> str:
 @pytest.fixture
 def invalid_mapping_suite_id() -> str:
     return "test_invalid_package"
+
+
+@pytest.fixture
+def aggregates_database_name():
+    return config.MONGO_DB_AGGREGATES_DATABASE_NAME

@@ -13,9 +13,6 @@ from ted_sws.notice_publisher.adapters.sftp_publisher_abc import SFTPPublisherAB
 from ted_sws.notice_publisher.model.s3_publish_result import S3PublishResult
 from ted_sws.notice_transformer.services.notice_transformer import DEFAULT_TRANSFORMATION_FILE_EXTENSION
 
-DEFAULT_NOTICE_S3_BUCKET_NAME = config.S3_PUBLISH_NOTICE_BUCKET or "notice"
-DEFAULT_NOTICE_RDF_S3_BUCKET_NAME = config.S3_PUBLISH_NOTICE_RDF_BUCKET or "notice-rdf"
-
 
 def publish_notice(notice: Notice, publisher: SFTPPublisherABC = None,
                    remote_folder_path: str = None) -> bool:
@@ -56,11 +53,17 @@ def publish_notice_by_id(notice_id: str, notice_repository: NoticeRepositoryABC,
     return result
 
 
-def publish_notice_into_s3(notice: Notice, s3_publisher: S3Publisher = S3Publisher(),
-                           bucket_name: str = DEFAULT_NOTICE_S3_BUCKET_NAME) -> bool:
+def publish_notice_into_s3(notice: Notice, s3_publisher: S3Publisher = None,
+                           bucket_name: str = None) -> bool:
     """
-
+        This function publish a notice into S3 bucket.
+    :param notice:
+    :param s3_publisher:
+    :param bucket_name:
+    :return:
     """
+    s3_publisher = s3_publisher if s3_publisher else S3Publisher()
+    bucket_name = bucket_name or config.S3_PUBLISH_NOTICE_BUCKET
     mets_manifestation = notice.mets_manifestation
     if not mets_manifestation or not mets_manifestation.object_data:
         raise ValueError("Notice does not have a METS manifestation to be published.")
@@ -76,8 +79,18 @@ def publish_notice_into_s3(notice: Notice, s3_publisher: S3Publisher = S3Publish
 
 
 def publish_notice_into_s3_by_id(notice_id: str, notice_repository: NoticeRepositoryABC,
-                                 s3_publisher: S3Publisher = S3Publisher(),
-                                 bucket_name: str = DEFAULT_NOTICE_S3_BUCKET_NAME) -> bool:
+                                 s3_publisher: S3Publisher = None,
+                                 bucket_name: str = None) -> bool:
+    """
+        This function publish a notice by notice_id into S3 bucket.
+    :param notice_id:
+    :param notice_repository:
+    :param s3_publisher:
+    :param bucket_name:
+    :return:
+    """
+    s3_publisher = s3_publisher if s3_publisher else S3Publisher()
+    bucket_name = bucket_name or config.S3_PUBLISH_NOTICE_BUCKET
     notice = notice_repository.get(reference=notice_id)
     result = publish_notice_into_s3(notice=notice, bucket_name=bucket_name, s3_publisher=s3_publisher)
     if result:
@@ -85,11 +98,17 @@ def publish_notice_into_s3_by_id(notice_id: str, notice_repository: NoticeReposi
     return result
 
 
-def publish_notice_rdf_into_s3(notice: Notice, s3_publisher: S3Publisher = S3Publisher(),
-                               bucket_name: str = DEFAULT_NOTICE_RDF_S3_BUCKET_NAME) -> bool:
+def publish_notice_rdf_into_s3(notice: Notice, s3_publisher: S3Publisher = None,
+                               bucket_name: str = None) -> bool:
     """
-
+        This function publish a distilled RDF Manifestation from a notice into S3 bucket.
+    :param notice:
+    :param s3_publisher:
+    :param bucket_name:
+    :return:
     """
+    s3_publisher = s3_publisher if s3_publisher else S3Publisher()
+    bucket_name = bucket_name or config.S3_PUBLISH_NOTICE_RDF_BUCKET
     rdf_manifestation: RDFManifestation = notice.distilled_rdf_manifestation
     result: bool = publish_notice_rdf_content_into_s3(
         rdf_manifestation=rdf_manifestation,
@@ -101,18 +120,39 @@ def publish_notice_rdf_into_s3(notice: Notice, s3_publisher: S3Publisher = S3Pub
 
 
 def publish_notice_rdf_into_s3_by_id(notice_id: str, notice_repository: NoticeRepositoryABC,
-                                     s3_publisher: S3Publisher = S3Publisher(),
-                                     bucket_name: str = DEFAULT_NOTICE_RDF_S3_BUCKET_NAME) -> bool:
+                                     s3_publisher: S3Publisher = None,
+                                     bucket_name: str = None) -> bool:
+    """
+        This function publish a distilled RDF Manifestation from a notice by notice_id into S3 bucket.
+    :param notice_id:
+    :param notice_repository:
+    :param s3_publisher:
+    :param bucket_name:
+    :return:
+    """
+    s3_publisher = s3_publisher if s3_publisher else S3Publisher()
+    bucket_name = bucket_name or config.S3_PUBLISH_NOTICE_RDF_BUCKET
     notice = notice_repository.get(reference=notice_id)
     return publish_notice_rdf_into_s3(notice=notice, bucket_name=bucket_name, s3_publisher=s3_publisher)
 
 
 def publish_notice_rdf_content_into_s3(rdf_manifestation: RDFManifestation,
                                        object_name: str,
-                                       s3_publisher: S3Publisher = S3Publisher(),
-                                       bucket_name: str = DEFAULT_NOTICE_RDF_S3_BUCKET_NAME) -> bool:
+                                       s3_publisher: S3Publisher = None,
+                                       bucket_name: str = None) -> bool:
+    """
+        This function publish a RDF Manifestation into S3 bucket.
+    :param rdf_manifestation:
+    :param object_name:
+    :param s3_publisher:
+    :param bucket_name:
+    :return:
+    """
+    s3_publisher = s3_publisher if s3_publisher else S3Publisher()
     if not rdf_manifestation or not rdf_manifestation.object_data:
         raise ValueError("Notice does not have a RDF manifestation to be published.")
+
+    bucket_name = bucket_name or config.S3_PUBLISH_NOTICE_RDF_BUCKET
 
     rdf_content = bytes(rdf_manifestation.object_data, encoding='utf-8')
     result: S3PublishResult = s3_publisher.publish(

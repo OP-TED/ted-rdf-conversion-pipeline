@@ -38,8 +38,8 @@ def test_sparql_query_test_suite_runner(rdf_file_content, sparql_test_suite, dum
     for execution in test_suite_executions:
         assert isinstance(execution, SPARQLQueryResult)
 
-    assert test_suite_executions[1].result == SPARQLQueryRefinedResultType.VALID
-    assert test_suite_executions[0].result == SPARQLQueryRefinedResultType.INVALID
+    assert test_suite_executions[1].result == SPARQLQueryRefinedResultType.VALID.value
+    assert test_suite_executions[0].result == SPARQLQueryRefinedResultType.INVALID.value
 
 
 def test_sparql_query_test_suite_runner_error(sparql_test_suite_with_invalid_query, dummy_mapping_suite,
@@ -60,7 +60,7 @@ def test_sparql_query_test_suite_runner_false(sparql_test_suite_with_false_query
                                           sparql_test_suite=sparql_test_suite_with_false_query,
                                           mapping_suite=dummy_mapping_suite).execute_test_suite()
 
-    assert sparql_runner.validation_results[0].result == SPARQLQueryRefinedResultType.UNVERIFIABLE
+    assert sparql_runner.validation_results[0].result == SPARQLQueryRefinedResultType.UNVERIFIABLE.value
     assert sparql_runner.validation_results[0].query_result == 'False'
 
 
@@ -79,7 +79,7 @@ def test_sparql_report_builder(rdf_file_content, sparql_test_suite, dummy_mappin
     rdf_manifestation = RDFManifestation(object_data=rdf_file_content)
     sparql_runner = SPARQLTestSuiteRunner(rdf_manifestation=rdf_manifestation, sparql_test_suite=sparql_test_suite,
                                           mapping_suite=dummy_mapping_suite)
-    report_builder = SPARQLReportBuilder(sparql_test_suite_execution=sparql_runner.execute_test_suite())
+    report_builder = SPARQLReportBuilder(sparql_test_suite_execution=sparql_runner.execute_test_suite(), with_html=True)
     report = report_builder.generate_report()
 
     assert report

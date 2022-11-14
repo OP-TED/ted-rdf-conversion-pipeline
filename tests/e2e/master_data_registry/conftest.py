@@ -1,8 +1,16 @@
 import pathlib
 import pytest
+import rdflib
 
 from ted_sws import config
+from ted_sws.core.model.notice import Notice
+from ted_sws.data_manager.adapters.notice_repository import NoticeRepositoryInFileSystem, NoticeRepository
+from ted_sws.data_manager.adapters.sparql_endpoint import SPARQLStringEndpoint
+from ted_sws.master_data_registry.services.rdf_fragment_processor import get_subjects_by_cet_uri
 from tests import TEST_DATA_PATH
+
+CHILD_NOTICE_ID = "003544-2021"
+PARENT_NOTICE_ID = "445564-2020"
 
 
 @pytest.fixture
@@ -23,3 +31,38 @@ def rdf_content(rdf_file_path) -> str:
 @pytest.fixture
 def organisation_cet_uri() -> str:
     return "http://www.w3.org/ns/org#Organization"
+
+
+@pytest.fixture
+def procedure_cet_uri() -> str:
+    return "http://data.europa.eu/a4g/ontology#Procedure"
+
+
+@pytest.fixture
+def child_notice() -> Notice:
+    notice_repository_path = TEST_DATA_PATH / "notices" / "transformed"
+    return NoticeRepositoryInFileSystem(repository_path=notice_repository_path).get(reference="003544-2021")
+
+
+@pytest.fixture
+def notice_procedure_uri(child_notice, procedure_cet_uri) -> rdflib.URIRef:
+    rdf_content = child_notice.rdf_manifestation.object_data
+    sparql_endpoint = SPARQLStringEndpoint(rdf_content=rdf_content)
+    result_uris = get_subjects_by_cet_uri(sparql_endpoint=sparql_endpoint, cet_uri=procedure_cet_uri)
+    assert len(result_uris) == 1
+    return rdflib.URIRef(result_uris[0])
+
+
+@pytest.fixture
+def parent_notice(child_notice) -> Notice:
+    notice_repository_path = TEST_DATA_PATH / "notices" / "transformed"
+    return NoticeRepositoryInFileSystem(repository_path=notice_repository_path).get(reference="003544-2021")
+
+
+@pytest.fixture
+def fake_mongodb_client_with_parent_notice(parent_notice, fake_mongodb_client):
+    notice_repository = NoticeRepository(mongodb_client=fake_mongodb_client)
+    parent_notice.__dict__["ted_id"] = PARENT_NOTICE_ID
+    parent_notice.original_metadata.RN = None
+    notice_repository.add(notice=parent_notice)
+    return fake_mongodb_client

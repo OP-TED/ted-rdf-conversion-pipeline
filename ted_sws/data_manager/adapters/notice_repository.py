@@ -21,6 +21,7 @@ MONGODB_COLLECTION_ID = "_id"
 NOTICE_TED_ID = "ted_id"
 NOTICE_STATUS = "status"
 NOTICE_CREATED_AT = "created_at"
+NOTICE_ID = "notice_id"
 NOTICE_NORMALISED_METADATA = "normalised_metadata"
 NOTICE_PREPROCESSED_XML_MANIFESTATION = "preprocessed_xml_manifestation"
 NOTICE_DISTILLED_RDF_MANIFESTATION = "distilled_rdf_manifestation"
@@ -28,6 +29,7 @@ NOTICE_RDF_MANIFESTATION = "rdf_manifestation"
 NOTICE_METS_MANIFESTATION = "mets_manifestation"
 METADATA_PUBLICATION_DATE = "publication_date"
 METADATA_DOCUMENT_SENT_DATE = "document_sent_date"
+FILE_STORAGE_COLLECTION_NAME = "fs.files"
 
 
 class NoticeRepositoryInFileSystem(NoticeRepositoryABC):
@@ -122,18 +124,18 @@ class NoticeRepository(NoticeRepositoryABC):
     """
 
     _collection_name = "notice_collection"
-    _database_name = config.MONGO_DB_AGGREGATES_DATABASE_NAME or "aggregates_db"
 
-    def __init__(self, mongodb_client: MongoClient, database_name: str = _database_name):
+    def __init__(self, mongodb_client: MongoClient, database_name: str = None):
+        database_name = database_name if database_name else config.MONGO_DB_AGGREGATES_DATABASE_NAME
         self._database_name = database_name
         self.mongodb_client = mongodb_client
         notice_db = mongodb_client[self._database_name]
         self.file_storage = gridfs.GridFS(notice_db)
         self.collection = notice_db[self._collection_name]
-        self.collection.create_index([("created_at", ASCENDING)])
-        self.collection.create_index([("status", ASCENDING)])
-        self.file_storage_collection = notice_db["fs.files"]
-        self.file_storage_collection.create_index([("notice_id", ASCENDING)])
+        self.collection.create_index([(NOTICE_CREATED_AT, ASCENDING)])
+        self.collection.create_index([(NOTICE_STATUS, ASCENDING)])
+        self.file_storage_collection = notice_db[FILE_STORAGE_COLLECTION_NAME]
+        self.file_storage_collection.create_index([(NOTICE_ID, ASCENDING)])
 
     def get_file_content_from_grid_fs(self, file_id: str) -> str:
         """
@@ -169,7 +171,7 @@ class NoticeRepository(NoticeRepositoryABC):
         """
         notice = copy.deepcopy(notice)
         linked_file_ids = [linked_file._id for linked_file in
-                           self.file_storage.find({"notice_id": notice.ted_id})]
+                           self.file_storage.find({NOTICE_ID: notice.ted_id})]
 
         new_linked_file_ids = []
 
@@ -185,19 +187,6 @@ class NoticeRepository(NoticeRepositoryABC):
         write_large_field(notice.mets_manifestation)
         write_large_field(notice.distilled_rdf_manifestation)
         write_large_field(notice.preprocessed_xml_manifestation)
-        if notice.rdf_manifestation:
-            for validation_report in notice.rdf_manifestation.shacl_validations:
-                write_large_field(validation_report)
-
-            for validation_report in notice.rdf_manifestation.sparql_validations:
-                write_large_field(validation_report)
-
-        if notice.distilled_rdf_manifestation:
-            for validation_report in notice.distilled_rdf_manifestation.shacl_validations:
-                write_large_field(validation_report)
-
-            for validation_report in notice.distilled_rdf_manifestation.sparql_validations:
-                write_large_field(validation_report)
 
         return notice, linked_file_ids, new_linked_file_ids
 
@@ -217,18 +206,6 @@ class NoticeRepository(NoticeRepositoryABC):
         load_large_field(large_field=notice.mets_manifestation)
         load_large_field(large_field=notice.distilled_rdf_manifestation)
         load_large_field(large_field=notice.preprocessed_xml_manifestation)
-        if notice.rdf_manifestation:
-            for validation_report in notice.rdf_manifestation.shacl_validations:
-                load_large_field(validation_report)
-            for validation_report in notice.rdf_manifestation.sparql_validations:
-                load_large_field(validation_report)
-
-        if notice.distilled_rdf_manifestation:
-            for validation_report in notice.distilled_rdf_manifestation.shacl_validations:
-                load_large_field(validation_report)
-
-            for validation_report in notice.distilled_rdf_manifestation.sparql_validations:
-                load_large_field(validation_report)
 
         return notice
 

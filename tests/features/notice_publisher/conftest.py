@@ -8,6 +8,7 @@ from ted_sws import config
 from ted_sws.core.model.manifestation import METSManifestation
 from ted_sws.core.model.notice import NoticeStatus, Notice
 from ted_sws.data_manager.adapters.notice_repository import NoticeRepository
+from ted_sws.notice_publisher.adapters.s3_notice_publisher import S3Publisher
 
 
 @pytest.fixture
@@ -43,3 +44,19 @@ def notice_repository(mongodb_client, publish_eligible_notice):
 @pytest.fixture
 def sftp_endpoint():
     return config.SFTP_PUBLISH_HOST
+
+@pytest.fixture
+def s3_publisher():
+    return S3Publisher()
+
+@pytest.fixture
+def s3_bucket_name():
+    return "tmp-test-bucket"
+
+@pytest.fixture
+def mets_package_published_name(publish_eligible_notice):
+    return f"{publish_eligible_notice.ted_id}.zip"
+
+@pytest.fixture
+def rdf_manifestation_published_name(publish_eligible_notice):
+    return f"{publish_eligible_notice.ted_id}.ttl"

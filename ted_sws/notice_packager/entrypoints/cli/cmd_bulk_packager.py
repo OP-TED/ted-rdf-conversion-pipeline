@@ -25,8 +25,7 @@ from ted_sws.notice_metadata_processor.services.xml_manifestation_metadata_extra
     XMLManifestationMetadataExtractor
 from ted_sws.notice_packager import DEFAULT_NOTICE_PACKAGE_EXTENSION
 from ted_sws.notice_packager.services.metadata_transformer import MetadataTransformer
-from ted_sws.notice_packager.services.notice_packager import create_notice_package, package_notice_and_save_to, \
-    ARCHIVE_NAME_FORMAT
+from ted_sws.notice_packager.services.notice_packager import create_notice_package, package_notice_and_save_to
 
 CMD_NAME = "CMD_BULK_PACKAGER"
 DEFAULT_FILES_COUNT: int = 3000
@@ -62,11 +61,10 @@ class CmdRunner(BaseCmdRunner):
         try:
             self.output_path.mkdir(parents=True, exist_ok=True)
             if self.notices:
+                self.log("Saving packages to " + str(self.output_path))
                 for notice in self.notices:
-                    output_file = self.output_path / ARCHIVE_NAME_FORMAT.format(publication_work_identifier())
-                    self.log("Saving package to " + str(output_file))
                     package_notice_and_save_to(notice=notice,
-                                               save_to=output_file)
+                                               save_to=self.output_path)
             else:
                 rdf_files = [Path(str(f_path)) for f in os.listdir(self.rdf_files_path) if
                              os.path.isfile(f_path := os.path.join(self.rdf_files_path, f))]
@@ -116,7 +114,7 @@ def run(rdf_files_count=None, output_folder=None, pkgs_count=None, notice_id=Non
 @click.command()
 @click.argument('rdf-files-folder', nargs=1, required=False)
 @click.argument('pkgs-count', nargs=1, type=click.INT, required=False, default=DEFAULT_FILES_COUNT)
-@click.option('--output-folder', required=False)
+@click.option('--output-folder', required=False, default=".")
 @click.option('--notice-id', required=False, multiple=True, default=None)
 def main(rdf_files_folder, pkgs_count, output_folder, notice_id):
     """

@@ -60,7 +60,6 @@ def create_notice_package(in_data: IN_DATA_TYPE, rdf_content: RDF_CONTENT_TYPE =
     tmp_dir_path = Path(tmp_dir.name)
 
     notice_packager = NoticePackager(in_data, action, tmp_dir_path, notice_repository)
-
     notice_packager.add_template_files()
     notice_packager.add_rdf_content(rdf_content)
     notice_packager.add_extra_files(extra_files)
@@ -79,7 +78,7 @@ def package_notice(notice: Notice) -> Notice:
     return notice
 
 
-def package_notice_and_save_to(notice: Notice, save_to: PATH_TYPE = None, work_identifier: str = None) -> str:
+def package_notice_and_save_to(notice: Notice, save_to: PATH_TYPE = None) -> str:
     """
         This function package a Notice to save_to location.
     """
@@ -160,7 +159,7 @@ class NoticePackager:
         self.__write_template_to_file(file_tmd_rdf, TemplateGenerator.tmd_rdf_generator, self.template_metadata)
 
         file_mets2action_mets_xml = self.tmp_dir_path / FILE_METS_ACTION_FORMAT.format(
-            notice_id=self.notice_id,
+            work_identifier=self.template_metadata.work.identifier,
             action=self.notice_action
         )
         self.__write_template_to_file(file_mets2action_mets_xml, TemplateGenerator.mets2action_mets_xml_generator,
@@ -189,7 +188,11 @@ class NoticePackager:
             self.files += extra_files
 
     def pack(self, save_to: PATH_TYPE) -> str:
-        archive_name = ARCHIVE_NAME_FORMAT.format(notice_id=self.notice_id)
+        archive_name = ARCHIVE_NAME_FORMAT.format(
+            work_identifier=self.template_metadata.work.identifier,
+            action=self.template_metadata.notice.action.type
+        )
+
         archive_path = self.tmp_dir_path / archive_name
         package_path = self.archiver.process_archive(archive_path, self.files)
 

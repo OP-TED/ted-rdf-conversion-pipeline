@@ -6,7 +6,7 @@
       TYPE="{{ notice.action.type }}"
       PROFILE="http://publications.europa.eu/resource/mets/op-sip-profile_002">
     <metsHdr {{ notice.action.type|upper }}DATE="{{ notice.action.date }}">
-        <metsDocumentID>{{ notice.id }}_mets2{{ notice.action.type }}</metsDocumentID>
+        <metsDocumentID>{{ work.identifier }}_{{ notice.action.type }}</metsDocumentID>
     </metsHdr>
     <dmdSec ID="dmdSec01">
         <mdRef MDTYPE="OTHER" LOCTYPE="URL" MIMETYPE="application/rdf+xml" OTHERMDTYPE="INSTANCE" xlink:href="{{ notice.id }}-0.mets.xml.dmd.rdf"/>

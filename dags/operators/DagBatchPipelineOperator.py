@@ -79,6 +79,7 @@ class NoticeBatchPipelineOperator(BaseOperator):
                 self.batch_pipeline_callable(notice_ids=notice_ids, mongodb_client=mongodb_client))
         elif self.notice_pipeline_callable is not None:
             for notice_id in notice_ids:
+                notice = None
                 try:
                     notice_event = NoticeEventMessage(notice_id=notice_id, domain_action=pipeline_name)
                     notice_event.start_record()
@@ -95,11 +96,11 @@ class NoticeBatchPipelineOperator(BaseOperator):
                         notice_event.notice_status = str(notice.status)
                     logger.info(event_message=notice_event)
                 except Exception as e:
-                    failed_notice = notice_repository.get(reference=notice_id)
+                    notice_normalised_metadata = notice.normalised_metadata if notice else None
                     log_notice_error(message=str(e), notice_id=notice_id, domain_action=pipeline_name,
-                                     notice_form_number=failed_notice.normalised_metadata.form_number if failed_notice else None,
-                                     notice_status=failed_notice.normalised_metadata.eforms_subtype if failed_notice else None,
-                                     notice_eforms_subtype=failed_notice.status if failed_notice else None)
+                                     notice_form_number=notice_normalised_metadata.form_number if notice_normalised_metadata else None,
+                                     notice_status=notice.status if notice else None,
+                                     notice_eforms_subtype=notice_normalised_metadata.eforms_subtype if notice_normalised_metadata else None)
 
         batch_event_message.end_record()
         logger.info(event_message=batch_event_message)

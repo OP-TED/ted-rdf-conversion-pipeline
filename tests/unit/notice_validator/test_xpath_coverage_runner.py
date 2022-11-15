@@ -60,7 +60,8 @@ def test_validate_xpath_coverage_notice_by_id(fake_notice_id, fake_mapping_suite
             notice_id=fake_notice_id,
             mapping_suite_identifier=fake_mapping_suite_F03_id,
             mapping_suite_repository=mapping_suite_repository_db,
-            mongodb_client=mongodb_client)
+            mongodb_client=mongodb_client,
+            with_html=True)
 
     mapping_suite_repository_db.add(mapping_suite)
 
@@ -68,4 +69,5 @@ def test_validate_xpath_coverage_notice_by_id(fake_notice_id, fake_mapping_suite
         notice_id=fake_notice_id,
         mapping_suite_identifier=fake_mapping_suite_F03_id_with_version,
         mapping_suite_repository=mapping_suite_repository_db,
-        mongodb_client=mongodb_client)
+        mongodb_client=mongodb_client,
+        with_html=True)

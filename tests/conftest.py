@@ -11,6 +11,7 @@ from mongomock.gridfs import enable_gridfs_integration
 from ted_sws.core.model.manifestation import XMLManifestation, RDFManifestation
 from ted_sws.core.model.metadata import TEDMetadata, LanguageTaggedString, NormalisedMetadata, XMLMetadata
 from ted_sws.core.model.notice import Notice, NoticeStatus
+from ted_sws.data_manager.adapters.notice_repository import NoticeRepositoryInFileSystem
 from ted_sws.notice_metadata_processor.services.metadata_normalizer import TITLE_KEY, LONG_TITLE_KEY, NOTICE_TYPE_KEY, \
     NOTICE_NUMBER_KEY, OJS_TYPE_KEY, OJS_NUMBER_KEY, LANGUAGE_KEY, EU_INSTITUTION_KEY, SENT_DATE_KEY, DEADLINE_DATE_KEY, \
     BUYER_COUNTRY_KEY, BUYER_NAME_KEY, BUYER_CITY_KEY, PUBLICATION_DATE_KEY, FORM_NUMBER_KEY, \
@@ -236,3 +237,9 @@ def notice_with_rdf_manifestation():
     notice._rdf_manifestation = RDFManifestation(object_data=rdf_content_path.read_text(encoding="utf-8"))
     notice._status = NoticeStatus.TRANSFORMED
     return notice
+
+
+@pytest.fixture
+def transformed_complete_notice():
+    test_notice_repository = NoticeRepositoryInFileSystem(repository_path=TEST_DATA_PATH / "notices")
+    return test_notice_repository.get("396207_2018")

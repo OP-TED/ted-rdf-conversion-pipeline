@@ -34,7 +34,7 @@ def test_notice_packager_with_create_action(notice_sample_metadata):
     assert encoded_package_content is not None
 
     raw_package_content = base64.b64decode(encoded_package_content)
-    assert b'mets2create.mets.xml' in raw_package_content
+    assert b'_create.mets.xml' in raw_package_content
 
 
 def test_notice_packager_with_update_action(notice_sample_metadata):
@@ -42,7 +42,7 @@ def test_notice_packager_with_update_action(notice_sample_metadata):
     assert encoded_package_content is not None
 
     raw_package_content = base64.b64decode(encoded_package_content)
-    assert b'mets2update.mets.xml' in raw_package_content
+    assert b'_update.mets.xml' in raw_package_content
 
 
 def test_notice_packager_with_wrong_input_data_type(notice_sample_metadata):

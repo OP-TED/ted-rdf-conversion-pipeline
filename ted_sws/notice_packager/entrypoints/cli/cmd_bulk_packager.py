@@ -21,6 +21,7 @@ from ted_sws.core.adapters.cmd_runner import CmdRunner as BaseCmdRunner
 from ted_sws.core.model.manifestation import XMLManifestation
 from ted_sws.core.model.notice import Notice
 from ted_sws.data_manager.adapters.notice_repository import NoticeRepository
+from ted_sws.event_manager.adapters.log import LOG_WARN_TEXT
 from ted_sws.notice_metadata_processor.services.xml_manifestation_metadata_extractor import \
     XMLManifestationMetadataExtractor
 from ted_sws.notice_packager import DEFAULT_NOTICE_PACKAGE_EXTENSION
@@ -43,7 +44,9 @@ class CmdRunner(BaseCmdRunner):
                  mongodb_client=MongoClient(config.MONGO_DB_AUTH_URL)):
         super().__init__(name=CMD_NAME)
         self.output_path = Path(os.path.realpath(output_folder))
+        self.notices = None
         if notice_ids:
+            self.log(LOG_WARN_TEXT.format("Notices: ") + str(notice_ids))
             self.notice_repository = NoticeRepository(mongodb_client=mongodb_client)
             self.notices = []
             for notice_id in notice_ids:
@@ -56,10 +59,11 @@ class CmdRunner(BaseCmdRunner):
                 self.log_failed_msg(error_msg)
                 raise FileNotFoundError(error_msg)
 
+        self.output_path.mkdir(parents=True, exist_ok=True)
+
     def run_cmd(self):
         error = None
         try:
-            self.output_path.mkdir(parents=True, exist_ok=True)
             if self.notices:
                 self.log("Saving packages to " + str(self.output_path))
                 for notice in self.notices:
@@ -76,22 +80,19 @@ class CmdRunner(BaseCmdRunner):
                     rdf_idx = i % rdf_files_count
                     rdf_file_path = rdf_files[rdf_idx]
                     notice_id = str(base_idx + i) + "_" + str(year)
-                    pkg_name = notice_id
-                    self.generate_package(notice_id, self.output_path, rdf_file_path, pkg_name)
+                    self.generate_package(notice_id, self.output_path, rdf_file_path)
         except Exception as e:
             error = e
 
         return self.run_cmd_result(error)
 
     @classmethod
-    def generate_package(cls, notice_id, output_path, rdf_file_path, pkg_name):
+    def generate_package(cls, notice_id, output_path, rdf_file_path):
 
         with open(rdf_file_path, "r") as f:
             rdf_content = f.read()
 
             encoded_rdf_content = base64.b64encode(bytes(rdf_content, 'utf-8'))
-
-            output_file = output_path / (pkg_name + DEFAULT_NOTICE_PACKAGE_EXTENSION)
 
             notice = PackageNotice(ted_id=notice_id)
             notice_metadata = XMLManifestationMetadataExtractor(
@@ -101,7 +102,7 @@ class CmdRunner(BaseCmdRunner):
             create_notice_package(
                 notice_metadata,
                 rdf_content=encoded_rdf_content,
-                save_to=output_file
+                save_to=output_path
             )
 
 

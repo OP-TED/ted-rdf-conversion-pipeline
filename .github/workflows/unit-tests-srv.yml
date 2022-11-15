@@ -3,7 +3,7 @@ name: Tests on srv server
 on:
   workflow_dispatch:
   push:
-    branches: [ feature/*, release/* ]
+    branches: [ feature/*, hotfix/* ]
   pull_request:
     branches: [ master, release/* ]
 env:

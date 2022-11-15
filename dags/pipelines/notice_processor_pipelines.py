@@ -95,14 +95,16 @@ def notice_publish_pipeline(notice: Notice, mongodb_client: MongoClient) -> Noti
     """
 
     """
-    from ted_sws.notice_publisher.services.notice_publisher import publish_notice, publish_notice_rdf_into_s3
+    from ted_sws.notice_publisher.services.notice_publisher import publish_notice, publish_notice_rdf_into_s3, \
+        publish_notice_into_s3
     from ted_sws.event_manager.services.log import log_notice_error
     from ted_sws import config
     notice.update_status_to(new_status=NoticeStatus.PACKAGED)
     if config.S3_PUBLISH_ENABLED:
-        published_into_s3 = publish_notice_rdf_into_s3(notice=notice)
-        if not published_into_s3:
-            log_notice_error(message="Can't load notice distilled rdf manifestation into S3 bucket!",
+        published_rdf_into_s3 = publish_notice_rdf_into_s3(notice=notice)
+        publish_notice_into_s3 = publish_notice_into_s3(notice=notice)
+        if not (published_rdf_into_s3 and publish_notice_into_s3):
+            log_notice_error(message="Can't load notice distilled rdf manifestation and METS package into S3 bucket!",
                              notice_id=notice.ted_id, notice_status=notice.status,
                              notice_form_number=notice.normalised_metadata.form_number,
                              notice_eforms_subtype=notice.normalised_metadata.eforms_subtype)

@@ -403,7 +403,7 @@ install-allure:
 	@ sudo apt -y install npm
 	@ sudo npm install -g allure-commandline
 
- install-mkcert:
+install-mkcert:
 	@ mkdir -p .ssl && cd .ssl && rm -rf *
 	@ curl -JLO "https://dl.filippo.io/mkcert/latest?for=linux/amd64"
 	@ chmod +x mkcert-v*-linux-amd64

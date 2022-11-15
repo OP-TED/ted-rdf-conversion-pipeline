@@ -402,6 +402,7 @@ install-allure:
 	@ echo -e "Start install Allure commandline."
 	@ sudo apt -y install npm
 	@ sudo npm install -g allure-commandline
+	@ sudo pip install allure-combine
 
 install-mkcert:
 	@ mkdir -p .ssl && cd .ssl && rm -rf *

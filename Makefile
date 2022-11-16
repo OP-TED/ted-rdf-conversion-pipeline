@@ -24,12 +24,12 @@ CAROOT = $(shell pwd)/infra/traefik/certs
 install:
 	@ echo -e "$(BUILD_PRINT)Installing the requirements$(END_BUILD_PRINT)"
 	@ pip install --upgrade pip
-	@ pip install --no-cache-dir -r requirements.txt --constraint "https://raw.githubusercontent.com/apache/airflow/constraints-2.4.1/constraints-no-providers-3.8.txt"
+	@ pip install --no-cache-dir -r requirements.txt --constraint "https://raw.githubusercontent.com/apache/airflow/constraints-2.4.3/constraints-no-providers-3.8.txt"
 
 install-dev:
 	@ echo -e "$(BUILD_PRINT)Installing the dev requirements$(END_BUILD_PRINT)"
 	@ pip install --upgrade pip
-	@ pip install --no-cache-dir -r requirements.dev.txt --constraint "https://raw.githubusercontent.com/apache/airflow/constraints-2.4.1/constraints-no-providers-3.8.txt"
+	@ pip install --no-cache-dir -r requirements.dev.txt --constraint "https://raw.githubusercontent.com/apache/airflow/constraints-2.4.3/constraints-no-providers-3.8.txt"
 
 test: test-unit
 
@@ -402,8 +402,9 @@ install-allure:
 	@ echo -e "Start install Allure commandline."
 	@ sudo apt -y install npm
 	@ sudo npm install -g allure-commandline
+	@ sudo pip install allure-combine
 
- install-mkcert:
+install-mkcert:
 	@ mkdir -p .ssl && cd .ssl && rm -rf *
 	@ curl -JLO "https://dl.filippo.io/mkcert/latest?for=linux/amd64"
 	@ chmod +x mkcert-v*-linux-amd64

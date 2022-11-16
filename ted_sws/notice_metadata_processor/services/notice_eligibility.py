@@ -7,7 +7,6 @@ from ted_sws.core.model.metadata import NormalisedMetadata
 from ted_sws.core.model.notice import Notice
 from ted_sws.core.model.transform import MappingSuite
 from ted_sws.data_manager.adapters.repository_abc import MappingSuiteRepositoryABC, NoticeRepositoryABC
-from ted_sws.event_manager.services.log import log_notice_error
 from ted_sws.mapping_suite_processor.services.conceptual_mapping_generate_metadata import START_DATE_KEY, END_DATE_KEY, \
     MIN_XSD_VERSION_KEY, MAX_XSD_VERSION_KEY, E_FORMS_SUBTYPE_KEY
 

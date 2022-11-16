@@ -19,6 +19,12 @@ def save_notice_as_zip(notice: Notice, unpack_path: pathlib.Path):
     """
 
     def write_in_file(data: Union[str, bytes], terminal_path: str):
+        """
+        This function writes data content to file, identified by terminal_path
+        :param data:
+        :param terminal_path:
+        :return:
+        """
         write_path = unpack_path / terminal_path
         if type(data) == str:
             write_path.write_text(data=data, encoding="utf-8")

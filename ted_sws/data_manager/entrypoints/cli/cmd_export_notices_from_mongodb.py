@@ -44,6 +44,14 @@ def run(notice_id=None,
         output_folder: str = None,
         mongodb_auth_url: str = None,
         mongodb_client: MongoClient = None):
+    """
+    This is the bridge function from CLI to CmdRunner, where input data is prepared
+    :param notice_id:
+    :param output_folder:
+    :param mongodb_auth_url:
+    :param mongodb_client:
+    :return:
+    """
     if mongodb_auth_url:
         mongodb_client = MongoClient(mongodb_auth_url)
     elif not mongodb_client:
@@ -63,6 +71,11 @@ def run(notice_id=None,
 @click.option('-mau', '--mongodb-auth-url', required=False)
 def main(notice_id, output_folder, mongodb_auth_url):
     """
+    This CLI tool will export/unpack a Notice from database
+    :param notice_id:
+    :param output_folder:
+    :param mongodb_auth_url:
+    :return:
     """
     run(notice_id=notice_id, output_folder=output_folder, mongodb_auth_url=mongodb_auth_url)
 

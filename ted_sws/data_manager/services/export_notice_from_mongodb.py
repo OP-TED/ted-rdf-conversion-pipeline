@@ -56,4 +56,4 @@ def export_notice_by_id(notice_id: str, output_folder: str, mongodb_client: Mong
         notice_unpacking_folder.mkdir(parents=True, exist_ok=True)
         save_notice_as_zip(notice=notice, unpack_path=notice_unpacking_folder)
         return True, str(notice_unpacking_folder)
-    return False
+    return False, ""

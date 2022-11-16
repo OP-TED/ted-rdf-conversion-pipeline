@@ -5,6 +5,7 @@ from pathlib import Path
 
 from pymongo import MongoClient
 
+from ted_sws import config
 from ted_sws.core.adapters.cmd_runner import CmdRunner as BaseCmdRunner
 from ted_sws.data_manager.services.export_notice_from_mongodb import export_notice_by_id
 
@@ -18,27 +19,39 @@ USAGE:
 
 class CmdRunner(BaseCmdRunner):
 
-    def __init__(self, notice_ids: List[str] = None, output_folder: str = None):
+    def __init__(self, notice_ids: List[str] = None, output_folder: str = None, mongodb_client: MongoClient = None):
         super().__init__(name=CMD_NAME)
         self.notice_ids = self._init_list_input_opts(notice_ids)
         self.output_folder = output_folder
+        self.mongodb_client = mongodb_client
 
     def run_cmd(self):
-        error = None
-        try:
-            if self.notice_ids:
-                for notice_id in self.notice_ids:
-                    is_saved, saved_path = export_notice_by_id(notice_id, self.output_folder)
-                    if is_saved:
-                        self.log(f"Notice {notice_id} saved in {saved_path}.")
-                    else:
-                        self.log(f"Notice {notice_id} is not saved.")
-            else:
-                self.log("List with notices is empty.")
-        except Exception as e:
-            error = e
+        if self.notice_ids:
+            for notice_id in self.notice_ids:
+                is_saved, saved_path = export_notice_by_id(notice_id, self.output_folder,
+                                                           mongodb_client=self.mongodb_client)
+                if is_saved:
+                    self.log(f"Notice {notice_id} saved in {saved_path}.")
+                else:
+                    self.log(f"Notice {notice_id} is not saved.")
+        else:
+            self.log("List with notices is empty.")
 
-        return self.run_cmd_result(error)
+        return self.run_cmd_result()
+
+
+def run(notice_id=None,
+        output_folder: str = None,
+        mongodb_client: MongoClient = None):
+    if not mongodb_client:
+        mongodb_client = MongoClient(config.MONGO_DB_AUTH_URL)
+
+    cmd = CmdRunner(
+        notice_ids=list(notice_id or []),
+        output_folder=output_folder,
+        mongodb_client=mongodb_client
+    )
+    cmd.run()
 
 
 @click.command()
@@ -46,14 +59,9 @@ class CmdRunner(BaseCmdRunner):
 @click.option('-o', '--output-folder', required=False, default=".")
 def main(notice_id, output_folder):
     """
-
     """
-    cmd = CmdRunner(
-        notice_ids=list(notice_id),
-        output_folder=output_folder
-    )
-    cmd.run()
+    run(notice_id=notice_id, output_folder=output_folder)
 
 
 if __name__ == '__main__':
-    main(["--notice-id", "377668-2021,325008-2021"])
+    main()

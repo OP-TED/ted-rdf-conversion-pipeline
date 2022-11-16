@@ -42,8 +42,11 @@ class CmdRunner(BaseCmdRunner):
 
 def run(notice_id=None,
         output_folder: str = None,
+        mongodb_auth_url: str = None,
         mongodb_client: MongoClient = None):
-    if not mongodb_client:
+    if mongodb_auth_url:
+        mongodb_client = MongoClient(mongodb_auth_url)
+    elif not mongodb_client:
         mongodb_client = MongoClient(config.MONGO_DB_AUTH_URL)
 
     cmd = CmdRunner(
@@ -57,10 +60,11 @@ def run(notice_id=None,
 @click.command()
 @click.option('-n', '--notice-id', required=True, multiple=True)
 @click.option('-o', '--output-folder', required=False, default=".")
-def main(notice_id, output_folder):
+@click.option('-mau', '--mongodb-auth-url', required=False)
+def main(notice_id, output_folder, mongodb_auth_url):
     """
     """
-    run(notice_id=notice_id, output_folder=output_folder)
+    run(notice_id=notice_id, output_folder=output_folder, mongodb_auth_url=mongodb_auth_url)
 
 
 if __name__ == '__main__':

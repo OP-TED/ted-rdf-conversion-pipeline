@@ -10,10 +10,12 @@ from ted_sws.core.model.notice import Notice
 from ted_sws.data_manager.adapters.mapping_suite_repository import MappingSuiteRepositoryInFileSystem, \
     MappingSuiteRepositoryMongoDB
 from ted_sws.data_manager.adapters.notice_repository import NoticeRepository
+from ted_sws.event_manager.services.log import log_mapping_suite_info, log_mapping_suite_error
 from ted_sws.mapping_suite_processor.adapters.github_package_downloader import GitHubMappingSuitePackageDownloader
 from ted_sws.mapping_suite_processor.services.mapping_suite_digest_service import \
     update_digest_api_address_for_mapping_suite
-from ted_sws.mapping_suite_processor.services.mapping_suite_validation_service import validate_mapping_suite
+from ted_sws.mapping_suite_processor.services.mapping_suite_validation_service import validate_mapping_suite, \
+    get_mapping_suite_id_from_file_system
 
 CONCEPTUAL_MAPPINGS_ASSERTIONS = "cm_assertions"
 SHACL_SHAPE_INJECTION_FOLDER = "ap_data_shape"
@@ -25,6 +27,7 @@ SPARQL_QUERIES_INJECTION_FOLDER = "business_queries"
 PROD_ARCHIVE_SUFFIX = "prod"
 DEMO_ARCHIVE_SUFFIX = "demo"
 DEFAULT_BRANCH_NAME = "main"
+MAPPING_SUITE_UNKNOWN_ID = "unknown_mapping_suite_id"
 
 
 def mapping_suite_processor_load_package_in_mongo_db(mapping_suite_package_path: pathlib.Path,
@@ -92,12 +95,28 @@ def mapping_suite_processor_from_github_expand_and_load_package_in_mongo_db(mong
             tmp_dir_path / mapping_suite_package_name] if mapping_suite_package_name else list(tmp_dir_path.iterdir())
         result_notice_ids = []
         for mapping_suite_package_path in mapping_suite_package_paths:
-            if validate_mapping_suite(mapping_suite_path=mapping_suite_package_path):
+            validation_result = validate_mapping_suite(mapping_suite_path=mapping_suite_package_path)
+            mapping_suite_id = get_mapping_suite_id_from_file_system(mapping_suite_path=mapping_suite_package_path)
+            if mapping_suite_id is None:
+                log_mapping_suite_error(
+                    message="Invalid mapping suite metadata, can't read mapping suite identifier!",
+                    mapping_suite_id=MAPPING_SUITE_UNKNOWN_ID)
+            elif validation_result:
+                log_mapping_suite_info(
+                    message=f"Mapping suite with id={mapping_suite_id} is valid for loading in MongoDB!",
+                    mapping_suite_id=mapping_suite_id)
                 result_notice_ids.extend(mapping_suite_processor_load_package_in_mongo_db(
                     mapping_suite_package_path=mapping_suite_package_path,
                     mongodb_client=mongodb_client,
                     load_test_data=load_test_data,
                     git_last_commit_hash=git_last_commit_hash
                 ))
+                log_mapping_suite_info(
+                    message=f"Mapping suite with id={mapping_suite_id} loaded with success in MongoDB!",
+                    mapping_suite_id=mapping_suite_id)
+            else:
+                log_mapping_suite_error(
+                    message=f"Mapping suite with id={mapping_suite_id} is invalid for loading in MongoDB!",
+                    mapping_suite_id=mapping_suite_id)
 
     return result_notice_ids

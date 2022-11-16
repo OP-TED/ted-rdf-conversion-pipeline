@@ -31,28 +31,38 @@ def save_notice_as_zip(notice: Notice, unpack_path: pathlib.Path):
         elif type(data) == bytes:
             write_path.write_bytes(data)
 
-    write_in_file(notice.rdf_manifestation.object_data, "rdf_manifestation.ttl")
-    write_in_file(notice.distilled_rdf_manifestation.object_data, "distilled_rdf_manifestation.ttl")
-    write_in_file(notice.xml_manifestation.object_data, "xml_manifestation.xml")
-    write_in_file(notice.validation_summary.object_data, "validation_summary.html")
-    write_in_file(json.dumps(notice.xml_metadata.dict()), "xml_metadata.json")
-    mets_package_file_name = "mets_manifestation.zip"
-    unpack_mets_package_dir_name = "mets_manifestation"
-    write_in_file(base64.b64decode(notice.mets_manifestation.object_data.encode(encoding="utf-8")),
-                  mets_package_file_name)
-    mets_package_path = unpack_path / "mets_manifestation.zip"
-    with zipfile.ZipFile(mets_package_path.absolute(), 'r') as zip_ref:
-        zip_ref.extractall(unpack_path / unpack_mets_package_dir_name)
-    for shacl_validation in notice.rdf_manifestation.shacl_validations:
-        write_in_file(shacl_validation.object_data, "shacl_validation.html")
-        shacl_validation_json = json.dumps(shacl_validation.validation_results.dict())
-        write_in_file(shacl_validation_json, "shacl_validation.json")
+    if notice.rdf_manifestation:
+        write_in_file(notice.rdf_manifestation.object_data, "rdf_manifestation.ttl")
+    if notice.distilled_rdf_manifestation:
+        write_in_file(notice.distilled_rdf_manifestation.object_data, "distilled_rdf_manifestation.ttl")
+    if notice.xml_manifestation:
+        write_in_file(notice.xml_manifestation.object_data, "xml_manifestation.xml")
+    if notice.validation_summary:
+        write_in_file(notice.validation_summary.object_data, "validation_summary.html")
+    if notice.xml_metadata:
+        write_in_file(json.dumps(notice.xml_metadata.dict()), "xml_metadata.json")
 
-    for sparql_validation in notice.rdf_manifestation.sparql_validations:
-        write_in_file(sparql_validation.object_data, "sparql_validation.html")
-        sparql_validation_json = json.dumps(
-            [validation_result.dict() for validation_result in sparql_validation.validation_results])
-        write_in_file(sparql_validation_json, "sparql_validation.json")
+    if notice.mets_manifestation and notice.mets_manifestation.object_data:
+        mets_package_file_name = "mets_manifestation.zip"
+        write_in_file(base64.b64decode(notice.mets_manifestation.object_data.encode(encoding="utf-8")),
+                      mets_package_file_name)
+        unpack_mets_package_dir_name = "mets_manifestation"
+        mets_package_path = unpack_path / mets_package_file_name
+        with zipfile.ZipFile(mets_package_path.absolute(), 'r') as zip_ref:
+            zip_ref.extractall(unpack_path / unpack_mets_package_dir_name)
+
+    if notice.rdf_manifestation and notice.rdf_manifestation.shacl_validations:
+        for shacl_validation in notice.rdf_manifestation.shacl_validations:
+            write_in_file(shacl_validation.object_data, "shacl_validation.html")
+            shacl_validation_json = json.dumps(shacl_validation.validation_results.dict())
+            write_in_file(shacl_validation_json, "shacl_validation.json")
+
+    if notice.rdf_manifestation and notice.rdf_manifestation.sparql_validations:
+        for sparql_validation in notice.rdf_manifestation.sparql_validations:
+            write_in_file(sparql_validation.object_data, "sparql_validation.html")
+            sparql_validation_json = json.dumps(
+                [validation_result.dict() for validation_result in sparql_validation.validation_results])
+            write_in_file(sparql_validation_json, "sparql_validation.json")
 
 
 def export_notice_by_id(notice_id: str, output_folder: str, mongodb_client: MongoClient = None) -> (bool, str):

@@ -15,6 +15,6 @@ def test_export_notice_by_id(packaged_notice, fake_mongodb_client):
         assert is_saved
         assert saved_path == str(Path(tmp_dirname) / packaged_notice.ted_id)
 
-    is_saved = export_notice_by_id(notice_id="invalid_notice_id",
-                                   output_folder=tmp_dirname)
-    assert not is_saved
+        is_saved = export_notice_by_id(notice_id="invalid_notice_id",
+                                       output_folder=tmp_dirname)
+        assert not is_saved

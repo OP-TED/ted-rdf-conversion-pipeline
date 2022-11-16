@@ -2,16 +2,22 @@ import base64
 import json
 import pathlib
 import zipfile
-from typing import Union, List
+from typing import Union
 
 from pymongo import MongoClient
 
 from ted_sws import config
-from ted_sws.core.model.notice import NoticeStatus, Notice
+from ted_sws.core.model.notice import Notice
 from ted_sws.data_manager.adapters.notice_repository import NoticeRepository
 
 
 def save_notice_as_zip(notice: Notice, unpack_path: pathlib.Path):
+    """
+    Serialize notice and saves its information as a .zip file.
+    :param notice:
+    :param unpack_path:
+    """
+
     def write_in_file(data: Union[str, bytes], terminal_path: str):
         write_path = unpack_path / terminal_path
         if type(data) == str:
@@ -44,6 +50,13 @@ def save_notice_as_zip(notice: Notice, unpack_path: pathlib.Path):
 
 
 def export_notice_by_id(notice_id: str, output_folder: str, mongodb_client: MongoClient = None) -> (bool, str):
+    """
+    Extract notice from database and saves it to file system.
+    :param notice_id: Ted id of a notice to be exported.
+    :param output_folder: Filepath to folder to where to save notice.
+    :param mongodb_client: Database client to connect.
+    :return:
+    """
     if not mongodb_client:
         mongodb_client = MongoClient(config.MONGO_DB_AUTH_URL)
 

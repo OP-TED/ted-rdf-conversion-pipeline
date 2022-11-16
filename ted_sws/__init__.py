@@ -222,17 +222,17 @@ class S3PublishConfig:
     def S3_PUBLISH_HOST(self, config_value: str) -> str:
         return config_value
 
-    @env_property(config_resolver_class=AirflowAndEnvConfigResolver)
+    @env_property(config_resolver_class=AirflowAndEnvConfigResolver, default_value="false")
     def S3_PUBLISH_SECURE(self, config_value: str) -> bool:
-        return config_value == "1"
+        return config_value.lower() in ["1", "true"]
 
     @env_property(config_resolver_class=AirflowAndEnvConfigResolver)
     def S3_PUBLISH_REGION(self, config_value: str) -> str:
         return config_value
 
-    @env_property(config_resolver_class=AirflowAndEnvConfigResolver)
+    @env_property(config_resolver_class=AirflowAndEnvConfigResolver, default_value="false")
     def S3_PUBLISH_SSL_VERIFY(self, config_value: str) -> bool:
-        return config_value == "1"
+        return config_value.lower() in ["1", "true"]
 
     @env_property(config_resolver_class=AirflowAndEnvConfigResolver, default_value="notice")
     def S3_PUBLISH_NOTICE_BUCKET(self, config_value: str) -> str:
@@ -242,9 +242,9 @@ class S3PublishConfig:
     def S3_PUBLISH_NOTICE_RDF_BUCKET(self, config_value: str) -> str:
         return config_value
 
-    @env_property(config_resolver_class=AirflowAndEnvConfigResolver)
+    @env_property(config_resolver_class=AirflowAndEnvConfigResolver, default_value="false")
     def S3_PUBLISH_ENABLED(self, config_value: str) -> bool:
-        return config_value == "1"
+        return config_value.lower() in ["1", "true"]
 
 
 class TedConfigResolver(MongoDBConfig, RMLMapperConfig, XMLProcessorConfig, ELKConfig, LoggingConfig,

@@ -56,4 +56,4 @@ def main(notice_id, output_folder):
 
 
 if __name__ == '__main__':
-    main(["--notice-id", "377668-2021,325008-2021"])
+    main()

@@ -74,6 +74,9 @@ def notice_daily_validation_workflow():
         ))
     )
     def validate_availability_of_notice_in_cellar():
+        """
+        :return:
+        """
         from ted_sws import config
         from ted_sws.supra_notice_manager.services.supra_notice_validator import \
             validate_and_update_supra_notice_availability_in_cellar

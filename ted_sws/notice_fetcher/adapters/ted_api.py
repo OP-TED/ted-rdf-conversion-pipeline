@@ -12,7 +12,14 @@ DEFAULT_TED_API_QUERY = {"pageSize": 100,
                          "pageNum": 1,
                          "scope": 3,
                          "fields": ["AA", "AC", "CY", "DD", "DI", "DS", "DT", "MA", "NC", "ND", "OC", "OJ", "OL", "OY",
-                                    "PC", "PD", "PR", "RC", "RN", "RP", "TD", "TVH", "TVL", "TY", "CONTENT"]}
+                                    "PC", "PD", "PR", "RC", "RN", "RP", "TD", "TVH", "TVL", "TY",
+                                    "CONTENT",
+                                    "notice-type",
+                                    "award-criterion-type", "corporate-body",
+                                    "funding",
+                                    "notice-identifier",
+                                    "notice-version"
+                                    ]}
 TOTAL_DOCUMENTS_NUMBER = "total"
 RESPONSE_RESULTS = "results"
 DOCUMENT_CONTENT = "content"
@@ -29,7 +36,7 @@ class TedRequestAPI(RequestAPI):
             :return: dict
         """
 
-        response = requests.post(api_url, json=api_query)
+        response = requests.get(api_url, params=api_query)
         if response.ok:
             response_content = json.loads(response.text)
             return response_content
@@ -84,7 +91,6 @@ class TedAPIAdapter(TedAPIAdapterABC):
         :return:List[str]
         """
         query.update(DEFAULT_TED_API_QUERY)
-
         response_body = self.request_api(api_url=self.ted_api_url, api_query=query)
 
         documents_number = response_body[TOTAL_DOCUMENTS_NUMBER]

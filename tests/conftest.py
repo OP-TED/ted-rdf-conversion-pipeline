@@ -194,7 +194,7 @@ def normalised_metadata_object():
         EXTRACTED_LEGAL_BASIS_KEY: 'http://publications.europa.eu/resource/authority/legal-basis/32014L0024',
         FORM_NUMBER_KEY: 'F03',
         LEGAL_BASIS_DIRECTIVE_KEY: 'http://publications.europa.eu/resource/authority/legal-basis/32014L0024',
-        E_FORMS_SUBTYPE_KEY: 12,
+        E_FORMS_SUBTYPE_KEY: "12",
         XSD_VERSION_KEY: "R2.0.9.S04.E01"
     }
 

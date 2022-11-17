@@ -14,6 +14,7 @@ def test_metadata_normaliser_by_notice(indexed_notice):
     notice = normalise_notice(indexed_notice)
     assert notice.normalised_metadata
     assert notice.normalised_metadata.title
+    assert isinstance(notice.normalised_metadata.eforms_subtype, str)
     assert notice.status == NoticeStatus.NORMALISED_METADATA
 
 
@@ -94,6 +95,21 @@ def test_get_form_type_and_notice_type(indexed_notice):
     assert "cn-standard" == notice_type
     assert "32014L0024" == legal_basis
     assert "16" == eforms_subtype
+
+def test_get_form_type_and_notice_type_F07(indexed_notice):
+    extracted_metadata = XMLManifestationMetadataExtractor(
+        xml_manifestation=indexed_notice.xml_manifestation).to_metadata()
+    extracted_metadata_normaliser = ExtractedMetadataNormaliser(extracted_metadata=extracted_metadata)
+    form_type, notice_type, legal_basis, eforms_subtype = extracted_metadata_normaliser.get_form_type_and_notice_type(
+        ef_map=MappingFilesRegistry().ef_notice_df,
+        sf_map=MappingFilesRegistry().sf_notice_df,
+        form_number="F07", extracted_notice_type=None,
+        legal_basis="32014L0025", document_type_code="Y", filter_map=MappingFilesRegistry().filter_map_df)
+
+    assert "competition" == form_type
+    assert "qu-sy" == notice_type
+    assert "32014L0025" == legal_basis
+    assert "15.1" == eforms_subtype
 
 def test_get_filter_values(indexed_notice):
     extracted_metadata = XMLManifestationMetadataExtractor(

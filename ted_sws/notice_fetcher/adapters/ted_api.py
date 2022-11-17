@@ -12,7 +12,9 @@ DEFAULT_TED_API_QUERY = {"pageSize": 100,
                          "pageNum": 1,
                          "scope": 3,
                          "fields": ["AA", "AC", "CY", "DD", "DI", "DS", "DT", "MA", "NC", "ND", "OC", "OJ", "OL", "OY",
-                                    "PC", "PD", "PR", "RC", "RN", "RP", "TD", "TVH", "TVL", "TY", "CONTENT"]}
+                                    "PC", "PD", "PR", "RC", "RN", "RP", "TD", "TVH", "TVL", "TY", "CONTENT",
+                                    "award-criterion-type", "corporate-body", "funding",
+                                    "notice-identifier", "notice-type", "notice-version"]}
 TOTAL_DOCUMENTS_NUMBER = "total"
 RESPONSE_RESULTS = "results"
 DOCUMENT_CONTENT = "content"

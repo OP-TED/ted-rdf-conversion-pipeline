@@ -78,7 +78,7 @@ def test_filter_df_by_variables():
     filtered_df = filter_df_by_variables(df=df, form_type="planning",
                                          eform_notice_type="pin-only")
 
-    assert len(filtered_df.index) == 3
+    assert len(filtered_df.index) == 5
     assert "32014L0024" in filtered_df["eform_legal_basis"].values
 
 def test_get_form_type_and_notice_type(indexed_notice):

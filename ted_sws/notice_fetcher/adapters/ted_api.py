@@ -25,6 +25,7 @@ RESPONSE_RESULTS = "results"
 DOCUMENT_CONTENT = "content"
 RESULT_PAGE_NUMBER = "pageNum"
 TED_API_FIELDS = "fields"
+DOCUMENT_CONTENT_FIELD = "CONTENT"
 
 
 class TedRequestAPI(RequestAPI):
@@ -104,7 +105,7 @@ class TedAPIAdapter(TedAPIAdapterABC):
             query[RESULT_PAGE_NUMBER] = page_number
             response_body = self.request_api(api_url=self.ted_api_url, api_query=query)
             documents_content += response_body[RESPONSE_RESULTS]
-        if DOCUMENT_CONTENT in query[TED_API_FIELDS]:
+        if DOCUMENT_CONTENT_FIELD in query[TED_API_FIELDS]:
             decoded_documents_content = []
             for document_content in documents_content:
                 document_content[DOCUMENT_CONTENT] = base64.b64decode(document_content[DOCUMENT_CONTENT]).decode(

@@ -98,10 +98,11 @@ class SPARQLTestSuiteRunner:
         :return:
         """
         sparql_runner = SPARQLRunner(self.rdf_manifestation.object_data)
-        test_suite_executions = SPARQLTestSuiteValidationReport(mapping_suite_identifier=self.mapping_suite.identifier,
-                                                                test_suite_identifier=self.sparql_test_suite.identifier,
-                                                                validation_results=[],
-                                                                object_data="SPARQLTestSuiteExecution")
+        test_suite_executions = SPARQLTestSuiteValidationReport(
+            mapping_suite_identifier=self.mapping_suite.get_mongodb_id(),
+            test_suite_identifier=self.sparql_test_suite.identifier,
+            validation_results=[],
+            object_data="SPARQLTestSuiteExecution")
         for query_file_resource in self.sparql_test_suite.sparql_tests:
             sparql_query: SPARQLQuery = self._sparql_query_from_file_resource(file_resource=query_file_resource)
             sparql_query_result = SPARQLQueryResult(query=sparql_query)

@@ -1,11 +1,11 @@
 form_number,sf_notice_type,legal_basis,document_code,eforms_subtype
 F01,PRI_CALL_COMPETITION,,,10
-F01,PRI_ONLY,,,4
+F01,PRI_ONLY,,,4.1
 F01,PRI_REDUCING_TIME_LIMITS,,,7
 F02,,,,16
 F03,,,,29
 F04,PER_CALL_COMPETITION,,,11
-F04,PER_ONLY,,,5
+F04,PER_ONLY,,,5.1
 F04,PER_REDUCING_TIME_LIMITS,,,8
 F05,,,,17
 F06,,,,30

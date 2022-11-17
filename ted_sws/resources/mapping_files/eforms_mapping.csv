@@ -3,7 +3,9 @@ planning,pin-buyer,32014L0024,1
 planning,pin-buyer,32014L0025,2
 planning,pin-buyer,32009L0081,3
 planning,pin-only,32014L0024,4
+planning,pin-only,32014L0024,4.1
 planning,pin-only,32014L0025,5
+planning,pin-only,32014L0025,5.1
 planning,pin-only,32009L0081,6
 planning,pin-rtl,32014L0024,7
 planning,pin-rtl,32014L0025,8

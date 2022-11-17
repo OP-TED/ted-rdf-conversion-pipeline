@@ -1,6 +1,6 @@
 REGION=eu-west-1
 FUSEKI_IMAGE=docker.io/secoresearch/fuseki:4.5.0
-METABASE_IMAGE=docker.io/metabase/metabase:v0.43.4
+METABASE_IMAGE=docker.io/metabase/metabase:v0.44.6
 MONGO_EXPRESS_IMAGE=docker.io/mongo-express:0.54.0
 SFTP_IMAGE=docker.io/atmoz/sftp:debian
 

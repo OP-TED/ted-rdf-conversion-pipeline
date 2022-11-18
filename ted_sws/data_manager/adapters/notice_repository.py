@@ -313,7 +313,7 @@ class NoticeRepository(NoticeRepositoryABC):
             return notice
         return None
 
-    def get_notice_by_status(self, notice_status: NoticeStatus) -> Iterator[Notice]:
+    def get_notices_by_status(self, notice_status: NoticeStatus) -> Iterator[Notice]:
         """
             This method provides all notices based on its status.
         :param notice_status:

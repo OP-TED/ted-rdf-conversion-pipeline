@@ -31,7 +31,7 @@ def load_notices_in_fuseki():
         mongodb_client = MongoClient(config.MONGO_DB_AUTH_URL)
         notice_repository = NoticeRepository(mongodb_client=mongodb_client)
         fuseki_repository = FusekiAdapter()
-        notices = notice_repository.get_notice_by_status(notice_status=NoticeStatus[notice_status])
+        notices = notice_repository.get_notices_by_status(notice_status=NoticeStatus[notice_status])
         for notice in notices:
             load_rdf_manifestation_into_triple_store(rdf_manifestation=notice.distilled_rdf_manifestation,
                                                      triple_store_repository=fuseki_repository,

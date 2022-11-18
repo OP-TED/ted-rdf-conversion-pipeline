@@ -130,12 +130,12 @@ class NoticeRepository(NoticeRepositoryABC):
         self._database_name = database_name
         self.mongodb_client = mongodb_client
         notice_db = mongodb_client[self._database_name]
-        self.file_storage = gridfs.GridFS(notice_db)
+        self.file_storage = gridfs.GridFS(notice_db) # TODO: Investigate how it works in multiple processes in parallel.
         self.collection = notice_db[self._collection_name]
-        self.collection.create_index([(NOTICE_CREATED_AT, ASCENDING)])
-        self.collection.create_index([(NOTICE_STATUS, ASCENDING)])
+        self.collection.create_index([(NOTICE_CREATED_AT, ASCENDING)]) # TODO: index creation may bring race condition error.
+        self.collection.create_index([(NOTICE_STATUS, ASCENDING)]) # TODO: index creation may bring race condition error.
         self.file_storage_collection = notice_db[FILE_STORAGE_COLLECTION_NAME]
-        self.file_storage_collection.create_index([(NOTICE_ID, ASCENDING)])
+        self.file_storage_collection.create_index([(NOTICE_ID, ASCENDING)]) # TODO: index creation may bring race condition error.
 
     def get_file_content_from_grid_fs(self, file_id: str) -> str:
         """

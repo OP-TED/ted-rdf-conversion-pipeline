@@ -22,7 +22,7 @@ class DailySupraNoticeRepository(DailySupraNoticeRepositoryABC):
         self.mongodb_client = mongodb_client
         daily_supra_notice_db = mongodb_client[self._database_name]
         self.collection = daily_supra_notice_db[self._collection_name]
-        self.collection.create_index([(DAILY_SUPRA_NOTICE_ID, ASCENDING)])
+        self.collection.create_index([(DAILY_SUPRA_NOTICE_ID, ASCENDING)]) # TODO: index creation may bring race condition error.
 
     def _update_daily_supra_notice(self, daily_supra_notice: DailySupraNotice, upsert: bool = False):
         daily_supra_notice_dict = daily_supra_notice.dict()

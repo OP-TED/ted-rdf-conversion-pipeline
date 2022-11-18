@@ -58,10 +58,13 @@ class EventLoggingRepository(EventLoggingRepositoryABC):
 
         :return: None
         """
-        self.collection.create_index([("year", DESCENDING)])
-        self.collection.create_index([("month", ASCENDING)])
-        self.collection.create_index([("day", ASCENDING)])
-        self.collection.create_index([("caller_name", ASCENDING)])
+        try: # FIXME: This is temporary solution for exclude race condition error
+            self.collection.create_index([("year", DESCENDING)]) # TODO: index creation may bring race condition error.
+            self.collection.create_index([("month", ASCENDING)]) # TODO: index creation may bring race condition error.
+            self.collection.create_index([("day", ASCENDING)]) # TODO: index creation may bring race condition error.
+            self.collection.create_index([("caller_name", ASCENDING)]) # TODO: index creation may bring race condition error.
+        except:
+            pass
 
     @classmethod
     def prepare_record(cls, event_message: EventMessage) -> dict:

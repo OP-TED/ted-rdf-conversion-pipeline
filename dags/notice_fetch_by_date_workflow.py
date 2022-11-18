@@ -1,6 +1,6 @@
 from airflow.decorators import dag, task
 from airflow.operators.dummy import DummyOperator
-from airflow.operators.python import BranchPythonOperator
+from airflow.operators.python import BranchPythonOperator, PythonOperator
 from airflow.utils.trigger_rule import TriggerRule
 from airflow.timetables.trigger import CronTriggerTimetable
 
@@ -20,6 +20,7 @@ TRIGGER_PARTIAL_WORKFLOW_TASK_ID = "trigger_partial_notice_proc_workflow"
 TRIGGER_COMPLETE_WORKFLOW_TASK_ID = "trigger_complete_notice_proc_workflow"
 CHECK_IF_TRIGGER_COMPLETE_WORKFLOW_TASK_ID = "check_if_trigger_complete_workflow"
 FINISH_FETCH_BY_DATE_TASK_ID = "finish_fetch_by_date"
+VALIDATE_FETCHED_NOTICES_TASK_ID = "validate_fetched_notices"
 
 
 @dag(default_args=DEFAULT_DAG_ARGUMENTS,
@@ -48,13 +49,6 @@ def notice_fetch_by_date_workflow():
         batch_size=BATCH_SIZE,
         execute_only_one_step=True)
 
-    @task
-    @event_log(TechnicalEventMessage(
-        message="validate_fetched_notices",
-        metadata=EventMessageMetadata(
-            process_type=EventMessageProcessType.DAG, process_name=DAG_NAME
-        ))
-    )
     def validate_fetched_notices():
         """
         :return:
@@ -82,11 +76,17 @@ def notice_fetch_by_date_workflow():
         python_callable=_branch_selector,
     )
 
+    validate_fetched_notices_step = PythonOperator(
+        task_id=VALIDATE_FETCHED_NOTICES_TASK_ID,
+        trigger_rule=TriggerRule.NONE_FAILED_MIN_ONE_SUCCESS,
+        python_callable=validate_fetched_notices
+    )
+
     finish_step = DummyOperator(task_id=FINISH_FETCH_BY_DATE_TASK_ID,
                                 trigger_rule=TriggerRule.NONE_FAILED_MIN_ONE_SUCCESS)
 
     fetch_by_date_notice_from_ted() >> branch_task >> [trigger_normalisation_workflow,
-                                                       trigger_complete_workflow] >> validate_fetched_notices() >> finish_step
+                                                       trigger_complete_workflow] >> validate_fetched_notices_step >> finish_step
 
 
 dag = notice_fetch_by_date_workflow()

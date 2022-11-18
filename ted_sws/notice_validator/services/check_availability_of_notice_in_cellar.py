@@ -8,7 +8,7 @@ from ted_sws.data_manager.adapters.sparql_endpoint import SPARQLTripleStoreEndpo
 WEBAPI_SPARQL_URL = "https://publications.europa.eu/webapi/rdf/sparql"
 CELLAR_NOTICE_AVAILABILITY_QUERY = "ASK {{ VALUES ?instance {{<{notice_uri}>}} ?instance ?predicate [] . }}"
 WEBAPI_SPARQL_RUN_FORMAT = "application/sparql-results+json"
-INVALID_NOTICE_URI = 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type-invalid'
+INVALID_NOTICE_URI = 'https://www.w3.org/1999/02/22-rdf-syntax-ns#type-invalid'
 
 
 def check_availability_of_notice_in_cellar(notice_uri: str, endpoint_url: str = WEBAPI_SPARQL_URL) -> bool:

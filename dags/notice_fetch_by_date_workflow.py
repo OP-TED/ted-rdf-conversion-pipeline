@@ -24,7 +24,7 @@ FINISH_FETCH_BY_DATE_TASK_ID = "finish_fetch_by_date"
 
 @dag(default_args=DEFAULT_DAG_ARGUMENTS,
      catchup=False,
-     timetable=CronTriggerTimetable('0 3 * * *', timezone='UTC'),
+     timetable=CronTriggerTimetable('0 1 * * *', timezone='UTC'),
      tags=['selector', 'daily-fetch'])
 def notice_fetch_by_date_workflow():
     @task
@@ -48,6 +48,27 @@ def notice_fetch_by_date_workflow():
         batch_size=BATCH_SIZE,
         execute_only_one_step=True)
 
+    @task
+    @event_log(TechnicalEventMessage(
+        message="validate_fetched_notices",
+        metadata=EventMessageMetadata(
+            process_type=EventMessageProcessType.DAG, process_name=DAG_NAME
+        ))
+    )
+    def validate_fetched_notices():
+        """
+        :return:
+        """
+        from ted_sws import config
+        from ted_sws.supra_notice_manager.services.supra_notice_validator import validate_and_update_daily_supra_notice
+        from datetime import datetime
+        from pymongo import MongoClient
+
+        publication_date = datetime.strptime(get_dag_param(key=WILD_CARD_DAG_KEY), "%Y%m%d*")
+        mongodb_client = MongoClient(config.MONGO_DB_AUTH_URL)
+        validate_and_update_daily_supra_notice(notice_publication_day=publication_date,
+                                               mongodb_client=mongodb_client)
+
     def _branch_selector():
         trigger_complete_workflow = get_dag_param(key=TRIGGER_COMPLETE_WORKFLOW_DAG_KEY,
                                                   default_value=True)
@@ -65,7 +86,7 @@ def notice_fetch_by_date_workflow():
                                 trigger_rule=TriggerRule.NONE_FAILED_MIN_ONE_SUCCESS)
 
     fetch_by_date_notice_from_ted() >> branch_task >> [trigger_normalisation_workflow,
-                                                       trigger_complete_workflow] >> finish_step
+                                                       trigger_complete_workflow] >> validate_fetched_notices() >> finish_step
 
 
 dag = notice_fetch_by_date_workflow()

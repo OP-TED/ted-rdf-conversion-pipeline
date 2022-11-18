@@ -13,7 +13,7 @@ DAG_NAME = "daily_materialized_view_update"
 
 @dag(default_args=DEFAULT_DAG_ARGUMENTS,
      catchup=False,
-     schedule_interval="0 5 * * *",
+     schedule_interval="0 6 * * *",
      tags=['mongodb', 'daily-views-update'])
 def daily_materialized_view_update():
     @task

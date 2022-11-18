@@ -72,10 +72,7 @@ def publish_notice_into_s3(notice: Notice, s3_publisher: S3Publisher = None,
     result: S3PublishResult = s3_publisher.publish(bucket_name=bucket_name,
                                                    object_name=f"{notice.ted_id}{DEFAULT_NOTICE_PACKAGE_EXTENSION}",
                                                    data=package_content)
-    if result:
-        notice.update_status_to(NoticeStatus.PUBLISHED)
-
-    return notice.status == NoticeStatus.PUBLISHED
+    return result is not None
 
 
 def publish_notice_into_s3_by_id(notice_id: str, notice_repository: NoticeRepositoryABC,
@@ -93,8 +90,6 @@ def publish_notice_into_s3_by_id(notice_id: str, notice_repository: NoticeReposi
     bucket_name = bucket_name or config.S3_PUBLISH_NOTICE_BUCKET
     notice = notice_repository.get(reference=notice_id)
     result = publish_notice_into_s3(notice=notice, bucket_name=bucket_name, s3_publisher=s3_publisher)
-    if result:
-        notice_repository.update(notice=notice)
     return result
 
 
@@ -162,4 +157,4 @@ def publish_notice_rdf_content_into_s3(rdf_manifestation: RDFManifestation,
         content_type=DEFAULT_S3_RDF_CONTENT_TYPE
     )
 
-    return bool(result)
+    return result is not None

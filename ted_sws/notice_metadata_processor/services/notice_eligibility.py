@@ -29,10 +29,11 @@ def check_package(mapping_suite: MappingSuite, notice_metadata: NormalisedMetada
     constraint_end_date = datetime.datetime.fromisoformat(end_date)
     constraint_min_xsd_version = constraints[MIN_XSD_VERSION_KEY][0]
     constraint_max_xsd_version = constraints[MAX_XSD_VERSION_KEY][0]
+    eform_subtype_constraint_values = [str(eforms_subtype_value) for eforms_subtype_value in constraints[E_FORMS_SUBTYPE_KEY]]
 
     in_date_range = constraint_start_date <= notice_publication_date <= constraint_end_date
     in_version_range = constraint_min_xsd_version <= notice_xsd_version <= constraint_max_xsd_version
-    covered_eform_type = int(eform_subtype) in constraints[E_FORMS_SUBTYPE_KEY]
+    covered_eform_type = eform_subtype in eform_subtype_constraint_values
 
     return True if in_date_range and in_version_range and covered_eform_type else False
 

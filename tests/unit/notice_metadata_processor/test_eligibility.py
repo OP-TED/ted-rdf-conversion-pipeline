@@ -43,7 +43,14 @@ def test_check_mapping_suite(notice_eligibility_repository_path, normalised_meta
 
     assert isinstance(is_valid, bool)
     assert is_valid
-    normalised_metadata_object.eforms_subtype = 88
+
+    normalised_metadata_object.eforms_subtype = "15.1"
     is_valid = check_package(mapping_suite=mapping_suite_repository.get("test_package"),
                              notice_metadata=normalised_metadata_object)
+    assert is_valid
+
+    normalised_metadata_object.eforms_subtype = "88"
+    is_valid = check_package(mapping_suite=mapping_suite_repository.get("test_package"),
+                             notice_metadata=normalised_metadata_object)
+    print(is_valid)
     assert not is_valid

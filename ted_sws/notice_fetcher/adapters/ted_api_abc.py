@@ -7,6 +7,7 @@ class RequestAPI(abc.ABC):
     """
       This class is an abstract interface for requests to an API
     """
+
     @abc.abstractmethod
     def __call__(self, api_url: str, api_query: dict) -> dict:
         """
@@ -44,9 +45,10 @@ class TedAPIAdapterABC(abc.ABC):
         """
 
     @abc.abstractmethod
-    def get_by_query(self, query: dict) -> List[dict]:
+    def get_by_query(self, query: dict, result_fields: dict = None) -> List[dict]:
         """
         Method to get a documents content by passing a search query
         :param query:
+        :param result_fields:
         :return:
         """

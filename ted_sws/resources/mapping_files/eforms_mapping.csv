@@ -3,7 +3,9 @@ planning,pin-buyer,32014L0024,1
 planning,pin-buyer,32014L0025,2
 planning,pin-buyer,32009L0081,3
 planning,pin-only,32014L0024,4
+planning,pin-only,32014L0024,4.1
 planning,pin-only,32014L0025,5
+planning,pin-only,32014L0025,5.1
 planning,pin-only,32009L0081,6
 planning,pin-rtl,32014L0024,7
 planning,pin-rtl,32014L0025,8
@@ -14,6 +16,7 @@ competition,pin-cfc-social,32014L0024,12
 competition,pin-cfc-social,32014L0025,13
 competition,pin-cfc-social,32014L0023,14
 competition,qu-sy,32014L0025,15
+competition,qu-sy,32014L0025,15.1
 competition,cn-standard,32014L0024,16
 competition,cn-standard,32014L0025,17
 competition,cn-standard,32009L0081,18

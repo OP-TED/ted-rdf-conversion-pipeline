@@ -38,7 +38,7 @@ def test_notice_repository_get_notice_by_status(mongodb_client, aggregates_datab
     notice = Notice(ted_id=NOTICE_TED_ID, original_metadata=TEDMetadata(**{"AA": ["Metadata"]}),
                     xml_manifestation=XMLManifestation(object_data="HELLO"))
     notice_repository.add(notice)
-    result_notices = notice_repository.get_notice_by_status(notice_status=NoticeStatus.RAW)
+    result_notices = notice_repository.get_notices_by_status(notice_status=NoticeStatus.RAW)
     for result_notice in result_notices:
         assert result_notice.status == NoticeStatus.RAW
 

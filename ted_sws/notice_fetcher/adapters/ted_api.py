@@ -8,15 +8,24 @@ import requests
 from ted_sws import config
 from ted_sws.notice_fetcher.adapters.ted_api_abc import TedAPIAdapterABC, RequestAPI
 
-DEFAULT_TED_API_QUERY = {"pageSize": 100,
-                         "pageNum": 1,
-                         "scope": 3,
-                         "fields": ["AA", "AC", "CY", "DD", "DI", "DS", "DT", "MA", "NC", "ND", "OC", "OJ", "OL", "OY",
-                                    "PC", "PD", "PR", "RC", "RN", "RP", "TD", "TVH", "TVL", "TY", "CONTENT"]}
+DEFAULT_TED_API_QUERY_RESULT_SIZE = {"pageSize": 100,
+                                     "pageNum": 1,
+                                     "scope": 3
+                                     }
+
+DEFAULT_TED_API_QUERY_RESULT_FIELDS = {"fields": ["AA", "AC", "CY", "DD", "DI", "DS", "TVL", "TY",
+                                                  "DT", "MA", "NC", "ND", "OC", "OJ", "OL", "OY",
+                                                  "PC", "PD", "PR", "RC", "RN", "RP", "TD", "TVH",
+                                                  "CONTENT", "notice-type", "award-criterion-type", "corporate-body",
+                                                  "funding", "notice-identifier", "notice-version"
+                                                  ]}
+
 TOTAL_DOCUMENTS_NUMBER = "total"
 RESPONSE_RESULTS = "results"
 DOCUMENT_CONTENT = "content"
 RESULT_PAGE_NUMBER = "pageNum"
+TED_API_FIELDS = "fields"
+DOCUMENT_CONTENT_FIELD = "CONTENT"
 
 
 class TedRequestAPI(RequestAPI):
@@ -29,7 +38,7 @@ class TedRequestAPI(RequestAPI):
             :return: dict
         """
 
-        response = requests.post(api_url, json=api_query)
+        response = requests.get(api_url, params=api_query)
         if response.ok:
             response_content = json.loads(response.text)
             return response_content
@@ -77,14 +86,15 @@ class TedAPIAdapter(TedAPIAdapterABC):
 
         return self.get_by_query(query=query)
 
-    def get_by_query(self, query: dict) -> List[dict]:
+    def get_by_query(self, query: dict, result_fields: dict = None) -> List[dict]:
         """
         Method to get a documents content by passing a query to the API (json)
         :param query:
+        :param result_fields:
         :return:List[str]
         """
-        query.update(DEFAULT_TED_API_QUERY)
-
+        query.update(DEFAULT_TED_API_QUERY_RESULT_SIZE)
+        query.update(result_fields or DEFAULT_TED_API_QUERY_RESULT_FIELDS)
         response_body = self.request_api(api_url=self.ted_api_url, api_query=query)
 
         documents_number = response_body[TOTAL_DOCUMENTS_NUMBER]
@@ -95,13 +105,15 @@ class TedAPIAdapter(TedAPIAdapterABC):
             query[RESULT_PAGE_NUMBER] = page_number
             response_body = self.request_api(api_url=self.ted_api_url, api_query=query)
             documents_content += response_body[RESPONSE_RESULTS]
-        decoded_documents_content = []
-        for document_content in documents_content:
-            document_content[DOCUMENT_CONTENT] = base64.b64decode(document_content[DOCUMENT_CONTENT]).decode(
-                encoding="utf-8")
-            decoded_documents_content.append(document_content)
-
-        return decoded_documents_content
+        if DOCUMENT_CONTENT_FIELD in query[TED_API_FIELDS]:
+            decoded_documents_content = []
+            for document_content in documents_content:
+                document_content[DOCUMENT_CONTENT] = base64.b64decode(document_content[DOCUMENT_CONTENT]).decode(
+                    encoding="utf-8")
+                decoded_documents_content.append(document_content)
+            return decoded_documents_content
+        else:
+            return documents_content
 
     def get_by_id(self, document_id: str) -> dict:
         """

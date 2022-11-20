@@ -1,6 +1,4 @@
 import pytest
-import mongomock
-import pymongo
 
 from ted_sws.data_manager.adapters.supra_notice_repository import DailySupraNoticeRepository
 

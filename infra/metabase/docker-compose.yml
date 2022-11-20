@@ -19,15 +19,15 @@ services:
   metabase:
     container_name: metabase-${ENVIRONMENT}
     restart: unless-stopped
-    image: metabase/metabase:v0.43.4
+    image: metabase/metabase:v0.44.6
     environment:
-      - ENV_MB_DB_TYPE=postgres
-      - ENV_MB_DB_DBNAME=${ENV_MB_DB_DBNAME}
-      - ENV_MB_DB_PORT=${ENV_MB_DB_PORT}
-      - ENV_MB_DB_USER=${ENV_MB_DB_USER}
-      - ENV_MB_DB_PASS=${ENV_MB_DB_PASS}
-      - ENV_MB_DB_HOST=metabase-postgres-${ENVIRONMENT}
-      - ENV_MB_ENCRYPTION_SECRET_KEY=${ENV_MB_ENCRYPTION_SECRET_KEY}
+      - MB_DB_TYPE=postgres
+      - MB_DB_DBNAME=${ENV_MB_DB_DBNAME}
+      - MB_DB_PORT=${ENV_MB_DB_PORT}
+      - MB_DB_USER=${ENV_MB_DB_USER}
+      - MB_DB_PASS=${ENV_MB_DB_PASS}
+      - MB_DB_HOST=metabase-postgres-${ENVIRONMENT}
+      - MB_ENCRYPTION_SECRET_KEY=${ENV_MB_ENCRYPTION_SECRET_KEY}
     networks:
       - metabase-net
       - proxy-net

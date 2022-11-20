@@ -4,6 +4,7 @@ from ted_sws.core.model.manifestation import RDFManifestation
 from ted_sws.core.model.notice import NoticeStatus
 from ted_sws.core.model.transform import FileResource, SPARQLTestSuite, MetadataConstraints, TransformationRuleSet, \
     SHACLTestSuite, TransformationTestData, MappingSuite
+from ted_sws.data_manager.adapters.notice_repository import NoticeRepositoryInFileSystem
 from tests import TEST_DATA_PATH
 
 
@@ -220,4 +221,7 @@ def notice_with_distilled_status(notice_2020, rdf_file_content):
     return notice_2020
 
 
-
+@pytest.fixture
+def packaged_notice():
+    test_notice_repository = NoticeRepositoryInFileSystem(repository_path=TEST_DATA_PATH / "notices" / "packaged")
+    return test_notice_repository.get("632521-2022")

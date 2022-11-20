@@ -17,7 +17,7 @@ from ted_sws.event_manager.services.logger_from_context import get_logger, handl
 NOTICE_IDS_KEY = "notice_ids"
 START_WITH_STEP_NAME_KEY = "start_with_step_name"
 EXECUTE_ONLY_ONE_STEP_KEY = "execute_only_one_step"
-DEFAULT_NUBER_OF_CELERY_WORKERS = 144 #TODO: revise this config
+DEFAULT_NUBER_OF_CELERY_WORKERS = 144  # TODO: revise this config
 NOTICE_PROCESS_WORKFLOW_DAG_NAME = "notice_process_workflow"
 DEFAULT_START_WITH_TASK_ID = "notice_normalisation_pipeline"
 DEFAULT_PIPELINE_NAME_FOR_LOGS = "unknown_pipeline_name"
@@ -79,6 +79,7 @@ class NoticeBatchPipelineOperator(BaseOperator):
                 self.batch_pipeline_callable(notice_ids=notice_ids, mongodb_client=mongodb_client))
         elif self.notice_pipeline_callable is not None:
             for notice_id in notice_ids:
+                notice = None
                 try:
                     notice_event = NoticeEventMessage(notice_id=notice_id, domain_action=pipeline_name)
                     notice_event.start_record()
@@ -95,7 +96,11 @@ class NoticeBatchPipelineOperator(BaseOperator):
                         notice_event.notice_status = str(notice.status)
                     logger.info(event_message=notice_event)
                 except Exception as e:
-                    log_notice_error(message=str(e), notice_id=notice_id, domain_action=pipeline_name)
+                    notice_normalised_metadata = notice.normalised_metadata if notice else None
+                    log_notice_error(message=str(e), notice_id=notice_id, domain_action=pipeline_name,
+                                     notice_form_number=notice_normalised_metadata.form_number if notice_normalised_metadata else None,
+                                     notice_status=notice.status if notice else None,
+                                     notice_eforms_subtype=notice_normalised_metadata.eforms_subtype if notice_normalised_metadata else None)
 
         batch_event_message.end_record()
         logger.info(event_message=batch_event_message)

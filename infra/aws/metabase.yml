@@ -2,13 +2,13 @@ version: "3"
 services:
   metabase:
     environment:
-      ENV_MB_DB_TYPE: postgres
-      ENV_MB_DB_DBNAME: ${ENV_MB_DB_DBNAME}
-      ENV_MB_DB_PORT: ${ENV_MB_DB_PORT}
-      ENV_MB_DB_USER: ${ENV_MB_DB_USER}
-      ENV_MB_DB_PASS: ${ENV_MB_DB_PASS}
-      ENV_MB_DB_HOST: ${ENV_MB_DB_HOST}
-      ENV_MB_ENCRYPTION_SECRET_KEY: ${ENV_MB_ENCRYPTION_SECRET_KEY}
+      MB_DB_TYPE: postgres
+      MB_DB_DBNAME: ${ENV_MB_DB_DBNAME}
+      MB_DB_PORT: ${ENV_MB_DB_PORT}
+      MB_DB_USER: ${ENV_MB_DB_USER}
+      MB_DB_PASS: ${ENV_MB_DB_PASS}
+      MB_DB_HOST: ${ENV_MB_DB_HOST}
+      MB_ENCRYPTION_SECRET_KEY: ${ENV_MB_ENCRYPTION_SECRET_KEY}
     image: ${METABASE_IMAGE_URI}
     logging:
       driver: awslogs

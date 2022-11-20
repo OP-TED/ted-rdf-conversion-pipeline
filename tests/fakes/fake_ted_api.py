@@ -20,8 +20,8 @@ class FakeRequestAPI(RequestAPI):
     def __call__(self, api_url: str, api_query: dict) -> dict:
         """
 
-        :param args:
-        :param kwargs:
+        :param api_url:
+        :param api_query:
         :return:
         """
         return copy.deepcopy(get_fake_api_response())
@@ -57,10 +57,11 @@ class FakeTedApiAdapter(TedAPIAdapterABC):
         """
         return [notice_data for notice_data in get_fake_api_response()["results"]]
 
-    def get_by_query(self, query: dict) -> List[dict]:
+    def get_by_query(self, query: dict, result_fields: dict = None) -> List[dict]:
         """
 
         :param query:
+        :param result_fields:
         :return:
         """
         return [notice_data for notice_data in get_fake_api_response()["results"]]

@@ -39,4 +39,4 @@ def valid_cellar_uri():
 
 @pytest.fixture
 def invalid_cellar_uri():
-    return 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type-invalid'
+    return 'http://www.w3.org/1999/02/invalid-22-rdf-syntax-ns#type-invalid'

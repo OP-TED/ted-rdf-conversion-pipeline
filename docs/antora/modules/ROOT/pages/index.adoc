@@ -10,9 +10,7 @@ xref:demo_installation.adoc[Installation instructions for development and testin
 
 xref:attachment$/aws-infra-docs/TED-SWS-AWS-Infrastructure-architecture-overview-v0.9.pdf[TED-SWS AWS Infrastructure architecture overview v0.9]
 
-xref:attachment$/aws-infra-docs/TED-SWS-AWS-Installation-manual-v0.9.pdf[TED-SWS AWS Installation manual v0.9]
-
-Developers who need to know how the logger works can find here a xref:event_manager.adoc[little explanation].
+xref:attachment$/aws-infra-docs/TED-SWS Installation manual v2.0.2.pdf[TED-SWS AWS Installation manual v2.0.2]
 
 == Project roadmap
 
@@ -20,7 +18,7 @@ Developers who need to know how the logger works can find here a xref:event_mana
 |Reference | Description | Estimated delivery | Factory Acceptance Test | Release date | Release
 
 | Phase 1 | The first phase places high priority on the deployment into the OP AWS Cloud environment.| August 2022 | xref:attachment$/FATs/2022-08-29-report/index.html[2022-08-29 report] | 29 August 2022 | link:https://github.com/OP-TED/ted-rdf-conversion-pipeline/releases/tag/0.0.9-beta[0.0.9-beta]
-| Phase 2 | Provided that the deployment in the acceptance environment is successful, the delivery of Phase 2 aims to provide the first production version of the TED SWS system. | Nov 2022 | --- | --- | ---
+| Phase 2 | Provided that the deployment in the acceptance environment is successful, the delivery of Phase 2 aims to provide the first production version of the TED SWS system. | Nov 2022 | xref:attachment$/FATs/2022-11-15-TED-SWS-FAT-complete.html[2022-11-15 report] | 20 Nov 2022 | https://github.com/OP-TED/ted-rdf-conversion-pipeline/releases/tag/1.0.0-beta[1.0.0-beta]
 | Phase 3 | This phase delivers the documentation and components and improvements that could not be covered in the previous phases. | Feb 2023 | --- | --- | ---
 
 |===

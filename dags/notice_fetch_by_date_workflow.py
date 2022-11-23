@@ -1,3 +1,5 @@
+from datetime import timedelta
+
 from airflow.decorators import dag, task
 from airflow.operators.dummy import DummyOperator
 from airflow.operators.python import BranchPythonOperator, PythonOperator
@@ -58,7 +60,11 @@ def notice_fetch_by_date_workflow():
         from datetime import datetime
         from pymongo import MongoClient
 
-        publication_date = datetime.strptime(get_dag_param(key=WILD_CARD_DAG_KEY), "%Y%m%d*")
+        date_wild_card = get_dag_param(key=WILD_CARD_DAG_KEY)
+        if not date_wild_card:
+            publication_date = (datetime.now() - timedelta(days=1))
+        else:
+            publication_date = datetime.strptime(date_wild_card, "%Y%m%d*")
         mongodb_client = MongoClient(config.MONGO_DB_AUTH_URL)
         validate_and_update_daily_supra_notice(notice_publication_day=publication_date,
                                                mongodb_client=mongodb_client)

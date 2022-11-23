@@ -1,0 +1,58 @@
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX epo: <http://data.europa.eu/a4g/ontology#>
+PREFIX at: <http://publications.europa.eu/ontology/authority/>
+
+PREFIX locn: <http://www.w3.org/ns/locn#>
+PREFIX cv: <http://purl.org/captsolo/resume-rdf/0.2/cv#>
+PREFIX org: <http://www.w3.org/ns/org#>
+PREFIX legal: <https://www.w3.org/ns/legal#>
+prefix dt:   <http://example.org/datatype#>
+prefix ns:   <http://example.org/ns#>
+prefix :     <http://example.org/ns#>
+prefix xsd:  <http://www.w3.org/2001/XMLSchema#>
+prefix foaf:  <http://xmlns.com/foaf/0.1/>
+
+PREFIX cpv: <http://data.europa.eu/cpv/cpv/>
+
+select ?WinnerCountry 
+		(count(distinct ?Winner) as ?Nr_of_winners)
+		(sum (?AmountValue) as ?TotalProcurementValue)
+		(SAMPLE (?Currency) as ?CurrencyID) 
+		#(SAMPLE(?CPV) as ?All_CPVs )
+		#(SAMPLE(?ContractDate) as ?Contract_Date)
+{
+    ?Lot rdf:type epo:Lot;
+         	epo:isUsingEUFunds true.
+  	?Tender epo:isSubmittedForLot ?Lot;
+            rdf:type epo:Tender;
+            epo:hasFinnancialOfferValue ?MonetaryValue.
+  	?tAwardOutcome epo:describesTender ?Tender;
+           	rdf:type epo:TenderAwardOutcome;
+            epo:awardsLotToWinner ?Winner.
+  	?Winner rdf:type epo:Winner;
+            epo:playedBy ?Organization.
+  	?Organization rdf:type org:Organization;
+            legal:registeredAddress ?Address.
+  	?Address rdf:type locn:Address;
+            epo:hasCountryCode ?WinnerCountry.
+  
+  	?MonetaryValue rdf:type epo:MonetaryValue;
+            epo:hasAmountValue ?AmountValue;
+            epo:hasCurrency ?Currency.
+     
+    ?Procedure epo:hasProcurementScopeDividedIntoLot ?Lot;
+            rdf:type epo:Procedure;
+            epo:hasOverallPurpose ?Purpose.
+	?Purpose rdf:type epo:Purpose;
+             epo:hasMainClassification ?CPV.
+ 
+  	?Contract rdf:type epo:Contract;
+              epo:includesLot ?Lot;
+              epo:hasContractConclusionDate ?ContractDate.
+               	
+  
+	FILTER (?ContractDate > '2009-01-01'^^xsd:date && ?ContractDate < '2030-12-31'^^xsd:date) 
+  	FILTER (?CPV = cpv:71356200).
+
+  
+} group by ?WinnerCountry

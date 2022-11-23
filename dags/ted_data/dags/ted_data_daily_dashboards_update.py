@@ -1,3 +1,5 @@
+from pathlib import Path
+
 from airflow.decorators import dag, task
 from pymongo import MongoClient
 
@@ -17,6 +19,10 @@ FORM_NUMBER_DAG_PARAM = "form_number"
 START_DATE_DAG_PARAM = "start_date"
 END_DATE_DAG_PARAM = "end_date"
 XSD_VERSION_DAG_PARAM = "xsd_version"
+SPARQL_FILE_PREFIX = ".rq"
+
+TED_DATA_MONGODB_DATABASE_NAME = 'ted_analytics'  # TODO: temporary while not put in config resolver
+SPARQL_QUERIES_FOLDER = 'dags/resources/sparql_queries'  # TODO: temporary while not put in config resolver
 
 LOAD_TO_FUSEKI_TARGET_NOTICE_STATES = [NoticeStatus.DISTILLED, NoticeStatus.VALIDATED, NoticeStatus.PACKAGED,
                                        NoticeStatus.PUBLISHED, NoticeStatus.ELIGIBLE_FOR_PUBLISHING,
@@ -56,20 +62,17 @@ def ted_data_daily_dashboards_update():
 
         :return:
         """
-        # TODO : Implement this step
-        raise NotImplementedError
+        fuseki_adapter = FusekiAdapter()
+        fuseki_endpoint = fuseki_adapter.get_sparql_triple_store_endpoint(DEFAULT_FUSEKI_DATASET_NAME)
+        mongodb_client = MongoClient(config.MONGO_DB_AUTH_URL)
+        mongodb_database = mongodb_client[TED_DATA_MONGODB_DATABASE_NAME]
+        queries_path = Path(SPARQL_QUERIES_FOLDER)
+        for sparql_file_path in queries_path.rglob(f"*{SPARQL_FILE_PREFIX}"):
+            query_result = fuseki_endpoint.with_query_from_file(str(sparql_file_path)).fetch_tree()
+            query_collection = mongodb_database[sparql_file_path.stem]
+            query_collection.insert_one(query_result)
 
-    @task
-    def post_processing_data_for_metabase():
-        """
-
-        :return:
-        """
-        ...
-        # TODO : Implement this step
-        raise NotImplementedError
-
-    load_data_to_fuseki() >> execute_sparql_queries_and_store_into_mongo_db() >> post_processing_data_for_metabase()
+    load_data_to_fuseki() >> execute_sparql_queries_and_store_into_mongo_db()
 
 
 dag = ted_data_daily_dashboards_update()

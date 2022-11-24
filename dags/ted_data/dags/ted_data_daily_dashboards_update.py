@@ -68,9 +68,12 @@ def ted_data_daily_dashboards_update():
         mongodb_database = mongodb_client[TED_DATA_MONGODB_DATABASE_NAME]
         queries_path = Path(SPARQL_QUERIES_FOLDER)
         for sparql_file_path in queries_path.rglob(f"*{SPARQL_FILE_PREFIX}"):
-            query_result = fuseki_endpoint.with_query_from_file(str(sparql_file_path)).fetch_tree()
+            query_result = fuseki_endpoint.with_query_from_file(str(sparql_file_path)).fetch_tabular()
             query_collection = mongodb_database[sparql_file_path.stem]
-            query_collection.insert_one(query_result)
+            query_collection.drop()
+            if not query_result.empty:
+                for row in query_result.itertuples():
+                    query_collection.insert_one(row._asdict())
 
     load_data_to_fuseki() >> execute_sparql_queries_and_store_into_mongo_db()
 

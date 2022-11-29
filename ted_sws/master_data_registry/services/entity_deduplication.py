@@ -1,7 +1,7 @@
 import pathlib
 import tempfile
 from io import StringIO
-from typing import List, Set, Tuple, Dict
+from typing import List, Tuple, Dict
 import rdflib
 from pymongo import MongoClient
 from rdflib import RDF, URIRef, OWL
@@ -12,9 +12,9 @@ from ted_sws.alignment_oracle.services.limes_config_resolver import get_limes_co
 from ted_sws.core.model.notice import Notice
 from ted_sws.data_manager.adapters.notice_repository import NoticeRepository
 from ted_sws.data_manager.adapters.sparql_endpoint import SPARQLStringEndpoint
-from ted_sws.data_manager.adapters.triple_store import FusekiAdapter, TripleStoreABC, FusekiException, \
+from ted_sws.data_manager.adapters.triple_store import FusekiAdapter, TripleStoreABC, \
     FUSEKI_REPOSITORY_ALREADY_EXIST_ERROR_MSG
-from ted_sws.event_manager.services.log import log_error
+from ted_sws.event_manager.services.log import log_error, log_notice_error
 from ted_sws.master_data_registry.services.rdf_fragment_processor import get_rdf_fragments_by_cet_uri_from_notices, \
     merge_rdf_fragments_into_graph, write_rdf_fragments_in_triple_store, RDF_FRAGMENT_FROM_NOTICE_PROPERTY, \
     get_subjects_by_cet_uri
@@ -22,6 +22,7 @@ from ted_sws.master_data_registry.services.rdf_fragment_processor import get_rdf
 MDR_TEMPORARY_FUSEKI_DATASET_NAME = "tmp_mdr_dataset"
 MDR_FUSEKI_DATASET_NAME = "mdr_dataset"
 MDR_CANONICAL_CET_PROPERTY = rdflib.term.URIRef("http://www.meaningfy.ws/mdr#isCanonicalEntity")
+DEDUPLICATE_PROCEDURE_ENTITIES_DOMAIN_ACTION = "deduplicate_procedure_entities"
 
 
 def generate_mdr_alignment_links(merged_rdf_fragments: rdflib.Graph, cet_uri: str,
@@ -248,9 +249,18 @@ def deduplicate_procedure_entities(notices: List[Notice], procedure_cet_uri: str
             rdf_content = parent_notice.rdf_manifestation.object_data
             sparql_endpoint = SPARQLStringEndpoint(rdf_content=rdf_content)
             result_uris = get_subjects_by_cet_uri(sparql_endpoint=sparql_endpoint, cet_uri=procedure_cet_uri)
-            assert len(result_uris) == 1
-            parent_procedure_uri = rdflib.URIRef(result_uris[0])
-            parent_uries[parent_notice_id] = parent_procedure_uri
+            result_uris_len = len(result_uris)
+            if result_uris_len != 1:
+                notice_normalised_metadata = parent_notice.normalised_metadata
+                log_notice_error(
+                    message=f"Parent notice with notice_id=[{parent_notice.ted_id}] have {result_uris_len} Procedure CETs!",
+                    notice_id=parent_notice.ted_id, domain_action=DEDUPLICATE_PROCEDURE_ENTITIES_DOMAIN_ACTION,
+                    notice_form_number=notice_normalised_metadata.form_number if notice_normalised_metadata else None,
+                    notice_status=parent_notice.status,
+                    notice_eforms_subtype=notice_normalised_metadata.eforms_subtype if notice_normalised_metadata else None)
+            else:
+                parent_procedure_uri = rdflib.URIRef(result_uris[0])
+                parent_uries[parent_notice_id] = parent_procedure_uri
 
     for parent_uri_key in parent_uries.keys():
         parent_uri = parent_uries[parent_uri_key]
@@ -258,10 +268,19 @@ def deduplicate_procedure_entities(notices: List[Notice], procedure_cet_uri: str
             rdf_content = child_notice.rdf_manifestation.object_data
             sparql_endpoint = SPARQLStringEndpoint(rdf_content=rdf_content)
             result_uris = get_subjects_by_cet_uri(sparql_endpoint=sparql_endpoint, cet_uri=procedure_cet_uri)
-            assert len(result_uris) == 1
-            child_procedure_uri = rdflib.URIRef(result_uris[0])
-            inject_links = rdflib.Graph()
-            inject_links.add((child_procedure_uri, OWL.sameAs, parent_uri))
-            child_notice.distilled_rdf_manifestation.object_data = '\n'.join(
-                [child_notice.distilled_rdf_manifestation.object_data,
-                 str(inject_links.serialize(format="nt"))])
+            result_uris_len = len(result_uris)
+            if result_uris_len != 1:
+                notice_normalised_metadata = child_notice.normalised_metadata
+                log_notice_error(
+                    message=f"Child notice with notice_id=[{child_notice.ted_id}] have {result_uris_len} Procedure CETs!",
+                    notice_id=child_notice.ted_id, domain_action=DEDUPLICATE_PROCEDURE_ENTITIES_DOMAIN_ACTION,
+                    notice_form_number=notice_normalised_metadata.form_number if notice_normalised_metadata else None,
+                    notice_status=child_notice.status,
+                    notice_eforms_subtype=notice_normalised_metadata.eforms_subtype if notice_normalised_metadata else None)
+            else:
+                child_procedure_uri = rdflib.URIRef(result_uris[0])
+                inject_links = rdflib.Graph()
+                inject_links.add((child_procedure_uri, OWL.sameAs, parent_uri))
+                child_notice.distilled_rdf_manifestation.object_data = '\n'.join(
+                    [child_notice.distilled_rdf_manifestation.object_data,
+                     str(inject_links.serialize(format="nt"))])

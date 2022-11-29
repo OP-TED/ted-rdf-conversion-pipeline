@@ -51,8 +51,8 @@ select ?WinnerCountry
               epo:hasContractConclusionDate ?ContractDate.
                	
   
-	FILTER (?ContractDate > '2009-01-01'^^xsd:date && ?ContractDate < '2030-12-31'^^xsd:date) 
-  	FILTER (?CPV = cpv:71356200).
+	#FILTER (?ContractDate > '2009-01-01'^^xsd:date && ?ContractDate < '2030-12-31'^^xsd:date)
+  	#FILTER (?CPV = cpv:71356200).
 
   
 } group by ?WinnerCountry

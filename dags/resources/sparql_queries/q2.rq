@@ -1,3 +1,4 @@
+PREFIX afn: <http://jena.hpl.hp.com/ARQ/function#>
 PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 PREFIX epo: <http://data.europa.eu/a4g/ontology#>
 PREFIX at: <http://publications.europa.eu/ontology/authority/>
@@ -12,7 +13,7 @@ prefix :     <http://example.org/ns#>
 prefix xsd:  <http://www.w3.org/2001/XMLSchema#>
 prefix foaf:  <http://xmlns.com/foaf/0.1/>
 
-SELECT ?WinnerCountry (count(distinct ?Lot) as ?Lots_using_EU_Funds) 
+SELECT (afn:localname(?WinnerCountry) as ?Winner_Country) (count(distinct ?Lot) as ?Lots_using_EU_Funds)
 { 
     ?Lot rdf:type epo:Lot;
          epo:isUsingEUFunds true.

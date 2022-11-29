@@ -30,4 +30,4 @@ def create_batch_collection_materialised_view(mongo_client: MongoClient):
         {
             "$out": NOTICE_PROCESS_BATCH_COLLECTION_NAME
         }
-    ])
+    ], allowDiskUse=True)

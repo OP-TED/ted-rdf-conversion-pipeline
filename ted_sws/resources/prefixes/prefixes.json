@@ -24,7 +24,7 @@
 		"locn": "http://www.w3.org/ns/locn#",
 		"legal": "https://www.w3.org/ns/legal#",
 
-		"core-voc": "http://data.europa.eu/m8g/",
+		"cv": "http://data.europa.eu/m8g/",
 		"cccev": "http://data.europa.eu/m8g/",
 		"cpov": "http://data.europa.eu/m8g/",
 		"geosparql": "http://www.opengis.net/ont/geosparql#",
@@ -51,10 +51,10 @@
 	
 	"prefix_selections" : {
 		"sparql_generator" : ["xml", "xsd", "rdf", "rdfs", "owl", "skos", "dc", "dct", "foaf", "epo", "epd", "locn", "legal"],
-		"sparql_generator_ext" : ["time", "vann", "cc", "org", "core-voc", "cccev", "cpov", "geosparql", "dul"],
+		"sparql_generator_ext" : ["time", "vann", "cc", "org", "cv", "cccev", "cpov", "geosparql", "dul"],
 		"yarrrml_rules" : ["epo", "epd", "locn", "xml", "xsd", "rdf", "rdfs", "dct"],
 		"rml_rules" : ["rr", "rml", "ql", "epo", "epd", "tedm", "locn", "xml", "xsd", "rdf", "rdfs", "owl", "dct", "cc", "cccev", "cpov", "skos", "time", "vann", "legal"],
-		"epo_ontology" : ["epo", "epd", "locn", "xml", "xsd", "rdf", "rdfs", "owl", "skos", "dc", "dct", "foaf", "core-voc", "cccev", "cpov", "geosparql", "dul", "cc", "time", "vann", "legal"],
+		"epo_ontology" : ["epo", "epd", "locn", "xml", "xsd", "rdf", "rdfs", "owl", "skos", "dc", "dct", "foaf", "cv", "cccev", "cpov", "geosparql", "dul", "cc", "time", "vann", "legal"],
 		"currently_unused" : ["epor", "epos", "grel", "xf", "map", "sd", "ht", "v"]
 	}
 }

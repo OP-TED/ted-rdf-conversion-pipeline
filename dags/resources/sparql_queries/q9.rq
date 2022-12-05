@@ -12,17 +12,18 @@ prefix :     <http://example.org/ns#>
 prefix xsd:  <http://www.w3.org/2001/XMLSchema#>
 prefix foaf:  <http://xmlns.com/foaf/0.1/>
 
-SELECT ( (100 - ((count(?IdValue) / count(?Buyer)) * 100)) as ?Missing_buyer_reg_numbers)
-{ 
+PREFIX cpv: <http://data.europa.eu/cpv/cpv/>
 
-    ?Buyer rdf:type epo:Buyer;
-           epo:playedBy ?Organization.
-    ?Organization rdf:type org:Organization.
-  
-  OPTIONAL 
-  {
-  	?Organization epo:hasID ?Identifier.
-    ?Identifier rdf:type epo:Identifier;
-                epo:hasIdentifierValue ?IdValue.
-  } 
-}
+select ?Procedure (count(?Lot) as ?Nr_of_lots_per_Procedure)
+{
+	?Procedure a epo:Procedure;
+               epo:hasProcurementScopeDividedIntoLot ?Lot.
+
+  	?Lot a epo:Lot.
+
+  	?SubmissionStatisticalInformation a epo:SubmissionStatisticalInformation;
+                                       epo:concernsSubmissionsForLot ?Lot;
+                                       epo:hasReceivedTenders ?NrOfReceivedTenders.
+	FILTER (?NrOfReceivedTenders = '1'^^xsd:integer)
+
+} group by ?Procedure

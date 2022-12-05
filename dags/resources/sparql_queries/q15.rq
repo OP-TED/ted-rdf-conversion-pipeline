@@ -1,0 +1,36 @@
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX epo: <http://data.europa.eu/a4g/ontology#>
+PREFIX at: <http://publications.europa.eu/ontology/authority/>
+
+PREFIX locn: <http://www.w3.org/ns/locn#>
+PREFIX cv: <http://purl.org/captsolo/resume-rdf/0.2/cv#>
+PREFIX org: <http://www.w3.org/ns/org#>
+PREFIX legal: <https://www.w3.org/ns/legal#>
+prefix dt:   <http://example.org/datatype#>
+prefix ns:   <http://example.org/ns#>
+prefix :     <http://example.org/ns#>
+prefix xsd:  <http://www.w3.org/2001/XMLSchema#>
+prefix foaf:  <http://xmlns.com/foaf/0.1/>
+
+PREFIX cpv: <http://data.europa.eu/cpv/cpv/>
+
+select (sum(?Awardet_Lots) as ?Total_Awardet_Lots)
+{
+
+  select ?Procedure (count(distinct ?Lot) as ?Awardet_Lots)
+  {
+
+    ?Procedure a epo:Procedure;
+                 epo:hasProcurementScopeDividedIntoLot ?Lot.
+    ?Lot a epo:Lot.
+    ?LotAwardOutcome a epo:LotAwardOutcome;
+                       epo:describesLot ?Lot.
+	?Contract a epo:Contract;
+              epo:includesLotAwardOutcome ?LotAwardOutcome;
+              epo:hasContractConclusionDate ?ContractConclusionDate
+
+	FILTER (?ContractConclusionDate > '2000-01-01'^^xsd:date && ?ContractConclusionDate < '2030-12-31'^^xsd:date)
+  } group by ?Procedure HAVING (?Awardet_Lots > '1'^^xsd:integer)
+
+
+}

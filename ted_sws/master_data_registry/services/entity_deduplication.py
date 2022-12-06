@@ -17,7 +17,7 @@ from ted_sws.data_manager.adapters.triple_store import FusekiAdapter, TripleStor
 from ted_sws.event_manager.services.log import log_error, log_notice_error
 from ted_sws.master_data_registry.services.rdf_fragment_processor import get_rdf_fragments_by_cet_uri_from_notices, \
     merge_rdf_fragments_into_graph, write_rdf_fragments_in_triple_store, RDF_FRAGMENT_FROM_NOTICE_PROPERTY, \
-    get_subjects_by_cet_uri
+    get_subjects_by_cet_uri, get_rdf_fragment_by_cet_uri_from_notice
 
 MDR_TEMPORARY_FUSEKI_DATASET_NAME = "tmp_mdr_dataset"
 MDR_FUSEKI_DATASET_NAME = "mdr_dataset"
@@ -226,12 +226,14 @@ def deduplicate_entities_by_cet_uri(notices: List[Notice], cet_uri: str,
                                        alignment_graph=cet_alignment_links, inject_reflexive_links=True)
 
 
-def deduplicate_procedure_entities(notices: List[Notice], procedure_cet_uri: str, mongodb_client: MongoClient):
+def deduplicate_procedure_entities(notices: List[Notice], procedure_cet_uri: str, mongodb_client: MongoClient,
+                                   mdr_dataset_name: str = MDR_FUSEKI_DATASET_NAME):
     """
          This function deduplicate procedure entities for each notice from batch of notices.
     :param notices:
     :param procedure_cet_uri:
     :param mongodb_client:
+    :param mdr_dataset_name:
     :return:
     """
     notice_families = defaultdict(list)
@@ -243,6 +245,14 @@ def deduplicate_procedure_entities(notices: List[Notice], procedure_cet_uri: str
 
     parent_uries = {}
     notice_repository = NoticeRepository(mongodb_client=mongodb_client)
+    triple_store = FusekiAdapter()
+    if mdr_dataset_name not in triple_store.list_repositories():
+        try:
+            triple_store.create_repository(repository_name=mdr_dataset_name)
+        except Exception as exception:
+            if str(exception) != FUSEKI_REPOSITORY_ALREADY_EXIST_ERROR_MSG:
+                log_error(message=str(exception))
+
     for parent_notice_id in notice_families.keys():
         parent_notice = notice_repository.get(reference=parent_notice_id)
         if parent_notice and parent_notice.rdf_manifestation and parent_notice.rdf_manifestation.object_data:
@@ -261,6 +271,11 @@ def deduplicate_procedure_entities(notices: List[Notice], procedure_cet_uri: str
             else:
                 parent_procedure_uri = rdflib.URIRef(result_uris[0])
                 parent_uries[parent_notice_id] = parent_procedure_uri
+                parent_procedure_rdf_fragments = get_rdf_fragment_by_cet_uri_from_notice(notice=parent_notice,
+                                                                                         cet_uri=procedure_cet_uri)
+                parent_new_cet = {parent_procedure_uri: parent_procedure_rdf_fragments[0]}
+                register_new_cets_in_mdr(new_canonical_entities=parent_new_cet, triple_store=triple_store,
+                                         mdr_dataset_name=mdr_dataset_name)
 
     for parent_uri_key in parent_uries.keys():
         parent_uri = parent_uries[parent_uri_key]

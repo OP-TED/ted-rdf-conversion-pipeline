@@ -149,7 +149,7 @@ class CmdRunner(BaseCmdRunner):
         return self.run_cmd_result()
 
 
-def run(mapping_suite_id=None, notice_id=None, notice_aggregate=False, opt_mappings_folder=DEFAULT_MAPPINGS_PATH):
+def run(mapping_suite_id=None, notice_id=None, notice_aggregate=True, opt_mappings_folder=DEFAULT_MAPPINGS_PATH):
     cmd = CmdRunner(
         mapping_suite_id=mapping_suite_id,
         notice_id=notice_id,
@@ -162,7 +162,7 @@ def run(mapping_suite_id=None, notice_id=None, notice_aggregate=False, opt_mappi
 @click.command()
 @click.argument('mapping-suite-id', nargs=1, required=True)
 @click.option('--notice-id', required=False, multiple=True, default=None)
-@click.option('--notice-aggregate', required=False, default=False, type=click.BOOL)
+@click.option('--notice-aggregate', required=False, default=True, type=click.BOOL)
 @click.option('-m', '--opt-mappings-folder', default=DEFAULT_MAPPINGS_PATH)
 def main(mapping_suite_id, notice_id, notice_aggregate, opt_mappings_folder):
     """

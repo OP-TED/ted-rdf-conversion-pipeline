@@ -16,8 +16,10 @@ DEFAULT_TED_API_QUERY_RESULT_SIZE = {"pageSize": 100,
 DEFAULT_TED_API_QUERY_RESULT_FIELDS = {"fields": ["AA", "AC", "CY", "DD", "DI", "DS", "TVL", "TY",
                                                   "DT", "MA", "NC", "ND", "OC", "OJ", "OL", "OY",
                                                   "PC", "PD", "PR", "RC", "RN", "RP", "TD", "TVH",
-                                                  "CONTENT", "notice-type", "award-criterion-type", "corporate-body",
-                                                  "funding", "notice-identifier", "notice-version"
+                                                  "CONTENT",
+                                                  # INFO: This query result fields is not supported correctly by TED-API.
+                                                  #"notice-type", "award-criterion-type", "corporate-body",
+                                                  #"funding", "notice-identifier", "notice-version"
                                                   ]}
 
 TOTAL_DOCUMENTS_NUMBER = "total"

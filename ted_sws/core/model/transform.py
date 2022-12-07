@@ -150,7 +150,6 @@ class MappingSuite(MappingSuiteComponent):
     title: str = "no_title"
     version: str = "0.1.1"
     ontology_version: str = "0.0.1"
-    xsd_version: str = "no_xsd_version"
     git_latest_commit_hash: str = "no_hash"
     mapping_suite_hash_digest: str = "no_hash"
     metadata_constraints: MetadataConstraints

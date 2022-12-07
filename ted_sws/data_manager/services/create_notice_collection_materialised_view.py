@@ -40,7 +40,7 @@ def create_notice_collection_materialised_view(mongo_client: MongoClient):
         {
             "$out": NOTICES_MATERIALISED_VIEW_NAME
         }
-    ])
+    ], allowDiskUse=True)
     materialised_view = database[NOTICES_MATERIALISED_VIEW_NAME]
     materialised_view.create_index([("created_at", DESCENDING)])
     materialised_view.create_index([("publication_date", DESCENDING)])
@@ -80,4 +80,4 @@ def create_notice_kpi_collection(mongo_client: MongoClient):
         {
             "$out": NOTICE_KPI_COLLECTION_NAME
         }
-    ])
+    ], allowDiskUse=True)

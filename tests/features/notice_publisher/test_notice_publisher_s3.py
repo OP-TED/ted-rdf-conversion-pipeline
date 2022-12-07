@@ -58,7 +58,6 @@ def the_notice_rdf_manifestation_publication_is_executed(publish_eligible_notice
     publish_result = publish_notice_rdf_into_s3(notice=publish_eligible_notice, s3_publisher=s3_publisher,
                                                 bucket_name=s3_bucket_name)
     assert publish_result
-    publish_eligible_notice.update_status_to(new_status=NoticeStatus.PUBLISHED)
     return publish_eligible_notice
 
 
@@ -80,5 +79,5 @@ def the_rdf_manifestation_is_available_in_a_s3_bucket(s3_publisher, s3_bucket_na
 @then('the notice status is PUBLISHED')
 def the_notice_status_is_published(published_notice: Notice, s3_publisher, s3_bucket_name):
     """the notice status is PUBLISHED."""
-    assert published_notice.status == NoticeStatus.PUBLISHED
+    assert published_notice.status == NoticeStatus.ELIGIBLE_FOR_PUBLISHING
 

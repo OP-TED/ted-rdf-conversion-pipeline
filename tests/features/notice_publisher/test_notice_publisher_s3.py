@@ -48,7 +48,6 @@ def the_notice_mets_manifestation_publication_is_executed(publish_eligible_notic
     publish_result = publish_notice_into_s3(notice=publish_eligible_notice, s3_publisher=s3_publisher,
                                             bucket_name=s3_bucket_name)
     assert publish_result
-    publish_eligible_notice.update_status_to(new_status=NoticeStatus.PUBLISHED)
     return publish_eligible_notice
 
 

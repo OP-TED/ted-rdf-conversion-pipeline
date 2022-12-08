@@ -83,7 +83,9 @@
                 {% else %}
                     <ul>
                     {% for nid in notice_ids %}
-                        <li><a href="{{ nid }}/test_suite_report/validation_summary_report.html" target="_blank">{{ nid }}</a></li>
+                        <li>
+                            <a href="{{ nid }}/test_suite_report" target="_blank">{{ nid }}</a>
+                        </li>
                     {% endfor %}
                     </ul>
                 {% endif %}

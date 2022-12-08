@@ -29,9 +29,9 @@ from ted_sws.notice_packager.model.metadata import ACTION_CREATE
 from ted_sws.notice_packager.services.metadata_transformer import MetadataTransformer
 from ted_sws.notice_packager import DEFAULT_NOTICE_PACKAGE_EXTENSION
 
-ARCHIVE_NAME_FORMAT = "eProcurement_notice_{notice_id}" + DEFAULT_NOTICE_PACKAGE_EXTENSION
+ARCHIVE_NAME_FORMAT = "{work_identifier}_{action}" + DEFAULT_NOTICE_PACKAGE_EXTENSION
 FILE_METS_XML_FORMAT = "{notice_id}-0.mets.xml.dmd.rdf"
-FILE_METS_ACTION_FORMAT = "{notice_id}_mets2{action}.mets.xml"
+FILE_METS_ACTION_FORMAT = "{work_identifier}_{action}.mets.xml"
 FILE_TMD_FORMAT = "techMDID001.tmd.rdf"
 FILE_RDF_FORMAT = "{notice_id}.rdf"
 
@@ -60,7 +60,6 @@ def create_notice_package(in_data: IN_DATA_TYPE, rdf_content: RDF_CONTENT_TYPE =
     tmp_dir_path = Path(tmp_dir.name)
 
     notice_packager = NoticePackager(in_data, action, tmp_dir_path, notice_repository)
-
     notice_packager.add_template_files()
     notice_packager.add_rdf_content(rdf_content)
     notice_packager.add_extra_files(extra_files)
@@ -77,6 +76,16 @@ def package_notice(notice: Notice) -> Notice:
                                                            "utf-8"))
     notice.set_mets_manifestation(mets_manifestation=METSManifestation(object_data=mets_manifestation_content))
     return notice
+
+
+def package_notice_and_save_to(notice: Notice, save_to: PATH_TYPE = None) -> str:
+    """
+        This function package a Notice to save_to location.
+    """
+    return create_notice_package(in_data=notice,
+                                 rdf_content=notice.distilled_rdf_manifestation.object_data.encode(
+                                     "utf-8"),
+                                 save_to=save_to)
 
 
 class NoticePackager:
@@ -150,7 +159,7 @@ class NoticePackager:
         self.__write_template_to_file(file_tmd_rdf, TemplateGenerator.tmd_rdf_generator, self.template_metadata)
 
         file_mets2action_mets_xml = self.tmp_dir_path / FILE_METS_ACTION_FORMAT.format(
-            notice_id=self.notice_id,
+            work_identifier=self.template_metadata.work.identifier,
             action=self.notice_action
         )
         self.__write_template_to_file(file_mets2action_mets_xml, TemplateGenerator.mets2action_mets_xml_generator,
@@ -179,7 +188,11 @@ class NoticePackager:
             self.files += extra_files
 
     def pack(self, save_to: PATH_TYPE) -> str:
-        archive_name = ARCHIVE_NAME_FORMAT.format(notice_id=self.notice_id)
+        archive_name = ARCHIVE_NAME_FORMAT.format(
+            work_identifier=self.template_metadata.work.identifier,
+            action=self.template_metadata.notice.action.type
+        )
+
         archive_path = self.tmp_dir_path / archive_name
         package_path = self.archiver.process_archive(archive_path, self.files)
 

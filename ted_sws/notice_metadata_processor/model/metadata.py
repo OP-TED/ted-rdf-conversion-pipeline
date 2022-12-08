@@ -15,6 +15,7 @@ class ExtractedMetadata(Metadata):
     city_of_buyer: List[LanguageTaggedString] = None
     name_of_buyer: List[LanguageTaggedString] = None
     original_language: str = None
+    uri_list: str = None
     country_of_buyer: str = None
     type_of_buyer: EncodedValue = None
     eu_institution: str = None

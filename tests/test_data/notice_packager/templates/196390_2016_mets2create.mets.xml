@@ -1,48 +1,40 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<mets xmlns="http://www.loc.gov/METS/" 
-    xmlns:xlink="http://www.w3.org/1999/xlink"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://www.loc.gov/METS/ cellar-mets.xsd" 
-    TYPE="create"
-    PROFILE="http://publications.europa.eu/resource/mets/op-sip-profile_002">
+<mets xmlns="http://www.loc.gov/METS/"
+      xmlns:xlink="http://www.w3.org/1999/xlink"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.loc.gov/METS/ cellar-mets.xsd"
+      TYPE="create"
+      PROFILE="http://publications.europa.eu/resource/mets/op-sip-profile_002">
     <metsHdr CREATEDATE="2017-05-30T17:23:11.922+02:00">
-        <metsDocumentID>196390_2016_mets2create</metsDocumentID>
+        <metsDocumentID>2016_S_001_196390_create</metsDocumentID>
     </metsHdr>
     <dmdSec ID="dmdSec01">
-        <mdRef MDTYPE="OTHER" LOCTYPE="URL" MIMETYPE="application/rdf+xml" OTHERMDTYPE="INSTANCE"
-            xlink:href="196390_2016-0.mets.xml.dmd.rdf"/>
+        <mdRef MDTYPE="OTHER" LOCTYPE="URL" MIMETYPE="application/rdf+xml" OTHERMDTYPE="INSTANCE" xlink:href="196390_2016-0.mets.xml.dmd.rdf"/>
     </dmdSec>
     <amdSec>
         <techMD ID="techMDID001">
-            <mdRef MDTYPE="OTHER" LOCTYPE="URL" MIMETYPE="application/rdf+xml"
-                OTHERMDTYPE="INSTANCE" xlink:href="techMDID001.tmd.rdf"/>
+            <mdRef MDTYPE="OTHER" LOCTYPE="URL" MIMETYPE="application/rdf+xml" OTHERMDTYPE="INSTANCE" xlink:href="techMDID001.tmd.rdf"/>
         </techMD>
     </amdSec>
     <fileSec>
         <fileGrp>
-            <file ID="file-001" MIMETYPE="application/rdf+xml"
-                CHECKSUM="f9cdda52af5e532068547f0c91fcf186840bd088 " CHECKSUMTYPE="SHA-1">
+            <file ID="file-001" MIMETYPE="application/rdf+xml" CHECKSUM="f9cdda52af5e532068547f0c91fcf186840bd088 " CHECKSUMTYPE="SHA-1">
                 <FLocat LOCTYPE="URL" xlink:href="196390_2016.rdf"/>
             </file>
         </fileGrp>
     </fileSec>
     <structMap ID="structMap01">
         <div TYPE="work" CONTENTIDS="dataset:196390_2016" DMDID="dmdSec01" ID="w-01">
-            <div TYPE="expression" CONTENTIDS="expression:196390_2016"
-                DMDID="dmdSec01" ID="e-01">
-                <div TYPE="manifestation"
-                    CONTENTIDS="distribution:196390_2016/196390_2016_rdf"
-                    DMDID="dmdSec01" ADMID="techMDID001" ID="m-001">
-                    <fptr
-                        CONTENTIDS="distribution:196390_2016/196390_2016.rdf"
-                        FILEID="file-001"/>
+            <div TYPE="expression" CONTENTIDS="expression:196390_2016" DMDID="dmdSec01" ID="e-01">
+                <div TYPE="manifestation" CONTENTIDS="distribution:196390_2016/196390_2016_rdf" DMDID="dmdSec01" ADMID="techMDID001" ID="m-001">
+                    <fptr CONTENTIDS="distribution:196390_2016/196390_2016.rdf" FILEID="file-001"/>
                 </div>
             </div>
         </div>
     </structMap>
     <behaviorSec>
-    <behavior BTYPE="sparql-load" STRUCTID="m-001">
-      <mechanism LOCTYPE="URL" LABEL="Sparql-load" xlink:href="cellar-mets:sparql-load-behavior?model=http%3A%2F%2Fdata.europa.eu%2Fa4g%2Fresource%2F2016%2F196390_2016"/>
-    </behavior>
-  </behaviorSec>  
+        <behavior BTYPE="sparql-load" STRUCTID="m-001">
+            <mechanism LOCTYPE="URL" LABEL="Sparql-load" xlink:href="cellar-mets:sparql-load-behavior?model=http%3A%2F%2Fdata.europa.eu%2Fa4g%2Fresource%2F2016%2F196390_2016"/>
+        </behavior>
+    </behaviorSec>
 </mets>

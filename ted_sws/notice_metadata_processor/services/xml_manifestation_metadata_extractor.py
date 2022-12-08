@@ -87,6 +87,17 @@ class XMLManifestationMetadataExtractor:
         return self.type_of_buyer.value if self.type_of_buyer.code == "5" else "-"
 
     @property
+    def uri_list(self):
+        uri_elements = self.manifestation_root.findall(
+            self.xpath_registry.xpath_uri_elements,
+            namespaces=self.namespaces)
+
+        return [LanguageTaggedString(text=extract_text_from_element(element=uri.find(".")),
+                                     language=extract_attribute_from_element(element=uri.find("."),
+                                                                             attrib_key="LG")) for
+                uri in uri_elements]
+
+    @property
     def country_of_buyer(self):
         return extract_attribute_from_element(element=self.manifestation_root.find(
             self.xpath_registry.xpath_country_of_buyer,
@@ -219,14 +230,16 @@ class XMLManifestationMetadataExtractor:
          Creating extracted metadata
         :return:
         """
-        metadata = ExtractedMetadata()
+        metadata: ExtractedMetadata = ExtractedMetadata()
         metadata.title = self.title
         metadata.notice_publication_number = self.notice_publication_number
         metadata.publication_date = self.publication_date
+        metadata.ojs_type = self.ojs_type
         metadata.ojs_issue_number = self.ojs_issue_number
         metadata.city_of_buyer = self.city_of_buyer
         metadata.name_of_buyer = self.name_of_buyer
         metadata.original_language = self.original_language
+        metadata.uri_list = self.uri_list
         metadata.country_of_buyer = self.country_of_buyer
         metadata.type_of_buyer = self.type_of_buyer
         metadata.eu_institution = self.eu_institution

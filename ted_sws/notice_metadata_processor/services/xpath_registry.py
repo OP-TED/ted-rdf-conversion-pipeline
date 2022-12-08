@@ -44,6 +44,10 @@ class XpathRegistry:
         return "manifestation_ns:CODED_DATA_SECTION/manifestation_ns:NOTICE_DATA/manifestation_ns:ISO_COUNTRY"
 
     @property
+    def xpath_uri_elements(self):
+        return "manifestation_ns:CODED_DATA_SECTION/manifestation_ns:NOTICE_DATA/manifestation_ns:URI_LIST/"
+
+    @property
     def xpath_original_language(self):
         return "manifestation_ns:CODED_DATA_SECTION/manifestation_ns:NOTICE_DATA/manifestation_ns:LG_ORIG"
 

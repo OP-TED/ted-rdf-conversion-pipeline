@@ -66,7 +66,7 @@ class MappingSuiteHasher:
         """
             Returns a hash of the mapping suite.
             Only the critical resources are hashed in the mapping suite.
-            The decission which rescources are "critical" is implemented
+            The decision which resources are "critical" is implemented
             in self.hash_critical_mapping_files() function.
 
             If "with_version" parameter is used, then it computed the mapping

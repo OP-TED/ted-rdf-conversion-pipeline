@@ -14,7 +14,7 @@ from ted_sws.event_manager.adapters.event_log_decorator import event_log
 from ted_sws.event_manager.model.event_message import TechnicalEventMessage, EventMessageMetadata, \
     EventMessageProcessType
 
-DAG_NAME = "notice_fetch_by_date_workflow"
+DAG_NAME = "fetch_notices_by_date"
 BATCH_SIZE = 2000
 WILD_CARD_DAG_KEY = "wild_card"
 TRIGGER_COMPLETE_WORKFLOW_DAG_KEY = "trigger_complete_workflow"
@@ -29,7 +29,7 @@ VALIDATE_FETCHED_NOTICES_TASK_ID = "validate_fetched_notices"
      catchup=False,
      timetable=CronTriggerTimetable('0 1 * * *', timezone='UTC'),
      tags=['selector', 'daily-fetch'])
-def notice_fetch_by_date_workflow():
+def fetch_notices_by_date():
     @task
     @event_log(TechnicalEventMessage(
         message="fetch_notice_from_ted",
@@ -93,4 +93,4 @@ def notice_fetch_by_date_workflow():
                                                        trigger_complete_workflow] >> validate_fetched_notices_step >> finish_step
 
 
-dag = notice_fetch_by_date_workflow()
+dag = fetch_notices_by_date()

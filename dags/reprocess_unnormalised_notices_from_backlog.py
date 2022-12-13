@@ -8,7 +8,7 @@ from ted_sws.event_manager.adapters.event_log_decorator import event_log
 from ted_sws.event_manager.model.event_message import TechnicalEventMessage, EventMessageMetadata, \
     EventMessageProcessType
 
-DAG_NAME = "selector_raw_notices_process_orchestrator"
+DAG_NAME = "reprocess_unnormalised_notices_from_backlog"
 
 TRIGGER_NOTICE_PROCESS_WORKFLOW_TASK_ID = "trigger_notice_process_workflow"
 FORM_NUMBER_DAG_PARAM = "form_number"
@@ -20,7 +20,7 @@ XSD_VERSION_DAG_PARAM = "xsd_version"
 @dag(default_args=DEFAULT_DAG_ARGUMENTS,
      schedule_interval=None,
      tags=['selector', 'raw-notices'])
-def selector_raw_notices_process_orchestrator():
+def reprocess_unnormalised_notices_from_backlog():
     @task
     @event_log(TechnicalEventMessage(
         message="select_all_raw_notices",
@@ -41,4 +41,4 @@ def selector_raw_notices_process_orchestrator():
     select_all_raw_notices() >> trigger_notice_process_workflow
 
 
-dag = selector_raw_notices_process_orchestrator()
+dag = reprocess_unnormalised_notices_from_backlog()

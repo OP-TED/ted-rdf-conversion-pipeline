@@ -1,4 +1,4 @@
-from dags.load_mapping_suite_in_mongodb import \
+from dags.load_mapping_suite_in_database import \
     FETCH_MAPPING_SUITE_PACKAGE_FROM_GITHUB_INTO_MONGODB, MAPPING_SUITE_PACKAGE_NAME_DAG_PARAM_KEY
 from ted_sws import config
 from ted_sws.data_manager.adapters.mapping_suite_repository import MappingSuiteRepositoryMongoDB

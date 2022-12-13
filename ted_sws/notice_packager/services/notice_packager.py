@@ -33,7 +33,7 @@ ARCHIVE_NAME_FORMAT = "{work_identifier}_{action}" + DEFAULT_NOTICE_PACKAGE_EXTE
 FILE_METS_XML_FORMAT = "{notice_id}-0.mets.xml.dmd.rdf"
 FILE_METS_ACTION_FORMAT = "{work_identifier}_{action}.mets.xml"
 FILE_TMD_FORMAT = "techMDID001.tmd.rdf"
-FILE_RDF_FORMAT = "{notice_id}.rdf"
+FILE_RDF_FORMAT = "{notice_id}.ttl"
 
 NOTICE_METADATA_TYPE = ExtractedMetadata
 IN_DATA_TYPE = Union[NOTICE_METADATA_TYPE, Notice, str]

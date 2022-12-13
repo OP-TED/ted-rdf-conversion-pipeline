@@ -8,6 +8,7 @@
 """ """
 import hashlib
 import pathlib
+import re
 from typing import Tuple, List, Union
 
 from ted_sws.data_manager.adapters.mapping_suite_repository import MS_TRANSFORM_FOLDER_NAME, \
@@ -35,7 +36,10 @@ class MappingSuiteHasher:
             """
                 Return a tuple of the relative file path and the file hash.
             """
-            hashed_line = hashlib.sha256(file_path.read_bytes()).hexdigest()
+            # remove new-lines to align content generated on different operating systems
+            new_line_pattern = re.compile(b'\r\n|\r|\n')
+            file_content = re.sub(new_line_pattern, b'', file_path.read_bytes())
+            hashed_line = hashlib.sha256(file_content).hexdigest()
             relative_path = str(file_path).replace(str(self.mapping_suite_path), "")
             return relative_path, hashed_line
 
@@ -62,7 +66,7 @@ class MappingSuiteHasher:
         """
             Returns a hash of the mapping suite.
             Only the critical resources are hashed in the mapping suite.
-            The decission which rescources are "critical" is implemented
+            The decision which resources are "critical" is implemented
             in self.hash_critical_mapping_files() function.
 
             If "with_version" parameter is used, then it computed the mapping

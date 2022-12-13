@@ -1,7 +1,7 @@
 import pathlib
 
 from ted_sws import config
-from ted_sws.data_manager.adapters.triple_store import AllegroGraphTripleStore, FusekiAdapter, TripleStoreABC
+from ted_sws.data_manager.adapters.triple_store import FusekiAdapter, TripleStoreABC
 
 
 def repository_exists(triple_store: TripleStoreABC, repository_name) -> bool:

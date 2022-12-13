@@ -9,7 +9,7 @@
 
 from ted_sws.notice_metadata_processor.model.metadata import ExtractedMetadata
 from ted_sws.notice_packager.services.metadata_transformer import MetadataTransformer, publication_notice_uri, \
-    publication_notice_year
+    publication_notice_year, publication_work_identifier, publication_notice_number, NORMALIZED_SEPARATOR
 
 
 def test_notice_metadata(notice_sample_metadata: ExtractedMetadata):
@@ -26,11 +26,26 @@ def test_metadata_transformer(notice_sample_metadata: ExtractedMetadata):
     assert hasattr(template_metadata, "manifestation")
 
 
-def test_publication_notice_year(notice_id):
-    year = publication_notice_year(notice_id)
-    assert year == "2016"
+def test_publication_notice_year(notice_sample_metadata):
+    year = publication_notice_year(notice_sample_metadata)
+    assert year == "2018"
 
 
-def test_publication_notice_uri(notice_id):
-    uri = publication_notice_uri(notice_id)
-    assert uri == "http://data.europa.eu/a4g/resource/2016/196390_2016"
+def test_publication_notice_number(notice_id):
+    notice_number = publication_notice_number(notice_id)
+    assert notice_number == "196390"
+
+    glued_notice_id = notice_id.replace(NORMALIZED_SEPARATOR, "")
+    notice_number = publication_notice_number(glued_notice_id)
+    assert notice_number == "1963902018"
+
+
+def test_publication_notice_uri(notice_id, notice_sample_metadata):
+    uri = publication_notice_uri(notice_id, notice_sample_metadata)
+    assert uri == "http://data.europa.eu/a4g/resource/2018/196390_2018"
+
+
+def test_publication_work_identifier(notice_id, notice_sample_metadata):
+    work_id = publication_work_identifier(notice_id, notice_sample_metadata)
+    assert work_id == "2018_S_22_196390"
+

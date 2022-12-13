@@ -10,7 +10,7 @@ This model contains the metadata mapping/manipulation class to be used by Notice
 """
 
 import datetime
-from typing import List, Dict
+from typing import List, Dict, Optional
 
 from pydantic import validator
 
@@ -28,12 +28,12 @@ BASE_WORK = "http://data.europa.eu/a4g/resource/"
 BASE_TITLE = "eProcurement notice"
 
 WORK_DO_NOT_INDEX = "true"
-MANIFESTATION_TYPE = "E_PROCUREMENT_ONTOLOGY"
+MANIFESTATION_TYPE = "rdf_epo"
 DISTRIBUTION_STATUS = "COMPLETED"
 MEDIA_TYPE = "RDF"
 LANGUAGES = ["en"]
 LANGUAGE = LANGUAGES[0]
-USES_LANGUAGE = "ENG"
+USES_LANGUAGE = "MUL"
 
 ACTION_CREATE = "create"
 ACTION_UPDATE = "update"
@@ -64,7 +64,7 @@ class NoticeMetadata(Metadata):
     """
     General notice metadata
     """
-    id: str = None
+    id: Optional[str] = None
     languages: List[str] = LANGUAGES
     action: NoticeActionMetadata = NoticeActionMetadata()
 
@@ -75,22 +75,27 @@ class WorkMetadata(Metadata):
         and the rest is a bunch of constants OR generated values (e.g. date, URI, ...)
     """
 
-    uri: str = None
+    identifier: Optional[str]
+    cdm_rdf_type: Optional[str]
+    resource_type: Optional[str]
+    uri: Optional[str] = None
     do_not_index: str = WORK_DO_NOT_INDEX
     date_document: str = datetime.datetime.now().strftime('%Y-%m-%d')
     created_by_agent: str = WORK_AGENT
     dataset_published_by_agent: str = WORK_AGENT
     datetime_transmission: str = datetime.datetime.now().isoformat()
-    title: Dict[str, str] = None
-    date_creation: str = None
+    title: Optional[Dict[str, str]] = None
+    date_creation: Optional[str] = datetime.datetime.now().strftime('%Y-%m-%d')
     concept_type_dataset: str = CONCEPT_TYPE_DATASET
-    dataset_version: str = None
+    dataset_version: Optional[str] = None
     dataset_keyword: List[str] = DATASET_KEYWORD
     dataset_has_frequency_publication_frequency: str = PUBLICATION_FREQUENCY
+    procurement_public_issued_by_country: Optional[str]
+    procurement_public_url_etendering: Optional[List[str]]
 
 
 class ExpressionMetadata(Metadata):
-    title: Dict[str, str] = None
+    title: Optional[Dict[str, str]] = None
     uses_language: str = USES_LANGUAGE
 
 

@@ -13,8 +13,8 @@ from requests.auth import HTTPBasicAuth
 from ted_sws import config
 from ted_sws.data_manager.adapters.sparql_endpoint import TripleStoreEndpointABC, SPARQLTripleStoreEndpoint
 
-
 FUSEKI_REPOSITORY_ALREADY_EXIST_ERROR_MSG = 'A repository with this name already exists.'
+
 
 class TripleStoreABC:
     @abc.abstractmethod

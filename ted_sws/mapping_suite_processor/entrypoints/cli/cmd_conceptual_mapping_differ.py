@@ -140,7 +140,9 @@ class CmdRunner(BaseCmdRunner):
         else:
             error = Exception("Cannot do a diff with provided input!")
 
-        self._report(diff=diff, files=[filepath1, filepath2])
+        if not error:
+            self._report(diff=diff, files=[filepath1, filepath2])
+
         self.run_cmd_result(error)
 
 

@@ -28,7 +28,19 @@ def mapping_suite_diff_conceptual_mappings(mappings: List[ConceptualMapping]) ->
     :return:
     """
     assert mappings and len(mappings) == 2
-    return DeepDiff(mappings[0].dict(), mappings[1].dict(), ignore_order=True)
+    diff: ConceptualMappingDiff = ConceptualMappingDiff()
+    diff.metadata = {
+        "defaults": {
+            "branch": "local",
+            "conceptual_mapping": MS_TRANSFORM_FOLDER_NAME + "/" + MS_CONCEPTUAL_MAPPING_FILE_NAME
+        },
+        "metadata": [
+            mappings[0].metadata.dict(),
+            mappings[1].metadata.dict()
+        ]
+    }
+    diff.data = DeepDiff(mappings[0].dict(), mappings[1].dict(), ignore_order=True)
+    return diff.dict()
 
 
 def mapping_suite_diff_files_conceptual_mappings(filepaths: List[Path]) -> dict:
@@ -103,7 +115,8 @@ def mapping_suite_diff_repo_conceptual_mappings(branch_or_tag_name: List[str], m
 
 def generate_conceptual_mappings_diff_html_report(diff: ConceptualMappingDiff):
     html_report = TEMPLATES.get_template(CONCEPTUAL_MAPPINGS_DIFF_HTML_REPORT_TEMPLATE).render({
-        "metadata": json.dumps(diff.metadata, indent=2),
+        "metadata": diff.metadata,
+        "created_at": diff.created_at,
         "data": json2html.convert(
             json=diff.data,
             table_attributes='class="display" border="1"',

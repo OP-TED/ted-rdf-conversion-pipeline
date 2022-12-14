@@ -72,6 +72,7 @@ class ConceptualMappingXPATH(MappingSuiteComponent):
 
 class ConceptualMappingDiff(MappingSuiteComponent):
     """"""
+    created_at: str = datetime.now().isoformat()
     metadata: Optional[dict]
     data: Optional[dict]
 

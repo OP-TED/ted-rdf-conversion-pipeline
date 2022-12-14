@@ -48,6 +48,7 @@ def test_cmd_conceptual_mapping_differ(caplog, cli_runner, fake_test_mapping_sui
         response = cli_runner.invoke(cli_main,
                                      ["--opt-mappings-folder", temp_mapping_suite_path,
                                       "--opt-output-folder", temp_folder])
+
         assert "FAILED" in response.output
         assert "Cannot do a diff" in response.output
 

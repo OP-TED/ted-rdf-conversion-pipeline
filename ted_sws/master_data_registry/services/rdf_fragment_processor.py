@@ -10,7 +10,7 @@
 """
 import pathlib
 from string import Template
-from typing import List, Tuple
+from typing import List, Tuple, Optional
 
 import rdflib
 
@@ -18,7 +18,7 @@ from ted_sws.core.model.notice import Notice
 from ted_sws.data_manager.adapters.sparql_endpoint import SPARQLStringEndpoint
 from ted_sws.data_manager.adapters.triple_store import TripleStoreABC
 from ted_sws.master_data_registry.resources import RDF_FRAGMENT_BY_URI_SPARQL_QUERY_TEMPLATE_PATH, \
-    TRIPLES_BY_CET_URI_SPARQL_QUERY_TEMPLATE_PATH
+    TRIPLES_BY_CET_URI_SPARQL_QUERY_TEMPLATE_PATH, PROCEDURE_SUBJECTS_SPARQL_QUERY_TEMPLATE_PATH
 
 RDFTriple = Tuple[rdflib.term.Node, rdflib.term.Node, rdflib.term.Node]
 
@@ -35,6 +35,17 @@ def get_subjects_by_cet_uri(sparql_endpoint: SPARQLStringEndpoint, cet_uri: str)
     """
     sparql_query = TRIPLES_BY_CET_URI_SPARQL_QUERY_TEMPLATE_PATH.read_text(encoding="utf-8")
     sparql_query = Template(sparql_query).substitute(uri=cet_uri)
+    query_table_result = sparql_endpoint.with_query(sparql_query=sparql_query).fetch_tabular()
+    return query_table_result["s"].to_list()
+
+
+def get_procedure_subjects(sparql_endpoint: SPARQLStringEndpoint) -> List[str]:
+    """
+        This function return a list of procedure subjects.
+    :param sparql_endpoint:
+    :return:
+    """
+    sparql_query = PROCEDURE_SUBJECTS_SPARQL_QUERY_TEMPLATE_PATH.read_text(encoding="utf-8")
     query_table_result = sparql_endpoint.with_query(sparql_query=sparql_query).fetch_tabular()
     return query_table_result["s"].to_list()
 
@@ -90,6 +101,25 @@ def get_rdf_fragments_by_cet_uri_from_file(rdf_file_path: pathlib.Path, cet_uri:
     return get_rdf_fragment_by_cet_uri_from_string(rdf_content=rdf_file_path.read_text(encoding="utf-8"),
                                                    cet_uri=cet_uri,
                                                    rdf_content_format=rdf_file_content_format)
+
+
+def get_rdf_fragment_by_root_uri_from_notice(notice: Notice, root_uri: str) -> Optional[rdflib.Graph]:
+    """
+         This function extracts from a Notice RDF content a RDFFragment dependent on a root URI.
+    :param notice:
+    :param root_uri:
+    :return:
+    """
+    sparql_endpoint = SPARQLStringEndpoint(rdf_content=notice.rdf_manifestation.object_data,
+                                          rdf_content_format=DEFAULT_RDF_FILE_FORMAT)
+    rdf_fragment = get_rdf_fragment_by_root_uri(sparql_endpoint=sparql_endpoint, root_uri=root_uri,
+                                                inject_triples=[(rdflib.URIRef(root_uri),
+                                                                 RDF_FRAGMENT_FROM_NOTICE_PROPERTY,
+                                                                 rdflib.Literal(notice.ted_id))
+                                                                ]
+                                                )
+    return rdf_fragment
+
 
 
 def get_rdf_fragment_by_cet_uri_from_notice(notice: Notice, cet_uri: str) -> List[rdflib.Graph]:

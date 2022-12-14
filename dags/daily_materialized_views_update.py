@@ -8,14 +8,14 @@ from ted_sws.data_manager.services.create_batch_collection_materialised_view imp
 from ted_sws.data_manager.services.create_notice_collection_materialised_view import \
     create_notice_collection_materialised_view, create_notice_kpi_collection
 
-DAG_NAME = "daily_materialized_view_update"
+DAG_NAME = "daily_materialized_views_update"
 
 
 @dag(default_args=DEFAULT_DAG_ARGUMENTS,
      catchup=False,
      schedule_interval="0 6 * * *",
      tags=['mongodb', 'daily-views-update'])
-def daily_materialized_view_update():
+def daily_materialized_views_update():
     @task
     def create_materialised_view():
         mongo_client = MongoClient(config.MONGO_DB_AUTH_URL)
@@ -34,4 +34,4 @@ def daily_materialized_view_update():
     create_materialised_view() >> create_kpi_collection_for_notices() >> aggregate_batch_logs()
 
 
-dag = daily_materialized_view_update()
+dag = daily_materialized_views_update()

@@ -2,7 +2,7 @@ from airflow.decorators import dag, task
 
 from dags import DEFAULT_DAG_ARGUMENTS
 from dags.dags_utils import push_dag_downstream, get_dag_param
-from dags.notice_process_workflow import NOTICE_PACKAGE_PIPELINE_TASK_ID
+from dags.notice_processing_pipeline import NOTICE_PACKAGE_PIPELINE_TASK_ID
 from dags.operators.DagBatchPipelineOperator import NOTICE_IDS_KEY, TriggerNoticeBatchPipelineOperator
 from dags.pipelines.notice_selectors_pipelines import notice_ids_selector_by_status
 from ted_sws.core.model.notice import NoticeStatus
@@ -10,7 +10,7 @@ from ted_sws.event_manager.adapters.event_log_decorator import event_log
 from ted_sws.event_manager.model.event_message import TechnicalEventMessage, EventMessageMetadata, \
     EventMessageProcessType
 
-DAG_NAME = "selector_re_package_process_orchestrator"
+DAG_NAME = "reprocess_unpackaged_notices_from_backlog"
 
 RE_PACKAGE_TARGET_NOTICE_STATES = [NoticeStatus.VALIDATED, NoticeStatus.INELIGIBLE_FOR_PACKAGING,
                                    NoticeStatus.ELIGIBLE_FOR_PACKAGING,
@@ -25,7 +25,7 @@ XSD_VERSION_DAG_PARAM = "xsd_version"
 @dag(default_args=DEFAULT_DAG_ARGUMENTS,
      schedule_interval=None,
      tags=['selector', 're-package'])
-def selector_re_package_process_orchestrator():
+def reprocess_unpackaged_notices_from_backlog():
     @task
     @event_log(TechnicalEventMessage(
         message="select_notices_for_re_package",
@@ -50,4 +50,4 @@ def selector_re_package_process_orchestrator():
     select_notices_for_re_package() >> trigger_notice_process_workflow
 
 
-dag = selector_re_package_process_orchestrator()
+dag = reprocess_unpackaged_notices_from_backlog()

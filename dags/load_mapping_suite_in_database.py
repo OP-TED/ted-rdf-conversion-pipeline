@@ -31,7 +31,7 @@ CHECK_IF_LOAD_TEST_DATA_TASK_ID = "check_if_load_test_data"
 @dag(default_args=DEFAULT_DAG_ARGUMENTS,
      schedule_interval=None,
      tags=['fetch', 'mapping-suite', 'github'])
-def load_mapping_suite_in_mongodb():
+def load_mapping_suite_in_database():
     @task
     @event_log(is_loggable=False)
     def fetch_mapping_suite_package_from_github_into_mongodb(**context_args):
@@ -86,4 +86,4 @@ def load_mapping_suite_in_mongodb():
     branch_task >> [trigger_document_proc_pipeline, finish_step]
 
 
-dag = load_mapping_suite_in_mongodb()
+dag = load_mapping_suite_in_database()

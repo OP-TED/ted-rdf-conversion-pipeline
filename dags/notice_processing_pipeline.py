@@ -24,7 +24,7 @@ SELECTOR_BRANCH_BEFORE_TRANSFORMATION_TASK_ID = "switch_to_transformation"
 SELECTOR_BRANCH_BEFORE_VALIDATION_TASK_ID = "switch_to_validation"
 SELECTOR_BRANCH_BEFORE_PACKAGE_TASK_ID = "switch_to_package"
 SELECTOR_BRANCH_BEFORE_PUBLISH_TASK_ID = "switch_to_publish"
-DAG_NAME = "notice_process_workflow"
+DAG_NAME = "notice_processing_pipeline"
 
 BRANCH_SELECTOR_MAP = {NOTICE_NORMALISATION_PIPELINE_TASK_ID: NOTICE_NORMALISATION_PIPELINE_TASK_ID,
                        NOTICE_TRANSFORMATION_PIPELINE_TASK_ID: SELECTOR_BRANCH_BEFORE_TRANSFORMATION_TASK_ID,
@@ -49,7 +49,7 @@ def branch_selector(result_branch: str, xcom_forward_keys: List[str] = [NOTICE_I
      max_active_runs=256,
      max_active_tasks=256,
      tags=['worker', 'pipeline'])
-def notice_process_workflow():
+def notice_processing_pipeline():
     """
 
     """
@@ -149,4 +149,4 @@ def notice_process_workflow():
     notice_package_step >> selector_branch_before_publish >> notice_publish_step
 
 
-dag = notice_process_workflow()
+dag = notice_processing_pipeline()

@@ -8,12 +8,12 @@ from airflow.operators.trigger_dagrun import TriggerDagRunOperator
 
 from dags import DEFAULT_DAG_ARGUMENTS
 from dags.dags_utils import get_dag_param
-from dags.notice_fetch_by_date_workflow import WILD_CARD_DAG_KEY, TRIGGER_COMPLETE_WORKFLOW_DAG_KEY
+from dags.fetch_notices_by_date import WILD_CARD_DAG_KEY, TRIGGER_COMPLETE_WORKFLOW_DAG_KEY
 from ted_sws.event_manager.adapters.event_log_decorator import event_log
 from ted_sws.event_manager.model.event_message import TechnicalEventMessage, EventMessageMetadata, \
     EventMessageProcessType
 
-DAG_NAME = "notice_fetch_for_date_range_orchestrator"
+DAG_NAME = "fetch_notices_by_date_range"
 
 START_DATE_KEY = "start_date"
 END_DATE_KEY = "end_date"
@@ -33,7 +33,7 @@ def generate_wildcards_foreach_day_in_range(start_date: str, end_date: str) -> l
 
 
 @dag(default_args=DEFAULT_DAG_ARGUMENTS, schedule_interval=None, tags=['master'])
-def notice_fetch_for_date_range_orchestrator():
+def fetch_notices_by_date_range():
     @task
     @event_log(TechnicalEventMessage(
         message="trigger_fetch_notices_workers_for_date_range",
@@ -59,4 +59,4 @@ def notice_fetch_for_date_range_orchestrator():
     trigger_notice_by_date_for_each_date_in_range()
 
 
-dag = notice_fetch_for_date_range_orchestrator()
+dag = fetch_notices_by_date_range()

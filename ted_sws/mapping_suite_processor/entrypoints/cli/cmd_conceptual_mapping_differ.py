@@ -44,13 +44,14 @@ class CmdRunner(BaseCmdRunner):
             output_folder
     ):
         super().__init__(name=CMD_NAME)
-        self.mapping_suite_id = self._init_list_input_opts_split(mapping_suite_id)
-        self.file = self._init_list_input_opts_split(file)
-        self.branch = self._init_list_input_opts_split(branch)
+        self.mapping_suite_ids = self._init_list_input_opts_split(mapping_suite_id)
+        self.files = self._init_list_input_opts_split(file)
+        self.branches = self._init_list_input_opts_split(branch)
         self.mappings_path = mappings_path
         self.output_folder = output_folder
 
-    def _report(self, data, files: list):
+    def _report(self, diff, files: list):
+        data = diff['data']
         report_file_file_name_json = Path(self.output_folder) / (DEFAULT_REPORT_FILE_NAME + ".json")
         with open(report_file_file_name_json, 'w+') as report_file:
             report_file.write(json.dumps(data, indent=2))
@@ -60,9 +61,11 @@ class CmdRunner(BaseCmdRunner):
                 generate_conceptual_mappings_diff_html_report(
                     ConceptualMappingDiff(
                         metadata={
-                            "branches": self.branch,
-                            "mapping_suite_ids": self.mapping_suite_id,
-                            "files": files
+                            "branches": self.branches,
+                            "mapping_suite_ids": self.mapping_suite_ids,
+                            "files": files,
+                            "defaults": diff['metadata']['defaults'],
+                            "metadata": diff['metadata']['metadata']
                         },
                         data=data
                     ))
@@ -81,12 +84,12 @@ class CmdRunner(BaseCmdRunner):
         return mappings_path
 
     def _display_input(self):
-        if self.branch:
-            self.log(LOG_WARN_TEXT.format("GIT Branches: ") + str(self.branch))
-        if self.mapping_suite_id:
-            self.log(LOG_WARN_TEXT.format("MappingSuites: ") + str(self.mapping_suite_id))
-        if self.file:
-            self.log(LOG_WARN_TEXT.format("Files: ") + str(self.file))
+        if self.branches:
+            self.log(LOG_WARN_TEXT.format("GIT Branches: ") + str(self.branches))
+        if self.mapping_suite_ids:
+            self.log(LOG_WARN_TEXT.format("MappingSuites: ") + str(self.mapping_suite_ids))
+        if self.files:
+            self.log(LOG_WARN_TEXT.format("Files: ") + str(self.files))
 
     def run_cmd(self):
         self._display_input()
@@ -95,49 +98,51 @@ class CmdRunner(BaseCmdRunner):
         filepath1 = None
         filepath2 = None
 
-        file_len = len(self.file)
-        mapping_suite_id_len = len(self.mapping_suite_id)
-        branch_len = len(self.branch)
+        file_len = len(self.files)
+        mapping_suite_id_len = len(self.mapping_suite_ids)
+        branch_len = len(self.branches)
 
-        if not self.branch:
-            if self.file and file_len == 2:
-                filepath1 = self.file[0]
+        if not self.branches:
+            if self.files and file_len == 2:
+                filepath1 = self.files[0]
                 assert Path(filepath1).is_file()
-                filepath2 = self.file[1]
+                filepath2 = self.files[1]
                 assert Path(filepath2).is_file()
-            elif self.mapping_suite_id:
+            elif self.mapping_suite_ids:
                 mappings_path = self._mappings_path()
                 if mapping_suite_id_len == 2:
-                    filepath1 = self._conceptual_mappings_file_path(mappings_path, self.mapping_suite_id[0])
+                    filepath1 = self._conceptual_mappings_file_path(mappings_path, self.mapping_suite_ids[0])
                     assert Path(filepath1).is_file()
-                    filepath2 = self._conceptual_mappings_file_path(mappings_path, self.mapping_suite_id[1])
+                    filepath2 = self._conceptual_mappings_file_path(mappings_path, self.mapping_suite_ids[1])
                     assert Path(filepath2).is_file()
                 elif mapping_suite_id_len == 1 and file_len == 1:
-                    filepath1 = self._conceptual_mappings_file_path(mappings_path, self.mapping_suite_id[0])
+                    filepath1 = self._conceptual_mappings_file_path(mappings_path, self.mapping_suite_ids[0])
                     assert Path(filepath1).is_file()
-                    filepath2 = self.file[0]
+                    filepath2 = str(Path(self.files[0]).resolve())
                     assert Path(filepath2).is_file()
 
         error = None
         if filepath1 and filepath2:
             diff = mapping_suite_diff_files_conceptual_mappings([Path(filepath1), Path(filepath2)])
-        elif self.branch:
+        elif self.branches:
             assert mapping_suite_id_len > 0
-            if branch_len == 1 and mapping_suite_id_len == 1 and not self.file:
+            if branch_len == 1 and mapping_suite_id_len == 1 and not self.files:
                 mappings_path = self._mappings_path()
-                filepath2 = self._conceptual_mappings_file_path(mappings_path, self.mapping_suite_id[0])
+                filepath2 = self._conceptual_mappings_file_path(mappings_path, self.mapping_suite_ids[0])
             else:
-                filepath2 = (self.file[0] if file_len == 1 else None)
+                filepath2 = (self.files[0] if file_len == 1 else None)
 
             diff = mapping_suite_diff_repo_conceptual_mappings(
-                branch_or_tag_name=self.branch,
-                mapping_suite_id=self.mapping_suite_id,
+                branch_or_tag_name=self.branches,
+                mapping_suite_id=self.mapping_suite_ids,
                 filepath=Path(filepath2) if filepath2 else None
             )
         else:
             error = Exception("Cannot do a diff with provided input!")
 
-        self._report(data=diff, files=[filepath1, filepath2])
+        if not error:
+            self._report(diff=diff, files=[filepath1, filepath2])
+
         self.run_cmd_result(error)
 
 

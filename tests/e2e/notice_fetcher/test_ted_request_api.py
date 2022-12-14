@@ -11,5 +11,5 @@ def test_ted_request_api():
     assert isinstance(notice_by_query, dict)
     with pytest.raises(Exception) as e:
         ted_api_request(api_url=config.TED_API_URL, api_query={"q": "INCORRECT PARAMS"})
-    assert str(e.value) == "The API call failed with: <Response [500]>"
+    assert str(e.value) == "The TED-API call failed with: <Response [500]>"
 

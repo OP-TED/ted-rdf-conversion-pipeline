@@ -20,7 +20,7 @@ from ted_sws.mapping_suite_processor.services.mapping_suite_validation_service i
 CONCEPTUAL_MAPPINGS_ASSERTIONS = "cm_assertions"
 SHACL_SHAPE_INJECTION_FOLDER = "ap_data_shape"
 SHACL_SHAPE_RESOURCES_FOLDER = "shacl_shapes"
-SHACL_SHAPE_FILE_NAME = "ePO_shacl_shapes.rdf"
+SHACL_SHAPE_FILE_NAME = "ePO_shacl_shapes.ttl"
 MAPPING_FILES_RESOURCES_FOLDER = "mapping_files"
 SPARQL_QUERIES_RESOURCES_FOLDER = "queries"
 SPARQL_QUERIES_INJECTION_FOLDER = "business_queries"

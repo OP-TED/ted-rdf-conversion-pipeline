@@ -8,7 +8,6 @@ from dags.dags_utils import pull_dag_upstream, push_dag_downstream, chunks, get_
     smart_xcom_push
 from dags.pipelines.pipeline_protocols import NoticePipelineCallable
 from ted_sws import config
-from ted_sws.core.model.notice import NoticeStatus
 from ted_sws.data_manager.adapters.notice_repository import NoticeRepository
 from ted_sws.event_manager.model.event_message import EventMessage, NoticeEventMessage
 from ted_sws.event_manager.services.log import log_notice_error
@@ -18,7 +17,7 @@ NOTICE_IDS_KEY = "notice_ids"
 START_WITH_STEP_NAME_KEY = "start_with_step_name"
 EXECUTE_ONLY_ONE_STEP_KEY = "execute_only_one_step"
 DEFAULT_NUBER_OF_CELERY_WORKERS = 144  # TODO: revise this config
-NOTICE_PROCESS_WORKFLOW_DAG_NAME = "notice_process_workflow"
+NOTICE_PROCESSING_PIPELINE_DAG_NAME = "notice_processing_pipeline"
 DEFAULT_START_WITH_TASK_ID = "notice_normalisation_pipeline"
 DEFAULT_PIPELINE_NAME_FOR_LOGS = "unknown_pipeline_name"
 
@@ -136,7 +135,7 @@ class TriggerNoticeBatchPipelineOperator(BaseOperator):
             for notice_batch in chunks(notice_ids, chunk_size=batch_size):
                 TriggerDagRunOperator(
                     task_id=f'trigger_worker_dag_{uuid4().hex}',
-                    trigger_dag_id=NOTICE_PROCESS_WORKFLOW_DAG_NAME,
+                    trigger_dag_id=NOTICE_PROCESSING_PIPELINE_DAG_NAME,
                     conf={
                         NOTICE_IDS_KEY: list(notice_batch),
                         START_WITH_STEP_NAME_KEY: self.start_with_step_name,

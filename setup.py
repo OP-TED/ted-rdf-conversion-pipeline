@@ -24,7 +24,6 @@ kwargs["tests_require"] = []
 kwargs["extras_require"] = {
 }
 
-
 def find_version(filename):
     _version_re = re.compile(r'__version__ = "(.*)"')
     for line in open(filename):
@@ -43,7 +42,7 @@ with open_local(["README.md"], encoding="utf-8") as readme:
 
 version = find_version("ted_sws/__init__.py")
 
-packages = find_packages(exclude=("examples*", "test*"))
+packages = find_packages(exclude=("examples*", "tests*", "dags*", "notebooks*", "infra*", "docs*"))
 
 setup(
     name="ted_sws",

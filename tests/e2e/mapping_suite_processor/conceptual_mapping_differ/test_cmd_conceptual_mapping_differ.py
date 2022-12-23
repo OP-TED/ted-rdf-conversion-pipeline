@@ -41,7 +41,6 @@ def test_cmd_conceptual_mapping_differ(caplog, cli_runner, fake_test_mapping_sui
                                      ["--mapping-suite-id", "package_F03_test", "--opt-mappings-folder",
                                       temp_mapping_suite_path, "--branch", "main", "--branch", "main",
                                       "--opt-output-folder", temp_folder])
-
         assert response.exit_code == 0
         assert "SUCCESS" in response.output
 

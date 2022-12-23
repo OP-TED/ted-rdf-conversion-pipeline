@@ -1,24 +1,116 @@
-import json
-
-from ted_sws.core.model.transform import ConceptualMapping
-from ted_sws.mapping_suite_processor.services.conceptual_mapping_reader import mapping_suite_read_conceptual_mapping
-from pathlib import Path
-from deepdiff import DeepDiff
-from ted_sws import config
 import tempfile
+from pathlib import Path
 from typing import List
 from urllib.request import urlopen
-from ted_sws.data_manager.adapters.mapping_suite_repository import MS_TRANSFORM_FOLDER_NAME, \
-    MS_CONCEPTUAL_MAPPING_FILE_NAME
+
+from deepdiff import DeepDiff
 from jinja2 import Environment, PackageLoader
 from json2html import json2html
-from ted_sws.core.model.transform import ConceptualMappingDiff
+from pydantic.utils import deep_update
+
+from ted_sws import config
+from ted_sws.core.model.transform import ConceptualMapping
+from ted_sws.core.model.transform import ConceptualMappingDiff, ConceptualMappingDiffMetadata, ConceptualMappingDiffData
+from ted_sws.data_manager.adapters.mapping_suite_repository import MS_TRANSFORM_FOLDER_NAME, \
+    MS_CONCEPTUAL_MAPPING_FILE_NAME
+from ted_sws.mapping_suite_processor.services.conceptual_mapping_reader import mapping_suite_read_conceptual_mapping
 
 TEMPLATES = Environment(loader=PackageLoader("ted_sws.mapping_suite_processor.resources", "templates"))
 CONCEPTUAL_MAPPINGS_DIFF_HTML_REPORT_TEMPLATE = "conceptual_mappings_diff_report.jinja2"
 
 GITHUB_CONCEPTUAL_MAPPINGS_PATH = "{GITHUB_BASE}/raw/{GIT_BRANCH}/mappings/{MAPPING_SUITE_ID}/" + \
                                   MS_TRANSFORM_FOLDER_NAME + "/" + MS_CONCEPTUAL_MAPPING_FILE_NAME
+
+
+class ConceptualMappingDiffDataTransformer:
+    data: dict
+    tabs: dict = {
+        "metadata": {},
+        "rules": {},
+        "resources": {},
+        "rml_modules": {}
+    }
+    labels: dict
+
+    item_key_flattenizer: str = "|"
+
+    def __init__(self, data):
+        self.data = data
+        self.init_labels()
+        self.init_tabs()
+
+    @classmethod
+    def init_labels(cls):
+        cls.labels = {
+            "tabs": {
+                "metadata": "Metadata",
+                "rules": "Rules",
+                "resources": "Resources",
+                "rml_modules": "RML Modules"
+            },
+            "actions": {
+                "set_item_added": "Set Added",
+                "set_item_removed": "Set Removed",
+                "iterable_item_removed": "Removed",
+                "iterable_item_added": "Added",
+                "iterable_item_moved": "Moved",
+                "values_changed": "Changed"
+            },
+            "fields": {
+                "identifier": "Identifier",
+                "title": "Title",
+                "description": "Description",
+                "mapping_version": "Mapping Version",
+                "epo_version": "EPO version",
+                "base_xpath": "Base XPath",
+                "metadata_constraints": "Metadata constraints",
+                "eforms_subtype": "eForms Subtype",
+                "start_date": "Start Date",
+                "end_date": "End Date",
+                "min_xsd_version": "Min XSD Version",
+                "max_xsd_version": "Max XSD Version",
+                "standard_form_field_id": "Standard Form Field ID (M)",
+                "standard_form_field_name": "Standard Form Field Name (M)",
+                "eform_bt_id": "eForm BT-ID (O)",
+                "eform_bt_name": "eForm BT Name (O)",
+                "field_xpath": "Field XPath (M)",
+                "field_xpath_condition": "Field XPath condition (M)",
+                "class_path": "Class path (M)",
+                "property_path": "Property path (M)",
+                "triple_fingerprint": "Triple Fingerprint",
+                "fragment_fingerprint": "Fragment Fingerprint",
+                "file_name": "File name",
+                "old_value": "Old value",
+                "new_value": "New value"
+            }
+        }
+
+    def init_tabs(self):
+        for action in self.data:
+            action_items = self.unflatten(self.data[action])
+            for tab in action_items:
+                if tab not in self.tabs:
+                    continue
+                if action not in self.tabs[tab]:
+                    self.tabs[tab][action] = {}
+                self.tabs[tab][action] = deep_update(self.tabs[tab][action], action_items[tab])
+
+    @classmethod
+    def normalize_item_key(cls, k):
+        return cls.item_key_flattenizer.join(k.replace("'", "").split("root[", 1)[1].rsplit("]", 1)[0].split("]["))
+
+    @classmethod
+    def unflatten(cls, d):
+        ud = {}
+        for k, v in d.items():
+            context = ud
+            k = cls.normalize_item_key(k)
+            for sub_key in k.split(cls.item_key_flattenizer)[:-1]:
+                if sub_key not in context:
+                    context[sub_key] = {}
+                context = context[sub_key]
+            context[k.split(cls.item_key_flattenizer)[-1]] = v
+        return ud
 
 
 def mapping_suite_diff_conceptual_mappings(mappings: List[ConceptualMapping]) -> dict:
@@ -29,17 +121,19 @@ def mapping_suite_diff_conceptual_mappings(mappings: List[ConceptualMapping]) ->
     """
     assert mappings and len(mappings) == 2
     diff: ConceptualMappingDiff = ConceptualMappingDiff()
-    diff.metadata = {
-        "defaults": {
+    diff.metadata = ConceptualMappingDiffMetadata(
+        defaults={
             "branch": "local",
             "conceptual_mapping": MS_TRANSFORM_FOLDER_NAME + "/" + MS_CONCEPTUAL_MAPPING_FILE_NAME
         },
-        "metadata": [
+        metadata=[
             mappings[0].metadata.dict(),
             mappings[1].metadata.dict()
         ]
-    }
-    diff.data = DeepDiff(mappings[0].dict(), mappings[1].dict(), ignore_order=True)
+    )
+    mapping1: ConceptualMapping = mappings[0]
+    mapping2: ConceptualMapping = mappings[1]
+    diff.data = ConceptualMappingDiffData(original=DeepDiff(mapping1.dict(), mapping2.dict(), ignore_order=False))
     return diff.dict()
 
 
@@ -114,13 +208,24 @@ def mapping_suite_diff_repo_conceptual_mappings(branch_or_tag_name: List[str], m
 
 
 def generate_conceptual_mappings_diff_html_report(diff: ConceptualMappingDiff):
+    def transform_diff_data(diff_data):
+        """"""
+        diff_data.html = json2html.convert(
+            json=diff_data.original,
+            table_attributes='class="display dataTable heading"',
+            clubbing=True
+        )
+
+        diff_transformer = ConceptualMappingDiffDataTransformer(data=diff_data.original)
+        diff_data.transformed = {
+            "labels": diff_transformer.labels,
+            "tabs": diff_transformer.tabs
+        }
+        return diff_data
+
     html_report = TEMPLATES.get_template(CONCEPTUAL_MAPPINGS_DIFF_HTML_REPORT_TEMPLATE).render({
         "metadata": diff.metadata,
         "created_at": diff.created_at,
-        "data": json2html.convert(
-            json=diff.data,
-            table_attributes='class="display" border="1"',
-            clubbing=True
-        )
+        "data": transform_diff_data(diff.data)
     })
     return html_report

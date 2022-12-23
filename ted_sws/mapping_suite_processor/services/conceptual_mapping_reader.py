@@ -117,7 +117,7 @@ def _read_conceptual_mapping_rules(df: pd.DataFrame) -> List[ConceptualMappingRu
         rule.eform_bt_id = _read_pd_value(row[RULES_E_FORM_BT_ID])
         rule.eform_bt_name = _read_pd_value(row[RULES_E_FORM_BT_NAME])
         rule.field_xpath = _read_list_from_pd_multiline_value(row[RULES_FIELD_XPATH])
-        rule.field_xpath = _read_list_from_pd_multiline_value(row[RULES_FIELD_XPATH_CONDITION])
+        rule.field_xpath_condition = _read_list_from_pd_multiline_value(row[RULES_FIELD_XPATH_CONDITION])
         rule.class_path = _read_list_from_pd_multiline_value(row[RULES_CLASS_PATH])
         rule.property_path = _read_list_from_pd_multiline_value(row[RULES_PROPERTY_PATH])
         rules.append(rule)

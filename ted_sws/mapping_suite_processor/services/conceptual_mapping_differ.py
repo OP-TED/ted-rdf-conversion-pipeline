@@ -131,9 +131,12 @@ def mapping_suite_diff_conceptual_mappings(mappings: List[ConceptualMapping]) ->
             mappings[1].metadata.dict()
         ]
     )
-    mapping1: ConceptualMapping = mappings[0]
-    mapping2: ConceptualMapping = mappings[1]
-    diff.data = ConceptualMappingDiffData(original=DeepDiff(mapping1.dict(), mapping2.dict(), ignore_order=False))
+    mapping1: dict = mappings[0].dict()
+    mapping2: dict = mappings[1].dict()
+
+    diff.data = transform_conceptual_mappings_diff_data(ConceptualMappingDiffData(
+        original=DeepDiff(mapping1, mapping2, ignore_order=False)
+    ))
     return diff.dict()
 
 
@@ -207,25 +210,20 @@ def mapping_suite_diff_repo_conceptual_mappings(branch_or_tag_name: List[str], m
     return mapping_suite_diff_files_conceptual_mappings([filepath1, filepath2])
 
 
+def transform_conceptual_mappings_diff_data(diff_data: ConceptualMappingDiffData):
+    diff_transformer = ConceptualMappingDiffDataTransformer(data=diff_data.original)
+    diff_data.transformed = {
+        "labels": diff_transformer.labels,
+        "tabs": diff_transformer.tabs
+    }
+    return diff_data
+
+
 def generate_conceptual_mappings_diff_html_report(diff: ConceptualMappingDiff):
-    def transform_diff_data(diff_data):
-        """"""
-        diff_data.html = json2html.convert(
-            json=diff_data.original,
-            table_attributes='class="display dataTable heading"',
-            clubbing=True
-        )
-
-        diff_transformer = ConceptualMappingDiffDataTransformer(data=diff_data.original)
-        diff_data.transformed = {
-            "labels": diff_transformer.labels,
-            "tabs": diff_transformer.tabs
-        }
-        return diff_data
-
-    html_report = TEMPLATES.get_template(CONCEPTUAL_MAPPINGS_DIFF_HTML_REPORT_TEMPLATE).render({
-        "metadata": diff.metadata,
-        "created_at": diff.created_at,
-        "data": transform_diff_data(diff.data)
-    })
+    diff.data.html = json2html.convert(
+        json=diff.data.original,
+        table_attributes='class="display dataTable heading"',
+        clubbing=True
+    )
+    html_report = TEMPLATES.get_template(CONCEPTUAL_MAPPINGS_DIFF_HTML_REPORT_TEMPLATE).render(diff)
     return html_report

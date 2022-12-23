@@ -10,7 +10,7 @@ from ted_sws.core.adapters.cmd_runner import CmdRunner as BaseCmdRunner, DEFAULT
 from ted_sws.mapping_suite_processor.entrypoints.cli import CONCEPTUAL_MAPPINGS_FILE_TEMPLATE
 from ted_sws.mapping_suite_processor.services.conceptual_mapping_differ import \
     mapping_suite_diff_files_conceptual_mappings, mapping_suite_diff_repo_conceptual_mappings, \
-    generate_conceptual_mappings_diff_html_report
+    generate_conceptual_mappings_diff_html_report, transform_conceptual_mappings_diff_data
 from ted_sws.core.model.transform import ConceptualMappingDiff
 
 CMD_NAME = "CMD_CONCEPTUAL_MAPPING_DIFFER"
@@ -59,16 +59,7 @@ class CmdRunner(BaseCmdRunner):
         with open(report_file_file_name_html, 'w+') as report_file:
             report_file.write(
                 generate_conceptual_mappings_diff_html_report(
-                    ConceptualMappingDiff(
-                        metadata={
-                            "branches": self.branches,
-                            "mapping_suite_ids": self.mapping_suite_ids,
-                            "files": files,
-                            "defaults": diff['metadata']['defaults'],
-                            "metadata": diff['metadata']['metadata']
-                        },
-                        data=data
-                    ))
+                    ConceptualMappingDiff(**diff))
             )
 
     @classmethod

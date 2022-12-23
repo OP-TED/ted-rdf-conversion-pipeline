@@ -1,7 +1,6 @@
-import pathlib
-
 import pytest
 
+from ted_sws import config
 from ted_sws.core.model.manifestation import XMLManifestation, RDFManifestation
 from ted_sws.core.model.notice import Notice
 from tests import TEST_DATA_PATH
@@ -9,7 +8,7 @@ from tests import TEST_DATA_PATH
 
 @pytest.fixture
 def limes_sparql_endpoint() -> str:
-    return "https://fuseki.ted-data.eu/test_limes/query"
+    return f"{config.FUSEKI_ADMIN_HOST}/test_limes/query"
 
 
 @pytest.fixture

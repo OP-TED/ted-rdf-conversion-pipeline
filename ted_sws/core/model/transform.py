@@ -70,11 +70,27 @@ class ConceptualMappingXPATH(MappingSuiteComponent):
     form_field: Optional[str]
 
 
+class ConceptualMappingDiffMetadata(MappingSuiteComponent):
+    """"""
+    branches: Optional[List[str]]
+    mapping_suite_ids: Optional[List[str]]
+    files: Optional[List[Optional[str]]]
+    defaults: Optional[dict]
+    metadata: Optional[List[dict]]
+
+
+class ConceptualMappingDiffData(MappingSuiteComponent):
+    """"""
+    html: Optional[str]
+    transformed: Optional[dict]
+    original: Optional[dict]
+
+
 class ConceptualMappingDiff(MappingSuiteComponent):
     """"""
     created_at: str = datetime.now().isoformat()
-    metadata: Optional[dict]
-    data: Optional[dict]
+    metadata: Optional[ConceptualMappingDiffMetadata]
+    data: Optional[ConceptualMappingDiffData]
 
 
 class ConceptualMappingMetadataConstraints(PropertyBaseModel):

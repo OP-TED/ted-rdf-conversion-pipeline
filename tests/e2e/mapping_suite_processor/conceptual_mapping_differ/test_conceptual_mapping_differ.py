@@ -19,7 +19,7 @@ def test_mapping_suite_diff_conceptual_mappings():
 
     mapping2.metadata = metadata1
 
-    assert not mapping_suite_diff_conceptual_mappings([mapping1, mapping2])['data']
+    assert not mapping_suite_diff_conceptual_mappings([mapping1, mapping2])['data']['html']
 
 
 def test_mapping_suite_diff_file_conceptual_mappings(package_folder_path, package_F03_folder_path):
@@ -29,7 +29,7 @@ def test_mapping_suite_diff_file_conceptual_mappings(package_folder_path, packag
 
     diff = mapping_suite_diff_files_conceptual_mappings([filepath1, filepath2])
     assert diff['metadata']
-    assert diff['data']
+    assert diff['data']['original']
 
 
 def test_mapping_suite_diff_repo_conceptual_mappings(github_mapping_suite_id, package_folder_path):
@@ -39,17 +39,17 @@ def test_mapping_suite_diff_repo_conceptual_mappings(github_mapping_suite_id, pa
         branch_or_tag_name=["main"],
         mapping_suite_id=[github_mapping_suite_id],
     )
-    assert not diff['data']
+    assert not diff['data']['original']
 
     diff = mapping_suite_diff_repo_conceptual_mappings(
         branch_or_tag_name=["main"],
         mapping_suite_id=[github_mapping_suite_id],
         filepath=package_folder_path / MS_TRANSFORM_FOLDER_NAME / MS_CONCEPTUAL_MAPPING_FILE_NAME
     )
-    assert diff['data']
+    assert diff['data']['original']
 
     diff = mapping_suite_diff_repo_conceptual_mappings(
         branch_or_tag_name=["main"],
         mapping_suite_id=[github_mapping_suite_id, "package_F03_test"]
     )
-    assert diff['data']
+    assert diff['data']['original']

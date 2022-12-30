@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>HTML report for Conceptual Mappings Diff</title>
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
     <link href="https://cdn.datatables.net/1.10.22/css/jquery.dataTables.min.css" rel="stylesheet" type="text/css">
     <style>
     body {
@@ -12,8 +13,8 @@
         margin: 25px auto;
         width: 80%;
     }
-    body>table.display td,
-    body>table.display th {
+    body table.display td,
+    body table.display th {
         vertical-align: top;
         text-align: left;
     }
@@ -21,21 +22,30 @@
         width: auto
     }
 
+    table.heading {
+        border: 0;
+    }
     table.heading td,
     table.heading th {
-        border: 1px solid #ddd;
+        border: 1px solid #ddd !important;
+        vertical-align: top;
+        overflow-wrap: anywhere;
     }
     table.heading th {
         background-color: #eee;
         text-align: left;
+        width: 18%;
     }
     table.heading thead td {
         text-align: left;
         font-weight: bold;
-        width: 50%;
+        width: 41%;
     }
     table.heading tbody th {
-        white-space: nowrap;
+        /*white-space: nowrap;*/
+    }
+    .tab {
+        font-weight: bold;
     }
     </style>
   </head>
@@ -49,7 +59,7 @@
     <h2>
         Conceptual Mappings
     </h2>
-    <table class="heading">
+    <table class="heading dataTable">
         <thead>
             <tr>
                 <th></th>
@@ -88,17 +98,158 @@
     </table>
     <hr>
     <h2>Report details: </h2>
-    {% if data %}
-        {{ data }}
+    {% if data.original %}
+        {% set tabs = data.transformed.tabs %}
+        {% set fields_labels = data.transformed.labels.fields %}
+        {% set actions_labels = data.transformed.labels.actions %}
+        {% set tabs_labels = data.transformed.labels.tabs %}
+        <div class="tabs">
+          <ul>
+            {% for tab in tabs %}
+                {% if tabs[tab] %}
+                <li><a href="#tabs-{{ tab }}" class="tab">{{ tabs_labels[tab] }}</a></li>
+                {% endif %}
+            {% endfor %}
+            <li style="float:right"><a href="#tabs-raw">Source</a></li>
+          </ul>
+          {% for tab in tabs %}
+            {% if tabs[tab] %}
+                  <div id="tabs-{{ tab }}" class="tabs">
+                     <ul>
+                     {% for action in tabs[tab] %}
+                        {% if tabs[tab][action] %}
+                        <li><a href="#tabs-{{ tab }}-{{ action }}">{{ actions_labels[action] }}</a></li>
+                        {% endif %}
+                     {% endfor %}
+                     </ul>
+                     {% for action in tabs[tab] %}
+                        {% if tabs[tab][action] %}
+                        <div id="tabs-{{ tab }}-{{ action }}" class="ui-widget">
+                        <table class="dataTable heading">
+                        <tbody>
+                        {% for field0 in tabs[tab][action] %}
+                            {% set field0_value = tabs[tab][action][field0] %}
+                            {% if field0|int(-1) != -1 %} {% set is_field0_int = True %} {% endif %}
+                            <tr>
+                                <th>
+                                    {% if is_field0_int %}Item {% endif %}{{ fields_labels[field0] or field0 }}
+                                </th>
+                                <td>
+                                    {% if "old_value" in field0_value %}
+                                        <table class="dataTable heading">
+                                        <tbody>
+                                            <tr>
+                                                <th>{{ fields_labels["old_value"] }}</th>
+                                                <td>{{ field0_value['old_value'] }}</td>
+                                            </tr>
+                                            <tr>
+                                                <th>{{ fields_labels["new_value"] }}</th>
+                                                <td>{{ field0_value['new_value'] }}</td>
+                                            </tr>
+                                        </tbody>
+                                        </table>
+                                    {% else %}
+                                    {% if field0_value and field0_value is mapping %}
+                                    <table class="dataTable heading">
+                                        <tbody>
+                                        {% for field1 in field0_value %}
+                                            {% set field1_value = field0_value[field1] %}
+                                            {% if field1|int(-1) != -1 %} {% set is_field1_int = True %} {% endif %}
+                                            <tr>
+                                                <th>
+                                                    {% if is_field1_int %}Sub-Item {% endif %}{{ fields_labels[field1] or field1 }}
+                                                </th>
+                                                <td>
+                                                {% if field1_value and "old_value" in field1_value %}
+                                                <table class="dataTable heading">
+                                                <tbody>
+                                                    <tr>
+                                                        <th>{{ fields_labels["old_value"] }}</th>
+                                                        <td>{{ field1_value['old_value'] }}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>{{ fields_labels["new_value"] }}</th>
+                                                        <td>{{ field1_value['new_value'] }}</td>
+                                                    </tr>
+                                                </tbody>
+                                                </table>
+                                                {% else %}
+                                                {% if field1_value and field1_value is mapping %}
+                                                <table class="dataTable heading">
+                                                    <tbody>
+                                                    {% for field2 in field1_value %}
+                                                        {% set field2_value = field1_value[field2] %}
+                                                        {% if field2|int(-1) != -1 %} {% set is_field2_int = True %} {% endif %}
+                                                        <tr>
+                                                            <th>
+                                                                {% if is_field2_int %}Sub-Item {% endif %}{{ fields_labels[field2] or field2 }}
+                                                            </th>
+                                                            <td>
+                                                            {% if field2_value and "old_value" in field2_value %}
+                                                            <table class="dataTable heading">
+                                                            <tbody>
+                                                                <tr>
+                                                                    <th>{{ fields_labels["old_value"] }}</th>
+                                                                    <td>{{ field2_value['old_value'] }}</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <th>{{ fields_labels["new_value"] }}</th>
+                                                                    <td>{{ field2_value['new_value'] }}</td>
+                                                                </tr>
+                                                            </tbody>
+                                                            </table>
+                                                            {% else %}
+                                                            {{ field2_value }}
+                                                            {% endif %}
+                                                            </td>
+                                                        </tr>
+                                                    {% endfor %}
+                                                    </tbody>
+                                                </table>
+                                                {% else %}
+                                                    {{ field1_value }}
+                                                {% endif %}
+                                                {% endif %}
+                                                </td>
+                                            </tr>
+                                        {% endfor %}
+                                        </tbody>
+                                    </table>
+                                    {% else %}
+                                        {{ field0_value }}
+                                    {% endif %}
+                                    {% endif %}
+                                </td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                        </table>
+                        </div>
+                        {% endif %}
+                     {% endfor %}
+                  </div>
+            {% endif %}
+          {% endfor %}
+          <div id="tabs-raw">
+            {{ data.html }}
+          </div>
+        </div>
     {% else %}
         <h3>NO DIFF</h3>
     {% endif %}
+
+    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+    <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
     <script>
-        const tables = document.querySelectorAll('body>table');
+        const tables = document.querySelectorAll('body table.dataTable');
         console.log(tables);
         for (const table of tables) {
           table.classList.add('dataTable');
         }
+
+        $( function() {
+            $( ".tabs" ).tabs();
+        } );
     </script>
   </body>
 </html>

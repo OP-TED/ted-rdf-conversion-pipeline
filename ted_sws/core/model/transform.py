@@ -147,6 +147,25 @@ class ConceptualMappingRMLModule(MappingSuiteComponent):
     file_name: Optional[str]
 
 
+class ConceptualMappingRemark(MappingSuiteComponent):
+    """
+
+    """
+    standard_form_field_id: Optional[str]
+    standard_form_field_name: Optional[str]
+    field_xpath: Optional[List[str]]
+
+
+class ConceptualMappingControlledList(MappingSuiteComponent):
+    """
+
+    """
+    field_value: Optional[str]
+    mapping_reference: Optional[str]
+    super_type: Optional[str]
+    xml_path_fragment: Optional[str]
+
+
 class ConceptualMapping(MappingSuiteComponent):
     """
 
@@ -154,8 +173,11 @@ class ConceptualMapping(MappingSuiteComponent):
     xpaths: List[ConceptualMappingXPATH] = []
     metadata: Optional[ConceptualMappingMetadata]
     rules: List[ConceptualMappingRule] = []
+    mapping_remarks: List[ConceptualMappingRemark] = []
     resources: List[ConceptualMappingResource] = []
     rml_modules: List[ConceptualMappingRMLModule] = []
+    cl1_roles: List[ConceptualMappingControlledList] = []
+    cl2_organisations: List[ConceptualMappingControlledList] = []
 
 
 class MappingSuite(MappingSuiteComponent):

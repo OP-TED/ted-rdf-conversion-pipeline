@@ -4,14 +4,14 @@ import json
 from pathlib import Path
 
 import click
-from ted_sws.event_manager.adapters.log import LOG_WARN_TEXT
 
 from ted_sws.core.adapters.cmd_runner import CmdRunner as BaseCmdRunner, DEFAULT_MAPPINGS_PATH
+from ted_sws.core.model.transform import ConceptualMappingDiff
+from ted_sws.event_manager.adapters.log import LOG_WARN_TEXT
 from ted_sws.mapping_suite_processor.entrypoints.cli import CONCEPTUAL_MAPPINGS_FILE_TEMPLATE
 from ted_sws.mapping_suite_processor.services.conceptual_mapping_differ import \
     mapping_suite_diff_files_conceptual_mappings, mapping_suite_diff_repo_conceptual_mappings, \
-    generate_conceptual_mappings_diff_html_report, transform_conceptual_mappings_diff_data
-from ted_sws.core.model.transform import ConceptualMappingDiff
+    generate_conceptual_mappings_diff_html_report
 
 CMD_NAME = "CMD_CONCEPTUAL_MAPPING_DIFFER"
 

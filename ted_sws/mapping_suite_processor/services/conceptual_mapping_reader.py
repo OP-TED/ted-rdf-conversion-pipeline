@@ -6,7 +6,7 @@ import pandas as pd
 
 from ted_sws.core.model.transform import ConceptualMapping, ConceptualMappingXPATH, ConceptualMappingMetadata, \
     ConceptualMappingResource, ConceptualMappingMetadataConstraints, ConceptualMappingRule, ConceptualMappingRMLModule, \
-    ConceptualMappingRemark, ConceptualMappingControlledList
+    ConceptualMappingRemark, ConceptualMappingControlList
 from ted_sws.mapping_suite_processor import CONCEPTUAL_MAPPINGS_METADATA_SHEET_NAME, \
     CONCEPTUAL_MAPPINGS_RULES_SHEET_NAME, RULES_FIELD_XPATH, RULES_SF_FIELD_ID, RULES_SF_FIELD_NAME, \
     CONCEPTUAL_MAPPINGS_RESOURCES_SHEET_NAME, CONCEPTUAL_MAPPINGS_RML_MODULES_SHEET_NAME, RULES_E_FORM_BT_ID, \
@@ -178,7 +178,7 @@ def _read_conceptual_mapping_rml_modules(df: pd.DataFrame) -> List[ConceptualMap
     return rml_modules
 
 
-def _read_conceptual_mapping_controlled_list(df: pd.DataFrame) -> List[ConceptualMappingControlledList]:
+def _read_conceptual_mapping_control_list(df: pd.DataFrame) -> List[ConceptualMappingControlList]:
     """
 
     :param df:
@@ -186,18 +186,18 @@ def _read_conceptual_mapping_controlled_list(df: pd.DataFrame) -> List[Conceptua
     """
 
     df.columns = df.iloc[0]
-    controlled_list_df = df[1:].copy()
+    control_list_df = df[1:].copy()
 
-    controlled_list = []
-    item: ConceptualMappingControlledList
-    for idx, row in controlled_list_df.iterrows():
-        item = ConceptualMappingControlledList()
+    control_list = []
+    item: ConceptualMappingControlList
+    for idx, row in control_list_df.iterrows():
+        item = ConceptualMappingControlList()
         item.field_value = _read_pd_value(row[CL_FIELD_VALUE])
         item.mapping_reference = _read_pd_value(row[CL_MAPPING_REFERENCE])
         item.super_type = _read_pd_value(row[CL_SUPERTYPE])
         item.xml_path_fragment = _read_pd_value(row[CL_XML_PATH_FRAGMENT])
-        controlled_list.append(item)
-    return controlled_list
+        control_list.append(item)
+    return control_list
 
 
 def _read_conceptual_mapping_xpaths(rules_df: pd.DataFrame, base_xpath: str) -> List[ConceptualMappingXPATH]:
@@ -257,9 +257,9 @@ def mapping_suite_read_conceptual_mapping(conceptual_mappings_file_path: Path) -
         conceptual_mapping.resources = _read_conceptual_mapping_resources(dfs[CONCEPTUAL_MAPPINGS_RESOURCES_SHEET_NAME])
         conceptual_mapping.rml_modules = _read_conceptual_mapping_rml_modules(
             dfs[CONCEPTUAL_MAPPINGS_RML_MODULES_SHEET_NAME])
-        conceptual_mapping.cl1_roles = _read_conceptual_mapping_controlled_list(
+        conceptual_mapping.cl1_roles = _read_conceptual_mapping_control_list(
             dfs[CONCEPTUAL_MAPPINGS_CL1_ROLES_SHEET_NAME])
-        conceptual_mapping.cl2_organisations = _read_conceptual_mapping_controlled_list(
+        conceptual_mapping.cl2_organisations = _read_conceptual_mapping_control_list(
             dfs[CONCEPTUAL_MAPPINGS_CL2_ORGANISATIONS_SHEET_NAME])
         conceptual_mapping.xpaths = _read_conceptual_mapping_xpaths(
             rules_df=dfs[CONCEPTUAL_MAPPINGS_RULES_SHEET_NAME][1:].copy(),

@@ -156,7 +156,7 @@ class ConceptualMappingRemark(MappingSuiteComponent):
     field_xpath: Optional[List[str]]
 
 
-class ConceptualMappingControlledList(MappingSuiteComponent):
+class ConceptualMappingControlList(MappingSuiteComponent):
     """
 
     """
@@ -176,8 +176,8 @@ class ConceptualMapping(MappingSuiteComponent):
     mapping_remarks: List[ConceptualMappingRemark] = []
     resources: List[ConceptualMappingResource] = []
     rml_modules: List[ConceptualMappingRMLModule] = []
-    cl1_roles: List[ConceptualMappingControlledList] = []
-    cl2_organisations: List[ConceptualMappingControlledList] = []
+    cl1_roles: List[ConceptualMappingControlList] = []
+    cl2_organisations: List[ConceptualMappingControlList] = []
 
 
 class MappingSuite(MappingSuiteComponent):

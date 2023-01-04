@@ -82,8 +82,8 @@ class ConceptualMappingDiffMetadata(MappingSuiteComponent):
 class ConceptualMappingDiffData(MappingSuiteComponent):
     """"""
     html: Optional[str]
-    original: Optional[dict]
     transformed: Optional[dict]
+    original: Optional[dict]
 
 
 class ConceptualMappingDiff(MappingSuiteComponent):

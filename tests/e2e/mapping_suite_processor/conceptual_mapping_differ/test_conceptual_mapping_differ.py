@@ -1,8 +1,9 @@
-from ted_sws.core.model.transform import ConceptualMapping, ConceptualMappingMetadata
+from ted_sws.core.model.transform import ConceptualMapping, ConceptualMappingMetadata, ConceptualMappingDiff
 from ted_sws.data_manager.adapters.mapping_suite_repository import MS_TRANSFORM_FOLDER_NAME, \
     MS_CONCEPTUAL_MAPPING_FILE_NAME
 from ted_sws.mapping_suite_processor.services.conceptual_mapping_differ import mapping_suite_diff_conceptual_mappings, \
-    mapping_suite_diff_files_conceptual_mappings, mapping_suite_diff_repo_conceptual_mappings
+    mapping_suite_diff_files_conceptual_mappings, mapping_suite_diff_repo_conceptual_mappings, \
+    generate_conceptual_mappings_diff_filename
 
 
 def test_mapping_suite_diff_conceptual_mappings():
@@ -53,3 +54,14 @@ def test_mapping_suite_diff_repo_conceptual_mappings(github_mapping_suite_id, pa
         mapping_suite_id=[github_mapping_suite_id, "package_F03_test"]
     )
     assert diff['data']['original']
+
+
+def test_generate_conceptual_mappings_diff_filename(package_folder_path, package_F03_folder_path):
+    """"""
+    filepath1 = package_folder_path / MS_TRANSFORM_FOLDER_NAME / MS_CONCEPTUAL_MAPPING_FILE_NAME
+    filepath2 = package_F03_folder_path / MS_TRANSFORM_FOLDER_NAME / MS_CONCEPTUAL_MAPPING_FILE_NAME
+
+    diff = mapping_suite_diff_files_conceptual_mappings([filepath1, filepath2])
+    filename = generate_conceptual_mappings_diff_filename(ConceptualMappingDiff(**diff), "conceptual_mappings_diff",
+                                                          ".json")
+    assert filename == "conceptual_mappings_diff_F03_v0.0.1_vs_package_F03_v2.2.0.json"

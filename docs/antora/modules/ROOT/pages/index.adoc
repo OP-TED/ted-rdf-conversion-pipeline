@@ -1,4 +1,8 @@
-= TED-SWS Project documentation
+= TED-RDF Conversion Pipeline Documentation
+
+The TED-RDF Conversion Pipeline, which is part of the TED Semantic Web Services, aka TED-SWS system, provides tools an infrastructure to convert TED notices available in XML format into RDF. This conversion pipeline is designed to work with the https://docs.ted.europa.eu/rdf-mapping/index.html[TED-RDF Mappings].
+
+== Quick references for users
 
 * xref:mapping_suite_cli_toolchain.adoc[Installation and usage instructions for the Mapping Suite CLI toolchain]
 * link:{attachmentsdir}/ted-sws-architecture/index.html[Preliminary project architecture (in progress)^]

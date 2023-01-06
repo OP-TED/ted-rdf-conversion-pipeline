@@ -4,14 +4,15 @@ import json
 from pathlib import Path
 
 import click
-from ted_sws.event_manager.adapters.log import LOG_WARN_TEXT
+from pydantic.utils import deep_update
 
 from ted_sws.core.adapters.cmd_runner import CmdRunner as BaseCmdRunner, DEFAULT_MAPPINGS_PATH
+from ted_sws.core.model.transform import ConceptualMappingDiff
+from ted_sws.event_manager.adapters.log import LOG_WARN_TEXT
 from ted_sws.mapping_suite_processor.entrypoints.cli import CONCEPTUAL_MAPPINGS_FILE_TEMPLATE
 from ted_sws.mapping_suite_processor.services.conceptual_mapping_differ import \
     mapping_suite_diff_files_conceptual_mappings, mapping_suite_diff_repo_conceptual_mappings, \
-    generate_conceptual_mappings_diff_html_report, transform_conceptual_mappings_diff_data
-from ted_sws.core.model.transform import ConceptualMappingDiff
+    generate_conceptual_mappings_diff_html_report
 
 CMD_NAME = "CMD_CONCEPTUAL_MAPPING_DIFFER"
 
@@ -51,15 +52,20 @@ class CmdRunner(BaseCmdRunner):
         self.output_folder = output_folder
 
     def _report(self, diff, files: list):
-        data = diff['data']
+        diff['metadata'] = deep_update(diff['metadata'], {
+            "branches": self.branches,
+            "mapping_suite_ids": self.mapping_suite_ids,
+            "files": files
+        })
         report_file_file_name_json = Path(self.output_folder) / (DEFAULT_REPORT_FILE_NAME + ".json")
         with open(report_file_file_name_json, 'w+') as report_file:
-            report_file.write(json.dumps(data, indent=2))
+            report_file.write(json.dumps(diff, indent=2))
         report_file_file_name_html = Path(self.output_folder) / (DEFAULT_REPORT_FILE_NAME + ".html")
         with open(report_file_file_name_html, 'w+') as report_file:
             report_file.write(
                 generate_conceptual_mappings_diff_html_report(
-                    ConceptualMappingDiff(**diff))
+                    ConceptualMappingDiff(**diff)
+                )
             )
 
     @classmethod

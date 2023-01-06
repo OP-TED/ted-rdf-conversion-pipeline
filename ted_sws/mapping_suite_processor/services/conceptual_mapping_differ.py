@@ -27,8 +27,11 @@ class ConceptualMappingDiffDataTransformer:
     tabs: dict = {
         "metadata": {},
         "rules": {},
+        "mapping_remarks": {},
         "resources": {},
-        "rml_modules": {}
+        "rml_modules": {},
+        "cl1_roles": {},
+        "cl2_organisations": {}
     }
     labels: dict
 
@@ -45,8 +48,11 @@ class ConceptualMappingDiffDataTransformer:
             "tabs": {
                 "metadata": "Metadata",
                 "rules": "Rules",
+                "mapping_remarks": "Remarks",
                 "resources": "Resources",
-                "rml_modules": "RML Modules"
+                "rml_modules": "RML Modules",
+                "cl1_roles": "CL1 Roles",
+                "cl2_organisations": "CL2 Organisations"
             },
             "actions": {
                 "set_item_added": "Set Added",
@@ -81,7 +87,11 @@ class ConceptualMappingDiffDataTransformer:
                 "fragment_fingerprint": "Fragment Fingerprint",
                 "file_name": "File name",
                 "old_value": "Old value",
-                "new_value": "New value"
+                "new_value": "New value",
+                "field_value": "Field Value (in XML)",
+                "mapping_reference": "Mapping Reference (in ePO)",
+                "super_type": "SuperType",
+                "xml_path_fragment": "XML PATH Fragment"
             }
         }
 

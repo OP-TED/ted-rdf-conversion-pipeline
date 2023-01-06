@@ -1,4 +1,4 @@
-# TED Semantic Web Services
+# TED-RDF Conversion Pipeline
 
 [![Lines of Code](https://sonarcloud.io/api/project_badges/measure?project=meaningfy-ws_ted-sws&metric=ncloc)](https://sonarcloud.io/summary/new_code?id=meaningfy-ws_ted-sws)
 [![Bugs](https://sonarcloud.io/api/project_badges/measure?project=meaningfy-ws_ted-sws&metric=bugs)](https://sonarcloud.io/summary/new_code?id=meaningfy-ws_ted-sws)
@@ -18,10 +18,10 @@
 
 ## Documentation
 
-If you contribute to this projector are simple user please refer to the following project documentation:
+This repository is part of the TED Semantic Web Services, aka TED-SWS System. If you would like to contribute to this project, or you are a simple user, please refer to the following project documentation pages:
 
-* [Project documentation ](https://docs.ted.europa.eu/ted-rdf-conversion-pipeline/ted-sws/index.html)
-* [GitHub pages with the enterprise architecture (in development)](https://docs.ted.europa.eu/ted-rdf-conversion-pipeline/ted-sws/_attachments/ted-sws-architecture/index.html)
+* [Project documentation ](https://docs.ted.europa.eu/rdf-conversion/index.html)
+* [GitHub pages with the enterprise architecture (in development)](https://docs.ted.europa.eu/rdf-conversion/_attachments/ted-sws-architecture/index.html)
 * [Enterprise architecture model file (in development)](https://drive.google.com/file/d/1YB2dPYe9E9bAR2peVraQaUANS-hXetms/view?usp=sharing)
 
 
@@ -30,8 +30,8 @@ Two sets of installation instruction are foreseen: one for the software engineer
 The software engineers need these instructions to deploy on a local or a single machine testing server.
 The semantic engineers need a set of CLI tools that help develop, validate and publish mapping suites.
 
-* [Demo & Testing installation instructions for software engineers](https://docs.ted.europa.eu/ted-rdf-conversion-pipeline/ted-sws/demo_installation.html)
-* [Installation & Usage instructions for the Mapping Suite CLI toolchain](https://docs.ted.europa.eu/ted-rdf-conversion-pipeline/ted-sws/mapping_suite_cli_toolchain.html)
+* [Demo & Testing installation instructions for software engineers](https://docs.ted.europa.eu/rdf-conversion/demo_installation.html)
+* [Installation & Usage instructions for the Mapping Suite CLI toolchain](https://docs.ted.europa.eu/rdf-conversion/mapping_suite_cli_toolchain.html)
 
 ## Contributing
 

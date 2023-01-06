@@ -2,6 +2,8 @@ from pymongo import MongoClient
 from dags.pipelines.pipeline_protocols import NoticePipelineOutput
 from ted_sws.core.model.notice import Notice, NoticeStatus
 from ted_sws.event_manager.services.log import log_notice_error
+from ted_sws.notice_validator.services.entity_deduplication_validation import \
+    generate_rdf_manifestation_entity_deduplication_report
 
 
 def notice_normalisation_pipeline(notice: Notice, mongodb_client: MongoClient) -> NoticePipelineOutput:
@@ -75,6 +77,9 @@ def notice_validation_pipeline(notice: Notice, mongodb_client: MongoClient) -> N
     log_notice_info(message="Validation :: Summary :: START", notice_id=notice.ted_id)
     validation_summary_report_notice(notice=notice)
     log_notice_info(message="Validation :: Summary :: END", notice_id=notice.ted_id)
+    log_notice_info(message="Validation :: Entity deduplication :: START", notice_id=notice.ted_id)
+    generate_rdf_manifestation_entity_deduplication_report(rdf_manifestation=notice.distilled_rdf_manifestation)
+    log_notice_info(message="Validation :: Entity deduplication :: END", notice_id=notice.ted_id)
     return NoticePipelineOutput(notice=notice)
 
 

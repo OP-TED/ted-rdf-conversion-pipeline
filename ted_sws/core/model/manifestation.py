@@ -181,6 +181,13 @@ class SHACLTestSuiteValidationReport(RDFValidationManifestation):
     validation_results: Union[QueriedSHACLShapeValidationResult, str]
 
 
+class EntityDeduplicationReport(Manifestation):
+    object_data: Optional[str]
+    number_of_duplicates: int
+    number_of_cets: int
+    uries: List[str]
+
+
 class RDFManifestation(Manifestation):
     """
         Transformed manifestation in RDF format
@@ -188,6 +195,7 @@ class RDFManifestation(Manifestation):
     mapping_suite_id = "unknown_mapping_suite_id"
     shacl_validations: List[SHACLTestSuiteValidationReport] = []
     sparql_validations: List[SPARQLTestSuiteValidationReport] = []
+    deduplication_report: Optional[EntityDeduplicationReport]
 
     def validation_exists(self, validation, validations):
         """

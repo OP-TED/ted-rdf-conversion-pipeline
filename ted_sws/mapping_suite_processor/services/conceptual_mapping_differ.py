@@ -21,14 +21,19 @@ CONCEPTUAL_MAPPINGS_DIFF_HTML_REPORT_TEMPLATE = "conceptual_mappings_diff_report
 GITHUB_CONCEPTUAL_MAPPINGS_PATH = "{GITHUB_BASE}/raw/{GIT_BRANCH}/mappings/{MAPPING_SUITE_ID}/" + \
                                   MS_TRANSFORM_FOLDER_NAME + "/" + MS_CONCEPTUAL_MAPPING_FILE_NAME
 
+DEFAULT_REPORT_FILE_NAME = "cm_diff"
+
 
 class ConceptualMappingDiffDataTransformer:
     data: dict
     tabs: dict = {
         "metadata": {},
         "rules": {},
+        "mapping_remarks": {},
         "resources": {},
-        "rml_modules": {}
+        "rml_modules": {},
+        "cl1_roles": {},
+        "cl2_organisations": {}
     }
     labels: dict
 
@@ -45,8 +50,11 @@ class ConceptualMappingDiffDataTransformer:
             "tabs": {
                 "metadata": "Metadata",
                 "rules": "Rules",
+                "mapping_remarks": "Remarks",
                 "resources": "Resources",
-                "rml_modules": "RML Modules"
+                "rml_modules": "RML Modules",
+                "cl1_roles": "CL1 Roles",
+                "cl2_organisations": "CL2 Organisations"
             },
             "actions": {
                 "set_item_added": "Set Added",
@@ -81,7 +89,11 @@ class ConceptualMappingDiffDataTransformer:
                 "fragment_fingerprint": "Fragment Fingerprint",
                 "file_name": "File name",
                 "old_value": "Old value",
-                "new_value": "New value"
+                "new_value": "New value",
+                "field_value": "Field Value (in XML)",
+                "mapping_reference": "Mapping Reference (in ePO)",
+                "super_type": "SuperType",
+                "xml_path_fragment": "XML PATH Fragment"
             }
         }
 
@@ -227,3 +239,19 @@ def generate_conceptual_mappings_diff_html_report(diff: ConceptualMappingDiff):
     )
     html_report = TEMPLATES.get_template(CONCEPTUAL_MAPPINGS_DIFF_HTML_REPORT_TEMPLATE).render(diff)
     return html_report
+
+
+def generate_conceptual_mappings_diff_filename(diff: ConceptualMappingDiff, prefix: str = DEFAULT_REPORT_FILE_NAME,
+                                               ext: str = None) -> str:
+    filename: str = prefix
+    cm1_metadata: dict = diff.metadata.metadata[0]
+    if cm1_metadata:
+        filename += f"_{cm1_metadata['identifier']}_v{cm1_metadata['mapping_version']}"
+    cm2_metadata: dict = diff.metadata.metadata[1]
+    if cm2_metadata:
+        if cm1_metadata:
+            filename += "_vs"
+        filename += f"_{cm2_metadata['identifier']}_v{cm2_metadata['mapping_version']}"
+    if ext:
+        filename += ext
+    return filename

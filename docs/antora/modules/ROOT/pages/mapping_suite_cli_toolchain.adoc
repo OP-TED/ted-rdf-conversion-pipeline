@@ -1,6 +1,6 @@
 = Mapping Suite CLI toolchain
 
-This set of instructions is prepared fo semantic engineers who intend to work with mapping suites.
+This set of instructions is prepared fo semantic engineers who intend to work with mapping suites already available or being developed in the https://docs.ted.europa.eu/rdf-mapping/index.html[TED-RDF Mappings] repository.
 
 == Installation instructions for semantic engineers
 

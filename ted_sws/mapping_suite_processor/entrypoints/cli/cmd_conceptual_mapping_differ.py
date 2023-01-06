@@ -12,12 +12,11 @@ from ted_sws.event_manager.adapters.log import LOG_WARN_TEXT
 from ted_sws.mapping_suite_processor.entrypoints.cli import CONCEPTUAL_MAPPINGS_FILE_TEMPLATE
 from ted_sws.mapping_suite_processor.services.conceptual_mapping_differ import \
     mapping_suite_diff_files_conceptual_mappings, mapping_suite_diff_repo_conceptual_mappings, \
-    generate_conceptual_mappings_diff_html_report
+    generate_conceptual_mappings_diff_html_report, generate_conceptual_mappings_diff_filename
 
 CMD_NAME = "CMD_CONCEPTUAL_MAPPING_DIFFER"
 
 DEFAULT_REPORT_OUTPUT_FOLDER = "."
-DEFAULT_REPORT_FILE_NAME = "conceptual_mappings_diff"
 
 """
 USAGE:
@@ -57,16 +56,22 @@ class CmdRunner(BaseCmdRunner):
             "mapping_suite_ids": self.mapping_suite_ids,
             "files": files
         })
-        report_file_file_name_json = Path(self.output_folder) / (DEFAULT_REPORT_FILE_NAME + ".json")
+        diff_object = ConceptualMappingDiff(**diff)
+        filename_base = generate_conceptual_mappings_diff_filename(diff_object)
+        output_path: Path = Path(self.output_folder)
+
+        report_file_file_name_json = output_path / (filename_base + ".json")
         with open(report_file_file_name_json, 'w+') as report_file:
             report_file.write(json.dumps(diff, indent=2))
-        report_file_file_name_html = Path(self.output_folder) / (DEFAULT_REPORT_FILE_NAME + ".html")
+
+        report_file_file_name_html = output_path / (filename_base + ".html")
         with open(report_file_file_name_html, 'w+') as report_file:
-            report_file.write(
-                generate_conceptual_mappings_diff_html_report(
-                    ConceptualMappingDiff(**diff)
-                )
-            )
+            report_file.write(generate_conceptual_mappings_diff_html_report(diff_object))
+
+        self.log(
+            f"Generated {LOG_WARN_TEXT.format(report_file_file_name_json)}" +
+            f" and {LOG_WARN_TEXT.format(report_file_file_name_html)} report files" +
+            f" in \"{LOG_WARN_TEXT.format(self.output_folder)}\" folder.")
 
     @classmethod
     def _conceptual_mappings_file_path(cls, mappings_path, mapping_suite_id):

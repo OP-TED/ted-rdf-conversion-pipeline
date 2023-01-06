@@ -5,6 +5,8 @@ from ted_sws.data_manager.adapters.triple_store import FusekiAdapter
 
 from ted_sws.master_data_registry.services.entity_deduplication import deduplicate_entities_by_cet_uri, \
     deduplicate_procedure_entities
+from ted_sws.notice_validator.services.entity_deduplication_validation import \
+    generate_rdf_manifestation_entity_deduplication_report
 
 TEST_MDR_REPOSITORY = "tmp_mdr_test_repository"
 TEST_QUERY_UNIQUE_NAMES = """SELECT distinct ?name
@@ -52,6 +54,12 @@ def test_deduplicate_entities_by_cet_uri(notice_with_rdf_manifestation, organisa
 
     for triple in canonical_cets_same_as_triples:
         assert str(triple[2]) in canonical_cets_set
+
+    assert notice_with_rdf_manifestation.distilled_rdf_manifestation.deduplication_report is None
+    generate_rdf_manifestation_entity_deduplication_report(notice_with_rdf_manifestation.distilled_rdf_manifestation)
+    assert notice_with_rdf_manifestation.distilled_rdf_manifestation.deduplication_report is not None
+    deduplication_report = notice_with_rdf_manifestation.distilled_rdf_manifestation.deduplication_report
+    assert deduplication_report.number_of_cets == len(canonical_cets_set)
 
     fuseki_triple_store.delete_repository(repository_name=TEST_MDR_REPOSITORY)
 

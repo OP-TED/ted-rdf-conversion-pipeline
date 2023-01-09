@@ -37,7 +37,7 @@ jobs:
 #        run: make start-project-services
 
       - name: Run tests
-        run: make test-all
+        run: make test
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v2.1.0
         with:
@@ -47,7 +47,7 @@ jobs:
           name: codecov-umbrella
           fail_ci_if_error: true
       - name: Check coverage.xml
-        run: ls -la
+        run: pwd
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@master
         env:

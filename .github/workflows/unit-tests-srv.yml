@@ -46,8 +46,6 @@ jobs:
           env_vars: OS,PYTHON
           name: codecov-umbrella
           fail_ci_if_error: true
-      - name: Check coverage.xml
-        run: pwd
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@master
         env:

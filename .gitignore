@@ -117,3 +117,4 @@ package.json
 .limes/*
 *.ser
 .DS_Store
+.scannerwork/*

@@ -9,4 +9,3 @@ tox-pytest-summary~=0.1.2
 mongomock==4.0.0
 uvicorn[standard]
 allure-pytest-bdd==2.10.0
-

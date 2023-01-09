@@ -31,11 +31,6 @@ jobs:
         envkey_VAULT_ADDR: ${{ secrets.VAULT_ADDR }}
     - name: Run unit tests
       run: make test
-    - name: SonarCloud Scan
-      uses: SonarSource/sonarcloud-github-action@master
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
-        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 #    - name: Upload coverage to Codecov
 #      uses: codecov/codecov-action@v1
 #      with:

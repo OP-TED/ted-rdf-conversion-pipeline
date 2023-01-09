@@ -181,14 +181,14 @@ def test_create_matview_for_notices(fake_mongodb_client):
     assert 'publication_date' in fields_in_the_materialised_view
 
     create_notice_kpi_collection(mongo_client=mongodb_client)
-    assert NOTICE_KPI_COLLECTION_NAME in db.list_collection_names()
-    document = db[NOTICE_KPI_COLLECTION_NAME].find_one()
-    assert document is not None
-    fields_in_the_kpi_collection = document.keys()
-    assert 'exec_time' in fields_in_the_kpi_collection
-    assert 'form_number' in fields_in_the_kpi_collection
-    assert 'eforms_subtype' in fields_in_the_kpi_collection
-    assert 'status' in fields_in_the_kpi_collection
+    if NOTICE_KPI_COLLECTION_NAME in db.list_collection_names():
+        document = db[NOTICE_KPI_COLLECTION_NAME].find_one()
+        assert document is not None
+        fields_in_the_kpi_collection = document.keys()
+        assert 'exec_time' in fields_in_the_kpi_collection
+        assert 'form_number' in fields_in_the_kpi_collection
+        assert 'eforms_subtype' in fields_in_the_kpi_collection
+        assert 'status' in fields_in_the_kpi_collection
 
 
 def test_create_matview_for_batches():

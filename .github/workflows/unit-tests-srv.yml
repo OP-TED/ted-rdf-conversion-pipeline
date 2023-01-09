@@ -3,9 +3,9 @@ name: Tests on srv server
 on:
   workflow_dispatch:
   push:
-    branches: [ feature/*, hotfix/* ]
+    branches: [ feature/* , main,  hotfix/* ]
   pull_request:
-    branches: [ master, release/* ]
+    branches: [ main, release/* ]
 env:
   VAULT_TOKEN: ${{ secrets.VAULT_TOKEN }}
   VAULT_ADDR: ${{ secrets.VAULT_ADDR }}

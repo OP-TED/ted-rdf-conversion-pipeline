@@ -67,6 +67,7 @@ class MappingSuiteRepositoryMongoDB(MappingSuiteRepositoryABC):
         """
         if mapping_suite_dict:
             mapping_suite_dict.pop(MONGODB_COLLECTION_ID, None)
+            mapping_suite_dict[MS_CREATED_AT] = mapping_suite_dict[MS_CREATED_AT].isoformat()
             remove_date_string_fields(data=mapping_suite_dict, date_field_name=MS_CREATED_AT)
             return MappingSuite(**mapping_suite_dict)
         return None

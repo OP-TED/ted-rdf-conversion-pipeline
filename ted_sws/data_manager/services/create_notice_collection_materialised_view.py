@@ -21,6 +21,9 @@ def create_notice_collection_materialised_view(mongo_client: MongoClient):
             "$project": {
                 "_id": True,
                 "created_at": True,
+                "created_at_str_y": True,
+                "created_at_str_ym": True,
+                "created_at_str_ymd": True,
                 "status": True,
                 "validation_summary": True,
                 "version_number": True,
@@ -35,6 +38,9 @@ def create_notice_collection_materialised_view(mongo_client: MongoClient):
                 "notice_type": "$normalised_metadata.notice_type",
                 "xsd_version": "$normalised_metadata.xsd_version",
                 "publication_date": "$normalised_metadata.publication_date",
+                "publication_date_str_y": "$normalised_metadata.publication_date_y",
+                "publication_date_str_ym": "$normalised_metadata.publication_date_str_ym",
+                "publication_date_str_ymd": "$normalised_metadata.publication_date_str_ymd",
             }
         },
         {

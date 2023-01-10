@@ -123,7 +123,7 @@ class WorkExpression(PropertyBaseModel, abc.ABC):
         validate_assignment = True
         orm_mode = True
 
-    created_at: str = datetime.now().isoformat()
+    created_at: str = datetime.now().replace(microsecond=0).isoformat()
     version_number: int = 0
 
     @property

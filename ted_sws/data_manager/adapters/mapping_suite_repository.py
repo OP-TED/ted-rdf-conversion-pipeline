@@ -2,6 +2,7 @@ import json
 import os
 import pathlib
 import shutil
+from datetime import datetime
 from typing import Iterator, List, Optional
 
 from pymongo import MongoClient
@@ -9,6 +10,7 @@ from pymongo import MongoClient
 from ted_sws import config
 from ted_sws.core.model.transform import MappingSuite, FileResource, TransformationRuleSet, SHACLTestSuite, \
     SPARQLTestSuite, MetadataConstraints, TransformationTestData, ConceptualMapping
+from ted_sws.data_manager.adapters import inject_date_string_fields, remove_date_string_fields
 from ted_sws.data_manager.adapters.repository_abc import MappingSuiteRepositoryABC
 from ted_sws.mapping_suite_processor.services.conceptual_mapping_reader import mapping_suite_read_conceptual_mapping
 
@@ -23,6 +25,8 @@ MS_TEST_DATA_FOLDER_NAME = "test_data"
 MS_CONCEPTUAL_MAPPING_FILE_NAME = "conceptual_mappings.xlsx"
 MS_OUTPUT_FOLDER_NAME = "output"
 MS_TEST_SUITE_REPORT = "test_suite_report"
+MS_CREATED_AT = "created_at"
+MONGODB_COLLECTION_ID = "_id"
 
 
 class MappingSuiteRepositoryMongoDB(MappingSuiteRepositoryABC):
@@ -43,15 +47,40 @@ class MappingSuiteRepositoryMongoDB(MappingSuiteRepositoryABC):
         notice_db = mongodb_client[self._database_name]
         self.collection = notice_db[self._collection_name]
 
+    def _create_dict_from_mapping_suite(self, mapping_suite: MappingSuite) -> dict:
+        """
+            This method create a dict from mapping suite object.
+        :param mapping_suite:
+        :return:
+        """
+        mapping_suite_dict = mapping_suite.dict()
+        mapping_suite_dict[MONGODB_COLLECTION_ID] = mapping_suite.get_mongodb_id()
+        mapping_suite_dict[MS_CREATED_AT] = datetime.fromisoformat(mapping_suite_dict[MS_CREATED_AT])
+        inject_date_string_fields(data=mapping_suite_dict, date_field_name=MS_CREATED_AT)
+        return mapping_suite_dict
+
+    def _create_mapping_suite_from_dict(self, mapping_suite_dict: dict) -> Optional[MappingSuite]:
+        """
+            This method create a mapping suite object from a dictionary.
+        :param mapping_suite_dict:
+        :return:
+        """
+        if mapping_suite_dict:
+            mapping_suite_dict.pop(MONGODB_COLLECTION_ID, None)
+            mapping_suite_dict[MS_CREATED_AT] = mapping_suite_dict[MS_CREATED_AT].isoformat()
+            remove_date_string_fields(data=mapping_suite_dict, date_field_name=MS_CREATED_AT)
+            return MappingSuite(**mapping_suite_dict)
+        return None
+
     def add(self, mapping_suite: MappingSuite):
         """
             This method allows you to add MappingSuite objects to the repository.
         :param mapping_suite:
         :return:
         """
-        mapping_suite_dict = mapping_suite.dict()
-        mapping_suite_dict["_id"] = mapping_suite.get_mongodb_id()
-        mapping_suite_exist = self.collection.find_one({"_id": mapping_suite_dict["_id"]})
+        mapping_suite_dict = self._create_dict_from_mapping_suite(mapping_suite=mapping_suite)
+        mapping_suite_exist = self.collection.find_one(
+            {MONGODB_COLLECTION_ID: mapping_suite_dict[MONGODB_COLLECTION_ID]})
         if mapping_suite_exist is None:
             self.collection.insert_one(mapping_suite_dict)
 
@@ -61,9 +90,9 @@ class MappingSuiteRepositoryMongoDB(MappingSuiteRepositoryABC):
         :param mapping_suite:
         :return:
         """
-        mapping_suite_dict = mapping_suite.dict()
-        mapping_suite_dict["_id"] = mapping_suite.get_mongodb_id()
-        self.collection.update_one({'_id': mapping_suite_dict["_id"]}, {"$set": mapping_suite_dict})
+        mapping_suite_dict = self._create_dict_from_mapping_suite(mapping_suite=mapping_suite)
+        self.collection.update_one({MONGODB_COLLECTION_ID: mapping_suite_dict[MONGODB_COLLECTION_ID]},
+                                   {"$set": mapping_suite_dict})
 
     def get(self, reference) -> MappingSuite:
         """
@@ -71,8 +100,8 @@ class MappingSuiteRepositoryMongoDB(MappingSuiteRepositoryABC):
         :param reference:
         :return: MappingSuite
         """
-        result_dict = self.collection.find_one({"_id": reference})
-        return MappingSuite(**result_dict) if result_dict else None
+        result_dict = self.collection.find_one({MONGODB_COLLECTION_ID: reference})
+        return self._create_mapping_suite_from_dict(mapping_suite_dict=result_dict)
 
     def list(self) -> Iterator[MappingSuite]:
         """
@@ -80,7 +109,7 @@ class MappingSuiteRepositoryMongoDB(MappingSuiteRepositoryABC):
         :return: list of MappingSuites
         """
         for result_dict in self.collection.find():
-            yield MappingSuite(**result_dict)
+            yield self._create_mapping_suite_from_dict(mapping_suite_dict=result_dict)
 
 
 class MappingSuiteRepositoryInFileSystem(MappingSuiteRepositoryABC):

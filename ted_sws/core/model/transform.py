@@ -184,7 +184,7 @@ class MappingSuite(MappingSuiteComponent):
     """
 
     """
-    created_at: str = datetime.now().isoformat()
+    created_at: str = datetime.now().replace(microsecond=0).isoformat()
     identifier: str = "no_id"
     title: str = "no_title"
     version: str = "0.1.1"

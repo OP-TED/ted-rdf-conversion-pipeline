@@ -13,6 +13,7 @@ from ted_sws import config
 from ted_sws.core.model.manifestation import XMLManifestation, RDFManifestation, METSManifestation, Manifestation
 from ted_sws.core.model.metadata import NormalisedMetadata
 from ted_sws.core.model.notice import Notice, NoticeStatus
+from ted_sws.data_manager.adapters import inject_date_string_fields, remove_date_string_fields
 from ted_sws.data_manager.adapters.repository_abc import NoticeRepositoryABC
 
 logger = logging.getLogger(__name__)
@@ -130,12 +131,16 @@ class NoticeRepository(NoticeRepositoryABC):
         self._database_name = database_name
         self.mongodb_client = mongodb_client
         notice_db = mongodb_client[self._database_name]
-        self.file_storage = gridfs.GridFS(notice_db) # TODO: Investigate how it works in multiple processes in parallel.
+        self.file_storage = gridfs.GridFS(
+            notice_db)  # TODO: Investigate how it works in multiple processes in parallel.
         self.collection = notice_db[self._collection_name]
-        self.collection.create_index([(NOTICE_CREATED_AT, ASCENDING)]) # TODO: index creation may bring race condition error.
-        self.collection.create_index([(NOTICE_STATUS, ASCENDING)]) # TODO: index creation may bring race condition error.
+        self.collection.create_index(
+            [(NOTICE_CREATED_AT, ASCENDING)])  # TODO: index creation may bring race condition error.
+        self.collection.create_index(
+            [(NOTICE_STATUS, ASCENDING)])  # TODO: index creation may bring race condition error.
         self.file_storage_collection = notice_db[FILE_STORAGE_COLLECTION_NAME]
-        self.file_storage_collection.create_index([(NOTICE_ID, ASCENDING)]) # TODO: index creation may bring race condition error.
+        self.file_storage_collection.create_index(
+            [(NOTICE_ID, ASCENDING)])  # TODO: index creation may bring race condition error.
 
     def get_file_content_from_grid_fs(self, file_id: str) -> str:
         """
@@ -229,8 +234,13 @@ class NoticeRepository(NoticeRepositoryABC):
 
         if notice_dict:
             del notice_dict[MONGODB_COLLECTION_ID]
+            remove_date_string_fields(data=notice_dict, date_field_name=NOTICE_CREATED_AT)
             notice_dict[NOTICE_CREATED_AT] = notice_dict[NOTICE_CREATED_AT].isoformat()
             if notice_dict[NOTICE_NORMALISED_METADATA]:
+                remove_date_string_fields(data=notice_dict[NOTICE_NORMALISED_METADATA],
+                                          date_field_name=METADATA_PUBLICATION_DATE)
+                remove_date_string_fields(data=notice_dict[NOTICE_NORMALISED_METADATA],
+                                          date_field_name=METADATA_DOCUMENT_SENT_DATE)
                 notice_dict[NOTICE_NORMALISED_METADATA][METADATA_PUBLICATION_DATE] = date_field_to_string(
                     notice_dict[NOTICE_NORMALISED_METADATA][METADATA_PUBLICATION_DATE])
                 notice_dict[NOTICE_NORMALISED_METADATA][METADATA_DOCUMENT_SENT_DATE] = date_field_to_string(
@@ -261,13 +271,19 @@ class NoticeRepository(NoticeRepositoryABC):
         notice_dict[NOTICE_STATUS] = str(notice_dict[NOTICE_STATUS])
         notice_dict[NOTICE_CREATED_AT] = datetime.fromisoformat(notice_dict[NOTICE_CREATED_AT])
 
+        inject_date_string_fields(data=notice_dict, date_field_name=NOTICE_CREATED_AT)
+
         if notice_dict[NOTICE_NORMALISED_METADATA]:
             if notice_dict[NOTICE_NORMALISED_METADATA][METADATA_PUBLICATION_DATE]:
                 notice_dict[NOTICE_NORMALISED_METADATA][METADATA_PUBLICATION_DATE] = datetime.fromisoformat(
                     notice_dict[NOTICE_NORMALISED_METADATA][METADATA_PUBLICATION_DATE])
+                inject_date_string_fields(data=notice_dict[NOTICE_NORMALISED_METADATA],
+                                          date_field_name=METADATA_PUBLICATION_DATE)
             if notice_dict[NOTICE_NORMALISED_METADATA][METADATA_DOCUMENT_SENT_DATE]:
                 notice_dict[NOTICE_NORMALISED_METADATA][METADATA_DOCUMENT_SENT_DATE] = datetime.fromisoformat(
                     notice_dict[NOTICE_NORMALISED_METADATA][METADATA_DOCUMENT_SENT_DATE])
+                inject_date_string_fields(data=notice_dict[NOTICE_NORMALISED_METADATA],
+                                          date_field_name=METADATA_DOCUMENT_SENT_DATE)
 
         return notice_dict
 

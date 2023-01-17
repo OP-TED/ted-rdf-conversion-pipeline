@@ -69,7 +69,7 @@ class MappingSuiteStructureValidator:
             self.mapping_suite_path / MS_TRANSFORM_FOLDER_NAME / MS_MAPPINGS_FOLDER_NAME,
             self.mapping_suite_path / MS_TRANSFORM_FOLDER_NAME / MS_RESOURCES_FOLDER_NAME,
             self.mapping_suite_path / MS_TRANSFORM_FOLDER_NAME / MS_CONCEPTUAL_MAPPING_FILE_NAME,
-            self.mapping_suite_path / MS_TEST_DATA_FOLDER_NAME,
+            self.mapping_suite_path / MS_TEST_DATA_FOLDER_NAME
         ]
         return self.assert_path(mandatory_paths_l1)
 

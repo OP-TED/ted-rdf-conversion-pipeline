@@ -1,6 +1,8 @@
 from typing import List
 
-from ted_sws.core.model.manifestation import XPATHCoverageValidationReport
+import pathlib
+
+from ted_sws.core.model.manifestation import XPATHCoverageValidationReport, NoticeForReport
 from ted_sws.core.model.notice import Notice
 from ted_sws.core.model.transform import MappingSuite
 from ted_sws.data_manager.adapters.notice_repository import NoticeRepository
@@ -30,7 +32,7 @@ class XPATHCoverageReportBuilder:
         return self.xpath_coverage_report
 
 
-def coverage_notice_xpath_report(notices: List[Notice], mapping_suite_id,
+def coverage_notice_xpath_report(notices: List[NoticeForReport], mapping_suite_id,
                                  conceptual_mappings_file_path: PATH_TYPE = None,
                                  coverage_runner: CoverageRunner = None,
                                  mongodb_client: MongoClient = None) -> XPATHCoverageValidationReport:

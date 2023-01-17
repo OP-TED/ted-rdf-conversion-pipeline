@@ -83,17 +83,18 @@
         <h3>{{ "%.2f"|format((validation_result.conceptual_coverage|float * 100)) }}%</h3>
         <p>(Number of Conceptual XPATHs found in notices) / (Total number of unique Conceptual XPATHs)</p>
     </li>
+    {%  set nr_notices = validation_result.notices|length %}
     <li><div><hr></div>Notice identifier(s):
-        <div data-role="collapsible" data-state="{% if validation_result.notice_id|length > 1 %}collapsed{% endif %}"
+        <div data-role="collapsible" data-state="{% if nr_notices > 1 %}collapsed{% endif %}"
             class="collapsible-wrapper">
             <h4><a href="#"></a></h4>
             <div class="ui-collapsible-content">
-            {% if validation_result.notice_id|length == 1 %}
-                {{ validation_result.notice_id[0] }}
+            {% if nr_notices == 1 %}
+                {{ validation_result.notices[0].notice.ted_id }}
             {% else %}
                 <ul>
-                {% for nid in validation_result.notice_id %}
-                    <li><a href="{{ nid }}/test_suite_report/xpath_coverage_validation.html" target="_blank">{{ nid }}</a></li>
+                {% for notice_for_report in validation_result.notices %}
+                    <li><a href="{{ notice_for_report.group_path }}/test_suite_report/xpath_coverage_validation.html" target="_blank">{{ notice_for_report.notice.ted_id }}</a></li>
                 {% endfor %}
                 </ul>
             {% endif %}

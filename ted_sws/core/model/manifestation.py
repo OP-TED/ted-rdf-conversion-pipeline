@@ -13,6 +13,7 @@ from typing import List, Union, Optional, Dict
 from pydantic import Field
 
 from ted_sws.core.model import PropertyBaseModel
+from ted_sws.core.model.transform import NoticeForReport
 
 
 class ManifestationMimeType(Enum):
@@ -82,7 +83,7 @@ class XPATHCoverageValidationResult(PropertyBaseModel):
     """
 
     """
-    notice_id: Optional[List[str]] = []
+    notices: Optional[List[NoticeForReport]] = []
     xpath_assertions: Optional[List[XPATHCoverageValidationAssertion]] = []
     xpath_covered: Optional[List[str]] = []
     xpath_not_covered: Optional[List[str]] = []
@@ -291,3 +292,4 @@ class ValidationSummaryReport(ValidationManifestation):
     rdf_manifestation: Optional[RDFManifestationValidationSummaryReport] = RDFManifestationValidationSummaryReport()
     distilled_rdf_manifestation: Optional[
         RDFManifestationValidationSummaryReport] = RDFManifestationValidationSummaryReport()
+

@@ -16,6 +16,7 @@ import abc
 from datetime import datetime
 from enum import IntEnum
 from functools import total_ordering
+from pathlib import Path
 from typing import Optional, List, Union
 
 from pydantic import Field

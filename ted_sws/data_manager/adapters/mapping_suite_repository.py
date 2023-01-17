@@ -1,5 +1,4 @@
 import json
-import os
 import pathlib
 import shutil
 from datetime import datetime
@@ -12,6 +11,7 @@ from ted_sws.core.model.transform import MappingSuite, FileResource, Transformat
     SPARQLTestSuite, MetadataConstraints, TransformationTestData, ConceptualMapping
 from ted_sws.data_manager.adapters import inject_date_string_fields, remove_date_string_fields
 from ted_sws.data_manager.adapters.repository_abc import MappingSuiteRepositoryABC
+from ted_sws.data_manager.services.mapping_suite_resource_manager import read_flat_file_resources
 from ted_sws.mapping_suite_processor.services.conceptual_mapping_reader import mapping_suite_read_conceptual_mapping
 
 MS_METADATA_FILE_NAME = "metadata.json"
@@ -208,28 +208,8 @@ class MappingSuiteRepositoryInFileSystem(MappingSuiteRepositoryABC):
             with file_resource_path.open("w", encoding="utf-8") as f:
                 f.write(file_resource.file_content)
 
-    def _read_flat_file_resources(self, path: pathlib.Path, file_resources=None) -> List[FileResource]:
-        """
-            This method reads a folder (with nested-tree structure) of resources and returns a flat list of file-type
-            resources from all beyond levels.
-            Used for folders that contains files with unique names, but grouped into sub-folders.
-        :param path:
-        :param file_resources:
-        :return:
-        """
-        if file_resources is None:
-            file_resources = []
-
-        for root, dirs, files in os.walk(path):
-            for f in files:
-                file = pathlib.Path(os.path.join(root, f))
-                file_resources.append(FileResource(file_name=file.name,
-                                                   file_content=file.read_text(encoding="utf-8"),
-                                                   original_name=file.name))
-
-        return file_resources
-
-    def _read_file_resources(self, path: pathlib.Path) -> List[FileResource]:
+    @classmethod
+    def _read_file_resources(cls, path: pathlib.Path) -> List[FileResource]:
         """
             This method reads a list of file-type resources that are in a specific location.
         :param path:
@@ -301,14 +281,15 @@ class MappingSuiteRepositoryInFileSystem(MappingSuiteRepositoryABC):
                                    path=test_data_path
                                    )
 
-    def _read_test_data_package(self, package_path: pathlib.Path) -> TransformationTestData:
+    @classmethod
+    def _read_test_data_package(cls, package_path: pathlib.Path) -> TransformationTestData:
         """
             This method reads the test data from the package.
         :param package_path:
         :return:
         """
         test_data_path = package_path / MS_TEST_DATA_FOLDER_NAME
-        test_data = self._read_flat_file_resources(path=test_data_path)
+        test_data = read_flat_file_resources(path=test_data_path)
         return TransformationTestData(test_data=test_data)
 
     def _write_mapping_suite_package(self, mapping_suite: MappingSuite):

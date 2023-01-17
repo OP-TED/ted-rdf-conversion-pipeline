@@ -7,13 +7,14 @@ from ted_sws.core.model.notice import Notice, NoticeStatus
 from ted_sws.core.model.transform import MappingSuite, FileResource
 from ted_sws.data_manager.adapters.mapping_suite_repository import MappingSuiteRepositoryInFileSystem
 from ted_sws.data_manager.adapters.repository_abc import NoticeRepositoryABC, MappingSuiteRepositoryABC
+from ted_sws.data_manager.services.mapping_suite_resource_manager import file_resource_output_path
 from ted_sws.event_manager.adapters.event_logger import EventLogger, EventMessageLogSettings
 from ted_sws.event_manager.model.event_message import NoticeEventMessage
 from ted_sws.event_manager.services.logger_from_context import get_env_logger
 from ted_sws.notice_transformer.adapters.rml_mapper import RMLMapperABC
+from ted_sws.notice_transformer.services import DEFAULT_TRANSFORMATION_FILE_EXTENSION
 
 DATA_SOURCE_PACKAGE = "data"
-DEFAULT_TRANSFORMATION_FILE_EXTENSION = ".ttl"
 
 
 def transform_notice(notice: Notice, mapping_suite: MappingSuite, rml_mapper: RMLMapperABC) -> Notice:
@@ -95,14 +96,15 @@ def transform_test_data(mapping_suite: MappingSuite, rml_mapper: RMLMapperABC, o
         notice = Notice(ted_id="tmp_notice", xml_manifestation=XMLManifestation(object_data=data.file_content))
         notice._status = NoticeStatus.PREPROCESSED_FOR_TRANSFORMATION
         notice_result = transform_notice(notice, mapping_suite, rml_mapper)
-        file_resource = FileResource(
+        file_resource: FileResource = FileResource(
             file_name=filename,
             file_content=notice_result.rdf_manifestation.object_data,
-            original_name=data.original_name
+            original_name=data.original_name,
+            parents=data.parents
         )
-        original_name = file_resource.original_name if file_resource.original_name else filename
+        original_name = file_resource.original_name or filename
         out_filename = Path(original_name).stem + DEFAULT_TRANSFORMATION_FILE_EXTENSION
-        file_resource_parent_path = output_path / Path(notice_id)
+        file_resource_parent_path = file_resource_output_path(file_resource, output_path) / Path(notice_id)
         file_resource_parent_path.mkdir(parents=True, exist_ok=True)
         file_resource_path = file_resource_parent_path / Path(out_filename)
         with file_resource_path.open("w+", encoding="utf-8") as f:

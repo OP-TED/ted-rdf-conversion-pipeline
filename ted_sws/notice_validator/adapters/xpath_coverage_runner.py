@@ -6,8 +6,7 @@ from jinja2 import Environment, PackageLoader
 from pymongo import MongoClient
 
 from ted_sws.core.model.manifestation import XPATHCoverageValidationReport, XPATHCoverageValidationAssertion, \
-    XPATHCoverageValidationResult
-from ted_sws.core.model.notice import Notice
+    XPATHCoverageValidationResult, NoticeForReport
 from ted_sws.core.model.transform import ConceptualMapping, ConceptualMappingXPATH
 from ted_sws.data_manager.adapters.mapping_suite_repository import MappingSuiteRepositoryMongoDB
 from ted_sws.data_sampler.services.notice_xml_indexer import index_notice, get_unique_xpaths_covered_by_notices
@@ -76,11 +75,11 @@ class CoverageRunner:
         return sorted(xpath_assertions, key=lambda x: x.form_field)
 
     def validate_xpath_coverage_report(self, report: XPATHCoverageValidationReport, notice_xpaths: XPATH_TYPE,
-                                       xpaths_list: List[str], notice_id: List[str]):
+                                       xpaths_list: List[str], notices: List[NoticeForReport]):
         unique_notice_xpaths: Set[str] = set(xpaths_list)
 
         validation_result: XPATHCoverageValidationResult = XPATHCoverageValidationResult()
-        validation_result.notice_id = sorted(notice_id)
+        validation_result.notices = sorted(notices, key=lambda notice: notice.ted_id)
         validation_result.xpath_assertions = self.xpath_assertions(notice_xpaths, xpaths_list)
         validation_result.xpath_covered = sorted(list(self.conceptual_xpaths & unique_notice_xpaths))
         validation_result.xpath_not_covered = sorted(list(unique_notice_xpaths - self.conceptual_xpaths))
@@ -106,18 +105,16 @@ class CoverageRunner:
         base_xpath += "/"
         return list(filter(lambda xpath: xpath.startswith(base_xpath), xpaths))
 
-    def coverage_notice_xpath(self, notices: List[Notice], mapping_suite_id) -> XPATHCoverageValidationReport:
+    def coverage_notice_xpath(self, notices: List[NoticeForReport], mapping_suite_id) -> XPATHCoverageValidationReport:
         report: XPATHCoverageValidationReport = XPATHCoverageValidationReport(
             object_data="XPATHCoverageValidationReport",
             mapping_suite_identifier=mapping_suite_id)
 
-        notice_id = []
-
         notice_xpaths: XPATH_TYPE = {}
         xpaths_list: List[str] = []
-        for notice in notices:
+        for notice_for_report in notices:
+            notice = notice_for_report.notice
             xpaths: List[str] = []
-            notice_id.append(notice.ted_id)
             if self._db_readable():
                 xpaths = get_unique_xpaths_covered_by_notices([notice.ted_id], self.mongodb_client)
             else:
@@ -129,7 +126,7 @@ class CoverageRunner:
             notice_xpaths[notice.ted_id] = self.based_xpaths(xpaths, self.base_xpath)
             xpaths_list += notice_xpaths[notice.ted_id]
 
-        self.validate_xpath_coverage_report(report, notice_xpaths, xpaths_list, notice_id)
+        self.validate_xpath_coverage_report(report, notice_xpaths, xpaths_list, notices)
 
         return report
 

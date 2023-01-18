@@ -14,7 +14,7 @@ from string import Template
 
 import pandas as pd
 import rdflib
-from SPARQLWrapper import SPARQLWrapper, CSV, JSON, RDF
+from SPARQLWrapper import SPARQLWrapper, CSV, JSON, RDF, POST
 
 from ted_sws import config
 
@@ -35,13 +35,15 @@ class SPARQLClientPool(object):
     connection_pool = {}
 
     @staticmethod
-    def create_or_reuse_connection(endpoint_url: str, user: str, password: str):
+    def create_or_reuse_connection(endpoint_url: str, user: str, password: str, use_post_method: bool = False):
         if endpoint_url not in SPARQLClientPool.connection_pool:
             sparql_wrapper = SPARQLWrapper(endpoint_url)
             sparql_wrapper.setCredentials(
                 user=user,
                 passwd=password
             )
+            if use_post_method:
+                sparql_wrapper.setMethod(method=POST)
             SPARQLClientPool.connection_pool[endpoint_url] = sparql_wrapper
         return SPARQLClientPool.connection_pool[endpoint_url]
 
@@ -123,10 +125,11 @@ class TripleStoreEndpointABC(ABC):
 
 class SPARQLTripleStoreEndpoint(TripleStoreEndpointABC):
 
-    def __init__(self, endpoint_url: str, user: str = None, password: str = None):
+    def __init__(self, endpoint_url: str, user: str = None, password: str = None, use_post_method: bool = False):
         user = user if user else config.AGRAPH_SUPER_USER
         password = password if password else config.AGRAPH_SUPER_PASSWORD
-        self.endpoint = SPARQLClientPool.create_or_reuse_connection(endpoint_url, user, password)
+        self.endpoint = SPARQLClientPool.create_or_reuse_connection(endpoint_url, user, password,
+                                                                    use_post_method=use_post_method)
 
     def _set_sparql_query(self, sparql_query: str):
         """

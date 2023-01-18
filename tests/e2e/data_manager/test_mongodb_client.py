@@ -179,6 +179,7 @@ def test_create_matview_for_notices(fake_mongodb_client):
     assert 'notice_type' in fields_in_the_materialised_view
     assert 'xsd_version' in fields_in_the_materialised_view
     assert 'publication_date' in fields_in_the_materialised_view
+    assert 'deduplication_report' in fields_in_the_materialised_view
 
     create_notice_kpi_collection(mongo_client=mongodb_client)
     if NOTICE_KPI_COLLECTION_NAME in db.list_collection_names():

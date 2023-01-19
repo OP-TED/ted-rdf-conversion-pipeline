@@ -12,7 +12,7 @@ from ted_sws.notice_validator.resources import NOTICE_AVAILABILITY_SPARQL_QUERY_
 WEBAPI_SPARQL_URL = "https://publications.europa.eu/webapi/rdf/sparql"
 WEBAPI_SPARQL_RUN_FORMAT = "application/sparql-results+json"
 INVALID_NOTICE_URI = 'https://www.w3.org/1999/02/22-rdf-syntax-ns#type-invalid'
-DEFAULT_NOTICES_BATCH_SIZE = 1000
+DEFAULT_NOTICES_BATCH_SIZE = 5000
 DEFAULT_CELLAR_REQUEST_DELAY = 3
 
 

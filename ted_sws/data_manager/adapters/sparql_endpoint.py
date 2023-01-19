@@ -128,8 +128,14 @@ class SPARQLTripleStoreEndpoint(TripleStoreEndpointABC):
     def __init__(self, endpoint_url: str, user: str = None, password: str = None, use_post_method: bool = False):
         user = user if user else config.AGRAPH_SUPER_USER
         password = password if password else config.AGRAPH_SUPER_PASSWORD
-        self.endpoint = SPARQLClientPool.create_or_reuse_connection(endpoint_url, user, password,
-                                                                    use_post_method=use_post_method)
+        sparql_wrapper = SPARQLWrapper(endpoint_url)
+        sparql_wrapper.setCredentials(
+            user=user,
+            passwd=password
+        )
+        if use_post_method:
+            sparql_wrapper.setMethod(method=POST)
+        self.endpoint = sparql_wrapper
 
     def _set_sparql_query(self, sparql_query: str):
         """

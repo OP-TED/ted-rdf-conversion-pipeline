@@ -8,6 +8,7 @@ from ted_sws.core.model.notice import Notice
 from ted_sws.core.model.supra_notice import SupraNoticeValidationReport, DailySupraNotice
 from ted_sws.data_manager.adapters.notice_repository import NoticeRepository
 from ted_sws.data_manager.adapters.supra_notice_repository import DailySupraNoticeRepository
+from ted_sws.event_manager.services.log import log_technical_error
 from ted_sws.notice_fetcher.adapters.ted_api import TedAPIAdapter, RequestAPI, TedRequestAPI
 from ted_sws.notice_validator.services.validation_summary_runner import generate_validation_summary_report_notices
 
@@ -42,7 +43,8 @@ def validate_and_update_daily_supra_notice(notice_publication_day: day_type, mon
     validation_report = supra_notice.validation_report or SupraNoticeValidationReport(object_data="")
     missing_notice_ids = api_notice_ids - fetched_notice_ids
     if len(missing_notice_ids):
-        validation_report.missing_notice_ids = missing_notice_ids
+        validation_report.missing_notice_ids = list(missing_notice_ids)
+        log_technical_error(message=f"Supra notice for date [{notice_publication_day}] don't fetch notices with ids=[{missing_notice_ids}]")
 
     supra_notice.validation_report = validation_report
     repo.update(daily_supra_notice=supra_notice)

@@ -14,7 +14,7 @@ from ted_sws.event_manager.model.event_message import TechnicalEventMessage, Eve
 DAG_NAME = "reprocess_unpublished_notices_from_backlog"
 
 RE_PUBLISH_TARGET_NOTICE_STATES = [NoticeStatus.ELIGIBLE_FOR_PUBLISHING, NoticeStatus.INELIGIBLE_FOR_PUBLISHING,
-                                   NoticeStatus.PACKAGED
+                                   NoticeStatus.PACKAGED, NoticeStatus.PUBLICLY_UNAVAILABLE
                                    ]
 TRIGGER_NOTICE_PROCESS_WORKFLOW_TASK_ID = "trigger_notice_process_workflow"
 FORM_NUMBER_DAG_PARAM = "form_number"

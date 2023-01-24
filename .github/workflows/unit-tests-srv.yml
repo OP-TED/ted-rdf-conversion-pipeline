@@ -6,6 +6,11 @@ on:
     branches: [ feature/* , main,  hotfix/*, release/* ]
 #  pull_request:
 #    branches: [ main, release/* ]
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
 env:
   VAULT_TOKEN: ${{ secrets.VAULT_TOKEN }}
   VAULT_ADDR: ${{ secrets.VAULT_ADDR }}

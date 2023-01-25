@@ -9,7 +9,7 @@ services:
       - ADMIN_PASSWORD=${FUSEKI_ADMIN_PASSWORD}
       - FUSEKI_DATASET_1=mydataset
     volumes:
-      - fuseki-data:/fuseki-data/databases
+      - fuseki-data:/fuseki-base/databases
     networks:
       - fuseki-net
       - proxy-net

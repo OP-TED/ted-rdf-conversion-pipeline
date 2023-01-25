@@ -10,6 +10,7 @@ services:
       - FUSEKI_DATASET_1=mydataset
     volumes:
       - fuseki-data:/fuseki-base/databases
+      - fuseki-data:/fuseki-base/configuration
     networks:
       - fuseki-net
       - proxy-net

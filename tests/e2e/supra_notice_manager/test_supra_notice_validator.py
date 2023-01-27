@@ -46,7 +46,7 @@ def test_summary_validation_for_daily_supra_notice(fake_mongodb_client, daily_su
     create_and_store_in_mongo_db_daily_supra_notice(notice_ids=notice_ids, mongodb_client=fake_mongodb_client,
                                                     notice_fetched_date=day)
 
-    summary_validation_for_daily_supra_notice(notice_publication_day=day, mongodb_client=fake_mongodb_client)
+    summary_validation_for_daily_supra_notice(ted_publication_date=day, mongodb_client=fake_mongodb_client)
     result = daily_supra_notice_repository.get(reference=day)
     assert isinstance(result.validation_summary, ValidationSummaryReport)
     assert result.notice_ids == notice_ids

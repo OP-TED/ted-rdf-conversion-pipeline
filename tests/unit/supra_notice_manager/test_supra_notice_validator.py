@@ -19,7 +19,7 @@ def test_supra_notice_validator(mongodb_client, daily_supra_notice_repository, f
 
     notice_ids = ["1", "2", "3"]
     create_and_store_in_mongo_db_daily_supra_notice(notice_ids=notice_ids, mongodb_client=mongodb_client,
-                                                    notice_fetched_date=day)
+                                                    ted_publication_date=day)
     validate_and_update_daily_supra_notice(day, mongodb_client, fake_request_api)
     result = daily_supra_notice_repository.get(reference=day)
     assert result
@@ -40,7 +40,7 @@ def test_summary_validation_for_daily_supra_notice(mongodb_client, daily_supra_n
 
     notice_ids = [notice.ted_id]
     create_and_store_in_mongo_db_daily_supra_notice(notice_ids=notice_ids, mongodb_client=mongodb_client,
-                                                    notice_fetched_date=day)
+                                                    ted_publication_date=day)
     summary_validation_for_daily_supra_notice(day, mongodb_client)
     result = daily_supra_notice_repository.get(reference=day)
     assert result

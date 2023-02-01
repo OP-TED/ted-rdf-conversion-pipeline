@@ -82,6 +82,31 @@ class NormalisedMetadata(Metadata):
     xsd_version: str
 
 
+class NormalisedMetadataView(Metadata):
+    title: str
+    long_title: str
+    notice_publication_number: str
+    publication_date: str
+    ojs_issue_number: str
+    ojs_type: str
+    city_of_buyer: Optional[str]
+    name_of_buyer: Optional[str]
+    original_language: Optional[str]
+    country_of_buyer: Optional[str]
+    eu_institution: Optional[bool]
+    document_sent_date: Optional[str]
+    deadline_for_submission: Optional[str]
+    notice_type: str
+    form_type: str
+    place_of_performance: Optional[List[str]]
+    extracted_legal_basis_directive: Optional[str]
+    legal_basis_directive: str
+    form_number: str
+    eforms_subtype: str
+    xsd_version: str
+
+
+
 class TEDMetadata(Metadata):
     """
         Stores notice original metadata

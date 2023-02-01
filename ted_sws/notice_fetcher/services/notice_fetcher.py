@@ -69,12 +69,13 @@ class NoticeFetcher(NoticeFetcherABC):
         :return:
         """
         xml_manifestation = XMLManifestation(object_data=notice_data["content"])
-
         del notice_data["content"]
         ted_id = notice_data["ND"]
         original_metadata = TEDMetadata(**notice_data)
-
-        return Notice(ted_id=ted_id, xml_manifestation=xml_manifestation, original_metadata=original_metadata)
+        notice = Notice(ted_id=ted_id)
+        notice.set_xml_manifestation(xml_manifestation)
+        notice.set_original_metadata(original_metadata)
+        return notice
 
     def _store_to_notice_repository(self, documents: List[dict]) -> List[str]:
         """

@@ -203,7 +203,7 @@ def _read_conceptual_mapping_control_list(df: pd.DataFrame) -> List[ConceptualMa
 def _read_conceptual_mapping_xpaths(rules_df: pd.DataFrame, base_xpath: str) -> List[ConceptualMappingXPATH]:
     """
 
-    :param df:
+    :param rules_df:
     :param base_xpath:
     :return:
     """
@@ -238,7 +238,6 @@ def mapping_suite_read_conceptual_mapping(conceptual_mappings_file_path: Path) -
     """
         This feature allows you to read the conceptual mapping in a package.
     :param conceptual_mappings_file_path:
-    :param metadata:
     :return:
     """
 
@@ -253,7 +252,8 @@ def mapping_suite_read_conceptual_mapping(conceptual_mappings_file_path: Path) -
         metadata = _read_conceptual_mapping_metadata(dfs[CONCEPTUAL_MAPPINGS_METADATA_SHEET_NAME])
         conceptual_mapping.metadata = metadata
         conceptual_mapping.rules = _read_conceptual_mapping_rules(dfs[CONCEPTUAL_MAPPINGS_RULES_SHEET_NAME])
-        conceptual_mapping.mapping_remarks = _read_conceptual_mapping_remarks(dfs[CONCEPTUAL_MAPPINGS_REMARKS_SHEET_NAME])
+        conceptual_mapping.mapping_remarks = _read_conceptual_mapping_remarks(
+            dfs[CONCEPTUAL_MAPPINGS_REMARKS_SHEET_NAME])
         conceptual_mapping.resources = _read_conceptual_mapping_resources(dfs[CONCEPTUAL_MAPPINGS_RESOURCES_SHEET_NAME])
         conceptual_mapping.rml_modules = _read_conceptual_mapping_rml_modules(
             dfs[CONCEPTUAL_MAPPINGS_RML_MODULES_SHEET_NAME])

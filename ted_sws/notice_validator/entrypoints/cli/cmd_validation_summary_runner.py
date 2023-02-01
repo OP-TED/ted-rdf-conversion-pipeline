@@ -69,8 +69,8 @@ class CmdRunner(BaseCmdRunner):
         shacl_validations = self._read_report(report_folder, JSON_SHACL_REPORT)
         sparql_validations = self._read_report(report_folder, JSON_SPARQL_REPORT)
         xpath_coverage_validation = self._read_report(report_folder, XPATH_COV_REPORT)
-
-        notice: Notice = Notice(ted_id=notice_id, xml_manifestation=XMLManifestation(object_data=""))
+        notice = Notice(ted_id=notice_id)
+        notice.set_xml_manifestation(XMLManifestation(object_data=""))
 
         rdf_manifestation: RDFManifestation = RDFManifestation(object_data="")
         for validation in shacl_validations:

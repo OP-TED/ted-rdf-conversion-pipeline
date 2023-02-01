@@ -5,10 +5,6 @@ import pytest
 from airflow.models import DagBag
 from airflow.utils import db
 import logging
-
-from pymongo import MongoClient
-
-from ted_sws import config
 from ted_sws.data_manager.adapters.notice_repository import NoticeRepository
 from ted_sws.mapping_suite_processor.services.conceptual_mapping_processor import \
     mapping_suite_processor_from_github_expand_and_load_package_in_mongo_db

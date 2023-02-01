@@ -33,7 +33,8 @@ def fake_notice_F03_rdf_content():
 @pytest.fixture
 def fake_notice_F03(fake_notice_F03_content, fake_notice_id, fake_notice_F03_rdf_content):
     xml_manifestation = XMLManifestation(object_data=fake_notice_F03_content)
-    notice = Notice(ted_id=fake_notice_id, xml_manifestation=xml_manifestation)
+    notice = Notice(ted_id=fake_notice_id)
+    notice.set_xml_manifestation(xml_manifestation)
     notice._distilled_rdf_manifestation = RDFManifestation(object_data=fake_notice_F03_rdf_content)
     return notice
 

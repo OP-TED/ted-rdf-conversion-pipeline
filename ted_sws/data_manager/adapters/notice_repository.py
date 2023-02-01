@@ -42,6 +42,14 @@ NOTICE_XML_METADATA = "xml_metadata"
 METADATA_PUBLICATION_DATE = "publication_date"
 METADATA_DOCUMENT_SENT_DATE = "document_sent_date"
 
+NOTICE_ORIGINAL_METADATA_PRIVATE_KEY = "_original_metadata"
+NOTICE_NORMALISED_METADATA_PRIVATE_KEY = "_normalised_metadata"
+NOTICE_XML_METADATA_PRIVATE_KEY = "_xml_metadata"
+NOTICE_XML_MANIFESTATION_PRIVATE_KEY = "_xml_manifestation"
+NOTICE_RDF_MANIFESTATION_PRIVATE_KEY = "_rdf_manifestation"
+NOTICE_DISTILLED_RDF_MANIFESTATION_PRIVATE_KEY = "_distilled_rdf_manifestation"
+NOTICE_METS_MANIFESTATION_PRIVATE_KEY = "_mets_manifestation"
+
 
 class NoticeRepositoryInFileSystem(NoticeRepositoryABC):
     """
@@ -164,21 +172,21 @@ class NoticeRepository(NoticeRepositoryABC, LazyObjectFieldsLoaderABC):
         self.xml_metadata_repository = XMLMetadataRepository(mongodb_client=mongodb_client,
                                                              database_name=database_name)
 
-    def _mapping_lazy_fields(self, notice: Notice):
+    def _mapping_lazy_fields(self):
         return {
-            Notice.original_metadata: (notice._original_metadata,
+            Notice.original_metadata: (NOTICE_ORIGINAL_METADATA_PRIVATE_KEY,
                                        self.ted_metadata_repository),
-            Notice.normalised_metadata: (notice._normalised_metadata,
+            Notice.normalised_metadata: (NOTICE_NORMALISED_METADATA_PRIVATE_KEY,
                                          self.normalised_metadata_repository),
-            Notice.xml_metadata: (notice._xml_metadata,
+            Notice.xml_metadata: (NOTICE_XML_METADATA_PRIVATE_KEY,
                                   self.xml_metadata_repository),
-            Notice.xml_manifestation: (notice._xml_manifestation,
+            Notice.xml_manifestation: (NOTICE_XML_MANIFESTATION_PRIVATE_KEY,
                                        self.xml_manifestation_repository),
-            Notice.rdf_manifestation: (notice._rdf_manifestation,
+            Notice.rdf_manifestation: (NOTICE_RDF_MANIFESTATION_PRIVATE_KEY,
                                        self.rdf_manifestation_repository),
-            Notice.distilled_rdf_manifestation: (notice._distilled_rdf_manifestation,
+            Notice.distilled_rdf_manifestation: (NOTICE_DISTILLED_RDF_MANIFESTATION_PRIVATE_KEY,
                                                  self.distilled_rdf_manifestation_repository),
-            Notice.mets_manifestation: (notice._mets_manifestation,
+            Notice.mets_manifestation: (NOTICE_METS_MANIFESTATION_PRIVATE_KEY,
                                         self.mets_manifestation_repository)
         }
 
@@ -189,15 +197,17 @@ class NoticeRepository(NoticeRepositoryABC, LazyObjectFieldsLoaderABC):
         :param property_field:
         :return:
         """
-        mapping_lazy_fields = self._mapping_lazy_fields(notice=source_object)
+        mapping_lazy_fields = self._mapping_lazy_fields()
         notice_field, field_repository = mapping_lazy_fields[property_field]
-        notice_field = field_repository.get(source_object.ted_id)
+        notice_field_data = field_repository.get(source_object.ted_id)
+        setattr(source_object, notice_field, notice_field_data)
 
     def _write_lazy_fields(self, notice: Notice):
-        mapping_lazy_fields = self._mapping_lazy_fields(notice=notice)
+        mapping_lazy_fields = self._mapping_lazy_fields()
         for notice_field, repository in mapping_lazy_fields.values():
-            if notice_field is not None:
-                repository.add(notice.ted_id, notice_field)
+            notice_field_data = getattr(notice, notice_field)
+            if notice_field_data is not None:
+                repository.add(notice.ted_id, notice_field_data)
 
     def _create_notice_from_repository_result(self, notice_dict: dict) -> Union[Notice, None]:
         """
@@ -207,7 +217,7 @@ class NoticeRepository(NoticeRepositoryABC, LazyObjectFieldsLoaderABC):
         """
         if notice_dict:
             del notice_dict[MONGODB_COLLECTION_ID]
-            notice_dict.pop(NOTICE_NORMALISED_METADATA,None)
+            notice_dict.pop(NOTICE_NORMALISED_METADATA, None)
             remove_date_string_fields(data=notice_dict, date_field_name=NOTICE_CREATED_AT)
             notice_dict[NOTICE_CREATED_AT] = notice_dict[NOTICE_CREATED_AT].isoformat()
             notice = Notice(**notice_dict)

@@ -32,8 +32,8 @@ class BaseMetadataRepository(RepositoryABC):
         :return:
         """
         if metadata is not None:
-            reference = self._build_reference(base_reference=reference)
             metadata_dict = metadata.dict()
+            reference = self._build_reference(base_reference=reference)
             metadata_dict[MONGODB_COLLECTION_ID] = reference
             self.collection.update_one({MONGODB_COLLECTION_ID: reference}, {"$set": metadata_dict}, upsert=upsert)
 
@@ -70,7 +70,6 @@ class NormalisedMetadataRepository(BaseMetadataRepository):
         :param metadata:
         :return:
         """
-        reference = self._build_reference(base_reference=reference)
         self._update_metadata(reference=reference, metadata=metadata, upsert=True)
 
     def update(self, reference: str, metadata: NormalisedMetadata):
@@ -108,7 +107,6 @@ class TEDMetadataRepository(BaseMetadataRepository):
         :param metadata:
         :return:
         """
-        reference = self._build_reference(base_reference=reference)
         self._update_metadata(reference=reference, metadata=metadata, upsert=True)
 
     def update(self, reference: str, metadata: TEDMetadata):
@@ -118,7 +116,6 @@ class TEDMetadataRepository(BaseMetadataRepository):
         :param metadata:
         :return:
         """
-
         self._update_metadata(reference=reference, metadata=metadata)
 
     def get(self, reference: str) -> Optional[TEDMetadata]:
@@ -145,7 +142,6 @@ class XMLMetadataRepository(BaseMetadataRepository):
         :param metadata:
         :return:
         """
-        reference = self._build_reference(base_reference=reference)
         self._update_metadata(reference=reference, metadata=metadata, upsert=True)
 
     def update(self, reference: str, metadata: XMLMetadata):

@@ -87,8 +87,8 @@ def create_normalised_metadata_view(normalised_metadata: NormalisedMetadata) -> 
             english_name_of_buyer = [name.text for name in normalised_metadata.name_of_buyer
                                      if name.language == ENGLISH_LANGUAGE_TAG]
             name_of_buyer = "no_english_city_of_buyer" if len(english_name_of_buyer) == 0 else english_name_of_buyer[0]
-        normalised_metadata_dict = normalised_metadata.dict(exclude=[TITLE_KEY, LONG_TITLE_KEY,
-                                                                     BUYER_NAME_KEY, BUYER_CITY_KEY])
+        normalised_metadata_dict = normalised_metadata.dict(exclude={TITLE_KEY:True, LONG_TITLE_KEY:True,
+                                                                     BUYER_NAME_KEY:True, BUYER_CITY_KEY:True})
         return NormalisedMetadataView(title=title, long_title=long_title,
                                       name_of_buyer=name_of_buyer, city_of_buyer=city_of_buyer,
                                       **normalised_metadata_dict)

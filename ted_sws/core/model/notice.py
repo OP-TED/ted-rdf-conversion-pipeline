@@ -13,6 +13,7 @@
 from __future__ import annotations
 
 import abc
+from abc import ABC
 from datetime import datetime
 from enum import IntEnum
 from functools import total_ordering
@@ -21,7 +22,7 @@ from typing import Optional, List, Union
 from pydantic import Field
 
 from ted_sws.core.model import PropertyBaseModel
-from ted_sws.core.model.lazy_object import LazyObject
+from ted_sws.core.model.lazy_object import LazyObjectABC, LazyObjectFieldsLoaderABC
 from ted_sws.core.model.manifestation import METSManifestation, RDFManifestation, XMLManifestation, \
     RDFValidationManifestation, SPARQLTestSuiteValidationReport, SHACLTestSuiteValidationReport, \
     XPATHCoverageValidationReport, XMLValidationManifestation, ValidationSummaryReport
@@ -143,7 +144,26 @@ class WorkExpression(PropertyBaseModel, abc.ABC):
         """
 
 
-class Notice(WorkExpression, LazyObject):
+class LazyWorkExpression(WorkExpression, LazyObjectABC, ABC):
+    _lazy_object_fields_loader: LazyObjectFieldsLoaderABC = None
+
+    def set_lazy_object_fields_loader(self, lazy_object_fields_loader: LazyObjectFieldsLoaderABC):
+        """
+
+        :param lazy_object_fields_loader:
+        :return:
+        """
+        self._lazy_object_fields_loader = lazy_object_fields_loader
+
+    def get_lazy_object_fields_loader(self) -> Optional[LazyObjectFieldsLoaderABC]:
+        """
+
+        :return:
+        """
+        return self._lazy_object_fields_loader
+
+
+class Notice(LazyWorkExpression):
     """
         A TED notice in any of its forms across the TED-SWS pipeline. This class is conceptualised as a merger of Work
         and Expression in the FRBR class hierarchy and is connected to some of its Manifestations.

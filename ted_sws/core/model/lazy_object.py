@@ -14,23 +14,22 @@ class LazyObjectFieldsLoaderABC(abc.ABC):
         """
 
 
-class LazyObject:
-    _lazy_object_fields_loader: LazyObjectFieldsLoaderABC = None
+class LazyObjectABC(abc.ABC):
 
+    @abc.abstractmethod
     def set_lazy_object_fields_loader(self, lazy_object_fields_loader: LazyObjectFieldsLoaderABC):
         """
 
         :param lazy_object_fields_loader:
         :return:
         """
-        self._lazy_object_fields_loader = lazy_object_fields_loader
 
+    @abc.abstractmethod
     def get_lazy_object_fields_loader(self) -> Optional[LazyObjectFieldsLoaderABC]:
         """
 
         :return:
         """
-        return self._lazy_object_fields_loader
 
     def load_lazy_field(self, property_field: property):
         """
@@ -38,6 +37,7 @@ class LazyObject:
         :param property_field:
         :return:
         """
-        if self._lazy_object_fields_loader:
-            return self._lazy_object_fields_loader.load_lazy_field(source_object=self, property_field=property_field)
+        if self.get_lazy_object_fields_loader():
+            return self.get_lazy_object_fields_loader().load_lazy_field(source_object=self,
+                                                                        property_field=property_field)
         return None

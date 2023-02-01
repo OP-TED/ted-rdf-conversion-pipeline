@@ -83,14 +83,21 @@ class BigString(str):
     gridfs_id: str = None
 
 
-class NoticeModel(WorkExpression):
+class LazyWorkExpression(WorkExpression):
+
+    _test_field :str = None
+
+class NoticeModel(LazyWorkExpression):
     """
 
     """
 
-    _x: Optional[int] = Field(alias="x", default=None)
+    _x: Optional[int] = 10
 
     object_data : BigString = None
+
+    def __init__(self, *args, **kvargs):
+        super().__init__(**kvargs)
 
     @property
     def x(self):
@@ -110,12 +117,7 @@ def print_property_name(property_field: property):
 
 
 def test_new_notice_model():
-    # notice  = NoticeModel(x=10)
-    # loader_map = {NoticeModel.x : 10,
-    #               NoticeModel.y : 6
-    #               }
-    # print(loader_map[NoticeModel.x])
-    # print(loader_map[NoticeModel.y])
+    notice  = NoticeModel(x=10)
+    notice._test_field = "ha"
+    print(notice)
 
-    a = None
-    print([x for x in a])

@@ -41,7 +41,6 @@ NOTICE_XML_METADATA = "xml_metadata"
 
 METADATA_PUBLICATION_DATE = "publication_date"
 METADATA_DOCUMENT_SENT_DATE = "document_sent_date"
-FILE_STORAGE_COLLECTION_NAME = "fs.files"
 
 
 class NoticeRepositoryInFileSystem(NoticeRepositoryABC):
@@ -200,8 +199,7 @@ class NoticeRepository(NoticeRepositoryABC, LazyObjectFieldsLoaderABC):
             if notice_field is not None:
                 repository.add(notice.ted_id, notice_field)
 
-    @staticmethod
-    def _create_notice_from_repository_result(notice_dict: dict) -> Union[Notice, None]:
+    def _create_notice_from_repository_result(self, notice_dict: dict) -> Union[Notice, None]:
         """
             This method allows you to create a Notice from the dictionary extracted from the repository.
         :param notice_dict:
@@ -209,11 +207,12 @@ class NoticeRepository(NoticeRepositoryABC, LazyObjectFieldsLoaderABC):
         """
         if notice_dict:
             del notice_dict[MONGODB_COLLECTION_ID]
-            notice_dict.pop(NOTICE_NORMALISED_METADATA)
+            notice_dict.pop(NOTICE_NORMALISED_METADATA,None)
             remove_date_string_fields(data=notice_dict, date_field_name=NOTICE_CREATED_AT)
             notice_dict[NOTICE_CREATED_AT] = notice_dict[NOTICE_CREATED_AT].isoformat()
             notice = Notice(**notice_dict)
             notice._status = NoticeStatus[notice_dict[NOTICE_STATUS]]
+            notice.set_lazy_object_fields_loader(lazy_object_fields_loader=self)
             return notice
         return None
 
@@ -225,7 +224,7 @@ class NoticeRepository(NoticeRepositoryABC, LazyObjectFieldsLoaderABC):
         :return:
         """
 
-        notice_dict = notice.dict(include=[NOTICE_TED_ID, NOTICE_STATUS, NOTICE_CREATED_AT])
+        notice_dict = notice.dict(include={NOTICE_TED_ID: True, NOTICE_STATUS: True, NOTICE_CREATED_AT: True})
         notice_dict[MONGODB_COLLECTION_ID] = notice_dict[NOTICE_TED_ID]
         notice_dict[NOTICE_STATUS] = str(notice_dict[NOTICE_STATUS])
         notice_dict[NOTICE_CREATED_AT] = datetime.fromisoformat(notice_dict[NOTICE_CREATED_AT])
@@ -278,7 +277,7 @@ class NoticeRepository(NoticeRepositoryABC, LazyObjectFieldsLoaderABC):
         """
         result_dict = self.collection.find_one({MONGODB_COLLECTION_ID: reference})
         if result_dict is not None:
-            notice = NoticeRepository._create_notice_from_repository_result(result_dict)
+            notice = self._create_notice_from_repository_result(result_dict)
             return notice
         return None
 
@@ -289,7 +288,7 @@ class NoticeRepository(NoticeRepositoryABC, LazyObjectFieldsLoaderABC):
         :return:
         """
         for result_dict in self.collection.find({NOTICE_STATUS: str(notice_status)}):
-            notice = NoticeRepository._create_notice_from_repository_result(result_dict)
+            notice = self._create_notice_from_repository_result(result_dict)
             yield notice
 
     def get_notice_ids_by_status(self, notice_status: NoticeStatus) -> Iterator[str]:
@@ -307,5 +306,5 @@ class NoticeRepository(NoticeRepositoryABC, LazyObjectFieldsLoaderABC):
         :return: list of notices
         """
         for result_dict in self.collection.find():
-            notice = NoticeRepository._create_notice_from_repository_result(result_dict)
+            notice = self._create_notice_from_repository_result(result_dict)
             yield notice

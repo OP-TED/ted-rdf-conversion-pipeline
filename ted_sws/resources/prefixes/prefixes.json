@@ -18,6 +18,7 @@
 
 
 		"epo": "http://data.europa.eu/a4g/ontology#",
+		"epo-not": "http://data.europa.eu/a4g/ontology#",
 		"epd": "http://data.europa.eu/a4g/resource/",
 		"tedm": "http://data.europa.eu/a4g/mapping/sf-rml/",
 		"tedd": "http://data.europa.eu/a4g/dataset/sf-rml/",
@@ -50,11 +51,11 @@
 	},
 	
 	"prefix_selections" : {
-		"sparql_generator" : ["xml", "xsd", "rdf", "rdfs", "owl", "skos", "dc", "dct", "foaf", "epo", "epd", "locn", "legal"],
+		"sparql_generator" : ["xml", "xsd", "rdf", "rdfs", "owl", "skos", "dc", "dct", "foaf", "epo", "epo-not", "epd", "locn", "legal"],
 		"sparql_generator_ext" : ["time", "vann", "cc", "org", "cv", "cccev", "cpov", "geosparql", "dul"],
-		"yarrrml_rules" : ["epo", "epd", "locn", "xml", "xsd", "rdf", "rdfs", "dct"],
-		"rml_rules" : ["rr", "rml", "ql", "epo", "epd", "tedm", "locn", "xml", "xsd", "rdf", "rdfs", "owl", "dct", "cc", "cccev", "cpov", "skos", "time", "vann", "legal"],
-		"epo_ontology" : ["epo", "epd", "locn", "xml", "xsd", "rdf", "rdfs", "owl", "skos", "dc", "dct", "foaf", "cv", "cccev", "cpov", "geosparql", "dul", "cc", "time", "vann", "legal"],
+		"yarrrml_rules" : ["epo", "epo-not", "epd", "locn", "xml", "xsd", "rdf", "rdfs", "dct"],
+		"rml_rules" : ["rr", "rml", "ql", "epo", "epo-not", "epd", "tedm", "locn", "xml", "xsd", "rdf", "rdfs", "owl", "dct", "cc", "cccev", "cpov", "skos", "time", "vann", "legal"],
+		"epo_ontology" : ["epo", "epo-not", "epd", "locn", "xml", "xsd", "rdf", "rdfs", "owl", "skos", "dc", "dct", "foaf", "cv", "cccev", "cpov", "geosparql", "dul", "cc", "time", "vann", "legal"],
 		"currently_unused" : ["epor", "epos", "grel", "xf", "map", "sd", "ht", "v"]
 	}
 }

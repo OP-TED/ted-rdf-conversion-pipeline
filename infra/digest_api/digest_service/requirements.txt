@@ -1,1 +1,2 @@
 uvicorn[standard]
+shortuuid~=1.0.11

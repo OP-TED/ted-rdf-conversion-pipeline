@@ -2,7 +2,7 @@ import hashlib
 import uuid
 from enum import Enum
 from typing import Optional
-
+import shortuuid
 from fastapi import APIRouter
 
 from ted_sws.notice_transformer.entrypoints.api.digest_service.common import ResponseType, single_result_response, \
@@ -30,6 +30,7 @@ class UUIDNamespaceType(Enum):
 class UUIDVersion(Enum):
     UUID3 = "UUID3"
     UUID5 = "UUID5"
+    SHORT_UUID = "short"
 
 
 def string_md5(value: str):
@@ -73,7 +74,7 @@ async def fn_md5(value: str, response_type: Optional[ResponseType] = ResponseTyp
 async def fn_uuid(
         value: str,
         process_type: Optional[UUIDInputProcessType] = UUIDInputProcessType.XPATH,
-        version: Optional[UUIDVersion] = UUIDVersion.UUID3,
+        version: Optional[UUIDVersion] = UUIDVersion.SHORT_UUID,
         ns_type: Optional[UUIDNamespaceType] = UUIDNamespaceType.URL,
         response_type: Optional[ResponseType] = ResponseType.RAW
 ):
@@ -95,10 +96,13 @@ async def fn_uuid(
     uuid_ns = uuid_ns_by_type(ns_type)
 
     uuid_result: uuid.UUID
-    if version == UUIDVersion.UUID5:
+    if version == UUIDVersion.SHORT_UUID:
+        uuid_result = shortuuid.uuid(name=value)
+    elif version == UUIDVersion.UUID5:
         uuid_result = uuid.uuid5(uuid_ns, value)
-    else:
+    elif version == UUIDVersion.UUID3:
         uuid_result = uuid.uuid3(uuid_ns, value)
+
 
     result = str(uuid_result)
     return single_result_response(result, response_type)

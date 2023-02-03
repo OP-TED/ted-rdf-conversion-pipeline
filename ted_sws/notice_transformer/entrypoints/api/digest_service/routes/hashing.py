@@ -100,9 +100,8 @@ async def fn_uuid(
         uuid_result = shortuuid.uuid(name=value)
     elif version == UUIDVersion.UUID5:
         uuid_result = uuid.uuid5(uuid_ns, value)
-    else version == UUIDVersion.UUID3:
+    else:
         uuid_result = uuid.uuid3(uuid_ns, value)
-
 
     result = str(uuid_result)
     return single_result_response(result, response_type)

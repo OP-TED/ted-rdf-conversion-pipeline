@@ -38,6 +38,7 @@ NOTICE_METS_MANIFESTATION = "mets_manifestation"
 NOTICE_TED_METADATA = "original_metadata"
 NOTICE_XML_MANIFESTATION = "xml_manifestation"
 NOTICE_XML_METADATA = "xml_metadata"
+VALIDATION_SUMMARY = "validation_summary"
 
 METADATA_PUBLICATION_DATE = "publication_date"
 METADATA_DOCUMENT_SENT_DATE = "document_sent_date"
@@ -46,9 +47,11 @@ NOTICE_ORIGINAL_METADATA_PRIVATE_KEY = "_original_metadata"
 NOTICE_NORMALISED_METADATA_PRIVATE_KEY = "_normalised_metadata"
 NOTICE_XML_METADATA_PRIVATE_KEY = "_xml_metadata"
 NOTICE_XML_MANIFESTATION_PRIVATE_KEY = "_xml_manifestation"
+NOTICE_PREPROCESSED_XML_MANIFESTATION_KEY = "_preprocessed_xml_manifestation"
 NOTICE_RDF_MANIFESTATION_PRIVATE_KEY = "_rdf_manifestation"
 NOTICE_DISTILLED_RDF_MANIFESTATION_PRIVATE_KEY = "_distilled_rdf_manifestation"
 NOTICE_METS_MANIFESTATION_PRIVATE_KEY = "_mets_manifestation"
+
 
 
 class NoticeRepositoryInFileSystem(NoticeRepositoryABC):
@@ -182,6 +185,10 @@ class NoticeRepository(NoticeRepositoryABC, LazyObjectFieldsLoaderABC):
                                   self.xml_metadata_repository),
             Notice.xml_manifestation: (NOTICE_XML_MANIFESTATION_PRIVATE_KEY,
                                        self.xml_manifestation_repository),
+            #@Note: preprocessed_xml_manifestation at the moment is same as xml_manifestation
+            # in this case is used same repository, in future need to create another repository
+            Notice.preprocessed_xml_manifestation: (NOTICE_PREPROCESSED_XML_MANIFESTATION_KEY,
+                                                    self.xml_manifestation_repository),
             Notice.rdf_manifestation: (NOTICE_RDF_MANIFESTATION_PRIVATE_KEY,
                                        self.rdf_manifestation_repository),
             Notice.distilled_rdf_manifestation: (NOTICE_DISTILLED_RDF_MANIFESTATION_PRIVATE_KEY,
@@ -234,7 +241,8 @@ class NoticeRepository(NoticeRepositoryABC, LazyObjectFieldsLoaderABC):
         :return:
         """
 
-        notice_dict = notice.dict(include={NOTICE_TED_ID: True, NOTICE_STATUS: True, NOTICE_CREATED_AT: True})
+        notice_dict = notice.dict(include={NOTICE_TED_ID: True, NOTICE_STATUS: True,
+                                           NOTICE_CREATED_AT: True, VALIDATION_SUMMARY: True})
         notice_dict[MONGODB_COLLECTION_ID] = notice_dict[NOTICE_TED_ID]
         notice_dict[NOTICE_STATUS] = str(notice_dict[NOTICE_STATUS])
         notice_dict[NOTICE_CREATED_AT] = datetime.fromisoformat(notice_dict[NOTICE_CREATED_AT])

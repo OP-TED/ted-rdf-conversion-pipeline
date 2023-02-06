@@ -203,7 +203,7 @@ class Notice(LazyWorkExpression):
     @property
     def xml_manifestation(self) -> XMLManifestation:
         if self._xml_manifestation is None:
-            self.load_lazy_field(property_field=Notice.xml_metadata)
+            self.load_lazy_field(property_field=Notice.xml_manifestation)
         return self._xml_manifestation
 
     def set_original_metadata(self, ted_metadata: TEDMetadata):

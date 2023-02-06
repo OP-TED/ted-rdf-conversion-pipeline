@@ -13,6 +13,7 @@ MONGODB_COLLECTION_ID = "_id"
 FILE_STORAGE_COLLECTION_NAME = "fs.files"
 MANIFESTATION_ID = "manifestation_id"
 OBJECT_DATA_KEY = "object_data"
+AGGREGATE_REFERENCE_ID = "ted_id"
 
 
 class BaseManifestationRepository(ManifestationRepositoryABC):
@@ -25,6 +26,7 @@ class BaseManifestationRepository(ManifestationRepositoryABC):
         db = mongodb_client[self._database_name]
         self.file_storage = gridfs.GridFS(db)  # TODO: Investigate how it works in multiple processes in parallel.
         self.collection = db[self._collection_name]
+        self.collection.create_index([(AGGREGATE_REFERENCE_ID, ASCENDING)])
         self.file_storage_collection = db[FILE_STORAGE_COLLECTION_NAME]
         self.file_storage_collection.create_index([(MANIFESTATION_ID,
                                                     ASCENDING)])  # TODO: index creation may bring race condition error.
@@ -56,6 +58,8 @@ class BaseManifestationRepository(ManifestationRepositoryABC):
         """
         if manifestation is not None:
             manifestation_dict = manifestation.dict()
+            manifestation_dict[AGGREGATE_REFERENCE_ID] = reference
+            reference = self._build_reference(base_reference=reference)
             manifestation_dict[MONGODB_COLLECTION_ID] = reference
             old_linked_manifestation_file = self.file_storage.find_one({MANIFESTATION_ID: reference})
             manifestation_dict[OBJECT_DATA_KEY] = self._put_file_content_in_grid_fs(file_reference=reference,
@@ -66,10 +70,12 @@ class BaseManifestationRepository(ManifestationRepositoryABC):
                 self.file_storage.delete(file_id=old_linked_manifestation_file._id)
 
     def _get_manifestation_dict(self, reference: str) -> Optional[dict]:
+        reference = self._build_reference(base_reference=reference)
         result_dict = self.collection.find_one({MONGODB_COLLECTION_ID: reference})
         if result_dict:
             result_dict[OBJECT_DATA_KEY] = self._get_file_content_from_grid_fs(file_id=result_dict[OBJECT_DATA_KEY])
             del result_dict[MONGODB_COLLECTION_ID]
+            del result_dict[AGGREGATE_REFERENCE_ID]
         return result_dict
 
     @abc.abstractmethod
@@ -95,7 +101,6 @@ class BaseManifestationRepository(ManifestationRepositoryABC):
         :param manifestation:
         :return:
         """
-        reference = self._build_reference(base_reference=reference)
         self._update_manifestation(reference=reference, manifestation=manifestation, upsert=True)
 
     def update(self, reference: str, manifestation: Manifestation):
@@ -105,8 +110,6 @@ class BaseManifestationRepository(ManifestationRepositoryABC):
         :param manifestation:
         :return:
         """
-        reference = self._build_reference(base_reference=reference)
-        reference = f"{reference}_rdf"
         self._update_manifestation(reference=reference, manifestation=manifestation)
 
     def get(self, reference: str) -> Optional[Manifestation]:
@@ -115,7 +118,6 @@ class BaseManifestationRepository(ManifestationRepositoryABC):
         :param reference:
         :return:
         """
-        reference = self._build_reference(base_reference=reference)
         result_dict = self._get_manifestation_dict(reference=reference)
         if result_dict is not None:
             return self._build_manifestation_from_dict(manifestation_dict=result_dict)

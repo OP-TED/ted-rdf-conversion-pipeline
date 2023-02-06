@@ -1,13 +1,14 @@
 import abc
 from typing import Optional
 
-from pymongo import MongoClient
+from pymongo import MongoClient, ASCENDING
 
 from ted_sws import config
 from ted_sws.core.model.metadata import Metadata, NormalisedMetadata, TEDMetadata, XMLMetadata
 from ted_sws.data_manager.adapters.repository_abc import RepositoryABC
 
 MONGODB_COLLECTION_ID = "_id"
+AGGREGATE_REFERENCE_ID = "ted_id"
 
 
 class BaseMetadataRepository(RepositoryABC):
@@ -22,6 +23,7 @@ class BaseMetadataRepository(RepositoryABC):
         self.mongodb_client = mongodb_client
         db = mongodb_client[self._database_name]
         self.collection = db[self._collection_name]
+        self.collection.create_index([(AGGREGATE_REFERENCE_ID, ASCENDING)])
 
     def _update_metadata(self, reference: str, metadata: Metadata, upsert: bool = False):
         """
@@ -33,6 +35,7 @@ class BaseMetadataRepository(RepositoryABC):
         """
         if metadata is not None:
             metadata_dict = metadata.dict()
+            metadata_dict[AGGREGATE_REFERENCE_ID] = reference
             reference = self._build_reference(base_reference=reference)
             metadata_dict[MONGODB_COLLECTION_ID] = reference
             self.collection.update_one({MONGODB_COLLECTION_ID: reference}, {"$set": metadata_dict}, upsert=upsert)
@@ -47,6 +50,7 @@ class BaseMetadataRepository(RepositoryABC):
         result_dict = self.collection.find_one({MONGODB_COLLECTION_ID: reference})
         if result_dict:
             del result_dict[MONGODB_COLLECTION_ID]
+            del result_dict[AGGREGATE_REFERENCE_ID]
         return result_dict
 
     @abc.abstractmethod

@@ -14,10 +14,12 @@ FILE_STORAGE_COLLECTION_NAME = "fs.files"
 MANIFESTATION_ID = "manifestation_id"
 OBJECT_DATA_KEY = "object_data"
 AGGREGATE_REFERENCE_ID = "ted_id"
+MANIFESTATION_TYPE_ID = "manifestation_type"
 
 
 class BaseManifestationRepository(ManifestationRepositoryABC):
     _collection_name = "notice_manifestations"
+    _manifestation_type = "unknown"
 
     def __init__(self, mongodb_client: MongoClient, database_name: str = None):
         database_name = database_name if database_name else config.MONGO_DB_AGGREGATES_DATABASE_NAME
@@ -59,6 +61,7 @@ class BaseManifestationRepository(ManifestationRepositoryABC):
         if manifestation is not None:
             manifestation_dict = manifestation.dict()
             manifestation_dict[AGGREGATE_REFERENCE_ID] = reference
+            manifestation_dict[MANIFESTATION_TYPE_ID] = self._manifestation_type
             reference = self._build_reference(base_reference=reference)
             manifestation_dict[MONGODB_COLLECTION_ID] = reference
             old_linked_manifestation_file = self.file_storage.find_one({MANIFESTATION_ID: reference})
@@ -76,15 +79,16 @@ class BaseManifestationRepository(ManifestationRepositoryABC):
             result_dict[OBJECT_DATA_KEY] = self._get_file_content_from_grid_fs(file_id=result_dict[OBJECT_DATA_KEY])
             del result_dict[MONGODB_COLLECTION_ID]
             del result_dict[AGGREGATE_REFERENCE_ID]
+            del result_dict[MANIFESTATION_TYPE_ID]
         return result_dict
 
-    @abc.abstractmethod
     def _build_reference(self, base_reference: str) -> str:
         """
 
         :param base_reference:
         :return:
         """
+        return f"{base_reference}_{self._manifestation_type}"
 
     @abc.abstractmethod
     def _build_manifestation_from_dict(self, manifestation_dict: dict) -> Manifestation:
@@ -123,34 +127,36 @@ class BaseManifestationRepository(ManifestationRepositoryABC):
             return self._build_manifestation_from_dict(manifestation_dict=result_dict)
         return None
 
+    def remove(self, reference: str):
+        """
+            This method remove a manifestation based on an identification reference.
+        :param reference:
+        :return:
+        """
+        reference = self._build_reference(reference)
+        self.collection.delete_one({MONGODB_COLLECTION_ID: reference})
+
 
 class RDFManifestationRepository(BaseManifestationRepository):
-
-    def _build_reference(self, base_reference: str) -> str:
-        return f"{base_reference}_rdf"
+    _manifestation_type: str = "rdf"
 
     def _build_manifestation_from_dict(self, manifestation_dict: dict) -> Manifestation:
         return RDFManifestation(**manifestation_dict)
 
 
 class DistilledRDFManifestationRepository(RDFManifestationRepository):
-    def _build_reference(self, base_reference: str) -> str:
-        return f"{base_reference}_distilled_rdf"
+    _manifestation_type: str = "distilled_rdf"
 
 
 class XMLManifestationRepository(BaseManifestationRepository):
-
-    def _build_reference(self, base_reference: str) -> str:
-        return f"{base_reference}_xml"
+    _manifestation_type: str = "xml"
 
     def _build_manifestation_from_dict(self, manifestation_dict: dict) -> Manifestation:
         return XMLManifestation(**manifestation_dict)
 
 
 class METSManifestationRepository(BaseManifestationRepository):
-
-    def _build_reference(self, base_reference: str) -> str:
-        return f"{base_reference}_mets"
+    _manifestation_type: str = "mets"
 
     def _build_manifestation_from_dict(self, manifestation_dict: dict) -> Manifestation:
         return METSManifestation(**manifestation_dict)

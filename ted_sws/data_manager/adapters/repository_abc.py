@@ -45,6 +45,13 @@ class MetadataRepositoryABC(RepositoryABC):
         :return: Metadata
         """
 
+    @abc.abstractmethod
+    def remove(self, reference: str):
+        """
+            This method remove a metadata based on an identification reference.
+        :param reference:
+        :return:
+        """
 
 class ManifestationRepositoryABC(RepositoryABC):
     """
@@ -77,6 +84,13 @@ class ManifestationRepositoryABC(RepositoryABC):
         :return: Manifestation
         """
 
+    @abc.abstractmethod
+    def remove(self, reference: str):
+        """
+            This method remove a manifestation based on an identification reference.
+        :param reference:
+        :return:
+        """
 
 class NoticeRepositoryABC(RepositoryABC):
     """

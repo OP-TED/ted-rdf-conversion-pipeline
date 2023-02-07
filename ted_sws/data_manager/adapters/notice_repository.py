@@ -53,7 +53,6 @@ NOTICE_DISTILLED_RDF_MANIFESTATION_PRIVATE_KEY = "_distilled_rdf_manifestation"
 NOTICE_METS_MANIFESTATION_PRIVATE_KEY = "_mets_manifestation"
 
 
-
 class NoticeRepositoryInFileSystem(NoticeRepositoryABC):
     """
        This repository is intended for storing Notice objects as JSON files in file system.
@@ -185,7 +184,7 @@ class NoticeRepository(NoticeRepositoryABC, LazyObjectFieldsLoaderABC):
                                   self.xml_metadata_repository),
             Notice.xml_manifestation: (NOTICE_XML_MANIFESTATION_PRIVATE_KEY,
                                        self.xml_manifestation_repository),
-            #@Note: preprocessed_xml_manifestation at the moment is same as xml_manifestation
+            # @Note: preprocessed_xml_manifestation at the moment is same as xml_manifestation
             # in this case is used same repository, in future need to create another repository
             Notice.preprocessed_xml_manifestation: (NOTICE_PREPROCESSED_XML_MANIFESTATION_KEY,
                                                     self.xml_manifestation_repository),
@@ -208,6 +207,12 @@ class NoticeRepository(NoticeRepositoryABC, LazyObjectFieldsLoaderABC):
         notice_field, field_repository = mapping_lazy_fields[property_field]
         notice_field_data = field_repository.get(source_object.ted_id)
         setattr(source_object, notice_field, notice_field_data)
+
+    def remove_lazy_field(self, source_object: Any, property_field: property):
+        mapping_lazy_fields = self._mapping_lazy_fields()
+        notice_field, field_repository = mapping_lazy_fields[property_field]
+        field_repository.remove(source_object.ted_id)
+        setattr(source_object, notice_field, None)
 
     def _write_lazy_fields(self, notice: Notice):
         mapping_lazy_fields = self._mapping_lazy_fields()

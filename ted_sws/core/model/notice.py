@@ -338,8 +338,8 @@ class Notice(LazyWorkExpression):
 
         :return:
         """
-        if self._rdf_manifestation and self._distilled_rdf_manifestation and self.xml_manifestation:
-            if self._distilled_rdf_manifestation.is_validated() and self.xml_manifestation.is_validated():
+        if self.rdf_manifestation and self.distilled_rdf_manifestation and self.xml_manifestation:
+            if self.distilled_rdf_manifestation.is_validated() and self.xml_manifestation.is_validated():
                 return True
         return False
 
@@ -354,7 +354,7 @@ class Notice(LazyWorkExpression):
         if not self.rdf_manifestation:
             raise ValueError("Cannot set the RDF validation of a non-existent RDF manifestation")
 
-        self._rdf_manifestation.add_validation(validation=rdf_validation)
+        self.rdf_manifestation.add_validation(validation=rdf_validation)
 
     def set_distilled_rdf_validation(self, rdf_validation: Union[SPARQLTestSuiteValidationReport,
                                                                  SHACLTestSuiteValidationReport]):
@@ -363,10 +363,10 @@ class Notice(LazyWorkExpression):
         :param rdf_validation:
         :return:
         """
-        if not self._distilled_rdf_manifestation:
+        if not self.distilled_rdf_manifestation:
             raise ValueError("Cannot set the RDF validation of a non-existent RDF manifestation")
 
-        self._distilled_rdf_manifestation.add_validation(validation=rdf_validation)
+        self.distilled_rdf_manifestation.add_validation(validation=rdf_validation)
 
         if self._check_status_is_validated():
             self.update_status_to(NoticeStatus.VALIDATED)
@@ -479,13 +479,17 @@ class Notice(LazyWorkExpression):
                 raise UnsupportedStatusTransition(
                     f"Unsupported transition from state {self._status} to state {new_status}.")
         elif self._status > new_status:
-            # TODO: implement delete actions
             self._status = new_status
+            if new_status < NoticeStatus.INDEXED:
+                self.remove_lazy_field(Notice.xml_metadata)
             if new_status < NoticeStatus.NORMALISED_METADATA:
-                self._normalised_metadata = None
+                self.remove_lazy_field(Notice.normalised_metadata)
+                #TODO: preprocessed_xml_manifestation is the same as xml_manifestation
+                # if delete preprocessed xml manifestation will delete xml_manifestation
+                # in future remove _preprocessed_xml_manifestation field from model
                 self._preprocessed_xml_manifestation = None
             if new_status < NoticeStatus.TRANSFORMED:
-                self._rdf_manifestation = None
-                self._distilled_rdf_manifestation = None
+                self.remove_lazy_field(Notice.rdf_manifestation)
+                self.remove_lazy_field(Notice.distilled_rdf_manifestation)
             if new_status < NoticeStatus.PACKAGED:
-                self._mets_manifestation = None
+                self.remove_lazy_field(Notice.mets_manifestation)

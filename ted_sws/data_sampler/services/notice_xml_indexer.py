@@ -139,6 +139,7 @@ def get_minimal_set_of_xpaths_for_coverage_notices(notice_ids: List[str], mongod
     notice_repository = NoticeRepository(mongodb_client=mongodb_client)
     while len(unique_notice_ids):
         tmp_result = list(notice_repository.xml_metadata_repository.collection.aggregate([
+            {"$match": {"metadata_type": {"$eq": "xml"}}},
             {"$unwind": "$unique_xpaths"},
             {"$match": {
                 "unique_xpaths": {"$nin": minimal_set_of_xpaths},
@@ -173,7 +174,8 @@ def get_minimal_set_of_notices_for_coverage_xpaths(notice_ids: List[str], mongod
     while len(unique_xpaths):
         tmp_result = list(notice_repository.xml_metadata_repository.collection.aggregate([
             {"$match": {
-                "ted_id": {"$in": search_notices}
+                "ted_id": {"$in": search_notices},
+                "metadata_type": {"$eq": "xml"}
             }
             },
             {"$unwind": "$unique_xpaths"},
@@ -205,7 +207,10 @@ def get_unique_notices_id_covered_by_xpaths(xpaths: List[str], mongodb_client: M
     """
     notice_repository = NoticeRepository(mongodb_client=mongodb_client)
     results = list(notice_repository.xml_metadata_repository.collection.aggregate([
-        {"$match": {"unique_xpaths": {"$in": xpaths}}},
+        {"$match": {"unique_xpaths": {"$in": xpaths},
+                    "metadata_type": {"$eq": "xml"}
+                    }
+         },
         {
             "$group": {"_id": None,
                        "ted_ids": {"$push": "$ted_id"}
@@ -223,7 +228,10 @@ def get_unique_xpaths_covered_by_notices(notice_ids: List[str], mongodb_client: 
     :return:
     """
     notice_repository = NoticeRepository(mongodb_client=mongodb_client)
-    results = notice_repository.xml_metadata_repository.collection.aggregate([{"$match": {"ted_id": {"$in": notice_ids}}}], allowDiskUse=True)
+    results = notice_repository.xml_metadata_repository.collection.aggregate([{"$match": {"ted_id": {"$in": notice_ids},
+                                                                                          "metadata_type": {"$eq":"xml"}
+                                                                                          }
+                                                                               }], allowDiskUse=True)
     unique_xpaths = set()
     for result in results:
         if result["unique_xpaths"] is not None:

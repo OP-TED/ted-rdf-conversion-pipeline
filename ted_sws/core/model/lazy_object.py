@@ -13,6 +13,15 @@ class LazyObjectFieldsLoaderABC(abc.ABC):
         :return:
         """
 
+    @abc.abstractmethod
+    def remove_lazy_field(self, source_object: Any, property_field: property):
+        """
+
+        :param source_object:
+        :param property_field:
+        :return:
+        """
+
 
 class LazyObjectABC(abc.ABC):
 
@@ -41,3 +50,13 @@ class LazyObjectABC(abc.ABC):
             return self.get_lazy_object_fields_loader().load_lazy_field(source_object=self,
                                                                         property_field=property_field)
         return None
+
+    def remove_lazy_field(self, property_field: property):
+        """
+
+        :param property_field:
+        :return:
+        """
+        if self.get_lazy_object_fields_loader():
+            self.get_lazy_object_fields_loader().remove_lazy_field(source_object=self,
+                                                                   property_field=property_field)

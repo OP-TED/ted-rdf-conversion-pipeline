@@ -66,6 +66,7 @@ def test_validate_notice_by_id_with_shacl_suite(notice_with_distilled_status, rd
     mapping_suite_repository = MappingSuiteRepositoryInFileSystem(repository_path=path_to_file_system_repository)
     notice_repository.add(notice)
 
+    assert len(notice.get_rdf_validation()) == 0
     validate_notice_by_id_with_shacl_suite(notice_id="408313-2020",
                                            mapping_suite_repository=mapping_suite_repository,
                                            notice_repository=notice_repository,

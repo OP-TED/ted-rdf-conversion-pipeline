@@ -1,8 +1,6 @@
 from typing import List
 
 import click
-from pathlib import Path
-
 from pymongo import MongoClient
 
 from ted_sws import config

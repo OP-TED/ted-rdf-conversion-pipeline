@@ -92,7 +92,8 @@ def transform_test_data(mapping_suite: MappingSuite, rml_mapper: RMLMapperABC, o
             event_message: NoticeEventMessage = NoticeEventMessage()
             event_message.start_record()
 
-        notice = Notice(ted_id="tmp_notice", xml_manifestation=XMLManifestation(object_data=data.file_content))
+        notice = Notice(ted_id="tmp_notice")
+        notice.set_xml_manifestation(XMLManifestation(object_data=data.file_content))
         notice._status = NoticeStatus.PREPROCESSED_FOR_TRANSFORMATION
         notice_result = transform_notice(notice, mapping_suite, rml_mapper)
         file_resource = FileResource(

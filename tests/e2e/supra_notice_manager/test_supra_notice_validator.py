@@ -40,7 +40,8 @@ def test_summary_validation_for_daily_supra_notice(fake_mongodb_client, daily_su
     notice_id = "TEST-XYZ067623-2022023"
     notice_ids = [notice_id]
 
-    notice = Notice(ted_id=notice_id, xml_manifestation=XMLManifestation(object_data=""))
+    notice = Notice(ted_id=notice_id)
+    notice.set_xml_manifestation(XMLManifestation(object_data=""))
     fake_notice_repository.add(notice)
 
     create_and_store_in_mongo_db_daily_supra_notice(notice_ids=notice_ids, mongodb_client=fake_mongodb_client,

@@ -25,6 +25,6 @@ def test_supra_notice_unpacking_in_file_system():
     supra_notice_repository = DailySupraNoticeRepository(mongodb_client=mongodb_client)
     unpacking_folder = pathlib.Path("./unpacking_supra_notice_result")
     for index, supra_notice in enumerate(itertools.islice(supra_notice_repository.list(), 5)):
-        supra_notice_unpacking_folder = unpacking_folder / f"supra_notice_{supra_notice.notice_fetched_date.strftime('%Y_%m_%d')}"
+        supra_notice_unpacking_folder = unpacking_folder / f"supra_notice_{supra_notice.ted_publication_date.strftime('%Y_%m_%d')}"
         supra_notice_unpacking_folder.mkdir(parents=True, exist_ok=True)
         unpack_supra_notice(supra_notice=supra_notice, unpack_path=supra_notice_unpacking_folder)

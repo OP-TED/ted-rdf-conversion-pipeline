@@ -36,7 +36,7 @@ def fake_mapping_suite():
 
 @pytest.fixture
 def daily_supra_notice():
-    return DailySupraNotice(notice_ids=["1", "2", "3"], notice_fetched_date=date.today())
+    return DailySupraNotice(notice_ids=["1", "2", "3"], ted_publication_date=date.today())
 
 
 @pytest.fixture

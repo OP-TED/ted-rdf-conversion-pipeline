@@ -1,7 +1,4 @@
 import pathlib
-
-import mongomock
-import pymongo
 import pytest
 
 from ted_sws import config

@@ -30,9 +30,9 @@ def test_manifestation_creation():
 def test_notice_creation(fetched_notice_data):
     # no notice can be created without XML manifestation, original metadata or status
     ted_id, original_metadata, xml_manifestation = fetched_notice_data
-    notice = Notice(ted_id=ted_id, original_metadata=original_metadata,
-                    xml_manifestation=xml_manifestation)
-
+    notice = Notice(ted_id=ted_id)
+    notice.set_xml_manifestation(xml_manifestation)
+    notice.set_original_metadata(original_metadata)
     assert notice.ted_id == ted_id
     assert notice.original_metadata == original_metadata
     assert notice.xml_manifestation

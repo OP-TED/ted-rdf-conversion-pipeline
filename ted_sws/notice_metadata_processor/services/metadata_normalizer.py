@@ -1,11 +1,11 @@
 import abc
 import re
 from datetime import datetime
-from typing import Dict, Tuple, List
+from typing import Dict, Tuple, List, Optional
 
 import pandas as pd
 
-from ted_sws.core.model.metadata import NormalisedMetadata, LanguageTaggedString
+from ted_sws.core.model.metadata import NormalisedMetadata, LanguageTaggedString, NormalisedMetadataView
 from ted_sws.core.model.notice import Notice
 from ted_sws.event_manager.services.log import log_error
 from ted_sws.notice_metadata_processor.services.metadata_constraints import filter_df_by_variables
@@ -42,6 +42,7 @@ SENT_DATE_KEY = "document_sent_date"
 DEADLINE_DATE_KEY = "deadline_for_submission"
 NOTICE_TYPE_KEY = "notice_type"
 XSD_VERSION_KEY = "xsd_version"
+ENGLISH_LANGUAGE_TAG = "EN"
 
 
 def normalise_notice(notice: Notice) -> Notice:
@@ -66,6 +67,32 @@ def normalise_notice_by_id(notice_id: str, notice_repository: NoticeRepositoryAB
         raise ValueError('Notice, with "%s" notice_id, was not found' % notice_id)
 
     return normalise_notice(notice)
+
+
+def create_normalised_metadata_view(normalised_metadata: NormalisedMetadata) -> Optional[NormalisedMetadataView]:
+    if normalised_metadata:
+        english_titles = [title.text for title in normalised_metadata.title if title.language == ENGLISH_LANGUAGE_TAG]
+        title = "no_english_title" if len(english_titles) == 0 else english_titles[0]
+        english_long_titles = [title.text for title in normalised_metadata.long_title
+                               if title.language == ENGLISH_LANGUAGE_TAG]
+        long_title = "no_english_long_title" if len(english_long_titles) == 0 else english_long_titles[0]
+        city_of_buyer = None
+        if normalised_metadata.city_of_buyer:
+            english_city_of_buyer = [city.text for city in normalised_metadata.city_of_buyer
+                                     if city.language == ENGLISH_LANGUAGE_TAG]
+            city_of_buyer = "no_english_city_of_buyer" if len(english_city_of_buyer) == 0 else english_city_of_buyer[0]
+
+        name_of_buyer = None
+        if normalised_metadata.name_of_buyer:
+            english_name_of_buyer = [name.text for name in normalised_metadata.name_of_buyer
+                                     if name.language == ENGLISH_LANGUAGE_TAG]
+            name_of_buyer = "no_english_city_of_buyer" if len(english_name_of_buyer) == 0 else english_name_of_buyer[0]
+        normalised_metadata_dict = normalised_metadata.dict(exclude={TITLE_KEY:True, LONG_TITLE_KEY:True,
+                                                                     BUYER_NAME_KEY:True, BUYER_CITY_KEY:True})
+        return NormalisedMetadataView(title=title, long_title=long_title,
+                                      name_of_buyer=name_of_buyer, city_of_buyer=city_of_buyer,
+                                      **normalised_metadata_dict)
+    return None
 
 
 class MetadataNormaliserABC(abc.ABC):

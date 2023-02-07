@@ -482,8 +482,10 @@ class Notice(LazyWorkExpression):
             self._status = new_status
             if new_status < NoticeStatus.INDEXED:
                 self.remove_lazy_field(Notice.xml_metadata)
+                self._xml_metadata = None
             if new_status < NoticeStatus.NORMALISED_METADATA:
                 self.remove_lazy_field(Notice.normalised_metadata)
+                self._normalised_metadata = None
                 #TODO: preprocessed_xml_manifestation is the same as xml_manifestation
                 # if delete preprocessed xml manifestation will delete xml_manifestation
                 # in future remove _preprocessed_xml_manifestation field from model
@@ -491,5 +493,8 @@ class Notice(LazyWorkExpression):
             if new_status < NoticeStatus.TRANSFORMED:
                 self.remove_lazy_field(Notice.rdf_manifestation)
                 self.remove_lazy_field(Notice.distilled_rdf_manifestation)
+                self._rdf_manifestation = None
+                self._distilled_rdf_manifestation = None
             if new_status < NoticeStatus.PACKAGED:
                 self.remove_lazy_field(Notice.mets_manifestation)
+                self._mets_manifestation = None

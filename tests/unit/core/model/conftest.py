@@ -42,19 +42,23 @@ def publicly_available_notice(fetched_notice_data, normalised_metadata_dict) -> 
     notice = Notice(ted_id=ted_id)
     notice.set_xml_manifestation(xml_manifestation)
     notice.set_original_metadata(original_metadata)
-    notice._rdf_manifestation = RDFManifestation(object_data="RDF manifestation content",
+    notice._status = NoticeStatus.INDEXED
+    notice.set_normalised_metadata(NormalisedMetadata(**normalised_metadata_dict))
+    notice._status = NoticeStatus.ELIGIBLE_FOR_TRANSFORMATION
+    notice.set_preprocessed_xml_manifestation(xml_manifestation)
+    notice._status = NoticeStatus.DISTILLED
+    notice.set_rdf_manifestation(RDFManifestation(object_data="RDF manifestation content",
                                                  shacl_validations=[shacl_validation],
                                                  sparql_validations=[sparql_validation],
                                                  xpath_coverage_validation=xpath_coverage_validation
-                                                 )
-    notice._distilled_rdf_manifestation = RDFManifestation(object_data="RDF manifestation content",
+                                                 ))
+    notice.set_distilled_rdf_manifestation(RDFManifestation(object_data="RDF manifestation content",
                                                            shacl_validations=[shacl_validation],
                                                            sparql_validations=[sparql_validation],
                                                            xpath_coverage_validation=xpath_coverage_validation
-                                                           )
-    notice._mets_manifestation = METSManifestation(object_data="METS manifestation content")
-    notice._normalised_metadata = NormalisedMetadata(**normalised_metadata_dict)
-    notice._preprocessed_xml_manifestation = xml_manifestation
+                                                           ))
+    notice._status = NoticeStatus.ELIGIBLE_FOR_PACKAGING
+    notice.set_mets_manifestation(METSManifestation(object_data="METS manifestation content"))
     notice._status = NoticeStatus.PUBLICLY_AVAILABLE
     return notice
 

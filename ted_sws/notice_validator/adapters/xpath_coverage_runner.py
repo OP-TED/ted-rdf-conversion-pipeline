@@ -103,7 +103,7 @@ class CoverageRunner:
         :param base_xpath:
         :return:
         """
-        base_xpath += "/"
+        base_xpath += "/" if not base_xpath.endswith("/") else ""
         return list(filter(lambda xpath: xpath.startswith(base_xpath), xpaths))
 
     def coverage_notice_xpath(self, notices: List[Notice], mapping_suite_id) -> XPATHCoverageValidationReport:

@@ -60,8 +60,9 @@ def mapping_suite_processor_load_package_in_mongo_db(mapping_suite_package_path:
         notice_repository = NoticeRepository(mongodb_client=mongodb_client)
         for test_data in tests_data:
             notice_id = test_data.file_name.split(".")[0]
-            notice_repository.add(notice=Notice(ted_id=notice_id,
-                                                xml_manifestation=XMLManifestation(object_data=test_data.file_content)))
+            notice = Notice(ted_id=notice_id)
+            notice.set_xml_manifestation(XMLManifestation(object_data=test_data.file_content))
+            notice_repository.add(notice=notice)
             result_notice_ids.append(notice_id)
     mapping_suite_repository_mongo_db = MappingSuiteRepositoryMongoDB(mongodb_client=mongodb_client)
     mapping_suite_repository_mongo_db.add(mapping_suite=mapping_suite_in_memory)

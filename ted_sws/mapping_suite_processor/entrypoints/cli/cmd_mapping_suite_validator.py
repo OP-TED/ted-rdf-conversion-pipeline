@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 
 from pathlib import Path
-import sys, os
+import os
 
 import click
 

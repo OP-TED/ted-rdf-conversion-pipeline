@@ -3,22 +3,29 @@ import json
 import logging
 import pathlib
 from datetime import datetime
-from typing import Iterator, Union, Optional, Tuple
+from typing import Iterator, Union, Optional, Tuple, Any
 
 import gridfs
 from bson import ObjectId
 from pymongo import MongoClient, ASCENDING
 
 from ted_sws import config
+from ted_sws.core.model.lazy_object import LazyObjectFieldsLoaderABC
 from ted_sws.core.model.manifestation import XMLManifestation, RDFManifestation, METSManifestation, Manifestation
-from ted_sws.core.model.metadata import NormalisedMetadata
+from ted_sws.core.model.metadata import NormalisedMetadata, TEDMetadata, Metadata, XMLMetadata
 from ted_sws.core.model.notice import Notice, NoticeStatus
 from ted_sws.data_manager.adapters import inject_date_string_fields, remove_date_string_fields
+from ted_sws.data_manager.adapters.manifestation_repository import XMLManifestationRepository, \
+    RDFManifestationRepository, METSManifestationRepository, DistilledRDFManifestationRepository
+from ted_sws.data_manager.adapters.metadata_repository import NormalisedMetadataRepository, TEDMetadataRepository, \
+    XMLMetadataRepository
 from ted_sws.data_manager.adapters.repository_abc import NoticeRepositoryABC
+from ted_sws.notice_metadata_processor.services.metadata_normalizer import create_normalised_metadata_view
 
 logger = logging.getLogger(__name__)
 
 MONGODB_COLLECTION_ID = "_id"
+
 NOTICE_TED_ID = "ted_id"
 NOTICE_STATUS = "status"
 NOTICE_CREATED_AT = "created_at"
@@ -28,9 +35,22 @@ NOTICE_PREPROCESSED_XML_MANIFESTATION = "preprocessed_xml_manifestation"
 NOTICE_DISTILLED_RDF_MANIFESTATION = "distilled_rdf_manifestation"
 NOTICE_RDF_MANIFESTATION = "rdf_manifestation"
 NOTICE_METS_MANIFESTATION = "mets_manifestation"
+NOTICE_TED_METADATA = "original_metadata"
+NOTICE_XML_MANIFESTATION = "xml_manifestation"
+NOTICE_XML_METADATA = "xml_metadata"
+VALIDATION_SUMMARY = "validation_summary"
+
 METADATA_PUBLICATION_DATE = "publication_date"
 METADATA_DOCUMENT_SENT_DATE = "document_sent_date"
-FILE_STORAGE_COLLECTION_NAME = "fs.files"
+
+NOTICE_ORIGINAL_METADATA_PRIVATE_KEY = "_original_metadata"
+NOTICE_NORMALISED_METADATA_PRIVATE_KEY = "_normalised_metadata"
+NOTICE_XML_METADATA_PRIVATE_KEY = "_xml_metadata"
+NOTICE_XML_MANIFESTATION_PRIVATE_KEY = "_xml_manifestation"
+NOTICE_PREPROCESSED_XML_MANIFESTATION_KEY = "_preprocessed_xml_manifestation"
+NOTICE_RDF_MANIFESTATION_PRIVATE_KEY = "_rdf_manifestation"
+NOTICE_DISTILLED_RDF_MANIFESTATION_PRIVATE_KEY = "_distilled_rdf_manifestation"
+NOTICE_METS_MANIFESTATION_PRIVATE_KEY = "_mets_manifestation"
 
 
 class NoticeRepositoryInFileSystem(NoticeRepositoryABC):
@@ -58,6 +78,8 @@ class NoticeRepositoryInFileSystem(NoticeRepositoryABC):
         if notice_dict:
             notice = Notice(**notice_dict)
             notice._status = NoticeStatus[notice_dict[NOTICE_STATUS]]
+            notice._original_metadata = init_object_from_dict(TEDMetadata, NOTICE_TED_METADATA)
+            notice._xml_manifestation = init_object_from_dict(XMLManifestation, NOTICE_XML_MANIFESTATION)
             notice._normalised_metadata = init_object_from_dict(NormalisedMetadata, NOTICE_NORMALISED_METADATA)
             notice._preprocessed_xml_manifestation = init_object_from_dict(XMLManifestation,
                                                                            NOTICE_PREPROCESSED_XML_MANIFESTATION)
@@ -65,6 +87,7 @@ class NoticeRepositoryInFileSystem(NoticeRepositoryABC):
                                                                         NOTICE_DISTILLED_RDF_MANIFESTATION)
             notice._rdf_manifestation = init_object_from_dict(RDFManifestation, NOTICE_RDF_MANIFESTATION)
             notice._mets_manifestation = init_object_from_dict(METSManifestation, NOTICE_METS_MANIFESTATION)
+            notice._xml_metadata = init_object_from_dict(XMLMetadata, NOTICE_XML_METADATA)
             return notice
         return None
 
@@ -119,7 +142,7 @@ class NoticeRepositoryInFileSystem(NoticeRepositoryABC):
                 yield self._read_notice_from_file(notice_file_path=notice_file_path)
 
 
-class NoticeRepository(NoticeRepositoryABC):
+class NoticeRepository(NoticeRepositoryABC, LazyObjectFieldsLoaderABC):
     """
        This repository is intended for storing Notice objects.
     """
@@ -131,130 +154,87 @@ class NoticeRepository(NoticeRepositoryABC):
         self._database_name = database_name
         self.mongodb_client = mongodb_client
         notice_db = mongodb_client[self._database_name]
-        self.file_storage = gridfs.GridFS(
-            notice_db)  # TODO: Investigate how it works in multiple processes in parallel.
         self.collection = notice_db[self._collection_name]
         self.collection.create_index(
             [(NOTICE_CREATED_AT, ASCENDING)])  # TODO: index creation may bring race condition error.
         self.collection.create_index(
             [(NOTICE_STATUS, ASCENDING)])  # TODO: index creation may bring race condition error.
-        self.file_storage_collection = notice_db[FILE_STORAGE_COLLECTION_NAME]
-        self.file_storage_collection.create_index(
-            [(NOTICE_ID, ASCENDING)])  # TODO: index creation may bring race condition error.
+        self.xml_manifestation_repository = XMLManifestationRepository(mongodb_client=mongodb_client,
+                                                                       database_name=database_name)
+        self.rdf_manifestation_repository = RDFManifestationRepository(mongodb_client=mongodb_client,
+                                                                       database_name=database_name)
+        self.distilled_rdf_manifestation_repository = DistilledRDFManifestationRepository(mongodb_client=mongodb_client,
+                                                                                          database_name=database_name)
+        self.mets_manifestation_repository = METSManifestationRepository(mongodb_client=mongodb_client,
+                                                                         database_name=database_name)
+        self.normalised_metadata_repository = NormalisedMetadataRepository(mongodb_client=mongodb_client,
+                                                                           database_name=database_name)
+        self.ted_metadata_repository = TEDMetadataRepository(mongodb_client=mongodb_client,
+                                                             database_name=database_name)
+        self.xml_metadata_repository = XMLMetadataRepository(mongodb_client=mongodb_client,
+                                                             database_name=database_name)
 
-    def get_file_content_from_grid_fs(self, file_id: str) -> str:
+    def _mapping_lazy_fields(self):
+        return {
+            Notice.original_metadata: (NOTICE_ORIGINAL_METADATA_PRIVATE_KEY,
+                                       self.ted_metadata_repository),
+            Notice.normalised_metadata: (NOTICE_NORMALISED_METADATA_PRIVATE_KEY,
+                                         self.normalised_metadata_repository),
+            Notice.xml_metadata: (NOTICE_XML_METADATA_PRIVATE_KEY,
+                                  self.xml_metadata_repository),
+            Notice.xml_manifestation: (NOTICE_XML_MANIFESTATION_PRIVATE_KEY,
+                                       self.xml_manifestation_repository),
+            # @Note: preprocessed_xml_manifestation at the moment is same as xml_manifestation
+            # in this case is used same repository, in future need to create another repository
+            Notice.preprocessed_xml_manifestation: (NOTICE_PREPROCESSED_XML_MANIFESTATION_KEY,
+                                                    self.xml_manifestation_repository),
+            Notice.rdf_manifestation: (NOTICE_RDF_MANIFESTATION_PRIVATE_KEY,
+                                       self.rdf_manifestation_repository),
+            Notice.distilled_rdf_manifestation: (NOTICE_DISTILLED_RDF_MANIFESTATION_PRIVATE_KEY,
+                                                 self.distilled_rdf_manifestation_repository),
+            Notice.mets_manifestation: (NOTICE_METS_MANIFESTATION_PRIVATE_KEY,
+                                        self.mets_manifestation_repository)
+        }
+
+    def load_lazy_field(self, source_object: Notice, property_field: property) -> Any:
         """
-            This method load file_content from GridFS by field_id.
-        :param file_id:
+
+        :param source_object:
+        :param property_field:
         :return:
         """
-        return self.file_storage.get(file_id=ObjectId(file_id)).read().decode("utf-8")
+        mapping_lazy_fields = self._mapping_lazy_fields()
+        notice_field, field_repository = mapping_lazy_fields[property_field]
+        notice_field_data = field_repository.get(source_object.ted_id)
+        setattr(source_object, notice_field, notice_field_data)
 
-    def put_file_content_in_grid_fs(self, notice_id: str, file_content: str) -> ObjectId:
-        """
-            This method store file_content in GridFS and set notice_id as file metadata.
-        :param notice_id:
-        :param file_content:
-        :return:
-        """
-        return self.file_storage.put(data=file_content.encode("utf-8"), notice_id=notice_id)
+    def remove_lazy_field(self, source_object: Any, property_field: property):
+        mapping_lazy_fields = self._mapping_lazy_fields()
+        notice_field, field_repository = mapping_lazy_fields[property_field]
+        field_repository.remove(source_object.ted_id)
+        setattr(source_object, notice_field, None)
 
-    def delete_files_by_notice_id(self, linked_file_ids: list):
-        """
-            This method delete all files from GridFS with specific notice_id in metadata.
-        :param linked_file_ids:
-        :return:
-        """
-        for linked_file_id in linked_file_ids:
-            self.file_storage.delete(file_id=linked_file_id)
+    def _write_lazy_fields(self, notice: Notice):
+        mapping_lazy_fields = self._mapping_lazy_fields()
+        for notice_field, repository in mapping_lazy_fields.values():
+            notice_field_data = getattr(notice, notice_field)
+            if notice_field_data is not None:
+                repository.add(notice.ted_id, notice_field_data)
 
-    def write_notice_fields_in_grid_fs(self, notice: Notice) -> Tuple[Notice, list, list]:
-        """
-            This method store large fields in GridFS.
-        :param notice:
-        :return:
-        """
-        notice = copy.deepcopy(notice)
-        linked_file_ids = [linked_file._id for linked_file in
-                           self.file_storage.find({NOTICE_ID: notice.ted_id})]
-
-        new_linked_file_ids = []
-
-        def write_large_field(large_field: Manifestation):
-            if (large_field is not None) and (large_field.object_data is not None):
-                object_id = self.put_file_content_in_grid_fs(notice_id=notice.ted_id,
-                                                             file_content=large_field.object_data)
-                large_field.object_data = str(object_id)
-                new_linked_file_ids.append(object_id)
-
-        write_large_field(notice.xml_manifestation)
-        write_large_field(notice.rdf_manifestation)
-        write_large_field(notice.mets_manifestation)
-        write_large_field(notice.distilled_rdf_manifestation)
-        write_large_field(notice.preprocessed_xml_manifestation)
-
-        return notice, linked_file_ids, new_linked_file_ids
-
-    def load_notice_fields_from_grid_fs(self, notice: Notice) -> Notice:
-        """
-           This method loads large fields from GridFS.
-        :param notice:
-        :return:
-        """
-
-        def load_large_field(large_field: Manifestation):
-            if (large_field is not None) and (large_field.object_data is not None):
-                large_field.object_data = self.get_file_content_from_grid_fs(file_id=large_field.object_data)
-
-        load_large_field(large_field=notice.xml_manifestation)
-        load_large_field(large_field=notice.rdf_manifestation)
-        load_large_field(large_field=notice.mets_manifestation)
-        load_large_field(large_field=notice.distilled_rdf_manifestation)
-        load_large_field(large_field=notice.preprocessed_xml_manifestation)
-
-        return notice
-
-    @staticmethod
-    def _create_notice_from_repository_result(notice_dict: dict) -> Union[Notice, None]:
+    def _create_notice_from_repository_result(self, notice_dict: dict) -> Union[Notice, None]:
         """
             This method allows you to create a Notice from the dictionary extracted from the repository.
         :param notice_dict:
         :return:
         """
-
-        def init_object_from_dict(object_class, key):
-            if notice_dict[key]:
-                return object_class(**notice_dict[key])
-            return None
-
-        def date_field_to_string(date_field: datetime):
-            if date_field:
-                return date_field.isoformat()
-            return None
-
         if notice_dict:
             del notice_dict[MONGODB_COLLECTION_ID]
+            notice_dict.pop(NOTICE_NORMALISED_METADATA, None)
             remove_date_string_fields(data=notice_dict, date_field_name=NOTICE_CREATED_AT)
             notice_dict[NOTICE_CREATED_AT] = notice_dict[NOTICE_CREATED_AT].isoformat()
-            if notice_dict[NOTICE_NORMALISED_METADATA]:
-                remove_date_string_fields(data=notice_dict[NOTICE_NORMALISED_METADATA],
-                                          date_field_name=METADATA_PUBLICATION_DATE)
-                remove_date_string_fields(data=notice_dict[NOTICE_NORMALISED_METADATA],
-                                          date_field_name=METADATA_DOCUMENT_SENT_DATE)
-                notice_dict[NOTICE_NORMALISED_METADATA][METADATA_PUBLICATION_DATE] = date_field_to_string(
-                    notice_dict[NOTICE_NORMALISED_METADATA][METADATA_PUBLICATION_DATE])
-                notice_dict[NOTICE_NORMALISED_METADATA][METADATA_DOCUMENT_SENT_DATE] = date_field_to_string(
-                    notice_dict[NOTICE_NORMALISED_METADATA][METADATA_DOCUMENT_SENT_DATE])
-
             notice = Notice(**notice_dict)
             notice._status = NoticeStatus[notice_dict[NOTICE_STATUS]]
-            notice._normalised_metadata = init_object_from_dict(NormalisedMetadata, NOTICE_NORMALISED_METADATA)
-            notice._preprocessed_xml_manifestation = init_object_from_dict(XMLManifestation,
-                                                                           NOTICE_PREPROCESSED_XML_MANIFESTATION)
-            notice._distilled_rdf_manifestation = init_object_from_dict(RDFManifestation,
-                                                                        NOTICE_DISTILLED_RDF_MANIFESTATION)
-            notice._rdf_manifestation = init_object_from_dict(RDFManifestation, NOTICE_RDF_MANIFESTATION)
-            notice._mets_manifestation = init_object_from_dict(METSManifestation, NOTICE_METS_MANIFESTATION)
+            notice.set_lazy_object_fields_loader(lazy_object_fields_loader=self)
             return notice
         return None
 
@@ -266,37 +246,33 @@ class NoticeRepository(NoticeRepositoryABC):
         :return:
         """
 
-        notice_dict = notice.dict()
+        notice_dict = notice.dict(include={NOTICE_TED_ID: True, NOTICE_STATUS: True,
+                                           NOTICE_CREATED_AT: True, VALIDATION_SUMMARY: True})
         notice_dict[MONGODB_COLLECTION_ID] = notice_dict[NOTICE_TED_ID]
         notice_dict[NOTICE_STATUS] = str(notice_dict[NOTICE_STATUS])
         notice_dict[NOTICE_CREATED_AT] = datetime.fromisoformat(notice_dict[NOTICE_CREATED_AT])
 
-        inject_date_string_fields(data=notice_dict, date_field_name=NOTICE_CREATED_AT)
-
-        if notice_dict[NOTICE_NORMALISED_METADATA]:
-            if notice_dict[NOTICE_NORMALISED_METADATA][METADATA_PUBLICATION_DATE]:
-                notice_dict[NOTICE_NORMALISED_METADATA][METADATA_PUBLICATION_DATE] = datetime.fromisoformat(
-                    notice_dict[NOTICE_NORMALISED_METADATA][METADATA_PUBLICATION_DATE])
-                inject_date_string_fields(data=notice_dict[NOTICE_NORMALISED_METADATA],
+        if notice._normalised_metadata:
+            normalised_metadata_dict = create_normalised_metadata_view(notice._normalised_metadata).dict()
+            if normalised_metadata_dict[METADATA_PUBLICATION_DATE]:
+                normalised_metadata_dict[METADATA_PUBLICATION_DATE] = datetime.fromisoformat(
+                    normalised_metadata_dict[METADATA_PUBLICATION_DATE])
+                inject_date_string_fields(data=normalised_metadata_dict,
                                           date_field_name=METADATA_PUBLICATION_DATE)
-            if notice_dict[NOTICE_NORMALISED_METADATA][METADATA_DOCUMENT_SENT_DATE]:
-                notice_dict[NOTICE_NORMALISED_METADATA][METADATA_DOCUMENT_SENT_DATE] = datetime.fromisoformat(
-                    notice_dict[NOTICE_NORMALISED_METADATA][METADATA_DOCUMENT_SENT_DATE])
-                inject_date_string_fields(data=notice_dict[NOTICE_NORMALISED_METADATA],
+            if normalised_metadata_dict:
+                normalised_metadata_dict[METADATA_DOCUMENT_SENT_DATE] = datetime.fromisoformat(
+                    normalised_metadata_dict[METADATA_DOCUMENT_SENT_DATE])
+                inject_date_string_fields(data=normalised_metadata_dict,
                                           date_field_name=METADATA_DOCUMENT_SENT_DATE)
-
+            notice_dict[NOTICE_NORMALISED_METADATA] = normalised_metadata_dict
+        inject_date_string_fields(data=notice_dict, date_field_name=NOTICE_CREATED_AT)
         return notice_dict
 
     def _update_notice(self, notice: Notice, upsert: bool = False):
-        notice, linked_file_ids, new_linked_file_ids = self.write_notice_fields_in_grid_fs(notice=notice)
+        self._write_lazy_fields(notice=notice)
         notice_dict = NoticeRepository._create_dict_from_notice(notice=notice)
-        try:
-            self.collection.update_one({MONGODB_COLLECTION_ID: notice_dict[MONGODB_COLLECTION_ID]},
-                                       {"$set": notice_dict}, upsert=upsert)
-            self.delete_files_by_notice_id(linked_file_ids=linked_file_ids)
-        except Exception as exception:
-            self.delete_files_by_notice_id(linked_file_ids=new_linked_file_ids)
-            raise exception
+        self.collection.update_one({MONGODB_COLLECTION_ID: notice_dict[MONGODB_COLLECTION_ID]},
+                                   {"$set": notice_dict}, upsert=upsert)
 
     def add(self, notice: Notice):
         """
@@ -324,8 +300,7 @@ class NoticeRepository(NoticeRepositoryABC):
         """
         result_dict = self.collection.find_one({MONGODB_COLLECTION_ID: reference})
         if result_dict is not None:
-            notice = NoticeRepository._create_notice_from_repository_result(result_dict)
-            notice = self.load_notice_fields_from_grid_fs(notice)
+            notice = self._create_notice_from_repository_result(result_dict)
             return notice
         return None
 
@@ -336,8 +311,7 @@ class NoticeRepository(NoticeRepositoryABC):
         :return:
         """
         for result_dict in self.collection.find({NOTICE_STATUS: str(notice_status)}):
-            notice = NoticeRepository._create_notice_from_repository_result(result_dict)
-            notice = self.load_notice_fields_from_grid_fs(notice)
+            notice = self._create_notice_from_repository_result(result_dict)
             yield notice
 
     def get_notice_ids_by_status(self, notice_status: NoticeStatus) -> Iterator[str]:
@@ -355,6 +329,5 @@ class NoticeRepository(NoticeRepositoryABC):
         :return: list of notices
         """
         for result_dict in self.collection.find():
-            notice = NoticeRepository._create_notice_from_repository_result(result_dict)
-            notice = self.load_notice_fields_from_grid_fs(notice)
+            notice = self._create_notice_from_repository_result(result_dict)
             yield notice

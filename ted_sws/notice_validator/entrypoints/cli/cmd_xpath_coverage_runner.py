@@ -95,8 +95,8 @@ class CmdRunner(BaseCmdRunner):
             notice_id = Path(data.file_name).stem
             if self.skip_notice(notice_id):
                 continue
-            notice: Notice = Notice(ted_id=notice_id,
-                                    xml_manifestation=XMLManifestation(object_data=data.file_content))
+            notice = Notice(ted_id=notice_id)
+            notice.set_xml_manifestation(XMLManifestation(object_data=data.file_content))
             report_file = REPORT_FILE
             report_path = output_path / notice.ted_id / DEFAULT_TEST_SUITE_REPORT_FOLDER / report_file
             self.coverage_report(notices=[notice], output_path=report_path, label=notice.ted_id)

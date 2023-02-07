@@ -20,7 +20,7 @@ def get_notice_ids_by_normalised_metadata_field_value(field_name: str, field_val
     :return:
     """
     notice_repository = NoticeRepository(mongodb_client=mongodb_client)
-    match_filter = {f"normalised_metadata.{field_name}": field_value, "xml_metadata": {"$ne": None}}
+    match_filter = {f"normalised_metadata.{field_name}": field_value}
     if notice_filter:
         match_filter.update(notice_filter)
     notice_ids = list(notice_repository.collection.aggregate([

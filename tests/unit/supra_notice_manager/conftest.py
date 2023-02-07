@@ -42,7 +42,8 @@ def fake_notice_F03_content(fake_repository_path, fake_mapping_suite_F03_id):
 @pytest.fixture
 def fake_notice_F03(fake_notice_F03_content, fake_notice_id):
     xml_manifestation = XMLManifestation(object_data=fake_notice_F03_content)
-    notice = Notice(ted_id=fake_notice_id, xml_manifestation=xml_manifestation)
+    notice = Notice(ted_id=fake_notice_id)
+    notice.set_xml_manifestation(xml_manifestation)
     rdf_manifestation = RDFManifestation(object_data="RDF manifestation content",
                                          shacl_validations=[],
                                          sparql_validations=[]

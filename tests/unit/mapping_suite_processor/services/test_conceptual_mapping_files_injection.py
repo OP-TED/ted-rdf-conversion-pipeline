@@ -3,7 +3,7 @@ import shutil
 import tempfile
 from pathlib import Path
 
-from ted_sws.mapping_suite_processor.entrypoints.cli import CONCEPTUAL_MAPPINGS_FILE_TEMPLATE
+from ted_sws.workbench_tools.mapping_suite_processor.entrypoints.cli import CONCEPTUAL_MAPPINGS_FILE_TEMPLATE
 from ted_sws.mapping_suite_processor.services.conceptual_mapping_files_injection import \
     mapping_suite_processor_inject_resources, mapping_suite_processor_inject_shacl_shapes, \
     mapping_suite_processor_inject_shacl_shape, mapping_suite_processor_inject_sparql_queries, \

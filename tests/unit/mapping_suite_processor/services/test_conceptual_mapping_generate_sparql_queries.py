@@ -2,10 +2,10 @@ import shutil
 import tempfile
 from pathlib import Path
 
-from ted_sws.mapping_suite_processor.entrypoints.cli.cmd_sparql_generator import DEFAULT_OUTPUT_SPARQL_QUERIES_FOLDER
+from ted_sws.workbench_tools.mapping_suite_processor.entrypoints.cli.cmd_sparql_generator import DEFAULT_OUTPUT_SPARQL_QUERIES_FOLDER
 from ted_sws.mapping_suite_processor.services.conceptual_mapping_generate_sparql_queries import \
     mapping_suite_processor_generate_sparql_queries
-from ted_sws.mapping_suite_processor.entrypoints.cli import CONCEPTUAL_MAPPINGS_FILE_TEMPLATE
+from ted_sws.workbench_tools.mapping_suite_processor.entrypoints.cli import CONCEPTUAL_MAPPINGS_FILE_TEMPLATE
 
 
 def test_mapping_suite_processor_generate_sparql_queries(caplog, fake_mapping_suite_id, file_system_repository_path):

@@ -2,8 +2,8 @@ import shutil
 import tempfile
 from pathlib import Path
 
-from ted_sws.rdf_differ.entrypoints.cli.cmd_rdf_differ import main as cli_main, DEFAULT_REPORT_FILE_NAME
-from ted_sws.rdf_differ.services.difference_between_rdf_files import generate_rdf_differ_html_report
+from ted_sws.workbench_tools.rdf_differ.entrypoints.cli.cmd_rdf_differ import main as cli_main, DEFAULT_REPORT_FILE_NAME
+from ted_sws.workbench_tools.rdf_differ.services.difference_between_rdf_files import generate_rdf_differ_html_report
 
 CONTENT_FIRST_FILE = '<h2>Difference in the first file</h2>'
 CONTENT_SECOND_FILE = '<h2>Difference in the second file</h2>'

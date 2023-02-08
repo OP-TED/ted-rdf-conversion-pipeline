@@ -4,7 +4,7 @@ from pathlib import Path
 from ted_sws import config
 from ted_sws.data_manager.adapters.notice_repository import NoticeRepository
 from ted_sws.data_manager.services.export_notice_from_mongodb import export_notice_by_id
-from ted_sws.data_manager.entrypoints.cli.cmd_export_notices_from_mongodb import main as cli_main, run as cli_run
+from ted_sws.workbench_tools.data_manager.entrypoints.cli.cmd_export_notices_from_mongodb import main as cli_main, run as cli_run
 
 
 def test_export_notices_from_mongodb(caplog, cli_runner, packaged_notice, fake_mongodb_client):

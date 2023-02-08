@@ -1,8 +1,8 @@
 import tempfile
 from pathlib import Path
 
-from ted_sws.rdf_component_detector.services.detect_graph_component import detect_graph_components
-from ted_sws.rdf_component_detector.entrypoints.cli.cmd_rdf_component_detector import main as cli_main
+from ted_sws.workbench_tools.rdf_component_detector.services.detect_graph_component import detect_graph_components
+from ted_sws.workbench_tools.rdf_component_detector.entrypoints.cli.cmd_rdf_component_detector import main as cli_main
 
 
 def test_rdf_component_detector(fully_connected_graph_file_path, not_connected_graph_file_path, cli_runner):

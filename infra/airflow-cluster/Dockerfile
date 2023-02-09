@@ -1,4 +1,4 @@
-FROM docker.io/apache/airflow:2.4.3-python3.8
+FROM docker.io/apache/airflow:2.5.1-python3.8
 
 # quick sudo
 USER root
@@ -26,4 +26,4 @@ RUN wget -c https://github.com/dice-group/LIMES/releases/download/1.7.9/limes.ja
 
 
 RUN pip install --upgrade pip
-RUN pip install --no-cache-dir -r requirements.txt --constraint "https://raw.githubusercontent.com/apache/airflow/constraints-2.4.3/constraints-no-providers-3.8.txt"
+RUN pip install --no-cache-dir -r requirements.txt --constraint "https://raw.githubusercontent.com/apache/airflow/constraints-2.5.1/constraints-no-providers-3.8.txt"

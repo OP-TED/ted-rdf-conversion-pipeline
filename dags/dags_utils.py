@@ -1,15 +1,8 @@
-from itertools import islice, chain
-from typing import Any, Iterable
+from typing import Any
 
 from airflow.operators.python import get_current_context
 
 TASK_INSTANCE = "ti"
-
-
-def chunks(iterable: Iterable, chunk_size: int):
-    iterator = iter(iterable)
-    for first in iterator:
-        yield chain([first], islice(iterator, chunk_size - 1))
 
 
 def select_first_non_none(data):

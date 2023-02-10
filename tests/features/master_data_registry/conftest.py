@@ -4,6 +4,7 @@ import rdflib
 
 from ted_sws import config
 from ted_sws.core.model.manifestation import XMLManifestation, RDFManifestation
+from ted_sws.core.model.metadata import TEDMetadata
 from ted_sws.core.model.notice import Notice, NoticeStatus
 from ted_sws.data_manager.adapters.notice_repository import NoticeRepositoryInFileSystem, NoticeRepository
 from ted_sws.data_manager.adapters.sparql_endpoint import SPARQLStringEndpoint
@@ -94,8 +95,9 @@ def fake_mongodb_client_with_parent_notice(parent_notice, mongodb_client):
 
 @pytest.fixture
 def notice_with_rdf_manifestation():
-    notice = Notice(ted_id="002705-2021", original_metadata={},
-                    xml_manifestation=XMLManifestation(object_data="No XML data"))
+    notice = Notice(ted_id="002705-2021")
+    notice.set_xml_manifestation(XMLManifestation(object_data="No XML data"))
+    notice.set_original_metadata(TEDMetadata())
     rdf_content_path = TEST_DATA_PATH / "rdf_manifestations" / "002705-2021.ttl"
     notice._rdf_manifestation = RDFManifestation(object_data=rdf_content_path.read_text(encoding="utf-8"))
     notice._status = NoticeStatus.TRANSFORMED

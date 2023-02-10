@@ -311,9 +311,11 @@ def fake_sparql_mapping_suite_id() -> str:
 def fake_mapping_suite_F03_id() -> str:
     return "test_package_F03"
 
+
 @pytest.fixture
 def fake_mapping_suite_F03_id_with_version() -> str:
     return "test_package_F03_v0.0.1"
+
 
 @pytest.fixture
 def invalid_mapping_suite_id() -> str:
@@ -345,7 +347,8 @@ def fake_notice_F03_content(fake_repository_path, fake_mapping_suite_F03_id):
 @pytest.fixture
 def fake_notice_F03(fake_notice_F03_content, fake_notice_id):
     xml_manifestation = XMLManifestation(object_data=fake_notice_F03_content)
-    notice = Notice(ted_id=fake_notice_id, xml_manifestation=xml_manifestation)
+    notice = Notice(ted_id=fake_notice_id)
+    notice.set_xml_manifestation(xml_manifestation)
     rdf_manifestation = RDFManifestation(object_data="RDF manifestation content",
                                          shacl_validations=[],
                                          sparql_validations=[]
@@ -401,7 +404,8 @@ def fake_validation_notice():
     )
     xml_manifestation.xpath_coverage_validation.validation_result = XPATHCoverageValidationResult(
         **xpath_coverage_validation)
-    notice = Notice(ted_id="validation_notice_id", xml_manifestation=xml_manifestation)
+    notice = Notice(ted_id="validation_notice_id")
+    notice.set_xml_manifestation(xml_manifestation)
     sparql_validations = [SPARQLTestSuiteValidationReport(**{
         "object_data": '62f037e2a5458a3a6776138c',
         "created": '2022-08-07T20:49:15.500870',

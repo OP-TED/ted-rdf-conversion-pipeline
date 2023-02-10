@@ -13,6 +13,7 @@
 from __future__ import annotations
 
 import abc
+from abc import ABC
 from datetime import datetime
 from enum import IntEnum
 from functools import total_ordering
@@ -21,6 +22,7 @@ from typing import Optional, List, Union
 from pydantic import Field
 
 from ted_sws.core.model import PropertyBaseModel
+from ted_sws.core.model.lazy_object import LazyObjectABC, LazyObjectFieldsLoaderABC
 from ted_sws.core.model.manifestation import METSManifestation, RDFManifestation, XMLManifestation, \
     RDFValidationManifestation, SPARQLTestSuiteValidationReport, SHACLTestSuiteValidationReport, \
     XPATHCoverageValidationReport, XMLValidationManifestation, ValidationSummaryReport
@@ -142,7 +144,26 @@ class WorkExpression(PropertyBaseModel, abc.ABC):
         """
 
 
-class Notice(WorkExpression):
+class LazyWorkExpression(WorkExpression, LazyObjectABC, ABC):
+    _lazy_object_fields_loader: LazyObjectFieldsLoaderABC = None
+
+    def set_lazy_object_fields_loader(self, lazy_object_fields_loader: LazyObjectFieldsLoaderABC):
+        """
+
+        :param lazy_object_fields_loader:
+        :return:
+        """
+        self._lazy_object_fields_loader = lazy_object_fields_loader
+
+    def get_lazy_object_fields_loader(self) -> Optional[LazyObjectFieldsLoaderABC]:
+        """
+
+        :return:
+        """
+        return self._lazy_object_fields_loader
+
+
+class Notice(LazyWorkExpression):
     """
         A TED notice in any of its forms across the TED-SWS pipeline. This class is conceptualised as a merger of Work
         and Expression in the FRBR class hierarchy and is connected to some of its Manifestations.
@@ -161,36 +182,70 @@ class Notice(WorkExpression):
         The original XML manifestation of the notice as downloaded from the TED website.
 
     """
-    _status: NoticeStatus = NoticeStatus.RAW  # PrivateAttr(default=NoticeStatus.RAW)
+    _status: NoticeStatus = NoticeStatus.RAW
     ted_id: str = Field(..., allow_mutation=False)
-    original_metadata: Optional[TEDMetadata] = None
-    xml_manifestation: XMLManifestation = Field(..., allow_mutation=False)
+    _original_metadata: Optional[TEDMetadata] = None
+    _xml_manifestation: Optional[XMLManifestation] = None
     _normalised_metadata: Optional[NormalisedMetadata] = None
     _preprocessed_xml_manifestation: Optional[XMLManifestation] = None
     _distilled_rdf_manifestation: Optional[RDFManifestation] = None
     _rdf_manifestation: Optional[RDFManifestation] = None
     _mets_manifestation: Optional[METSManifestation] = None
-    xml_metadata: Optional[XMLMetadata] = None
+    _xml_metadata: Optional[XMLMetadata] = None
     validation_summary: Optional[ValidationSummaryReport] = None
 
     @property
+    def original_metadata(self) -> Optional[TEDMetadata]:
+        if self._original_metadata is None:
+            self.load_lazy_field(property_field=Notice.original_metadata)
+        return self._original_metadata
+
+    @property
+    def xml_manifestation(self) -> XMLManifestation:
+        if self._xml_manifestation is None:
+            self.load_lazy_field(property_field=Notice.xml_manifestation)
+        return self._xml_manifestation
+
+    def set_original_metadata(self, ted_metadata: TEDMetadata):
+        self._original_metadata = ted_metadata
+
+    def set_xml_manifestation(self, xml_manifestation: XMLManifestation):
+        self._xml_manifestation = xml_manifestation
+
+    @property
+    def xml_metadata(self) -> XMLMetadata:
+        if self._xml_metadata is None:
+            self.load_lazy_field(property_field=Notice.xml_metadata)
+        return self._xml_metadata
+
+    @property
     def preprocessed_xml_manifestation(self) -> XMLManifestation:
+        if self._preprocessed_xml_manifestation is None:
+            self.load_lazy_field(property_field=Notice.preprocessed_xml_manifestation)
         return self._preprocessed_xml_manifestation
 
     @property
     def distilled_rdf_manifestation(self) -> RDFManifestation:
+        if self._distilled_rdf_manifestation is None:
+            self.load_lazy_field(property_field=Notice.distilled_rdf_manifestation)
         return self._distilled_rdf_manifestation
 
     @property
     def normalised_metadata(self) -> NormalisedMetadata:
+        if self._normalised_metadata is None:
+            self.load_lazy_field(property_field=Notice.normalised_metadata)
         return self._normalised_metadata
 
     @property
     def rdf_manifestation(self) -> RDFManifestation:
+        if self._rdf_manifestation is None:
+            self.load_lazy_field(property_field=Notice.rdf_manifestation)
         return self._rdf_manifestation
 
     @property
     def mets_manifestation(self) -> METSManifestation:
+        if self._mets_manifestation is None:
+            self.load_lazy_field(property_field=Notice.mets_manifestation)
         return self._mets_manifestation
 
     def get_rdf_validation(self) -> Optional[List[RDFValidationManifestation]]:
@@ -225,7 +280,7 @@ class Notice(WorkExpression):
         :param xml_metadata:
         :return:
         """
-        self.xml_metadata = xml_metadata
+        self._xml_metadata = xml_metadata
         self.update_status_to(NoticeStatus.INDEXED)
 
     def set_preprocessed_xml_manifestation(self, preprocessed_xml_manifestation: XMLManifestation):
@@ -283,8 +338,8 @@ class Notice(WorkExpression):
 
         :return:
         """
-        if self._rdf_manifestation and self._distilled_rdf_manifestation and self.xml_manifestation:
-            if self._distilled_rdf_manifestation.is_validated() and self.xml_manifestation.is_validated():
+        if self.rdf_manifestation and self.distilled_rdf_manifestation and self.xml_manifestation:
+            if self.distilled_rdf_manifestation.is_validated() and self.xml_manifestation.is_validated():
                 return True
         return False
 
@@ -299,7 +354,7 @@ class Notice(WorkExpression):
         if not self.rdf_manifestation:
             raise ValueError("Cannot set the RDF validation of a non-existent RDF manifestation")
 
-        self._rdf_manifestation.add_validation(validation=rdf_validation)
+        self.rdf_manifestation.add_validation(validation=rdf_validation)
 
     def set_distilled_rdf_validation(self, rdf_validation: Union[SPARQLTestSuiteValidationReport,
                                                                  SHACLTestSuiteValidationReport]):
@@ -308,10 +363,10 @@ class Notice(WorkExpression):
         :param rdf_validation:
         :return:
         """
-        if not self._distilled_rdf_manifestation:
+        if not self.distilled_rdf_manifestation:
             raise ValueError("Cannot set the RDF validation of a non-existent RDF manifestation")
 
-        self._distilled_rdf_manifestation.add_validation(validation=rdf_validation)
+        self.distilled_rdf_manifestation.add_validation(validation=rdf_validation)
 
         if self._check_status_is_validated():
             self.update_status_to(NoticeStatus.VALIDATED)
@@ -424,13 +479,22 @@ class Notice(WorkExpression):
                 raise UnsupportedStatusTransition(
                     f"Unsupported transition from state {self._status} to state {new_status}.")
         elif self._status > new_status:
-            # TODO: implement delete actions
             self._status = new_status
+            if new_status < NoticeStatus.INDEXED:
+                self.remove_lazy_field(Notice.xml_metadata)
+                self._xml_metadata = None
             if new_status < NoticeStatus.NORMALISED_METADATA:
+                self.remove_lazy_field(Notice.normalised_metadata)
                 self._normalised_metadata = None
+                #TODO: preprocessed_xml_manifestation is the same as xml_manifestation
+                # if delete preprocessed xml manifestation will delete xml_manifestation
+                # in future remove _preprocessed_xml_manifestation field from model
                 self._preprocessed_xml_manifestation = None
             if new_status < NoticeStatus.TRANSFORMED:
+                self.remove_lazy_field(Notice.rdf_manifestation)
+                self.remove_lazy_field(Notice.distilled_rdf_manifestation)
                 self._rdf_manifestation = None
                 self._distilled_rdf_manifestation = None
             if new_status < NoticeStatus.PACKAGED:
+                self.remove_lazy_field(Notice.mets_manifestation)
                 self._mets_manifestation = None

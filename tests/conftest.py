@@ -70,8 +70,10 @@ def notice_2016():
     del notice_data["content"]
     ted_id = notice_data["ND"]
     original_metadata = TEDMetadata(**notice_data)
-
-    return Notice(ted_id=ted_id, xml_manifestation=xml_manifestation, original_metadata=original_metadata)
+    notice = Notice(ted_id=ted_id)
+    notice.set_xml_manifestation(xml_manifestation)
+    notice.set_original_metadata(original_metadata)
+    return notice
 
 
 @pytest.fixture
@@ -85,7 +87,10 @@ def notice_2015():
     ted_id = notice_data["ND"]
     original_metadata = TEDMetadata(**notice_data)
 
-    return Notice(ted_id=ted_id, xml_manifestation=xml_manifestation, original_metadata=original_metadata)
+    notice = Notice(ted_id=ted_id)
+    notice.set_xml_manifestation(xml_manifestation)
+    notice.set_original_metadata(original_metadata)
+    return notice
 
 
 @pytest.fixture
@@ -97,7 +102,10 @@ def notice_2018():
     ted_id = notice_data["ND"]
     original_metadata = TEDMetadata(**notice_data)
 
-    return Notice(ted_id=ted_id, xml_manifestation=xml_manifestation, original_metadata=original_metadata)
+    notice = Notice(ted_id=ted_id)
+    notice.set_xml_manifestation(xml_manifestation)
+    notice.set_original_metadata(original_metadata)
+    return notice
 
 
 @pytest.fixture
@@ -109,8 +117,10 @@ def notice_2020():
     del notice_data["content"]
     ted_id = notice_data["ND"]
     original_metadata = TEDMetadata(**notice_data)
-    notice = Notice(ted_id=ted_id, xml_manifestation=xml_manifestation, original_metadata=original_metadata)
+    notice = Notice(ted_id=ted_id)
     notice.set_xml_metadata(XMLMetadata(unique_xpaths=["FAKE_INDEX_XPATHS"]))
+    notice.set_xml_manifestation(xml_manifestation)
+    notice.set_original_metadata(original_metadata)
     return notice
 
 
@@ -225,17 +235,20 @@ def notice_2021():
     del notice_data["content"]
     ted_id = notice_data["ND"]
     original_metadata = TEDMetadata(**notice_data)
-
-    return Notice(ted_id=ted_id, xml_manifestation=xml_manifestation, original_metadata=original_metadata)
+    notice = Notice(ted_id=ted_id)
+    notice.set_xml_manifestation(xml_manifestation)
+    notice.set_original_metadata(original_metadata)
+    return notice
 
 
 @pytest.fixture
 def notice_with_rdf_manifestation():
-    notice = Notice(ted_id="002705-2021", original_metadata={},
-                    xml_manifestation=XMLManifestation(object_data="No XML data"))
+    notice = Notice(ted_id="002705-2021")
+    notice.set_xml_manifestation(XMLManifestation(object_data="No XML data"))
+    notice.set_original_metadata(TEDMetadata())
     rdf_content_path = TEST_DATA_PATH / "rdf_manifestations" / "002705-2021.ttl"
-    notice._rdf_manifestation = RDFManifestation(object_data=rdf_content_path.read_text(encoding="utf-8"))
-    notice._status = NoticeStatus.TRANSFORMED
+    notice._status = NoticeStatus.PREPROCESSED_FOR_TRANSFORMATION
+    notice.set_rdf_manifestation(RDFManifestation(object_data=rdf_content_path.read_text(encoding="utf-8")))
     return notice
 
 

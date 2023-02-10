@@ -2,10 +2,18 @@ import shutil
 import tempfile
 from pathlib import Path
 
-from ted_sws.workbench_tools.mapping_suite_processor.entrypoints.cli.cmd_sparql_generator import DEFAULT_OUTPUT_SPARQL_QUERIES_FOLDER
+from ted_sws.data_manager.adapters.mapping_suite_repository import MS_TRANSFORM_FOLDER_NAME, \
+    MS_CONCEPTUAL_MAPPING_FILE_NAME
+from ted_sws.data_manager.adapters.mapping_suite_repository import MS_VALIDATE_FOLDER_NAME, \
+    MS_SPARQL_FOLDER_NAME
 from ted_sws.mapping_suite_processor.services.conceptual_mapping_generate_sparql_queries import \
     mapping_suite_processor_generate_sparql_queries
-from ted_sws.workbench_tools.mapping_suite_processor.entrypoints.cli import CONCEPTUAL_MAPPINGS_FILE_TEMPLATE
+
+CONCEPTUAL_MAPPINGS_FILE_TEMPLATE = '{mappings_path}/{mapping_suite_id}/' + MS_TRANSFORM_FOLDER_NAME + '/' \
+                                    + MS_CONCEPTUAL_MAPPING_FILE_NAME
+MAPPING_SUITE_FILE_TEMPLATE = '{mappings_path}/{mapping_suite_id}'
+DEFAULT_OUTPUT_SPARQL_QUERIES_FOLDER = '{mappings_path}/{mapping_suite_id}/' + MS_VALIDATE_FOLDER_NAME + '/' + \
+                                       MS_SPARQL_FOLDER_NAME + '/cm_assertions'
 
 
 def test_mapping_suite_processor_generate_sparql_queries(caplog, fake_mapping_suite_id, file_system_repository_path):

@@ -21,7 +21,7 @@ def notice_fetcher_by_date_pipeline(date_wild_card: str = None) -> List[str]:
                                        request_api=TedRequestAPI())).fetch_notices_by_date_wild_card(
             wildcard_date=date_wild_card)
         create_and_store_in_mongo_db_daily_supra_notice(notice_ids=notice_ids, mongodb_client=mongodb_client,
-                                                        notice_fetched_date=notice_publication_date)
+                                                        ted_publication_date=notice_publication_date)
     except Exception as error:
         log_error(message=str(error))
 

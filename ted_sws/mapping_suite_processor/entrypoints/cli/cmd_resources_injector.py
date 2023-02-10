@@ -61,7 +61,7 @@ class CmdRunner(BaseCmdRunner):
                              output_resources_folder_path=self.output_resources_folder_path
                              )
 
-            self.log(f"Importing SHACL shapes from {self.shacl_folder_path} to {self.output_shacl_folder_path}")
+            self.log(f"Importing SHACL shapes from {self.shacl_folder_path} ...")
             shutil.rmtree(self.output_shacl_folder_path, ignore_errors=True)
             self.output_shacl_folder_path.mkdir(parents=True, exist_ok=True)
             inject_shacl_shapes(

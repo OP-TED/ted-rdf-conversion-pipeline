@@ -318,9 +318,6 @@ rml-mapper-path-add-dotenv-file:
 	@ sed -i '/^RML_MAPPER_PATH/d' .env
 	@ echo RML_MAPPER_PATH=${RML_MAPPER_PATH} >> .env
 
-refresh-mapping-files:
-	@ python -m ted_sws.data_manager.entrypoints.cli.cmd_generate_mapping_resources
-
 #clean-mongo-db:
 #	@ export PYTHONPATH=$(PWD) && python ./tests/clean_mongo_db.py
 

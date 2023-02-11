@@ -12,7 +12,7 @@ __version__ = "0.0.1"
 import json
 import os
 import pathlib
-
+import base64
 import dotenv
 
 from ted_sws.core.adapters.config_resolver import EnvConfigResolver, AirflowAndEnvConfigResolver, env_property
@@ -200,6 +200,32 @@ class SFTPConfig:
     @env_property(config_resolver_class=AirflowAndEnvConfigResolver)
     def SFTP_PUBLISH_PATH(self, config_value: str) -> str:
         return config_value
+
+    @env_property(config_resolver_class=AirflowAndEnvConfigResolver)
+    def SFTP_PRIVATE_KEY_BASE64(self, config_value: str) -> str:
+        return config_value
+
+    @env_property(config_resolver_class=AirflowAndEnvConfigResolver)
+    def SFTP_PRIVATE_KEY_PASSPHRASE(self, config_value: str) -> str:
+        return config_value
+
+    @env_property(config_resolver_class=AirflowAndEnvConfigResolver)
+    def SFTP_KNOWN_HOSTS_BASE64(self, config_value: str) -> str:
+        return config_value
+
+    @property
+    def SFTP_PRIVATE_KEY(self) -> str:
+        sftp_private_key_base64 = self.SFTP_PRIVATE_KEY_BASE64
+        if sftp_private_key_base64:
+            sftp_private_key_base64 = base64.b64decode(str(sftp_private_key_base64)).decode(encoding="utf-8")
+        return sftp_private_key_base64
+
+    @property
+    def SFTP_KNOWN_HOSTS(self) -> str:
+        sftp_know_host_base64 = self.SFTP_KNOWN_HOSTS_BASE64
+        if sftp_know_host_base64:
+            sftp_know_host_base64 = base64.b64decode(str(sftp_know_host_base64)).decode(encoding="utf-8")
+        return sftp_know_host_base64
 
 
 class SPARQLConfig:

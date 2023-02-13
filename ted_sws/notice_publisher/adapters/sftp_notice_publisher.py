@@ -28,19 +28,19 @@ class SFTPPublisher(SFTPPublisherABC):
             self.private_key = paramiko.RSAKey.from_private_key(io.StringIO(private_key),
                                                                 password=self.private_key_passphrase)
 
-        ssh_client = paramiko.SSHClient()
-        ssh_client.load_system_host_keys()
-        ssh_client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
-        ssh_client.connect(self.hostname, username=self.username,
-                           pkey=self.private_key, port=self.port)
-        self.host_keys = ssh_client.get_host_keys()
-        ssh_client.close()
+        # ssh_client = paramiko.SSHClient()
+        # ssh_client.load_system_host_keys()
+        # ssh_client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
+        # ssh_client.connect(self.hostname, username=self.username,
+        #                    pkey=self.private_key, port=self.port)
+        # self.host_keys = ssh_client.get_host_keys()
+        # ssh_client.close()
 
     def connect(self):
         """Connects to the sftp server and returns the sftp connection object"""
 
         cnopts = pysftp.CnOpts()
-        cnopts.hostkeys = self.host_keys
+        cnopts.hostkeys = None#self.host_keys
         # Get the sftp connection object
         self.connection = pysftp.Connection(
             host=self.hostname,

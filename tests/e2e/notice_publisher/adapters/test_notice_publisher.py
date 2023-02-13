@@ -32,11 +32,12 @@ def test_sftp_notice_publisher():
     with pytest.raises(Exception):
         sftp_publisher.publish(source_file.name, None)
 
+    assert not sftp_publisher.exists(remote_path)
     published = sftp_publisher.publish(source_file.name, remote_path)
     assert published
-    assert sftp_publisher.connection.exists(remote_path)
+    assert sftp_publisher.exists(remote_path)
     sftp_publisher.remove(remote_path)
-    assert not sftp_publisher.connection.exists(remote_path)
+    assert not sftp_publisher.exists(remote_path)
 
     sftp_publisher.disconnect()
 

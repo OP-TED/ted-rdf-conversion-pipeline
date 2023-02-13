@@ -1,8 +1,6 @@
 import io
 
 import paramiko
-import pysftp
-
 from ted_sws import config
 from ted_sws.notice_publisher.adapters.sftp_publisher_abc import SFTPPublisherABC
 
@@ -28,36 +26,30 @@ class SFTPPublisher(SFTPPublisherABC):
             self.private_key = paramiko.RSAKey.from_private_key(io.StringIO(private_key),
                                                                 password=self.private_key_passphrase)
 
-        # ssh_client = paramiko.SSHClient()
-        # ssh_client.load_system_host_keys()
-        # ssh_client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
-        # ssh_client.connect(self.hostname, username=self.username,
-        #                    pkey=self.private_key, port=self.port)
-        # self.host_keys = ssh_client.get_host_keys()
-        # ssh_client.close()
+        self._sftp = None
+        self._ssh = None
+
+
+
 
     def connect(self):
         """Connects to the sftp server and returns the sftp connection object"""
 
-        cnopts = pysftp.CnOpts()
-        cnopts.hostkeys = None#self.host_keys
-        # Get the sftp connection object
-        self.connection = pysftp.Connection(
-            host=self.hostname,
-            username=self.username,
-            password=self.password,
-            private_key=self.private_key,
-            private_key_pass=self.private_key_passphrase,
-            port=self.port,
-            cnopts=cnopts
-        )
-
+        ssh_client = paramiko.SSHClient()
+        ssh_client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
+        ssh_client.connect(self.hostname, username=self.username,
+                           pkey=self.private_key, port=self.port)
+        self._ssh = ssh_client
+        self._sftp = ssh_client.open_sftp()
         self.is_connected = True
 
     def disconnect(self):
         """Closes the sftp connection"""
         if self.is_connected:
-            self.connection.close()
+            self._sftp.close()
+            self._ssh.close()
+            self._sftp = None
+            self._ssh = None
             self.is_connected = False
 
     def __del__(self):
@@ -67,12 +59,12 @@ class SFTPPublisher(SFTPPublisherABC):
         """
         Publish file_content to the sftp server remote path.
        """
-        self.connection.put(source_path, remote_path)
+        self._sftp.put(source_path, remote_path)
         return True
 
     def remove(self, remote_path: str) -> bool:
         """
 
         """
-        self.connection.unlink(remote_path)
+        self._sftp.remove(remote_path)
         return True

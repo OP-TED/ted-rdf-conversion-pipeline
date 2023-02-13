@@ -29,9 +29,6 @@ class SFTPPublisher(SFTPPublisherABC):
         self._sftp = None
         self._ssh = None
 
-
-
-
     def connect(self):
         """Connects to the sftp server and returns the sftp connection object"""
 

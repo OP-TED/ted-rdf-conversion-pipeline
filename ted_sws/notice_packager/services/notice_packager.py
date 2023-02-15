@@ -55,10 +55,9 @@ class NoticePackager:
     def __init__(self, notice: Notice, action: str):
         self.tmp_dir = TemporaryDirectory()
         self.tmp_dir_path = Path(self.tmp_dir.name)
-        self.notice_metadata: ExtractedMetadata = XMLManifestationMetadataExtractor(
+        notice_metadata: ExtractedMetadata = XMLManifestationMetadataExtractor(
             xml_manifestation=notice.xml_manifestation).to_metadata()
-        self.archiver = ArchiverFactory.get_archiver(ARCHIVE_ZIP_FORMAT)
-        metadata_transformer = MetadataTransformer(self.notice_metadata)
+        metadata_transformer = MetadataTransformer(notice_metadata)
         self.template_metadata = metadata_transformer.template_metadata(action=action)
         self.notice_id = self.template_metadata.notice.id
         self.notice_action = self.template_metadata.notice.action.type
@@ -116,9 +115,9 @@ class NoticePackager:
         return archive_name
 
     def pack(self) -> str:
-
+        archiver = ArchiverFactory.get_archiver(ARCHIVE_ZIP_FORMAT)
         archive_path = self.tmp_dir_path / self.get_archive_name()
-        package_path = self.archiver.process_archive(archive_path, self.files)
+        package_path = archiver.process_archive(archive_path, self.files)
         raw_archive_content = package_path.read_bytes()
         archive_content = base64.b64encode(raw_archive_content)
         return str(archive_content, 'utf-8')

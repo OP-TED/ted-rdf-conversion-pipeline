@@ -21,7 +21,7 @@ from ted_sws.core.model.notice import Notice
 from ted_sws.notice_metadata_processor.model.metadata import ExtractedMetadata
 from ted_sws.notice_metadata_processor.services.xml_manifestation_metadata_extractor import \
     XMLManifestationMetadataExtractor
-from ted_sws.notice_packager.adapters.archiver import ArchiverFactory, ARCHIVE_ZIP_FORMAT
+from ted_sws.notice_packager.adapters.archiver import ZipArchiver
 from ted_sws.notice_packager.adapters.template_generator import TemplateGenerator
 from ted_sws.notice_packager.model.metadata import ACTION_CREATE
 from ted_sws.notice_packager.services.metadata_transformer import MetadataTransformer
@@ -115,7 +115,7 @@ class NoticePackager:
         return archive_name
 
     def pack(self) -> str:
-        archiver = ArchiverFactory.get_archiver(ARCHIVE_ZIP_FORMAT)
+        archiver = ZipArchiver()
         archive_path = self.tmp_dir_path / self.get_archive_name()
         package_path = archiver.process_archive(archive_path, self.files)
         raw_archive_content = package_path.read_bytes()

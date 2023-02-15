@@ -35,17 +35,6 @@ class ArchiverABC(abc.ABC):
         """
 
 
-class ArchiverFactory:
-    @classmethod
-    def get_archiver(cls, archive_format=ARCHIVE_DEFAULT_FORMAT):
-        """Factory Method to return the needed Archiver, based on archive format"""
-        archivers = {
-            "zip": ZipArchiver
-        }
-
-        return archivers[archive_format]()
-
-
 class ZipArchiver(ArchiverABC):
     def process_archive(self, archive_name: Path, files: List[Path], mode: str = ARCHIVE_MODE) -> Path:
         with ZipFile(archive_name, mode=mode, compression=ARCHIVE_ZIP_COMPRESSION) as archive:

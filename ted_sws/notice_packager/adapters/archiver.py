@@ -12,7 +12,7 @@ This module provides functionalities to archive files
 import abc
 import os
 from pathlib import Path
-from typing import List, Union
+from typing import List
 from zipfile import ZipFile, ZIP_DEFLATED
 
 ARCHIVE_ZIP_FORMAT = "zip"
@@ -22,9 +22,6 @@ ARCHIVE_MODE_WRITE = 'w'
 ARCHIVE_MODE_APPEND = 'a'
 ARCHIVE_MODE = ARCHIVE_MODE_WRITE
 
-PATH_TYPE = Union[Path, str]
-LIST_TYPE = List[PATH_TYPE]
-
 
 class ArchiverABC(abc.ABC):
     """
@@ -32,7 +29,7 @@ class ArchiverABC(abc.ABC):
     """
 
     @abc.abstractmethod
-    def process_archive(self, archive_name: PATH_TYPE, files: LIST_TYPE, mode: str):
+    def process_archive(self, archive_name: Path, files: List[Path], mode: str) -> Path:
         """
         This method adds the files (based on provided archive mode) to archive
         """
@@ -50,7 +47,7 @@ class ArchiverFactory:
 
 
 class ZipArchiver(ArchiverABC):
-    def process_archive(self, archive_name: PATH_TYPE, files: LIST_TYPE, mode: str = ARCHIVE_MODE) -> str:
+    def process_archive(self, archive_name: Path, files: List[Path], mode: str = ARCHIVE_MODE) -> Path:
         with ZipFile(archive_name, mode=mode, compression=ARCHIVE_ZIP_COMPRESSION) as archive:
             for file in files:
                 if os.path.isfile(file):

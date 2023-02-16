@@ -3,3 +3,5 @@
 * link:{attachmentsdir}/ted-sws-architecture/index.html[Preliminary Project Architecture^]
 * xref:mapping_suite_cli_toolchain.adoc[Mapping Suite CLI Toolchain]
 * xref:demo_installation.adoc[Instructions for Software Engineers]
+* xref:user_manual.adoc[User manual]
+* xref:system_arhitecture.adoc[System architecture overview]

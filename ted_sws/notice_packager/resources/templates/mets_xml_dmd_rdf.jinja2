@@ -16,9 +16,11 @@
         <cdm:do_not_index rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">{{ work.do_not_index }}</cdm:do_not_index>
         <cdm:work_date_document rdf:datatype="http://www.w3.org/2001/XMLSchema#date">{{ work.date_document }}</cdm:work_date_document>
         <cdm:work_created_by_agent rdf:resource="&cellar-authority;corporate-body/{{ work.created_by_agent }}"/>
-        {% for lang in notice.languages %}
+        {# <cdm:procurement_public_number_edition rdf:datatype="http://www.w3.org/2001/XMLSchema#positiveInteger">{{ notice.number_edition }}</cdm:procurement_public_number_edition> #}
+        {% for lang in mets.languages %}
         <cdm:work_title xml:lang="{{ lang }}">{{ work.title[lang] }}</cdm:work_title>
         {% endfor %}
+        {# <cdm:procurement_public_number_document_in_official-journal rdf:datatype="http://www.w3.org/2001/XMLSchema#string">{{ notice.number }}</cdm:procurement_public_number_document_in_official-journal> #}
         <cdm:datetime_transmission rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">{{ work.datetime_transmission }}</cdm:datetime_transmission>
         {# <cdm:procurement_public_issued_by_country>{{ work.procurement_public_issued_by_country }}</cdm:procurement_public_issued_by_country>
         {% for uri in work.procurement_public_url_etendering %}
@@ -36,16 +38,16 @@
         <cdm:work_dataset_has_frequency_publication_frequency rdf:resource="http://publications.europa.eu/resource/authority/frequency/{{ work.dataset_has_frequency_publication_frequency }}"/> #}
     </cdm:work>
 
-    <cdm:expression rdf:about="&resource;ted/{{ work.identifier }}.MUL">
+    <cdm:expression rdf:about="&resource;ted/{{ expression.identifier }}">
         <cdm:expression_belongs_to_work rdf:resource="&resource;ted/{{ work.identifier }}"/>
-        {% for lang in notice.languages %}
+        {% for lang in mets.languages %}
         <cdm:expression_title xml:lang="{{ lang }}">{{ expression.title[lang] }}</cdm:expression_title>
         {% endfor %}
         <cdm:expression_uses_language rdf:resource="&cellar-authority;language/{{ expression.uses_language }}"/>
     </cdm:expression>
 
-    <cdm:manifestation_distribution rdf:about="&resource;ted/{{ work.identifier }}.MUL.rdf">
-        <cdm:manifestation_manifests_expression rdf:resource="&resource;ted/{{ work.identifier }}.MUL"/>
+    <cdm:manifestation_distribution rdf:about="&resource;ted/{{ manifestation.identifier }}">
+        <cdm:manifestation_manifests_expression rdf:resource="&resource;ted/{{ expression.identifier }}"/>
         <cdm:manifestation_type rdf:datatype="http://www.w3.org/2001/XMLSchema#string">{{ manifestation.type }}</cdm:manifestation_type>
         <cdm:manifestation_date_publication rdf:datatype="http://www.w3.org/2001/XMLSchema#date">{{ manifestation.date_publication }}</cdm:manifestation_date_publication>
         {# <cdm:manifestation_distribution_has_status_distribution_status rdf:resource="http://publications.europa.eu/resource/authority/dataset-status/{{ manifestation.distribution_has_status_distribution_status }}"/>

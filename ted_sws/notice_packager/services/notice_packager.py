@@ -11,6 +11,7 @@ This module provides functionalities to generate notice package.
 
 import base64
 import binascii
+import hashlib
 import pathlib
 from pathlib import Path
 from tempfile import TemporaryDirectory
@@ -21,27 +22,24 @@ from ted_sws.core.model.notice import Notice
 from ted_sws.notice_metadata_processor.model.metadata import ExtractedMetadata
 from ted_sws.notice_metadata_processor.services.xml_manifestation_metadata_extractor import \
     XMLManifestationMetadataExtractor
+from ted_sws.notice_packager import DEFAULT_NOTICE_PACKAGE_EXTENSION
 from ted_sws.notice_packager.adapters.archiver import ZipArchiver
 from ted_sws.notice_packager.adapters.template_generator import TemplateGenerator
-from ted_sws.notice_packager.model.metadata import ACTION_CREATE
+from ted_sws.notice_packager.model.metadata import METS_TYPE_CREATE
 from ted_sws.notice_packager.services.metadata_transformer import MetadataTransformer
-from ted_sws.notice_packager import DEFAULT_NOTICE_PACKAGE_EXTENSION
 
 ARCHIVE_NAME_FORMAT = "{work_identifier}_{action}" + DEFAULT_NOTICE_PACKAGE_EXTENSION
-FILE_METS_XML_FORMAT = "{notice_id}-0.mets.xml.dmd.rdf"
 FILE_METS_ACTION_FORMAT = "{work_identifier}_{action}.mets.xml"
-FILE_TMD_FORMAT = "techMDID001.tmd.rdf"
-FILE_RDF_FORMAT = "{notice_id}.ttl"
 
 
-def package_notice(notice: Notice) -> Notice:
+def package_notice(notice: Notice, action: str = METS_TYPE_CREATE) -> Notice:
     """
         This function generate METSPackage and set Notice METSManifestation.
     """
 
-    notice_packager = NoticePackager(notice, ACTION_CREATE)
+    notice_packager = NoticePackager(notice, action)
     notice_packager.add_template_files()
-    notice_packager.add_rdf_content(notice.distilled_rdf_manifestation.object_data.encode("utf-8"))
+    notice_packager.add_rdf_content()
     mets_manifestation_content = notice_packager.pack()
     notice.set_mets_manifestation(mets_manifestation=METSManifestation(object_data=mets_manifestation_content))
     return notice
@@ -60,15 +58,21 @@ class NoticePackager:
         metadata_transformer = MetadataTransformer(notice_metadata)
         self.template_metadata = metadata_transformer.template_metadata(action=action)
         self.notice_id = self.template_metadata.notice.id
-        self.notice_action = self.template_metadata.notice.action.type
+        self.action = self.template_metadata.mets.type
         self.files: List[pathlib.Path] = []
 
+        self.rdf_content = self.get_rdf_content_from_notice(notice)
+        if self.rdf_content is not None:
+            rdf_hash = hashlib.sha256()
+            rdf_hash.update(self.rdf_content)
+            self.template_metadata.mets.notice_file_checksum = rdf_hash.hexdigest()
+
     def add_template_files(self):
-        file_mets_xml_dmd_rdf = self.tmp_dir_path / FILE_METS_XML_FORMAT.format(notice_id=self.notice_id)
-        file_tmd_rdf = self.tmp_dir_path / FILE_TMD_FORMAT.format()
+        file_mets_xml_dmd_rdf = self.tmp_dir_path / self.template_metadata.mets.dmd_href
+        file_tmd_rdf = self.tmp_dir_path / self.template_metadata.mets.tmd_href
         file_mets2action_mets_xml = self.tmp_dir_path / FILE_METS_ACTION_FORMAT.format(
             work_identifier=self.template_metadata.work.identifier,
-            action=self.notice_action
+            action=self.action
         )
         encoding_type = "utf-8"
         file_mets_xml_dmd_rdf.write_text(TemplateGenerator.mets_xml_dmd_rdf_generator(self.template_metadata),
@@ -83,34 +87,32 @@ class NoticePackager:
             file_mets2action_mets_xml
         ]
 
-    def add_rdf_content(self, rdf_content: bytes):
-        """
-
-        :param rdf_content:
-        :return:
-        """
+    @staticmethod
+    def get_rdf_content_from_notice(notice: Notice) -> bytes:
+        rdf_content_bytes = None
+        rdf_content = notice.distilled_rdf_manifestation.object_data.encode("utf-8")
         if rdf_content is not None:
             try:
                 rdf_content_bytes = base64.b64decode(rdf_content, validate=True)
             except binascii.Error:
                 rdf_content_bytes = rdf_content
-            rdf_file_path = self.tmp_dir_path / FILE_RDF_FORMAT.format(notice_id=self.notice_id)
-            rdf_file_path.write_bytes(rdf_content_bytes)
-            self.files.append(rdf_file_path)
+        return rdf_content_bytes
 
-    def add_extra_files(self, extra_files: List[pathlib.Path]):
+    def add_rdf_content(self):
         """
 
-        :param extra_files:
+        :param rdf_content:
         :return:
         """
-        if extra_files is not None:
-            self.files += extra_files
+        if self.rdf_content is not None:
+            rdf_file_path = self.tmp_dir_path / self.template_metadata.mets.notice_file_href
+            rdf_file_path.write_bytes(self.rdf_content)
+            self.files.append(rdf_file_path)
 
     def get_archive_name(self) -> str:
         archive_name = ARCHIVE_NAME_FORMAT.format(
             work_identifier=self.template_metadata.work.identifier,
-            action=self.template_metadata.notice.action.type
+            action=self.template_metadata.mets.type
         )
         return archive_name
 

@@ -68,7 +68,7 @@ def notice_sample_metadata(notice_2018) -> ExtractedMetadata:
 
 @pytest.fixture
 def rdf_content() -> str:
-    return (TEST_DATA_PATH / "notice_packager" / "templates" / "196390_2016.rdf").read_text()
+    return (TEST_DATA_PATH / "notice_packager" / "templates" / "2021_S_4_003545_0.notice.ttl").read_text()
 
 
 @pytest.fixture

@@ -2,38 +2,38 @@
 <mets xmlns="http://www.loc.gov/METS/"
       xmlns:xlink="http://www.w3.org/1999/xlink"
       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-      xsi:schemaLocation="http://www.loc.gov/METS/ cellar-mets.xsd"
-      TYPE="{{ notice.action.type }}"
-      PROFILE="http://publications.europa.eu/resource/mets/op-sip-profile_002">
-    <metsHdr {{ notice.action.type|upper }}DATE="{{ notice.action.date }}">
-        <metsDocumentID>{{ work.identifier }}_{{ notice.action.type }}</metsDocumentID>
+      xsi:schemaLocation="http://www.loc.gov/METS/cellar-mets.xsd"
+      TYPE="{{ mets.type }}"
+      PROFILE="{{ mets.profile }}">
+    <metsHdr CREATEDATE="{{ mets.createdate }}">
+        <metsDocumentID>{{ mets.document_id }}</metsDocumentID>
     </metsHdr>
-    <dmdSec ID="dmdSec01">
-        <mdRef MDTYPE="OTHER" LOCTYPE="URL" MIMETYPE="application/rdf+xml" OTHERMDTYPE="INSTANCE" xlink:href="{{ notice.id }}-0.mets.xml.dmd.rdf"/>
+    <dmdSec ID="{{ mets.dmd_id }}">
+        <mdRef MDTYPE="{{ mets.dmd_mdtype }}" LOCTYPE="URL" MIMETYPE="application/rdf+xml" OTHERMDTYPE="{{ mets.dmd_othermdtype }}" xlink:href="{{ mets.dmd_href }}"/>
     </dmdSec>
     <amdSec>
-        <techMD ID="techMDID001">
-            <mdRef MDTYPE="OTHER" LOCTYPE="URL" MIMETYPE="application/rdf+xml" OTHERMDTYPE="INSTANCE" xlink:href="techMDID001.tmd.rdf"/>
+        <techMD ID="{{ mets.tmd_id }}">
+            <mdRef MDTYPE="{{ mets.tmd_mdtype }}" LOCTYPE="URL" MIMETYPE="application/rdf+xml" OTHERMDTYPE="{{ mets.tmd_othermdtype }}" xlink:href="{{ mets.tmd_href }}"/>
         </techMD>
     </amdSec>
     <fileSec>
         <fileGrp>
-            <file ID="file-001" MIMETYPE="application/rdf+xml" CHECKSUM="f9cdda52af5e532068547f0c91fcf186840bd088 " CHECKSUMTYPE="SHA-1">
-                <FLocat LOCTYPE="URL" xlink:href="{{ notice.id }}.rdf"/>
+            <file ID="{{ mets.file_id }}" MIMETYPE="{{ mets.notice_file_mimetype }}" CHECKSUM="{{ mets.notice_file_checksum }}" CHECKSUMTYPE="{{ mets.notice_file_checksum_type }}">
+                <FLocat LOCTYPE="URL" xlink:href="{{ mets.notice_file_href }}"/>
             </file>
         </fileGrp>
     </fileSec>
-    <structMap ID="structMap01">
-        <div TYPE="work" CONTENTIDS="dataset:{{ notice.id }}" DMDID="dmdSec01" ID="w-01">
-            <div TYPE="expression" CONTENTIDS="expression:{{ notice.id }}" DMDID="dmdSec01" ID="e-01">
-                <div TYPE="manifestation" CONTENTIDS="distribution:{{ notice.id }}/{{ notice.id }}_rdf" DMDID="dmdSec01" ADMID="techMDID001" ID="m-001">
-                    <fptr CONTENTIDS="distribution:{{ notice.id }}/{{ notice.id }}.rdf" FILEID="file-001"/>
+    <structMap ID="{{ work.identifier }}_struct_map_001">
+        <div TYPE="work" CONTENTIDS="ted:{{ work.identifier }}" DMDID="{{ mets.dmd_id }}" ID="{{ work.identifier }}_w_001">
+            <div TYPE="expression" CONTENTIDS="ted:{{ expression.identifier }}" DMDID="{{ mets.dmd_id }}" ID="{{ work.identifier }}_e_001">
+                <div TYPE="manifestation" CONTENTIDS="ted:{{ manifestation.identifier }}" DMDID="{{ mets.dmd_id }}" ADMID="{{ mets.tmd_id }}" ID="{{ work.identifier }}_m_001">
+                    <fptr CONTENTIDS="distribution:{{ notice.id }}/{{ mets.notice_file_href }}" FILEID="{{ mets.file_id }}"/>
                 </div>
             </div>
         </div>
     </structMap>
     <behaviorSec>
-        <behavior BTYPE="sparql-load" STRUCTID="m-001">
+        <behavior BTYPE="sparql-load" STRUCTID="{{ work.identifier }}_m_001">
             <mechanism LOCTYPE="URL" LABEL="Sparql-load" xlink:href="cellar-mets:sparql-load-behavior?model={{ work.uri | urlencode | replace("/", "%2F") }}"/>
         </behavior>
     </behaviorSec>

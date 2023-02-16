@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE rdf:RDF [
+        <!ENTITY % cellarEntities PUBLIC
+        "-//PO-RESOURCE//ENTITIES CELLAR cdm model 1.0//EN"
+        "/home/metaconv/metaconv_components/components/common/data/cellar_uris.ent">
+%cellarEntities;
+]>
+<rdf:RDF xmlns:cdm="http://publications.europa.eu/ontology/cdm#"
+         xmlns:dct="http://purl.org/dc/terms/"
+         xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+
+    <cdm:work rdf:about="&resource;ted/2021_S_4_003545">
+        <rdf:type rdf:resource="http://publications.europa.eu/ontology/cdm#work"/>
+        <rdf:type rdf:resource="http://publications.europa.eu/ontology/cdm#procurement_public"/>
+        <cdm:work_has_resource-type rdf:resource="http://publications.europa.eu/resource/authority/resource-type/PROCUREMENT_NOTICE"/>
+        <cdm:do_not_index rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</cdm:do_not_index>
+        <cdm:work_date_document rdf:datatype="http://www.w3.org/2001/XMLSchema#date">2021-01-07</cdm:work_date_document>
+        <cdm:work_created_by_agent rdf:resource="&cellar-authority;corporate-body/EURUN"/>
+        <cdm:work_title xml:lang="en">Construction work</cdm:work_title>
+        <cdm:datetime_transmission rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2023-02-16T16:09:39.562225</cdm:datetime_transmission>
+    </cdm:work>
+
+    <cdm:expression rdf:about="&resource;ted/2021_S_4_003545.MUL">
+        <cdm:expression_belongs_to_work rdf:resource="&resource;ted/2021_S_4_003545"/>
+        <cdm:expression_title xml:lang="en">eProcurement notice 2021_S_4_003545</cdm:expression_title>
+        <cdm:expression_uses_language rdf:resource="&cellar-authority;language/MUL"/>
+    </cdm:expression>
+
+    <cdm:manifestation_distribution rdf:about="&resource;ted/2021_S_4_003545.MUL.rdf">
+        <cdm:manifestation_manifests_expression rdf:resource="&resource;ted/2021_S_4_003545.MUL"/>
+        <cdm:manifestation_type rdf:datatype="http://www.w3.org/2001/XMLSchema#string">rdf_epo</cdm:manifestation_type>
+        <cdm:manifestation_date_publication rdf:datatype="http://www.w3.org/2001/XMLSchema#date">2021-01-07</cdm:manifestation_date_publication>
+    </cdm:manifestation_distribution>
+</rdf:RDF>

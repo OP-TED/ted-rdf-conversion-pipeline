@@ -15,7 +15,7 @@ code editor is already prepared. For example VS Code or Pycharm, or
 Jupyter server. Examples are explained using
 https://code.visualstudio.com/docs[[.underline]#Visual Studio Code#].
 
-=== Excel
+== Excel
 
 This chapter shows an example using Excel. Microsoft Excel is a
 spreadsheet developed by Microsoft through which we will use the
@@ -61,7 +61,7 @@ image:user_manual/media/image88.png[image,width=601,height=320]
 
 image:user_manual/media/image41.png[image,width=601,height=464]
 
-=== Jupyter Notebook - Python
+== Jupyter Notebook - Python
 
 This chapter shows an example using the Jupyter Notebook in Python. The
 Jupyter Notebook is an application for creating and sharing
@@ -111,7 +111,7 @@ If all works good, on last output cell we can see results:
 
 image:user_manual/media/image2.png[image,width=387,height=420]
 
-=== Jupyter Notebook - R
+== Jupyter Notebook - R
 
 This chapter shows an example using Jupyter Notebook in R language. R is
 software environment for statistical computing and graphic

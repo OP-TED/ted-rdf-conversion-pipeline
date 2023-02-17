@@ -1,0 +1,1507 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>TED-SWS System Architecture :: ted-sws-docs</title>
+    <meta name="generator" content="Antora 3.0.0">
+    <link rel="stylesheet" href="../_/css/site.css">
+    <script>var uiRootPath = '../_'</script>
+  </head>
+  <body class="article">
+<div class="navbar-item has-dropdown is-hoverable">
+<h1>TED-SWS</h1>
+</div><div class="body">
+<div class="nav-container" data-component="rdf-conversion" data-version="master">
+  <aside class="nav">
+    <div class="panels">
+<div class="nav-panel-menu is-active" data-panel="menu">
+  <nav class="nav-menu">
+    <h3 class="title"><a href="index.html">XML to RDF Conversion</a></h3>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="index.html">Home</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <span class="nav-text"><a href="_attachments/ted-sws-architecture/index.html" target="_blank" rel="noopener">Preliminary Project Architecture</a></span>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="mapping_suite_cli_toolchain.html">Mapping Suite CLI Toolchain</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="demo_installation.html">Instructions for Software Engineers</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="user_manual.html">User manual</a>
+  </li>
+  <li class="nav-item is-current-page" data-depth="1">
+    <a class="nav-link" href="system_arhitecture.html">System architecture overview</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="using_procurement_data.html">Using procurement data</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </nav>
+</div>
+<div class="nav-panel-explore" data-panel="explore">
+  <div class="context">
+    <span class="title">XML to RDF Conversion</span>
+    <span class="version">master</span>
+  </div>
+  <ul class="components">
+    <li class="component is-current">
+      <a class="title" href="index.html">XML to RDF Conversion</a>
+      <ul class="versions">
+        <li class="version is-current is-latest">
+          <a href="index.html">master</a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</div>
+    </div>
+  </aside>
+</div>
+<main class="article">
+<div class="toolbar" role="navigation">
+<button class="nav-toggle"></button>
+<nav class="breadcrumbs" aria-label="breadcrumbs">
+  <ul>
+    <li><a href="index.html">XML to RDF Conversion</a></li>
+    <li><a href="system_arhitecture.html">System architecture overview</a></li>
+  </ul>
+</nav>
+</div>
+  <div class="content">
+<aside class="toc sidebar" data-title="Contents" data-levels="6">
+  <div class="toc-menu"></div>
+</aside>
+<article class="doc">
+<h1 class="page">TED-SWS System Architecture</h1>
+<div id="preamble">
+<div class="sectionbody">
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 75%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top"><strong>Editors</strong></th>
+<th class="tableblock halign-left valign-top">Dragos Paun
+&lt;<a href="mailto:dragos.paun@meaningfy.ws"><span class="underline">dragos.paun@meaningfy.ws</span></a>&gt;<br>
+Eugeniu Costetchi
+&lt;<a href="mailto:eugen@meaningfy.ws"><span class="underline">eugen@meaningfy.ws</span></a>&gt;</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Version</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1.0.0</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Date</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">17/01/2023</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_introduction"><a class="anchor" href="#_introduction"></a>Introduction</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Although TED notice data is already available to the general public
+through the search API provided by the TED website, the current offering
+has many limitations that impede access to and reuse of the data. One
+such important impediment is for example the current format of the data.</p>
+</div>
+<div class="paragraph">
+<p>Historical TED data come in various XML formats that evolved together
+with the standard TED XML schema. The imminent introduction of eForms
+will also introduce further diversity in the XML data formats available
+through TED&#8217;s search API. This makes it practically impossible for users
+to consume and process data that span across several years, as
+their information systems must be able to process several different
+flavours of the available XML schemas as well as to keep up with the
+schema&#8217;s continuous evolution. Their search capabilities are therefore
+confined to a very limited set of metadata.</p>
+</div>
+<div class="paragraph">
+<p>The TED Semantic Web Service will remove these barriers by providing one
+common format for accessing and reusing all TED data. Coupled with the
+eProcurement Ontology, the TED data will also have semantics attached to
+them allowing users to directly link them with other datasets.
+Moreover, users will now be able to perform much more elaborate
+queries directly on the data source (through the SPARQL endpoint). This
+will reduce their need for data warehousing in order to perform complex
+queries.</p>
+</div>
+<div class="paragraph">
+<p>These developments, by lowering the barriers, will give rise to a vast
+number of new use-cases that will enable stakeholders and end-users to
+benefit from increased availability of analytics. The ability to perform
+complex queries on public procurement data will be equally open to large
+information systems as well as to simple desktop users with a copy of
+Excel and an internet connection.</p>
+</div>
+<div class="paragraph">
+<p>To summarize, the TED Semantic Web Service (TED SWS) is a pipeline
+system that continuously converts the public procurement notices (in XML
+format) available on the TED Website into RDF format, publishes them
+into CELLAR and makes them available to the public through CELLAR’s
+SPARQL endpoint.</p>
+</div>
+<div class="sect2">
+<h3 id="_document_overview"><a class="anchor" href="#_document_overview"></a>Document overview</h3>
+<div class="paragraph">
+<p>This document describes the architecture of the TED-SWS system.</p>
+</div>
+<div class="paragraph">
+<p>It describes:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>A general description of the system</p>
+</li>
+<li>
+<p>A general architecture</p>
+</li>
+<li>
+<p>A process single notice</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_glossary"><a class="anchor" href="#_glossary"></a>Glossary</h3>
+<div class="paragraph">
+<p><strong>Airflow</strong> - an open-source platform for developing, scheduling, and
+monitoring batch-oriented pipelines. The web interface helps manage the
+state and monitoring of your pipelines.</p>
+</div>
+<div class="paragraph">
+<p><strong>Metabase</strong> - is the BI tool with the friendly UX and integrated tooling
+to let you explore data gathered by running the pipelines available in
+Airflow.</p>
+</div>
+<div class="paragraph">
+<p><strong>Cellar</strong> - is the central content and metadata repository of the
+Publications Office of the European Union</p>
+</div>
+<div class="paragraph">
+<p><strong>TED-SWS</strong> - is a pipeline system that continuously converts the public
+procurement notices (in XML format) available on the TED Website into
+RDF format and publishes them into CELLAR</p>
+</div>
+<div class="paragraph">
+<p><strong>DAG</strong> - (Directed Acyclic Graph) is the core concept of Airflow,
+collecting Tasks together, organized with dependencies and relationships
+to say how they should run. The DAGS are basically the pipelines that
+run in this project to get the public procurement notices from XML to
+RDF and to be published them into CELLAR.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_architecture"><a class="anchor" href="#_architecture"></a>Architecture</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_system_use_cases"><a class="anchor" href="#_system_use_cases"></a>System use cases</h3>
+<div class="paragraph">
+<p>Operations Manager is the main actor that will interact with the TED-SWS
+system. For these reasons, the use cases of the system will be focused
+on the foreground for this actor.</p>
+</div>
+<div class="paragraph">
+<p>For Operations Manager are the following use cases:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>to load a Mapping Suite into the database</p>
+</li>
+<li>
+<p>to reprocess non-normalized notices from the backlog</p>
+</li>
+<li>
+<p>to reprocess untransformed notices from the backlog</p>
+</li>
+<li>
+<p>to reprocess unvalidated notices from the backlog</p>
+</li>
+<li>
+<p>to reprocess unpackaged notices from the backlog</p>
+</li>
+<li>
+<p>to reprocess the notices we published from the backlog</p>
+</li>
+<li>
+<p>to fetch notices from the TED website based on a query</p>
+</li>
+<li>
+<p>to fetch notices from the TED website based on a date range</p>
+</li>
+<li>
+<p>to fetch notices from the TED website based on date</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_architecture_overview"><a class="anchor" href="#_architecture_overview"></a>Architecture overview</h3>
+<div class="paragraph">
+<p>The main points of architecture for a system that will transform TED
+notices from XML format to RDF format using an ETL architecture with
+batch processing pipeline are:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><strong>Data collection</strong>: A web scraper or API would be used to collect the
+daily notices from the TED website in XML format and store them in a
+data warehouse.</p>
+</li>
+<li>
+<p><strong>Data cleansing</strong>: A data cleansing module would be used to clean and
+validate the data, removing any invalid or duplicate entries</p>
+</li>
+<li>
+<p><strong>Data transformation</strong>: A data transformation module would be used to
+convert the XML data into RDF format.</p>
+</li>
+<li>
+<p><strong>Data loading</strong>: The transformed RDF data would be loaded into a triple
+store, such as Cellar, for further analysis or reporting.</p>
+</li>
+<li>
+<p><strong>Pipeline management</strong>: Airflow would be used to schedule and manage the
+pipeline, ensuring that the pipeline is run on a daily basis to process
+the latest batch of notices from the TED website. Airflow would also be
+used to monitor the pipeline and provide real-time status updates.</p>
+</li>
+<li>
+<p><strong>Data access</strong>: A SPARQL endpoint or an API would be used to access the
+RDF data stored in the triple store. This would allow external systems
+to query the data and retrieve the information they need.</p>
+</li>
+<li>
+<p><strong>Security</strong>: The system would be protected by a firewall and would use
+secure protocols (e.g. HTTPS) for data transfer. Access to the data
+would be controlled by authentication and authorization mechanisms.</p>
+</li>
+<li>
+<p><strong>Scalability</strong>: The architecture should be designed to handle large
+amounts of data and easily scale horizontally by adding more resources
+as the amount of data grows.</p>
+</li>
+<li>
+<p><strong>Flexibility</strong>: The architecture should be flexible to handle changes in
+the data structure without having to modify the database schema.</p>
+</li>
+<li>
+<p><strong>Performance</strong>: The architecture should be designed for high-performance
+to handle high levels of read and write operations to process data in a
+short period of time.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>Figure 1.1 shows the compact, general image of the TED-SWS system
+architecture from the system&#8217;s business point of view. The system
+represents a pipeline for processing notices from the TED Website and
+publishing them to the CELLAR service.</p>
+</div>
+<div class="paragraph">
+<p>For the monitoring and management of internal processes, the system
+offers two interfaces. An interface for data monitoring, in the diagram,
+the given interface is represented by the name of “Data Monitoring
+Interface”. Another interface is for the monitoring and management of
+system processes; in the diagram, the given interface is represented by
+the name “Workflow Management Interface”. Operations Manager will use
+these two interfaces for system monitoring and management.</p>
+</div>
+<div class="paragraph">
+<p>The element of the system that will process the notices is the TED-SWS
+pipeline. The input data for this pipeline will be the notices in XML
+format from the TED website. The result of this pipeline is a METS
+package for each processed notice and its publication in CELLAR, from
+where the end user will be able to access notices in RDF format.</p>
+</div>
+<div class="paragraph">
+<p>Providing, in Figure 1.1, a compact view of the TED-SWS system
+architecture at the business level is useful because it allows
+stakeholders and decision-makers to quickly and easily understand how
+the system works and how it supports the business goals and objectives.
+A compact view of the architecture can help to communicate the key
+components of the system and how they interact with each other, making
+it easier to understand the system&#8217;s capabilities and limitations.
+Additionally, a compact view of the architecture can help to identify
+any areas where the system could be improved or where additional
+capabilities are needed to support the business. By providing a clear
+and concise overview of the system architecture, stakeholders can make
+more informed decisions about how to use the system, how to improve it,
+and how to align it with the business objectives.</p>
+</div>
+<div class="paragraph">
+<p>In Figure 1.1 also is provided, input and output dependencies for a
+TED-SWS system architecture. This is useful because it helps to identify
+the data sources and data destinations that the system relies on, as
+well as the data that the system produces. This information can be used
+to understand the data flows within the system, how the system is
+connected to other systems, and how the system supports the business.
+Input dependencies help to identify the data sources that the system
+relies on, such as external systems, databases, or other data sources.
+This information can be used to understand how the system is connected
+to other systems and how it receives data. Output dependencies help to
+identify the data destinations that the system produces, such as
+external systems, databases, or other data destinations. This
+information can be used to understand how the system is connected to
+other systems and how it sends data. By providing input and output
+dependencies for the TED-SWS system architecture, stakeholders can make
+more informed decisions about how to use the system, how to improve it,
+and how to align it with the business objectives.</p>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="_images/system_arhitecture/media/image1.png" alt="image" width="100%" height="366"></span></p>
+</div>
+<div class="paragraph">
+<p>Figure 1.1 Compact view of system architecture at the business level</p>
+</div>
+<div class="paragraph">
+<p>In Figure 1.2 the general extended architecture of the TED-SWS system is
+represented, in this diagram, the internal components of the TED-SWS
+pipeline are also included.</p>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="_images/system_arhitecture/media/image8.png" alt="image" width="100%" height="270"></span></p>
+</div>
+<div class="paragraph">
+<p>Figure 1.2 Extended view of system architecture at business level</p>
+</div>
+<div class="paragraph">
+<p>Figure 1.3 shows the architecture of the TED-SWS system without its
+peripheral elements. This diagram is intended to highlight the services
+that serve the internal components of the pipeline.</p>
+</div>
+<div class="paragraph">
+<p><strong>Workflow Management Service</strong> is an external TED-SWS pipeline service
+that performs pipeline management. This service provides a control
+interface, in the figure it is represented by Workflow Management
+Interface.</p>
+</div>
+<div class="paragraph">
+<p><strong>Workflow Management Interface</strong> represents an internal process control
+interface, this component will be analysed in a separate diagram.</p>
+</div>
+<div class="paragraph">
+<p><strong>Data Visualization Service</strong> is a service that manages logs and pipeline
+data to present them in a form of dashboards.</p>
+</div>
+<div class="paragraph">
+<p><strong>Data Monitoring Interface</strong> is a data visualization and dashboard
+editing interface offered by the Data Visualization Service.</p>
+</div>
+<div class="paragraph">
+<p><strong>Message Digest Service</strong> is a service that serves the transformation
+component of the TED-SWS pipeline, within the transformation to ensure
+custom RML functions, an external service is needed that will implement
+them.</p>
+</div>
+<div class="paragraph">
+<p><strong>Master Data Management &amp; URI Allocation Service</strong> is a service for
+storing and managing unique URIs, this service performs URI
+deduplication.</p>
+</div>
+<div class="paragraph">
+<p>The <strong>TED-SWS pipeline</strong> contains a set of components, all of which access
+Notice Aggregate and Mapping Suite objects.</p>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="_images/system_arhitecture/media/image4.png" alt="image" width="100%" height="318"></span></p>
+</div>
+<div class="paragraph">
+<p>Figure 1.3 TED-SWS architecture at business level</p>
+</div>
+<div class="paragraph">
+<p>Figure 1.4 shows the TED-SWS pipeline and its components, and this view
+aims to show the connection between the components.</p>
+</div>
+<div class="paragraph">
+<p>The pipeline has the following components:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Fetching Service</p>
+</li>
+<li>
+<p>XML Indexing Service</p>
+</li>
+<li>
+<p>Metadata Normalization Service</p>
+</li>
+<li>
+<p>Transformation Service;</p>
+</li>
+<li>
+<p>Entity Resolution &amp; Deduplication Service</p>
+</li>
+<li>
+<p>Validation Service</p>
+</li>
+<li>
+<p>Packaging Service</p>
+</li>
+<li>
+<p>Publishing Service</p>
+</li>
+<li>
+<p>Mapping Suite Loading Service</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><strong>Fetching Service</strong> is a service that extracts notices from the TED
+website and stores them in the database.</p>
+</div>
+<div class="paragraph">
+<p><strong>XML Indexing Service</strong> is a service that extracts all unique XPaths from
+an XML and stores them as metadata. Unique XPaths are used later to
+validate if the transformation to RDF format, has been done for all
+XPaths from a notice in XML format.</p>
+</div>
+<div class="paragraph">
+<p><strong>Metadata Normalization Service</strong> is a service that normalises the
+metadata of a notice in an internal work format. This normalised
+metadata will be used in other processes on a notice, such as the
+selection of a Mapping Suite for transformation or validation of a
+notice.</p>
+</div>
+<div class="paragraph">
+<p><strong>Transformation Service</strong> is the service that transforms a notice from
+the XML format into the RDF format, using for this a Mapping Suite that
+contains the RML transformation rules that will be applied.</p>
+</div>
+<div class="paragraph">
+<p><strong>Entity Resolution &amp; Deduplication Service</strong> is a service that performs
+the deduplication of entities from RDF manifestation, namely
+Organization and Procedure entities.</p>
+</div>
+<div class="paragraph">
+<p><strong>Validation Service</strong> is a service that validates a notice in RDF format,
+using for this several types of validations, namely validation using
+SHACL shapes, validation using SPARQL tests and XPath coverage
+verification.</p>
+</div>
+<div class="paragraph">
+<p><strong>Packaging Service</strong> is a service that creates a METS package that will
+contain notice RDF manifestation.</p>
+</div>
+<div class="paragraph">
+<p><strong>Publishing Service</strong> is a service that publishes a notice RDF
+manifestation in the required format, in the case of Cellar the
+publication takes place with a METS package.</p>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="_images/system_arhitecture/media/image5.png" alt="image" width="100%" height="154"></span></p>
+</div>
+<div class="paragraph">
+<p>Figure 1.4 TED-SWS pipeline architecture at business level</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_process_single_notice_pipeline_architecture"><a class="anchor" href="#_process_single_notice_pipeline_architecture"></a>Process single notice pipeline architecture</h3>
+<div class="paragraph">
+<p>The pipeline for processing a notice is the key element in the TED-SWS
+system, the architecture of this pipeline from the business point of
+view is represented in Figure 2. Unlike the previously presented
+figures, in Figure 2 the pipeline is rendered in greater detail and are
+presented relationships between pipeline steps and the artefacts that
+produce or use them.</p>
+</div>
+<div class="paragraph">
+<p>Based on Figure 2, it can be noted that the pipeline is not a linear
+one, within the pipeline there are control steps that check whether the
+following steps should be executed for a notice.</p>
+</div>
+<div class="paragraph">
+<p>There are 3 control steps in the pipeline, namely:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Check notice eligibility for transformation</p>
+</li>
+<li>
+<p>Check notice eligibility for packaging</p>
+</li>
+<li>
+<p>Check notice availability in Cellar</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The “Check notice eligibility for transformation” step represents the
+control of a notice if it can be transformed with a Mapping Suite, if it
+can be transformed it goes to the next transformation step, otherwise
+the notice is stored for future processing.</p>
+</div>
+<div class="paragraph">
+<p>The “Check notice eligibility for packaging” step checks if a notice RDF
+manifestation after the validation step is valid for packaging in a METS
+package. If it is valid, proceed to the packing step, otherwise, store
+the intermediate result for further analysis.</p>
+</div>
+<div class="paragraph">
+<p>The “Check notice availability in Cellar” step checks, after the
+publication step in Cellar, if a published notice is already accessible
+in Cellar. If the notice is accessible, then the pipeline is finished,
+otherwise the published notice is stored for further analysis.</p>
+</div>
+<div class="paragraph">
+<p>Pipeline steps produce and use artefacts such as:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>TED-XML notice &amp; metadata;</p>
+</li>
+<li>
+<p>Mapping rules</p>
+</li>
+<li>
+<p>TED-RDF notice</p>
+</li>
+<li>
+<p>Test suites</p>
+</li>
+<li>
+<p>Validation report</p>
+</li>
+<li>
+<p>METS Package activation</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="_images/system_arhitecture/media/image2.png" alt="image" width="100%" height="177"></span></p>
+</div>
+<div class="paragraph">
+<p>Figure 2 Single notice processing pipeline at business level</p>
+</div>
+<div class="paragraph">
+<p>Based on Figure 2, we can notice that the artefacts for a notice appear
+with the passage of certain steps in the pipeline. To be able to
+conveniently manage the state of a notice and all its artefacts
+depending on its state, a notice represents an aggregate of artefacts
+and a state, which changes dynamically during the pipeline.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_dynamic_behaviour_of_architecture"><a class="anchor" href="#_dynamic_behaviour_of_architecture"></a>Dynamic behaviour of architecture</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>In this section, we address the following questions:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>How is the data organised?</p>
+</li>
+<li>
+<p>How does the data structure evolve within the process?</p>
+</li>
+<li>
+<p>Howe does the business process look like?</p>
+</li>
+<li>
+<p>How is the business process realised in the Application?</p>
+</li>
+</ul>
+</div>
+<div class="sect2">
+<h3 id="_notice_status_transition_map"><a class="anchor" href="#_notice_status_transition_map"></a>Notice status transition map</h3>
+<div class="paragraph">
+<p>A TED-SWS pipeline implement a hybrid architecture based on ETL pipeline
+with status transition map for a notice. The TED-SWS pipeline have many
+steps and is not a linear pipeline, in this case using a notice status
+transition map, for a complex pipeline with multiple steps and
+ramifications like as TED-SWS pipeline, is a good architecture choice
+for several reasons:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><strong>Visibility</strong>: A notice status transition map provides a clear and visual
+representation of the different stages that a notice goes through in the
+pipeline. This allows for better visibility into the pipeline, making it
+easier to understand the flow of data and to identify any issues or
+bottlenecks.</p>
+</li>
+<li>
+<p><strong>Traceability</strong>: A notice status transition map allows for traceability
+of notices in the pipeline, which means that it&#8217;s possible to track a
+notice as it goes through the different stages of the pipeline. This can
+be useful for troubleshooting, as it allows for the identification of
+which stage the notice failed or had an issue.</p>
+</li>
+<li>
+<p><strong>Error Handling</strong>: A notice status transition map allows for the
+definition of error handling procedures for each stage in the pipeline.
+This can be useful for identifying and resolving errors that occur in
+the pipeline, as it allows for a clear understanding of what went wrong
+and what needs to be done to resolve the issue.</p>
+</li>
+<li>
+<p><strong>Auditing</strong>: A notice status transition map allows for the auditing of
+notices in the pipeline, which means that it&#8217;s possible to track the
+history of a notice, including when it was processed, by whom, and
+whether it was successful or not.</p>
+</li>
+<li>
+<p><strong>Monitoring</strong>: A notice status transition map allows for the monitoring
+of notices in the pipeline, which means that it&#8217;s possible to track the
+status of a notice, including how many notices are currently being
+processed, how many have been processed successfully, and how many have
+failed.</p>
+</li>
+<li>
+<p><strong>Automation</strong>: A notice status transition map can be used to automate
+some of the process, by defining rules or triggers to move notices
+between different stages of the pipeline, depending on the status of the
+notice.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>Each notice has a status during the pipeline, a status corresponds to a
+step in the pipeline that the notice passed. Figure 3.1 shows the
+transition flow of the status of a notice, as a note we must take into
+account that a notice can only be in one status at a given time.
+Initially, each notice has the status of RAW and the last status, which
+means finishing the pipeline, is the status of PUBLICLY_AVAILABLE.</p>
+</div>
+<div class="paragraph">
+<p>Based on the use cases of this pipeline, the following statuses of a
+notice are of interest to the end user:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>RAW</p>
+</li>
+<li>
+<p>NORMALISED_METADATA</p>
+</li>
+<li>
+<p>INELIGIBLE_FOR_TRANSFORMATION</p>
+</li>
+<li>
+<p>TRANSFORMED</p>
+</li>
+<li>
+<p>VALIDATED</p>
+</li>
+<li>
+<p>INELIGIBLE_FOR_PACKAGING</p>
+</li>
+<li>
+<p>PACKAGED</p>
+</li>
+<li>
+<p>INELIGIBLE_FOR_PUBLISHING</p>
+</li>
+<li>
+<p>PUBLISHED</p>
+</li>
+<li>
+<p>PUBLICLY_UNAVAILABLE</p>
+</li>
+<li>
+<p>PUBLICLY_AVAILABLE</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="_images/system_arhitecture/media/image6.png" alt="image" width="546" height="402"></span></p>
+</div>
+<div class="paragraph">
+<p>Figure 3.1 Notice status transition</p>
+</div>
+<div class="paragraph">
+<p>The names of the statuses are self-descriptive, but attention should be
+drawn to some statuses, namely:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>INDEXED</p>
+</li>
+<li>
+<p>NORMALISED_METADATA</p>
+</li>
+<li>
+<p>DISTILLED</p>
+</li>
+<li>
+<p>PUBLISHED</p>
+</li>
+<li>
+<p>PUBLICLY_UNAVAILABLE</p>
+</li>
+<li>
+<p>PUBLICLY_AVAILABLE</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The INDEXED status means that the set of unique XPaths appearing in its
+XML manifestation has been calculated for a notice. The unique set of
+XPaths is subsequently required when calculating the XPath coverage
+indicator for the transformation.</p>
+</div>
+<div class="paragraph">
+<p>The NORMALISED_METADATA status means that for a notice, its metadata has
+been normalised. The metadata of a notice is normalised in an internal
+format to be able to check the eligibility of a notice to be transformed
+with a Mapping Suite package.</p>
+</div>
+<div class="paragraph">
+<p>The status DISTILLED is used to indicate that the RDF manifestation of a
+notice has been post processed. The post-processing of an RDF
+manifestation provides for the deduplication of the Procedure or
+Organization type entities and the insertion of corresponding triplets
+within this RDF manifestation.</p>
+</div>
+<div class="paragraph">
+<p>The PUBLISHED status means that a notice has been sent to Cellar, which
+does not mean that it is already available in Cellar. Since there is a
+time interval between the transmission and the actual appearance in the
+Cellar, it is necessary to check later whether a notice is available in
+the Cellar or not. If the verification has taken place and the notice is
+available in the Cellar, it is assigned the status of
+PUBLICLY_AVAILABLE, if it is not available in the Cellar, the status of
+PUBLICLY_UNAVAILABLE is assigned to it.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_notice_structure"><a class="anchor" href="#_notice_structure"></a>Notice structure</h3>
+<div class="paragraph">
+<p>Notice structure has a NoSQL data model, this architecture choice is
+based on dynamic behaviour of notice structure which evolves over time
+while TED-SWS pipeline running and besides that there are other reasons:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><strong>Schema-less</strong>: NoSQL databases are schema-less, which means that the
+data structure can change without having to modify the database schema.
+This allows for more flexibility when processing data, as new data types
+or fields can be easily added without having to make changes to the
+database. This is particularly useful for notices that are likely to
+evolve over time, as the structure of the notices can change without
+having to make changes to the database.</p>
+</li>
+<li>
+<p><strong>Handling Unstructured Data</strong>: NoSQL databases are well suited for
+handling unstructured data, such as JSON or XML, that can&#8217;t be handled
+by SQL databases. This is particularly useful for ETL pipelines that
+need to process unstructured data, as notices are often unstructured and
+may evolve over time.</p>
+</li>
+<li>
+<p><strong>Handling Distributed Data</strong>: NoSQL databases are designed to handle
+distributed data, which allows for data to be stored and processed on
+multiple servers. This can help to improve performance and scalability,
+as well as provide fault tolerance. This is particularly useful for
+notices that are likely to evolve over time, as the volume of data may
+increase and need to be distributed.</p>
+</li>
+<li>
+<p><strong>Flexible Querying</strong>: NoSQL databases allow for flexible querying, which
+means that the data can be queried in different ways, including by
+specific fields, by specific values, and by ranges. This allows for more
+flexibility when querying the data, as the structure of the notices may
+evolve over time.</p>
+</li>
+<li>
+<p><strong>Cost-effective</strong>: NoSQL databases are generally less expensive than SQL
+databases, as they don&#8217;t require expensive hardware or specialized
+software. This can make them a more cost-effective option for ETL
+pipelines that need to handle large amounts of data and that are likely
+to evolve over time.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>Overall, a NoSQL data model is a good choice for notice structure in an
+ETL pipeline that is likely to evolve over time because it allows for
+more flexibility when processing data, handling unstructured data,
+handling distributed data, flexible querying and it&#8217;s cost-effective.</p>
+</div>
+<div class="paragraph">
+<p>Figure 3.2 shows the structure of a notice and its evolution depending
+on the state in which a notice is located. In the given figure, the
+emphasis is placed on the states from which a certain part of the
+structure of a notice is present. As a remark, it should be taken into
+account that once an element of the structure of a notice is present for
+a certain state, it will also be present for all the states derived from
+it, such as the flow of states presented in Figure 3.1.</p>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="_images/system_arhitecture/media/image3.png" alt="image" width="567" height="350"></span></p>
+</div>
+<div class="paragraph">
+<p>Figure 3.2 Dynamic behaviour of notice structure based on status</p>
+</div>
+<div class="paragraph">
+<p>Based on Figure 3.2, it is noted that the structure of a notice evolves
+with the transition to other states.</p>
+</div>
+<div class="paragraph">
+<p>For a notice in the state of NORMALISED_METADATA, we can access the
+following fields of a notice:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Original Metadata</p>
+</li>
+<li>
+<p>Normalised Metadata</p>
+</li>
+<li>
+<p>XML Manifestation</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>For a notice in the TRANSFORMED state, we can access all the previous
+fields and the following new fields of a notice:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>RDF Manifestation.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>For a notice in the VALIDATED state, we can access all the previous
+fields and the following new fields of a notice:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>XPath Coverage Validation</p>
+</li>
+<li>
+<p>SHACL Validation</p>
+</li>
+<li>
+<p>SPARQL Validation</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>For a notice in the PACKAGED state, we can access all the previous
+fields and the following new fields of a notice:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>METS Manifestation</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_application_view_of_the_process"><a class="anchor" href="#_application_view_of_the_process"></a>Application view of the process</h3>
+<div class="paragraph">
+<p>The primary actor of the TED-SWS system will be the Operations Manager,
+who will interact with the system. Application-level pipeline control is
+achieved through the Airflow stack. Figure 4 shows the AirflowUser actor
+representing Operations Manager, this diagram is at the application
+level of the process.</p>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="_images/system_arhitecture/media/image7.png" alt="image" width="534" height="585"></span></p>
+</div>
+<div class="paragraph">
+<p>Figure 4 Dependencies between Airflow DAGs</p>
+</div>
+<div class="paragraph">
+<p>Based on the use cases defined for an Operations Manger, Figure 4 shows
+the control functionality of the TED-SWS pipeline that it can use. In
+addition to the functionality available for the AirflowUser actor, the
+dependency between DAGs is also rendered. We can note that another actor
+named AirflowScheduler is defined, this actor represents an automatic
+execution mechanism at a certain time interval of certain DAGs.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_architectural_choices"><a class="anchor" href="#_architectural_choices"></a>Architectural choices</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This section describes choices:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>How is this SOA? (is it? It is SOA but not REST Microservices, Why not
+Microservices?</p>
+</li>
+<li>
+<p>Why NoSQL data model vs SQL data model?</p>
+</li>
+<li>
+<p>Why ETL/ELT approach vs. Event Sourcing</p>
+</li>
+<li>
+<p>Why Batch processing vs. Event Streams.</p>
+</li>
+<li>
+<p>Why Airflow ?</p>
+</li>
+<li>
+<p>Why Metabase?</p>
+</li>
+<li>
+<p>Why quick deduplication process? And what are the plans for the
+future?</p>
+</li>
+</ul>
+</div>
+<div class="sect2">
+<h3 id="_why_is_this_soa_service_oriented_architecture_architecture"><a class="anchor" href="#_why_is_this_soa_service_oriented_architecture_architecture"></a>Why is this SOA (Service-oriented architecture) architecture?</h3>
+<div class="paragraph">
+<p>ETL (Extract, Transform, Load) architecture is considered
+state-of-the-art for batch processing tasks using Airflow as pipeline
+management for several reasons:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><strong>Flexibility</strong>: ETL architecture allows for flexibility in the data
+pipeline as it separates the data extraction, transformation, and
+loading processes. This allows for easy modification and maintenance of
+each individual step without affecting the entire pipeline.</p>
+</li>
+<li>
+<p><strong>Scalability</strong>: ETL architecture allows for the easy scaling of data
+processing tasks, as new data sources can be added or removed without
+impacting the entire pipeline.</p>
+</li>
+<li>
+<p><strong>Error Handling</strong>: ETL architecture allows for easy error handling as
+each step of the pipeline can be monitored and errors can be isolated to
+a specific step.</p>
+</li>
+<li>
+<p><strong>Reusability:</strong> ETL architecture allows for the reuse of existing data
+pipelines, as new data sources can be added without modifying existing
+pipelines.</p>
+</li>
+<li>
+<p><strong>System management</strong>: Airflow is an open-source workflow management
+system that allows for easy scheduling, monitoring, and management of
+data pipelines. It integrates seamlessly with ETL architecture and
+allows for easy management of complex data pipelines.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>Overall, ETL architecture combined with Airflow as pipeline management
+provides a robust and efficient solution for batch processing tasks.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_why_monolithic_architecture_vs_micro_services_architecture"><a class="anchor" href="#_why_monolithic_architecture_vs_micro_services_architecture"></a>Why Monolithic Architecture vs Micro Services Architecture?</h3>
+<div class="paragraph">
+<p>There are several reasons why a monolithic architecture may be more
+suitable for an ETL architecture with batch processing pipeline using
+Airflow as the pipeline management tool:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><strong>Simplicity</strong>: A monolithic architecture is simpler to design and
+implement as it involves a single codebase and a single deployment
+process. This makes it easier to manage and maintain the ETL pipeline.</p>
+</li>
+<li>
+<p><strong>Performance</strong>: A monolithic architecture may be more performant than a
+microservices architecture as it allows for more efficient communication
+between the different components of the pipeline. This is particularly
+important for batch processing pipelines, where speed and efficiency are
+crucial.</p>
+</li>
+<li>
+<p><strong>Scalability</strong>: Monolithic architectures can be scaled horizontally by
+adding more resources to the system, such as more servers or more
+processing power. This allows for the system to handle larger amounts of
+data and handle more complex processing tasks.</p>
+</li>
+<li>
+<p><strong>Airflow Integration</strong>: Airflow is designed to work with monolithic
+architectures, and it can be more difficult to integrate with a
+microservices architecture. Airflow&#8217;s DAGs and tasks are designed to
+work with a single codebase, and it may be more challenging to manage
+different services and pipelines across multiple microservices.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>Overall, a monolithic architecture may be more suitable for an ETL
+architecture with batch processing pipeline using Airflow as the
+pipeline management tool due to its simplicity, performance,
+scalability, and ease of integration with Airflow.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_why_etlelt_approach_vs_event_sourcing"><a class="anchor" href="#_why_etlelt_approach_vs_event_sourcing"></a>Why ETL/ELT approach vs Event Sourcing ?</h3>
+<div class="paragraph">
+<p>ETL (Extract, Transform, Load) architecture is typically used for moving
+and transforming data from one system to another, for example, from a
+transactional database to a data warehouse for reporting and analysis.
+It is a batch-oriented process that is typically scheduled to run at
+specific intervals.</p>
+</div>
+<div class="paragraph">
+<p>Event sourcing architecture, on the other hand, is a way of storing and
+managing the state of an application by keeping track of all the changes
+to the state as a sequence of events. This allows for better auditing
+and traceability of the state of the application over time, as well as
+the ability to replay past events to reconstruct the current state.
+Event sourcing is often used in systems that require high performance,
+scalability, and fault tolerance.</p>
+</div>
+<div class="paragraph">
+<p>In summary, ETL architecture is mainly used for data integration and
+data warehousing, Event sourcing is mainly used for building highly
+scalable and fault-tolerant systems that need to store and manage the
+state of an application over time.</p>
+</div>
+<div class="paragraph">
+<p>A hybrid architecture is implemented in the TED-SWS pipeline, based on
+an ETL architecture but with state storage to repeat a pipeline sequence
+as needed.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_why_batch_processing_vs_event_streams"><a class="anchor" href="#_why_batch_processing_vs_event_streams"></a>Why Batch processing vs Event Streams?</h3>
+<div class="paragraph">
+<p>Batch processing architecture and Event Streams architecture are two
+different approaches to processing data in code.</p>
+</div>
+<div class="paragraph">
+<p>Batch processing architecture is a traditional approach where data is
+processed in batches. This means that data is collected over a period of
+time and then processed all at once in a single operation. This approach
+is typically used for tasks such as data analysis, data mining, and
+reporting. It is best suited for tasks that can be done in a single pass
+and do not require real-time processing.</p>
+</div>
+<div class="paragraph">
+<p>Event Streams architecture, on the other hand, is a more modern approach
+where data is processed in real-time as it is generated. This means that
+data is processed as soon as it is received, rather than waiting for a
+batch to be collected. This approach is typically used for tasks such as
+real-time monitoring, data analytics, and fraud detection. It is best
+suited for tasks that require real-time processing and cannot be done in
+a single pass.</p>
+</div>
+<div class="paragraph">
+<p>In summary, Batch processing architecture is best suited for tasks that
+can be done in a single pass and do not require real-time processing,
+whereas Event Streams architecture is best suited for tasks that require
+real-time processing and cannot be done in a single pass.</p>
+</div>
+<div class="paragraph">
+<p>Due to the fact that the TED-SWS pipeline has an ETL architecture, the
+data processing is done in batches, the batches of notices are formed
+per day, all the notices of a day form a batch that will be processed.
+Another method of creating a batch is grouping notices by status and
+executing the pipeline depending on their status.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_why_nosql_data_model_vs_sql_data_model"><a class="anchor" href="#_why_nosql_data_model_vs_sql_data_model"></a>Why NoSQL data model vs SQL data model?</h3>
+<div class="paragraph">
+<p>There are several reasons why a NoSQL data model may be more suitable
+for an ETL architecture with batch processing pipeline compared to a SQL
+data model:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><strong>Scalability</strong>: NoSQL databases are designed to handle large amounts of
+data and can scale horizontally, allowing for the easy addition of more
+resources as the amount of data grows. This is particularly useful for
+batch processing pipelines that need to handle large amounts of data.</p>
+</li>
+<li>
+<p><strong>Flexibility</strong>: NoSQL databases are schema-less, which means that the
+data structure can change without having to modify the database schema.
+This allows for more flexibility when processing data, as new data types
+or fields can be easily added without having to make changes to the
+database.</p>
+</li>
+<li>
+<p><strong>Performance</strong>: NoSQL databases are designed for high-performance and can
+handle high levels of read and write operations. This is particularly
+useful for batch processing pipelines that need to process large amounts
+of data in a short period of time.</p>
+</li>
+<li>
+<p><strong>Handling Unstructured Data</strong>: NoSQL databases are well suited for
+handling unstructured data, such as JSON or XML, that can&#8217;t be handled
+by SQL databases. This is particularly useful for ETL pipelines that
+need to process unstructured data.</p>
+</li>
+<li>
+<p><strong>Handling Distributed Data</strong>: NoSQL databases are designed to handle
+distributed data, which allows for data to be stored and processed on
+multiple servers. This can help to improve performance and scalability,
+as well as provide fault tolerance.</p>
+</li>
+<li>
+<p><strong>Cost</strong>: NoSQL databases are generally less expensive than SQL databases,
+as they don&#8217;t require expensive hardware or specialized software. This
+can make them a more cost-effective option for ETL pipelines that need
+to handle large amounts of data.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>Overall, a NoSQL data model may be more suitable for an ETL architecture
+with batch processing pipeline compared to a SQL data model due to its
+scalability, flexibility, performance, handling unstructured data,
+handling distributed data and the cost-effectiveness. It is important to
+note that the choice to use a NoSQL data model satisfies the specific
+requirements of the TED-SWS processing pipeline and the nature of the
+data to be processed.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_why_airflow"><a class="anchor" href="#_why_airflow"></a>Why Airflow?</h3>
+<div class="paragraph">
+<p>Airflow is a great solution for ETL pipeline and batch processing
+architecture because it provides several features that are well-suited
+to these types of tasks. First, Airflow provides a powerful scheduler
+that allows you to define and schedule ETL jobs to run at specific
+intervals. This means that you can set up your pipeline to run on a
+regular schedule, such as every day or every hour, without having to
+manually trigger the jobs. Second, Airflow provides a web-based user
+interface that makes it easy to monitor and manage your pipeline.</p>
+</div>
+<div class="paragraph">
+<p>Both aspects of Airflow are perfectly compatible with the needs of the
+TED-SWS architecture and the use cases required for an Operations
+Manager that will interact with the system. Airflow therefore covers the
+needs of batch processing management and ETL pipeline management.</p>
+</div>
+<div class="paragraph">
+<p>Airflow provide good coverage of use cases for an Operations Manager,
+specialized for this use cases:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><strong>Monitoring pipeline performance</strong>: An operations manager can use Airflow
+to monitor the performance of the ETL pipeline and identify any
+bottlenecks or issues that may be impacting the pipeline&#8217;s performance.
+They can then take steps to optimize the pipeline to improve its
+performance and ensure that data is being processed in a timely and
+efficient manner.</p>
+</li>
+<li>
+<p><strong>Managing pipeline schedule</strong>: The operations manager can use Airflow to
+schedule the pipeline to run at specific times, such as during off-peak
+hours or when resources are available. This can help to minimize the
+impact of the pipeline on other systems and ensure that data is
+processed in a timely manner.</p>
+</li>
+<li>
+<p><strong>Managing pipeline resources</strong>: The operations manager can use Airflow to
+manage the resources used by the pipeline, such as CPU, memory, and
+storage. They can also use Airflow to scale the pipeline up or down as
+needed to meet changing resource requirements.</p>
+</li>
+<li>
+<p><strong>Managing pipeline failures</strong>: Airflow allows the operations manager to
+set up notifications and alerts for when a pipeline fails or a task
+fails. This allows them to quickly identify and address any issues that
+may be impacting the pipeline&#8217;s performance.</p>
+</li>
+<li>
+<p><strong>Managing pipeline dependencies</strong>: The operations manager can use Airflow
+to manage the dependencies between different tasks in the pipeline, such
+as ensuring that notice fetching is completed before notice indexing or
+notice metadata normalization.</p>
+</li>
+<li>
+<p><strong>Managing pipeline versioning</strong>: Airflow allows the operations manager to
+maintain different versions of the pipeline, which can be useful for
+testing new changes before rolling them out to production.</p>
+</li>
+<li>
+<p><strong>Managing pipeline security</strong>: Airflow allows the operations manager to
+set up security controls to protect the pipeline and the data it
+processes. They can also use Airflow to audit and monitor access to the
+pipeline and the data it processes.</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_why_metabase"><a class="anchor" href="#_why_metabase"></a>Why Metabase?</h3>
+<div class="paragraph">
+<p>Metabase is an excellent solution for data analysis and KPI monitoring
+for a batch processing system, as it offers several key features that
+make it well suited for this type of use case required within the
+TED-SWS system.</p>
+</div>
+<div class="paragraph">
+<p>First, Metabase is highly customizable, allowing users to create and
+modify dashboards, reports, and visualizations to suit their specific
+needs. This makes it easy to track and monitor the key performance
+indicators (KPIs) that are most important for the batch processing
+system, such as the number of jobs processed, the average processing
+time, and the success rate of job runs.</p>
+</div>
+<div class="paragraph">
+<p>Second, Metabase offers a wide range of data connectors, allowing users
+to easily connect to and query data sources such as SQL databases, NoSQL
+databases, CSV files, and APIs. This makes it easy to access and analyze
+the data that is relevant to the batch processing system. In TED-SWS the
+data domain model is realized by a document-based data model, not a
+tabular relational data model, so Metabase is a good tool for analyzing
+data with a document-based model.</p>
+</div>
+<div class="paragraph">
+<p>Third, Metabase has a user-friendly interface that makes it easy to
+navigate and interact with data, even for users with little or no
+technical experience. This makes it accessible to a wide range of users,
+including business analysts, data scientists, and other stakeholders who
+need to monitor and analyse the performance of the batch processing
+system.</p>
+</div>
+<div class="paragraph">
+<p>Finally, Metabase offers robust security and collaboration features,
+making it easy to share and collaborate on data and insights with team
+members and stakeholders. This makes it an ideal solution for
+organizations that need to monitor and analyse the performance of a
+batch processing system across multiple teams or departments.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_why_quick_deduplication_process"><a class="anchor" href="#_why_quick_deduplication_process"></a>Why quick deduplication process?</h3>
+<div class="paragraph">
+<p>One of the main challenges in entities deduplication from the semantic
+web domain is dealing with the complexity and diversity of the data.
+This can include dealing with different data formats, schemas, and
+vocabularies, as well as handling missing or incomplete data.
+Additionally, entities may have multiple identities or representations,
+making it difficult to determine which entities are duplicates and which
+are distinct. Another difficulty is the scalability of the algorithm to
+handle large amount of data. The performance of the algorithm should be
+efficient and accurate to handle huge number of entities.</p>
+</div>
+<div class="paragraph">
+<p>There are several approaches and solutions for entities deduplication in
+the semantic web. Some of the top solutions include:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><strong>String-based methods</strong>: These methods use string comparison techniques
+such as Jaccard similarity, Levenshtein distance, and cosine similarity
+to identify duplicates based on the similarity of their string
+representations.</p>
+</li>
+<li>
+<p><strong>Machine learning-based methods</strong>: These methods use machine learning
+algorithms such as decision trees, random forests, and neural networks
+to learn patterns in the data and identify duplicates.</p>
+</li>
+<li>
+<p><strong>Knowledge-based methods</strong>: These methods use external knowledge sources
+such as ontologies, taxonomies, and linked data to disambiguate entities
+and identify duplicates.</p>
+</li>
+<li>
+<p><strong>Hybrid methods</strong>: These methods combine multiple techniques, such as
+string-based and machine learning-based methods, to improve the accuracy
+of deduplication.</p>
+</li>
+<li>
+<p><strong>Blocking Method</strong>: This method is used to reduce the number of entities
+that need to be compared by grouping similar entities together.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>In the TED-SWS pipeline, the deduplication of Organization type entities
+is performed using a string-based methods. String-based methods are
+often used for organization entity deduplication, because of their
+simplicity and effectiveness.</p>
+</div>
+<div class="paragraph">
+<p>TED Europe data often contains information about tenders and public
+procurement, where organizations are identified by their names.
+Organization names are often unique and can be used to identify
+duplicates with high accuracy. String-based methods can be used to
+compare the similarity of different organization names, which can be
+effective in identifying duplicates.</p>
+</div>
+<div class="paragraph">
+<p>Additionally, the TED europe data is highly structured, so it&#8217;s easy to
+extract and compare the names of organizations. String-based methods are
+also relatively fast and easy to implement, making them a good choice
+for large data sets. This methods may not be as effective for other
+types of entities, such as individuals, where additional information may
+be needed to identify duplicates. It&#8217;s also important to note that
+string-based methods may not work as well for misspelled or abbreviated
+names.</p>
+</div>
+<div class="paragraph">
+<p>Using a quick and dirty deduplication approach instead of a complex
+system at the first iteration of a system implementation can be
+beneficial for several reasons:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><strong>Speed</strong>: A quick approach can be implemented quickly and can
+help to identify and remove duplicates quickly. This can be particularly
+useful when working with large and complex data sets, where a more
+complex approach may take a long time to implement and test.</p>
+</li>
+<li>
+<p><strong>Cost</strong>: A quick and dirty approach is generally less expensive to
+implement than a complex system, as it requires fewer resources and less
+development time.</p>
+</li>
+<li>
+<p><strong>Simplicity</strong>: A quick and dirty approach is simpler and easier to
+implement than a complex system, which can reduce the risk of errors and
+bugs.</p>
+</li>
+<li>
+<p><strong>Flexibility</strong>: A quick and dirty approach allows to start with a basic
+system and adapt it as needed, which can be more flexible than a complex
+system that is difficult to change.</p>
+</li>
+<li>
+<p><strong>Testing</strong>: A quick and dirty approach allows to test the system quickly,
+and get feedback from the users and stakeholders, and then use that
+feedback to improve the system.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>However, it&#8217;s worth noting that the quick and dirty approach is not a
+long-term solution and should be used only as a first step in the
+implementation of a MDR system. This approach can help to quickly
+identify and remove duplicates and establish a basic system, but it may
+not be able to handle all the complexity and diversity of the data, so
+it&#8217;s important to plan for and implement more advanced techniques as the
+system matures.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_what_are_the_plans_for_the_future_deduplication"><a class="anchor" href="#_what_are_the_plans_for_the_future_deduplication"></a>What are the plans for the future deduplication?</h3>
+<div class="paragraph">
+<p>In the future, another Master Data Registry type system will be used to
+deduplicate entities in the TED-SWS system, which will be implemented
+according to the requirements for deduplication of entities from
+notices.</p>
+</div>
+<div class="paragraph">
+<p>The future Master Data Registry (MDR) system for entity deduplication
+should have the following architecture:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><strong>Data Ingestion</strong>: This component is responsible for extracting and
+collecting data from various sources, such as databases, files, and
+APIs. The data is then transformed, cleaned, and consolidated into a
+single format before it is loaded into the MDR.</p>
+</li>
+<li>
+<p><strong>Data Quality</strong>: This component is responsible for enforcing data quality
+rules, such as format, completeness, and consistency, on the data before
+it is entered into the MDR. This can include tasks such as data
+validation, data standardization, and data cleansing.</p>
+</li>
+<li>
+<p><strong>Entity Dedup</strong>: This component is responsible for identifying and
+removing duplicate entities in the MDR. This can be done using a
+combination of techniques such as string-based, machine learning-based,
+or knowledge-based methods.</p>
+</li>
+<li>
+<p><strong>Data Governance</strong>: This component is responsible for ensuring that the
+data in the MDR is accurate, complete, and up-to-date. This can include
+processes for data validation, data reconciliation, and data
+maintenance.</p>
+</li>
+<li>
+<p><strong>Data Access and Integration</strong>: This component provides access to the MDR
+data through a user interface and API&#8217;s, and integrates the MDR data
+with other systems and applications.</p>
+</li>
+<li>
+<p><strong>Data Security</strong>: This component is responsible for ensuring that the
+data in the MDR is secure, and that only authorized users can access it.
+This can include tasks such as authentication, access control, and
+encryption.</p>
+</li>
+<li>
+<p><strong>Data Management</strong>: This component is responsible for managing the data
+in the MDR, including tasks such as data archiving, data backup, and
+data recovery.</p>
+</li>
+<li>
+<p><strong>Monitoring and Analytics</strong>: This component is responsible for monitoring
+and analysing the performance of the MDR system, and for providing
+insights into the data to help improve the system.</p>
+</li>
+<li>
+<p><strong>Services layer</strong>: This component is responsible for providing services
+such as, indexing, search and query functionalities over the data.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>All these components should be integrated and work together to provide a
+comprehensive and efficient MDR system for entity deduplication. The
+system should be scalable and flexible enough to handle large amounts of
+data and adapt to changing business requirements.</p>
+</div>
+</div>
+</div>
+</div>
+</article>
+  </div>
+</main>
+</div>
+<div>
+</div>
+<script id="site-script" src="../_/js/site.js" data-ui-root-path="../_"></script>
+<script async src="../_/js/vendor/highlight.js"></script>
+  </body>
+</html>

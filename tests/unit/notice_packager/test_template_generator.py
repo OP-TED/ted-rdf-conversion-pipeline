@@ -6,7 +6,7 @@
 # Email: kalean.bl@gmail.com
 
 """ """
-
+import difflib
 import re
 
 import pytest
@@ -31,26 +31,26 @@ def __test(template_generate, data, test_tpl):
 
 
 def test_mets_xml_dmd_rdf_generator(template_sample_metadata):
-    test_template = "2021_S_4_003545_0.mets.xml.dmd.rdf"
+    test_template = "2021_S_004_003545_0.mets.xml.dmd.rdf"
     __test(TemplateGenerator.mets_xml_dmd_rdf_generator, template_sample_metadata, test_template)
 
 
 def test_tmd_rdf_generator(template_sample_metadata):
-    test_template = "2021_S_4_003545_0.tmd.rdf"
+    test_template = "2021_S_004_003545_0.tmd.rdf"
     __test(TemplateGenerator.tmd_rdf_generator, template_sample_metadata, test_template)
 
 
 def test_mets2create_mets_xml_generator(template_sample_metadata):
     template_sample_metadata.mets.type = "create"
     template_sample_metadata.mets.document_id = f"{template_sample_metadata.work.identifier}_{template_sample_metadata.mets.type}"
-    test_template = "2021_S_4_003545_create.mets.xml"
+    test_template = "2021_S_004_003545_create.mets.xml"
     __test(TemplateGenerator.mets2action_mets_xml_generator, template_sample_metadata, test_template)
 
 
 def test_mets2update_mets_xml_generator(template_sample_metadata):
     template_sample_metadata.mets.type = "update"
     template_sample_metadata.mets.document_id = f"{template_sample_metadata.work.identifier}_{template_sample_metadata.mets.type}"
-    test_template = "2021_S_4_003545_update.mets.xml"
+    test_template = "2021_S_004_003545_update.mets.xml"
     __test(TemplateGenerator.mets2action_mets_xml_generator, template_sample_metadata, test_template)
 
 

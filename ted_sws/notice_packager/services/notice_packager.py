@@ -17,6 +17,9 @@ from pathlib import Path
 from tempfile import TemporaryDirectory
 from typing import List
 
+import rdflib
+from rdflib.parser import StringInputSource
+
 from ted_sws.core.model.manifestation import METSManifestation
 from ted_sws.core.model.notice import Notice
 from ted_sws.notice_metadata_processor.model.metadata import ExtractedMetadata
@@ -30,6 +33,7 @@ from ted_sws.notice_packager.services.metadata_transformer import MetadataTransf
 
 ARCHIVE_NAME_FORMAT = "{work_identifier}_{action}" + DEFAULT_NOTICE_PACKAGE_EXTENSION
 FILE_METS_ACTION_FORMAT = "{work_identifier}_{action}.mets.xml"
+DEFAULT_RDF_FILE_FORMAT = "turtle"
 
 
 def package_notice(notice: Notice, action: str = METS_TYPE_CREATE) -> Notice:
@@ -90,12 +94,19 @@ class NoticePackager:
     @staticmethod
     def get_rdf_content_from_notice(notice: Notice) -> bytes:
         rdf_content_bytes = None
-        rdf_content = notice.distilled_rdf_manifestation.object_data.encode("utf-8")
+        encoding = "utf-8"
+        rdf_content = notice.distilled_rdf_manifestation.object_data.encode(encoding)
         if rdf_content is not None:
             try:
                 rdf_content_bytes = base64.b64decode(rdf_content, validate=True)
             except binascii.Error:
                 rdf_content_bytes = rdf_content
+
+            # transform n3 (turtle) to RDF/XML
+            g = rdflib.Graph()
+            g.parse(StringInputSource(rdf_content_bytes, encoding=encoding), format=DEFAULT_RDF_FILE_FORMAT)
+            rdf_content_bytes = g.serialize(format='pretty-xml', encoding=encoding)
+
         return rdf_content_bytes
 
     def add_rdf_content(self):

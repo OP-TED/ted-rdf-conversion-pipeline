@@ -9,25 +9,27 @@
          xmlns:dct="http://purl.org/dc/terms/"
          xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
 
-    <cdm:work rdf:about="&resource;ted/2021_S_4_003545">
+    <cdm:work rdf:about="&resource;ted/2021_S_004_003545">
         <rdf:type rdf:resource="http://publications.europa.eu/ontology/cdm#work"/>
-        <rdf:type rdf:resource="http://publications.europa.eu/ontology/cdm#procurement_public"/>
+        <cdm:work_id_document rdf:datatype="http://www.w3.org/2001/XMLSchema#string">ted:2021_S_004_003545</cdm:work_id_document>
         <cdm:work_has_resource-type rdf:resource="http://publications.europa.eu/resource/authority/resource-type/PROCUREMENT_NOTICE"/>
         <cdm:do_not_index rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</cdm:do_not_index>
         <cdm:work_date_document rdf:datatype="http://www.w3.org/2001/XMLSchema#date">2021-01-07</cdm:work_date_document>
         <cdm:work_created_by_agent rdf:resource="&cellar-authority;corporate-body/EURUN"/>
+        <cdm:procurement_public_number_edition rdf:datatype="http://www.w3.org/2001/XMLSchema#positiveInteger">2021004</cdm:procurement_public_number_edition>
         <cdm:work_title xml:lang="en">Construction work</cdm:work_title>
-        <cdm:datetime_transmission rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2023-02-16T16:09:39.562225</cdm:datetime_transmission>
+        <cdm:procurement_public_number_document_in_official-journal rdf:datatype="http://www.w3.org/2001/XMLSchema#string">003545</cdm:procurement_public_number_document_in_official-journal>
+        <cdm:datetime_transmission rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2023-02-17T14:32:17.455085</cdm:datetime_transmission>
     </cdm:work>
 
-    <cdm:expression rdf:about="&resource;ted/2021_S_4_003545.MUL">
-        <cdm:expression_belongs_to_work rdf:resource="&resource;ted/2021_S_4_003545"/>
-        <cdm:expression_title xml:lang="en">eProcurement notice 2021_S_4_003545</cdm:expression_title>
+    <cdm:expression rdf:about="&resource;ted/2021_S_004_003545.MUL">
+        <cdm:expression_belongs_to_work rdf:resource="&resource;ted/2021_S_004_003545"/>
+        <cdm:expression_title xml:lang="en">eProcurement notice 2021_S_004_003545</cdm:expression_title>
         <cdm:expression_uses_language rdf:resource="&cellar-authority;language/MUL"/>
     </cdm:expression>
 
-    <cdm:manifestation_distribution rdf:about="&resource;ted/2021_S_4_003545.MUL.rdf">
-        <cdm:manifestation_manifests_expression rdf:resource="&resource;ted/2021_S_4_003545.MUL"/>
+    <cdm:manifestation_distribution rdf:about="&resource;ted/2021_S_004_003545.MUL.rdf">
+        <cdm:manifestation_manifests_expression rdf:resource="&resource;ted/2021_S_004_003545.MUL"/>
         <cdm:manifestation_type rdf:datatype="http://www.w3.org/2001/XMLSchema#string">rdf_epo</cdm:manifestation_type>
         <cdm:manifestation_date_publication rdf:datatype="http://www.w3.org/2001/XMLSchema#date">2021-01-07</cdm:manifestation_date_publication>
     </cdm:manifestation_distribution>

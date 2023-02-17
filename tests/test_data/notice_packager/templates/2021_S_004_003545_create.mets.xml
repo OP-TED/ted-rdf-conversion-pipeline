@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mets xmlns="http://www.loc.gov/METS/"
+      xmlns:xlink="http://www.w3.org/1999/xlink"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.loc.gov/METS/cellar-mets.xsd"
+      TYPE="create"
+      PROFILE="http://publications.europa.eu/resource/mets/op-sip-profile_002">
+    <metsHdr CREATEDATE="2023-02-17T14:32:17.452160">
+        <metsDocumentID>2021_S_004_003545_create</metsDocumentID>
+    </metsHdr>
+    <dmdSec ID="dmd_2021_S_004_003545_0_001">
+        <mdRef MDTYPE="OTHER" LOCTYPE="URL" MIMETYPE="application/rdf+xml" OTHERMDTYPE="INSTANCE" xlink:href="2021_S_004_003545_0.mets.xml.dmd.rdf"/>
+    </dmdSec>
+    <amdSec>
+        <techMD ID="tmd_2021_S_004_003545_0_001">
+            <mdRef MDTYPE="OTHER" LOCTYPE="URL" MIMETYPE="application/rdf+xml" OTHERMDTYPE="INSTANCE" xlink:href="2021_S_004_003545_0.tmd.rdf"/>
+        </techMD>
+    </amdSec>
+    <fileSec>
+        <fileGrp>
+            <file ID="file_2021_S_004_003545_0_001" MIMETYPE="application/rdf+xml" CHECKSUM="00e2c0570f2d9f00c71c3d8009b8bec5a530167a01ebb473e67be5e97383cdc5" CHECKSUMTYPE="SHA-256">
+                <FLocat LOCTYPE="URL" xlink:href="2021_S_004_003545_0.notice.rdf"/>
+            </file>
+        </fileGrp>
+    </fileSec>
+    <structMap ID="struct_map_2021_S_004_003545_001">
+        <div TYPE="work" CONTENTIDS="ted:2021_S_004_003545" DMDID="dmd_2021_S_004_003545_0_001" ID="w_2021_S_004_003545_001">
+            <div TYPE="expression" CONTENTIDS="ted:2021_S_004_003545.MUL" DMDID="dmd_2021_S_004_003545_0_001" ID="e_2021_S_004_003545_001">
+                <div TYPE="manifestation" CONTENTIDS="ted:2021_S_004_003545.MUL.rdf" DMDID="dmd_2021_S_004_003545_0_001" ADMID="tmd_2021_S_004_003545_0_001" ID="m_2021_S_004_003545_001">
+                    <fptr CONTENTIDS="distribution:003545_2021/2021_S_004_003545_0.notice.rdf" FILEID="file_2021_S_004_003545_0_001"/>
+                </div>
+            </div>
+        </div>
+    </structMap>
+    <behaviorSec>
+        <behavior BTYPE="sparql-load" STRUCTID="m_2021_S_004_003545_001">
+            <mechanism LOCTYPE="URL" LABEL="Sparql-load" xlink:href="cellar-mets:sparql-load-behavior?model=http%3A%2F%2Fdata.europa.eu%2Fa4g%2Fresource%2F2021%2F003545_2021"/>
+        </behavior>
+    </behaviorSec>
+</mets>

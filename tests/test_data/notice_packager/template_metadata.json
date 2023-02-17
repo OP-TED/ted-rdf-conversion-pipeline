@@ -1,7 +1,8 @@
 {
   "notice": {
     "id": "003545_2021",
-    "number": "003545"
+    "public_number_document": "003545",
+    "public_number_edition": "2021004"
   },
   "mets": {
     "languages": [
@@ -10,24 +11,24 @@
     "revision": "0",
     "type": "create",
     "profile": "http://publications.europa.eu/resource/mets/op-sip-profile_002",
-    "createdate": "2023-02-16T16:09:39.559881",
+    "createdate": "2023-02-17T14:32:17.452160",
     "document_id": "",
-    "dmd_id": "2021_S_4_003545_0_dmd_001",
+    "dmd_id": "dmd_2021_S_004_003545_0_001",
     "dmd_mdtype": "OTHER",
     "dmd_othermdtype": "INSTANCE",
-    "dmd_href": "2021_S_4_003545_0.mets.xml.dmd.rdf",
-    "tmd_id": "2021_S_4_003545_0_tmd_001",
-    "tmd_href": "2021_S_4_003545_0.tmd.rdf",
+    "dmd_href": "2021_S_004_003545_0.mets.xml.dmd.rdf",
+    "tmd_id": "tmd_2021_S_004_003545_0_001",
+    "tmd_href": "2021_S_004_003545_0.tmd.rdf",
     "tmd_mdtype": "OTHER",
     "tmd_othermdtype": "INSTANCE",
-    "file_id": "2021_S_4_003545_0_file_001",
-    "notice_file_href": "2021_S_4_003545_0.notice.ttl",
-    "notice_file_mimetype": "text/turtle",
-    "notice_file_checksum": "9a345131455a8fa020bc8b45d4f6c24d3e6e6fe3bbb4d0606f5fd1578fe309c5",
+    "file_id": "file_2021_S_004_003545_0_001",
+    "notice_file_href": "2021_S_004_003545_0.notice.rdf",
+    "notice_file_mimetype": "application/rdf+xml",
+    "notice_file_checksum": "00e2c0570f2d9f00c71c3d8009b8bec5a530167a01ebb473e67be5e97383cdc5",
     "notice_file_checksum_type": "SHA-256"
   },
   "work": {
-    "identifier": "2021_S_4_003545",
+    "identifier": "2021_S_004_003545",
     "cdm_rdf_type": "procurement_public",
     "resource_type": "PROCUREMENT_NOTICE",
     "uri": "http://data.europa.eu/a4g/resource/2021/003545_2021",
@@ -35,13 +36,13 @@
     "date_document": "2021-01-07",
     "created_by_agent": "EURUN",
     "dataset_published_by_agent": "EURUN",
-    "datetime_transmission": "2023-02-16T16:09:39.562225",
+    "datetime_transmission": "2023-02-17T14:32:17.455085",
     "title": {
       "en": "Construction work"
     },
-    "date_creation": "2023-02-16",
+    "date_creation": "2023-02-17",
     "concept_type_dataset": "TEST_DATA",
-    "dataset_version": "20230216-0",
+    "dataset_version": "20230217-0",
     "dataset_keyword": [
       "eProcurement",
       "notice"
@@ -51,14 +52,14 @@
     "procurement_public_url_etendering": []
   },
   "expression": {
-    "identifier": "2021_S_4_003545.MUL",
+    "identifier": "2021_S_004_003545.MUL",
     "title": {
-      "en": "eProcurement notice 2021_S_4_003545"
+      "en": "eProcurement notice 2021_S_004_003545"
     },
     "uses_language": "MUL"
   },
   "manifestation": {
-    "identifier": "2021_S_4_003545.MUL.rdf",
+    "identifier": "2021_S_004_003545.MUL.rdf",
     "type": "rdf_epo",
     "date_publication": "2021-01-07",
     "distribution_has_status_distribution_status": "COMPLETED",

@@ -23,17 +23,17 @@
             </file>
         </fileGrp>
     </fileSec>
-    <structMap ID="{{ work.identifier }}_struct_map_001">
-        <div TYPE="work" CONTENTIDS="ted:{{ work.identifier }}" DMDID="{{ mets.dmd_id }}" ID="{{ work.identifier }}_w_001">
-            <div TYPE="expression" CONTENTIDS="ted:{{ expression.identifier }}" DMDID="{{ mets.dmd_id }}" ID="{{ work.identifier }}_e_001">
-                <div TYPE="manifestation" CONTENTIDS="ted:{{ manifestation.identifier }}" DMDID="{{ mets.dmd_id }}" ADMID="{{ mets.tmd_id }}" ID="{{ work.identifier }}_m_001">
+    <structMap ID="struct_map_{{ work.identifier }}_001">
+        <div TYPE="work" CONTENTIDS="ted:{{ work.identifier }}" DMDID="{{ mets.dmd_id }}" ID="w_{{ work.identifier }}_001">
+            <div TYPE="expression" CONTENTIDS="ted:{{ expression.identifier }}" DMDID="{{ mets.dmd_id }}" ID="e_{{ work.identifier }}_001">
+                <div TYPE="manifestation" CONTENTIDS="ted:{{ manifestation.identifier }}" DMDID="{{ mets.dmd_id }}" ADMID="{{ mets.tmd_id }}" ID="m_{{ work.identifier }}_001">
                     <fptr CONTENTIDS="distribution:{{ notice.id }}/{{ mets.notice_file_href }}" FILEID="{{ mets.file_id }}"/>
                 </div>
             </div>
         </div>
     </structMap>
     <behaviorSec>
-        <behavior BTYPE="sparql-load" STRUCTID="{{ work.identifier }}_m_001">
+        <behavior BTYPE="sparql-load" STRUCTID="m_{{ work.identifier }}_001">
             <mechanism LOCTYPE="URL" LABEL="Sparql-load" xlink:href="cellar-mets:sparql-load-behavior?model={{ work.uri | urlencode | replace("/", "%2F") }}"/>
         </behavior>
     </behaviorSec>

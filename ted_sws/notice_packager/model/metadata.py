@@ -24,14 +24,14 @@ METS_ACCEPTED_TYPES = [METS_TYPE_CREATE, METS_TYPE_UPDATE, METS_TYPE_DELETE]
 METS_DMD_MDTYPE = "OTHER"
 METS_DMD_OTHERMDTYPE = "INSTANCE"
 METS_DMD_HREF = "{work_identifier}_{revision}.mets.xml.dmd.rdf"
-METS_DMD_ID = "{work_identifier}_{revision}_dmd_{dmd_idx}"
-METS_TMD_ID = "{work_identifier}_{revision}_tmd_{tmd_idx}"
+METS_DMD_ID = "dmd_{work_identifier}_{revision}_{dmd_idx}"
+METS_TMD_ID = "tmd_{work_identifier}_{revision}_{tmd_idx}"
 METS_TMD_HREF = "{work_identifier}_{revision}.tmd.rdf"
 METS_TMD_MDTYPE = "OTHER"
 METS_TMD_OTHERMDTYPE = "INSTANCE"
-METS_FILE_ID = "{work_identifier}_{revision}_file_{file_idx}"
-METS_NOTICE_FILE_HREF = "{work_identifier}_{revision}.notice.ttl"
-METS_NOTICE_FILE_MIMETYPE = "text/turtle"
+METS_FILE_ID = "file_{work_identifier}_{revision}_{file_idx}"
+METS_NOTICE_FILE_HREF = "{work_identifier}_{revision}.notice.rdf"
+METS_NOTICE_FILE_MIMETYPE = "application/rdf+xml"
 METS_NOTICE_FILE_CHECKSUM_TYPE = "SHA-256"
 
 WORK_AGENT = "EURUN"
@@ -66,7 +66,8 @@ class NoticeMetadata(Metadata):
     General notice metadata
     """
     id: Optional[str]
-    number: Optional[str]
+    public_number_document: Optional[str]
+    public_number_edition: Optional[str]
 
 
 class MetsMetadata(Metadata):

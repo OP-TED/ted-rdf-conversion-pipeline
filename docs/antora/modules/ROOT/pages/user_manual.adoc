@@ -1,0 +1,1338 @@
+= TED-SWS User manual
+
+[width="100%",cols="25%,75%",options="header",]
+|===
+|*Editors* |Dragos Paun
+<mailto:dragos.paun@meaningfy.ws[[.underline]#dragos.paun@meaningfy.ws#]> +
+Eugeniu Costetchi
+<mailto:eugen@meaningfy.ws[[.underline]#eugen@meaningfy.ws#]>
+|*Version* |1.0.0
+
+|*Date* |17/01/2023
+|===
+
+== Glossary [[glossary]]
+
+*Airflow* - an open-source platform for developing, scheduling, and
+monitoring batch-oriented pipelines. The web interface helps manage the
+state and monitoring of your pipelines.
+
+*Metabase* - Metabase is the BI tool with the friendly UX and integrated
+tooling to let you explore data gathered by running the pipelines
+available in Airflow.
+
+*Cellar* - is the central content and metadata repository of the
+Publications Office of the European Union
+
+*TED-SWS* - is a pipeline system that continuously converts the public
+procurement notices (in XML format) available on the TED Website into
+RDF format and publishes them into CELLAR
+
+*DAG* - (Directed Acyclic Graph) is the core concept of Airflow,
+collecting Tasks together, organized with dependencies and relationships
+to say how they should run. The DAGS are basically the pipelines that
+run in this project to get the public procurement notices from XML to
+RDF and to be published them into CELLAR.
+
+== Introduction
+
+Although TED notice data is already available to the general public
+through the search API provided by the TED website, the current offering
+has many limitations that impede access to and reuse of the data. One
+such important impediment is for example the current format of the data.
+
+Historical TED data come in various XML formats that evolved together
+with the standard TED XML schema. The imminent introduction of eForms
+will also introduce further diversity in the XML data formats available
+through TED's search API. This makes it practically impossible for
+reusers to consume and process data that span across several years, as
+their information systems must be able to process several different
+flavors of the available XML schemas as well as to keep up with the
+schema's continuous evolution. Their search capabilities are therefore
+confined to a very limited set of metadata.
+
+The TED Semantic Web Service will remove these barriers by providing one
+common format for accessing and reusing all TED data. Coupled with the
+eProcurement Ontology, the TED data will also have semantics attached to
+them allowing reusers to directly link them with other datasets.
+Moreover, reusers will now be able to perform much more elaborate
+queries directly on the data source (through the SPARQL endpoint). This
+will reduce their need for data warehousing in order to perform complex
+queries.
+
+These developments, by lowering the barriers, will give rise to a vast
+number of new use-cases that will enable stakeholders and end-users to
+benefit from increased availability of analytics. The ability to perform
+complex queries on public procurement data will be equally open to large
+information systems as well as to simple desktop users with a copy of
+Excel and an internet connection.
+
+To summarize the TED Semantic Web Service (TED SWS) is a pipeline system
+that continuously converts the public procurement notices (in XML
+format) available on the TED Website into RDF format, publishes them
+into CELLAR and makes them available to the public through CELLAR’s
+SPARQL endpoint.
+
+=== Purpose of the document
+
+The purpose of this document is to explain how to use Airflow and
+Metabase to control and monitor the TED-SWS system. This document may be
+updated by the development team as the system evolves.
+
+=== Intended audience
+
+This document is intended for persons involved in the controlling and
+monitoring the services offered by the TED-SWS system
+
+==== Useful Resources [[useful-resources]]
+
+https://www.metabase.com/learn/getting-started/tour-of-metabase[[.underline]#https://www.metabase.com/learn/getting-started/tour-of-metabase#]
+
+https://www.metabase.com/docs/latest/exploration-and-organization/start[[.underline]#https://www.metabase.com/docs/latest/exploration-and-organization/start#]
+
+https://airflow.apache.org/docs/apache-airflow/2.4.3/ui.html[[.underline]#https://airflow.apache.org/docs/apache-airflow/2.4.3/ui.html#]
+(only UI / Screenshots section)
+
+== Architectural overview
+
+This section provides a high level overview of the TED-SWS system and
+its components. As presented in the image below the system is built by
+multitude of services / components grouped together to help to reach the
+end goal. The system can be divided into 2 main parts:
+
+* Controlling and monitoring
+* Core functionality (code base / TED SWS pipeline)
+
+Each part of the system is formed by a group of components.
+
+Controlling and monitoring, controlled by an operation manager, contains
+a workflow / pipeline management service (Airflow) and data
+visualization service (Metabase). Using this group of services any user
+should be able to control execution of the existing pipelines and also
+monitor the execution results.
+
+The core functionality has many services developed to accommodate the
+entire transformation process of a public procurement notice (in XML
+format) available on the TED Website into RDF format and to publish it
+into CELLAR. Here is a short description of some of the main services:
+
+* fetching service - fetching the notice from TED website
+* indexing service - getting the unique XPATHs in a notice XML
+* metadata normalisation service - extract notice metadata from the XML
+* transformation service - transform the XML to RDF
+* entity resolution and deduplication service - resolve duplicated
+entities in the RDF
+* validation service - validation the RDF transformation
+* packaging service - creating the METS package
+* publishing service - sending the METS package to CELLAR
+
+image:user_manual/media/image59.png[image,width=100%,height=270]
+
+
+=== Pipelines architecture ( Airflow DAGs )
+
+In this section will see a graphic representation that will show the
+flow and dependencies of the available pipelines (DAGs) in Airflow. In
+this representation will see the presence of two users AirflowUser and
+AirflowScheduler, where the AirflowUser is the user that will enable and
+trigger the DAGs and AirflowScheduler is the Airflow component that will
+start the DAGs automatically following a schedule.
+
+The automatic triggered DAGs controlled by the Airflow Scheduler are:
+
+* fetch_notices_by_date
+* daily_check_notices_availibility_in_cellar
+* daily_materialized_views_update
+
+image:user_manual/media/image63.png[image,width=100%,height=382]
+
+The DAGs marked with _purple_ (load_mapping_suite_in_database), _yellow_
+(reprocess_unnormalised_notices_from_backlog,reprocess_unpackaged_notices_from_backlog,
+reprocess_unpublished_notices_from_backlog,reprocess_untransformed_notices_from_backlog,
+reprocess_unvalidated_notices_from_backlog) and _green_
+(fetch_notices_by_date, fetch_notices_by_date_range,
+fetch_notices_by_query) will trigger automatically the
+*notice_processing_pipeline* marked with _blue_, and this will take care
+of the entire processing steps for a notice. These can be used by a user
+by manually triggering these DAGs with or without configuration.
+
+The DAGs marked with _green_ (fetch_notices_by_date,
+fetch_notices_by_date_range, fetch_notices_by_query) are in charge of
+fetching the notices from TED API. The ones marked with _yellow_ (
+reprocess_unnormalised_notices_from_backlog,
+reprocess_unpackaged_notices_from_backlog,
+reprocess_unpublished_notices_from_backlog,
+reprocess_untransformed_notices_from_backlog,
+reprocess_unvalidated_notices_from_backlog) will handle the reprocessing
+of notices from the backlog. The purple marked DAG
+(load_mapping_suite_in_database) will handle the loading of mapping
+suites in the database that will be used to transform the notices.
+
+image:user_manual/media/image11.png[image,width=100%,height=660]
+
+== Notice statuses 
+
+During the transformation process through the TED-SWS system, a notice
+will start with a certain status and it will transition to other
+statuses when a particular step of the pipeline
+(notice_processing_pipeline) offered by the system has completed
+successfully or unsuccessfully. This transition is done automatically
+and it will change the _status_ property of a notice. The system has the
+following statuses:
+
+* RAW
+* INDEXED
+* NORMALISED_METADATA
+* INELIGIBLE_FOR_TRANSFORMATION
+* ELIGIBLE_FOR_TRANSFORMATION
+* PREPROCESSED_FOR_TRANSFORMATION
+* TRANSFORMED
+* DISTILLED
+* VALIDATED
+* INELIGIBLE_FOR_PACKAGING
+* ELIGIBLE_FOR_PACKAGING
+* PACKAGED
+* INELIGIBLE_FOR_PUBLISHING
+* ELIGIBLE_FOR_PUBLISHING
+* PUBLISHED
+* PUBLICLY_UNAVAILABLE
+* PUBLICLY_AVAILABLE
+
+The transition from one status to another is decided by the system and
+can be viewed in the graphic representation below.
+
+image:user_manual/media/image14.png[image,width=100%,height=444]
+
+== Notice structure
+
+This section aims at presenting the anatomy of a Notice in the TED-SWS
+system and the dependence of structural elements on the phase of the
+transformation process. This is useful for the user to understand what
+happens behind the scene and what information is available in the
+database, to build analytics dashboards.
+
+The structure of a notice within the TED-SWS system consists of the
+following structural elements:
+
+* Status
+* Metadata
+** Original Metadata
+** Normalised Metadata
+* Manifestation
+** XMLManifestation
+** RDFManifestation
+** METSManifestation
+* Validation Report
+** XPATH Coverage Validation
+** SHACL Validation
+** SPARQL Validation
+
+The diagram below shows the high level structure of the Notice object
+and that certain structural parts of a notice within the system are
+dependent on its state. This means that as the transformation process
+runs through its steps the Notice state changes and new structural parts
+are added. For example, for a notice in the NORMALISED status we can
+access the Original Metadata, Normalised Metadata and XMLManifestation
+fields, for a notice in the TRANSFORMED status we can access in addition
+the RDFManifestation field and similarly for the rest of the statuses.
+
+The diagram depicts states as swim-lanes while the structural elements
+are depicted as ArchiMate Business Objects [cite ArchiMate]. The
+relations we use are composition (arrow with diamond ending) and
+inheritance (arrow with full triangle ending).
+
+As was mentioned above about the states through which a notice can
+transition, a certain structural field if it is present at a certain
+state, then all the states originating from this state will also have
+this field. Not all possible states are depicted. For brevity, we chose
+only the most significant ones, which segment the transformation process
+into stages.
+
+image:user_manual/media/image94.png[image,width=100%,height=390]
+
+== Security credentials 
+
+The security credentials will be provided by the infrastructure team
+that installed the necessary infrastructure for this project. Some credentials are set in the environment file necessary for the
+infrastructure installation and others by manually creating a user by
+infra team.
+
+Bellow are the credentials that should be provided
+
+[width="100%",cols="25%,36%,39%",options="header",]
+|===
+|Name |Description |Comment
+|Metabase user |Metabase user for login. This should be an email address
+|This user was manually created by the infrastructure team
+
+|Metabase password |The temporary password that was set by the infra
+team for the user above |This user was manually created by the
+infrastructure team
+
+|Airflow user |Airflow UI user for login |This is the value of
+_AIRFLOW_WWW_USER_USERNAME variable from the env file
+
+|Airflow password |Airflow UI password for login |This is the value of
+_AIRFLOW_WWW_USER_PASSWORD variable from the env file
+
+|Fuseki user |Fuseki user for login |The login should be for admin user
+
+|Fuseki password |Fuseki password for login |This is the value of
+ADMIN_PASSWORD variable from the env file
+
+|Mongo-express user |Mongo-express user for login |This is the value of
+ME_CONFIG_BASICAUTH_USERNAME variable from the env file
+
+|Mongo-express password |Mongo-express password for login |This is the
+value of ME_CONFIG_BASICAUTH_PASSWORD variable from the env file
+|===
+
+== Workflow management with Airflow 
+
+The management of the workflow is made available through the user
+interface of the Airflow system. This section describes the provided
+pipelines, and how to operate them in Airflow.
+
+=== Airflow DAG control board
+
+In this section we explain the most important elements to pay attention
+to when operating the pipelines. +
+In software engineering, a pipeline consists of a chain of processing
+elements (processes, threads, coroutines, functions, etc.), arranged so
+that the output of each element is the input of the next. In our case,
+as an example, look at the notice_processing_pipeline, which has this
+chain of processes that takes as input a notice from the TED website and
+as the final output (if every process from this pipeline runs
+successfully) a METS package with a transformed notice in the RDF
+format. Between the processes the input will always be a batch of
+notices. Batch processing is a method of processing large amounts of
+data in a single, pre-defined process. Batch processing is typically
+used for tasks that are performed periodically, such as daily, weekly,
+or monthly. Each step of the pipeline can have a successful or failure
+result, and as such the pipeline can be stopped at any step if something
+went wrong with one of its processes. In Airflow terminology a pipeline
+will be a DAG. He are the processes that will create our
+notice_processing_pipeline DAG:
+
+* notice normalisation
+* notice transformation
+* notice distillation
+* notice validation
+* notice packaging
+* notice publishing
+
+==== Enable / disable switch
+
+In Airflow all the DAGs can be enabled or disabled. If a dag is disabled
+that will stop the DAG from running even if that DAG is scheduled.
+
+When a dag is enabled the switch button will be blue and grey when it is
+disabled.
+
+To enable or disable a dag use the following switch button:
+
+image:user_manual/media/image21.png[image,width=100%,height=32]
+
+image:user_manual/media/image69.png[image,width=56,height=55]
+disabled position
+
+image:user_manual/media/image3.png[image,width=52,height=56]
+enabled position
+
+==== DAG Runs
+
+A DAG Run is an object representing an instantiation of the DAG in time.
+Any time the DAG is executed, a DAG Run is created and all tasks inside
+it are executed. The status of the DAG Run depends on the tasks states.
+Each DAG Run is run separately from one another, meaning that you can
+have many runs of a DAG at the same time.
+
+DAG Run Status
+
+A DAG Run status is determined when the execution of the DAG is
+finished. The execution of the DAG depends on its containing tasks and
+their dependencies. The status is assigned to the DAG Run when all of
+the tasks are in one of the terminal states (i.e. if there is no
+possible transition to another state) like success, failed or skipped.
+
+There are two possible terminal states for the DAG Run:
+
+* success if all the pipeline processes are either success or skipped,
+* failed if any of the pipeline processes is either failed or
+upstream_failed.
+
+In the runs column in the Airflow user interface we can see the state of
+the DAG run, and this can be one of the following:
+
+* queued
+* success
+* running
+* failed
+
+
+Here is an example of this different states
+
+image:user_manual/media/image54.png[image,width=422,height=315]
+
+The transitions for these states will start from queuing, then will go
+to running, and after will either go to success or failure.
+
+Clicking on the numbers associated with a particular DAG run state will
+show you a list of the DAG runs in that state.
+
+==== DAG actions
+
+In the Airflow user interface we have a run button in the Actions column
+that will allow you to trigger a specific DAG with or without specific
+configuration. When clicking on the run button a list of options will
+appear:
+
+* Trigger DAG (triggering DAG without config)
+* Trigger DAG w/ config (triggering DAG with config)
+
+
+image:user_manual/media/image24.png[image,width=378,height=165]
+
+==== DAG Run overview 
+
+In the Airflow user interface, when clicking on the DAG name, an
+overview of the runs for that DAG will be available. This will include
+schema of the processes that are a part of the pipeline, task durations,
+code for the DAG, etc. To learn more about Airflow interface please
+refer to the Airflow user manual
+(link:#useful-resources[[.underline]#Useful Resources#])
+
+image:user_manual/media/image74.png[image,width=601,height=281]
+
+
+
+=== Available pipelines 
+
+In this section we provide a brief inventory of provided pipelines
+including their names, a short description and a high level diagram.
+
+[arabic]
+
+. *notice_processing_pipeline* - this DAG performs the processing of a
+batch of notices, where the stages take place: normalization,
+transformation, validation, packaging, publishing. This is scheduled and
+automatically started by other DAGs.
+
+
+image:user_manual/media/image31.png[image,width=100%,height=176]
+
+image:user_manual/media/image25.png[image,width=100%,height=162]
+
+
+[arabic, start=2]
+
+. *load_mapping_suite_in_database* - this DAG performs the loading of a
+mapping suite or all mapping suites from a branch on GitHub, with the
+mapping suite the test data from it can also be loaded, if the test data
+is loaded the notice_processing_pipeline DAG will be triggered.
+
+
+
+*Config DAG params:*
+
+
+* mapping_suite_package_name: string
+* load_test_data: boolean
+* branch_or_tag_name: string
+* github_repository_url: string
+
+*Default values:*
+
+* mapping_suite_package_name = None (it will take all available mapping
+suites on that branch or tag)
+* load_test_data = false
+* branch_or_tag_name = "main"
+* github_repository_url= "https://github.com/OP-TED/ted-rdf-mapping.git"
+
+
+image:user_manual/media/image96.png[image,width=100%,height=56]
+
+[arabic, start=3]
+. *fetch_notices_by_query -* this DAG fetches notices from TED by using a
+query and, depending on an additional parameter, triggers the
+notice_processing_pipeline DAG in full or partial mode (execution of
+only one step).
+
+*Config DAG params:*
+
+* query : string
+* trigger_complete_workflow : boolean
+
+*Default values:*
+
+* trigger_complete_workflow = true
+
+image:user_manual/media/image56.png[image,width=100%,height=92]
+
+[arabic, start=4]
+. *fetch_notices_by_date -* this DAG fetches notices from TED for a day
+and, depending on an additional parameter, triggers the
+notice_processing_pipeline DAG in full or partial mode (execution of
+only one step).
+
+*Config DAG params:*
+
+* wild_card : string with date format %Y%m%d*
+* trigger_complete_workflow : boolean
+
+*Default values:*
+
+* trigger_complete_workflow = true
+
+image:user_manual/media/image33.png[image,width=100%,height=100]
+
+[arabic, start=5]
+. *fetch_notices_by_date_range -* this DAG receives a date range and
+triggers the fetch_notices_by_date DAG for each day in the date range.
+
+*Config DAG params:*
+
+
+* start_date : string with date format %Y%m%d
+* end_date : string with date format %Y%m%d
+
+image:user_manual/media/image75.png[image,width=601,height=128]
+
+[arabic, start=6]
+. *reprocess_unnormalised_notices_from_backlog -* this DAG selects all
+notices that are in RAW state and need to be processed and triggers the
+notice_processing_pipeline DAG to process them.
+
+*Config DAG params:*
+
+* start_date : string with date format %Y-%m-%d
+* end_date : string with date format %Y-%m-%d
+
+*Default values:*
+
+* start_date = None , because this param is optional
+* end_date = None, because this param is optional
+
+image:user_manual/media/image60.png[image,width=601,height=78]
+
+[arabic, start=7]
+. *reprocess_unpackaged_notices_from_backlog -* this DAG selects all
+notices to be repackaged and triggers the notice_processing_pipeline DAG
+to repackage them.
+
+*Config DAG params:*
+
+* start_date : string with date format %Y-%m-%d
+* end_date : string with date format %Y-%m-%d
+* form_number : string
+* xsd_version : string
+
+*Default values:*
+
+* start_date = None , because this param is optional
+* end_date = None, because this param is optional
+* form_number = None, because this param is optional
+* xsd_version = None, because this param is optional
+
+image:user_manual/media/image81.png[image,width=100%,height=73]
+
+[arabic, start=8]
+. *reprocess_unpublished_notices_from_backlog -* this DAG selects all
+notices to be republished and triggers the notice_processing_pipeline
+DAG to republish them.
+
+*Config DAG params:*
+
+
+* start_date : string with date format %Y-%m-%d
+* end_date : string with date format %Y-%m-%d
+* form_number : string
+* xsd_version : string
+
+*Default values:*
+
+
+* start_date = None , because this param is optional
+* end_date = None, because this param is optional
+* form_number = None, because this param is optional
+* xsd_version = None, because this param is optional
+
+image:user_manual/media/image37.png[image,width=100%,height=70]
+
+[arabic, start=9]
+. *reprocess_untransformed_notices_from_backlog -* this DAG selects all
+notices to be retransformed and triggers the notice_processing_pipeline
+DAG to retransform them.
+
+*Config DAG params:*
+
+
+* start_date : string with date format %Y-%m-%d
+* end_date : string with date format %Y-%m-%d
+* form_number : string
+* xsd_version : string
+
+*Default values:*
+
+* start_date = None , because this param is optional
+* end_date = None, because this param is optional
+* form_number = None, because this param is optional
+* xsd_version = None, because this param is optional
+
+
+image:user_manual/media/image102.png[image,width=100%,height=69]
+
+[arabic, start=10]
+. *reprocess_unvalidated_notices_from_backlog -* this DAG selects all
+notices to be revalidated and triggers the notice_processing_pipeline
+DAG to revalidate them.
+
+*Config DAG params:*
+
+* start_date : string with date format %Y-%m-%d
+* end_date : string with date format %Y-%m-%d
+* form_number : string
+* xsd_version : string
+
+*Default values:*
+
+
+* start_date = None , because this param is optional
+* end_date = None, because this param is optional
+* form_number = None, because this param is optional
+* xsd_version = None, because this param is optional
+
+image:user_manual/media/image102.png[image,width=100%,height=69]
+
+[arabic, start=11]
+. *daily_materialized_views_update -* this DAG selects all notices to be
+revalidated and triggers the notice_processing_pipeline DAG to
+revalidate them.
+
+*This DAG has no config or default params.*
+
+image:user_manual/media/image98.png[image,width=100%,height=90]
+
+[arabic, start=12]
+. *daily_check_notices_availability_in_cellar -* this DAG selects all
+notices to be revalidated and triggers the notice_processing_pipeline
+DAG to revalidate them.
+
+*This DAG has no config or default params.*
+
+
+image:user_manual/media/image67.png[image,width=339,height=81]
+
+=== Batch processing
+
+=== Running pipelines (How to)
+
+This chapter explains the basic utilization of Ted SWS Airflow pipelines
+by presenting in the format of answering the questions. Basic
+functionality can be used by running DAGs: a core concept of Airflow.
+For advanced documentation access:
+
+https://airflow.apache.org/docs/apache-airflow/stable/concepts/dags.html[[.underline]#https://airflow.apache.org/docs/apache-airflow/stable/concepts/DAGs.html#]
+
+==== UC1: How to load a mapping suite or mapping suites?
+
+As a user I want to load one or several mapping suites into the system
+so that notices can be transformed and validated with them.
+
+==== UC1.a To load all mapping suites
+
+[arabic]
+. Run *load_mapping_suite_in_database* DAG:
+[loweralpha]
+.. Enable DAG
+.. Click Run on Actions column (Play symbol button)
+.. Click Trigger DAG
+
+
+image:user_manual/media/image84.png[image,width=100%,height=61]
+
+==== UC1.b To load specific mapping suite
+
+[arabic]
+. Run *load_mapping_suite_in_database* DAG with configurations:
+[loweralpha]
+.. Enable DAG
+.. Click Run on Actions column (Play symbol button)
+.. Click Trigger DAG w/ config.
+
+image:user_manual/media/image36.png[image,width=100%,height=55]
+
+[arabic, start=2]
+. In the next screen
+
+[loweralpha]
+. In the configuration JSON text box insert the config:
+
+[source,python]
+{"mapping_suite_package_name": "package_F03"}
+
+[loweralpha, start=2]
+. Click Trigger button after inserting the configuration
+
+image:user_manual/media/image27.png[image,width=100%,height=331]
+
+[arabic, start=3]
+. Optional if you want to transform the available test notices that were
+used for development of the mapping suite you can add to configuration
+the *load_test_data* parameter with the value *true*
+
+image:user_manual/media/image103.png[image,width=100%,height=459]
+
+==== UC2: How to fetch and process notices for a day?
+
+As a user I want to fetch and process notices from a selected day so
+that they get published in Cellar and be available to the public in RDF
+format.
+
+UC2.a To fetch and transform notices for a day:
+
+[arabic]
+. Enable *notice_processing_pipeline* DAG
+. Run *fetch_notices_by_date* DAG with configurations:
+[loweralpha]
+.. Enable DAG
+.. Click Run on Actions column
+.. Click Trigger DAG w/ config
+
+image:user_manual/media/image26.png[image,width=100%,height=217]
+
+[arabic, start=3]
+. In the next screen
+
+[loweralpha]
+. In the configuration JSON text box insert the config:
+[source,python]
+{"wild_card ": "20220921*"}*
+
+The value *20220921** is the date of the day to fetch and transform with
+format: yyyymmdd*.
+
+
+[loweralpha, start=2]
+. Click Trigger button after inserting the configuration
+
+image:user_manual/media/image1.png[image,width=100%,height=310]
+
+[arabic, start=4]
+. Optional: It is possible to only fetch notices without transformation.
+To do so add *trigger_complete_workflow* configuration parameter and set
+its value to “false”. +
+[source,python]
+{"wild_card ": "20220921*", "trigger_complete_workflow": false}
+
+image:user_manual/media/image4.png[image,width=100%,height=358]
+
+
+==== UC3: How to fetch and process notices for date range?
+
+As a user I want to fetch and process notices published within a dare
+range so that they are published in Cellar and available to the public
+in RDF format.
+
+UC3.a To fetch for multiple days:
+
+[arabic]
+. Enable *notice_processing_pipeline* DAG
+. Run *fetch_notices_by_date_range* DAG with configurations:
+[loweralpha]
+.. Enable DAG
+.. Click Run on Actions column
+.. Click Trigger DAG w/ config.
+
+image:user_manual/media/image79.png[image,width=100%,height=205]
+
+[arabic, start=3]
+. In the next screen, in the configuration JSON text box insert the
+config:
+[source,python]
+{ "start_date": "20220920", "end_date": "20220920" }
+
+20220920 is the start date and 20220920 is the end date of the days to
+be fetched and transformed with format: yyyymmdd.
+
+[arabic, start=4]
+. Click Trigger button after inserting the configuration
+
+image:user_manual/media/image51.png[image,width=100%,height=331]
+
+==== UC4: How to fetch and process notices using a query?
+
+As a user I want to fetch and process notices published by specific
+filters that are available from the TED API so that they are published
+in Cellar and available to the public in RDF format.
+
+To fetch and transform notices by using a query follow the instructions
+below:
+
+[arabic]
+. Enable *notice_processing_pipeline* DAG
+. Run *fetch_notices_by_query* DAG with configurations:
+.. Enable DAG
+.. Click Run on Actions column
+.. Click Trigger DAG w/ config.
+
+image:user_manual/media/image61.png[image,width=100%,height=200]
+[arabic, start=3]
+. In the next screen
+
+[loweralpha]
+. In the configuration JSON text box insert the config:
+
+[source,python]
+{"query": "ND=[163-2021]"}
+
+
+ND=[163-2021] is the query that will run against the TED API to get
+notices that will match that query
+
+[loweralpha, start=2]
+. Click Trigger button after inserting the configuration
+
+image:user_manual/media/image93.png[image,width=100%,height=378]
+
+[arabic, start=4]
+. Optional: If you need to only fetch notices without
+transformation, add *trigger_complete_workflow* configuration as *false*
+
+image:user_manual/media/image49.png[image,width=100%,height=357]
+
+==== UC5: How to deal with notices that are in the backlog and what to run?
+
+As a user I want to reprocess notices that are in the backlog so that
+they are published in Cellar and available to the public in RDF format.
+
+Notices that have failed running a complete and successful
+notice_processing_pipeline run will be added to the backlog by using
+different statuses that will be added to these notices. The status of a
+notice will be automatically determined by the system. The backlog could
+have multiple notices in different statuses.
+
+The backlog is divided in five categories as follows:
+
+* notices that couldn’t be normalised
+* notices that couldn’t be transformed
+* notices that couldn’t be validated
+* notices that couldn’t be packaged
+* notices that couldn’t be published
+
+===== UC5.a Deal with notices that couldn't be normalised
+
+In the case that the backlog contains notices that couldn’t be
+normalised at some point and will want to try to reprocess those notices
+just run the *reprocess_unnormalised_notices_from_backlog* DAG following
+the instructions below.
+
+[arabic]
+. Enable the reprocess_unnormalised_notices_from_backlog DAG
+
+image:user_manual/media/image92.png[image,width=100%,height=44]
+
+[arabic, start=2]
+. Trigger DAG
+
+image:user_manual/media/image76.png[image,width=100%,height=54]
+
+===== UC5.b: Deal with notices that couldn't be transformed
+
+In the case that the backlog contains notices that couldn’t be
+transformed at some point and will want to try to reprocess those
+notices just run the *reprocess_untransformed_notices_from_backlog* DAG
+following the instructions below.
+
+[arabic]
+. Enable the reprocess_untransformed_notices_from_backlog DAG
+image:user_manual/media/image85.png[image,width=100%,height=36]
+
+[arabic, start=2]
+. Trigger DAG
+
+image:user_manual/media/image77.png[image,width=100%,height=54]
+
+===== UC5.c: Deal with notices that couldn’t be validated
+
+In the case that the backlog contains notices that couldn’t be
+normalised at some point and will want to try to reprocess those notices
+just run the *reprocess_unvalidated_notices_from_backlog* DAG following
+the instructions below.
+
+[arabic]
+. Enable the reprocess_unvalidated_notices_from_backlog DAG
+
+image:user_manual/media/image66.png[image,width=100%,height=41]
+
+[arabic, start=2]
+. Trigger DAG
+
+image:user_manual/media/image52.png[image,width=100%,height=52]
+
+===== UC5.d: Deal with notices that couldn't be published
+
+In the case that the backlog contains notices that couldn’t be
+normalised at some point and will want to try to reprocess those notices
+just run the *reprocess_unpackaged_notices_from_backlog* DAG following
+the instructions below.
+
+[arabic]
+. Enable the reprocess_unpackaged_notices_from_backlog DAG
+
+image:user_manual/media/image29.png[image,width=100%,height=36]
+
+[arabic, start=2]
+. Trigger DAG
+
+image:user_manual/media/image71.png[image,width=100%,height=49]
+
+===== UC5.e: Deal with notices that couldn't be published
+
+In the case that the backlog contains notices that couldn’t be
+normalised at some point and will want to try to reprocess those notices
+just run the *reprocess_unpublished_notices_from_backlog* DAG following
+the instructions below.
+
+[arabic]
+. Enable the reprocess_unpublished_notices_from_backlog DAG
+
+image:user_manual/media/image38.png[image,width=100%,height=38]
+
+[arabic, start=2]
+. Trigger DAG
+
+image:user_manual/media/image19.png[image,width=100%,height=57]
+
+=== Scheduled pipelines
+
+
+Scheduled pipelines are DAGs that are set to run periodically at fixed
+times, dates, or intervals. The DAG schedule can be read in the column
+“Schedule” and if any is set then the value is different from None.
+The scheduled execution is indicated as “cron expressions” [cire cron
+expressions manual]. A cron expression is a string comprising five or
+six fields separated by white space that represents a set of times,
+normally as a schedule to execute some routine. In our context examples
+of daily executions are provided below.
+
+image:user_manual/media/image34.png[image,width=83,height=365,float="right"]
+
+* None - DAG with no Schedule
+* 0 0 * * * - DAG that will run every day at 24:00 UTC
+* 0 6 * * * - DAG that will run every day at 06:00 UTC
+* 0 1 * * * - DAG that will run every day at 01:00 UTC
+
+
+{nbsp}
+
+{nbsp}
+
+{nbsp}
+
+{nbsp}
+
+{nbsp}
+
+=== Operational rules and recommendations
+
+
+Note: Every action that was not described in the previous chapters can
+lead to unpredictable situations.
+
+* Do not stop a DAG when it is in running state. Let it finish. In case
+you need to disable or stop a DAG, then make sure that in the column
+Recent Tasks no numbers in the light green circle are present. Figure
+below depicts one such example.
+image:user_manual/media/image72.png[image,width=601,height=164]
+
+* Do not run reprocess DAGs when notice_processing_pipeline is in running
+state. This will produce errors as the reprocessing DAGs are searching
+for notices in a specific status available in the database. When the
+notice_processing_pipeline is running the notices are transitioning
+between different statuses and that will make it possible to get the
+same notice to be processed twice in the same time, which will produce
+an error. Make sure that in the column Runs for
+notice_processing_pipeline you don’t have any numbers in a light green
+circle before running any reprocess DAGs.
+image:user_manual/media/image30.png[image,width=601,height=162]
+
+
+* Do not manually trigger notice_processing_pipeline as this DAG is
+triggered automatically by other DAGs. This will produce an error as
+this DAG needs to know what batch of notices it is processing (this is
+automatically done by the system). This DAG should only be enabled.
+image:user_manual/media/image18.png[image,width=602,height=29]
+
+* To start any notice processing and transformation make sure that you
+have mapping suites available in the database. You should have at least
+one successful run of the *load_mapping_suite_in_database* DAG and check
+Metabase to see what mapping suites are available.
+image:user_manual/media/image32.png[image,width=653,height=30]
+
+* Do not manually trigger scheduled DAGs unless you use a specific
+configuration and that DAG supports running with specific configuration.
+The scheduled dags should be only enabled.
+image:user_manual/media/image87.png[image,width=601,height=77]
+
+* It is not recommended to load mapping suites while
+notice_processing_pipeline is running. First make sure that there are no
+running tasks and then load other mapping suites.
+image:user_manual/media/image35.png[image,width=601,height=256] {nbsp}
+image:user_manual/media/image91.png[image,width=601,height=209]
+
+* It is recommended to start processing / transforming notices for a short
+period of time e.g fetch notices for a day, week, month but not year.
+The system can handle processing for a longer period but it will take
+time and you will not be able to load other mapping suites while
+processing is running.
+
+
+== Metabase 
+
+This section describes how to work with Metabase, exploring user
+interface, accessing dashboards, creating questions, and adding new data
+sources. This description uses examples with real data and data sources
+that are used on TED-SWS project. For advanced documentation access
+link:
+
+https://www.metabase.com/docs/latest/[[.underline]#https://www.metabase.com/docs/latest/#]
+
+=== Main concepts in Metabase
+
+==== What is a question?
+
+In Metabase, a question is a query, its results, and its visualization.
+
+If you’re trying to figure something out about your data in Metabase,
+you’re probably either asking a question or viewing a question that
+someone else on your team created. In everyday usage, a question is
+pretty much synonymous with a query.
+
+==== What is a dashboard?
+
+A dashboard is a data visualization tool that holds important charts and
+text, collected and arranged on a single screen. Dashboards provide a
+high-level, centralized look at KPIs and other business metrics, and can
+cover everything from overall business health to the success of a
+specific project.
+
+The term comes from the automotive dashboard, which like its business
+intelligence counterpart provides status updates and warnings about
+important functions.
+
+==== What is a collection?
+
+In Metabase, a collection is a set of items like questions, dashboards
+and subcollections, that are stored together for some organizational
+purpose. You can think of collections like folders within a file system.
+The root collection in Metabase is called Our Analytics, and it holds
+every other collection that you and others at your organization create.
+
+You may keep a collection titled “Operations” that holds all of the
+questions, dashboards, and models that your organization’s ops team
+uses, so people in that department know where to find the items they
+need to do their jobs. And if there are specific items within a
+collection that your team uses most frequently, you can pin those to the
+top of the collection page for easy reference. Pinned questions in a
+collection will also render a preview of their visualization.
+
+==== What is a card?
+
+A card is a component of a dashboard that displays data or text.
+
+Metabase dashboards are made up of cards, with each card displaying some
+data (visualized as a table, chart, map, or number) or text (like
+headings, descriptive information, or relevant links).
+
+=== User interface 
+
+After successful authorization, metabase redirects to main page that is
+composed of the following elements:
+
+image:user_manual/media/image22.png[image,width=633,height=294]
+
+[arabic]
+. Slidebar with collections
+. Settings, searching and adding new questions
+. Home page (Quick last accessed dashboards or questions)
+
+==== UC1 Manually updating the data
+
+As a user I want to manually update the data so I will see the
+questions/dashboards on the latest data.
+
+For *updating data*:
+
+[arabic]
+. Click Settings -> Admin settings -> Databases
+
+image:user_manual/media/image99.png[image,width=448,height=373]
+
+[arabic, start=2]
+. Go to Databases in the top menu
+
+image:user_manual/media/image15.png[image,width=601,height=142]
+
+[arabic, start=3]
+. To *update* the existing data source, click on the name of the necessary
+database and then click on both actions: “Sync database schema now” and
+“Re-scan field values now”. This will be done automatically but if you
+want to have the latest data (i.e the processing is still running) you
+could follow the steps below. However this is not considered a good
+practice.
+
+image:user_manual/media/image78.png[image,width=354,height=162]
+
+image:user_manual/media/image86.png[image,width=280,height=244]
+
+==== UC2: Use existing dashboards
+
+As a user I want to browse through and view dashboards so that I can
+answer business or operational questions about pipelines or notices.
+
+[arabic]
+. To access existing questions / dashboards, click:
+
+Sidebar button -> Necessary collection folder (ex: TED SWS KPI ->
+Pipeline KPI)
+
+image:user_manual/media/image68.png[image,width=189,height=242]
+
+[arabic, start=2]
+. To access the dashboard / question click on the element name in the main
+screen
+
+image:user_manual/media/image50.png[image,width=572,height=227]
+
+==== UC2: Customize a collection
+
+As a user I want to customize my collection preview so I can access
+quickly certain dashboards / questions and clean the unwanted content
+
+[arabic]
+. When opening a collection the main screen will be divided into to
+sections
+
+
+[loweralpha]
+. Pin section - where dashboards and questions can be pinned for easy
+access
+
+. List with dashboards and questions.
+
+
+image:user_manual/media/image46.png[image,width=601,height=341]
+
+[arabic, start=2]
+. Drag the dashboard or question elements from list (2) to
+section (1) to pin them. The element will be moved to the pin section,
+and will be displayed.
+
+. To *delete / move* a dashboard or question:
+
+[loweralpha]
+. Click on checkbox of the elements to be deleted;
+. Click archive or move (this can move the content to another collection)
+
+image:user_manual/media/image17.png[image,width=461,height=282]
+
+==== UC3: Create new question
+
+As a user I want to create a new question so I can explore the available
+data
+
+To *create* question:
+
+[arabic]
+. Click New
+(image:user_manual/media/image65.png[image,width=45,height=27]),
+then Question
+(image:user_manual/media/image83.png[image,width=71,height=22]).
+
+image:user_manual/media/image100.png[image,width=261,height=194]
+
+[arabic, start=2]
+. Select Data source (TEDSWS MongoDB - database name)
+
+image:user_manual/media/image7.png[image,width=353,height=210]
+
+[arabic, start=3]
+. Select Data collection (Notice Collection Materialized View
+
+image:user_manual/media/image28.png[image,width=266,height=307]
+
+*Note:* Always select “Notices Collection Materialised View” collection
+for questions. This collection was created specifically for metabase.
+Using other collections may increase response time of a question.
+
+[arabic, start=4]
+. Select necessary columns to display (ex: Notice status)
+
+image:user_manual/media/image95.png[image,width=397,height=365]
+
+
+[arabic, start=5]
+. (Optional) Select filter (ex: Form number is F03)
+
+image:user_manual/media/image40.png[image,width=275,height=304]
+
+image:user_manual/media/image70.png[image,width=353,height=214]
+
+[arabic, start=6]
+. (Optional) Select Summarize (ex: Count of rows)
+
+image:user_manual/media/image82.png[image,width=273,height=299]
+
+[arabic, start=7]
+. (Optional) Select a column to group by (ex: Notice Status)
+
+image:user_manual/media/image10.png[image,width=389,height=310]
+
+[arabic, start=8]
+. Click Visualize
+image:user_manual/media/image16.png[image,width=143,height=32]
+
+
+image:user_manual/media/image9.png[image,width=268,height=180]
+
+*Note:* This loading page means that questing is requesting an answer.
+Wait until it disappears.After the request is done, the page with
+response and editing a question will appear.
+
+
+[arabic, start=9]
+. Customizing the question
+
+
+Question page is divided into:
+
+* Edit question (name and logic)
+
+* Question visualisation (can be table or chart)
+
+* Visualisation settings (settings for table or chart)
+
+image:user_manual/media/image55.png[image,width=601,height=277]
+
+Tips on *editing* page:
+
+* To *export* the question:
+** Click on Download full results
+
+image:user_manual/media/image89.png[image,width=372,height=286]
+
+* To *edit question*:
+** Click on Show editor
+
+image:user_manual/media/image43.png[image,width=394,height=182]
+
+
+* To *change visualization type*
+** Click on visualization and then on Done once the type was chosen
+
+image:user_manual/media/image39.png[image,width=392,height=345]
+
+* To *edit visualization settings*
+
+** Click on Settings
+
+image:user_manual/media/image5.png[image,width=303,height=346]
+
+
+* To show values on dashboard: Click Show values on data points
+
+image:user_manual/media/image104.png[image,width=255,height=331]
+
+
+* To *save* question just Click Save button
+
+image:user_manual/media/image48.png[image,width=324,height=198]
+
+* Insert question name, description (optional) and collection to save into
+
+image:user_manual/media/image101.png[image,width=305,height=230]
+
+==== UC4: Create dashboard
+
+As a user I want to create a dashboard so I can group a set of questions
+that are of interest to me.
+
+To *create* dashboard:
+
+[arabic]
+. Click New -> Dashboard
+
+image:user_manual/media/image12.png[image,width=548,height=295]
+
+
+[arabic, start=2]
+. Insert Name, Description (optional) and collection where to save
+
+image:user_manual/media/image44.png[image,width=370,height=279]
+
+
+[loweralpha]
+. To select subfolder of the collection, click in arrow on collection
+field:
+
+image:user_manual/media/image13.png[image,width=395,height=199]
+
+[arabic, start=3]
+. Click Create
+
+. To *add* questions on dashboard:
+
+[loweralpha]
+. Click Add questions
+
+image:user_manual/media/image42.png[image,width=285,height=158]
+
+[loweralpha, start=2]
+. Click on the name of necessary question or drag & drop it
+
+image:user_manual/media/image57.png[image,width=307,height=392]
+
+In the dashboard you can add multiple questions, resize and move where
+it needs to be.
+[arabic, start=5]
+. To *save* dashboard:
+
+[loweralpha]
+
+. Click Save button in right top corner of the current screen
+
+image:user_manual/media/image53.png[image,width=171,height=96]
+
+==== UC5: Create user
+
+As a user I want to create another user so that I can share the work
+with others in my team
+
+[arabic]
+. Go to Admin settings by pressing the setting wheel button in the top
+right of the screen and then click Admin settings.
+
+image:user_manual/media/image64.png[image,width=544,height=180]
+
+
+[arabic, start=2]
+. On the next screen go to People in the top menu and click Invite someone
+button
+
+image:user_manual/media/image97.png[image,width=539,height=137]
+
+
+[arabic, start=3]
+. Complete the mandatory fields and put the user in the Administrator if
+you want that user to be an admin or in the All Users group
+
+image:user_manual/media/image73.png[image,width=601,height=345]
+
+[arabic, start=4]
+. Once you click on create a temporary password will be created for this
+user. Save this password and user details as you will need to share
+these with the new user. After this just click Done.
+
+image:user_manual/media/image20.png[image,width=601,height=362]
+

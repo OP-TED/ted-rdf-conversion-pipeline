@@ -7,9 +7,8 @@ from pytest_bdd import (
     when,
 )
 
-from ted_sws.core.model.manifestation import METSManifestation
 from ted_sws.core.model.notice import Notice, NoticeStatus
-from ted_sws.notice_packager.services.notice_packager import create_notice_package
+from ted_sws.notice_packager.services.notice_packager import package_notice
 
 
 @scenario('test_notice_packager.feature', 'Package a TED notice in a METS package')
@@ -33,11 +32,8 @@ def the_notice_status_is_eligible_for_packaging(package_eligible_notice):
 @when('the notice packaging is executed', target_fixture="packaged_notice")
 def the_notice_packaging_is_executed(package_eligible_notice):
     """the notice packaging is executed."""
-    rdf_content = package_eligible_notice.distilled_rdf_manifestation.object_data.encode("utf-8")
-    mets_manifestation_content = create_notice_package(in_data=package_eligible_notice, rdf_content=rdf_content)
-    package_eligible_notice.set_mets_manifestation(
-        mets_manifestation=METSManifestation(object_data=mets_manifestation_content))
-    return package_eligible_notice
+    packaged_notice = package_notice(notice=package_eligible_notice)
+    return packaged_notice
 
 
 @then('the notice have METS manifestation')

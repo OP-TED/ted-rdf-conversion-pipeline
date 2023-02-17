@@ -81,7 +81,7 @@ def the_mets_package_available_in_a_shared_sftp_drive(published_notice: Notice, 
     publisher: SFTPPublisher = SFTPPublisher()
     remote_notice_path = f"{sftp_remote_folder_path}/{published_notice.ted_id}.zip"
     publisher.connect()
-    assert publisher.connection.exists(remotepath=remote_notice_path)
+    assert publisher.exists(remote_path=remote_notice_path)
     publisher.disconnect()
 
 

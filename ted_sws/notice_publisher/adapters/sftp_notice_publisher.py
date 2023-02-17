@@ -65,3 +65,16 @@ class SFTPPublisher(SFTPPublisherABC):
         """
         self._sftp.remove(remote_path)
         return True
+
+    def exists(self, remote_path: str) -> bool:
+        """
+            Check if remote_path exists.
+        :param remote_path:
+        :return:
+        """
+        if self.is_connected:
+            try:
+                self._sftp.stat(remote_path)
+            except IOError:
+                return False
+        return True

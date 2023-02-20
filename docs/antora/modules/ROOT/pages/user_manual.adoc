@@ -8,7 +8,7 @@ Eugeniu Costetchi
 <mailto:eugen@meaningfy.ws[[.underline]#eugen@meaningfy.ws#]>
 |*Version* |1.0.0
 
-|*Date* |17/01/2023
+|*Date* |20/02/2023
 |===
 
 == Glossary [[glossary]]

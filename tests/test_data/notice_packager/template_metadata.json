@@ -1,41 +1,67 @@
 {
   "notice": {
-    "id": "196390_2016",
-    "languages": ["en"],
-    "action": {
-      "type": "create",
-      "date": "2017-05-30T17:23:11.922+02:00"
-    }
+    "id": "003545_2021",
+    "public_number_document": "003545",
+    "public_number_edition": "2021004"
+  },
+  "mets": {
+    "languages": [
+      "en"
+    ],
+    "revision": "0",
+    "type": "create",
+    "profile": "http://publications.europa.eu/resource/mets/op-sip-profile_002",
+    "createdate": "2023-02-17T14:32:17.452160",
+    "document_id": "",
+    "dmd_id": "dmd_2021_S_004_003545_0_001",
+    "dmd_mdtype": "OTHER",
+    "dmd_othermdtype": "INSTANCE",
+    "dmd_href": "2021_S_004_003545_0.mets.xml.dmd.rdf",
+    "tmd_id": "tmd_2021_S_004_003545_0_001",
+    "tmd_href": "2021_S_004_003545_0.tmd.rdf",
+    "tmd_mdtype": "OTHER",
+    "tmd_othermdtype": "INSTANCE",
+    "file_id": "file_2021_S_004_003545_0_001",
+    "notice_file_href": "2021_S_004_003545_0.notice.rdf",
+    "notice_file_mimetype": "application/rdf+xml",
+    "notice_file_checksum": "00e2c0570f2d9f00c71c3d8009b8bec5a530167a01ebb473e67be5e97383cdc5",
+    "notice_file_checksum_type": "SHA-256"
   },
   "work": {
-    "identifier": "2016_S_001_196390",
+    "identifier": "2021_S_004_003545",
+    "cdm_rdf_type": "procurement_public",
+    "resource_type": "PROCUREMENT_NOTICE",
+    "uri": "http://data.europa.eu/a4g/resource/2021/003545_2021",
     "do_not_index": "true",
-    "date_document": "2016-08-01",
-    "created_by_agent": "PUBL",
-    "dataset_published_by_agent": "PUBL",
-    "datetime_transmission": "2021-08-01T00:01:00",
+    "date_document": "2021-01-07",
+    "created_by_agent": "EURUN",
+    "dataset_published_by_agent": "EURUN",
+    "datetime_transmission": "2023-02-17T14:32:17.455085",
     "title": {
-      "en": "eProcurement notice 196390_2016"
+      "en": "Construction work"
     },
-    "date_creation": "2016-01-01",
-    "uri": "http://data.europa.eu/a4g/resource/2016/196390_2016",
-    "dataset_version": "20160101-0",
+    "date_creation": "2023-02-17",
     "concept_type_dataset": "TEST_DATA",
+    "dataset_version": "20230217-0",
     "dataset_keyword": [
       "eProcurement",
       "notice"
     ],
-    "dataset_has_frequency_publication_frequency": "OTHER"
+    "dataset_has_frequency_publication_frequency": "OTHER",
+    "procurement_public_issued_by_country": "CZ",
+    "procurement_public_url_etendering": []
   },
   "expression": {
+    "identifier": "2021_S_004_003545.MUL",
     "title": {
-      "en": "eProcurement notice 196390_2016"
+      "en": "eProcurement notice 2021_S_004_003545"
     },
-    "uses_language": "ENG"
+    "uses_language": "MUL"
   },
   "manifestation": {
-    "type": "E_PROCUREMENT_ONTOLOGY",
-    "date_publication": "2016-08-01",
+    "identifier": "2021_S_004_003545.MUL.rdf",
+    "type": "rdf_epo",
+    "date_publication": "2021-01-07",
     "distribution_has_status_distribution_status": "COMPLETED",
     "distribution_has_media_type_concept_media_type": "RDF"
   }

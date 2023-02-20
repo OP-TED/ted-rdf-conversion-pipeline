@@ -14,8 +14,8 @@ This transformed metadata is what adapters expect.
 import datetime
 
 from ted_sws.notice_metadata_processor.model.metadata import ExtractedMetadata
-from ted_sws.notice_packager.model.metadata import PackagerMetadata, ACTION_CREATE, LANGUAGE, REVISION, BASE_WORK, \
-    BASE_TITLE
+from ted_sws.notice_packager.model.metadata import PackagerMetadata, METS_TYPE_CREATE, LANGUAGE, REVISION, BASE_WORK, \
+    BASE_TITLE, METS_DMD_HREF, METS_DMD_ID, METS_TMD_ID, METS_TMD_HREF, METS_FILE_ID, METS_NOTICE_FILE_HREF
 
 # This is used in pipeline
 NORMALIZED_SEPARATOR = '_'
@@ -31,9 +31,12 @@ class MetadataTransformer:
     def __init__(self, notice_metadata: ExtractedMetadata):
         self.notice_metadata = notice_metadata
 
-    def template_metadata(self, action: str = ACTION_CREATE) -> PackagerMetadata:
+    def template_metadata(self, action: str = METS_TYPE_CREATE) -> PackagerMetadata:
         metadata = self.from_notice_metadata(self.notice_metadata)
-        metadata.notice.action.type = action
+
+        # here the custom and composed metadata properties are set
+        metadata.mets.type = action
+        metadata.mets.document_id = f"{metadata.work.identifier}_{action}"
         return metadata
 
     @classmethod
@@ -47,16 +50,6 @@ class MetadataTransformer:
         return value.replace(DENORMALIZED_SEPARATOR, NORMALIZED_SEPARATOR)
 
     @classmethod
-    def denormalize_value(cls, value: str) -> str:
-        """
-        The pipeline's separator is replaced with initial (TED API)'s one.
-        This is used when notice goes out to API
-        :param value:
-        :return:
-        """
-        return value.replace(NORMALIZED_SEPARATOR, DENORMALIZED_SEPARATOR)
-
-    @classmethod
     def from_notice_metadata(cls, notice_metadata: ExtractedMetadata) -> PackagerMetadata:
         _date = datetime.datetime.now()
         _revision = REVISION
@@ -65,6 +58,9 @@ class MetadataTransformer:
 
         # NOTICE
         metadata.notice.id = cls.normalize_value(notice_metadata.notice_publication_number)
+        metadata.notice.public_number_document = publication_notice_number(metadata.notice.id)
+        metadata.notice.public_number_edition = publication_notice_year(
+            notice_metadata) + notice_metadata.ojs_issue_number.zfill(3)
 
         # WORK
         publication_date = datetime.datetime.strptime(notice_metadata.publication_date, '%Y%m%d').strftime('%Y-%m-%d')
@@ -81,10 +77,42 @@ class MetadataTransformer:
         metadata.work.procurement_public_url_etendering = notice_metadata.uri_list
 
         # EXPRESSION
-        metadata.expression.title = {LANGUAGE: BASE_TITLE + " " + metadata.notice.id}
+        metadata.expression.identifier = f"{metadata.work.identifier}.MUL"
+        metadata.expression.title = {LANGUAGE: BASE_TITLE + " " + metadata.work.identifier}
 
         # MANIFESTATION
+        metadata.manifestation.identifier = f"{metadata.expression.identifier}.rdf"
         metadata.manifestation.date_publication = publication_date
+
+        # METS
+        metadata.mets.dmd_href = METS_DMD_HREF.format(
+            work_identifier=metadata.work.identifier,
+            revision=metadata.mets.revision
+        )
+        metadata.mets.dmd_id = METS_DMD_ID.format(
+            work_identifier=metadata.work.identifier,
+            revision=metadata.mets.revision,
+            dmd_idx="001"
+        )
+        metadata.mets.tmd_id = METS_TMD_ID.format(
+            work_identifier=metadata.work.identifier,
+            revision=metadata.mets.revision,
+            tmd_idx="001"
+        )
+        metadata.mets.tmd_href = METS_TMD_HREF.format(
+            work_identifier=metadata.work.identifier,
+            revision=metadata.mets.revision
+        )
+        metadata.mets.file_id = METS_FILE_ID.format(
+            work_identifier=metadata.work.identifier,
+            revision=metadata.mets.revision,
+            file_idx="001"
+        )
+        metadata.mets.notice_file_href = METS_NOTICE_FILE_HREF.format(
+            work_identifier=metadata.work.identifier,
+            revision=metadata.mets.revision
+        )
+
         return metadata
 
 
@@ -103,4 +131,4 @@ def publication_notice_uri(notice_id, notice_metadata):
 def publication_work_identifier(notice_id, notice_metadata):
     year = publication_notice_year(notice_metadata)
     number = publication_notice_number(notice_id)
-    return f"{year}_{notice_metadata.ojs_type}_{notice_metadata.ojs_issue_number}_{number}"
+    return f"{year}_{notice_metadata.ojs_type}_{notice_metadata.ojs_issue_number.zfill(3)}_{number}"

@@ -11,7 +11,7 @@ This module provides template generators for all needed package templates.
 
 from jinja2 import Environment, PackageLoader
 
-from ted_sws.notice_packager.model.metadata import PackagerMetadata, validate_notice_action_type
+from ted_sws.notice_packager.model.metadata import PackagerMetadata, validate_mets_type
 
 TEMPLATES = Environment(loader=PackageLoader("ted_sws.notice_packager.resources", "templates"))
 
@@ -34,8 +34,8 @@ class TemplateGenerator:
 
     @classmethod
     def mets2action_mets_xml_generator(cls, data: PackagerMetadata = None) -> str:
-        action = data.notice.action.type
-        validate_notice_action_type(action)
+        action = data.mets.type
+        validate_mets_type(action)
 
         template = 'mets2action_mets_xml.jinja2'
         return cls.__generate_template(template, data)

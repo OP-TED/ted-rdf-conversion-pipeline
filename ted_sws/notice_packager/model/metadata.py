@@ -16,7 +16,25 @@ from pydantic import validator
 
 from ted_sws.core.model.metadata import Metadata
 
-WORK_AGENT = "PUBL"
+METS_PROFILE = "http://publications.europa.eu/resource/mets/op-sip-profile_002"
+METS_TYPE_CREATE = "create"
+METS_TYPE_UPDATE = "update"
+METS_TYPE_DELETE = "delete"
+METS_ACCEPTED_TYPES = [METS_TYPE_CREATE, METS_TYPE_UPDATE, METS_TYPE_DELETE]
+METS_DMD_MDTYPE = "OTHER"
+METS_DMD_OTHERMDTYPE = "INSTANCE"
+METS_DMD_HREF = "{work_identifier}_{revision}.mets.xml.dmd.rdf"
+METS_DMD_ID = "dmd_{work_identifier}_{revision}_{dmd_idx}"
+METS_TMD_ID = "tmd_{work_identifier}_{revision}_{tmd_idx}"
+METS_TMD_HREF = "{work_identifier}_{revision}.tmd.rdf"
+METS_TMD_MDTYPE = "OTHER"
+METS_TMD_OTHERMDTYPE = "INSTANCE"
+METS_FILE_ID = "file_{work_identifier}_{revision}_{file_idx}"
+METS_NOTICE_FILE_HREF = "{work_identifier}_{revision}.notice.rdf"
+METS_NOTICE_FILE_MIMETYPE = "application/rdf+xml"
+METS_NOTICE_FILE_CHECKSUM_TYPE = "SHA-256"
+
+WORK_AGENT = "EURUN"
 PUBLICATION_FREQUENCY = "OTHER"
 CONCEPT_TYPE_DATASET = "TEST_DATA"
 DATASET_KEYWORD = [
@@ -35,38 +53,52 @@ LANGUAGES = ["en"]
 LANGUAGE = LANGUAGES[0]
 USES_LANGUAGE = "MUL"
 
-ACTION_CREATE = "create"
-ACTION_UPDATE = "update"
-ACCEPTED_ACTIONS = [ACTION_CREATE, ACTION_UPDATE]
-
 REVISION = "0"
 
 
-def validate_notice_action_type(v):
-    if v not in ACCEPTED_ACTIONS:
-        raise ValueError('No such action: %s' % v)
-
-
-class NoticeActionMetadata(Metadata):
-    """
-    Notice action metadata
-    """
-    type: str = ACTION_CREATE
-    date: str = datetime.datetime.now().isoformat()
-
-    @validator('type')
-    def validate_notice_action_type(cls, v):
-        validate_notice_action_type(v)
-        return v
+def validate_mets_type(mets_type):
+    if mets_type not in METS_ACCEPTED_TYPES:
+        raise ValueError('No such METS type: %s' % mets_type)
 
 
 class NoticeMetadata(Metadata):
     """
     General notice metadata
     """
-    id: Optional[str] = None
+    id: Optional[str]
+    public_number_document: Optional[str]
+    public_number_edition: Optional[str]
+
+
+class MetsMetadata(Metadata):
+    """
+    General notice metadata
+    """
     languages: List[str] = LANGUAGES
-    action: NoticeActionMetadata = NoticeActionMetadata()
+    revision: str = REVISION
+
+    type: str = METS_TYPE_CREATE
+    profile: str = METS_PROFILE
+    createdate: str = datetime.datetime.now().isoformat()
+    document_id: Optional[str]
+    dmd_id: Optional[str]
+    dmd_mdtype: str = METS_DMD_MDTYPE
+    dmd_othermdtype: str = METS_DMD_OTHERMDTYPE
+    dmd_href: Optional[str]
+    tmd_id: Optional[str]
+    tmd_href: Optional[str]
+    tmd_mdtype: str = METS_TMD_MDTYPE
+    tmd_othermdtype: str = METS_TMD_OTHERMDTYPE
+    file_id: Optional[str]
+    notice_file_href: Optional[str]
+    notice_file_mimetype: Optional[str] = METS_NOTICE_FILE_MIMETYPE
+    notice_file_checksum: Optional[str]
+    notice_file_checksum_type: Optional[str] = METS_NOTICE_FILE_CHECKSUM_TYPE
+
+    @validator('type')
+    def validate_notice_action_type(cls, action_type):
+        validate_mets_type(action_type)
+        return action_type
 
 
 class WorkMetadata(Metadata):
@@ -95,11 +127,13 @@ class WorkMetadata(Metadata):
 
 
 class ExpressionMetadata(Metadata):
+    identifier: Optional[str]
     title: Optional[Dict[str, str]] = None
     uses_language: str = USES_LANGUAGE
 
 
 class ManifestationMetadata(Metadata):
+    identifier: Optional[str]
     type: str = MANIFESTATION_TYPE
     date_publication: str = datetime.datetime.now().strftime('%Y-%m-%d')
     distribution_has_status_distribution_status: str = DISTRIBUTION_STATUS
@@ -108,6 +142,7 @@ class ManifestationMetadata(Metadata):
 
 class PackagerMetadata(Metadata):
     notice: NoticeMetadata = NoticeMetadata()
+    mets: MetsMetadata = MetsMetadata()
     work: WorkMetadata = WorkMetadata()
     expression: ExpressionMetadata = ExpressionMetadata()
     manifestation: ManifestationMetadata = ManifestationMetadata()

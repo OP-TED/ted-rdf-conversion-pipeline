@@ -14,7 +14,7 @@ xref:demo_installation.adoc[Installation instructions for development and testin
 
 xref:attachment$/aws-infra-docs/TED-SWS-AWS-Infrastructure-architecture-overview-v0.9.pdf[TED-SWS AWS Infrastructure architecture overview v0.9]
 
-xref:attachment$/aws-infra-docs/TED-SWS Installation manual v2.0.2.pdf[TED-SWS AWS Installation manual v2.0.2]
+xref:attachment$/aws-infra-docs/TED-SWS Installation manual v2.5.0.pdf[TED-SWS AWS Installation manual v2.5.0]
 
 == Project roadmap
 

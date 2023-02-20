@@ -56,9 +56,9 @@ USES_LANGUAGE = "MUL"
 REVISION = "0"
 
 
-def validate_mets_type(v):
-    if v not in METS_ACCEPTED_TYPES:
-        raise ValueError('No such METS type: %s' % v)
+def validate_mets_type(mets_type):
+    if mets_type not in METS_ACCEPTED_TYPES:
+        raise ValueError('No such METS type: %s' % mets_type)
 
 
 class NoticeMetadata(Metadata):
@@ -96,9 +96,9 @@ class MetsMetadata(Metadata):
     notice_file_checksum_type: Optional[str] = METS_NOTICE_FILE_CHECKSUM_TYPE
 
     @validator('type')
-    def validate_notice_action_type(cls, v):
-        validate_mets_type(v)
-        return v
+    def validate_notice_action_type(cls, action_type):
+        validate_mets_type(action_type)
+        return action_type
 
 
 class WorkMetadata(Metadata):

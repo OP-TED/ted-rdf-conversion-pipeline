@@ -1,0 +1,27 @@
+= Getting started with TED-SWS
+
+The purpose of this section is to explain how to monitor and control TED-SWS system using Airflow and Metabase interfaces. This page may be updated by the development team as the system evolves.
+
+== Intended audience
+
+This document is intended for persons involved in the controlling and
+monitoring the services offered by the TED-SWS system.
+
+== Getting started
+To gain access and control of TED-SWS system the user shall be provided with access URLs and credentials by the infrastructure team. Please make sure that you know xref:user_manual/access-security.adoc[all the security credentials].
+
+== User Manual
+This user manual is divided into three parts. We advise to get familiar with them in the following order
+
+* xref:user_manual/system-overview.adoc[system overview],
+* xref:user_manual/workflow-management-airflow.adoc[workflow management with Airflow], and
+* xref:user_manual/system-monitoring-metabase.adoc[system monitoring with Metabase].
+
+
+== Additional resources [[useful-resources]]
+
+link:https://airflow.apache.org/docs/apache-airflow/2.4.3/ui.html[Apache Airflow User Interface]
+
+link:https://www.metabase.com/learn/getting-started/tour-of-metabase[Tour of Metabase]
+
+link:https://www.metabase.com/docs/latest/exploration-and-organization/start[Metabase organisation and exploration]

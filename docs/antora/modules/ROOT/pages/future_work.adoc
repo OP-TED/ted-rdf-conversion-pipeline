@@ -1,0 +1,59 @@
+== Future work
+
+In the future, another Master Data Registry type system will be used to
+deduplicate entities in the TED-SWS system, which will be implemented
+according to the requirements for deduplication of entities from
+notices.
+
+The future Master Data Registry (MDR) system for entity deduplication
+should have the following architecture:
+
+[arabic]
+. *Data Ingestion*: This component is responsible for extracting and
+collecting data from various sources, such as databases, files, and
+APIs. The data is then transformed, cleaned, and consolidated into a
+single format before it is loaded into the MDR.
+
+. *Data Quality*: This component is responsible for enforcing data quality
+rules, such as format, completeness, and consistency, on the data before
+it is entered into the MDR. This can include tasks such as data
+validation, data standardization, and data cleansing.
+
+. *Entity Dedup*: This component is responsible for identifying and
+removing duplicate entities in the MDR. This can be done using a
+combination of techniques such as string-based, machine learning-based,
+or knowledge-based methods.
+
+. *Data Governance*: This component is responsible for ensuring that the
+data in the MDR is accurate, complete, and up-to-date. This can include
+processes for data validation, data reconciliation, and data
+maintenance.
+
+. *Data Access and Integration*: This component provides access to the MDR
+data through a user interface and API's, and integrates the MDR data
+with other systems and applications.
+
+. *Data Security*: This component is responsible for ensuring that the
+data in the MDR is secure, and that only authorized users can access it.
+This can include tasks such as authentication, access control, and
+encryption.
+
+. *Data Management*: This component is responsible for managing the data
+in the MDR, including tasks such as data archiving, data backup, and
+data recovery.
+
+. *Monitoring and Analytics*: This component is responsible for monitoring
+and analysing the performance of the MDR system, and for providing
+insights into the data to help improve the system.
+
+. *Services layer*: This component is responsible for providing services
+such as, indexing, search and query functionalities over the data.
+
+
+All these components should be integrated and work together to provide a
+comprehensive and efficient MDR system for entity deduplication. The
+system should be scalable and flexible enough to handle large amounts of
+data and adapt to changing business requirements.
+
+
+

@@ -1,0 +1,345 @@
+= System monitoring with Metabase
+
+This section describes how to work with Metabase, exploring user
+interface, accessing dashboards, creating questions, and adding new data
+sources. This description uses examples with real data and data sources
+that are used on TED-SWS project. For advanced documentation please see link:https://www.metabase.com/docs/latest/[Metabase user manual (latest)].
+
+== Main concepts in Metabase
+
+=== What is a question?
+
+In Metabase, a question is a query, its results, and its visualization.
+
+If you’re trying to figure something out about your data in Metabase,
+you’re probably either asking a question or viewing a question that
+someone else on your team created. In everyday usage, a question is
+pretty much synonymous with a query.
+
+=== What is a dashboard?
+
+A dashboard is a data visualization tool that holds important charts and
+text, collected and arranged on a single screen. Dashboards provide a
+high-level, centralized look at KPIs and other business metrics, and can
+cover everything from overall business health to the success of a
+specific project.
+
+The term comes from the automotive dashboard, which like its business
+intelligence counterpart provides status updates and warnings about
+important functions.
+
+=== What is a collection?
+
+In Metabase, a collection is a set of items like questions, dashboards
+and subcollections, that are stored together for some organizational
+purpose. You can think of collections like folders within a file system.
+The root collection in Metabase is called Our Analytics, and it holds
+every other collection that you and others at your organization create.
+
+You may keep a collection titled “Operations” that holds all of the
+questions, dashboards, and models that your organization’s ops team
+uses, so people in that department know where to find the items they
+need to do their jobs. And if there are specific items within a
+collection that your team uses most frequently, you can pin those to the
+top of the collection page for easy reference. Pinned questions in a
+collection will also render a preview of their visualization.
+
+=== What is a card?
+
+A card is a component of a dashboard that displays data or text.
+
+Metabase dashboards are made up of cards, with each card displaying some
+data (visualized as a table, chart, map, or number) or text (like
+headings, descriptive information, or relevant links).
+
+== Metabase user interface
+
+After successful authorization, metabase redirects to main page that is
+composed of the following elements:
+
+image:user_manual/media/image22.png[image,width=633,height=294]
+
+[arabic]
+. Slidebar with collections
+. Settings, searching and adding new questions
+. Home page (Quick last accessed dashboards or questions)
+
+=== UC1 Manually updating the data
+
+As a user I want to manually update the data so I will see the
+questions/dashboards on the latest data.
+
+For *updating data*:
+
+[arabic]
+. Click Settings -> Admin settings -> Databases
+
+image:user_manual/media/image99.png[image,width=448,height=373]
+
+[arabic, start=2]
+. Go to Databases in the top menu
+
+image:user_manual/media/image15.png[image,width=601,height=142]
+
+[arabic, start=3]
+. To *update* the existing data source, click on the name of the necessary
+database and then click on both actions: “Sync database schema now” and
+“Re-scan field values now”. This will be done automatically but if you
+want to have the latest data (i.e the processing is still running) you
+could follow the steps below. However this is not considered a good
+practice.
+
+image:user_manual/media/image78.png[image,width=354,height=162]
+
+image:user_manual/media/image86.png[image,width=280,height=244]
+
+=== UC2: Use existing dashboards
+
+As a user I want to browse through and view dashboards so that I can
+answer business or operational questions about pipelines or notices.
+
+[arabic]
+. To access existing questions / dashboards, click:
+
+Sidebar button -> Necessary collection folder (ex: TED SWS KPI ->
+Pipeline KPI)
+
+image:user_manual/media/image68.png[image,width=189,height=242]
+
+[arabic, start=2]
+. To access the dashboard / question click on the element name in the main
+screen
+
+image:user_manual/media/image50.png[image,width=572,height=227]
+
+=== UC2: Customize a collection
+
+As a user I want to customize my collection preview so I can access
+quickly certain dashboards / questions and clean the unwanted content
+
+[arabic]
+. When opening a collection the main screen will be divided into to
+sections
+
+
+[loweralpha]
+. Pin section - where dashboards and questions can be pinned for easy
+access
+
+. List with dashboards and questions.
+
+
+image:user_manual/media/image46.png[image,width=601,height=341]
+
+[arabic, start=2]
+. Drag the dashboard or question elements from list (2) to
+section (1) to pin them. The element will be moved to the pin section,
+and will be displayed.
+
+. To *delete / move* a dashboard or question:
+
+[loweralpha]
+. Click on checkbox of the elements to be deleted;
+. Click archive or move (this can move the content to another collection)
+
+image:user_manual/media/image17.png[image,width=461,height=282]
+
+=== UC3: Create new question
+
+As a user I want to create a new question so I can explore the available
+data
+
+To *create* question:
+
+[arabic]
+. Click New
+(image:user_manual/media/image65.png[image,width=45,height=27]),
+then Question
+(image:user_manual/media/image83.png[image,width=71,height=22]).
+
+image:user_manual/media/image100.png[image,width=261,height=194]
+
+[arabic, start=2]
+. Select Data source (TEDSWS MongoDB - database name)
+
+image:user_manual/media/image7.png[image,width=353,height=210]
+
+[arabic, start=3]
+. Select Data collection (Notice Collection Materialized View
+
+image:user_manual/media/image28.png[image,width=266,height=307]
+
+*Note:* Always select “Notices Collection Materialised View” collection
+for questions. This collection was created specifically for metabase.
+Using other collections may increase response time of a question.
+
+[arabic, start=4]
+. Select necessary columns to display (ex: Notice status)
+
+image:user_manual/media/image95.png[image,width=397,height=365]
+
+
+[arabic, start=5]
+. (Optional) Select filter (ex: Form number is F03)
+
+image:user_manual/media/image40.png[image,width=275,height=304]
+
+image:user_manual/media/image70.png[image,width=353,height=214]
+
+[arabic, start=6]
+. (Optional) Select Summarize (ex: Count of rows)
+
+image:user_manual/media/image82.png[image,width=273,height=299]
+
+[arabic, start=7]
+. (Optional) Select a column to group by (ex: Notice Status)
+
+image:user_manual/media/image10.png[image,width=389,height=310]
+
+[arabic, start=8]
+. Click Visualize
+image:user_manual/media/image16.png[image,width=143,height=32]
+
+
+image:user_manual/media/image9.png[image,width=268,height=180]
+
+*Note:* This loading page means that questing is requesting an answer.
+Wait until it disappears.After the request is done, the page with
+response and editing a question will appear.
+
+
+[arabic, start=9]
+. Customizing the question
+
+
+Question page is divided into:
+
+* Edit question (name and logic)
+
+* Question visualisation (can be table or chart)
+
+* Visualisation settings (settings for table or chart)
+
+image:user_manual/media/image55.png[image,width=601,height=277]
+
+Tips on *editing* page:
+
+* To *export* the question:
+** Click on Download full results
+
+image:user_manual/media/image89.png[image,width=372,height=286]
+
+* To *edit question*:
+** Click on Show editor
+
+image:user_manual/media/image43.png[image,width=394,height=182]
+
+
+* To *change visualization type*
+** Click on visualization and then on Done once the type was chosen
+
+image:user_manual/media/image39.png[image,width=392,height=345]
+
+* To *edit visualization settings*
+
+** Click on Settings
+
+image:user_manual/media/image5.png[image,width=303,height=346]
+
+
+* To show values on dashboard: Click Show values on data points
+
+image:user_manual/media/image104.png[image,width=255,height=331]
+
+
+* To *save* question just Click Save button
+
+image:user_manual/media/image48.png[image,width=324,height=198]
+
+* Insert question name, description (optional) and collection to save into
+
+image:user_manual/media/image101.png[image,width=305,height=230]
+
+=== UC4: Create dashboard
+
+As a user I want to create a dashboard so I can group a set of questions
+that are of interest to me.
+
+To *create* dashboard:
+
+[arabic]
+. Click New -> Dashboard
+
+image:user_manual/media/image12.png[image,width=548,height=295]
+
+
+[arabic, start=2]
+. Insert Name, Description (optional) and collection where to save
+
+image:user_manual/media/image44.png[image,width=370,height=279]
+
+
+[loweralpha]
+. To select subfolder of the collection, click in arrow on collection
+field:
+
+image:user_manual/media/image13.png[image,width=395,height=199]
+
+[arabic, start=3]
+. Click Create
+
+. To *add* questions on dashboard:
+
+[loweralpha]
+. Click Add questions
+
+image:user_manual/media/image42.png[image,width=285,height=158]
+
+[loweralpha, start=2]
+. Click on the name of necessary question or drag & drop it
+
+image:user_manual/media/image57.png[image,width=307,height=392]
+
+In the dashboard you can add multiple questions, resize and move where
+it needs to be.
+[arabic, start=5]
+. To *save* dashboard:
+
+[loweralpha]
+
+. Click Save button in right top corner of the current screen
+
+image:user_manual/media/image53.png[image,width=171,height=96]
+
+=== UC5: Create user
+
+As a user I want to create another user so that I can share the work
+with others in my team
+
+[arabic]
+. Go to Admin settings by pressing the setting wheel button in the top
+right of the screen and then click Admin settings.
+
+image:user_manual/media/image64.png[image,width=544,height=180]
+
+
+[arabic, start=2]
+. On the next screen go to People in the top menu and click Invite someone
+button
+
+image:user_manual/media/image97.png[image,width=539,height=137]
+
+
+[arabic, start=3]
+. Complete the mandatory fields and put the user in the Administrator if
+you want that user to be an admin or in the All Users group
+
+image:user_manual/media/image73.png[image,width=601,height=345]
+
+[arabic, start=4]
+. Once you click on create a temporary password will be created for this
+user. Save this password and user details as you will need to share
+these with the new user. After this just click Done.
+
+image:user_manual/media/image20.png[image,width=601,height=362]
+

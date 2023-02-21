@@ -1,0 +1,38 @@
+== Introduction
+
+Although TED notice data is already available to the general public
+through the search API provided by the TED website, the current offering
+has many limitations that impede access to and reuse of the data. One
+such important impediment is for example the current format of the data.
+
+Historical TED data come in various XML formats that evolved together
+with the standard TED XML schema. The imminent introduction of eForms
+will also introduce further diversity in the XML data formats available
+through TED's search API. This makes it practically impossible for users
+to consume and process data that span across several years, as
+their information systems must be able to process several different
+flavours of the available XML schemas as well as to keep up with the
+schema's continuous evolution. Their search capabilities are therefore
+confined to a very limited set of metadata.
+
+The TED Semantic Web Service will remove these barriers by providing one
+common format for accessing and reusing all TED data. Coupled with the
+eProcurement Ontology, the TED data will also have semantics attached to
+them allowing users to directly link them with other datasets.
+Moreover, users will now be able to perform much more elaborate
+queries directly on the data source (through the SPARQL endpoint). This
+will reduce their need for data warehousing in order to perform complex
+queries.
+
+These developments, by lowering the barriers, will give rise to a vast
+number of new use-cases that will enable stakeholders and end-users to
+benefit from increased availability of analytics. The ability to perform
+complex queries on public procurement data will be equally open to large
+information systems as well as to simple desktop users with a copy of
+Excel and an internet connection.
+
+To summarize, the TED Semantic Web Service (TED SWS) is a pipeline
+system that continuously converts the public procurement notices (in XML
+format) available on the TED Website into RDF format, publishes them
+into CELLAR and makes them available to the public through CELLAR’s
+SPARQL endpoint.

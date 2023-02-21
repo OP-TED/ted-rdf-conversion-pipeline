@@ -1,0 +1,36 @@
+== Security and Access
+
+The security credentials will be provided by the infrastructure team
+that installed the necessary infrastructure for this project. Some credentials are set in the environment file necessary for the
+infrastructure installation and others by manually creating a user by
+infra team.
+
+Bellow is the list of credentials that should be available
+
+[width="100%",cols="25%,36%,39%",options="header",]
+|===
+|Name |Description |Comment
+|Metabase user |Metabase user for login. This should be an email address
+|This user was manually created by the infrastructure team
+
+|Metabase password |The temporary password that was set by the infra
+team for the user above |This user was manually created by the
+infrastructure team
+
+|Airflow user |Airflow UI user for login |This is the value of
+_AIRFLOW_WWW_USER_USERNAME variable from the env file
+
+|Airflow password |Airflow UI password for login |This is the value of
+_AIRFLOW_WWW_USER_PASSWORD variable from the env file
+
+|Fuseki user |Fuseki user for login |The login should be for admin user
+
+|Fuseki password |Fuseki password for login |This is the value of
+ADMIN_PASSWORD variable from the env file
+
+|Mongo-express user |Mongo-express user for login |This is the value of
+ME_CONFIG_BASICAUTH_USERNAME variable from the env file
+
+|Mongo-express password |Mongo-express password for login |This is the
+value of ME_CONFIG_BASICAUTH_PASSWORD variable from the env file
+|===

@@ -1,20 +1,6 @@
 = TED-RDF Conversion Pipeline Documentation
 
-The TED-RDF Conversion Pipeline, which is part of the TED Semantic Web Services, aka TED-SWS system, provides tools an infrastructure to convert TED notices available in XML format into RDF. This conversion pipeline is designed to work with the https://docs.ted.europa.eu/rdf-mapping/index.html[TED-RDF Mappings].
-
-== Quick references for users
-
-* xref:mapping_suite_cli_toolchain.adoc[Installation and usage instructions for the Mapping Suite CLI toolchain]
-* link:{attachmentsdir}/ted-sws-architecture/index.html[Preliminary project architecture (in progress)^]
-
-
-== Developer pages
-
-xref:demo_installation.adoc[Installation instructions for development and testing for software engineers]
-
-xref:attachment$/aws-infra-docs/TED-SWS-AWS-Infrastructure-architecture-overview-v0.9.pdf[TED-SWS AWS Infrastructure architecture overview v0.9]
-
-xref:attachment$/aws-infra-docs/TED-SWS Installation manual v2.5.0.pdf[TED-SWS AWS Installation manual v2.5.0]
+The TED-RDF Conversion Pipeline, is part of the TED Semantic Web Services (TED-SWS system) and provides tools an infrastructure to convert TED notices available in XML format into RDF. This conversion pipeline is designed to work with the https://docs.ted.europa.eu/rdf-mapping/index.html[TED-SWS Mapping Suites] - self containing packages with transformation rules and resources.
 
 == Project roadmap
 
@@ -23,8 +9,7 @@ xref:attachment$/aws-infra-docs/TED-SWS Installation manual v2.5.0.pdf[TED-SWS A
 
 | Phase 1 | The first phase places high priority on the deployment into the OP AWS Cloud environment.| August 2022 | xref:attachment$/FATs/2022-08-29-report/index.html[2022-08-29 report] | 29 August 2022 | link:https://github.com/OP-TED/ted-rdf-conversion-pipeline/releases/tag/0.0.9-beta[0.0.9-beta]
 | Phase 2 | Provided that the deployment in the acceptance environment is successful, the delivery of Phase 2 aims to provide the first production version of the TED SWS system. | Nov 2022 | xref:attachment$/FATs/2022-11-22-TED-SWS-FAT-complete.html[2022-11-22 report] | 20 Nov 2022 | https://github.com/OP-TED/ted-rdf-conversion-pipeline/releases/tag/1.0.0-beta[1.0.0-beta]
-| Phase 3 | This phase delivers the documentation and components and improvements that could not be covered in the previous phases. | Feb 2023 | --- | --- | ---
-
+| Phase 3 | This phase delivers the documentation and components and improvements that could not be covered in the previous phases. | Feb 2023 | xref:attachment$/FATs/2023-02-20-TED-SWS-FAT-complete.html[2023-02-20 report] | 21 Feb 2023 | https://github.com/OP-TED/ted-rdf-conversion-pipeline/releases/tag/1.1.0-beta[1.1.0-beta]
 |===
 
 
@@ -32,3 +17,21 @@ xref:attachment$/aws-infra-docs/TED-SWS Installation manual v2.5.0.pdf[TED-SWS A
 
 
 
+//
+// == Quick references for Developers
+//
+// == Quick references for DevOps
+//
+// == Quick references for TED-SWS Developers
+//
+// * xref:mapping_suite_cli_toolchain.adoc[Installation and usage instructions for the Mapping Suite CLI toolchain]
+// * link:{attachmentsdir}/ted-sws-architecture/index.html[Preliminary project architecture (in progress)^]
+//
+//
+// == Developer pages
+//
+// xref:demo_installation.adoc[Installation instructions for development and testing for software engineers]
+//
+// xref:attachment$/aws-infra-docs/TED-SWS-AWS-Infrastructure-architecture-overview-v0.9.pdf[TED-SWS AWS Infrastructure architecture overview v0.9]
+//
+// xref:attachment$/aws-infra-docs/TED-SWS Installation manual v2.5.0.pdf[TED-SWS AWS Installation manual v2.5.0]

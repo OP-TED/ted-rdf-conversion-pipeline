@@ -1,0 +1,351 @@
+== Architectural choices
+
+This section describes choices:
+
+* How is this SOA? (is it? It is SOA but not REST Microservices, Why not
+Microservices?
+* Why NoSQL data model vs SQL data model?
+* Why ETL/ELT approach vs. Event Sourcing
+* Why Batch processing vs. Event Streams.
+* Why Airflow ?
+* Why Metabase?
+* Why quick deduplication process? And what are the plans for the
+future?
+
+=== Why is this SOA (Service-oriented architecture) architecture?
+
+ETL (Extract, Transform, Load) architecture is considered
+state-of-the-art for batch processing tasks using Airflow as pipeline
+management for several reasons:
+
+[arabic]
+. *Flexibility*: ETL architecture allows for flexibility in the data
+pipeline as it separates the data extraction, transformation, and
+loading processes. This allows for easy modification and maintenance of
+each individual step without affecting the entire pipeline.
+. *Scalability*: ETL architecture allows for the easy scaling of data
+processing tasks, as new data sources can be added or removed without
+impacting the entire pipeline.
+. *Error Handling*: ETL architecture allows for easy error handling as
+each step of the pipeline can be monitored and errors can be isolated to
+a specific step.
+. *Reusability:* ETL architecture allows for the reuse of existing data
+pipelines, as new data sources can be added without modifying existing
+pipelines.
+. *System management*: Airflow is an open-source workflow management
+system that allows for easy scheduling, monitoring, and management of
+data pipelines. It integrates seamlessly with ETL architecture and
+allows for easy management of complex data pipelines.
+
+Overall, ETL architecture combined with Airflow as pipeline management
+provides a robust and efficient solution for batch processing tasks.
+
+=== Why Monolithic Architecture vs Micro Services Architecture?
+
+There are several reasons why a monolithic architecture may be more
+suitable for an ETL architecture with batch processing pipeline using
+Airflow as the pipeline management tool:
+
+[arabic]
+. *Simplicity*: A monolithic architecture is simpler to design and
+implement as it involves a single codebase and a single deployment
+process. This makes it easier to manage and maintain the ETL pipeline.
+. *Performance*: A monolithic architecture may be more performant than a
+microservices architecture as it allows for more efficient communication
+between the different components of the pipeline. This is particularly
+important for batch processing pipelines, where speed and efficiency are
+crucial.
+. *Scalability*: Monolithic architectures can be scaled horizontally by
+adding more resources to the system, such as more servers or more
+processing power. This allows for the system to handle larger amounts of
+data and handle more complex processing tasks.
+. *Airflow Integration*: Airflow is designed to work with monolithic
+architectures, and it can be more difficult to integrate with a
+microservices architecture. Airflow's DAGs and tasks are designed to
+work with a single codebase, and it may be more challenging to manage
+different services and pipelines across multiple microservices.
+
+Overall, a monolithic architecture may be more suitable for an ETL
+architecture with batch processing pipeline using Airflow as the
+pipeline management tool due to its simplicity, performance,
+scalability, and ease of integration with Airflow.
+
+=== Why ETL/ELT approach vs Event Sourcing ?
+
+ETL (Extract, Transform, Load) architecture is typically used for moving
+and transforming data from one system to another, for example, from a
+transactional database to a data warehouse for reporting and analysis.
+It is a batch-oriented process that is typically scheduled to run at
+specific intervals.
+
+Event sourcing architecture, on the other hand, is a way of storing and
+managing the state of an application by keeping track of all the changes
+to the state as a sequence of events. This allows for better auditing
+and traceability of the state of the application over time, as well as
+the ability to replay past events to reconstruct the current state.
+Event sourcing is often used in systems that require high performance,
+scalability, and fault tolerance.
+
+In summary, ETL architecture is mainly used for data integration and
+data warehousing, Event sourcing is mainly used for building highly
+scalable and fault-tolerant systems that need to store and manage the
+state of an application over time.
+
+A hybrid architecture is implemented in the TED-SWS pipeline, based on
+an ETL architecture but with state storage to repeat a pipeline sequence
+as needed.
+
+=== Why Batch processing vs Event Streams?
+
+Batch processing architecture and Event Streams architecture are two
+different approaches to processing data in code.
+
+Batch processing architecture is a traditional approach where data is
+processed in batches. This means that data is collected over a period of
+time and then processed all at once in a single operation. This approach
+is typically used for tasks such as data analysis, data mining, and
+reporting. It is best suited for tasks that can be done in a single pass
+and do not require real-time processing.
+
+Event Streams architecture, on the other hand, is a more modern approach
+where data is processed in real-time as it is generated. This means that
+data is processed as soon as it is received, rather than waiting for a
+batch to be collected. This approach is typically used for tasks such as
+real-time monitoring, data analytics, and fraud detection. It is best
+suited for tasks that require real-time processing and cannot be done in
+a single pass.
+
+In summary, Batch processing architecture is best suited for tasks that
+can be done in a single pass and do not require real-time processing,
+whereas Event Streams architecture is best suited for tasks that require
+real-time processing and cannot be done in a single pass.
+
+Due to the fact that the TED-SWS pipeline has an ETL architecture, the
+data processing is done in batches, the batches of notices are formed
+per day, all the notices of a day form a batch that will be processed.
+Another method of creating a batch is grouping notices by status and
+executing the pipeline depending on their status.
+
+=== Why NoSQL data model vs SQL data model?
+
+There are several reasons why a NoSQL data model may be more suitable
+for an ETL architecture with batch processing pipeline compared to a SQL
+data model:
+
+[arabic]
+. *Scalability*: NoSQL databases are designed to handle large amounts of
+data and can scale horizontally, allowing for the easy addition of more
+resources as the amount of data grows. This is particularly useful for
+batch processing pipelines that need to handle large amounts of data.
+. *Flexibility*: NoSQL databases are schema-less, which means that the
+data structure can change without having to modify the database schema.
+This allows for more flexibility when processing data, as new data types
+or fields can be easily added without having to make changes to the
+database.
+. *Performance*: NoSQL databases are designed for high-performance and can
+handle high levels of read and write operations. This is particularly
+useful for batch processing pipelines that need to process large amounts
+of data in a short period of time.
+
+. *Handling Unstructured Data*: NoSQL databases are well suited for
+handling unstructured data, such as JSON or XML, that can't be handled
+by SQL databases. This is particularly useful for ETL pipelines that
+need to process unstructured data.
+
+. *Handling Distributed Data*: NoSQL databases are designed to handle
+distributed data, which allows for data to be stored and processed on
+multiple servers. This can help to improve performance and scalability,
+as well as provide fault tolerance.
+
+. *Cost*: NoSQL databases are generally less expensive than SQL databases,
+as they don't require expensive hardware or specialized software. This
+can make them a more cost-effective option for ETL pipelines that need
+to handle large amounts of data.
+
+Overall, a NoSQL data model may be more suitable for an ETL architecture
+with batch processing pipeline compared to a SQL data model due to its
+scalability, flexibility, performance, handling unstructured data,
+handling distributed data and the cost-effectiveness. It is important to
+note that the choice to use a NoSQL data model satisfies the specific
+requirements of the TED-SWS processing pipeline and the nature of the
+data to be processed.
+
+=== Why Airflow?
+
+Airflow is a great solution for ETL pipeline and batch processing
+architecture because it provides several features that are well-suited
+to these types of tasks. First, Airflow provides a powerful scheduler
+that allows you to define and schedule ETL jobs to run at specific
+intervals. This means that you can set up your pipeline to run on a
+regular schedule, such as every day or every hour, without having to
+manually trigger the jobs. Second, Airflow provides a web-based user
+interface that makes it easy to monitor and manage your pipeline.
+
+Both aspects of Airflow are perfectly compatible with the needs of the
+TED-SWS architecture and the use cases required for an Operations
+Manager that will interact with the system. Airflow therefore covers the
+needs of batch processing management and ETL pipeline management.
+
+Airflow provide good coverage of use cases for an Operations Manager,
+specialized for this use cases:
+
+[arabic]
+. *Monitoring pipeline performance*: An operations manager can use Airflow
+to monitor the performance of the ETL pipeline and identify any
+bottlenecks or issues that may be impacting the pipeline's performance.
+They can then take steps to optimize the pipeline to improve its
+performance and ensure that data is being processed in a timely and
+efficient manner.
+
+. *Managing pipeline schedule*: The operations manager can use Airflow to
+schedule the pipeline to run at specific times, such as during off-peak
+hours or when resources are available. This can help to minimize the
+impact of the pipeline on other systems and ensure that data is
+processed in a timely manner.
+
+. *Managing pipeline resources*: The operations manager can use Airflow to
+manage the resources used by the pipeline, such as CPU, memory, and
+storage. They can also use Airflow to scale the pipeline up or down as
+needed to meet changing resource requirements.
+
+. *Managing pipeline failures*: Airflow allows the operations manager to
+set up notifications and alerts for when a pipeline fails or a task
+fails. This allows them to quickly identify and address any issues that
+may be impacting the pipeline's performance.
+
+. *Managing pipeline dependencies*: The operations manager can use Airflow
+to manage the dependencies between different tasks in the pipeline, such
+as ensuring that notice fetching is completed before notice indexing or
+notice metadata normalization.
+
+. *Managing pipeline versioning*: Airflow allows the operations manager to
+maintain different versions of the pipeline, which can be useful for
+testing new changes before rolling them out to production.
+
+. *Managing pipeline security*: Airflow allows the operations manager to
+set up security controls to protect the pipeline and the data it
+processes. They can also use Airflow to audit and monitor access to the
+pipeline and the data it processes.
+
+=== Why Metabase?
+
+Metabase is an excellent solution for data analysis and KPI monitoring
+for a batch processing system, as it offers several key features that
+make it well suited for this type of use case required within the
+TED-SWS system.
+
+First, Metabase is highly customizable, allowing users to create and
+modify dashboards, reports, and visualizations to suit their specific
+needs. This makes it easy to track and monitor the key performance
+indicators (KPIs) that are most important for the batch processing
+system, such as the number of jobs processed, the average processing
+time, and the success rate of job runs.
+
+Second, Metabase offers a wide range of data connectors, allowing users
+to easily connect to and query data sources such as SQL databases, NoSQL
+databases, CSV files, and APIs. This makes it easy to access and analyze
+the data that is relevant to the batch processing system. In TED-SWS the
+data domain model is realized by a document-based data model, not a
+tabular relational data model, so Metabase is a good tool for analyzing
+data with a document-based model.
+
+Third, Metabase has a user-friendly interface that makes it easy to
+navigate and interact with data, even for users with little or no
+technical experience. This makes it accessible to a wide range of users,
+including business analysts, data scientists, and other stakeholders who
+need to monitor and analyse the performance of the batch processing
+system.
+
+Finally, Metabase offers robust security and collaboration features,
+making it easy to share and collaborate on data and insights with team
+members and stakeholders. This makes it an ideal solution for
+organizations that need to monitor and analyse the performance of a
+batch processing system across multiple teams or departments.
+
+=== Why quick deduplication process?
+
+One of the main challenges in entities deduplication from the semantic
+web domain is dealing with the complexity and diversity of the data.
+This can include dealing with different data formats, schemas, and
+vocabularies, as well as handling missing or incomplete data.
+Additionally, entities may have multiple identities or representations,
+making it difficult to determine which entities are duplicates and which
+are distinct. Another difficulty is the scalability of the algorithm to
+handle large amount of data. The performance of the algorithm should be
+efficient and accurate to handle huge number of entities.
+
+There are several approaches and solutions for entities deduplication in
+the semantic web. Some of the top solutions include:
+
+[arabic]
+. *String-based methods*: These methods use string comparison techniques
+such as Jaccard similarity, Levenshtein distance, and cosine similarity
+to identify duplicates based on the similarity of their string
+representations.
+. *Machine learning-based methods*: These methods use machine learning
+algorithms such as decision trees, random forests, and neural networks
+to learn patterns in the data and identify duplicates.
+
+. *Knowledge-based methods*: These methods use external knowledge sources
+such as ontologies, taxonomies, and linked data to disambiguate entities
+and identify duplicates.
+
+. *Hybrid methods*: These methods combine multiple techniques, such as
+string-based and machine learning-based methods, to improve the accuracy
+of deduplication.
+
+. *Blocking Method*: This method is used to reduce the number of entities
+that need to be compared by grouping similar entities together.
+
+In the TED-SWS pipeline, the deduplication of Organization type entities
+is performed using a string-based methods. String-based methods are
+often used for organization entity deduplication, because of their
+simplicity and effectiveness.
+
+TED Europe data often contains information about tenders and public
+procurement, where organizations are identified by their names.
+Organization names are often unique and can be used to identify
+duplicates with high accuracy. String-based methods can be used to
+compare the similarity of different organization names, which can be
+effective in identifying duplicates.
+
+Additionally, the TED europe data is highly structured, so it's easy to
+extract and compare the names of organizations. String-based methods are
+also relatively fast and easy to implement, making them a good choice
+for large data sets. This methods may not be as effective for other
+types of entities, such as individuals, where additional information may
+be needed to identify duplicates. It's also important to note that
+string-based methods may not work as well for misspelled or abbreviated
+names.
+
+Using a quick and dirty deduplication approach instead of a complex
+system at the first iteration of a system implementation can be
+beneficial for several reasons:
+
+[arabic]
+. *Speed*: A quick approach can be implemented quickly and can
+help to identify and remove duplicates quickly. This can be particularly
+useful when working with large and complex data sets, where a more
+complex approach may take a long time to implement and test.
+. *Cost*: A quick and dirty approach is generally less expensive to
+implement than a complex system, as it requires fewer resources and less
+development time.
+. *Simplicity*: A quick and dirty approach is simpler and easier to
+implement than a complex system, which can reduce the risk of errors and
+bugs.
+. *Flexibility*: A quick and dirty approach allows to start with a basic
+system and adapt it as needed, which can be more flexible than a complex
+system that is difficult to change.
+
+. *Testing*: A quick and dirty approach allows to test the system quickly,
+and get feedback from the users and stakeholders, and then use that
+feedback to improve the system.
+
+
+However, it's worth noting that the quick and dirty approach is not a
+long-term solution and should be used only as a first step in the
+implementation of a MDR system. This approach can help to quickly
+identify and remove duplicates and establish a basic system, but it may
+not be able to handle all the complexity and diversity of the data, so
+it's important to plan for and implement more advanced techniques as the
+system matures.

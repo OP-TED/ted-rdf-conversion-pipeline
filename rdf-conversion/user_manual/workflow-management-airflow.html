@@ -1,0 +1,1416 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Workflow management with Airflow :: ted-sws-docs</title>
+    <meta name="generator" content="Antora 3.0.0">
+    <link rel="stylesheet" href="../../_/css/site.css">
+    <script>var uiRootPath = '../../_'</script>
+  </head>
+  <body class="article">
+<div class="navbar-item has-dropdown is-hoverable">
+<h1>TED-SWS</h1>
+</div><div class="body">
+<div class="nav-container" data-component="rdf-conversion" data-version="master">
+  <aside class="nav">
+    <div class="panels">
+<div class="nav-panel-menu is-active" data-panel="menu">
+  <nav class="nav-menu">
+    <h3 class="title"><a href="../index.html">XML to RDF Conversion</a></h3>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../index.html">Home</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text"><span class="separated"><strong>General References</strong></span></span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../ted-sws-introduction.html">About TED-SWS</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../glossary.html">Glossary</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text"><span class="separated"><strong>For TED-SWS Operators</strong></span></span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="getting_started_user_manual.html">Getting started</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="system-overview.html">System overview</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="access-security.html">Security and access</a>
+  </li>
+  <li class="nav-item is-current-page" data-depth="2">
+    <a class="nav-link" href="workflow-management-airflow.html">Workflow management with Airflow</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="system-monitoring-metabase.html">System monitoring with Metabase</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text"><span class="separated"><strong>For DevOps</strong></span></span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <span class="nav-text"><a href="_attachments/aws-infra-docs/TED-SWS-Installation-manual-v2.5.0.pdf" target="_blank" rel="noopener">AWS installation manual (v2.5.0)</a></span>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <span class="nav-text"><a href="_attachments/aws-infra-docs/TED-SWS-AWS-Infrastructure-architecture-overview-v0.9.pdf" target="_blank" rel="noopener">AWS infrastructure architecture (v0.9)</a></span>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text"><span class="separated"><strong>For End User Developers</strong></span></span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../ted_data/using_procurement_data.html">Accessing data in Cellar</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <span class="nav-text"><a href="https://docs.ted.europa.eu/EPO/latest/index.html" target="_blank" rel="noopener">eProcurement ontology (latest)</a></span>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text"><span class="separated"><strong>For TED-SWS Developers</strong></span></span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../technical/mapping_suite_cli_toolchain.html">Mapping suite toolchain</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../technical/demo_installation.html">Development installation instructions</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../technical/event_manager.html">Event manager description</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../architecture/arhitecture_choices.html">System architecture overview</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <span class="nav-text"><a href="_attachments/ted-sws-architecture/index.html" target="_blank" rel="noopener">Enterprise architecture model</a></span>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../architecture/arhitecture_choices.html">Architectural choices</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+</ul>
+  </nav>
+</div>
+<div class="nav-panel-explore" data-panel="explore">
+  <div class="context">
+    <span class="title">XML to RDF Conversion</span>
+    <span class="version">master</span>
+  </div>
+  <ul class="components">
+    <li class="component is-current">
+      <a class="title" href="../index.html">XML to RDF Conversion</a>
+      <ul class="versions">
+        <li class="version is-current is-latest">
+          <a href="../index.html">master</a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</div>
+    </div>
+  </aside>
+</div>
+<main class="article">
+<div class="toolbar" role="navigation">
+<button class="nav-toggle"></button>
+<nav class="breadcrumbs" aria-label="breadcrumbs">
+  <ul>
+    <li><a href="../index.html">XML to RDF Conversion</a></li>
+    <li><span class="separated"><strong>For TED-SWS Operators</strong></span></li>
+    <li><a href="workflow-management-airflow.html">Workflow management with Airflow</a></li>
+  </ul>
+</nav>
+</div>
+  <div class="content">
+<aside class="toc sidebar" data-title="Contents" data-levels="6">
+  <div class="toc-menu"></div>
+</aside>
+<article class="doc">
+<h1 class="page">Workflow management with Airflow</h1>
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>The management of the workflow is made available through the user
+interface of the Airflow system. This section describes the provided
+pipelines, and how to operate them in Airflow.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_airflow_dag_control_board"><a class="anchor" href="#_airflow_dag_control_board"></a>Airflow DAG control board</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>In this section we explain the most important elements to pay attention
+to when operating the pipelines.<br>
+In software engineering, a pipeline consists of a chain of processing
+elements (processes, threads, coroutines, functions, etc.), arranged so
+that the output of each element is the input of the next. In our case,
+as an example, look at the notice_processing_pipeline, which has this
+chain of processes that takes as input a notice from the TED website and
+as the final output (if every process from this pipeline runs
+successfully) a METS package with a transformed notice in the RDF
+format. Between the processes the input will always be a batch of
+notices. Batch processing is a method of processing large amounts of
+data in a single, pre-defined process. Batch processing is typically
+used for tasks that are performed periodically, such as daily, weekly,
+or monthly. Each step of the pipeline can have a successful or failure
+result, and as such the pipeline can be stopped at any step if something
+went wrong with one of its processes. In Airflow terminology a pipeline
+will be a DAG. He are the processes that will create our
+notice_processing_pipeline DAG:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>notice normalisation</p>
+</li>
+<li>
+<p>notice transformation</p>
+</li>
+<li>
+<p>notice distillation</p>
+</li>
+<li>
+<p>notice validation</p>
+</li>
+<li>
+<p>notice packaging</p>
+</li>
+<li>
+<p>notice publishing</p>
+</li>
+</ul>
+</div>
+<div class="sect2">
+<h3 id="_enable_disable_switch"><a class="anchor" href="#_enable_disable_switch"></a>Enable / disable switch</h3>
+<div class="paragraph">
+<p>In Airflow all the DAGs can be enabled or disabled. If a dag is disabled
+that will stop the DAG from running even if that DAG is scheduled.</p>
+</div>
+<div class="paragraph">
+<p>When a dag is enabled the switch button will be blue and grey when it is
+disabled.</p>
+</div>
+<div class="paragraph">
+<p>To enable or disable a dag use the following switch button:</p>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="../_images/user_manual/media/image21.png" alt="image" width="100%" height="32"></span></p>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="../_images/user_manual/media/image69.png" alt="image" width="56" height="55"></span>
+disabled position</p>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="../_images/user_manual/media/image3.png" alt="image" width="52" height="56"></span>
+enabled position</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_dag_runs"><a class="anchor" href="#_dag_runs"></a>DAG Runs</h3>
+<div class="paragraph">
+<p>A DAG Run is an object representing an instantiation of the DAG in time.
+Any time the DAG is executed, a DAG Run is created and all tasks inside
+it are executed. The status of the DAG Run depends on the tasks states.
+Each DAG Run is run separately from one another, meaning that you can
+have many runs of a DAG at the same time.</p>
+</div>
+<div class="paragraph">
+<p>DAG Run Status</p>
+</div>
+<div class="paragraph">
+<p>A DAG Run status is determined when the execution of the DAG is
+finished. The execution of the DAG depends on its containing tasks and
+their dependencies. The status is assigned to the DAG Run when all of
+the tasks are in one of the terminal states (i.e. if there is no
+possible transition to another state) like success, failed or skipped.</p>
+</div>
+<div class="paragraph">
+<p>There are two possible terminal states for the DAG Run:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>success if all the pipeline processes are either success or skipped,</p>
+</li>
+<li>
+<p>failed if any of the pipeline processes is either failed or
+upstream_failed.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>In the runs column in the Airflow user interface we can see the state of
+the DAG run, and this can be one of the following:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>queued</p>
+</li>
+<li>
+<p>success</p>
+</li>
+<li>
+<p>running</p>
+</li>
+<li>
+<p>failed</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Here is an example of this different states</p>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="../_images/user_manual/media/image54.png" alt="image" width="422" height="315"></span></p>
+</div>
+<div class="paragraph">
+<p>The transitions for these states will start from queuing, then will go
+to running, and after will either go to success or failure.</p>
+</div>
+<div class="paragraph">
+<p>Clicking on the numbers associated with a particular DAG run state will
+show you a list of the DAG runs in that state.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_dag_actions"><a class="anchor" href="#_dag_actions"></a>DAG actions</h3>
+<div class="paragraph">
+<p>In the Airflow user interface we have a run button in the Actions column
+that will allow you to trigger a specific DAG with or without specific
+configuration. When clicking on the run button a list of options will
+appear:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Trigger DAG (triggering DAG without config)</p>
+</li>
+<li>
+<p>Trigger DAG w/ config (triggering DAG with config)</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="../_images/user_manual/media/image24.png" alt="image" width="378" height="165"></span></p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_dag_run_overview"><a class="anchor" href="#_dag_run_overview"></a>DAG Run overview</h3>
+<div class="paragraph">
+<p>In the Airflow user interface, when clicking on the DAG name, an
+overview of the runs for that DAG will be available. This will include
+schema of the processes that are a part of the pipeline, task durations,
+code for the DAG, etc. To learn more about Airflow interface please
+refer to the Airflow user manual
+(<a href="#useful-resources"><span class="underline">Useful Resources</span></a>)</p>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="../_images/user_manual/media/image74.png" alt="image" width="601" height="281"></span></p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_available_pipelines"><a class="anchor" href="#_available_pipelines"></a>Available pipelines</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>In this section we provide a brief inventory of provided pipelines
+including their names, a short description and a high level diagram.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><strong>notice_processing_pipeline</strong> - this DAG performs the processing of a
+batch of notices, where the stages take place: normalization,
+transformation, validation, packaging, publishing. This is scheduled and
+automatically started by other DAGs.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="../_images/user_manual/media/image31.png" alt="image" width="100%" height="176"></span></p>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="../_images/user_manual/media/image25.png" alt="image" width="100%" height="162"></span></p>
+</div>
+<div class="olist arabic">
+<ol class="arabic" start="2">
+<li>
+<p><strong>load_mapping_suite_in_database</strong> - this DAG performs the loading of a
+mapping suite or all mapping suites from a branch on GitHub, with the
+mapping suite the test data from it can also be loaded, if the test data
+is loaded the notice_processing_pipeline DAG will be triggered.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p><strong>Config DAG params:</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>mapping_suite_package_name: string</p>
+</li>
+<li>
+<p>load_test_data: boolean</p>
+</li>
+<li>
+<p>branch_or_tag_name: string</p>
+</li>
+<li>
+<p>github_repository_url: string</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><strong>Default values:</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>mapping_suite_package_name = None (it will take all available mapping
+suites on that branch or tag)</p>
+</li>
+<li>
+<p>load_test_data = false</p>
+</li>
+<li>
+<p>branch_or_tag_name = "main"</p>
+</li>
+<li>
+<p>github_repository_url= "https://github.com/OP-TED/ted-rdf-mapping.git"</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="../_images/user_manual/media/image96.png" alt="image" width="100%" height="56"></span></p>
+</div>
+<div class="olist arabic">
+<ol class="arabic" start="3">
+<li>
+<p><strong>fetch_notices_by_query -</strong> this DAG fetches notices from TED by using a
+query and, depending on an additional parameter, triggers the
+notice_processing_pipeline DAG in full or partial mode (execution of
+only one step).</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p><strong>Config DAG params:</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>query : string</p>
+</li>
+<li>
+<p>trigger_complete_workflow : boolean</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><strong>Default values:</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>trigger_complete_workflow = true</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="../_images/user_manual/media/image56.png" alt="image" width="100%" height="92"></span></p>
+</div>
+<div class="olist arabic">
+<ol class="arabic" start="4">
+<li>
+<p><strong>fetch_notices_by_date -</strong> this DAG fetches notices from TED for a day
+and, depending on an additional parameter, triggers the
+notice_processing_pipeline DAG in full or partial mode (execution of
+only one step).</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p><strong>Config DAG params:</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>wild_card : string with date format %Y%m%d*</p>
+</li>
+<li>
+<p>trigger_complete_workflow : boolean</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><strong>Default values:</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>trigger_complete_workflow = true</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="../_images/user_manual/media/image33.png" alt="image" width="100%" height="100"></span></p>
+</div>
+<div class="olist arabic">
+<ol class="arabic" start="5">
+<li>
+<p><strong>fetch_notices_by_date_range -</strong> this DAG receives a date range and
+triggers the fetch_notices_by_date DAG for each day in the date range.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p><strong>Config DAG params:</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>start_date : string with date format %Y%m%d</p>
+</li>
+<li>
+<p>end_date : string with date format %Y%m%d</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="../_images/user_manual/media/image75.png" alt="image" width="601" height="128"></span></p>
+</div>
+<div class="olist arabic">
+<ol class="arabic" start="6">
+<li>
+<p><strong>reprocess_unnormalised_notices_from_backlog -</strong> this DAG selects all
+notices that are in RAW state and need to be processed and triggers the
+notice_processing_pipeline DAG to process them.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p><strong>Config DAG params:</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>start_date : string with date format %Y-%m-%d</p>
+</li>
+<li>
+<p>end_date : string with date format %Y-%m-%d</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><strong>Default values:</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>start_date = None , because this param is optional</p>
+</li>
+<li>
+<p>end_date = None, because this param is optional</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="../_images/user_manual/media/image60.png" alt="image" width="601" height="78"></span></p>
+</div>
+<div class="olist arabic">
+<ol class="arabic" start="7">
+<li>
+<p><strong>reprocess_unpackaged_notices_from_backlog -</strong> this DAG selects all
+notices to be repackaged and triggers the notice_processing_pipeline DAG
+to repackage them.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p><strong>Config DAG params:</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>start_date : string with date format %Y-%m-%d</p>
+</li>
+<li>
+<p>end_date : string with date format %Y-%m-%d</p>
+</li>
+<li>
+<p>form_number : string</p>
+</li>
+<li>
+<p>xsd_version : string</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><strong>Default values:</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>start_date = None , because this param is optional</p>
+</li>
+<li>
+<p>end_date = None, because this param is optional</p>
+</li>
+<li>
+<p>form_number = None, because this param is optional</p>
+</li>
+<li>
+<p>xsd_version = None, because this param is optional</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="../_images/user_manual/media/image81.png" alt="image" width="100%" height="73"></span></p>
+</div>
+<div class="olist arabic">
+<ol class="arabic" start="8">
+<li>
+<p><strong>reprocess_unpublished_notices_from_backlog -</strong> this DAG selects all
+notices to be republished and triggers the notice_processing_pipeline
+DAG to republish them.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p><strong>Config DAG params:</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>start_date : string with date format %Y-%m-%d</p>
+</li>
+<li>
+<p>end_date : string with date format %Y-%m-%d</p>
+</li>
+<li>
+<p>form_number : string</p>
+</li>
+<li>
+<p>xsd_version : string</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><strong>Default values:</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>start_date = None , because this param is optional</p>
+</li>
+<li>
+<p>end_date = None, because this param is optional</p>
+</li>
+<li>
+<p>form_number = None, because this param is optional</p>
+</li>
+<li>
+<p>xsd_version = None, because this param is optional</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="../_images/user_manual/media/image37.png" alt="image" width="100%" height="70"></span></p>
+</div>
+<div class="olist arabic">
+<ol class="arabic" start="9">
+<li>
+<p><strong>reprocess_untransformed_notices_from_backlog -</strong> this DAG selects all
+notices to be retransformed and triggers the notice_processing_pipeline
+DAG to retransform them.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p><strong>Config DAG params:</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>start_date : string with date format %Y-%m-%d</p>
+</li>
+<li>
+<p>end_date : string with date format %Y-%m-%d</p>
+</li>
+<li>
+<p>form_number : string</p>
+</li>
+<li>
+<p>xsd_version : string</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><strong>Default values:</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>start_date = None , because this param is optional</p>
+</li>
+<li>
+<p>end_date = None, because this param is optional</p>
+</li>
+<li>
+<p>form_number = None, because this param is optional</p>
+</li>
+<li>
+<p>xsd_version = None, because this param is optional</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="../_images/user_manual/media/image102.png" alt="image" width="100%" height="69"></span></p>
+</div>
+<div class="olist arabic">
+<ol class="arabic" start="10">
+<li>
+<p><strong>reprocess_unvalidated_notices_from_backlog -</strong> this DAG selects all
+notices to be revalidated and triggers the notice_processing_pipeline
+DAG to revalidate them.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p><strong>Config DAG params:</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>start_date : string with date format %Y-%m-%d</p>
+</li>
+<li>
+<p>end_date : string with date format %Y-%m-%d</p>
+</li>
+<li>
+<p>form_number : string</p>
+</li>
+<li>
+<p>xsd_version : string</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><strong>Default values:</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>start_date = None , because this param is optional</p>
+</li>
+<li>
+<p>end_date = None, because this param is optional</p>
+</li>
+<li>
+<p>form_number = None, because this param is optional</p>
+</li>
+<li>
+<p>xsd_version = None, because this param is optional</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="../_images/user_manual/media/image102.png" alt="image" width="100%" height="69"></span></p>
+</div>
+<div class="olist arabic">
+<ol class="arabic" start="11">
+<li>
+<p><strong>daily_materialized_views_update -</strong> this DAG selects all notices to be
+revalidated and triggers the notice_processing_pipeline DAG to
+revalidate them.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p><strong>This DAG has no config or default params.</strong></p>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="../_images/user_manual/media/image98.png" alt="image" width="100%" height="90"></span></p>
+</div>
+<div class="olist arabic">
+<ol class="arabic" start="12">
+<li>
+<p><strong>daily_check_notices_availability_in_cellar -</strong> this DAG selects all
+notices to be revalidated and triggers the notice_processing_pipeline
+DAG to revalidate them.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p><strong>This DAG has no config or default params.</strong></p>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="../_images/user_manual/media/image67.png" alt="image" width="339" height="81"></span></p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_batch_processing"><a class="anchor" href="#_batch_processing"></a>Batch processing</h2>
+<div class="sectionbody">
+
+</div>
+</div>
+<div class="sect1">
+<h2 id="_running_pipelines_how_to"><a class="anchor" href="#_running_pipelines_how_to"></a>Running pipelines (How to)</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This chapter explains the basic utilization of Ted SWS Airflow pipelines
+by presenting in the format of answering the questions. Basic
+functionality can be used by running DAGs: a core concept of Airflow.
+For advanced documentation access:</p>
+</div>
+<div class="paragraph">
+<p><a href="https://airflow.apache.org/docs/apache-airflow/stable/concepts/dags.html"><span class="underline">https://airflow.apache.org/docs/apache-airflow/stable/concepts/DAGs.html</span></a></p>
+</div>
+<div class="sect2">
+<h3 id="_uc1_how_to_load_a_mapping_suite_or_mapping_suites"><a class="anchor" href="#_uc1_how_to_load_a_mapping_suite_or_mapping_suites"></a>UC1: How to load a mapping suite or mapping suites?</h3>
+<div class="paragraph">
+<p>As a user I want to load one or several mapping suites into the system
+so that notices can be transformed and validated with them.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_uc1_a_to_load_all_mapping_suites"><a class="anchor" href="#_uc1_a_to_load_all_mapping_suites"></a>UC1.a To load all mapping suites</h3>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Run <strong>load_mapping_suite_in_database</strong> DAG:</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Enable DAG</p>
+</li>
+<li>
+<p>Click Run on Actions column (Play symbol button)</p>
+</li>
+<li>
+<p>Click Trigger DAG</p>
+</li>
+</ol>
+</div>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="../_images/user_manual/media/image84.png" alt="image" width="100%" height="61"></span></p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_uc1_b_to_load_specific_mapping_suite"><a class="anchor" href="#_uc1_b_to_load_specific_mapping_suite"></a>UC1.b To load specific mapping suite</h3>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Run <strong>load_mapping_suite_in_database</strong> DAG with configurations:</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Enable DAG</p>
+</li>
+<li>
+<p>Click Run on Actions column (Play symbol button)</p>
+</li>
+<li>
+<p>Click Trigger DAG w/ config.</p>
+</li>
+</ol>
+</div>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="../_images/user_manual/media/image36.png" alt="image" width="100%" height="55"></span></p>
+</div>
+<div class="olist arabic">
+<ol class="arabic" start="2">
+<li>
+<p>In the next screen</p>
+</li>
+</ol>
+</div>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>In the configuration JSON text box insert the config:</p>
+</li>
+</ol>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">{"mapping_suite_package_name": "package_F03"}</code></pre>
+</div>
+</div>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a" start="2">
+<li>
+<p>Click Trigger button after inserting the configuration</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="../_images/user_manual/media/image27.png" alt="image" width="100%" height="331"></span></p>
+</div>
+<div class="olist arabic">
+<ol class="arabic" start="3">
+<li>
+<p>Optional if you want to transform the available test notices that were
+used for development of the mapping suite you can add to configuration
+the <strong>load_test_data</strong> parameter with the value <strong>true</strong></p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="../_images/user_manual/media/image103.png" alt="image" width="100%" height="459"></span></p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_uc2_how_to_fetch_and_process_notices_for_a_day"><a class="anchor" href="#_uc2_how_to_fetch_and_process_notices_for_a_day"></a>UC2: How to fetch and process notices for a day?</h3>
+<div class="paragraph">
+<p>As a user I want to fetch and process notices from a selected day so
+that they get published in Cellar and be available to the public in RDF
+format.</p>
+</div>
+<div class="paragraph">
+<p>UC2.a To fetch and transform notices for a day:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Enable <strong>notice_processing_pipeline</strong> DAG</p>
+</li>
+<li>
+<p>Run <strong>fetch_notices_by_date</strong> DAG with configurations:</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Enable DAG</p>
+</li>
+<li>
+<p>Click Run on Actions column</p>
+</li>
+<li>
+<p>Click Trigger DAG w/ config</p>
+</li>
+</ol>
+</div>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="../_images/user_manual/media/image26.png" alt="image" width="100%" height="217"></span></p>
+</div>
+<div class="olist arabic">
+<ol class="arabic" start="3">
+<li>
+<p>In the next screen</p>
+</li>
+</ol>
+</div>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>In the configuration JSON text box insert the config:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">{"wild_card ": "20220921*"}*</code></pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>The value <strong>20220921</strong>* is the date of the day to fetch and transform with
+format: yyyymmdd*.</p>
+</div>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a" start="2">
+<li>
+<p>Click Trigger button after inserting the configuration</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="../_images/user_manual/media/image1.png" alt="image" width="100%" height="310"></span></p>
+</div>
+<div class="olist arabic">
+<ol class="arabic" start="4">
+<li>
+<p>Optional: It is possible to only fetch notices without transformation.
+To do so add <strong>trigger_complete_workflow</strong> configuration parameter and set
+its value to “false”.<br></p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">{"wild_card ": "20220921*", "trigger_complete_workflow": false}</code></pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="../_images/user_manual/media/image4.png" alt="image" width="100%" height="358"></span></p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_uc3_how_to_fetch_and_process_notices_for_date_range"><a class="anchor" href="#_uc3_how_to_fetch_and_process_notices_for_date_range"></a>UC3: How to fetch and process notices for date range?</h3>
+<div class="paragraph">
+<p>As a user I want to fetch and process notices published within a dare
+range so that they are published in Cellar and available to the public
+in RDF format.</p>
+</div>
+<div class="paragraph">
+<p>UC3.a To fetch for multiple days:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Enable <strong>notice_processing_pipeline</strong> DAG</p>
+</li>
+<li>
+<p>Run <strong>fetch_notices_by_date_range</strong> DAG with configurations:</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Enable DAG</p>
+</li>
+<li>
+<p>Click Run on Actions column</p>
+</li>
+<li>
+<p>Click Trigger DAG w/ config.</p>
+</li>
+</ol>
+</div>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="../_images/user_manual/media/image79.png" alt="image" width="100%" height="205"></span></p>
+</div>
+<div class="olist arabic">
+<ol class="arabic" start="3">
+<li>
+<p>In the next screen, in the configuration JSON text box insert the
+config:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">{ "start_date": "20220920", "end_date": "20220920" }</code></pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>20220920 is the start date and 20220920 is the end date of the days to
+be fetched and transformed with format: yyyymmdd.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic" start="4">
+<li>
+<p>Click Trigger button after inserting the configuration</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="../_images/user_manual/media/image51.png" alt="image" width="100%" height="331"></span></p>
+</div>
+<div class="sect3">
+<h4 id="_uc4_how_to_fetch_and_process_notices_using_a_query"><a class="anchor" href="#_uc4_how_to_fetch_and_process_notices_using_a_query"></a>UC4: How to fetch and process notices using a query?</h4>
+<div class="paragraph">
+<p>As a user I want to fetch and process notices published by specific
+filters that are available from the TED API so that they are published
+in Cellar and available to the public in RDF format.</p>
+</div>
+<div class="paragraph">
+<p>To fetch and transform notices by using a query follow the instructions
+below:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Enable <strong>notice_processing_pipeline</strong> DAG</p>
+</li>
+<li>
+<p>Run <strong>fetch_notices_by_query</strong> DAG with configurations:</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Enable DAG</p>
+</li>
+<li>
+<p>Click Run on Actions column</p>
+</li>
+<li>
+<p>Click Trigger DAG w/ config.</p>
+</li>
+</ol>
+</div>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="../_images/user_manual/media/image61.png" alt="image" width="100%" height="200"></span></p>
+</div>
+<div class="olist arabic">
+<ol class="arabic" start="3">
+<li>
+<p>In the next screen</p>
+</li>
+</ol>
+</div>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>In the configuration JSON text box insert the config:</p>
+</li>
+</ol>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">{"query": "ND=[163-2021]"}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>ND=[163-2021] is the query that will run against the TED API to get
+notices that will match that query</p>
+</div>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a" start="2">
+<li>
+<p>Click Trigger button after inserting the configuration</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="../_images/user_manual/media/image93.png" alt="image" width="100%" height="378"></span></p>
+</div>
+<div class="olist arabic">
+<ol class="arabic" start="4">
+<li>
+<p>Optional: If you need to only fetch notices without
+transformation, add <strong>trigger_complete_workflow</strong> configuration as <strong>false</strong></p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="../_images/user_manual/media/image49.png" alt="image" width="100%" height="357"></span></p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_uc5_how_to_deal_with_notices_that_are_in_the_backlog_and_what_to_run"><a class="anchor" href="#_uc5_how_to_deal_with_notices_that_are_in_the_backlog_and_what_to_run"></a>UC5: How to deal with notices that are in the backlog and what to run?</h3>
+<div class="paragraph">
+<p>As a user I want to reprocess notices that are in the backlog so that
+they are published in Cellar and available to the public in RDF format.</p>
+</div>
+<div class="paragraph">
+<p>Notices that have failed running a complete and successful
+notice_processing_pipeline run will be added to the backlog by using
+different statuses that will be added to these notices. The status of a
+notice will be automatically determined by the system. The backlog could
+have multiple notices in different statuses.</p>
+</div>
+<div class="paragraph">
+<p>The backlog is divided in five categories as follows:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>notices that couldn’t be normalised</p>
+</li>
+<li>
+<p>notices that couldn’t be transformed</p>
+</li>
+<li>
+<p>notices that couldn’t be validated</p>
+</li>
+<li>
+<p>notices that couldn’t be packaged</p>
+</li>
+<li>
+<p>notices that couldn’t be published</p>
+</li>
+</ul>
+</div>
+<div class="sect3">
+<h4 id="_uc5_a_deal_with_notices_that_couldnt_be_normalised"><a class="anchor" href="#_uc5_a_deal_with_notices_that_couldnt_be_normalised"></a>UC5.a Deal with notices that couldn&#8217;t be normalised</h4>
+<div class="paragraph">
+<p>In the case that the backlog contains notices that couldn’t be
+normalised at some point and will want to try to reprocess those notices
+just run the <strong>reprocess_unnormalised_notices_from_backlog</strong> DAG following
+the instructions below.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Enable the reprocess_unnormalised_notices_from_backlog DAG</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="../_images/user_manual/media/image92.png" alt="image" width="100%" height="44"></span></p>
+</div>
+<div class="olist arabic">
+<ol class="arabic" start="2">
+<li>
+<p>Trigger DAG</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="../_images/user_manual/media/image76.png" alt="image" width="100%" height="54"></span></p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_uc5_b_deal_with_notices_that_couldnt_be_transformed"><a class="anchor" href="#_uc5_b_deal_with_notices_that_couldnt_be_transformed"></a>UC5.b: Deal with notices that couldn&#8217;t be transformed</h4>
+<div class="paragraph">
+<p>In the case that the backlog contains notices that couldn’t be
+transformed at some point and will want to try to reprocess those
+notices just run the <strong>reprocess_untransformed_notices_from_backlog</strong> DAG
+following the instructions below.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Enable the reprocess_untransformed_notices_from_backlog DAG
+<span class="image"><img src="../_images/user_manual/media/image85.png" alt="image" width="100%" height="36"></span></p>
+</li>
+</ol>
+</div>
+<div class="olist arabic">
+<ol class="arabic" start="2">
+<li>
+<p>Trigger DAG</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="../_images/user_manual/media/image77.png" alt="image" width="100%" height="54"></span></p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_uc5_c_deal_with_notices_that_couldnt_be_validated"><a class="anchor" href="#_uc5_c_deal_with_notices_that_couldnt_be_validated"></a>UC5.c: Deal with notices that couldn’t be validated</h4>
+<div class="paragraph">
+<p>In the case that the backlog contains notices that couldn’t be
+normalised at some point and will want to try to reprocess those notices
+just run the <strong>reprocess_unvalidated_notices_from_backlog</strong> DAG following
+the instructions below.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Enable the reprocess_unvalidated_notices_from_backlog DAG</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="../_images/user_manual/media/image66.png" alt="image" width="100%" height="41"></span></p>
+</div>
+<div class="olist arabic">
+<ol class="arabic" start="2">
+<li>
+<p>Trigger DAG</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="../_images/user_manual/media/image52.png" alt="image" width="100%" height="52"></span></p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_uc5_d_deal_with_notices_that_couldnt_be_published"><a class="anchor" href="#_uc5_d_deal_with_notices_that_couldnt_be_published"></a>UC5.d: Deal with notices that couldn&#8217;t be published</h4>
+<div class="paragraph">
+<p>In the case that the backlog contains notices that couldn’t be
+normalised at some point and will want to try to reprocess those notices
+just run the <strong>reprocess_unpackaged_notices_from_backlog</strong> DAG following
+the instructions below.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Enable the reprocess_unpackaged_notices_from_backlog DAG</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="../_images/user_manual/media/image29.png" alt="image" width="100%" height="36"></span></p>
+</div>
+<div class="olist arabic">
+<ol class="arabic" start="2">
+<li>
+<p>Trigger DAG</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="../_images/user_manual/media/image71.png" alt="image" width="100%" height="49"></span></p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_uc5_e_deal_with_notices_that_couldnt_be_published"><a class="anchor" href="#_uc5_e_deal_with_notices_that_couldnt_be_published"></a>UC5.e: Deal with notices that couldn&#8217;t be published</h4>
+<div class="paragraph">
+<p>In the case that the backlog contains notices that couldn’t be
+normalised at some point and will want to try to reprocess those notices
+just run the <strong>reprocess_unpublished_notices_from_backlog</strong> DAG following
+the instructions below.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Enable the reprocess_unpublished_notices_from_backlog DAG</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="../_images/user_manual/media/image38.png" alt="image" width="100%" height="38"></span></p>
+</div>
+<div class="olist arabic">
+<ol class="arabic" start="2">
+<li>
+<p>Trigger DAG</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="../_images/user_manual/media/image19.png" alt="image" width="100%" height="57"></span></p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_scheduled_pipelines"><a class="anchor" href="#_scheduled_pipelines"></a>Scheduled pipelines</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Scheduled pipelines are DAGs that are set to run periodically at fixed
+times, dates, or intervals. The DAG schedule can be read in the column
+“Schedule” and if any is set then the value is different from None.
+The scheduled execution is indicated as “cron expressions” [cire cron
+expressions manual]. A cron expression is a string comprising five or
+six fields separated by white space that represents a set of times,
+normally as a schedule to execute some routine. In our context examples
+of daily executions are provided below.</p>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="../_images/user_manual/media/image34.png" alt="image" width="83" height="365"></span></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>None - DAG with no Schedule</p>
+</li>
+<li>
+<p>0 0 * * * - DAG that will run every day at 24:00 UTC</p>
+</li>
+<li>
+<p>0 6 * * * - DAG that will run every day at 06:00 UTC</p>
+</li>
+<li>
+<p>0 1 * * * - DAG that will run every day at 01:00 UTC</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_operational_rules_and_recommendations"><a class="anchor" href="#_operational_rules_and_recommendations"></a>Operational rules and recommendations</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Note: Every action that was not described in the previous chapters can
+lead to unpredictable situations.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Do not stop a DAG when it is in running state. Let it finish. In case
+you need to disable or stop a DAG, then make sure that in the column
+Recent Tasks no numbers in the light green circle are present. Figure
+below depicts one such example.
+<span class="image"><img src="../_images/user_manual/media/image72.png" alt="image" width="601" height="164"></span></p>
+</li>
+<li>
+<p>Do not run reprocess DAGs when notice_processing_pipeline is in running
+state. This will produce errors as the reprocessing DAGs are searching
+for notices in a specific status available in the database. When the
+notice_processing_pipeline is running the notices are transitioning
+between different statuses and that will make it possible to get the
+same notice to be processed twice in the same time, which will produce
+an error. Make sure that in the column Runs for
+notice_processing_pipeline you don’t have any numbers in a light green
+circle before running any reprocess DAGs.
+<span class="image"><img src="../_images/user_manual/media/image30.png" alt="image" width="601" height="162"></span></p>
+</li>
+<li>
+<p>Do not manually trigger notice_processing_pipeline as this DAG is
+triggered automatically by other DAGs. This will produce an error as
+this DAG needs to know what batch of notices it is processing (this is
+automatically done by the system). This DAG should only be enabled.
+<span class="image"><img src="../_images/user_manual/media/image18.png" alt="image" width="602" height="29"></span></p>
+</li>
+<li>
+<p>To start any notice processing and transformation make sure that you
+have mapping suites available in the database. You should have at least
+one successful run of the <strong>load_mapping_suite_in_database</strong> DAG and check
+Metabase to see what mapping suites are available.
+<span class="image"><img src="../_images/user_manual/media/image32.png" alt="image" width="653" height="30"></span></p>
+</li>
+<li>
+<p>Do not manually trigger scheduled DAGs unless you use a specific
+configuration and that DAG supports running with specific configuration.
+The scheduled dags should be only enabled.
+<span class="image"><img src="../_images/user_manual/media/image87.png" alt="image" width="601" height="77"></span></p>
+</li>
+<li>
+<p>It is not recommended to load mapping suites while
+notice_processing_pipeline is running. First make sure that there are no
+running tasks and then load other mapping suites.
+<span class="image"><img src="../_images/user_manual/media/image35.png" alt="image" width="601" height="256"></span> &#160;
+<span class="image"><img src="../_images/user_manual/media/image91.png" alt="image" width="601" height="209"></span></p>
+</li>
+<li>
+<p>It is recommended to start processing / transforming notices for a short
+period of time e.g fetch notices for a day, week, month but not year.
+The system can handle processing for a longer period but it will take
+time and you will not be able to load other mapping suites while
+processing is running.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</article>
+  </div>
+</main>
+</div>
+<div>
+</div>
+<script id="site-script" src="../../_/js/site.js" data-ui-root-path="../../_"></script>
+<script async src="../../_/js/vendor/highlight.js"></script>
+  </body>
+</html>

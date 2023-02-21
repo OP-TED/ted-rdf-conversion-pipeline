@@ -1,0 +1,630 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Untitled :: ted-sws-docs</title>
+    <meta name="generator" content="Antora 3.0.0">
+    <link rel="stylesheet" href="../../_/css/site.css">
+    <script>var uiRootPath = '../../_'</script>
+  </head>
+  <body class="article">
+<div class="navbar-item has-dropdown is-hoverable">
+<h1>TED-SWS</h1>
+</div><div class="body">
+<div class="nav-container" data-component="rdf-conversion" data-version="master">
+  <aside class="nav">
+    <div class="panels">
+<div class="nav-panel-menu is-active" data-panel="menu">
+  <nav class="nav-menu">
+    <h3 class="title"><a href="../index.html">XML to RDF Conversion</a></h3>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../index.html">Home</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text"><span class="separated"><strong>General References</strong></span></span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../ted-sws-introduction.html">About TED-SWS</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../glossary.html">Glossary</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text"><span class="separated"><strong>For TED-SWS Operators</strong></span></span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../user_manual/getting_started_user_manual.html">Getting started</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../user_manual/system-overview.html">System overview</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../user_manual/access-security.html">Security and access</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../user_manual/workflow-management-airflow.html">Workflow management with Airflow</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../user_manual/system-monitoring-metabase.html">System monitoring with Metabase</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text"><span class="separated"><strong>For DevOps</strong></span></span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <span class="nav-text"><a href="_attachments/aws-infra-docs/TED-SWS-Installation-manual-v2.5.0.pdf" target="_blank" rel="noopener">AWS installation manual (v2.5.0)</a></span>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <span class="nav-text"><a href="_attachments/aws-infra-docs/TED-SWS-AWS-Infrastructure-architecture-overview-v0.9.pdf" target="_blank" rel="noopener">AWS infrastructure architecture (v0.9)</a></span>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text"><span class="separated"><strong>For End User Developers</strong></span></span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../ted_data/using_procurement_data.html">Accessing data in Cellar</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <span class="nav-text"><a href="https://docs.ted.europa.eu/EPO/latest/index.html" target="_blank" rel="noopener">eProcurement ontology (latest)</a></span>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text"><span class="separated"><strong>For TED-SWS Developers</strong></span></span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../technical/mapping_suite_cli_toolchain.html">Mapping suite toolchain</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../technical/demo_installation.html">Development installation instructions</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../technical/event_manager.html">Event manager description</a>
+  </li>
+  <li class="nav-item is-current-page" data-depth="2">
+    <a class="nav-link" href="arhitecture_choices.html">System architecture overview</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <span class="nav-text"><a href="_attachments/ted-sws-architecture/index.html" target="_blank" rel="noopener">Enterprise architecture model</a></span>
+  </li>
+  <li class="nav-item is-current-page" data-depth="2">
+    <a class="nav-link" href="arhitecture_choices.html">Architectural choices</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+</ul>
+  </nav>
+</div>
+<div class="nav-panel-explore" data-panel="explore">
+  <div class="context">
+    <span class="title">XML to RDF Conversion</span>
+    <span class="version">master</span>
+  </div>
+  <ul class="components">
+    <li class="component is-current">
+      <a class="title" href="../index.html">XML to RDF Conversion</a>
+      <ul class="versions">
+        <li class="version is-current is-latest">
+          <a href="../index.html">master</a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</div>
+    </div>
+  </aside>
+</div>
+<main class="article">
+<div class="toolbar" role="navigation">
+<button class="nav-toggle"></button>
+<nav class="breadcrumbs" aria-label="breadcrumbs">
+  <ul>
+    <li><a href="../index.html">XML to RDF Conversion</a></li>
+    <li><span class="separated"><strong>For TED-SWS Developers</strong></span></li>
+    <li><a href="arhitecture_choices.html">System architecture overview</a></li>
+  </ul>
+</nav>
+</div>
+  <div class="content">
+<aside class="toc sidebar" data-title="Contents" data-levels="6">
+  <div class="toc-menu"></div>
+</aside>
+<article class="doc">
+<div class="sect1">
+<h2 id="_architectural_choices"><a class="anchor" href="#_architectural_choices"></a>Architectural choices</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This section describes choices:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>How is this SOA? (is it? It is SOA but not REST Microservices, Why not
+Microservices?</p>
+</li>
+<li>
+<p>Why NoSQL data model vs SQL data model?</p>
+</li>
+<li>
+<p>Why ETL/ELT approach vs. Event Sourcing</p>
+</li>
+<li>
+<p>Why Batch processing vs. Event Streams.</p>
+</li>
+<li>
+<p>Why Airflow ?</p>
+</li>
+<li>
+<p>Why Metabase?</p>
+</li>
+<li>
+<p>Why quick deduplication process? And what are the plans for the
+future?</p>
+</li>
+</ul>
+</div>
+<div class="sect2">
+<h3 id="_why_is_this_soa_service_oriented_architecture_architecture"><a class="anchor" href="#_why_is_this_soa_service_oriented_architecture_architecture"></a>Why is this SOA (Service-oriented architecture) architecture?</h3>
+<div class="paragraph">
+<p>ETL (Extract, Transform, Load) architecture is considered
+state-of-the-art for batch processing tasks using Airflow as pipeline
+management for several reasons:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><strong>Flexibility</strong>: ETL architecture allows for flexibility in the data
+pipeline as it separates the data extraction, transformation, and
+loading processes. This allows for easy modification and maintenance of
+each individual step without affecting the entire pipeline.</p>
+</li>
+<li>
+<p><strong>Scalability</strong>: ETL architecture allows for the easy scaling of data
+processing tasks, as new data sources can be added or removed without
+impacting the entire pipeline.</p>
+</li>
+<li>
+<p><strong>Error Handling</strong>: ETL architecture allows for easy error handling as
+each step of the pipeline can be monitored and errors can be isolated to
+a specific step.</p>
+</li>
+<li>
+<p><strong>Reusability:</strong> ETL architecture allows for the reuse of existing data
+pipelines, as new data sources can be added without modifying existing
+pipelines.</p>
+</li>
+<li>
+<p><strong>System management</strong>: Airflow is an open-source workflow management
+system that allows for easy scheduling, monitoring, and management of
+data pipelines. It integrates seamlessly with ETL architecture and
+allows for easy management of complex data pipelines.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>Overall, ETL architecture combined with Airflow as pipeline management
+provides a robust and efficient solution for batch processing tasks.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_why_monolithic_architecture_vs_micro_services_architecture"><a class="anchor" href="#_why_monolithic_architecture_vs_micro_services_architecture"></a>Why Monolithic Architecture vs Micro Services Architecture?</h3>
+<div class="paragraph">
+<p>There are several reasons why a monolithic architecture may be more
+suitable for an ETL architecture with batch processing pipeline using
+Airflow as the pipeline management tool:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><strong>Simplicity</strong>: A monolithic architecture is simpler to design and
+implement as it involves a single codebase and a single deployment
+process. This makes it easier to manage and maintain the ETL pipeline.</p>
+</li>
+<li>
+<p><strong>Performance</strong>: A monolithic architecture may be more performant than a
+microservices architecture as it allows for more efficient communication
+between the different components of the pipeline. This is particularly
+important for batch processing pipelines, where speed and efficiency are
+crucial.</p>
+</li>
+<li>
+<p><strong>Scalability</strong>: Monolithic architectures can be scaled horizontally by
+adding more resources to the system, such as more servers or more
+processing power. This allows for the system to handle larger amounts of
+data and handle more complex processing tasks.</p>
+</li>
+<li>
+<p><strong>Airflow Integration</strong>: Airflow is designed to work with monolithic
+architectures, and it can be more difficult to integrate with a
+microservices architecture. Airflow&#8217;s DAGs and tasks are designed to
+work with a single codebase, and it may be more challenging to manage
+different services and pipelines across multiple microservices.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>Overall, a monolithic architecture may be more suitable for an ETL
+architecture with batch processing pipeline using Airflow as the
+pipeline management tool due to its simplicity, performance,
+scalability, and ease of integration with Airflow.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_why_etlelt_approach_vs_event_sourcing"><a class="anchor" href="#_why_etlelt_approach_vs_event_sourcing"></a>Why ETL/ELT approach vs Event Sourcing ?</h3>
+<div class="paragraph">
+<p>ETL (Extract, Transform, Load) architecture is typically used for moving
+and transforming data from one system to another, for example, from a
+transactional database to a data warehouse for reporting and analysis.
+It is a batch-oriented process that is typically scheduled to run at
+specific intervals.</p>
+</div>
+<div class="paragraph">
+<p>Event sourcing architecture, on the other hand, is a way of storing and
+managing the state of an application by keeping track of all the changes
+to the state as a sequence of events. This allows for better auditing
+and traceability of the state of the application over time, as well as
+the ability to replay past events to reconstruct the current state.
+Event sourcing is often used in systems that require high performance,
+scalability, and fault tolerance.</p>
+</div>
+<div class="paragraph">
+<p>In summary, ETL architecture is mainly used for data integration and
+data warehousing, Event sourcing is mainly used for building highly
+scalable and fault-tolerant systems that need to store and manage the
+state of an application over time.</p>
+</div>
+<div class="paragraph">
+<p>A hybrid architecture is implemented in the TED-SWS pipeline, based on
+an ETL architecture but with state storage to repeat a pipeline sequence
+as needed.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_why_batch_processing_vs_event_streams"><a class="anchor" href="#_why_batch_processing_vs_event_streams"></a>Why Batch processing vs Event Streams?</h3>
+<div class="paragraph">
+<p>Batch processing architecture and Event Streams architecture are two
+different approaches to processing data in code.</p>
+</div>
+<div class="paragraph">
+<p>Batch processing architecture is a traditional approach where data is
+processed in batches. This means that data is collected over a period of
+time and then processed all at once in a single operation. This approach
+is typically used for tasks such as data analysis, data mining, and
+reporting. It is best suited for tasks that can be done in a single pass
+and do not require real-time processing.</p>
+</div>
+<div class="paragraph">
+<p>Event Streams architecture, on the other hand, is a more modern approach
+where data is processed in real-time as it is generated. This means that
+data is processed as soon as it is received, rather than waiting for a
+batch to be collected. This approach is typically used for tasks such as
+real-time monitoring, data analytics, and fraud detection. It is best
+suited for tasks that require real-time processing and cannot be done in
+a single pass.</p>
+</div>
+<div class="paragraph">
+<p>In summary, Batch processing architecture is best suited for tasks that
+can be done in a single pass and do not require real-time processing,
+whereas Event Streams architecture is best suited for tasks that require
+real-time processing and cannot be done in a single pass.</p>
+</div>
+<div class="paragraph">
+<p>Due to the fact that the TED-SWS pipeline has an ETL architecture, the
+data processing is done in batches, the batches of notices are formed
+per day, all the notices of a day form a batch that will be processed.
+Another method of creating a batch is grouping notices by status and
+executing the pipeline depending on their status.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_why_nosql_data_model_vs_sql_data_model"><a class="anchor" href="#_why_nosql_data_model_vs_sql_data_model"></a>Why NoSQL data model vs SQL data model?</h3>
+<div class="paragraph">
+<p>There are several reasons why a NoSQL data model may be more suitable
+for an ETL architecture with batch processing pipeline compared to a SQL
+data model:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><strong>Scalability</strong>: NoSQL databases are designed to handle large amounts of
+data and can scale horizontally, allowing for the easy addition of more
+resources as the amount of data grows. This is particularly useful for
+batch processing pipelines that need to handle large amounts of data.</p>
+</li>
+<li>
+<p><strong>Flexibility</strong>: NoSQL databases are schema-less, which means that the
+data structure can change without having to modify the database schema.
+This allows for more flexibility when processing data, as new data types
+or fields can be easily added without having to make changes to the
+database.</p>
+</li>
+<li>
+<p><strong>Performance</strong>: NoSQL databases are designed for high-performance and can
+handle high levels of read and write operations. This is particularly
+useful for batch processing pipelines that need to process large amounts
+of data in a short period of time.</p>
+</li>
+<li>
+<p><strong>Handling Unstructured Data</strong>: NoSQL databases are well suited for
+handling unstructured data, such as JSON or XML, that can&#8217;t be handled
+by SQL databases. This is particularly useful for ETL pipelines that
+need to process unstructured data.</p>
+</li>
+<li>
+<p><strong>Handling Distributed Data</strong>: NoSQL databases are designed to handle
+distributed data, which allows for data to be stored and processed on
+multiple servers. This can help to improve performance and scalability,
+as well as provide fault tolerance.</p>
+</li>
+<li>
+<p><strong>Cost</strong>: NoSQL databases are generally less expensive than SQL databases,
+as they don&#8217;t require expensive hardware or specialized software. This
+can make them a more cost-effective option for ETL pipelines that need
+to handle large amounts of data.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>Overall, a NoSQL data model may be more suitable for an ETL architecture
+with batch processing pipeline compared to a SQL data model due to its
+scalability, flexibility, performance, handling unstructured data,
+handling distributed data and the cost-effectiveness. It is important to
+note that the choice to use a NoSQL data model satisfies the specific
+requirements of the TED-SWS processing pipeline and the nature of the
+data to be processed.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_why_airflow"><a class="anchor" href="#_why_airflow"></a>Why Airflow?</h3>
+<div class="paragraph">
+<p>Airflow is a great solution for ETL pipeline and batch processing
+architecture because it provides several features that are well-suited
+to these types of tasks. First, Airflow provides a powerful scheduler
+that allows you to define and schedule ETL jobs to run at specific
+intervals. This means that you can set up your pipeline to run on a
+regular schedule, such as every day or every hour, without having to
+manually trigger the jobs. Second, Airflow provides a web-based user
+interface that makes it easy to monitor and manage your pipeline.</p>
+</div>
+<div class="paragraph">
+<p>Both aspects of Airflow are perfectly compatible with the needs of the
+TED-SWS architecture and the use cases required for an Operations
+Manager that will interact with the system. Airflow therefore covers the
+needs of batch processing management and ETL pipeline management.</p>
+</div>
+<div class="paragraph">
+<p>Airflow provide good coverage of use cases for an Operations Manager,
+specialized for this use cases:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><strong>Monitoring pipeline performance</strong>: An operations manager can use Airflow
+to monitor the performance of the ETL pipeline and identify any
+bottlenecks or issues that may be impacting the pipeline&#8217;s performance.
+They can then take steps to optimize the pipeline to improve its
+performance and ensure that data is being processed in a timely and
+efficient manner.</p>
+</li>
+<li>
+<p><strong>Managing pipeline schedule</strong>: The operations manager can use Airflow to
+schedule the pipeline to run at specific times, such as during off-peak
+hours or when resources are available. This can help to minimize the
+impact of the pipeline on other systems and ensure that data is
+processed in a timely manner.</p>
+</li>
+<li>
+<p><strong>Managing pipeline resources</strong>: The operations manager can use Airflow to
+manage the resources used by the pipeline, such as CPU, memory, and
+storage. They can also use Airflow to scale the pipeline up or down as
+needed to meet changing resource requirements.</p>
+</li>
+<li>
+<p><strong>Managing pipeline failures</strong>: Airflow allows the operations manager to
+set up notifications and alerts for when a pipeline fails or a task
+fails. This allows them to quickly identify and address any issues that
+may be impacting the pipeline&#8217;s performance.</p>
+</li>
+<li>
+<p><strong>Managing pipeline dependencies</strong>: The operations manager can use Airflow
+to manage the dependencies between different tasks in the pipeline, such
+as ensuring that notice fetching is completed before notice indexing or
+notice metadata normalization.</p>
+</li>
+<li>
+<p><strong>Managing pipeline versioning</strong>: Airflow allows the operations manager to
+maintain different versions of the pipeline, which can be useful for
+testing new changes before rolling them out to production.</p>
+</li>
+<li>
+<p><strong>Managing pipeline security</strong>: Airflow allows the operations manager to
+set up security controls to protect the pipeline and the data it
+processes. They can also use Airflow to audit and monitor access to the
+pipeline and the data it processes.</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_why_metabase"><a class="anchor" href="#_why_metabase"></a>Why Metabase?</h3>
+<div class="paragraph">
+<p>Metabase is an excellent solution for data analysis and KPI monitoring
+for a batch processing system, as it offers several key features that
+make it well suited for this type of use case required within the
+TED-SWS system.</p>
+</div>
+<div class="paragraph">
+<p>First, Metabase is highly customizable, allowing users to create and
+modify dashboards, reports, and visualizations to suit their specific
+needs. This makes it easy to track and monitor the key performance
+indicators (KPIs) that are most important for the batch processing
+system, such as the number of jobs processed, the average processing
+time, and the success rate of job runs.</p>
+</div>
+<div class="paragraph">
+<p>Second, Metabase offers a wide range of data connectors, allowing users
+to easily connect to and query data sources such as SQL databases, NoSQL
+databases, CSV files, and APIs. This makes it easy to access and analyze
+the data that is relevant to the batch processing system. In TED-SWS the
+data domain model is realized by a document-based data model, not a
+tabular relational data model, so Metabase is a good tool for analyzing
+data with a document-based model.</p>
+</div>
+<div class="paragraph">
+<p>Third, Metabase has a user-friendly interface that makes it easy to
+navigate and interact with data, even for users with little or no
+technical experience. This makes it accessible to a wide range of users,
+including business analysts, data scientists, and other stakeholders who
+need to monitor and analyse the performance of the batch processing
+system.</p>
+</div>
+<div class="paragraph">
+<p>Finally, Metabase offers robust security and collaboration features,
+making it easy to share and collaborate on data and insights with team
+members and stakeholders. This makes it an ideal solution for
+organizations that need to monitor and analyse the performance of a
+batch processing system across multiple teams or departments.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_why_quick_deduplication_process"><a class="anchor" href="#_why_quick_deduplication_process"></a>Why quick deduplication process?</h3>
+<div class="paragraph">
+<p>One of the main challenges in entities deduplication from the semantic
+web domain is dealing with the complexity and diversity of the data.
+This can include dealing with different data formats, schemas, and
+vocabularies, as well as handling missing or incomplete data.
+Additionally, entities may have multiple identities or representations,
+making it difficult to determine which entities are duplicates and which
+are distinct. Another difficulty is the scalability of the algorithm to
+handle large amount of data. The performance of the algorithm should be
+efficient and accurate to handle huge number of entities.</p>
+</div>
+<div class="paragraph">
+<p>There are several approaches and solutions for entities deduplication in
+the semantic web. Some of the top solutions include:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><strong>String-based methods</strong>: These methods use string comparison techniques
+such as Jaccard similarity, Levenshtein distance, and cosine similarity
+to identify duplicates based on the similarity of their string
+representations.</p>
+</li>
+<li>
+<p><strong>Machine learning-based methods</strong>: These methods use machine learning
+algorithms such as decision trees, random forests, and neural networks
+to learn patterns in the data and identify duplicates.</p>
+</li>
+<li>
+<p><strong>Knowledge-based methods</strong>: These methods use external knowledge sources
+such as ontologies, taxonomies, and linked data to disambiguate entities
+and identify duplicates.</p>
+</li>
+<li>
+<p><strong>Hybrid methods</strong>: These methods combine multiple techniques, such as
+string-based and machine learning-based methods, to improve the accuracy
+of deduplication.</p>
+</li>
+<li>
+<p><strong>Blocking Method</strong>: This method is used to reduce the number of entities
+that need to be compared by grouping similar entities together.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>In the TED-SWS pipeline, the deduplication of Organization type entities
+is performed using a string-based methods. String-based methods are
+often used for organization entity deduplication, because of their
+simplicity and effectiveness.</p>
+</div>
+<div class="paragraph">
+<p>TED Europe data often contains information about tenders and public
+procurement, where organizations are identified by their names.
+Organization names are often unique and can be used to identify
+duplicates with high accuracy. String-based methods can be used to
+compare the similarity of different organization names, which can be
+effective in identifying duplicates.</p>
+</div>
+<div class="paragraph">
+<p>Additionally, the TED europe data is highly structured, so it&#8217;s easy to
+extract and compare the names of organizations. String-based methods are
+also relatively fast and easy to implement, making them a good choice
+for large data sets. This methods may not be as effective for other
+types of entities, such as individuals, where additional information may
+be needed to identify duplicates. It&#8217;s also important to note that
+string-based methods may not work as well for misspelled or abbreviated
+names.</p>
+</div>
+<div class="paragraph">
+<p>Using a quick and dirty deduplication approach instead of a complex
+system at the first iteration of a system implementation can be
+beneficial for several reasons:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><strong>Speed</strong>: A quick approach can be implemented quickly and can
+help to identify and remove duplicates quickly. This can be particularly
+useful when working with large and complex data sets, where a more
+complex approach may take a long time to implement and test.</p>
+</li>
+<li>
+<p><strong>Cost</strong>: A quick and dirty approach is generally less expensive to
+implement than a complex system, as it requires fewer resources and less
+development time.</p>
+</li>
+<li>
+<p><strong>Simplicity</strong>: A quick and dirty approach is simpler and easier to
+implement than a complex system, which can reduce the risk of errors and
+bugs.</p>
+</li>
+<li>
+<p><strong>Flexibility</strong>: A quick and dirty approach allows to start with a basic
+system and adapt it as needed, which can be more flexible than a complex
+system that is difficult to change.</p>
+</li>
+<li>
+<p><strong>Testing</strong>: A quick and dirty approach allows to test the system quickly,
+and get feedback from the users and stakeholders, and then use that
+feedback to improve the system.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>However, it&#8217;s worth noting that the quick and dirty approach is not a
+long-term solution and should be used only as a first step in the
+implementation of a MDR system. This approach can help to quickly
+identify and remove duplicates and establish a basic system, but it may
+not be able to handle all the complexity and diversity of the data, so
+it&#8217;s important to plan for and implement more advanced techniques as the
+system matures.</p>
+</div>
+</div>
+</div>
+</div>
+</article>
+  </div>
+</main>
+</div>
+<div>
+</div>
+<script id="site-script" src="../../_/js/site.js" data-ui-root-path="../../_"></script>
+<script async src="../../_/js/vendor/highlight.js"></script>
+  </body>
+</html>

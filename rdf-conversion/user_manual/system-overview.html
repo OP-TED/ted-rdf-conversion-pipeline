@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Untitled :: ted-sws-docs</title>
+    <meta name="generator" content="Antora 3.0.0">
+    <link rel="stylesheet" href="../../_/css/site.css">
+    <script>var uiRootPath = '../../_'</script>
+  </head>
+  <body class="article">
+<div class="navbar-item has-dropdown is-hoverable">
+<h1>TED-SWS</h1>
+</div><div class="body">
+<div class="nav-container" data-component="rdf-conversion" data-version="master">
+  <aside class="nav">
+    <div class="panels">
+<div class="nav-panel-menu is-active" data-panel="menu">
+  <nav class="nav-menu">
+    <h3 class="title"><a href="../index.html">XML to RDF Conversion</a></h3>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../index.html">Home</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text"><span class="separated"><strong>General References</strong></span></span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../ted-sws-introduction.html">About TED-SWS</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../glossary.html">Glossary</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text"><span class="separated"><strong>For TED-SWS Operators</strong></span></span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="getting_started_user_manual.html">Getting started</a>
+  </li>
+  <li class="nav-item is-current-page" data-depth="2">
+    <a class="nav-link" href="system-overview.html">System overview</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="access-security.html">Security and access</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="workflow-management-airflow.html">Workflow management with Airflow</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="system-monitoring-metabase.html">System monitoring with Metabase</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text"><span class="separated"><strong>For DevOps</strong></span></span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <span class="nav-text"><a href="_attachments/aws-infra-docs/TED-SWS-Installation-manual-v2.5.0.pdf" target="_blank" rel="noopener">AWS installation manual (v2.5.0)</a></span>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <span class="nav-text"><a href="_attachments/aws-infra-docs/TED-SWS-AWS-Infrastructure-architecture-overview-v0.9.pdf" target="_blank" rel="noopener">AWS infrastructure architecture (v0.9)</a></span>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text"><span class="separated"><strong>For End User Developers</strong></span></span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../ted_data/using_procurement_data.html">Accessing data in Cellar</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <span class="nav-text"><a href="https://docs.ted.europa.eu/EPO/latest/index.html" target="_blank" rel="noopener">eProcurement ontology (latest)</a></span>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text"><span class="separated"><strong>For TED-SWS Developers</strong></span></span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../technical/mapping_suite_cli_toolchain.html">Mapping suite toolchain</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../technical/demo_installation.html">Development installation instructions</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../technical/event_manager.html">Event manager description</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../architecture/arhitecture_choices.html">System architecture overview</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <span class="nav-text"><a href="_attachments/ted-sws-architecture/index.html" target="_blank" rel="noopener">Enterprise architecture model</a></span>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../architecture/arhitecture_choices.html">Architectural choices</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+</ul>
+  </nav>
+</div>
+<div class="nav-panel-explore" data-panel="explore">
+  <div class="context">
+    <span class="title">XML to RDF Conversion</span>
+    <span class="version">master</span>
+  </div>
+  <ul class="components">
+    <li class="component is-current">
+      <a class="title" href="../index.html">XML to RDF Conversion</a>
+      <ul class="versions">
+        <li class="version is-current is-latest">
+          <a href="../index.html">master</a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</div>
+    </div>
+  </aside>
+</div>
+<main class="article">
+<div class="toolbar" role="navigation">
+<button class="nav-toggle"></button>
+<nav class="breadcrumbs" aria-label="breadcrumbs">
+  <ul>
+    <li><a href="../index.html">XML to RDF Conversion</a></li>
+    <li><span class="separated"><strong>For TED-SWS Operators</strong></span></li>
+    <li><a href="system-overview.html">System overview</a></li>
+  </ul>
+</nav>
+</div>
+  <div class="content">
+<aside class="toc sidebar" data-title="Contents" data-levels="6">
+  <div class="toc-menu"></div>
+</aside>
+<article class="doc">
+<div class="sect1">
+<h2 id="_system_overview"><a class="anchor" href="#_system_overview"></a>System overview</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This section provides a high level overview of the TED-SWS system and
+its components. As presented in the image below the system is built by
+multitude of services / components grouped together to help to reach the
+end goal. The system can be divided into 2 main parts:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Controlling and monitoring</p>
+</li>
+<li>
+<p>Core functionality (code base / TED SWS pipeline)</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Each part of the system is formed by a group of components.</p>
+</div>
+<div class="paragraph">
+<p>Controlling and monitoring, controlled by an operation manager, contains
+a workflow / pipeline management service (Airflow) and data
+visualization service (Metabase). Using this group of services any user
+should be able to control execution of the existing pipelines and also
+monitor the execution results.</p>
+</div>
+<div class="paragraph">
+<p>The core functionality has many services developed to accommodate the
+entire transformation process of a public procurement notice (in XML
+format) available on the TED Website into RDF format and to publish it
+into CELLAR. Here is a short description of some of the main services:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>fetching service - fetching the notice from TED website</p>
+</li>
+<li>
+<p>indexing service - getting the unique XPATHs in a notice XML</p>
+</li>
+<li>
+<p>metadata normalisation service - extract notice metadata from the XML</p>
+</li>
+<li>
+<p>transformation service - transform the XML to RDF</p>
+</li>
+<li>
+<p>entity resolution and deduplication service - resolve duplicated
+entities in the RDF</p>
+</li>
+<li>
+<p>validation service - validation the RDF transformation</p>
+</li>
+<li>
+<p>packaging service - creating the METS package</p>
+</li>
+<li>
+<p>publishing service - sending the METS package to CELLAR</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="../_images/user_manual/media/image59.png" alt="image" width="100%" height="270"></span></p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_pipelines_structure_airflow_dags"><a class="anchor" href="#_pipelines_structure_airflow_dags"></a>Pipelines structure ( Airflow DAGs )</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>In this section will see a graphic representation that will show the
+flow and dependencies of the available pipelines (DAGs) in Airflow. In
+this representation will see the presence of two users AirflowUser and
+AirflowScheduler, where the AirflowUser is the user that will enable and
+trigger the DAGs and AirflowScheduler is the Airflow component that will
+start the DAGs automatically following a schedule.</p>
+</div>
+<div class="paragraph">
+<p>The automatic triggered DAGs controlled by the Airflow Scheduler are:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>fetch_notices_by_date</p>
+</li>
+<li>
+<p>daily_check_notices_availibility_in_cellar</p>
+</li>
+<li>
+<p>daily_materialized_views_update</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="../_images/user_manual/media/image63.png" alt="image" width="100%" height="382"></span></p>
+</div>
+<div class="paragraph">
+<p>The DAGs marked with <em>purple</em> (load_mapping_suite_in_database), <em>yellow</em>
+(reprocess_unnormalised_notices_from_backlog,reprocess_unpackaged_notices_from_backlog,
+reprocess_unpublished_notices_from_backlog,reprocess_untransformed_notices_from_backlog,
+reprocess_unvalidated_notices_from_backlog) and <em>green</em>
+(fetch_notices_by_date, fetch_notices_by_date_range,
+fetch_notices_by_query) will trigger automatically the
+<strong>notice_processing_pipeline</strong> marked with <em>blue</em>, and this will take care
+of the entire processing steps for a notice. These can be used by a user
+by manually triggering these DAGs with or without configuration.</p>
+</div>
+<div class="paragraph">
+<p>The DAGs marked with <em>green</em> (fetch_notices_by_date,
+fetch_notices_by_date_range, fetch_notices_by_query) are in charge of
+fetching the notices from TED API. The ones marked with <em>yellow</em> (
+reprocess_unnormalised_notices_from_backlog,
+reprocess_unpackaged_notices_from_backlog,
+reprocess_unpublished_notices_from_backlog,
+reprocess_untransformed_notices_from_backlog,
+reprocess_unvalidated_notices_from_backlog) will handle the reprocessing
+of notices from the backlog. The purple marked DAG
+(load_mapping_suite_in_database) will handle the loading of mapping
+suites in the database that will be used to transform the notices.</p>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="../_images/user_manual/media/image11.png" alt="image" width="100%" height="660"></span></p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_notice_statuses"><a class="anchor" href="#_notice_statuses"></a>Notice statuses</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>During the transformation process through the TED-SWS system, a notice
+will start with a certain status and it will transition to other
+statuses when a particular step of the pipeline
+(notice_processing_pipeline) offered by the system has completed
+successfully or unsuccessfully. This transition is done automatically
+and it will change the <em>status</em> property of a notice. The system has the
+following statuses:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>RAW</p>
+</li>
+<li>
+<p>INDEXED</p>
+</li>
+<li>
+<p>NORMALISED_METADATA</p>
+</li>
+<li>
+<p>INELIGIBLE_FOR_TRANSFORMATION</p>
+</li>
+<li>
+<p>ELIGIBLE_FOR_TRANSFORMATION</p>
+</li>
+<li>
+<p>PREPROCESSED_FOR_TRANSFORMATION</p>
+</li>
+<li>
+<p>TRANSFORMED</p>
+</li>
+<li>
+<p>DISTILLED</p>
+</li>
+<li>
+<p>VALIDATED</p>
+</li>
+<li>
+<p>INELIGIBLE_FOR_PACKAGING</p>
+</li>
+<li>
+<p>ELIGIBLE_FOR_PACKAGING</p>
+</li>
+<li>
+<p>PACKAGED</p>
+</li>
+<li>
+<p>INELIGIBLE_FOR_PUBLISHING</p>
+</li>
+<li>
+<p>ELIGIBLE_FOR_PUBLISHING</p>
+</li>
+<li>
+<p>PUBLISHED</p>
+</li>
+<li>
+<p>PUBLICLY_UNAVAILABLE</p>
+</li>
+<li>
+<p>PUBLICLY_AVAILABLE</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The transition from one status to another is decided by the system and
+can be viewed in the graphic representation below.</p>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="../_images/user_manual/media/image14.png" alt="image" width="100%" height="444"></span></p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_notice_structure"><a class="anchor" href="#_notice_structure"></a>Notice structure</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This section aims at presenting the anatomy of a Notice in the TED-SWS
+system and the dependence of structural elements on the phase of the
+transformation process. This is useful for the user to understand what
+happens behind the scene and what information is available in the
+database, to build analytics dashboards.</p>
+</div>
+<div class="paragraph">
+<p>The structure of a notice within the TED-SWS system consists of the
+following structural elements:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Status</p>
+</li>
+<li>
+<p>Metadata</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Original Metadata</p>
+</li>
+<li>
+<p>Normalised Metadata</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Manifestation</p>
+<div class="ulist">
+<ul>
+<li>
+<p>XMLManifestation</p>
+</li>
+<li>
+<p>RDFManifestation</p>
+</li>
+<li>
+<p>METSManifestation</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Validation Report</p>
+<div class="ulist">
+<ul>
+<li>
+<p>XPATH Coverage Validation</p>
+</li>
+<li>
+<p>SHACL Validation</p>
+</li>
+<li>
+<p>SPARQL Validation</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The diagram below shows the high level structure of the Notice object
+and that certain structural parts of a notice within the system are
+dependent on its state. This means that as the transformation process
+runs through its steps the Notice state changes and new structural parts
+are added. For example, for a notice in the NORMALISED status we can
+access the Original Metadata, Normalised Metadata and XMLManifestation
+fields, for a notice in the TRANSFORMED status we can access in addition
+the RDFManifestation field and similarly for the rest of the statuses.</p>
+</div>
+<div class="paragraph">
+<p>The diagram depicts states as swim-lanes while the structural elements
+are depicted as ArchiMate Business Objects [cite ArchiMate]. The
+relations we use are composition (arrow with diamond ending) and
+inheritance (arrow with full triangle ending).</p>
+</div>
+<div class="paragraph">
+<p>As was mentioned above about the states through which a notice can
+transition, a certain structural field if it is present at a certain
+state, then all the states originating from this state will also have
+this field. Not all possible states are depicted. For brevity, we chose
+only the most significant ones, which segment the transformation process
+into stages.</p>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="../_images/user_manual/media/image94.png" alt="image" width="100%" height="390"></span></p>
+</div>
+</div>
+</div>
+</article>
+  </div>
+</main>
+</div>
+<div>
+</div>
+<script id="site-script" src="../../_/js/site.js" data-ui-root-path="../../_"></script>
+<script async src="../../_/js/vendor/highlight.js"></script>
+  </body>
+</html>

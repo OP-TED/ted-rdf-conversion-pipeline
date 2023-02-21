@@ -1,0 +1,767 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>System monitoring with Metabase :: ted-sws-docs</title>
+    <meta name="generator" content="Antora 3.0.0">
+    <link rel="stylesheet" href="../../_/css/site.css">
+    <script>var uiRootPath = '../../_'</script>
+  </head>
+  <body class="article">
+<div class="navbar-item has-dropdown is-hoverable">
+<h1>TED-SWS</h1>
+</div><div class="body">
+<div class="nav-container" data-component="rdf-conversion" data-version="master">
+  <aside class="nav">
+    <div class="panels">
+<div class="nav-panel-menu is-active" data-panel="menu">
+  <nav class="nav-menu">
+    <h3 class="title"><a href="../index.html">XML to RDF Conversion</a></h3>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../index.html">Home</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text"><span class="separated"><strong>General References</strong></span></span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../ted-sws-introduction.html">About TED-SWS</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../glossary.html">Glossary</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text"><span class="separated"><strong>For TED-SWS Operators</strong></span></span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="getting_started_user_manual.html">Getting started</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="system-overview.html">System overview</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="access-security.html">Security and access</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="workflow-management-airflow.html">Workflow management with Airflow</a>
+  </li>
+  <li class="nav-item is-current-page" data-depth="2">
+    <a class="nav-link" href="system-monitoring-metabase.html">System monitoring with Metabase</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text"><span class="separated"><strong>For DevOps</strong></span></span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <span class="nav-text"><a href="_attachments/aws-infra-docs/TED-SWS-Installation-manual-v2.5.0.pdf" target="_blank" rel="noopener">AWS installation manual (v2.5.0)</a></span>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <span class="nav-text"><a href="_attachments/aws-infra-docs/TED-SWS-AWS-Infrastructure-architecture-overview-v0.9.pdf" target="_blank" rel="noopener">AWS infrastructure architecture (v0.9)</a></span>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text"><span class="separated"><strong>For End User Developers</strong></span></span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../ted_data/using_procurement_data.html">Accessing data in Cellar</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <span class="nav-text"><a href="https://docs.ted.europa.eu/EPO/latest/index.html" target="_blank" rel="noopener">eProcurement ontology (latest)</a></span>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text"><span class="separated"><strong>For TED-SWS Developers</strong></span></span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../technical/mapping_suite_cli_toolchain.html">Mapping suite toolchain</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../technical/demo_installation.html">Development installation instructions</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../technical/event_manager.html">Event manager description</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../architecture/arhitecture_choices.html">System architecture overview</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <span class="nav-text"><a href="_attachments/ted-sws-architecture/index.html" target="_blank" rel="noopener">Enterprise architecture model</a></span>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../architecture/arhitecture_choices.html">Architectural choices</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+</ul>
+  </nav>
+</div>
+<div class="nav-panel-explore" data-panel="explore">
+  <div class="context">
+    <span class="title">XML to RDF Conversion</span>
+    <span class="version">master</span>
+  </div>
+  <ul class="components">
+    <li class="component is-current">
+      <a class="title" href="../index.html">XML to RDF Conversion</a>
+      <ul class="versions">
+        <li class="version is-current is-latest">
+          <a href="../index.html">master</a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</div>
+    </div>
+  </aside>
+</div>
+<main class="article">
+<div class="toolbar" role="navigation">
+<button class="nav-toggle"></button>
+<nav class="breadcrumbs" aria-label="breadcrumbs">
+  <ul>
+    <li><a href="../index.html">XML to RDF Conversion</a></li>
+    <li><span class="separated"><strong>For TED-SWS Operators</strong></span></li>
+    <li><a href="system-monitoring-metabase.html">System monitoring with Metabase</a></li>
+  </ul>
+</nav>
+</div>
+  <div class="content">
+<aside class="toc sidebar" data-title="Contents" data-levels="6">
+  <div class="toc-menu"></div>
+</aside>
+<article class="doc">
+<h1 class="page">System monitoring with Metabase</h1>
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>This section describes how to work with Metabase, exploring user
+interface, accessing dashboards, creating questions, and adding new data
+sources. This description uses examples with real data and data sources
+that are used on TED-SWS project. For advanced documentation please see <a href="https://www.metabase.com/docs/latest/">Metabase user manual (latest)</a>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_main_concepts_in_metabase"><a class="anchor" href="#_main_concepts_in_metabase"></a>Main concepts in Metabase</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_what_is_a_question"><a class="anchor" href="#_what_is_a_question"></a>What is a question?</h3>
+<div class="paragraph">
+<p>In Metabase, a question is a query, its results, and its visualization.</p>
+</div>
+<div class="paragraph">
+<p>If you’re trying to figure something out about your data in Metabase,
+you’re probably either asking a question or viewing a question that
+someone else on your team created. In everyday usage, a question is
+pretty much synonymous with a query.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_what_is_a_dashboard"><a class="anchor" href="#_what_is_a_dashboard"></a>What is a dashboard?</h3>
+<div class="paragraph">
+<p>A dashboard is a data visualization tool that holds important charts and
+text, collected and arranged on a single screen. Dashboards provide a
+high-level, centralized look at KPIs and other business metrics, and can
+cover everything from overall business health to the success of a
+specific project.</p>
+</div>
+<div class="paragraph">
+<p>The term comes from the automotive dashboard, which like its business
+intelligence counterpart provides status updates and warnings about
+important functions.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_what_is_a_collection"><a class="anchor" href="#_what_is_a_collection"></a>What is a collection?</h3>
+<div class="paragraph">
+<p>In Metabase, a collection is a set of items like questions, dashboards
+and subcollections, that are stored together for some organizational
+purpose. You can think of collections like folders within a file system.
+The root collection in Metabase is called Our Analytics, and it holds
+every other collection that you and others at your organization create.</p>
+</div>
+<div class="paragraph">
+<p>You may keep a collection titled “Operations” that holds all of the
+questions, dashboards, and models that your organization’s ops team
+uses, so people in that department know where to find the items they
+need to do their jobs. And if there are specific items within a
+collection that your team uses most frequently, you can pin those to the
+top of the collection page for easy reference. Pinned questions in a
+collection will also render a preview of their visualization.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_what_is_a_card"><a class="anchor" href="#_what_is_a_card"></a>What is a card?</h3>
+<div class="paragraph">
+<p>A card is a component of a dashboard that displays data or text.</p>
+</div>
+<div class="paragraph">
+<p>Metabase dashboards are made up of cards, with each card displaying some
+data (visualized as a table, chart, map, or number) or text (like
+headings, descriptive information, or relevant links).</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_metabase_user_interface"><a class="anchor" href="#_metabase_user_interface"></a>Metabase user interface</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>After successful authorization, metabase redirects to main page that is
+composed of the following elements:</p>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="../_images/user_manual/media/image22.png" alt="image" width="633" height="294"></span></p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Slidebar with collections</p>
+</li>
+<li>
+<p>Settings, searching and adding new questions</p>
+</li>
+<li>
+<p>Home page (Quick last accessed dashboards or questions)</p>
+</li>
+</ol>
+</div>
+<div class="sect2">
+<h3 id="_uc1_manually_updating_the_data"><a class="anchor" href="#_uc1_manually_updating_the_data"></a>UC1 Manually updating the data</h3>
+<div class="paragraph">
+<p>As a user I want to manually update the data so I will see the
+questions/dashboards on the latest data.</p>
+</div>
+<div class="paragraph">
+<p>For <strong>updating data</strong>:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Click Settings &#8594; Admin settings &#8594; Databases</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="../_images/user_manual/media/image99.png" alt="image" width="448" height="373"></span></p>
+</div>
+<div class="olist arabic">
+<ol class="arabic" start="2">
+<li>
+<p>Go to Databases in the top menu</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="../_images/user_manual/media/image15.png" alt="image" width="601" height="142"></span></p>
+</div>
+<div class="olist arabic">
+<ol class="arabic" start="3">
+<li>
+<p>To <strong>update</strong> the existing data source, click on the name of the necessary
+database and then click on both actions: “Sync database schema now” and
+“Re-scan field values now”. This will be done automatically but if you
+want to have the latest data (i.e the processing is still running) you
+could follow the steps below. However this is not considered a good
+practice.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="../_images/user_manual/media/image78.png" alt="image" width="354" height="162"></span></p>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="../_images/user_manual/media/image86.png" alt="image" width="280" height="244"></span></p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_uc2_use_existing_dashboards"><a class="anchor" href="#_uc2_use_existing_dashboards"></a>UC2: Use existing dashboards</h3>
+<div class="paragraph">
+<p>As a user I want to browse through and view dashboards so that I can
+answer business or operational questions about pipelines or notices.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>To access existing questions / dashboards, click:</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>Sidebar button &#8594; Necessary collection folder (ex: TED SWS KPI &#8594;
+Pipeline KPI)</p>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="../_images/user_manual/media/image68.png" alt="image" width="189" height="242"></span></p>
+</div>
+<div class="olist arabic">
+<ol class="arabic" start="2">
+<li>
+<p>To access the dashboard / question click on the element name in the main
+screen</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="../_images/user_manual/media/image50.png" alt="image" width="572" height="227"></span></p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_uc2_customize_a_collection"><a class="anchor" href="#_uc2_customize_a_collection"></a>UC2: Customize a collection</h3>
+<div class="paragraph">
+<p>As a user I want to customize my collection preview so I can access
+quickly certain dashboards / questions and clean the unwanted content</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>When opening a collection the main screen will be divided into to
+sections</p>
+</li>
+</ol>
+</div>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Pin section - where dashboards and questions can be pinned for easy
+access</p>
+</li>
+<li>
+<p>List with dashboards and questions.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="../_images/user_manual/media/image46.png" alt="image" width="601" height="341"></span></p>
+</div>
+<div class="olist arabic">
+<ol class="arabic" start="2">
+<li>
+<p>Drag the dashboard or question elements from list (2) to
+section (1) to pin them. The element will be moved to the pin section,
+and will be displayed.</p>
+</li>
+<li>
+<p>To <strong>delete / move</strong> a dashboard or question:</p>
+</li>
+</ol>
+</div>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Click on checkbox of the elements to be deleted;</p>
+</li>
+<li>
+<p>Click archive or move (this can move the content to another collection)</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="../_images/user_manual/media/image17.png" alt="image" width="461" height="282"></span></p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_uc3_create_new_question"><a class="anchor" href="#_uc3_create_new_question"></a>UC3: Create new question</h3>
+<div class="paragraph">
+<p>As a user I want to create a new question so I can explore the available
+data</p>
+</div>
+<div class="paragraph">
+<p>To <strong>create</strong> question:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Click New
+(<span class="image"><img src="../_images/user_manual/media/image65.png" alt="image" width="45" height="27"></span>),
+then Question
+(<span class="image"><img src="../_images/user_manual/media/image83.png" alt="image" width="71" height="22"></span>).</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="../_images/user_manual/media/image100.png" alt="image" width="261" height="194"></span></p>
+</div>
+<div class="olist arabic">
+<ol class="arabic" start="2">
+<li>
+<p>Select Data source (TEDSWS MongoDB - database name)</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="../_images/user_manual/media/image7.png" alt="image" width="353" height="210"></span></p>
+</div>
+<div class="olist arabic">
+<ol class="arabic" start="3">
+<li>
+<p>Select Data collection (Notice Collection Materialized View</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="../_images/user_manual/media/image28.png" alt="image" width="266" height="307"></span></p>
+</div>
+<div class="paragraph">
+<p><strong>Note:</strong> Always select “Notices Collection Materialised View” collection
+for questions. This collection was created specifically for metabase.
+Using other collections may increase response time of a question.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic" start="4">
+<li>
+<p>Select necessary columns to display (ex: Notice status)</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="../_images/user_manual/media/image95.png" alt="image" width="397" height="365"></span></p>
+</div>
+<div class="olist arabic">
+<ol class="arabic" start="5">
+<li>
+<p>(Optional) Select filter (ex: Form number is F03)</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="../_images/user_manual/media/image40.png" alt="image" width="275" height="304"></span></p>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="../_images/user_manual/media/image70.png" alt="image" width="353" height="214"></span></p>
+</div>
+<div class="olist arabic">
+<ol class="arabic" start="6">
+<li>
+<p>(Optional) Select Summarize (ex: Count of rows)</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="../_images/user_manual/media/image82.png" alt="image" width="273" height="299"></span></p>
+</div>
+<div class="olist arabic">
+<ol class="arabic" start="7">
+<li>
+<p>(Optional) Select a column to group by (ex: Notice Status)</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="../_images/user_manual/media/image10.png" alt="image" width="389" height="310"></span></p>
+</div>
+<div class="olist arabic">
+<ol class="arabic" start="8">
+<li>
+<p>Click Visualize
+<span class="image"><img src="../_images/user_manual/media/image16.png" alt="image" width="143" height="32"></span></p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="../_images/user_manual/media/image9.png" alt="image" width="268" height="180"></span></p>
+</div>
+<div class="paragraph">
+<p><strong>Note:</strong> This loading page means that questing is requesting an answer.
+Wait until it disappears.After the request is done, the page with
+response and editing a question will appear.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic" start="9">
+<li>
+<p>Customizing the question</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>Question page is divided into:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Edit question (name and logic)</p>
+</li>
+<li>
+<p>Question visualisation (can be table or chart)</p>
+</li>
+<li>
+<p>Visualisation settings (settings for table or chart)</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="../_images/user_manual/media/image55.png" alt="image" width="601" height="277"></span></p>
+</div>
+<div class="paragraph">
+<p>Tips on <strong>editing</strong> page:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>To <strong>export</strong> the question:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Click on Download full results</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="../_images/user_manual/media/image89.png" alt="image" width="372" height="286"></span></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>To <strong>edit question</strong>:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Click on Show editor</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="../_images/user_manual/media/image43.png" alt="image" width="394" height="182"></span></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>To <strong>change visualization type</strong></p>
+<div class="ulist">
+<ul>
+<li>
+<p>Click on visualization and then on Done once the type was chosen</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="../_images/user_manual/media/image39.png" alt="image" width="392" height="345"></span></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>To <strong>edit visualization settings</strong></p>
+<div class="ulist">
+<ul>
+<li>
+<p>Click on Settings</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="../_images/user_manual/media/image5.png" alt="image" width="303" height="346"></span></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>To show values on dashboard: Click Show values on data points</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="../_images/user_manual/media/image104.png" alt="image" width="255" height="331"></span></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>To <strong>save</strong> question just Click Save button</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="../_images/user_manual/media/image48.png" alt="image" width="324" height="198"></span></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Insert question name, description (optional) and collection to save into</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="../_images/user_manual/media/image101.png" alt="image" width="305" height="230"></span></p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_uc4_create_dashboard"><a class="anchor" href="#_uc4_create_dashboard"></a>UC4: Create dashboard</h3>
+<div class="paragraph">
+<p>As a user I want to create a dashboard so I can group a set of questions
+that are of interest to me.</p>
+</div>
+<div class="paragraph">
+<p>To <strong>create</strong> dashboard:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Click New &#8594; Dashboard</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="../_images/user_manual/media/image12.png" alt="image" width="548" height="295"></span></p>
+</div>
+<div class="olist arabic">
+<ol class="arabic" start="2">
+<li>
+<p>Insert Name, Description (optional) and collection where to save</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="../_images/user_manual/media/image44.png" alt="image" width="370" height="279"></span></p>
+</div>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>To select subfolder of the collection, click in arrow on collection
+field:</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="../_images/user_manual/media/image13.png" alt="image" width="395" height="199"></span></p>
+</div>
+<div class="olist arabic">
+<ol class="arabic" start="3">
+<li>
+<p>Click Create</p>
+</li>
+<li>
+<p>To <strong>add</strong> questions on dashboard:</p>
+</li>
+</ol>
+</div>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Click Add questions</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="../_images/user_manual/media/image42.png" alt="image" width="285" height="158"></span></p>
+</div>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a" start="2">
+<li>
+<p>Click on the name of necessary question or drag &amp; drop it</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="../_images/user_manual/media/image57.png" alt="image" width="307" height="392"></span></p>
+</div>
+<div class="paragraph">
+<p>In the dashboard you can add multiple questions, resize and move where
+it needs to be.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic" start="5">
+<li>
+<p>To <strong>save</strong> dashboard:</p>
+</li>
+</ol>
+</div>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Click Save button in right top corner of the current screen</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="../_images/user_manual/media/image53.png" alt="image" width="171" height="96"></span></p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_uc5_create_user"><a class="anchor" href="#_uc5_create_user"></a>UC5: Create user</h3>
+<div class="paragraph">
+<p>As a user I want to create another user so that I can share the work
+with others in my team</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Go to Admin settings by pressing the setting wheel button in the top
+right of the screen and then click Admin settings.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="../_images/user_manual/media/image64.png" alt="image" width="544" height="180"></span></p>
+</div>
+<div class="olist arabic">
+<ol class="arabic" start="2">
+<li>
+<p>On the next screen go to People in the top menu and click Invite someone
+button</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="../_images/user_manual/media/image97.png" alt="image" width="539" height="137"></span></p>
+</div>
+<div class="olist arabic">
+<ol class="arabic" start="3">
+<li>
+<p>Complete the mandatory fields and put the user in the Administrator if
+you want that user to be an admin or in the All Users group</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="../_images/user_manual/media/image73.png" alt="image" width="601" height="345"></span></p>
+</div>
+<div class="olist arabic">
+<ol class="arabic" start="4">
+<li>
+<p>Once you click on create a temporary password will be created for this
+user. Save this password and user details as you will need to share
+these with the new user. After this just click Done.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="../_images/user_manual/media/image20.png" alt="image" width="601" height="362"></span></p>
+</div>
+</div>
+</div>
+</div>
+</article>
+  </div>
+</main>
+</div>
+<div>
+</div>
+<script id="site-script" src="../../_/js/site.js" data-ui-root-path="../../_"></script>
+<script async src="../../_/js/vendor/highlight.js"></script>
+  </body>
+</html>

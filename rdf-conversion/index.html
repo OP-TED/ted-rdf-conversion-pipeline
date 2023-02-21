@@ -25,22 +25,85 @@
     <a class="nav-link" href="index.html">Home</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <span class="nav-text"><a href="_attachments/ted-sws-architecture/index.html" target="_blank" rel="noopener">Preliminary Project Architecture</a></span>
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text"><span class="separated"><strong>General References</strong></span></span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="ted-sws-introduction.html">About TED-SWS</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="glossary.html">Glossary</a>
+  </li>
+</ul>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="mapping_suite_cli_toolchain.html">Mapping Suite CLI Toolchain</a>
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text"><span class="separated"><strong>For TED-SWS Operators</strong></span></span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="user_manual/getting_started_user_manual.html">Getting started</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="user_manual/system-overview.html">System overview</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="user_manual/access-security.html">Security and access</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="user_manual/workflow-management-airflow.html">Workflow management with Airflow</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="user_manual/system-monitoring-metabase.html">System monitoring with Metabase</a>
+  </li>
+</ul>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="demo_installation.html">Instructions for Software Engineers</a>
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text"><span class="separated"><strong>For DevOps</strong></span></span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <span class="nav-text"><a href="_attachments/aws-infra-docs/TED-SWS-Installation-manual-v2.5.0.pdf" target="_blank" rel="noopener">AWS installation manual (v2.5.0)</a></span>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <span class="nav-text"><a href="_attachments/aws-infra-docs/TED-SWS-AWS-Infrastructure-architecture-overview-v0.9.pdf" target="_blank" rel="noopener">AWS infrastructure architecture (v0.9)</a></span>
+  </li>
+</ul>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="user_manual.html">User manual</a>
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text"><span class="separated"><strong>For End User Developers</strong></span></span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="ted_data/using_procurement_data.html">Accessing data in Cellar</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <span class="nav-text"><a href="https://docs.ted.europa.eu/EPO/latest/index.html" target="_blank" rel="noopener">eProcurement ontology (latest)</a></span>
+  </li>
+</ul>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="system_arhitecture.html">System architecture overview</a>
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text"><span class="separated"><strong>For TED-SWS Developers</strong></span></span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="technical/mapping_suite_cli_toolchain.html">Mapping suite toolchain</a>
   </li>
-  <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="using_procurement_data.html">Using procurement data</a>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="technical/demo_installation.html">Development installation instructions</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="technical/event_manager.html">Event manager description</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="architecture/arhitecture_choices.html">System architecture overview</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <span class="nav-text"><a href="_attachments/ted-sws-architecture/index.html" target="_blank" rel="noopener">Enterprise architecture model</a></span>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="architecture/arhitecture_choices.html">Architectural choices</a>
+  </li>
+</ul>
   </li>
 </ul>
   </li>
@@ -85,36 +148,7 @@
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>The TED-RDF Conversion Pipeline, which is part of the TED Semantic Web Services, aka TED-SWS system, provides tools an infrastructure to convert TED notices available in XML format into RDF. This conversion pipeline is designed to work with the <a href="https://docs.ted.europa.eu/rdf-mapping/index.html">TED-RDF Mappings</a>.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_quick_references_for_users"><a class="anchor" href="#_quick_references_for_users"></a>Quick references for users</h2>
-<div class="sectionbody">
-<div class="ulist">
-<ul>
-<li>
-<p><a href="mapping_suite_cli_toolchain.html" class="xref page">Installation and usage instructions for the Mapping Suite CLI toolchain</a></p>
-</li>
-<li>
-<p><a href="_attachments/ted-sws-architecture/index.html" target="_blank" rel="noopener">Preliminary project architecture (in progress)</a></p>
-</li>
-</ul>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_developer_pages"><a class="anchor" href="#_developer_pages"></a>Developer pages</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p><a href="demo_installation.html" class="xref page">Installation instructions for development and testing for software engineers</a></p>
-</div>
-<div class="paragraph">
-<p><a href="_attachments/aws-infra-docs/TED-SWS-AWS-Infrastructure-architecture-overview-v0.9.pdf" class="xref attachment">TED-SWS AWS Infrastructure architecture overview v0.9</a></p>
-</div>
-<div class="paragraph">
-<p><a href="_attachments/aws-infra-docs/TED-SWS%20Installation%20manual%20v2.0.2.pdf" class="xref attachment">TED-SWS AWS Installation manual v2.0.2</a></p>
+<p>The TED-RDF Conversion Pipeline, is part of the TED Semantic Web Services (TED-SWS system) and provides tools an infrastructure to convert TED notices available in XML format into RDF. This conversion pipeline is designed to work with the <a href="https://docs.ted.europa.eu/rdf-mapping/index.html">TED-SWS Mapping Suites</a> - self containing packages with transformation rules and resources.</p>
 </div>
 </div>
 </div>
@@ -161,9 +195,9 @@
 <td class="tableblock halign-left valign-top"><p class="tableblock">Phase 3</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">This phase delivers the documentation and components and improvements that could not be covered in the previous phases.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Feb 2023</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">---</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">---</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">---</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="_attachments/FATs/2023-02-20-TED-SWS-FAT-complete.html" class="xref attachment">2023-02-20 report</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">21 Feb 2023</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://github.com/OP-TED/ted-rdf-conversion-pipeline/releases/tag/1.1.0-beta">1.1.0-beta</a></p></td>
 </tr>
 </tbody>
 </table>

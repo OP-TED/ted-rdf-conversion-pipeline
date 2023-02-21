@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Using procurement data :: ted-sws-docs</title>
+    <meta name="generator" content="Antora 3.0.0">
+    <link rel="stylesheet" href="../../_/css/site.css">
+    <script>var uiRootPath = '../../_'</script>
+  </head>
+  <body class="article">
+<div class="navbar-item has-dropdown is-hoverable">
+<h1>TED-SWS</h1>
+</div><div class="body">
+<div class="nav-container" data-component="rdf-conversion" data-version="master">
+  <aside class="nav">
+    <div class="panels">
+<div class="nav-panel-menu is-active" data-panel="menu">
+  <nav class="nav-menu">
+    <h3 class="title"><a href="../index.html">XML to RDF Conversion</a></h3>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../index.html">Home</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text"><span class="separated"><strong>General References</strong></span></span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../ted-sws-introduction.html">About TED-SWS</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../glossary.html">Glossary</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text"><span class="separated"><strong>For TED-SWS Operators</strong></span></span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../user_manual/getting_started_user_manual.html">Getting started</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../user_manual/system-overview.html">System overview</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../user_manual/access-security.html">Security and access</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../user_manual/workflow-management-airflow.html">Workflow management with Airflow</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../user_manual/system-monitoring-metabase.html">System monitoring with Metabase</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text"><span class="separated"><strong>For DevOps</strong></span></span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <span class="nav-text"><a href="_attachments/aws-infra-docs/TED-SWS-Installation-manual-v2.5.0.pdf" target="_blank" rel="noopener">AWS installation manual (v2.5.0)</a></span>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <span class="nav-text"><a href="_attachments/aws-infra-docs/TED-SWS-AWS-Infrastructure-architecture-overview-v0.9.pdf" target="_blank" rel="noopener">AWS infrastructure architecture (v0.9)</a></span>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text"><span class="separated"><strong>For End User Developers</strong></span></span>
+<ul class="nav-list">
+  <li class="nav-item is-current-page" data-depth="2">
+    <a class="nav-link" href="using_procurement_data.html">Accessing data in Cellar</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <span class="nav-text"><a href="https://docs.ted.europa.eu/EPO/latest/index.html" target="_blank" rel="noopener">eProcurement ontology (latest)</a></span>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text"><span class="separated"><strong>For TED-SWS Developers</strong></span></span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../technical/mapping_suite_cli_toolchain.html">Mapping suite toolchain</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../technical/demo_installation.html">Development installation instructions</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../technical/event_manager.html">Event manager description</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../architecture/arhitecture_choices.html">System architecture overview</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <span class="nav-text"><a href="_attachments/ted-sws-architecture/index.html" target="_blank" rel="noopener">Enterprise architecture model</a></span>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../architecture/arhitecture_choices.html">Architectural choices</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+</ul>
+  </nav>
+</div>
+<div class="nav-panel-explore" data-panel="explore">
+  <div class="context">
+    <span class="title">XML to RDF Conversion</span>
+    <span class="version">master</span>
+  </div>
+  <ul class="components">
+    <li class="component is-current">
+      <a class="title" href="../index.html">XML to RDF Conversion</a>
+      <ul class="versions">
+        <li class="version is-current is-latest">
+          <a href="../index.html">master</a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</div>
+    </div>
+  </aside>
+</div>
+<main class="article">
+<div class="toolbar" role="navigation">
+<button class="nav-toggle"></button>
+<nav class="breadcrumbs" aria-label="breadcrumbs">
+  <ul>
+    <li><a href="../index.html">XML to RDF Conversion</a></li>
+    <li><span class="separated"><strong>For End User Developers</strong></span></li>
+    <li><a href="using_procurement_data.html">Accessing data in Cellar</a></li>
+  </ul>
+</nav>
+</div>
+  <div class="content">
+<aside class="toc sidebar" data-title="Contents" data-levels="6">
+  <div class="toc-menu"></div>
+</aside>
+<article class="doc">
+<h1 class="page">Using procurement data</h1>
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>This page explains how to use procurement data accessed from <strong>Cellar</strong> with Microsoft Excel, Python and R. There are different ways to access TED notices in CELLAR
+and use the data. The methods described below work with TED notice and other type of semantic assets.</p>
+</div>
+<div class="paragraph">
+<p>We use a sample SPARQL query which returns a list of countries. The users shall use TED specific SPARQL queries to fetch needed data.</p>
+</div>
+<div class="paragraph">
+<p><strong>Note:</strong> Jupyter Notebook samples are explained with assumption that a
+code editor is already prepared. For example VS Code or Pycharm, or
+Jupyter server. Examples are explained using
+<a href="https://code.visualstudio.com/docs"><span class="underline">Visual Studio Code</span></a>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_microsoft_excel"><a class="anchor" href="#_microsoft_excel"></a>Microsoft Excel</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This chapter shows an example of getting data from Cellar using Microsoft Excel.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Prepare link with necessary query:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Access:
+<a href="https://publications.europa.eu/webapi/rdf/sparql"><span class="underline">https://publications.europa.eu/webapi/rdf/sparql</span></a></p>
+</li>
+<li>
+<p>Insert query</p>
+</li>
+</ul>
+</div>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>Example query:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-sparql hljs" data-lang="sparql">prefix cdm: &lt;http://publications.europa.eu/ontology/cdm#&gt;
+select distinct ?Countries
+where {
+?Countries a cdm:country .
+}</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Push the “Run Query” button</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="../_images/user_manual/media/image6.png" alt="image" width="407" height="466"></span></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Copy entire link of the result</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="../_images/user_manual/media/image47.png" alt="image" width="601" height="281"></span></p>
+</div>
+<div class="olist arabic">
+<ol class="arabic" start="2">
+<li>
+<p>Access result table via Excel:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Click on Data &#8594; From Web button</p>
+</li>
+</ul>
+</div>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="../_images/user_manual/media/image58.png" alt="image" width="601" height="264"></span></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>In appeared window insert result link then press OK:</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="../_images/user_manual/media/image88.png" alt="image" width="601" height="320"></span></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>In result window select necessary table, press load:</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="../_images/user_manual/media/image41.png" alt="image" width="601" height="464"></span></p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_jupyter_notebook_python"><a class="anchor" href="#_jupyter_notebook_python"></a>Jupyter Notebook - Python</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This chapter shows an example using the Jupyter Notebook in Python. The
+Jupyter Notebook is an application for creating and sharing
+computational documents. Python represents a programming language for
+writing computational documents. To realize the proposed scenario, it is
+necessary to install the special tools and use the Python code that will
+perform a query to the cellar and display the results in tabular
+form (<a href="#references">Working with Jupyter Notebook</a>).</p>
+</div>
+<div class="paragraph">
+<p>To run Python sample:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Download Jupyter Notebook file:</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p><a href="https://github.com/OP-TED/ted-rdf-conversion-pipeline/blob/main/notebooks/query_cellar_python.ipynb"><span class="underline">https://github.com/OP-TED/ted-rdf-conversion-pipeline/blob/main/notebooks/query_cellar_python.ipynb</span></a></p>
+</div>
+<div class="olist arabic">
+<ol class="arabic" start="2">
+<li>
+<p>Download &amp; Install Python 3.8:</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Windows 64bit:
+<a href="https://www.python.org/ftp/python/3.8.10/python-3.8.10-amd64.exe"><span class="underline">download</span></a></p>
+</li>
+<li>
+<p>Windows 86bit:
+<a href="https://www.python.org/ftp/python/3.8.10/python-3.8.10.exe"><span class="underline">download</span></a></p>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>Open Jupyter Notebook file with code editor (VS Code):</p>
+</li>
+<li>
+<p>In code editor, select interpreter for Python that was installed</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>Example in VS Code:</p>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="../_images/user_manual/media/image8.png" alt="image" width="617" height="204"></span></p>
+</div>
+<div class="olist arabic">
+<ol class="arabic" start="5">
+<li>
+<p>Install dependencies:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Use OS command line and type:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">pip install ipykernel sparqlwrapper pandas</code></pre>
+</div>
+</div>
+</li>
+</ul>
+</div>
+</li>
+</ol>
+</div>
+<div class="olist arabic">
+<ol class="arabic" start="6">
+<li>
+<p>Run Cells (example in VS Code):</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="../_images/user_manual/media/image62.png" alt="image" width="601" height="84"></span></p>
+</div>
+<div class="paragraph">
+<p>If all works good, on last output cell we can see results:</p>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="../_images/user_manual/media/image2.png" alt="image" width="387" height="420"></span></p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_jupyter_notebook_r"><a class="anchor" href="#_jupyter_notebook_r"></a>Jupyter Notebook - R</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This chapter shows an example using Jupyter Notebook in R language. R is
+software environment for statistical computing and graphic
+representation. In this case, R represents the programming language for
+writing notebook documents. To realize the proposed scenario, it is
+necessary to install the special tools (<a href="#references">Running R Jupyter Notebooks</a>) and
+use the R code that will perform a query (<a href="#references">SPARQL with R</a>) to
+the cellar and display the results in tabular form.</p>
+</div>
+<div class="paragraph">
+<p>To run R sample:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Install &amp; install R language:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Windows 64bit:
+<a href="https://cran.r-project.org/bin/windows/base/R-4.2.2-win.exe"><span class="underline">download</span></a></p>
+</li>
+</ul>
+</div>
+</li>
+</ol>
+</div>
+<div class="olist arabic">
+<ol class="arabic" start="2">
+<li>
+<p>Download Jupyter Notebook file:
+<a href="https://github.com/OP-TED/ted-rdf-conversion-pipeline/blob/main/notebooks/query_cellar_R.ipynb"><span class="underline">https://github.com/OP-TED/ted-rdf-conversion-pipeline/blob/main/notebooks/query_cellar_R.ipynb</span></a></p>
+</li>
+</ol>
+</div>
+<div class="olist arabic">
+<ol class="arabic" start="3">
+<li>
+<p>Download SPARQL package archive and put in same folder as Notebook file:
+<a href="https://cran.r-project.org/src/contrib/Archive/SPARQL/SPARQL_1.16.tar.gz"><span class="underline">download SPARQL</span></a></p>
+</li>
+</ol>
+</div>
+<div class="olist arabic">
+<ol class="arabic" start="4">
+<li>
+<p>Install IRKernel:</p>
+</li>
+</ol>
+</div>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Run R in OS command line and type:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">install.packages("IRkernel")
+install.packages('RCurl')
+install.packages('XML')</code></pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a" start="2">
+<li>
+<p>In appeared window, select first mirror and press OK:
+<span class="image"><img src="../_images/user_manual/media/image45.png" alt="image" width="240" height="309"></span></p>
+</li>
+</ol>
+</div>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a" start="3">
+<li>
+<p>After installation is completed, type:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">IRkernel::installspec()</code></pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+<div class="olist arabic">
+<ol class="arabic" start="5">
+<li>
+<p>Open Jupyter Notebook file in code editor;</p>
+</li>
+<li>
+<p>Select R interpreter;</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="../_images/user_manual/media/image23.png" alt="image" width="601" height="142"></span></p>
+</div>
+<div class="olist arabic">
+<ol class="arabic" start="7">
+<li>
+<p>Run all cells</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="../_images/user_manual/media/image90.png" alt="image" width="502" height="100"></span></p>
+</div>
+<div class="olist arabic">
+<ol class="arabic" start="8">
+<li>
+<p>After running, after last cell we can see results:</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="../_images/user_manual/media/image80.png" alt="image" width="487" height="411"></span></p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="references"><a class="anchor" href="#references"></a>References</h2>
+<div class="sectionbody">
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>“Working with Jupyter Notebooks in Visual Studio Code.” n.d. Visual
+Studio Code.
+<a href="https://code.visualstudio.com/docs/datascience/jupyter-notebooks"><span class="underline">https://code.visualstudio.com/docs/datascience/jupyter-notebooks</span></a></p>
+</li>
+<li>
+<p>“Running R Jupyter Notebooks in VS Code.” n.d. Practical Data Science.
+<a href="https://www.practicaldatascience.org/html/jupyter_r_notebooks.html"><span class="underline">https://www.practicaldatascience.org/html/jupyter_r_notebooks.html</span></a></p>
+</li>
+<li>
+<p>“SPARQL with R.” 2013. R-bloggers.
+<a href="https://www.r-bloggers.com/2013/01/sparql-with-r-in-less-than-5-minutes/" class="bare">https://www.r-bloggers.com/2013/01/sparql-with-r-in-less-than-5-minutes/</a><span class="[.underline"><a href="https://www.r-bloggers.com/2013/01/sparql-with-r-in-less-than-5-minutes/" class="bare">https://www.r-bloggers.com/2013/01/sparql-with-r-in-less-than-5-minutes/</a></span>]</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+</article>
+  </div>
+</main>
+</div>
+<div>
+</div>
+<script id="site-script" src="../../_/js/site.js" data-ui-root-path="../../_"></script>
+<script async src="../../_/js/vendor/highlight.js"></script>
+  </body>
+</html>

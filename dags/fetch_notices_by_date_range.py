@@ -8,7 +8,8 @@ from airflow.operators.trigger_dagrun import TriggerDagRunOperator
 
 from dags import DEFAULT_DAG_ARGUMENTS
 from dags.dags_utils import get_dag_param
-from dags.fetch_notices_by_date import WILD_CARD_DAG_KEY, TRIGGER_COMPLETE_WORKFLOW_DAG_KEY
+from dags.fetch_notices_by_date import WILD_CARD_DAG_KEY, TRIGGER_COMPLETE_WORKFLOW_DAG_KEY, \
+    DAG_NAME as FETCH_NOTICES_BY_DATE_DAG_NAME
 from ted_sws.event_manager.adapters.event_log_decorator import event_log
 from ted_sws.event_manager.model.event_message import TechnicalEventMessage, EventMessageMetadata, \
     EventMessageProcessType
@@ -50,7 +51,7 @@ def fetch_notices_by_date_range():
         for date_wildcard in date_wildcards:
             TriggerDagRunOperator(
                 task_id=f'trigger_notice_fetch_by_date_workflow_dag_{date_wildcard[:-1]}',
-                trigger_dag_id="fetch_notices_by_date",
+                trigger_dag_id=FETCH_NOTICES_BY_DATE_DAG_NAME,
                 conf={WILD_CARD_DAG_KEY: date_wildcard,
                       TRIGGER_COMPLETE_WORKFLOW_DAG_KEY: trigger_complete_workflow,
                       }

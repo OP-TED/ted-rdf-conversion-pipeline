@@ -50,7 +50,7 @@ def fetch_notices_by_date_range():
         for date_wildcard in date_wildcards:
             TriggerDagRunOperator(
                 task_id=f'trigger_notice_fetch_by_date_workflow_dag_{date_wildcard[:-1]}',
-                trigger_dag_id="notice_fetch_by_date_workflow",
+                trigger_dag_id="fetch_notices_by_date",
                 conf={WILD_CARD_DAG_KEY: date_wildcard,
                       TRIGGER_COMPLETE_WORKFLOW_DAG_KEY: trigger_complete_workflow,
                       }

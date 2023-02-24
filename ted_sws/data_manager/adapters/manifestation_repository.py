@@ -26,12 +26,12 @@ class BaseManifestationRepository(ManifestationRepositoryABC):
         self._database_name = database_name
         self.mongodb_client = mongodb_client
         db = mongodb_client[self._database_name]
-        self.file_storage = gridfs.GridFS(db)  # TODO: Investigate how it works in multiple processes in parallel.
+        self.file_storage = gridfs.GridFS(db)
         self.collection = db[self._collection_name]
         self.collection.create_index([(AGGREGATE_REFERENCE_ID, ASCENDING)])
         self.file_storage_collection = db[FILE_STORAGE_COLLECTION_NAME]
         self.file_storage_collection.create_index([(MANIFESTATION_ID,
-                                                    ASCENDING)])  # TODO: index creation may bring race condition error.
+                                                    ASCENDING)])
 
     def _get_file_content_from_grid_fs(self, file_id: str) -> str:
         """

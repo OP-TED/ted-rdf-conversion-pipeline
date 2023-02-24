@@ -27,7 +27,7 @@ class DailySupraNoticeRepository(DailySupraNoticeRepositoryABC):
         self.collection = daily_supra_notice_db[self._collection_name]
         self.collection.create_index(
             [(DAILY_SUPRA_NOTICE_TED_PUBLICATION_DATE,
-              ASCENDING)])  # TODO: index creation may bring race condition error.
+              ASCENDING)])
 
     def _create_dict_from_daily_supra_notice(self, daily_supra_notice: DailySupraNotice) -> dict:
         """

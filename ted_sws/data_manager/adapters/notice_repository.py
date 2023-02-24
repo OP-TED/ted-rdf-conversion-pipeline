@@ -156,9 +156,9 @@ class NoticeRepository(NoticeRepositoryABC, LazyObjectFieldsLoaderABC):
         notice_db = mongodb_client[self._database_name]
         self.collection = notice_db[self._collection_name]
         self.collection.create_index(
-            [(NOTICE_CREATED_AT, ASCENDING)])  # TODO: index creation may bring race condition error.
+            [(NOTICE_CREATED_AT, ASCENDING)])
         self.collection.create_index(
-            [(NOTICE_STATUS, ASCENDING)])  # TODO: index creation may bring race condition error.
+            [(NOTICE_STATUS, ASCENDING)])
         self.xml_manifestation_repository = XMLManifestationRepository(mongodb_client=mongodb_client,
                                                                        database_name=database_name)
         self.rdf_manifestation_repository = RDFManifestationRepository(mongodb_client=mongodb_client,

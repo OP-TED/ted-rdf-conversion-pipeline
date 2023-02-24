@@ -199,7 +199,7 @@ class RDFManifestation(Manifestation):
 
     def validation_exists(self, validation, validations):
         """
-        Checks if a a [shacl|sparql] validation was already performed and exists in saved validations
+        Checks if a [shacl|sparql] validation was already performed and exists in saved validations
         :param validation:
         :param validations:
         :return:

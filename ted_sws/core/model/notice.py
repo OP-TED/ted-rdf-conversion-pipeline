@@ -184,15 +184,15 @@ class Notice(LazyWorkExpression):
     """
     _status: NoticeStatus = NoticeStatus.RAW
     ted_id: str = Field(..., allow_mutation=False)
-    _original_metadata: Optional[TEDMetadata] = None
-    _xml_manifestation: Optional[XMLManifestation] = None
-    _normalised_metadata: Optional[NormalisedMetadata] = None
-    _preprocessed_xml_manifestation: Optional[XMLManifestation] = None
-    _distilled_rdf_manifestation: Optional[RDFManifestation] = None
-    _rdf_manifestation: Optional[RDFManifestation] = None
-    _mets_manifestation: Optional[METSManifestation] = None
-    _xml_metadata: Optional[XMLMetadata] = None
-    validation_summary: Optional[ValidationSummaryReport] = None
+    _original_metadata: Optional[TEDMetadata]
+    _xml_manifestation: Optional[XMLManifestation]
+    _normalised_metadata: Optional[NormalisedMetadata]
+    _preprocessed_xml_manifestation: Optional[XMLManifestation]
+    _distilled_rdf_manifestation: Optional[RDFManifestation]
+    _rdf_manifestation: Optional[RDFManifestation]
+    _mets_manifestation: Optional[METSManifestation]
+    _xml_metadata: Optional[XMLMetadata]
+    validation_summary: Optional[ValidationSummaryReport]
 
     @property
     def original_metadata(self) -> Optional[TEDMetadata]:

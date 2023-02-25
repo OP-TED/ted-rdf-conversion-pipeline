@@ -184,14 +184,14 @@ class Notice(LazyWorkExpression):
     """
     _status: NoticeStatus = NoticeStatus.RAW
     ted_id: str = Field(..., allow_mutation=False)
-    _original_metadata: Optional[TEDMetadata]
-    _xml_manifestation: Optional[XMLManifestation]
-    _normalised_metadata: Optional[NormalisedMetadata]
-    _preprocessed_xml_manifestation: Optional[XMLManifestation]
-    _distilled_rdf_manifestation: Optional[RDFManifestation]
-    _rdf_manifestation: Optional[RDFManifestation]
-    _mets_manifestation: Optional[METSManifestation]
-    _xml_metadata: Optional[XMLMetadata]
+    _original_metadata: Optional[TEDMetadata] = None
+    _xml_manifestation: Optional[XMLManifestation] = None
+    _normalised_metadata: Optional[NormalisedMetadata] = None
+    _preprocessed_xml_manifestation: Optional[XMLManifestation] = None
+    _distilled_rdf_manifestation: Optional[RDFManifestation] = None
+    _rdf_manifestation: Optional[RDFManifestation] = None
+    _mets_manifestation: Optional[METSManifestation] = None
+    _xml_metadata: Optional[XMLMetadata] = None
     validation_summary: Optional[ValidationSummaryReport]
 
     @property
@@ -344,7 +344,7 @@ class Notice(LazyWorkExpression):
         return False
 
     def set_rdf_validation(self, rdf_validation: Union[SPARQLTestSuiteValidationReport,
-                                                       SHACLTestSuiteValidationReport]):
+    SHACLTestSuiteValidationReport]):
         """
             Add an RDF validation result to the notice.
             If METS package data are available, erase them and reset the state.
@@ -357,7 +357,7 @@ class Notice(LazyWorkExpression):
         self.rdf_manifestation.add_validation(validation=rdf_validation)
 
     def set_distilled_rdf_validation(self, rdf_validation: Union[SPARQLTestSuiteValidationReport,
-                                                                 SHACLTestSuiteValidationReport]):
+    SHACLTestSuiteValidationReport]):
         """
 
         :param rdf_validation:
@@ -486,7 +486,7 @@ class Notice(LazyWorkExpression):
             if new_status < NoticeStatus.NORMALISED_METADATA:
                 self.remove_lazy_field(Notice.normalised_metadata)
                 self._normalised_metadata = None
-                #TODO: preprocessed_xml_manifestation is the same as xml_manifestation
+                # TODO: preprocessed_xml_manifestation is the same as xml_manifestation
                 # if delete preprocessed xml manifestation will delete xml_manifestation
                 # in future remove _preprocessed_xml_manifestation field from model
                 self._preprocessed_xml_manifestation = None

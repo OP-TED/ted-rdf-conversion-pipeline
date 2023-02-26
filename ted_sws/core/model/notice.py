@@ -192,7 +192,7 @@ class Notice(LazyWorkExpression):
     _rdf_manifestation: Optional[RDFManifestation] = None
     _mets_manifestation: Optional[METSManifestation] = None
     _xml_metadata: Optional[XMLMetadata] = None
-    validation_summary: Optional[ValidationSummaryReport]
+    validation_summary: Optional[ValidationSummaryReport] = None
 
     @property
     def original_metadata(self) -> Optional[TEDMetadata]:

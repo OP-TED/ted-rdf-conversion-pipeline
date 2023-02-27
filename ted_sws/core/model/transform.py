@@ -26,7 +26,7 @@ class FileResource(MappingSuiteComponent):
     file_name: str
     file_content: str
     original_name: Optional[str]
-    parents: Optional[List[Path]] = []
+    parents: Optional[List[str]] = []
 
 
 class NoticeFileResource(FileResource):

@@ -61,7 +61,7 @@ def read_flat_file_resources(path: Path, file_resources=None) -> List[FileResour
         file_resources: List[FileResource] = []
 
     for root, dirs, files in os.walk(path):
-        file_parents = list(Path(os.path.relpath(root, path)).parts)
+        file_parents = list(map(lambda path_value: str(path_value), Path(os.path.relpath(root, path)).parts))
         for f in files:
             file_path = Path(os.path.join(root, f))
             file_resource = FileResource(file_name=file_path.name,

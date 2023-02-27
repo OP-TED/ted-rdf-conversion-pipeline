@@ -1,8 +1,30 @@
 
 * xref:index.adoc[Home]
-* link:{attachmentsdir}/ted-sws-architecture/index.html[Preliminary Project Architecture^]
-* xref:mapping_suite_cli_toolchain.adoc[Mapping Suite CLI Toolchain]
-* xref:demo_installation.adoc[Instructions for Software Engineers]
-* xref:user_manual.adoc[User manual]
-* xref:system_arhitecture.adoc[System architecture overview]
-* xref:using_procurement_data.adoc[Using procurement data]
+
+* [.separated]#**General References**#
+** xref:ted-sws-introduction.adoc[About TED-SWS]
+** xref:glossary.adoc[Glossary]
+
+* [.separated]#**For TED-SWS Operators**#
+** xref:user_manual/getting_started_user_manual.adoc[Getting started]
+** xref:user_manual/system-overview.adoc[System overview]
+** xref:user_manual/access-security.adoc[Security and access]
+** xref:user_manual/workflow-management-airflow.adoc[Workflow management with Airflow]
+** xref:user_manual/system-monitoring-metabase.adoc[System monitoring with Metabase]
+
+* [.separated]#**For DevOps**#
+
+** link:{attachmentsdir}/aws-infra-docs/TED-SWS-Installation-manual-v2.5.0.pdf[AWS installation manual (v2.5.0)^]
+** link:{attachmentsdir}/aws-infra-docs/TED-SWS-AWS-Infrastructure-architecture-overview-v0.9.pdf[AWS infrastructure architecture (v0.9)^]
+
+* [.separated]#**For End User Developers**#
+** xref:ted_data/using_procurement_data.adoc[Accessing data in Cellar]
+** link:https://docs.ted.europa.eu/EPO/latest/index.html[eProcurement ontology (latest)^]
+
+* [.separated]#**For TED-SWS Developers**#
+** xref:technical/mapping_suite_cli_toolchain.adoc[Mapping suite toolchain]
+** xref:technical/demo_installation.adoc[Development installation instructions]
+** xref:technical/event_manager.adoc[Event manager description]
+** xref:architecture/arhitecture_choices.adoc[System architecture overview]
+** link:{attachmentsdir}/ted-sws-architecture/index.html[Enterprise architecture model^]
+** xref:architecture/arhitecture_choices.adoc[Architectural choices]

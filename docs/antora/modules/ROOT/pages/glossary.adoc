@@ -1,0 +1,23 @@
+== Glossary
+
+*Airflow* - an open-source platform for developing, scheduling, and
+monitoring batch-oriented pipelines. The web interface helps manage the
+state and monitoring of your pipelines.
+
+*Metabase* - is the BI tool with the friendly UX and integrated tooling
+to let you explore data gathered by running the pipelines available in
+Airflow.
+
+*Cellar* - is the central content and metadata repository of the
+Publications Office of the European Union
+
+*TED-SWS* - is a pipeline system that continuously converts the public
+procurement notices (in XML format) available on the TED Website into
+RDF format and publishes them into CELLAR
+
+*DAG* - (Directed Acyclic Graph) is the core concept of Airflow,
+collecting Tasks together, organized with dependencies and relationships
+to say how they should run. The DAGS are basically the pipelines that
+run in this project to get the public procurement notices from XML to
+RDF and to be published them into CELLAR.
+

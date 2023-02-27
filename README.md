@@ -9,11 +9,11 @@
 [![Vulnerabilities](https://sonarcloud.io/api/project_badges/measure?project=meaningfy-ws_ted-sws&metric=vulnerabilities)](https://sonarcloud.io/summary/new_code?id=meaningfy-ws_ted-sws)
 [![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=meaningfy-ws_ted-sws&metric=security_rating)](https://sonarcloud.io/summary/new_code?id=meaningfy-ws_ted-sws)
 
-![Doc build](https://github.com/OP-TED/ted-rdf-conversion-pipeline/actions/workflows/main.yml/badge.svg?branch=main)
-![UTest build](https://github.com/OP-TED/ted-rdf-conversion-pipeline/actions/workflows/unit-tests.yml/badge.svg?branch=main)
-![E2E Test build](https://github.com/OP-TED/ted-rdf-conversion-pipeline/actions/workflows/unit-tests-hermes.yml/badge.svg?branch=main)
+[![TED-SWS documentation](https://github.com/OP-TED/ted-rdf-conversion-pipeline/actions/workflows/main.yml/badge.svg)](https://github.com/OP-TED/ted-rdf-conversion-pipeline/actions/workflows/main.yml)
+[![Tests](https://github.com/OP-TED/ted-rdf-conversion-pipeline/actions/workflows/unit-tests.yml/badge.svg)](https://github.com/OP-TED/ted-rdf-conversion-pipeline/actions/workflows/unit-tests.yml)
+[![Tests on srv server](https://github.com/OP-TED/ted-rdf-conversion-pipeline/actions/workflows/unit-tests-srv.yml/badge.svg)](https://github.com/OP-TED/ted-rdf-conversion-pipeline/actions/workflows/unit-tests-srv.yml)
 
-[![codecov](https://codecov.io/gh/OP-TED/ted-rdf-conversion-pipeline/branch/main/graph/badge.svg?token=DzceZJWLaL)](https://codecov.io/gh/OP-TED/ted-rdf-conversion-pipeline) [CodeCov Icicle](https://codecov.io/gh/OP-TED/ted-rdf-conversion-pipeline/branch/main/graphs/icicle.svg?token=DzceZJWLaL)
+[![codecov](https://codecov.io/gh/OP-TED/ted-rdf-conversion-pipeline/branch/main/graph/badge.svg?token=DzceZJWLaL)](https://codecov.io/gh/OP-TED/ted-rdf-conversion-pipeline) 
 
 
 ## Documentation

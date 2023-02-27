@@ -27,8 +27,10 @@ def step_impl():
 
 @when("a notice is instantiated", target_fixture="new_notice")
 def step_impl(ted_identifier, ted_metadata, notice_content):
-    return Notice(ted_id=ted_identifier, original_metadata=ted_metadata,
-                  xml_manifestation=notice_content)
+    notice = Notice(ted_id=ted_identifier)
+    notice.set_xml_manifestation(notice_content)
+    notice.set_original_metadata(ted_metadata)
+    return notice
 
 
 @then("a new notice object is available")

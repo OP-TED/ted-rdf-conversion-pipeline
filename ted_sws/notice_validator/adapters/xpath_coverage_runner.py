@@ -1,58 +1,61 @@
-from pathlib import Path
-from typing import List, Union, Set, Dict
+from abc import abstractmethod
+from typing import List, Set, Dict
 
 import numpy as np
 from jinja2 import Environment, PackageLoader
-from pymongo import MongoClient
 
 from ted_sws.core.model.manifestation import XPATHCoverageValidationReport, XPATHCoverageValidationAssertion, \
-    XPATHCoverageValidationResult, NoticeForReport
-from ted_sws.core.model.transform import ConceptualMapping, ConceptualMappingXPATH
-from ted_sws.data_manager.adapters.mapping_suite_repository import MappingSuiteRepositoryMongoDB
-from ted_sws.data_sampler.services.notice_xml_indexer import index_notice, get_unique_xpaths_covered_by_notices
-from ted_sws.mapping_suite_processor.services.conceptual_mapping_reader import mapping_suite_read_conceptual_mapping
+    XPATHCoverageValidationResult
+from ted_sws.core.model.notice import Notice
+from ted_sws.core.model.transform import ConceptualMapping, ConceptualMappingXPATH, MappingSuite
+from ted_sws.core.model.validation_report import ReportNotice
+from ted_sws.data_sampler.services.notice_xml_indexer import index_notice
+from ted_sws.notice_validator.resources.templates import TEMPLATE_METADATA_KEY
+from ted_sws.notice_validator.services import transform_report_notices
 
 TEMPLATES = Environment(loader=PackageLoader("ted_sws.notice_validator.resources", "templates"))
 XPATH_COVERAGE_REPORT_TEMPLATE = "xpath_coverage_report.jinja2"
 
-PATH_TYPE = Union[str, Path]
 XPATH_TYPE = Dict[str, List[str]]
 
 
 class CoverageRunner:
-    """
-        Runs coverage measurement of the XML notice
-    """
-
+    """"""
+    mapping_suite: MappingSuite
+    mapping_suite_id: str
     conceptual_xpaths: Set[str] = set()
     conceptual_xpath_data: Dict[str, ConceptualMappingXPATH] = {}
-    mongodb_client: MongoClient
     base_xpath: str
-    mapping_suite_id: str
 
-    def __init__(self, mapping_suite_id: str, conceptual_mappings_file_path: PATH_TYPE = None,
-                 mongodb_client: MongoClient = None):
-        self.mapping_suite_id = mapping_suite_id
-        self.mongodb_client = mongodb_client
+    def __init__(self, mapping_suite: MappingSuite):
+        """"""
+        self.mapping_suite = mapping_suite
+        self.mapping_suite_id = mapping_suite.get_mongodb_id()
+        conceptual_mapping: ConceptualMapping = mapping_suite.conceptual_mapping
+        self.init_xpath_data(conceptual_mapping=conceptual_mapping)
 
-        conceptual_mapping: ConceptualMapping
-        if self._db_readable():
-            mapping_suite_repository = MappingSuiteRepositoryMongoDB(mongodb_client=mongodb_client)
-            mapping_suite = mapping_suite_repository.get(reference=mapping_suite_id)
-            if mapping_suite is None:
-                raise ValueError(f'Mapping suite, with {mapping_suite_id} id, was not found')
-            conceptual_mapping: ConceptualMapping = mapping_suite.conceptual_mapping
-        else:
-            conceptual_mapping = mapping_suite_read_conceptual_mapping(Path(conceptual_mappings_file_path))
+    def notice_xpaths(self, notice: Notice) -> List[str]:
+        if not notice.xml_metadata or not notice.xml_metadata.unique_xpaths:
+            notice = index_notice(notice)
+        return notice.xml_metadata.unique_xpaths
 
+    def init_xpath_data(self, conceptual_mapping: ConceptualMapping):
         for cm_xpath in conceptual_mapping.xpaths:
             self.conceptual_xpaths.add(cm_xpath.xpath)
             self.conceptual_xpath_data[cm_xpath.xpath] = cm_xpath
-
         self.base_xpath = conceptual_mapping.metadata.base_xpath
 
-    def _db_readable(self) -> bool:
-        return self.mongodb_client is not None
+    def xpath_coverage_validation_report(self, notice: Notice) -> XPATHCoverageValidationReport:
+        report: XPATHCoverageValidationReport = XPATHCoverageValidationReport(
+            object_data="XPATHCoverageValidationReport",
+            mapping_suite_identifier=self.mapping_suite_id)
+
+        xpaths: List[str] = self.notice_xpaths(notice=notice)
+        based_xpaths = self.based_xpaths(xpaths, self.base_xpath)
+        notice_xpaths: XPATH_TYPE = {notice.ted_id: based_xpaths}
+        self.validate_xpath_coverage_report(report, notice_xpaths, based_xpaths)
+
+        return report
 
     @classmethod
     def find_notice_by_xpath(cls, notice_xpaths: XPATH_TYPE, xpath: str) -> Dict[str, int]:
@@ -75,11 +78,10 @@ class CoverageRunner:
         return sorted(xpath_assertions, key=lambda x: x.form_field)
 
     def validate_xpath_coverage_report(self, report: XPATHCoverageValidationReport, notice_xpaths: XPATH_TYPE,
-                                       xpaths_list: List[str], notices: List[NoticeForReport]):
+                                       xpaths_list: List[str]):
         unique_notice_xpaths: Set[str] = set(xpaths_list)
 
         validation_result: XPATHCoverageValidationResult = XPATHCoverageValidationResult()
-        validation_result.notices = sorted(notices, key=lambda notice: notice.ted_id)
         validation_result.xpath_assertions = self.xpath_assertions(notice_xpaths, xpaths_list)
         validation_result.xpath_covered = sorted(list(self.conceptual_xpaths & unique_notice_xpaths))
         validation_result.xpath_not_covered = sorted(list(unique_notice_xpaths - self.conceptual_xpaths))
@@ -97,36 +99,32 @@ class CoverageRunner:
     @classmethod
     def based_xpaths(cls, xpaths: List[str], base_xpath: str) -> List[str]:
         """
-
         :param xpaths:
         :param base_xpath:
         :return:
         """
-        base_xpath += "/"
+        base_xpath += "/" if not base_xpath.endswith("/") else ""
         return list(filter(lambda xpath: xpath.startswith(base_xpath), xpaths))
 
-    def coverage_notice_xpath(self, notices: List[NoticeForReport], mapping_suite_id) -> XPATHCoverageValidationReport:
+    def xpath_coverage_validation_summary_report(self,
+                                                 notices: List[ReportNotice]
+                                                 ) -> XPATHCoverageValidationReport:
         report: XPATHCoverageValidationReport = XPATHCoverageValidationReport(
             object_data="XPATHCoverageValidationReport",
-            mapping_suite_identifier=mapping_suite_id)
+            mapping_suite_identifier=self.mapping_suite_id)
 
         notice_xpaths: XPATH_TYPE = {}
         xpaths_list: List[str] = []
-        for notice_for_report in notices:
-            notice = notice_for_report.notice
-            xpaths: List[str] = []
-            if self._db_readable():
-                xpaths = get_unique_xpaths_covered_by_notices([notice.ted_id], self.mongodb_client)
-            else:
-                notice = index_notice(notice)
-
-                if notice.xml_metadata and notice.xml_metadata.unique_xpaths:
-                    xpaths = notice.xml_metadata.unique_xpaths
+        for report_notice in notices:
+            notice = report_notice.notice
+            xpaths: List[str] = self.notice_xpaths(notice=notice)
 
             notice_xpaths[notice.ted_id] = self.based_xpaths(xpaths, self.base_xpath)
             xpaths_list += notice_xpaths[notice.ted_id]
 
-        self.validate_xpath_coverage_report(report, notice_xpaths, xpaths_list, notices)
+        self.validate_xpath_coverage_report(report, notice_xpaths, xpaths_list)
+        report.validation_result.notices = sorted(transform_report_notices(notices),
+                                                  key=lambda report_data: report_data.notice_id)
 
         return report
 
@@ -135,7 +133,9 @@ class CoverageRunner:
         return report.dict()
 
     @classmethod
-    def html_report(cls, report: XPATHCoverageValidationReport) -> str:
+    def html_report(cls, report: XPATHCoverageValidationReport, metadata: dict = None) -> str:
         data: dict = cls.json_report(report)
+        data[TEMPLATE_METADATA_KEY] = metadata
         html_report = TEMPLATES.get_template(XPATH_COVERAGE_REPORT_TEMPLATE).render(data)
         return html_report
+

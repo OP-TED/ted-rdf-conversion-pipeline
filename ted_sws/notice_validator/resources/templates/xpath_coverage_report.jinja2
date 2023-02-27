@@ -26,6 +26,10 @@
             text-align: left;
             padding-left: 10px;
         }
+        td.break-word {
+            word-break: break-word;
+            overflow-wrap: break-word;
+        }
         table td {
             vertical-align: top;
         }
@@ -71,8 +75,11 @@
 <hr>
 <h2>Report details: </h2>
 <ul>
-    <li>Date created: {{ created }}</li>
-    <li>Mapping suite identifier: {{ mapping_suite_identifier }}</li>
+    <li><b>Date created:</b> {{ created }}</li>
+    <li><b>Mapping suite identifier:</b> {{ mapping_suite_identifier }}</li>
+    {%  if template_metadata.grouping %}
+        <li><b>Grouping:</b> {{ template_metadata.grouping }}</li>
+    {%  endif %}
     <li>
         <div><hr></div>
         <h4>Overall coverage</h4>
@@ -90,11 +97,11 @@
             <h4><a href="#"></a></h4>
             <div class="ui-collapsible-content">
             {% if nr_notices == 1 %}
-                {{ validation_result.notices[0].notice.ted_id }}
+                {{ validation_result.notices[0].notice_id }}
             {% else %}
                 <ul>
-                {% for notice_for_report in validation_result.notices %}
-                    <li><a href="{{ notice_for_report.group_path }}/test_suite_report/xpath_coverage_validation.html" target="_blank">{{ notice_for_report.notice.ted_id }}</a></li>
+                {% for report_data in validation_result.notices %}
+                    <li><a href="file://{{ template_metadata.package_output_path }}/{{ report_data.path }}/{{ report_data.notice_id }}/test_suite_report/xpath_coverage_validation.html" target="_blank">{{ report_data.notice_id }}</a></li>
                 {% endfor %}
                 </ul>
             {% endif %}
@@ -119,7 +126,7 @@
     {% for item in validation_result.xpath_assertions %}
     <tr>
         <td>{{ item.form_field if item.form_field is not none else '' }}</td>
-        <td>{{ item.xpath }}</td>
+        <td class="break-word">{{ item.xpath }}</td>
         <td class="{% if item.query_result %}success{% else %}error{% endif %}">{{ item.query_result }}</td>
         <td>{{ item.count }}</td>
         <td class="notice-hit">{% if item.notice_hit %}
@@ -147,7 +154,7 @@
     <tbody>
     {% for xpath in validation_result.xpath_covered %}
     <tr>
-        <td>{{ xpath }}</td>
+        <td class="break-word">{{ xpath }}</td>
     </tr>
     {% endfor %}
     </tbody>
@@ -165,7 +172,7 @@
     <tbody>
     {% for xpath in validation_result.xpath_not_covered %}
     <tr>
-        <td>{{ xpath }}</td>
+        <td class="break-word">{{ xpath }}</td>
     </tr>
     {% endfor %}
     </tbody>
@@ -183,7 +190,7 @@
     <tbody>
     {% for xpath in validation_result.xpath_extra %}
     <tr>
-        <td>{{ xpath }}</td>
+        <td class="break-word">{{ xpath }}</td>
     </tr>
     {% endfor %}
     </tbody>
@@ -213,7 +220,10 @@
             "pageLength": 15,
             responsive: {
                 details: true
-            }
+            },
+            columnDefs: [
+                { "width": "50%", "targets": [1] }
+            ]
         });
 
     });

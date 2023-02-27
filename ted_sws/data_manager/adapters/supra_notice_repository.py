@@ -8,8 +8,9 @@ from ted_sws.core.model.supra_notice import DailySupraNotice
 from ted_sws.data_manager.adapters import inject_date_string_fields, remove_date_string_fields
 from ted_sws.data_manager.adapters.repository_abc import DailySupraNoticeRepositoryABC
 
-DAILY_SUPRA_NOTICE_ID = "notice_fetched_date"
+DAILY_SUPRA_NOTICE_TED_PUBLICATION_DATE = "ted_publication_date"
 DAILY_SUPRA_NOTICE_CREATED_AT = "created_at"
+DAILY_SUPRA_NOTICE_ID = "_id"
 
 
 class DailySupraNoticeRepository(DailySupraNoticeRepositoryABC):
@@ -25,7 +26,8 @@ class DailySupraNoticeRepository(DailySupraNoticeRepositoryABC):
         daily_supra_notice_db = mongodb_client[self._database_name]
         self.collection = daily_supra_notice_db[self._collection_name]
         self.collection.create_index(
-            [(DAILY_SUPRA_NOTICE_ID, ASCENDING)])  # TODO: index creation may bring race condition error.
+            [(DAILY_SUPRA_NOTICE_TED_PUBLICATION_DATE,
+              ASCENDING)])  # TODO: index creation may bring race condition error.
 
     def _create_dict_from_daily_supra_notice(self, daily_supra_notice: DailySupraNotice) -> dict:
         """
@@ -34,9 +36,11 @@ class DailySupraNoticeRepository(DailySupraNoticeRepositoryABC):
         :return:
         """
         daily_supra_notice_dict = daily_supra_notice.dict()
-        daily_supra_notice_dict[DAILY_SUPRA_NOTICE_ID] = datetime.combine(
-            daily_supra_notice_dict[DAILY_SUPRA_NOTICE_ID], time())
-        inject_date_string_fields(data=daily_supra_notice_dict, date_field_name=DAILY_SUPRA_NOTICE_ID)
+        daily_supra_notice_dict[DAILY_SUPRA_NOTICE_TED_PUBLICATION_DATE] = datetime.combine(
+            daily_supra_notice_dict[DAILY_SUPRA_NOTICE_TED_PUBLICATION_DATE], time())
+        daily_supra_notice_dict[DAILY_SUPRA_NOTICE_ID] = daily_supra_notice_dict[
+            DAILY_SUPRA_NOTICE_TED_PUBLICATION_DATE].isoformat()
+        inject_date_string_fields(data=daily_supra_notice_dict, date_field_name=DAILY_SUPRA_NOTICE_TED_PUBLICATION_DATE)
         inject_date_string_fields(data=daily_supra_notice_dict, date_field_name=DAILY_SUPRA_NOTICE_CREATED_AT)
         return daily_supra_notice_dict
 
@@ -47,8 +51,11 @@ class DailySupraNoticeRepository(DailySupraNoticeRepositoryABC):
         :return:
         """
         if daily_supra_notice_dict is not None:
-            daily_supra_notice_dict[DAILY_SUPRA_NOTICE_ID] = daily_supra_notice_dict[DAILY_SUPRA_NOTICE_ID].date()
-            remove_date_string_fields(data=daily_supra_notice_dict, date_field_name=DAILY_SUPRA_NOTICE_ID)
+            daily_supra_notice_dict.pop(DAILY_SUPRA_NOTICE_ID, None)
+            daily_supra_notice_dict[DAILY_SUPRA_NOTICE_TED_PUBLICATION_DATE] = daily_supra_notice_dict[
+                DAILY_SUPRA_NOTICE_TED_PUBLICATION_DATE].date()
+            remove_date_string_fields(data=daily_supra_notice_dict,
+                                      date_field_name=DAILY_SUPRA_NOTICE_TED_PUBLICATION_DATE)
             remove_date_string_fields(data=daily_supra_notice_dict, date_field_name=DAILY_SUPRA_NOTICE_CREATED_AT)
             daily_supra_notice = DailySupraNotice.parse_obj(daily_supra_notice_dict)
             return daily_supra_notice
@@ -81,7 +88,7 @@ class DailySupraNoticeRepository(DailySupraNoticeRepositoryABC):
         :param reference:
         :return: DailySupraNotice
         """
-        reference = datetime.combine(reference, time())
+        reference = datetime.combine(reference, time()).isoformat()
         result_dict = self.collection.find_one({DAILY_SUPRA_NOTICE_ID: reference})
         return self._create_daily_supra_notice_from_dict(daily_supra_notice_dict=result_dict)
 

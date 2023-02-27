@@ -10,7 +10,7 @@
 import pytest
 
 from ted_sws.core.model.manifestation import XMLManifestation, RDFManifestation, METSManifestation, \
-    RDFValidationManifestation, SHACLTestSuiteValidationReport, SPARQLTestSuiteValidationReport, \
+    SHACLTestSuiteValidationReport, SPARQLTestSuiteValidationReport, \
     XPATHCoverageValidationReport
 from ted_sws.core.model.metadata import TEDMetadata, NormalisedMetadata
 from ted_sws.core.model.notice import Notice, NoticeStatus
@@ -39,21 +39,26 @@ def publicly_available_notice(fetched_notice_data, normalised_metadata_dict) -> 
                                                               test_suite_identifier="shacl_test_id",
                                                               mapping_suite_identifier="mapping_suite_id",
                                                               validation_result=None)
-    notice = Notice(ted_id=ted_id, original_metadata=original_metadata,
-                    xml_manifestation=xml_manifestation)
-    notice._rdf_manifestation = RDFManifestation(object_data="RDF manifestation content",
+    notice = Notice(ted_id=ted_id)
+    notice.set_xml_manifestation(xml_manifestation)
+    notice.set_original_metadata(original_metadata)
+    notice._status = NoticeStatus.INDEXED
+    notice.set_normalised_metadata(NormalisedMetadata(**normalised_metadata_dict))
+    notice._status = NoticeStatus.ELIGIBLE_FOR_TRANSFORMATION
+    notice.set_preprocessed_xml_manifestation(xml_manifestation)
+    notice._status = NoticeStatus.DISTILLED
+    notice.set_rdf_manifestation(RDFManifestation(object_data="RDF manifestation content",
                                                  shacl_validations=[shacl_validation],
                                                  sparql_validations=[sparql_validation],
                                                  xpath_coverage_validation=xpath_coverage_validation
-                                                 )
-    notice._distilled_rdf_manifestation = RDFManifestation(object_data="RDF manifestation content",
+                                                 ))
+    notice.set_distilled_rdf_manifestation(RDFManifestation(object_data="RDF manifestation content",
                                                            shacl_validations=[shacl_validation],
                                                            sparql_validations=[sparql_validation],
                                                            xpath_coverage_validation=xpath_coverage_validation
-                                                           )
-    notice._mets_manifestation = METSManifestation(object_data="METS manifestation content")
-    notice._normalised_metadata = NormalisedMetadata(**normalised_metadata_dict)
-    notice._preprocessed_xml_manifestation = xml_manifestation
+                                                           ))
+    notice._status = NoticeStatus.ELIGIBLE_FOR_PACKAGING
+    notice.set_mets_manifestation(METSManifestation(object_data="METS manifestation content"))
     notice._status = NoticeStatus.PUBLICLY_AVAILABLE
     return notice
 
@@ -61,7 +66,9 @@ def publicly_available_notice(fetched_notice_data, normalised_metadata_dict) -> 
 @pytest.fixture(scope="function")
 def raw_notice(fetched_notice_data) -> Notice:
     ted_id, original_metadata, xml_manifestation = fetched_notice_data
-    notice = Notice(ted_id=ted_id, xml_manifestation=xml_manifestation, original_metadata=original_metadata)
+    notice = Notice(ted_id=ted_id)
+    notice.set_xml_manifestation(xml_manifestation)
+    notice.set_original_metadata(original_metadata)
     return notice
 
 

@@ -5,10 +5,13 @@ content:
   edit_url: false
   sources:
     - url: https://github.com/OP-TED/ted-rdf-conversion-pipeline.git
-#    - url: /home/dude/work/ted-sws
+#    - url: /home/dude/work/ted-rdf-conversion-pipeline
       branches:
       - main
       start_path: docs/antora
+asciidoc:
+  attributes:
+    page-toclevels: 6@
 ui:
   bundle:
     url: https://gitlab.com/antora/antora-ui-default/-/jobs/artifacts/HEAD/raw/build/ui-bundle.zip?job=bundle-stable

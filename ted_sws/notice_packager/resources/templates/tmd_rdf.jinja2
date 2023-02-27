@@ -5,8 +5,8 @@
 %cellarEntities;
 ]>
 <rdf:RDF xmlns:tdm="http://publications.europa.eu/ontology/tdm#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
-    <tdm:stream rdf:about="&resource;distribution/{{ notice.id }}/{{ notice.id }}.rdf">
-        <tdm:stream_name rdf:datatype="http://www.w3.org/2001/XMLSchema#string">{{ notice.id }}.rdf</tdm:stream_name>
+    <tdm:stream rdf:about="&resource;distribution/{{ notice.id }}/{{ mets.notice_file_href }}">
+        <tdm:stream_name rdf:datatype="http://www.w3.org/2001/XMLSchema#string">{{ mets.notice_file_href }}</tdm:stream_name>
         <tdm:stream_format>
             <tdm:format>
                 <tdm:format_designated_by_format_designation>
@@ -16,7 +16,7 @@
                 </tdm:format_designated_by_format_designation>
             </tdm:format>
         </tdm:stream_format>
-        <tdm:stream_label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">{{ work.title[notice.languages[0]] }}</tdm:stream_label>
+        <tdm:stream_label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">{{ work.title[mets.languages[0]] }}</tdm:stream_label>
         <tdm:stream_order rdf:datatype="http://www.w3.org/2001/XMLSchema#positiveInteger">1</tdm:stream_order>
     </tdm:stream>
 </rdf:RDF>

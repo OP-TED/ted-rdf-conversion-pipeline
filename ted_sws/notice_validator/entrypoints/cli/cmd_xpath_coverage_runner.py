@@ -76,7 +76,7 @@ class CmdRunner(BaseCmdRunner):
             f.write(html_report)
             f.close()
 
-    def coverage_report(self, notices: List[NoticeForReport], output_path: Path, label: str, group_path: Path = None):
+    def coverage_report(self, notices: List[ReportNotice], output_path: Path, label: str, group_path: Path = None):
         self.log("Generating coverage report for " + LOG_INFO_TEXT.format(label) + " ... ")
         output_path.parent.mkdir(parents=True, exist_ok=True)
         report = coverage_notice_xpath_report(notices,
@@ -92,8 +92,8 @@ class CmdRunner(BaseCmdRunner):
         super().run_cmd()
 
         output_path = Path(self.output_folder)
-        notices: List[NoticeForReport] = []
-        group_notices: Dict[Path, List[NoticeForReport]] = {}
+        notices: List[ReportNotice] = []
+        group_notices: Dict[Path, List[ReportNotice]] = {}
         for data in self.mapping_suite.transformation_test_data.test_data:
             notice_id = Path(data.file_name).stem
             if self.skip_notice(notice_id):
@@ -102,7 +102,7 @@ class CmdRunner(BaseCmdRunner):
                                     xml_manifestation=XMLManifestation(object_data=data.file_content))
             report_file = REPORT_FILE
             group_path = file_resource_output_path(data)
-            notice_for_report = NoticeForReport(notice=notice, group_path=group_path)
+            notice_for_report = ReportNotice(notice=notice, group_path=group_path)
             report_path = output_path / group_path / notice.ted_id / DEFAULT_TEST_SUITE_REPORT_FOLDER / report_file
             self.coverage_report(notices=[notice_for_report], output_path=report_path,
                                  label=str(file_resource_output_path(data) / data.file_name))

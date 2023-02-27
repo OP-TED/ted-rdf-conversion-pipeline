@@ -1,0 +1,5 @@
+select distinct ?s
+{{
+VALUES ?s {{{notice_uries}}}
+?s ?p ?o .
+}}

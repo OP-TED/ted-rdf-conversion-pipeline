@@ -2,11 +2,11 @@ from typing import List
 
 from jinja2 import Environment, PackageLoader
 
-from ted_sws.core.model.manifestation import ValidationSummaryReport, XMLManifestationValidationSummaryReport, \
-    RDFManifestationValidationSummaryReport, XPATHCoverageSummaryReport, XPATHCoverageSummaryResult, \
-    SPARQLSummaryCountReport, SHACLSummarySeverityCountReport, SPARQLQueryResult, SPARQLTestSuiteValidationReport, \
-    SHACLTestSuiteValidationReport, RDFManifestation, SPARQLSummaryResult, SHACLSummaryResult, \
-    SPARQLQueryRefinedResultType
+from ted_sws.core.model.manifestation import SPARQLQueryResult, SPARQLTestSuiteValidationReport, \
+    SHACLTestSuiteValidationReport, RDFManifestation, SPARQLQueryRefinedResultType, \
+    XMLManifestationValidationSummaryReport, RDFManifestationValidationSummaryReport, XPATHCoverageSummaryReport, \
+    XPATHCoverageSummaryResult, SPARQLSummaryCountReport, SHACLSummarySeverityCountReport, SPARQLSummaryResult, \
+    SHACLSummaryResult, ValidationSummaryReport
 from ted_sws.core.model.notice import Notice
 
 TEMPLATES = Environment(loader=PackageLoader("ted_sws.notice_validator.resources", "templates"))
@@ -188,7 +188,6 @@ class ValidationSummaryRunner:
         report: ValidationSummaryReport = ValidationSummaryReport(
             object_data="ValidationSummaryReport"
         )
-        report.notice_ids = sorted(list(map(lambda notice: notice.ted_id, notices)))
 
         xml_manifestation_runner = XMLManifestationValidationSummaryRunner(notices)
         report.xml_manifestation = xml_manifestation_runner.validation_summary()
@@ -202,11 +201,21 @@ class ValidationSummaryRunner:
         return report
 
     @classmethod
-    def json_report(cls, report: ValidationSummaryReport) -> dict:
+    def validation_summary_for_notice(cls, notice: Notice) -> ValidationSummaryReport:
+        return cls.validation_summary([notice])
+
+    @classmethod
+    def validation_summary_for_notices(cls, notices: List[Notice]) -> ValidationSummaryReport:
+        report: ValidationSummaryReport = cls.validation_summary(notices)
+        report.notice_ids = sorted(list(map(lambda notice: notice.ted_id, notices)))
+
+        return report
+
+    @classmethod
+    def json_report(cls, report) -> dict:
         return report.dict()
 
     @classmethod
-    def html_report(cls, report: ValidationSummaryReport) -> str:
+    def html_report(cls, report) -> str:
         data: dict = cls.json_report(report)
-        html_report = TEMPLATES.get_template(VALIDATION_SUMMARY_REPORT_TEMPLATE).render(data)
-        return html_report
+        return TEMPLATES.get_template(VALIDATION_SUMMARY_REPORT_TEMPLATE).render(data)

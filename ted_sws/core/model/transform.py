@@ -11,8 +11,6 @@ from datetime import datetime
 from pathlib import Path
 from typing import List, Optional
 
-from ted_sws.core.model.notice import Notice
-
 from ted_sws.core.model import PropertyBaseModel
 
 
@@ -28,7 +26,14 @@ class FileResource(MappingSuiteComponent):
     file_name: str
     file_content: str
     original_name: Optional[str]
-    parents: Optional[List[str]] = []
+    parents: Optional[List[Path]] = []
+
+
+class NoticeFileResource(FileResource):
+    """
+
+    """
+    notice_id: str
 
 
 class MetadataConstraints(MappingSuiteComponent):
@@ -204,12 +209,3 @@ class MappingSuite(MappingSuiteComponent):
 
     def get_mongodb_id(self) -> str:
         return f"{self.identifier}_v{self.version}"
-
-
-class ReportNoticeMetadata(PropertyBaseModel):
-    path: Optional[Path]
-
-
-class ReportNotice(PropertyBaseModel):
-    notice: Notice
-    metadata: Optional[ReportNoticeMetadata]

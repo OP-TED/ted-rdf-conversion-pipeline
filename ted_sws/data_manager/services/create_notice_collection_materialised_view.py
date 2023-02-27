@@ -41,6 +41,7 @@ def create_notice_collection_materialised_view(mongo_client: MongoClient):
                 "publication_date_str_y": "$normalised_metadata.publication_date_y",
                 "publication_date_str_ym": "$normalised_metadata.publication_date_str_ym",
                 "publication_date_str_ymd": "$normalised_metadata.publication_date_str_ymd",
+                "deduplication_report": "$rdf_manifestation.deduplication_report",
             }
         },
         {

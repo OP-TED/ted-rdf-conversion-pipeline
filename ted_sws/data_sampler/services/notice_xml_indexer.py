@@ -114,7 +114,7 @@ def get_unique_xpaths_from_notice_repository(mongodb_client: MongoClient) -> Lis
     :return:
     """
     notice_repository = NoticeRepository(mongodb_client=mongodb_client)
-    return notice_repository.collection.distinct("xml_metadata.unique_xpaths")
+    return notice_repository.xml_metadata_repository.collection.distinct("unique_xpaths")
 
 
 def get_unique_notice_id_from_notice_repository(mongodb_client: MongoClient) -> List[str]:
@@ -138,14 +138,15 @@ def get_minimal_set_of_xpaths_for_coverage_notices(notice_ids: List[str], mongod
     unique_notice_ids = notice_ids.copy()
     notice_repository = NoticeRepository(mongodb_client=mongodb_client)
     while len(unique_notice_ids):
-        tmp_result = list(notice_repository.collection.aggregate([
-            {"$unwind": "$xml_metadata.unique_xpaths"},
+        tmp_result = list(notice_repository.xml_metadata_repository.collection.aggregate([
+            {"$match": {"metadata_type": {"$eq": "xml"}}},
+            {"$unwind": "$unique_xpaths"},
             {"$match": {
-                "xml_metadata.unique_xpaths": {"$nin": minimal_set_of_xpaths},
+                "unique_xpaths": {"$nin": minimal_set_of_xpaths},
                 "ted_id": {"$in": unique_notice_ids}
             }
             },
-            {"$group": {"_id": "$xml_metadata.unique_xpaths", "count": {"$sum": 1},
+            {"$group": {"_id": "$unique_xpaths", "count": {"$sum": 1},
                         "notice_ids": {"$push": "$ted_id"}}},
             {"$sort": {"count": -1}},
             {"$limit": 1}
@@ -171,17 +172,18 @@ def get_minimal_set_of_notices_for_coverage_xpaths(notice_ids: List[str], mongod
     search_notices = notice_ids.copy()
     notice_repository = NoticeRepository(mongodb_client=mongodb_client)
     while len(unique_xpaths):
-        tmp_result = list(notice_repository.collection.aggregate([
+        tmp_result = list(notice_repository.xml_metadata_repository.collection.aggregate([
             {"$match": {
-                "_id": {"$in": search_notices}
+                "ted_id": {"$in": search_notices},
+                "metadata_type": {"$eq": "xml"}
             }
             },
-            {"$unwind": "$xml_metadata.unique_xpaths"},
+            {"$unwind": "$unique_xpaths"},
             {"$match": {
-                "xml_metadata.unique_xpaths": {"$in": unique_xpaths},
+                "unique_xpaths": {"$in": unique_xpaths},
             }
             },
-            {"$group": {"_id": "$ted_id", "count": {"$sum": 1}, "xpaths": {"$addToSet": "$xml_metadata.unique_xpaths"}
+            {"$group": {"_id": "$ted_id", "count": {"$sum": 1}, "xpaths": {"$addToSet": "$unique_xpaths"}
                         }},
             {"$sort": {"count": -1}},
             {"$limit": 1}
@@ -204,8 +206,11 @@ def get_unique_notices_id_covered_by_xpaths(xpaths: List[str], mongodb_client: M
     :return:
     """
     notice_repository = NoticeRepository(mongodb_client=mongodb_client)
-    results = list(notice_repository.collection.aggregate([
-        {"$match": {"xml_metadata.unique_xpaths": {"$in": xpaths}}},
+    results = list(notice_repository.xml_metadata_repository.collection.aggregate([
+        {"$match": {"unique_xpaths": {"$in": xpaths},
+                    "metadata_type": {"$eq": "xml"}
+                    }
+         },
         {
             "$group": {"_id": None,
                        "ted_ids": {"$push": "$ted_id"}
@@ -223,12 +228,14 @@ def get_unique_xpaths_covered_by_notices(notice_ids: List[str], mongodb_client: 
     :return:
     """
     notice_repository = NoticeRepository(mongodb_client=mongodb_client)
-    results = notice_repository.collection.aggregate([{"$match": {"ted_id": {"$in": notice_ids}}}], allowDiskUse=True)
+    results = notice_repository.xml_metadata_repository.collection.aggregate([{"$match": {"ted_id": {"$in": notice_ids},
+                                                                                          "metadata_type": {"$eq":"xml"}
+                                                                                          }
+                                                                               }], allowDiskUse=True)
     unique_xpaths = set()
     for result in results:
-        xml_metadata = result["xml_metadata"]
-        if xml_metadata is not None:
-            unique_xpaths.update(result["xml_metadata"]["unique_xpaths"])
+        if result["unique_xpaths"] is not None:
+            unique_xpaths.update(result["unique_xpaths"])
     return list(unique_xpaths)
 
 

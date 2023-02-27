@@ -1,0 +1,4 @@
+ASK {{
+VALUES ?instance {{<{notice_uri}>}}
+?instance ?predicate [] .
+}}

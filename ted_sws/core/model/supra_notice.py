@@ -11,8 +11,7 @@ from datetime import datetime, date
 from typing import List, Optional
 
 from ted_sws.core.model import PropertyBaseModel
-from ted_sws.core.model.manifestation import Manifestation
-from ted_sws.core.model.notice import ValidationSummaryReport
+from ted_sws.core.model.manifestation import Manifestation, ValidationSummaryReport
 
 
 class SupraNotice(PropertyBaseModel, abc.ABC):
@@ -47,6 +46,6 @@ class DailySupraNotice(SupraNotice):
     """
         This is an aggregate over the notices published in TED in a specific day.
     """
-    notice_fetched_date: date
+    ted_publication_date: date
     validation_report: Optional[SupraNoticeValidationReport]
-    validation_summary: Optional[ValidationSummaryReport] = None
+    validation_summary: Optional[ValidationSummaryReport]

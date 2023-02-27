@@ -213,7 +213,7 @@ stop-metabase:
 init-rml-mapper:
 	@ echo -e "RMLMapper folder initialisation!"
 	@ mkdir -p ./.rmlmapper
-	@ wget -c https://github.com/RMLio/rmlmapper-java/releases/download/v6.0.0/rmlmapper-6.0.0-r363-all.jar -O ./.rmlmapper/rmlmapper.jar
+	@ wget -c https://github.com/RMLio/rmlmapper-java/releases/download/v6.1.3/rmlmapper-6.1.3-r367-all.jar -O ./.rmlmapper/rmlmapper.jar
 
 init-limes:
 	@ echo -e "Limes folder initialisation!"

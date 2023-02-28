@@ -7,7 +7,8 @@ from ted_sws.core.model.notice import Notice, NoticeStatus
 from ted_sws.core.model.transform import MappingSuite, FileResource
 from ted_sws.data_manager.adapters.mapping_suite_repository import MappingSuiteRepositoryInFileSystem
 from ted_sws.data_manager.adapters.repository_abc import NoticeRepositoryABC, MappingSuiteRepositoryABC
-from ted_sws.data_manager.services.mapping_suite_resource_manager import file_resource_output_path
+from ted_sws.data_manager.services.mapping_suite_resource_manager import file_resource_output_path, \
+    mapping_suite_skipped_notice
 from ted_sws.event_manager.adapters.event_logger import EventLogger, EventMessageLogSettings
 from ted_sws.event_manager.model.event_message import NoticeEventMessage
 from ted_sws.event_manager.services.logger_from_context import get_env_logger
@@ -86,7 +87,7 @@ def transform_test_data(mapping_suite: MappingSuite, rml_mapper: RMLMapperABC, o
         filename = data.file_name
         notice_id = Path(filename).stem
 
-        if notice_ids and len(notice_ids) > 0 and notice_id not in notice_ids:
+        if mapping_suite_skipped_notice(notice_id, notice_ids):
             continue
 
         if logger:

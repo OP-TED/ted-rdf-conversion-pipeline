@@ -74,17 +74,17 @@
     <ul>
         <li>Date created: {{ created }}</li>
         <li><div><hr></div>Notice identifier(s):
-            <div data-role="collapsible" data-state="{% if notice_ids|length > 1 %}collapsed{% endif %}"
+            <div data-role="collapsible" data-state="{% if notices|length > 1 %}collapsed{% endif %}"
                 class="collapsible-wrapper">
                 <h4><a href="#"></a></h4>
                 <div class="ui-collapsible-content">
-                {% if notice_ids|length == 1 %}
-                    {{ notice_ids[0] }}
+                {% if notices|length == 1 %}
+                    {{ notices[0].notice_id }}
                 {% else %}
                     <ul>
-                    {% for nid in notice_ids %}
+                    {% for report_data in notices %}
                         <li>
-                            <a href="{{ nid }}/test_suite_report" target="_blank">{{ nid }}</a>
+                            {{ report_data.notice_id }}
                         </li>
                     {% endfor %}
                     </ul>

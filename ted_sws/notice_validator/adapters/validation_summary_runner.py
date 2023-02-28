@@ -8,6 +8,7 @@ from ted_sws.core.model.manifestation import SPARQLQueryResult, SPARQLTestSuiteV
     XPATHCoverageSummaryResult, SPARQLSummaryCountReport, SHACLSummarySeverityCountReport, SPARQLSummaryResult, \
     SHACLSummaryResult, ValidationSummaryReport
 from ted_sws.core.model.notice import Notice
+from ted_sws.notice_validator.services import transform_report_notices, transform_validation_report_notices
 
 TEMPLATES = Environment(loader=PackageLoader("ted_sws.notice_validator.resources", "templates"))
 VALIDATION_SUMMARY_REPORT_TEMPLATE = "validation_summary_report.jinja2"
@@ -207,7 +208,8 @@ class ValidationSummaryRunner:
     @classmethod
     def validation_summary_for_notices(cls, notices: List[Notice]) -> ValidationSummaryReport:
         report: ValidationSummaryReport = cls.validation_summary(notices)
-        report.notice_ids = sorted(list(map(lambda notice: notice.ted_id, notices)))
+        report.notices = sorted(transform_validation_report_notices(notices),
+                                key=lambda report_data: report_data.notice_id)
 
         return report
 

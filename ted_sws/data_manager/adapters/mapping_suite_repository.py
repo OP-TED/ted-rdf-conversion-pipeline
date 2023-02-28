@@ -1,4 +1,5 @@
 import json
+import os
 import pathlib
 import shutil
 from datetime import datetime
@@ -208,8 +209,11 @@ class MappingSuiteRepositoryInFileSystem(MappingSuiteRepositoryABC):
             with file_resource_path.open("w", encoding="utf-8") as f:
                 f.write(file_resource.file_content)
 
-    @classmethod
-    def _read_file_resources(cls, path: pathlib.Path) -> List[FileResource]:
+    def _read_flat_file_resources(self, path: pathlib.Path, file_resources=None) -> List[FileResource]:
+        return read_flat_file_resources(path, file_resources)
+
+
+    def _read_file_resources(self, path: pathlib.Path) -> List[FileResource]:
         """
             This method reads a list of file-type resources that are in a specific location.
         :param path:
@@ -281,15 +285,14 @@ class MappingSuiteRepositoryInFileSystem(MappingSuiteRepositoryABC):
                                    path=test_data_path
                                    )
 
-    @classmethod
-    def _read_test_data_package(cls, package_path: pathlib.Path) -> TransformationTestData:
+    def _read_test_data_package(self, package_path: pathlib.Path) -> TransformationTestData:
         """
             This method reads the test data from the package.
         :param package_path:
         :return:
         """
         test_data_path = package_path / MS_TEST_DATA_FOLDER_NAME
-        test_data = read_flat_file_resources(path=test_data_path)
+        test_data = self._read_flat_file_resources(path=test_data_path)
         return TransformationTestData(test_data=test_data)
 
     def _write_mapping_suite_package(self, mapping_suite: MappingSuite):

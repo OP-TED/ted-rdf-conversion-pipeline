@@ -70,5 +70,5 @@ def summary_validation_for_daily_supra_notice(ted_publication_date: day_type, mo
 
     supra_notice.validation_summary = generate_validation_summary_report_notices(notices)
     # no notice_ids needed to be stored for supra_notice
-    supra_notice.validation_summary.notice_ids = []
+    supra_notice.validation_summary.notices = []
     repo.update(daily_supra_notice=supra_notice)

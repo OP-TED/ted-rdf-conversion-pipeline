@@ -69,7 +69,7 @@ class MappingSuiteStructureValidator:
             self.mapping_suite_path / MS_TRANSFORM_FOLDER_NAME / MS_MAPPINGS_FOLDER_NAME,
             self.mapping_suite_path / MS_TRANSFORM_FOLDER_NAME / MS_RESOURCES_FOLDER_NAME,
             self.mapping_suite_path / MS_TRANSFORM_FOLDER_NAME / MS_CONCEPTUAL_MAPPING_FILE_NAME,
-            self.mapping_suite_path / MS_TEST_DATA_FOLDER_NAME,
+            self.mapping_suite_path / MS_TEST_DATA_FOLDER_NAME
         ]
         return self.assert_path(mandatory_paths_l1)
 
@@ -111,7 +111,10 @@ class MappingSuiteStructureValidator:
 
         success = success and self.assert_path(mandatory_paths_l3)
         if success:
-            for notice_path in _iter_dir(self.mapping_suite_path / MS_OUTPUT_FOLDER_NAME):
+            output_path = self.mapping_suite_path / MS_OUTPUT_FOLDER_NAME
+            notices_rdf_files_paths = [path for path in output_path.glob("**/*.ttl")]
+            for notice_rdf_path in notices_rdf_files_paths:
+                notice_path = notice_rdf_path.parent
                 report_count = 0
                 success = success and self.assert_path([notice_path / MS_TEST_SUITE_REPORT])
                 if success:

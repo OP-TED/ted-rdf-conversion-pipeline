@@ -12,6 +12,7 @@ from ted_sws.core.model.transform import MappingSuite, FileResource, Transformat
     SPARQLTestSuite, MetadataConstraints, TransformationTestData, ConceptualMapping
 from ted_sws.data_manager.adapters import inject_date_string_fields, remove_date_string_fields
 from ted_sws.data_manager.adapters.repository_abc import MappingSuiteRepositoryABC
+from ted_sws.data_manager.services.mapping_suite_resource_manager import read_flat_file_resources
 from ted_sws.mapping_suite_processor.services.conceptual_mapping_reader import mapping_suite_read_conceptual_mapping
 
 MS_METADATA_FILE_NAME = "metadata.json"
@@ -209,25 +210,8 @@ class MappingSuiteRepositoryInFileSystem(MappingSuiteRepositoryABC):
                 f.write(file_resource.file_content)
 
     def _read_flat_file_resources(self, path: pathlib.Path, file_resources=None) -> List[FileResource]:
-        """
-            This method reads a folder (with nested-tree structure) of resources and returns a flat list of file-type
-            resources from all beyond levels.
-            Used for folders that contains files with unique names, but grouped into sub-folders.
-        :param path:
-        :param file_resources:
-        :return:
-        """
-        if file_resources is None:
-            file_resources = []
+        return read_flat_file_resources(path, file_resources)
 
-        for root, dirs, files in os.walk(path):
-            for f in files:
-                file = pathlib.Path(os.path.join(root, f))
-                file_resources.append(FileResource(file_name=file.name,
-                                                   file_content=file.read_text(encoding="utf-8"),
-                                                   original_name=file.name))
-
-        return file_resources
 
     def _read_file_resources(self, path: pathlib.Path) -> List[FileResource]:
         """

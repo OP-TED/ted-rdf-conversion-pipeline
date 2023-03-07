@@ -13,6 +13,7 @@ from typing import List, Union, Optional, Dict
 from pydantic import Field
 
 from ted_sws.core.model import PropertyBaseModel
+from ted_sws.core.model.validation_report_data import ReportNoticeData
 
 
 class ManifestationMimeType(Enum):
@@ -60,6 +61,73 @@ class ValidationManifestation(Manifestation):
     created: str = datetime.now().isoformat()
 
 
+class XPATHCoverageSummaryResult(PropertyBaseModel):
+    xpath_covered: Optional[int] = 0
+    xpath_not_covered: Optional[int] = 0
+
+
+class XPATHCoverageSummaryReport(PropertyBaseModel):
+    mapping_suite_identifier: Optional[str]
+    validation_result: Optional[XPATHCoverageSummaryResult] = XPATHCoverageSummaryResult()
+
+
+class XMLManifestationValidationSummaryReport(PropertyBaseModel):
+    xpath_coverage_summary: Optional[XPATHCoverageSummaryReport] = XPATHCoverageSummaryReport()
+
+
+class SPARQLSummaryCountReport(PropertyBaseModel):
+    valid: Optional[int] = 0
+    unverifiable: Optional[int] = 0
+    warning: Optional[int] = 0
+    invalid: Optional[int] = 0
+    error: Optional[int] = 0
+
+
+class SPARQLSummaryResult(PropertyBaseModel):
+    test_suite_identifier: Optional[str]
+    mapping_suite_identifier: Optional[str]
+    aggregate: Optional[SPARQLSummaryCountReport] = SPARQLSummaryCountReport()
+
+
+class SPARQLSummaryReport(PropertyBaseModel):
+    validation_results: Optional[List[SPARQLSummaryResult]] = []
+    aggregate: Optional[SPARQLSummaryCountReport] = SPARQLSummaryCountReport()
+
+
+class SHACLSummarySeverityCountReport(PropertyBaseModel):
+    info: Optional[int] = 0
+    warning: Optional[int] = 0
+    violation: Optional[int] = 0
+
+
+class SHACLSummaryResultSeverityReport(PropertyBaseModel):
+    aggregate: Optional[SHACLSummarySeverityCountReport] = SHACLSummarySeverityCountReport()
+
+
+class SHACLSummaryResult(PropertyBaseModel):
+    test_suite_identifier: Optional[str]
+    mapping_suite_identifier: Optional[str]
+    result_severity: Optional[SHACLSummaryResultSeverityReport] = SHACLSummaryResultSeverityReport()
+
+
+class SHACLSummaryReport(PropertyBaseModel):
+    validation_results: Optional[List[SHACLSummaryResult]] = []
+    result_severity: Optional[SHACLSummaryResultSeverityReport] = SHACLSummaryResultSeverityReport()
+
+
+class RDFManifestationValidationSummaryReport(PropertyBaseModel):
+    sparql_summary: Optional[SPARQLSummaryReport] = SPARQLSummaryReport()
+    shacl_summary: Optional[SHACLSummaryReport] = SHACLSummaryReport()
+
+
+class ValidationSummaryReport(ValidationManifestation):
+    notices: Optional[List[ReportNoticeData]] = []
+    xml_manifestation: Optional[XMLManifestationValidationSummaryReport] = XMLManifestationValidationSummaryReport()
+    rdf_manifestation: Optional[RDFManifestationValidationSummaryReport] = RDFManifestationValidationSummaryReport()
+    distilled_rdf_manifestation: Optional[
+        RDFManifestationValidationSummaryReport] = RDFManifestationValidationSummaryReport()
+
+
 class XMLValidationManifestation(ValidationManifestation):
     """
 
@@ -78,17 +146,23 @@ class XPATHCoverageValidationAssertion(PropertyBaseModel):
     query_result: Optional[bool]
 
 
-class XPATHCoverageValidationResult(PropertyBaseModel):
+class XPATHCoverageValidationResultBase(PropertyBaseModel):
     """
 
     """
-    notice_id: Optional[List[str]] = []
     xpath_assertions: Optional[List[XPATHCoverageValidationAssertion]] = []
     xpath_covered: Optional[List[str]] = []
     xpath_not_covered: Optional[List[str]] = []
     xpath_extra: Optional[List[str]] = []
     coverage: Optional[float]
     conceptual_coverage: Optional[float]
+
+
+class XPATHCoverageValidationResult(XPATHCoverageValidationResultBase):
+    """
+    XPATHCoverageValidationResult for Notice
+    """
+    notices: Optional[List[ReportNoticeData]]
 
 
 class XPATHCoverageValidationReport(XMLValidationManifestation):
@@ -226,68 +300,3 @@ class RDFManifestation(Manifestation):
         return False
 
 
-class XPATHCoverageSummaryResult(PropertyBaseModel):
-    xpath_covered: Optional[int] = 0
-    xpath_not_covered: Optional[int] = 0
-
-
-class XPATHCoverageSummaryReport(PropertyBaseModel):
-    mapping_suite_identifier: Optional[str]
-    validation_result: Optional[XPATHCoverageSummaryResult] = XPATHCoverageSummaryResult()
-
-
-class XMLManifestationValidationSummaryReport(PropertyBaseModel):
-    xpath_coverage_summary: Optional[XPATHCoverageSummaryReport] = XPATHCoverageSummaryReport()
-
-
-class SPARQLSummaryCountReport(PropertyBaseModel):
-    valid: Optional[int] = 0
-    unverifiable: Optional[int] = 0
-    warning: Optional[int] = 0
-    invalid: Optional[int] = 0
-    error: Optional[int] = 0
-
-
-class SPARQLSummaryResult(PropertyBaseModel):
-    test_suite_identifier: Optional[str]
-    mapping_suite_identifier: Optional[str]
-    aggregate: Optional[SPARQLSummaryCountReport] = SPARQLSummaryCountReport()
-
-
-class SPARQLSummaryReport(PropertyBaseModel):
-    validation_results: Optional[List[SPARQLSummaryResult]] = []
-    aggregate: Optional[SPARQLSummaryCountReport] = SPARQLSummaryCountReport()
-
-
-class SHACLSummarySeverityCountReport(PropertyBaseModel):
-    info: Optional[int] = 0
-    warning: Optional[int] = 0
-    violation: Optional[int] = 0
-
-
-class SHACLSummaryResultSeverityReport(PropertyBaseModel):
-    aggregate: Optional[SHACLSummarySeverityCountReport] = SHACLSummarySeverityCountReport()
-
-
-class SHACLSummaryResult(PropertyBaseModel):
-    test_suite_identifier: Optional[str]
-    mapping_suite_identifier: Optional[str]
-    result_severity: Optional[SHACLSummaryResultSeverityReport] = SHACLSummaryResultSeverityReport()
-
-
-class SHACLSummaryReport(PropertyBaseModel):
-    validation_results: Optional[List[SHACLSummaryResult]] = []
-    result_severity: Optional[SHACLSummaryResultSeverityReport] = SHACLSummaryResultSeverityReport()
-
-
-class RDFManifestationValidationSummaryReport(PropertyBaseModel):
-    sparql_summary: Optional[SPARQLSummaryReport] = SPARQLSummaryReport()
-    shacl_summary: Optional[SHACLSummaryReport] = SHACLSummaryReport()
-
-
-class ValidationSummaryReport(ValidationManifestation):
-    notice_ids: Optional[List[str]] = []
-    xml_manifestation: Optional[XMLManifestationValidationSummaryReport] = XMLManifestationValidationSummaryReport()
-    rdf_manifestation: Optional[RDFManifestationValidationSummaryReport] = RDFManifestationValidationSummaryReport()
-    distilled_rdf_manifestation: Optional[
-        RDFManifestationValidationSummaryReport] = RDFManifestationValidationSummaryReport()

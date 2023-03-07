@@ -8,6 +8,7 @@
 """ """
 import abc
 from datetime import datetime
+from pathlib import Path
 from typing import List, Optional
 
 from ted_sws.core.model import PropertyBaseModel
@@ -25,6 +26,14 @@ class FileResource(MappingSuiteComponent):
     file_name: str
     file_content: str
     original_name: Optional[str]
+    parents: Optional[List[str]] = []
+
+
+class NoticeFileResource(FileResource):
+    """
+
+    """
+    notice_id: str
 
 
 class MetadataConstraints(MappingSuiteComponent):

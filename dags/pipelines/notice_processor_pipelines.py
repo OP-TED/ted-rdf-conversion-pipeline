@@ -6,7 +6,7 @@ from ted_sws.notice_validator.services.entity_deduplication_validation import \
     generate_rdf_manifestation_entity_deduplication_report
 
 
-def notice_normalisation_pipeline(notice: Notice, mongodb_client: MongoClient) -> NoticePipelineOutput:
+def notice_normalisation_pipeline(notice: Notice, mongodb_client: MongoClient = None) -> NoticePipelineOutput:
     """
 
     """
@@ -66,7 +66,7 @@ def notice_validation_pipeline(notice: Notice, mongodb_client: MongoClient) -> N
     mapping_suite_repository = MappingSuiteRepositoryMongoDB(mongodb_client=mongodb_client)
     mapping_suite = mapping_suite_repository.get(reference=mapping_suite_id)
     log_notice_info(message="Validation :: XPATH coverage :: START", notice_id=notice.ted_id)
-    validate_xpath_coverage_notice(notice=notice, mapping_suite=mapping_suite, mongodb_client=mongodb_client)
+    validate_xpath_coverage_notice(notice=notice, mapping_suite=mapping_suite)
     log_notice_info(message="Validation :: XPATH coverage :: END", notice_id=notice.ted_id)
     log_notice_info(message="Validation :: SPARQL :: START", notice_id=notice.ted_id)
     validate_notice_with_sparql_suite(notice=notice, mapping_suite_package=mapping_suite, execute_full_validation=False)
@@ -83,7 +83,7 @@ def notice_validation_pipeline(notice: Notice, mongodb_client: MongoClient) -> N
     return NoticePipelineOutput(notice=notice)
 
 
-def notice_package_pipeline(notice: Notice, mongodb_client: MongoClient) -> NoticePipelineOutput:
+def notice_package_pipeline(notice: Notice, mongodb_client: MongoClient = None) -> NoticePipelineOutput:
     """
 
     """
@@ -96,7 +96,7 @@ def notice_package_pipeline(notice: Notice, mongodb_client: MongoClient) -> Noti
     return NoticePipelineOutput(notice=packaged_notice)
 
 
-def notice_publish_pipeline(notice: Notice, mongodb_client: MongoClient) -> NoticePipelineOutput:
+def notice_publish_pipeline(notice: Notice, mongodb_client: MongoClient = None) -> NoticePipelineOutput:
     """
 
     """

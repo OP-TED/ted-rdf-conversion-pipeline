@@ -8,6 +8,7 @@ from typing import List
 from ordered_set import OrderedSet
 
 from ted_sws.data_manager.adapters.mapping_suite_repository import MS_METADATA_FILE_NAME
+from ted_sws.data_manager.services.mapping_suite_resource_manager import mapping_suite_skipped_notice
 from ted_sws.event_manager.adapters.event_handler import EventWriterToFileHandler, EventWriterToConsoleHandler, \
     EventWriterToMongoDBHandler
 from ted_sws.event_manager.adapters.event_logger import EventLogger
@@ -163,15 +164,7 @@ class CmdRunnerForMappingSuite(CmdRunner):
         return os.path.isdir(suite_path) and any(f == MS_METADATA_FILE_NAME for f in os.listdir(suite_path))
 
     def skip_notice(self, notice_id: str) -> bool:
-        """
-        This method will skip the iteration step for notice_id (where notices can be retrieved only by iterating
-        through a list of values, such as files, directories) that is not present in the provided list of
-        input notice_ids
-        :param notice_id:
-        :return: True if input notice_ids provided and notice_id not present and False if there is no input notice_ids
-        provided or notice_id is present in the input
-        """
-        return self.notice_ids and notice_id not in self.notice_ids
+        return mapping_suite_skipped_notice(notice_id, self.notice_ids)
 
     def on_begin(self):
         super().on_begin()

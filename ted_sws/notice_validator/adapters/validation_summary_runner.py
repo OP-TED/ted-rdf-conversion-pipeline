@@ -8,7 +8,7 @@ from ted_sws.core.model.manifestation import SPARQLQueryResult, SPARQLTestSuiteV
     XPATHCoverageSummaryResult, SPARQLSummaryCountReport, SHACLSummarySeverityCountReport, SPARQLSummaryResult, \
     SHACLSummaryResult, ValidationSummaryReport
 from ted_sws.core.model.notice import Notice
-from ted_sws.notice_validator.services import transform_report_notices, transform_validation_report_notices
+from ted_sws.notice_transformer.services.notice_transformer import transform_validation_report_notices
 
 TEMPLATES = Environment(loader=PackageLoader("ted_sws.notice_validator.resources", "templates"))
 VALIDATION_SUMMARY_REPORT_TEMPLATE = "validation_summary_report.jinja2"

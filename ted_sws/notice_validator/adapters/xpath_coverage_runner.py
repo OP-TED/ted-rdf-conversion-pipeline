@@ -11,12 +11,12 @@ from ted_sws.core.model.transform import ConceptualMapping, ConceptualMappingXPA
 from ted_sws.core.model.validation_report import ReportNotice
 from ted_sws.data_sampler.services.notice_xml_indexer import index_notice
 from ted_sws.notice_validator.resources.templates import TEMPLATE_METADATA_KEY
-from ted_sws.notice_validator.services import transform_report_notices
+from ted_sws.notice_transformer.services.notice_transformer import transform_report_notices
 
 TEMPLATES = Environment(loader=PackageLoader("ted_sws.notice_validator.resources", "templates"))
 XPATH_COVERAGE_REPORT_TEMPLATE = "xpath_coverage_report.jinja2"
 
-XPATH_TYPE = Dict[str, List[str]]
+XPathDict = Dict[str, List[str]]
 
 
 class CoverageRunner:
@@ -52,17 +52,17 @@ class CoverageRunner:
 
         xpaths: List[str] = self.notice_xpaths(notice=notice)
         based_xpaths = self.based_xpaths(xpaths, self.base_xpath)
-        notice_xpaths: XPATH_TYPE = {notice.ted_id: based_xpaths}
+        notice_xpaths: XPathDict = {notice.ted_id: based_xpaths}
         self.validate_xpath_coverage_report(report, notice_xpaths, based_xpaths)
 
         return report
 
     @classmethod
-    def find_notice_by_xpath(cls, notice_xpaths: XPATH_TYPE, xpath: str) -> Dict[str, int]:
+    def find_notice_by_xpath(cls, notice_xpaths: XPathDict, xpath: str) -> Dict[str, int]:
         notice_hit: Dict[str, int] = {k: v.count(xpath) for k, v in sorted(notice_xpaths.items()) if xpath in v}
         return notice_hit
 
-    def xpath_assertions(self, notice_xpaths: XPATH_TYPE,
+    def xpath_assertions(self, notice_xpaths: XPathDict,
                          xpaths_list: List[str]) -> List[XPATHCoverageValidationAssertion]:
         xpath_assertions = []
         for xpath in self.conceptual_xpaths:
@@ -77,7 +77,7 @@ class CoverageRunner:
             xpath_assertions.append(xpath_assertion)
         return sorted(xpath_assertions, key=lambda x: x.form_field)
 
-    def validate_xpath_coverage_report(self, report: XPATHCoverageValidationReport, notice_xpaths: XPATH_TYPE,
+    def validate_xpath_coverage_report(self, report: XPATHCoverageValidationReport, notice_xpaths: XPathDict,
                                        xpaths_list: List[str]):
         unique_notice_xpaths: Set[str] = set(xpaths_list)
 
@@ -113,7 +113,7 @@ class CoverageRunner:
             object_data="XPATHCoverageValidationReport",
             mapping_suite_identifier=self.mapping_suite_id)
 
-        notice_xpaths: XPATH_TYPE = {}
+        notice_xpaths: XPathDict = {}
         xpaths_list: List[str] = []
         for report_notice in notices:
             notice = report_notice.notice

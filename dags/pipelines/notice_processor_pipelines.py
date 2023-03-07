@@ -6,7 +6,7 @@ from ted_sws.notice_validator.services.entity_deduplication_validation import \
     generate_rdf_manifestation_entity_deduplication_report
 
 
-def notice_normalisation_pipeline(notice: Notice) -> NoticePipelineOutput:
+def notice_normalisation_pipeline(notice: Notice, mongodb_client: MongoClient = None) -> NoticePipelineOutput:
     """
 
     """
@@ -83,7 +83,7 @@ def notice_validation_pipeline(notice: Notice, mongodb_client: MongoClient) -> N
     return NoticePipelineOutput(notice=notice)
 
 
-def notice_package_pipeline(notice: Notice) -> NoticePipelineOutput:
+def notice_package_pipeline(notice: Notice, mongodb_client: MongoClient = None) -> NoticePipelineOutput:
     """
 
     """
@@ -96,7 +96,7 @@ def notice_package_pipeline(notice: Notice) -> NoticePipelineOutput:
     return NoticePipelineOutput(notice=packaged_notice)
 
 
-def notice_publish_pipeline(notice: Notice) -> NoticePipelineOutput:
+def notice_publish_pipeline(notice: Notice, mongodb_client: MongoClient = None) -> NoticePipelineOutput:
     """
 
     """

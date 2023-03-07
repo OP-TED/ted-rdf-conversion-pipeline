@@ -51,6 +51,6 @@ def test_summary_validation_for_daily_supra_notice(fake_mongodb_client, daily_su
     result = daily_supra_notice_repository.get(reference=day)
     assert isinstance(result.validation_summary, ValidationSummaryReport)
     assert result.notice_ids == notice_ids
-    assert result.validation_summary.notice_ids == []
+    assert result.validation_summary.notices == []
 
 

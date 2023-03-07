@@ -9,27 +9,6 @@ from ted_sws.notice_validator.adapters.xpath_coverage_runner import CoverageRunn
 NOTICE_GROUPING_KEY = "grouping"
 
 
-class XPATHCoverageReportBuilder:
-    """
-        Given a XPATHCoverageValidationReport, generates JSON and HTML reports.
-    """
-
-    def __init__(self, xpath_coverage_report: XPATHCoverageValidationReport, with_html: bool = False):
-        """
-
-        :param xpath_coverage_report:
-        :param with_html: generate HTML report
-        """
-        self.xpath_coverage_report = xpath_coverage_report
-        self.with_html = with_html
-
-    def generate_report(self) -> XPATHCoverageValidationReport:
-        if self.with_html:
-            html_report = xpath_coverage_html_report(self.xpath_coverage_report)
-            self.xpath_coverage_report.object_data = html_report
-        return self.xpath_coverage_report
-
-
 def xpath_coverage_json_report(report: XPATHCoverageValidationReport) -> dict:
     return CoverageRunner.json_report(report)
 

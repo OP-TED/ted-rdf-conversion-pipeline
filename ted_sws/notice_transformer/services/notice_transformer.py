@@ -14,6 +14,8 @@ from ted_sws.event_manager.model.event_message import NoticeEventMessage
 from ted_sws.event_manager.services.logger_from_context import get_env_logger
 from ted_sws.notice_transformer.adapters.rml_mapper import RMLMapperABC
 from ted_sws.notice_transformer.services import DEFAULT_TRANSFORMATION_FILE_EXTENSION
+from ted_sws.core.model.validation_report import ReportNotice
+from ted_sws.core.model.validation_report_data import ReportNoticeData
 
 DATA_SOURCE_PACKAGE = "data"
 
@@ -117,3 +119,21 @@ def transform_test_data(mapping_suite: MappingSuite, rml_mapper: RMLMapperABC, o
             event_message.notice_id = notice_id
             event_message.end_record()
             logger.info(event_message, settings=EventMessageLogSettings(briefly=True))
+
+
+def transform_report_notice(report_notice: ReportNotice) -> ReportNoticeData:
+    return ReportNoticeData(notice_id=report_notice.notice.ted_id, path=str(report_notice.metadata.path))
+
+
+def transform_report_notices(report_notices: List[ReportNotice]) -> List[ReportNoticeData]:
+    report_datas = []
+    for report_notice in report_notices:
+        report_datas.append(transform_report_notice(report_notice))
+    return report_datas
+
+
+def transform_validation_report_notices(report_notices: List[Notice]) -> List[ReportNoticeData]:
+    report_datas = []
+    for report_notice in report_notices:
+        report_datas.append(ReportNoticeData(notice_id=report_notice.ted_id))
+    return report_datas

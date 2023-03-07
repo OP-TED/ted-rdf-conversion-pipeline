@@ -7,7 +7,7 @@ from ted_sws.core.model.manifestation import XMLManifestation
 from ted_sws.core.model.notice import Notice
 from ted_sws.core.model.transform import FileResource, MappingSuite
 from ted_sws.core.model.validation_report import ReportNotice, ReportNoticeMetadata
-from ted_sws.notice_transformer.services import DEFAULT_TRANSFORMATION_FILE_EXTENSION
+from ted_sws.data_manager.adapters.mapping_suite_repository import MappingSuiteRepositoryInFileSystem
 
 
 def file_resource_output_path(file_resource: FileResource, output_path: Path = '') -> Path:
@@ -49,30 +49,8 @@ def mapping_suite_notices_grouped_by_path(mapping_suite: MappingSuite, notice_id
 
 
 def read_flat_file_resources(path: pathlib.Path, file_resources=None, extension=None) -> List[FileResource]:
-    """
-        This method reads a folder (with nested-tree structure) of resources and returns a flat list of file-type
-        resources from all beyond levels.
-        Used for folders that contains files with unique names, but grouped into sub-folders.
-    :param extension:
-    :param path:
-    :param file_resources:
-    :return:
-    """
-    if file_resources is None:
-        file_resources: List[FileResource] = []
-
-    for root, dirs, files in os.walk(path):
-        file_parents = list(
-            map(lambda path_value: str(path_value), pathlib.Path(os.path.relpath(root, path)).parts))
-        for f in files:
-            file_extension = Path(f).suffix
-            if extension is not None and file_extension != extension:
-                continue
-            file_path = Path(os.path.join(root, f))
-            file_resource = FileResource(file_name=file_path.name,
-                                         file_content=file_path.read_text(encoding="utf-8"),
-                                         original_name=file_path.name,
-                                         parents=file_parents)
-            file_resources.append(file_resource)
-
-    return file_resources
+    return MappingSuiteRepositoryInFileSystem.read_flat_file_resources(
+        path=path,
+        file_resources=file_resources,
+        extension=extension
+    )

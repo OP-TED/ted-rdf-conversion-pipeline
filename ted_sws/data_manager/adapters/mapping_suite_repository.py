@@ -12,8 +12,7 @@ from ted_sws.core.model.transform import MappingSuite, FileResource, Transformat
     SPARQLTestSuite, MetadataConstraints, TransformationTestData, ConceptualMapping
 from ted_sws.data_manager.adapters import inject_date_string_fields, remove_date_string_fields
 from ted_sws.data_manager.adapters.repository_abc import MappingSuiteRepositoryABC
-from ted_sws.data_manager.services.mapping_suite_resource_manager import read_flat_file_resources
-from ted_sws.mapping_suite_processor.services.conceptual_mapping_reader import mapping_suite_read_conceptual_mapping
+from ted_sws.mapping_suite_processor.adapters.conceptual_mapping_reader import ConceptualMappingReader
 
 MS_METADATA_FILE_NAME = "metadata.json"
 MS_TRANSFORM_FOLDER_NAME = "transformation"
@@ -178,9 +177,8 @@ class MappingSuiteRepositoryInFileSystem(MappingSuiteRepositoryABC):
 
     @classmethod
     def _read_conceptual_mapping(cls, package_path: pathlib.Path) -> ConceptualMapping:
-        return mapping_suite_read_conceptual_mapping(
-            package_path / MS_TRANSFORM_FOLDER_NAME / MS_CONCEPTUAL_MAPPING_FILE_NAME
-        )
+        return ConceptualMappingReader.mapping_suite_read_conceptual_mapping(
+            package_path / MS_TRANSFORM_FOLDER_NAME / MS_CONCEPTUAL_MAPPING_FILE_NAME)
 
     def _write_package_metadata(self, mapping_suite: MappingSuite):
         """
@@ -209,11 +207,38 @@ class MappingSuiteRepositoryInFileSystem(MappingSuiteRepositoryABC):
             with file_resource_path.open("w", encoding="utf-8") as f:
                 f.write(file_resource.file_content)
 
-    def _read_flat_file_resources(self, path: pathlib.Path, file_resources=None) -> List[FileResource]:
-        return read_flat_file_resources(path, file_resources)
+    @classmethod
+    def read_flat_file_resources(cls, path: pathlib.Path, file_resources=None, extension=None) -> List[FileResource]:
+        """
+        This method reads a folder (with nested-tree structure) of resources and returns a flat list of file-type
+        resources from all beyond levels.
+        Used for folders that contains files with unique names, but grouped into sub-folders.
+        :param extension:
+        :param path:
+        :param file_resources:
+        :return:
+        """
+        if file_resources is None:
+            file_resources: List[FileResource] = []
 
+        for root, dirs, files in os.walk(path):
+            file_parents = list(
+                map(lambda path_value: str(path_value), pathlib.Path(os.path.relpath(root, path)).parts))
+            for f in files:
+                file_extension = pathlib.Path(f).suffix
+                if extension is not None and file_extension != extension:
+                    continue
+                file_path = pathlib.Path(os.path.join(root, f))
+                file_resource = FileResource(file_name=file_path.name,
+                                             file_content=file_path.read_text(encoding="utf-8"),
+                                             original_name=file_path.name,
+                                             parents=file_parents)
+                file_resources.append(file_resource)
 
-    def _read_file_resources(self, path: pathlib.Path) -> List[FileResource]:
+        return file_resources
+
+    @classmethod
+    def _read_file_resources(cls, path: pathlib.Path) -> List[FileResource]:
         """
             This method reads a list of file-type resources that are in a specific location.
         :param path:
@@ -292,7 +317,7 @@ class MappingSuiteRepositoryInFileSystem(MappingSuiteRepositoryABC):
         :return:
         """
         test_data_path = package_path / MS_TEST_DATA_FOLDER_NAME
-        test_data = self._read_flat_file_resources(path=test_data_path)
+        test_data = self.read_flat_file_resources(path=test_data_path)
         return TransformationTestData(test_data=test_data)
 
     def _write_mapping_suite_package(self, mapping_suite: MappingSuite):

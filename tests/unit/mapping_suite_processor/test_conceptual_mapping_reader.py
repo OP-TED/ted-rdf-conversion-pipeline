@@ -1,13 +1,12 @@
 from pathlib import Path
 
-from ted_sws.core.model.transform import ConceptualMapping
 from ted_sws.mapping_suite_processor.services.conceptual_mapping_reader import mapping_suite_read_conceptual_mapping, \
-    _read_list_from_pd_value
+    conceptual_mapping_read_list_from_pd_value
 from tests import temporary_copy
 
 
 def test__read_list_from_pd_value():
-    assert _read_list_from_pd_value(None) == []
+    assert conceptual_mapping_read_list_from_pd_value(None) == []
 
 
 def test_mapping_suite_read_conceptual_mapping(file_system_repository_path, mongodb_client):

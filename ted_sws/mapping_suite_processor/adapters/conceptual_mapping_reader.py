@@ -44,7 +44,7 @@ class ConceptualMappingReader:
         return value
 
     @classmethod
-    def _read_list_from_pd_value(cls, value) -> list:
+    def read_list_from_pd_value(cls, value) -> list:
         if value and pd.notna(value):
             return [x.strip() for x in str(value).split(',')]
         return []
@@ -95,7 +95,7 @@ class ConceptualMappingReader:
         metadata.base_xpath = cls._read_pd_value(raw_metadata[BASE_XPATH_FIELD][0])
 
         metadata_constraints: ConceptualMappingMetadataConstraints = ConceptualMappingMetadataConstraints()
-        metadata_constraints.eforms_subtype = cls._read_list_from_pd_value(raw_metadata[E_FORMS_SUBTYPE_FIELD][0])
+        metadata_constraints.eforms_subtype = cls.read_list_from_pd_value(raw_metadata[E_FORMS_SUBTYPE_FIELD][0])
         metadata_constraints.start_date = str(cls._read_pd_value(raw_metadata[START_DATE_FIELD][0]))
         metadata_constraints.end_date = str(cls._read_pd_value(raw_metadata[END_DATE_FIELD][0]))
         metadata_constraints.min_xsd_version = cls._read_pd_value(raw_metadata[MIN_XSD_VERSION_FIELD][0])

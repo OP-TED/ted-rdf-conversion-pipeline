@@ -69,6 +69,7 @@ class MetadataTransformer:
         metadata.work.cdm_rdf_type = PROCUREMENT_PUBLIC
         metadata.work.resource_type = PROCUREMENT_NOTICE
         metadata.work.date_document = publication_date
+        metadata.work.uri = publication_notice_uri(metadata.notice.id, notice_metadata)
         title_search = [t.title.text for t in notice_metadata.title if t.title.language == LANGUAGE.upper()]
         if len(title_search) > 0:
             metadata.work.title = {LANGUAGE: title_search[0]}
@@ -122,6 +123,10 @@ def publication_notice_year(notice_metadata):
 
 def publication_notice_number(notice_id):
     return notice_id.split(NORMALIZED_SEPARATOR)[0]
+
+
+def publication_notice_uri(notice_id, notice_metadata):
+    return f"{BASE_WORK}{publication_notice_year(notice_metadata)}/{notice_id}"
 
 
 def publication_work_identifier(notice_id, notice_metadata):

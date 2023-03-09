@@ -11,7 +11,7 @@
     "revision": "0",
     "type": "create",
     "profile": "http://publications.europa.eu/resource/mets/op-sip-profile_002",
-    "createdate": "2023-02-17T14:32:17.452160",
+    "createdate": "2023-03-09T18:28:54.804225",
     "document_id": "",
     "dmd_id": "dmd_2021_S_004_003545_0_001",
     "dmd_mdtype": "OTHER",
@@ -29,6 +29,7 @@
   },
   "work": {
     "identifier": "2021_S_004_003545",
+    "oj_identifier": "JOS_2021_004_R_003545",
     "cdm_rdf_type": "procurement_public",
     "resource_type": "PROCUREMENT_NOTICE",
     "uri": "http://data.europa.eu/a4g/resource/2021/003545_2021",
@@ -36,13 +37,13 @@
     "date_document": "2021-01-07",
     "created_by_agent": "EURUN",
     "dataset_published_by_agent": "EURUN",
-    "datetime_transmission": "2023-02-17T14:32:17.455085",
+    "datetime_transmission": "2023-03-09T18:28:54.806241",
     "title": {
       "en": "Construction work"
     },
-    "date_creation": "2023-02-17",
+    "date_creation": "2023-03-09",
     "concept_type_dataset": "TEST_DATA",
-    "dataset_version": "20230217-0",
+    "dataset_version": "20230309-0",
     "dataset_keyword": [
       "eProcurement",
       "notice"

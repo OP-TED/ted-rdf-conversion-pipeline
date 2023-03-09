@@ -104,13 +104,13 @@ class MetsMetadata(Metadata):
 class WorkMetadata(Metadata):
     """
         What is the minimal input necessary to produce the work metadata,
-        and the rest is a bunch of constants OR generated values (e.g. date, URI, ...)
+        and the rest is a bunch of constants OR generated values (e.g. date, ...)
     """
 
     identifier: Optional[str]
+    oj_identifier: Optional[str]
     cdm_rdf_type: Optional[str]
     resource_type: Optional[str]
-    uri: Optional[str] = None
     do_not_index: str = WORK_DO_NOT_INDEX
     date_document: str = datetime.datetime.now().strftime('%Y-%m-%d')
     created_by_agent: str = WORK_AGENT

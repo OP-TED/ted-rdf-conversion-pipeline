@@ -10,18 +10,19 @@
          xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
 
     <cdm:work rdf:about="&resource;ted/{{ work.identifier }}">
-        <rdf:type rdf:resource="http://publications.europa.eu/ontology/cdm#work"/>
-        {# <rdf:type rdf:resource="http://publications.europa.eu/ontology/cdm#procurement_public"/> #}
+        {# <rdf:type rdf:resource="http://publications.europa.eu/ontology/cdm#work"/> #}
+        <rdf:type rdf:resource="http://publications.europa.eu/ontology/cdm#procurement_public"/>
         <cdm:work_id_document rdf:datatype="http://www.w3.org/2001/XMLSchema#string">ted:{{ work.identifier }}</cdm:work_id_document>
+        <cdm:work_id_document rdf:datatype="http://www.w3.org/2001/XMLSchema#string">oj:{{ work.oj_identifier }}</cdm:work_id_document>
         <cdm:work_has_resource-type rdf:resource="http://publications.europa.eu/resource/authority/resource-type/PROCUREMENT_NOTICE"/>
         <cdm:do_not_index rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">{{ work.do_not_index }}</cdm:do_not_index>
         <cdm:work_date_document rdf:datatype="http://www.w3.org/2001/XMLSchema#date">{{ work.date_document }}</cdm:work_date_document>
         <cdm:work_created_by_agent rdf:resource="&cellar-authority;corporate-body/{{ work.created_by_agent }}"/>
+        <cdm:procurement_public_number_document_in_official-journal rdf:datatype="http://www.w3.org/2001/XMLSchema#string">{{ notice.public_number_document }}</cdm:procurement_public_number_document_in_official-journal>
         <cdm:procurement_public_number_edition rdf:datatype="http://www.w3.org/2001/XMLSchema#positiveInteger">{{ notice.public_number_edition }}</cdm:procurement_public_number_edition>
         {% for lang in mets.languages %}
         <cdm:work_title xml:lang="{{ lang }}">{{ work.title[lang] }}</cdm:work_title>
         {% endfor %}
-        <cdm:procurement_public_number_document_in_official-journal rdf:datatype="http://www.w3.org/2001/XMLSchema#string">{{ notice.public_number_document }}</cdm:procurement_public_number_document_in_official-journal>
         <cdm:datetime_transmission rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">{{ work.datetime_transmission }}</cdm:datetime_transmission>
         {# <cdm:procurement_public_issued_by_country>{{ work.procurement_public_issued_by_country }}</cdm:procurement_public_issued_by_country>
         {% for uri in work.procurement_public_url_etendering %}
@@ -30,7 +31,6 @@
         {# <cdm:datetime_negotiation rdf:resource="http://publications.europa.eu/ontology/cdm#datetime_transmission"/>
         <cdm:work_dataset_published_by_agent rdf:resource="&cellar-authority;corporate-body/{{ work.dataset_published_by_agent }}"/>
         <cdm:work_date_creation rdf:datatype="http://www.w3.org/2001/XMLSchema#date">{{ work.date_creation }}</cdm:work_date_creation>
-        <cdm:work_id>{{ work.uri }}</cdm:work_id>
         <cdm:work_dataset_version>{{ work.dataset_version }}</cdm:work_dataset_version>
         <cdm:work_dataset_has_type_concept_type_dataset rdf:resource="http://publications.europa.eu/resource/authority/dataset-type/{{ work.concept_type_dataset }}"/>
         {% for dataset_keyword in work.dataset_keyword %}
@@ -40,18 +40,22 @@
     </cdm:work>
 
     <cdm:expression rdf:about="&resource;ted/{{ expression.identifier }}">
+        {# <rdf:type rdf:resource="http://publications.europa.eu/ontology/cdm#expression"/> #}
+        <rdf:type rdf:resource="http://publications.europa.eu/ontology/cdm#expression_procurement_public"/>
         <cdm:expression_belongs_to_work rdf:resource="&resource;ted/{{ work.identifier }}"/>
         {% for lang in mets.languages %}
         <cdm:expression_title xml:lang="{{ lang }}">{{ expression.title[lang] }}</cdm:expression_title>
         {% endfor %}
         <cdm:expression_uses_language rdf:resource="&cellar-authority;language/{{ expression.uses_language }}"/>
+        <cdm:expression_procurement_public_authority-type_name rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Other</cdm:expression_procurement_public_authority-type_name>
     </cdm:expression>
 
     <cdm:manifestation_distribution rdf:about="&resource;ted/{{ manifestation.identifier }}">
+        {# <rdf:type rdf:resource="http://publications.europa.eu/ontology/cdm#manifestation"/> #}
         <cdm:manifestation_manifests_expression rdf:resource="&resource;ted/{{ expression.identifier }}"/>
         <cdm:manifestation_type rdf:datatype="http://www.w3.org/2001/XMLSchema#string">{{ manifestation.type }}</cdm:manifestation_type>
         <cdm:manifestation_date_publication rdf:datatype="http://www.w3.org/2001/XMLSchema#date">{{ manifestation.date_publication }}</cdm:manifestation_date_publication>
-        {# <cdm:manifestation_distribution_has_status_distribution_status rdf:resource="http://publications.europa.eu/resource/authority/dataset-status/{{ manifestation.distribution_has_status_distribution_status }}"/>
-        <cdm:manifestation_distribution_has_media_type_concept_media_type rdf:resource="http://publications.europa.eu/resource/authority/file-type/{{ manifestation.distribution_has_media_type_concept_media_type }}"/> #}
+        <cdm:manifestation_distribution_has_status_distribution_status rdf:resource="http://publications.europa.eu/resource/authority/distribution-status/{{ manifestation.distribution_has_status_distribution_status }}"/>
+        <cdm:manifestation_distribution_has_media_type_concept_media_type rdf:resource="http://publications.europa.eu/resource/authority/file-type/{{ manifestation.distribution_has_media_type_concept_media_type }}"/>
     </cdm:manifestation_distribution>
 </rdf:RDF>

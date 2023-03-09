@@ -8,7 +8,7 @@
 """ """
 
 from ted_sws.notice_metadata_processor.model.metadata import ExtractedMetadata
-from ted_sws.notice_packager.services.metadata_transformer import MetadataTransformer, publication_notice_uri, \
+from ted_sws.notice_packager.services.metadata_transformer import MetadataTransformer, \
     publication_notice_year, publication_work_identifier, publication_notice_number, NORMALIZED_SEPARATOR
 
 
@@ -38,11 +38,6 @@ def test_publication_notice_number(notice_id):
     glued_notice_id = notice_id.replace(NORMALIZED_SEPARATOR, "")
     notice_number = publication_notice_number(glued_notice_id)
     assert notice_number == "1963902018"
-
-
-def test_publication_notice_uri(notice_id, notice_sample_metadata):
-    uri = publication_notice_uri(notice_id, notice_sample_metadata)
-    assert uri == "http://data.europa.eu/a4g/resource/2018/196390_2018"
 
 
 def test_publication_work_identifier(notice_id, notice_sample_metadata):

@@ -65,6 +65,7 @@ class MetadataTransformer:
         # WORK
         publication_date = datetime.datetime.strptime(notice_metadata.publication_date, '%Y%m%d').strftime('%Y-%m-%d')
         metadata.work.identifier = publication_work_identifier(metadata.notice.id, notice_metadata)
+        metadata.work.oj_identifier = publication_work_oj_identifier(metadata.notice.id, notice_metadata)
         metadata.work.cdm_rdf_type = PROCUREMENT_PUBLIC
         metadata.work.resource_type = PROCUREMENT_NOTICE
         metadata.work.date_document = publication_date
@@ -132,3 +133,9 @@ def publication_work_identifier(notice_id, notice_metadata):
     year = publication_notice_year(notice_metadata)
     number = publication_notice_number(notice_id)
     return f"{year}_{notice_metadata.ojs_type}_{notice_metadata.ojs_issue_number.zfill(3)}_{number}"
+
+
+def publication_work_oj_identifier(notice_id, notice_metadata):
+    year = publication_notice_year(notice_metadata)
+    number = publication_notice_number(notice_id)
+    return f"JOS_{year}_{notice_metadata.ojs_issue_number.zfill(3)}_R_{number}"

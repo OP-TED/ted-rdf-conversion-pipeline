@@ -108,6 +108,7 @@ class WorkMetadata(Metadata):
     """
 
     identifier: Optional[str]
+    oj_identifier: Optional[str]
     cdm_rdf_type: Optional[str]
     resource_type: Optional[str]
     uri: Optional[str] = None

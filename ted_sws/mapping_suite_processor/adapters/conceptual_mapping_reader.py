@@ -38,6 +38,18 @@ class ConceptualMappingReader:
     """
 
     @classmethod
+    def base_xpath_as_prefix(cls, base_xpath: str) -> str:
+        return base_xpath + ("/" if not base_xpath.endswith("/") else "")
+
+    @classmethod
+    def xpath_with_base(cls, xpath: str, base_xpath: str = "") -> str:
+        # xpath is absolute
+        if xpath.startswith("/"):
+            return xpath
+        base_xpath = cls.base_xpath_as_prefix(base_xpath) if xpath else base_xpath
+        return base_xpath + xpath
+
+    @classmethod
     def _read_pd_value(cls, value, default=""):
         if pd.isna(value):
             return default
@@ -226,7 +238,7 @@ class ConceptualMappingReader:
                 row_xpaths = xpath_row.split('\n')
                 for xpath in row_xpaths:
                     if xpath:
-                        xpath = base_xpath + "/" + xpath
+                        xpath = cls.xpath_with_base(xpath, base_xpath)
                         if xpath not in processed_xpaths:
                             form_fields = [df_sform_field_ids[idx], df_sform_field_names[idx]]
                             cm_xpath: ConceptualMappingXPATH = ConceptualMappingXPATH(

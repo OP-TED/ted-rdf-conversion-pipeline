@@ -10,6 +10,7 @@ from ted_sws.core.model.notice import Notice
 from ted_sws.core.model.transform import ConceptualMapping, ConceptualMappingXPATH, MappingSuite
 from ted_sws.core.model.validation_report import ReportNotice
 from ted_sws.data_sampler.services.notice_xml_indexer import index_notice
+from ted_sws.mapping_suite_processor.adapters.conceptual_mapping_reader import ConceptualMappingReader
 from ted_sws.notice_validator.resources.templates import TEMPLATE_METADATA_KEY
 from ted_sws.notice_transformer.services.notice_transformer import transform_report_notices
 
@@ -103,7 +104,7 @@ class CoverageRunner:
         :param base_xpath:
         :return:
         """
-        base_xpath += "/" if not base_xpath.endswith("/") else ""
+        base_xpath = ConceptualMappingReader.base_xpath_as_prefix(base_xpath)
         return list(filter(lambda xpath: xpath.startswith(base_xpath), xpaths))
 
     def xpath_coverage_validation_summary_report(self,

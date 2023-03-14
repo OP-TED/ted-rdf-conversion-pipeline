@@ -8,6 +8,7 @@ from ted_sws.event_manager.services.log import log_cli_brief_error
 from ted_sws.mapping_suite_processor import CONCEPTUAL_MAPPINGS_METADATA_SHEET_NAME, \
     CONCEPTUAL_MAPPINGS_RULES_SHEET_NAME, RULES_FIELD_XPATH, RULES_E_FORM_BT_NAME, RULES_SF_FIELD_ID, \
     RULES_E_FORM_BT_ID, RULES_SF_FIELD_NAME
+from ted_sws.mapping_suite_processor.adapters.conceptual_mapping_reader import ConceptualMappingReader
 from ted_sws.notice_validator import BASE_XPATH_FIELD
 from ted_sws.resources.prefixes import PREFIXES_DEFINITIONS
 
@@ -34,8 +35,9 @@ def get_sparql_prefixes(sparql_q: str) -> list:
 def concat_field_xpath(base_xpath: str, field_xpath: str, separator: str = ", ") -> str:
     base_xpath = base_xpath if not pd.isna(base_xpath) else ''
     field_xpath = field_xpath if not pd.isna(field_xpath) else ''
-    base_xpath = (base_xpath + "/") if field_xpath else base_xpath
-    return separator.join([base_xpath + xpath for xpath in field_xpath.splitlines()])
+    return separator.join(
+        [ConceptualMappingReader.xpath_with_base(xpath, base_xpath) for xpath in field_xpath.splitlines()]
+    )
 
 
 def _get_elem_reference(class_value: str, cl_dfs: dict, field_xpath: list) -> str:

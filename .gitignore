@@ -107,6 +107,7 @@ infra/airflow/logs/scheduler/latest
 infra/airflow/requirements.txt
 
 .~lock*
+~$*
 infra/airflow-cluster/requirements.txt
 node_modules
 tests/reports/allure/report/

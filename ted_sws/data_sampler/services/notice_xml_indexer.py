@@ -8,6 +8,7 @@ from ted_sws.core.adapters.xml_preprocessor import XMLPreprocessor
 from ted_sws.core.model.metadata import XMLMetadata
 from ted_sws.core.model.notice import Notice
 from ted_sws.data_manager.adapters.notice_repository import NoticeRepository
+from ted_sws.mapping_suite_processor.adapters.conceptual_mapping_reader import ConceptualMappingReader
 from ted_sws.resources import XSLT_FILES_PATH
 import xml.etree.ElementTree as XMLElementTree
 import re
@@ -85,7 +86,7 @@ def index_notice(notice: Notice, base_xpath="") -> Notice:
 
                 xpath = "/" + '/'.join(path)
 
-                if xpath.startswith(base_xpath + "/"):
+                if xpath.startswith(ConceptualMappingReader.base_xpath_as_prefix(base_xpath)):
                     attributes = list(el.attrib.keys())
                     if len(attributes) > 0:
                         for attr in attributes:

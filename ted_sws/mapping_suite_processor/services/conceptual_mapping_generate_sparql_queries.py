@@ -21,7 +21,7 @@ CL_XPATH_FRAGMENT = 'XML PATH Fragment'
 
 DEFAULT_RQ_NAME = 'sparql_query_'
 
-SPARQL_PREFIX_PATTERN = re.compile('(?:\\s+|^)(\\w+)?:')
+SPARQL_PREFIX_PATTERN = re.compile('(?:\\s+|^)([\\w\\-]+)?:')
 SPARQL_PREFIX_LINE = 'PREFIX {prefix}: <{value}>'
 SPARQL_LOGGER_NAME = "SPARQL"
 

@@ -7,6 +7,11 @@ from tests import TEST_DATA_PATH
 
 
 @pytest.fixture
+def file_system_package_test_data_path():
+    return TEST_DATA_PATH / "notice_transformer" / "test_repository" / "test_package" / "test_data"
+
+
+@pytest.fixture
 def file_system_repository_path():
     return TEST_DATA_PATH / "notice_transformer" / "test_file_system_repository"
 

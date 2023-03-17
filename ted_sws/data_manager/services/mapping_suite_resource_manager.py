@@ -48,6 +48,16 @@ def mapping_suite_notices_grouped_by_path(mapping_suite: MappingSuite, notice_id
     return grouped_notices
 
 
+def mapping_suite_files_grouped_by_path(file_resources: List[FileResource], group_depth: int = 0) \
+        -> Dict[Path, List[FileResource]]:
+    grouped_files: Dict[Path, List[FileResource]] = {}
+    for data in file_resources:
+        group = Path(*file_resource_output_path(data).parts[:(-group_depth if group_depth else None)])
+        grouped_files.setdefault(group, []).append(data)
+
+    return grouped_files
+
+
 def read_flat_file_resources(path: pathlib.Path, file_resources=None, extension=None) -> List[FileResource]:
     return MappingSuiteRepositoryInFileSystem.read_flat_file_resources(
         path=path,

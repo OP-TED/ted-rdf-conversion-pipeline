@@ -1,10 +1,12 @@
+{% set mapping_suite_identifier = xml_manifestation.xpath_coverage_summary.mapping_suite_identifier %}
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>HTML report for SPARQL Validation</title>
+    <title>{% include '_ms_meta_title_pre.jinja2' %}Summary Validation Report</title>
     <link href="https://cdn.datatables.net/1.10.22/css/jquery.dataTables.min.css" rel="stylesheet" type="text/css">
     <style type="text/css">
         body {
@@ -68,10 +70,9 @@
     </style>
   </head>
   <body>
-	<h1>Validation Summary HTML report </h1>
+	<h1>Validation Summary Report</h1>
 	<hr>
     <h2>Report details: </h2>
-    {% set mapping_suite_identifier = xml_manifestation.xpath_coverage_summary.mapping_suite_identifier %}
     <ul>
         <li>Date created: {{ created }}</li>
         <li><b>Mapping suite identifier:</b> {{ mapping_suite_identifier }}</li>

@@ -1,10 +1,20 @@
+{% set mapping_suite1 = metadata['mapping_suite_ids'][0] or metadata['mapping_suite_ids'][1] %}
+{% set mapping_suite2 = metadata['mapping_suite_ids'][1] or metadata['mapping_suite_ids'][0] %}
+
+{% set ms1_parts = mapping_suite1.split("_") %}
+{% set ms1_acronym = ms1_parts[ms1_parts|length - 1] if ms1_parts else "" %}
+{% set ms2_parts = mapping_suite2.split("_") %}
+{% set ms2_acronym = ms2_parts[ms2_parts|length - 1] if ms2_parts else "" %}
+
+{% set ms_acronyms_title = ms1_acronym + ("-" + ms2_acronym if ms2_acronym else "") %}
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>HTML report for Conceptual Mappings Diff</title>
+    <title>CM {% if ms_acronyms_title %}({{ ms_acronyms_title }}) {% endif %}Diff Report</title>
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
     <link href="https://cdn.datatables.net/1.10.22/css/jquery.dataTables.min.css" rel="stylesheet" type="text/css">
     <style>
@@ -50,7 +60,7 @@
     </style>
   </head>
   <body>
-	<h1>Conceptual Mappings Diff HTML report </h1>
+	<h1>Conceptual Mappings Diff Report</h1>
 	<hr>
     <ul>
         <li>Created at: {{ created_at }}</li>
@@ -75,8 +85,6 @@
                 <td>{{ branch1 }}</td>
                 <td>{{ branch2 }}</td>
             </tr>
-            {% set mapping_suite1 = metadata['mapping_suite_ids'][0] or metadata['mapping_suite_ids'][1] %}
-            {% set mapping_suite2 = metadata['mapping_suite_ids'][1] or metadata['mapping_suite_ids'][0] %}
             <tr>
                 <th>Mapping Suite</th>
                 <td>{{ mapping_suite1 }}</td>

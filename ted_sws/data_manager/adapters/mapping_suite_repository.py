@@ -208,11 +208,13 @@ class MappingSuiteRepositoryInFileSystem(MappingSuiteRepositoryABC):
                 f.write(file_resource.file_content)
 
     @classmethod
-    def read_flat_file_resources(cls, path: pathlib.Path, file_resources=None, extension=None) -> List[FileResource]:
+    def read_flat_file_resources(cls, path: pathlib.Path, file_resources=None, extension=None, with_content=True) -> \
+            List[FileResource]:
         """
         This method reads a folder (with nested-tree structure) of resources and returns a flat list of file-type
         resources from all beyond levels.
         Used for folders that contains files with unique names, but grouped into sub-folders.
+        :param with_content:
         :param extension:
         :param path:
         :param file_resources:
@@ -230,7 +232,8 @@ class MappingSuiteRepositoryInFileSystem(MappingSuiteRepositoryABC):
                     continue
                 file_path = pathlib.Path(os.path.join(root, f))
                 file_resource = FileResource(file_name=file_path.name,
-                                             file_content=file_path.read_text(encoding="utf-8"),
+                                             file_content=file_path.read_text(
+                                                 encoding="utf-8") if with_content else "",
                                              original_name=file_path.name,
                                              parents=file_parents)
                 file_resources.append(file_resource)

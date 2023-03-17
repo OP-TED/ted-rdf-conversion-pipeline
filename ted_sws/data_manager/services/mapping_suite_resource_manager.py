@@ -69,9 +69,11 @@ def mapping_suite_files_grouped_by_path(file_resources: List[FileResource], grou
     return grouped_files
 
 
-def read_flat_file_resources(path: pathlib.Path, file_resources=None, extension=None) -> List[FileResource]:
+def read_flat_file_resources(path: pathlib.Path, file_resources=None, extension=None, with_content=True) -> \
+        List[FileResource]:
     return MappingSuiteRepositoryInFileSystem.read_flat_file_resources(
         path=path,
         file_resources=file_resources,
-        extension=extension
+        extension=extension,
+        with_content=with_content
     )

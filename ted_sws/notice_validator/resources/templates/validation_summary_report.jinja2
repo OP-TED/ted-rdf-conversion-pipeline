@@ -84,7 +84,7 @@
                     <ul>
                     {% for report_data in notices %}
                         <li>
-                            {{ report_data.notice_id }}
+                            <a href="file://{{ template_metadata.package_output_path }}/{{ report_data.path }}/{{ report_data.notice_id }}" target="_blank">{{ report_data.notice_id }}</a>
                         </li>
                     {% endfor %}
                     </ul>

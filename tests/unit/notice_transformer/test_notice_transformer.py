@@ -58,3 +58,13 @@ def test_transform_test_data_function(fake_rml_mapper, fake_mapping_suite):
         test_data = fake_mapping_suite.transformation_test_data.test_data
         test_data_file_names = [pathlib.Path(data.file_name).stem for data in test_data]
         assert Counter(file_names) == Counter(test_data_file_names)
+
+
+def test_transform_test_data_function_with_notices(fake_rml_mapper, fake_mapping_suite):
+    with tempfile.TemporaryDirectory() as d:
+        output_path = pathlib.Path(d)
+        notice_ids = ['include-notice']
+        transform_test_data(mapping_suite=fake_mapping_suite, rml_mapper=fake_rml_mapper, output_path=output_path,
+                            notice_ids=notice_ids)
+        file_names = [path.stem for path in output_path.glob("**/*.ttl")]
+        assert len(file_names) == 0

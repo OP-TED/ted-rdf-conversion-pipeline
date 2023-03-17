@@ -350,6 +350,10 @@ class MappingSuiteRepositoryInFileSystem(MappingSuiteRepositoryABC):
             return MappingSuite(**package_metadata)
         return None
 
+    @classmethod
+    def mapping_suite_notice_path_by_group_depth(cls, path: pathlib.Path, group_depth: int = 0) -> pathlib.Path:
+        return pathlib.Path(*path.parts[:(-group_depth if group_depth else None)]) if path else None
+
     def add(self, mapping_suite: MappingSuite):
         """
             This method allows you to add MappingSuite objects to the repository.

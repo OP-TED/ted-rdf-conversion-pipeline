@@ -4,8 +4,8 @@ from typing import Union
 
 from pymongo import MongoClient
 
-from ted_sws.core.model.notice import Notice
 from ted_sws.core.model.supra_notice import SupraNoticeValidationReport, DailySupraNotice
+from ted_sws.core.model.validation_report import ReportNotice
 from ted_sws.data_manager.adapters.notice_repository import NoticeRepository
 from ted_sws.data_manager.adapters.supra_notice_repository import DailySupraNoticeRepository
 from ted_sws.event_manager.services.log import log_technical_error
@@ -61,10 +61,12 @@ def summary_validation_for_daily_supra_notice(ted_publication_date: day_type, mo
         raise ValueError(SUPRA_NOTICE_NOT_FOUND_ERROR)
 
     notice_repository: NoticeRepository = NoticeRepository(mongodb_client=mongodb_client)
-    notices: List[Notice] = []
+    notices: List[ReportNotice] = []
 
     for notice_id in supra_notice.notice_ids:
-        notice: Notice = notice_repository.get(reference=notice_id)
+        notice: ReportNotice = ReportNotice(
+            notice=notice_repository.get(reference=notice_id)
+        )
         if notice:
             notices.append(notice)
 

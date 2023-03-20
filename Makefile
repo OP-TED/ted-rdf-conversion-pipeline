@@ -249,7 +249,6 @@ staging-dotenv-file: guard-VAULT_ADDR guard-VAULT_TOKEN vault-installed
 	@ echo -e "$(BUILD_PRINT)Creating .env.staging file $(END_BUILD_PRINT)"
 	@ echo VAULT_ADDR=${VAULT_ADDR} > .env
 	@ echo VAULT_TOKEN=${VAULT_TOKEN} >> .env
-	@ echo DOMAIN=ontobuilder.com >> .env
 	@ echo ENVIRONMENT=staging >> .env
 	@ echo SUBDOMAIN=staging. >> .env
 	@ echo RML_MAPPER_PATH=${RML_MAPPER_PATH} >> .env
@@ -271,7 +270,6 @@ dev-dotenv-file: guard-VAULT_ADDR guard-VAULT_TOKEN vault-installed
 	@ echo -e "$(BUILD_PRINT)Create .env file $(END_BUILD_PRINT)"
 	@ echo VAULT_ADDR=${VAULT_ADDR} > .env
 	@ echo VAULT_TOKEN=${VAULT_TOKEN} >> .env
-	@ echo DOMAIN=localhost >> .env
 	@ echo ENVIRONMENT=dev >> .env
 	@ echo SUBDOMAIN= >> .env
 	@ echo RML_MAPPER_PATH=${RML_MAPPER_PATH} >> .env
@@ -293,7 +291,6 @@ prod-dotenv-file: guard-VAULT_ADDR guard-VAULT_TOKEN vault-installed
 	@ echo -e "$(BUILD_PRINT)Create .env file $(END_BUILD_PRINT)"
 	@ echo VAULT_ADDR=${VAULT_ADDR} > .env
 	@ echo VAULT_TOKEN=${VAULT_TOKEN} >> .env
-	@ echo DOMAIN=ted-data.eu >> .env
 	@ echo ENVIRONMENT=prod >> .env
 	@ echo SUBDOMAIN= >> .env
 	@ echo RML_MAPPER_PATH=${RML_MAPPER_PATH} >> .env

@@ -31,18 +31,29 @@ def mapping_suite_skipped_notice(notice_id: str, notice_ids: List[str]) -> bool:
     return notice_ids and notice_id not in notice_ids
 
 
-def mapping_suite_notices_grouped_by_path(mapping_suite: MappingSuite, notice_ids: List[str] = None) -> \
-        Dict[Path, List[ReportNotice]]:
+def mapping_suite_notice_path_by_group_depth(path: Path, group_depth: int = 0) -> Path:
+    return MappingSuiteRepositoryInFileSystem.mapping_suite_notice_path_by_group_depth(path, group_depth=group_depth)
+
+
+def mapping_suite_notices_grouped_by_path(mapping_suite: MappingSuite = None, with_content=True,
+                                          file_resources: List[FileResource] = None, group_depth: int = 0,
+                                          notice_ids: List[str] = None) -> Dict[Path, List[ReportNotice]]:
     grouped_notices: Dict[Path, List[ReportNotice]] = {}
-    for data in mapping_suite.transformation_test_data.test_data:
+    if file_resources is None:
+        file_resources = mapping_suite.transformation_test_data.test_data
+    for data in file_resources:
         notice_id = Path(data.file_name).stem
         if mapping_suite_skipped_notice(notice_id, notice_ids):
             continue
         notice = Notice(ted_id=notice_id)
-        notice.set_xml_manifestation(XMLManifestation(object_data=data.file_content))
+        if with_content:
+            notice.set_xml_manifestation(XMLManifestation(object_data=data.file_content))
         report_notice = ReportNotice(notice=notice,
                                      metadata=ReportNoticeMetadata(path=file_resource_path(data)))
-        group = file_resource_output_path(data)
+        group = mapping_suite_notice_path_by_group_depth(
+            path=file_resource_output_path(data),
+            group_depth=group_depth
+        )
         grouped_notices.setdefault(group, []).append(report_notice)
 
     return grouped_notices

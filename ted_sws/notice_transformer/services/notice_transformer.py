@@ -8,10 +8,11 @@ from ted_sws.core.model.transform import MappingSuite, FileResource
 from ted_sws.data_manager.adapters.mapping_suite_repository import MappingSuiteRepositoryInFileSystem
 from ted_sws.data_manager.adapters.repository_abc import NoticeRepositoryABC, MappingSuiteRepositoryABC
 from ted_sws.data_manager.services.mapping_suite_resource_manager import file_resource_output_path, \
-    mapping_suite_skipped_notice
+    mapping_suite_skipped_notice, mapping_suite_notice_path_by_group_depth
 from ted_sws.event_manager.adapters.event_logger import EventLogger, EventMessageLogSettings
 from ted_sws.event_manager.model.event_message import NoticeEventMessage
 from ted_sws.event_manager.services.logger_from_context import get_env_logger
+from ted_sws.notice_transformer.adapters.notice_transformer import NoticeTransformer
 from ted_sws.notice_transformer.adapters.rml_mapper import RMLMapperABC
 from ted_sws.notice_transformer.services import DEFAULT_TRANSFORMATION_FILE_EXTENSION
 from ted_sws.core.model.validation_report import ReportNotice
@@ -121,19 +122,5 @@ def transform_test_data(mapping_suite: MappingSuite, rml_mapper: RMLMapperABC, o
             logger.info(event_message, settings=EventMessageLogSettings(briefly=True))
 
 
-def transform_report_notice(report_notice: ReportNotice) -> ReportNoticeData:
-    return ReportNoticeData(notice_id=report_notice.notice.ted_id, path=str(report_notice.metadata.path))
-
-
 def transform_report_notices(report_notices: List[ReportNotice]) -> List[ReportNoticeData]:
-    report_datas = []
-    for report_notice in report_notices:
-        report_datas.append(transform_report_notice(report_notice))
-    return report_datas
-
-
-def transform_validation_report_notices(report_notices: List[Notice]) -> List[ReportNoticeData]:
-    report_datas = []
-    for report_notice in report_notices:
-        report_datas.append(ReportNoticeData(notice_id=report_notice.ted_id))
-    return report_datas
+    return NoticeTransformer.transform_report_notices(report_notices)

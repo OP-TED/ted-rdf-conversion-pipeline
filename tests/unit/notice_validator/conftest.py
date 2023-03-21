@@ -433,6 +433,50 @@ def fake_validation_notice():
                 "query_result": 'False',
                 "error": "SOME_ERROR",
                 "identifier": 'sparql_query_46'
+            },
+            {
+                "query": {
+                    "title": "",
+                    "description": "",
+                    "query": ""
+                },
+                "result": 'unverifiable',
+                "query_result": 'True',
+                "error": None,
+                "identifier": 'sparql_query_46'
+            },
+            {
+                "query": {
+                    "title": "",
+                    "description": "",
+                    "query": ""
+                },
+                "result": 'invalid',
+                "query_result": 'True',
+                "error": None,
+                "identifier": 'sparql_query_46'
+            },
+            {
+                "query": {
+                    "title": "",
+                    "description": "",
+                    "query": ""
+                },
+                "result": 'warning',
+                "query_result": 'True',
+                "error": None,
+                "identifier": 'sparql_query_46'
+            },
+            {
+                "query": {
+                    "title": "",
+                    "description": "",
+                    "query": ""
+                },
+                "result": 'warning',
+                "query_result": 'False',
+                "error": None,
+                "identifier": 'sparql_query_46'
             }
         ]
     })]

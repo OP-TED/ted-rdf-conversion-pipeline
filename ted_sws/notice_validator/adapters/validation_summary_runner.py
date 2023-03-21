@@ -8,7 +8,9 @@ from ted_sws.core.model.manifestation import SPARQLQueryResult, SPARQLTestSuiteV
     XPATHCoverageSummaryResult, SPARQLSummaryCountReport, SHACLSummarySeverityCountReport, SPARQLSummaryResult, \
     SHACLSummaryResult, ValidationSummaryReport
 from ted_sws.core.model.notice import Notice
-from ted_sws.notice_transformer.services.notice_transformer import transform_validation_report_notices
+from ted_sws.core.model.validation_report import ReportNotice
+from ted_sws.notice_transformer.adapters.notice_transformer import NoticeTransformer
+from ted_sws.notice_validator.resources.templates import TEMPLATE_METADATA_KEY
 
 TEMPLATES = Environment(loader=PackageLoader("ted_sws.notice_validator.resources", "templates"))
 VALIDATION_SUMMARY_REPORT_TEMPLATE = "validation_summary_report.jinja2"
@@ -206,9 +208,11 @@ class ValidationSummaryRunner:
         return cls.validation_summary([notice])
 
     @classmethod
-    def validation_summary_for_notices(cls, notices: List[Notice]) -> ValidationSummaryReport:
-        report: ValidationSummaryReport = cls.validation_summary(notices)
-        report.notices = sorted(transform_validation_report_notices(notices),
+    def validation_summary_for_notices(cls, notices: List[ReportNotice]) -> ValidationSummaryReport:
+        report: ValidationSummaryReport = cls.validation_summary(
+            sorted(NoticeTransformer.map_report_notices_to_notices(notices),
+                   key=lambda notice: notice.ted_id))
+        report.notices = sorted(NoticeTransformer.transform_validation_report_notices(notices, group_depth=1),
                                 key=lambda report_data: report_data.notice_id)
 
         return report
@@ -218,6 +222,7 @@ class ValidationSummaryRunner:
         return report.dict()
 
     @classmethod
-    def html_report(cls, report) -> str:
+    def html_report(cls, report, metadata: dict = None) -> str:
         data: dict = cls.json_report(report)
+        data[TEMPLATE_METADATA_KEY] = metadata
         return TEMPLATES.get_template(VALIDATION_SUMMARY_REPORT_TEMPLATE).render(data)

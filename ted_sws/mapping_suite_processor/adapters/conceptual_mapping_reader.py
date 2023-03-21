@@ -13,7 +13,6 @@ from ted_sws.mapping_suite_processor import CONCEPTUAL_MAPPINGS_METADATA_SHEET_N
     RULES_E_FORM_BT_NAME, RULES_FIELD_XPATH_CONDITION, CONCEPTUAL_MAPPINGS_REMARKS_SHEET_NAME, \
     CONCEPTUAL_MAPPINGS_CL2_ORGANISATIONS_SHEET_NAME, CONCEPTUAL_MAPPINGS_CL1_ROLES_SHEET_NAME, CL_MAPPING_REFERENCE, \
     CL_SUPERTYPE, CL_FIELD_VALUE, CL_XML_PATH_FRAGMENT
-from ted_sws.mapping_suite_processor.services.conceptual_mapping_files_injection import FILE_NAME_KEY
 from ted_sws.notice_validator import BASE_XPATH_FIELD
 
 # This set of constants refers to fields in the Conceptual Mapping file
@@ -30,6 +29,9 @@ MAX_XSD_VERSION_FIELD = "Max XSD Version"
 
 RULES_CLASS_PATH = 'Class path (M)'
 RULES_PROPERTY_PATH = 'Property path (M)'
+
+FILE_NAME_KEY = "File name"
+REF_INTEGRATION_TESTS_KEY = "Reference to Integration Tests (O)"
 
 
 class ConceptualMappingReader:

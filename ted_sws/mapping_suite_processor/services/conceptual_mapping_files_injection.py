@@ -2,10 +2,10 @@ import pathlib
 import shutil
 
 import pandas as pd
-from ted_sws.mapping_suite_processor import CONCEPTUAL_MAPPINGS_RESOURCES_SHEET_NAME, \
-    CONCEPTUAL_MAPPINGS_RML_MODULES_SHEET_NAME
 
-FILE_NAME_KEY = "File name"
+from ted_sws.mapping_suite_processor import CONCEPTUAL_MAPPINGS_RESOURCES_SHEET_NAME, \
+    CONCEPTUAL_MAPPINGS_RML_MODULES_SHEET_NAME, CONCEPTUAL_MAPPINGS_RULES_SHEET_NAME
+from ted_sws.mapping_suite_processor.adapters.conceptual_mapping_reader import FILE_NAME_KEY, REF_INTEGRATION_TESTS_KEY
 
 
 def mapping_suite_processor_inject_resources(conceptual_mappings_file_path: pathlib.Path,
@@ -83,3 +83,28 @@ def mapping_suite_processor_inject_sparql_queries(sparql_queries_folder_path: pa
     :return:
     """
     shutil.copytree(sparql_queries_folder_path, output_sparql_queries_folder_path, dirs_exist_ok=True)
+
+
+def mapping_suite_processor_inject_integration_sparql_queries(
+        conceptual_mappings_file_path: pathlib.Path,
+        sparql_queries_folder_path: pathlib.Path,
+        output_sparql_queries_folder_path: pathlib.Path
+):
+    """
+        This function reads the SPARQL files from conceptual_mappings_file_path Rules sheet, and then, based on this list,
+        the resources in sparql_queries_folder_path will be copied to output_sparql_queries_folder_path.
+        :param conceptual_mappings_file_path:
+        :param sparql_queries_folder_path:
+        :param output_sparql_queries_folder_path:
+        :return:
+        """
+    sparql_files_df = pd.read_excel(conceptual_mappings_file_path, sheet_name=CONCEPTUAL_MAPPINGS_RULES_SHEET_NAME,
+                                    skiprows=1)
+    sparql_df_values = sparql_files_df[REF_INTEGRATION_TESTS_KEY].dropna().str.split(',').values.tolist()
+    sparql_files_names = list(set([item.strip() for sublist in sparql_df_values for item in sublist]))
+    for sparql_file_name in sparql_files_names:
+        src_sparql_file_path = sparql_queries_folder_path / sparql_file_name
+        dest_sparql_file_path = output_sparql_queries_folder_path / sparql_file_name
+        if src_sparql_file_path.exists():
+            shutil.copy(src_sparql_file_path, dest_sparql_file_path)
+

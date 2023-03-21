@@ -71,16 +71,21 @@
 	<h1>Validation Summary HTML report </h1>
 	<hr>
     <h2>Report details: </h2>
+    {% set mapping_suite_identifier = xml_manifestation.xpath_coverage_summary.mapping_suite_identifier %}
     <ul>
         <li>Date created: {{ created }}</li>
-        <li><div><hr></div>Notice identifier(s):
-            <div data-role="collapsible" data-state="{% if notices|length > 1 %}collapsed{% endif %}"
+        <li><b>Mapping suite identifier:</b> {{ mapping_suite_identifier }}</li>
+        {%  if template_metadata.grouping %}
+            <li><b>Grouping:</b> {{ template_metadata.grouping }}</li>
+        {%  endif %}
+        <li><div><hr></div>
+            {%  set nr_notices = notices|length %}
+            {% if nr_notices > 1 %}
+            <b>Notice identifiers ({{ nr_notices }}):</b>
+            <div data-role="collapsible" data-state="collapsed"
                 class="collapsible-wrapper">
                 <h4><a href="#"></a></h4>
                 <div class="ui-collapsible-content">
-                {% if notices|length == 1 %}
-                    {{ notices[0].notice_id }}
-                {% else %}
                     <ul>
                     {% for report_data in notices %}
                         <li>
@@ -88,9 +93,11 @@
                         </li>
                     {% endfor %}
                     </ul>
-                {% endif %}
                 </div>
             </div>
+            {% elif nr_notices == 1 %}
+                <b>Notice identifier: {{ notices[0].notice_id }}</b>
+            {% endif %}
         </li>
     </ul>
     <hr>

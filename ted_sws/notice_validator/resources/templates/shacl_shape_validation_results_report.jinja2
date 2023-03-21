@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>HTML report for SHACL Validation</title>
+    <title>{% include '_ms_meta_title_pre.jinja2' %}SHACL Validation Report</title>
     <link href="https://cdn.datatables.net/1.10.22/css/jquery.dataTables.min.css" rel="stylesheet" type="text/css">
     <style type="text/css">
         body {
@@ -56,7 +56,7 @@
     </style>
 </head>
 <body>
-<h1>SHACL Validation HTML report </h1>
+<h1>SHACL Validation Report</h1>
 <hr>
 <h2>Report details: </h2>
 <ul>
@@ -64,18 +64,20 @@
     <li>SHACL test suite identifier: {{ test_suite_identifier }}</li>
     <li>Mapping suite identifier: {{ mapping_suite_identifier }}</li>
     {% if notice_ids %}
-    <li><div><hr></div>Notice identifier(s):
-        <div data-role="collapsible" data-state="{% if notice_ids|length > 1 %}collapsed{% endif %}"
+    <li><div><hr></div>
+        {%  set nr_notices = notice_ids|length %}
+        {% if nr_notices > 1 %}
+        Notice identifiers ({{ nr_notices }}):
+        <div data-role="collapsible" data-state="collapsed"
             class="collapsible-wrapper">
             <h4><a href="#"></a></h4>
             <div class="ui-collapsible-content">
-            {% if notice_ids|length == 1 %}
-                {{ notice_ids[0] }}
-            {% else %}
                 {{ notice_ids | tojson(indent=2) | replace('\n', '<br>') }}
-            {% endif %}
             </div>
         </div>
+        {% elif nr_notices == 1 %}
+            <b>Notice identifier: {{ notice_ids[0] }}</b>
+        {% endif %}
     </li>
     {% endif %}
 </ul>

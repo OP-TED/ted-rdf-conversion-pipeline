@@ -1,10 +1,11 @@
+{% set notices = validation_result.notices %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>HTML report for XPATH Coverage</title>
+    <title>{% include '_ms_meta_title_pre.jinja2' %}XPATH Coverage Report</title>
     <link href="https://cdn.datatables.net/1.10.22/css/jquery.dataTables.min.css" rel="stylesheet" type="text/css">
 
     <style type="text/css">
@@ -71,7 +72,7 @@
     </style>
 </head>
 <body>
-<h1>XPATH Coverage HTML report </h1>
+<h1>XPATH Coverage Report</h1>
 <hr>
 <h2>Report details: </h2>
 <ul>
@@ -90,7 +91,7 @@
         <h3>{{ "%.2f"|format((validation_result.conceptual_coverage|float * 100)) }}%</h3>
         <p>(Number of Conceptual XPATHs found in notices) / (Total number of unique Conceptual XPATHs)</p>
     </li>
-    {%  set nr_notices = validation_result.notices|length %}
+    {%  set nr_notices = notices|length %}
     <li><div><hr></div>
         {% if nr_notices > 1 %}
             <b>Notice identifiers ({{ nr_notices }}):</b>
@@ -98,14 +99,14 @@
             <h4><a href="#"></a></h4>
             <div class="ui-collapsible-content">
                 <ul>
-                {% for report_data in validation_result.notices %}
+                {% for report_data in notices %}
                     <li><a href="file://{{ template_metadata.package_output_path }}/{{ report_data.path }}/{{ report_data.notice_id }}/test_suite_report/xpath_coverage_validation.html" target="_blank">{{ report_data.notice_id }}</a></li>
                 {% endfor %}
                 </ul>
             </div>
         </div>
         {% elif nr_notices == 1 %}
-            <b>Notice identifier: {{ validation_result.notices[0].notice_id }}</b>
+            <b>Notice identifier: {{ notices[0].notice_id }}</b>
         {% endif %}
     </li>
 </ul>

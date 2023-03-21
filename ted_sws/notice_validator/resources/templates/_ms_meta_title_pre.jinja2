@@ -1,0 +1,12 @@
+{% set notice_in_title = "" %}
+
+{% if notice_ids %}
+    {% set notice_in_title = notice_ids[0] if notice_ids|length == 1 else "" %}
+{% elif notices %}
+    {% set notice_in_title = notices[0].notice_id if notices|length == 1 else "" %}
+{%  endif %}
+
+{% set ms_parts = mapping_suite_identifier.split("_") %}
+{% set ms_acronym = ms_parts[1] if ms_parts and ms_parts|length >= 2 else ms_parts[0] %}
+{% set report_meta_title = ms_acronym + ("/" + notice_in_title if notice_in_title else "") %}
+{% if report_meta_title %}{{ report_meta_title }} {% endif %}

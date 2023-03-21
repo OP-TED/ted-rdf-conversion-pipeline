@@ -1,6 +1,7 @@
 {% macro increment(dictionary, key, increment_by=1) %}
     {% if dictionary.update({key: dictionary[key] + increment_by}) %} {% endif %}
 {% endmacro %}
+
 {% set results_count = validation_results|length %}
 <!DOCTYPE html>
 <html lang="en">
@@ -8,7 +9,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>HTML report for SPARQL Validation</title>
+    <title>{% include '_ms_meta_title_pre.jinja2' %}SPARQL Validation Report</title>
     <link href="https://cdn.datatables.net/1.10.22/css/jquery.dataTables.min.css" rel="stylesheet" type="text/css">
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
     <style type="text/css">
@@ -87,7 +88,7 @@
     </style>
   </head>
   <body>
-	<h1>SPARQL Validation HTML report </h1>
+	<h1>SPARQL Validation Report</h1>
 	<hr>
     <h2>Report details: </h2>
     <ul>
@@ -95,18 +96,20 @@
         <li>SPARQL test suite identifier: {{ test_suite_identifier }}</li>
         <li>Mapping suite identifier: {{ mapping_suite_identifier }}</li>
         {% if notice_ids %}
-        <li><div><hr></div>Notice identifier(s):
-            <div data-role="collapsible" data-state="{% if notice_ids|length > 1 %}collapsed{% endif %}"
+        <li><div><hr></div>
+            {%  set nr_notices = notice_ids|length %}
+            {% if nr_notices > 1 %}
+            Notice identifiers ({{ nr_notices }}):
+            <div data-role="collapsible" data-state="collapsed"
                 class="collapsible-wrapper">
                 <h4><a href="#"></a></h4>
                 <div class="ui-collapsible-content">
-                {% if notice_ids|length == 1 %}
-                    {{ notice_ids[0] }}
-                {% else %}
                     {{ notice_ids | tojson(indent=2) | replace('\n', '<br>') }}
-                {% endif %}
                 </div>
             </div>
+            {% elif nr_notices == 1 %}
+                <b>Notice identifier: {{ notice_ids[0] }}</b>
+            {% endif %}
         </li>
         {% endif %}
     </ul>

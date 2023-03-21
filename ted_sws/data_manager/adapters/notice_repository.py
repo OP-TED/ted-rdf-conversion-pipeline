@@ -1,18 +1,16 @@
-import copy
+import json
 import json
 import logging
 import pathlib
 from datetime import datetime
-from typing import Iterator, Union, Optional, Tuple, Any
+from typing import Iterator, Union, Optional, Any
 
-import gridfs
-from bson import ObjectId
 from pymongo import MongoClient, ASCENDING
 
 from ted_sws import config
 from ted_sws.core.model.lazy_object import LazyObjectFieldsLoaderABC
-from ted_sws.core.model.manifestation import XMLManifestation, RDFManifestation, METSManifestation, Manifestation
-from ted_sws.core.model.metadata import NormalisedMetadata, TEDMetadata, Metadata, XMLMetadata
+from ted_sws.core.model.manifestation import XMLManifestation, RDFManifestation, METSManifestation
+from ted_sws.core.model.metadata import NormalisedMetadata, TEDMetadata, XMLMetadata
 from ted_sws.core.model.notice import Notice, NoticeStatus
 from ted_sws.data_manager.adapters import inject_date_string_fields, remove_date_string_fields
 from ted_sws.data_manager.adapters.manifestation_repository import XMLManifestationRepository, \

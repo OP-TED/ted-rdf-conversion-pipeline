@@ -147,8 +147,8 @@ class SPARQLReportBuilder:
         return self.sparql_test_suite_execution
 
 
-def validate_notice_with_sparql_suite(notice: Union[Notice, List[Notice]], mapping_suite_package: MappingSuite,
-                                      execute_full_validation: bool = True, with_html: bool = False):
+def validate_notice_with_sparql_suite(notice: Notice, mapping_suite_package: MappingSuite,
+                                      execute_full_validation: bool = True, with_html: bool = False) -> Notice:
     """
     Validates a notice with a sparql test suites
     :param with_html: generate HTML report
@@ -173,18 +173,16 @@ def validate_notice_with_sparql_suite(notice: Union[Notice, List[Notice]], mappi
             reports.append(report_builder.generate_report())
         return sorted(reports, key=lambda x: x.test_suite_identifier)
 
-    notices = notice if isinstance(notice, List) else [notice]
-
-    for notice in notices:
-        if execute_full_validation:
-            for report in sparql_validation(notice_item=notice, rdf_manifestation=notice.rdf_manifestation,
-                                            with_html=with_html):
-                notice.set_rdf_validation(rdf_validation=report)
-
-        for report in sparql_validation(notice_item=notice, rdf_manifestation=notice.distilled_rdf_manifestation,
+    if execute_full_validation:
+        for report in sparql_validation(notice_item=notice, rdf_manifestation=notice.rdf_manifestation,
                                         with_html=with_html):
-            notice.set_distilled_rdf_validation(rdf_validation=report)
+            notice.set_rdf_validation(rdf_validation=report)
 
+    for report in sparql_validation(notice_item=notice, rdf_manifestation=notice.distilled_rdf_manifestation,
+                                    with_html=with_html):
+        notice.set_distilled_rdf_validation(rdf_validation=report)
+
+    return notice
 
 def validate_notice_by_id_with_sparql_suite(notice_id: str, mapping_suite_identifier: str,
                                             notice_repository: NoticeRepositoryABC,

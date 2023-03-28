@@ -61,13 +61,17 @@ class RMLMapper(RMLMapperABC):
     """
         This class is a concrete implementation of the rml-mapper adapter.
     """
-    def __init__(self, rml_mapper_path: Path, serialization_format: SerializationFormat = TURTLE_SERIALIZATION_FORMAT):
+    def __init__(self, rml_mapper_path: Path, serialization_format: SerializationFormat = TURTLE_SERIALIZATION_FORMAT,
+                 transformation_timeout: float = None
+                 ):
         """
         :param rml_mapper_path: the path to the rml-mapper executable
         :param serialization_format: serialization format
+        :param serialization_format: transformation_timeout
         """
         self.rml_mapper_path = rml_mapper_path
         self.serialization_format = serialization_format
+        self.transformation_timeout = transformation_timeout
 
     def execute(self, package_path: Path) -> str:
         """
@@ -87,7 +91,7 @@ class RMLMapper(RMLMapperABC):
         """
         # java -jar ./rmlmapper.jar -m rml.ttl -s turtle  -o output.ttl
         bash_script = f"cd {package_path} && java -jar {self.rml_mapper_path} -m {package_path / MS_TRANSFORM_FOLDER_NAME / MS_MAPPINGS_FOLDER_NAME / '*'} -s {self.get_serialization_format_value()}"
-        script_result = subprocess.run(bash_script, shell=True, capture_output=True)
+        script_result = subprocess.run(bash_script, shell=True, capture_output=True, timeout=self.transformation_timeout)
         error = script_result.stderr.decode('utf-8')
         if error:
             raise Exception(error)

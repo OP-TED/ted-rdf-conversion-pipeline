@@ -56,12 +56,15 @@ class AirflowConfigResolver(ConfigResolverABC):
         :param default_value:
         :return:
         """
-        from airflow.models import Variable
-        value = Variable.get(key=config_name, default_var=default_value)
-        logger.debug(
-            "[Airflow ENV] Value of '" + str(config_name) + "' is " + str(value) + "(supplied default is '" + str(
-                default_value) + "')")
-        return value
+        try:
+            from airflow.models import Variable
+            value = Variable.get(key=config_name, default_var=default_value)
+            logger.debug(
+                "[Airflow ENV] Value of '" + str(config_name) + "' is " + str(value) + "(supplied default is '" + str(
+                    default_value) + "')")
+            return value
+        except:
+            return None
 
 
 class EnvConfigResolver(ConfigResolverABC):

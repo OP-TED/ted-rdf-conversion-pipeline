@@ -1,4 +1,6 @@
 import abc
+import os
+import signal
 import subprocess
 from enum import Enum
 from pathlib import Path
@@ -91,8 +93,16 @@ class RMLMapper(RMLMapperABC):
         """
         # java -jar ./rmlmapper.jar -m rml.ttl -s turtle  -o output.ttl
         bash_script = f"cd {package_path} && java -jar {self.rml_mapper_path} -m {package_path / MS_TRANSFORM_FOLDER_NAME / MS_MAPPINGS_FOLDER_NAME / '*'} -s {self.get_serialization_format_value()}"
-        script_result = subprocess.run(bash_script, shell=True, capture_output=True, timeout=self.transformation_timeout)
-        error = script_result.stderr.decode('utf-8')
+        process = subprocess.Popen(bash_script, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, start_new_session=True)
+        if self.transformation_timeout:
+            try:
+                process.wait(timeout=self.transformation_timeout)
+            except subprocess.TimeoutExpired as e:
+                os.killpg(os.getpgid(process.pid), signal.SIGTERM)
+                raise e
+        output, error = process.communicate()
+        error = error.decode(encoding="utf-8")
         if error:
             raise Exception(error)
-        return script_result.stdout.decode('utf-8')
+        return output.decode(encoding="utf-8")
+

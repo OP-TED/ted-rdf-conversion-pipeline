@@ -10,3 +10,11 @@ class ReportNoticeData(PropertyBaseModel):
     """
     notice_id: str
     path: Optional[str]
+
+
+class ReportPackageNoticeData(ReportNoticeData):
+    """
+    Used for storing
+    """
+    mapping_suite_versioned_id: Optional[str]
+    mapping_suite_identifier: Optional[str]

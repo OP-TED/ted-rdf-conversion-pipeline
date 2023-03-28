@@ -1,6 +1,6 @@
 import re
 from pathlib import Path
-from typing import Tuple, List, Union
+from typing import Tuple, List
 
 from jinja2 import Environment, PackageLoader
 
@@ -8,12 +8,18 @@ from ted_sws.core.model.manifestation import RDFManifestation, SPARQLQueryResult
     SPARQLTestSuiteValidationReport, SPARQLQuery, XMLManifestation, SPARQLQueryRefinedResultType
 from ted_sws.core.model.notice import Notice
 from ted_sws.core.model.transform import SPARQLTestSuite, MappingSuite, FileResource
+from ted_sws.core.model.validation_report import SPARQLValidationSummaryReport, SPARQLValidationSummaryQueryResult, \
+    ReportNotice
+from ted_sws.core.model.validation_report_data import ReportPackageNoticeData
 from ted_sws.data_manager.adapters.repository_abc import NoticeRepositoryABC, MappingSuiteRepositoryABC
+from ted_sws.notice_transformer.adapters.notice_transformer import NoticeTransformer
 from ted_sws.notice_validator.adapters.sparql_runner import SPARQLRunner
+from ted_sws.notice_validator.resources.templates import TEMPLATE_METADATA_KEY
 from ted_sws.notice_validator.services import NOTICE_IDS_FIELD
 
 TEMPLATES = Environment(loader=PackageLoader("ted_sws.notice_validator.resources", "templates"))
 SPARQL_TEST_SUITE_EXECUTION_HTML_REPORT_TEMPLATE = "sparql_query_results_report.jinja2"
+SPARQL_SUMMARY_HTML_REPORT_TEMPLATE = "sparql_summary_report.jinja2"
 
 QUERY_METADATA_TITLE = "title"
 QUERY_METADATA_DESCRIPTION = "description"
@@ -147,6 +153,92 @@ class SPARQLReportBuilder:
         return self.sparql_test_suite_execution
 
 
+def generate_sparql_validation_summary_report(report_notices: List[ReportNotice], mapping_suite_package: MappingSuite,
+                                              execute_full_validation: bool = True,
+                                              with_html: bool = False,
+                                              report: SPARQLValidationSummaryReport = None,
+                                              metadata: dict = None) -> SPARQLValidationSummaryReport:
+    if report is None:
+        report: SPARQLValidationSummaryReport = SPARQLValidationSummaryReport(
+            object_data="SPARQLValidationSummaryReport",
+            notices=[],
+            validation_results=[]
+        )
+
+    report.notices = sorted(NoticeTransformer.transform_validation_report_notices(report_notices, group_depth=1) + (
+            report.notices or []), key=lambda report_data: report_data.notice_id)
+
+    for report_notice in report_notices:
+        notice = report_notice.notice
+        validate_notice_with_sparql_suite(
+            notice=notice,
+            mapping_suite_package=mapping_suite_package,
+            execute_full_validation=execute_full_validation,
+            with_html=False
+        )
+        for sparql_validation in notice.rdf_manifestation.sparql_validations:
+            test_suite_id = sparql_validation.test_suite_identifier
+            report.test_suite_ids.append(test_suite_id)
+            mapping_suite_versioned_id = sparql_validation.mapping_suite_identifier
+            report.mapping_suite_ids.append(mapping_suite_versioned_id)
+
+            validation: SPARQLQueryResult
+            for validation in sparql_validation.validation_results:
+                validation_query_result: SPARQLValidationSummaryQueryResult
+                found_validation_query_result = list(filter(
+                    lambda record:
+                    (record.query.query == validation.query.query)
+                    and (record.query.title == validation.query.title)
+                    and (record.test_suite_identifier == test_suite_id),
+                    report.validation_results
+                ))
+
+                if found_validation_query_result:
+                    validation_query_result = found_validation_query_result[0]
+                else:
+                    validation_query_result = SPARQLValidationSummaryQueryResult(
+                        test_suite_identifier=test_suite_id,
+                        **validation.dict()
+                    )
+
+                notice_data: ReportPackageNoticeData = ReportPackageNoticeData(
+                    notice_id=notice.ted_id,
+                    path=str(report_notice.metadata.path),
+                    mapping_suite_versioned_id=mapping_suite_versioned_id,
+                    mapping_suite_identifier=mapping_suite_package.identifier
+                )
+
+                if validation.result == SPARQLQueryRefinedResultType.VALID.value:
+                    validation_query_result.aggregate.valid.count += 1
+                    validation_query_result.aggregate.valid.notices.append(notice_data)
+                elif validation.result == SPARQLQueryRefinedResultType.UNVERIFIABLE.value:
+                    validation_query_result.aggregate.unverifiable.count += 1
+                    validation_query_result.aggregate.unverifiable.notices.append(notice_data)
+                elif validation.result == SPARQLQueryRefinedResultType.INVALID.value:
+                    validation_query_result.aggregate.invalid.count += 1
+                    validation_query_result.aggregate.invalid.notices.append(notice_data)
+                elif validation.result == SPARQLQueryRefinedResultType.WARNING.value:
+                    validation_query_result.aggregate.warning.count += 1
+                    validation_query_result.aggregate.warning.notices.append(notice_data)
+                elif validation.result == SPARQLQueryRefinedResultType.ERROR.value:
+                    validation_query_result.aggregate.error.count += 1
+                    validation_query_result.aggregate.error.notices.append(notice_data)
+
+                if not found_validation_query_result:
+                    report.validation_results.append(validation_query_result)
+
+    report.test_suite_ids = list(set(report.test_suite_ids))
+    report.mapping_suite_ids = list(set(report.mapping_suite_ids))
+
+    if with_html:
+        template_data: dict = report.dict()
+        template_data[TEMPLATE_METADATA_KEY] = metadata
+        html_report = TEMPLATES.get_template(SPARQL_SUMMARY_HTML_REPORT_TEMPLATE).render(template_data)
+        report.object_data = html_report
+
+    return report
+
+
 def validate_notice_with_sparql_suite(notice: Notice, mapping_suite_package: MappingSuite,
                                       execute_full_validation: bool = True, with_html: bool = False) -> Notice:
     """
@@ -183,6 +275,7 @@ def validate_notice_with_sparql_suite(notice: Notice, mapping_suite_package: Map
         notice.set_distilled_rdf_validation(rdf_validation=report)
 
     return notice
+
 
 def validate_notice_by_id_with_sparql_suite(notice_id: str, mapping_suite_identifier: str,
                                             notice_repository: NoticeRepositoryABC,

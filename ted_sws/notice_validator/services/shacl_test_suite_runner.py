@@ -1,4 +1,5 @@
 import json
+import logging
 from typing import List, Union
 
 from jinja2 import Environment, PackageLoader
@@ -7,13 +8,19 @@ from ted_sws.core.model.manifestation import RDFManifestation, SHACLTestSuiteVal
     QueriedSHACLShapeValidationResult
 from ted_sws.core.model.notice import Notice
 from ted_sws.core.model.transform import MappingSuite, SHACLTestSuite
+from ted_sws.core.model.validation_report import ReportNotice, SHACLValidationSummaryReport, \
+    SHACLValidationSummaryResult, SHACLSummaryQuery
+from ted_sws.core.model.validation_report_data import ReportPackageNoticeData
 from ted_sws.data_manager.adapters.repository_abc import NoticeRepositoryABC, MappingSuiteRepositoryABC
+from ted_sws.notice_transformer.adapters.notice_transformer import NoticeTransformer
 from ted_sws.notice_validator.adapters.shacl_runner import SHACLRunner
+from ted_sws.notice_validator.resources.templates import TEMPLATE_METADATA_KEY
 from ted_sws.resources import SHACL_RESULT_QUERY_PATH
 from ted_sws.notice_validator.services import NOTICE_IDS_FIELD
 
 TEMPLATES = Environment(loader=PackageLoader("ted_sws.notice_validator.resources", "templates"))
 SHACL_TEST_SUITE_EXECUTION_HTML_REPORT_TEMPLATE = "shacl_shape_validation_results_report.jinja2"
+SHACL_SUMMARY_HTML_REPORT_TEMPLATE = "shacl_summary_report.jinja2"
 
 
 class SHACLTestSuiteRunner:
@@ -76,8 +83,99 @@ def generate_shacl_report(shacl_test_suite_execution: SHACLTestSuiteValidationRe
     return shacl_test_suite_execution
 
 
-def validate_notice_with_shacl_suite(notice: Union[Notice, List[Notice]], mapping_suite_package: MappingSuite,
-                                     execute_full_validation: bool = True, with_html: bool = False):
+def generate_shacl_validation_summary_report(report_notices: List[ReportNotice], mapping_suite_package: MappingSuite,
+                                             execute_full_validation: bool = True,
+                                             with_html: bool = False,
+                                             report: SHACLValidationSummaryReport = None,
+                                             metadata: dict = None) -> SHACLValidationSummaryReport:
+    if report is None:
+        report: SHACLValidationSummaryReport = SHACLValidationSummaryReport(
+            object_data="SHACLValidationSummaryReport",
+            notices=[],
+            validation_results=[]
+        )
+    report.notices = sorted(NoticeTransformer.transform_validation_report_notices(report_notices, group_depth=1) + (
+            report.notices or []), key=lambda report_data: report_data.notice_id)
+
+    for report_notice in report_notices:
+        notice = report_notice.notice
+        validate_notice_with_shacl_suite(
+            notice=notice,
+            mapping_suite_package=mapping_suite_package,
+            execute_full_validation=execute_full_validation,
+            with_html=False
+        )
+        for shacl_validation in notice.rdf_manifestation.shacl_validations:
+            test_suite_id = shacl_validation.test_suite_identifier
+            report.test_suite_ids.append(test_suite_id)
+            mapping_suite_versioned_id = shacl_validation.mapping_suite_identifier
+            report.mapping_suite_ids.append(mapping_suite_versioned_id)
+
+            validation: QueriedSHACLShapeValidationResult = shacl_validation.validation_results
+            validation_query_result: SHACLValidationSummaryResult
+
+            bindings = []
+            if validation.results_dict:
+                bindings = validation.results_dict['results']['bindings']
+
+            is_conforms_set: bool = False
+            for binding in bindings:
+                result_path = binding['resultPath']['value'] if binding['resultPath'] else None
+                found_validation_query_result = list(filter(
+                    lambda record:
+                    (record.test_suite_identifier == test_suite_id)
+                    and ((record.query.result_path == result_path) if result_path else True),
+                    report.validation_results
+                ))
+
+                if found_validation_query_result:
+                    validation_query_result = found_validation_query_result[0]
+                else:
+                    validation_query_result = SHACLValidationSummaryResult(
+                        test_suite_identifier=test_suite_id,
+                        query=SHACLSummaryQuery(result_path=result_path)
+                    )
+
+                notice_data: ReportPackageNoticeData = ReportPackageNoticeData(
+                    notice_id=notice.ted_id,
+                    path=str(report_notice.metadata.path),
+                    mapping_suite_versioned_id=mapping_suite_versioned_id,
+                    mapping_suite_identifier=mapping_suite_package.identifier
+                )
+                if not is_conforms_set and validation.conforms == 'True':
+                    validation_query_result.conforms.count += 1
+                    validation_query_result.conforms.notices.append(notice_data)
+                    is_conforms_set = True
+
+                result_severity = binding['resultSeverity']
+                if result_severity:
+                    if result_severity['value'].endswith("#Violation"):
+                        validation_query_result.result_severity.violation.count += 1
+                        validation_query_result.result_severity.violation.notices.append(notice_data)
+                    elif result_severity['value'].endswith("#Info"):
+                        validation_query_result.result_severity.info.count += 1
+                        validation_query_result.result_severity.info.notices.append(notice_data)
+                    elif result_severity['value'].endswith("#Warning"):
+                        validation_query_result.result_severity.warning.count += 1
+                        validation_query_result.result_severity.warning.notices.append(notice_data)
+
+                if not found_validation_query_result:
+                    report.validation_results.append(validation_query_result)
+
+    report.test_suite_ids = list(set(report.test_suite_ids))
+    report.mapping_suite_ids = list(set(report.mapping_suite_ids))
+
+    if with_html:
+        template_data: dict = report.dict()
+        template_data[TEMPLATE_METADATA_KEY] = metadata
+        html_report = TEMPLATES.get_template(SHACL_SUMMARY_HTML_REPORT_TEMPLATE).render(template_data)
+        report.object_data = html_report
+
+    return report
+
+
+def validate_notice_with_shacl_suite(notice: Notice, mapping_suite_package: MappingSuite,
+                                     execute_full_validation: bool = True, with_html: bool = False) -> Notice:
     """
     Validates a notice with a shacl test suites
     :param with_html: generate HTML report
@@ -100,17 +198,16 @@ def validate_notice_with_shacl_suite(notice: Union[Notice, List[Notice]], mappin
 
         return sorted(reports, key=lambda x: x.test_suite_identifier)
 
-    notices = notice if isinstance(notice, List) else [notice]
-
-    for notice in notices:
-        if execute_full_validation:
-            for report in shacl_validation(notice_item=notice, rdf_manifestation=notice.rdf_manifestation,
-                                           with_html=with_html):
-                notice.set_rdf_validation(rdf_validation=report)
-
-        for report in shacl_validation(notice_item=notice, rdf_manifestation=notice.distilled_rdf_manifestation,
+    if execute_full_validation:
+        for report in shacl_validation(notice_item=notice, rdf_manifestation=notice.rdf_manifestation,
                                        with_html=with_html):
-            notice.set_distilled_rdf_validation(rdf_validation=report)
+            notice.set_rdf_validation(rdf_validation=report)
+
+    for report in shacl_validation(notice_item=notice, rdf_manifestation=notice.distilled_rdf_manifestation,
+                                   with_html=with_html):
+        notice.set_distilled_rdf_validation(rdf_validation=report)
+
+    return notice
 
 
 def validate_notice_by_id_with_shacl_suite(notice_id: str, mapping_suite_identifier: str,

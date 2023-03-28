@@ -3,9 +3,11 @@ import pytest
 from ted_sws.core.model.manifestation import RDFManifestation, RDFValidationManifestation, SPARQLQuery, \
     SPARQLQueryResult, SPARQLQueryRefinedResultType
 from ted_sws.core.model.notice import NoticeStatus
+from ted_sws.core.model.validation_report import ReportNotice, SPARQLValidationSummaryReport
 from ted_sws.data_manager.adapters.mapping_suite_repository import MappingSuiteRepositoryInFileSystem
 from ted_sws.notice_validator.services.sparql_test_suite_runner import SPARQLTestSuiteRunner, SPARQLReportBuilder, \
-    validate_notice_with_sparql_suite, validate_notice_by_id_with_sparql_suite, extract_metadata_from_sparql_query
+    validate_notice_with_sparql_suite, validate_notice_by_id_with_sparql_suite, extract_metadata_from_sparql_query, \
+    generate_sparql_validation_summary_report
 
 
 def test_sparql_query_test_suite_runner(rdf_file_content, sparql_test_suite, dummy_mapping_suite, sparql_file_one,
@@ -155,3 +157,19 @@ def test_get_metadata_from_freaking_sparql_queries(query_content, query_content_
     metadata = extract_metadata_from_sparql_query(query_content_without_description)
     assert metadata["title"]
     assert "description" not in metadata
+
+
+def test_generate_sparql_validation_summary_report(notice_with_distilled_status, dummy_mapping_suite, rdf_file_content):
+    notice = notice_with_distilled_status
+    assert notice.rdf_manifestation
+    assert notice.distilled_rdf_manifestation
+    report_notice: ReportNotice = ReportNotice(notice=notice)
+    report: SPARQLValidationSummaryReport = generate_sparql_validation_summary_report(
+        report_notices=[report_notice],
+        mapping_suite_package=dummy_mapping_suite,
+        with_html=True
+    )
+    assert report.object_data
+    assert report.notices[0].notice_id == notice.ted_id
+    assert report.validation_results
+    assert len(report.validation_results) > 0

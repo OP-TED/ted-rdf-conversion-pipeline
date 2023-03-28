@@ -3,9 +3,11 @@ import pytest
 from ted_sws.core.model.manifestation import RDFManifestation, RDFValidationManifestation, \
     SHACLTestSuiteValidationReport
 from ted_sws.core.model.notice import NoticeStatus
+from ted_sws.core.model.validation_report import ReportNotice, SHACLValidationSummaryReport
 from ted_sws.data_manager.adapters.mapping_suite_repository import MappingSuiteRepositoryInFileSystem
 from ted_sws.notice_validator.services.shacl_test_suite_runner import SHACLTestSuiteRunner, \
-    validate_notice_with_shacl_suite, validate_notice_by_id_with_shacl_suite, generate_shacl_report
+    validate_notice_with_shacl_suite, validate_notice_by_id_with_shacl_suite, generate_shacl_report, \
+    generate_shacl_validation_summary_report
 
 
 def test_sparql_query_test_suite_runner(rdf_file_content, shacl_test_suite, dummy_mapping_suite):
@@ -89,3 +91,19 @@ def test_validate_notice_by_id_with_shacl_suite(notice_with_distilled_status, rd
                                                mapping_suite_repository=mapping_suite_repository,
                                                notice_repository=notice_repository,
                                                mapping_suite_identifier="no_package_here")
+
+
+def test_generate_shacl_validation_summary_report(notice_with_distilled_status, dummy_mapping_suite, rdf_file_content):
+    notice = notice_with_distilled_status
+    assert notice.rdf_manifestation
+    assert notice.distilled_rdf_manifestation
+    report_notice: ReportNotice = ReportNotice(notice=notice)
+    report: SHACLValidationSummaryReport = generate_shacl_validation_summary_report(
+        report_notices=[report_notice],
+        mapping_suite_package=dummy_mapping_suite,
+        with_html=True
+    )
+    assert report.object_data
+    assert report.notices[0].notice_id == notice.ted_id
+    assert report.validation_results
+    assert len(report.validation_results) > 0

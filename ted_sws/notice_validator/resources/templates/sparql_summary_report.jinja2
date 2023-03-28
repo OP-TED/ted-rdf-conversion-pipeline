@@ -1,15 +1,12 @@
-{% macro increment(dictionary, key, increment_by=1) %}
-    {% if dictionary.update({key: dictionary[key] + increment_by}) %} {% endif %}
-{% endmacro %}
+{% set result_values = ['valid', 'unverifiable', 'warning', 'invalid', 'error'] %}
 
-{% set results_count = validation_results|length %}
 <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>{% include '_ms_meta_title_pre.jinja2' %}SPARQL Validation Report</title>
+    <title>{% include '_ms_meta_title_pre.jinja2' %}SPARQL Validation Summary Report</title>
     <link href="https://cdn.datatables.net/1.10.22/css/jquery.dataTables.min.css" rel="stylesheet" type="text/css">
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
     <style type="text/css">
@@ -21,7 +18,10 @@
         table th, table td {
             vertical-align: top;
         }
-        table thead th {
+        .center {
+            text-align: center;
+        }
+        table thead th, table tr th {
             text-align: left;
         }
         .success, .valid, .unverifiable {
@@ -54,6 +54,15 @@
 
         [data-role=collapsible].collapsible-wrapper {
             padding: 10px 0;
+        }
+        .nowrap, table.report-details>tbody>tr>th {
+            white-space: nowrap;
+        }
+        table.report-details>tbody>tr>td {
+            width: 100%;
+        }
+        table.report-details>thead>tr{
+            height: 0;
         }
         [data-role=collapsible] h4 {
             margin: 0;
@@ -88,31 +97,51 @@
     </style>
   </head>
   <body>
-	<h1>SPARQL Validation Report</h1>
+	<h1>SPARQL Validation Summary Report</h1>
 	<hr>
     <h2>Report details: </h2>
-    <ul>
-        <li>Date created: {{ created }}</li>
-        <li>SPARQL test suite identifier: {{ test_suite_identifier }}</li>
-        <li>Mapping suite identifier: {{ mapping_suite_identifier }}</li>
-        {% if notice_ids %}
-        <li><div><hr></div>
-            {%  set nr_notices = notice_ids|length %}
+    <table class="dataTable report-details">
+    <tbody>
+        <tr>
+            <th>Date created</th>
+            <td>{{ created }}</td>
+        </tr>
+        {% if mapping_suite_ids %}
+        <tr>
+            <th>Mapping Suites</th>
+            <td>{{ mapping_suite_ids|join("<br>") }}</td>
+        </tr>
+        {% endif %}
+        {% if test_suite_ids %}
+        <tr>
+            <th>Test Suites</th>
+            <td>{{ test_suite_ids|join("<br>") }}</td>
+        </tr>
+        {% endif %}
+        {% if notices %}
+        <tr>
+            {% set notice_ids = notices|map(attribute='notice_id')|unique|list %}
+            {% set nr_notices = notice_ids|length %}
             {% if nr_notices > 1 %}
-            Notice identifiers ({{ nr_notices }}):
-            <div data-role="collapsible" data-state="collapsed"
+                <th>Notice identifiers ({{ nr_notices }})</th>
+            <td><div data-role="collapsible" data-state="collapsed"
                 class="collapsible-wrapper">
                 <h4><a href="#"></a></h4>
                 <div class="ui-collapsible-content">
-                    {{ notice_ids | tojson(indent=2) | replace('\n', '<br>') }}
+                    {% for notice_id in notice_ids %}
+                        {{ notice_id }}<br>
+                    {% endfor %}
                 </div>
-            </div>
+            </div></td>
             {% elif nr_notices == 1 %}
-                <b>Notice identifier: {{ notice_ids[0] }}</b>
+                <th>Notice identifier</th>
+                <td>{{ notice_ids[0] }}</td>
             {% endif %}
-        </li>
+        </tr>
         {% endif %}
-    </ul>
+    </tbody>
+    </table>
+
     <hr>
     <h2>Results summary</h2>
         <table class="display" data-order='[[0, "asc"]]'>
@@ -120,16 +149,14 @@
             <tr>
                 <th>Result</th>
                 <th>Count</th>
-                <th>Ratio (%)</th>
             </tr>
             </thead>
             <tbody>
-            {% for _value in ['valid', 'unverifiable', 'warning', 'invalid', 'error']  %}
+            {% for _value in result_values  %}
             <tr>
-                {% set _results = validation_results | selectattr("result", "equalto", _value) | list | count %}
+                {% set _results = validation_results|map(attribute="aggregate")|map(attribute=_value)|map(attribute="count")|sum %}
                 <td class="strong {{ _value }}">{{ _value }}</td>
                 <td>{{ _results }}</td>
-                <td>{{ (_results / results_count * 100) | round(2) }}%</td>
             </tr>
             {% endfor %}
             </tbody>
@@ -140,100 +167,48 @@
      <thead class="center aligned">
         <tr>
             <th>Form Field</th>
-            <th>Description</th>
-            <th>Query content</th>
-            <th>Result</th>
-            <th>Details</th>
+            <th>Test Suite</th>
+            <th>Query</th>
+            {% for result_value in result_values %}
+                <th><span class="strong {{ result_value }}">{{ result_value }}</span></th>
+            {%  endfor %}
         </tr>
      </thead>
     <tbody>
         {% for result in validation_results %}
             <tr>
                 <td>{{ result.query.title }}</td>
-                <td>
-                    <button class="open-dialog">Description</button>
-                    <div class="dialog" title="{{ result.query.title }}">
-                        {{ result.query.description }}
-                    </div>
-                </td>
+                <td>{{ result.test_suite_identifier }}</td>
                 <td>{{ result.query.query | e | replace('\n', '<br>') }}</td>
-                <td class="strong {{ result.result }}">{{ result.result }}</td>
-                <td>
-                    <button class="open-dialog">Details</button>
-                    <div class="dialog" title="{{ result.query.title }}">
-                    <ul>
-                    <li>Query result: {{ result.query_result }}</li>
-                    {% if result.query.xpath|length == 0 %}
-                        <li>No XPATHs provided</li>
-                    {% endif %}
-                    <li>Fields are covered: {{ result.fields_covered }}</li>
-                    {% if result.query.xpath|length > 0 %}
-                        <li>
-                        <h4 class="info">Fields:</h4>
-                        <ol>
-                        {% for field in result.query.xpath %}
-                            <li>{{ field }}</li>
-                        {% endfor %}
-                        </ol>
-                        </li>
-                    {% endif %}
-                    {% if result.missing_fields|length > 0 %}
-                        <li>
-                        <h4 class="danger">Missing fields:</h4>
-                        <ol>
-                        {% for field in result.missing_fields %}
-                            <li>{{ field }}</li>
-                        {% endfor %}
-                        </ol>
-                        </li>
-                    {% endif %}
-                    {% if result.error and (result.error|length > 0) %}
-                        <li>
-                            <h4 class="danger strong">ERROR:</h4>
-                            {{ result.error }}
-                        </li>
-                    {% endif %}
-                    </ul>
-                    </div>
-                </td>
+                {% for result_value in result_values %}
+                    <td class="center">
+                        {% set _aggregate = result.aggregate[result_value] %}
+                        <div><span class="strong{% if _aggregate.count > 0 %} {{ result_value }}{% endif %}">{{ _aggregate.count }}</span></div>
+                        {% if _aggregate.count > 0 %}
+                        <br>
+                        <button class="open-dialog">Details</button>
+                        <div class="dialog" title="[{{ result_value|upper }}] {{ result.query.title }}">
+                            {% if _aggregate.notices|length > 0 %}
+                            <h4>Notices:</h4>
+                            <ol>
+                                {% for notice in _aggregate.notices %}
+                                    <li>
+                                        <a href="file://{{ template_metadata.output_path }}/mappings/{{ notice.mapping_suite_identifier }}/output/{{ notice.path }}/test_suite_report" target="_blank">{{ notice.notice_id }}</a>
+                                        in <a href="file://{{ template_metadata.output_path }}/mappings/{{ notice.mapping_suite_identifier }}/output" target="_blank"><b>{{ notice.mapping_suite_identifier }}</b></a>
+                                        at <a href="file://{{ template_metadata.output_path }}/mappings/{{ notice.mapping_suite_identifier }}/output/{{ notice.path }}" target="_blank"><b>{{ notice.path }}</b></a>
+                                    </li>
+                                {% endfor %}
+                            </ol>
+                            {% endif %}
+                        </div>
+                        {% endif %}
+                    </td>
+                {%  endfor %}
             </tr>
         {% endfor %}
     </tbody>
     </table>
     <hr>
-    <h2>Query results summary</h2>
-    <table class="display" data-order='[[0, "asc"]]'>
-        <thead class="center aligned">
-        <tr>
-            <th>Query result</th>
-            <th>Number of</th>
-            <th>Ratio (%)</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr>
-            {% set _value = "True" %}
-            {% set _results = validation_results | selectattr("query_result", "equalto", _value) | list | count %}
-            <td class="strong">{{ _value }}</td>
-            <td>{{ _results }}</td>
-            <td>{{ (_results / results_count * 100) | round(2) }}%</td>
-        </tr>
-        <tr>
-            {% set _value = "False" %}
-            {% set _results = validation_results | selectattr("query_result", "equalto", _value) | list | count %}
-            <td class="strong">{{ _value }}</td>
-            <td>{{ _results }}</td>
-            <td>{{ (_results / results_count * 100) | round(2) }}%</td>
-        </tr>
-        <tr>
-            {% set _value = "Error" %}
-            {% set _results = validation_results | selectattr("result", "equalto", _value) | list | count %}
-            <td class="strong">{{ _value }}</td>
-            <td>{{ _results }}</td>
-            <td>{{ (_results / results_count * 100) | round(2) }}%</td>
-        </tr>
-        </tbody>
-    </table>
   </body>
 </html>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -243,7 +218,7 @@
 <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.6.4/js/buttons.print.min.js"></script>
 <script type="text/javascript">
     $(document).ready(function () {
-        $("[data-role=collapsible] h4 a").on("click", function(e) {
+        $("[data-role=collapsible] h4 a").on("click", function (e) {
             $p = $(this).closest("[data-role=collapsible]");
             $p.attr("data-state", $p.attr("data-state") == "collapsed" ? "expanded" : "collapsed");
             $c = $p.find('.ui-collapsible-content');

@@ -30,6 +30,7 @@ class SPARQLValidationSummaryCountReport(PropertyBaseModel):
     warning: Optional[QueryValidationSummaryCountReportStatus] = QueryValidationSummaryCountReportStatus()
     invalid: Optional[QueryValidationSummaryCountReportStatus] = QueryValidationSummaryCountReportStatus()
     error: Optional[QueryValidationSummaryCountReportStatus] = QueryValidationSummaryCountReportStatus()
+    unknown: Optional[QueryValidationSummaryCountReportStatus] = QueryValidationSummaryCountReportStatus()
 
 
 class SPARQLSummaryQuery(PropertyBaseModel):

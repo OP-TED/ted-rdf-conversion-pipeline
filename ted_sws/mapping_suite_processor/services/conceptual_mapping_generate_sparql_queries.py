@@ -26,13 +26,15 @@ SPARQL_PREFIX_PATTERN = re.compile('(?:\\s+|^)([\\w\\-]+)?:')
 SPARQL_PREFIX_LINE = 'PREFIX {prefix}: <{value}>'
 SPARQL_LOGGER_NAME = "SPARQL"
 
+SPARQL_XPATH_SEPARATOR = " ;; "
+
 
 def get_sparql_prefixes(sparql_q: str) -> list:
     finds: list = re.findall(SPARQL_PREFIX_PATTERN, sparql_q)
     return sorted(set(finds))
 
 
-def concat_field_xpath(base_xpath: str, field_xpath: str, separator: str = ", ") -> str:
+def concat_field_xpath(base_xpath: str, field_xpath: str, separator: str = SPARQL_XPATH_SEPARATOR) -> str:
     base_xpath = base_xpath if not pd.isna(base_xpath) else ''
     field_xpath = field_xpath if not pd.isna(field_xpath) else ''
     return separator.join(
@@ -137,7 +139,7 @@ def sparql_validation_generator(data: pd.DataFrame, base_xpath: str, controlled_
               f"{e_form_bt_name}” in eForms. The corresponding XML element is " \
               f"{concat_field_xpath(base_xpath, field_xpath)}. " \
               f"The expected ontology instances are epo: {class_path} .\n" \
-              f"#xpath: {concat_field_xpath(base_xpath, field_xpath, separator=',')}" \
+              f"#xpath: {concat_field_xpath(base_xpath, field_xpath, separator=SPARQL_XPATH_SEPARATOR)}" \
               "\n" + "\n" + "\n".join(prefixes) + "\n\n" \
                                                   f"ASK WHERE {{ " \
                                                   f"{subject_type_display}" \

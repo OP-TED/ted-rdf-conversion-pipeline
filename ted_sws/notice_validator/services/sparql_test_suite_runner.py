@@ -12,6 +12,7 @@ from ted_sws.core.model.validation_report import SPARQLValidationSummaryReport, 
     ReportNotice
 from ted_sws.core.model.validation_report_data import ReportPackageNoticeData
 from ted_sws.data_manager.adapters.repository_abc import NoticeRepositoryABC, MappingSuiteRepositoryABC
+from ted_sws.mapping_suite_processor.services.conceptual_mapping_generate_sparql_queries import SPARQL_XPATH_SEPARATOR
 from ted_sws.notice_transformer.adapters.notice_transformer import NoticeTransformer
 from ted_sws.notice_validator.adapters.sparql_runner import SPARQLRunner
 from ted_sws.notice_validator.resources.templates import TEMPLATE_METADATA_KEY
@@ -58,8 +59,9 @@ class SPARQLTestSuiteRunner:
             if QUERY_METADATA_TITLE in metadata else DEFAULT_QUERY_TITLE
         description = metadata[QUERY_METADATA_DESCRIPTION] \
             if QUERY_METADATA_DESCRIPTION in metadata else DEFAULT_QUERY_DESCRIPTION
-        xpath = metadata[QUERY_METADATA_XPATH].split(",") if QUERY_METADATA_XPATH in metadata and metadata[
-            QUERY_METADATA_XPATH] else DEFAULT_QUERY_XPATH
+        xpath = metadata[QUERY_METADATA_XPATH].split(
+            SPARQL_XPATH_SEPARATOR
+        ) if QUERY_METADATA_XPATH in metadata and metadata[QUERY_METADATA_XPATH] else DEFAULT_QUERY_XPATH
         query = cls._sanitize_query(file_resource.file_content)
         return SPARQLQuery(title=title, description=description, xpath=xpath, query=query)
 
@@ -223,6 +225,9 @@ def generate_sparql_validation_summary_report(report_notices: List[ReportNotice]
                 elif validation.result == SPARQLQueryRefinedResultType.ERROR.value:
                     validation_query_result.aggregate.error.count += 1
                     validation_query_result.aggregate.error.notices.append(notice_data)
+                elif validation.result == SPARQLQueryRefinedResultType.UNKNOWN.value:
+                    validation_query_result.aggregate.unknown.count += 1
+                    validation_query_result.aggregate.unknown.notices.append(notice_data)
 
                 if not found_validation_query_result:
                     report.validation_results.append(validation_query_result)

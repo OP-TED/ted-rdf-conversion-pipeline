@@ -124,7 +124,7 @@
             </tr>
             </thead>
             <tbody>
-            {% for _value in ['valid', 'unverifiable', 'warning', 'invalid', 'error']  %}
+            {% for _value in ['valid', 'unverifiable', 'warning', 'invalid', 'error', 'unknown']  %}
             <tr>
                 {% set _results = validation_results | selectattr("result", "equalto", _value) | list | count %}
                 <td class="strong {{ _value }}">{{ _value }}</td>
@@ -187,8 +187,16 @@
                         </ol>
                         </li>
                     {% endif %}
+                    {% if result.message and (result.message|length > 0) %}
+                        <li>
+                            <hr>
+                            <h4 class="info strong">MESSAGE:</h4>
+                            {{ result.message }}
+                        </li>
+                    {% endif %}
                     {% if result.error and (result.error|length > 0) %}
                         <li>
+                            <hr>
                             <h4 class="danger strong">ERROR:</h4>
                             {{ result.error }}
                         </li>

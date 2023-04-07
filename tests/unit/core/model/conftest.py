@@ -48,15 +48,15 @@ def publicly_available_notice(fetched_notice_data, normalised_metadata_dict) -> 
     notice.set_preprocessed_xml_manifestation(xml_manifestation)
     notice._status = NoticeStatus.DISTILLED
     notice.set_rdf_manifestation(RDFManifestation(object_data="RDF manifestation content",
-                                                 shacl_validations=[shacl_validation],
-                                                 sparql_validations=[sparql_validation],
-                                                 xpath_coverage_validation=xpath_coverage_validation
-                                                 ))
+                                                  shacl_validations=[shacl_validation],
+                                                  sparql_validations=[sparql_validation],
+                                                  xpath_coverage_validation=xpath_coverage_validation
+                                                  ))
     notice.set_distilled_rdf_manifestation(RDFManifestation(object_data="RDF manifestation content",
-                                                           shacl_validations=[shacl_validation],
-                                                           sparql_validations=[sparql_validation],
-                                                           xpath_coverage_validation=xpath_coverage_validation
-                                                           ))
+                                                            shacl_validations=[shacl_validation],
+                                                            sparql_validations=[sparql_validation],
+                                                            xpath_coverage_validation=xpath_coverage_validation
+                                                            ))
     notice._status = NoticeStatus.ELIGIBLE_FOR_PACKAGING
     notice.set_mets_manifestation(METSManifestation(object_data="METS manifestation content"))
     notice._status = NoticeStatus.PUBLICLY_AVAILABLE

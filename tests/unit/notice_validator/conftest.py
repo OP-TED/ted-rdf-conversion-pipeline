@@ -162,6 +162,22 @@ WHERE
 
 
 @pytest.fixture
+def sparql_file_three():
+    query = """#title: Title Three
+#description: this is a description
+#xpath: /TED_EXPORT/FORM_SECTION/F03_2014/LEGAL_BASIS/@VALUE_INVALID
+
+PREFIX epo: <http://data.europa.eu/a4g/ontology#>
+ASK
+WHERE
+{
+  ?this epo:IsRoleOf / epo:hasName ?value .
+}
+    """
+    return FileResource(file_name="the_best_file", file_content=query)
+
+
+@pytest.fixture
 def sparql_file_select():
     query = """#title: Title One
 #description: this is a description
@@ -209,8 +225,9 @@ WHERE
 
 
 @pytest.fixture
-def sparql_test_suite(sparql_file_one, sparql_file_two):
-    return SPARQLTestSuite(identifier="sparql_test_package", sparql_tests=[sparql_file_one, sparql_file_two])
+def sparql_test_suite(sparql_file_one, sparql_file_two, sparql_file_three):
+    return SPARQLTestSuite(identifier="sparql_test_package",
+                           sparql_tests=[sparql_file_one, sparql_file_two, sparql_file_three])
 
 
 @pytest.fixture
@@ -411,6 +428,7 @@ def fake_validation_notice():
         "created": '2022-08-07T20:49:15.500870',
         "mapping_suite_identifier": 'package_F03',
         "test_suite_identifier": 'cm_assertions',
+        "fields_covered": False,
         "validation_results": [
             {
                 "query": {
@@ -477,6 +495,47 @@ def fake_validation_notice():
                 "query_result": 'False',
                 "error": None,
                 "identifier": 'sparql_query_46'
+            },
+            {
+                "query": {
+                    "title": "",
+                    "description": "",
+                    "query": ""
+                },
+                "result": 'unknown',
+                "query_result": 'False',
+                "error": None,
+                "identifier": 'sparql_query_46'
+            }
+        ]
+    }), SPARQLTestSuiteValidationReport(**{
+        "object_data": '62f037e2a5458a3a6776138c',
+        "created": '2022-08-07T20:49:15.500870',
+        "mapping_suite_identifier": 'package_F03',
+        "test_suite_identifier": 'cm_assertions',
+        "fields_covered": True,
+        "validation_results": [
+            {
+                "query": {
+                    "title": 'II.1.7.4 - Currency',
+                    "description": '“II.1.7.4 - Currency” in SF corresponds to “nan nan” in eForms. The corresponding XML element is /TED_EXPORT/FORM_SECTION/F03_2014/OBJECT_CONTRACT/VAL_TOTAL/@CURRENCY. The expected ontology instances are epo: epo:ResultNotice / epo:NoticeAwardInformation / epo:MonetaryValue / at-voc:currency (from currency.json) .',
+                    "query": 'PREFIX epo: <http://data.europa.eu/a4g/ontology#>\n\nASK WHERE { { ?this epo:announcesNoticeAwardInformation / epo:hasTotalAwardedValue / epo:hasCurrency ?value } UNION { ?this epo:announcesNoticeAwardInformation / epo:hasProcurementLowestReceivedTenderValue / epo:hasCurrency ?value } UNION  { ?this epo:announcesNoticeAwardInformation / epo:hasProcurementHighestReceivedTenderValue / epo:hasCurrency ?value }  }'
+                },
+                "result": 'valid',
+                "query_result": 'True',
+                "error": None,
+                "identifier": 'sparql_query_46'
+            },
+            {
+                "query": {
+                    "title": "",
+                    "description": "",
+                    "query": ""
+                },
+                "result": 'unknown',
+                "query_result": 'True',
+                "error": None,
+                "identifier": 'sparql_query_46'
             }
         ]
     })]
@@ -521,15 +580,67 @@ def fake_validation_notice():
                             }
                         },
                         {
+                            "resultPath": {
+                                "type": 'uri',
+                                "value": 'http://data.europa.eu/a4g/ontology#hasInternetAddress'
+                            },
                             "resultSeverity": {
                                 "type": 'uri',
                                 "value": 'http://www.w3.org/ns/shacl#Info'
                             }
                         },
                         {
+                            "resultPath": {
+                                "type": 'uri',
+                                "value": 'http://data.europa.eu/a4g/ontology#hasInternetAddress'
+                            },
                             "resultSeverity": {
                                 "type": 'uri',
                                 "value": 'http://www.w3.org/ns/shacl#Warning'
+                            }
+                        }
+                    ]
+                }
+            }
+        }
+    }), SHACLTestSuiteValidationReport(**{
+        "object_data": '62f037e2a5458a3a6776138a1',
+        "created": '2022-08-07T20:49:15.500870',
+        "mapping_suite_identifier": 'package_F03',
+        "test_suite_identifier": 'epo',
+        "validation_results": {
+            "conforms": 'True',
+            "results_dict": {
+                "results": {
+                    "bindings": [
+                        {
+                            "focusNode": {
+                                "type": 'uri',
+                                "value": 'http://data.europa.eu/a4g/resource/ContactPoint/2021-S-250-663165/ab152979-15bf-30c3-b6f3-e0c554cfa9d0'
+                            },
+                            "message": {
+                                "type": 'literal',
+                                "value": 'Value is not Literal with datatype xsd:anyURI'
+                            },
+                            "resultPath": {
+                                "type": 'uri',
+                                "value": 'http://data.europa.eu/a4g/ontology#hasInternetAddress'
+                            },
+                            "resultSeverity": {
+                                "type": 'uri',
+                                "value": 'http://www.w3.org/ns/shacl#Violation'
+                            },
+                            "sourceConstraintComponent": {
+                                "type": 'uri',
+                                "value": 'http://www.w3.org/ns/shacl#DatatypeConstraintComponent'
+                            },
+                            "sourceShape": {
+                                "type": 'bnode',
+                                "value": 'Nb24b2cf50dcc4b8cbe40e95f3d032394'
+                            },
+                            "value": {
+                                "type": 'literal',
+                                "value": 'http://www.lshp.fi'
                             }
                         }
                     ]

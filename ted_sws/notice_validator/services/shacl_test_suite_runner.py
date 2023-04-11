@@ -185,7 +185,7 @@ def validate_notice_with_shacl_suite(notice: Notice, mapping_suite_package: Mapp
     :return:
     """
 
-    def shacl_validation(notice_item: Notice, rdf_manifestation: RDFManifestation, with_html: bool = False) \
+    def shacl_validation(notice_item: Notice, rdf_manifestation: RDFManifestation) \
             -> List[SHACLTestSuiteValidationReport]:
         reports = []
         shacl_test_suites = mapping_suite_package.shacl_test_suites
@@ -199,12 +199,10 @@ def validate_notice_with_shacl_suite(notice: Notice, mapping_suite_package: Mapp
         return sorted(reports, key=lambda x: x.test_suite_identifier)
 
     if execute_full_validation:
-        for report in shacl_validation(notice_item=notice, rdf_manifestation=notice.rdf_manifestation,
-                                       with_html=with_html):
+        for report in shacl_validation(notice_item=notice, rdf_manifestation=notice.rdf_manifestation):
             notice.set_rdf_validation(rdf_validation=report)
 
-    for report in shacl_validation(notice_item=notice, rdf_manifestation=notice.distilled_rdf_manifestation,
-                                   with_html=with_html):
+    for report in shacl_validation(notice_item=notice, rdf_manifestation=notice.distilled_rdf_manifestation):
         notice.set_distilled_rdf_validation(rdf_validation=report)
 
     return notice

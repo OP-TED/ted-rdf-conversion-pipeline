@@ -35,6 +35,7 @@ class SPARQLQueryRefinedResultType(Enum):
     INVALID = "invalid"
     ERROR = "error"
     WARNING = "warning"
+    UNKNOWN = "unknown"
 
 
 class Manifestation(PropertyBaseModel):
@@ -224,6 +225,7 @@ class SPARQLQueryResult(PropertyBaseModel):
     fields_covered: Optional[bool] = True
     missing_fields: Optional[List[str]] = []
     error: Optional[str]
+    message: Optional[str]
     identifier: Optional[str]
 
     class Config:

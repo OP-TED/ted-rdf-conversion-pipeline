@@ -40,7 +40,8 @@ def test_sparql_query_test_suite_runner(rdf_file_content, sparql_test_suite, dum
     for execution in test_suite_executions:
         assert isinstance(execution, SPARQLQueryResult)
 
-    assert test_suite_executions[1].result == SPARQLQueryRefinedResultType.VALID.value
+    assert test_suite_executions[2].result == SPARQLQueryRefinedResultType.VALID.value
+    assert test_suite_executions[1].result == SPARQLQueryRefinedResultType.WARNING.value
     assert test_suite_executions[0].result == SPARQLQueryRefinedResultType.INVALID.value
 
 
@@ -159,10 +160,12 @@ def test_get_metadata_from_freaking_sparql_queries(query_content, query_content_
     assert "description" not in metadata
 
 
-def test_generate_sparql_validation_summary_report(notice_with_distilled_status, dummy_mapping_suite, rdf_file_content):
+def test_generate_sparql_validation_summary_report(notice_with_distilled_status, fake_validation_notice,
+                                                   dummy_mapping_suite, rdf_file_content):
     notice = notice_with_distilled_status
     assert notice.rdf_manifestation
     assert notice.distilled_rdf_manifestation
+    notice.rdf_manifestation.sparql_validations = fake_validation_notice.rdf_manifestation.sparql_validations
     report_notice: ReportNotice = ReportNotice(notice=notice)
     report: SPARQLValidationSummaryReport = generate_sparql_validation_summary_report(
         report_notices=[report_notice],

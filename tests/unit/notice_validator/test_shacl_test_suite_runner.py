@@ -1,7 +1,7 @@
 import pytest
 
 from ted_sws.core.model.manifestation import RDFManifestation, RDFValidationManifestation, \
-    SHACLTestSuiteValidationReport
+    SHACLTestSuiteValidationReport, QueriedSHACLShapeValidationResult
 from ted_sws.core.model.notice import NoticeStatus
 from ted_sws.core.model.validation_report import ReportNotice, SHACLValidationSummaryReport
 from ted_sws.data_manager.adapters.mapping_suite_repository import MappingSuiteRepositoryInFileSystem
@@ -93,10 +93,12 @@ def test_validate_notice_by_id_with_shacl_suite(notice_with_distilled_status, rd
                                                mapping_suite_identifier="no_package_here")
 
 
-def test_generate_shacl_validation_summary_report(notice_with_distilled_status, dummy_mapping_suite, rdf_file_content):
+def test_generate_shacl_validation_summary_report(notice_with_distilled_status, fake_validation_notice,
+                                                  dummy_mapping_suite, rdf_file_content):
     notice = notice_with_distilled_status
     assert notice.rdf_manifestation
     assert notice.distilled_rdf_manifestation
+    notice.rdf_manifestation.shacl_validations = fake_validation_notice.rdf_manifestation.shacl_validations
     report_notice: ReportNotice = ReportNotice(notice=notice)
     report: SHACLValidationSummaryReport = generate_shacl_validation_summary_report(
         report_notices=[report_notice],

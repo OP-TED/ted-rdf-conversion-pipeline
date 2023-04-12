@@ -93,7 +93,7 @@ class SPARQLTestSuiteRunner:
         if xpath_coverage_validation and xpath_coverage_validation.validation_result:
             xpath_validation_result = xpath_coverage_validation.validation_result
 
-            sparql_query_result.fields_covered = any(
+            sparql_query_result.fields_covered = not sparql_query.xpath or any(
                 map(lambda v: v in xpath_validation_result.xpath_covered, sparql_query.xpath))
 
             sparql_query_xpath = set(sparql_query.xpath)

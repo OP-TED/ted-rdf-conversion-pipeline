@@ -53,6 +53,13 @@
         [data-role=collapsible] .ui-collapsible-content {
             padding: 10px;
         }
+
+        hr {
+            margin: 12px 0;
+            height: 5PX;
+            background: #ccc;
+            border: 0;
+        }
     </style>
 </head>
 <body>
@@ -63,8 +70,10 @@
     <li>Date created: {{ created }}</li>
     <li>SHACL test suite identifier: {{ test_suite_identifier }}</li>
     <li>Mapping suite identifier: {{ mapping_suite_identifier }}</li>
+</ul>
     {% if notice_ids %}
-    <li><div><hr></div>
+    <hr>
+    <ul><li>
         {%  set nr_notices = notice_ids|length %}
         {% if nr_notices > 1 %}
         Notice identifiers ({{ nr_notices }}):
@@ -78,9 +87,8 @@
         {% elif nr_notices == 1 %}
             <b>Notice identifier: {{ notice_ids[0] }}</b>
         {% endif %}
-    </li>
+    </li></ul>
     {% endif %}
-</ul>
 <hr>
 <h2>Results</h2>
 <table class="dataTable">
@@ -127,8 +135,8 @@
         {% endfor %}
         </tbody>
     </table>
-
 {% endif %}
+<hr>
 </body>
 </html>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>

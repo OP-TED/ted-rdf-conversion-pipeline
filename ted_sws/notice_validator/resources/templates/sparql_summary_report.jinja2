@@ -94,6 +94,12 @@
             padding: 10px;
         }
 
+        hr {
+            margin: 12px 0;
+            height: 5PX;
+            background: #ccc;
+            border: 0;
+        }
     </style>
   </head>
   <body>
@@ -144,7 +150,7 @@
 
     <hr>
     <h2>Results summary</h2>
-        <table class="display" data-order='[[0, "asc"]]'>
+        <table class="display summary" data-order='[[0, "asc"]]'>
             <thead class="center aligned">
             <tr>
                 <th>Result</th>
@@ -163,7 +169,7 @@
         </table>
     <hr>
     <h2>Results</h2>
-    <table class="display" data-order='[[0, "asc"]]'>
+    <table class="display results" data-order='[[0, "asc"]]'>
      <thead class="center aligned">
         <tr>
             <th>Form Field</th>
@@ -225,7 +231,10 @@
             $c.attr("data-state", $c.attr("data-state") == "collapsed" ? "expanded" : "collapsed");
             return false;
         });
-        $("table.display").DataTable({
+        $("table.display.summary").DataTable({
+            dom: 'r'
+        });
+        $("table.display.results").DataTable({
             dom: 'B<"clear">lfiprtip',
             buttons: [],
             "lengthMenu": [[5, 15, 30, -1], [5, 15, 30, "All"]],

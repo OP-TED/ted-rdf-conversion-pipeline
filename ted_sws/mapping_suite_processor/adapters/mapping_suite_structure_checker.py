@@ -102,9 +102,6 @@ class MappingSuiteStructureValidator:
 
         success = True
 
-        def _iter_dir(path):
-            return [i for i in path.iterdir() if i.is_dir()]
-
         mandatory_paths_l3 = [
             self.mapping_suite_path / MS_OUTPUT_FOLDER_NAME,
         ]

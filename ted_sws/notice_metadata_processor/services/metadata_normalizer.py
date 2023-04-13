@@ -7,10 +7,9 @@ import pandas as pd
 
 from ted_sws.core.model.metadata import NormalisedMetadata, LanguageTaggedString, NormalisedMetadataView
 from ted_sws.core.model.notice import Notice
-from ted_sws.event_manager.services.log import log_error
-from ted_sws.notice_metadata_processor.services.metadata_constraints import filter_df_by_variables
 from ted_sws.data_manager.adapters.notice_repository import NoticeRepositoryABC
 from ted_sws.notice_metadata_processor.model.metadata import ExtractedMetadata
+from ted_sws.notice_metadata_processor.services.metadata_constraints import filter_df_by_variables
 from ted_sws.notice_metadata_processor.services.xml_manifestation_metadata_extractor import \
     XMLManifestationMetadataExtractor
 from ted_sws.resources.mapping_files_registry import MappingFilesRegistry
@@ -151,7 +150,6 @@ class ExtractedMetadataNormaliser:
     def normalise_legal_basis_value(cls, value: str) -> str:
         """
         Transforms and returns Legal Basis value
-        :param mapping:
         :param value:
         :return:
         """

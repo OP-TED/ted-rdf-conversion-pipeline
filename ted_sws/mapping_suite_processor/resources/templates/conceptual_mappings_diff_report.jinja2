@@ -8,6 +8,8 @@
 
 {% set ms_acronyms_title = ms1_acronym + ("-" + ms2_acronym if ms2_acronym else "") %}
 
+{% set CONTEXT_KEY = "__CONTEXT__" %}
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -56,6 +58,16 @@
     }
     .tab {
         font-weight: bold;
+    }
+    small.context {
+        font-weight: normal;
+        font-size: 12px;
+    }
+    hr {
+        margin: 7px 0;
+        height: 3PX;
+        background: #ccc;
+        border: 0;
     }
     </style>
   </head>
@@ -141,6 +153,13 @@
                             <tr>
                                 <th>
                                     {% if is_field0_int %}Item {% endif %}{{ fields_labels[field0] or field0 }}
+                                    {% if CONTEXT_KEY in field0_value %}
+                                        <hr>
+                                        <small class="context">
+                                            <b>{{ mapping_suite2 }}:</b><br>
+                                            {{ field0_value[CONTEXT_KEY] | join(' - ') }}
+                                        </small>
+                                    {% endif %}
                                 </th>
                                 <td>
                                     {% if "old_value" in field0_value %}
@@ -160,7 +179,7 @@
                                     {% if field0_value and field0_value is mapping %}
                                     <table class="dataTable heading">
                                         <tbody>
-                                        {% for field1 in field0_value %}
+                                        {% for field1 in field0_value if field1 != CONTEXT_KEY %}
                                             {% set field1_value = field0_value[field1] %}
                                             {% if field1|int(-1) != -1 %} {% set is_field1_int = True %} {% endif %}
                                             <tr>

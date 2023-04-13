@@ -1,7 +1,8 @@
+from datetime import date
 from typing import List
 
 from pymongo import MongoClient
-from datetime import date, datetime, time
+
 from ted_sws.core.model.supra_notice import DailySupraNotice
 from ted_sws.data_manager.adapters.supra_notice_repository import DailySupraNoticeRepository
 

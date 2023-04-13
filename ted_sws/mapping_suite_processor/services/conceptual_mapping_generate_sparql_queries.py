@@ -156,7 +156,8 @@ def mapping_suite_processor_generate_sparql_queries(conceptual_mappings_file_pat
                                                     rq_name: str = DEFAULT_RQ_NAME,
                                                     prefixes_definitions=None):
     """
-        This function reads data from conceptual_mappings.xlsx and generates SPARQL validation queries in provided package.
+        This function reads data from conceptual_mappings.xlsx and generates SPARQL validation queries in
+        provided package.
     :param prefixes_definitions:
     :param conceptual_mappings_file_path:
     :param output_sparql_queries_folder_path:

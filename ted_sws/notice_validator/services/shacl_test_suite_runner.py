@@ -1,6 +1,5 @@
 import json
-import logging
-from typing import List, Union
+from typing import List
 
 from jinja2 import Environment, PackageLoader
 
@@ -15,8 +14,8 @@ from ted_sws.data_manager.adapters.repository_abc import NoticeRepositoryABC, Ma
 from ted_sws.notice_transformer.adapters.notice_transformer import NoticeTransformer
 from ted_sws.notice_validator.adapters.shacl_runner import SHACLRunner
 from ted_sws.notice_validator.resources.templates import TEMPLATE_METADATA_KEY
-from ted_sws.resources import SHACL_RESULT_QUERY_PATH
 from ted_sws.notice_validator.services import NOTICE_IDS_FIELD
+from ted_sws.resources import SHACL_RESULT_QUERY_PATH
 
 TEMPLATES = Environment(loader=PackageLoader("ted_sws.notice_validator.resources", "templates"))
 SHACL_TEST_SUITE_EXECUTION_HTML_REPORT_TEMPLATE = "shacl_shape_validation_results_report.jinja2"

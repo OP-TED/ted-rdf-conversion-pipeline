@@ -91,7 +91,8 @@ def mapping_suite_processor_inject_integration_sparql_queries(
         output_sparql_queries_folder_path: pathlib.Path
 ):
     """
-        This function reads the SPARQL files from conceptual_mappings_file_path Rules sheet, and then, based on this list,
+        This function reads the SPARQL files from conceptual_mappings_file_path Rules sheet, and then,
+        based on this list,
         the resources in sparql_queries_folder_path will be copied to output_sparql_queries_folder_path.
         :param conceptual_mappings_file_path:
         :param sparql_queries_folder_path:

@@ -9,7 +9,8 @@ from json2html import json2html
 from pydantic.utils import deep_update
 
 from ted_sws import config
-from ted_sws.core.model.transform import ConceptualMapping
+from ted_sws.core.model.transform import ConceptualMapping, ConceptualMappingRule, ConceptualMappingRemark, \
+    ConceptualMappingResource, ConceptualMappingRMLModule
 from ted_sws.core.model.transform import ConceptualMappingDiff, ConceptualMappingDiffMetadata, ConceptualMappingDiffData
 from ted_sws.data_manager.adapters.mapping_suite_repository import MS_TRANSFORM_FOLDER_NAME, \
     MS_CONCEPTUAL_MAPPING_FILE_NAME
@@ -22,39 +23,55 @@ GITHUB_CONCEPTUAL_MAPPINGS_PATH = "{GITHUB_BASE}/raw/{GIT_BRANCH}/mappings/{MAPP
                                   MS_TRANSFORM_FOLDER_NAME + "/" + MS_CONCEPTUAL_MAPPING_FILE_NAME
 
 DEFAULT_REPORT_FILE_NAME = "cm_diff"
+DIFF_VALUE_CONTEXT_KEY = "__CONTEXT__"
+
+DIFF_METADATA_TAB = "metadata"
+DIFF_RULES_TAB = "rules"
+DIFF_MAPPING_REMARKS_TAB = "mapping_remarks"
+DIFF_RESOURCES_TAB = "resources"
+DIFF_RML_MODULES_TAB = "rml_modules"
+DIFF_CL1_ROLES_TAB = "cl1_roles"
+DIFF_CL2_ORGANISATIONS_TAB = "cl2_organisations"
 
 
 class ConceptualMappingDiffDataTransformer:
     data: dict
     tabs: dict = {
-        "metadata": {},
-        "rules": {},
-        "mapping_remarks": {},
-        "resources": {},
-        "rml_modules": {},
-        "cl1_roles": {},
-        "cl2_organisations": {}
+        DIFF_METADATA_TAB: {},
+        DIFF_RULES_TAB: {},
+        DIFF_MAPPING_REMARKS_TAB: {},
+        DIFF_RESOURCES_TAB: {},
+        DIFF_RML_MODULES_TAB: {},
+        DIFF_CL1_ROLES_TAB: {},
+        DIFF_CL2_ORGANISATIONS_TAB: {}
     }
     labels: dict
+    mapping1: ConceptualMapping
+    mapping2: ConceptualMapping
+    context_mapping: ConceptualMapping
 
     item_key_flattenizer: str = "|"
 
-    def __init__(self, data):
+    def __init__(self, data, mapping1: ConceptualMapping, mapping2: ConceptualMapping):
         self.data = data
+        self.mapping1 = mapping1
+        self.mapping2 = mapping2
+        self.context_mapping = self.mapping2
         self.init_labels()
         self.init_tabs()
+        self.process_tabs_data()
 
     @classmethod
     def init_labels(cls):
         cls.labels = {
             "tabs": {
-                "metadata": "Metadata",
-                "rules": "Rules",
-                "mapping_remarks": "Remarks",
-                "resources": "Resources",
-                "rml_modules": "RML Modules",
-                "cl1_roles": "CL1 Roles",
-                "cl2_organisations": "CL2 Organisations"
+                DIFF_METADATA_TAB: "Metadata",
+                DIFF_RULES_TAB: "Rules",
+                DIFF_MAPPING_REMARKS_TAB: "Remarks",
+                DIFF_RESOURCES_TAB: "Resources",
+                DIFF_RML_MODULES_TAB: "RML Modules",
+                DIFF_CL1_ROLES_TAB: "CL1 Roles",
+                DIFF_CL2_ORGANISATIONS_TAB: "CL2 Organisations"
             },
             "actions": {
                 "set_item_added": "Set Added",
@@ -107,6 +124,52 @@ class ConceptualMappingDiffDataTransformer:
                     self.tabs[tab][action] = {}
                 self.tabs[tab][action] = deep_update(self.tabs[tab][action], action_items[tab])
 
+    def process_tabs_data(self):
+        self.process_rules_tab()
+        self.process_mapping_remarks_tab()
+        self.process_resources_tab()
+        self.process_rml_modules_tab()
+
+    def process_rules_tab(self):
+        cm_rules_len = len(self.context_mapping.rules)
+        for action in self.tabs[DIFF_RULES_TAB]:
+            for row_idx in self.tabs[DIFF_RULES_TAB][action]:
+                idx = int(row_idx)
+                if idx < cm_rules_len:
+                    cm_row: ConceptualMappingRule = self.context_mapping.rules[idx]
+                    context = [cm_row.standard_form_field_id, cm_row.standard_form_field_name]
+                    self.tabs[DIFF_RULES_TAB][action][row_idx][DIFF_VALUE_CONTEXT_KEY] = context
+
+    def process_mapping_remarks_tab(self):
+        cm_mapping_remarks_len = len(self.context_mapping.mapping_remarks)
+        for action in self.tabs[DIFF_MAPPING_REMARKS_TAB]:
+            for row_idx in self.tabs[DIFF_MAPPING_REMARKS_TAB][action]:
+                idx = int(row_idx)
+                if idx < cm_mapping_remarks_len:
+                    cm_row: ConceptualMappingRemark = self.context_mapping.mapping_remarks[idx]
+                    context = [cm_row.standard_form_field_id, cm_row.standard_form_field_name]
+                    self.tabs[DIFF_MAPPING_REMARKS_TAB][action][row_idx][DIFF_VALUE_CONTEXT_KEY] = context
+
+    def process_resources_tab(self):
+        cm_resources_len = len(self.context_mapping.resources)
+        for action in self.tabs[DIFF_RESOURCES_TAB]:
+            for row_idx in self.tabs[DIFF_RESOURCES_TAB][action]:
+                idx = int(row_idx)
+                if idx < cm_resources_len:
+                    cm_row: ConceptualMappingResource = self.context_mapping.resources[idx]
+                    context = [cm_row.file_name]
+                    self.tabs[DIFF_RESOURCES_TAB][action][row_idx][DIFF_VALUE_CONTEXT_KEY] = context
+
+    def process_rml_modules_tab(self):
+        cm_rml_modules_len = len(self.context_mapping.rml_modules)
+        for action in self.tabs[DIFF_RML_MODULES_TAB]:
+            for row_idx in self.tabs[DIFF_RML_MODULES_TAB][action]:
+                idx = int(row_idx)
+                if idx < cm_rml_modules_len:
+                    cm_row: ConceptualMappingRMLModule = self.context_mapping.rml_modules[idx]
+                    context = [cm_row.file_name]
+                    self.tabs[DIFF_RML_MODULES_TAB][action][row_idx][DIFF_VALUE_CONTEXT_KEY] = context
+
     @classmethod
     def normalize_item_key(cls, k):
         return cls.item_key_flattenizer.join(k.replace("'", "").split("root[", 1)[1].rsplit("]", 1)[0].split("]["))
@@ -148,7 +211,7 @@ def mapping_suite_diff_conceptual_mappings(mappings: List[ConceptualMapping]) ->
 
     diff.data = transform_conceptual_mappings_diff_data(ConceptualMappingDiffData(
         original=DeepDiff(mapping1, mapping2, ignore_order=False)
-    ))
+    ), mapping1=mappings[0], mapping2=mappings[1])
     return diff.dict()
 
 
@@ -222,8 +285,10 @@ def mapping_suite_diff_repo_conceptual_mappings(branch_or_tag_name: List[str], m
     return mapping_suite_diff_files_conceptual_mappings([filepath1, filepath2])
 
 
-def transform_conceptual_mappings_diff_data(diff_data: ConceptualMappingDiffData):
-    diff_transformer = ConceptualMappingDiffDataTransformer(data=diff_data.original)
+def transform_conceptual_mappings_diff_data(diff_data: ConceptualMappingDiffData, mapping1: ConceptualMapping,
+                                            mapping2: ConceptualMapping):
+    diff_transformer = ConceptualMappingDiffDataTransformer(data=diff_data.original, mapping1=mapping1,
+                                                            mapping2=mapping2)
     diff_data.transformed = {
         "labels": diff_transformer.labels,
         "tabs": diff_transformer.tabs

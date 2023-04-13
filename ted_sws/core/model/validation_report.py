@@ -2,7 +2,7 @@ from pathlib import Path
 from typing import Optional, List
 
 from ted_sws.core.model import PropertyBaseModel
-from ted_sws.core.model.manifestation import SPARQLQueryResult, ValidationManifestation, Manifestation, SPARQLQuery
+from ted_sws.core.model.manifestation import ValidationManifestation
 from ted_sws.core.model.notice import Notice
 from ted_sws.core.model.validation_report_data import ReportPackageNoticeData, ReportNoticeData
 

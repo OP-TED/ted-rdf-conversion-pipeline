@@ -5,18 +5,18 @@ from typing import List
 from ted_sws.core.model.manifestation import RDFManifestation, XMLManifestation
 from ted_sws.core.model.notice import Notice, NoticeStatus
 from ted_sws.core.model.transform import MappingSuite, FileResource
+from ted_sws.core.model.validation_report import ReportNotice
+from ted_sws.core.model.validation_report_data import ReportNoticeData
 from ted_sws.data_manager.adapters.mapping_suite_repository import MappingSuiteRepositoryInFileSystem
 from ted_sws.data_manager.adapters.repository_abc import NoticeRepositoryABC, MappingSuiteRepositoryABC
 from ted_sws.data_manager.services.mapping_suite_resource_manager import file_resource_output_path, \
-    mapping_suite_skipped_notice, mapping_suite_notice_path_by_group_depth
+    mapping_suite_skipped_notice
 from ted_sws.event_manager.adapters.event_logger import EventLogger, EventMessageLogSettings
 from ted_sws.event_manager.model.event_message import NoticeEventMessage
 from ted_sws.event_manager.services.logger_from_context import get_env_logger
 from ted_sws.notice_transformer.adapters.notice_transformer import NoticeTransformer
 from ted_sws.notice_transformer.adapters.rml_mapper import RMLMapperABC
 from ted_sws.notice_transformer.services import DEFAULT_TRANSFORMATION_FILE_EXTENSION
-from ted_sws.core.model.validation_report import ReportNotice
-from ted_sws.core.model.validation_report_data import ReportNoticeData
 
 DATA_SOURCE_PACKAGE = "data"
 

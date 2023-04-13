@@ -37,7 +37,7 @@ def generate_metadata(raw_metadata: dict) -> dict:
     :return:
     """
 
-    def get_list_from_raw_metadata(raw_metadata: dict, field_key: str) -> list:
+    def get_list_from_raw_metadata(field_key: str) -> list:
         data = raw_metadata[field_key][0]
         if pd.notna(data):
             return [x.strip() for x in str(data).split(',')]
@@ -45,11 +45,11 @@ def generate_metadata(raw_metadata: dict) -> dict:
             return []
 
     constraints = {
-        E_FORMS_SUBTYPE_KEY: [int(float(x)) for x in get_list_from_raw_metadata(raw_metadata, E_FORMS_SUBTYPE_FIELD)],
-        START_DATE_KEY: get_list_from_raw_metadata(raw_metadata, START_DATE_FIELD),
-        END_DATE_KEY: get_list_from_raw_metadata(raw_metadata, END_DATE_FIELD),
-        MIN_XSD_VERSION_KEY: get_list_from_raw_metadata(raw_metadata, MIN_XSD_VERSION_FIELD),
-        MAX_XSD_VERSION_KEY: get_list_from_raw_metadata(raw_metadata, MAX_XSD_VERSION_FIELD)}
+        E_FORMS_SUBTYPE_KEY: [int(float(x)) for x in get_list_from_raw_metadata(E_FORMS_SUBTYPE_FIELD)],
+        START_DATE_KEY: get_list_from_raw_metadata(START_DATE_FIELD),
+        END_DATE_KEY: get_list_from_raw_metadata(END_DATE_FIELD),
+        MIN_XSD_VERSION_KEY: get_list_from_raw_metadata(MIN_XSD_VERSION_FIELD),
+        MAX_XSD_VERSION_KEY: get_list_from_raw_metadata(MAX_XSD_VERSION_FIELD)}
 
     metadata = {TITLE_KEY: raw_metadata[TITLE_FIELD][0], IDENTIFIER_KEY: raw_metadata[IDENTIFIER_FIELD][0],
                 CREATED_KEY: datetime.now().isoformat(), VERSION_KEY: raw_metadata[VERSION_FIELD][0],

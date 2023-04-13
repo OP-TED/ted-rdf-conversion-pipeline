@@ -5,8 +5,8 @@ import numpy as np
 import pandas as pd
 
 from ted_sws.core.model.transform import ConceptualMapping, ConceptualMappingXPATH, ConceptualMappingMetadata, \
-    ConceptualMappingResource, ConceptualMappingMetadataConstraints, ConceptualMappingRule, ConceptualMappingRMLModule, \
-    ConceptualMappingRemark, ConceptualMappingControlList
+    ConceptualMappingResource, ConceptualMappingMetadataConstraints, ConceptualMappingRule, \
+    ConceptualMappingRMLModule, ConceptualMappingRemark, ConceptualMappingControlList
 from ted_sws.mapping_suite_processor import CONCEPTUAL_MAPPINGS_METADATA_SHEET_NAME, \
     CONCEPTUAL_MAPPINGS_RULES_SHEET_NAME, RULES_FIELD_XPATH, RULES_SF_FIELD_ID, RULES_SF_FIELD_NAME, \
     CONCEPTUAL_MAPPINGS_RESOURCES_SHEET_NAME, CONCEPTUAL_MAPPINGS_RML_MODULES_SHEET_NAME, RULES_E_FORM_BT_ID, \

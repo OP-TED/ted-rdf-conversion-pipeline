@@ -111,8 +111,6 @@ class NoticePackager:
 
     def add_rdf_content(self):
         """
-
-        :param rdf_content:
         :return:
         """
         if self.rdf_content is not None:

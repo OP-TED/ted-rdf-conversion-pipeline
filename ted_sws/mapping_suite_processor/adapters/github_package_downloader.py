@@ -17,7 +17,6 @@ class MappingSuitePackageDownloaderABC(abc.ABC):
     def download(self, output_mapping_suite_package_path: pathlib.Path):
         """
             This method downloads a mapping_suite_package and loads it at the output_mapping_suite_package_path provided.
-        :param mapping_suite_package_name:
         :param output_mapping_suite_package_path:
         :return:
         """
@@ -39,7 +38,6 @@ class GitHubMappingSuitePackageDownloader(MappingSuitePackageDownloaderABC):
     def download(self, output_mapping_suite_package_path: pathlib.Path) -> str:
         """
             This method downloads a mapping_suite_package and loads it at the output_mapping_suite_package_path provided.
-        :param mapping_suite_package_name:
         :param output_mapping_suite_package_path:
         :return:
         """

@@ -14,7 +14,7 @@ from string import Template
 
 import pandas as pd
 import rdflib
-from SPARQLWrapper import SPARQLWrapper, CSV, JSON, RDF, POST
+from SPARQLWrapper import SPARQLWrapper, CSV, JSON, POST
 
 from ted_sws import config
 

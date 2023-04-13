@@ -83,7 +83,8 @@ def validate_notice_availability_in_cellar(notice: Notice, notice_uri: str = Non
 def validate_notices_availability_in_cellar(notice_statuses: List[NoticeStatus], mongodb_client: MongoClient,
                                             cellar_request_delay_in_seconds: int = DEFAULT_CELLAR_REQUEST_DELAY):
     """
-        This function validate availability in cellar foreach notice from notices with a notice_status in notice_statuses.
+        This function validate availability in cellar foreach notice from notices with a notice_status in
+        notice_statuses.
     :param notice_statuses:
     :param mongodb_client:
     :param cellar_request_delay_in_seconds:

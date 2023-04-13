@@ -1,4 +1,3 @@
-from abc import abstractmethod
 from typing import List, Set, Dict
 
 import numpy as np
@@ -11,8 +10,8 @@ from ted_sws.core.model.transform import ConceptualMapping, ConceptualMappingXPA
 from ted_sws.core.model.validation_report import ReportNotice
 from ted_sws.data_sampler.services.notice_xml_indexer import index_notice
 from ted_sws.mapping_suite_processor.adapters.conceptual_mapping_reader import ConceptualMappingReader
-from ted_sws.notice_validator.resources.templates import TEMPLATE_METADATA_KEY
 from ted_sws.notice_transformer.services.notice_transformer import transform_report_notices
+from ted_sws.notice_validator.resources.templates import TEMPLATE_METADATA_KEY
 
 TEMPLATES = Environment(loader=PackageLoader("ted_sws.notice_validator.resources", "templates"))
 XPATH_COVERAGE_REPORT_TEMPLATE = "xpath_coverage_report.jinja2"
@@ -36,7 +35,8 @@ class CoverageRunner:
         conceptual_mapping: ConceptualMapping = mapping_suite.conceptual_mapping
         self.init_xpath_data(conceptual_mapping=conceptual_mapping)
 
-    def notice_xpaths(self, notice: Notice) -> List[str]:
+    @classmethod
+    def notice_xpaths(cls, notice: Notice) -> List[str]:
         if not notice.xml_metadata or not notice.xml_metadata.unique_xpaths:
             notice = index_notice(notice)
         return notice.xml_metadata.unique_xpaths

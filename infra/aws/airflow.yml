@@ -202,13 +202,13 @@ services:
       AIRFLOW__WEBSERVER__SECRET_KEY: "zqOVjqVrMstjDbKEPpYiSA=="
       IS_PRIME_ENV: 'true'
       AIRFLOW__API__AUTH_BACKEND: airflow.api.auth.backend.basic_auth
-      AIRFLOW__CELERY__BROKER_URL: redis://:@airflow-redis-001.pc0ugh.0001.euw1.cache.amazonaws.com:6379/0
-      AIRFLOW__CELERY__RESULT_BACKEND: db+postgresql://airflow:airflowairflow@airflow-rds.ccyj5sy3f9gc.eu-west-1.rds.amazonaws.com/airflow
+      AIRFLOW__CELERY__BROKER_URL: ${AIRFLOW__CELERY__BROKER_URL}
+      AIRFLOW__CELERY__RESULT_BACKEND: ${AIRFLOW__CELERY__RESULT_BACKEND}
       AIRFLOW__CORE__DAGS_ARE_PAUSED_AT_CREATION: "true"
       AIRFLOW__CORE__EXECUTOR: CeleryExecutor
       AIRFLOW__CORE__LOAD_EXAMPLES: "false"
       AIRFLOW__CORE__ENABLE_XCOM_PICKLING: "true"
-      AIRFLOW__CORE__SQL_ALCHEMY_CONN: postgresql+psycopg2://airflow:airflowairflow@airflow-rds.ccyj5sy3f9gc.eu-west-1.rds.amazonaws.com/airflow
+      AIRFLOW__CORE__SQL_ALCHEMY_CONN: ${AIRFLOW__CORE__SQL_ALCHEMY_CONN}
       AIRFLOW_GID: ${AIRFLOW_GID}
       AIRFLOW_HOME: /opt/airflow
       AIRFLOW_UID: ${AIRFLOW_UID}

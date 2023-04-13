@@ -25,6 +25,7 @@ class CoverageRunner:
     mapping_suite: MappingSuite
     mapping_suite_id: str
     conceptual_xpaths: Set[str] = set()
+    conceptual_remarked_xpaths: Set[str] = set()
     conceptual_xpath_data: Dict[str, ConceptualMappingXPATH] = {}
     base_xpath: str
 
@@ -41,6 +42,13 @@ class CoverageRunner:
         return notice.xml_metadata.unique_xpaths
 
     def init_xpath_data(self, conceptual_mapping: ConceptualMapping):
+        for cm_xpath in conceptual_mapping.mapping_remarks:
+            for xpath in cm_xpath.field_xpath:
+                self.conceptual_remarked_xpaths.add(xpath)
+                self.conceptual_xpath_data[xpath] = ConceptualMappingXPATH(
+                    xpath=xpath,
+                    form_field=f"{cm_xpath.standard_form_field_id} - {cm_xpath.standard_form_field_name}"
+                )
         for cm_xpath in conceptual_mapping.xpaths:
             self.conceptual_xpaths.add(cm_xpath.xpath)
             self.conceptual_xpath_data[cm_xpath.xpath] = cm_xpath
@@ -63,10 +71,13 @@ class CoverageRunner:
         notice_hit: Dict[str, int] = {k: v.count(xpath) for k, v in sorted(notice_xpaths.items()) if xpath in v}
         return notice_hit
 
+    def get_all_conceptual_xpaths(self) -> Set[str]:
+        return self.conceptual_remarked_xpaths | self.conceptual_xpaths
+
     def xpath_assertions(self, notice_xpaths: XPathDict,
                          xpaths_list: List[str]) -> List[XPATHCoverageValidationAssertion]:
         xpath_assertions = []
-        for xpath in self.conceptual_xpaths:
+        for xpath in self.get_all_conceptual_xpaths():
             xpath_assertion = XPATHCoverageValidationAssertion()
             xpath_data = self.conceptual_xpath_data[xpath]
             form_field = xpath_data.form_field
@@ -85,8 +96,10 @@ class CoverageRunner:
         validation_result: XPATHCoverageValidationResult = XPATHCoverageValidationResult()
         validation_result.xpath_assertions = self.xpath_assertions(notice_xpaths, xpaths_list)
         validation_result.xpath_covered = sorted(list(self.conceptual_xpaths & unique_notice_xpaths))
-        validation_result.xpath_not_covered = sorted(list(unique_notice_xpaths - self.conceptual_xpaths))
-        validation_result.xpath_extra = sorted(list(self.conceptual_xpaths - unique_notice_xpaths))
+        all_conceptual_xpaths = self.get_all_conceptual_xpaths()
+        validation_result.xpath_not_covered = sorted(list(unique_notice_xpaths - all_conceptual_xpaths))
+        validation_result.xpath_extra = sorted(list(all_conceptual_xpaths - unique_notice_xpaths))
+        validation_result.remarked_xpaths = sorted(list(self.conceptual_remarked_xpaths))
         unique_notice_xpaths_len = len(unique_notice_xpaths)
         xpath_covered_len = len(validation_result.xpath_covered)
         conceptual_xpaths_len = len(self.conceptual_xpaths)
@@ -139,4 +152,3 @@ class CoverageRunner:
         data[TEMPLATE_METADATA_KEY] = metadata
         html_report = TEMPLATES.get_template(XPATH_COVERAGE_REPORT_TEMPLATE).render(data)
         return html_report
-

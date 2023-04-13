@@ -155,6 +155,7 @@ class XPATHCoverageValidationResultBase(PropertyBaseModel):
     xpath_covered: Optional[List[str]] = []
     xpath_not_covered: Optional[List[str]] = []
     xpath_extra: Optional[List[str]] = []
+    remarked_xpaths: Optional[List[str]] = []
     coverage: Optional[float]
     conceptual_coverage: Optional[float]
 

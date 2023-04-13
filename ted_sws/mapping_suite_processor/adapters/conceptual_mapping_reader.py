@@ -147,7 +147,7 @@ class ConceptualMappingReader:
         return rules
 
     @classmethod
-    def _read_conceptual_mapping_remarks(cls, df: pd.DataFrame) -> List[ConceptualMappingRemark]:
+    def _read_conceptual_mapping_remarks(cls, df: pd.DataFrame, base_xpath: str) -> List[ConceptualMappingRemark]:
         """
 
         :param df:
@@ -161,7 +161,11 @@ class ConceptualMappingReader:
             remark = ConceptualMappingRemark()
             remark.standard_form_field_id = cls._read_pd_value(row[RULES_SF_FIELD_ID])
             remark.standard_form_field_name = cls._read_pd_value(row[RULES_SF_FIELD_NAME])
-            remark.field_xpath = cls._read_list_from_pd_multiline_value(row[RULES_FIELD_XPATH])
+            remarked_xpaths = cls._read_list_from_pd_multiline_value(row[RULES_FIELD_XPATH])
+            if remarked_xpaths:
+                remark.field_xpath = []
+                for remarked_xpath in remarked_xpaths:
+                    remark.field_xpath.append(cls.xpath_with_base(remarked_xpath, base_xpath))
             remarks.append(remark)
         return remarks
 
@@ -273,7 +277,7 @@ class ConceptualMappingReader:
             conceptual_mapping.metadata = metadata
             conceptual_mapping.rules = cls._read_conceptual_mapping_rules(dfs[CONCEPTUAL_MAPPINGS_RULES_SHEET_NAME])
             conceptual_mapping.mapping_remarks = cls._read_conceptual_mapping_remarks(
-                dfs[CONCEPTUAL_MAPPINGS_REMARKS_SHEET_NAME])
+                dfs[CONCEPTUAL_MAPPINGS_REMARKS_SHEET_NAME], base_xpath=metadata.base_xpath)
             conceptual_mapping.resources = cls._read_conceptual_mapping_resources(
                 dfs[CONCEPTUAL_MAPPINGS_RESOURCES_SHEET_NAME])
             conceptual_mapping.rml_modules = cls._read_conceptual_mapping_rml_modules(

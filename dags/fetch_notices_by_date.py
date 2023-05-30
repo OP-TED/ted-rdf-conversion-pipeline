@@ -13,7 +13,7 @@ from dags.pipelines.notice_fetcher_pipelines import notice_fetcher_by_date_pipel
 from ted_sws.event_manager.adapters.event_log_decorator import event_log
 from ted_sws.event_manager.model.event_message import TechnicalEventMessage, EventMessageMetadata, \
     EventMessageProcessType
-from ted_sws.event_manager.services.log import log_info
+from ted_sws.event_manager.services.log import log_error
 
 DAG_NAME = "fetch_notices_by_date"
 BATCH_SIZE = 2000
@@ -41,7 +41,7 @@ def fetch_notices_by_date():
     def fetch_by_date_notice_from_ted():
         notice_ids = notice_fetcher_by_date_pipeline(date_wild_card=get_dag_param(key=WILD_CARD_DAG_KEY))
         if not notice_ids:
-            log_info("No notices has been fetched!")
+            log_error("No notices has been fetched!")
         else:
             push_dag_downstream(key=NOTICE_IDS_KEY, value=notice_ids)
 

@@ -26,4 +26,3 @@ json2html~=1.3.0
 minio~=7.1.1
 certifi~=2022.12.7
 shortuuid~=1.0.11
-pycurl==7.45.2

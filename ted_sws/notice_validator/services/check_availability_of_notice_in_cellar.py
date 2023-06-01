@@ -104,6 +104,7 @@ def validate_notices_availability_in_cellar(notice_statuses: List[NoticeStatus],
             for notice_uri, notice in selected_notices_map.items():
                 if notice_uri in available_notice_uries_in_cellar:
                     notice.update_status_to(new_status=NoticeStatus.PUBLICLY_AVAILABLE)
+                    notice.normalised_metadata.published_in_cellar_counter += 1
                 else:
                     notice.update_status_to(new_status=NoticeStatus.PUBLICLY_UNAVAILABLE)
                 notice_repository.update(notice=notice)

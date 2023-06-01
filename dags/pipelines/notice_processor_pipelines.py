@@ -2,6 +2,7 @@ from pymongo import MongoClient
 from dags.pipelines.pipeline_protocols import NoticePipelineOutput
 from ted_sws.core.model.notice import Notice, NoticeStatus
 from ted_sws.event_manager.services.log import log_notice_error
+from ted_sws.notice_packager.model.metadata import METS_TYPE_UPDATE
 from ted_sws.notice_validator.services.entity_deduplication_validation import \
     generate_rdf_manifestation_entity_deduplication_report
 
@@ -88,11 +89,15 @@ def notice_package_pipeline(notice: Notice, mongodb_client: MongoClient = None) 
 
     """
     from ted_sws.notice_packager.services.notice_packager import package_notice
+    from ted_sws.notice_packager.model.metadata import METS_TYPE_CREATE
 
     notice.update_status_to(new_status=NoticeStatus.VALIDATED)
     # TODO: Implement notice package eligiblity
     notice.set_is_eligible_for_packaging(eligibility=True)
-    packaged_notice = package_notice(notice=notice)
+    package_action = METS_TYPE_CREATE
+    if notice.normalised_metadata.published_in_cellar_counter > 0:
+        package_action = METS_TYPE_UPDATE
+    packaged_notice = package_notice(notice=notice, action=package_action)
     return NoticePipelineOutput(notice=packaged_notice)
 
 

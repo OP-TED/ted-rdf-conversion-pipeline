@@ -13,6 +13,7 @@ from dags.pipelines.notice_fetcher_pipelines import notice_fetcher_by_date_pipel
 from ted_sws.event_manager.adapters.event_log_decorator import event_log
 from ted_sws.event_manager.model.event_message import TechnicalEventMessage, EventMessageMetadata, \
     EventMessageProcessType
+from ted_sws.event_manager.services.log import log_error
 
 DAG_NAME = "fetch_notices_by_date"
 BATCH_SIZE = 2000
@@ -40,8 +41,9 @@ def fetch_notices_by_date():
     def fetch_by_date_notice_from_ted():
         notice_ids = notice_fetcher_by_date_pipeline(date_wild_card=get_dag_param(key=WILD_CARD_DAG_KEY))
         if not notice_ids:
-            raise Exception("No notices has been fetched!")
-        push_dag_downstream(key=NOTICE_IDS_KEY, value=notice_ids)
+            log_error("No notices has been fetched!")
+        else:
+            push_dag_downstream(key=NOTICE_IDS_KEY, value=notice_ids)
 
     trigger_complete_workflow = TriggerNoticeBatchPipelineOperator(task_id=TRIGGER_COMPLETE_WORKFLOW_TASK_ID,
                                                                    execute_only_one_step=False
@@ -67,9 +69,13 @@ def fetch_notices_by_date():
         validate_and_update_daily_supra_notice(ted_publication_date=publication_date, mongodb_client=mongodb_client)
 
     def _branch_selector():
+        notice_ids = pull_dag_upstream(key=NOTICE_IDS_KEY)
+        if not notice_ids:
+            return [FINISH_FETCH_BY_DATE_TASK_ID]
+
         trigger_complete_workflow = get_dag_param(key=TRIGGER_COMPLETE_WORKFLOW_DAG_KEY,
                                                   default_value=True)
-        push_dag_downstream(key=NOTICE_IDS_KEY, value=pull_dag_upstream(key=NOTICE_IDS_KEY))
+        push_dag_downstream(key=NOTICE_IDS_KEY, value=notice_ids)
         if trigger_complete_workflow:
             return [TRIGGER_COMPLETE_WORKFLOW_TASK_ID]
         return [TRIGGER_PARTIAL_WORKFLOW_TASK_ID]
@@ -90,6 +96,8 @@ def fetch_notices_by_date():
 
     fetch_by_date_notice_from_ted() >> branch_task >> [trigger_normalisation_workflow,
                                                        trigger_complete_workflow] >> validate_fetched_notices_step >> finish_step
+
+    branch_task >> finish_step
 
 
 dag = fetch_notices_by_date()

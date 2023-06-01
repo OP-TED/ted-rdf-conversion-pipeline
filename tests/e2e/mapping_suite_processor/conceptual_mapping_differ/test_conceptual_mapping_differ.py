@@ -51,7 +51,7 @@ def test_mapping_suite_diff_repo_conceptual_mappings(github_mapping_suite_id, pa
 
     diff = mapping_suite_diff_repo_conceptual_mappings(
         branch_or_tag_name=["main"],
-        mapping_suite_id=[github_mapping_suite_id, "package_F03_test"]
+        mapping_suite_id=[github_mapping_suite_id, "package_F06"]
     )
     assert diff['data']['original']
 

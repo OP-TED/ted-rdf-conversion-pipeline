@@ -546,10 +546,7 @@ image:user_manual/media/image49.png[image,width=100%,height=357]
 As a user I want to reprocess notices that are in the backlog so that
 they are published in Cellar and available to the public in RDF format.
 
-Notices that have failed running a complete and successful
-notice_processing_pipeline run will be added to the backlog by using
-different statuses that will be added to these notices. The status of a
-notice will be automatically determined by the system. The backlog could
+Notices that have failed running a complete and successful notice_processing_pipeline run will be added to the backlog by using different statuses that will be added to these notices. The status of a notice will be automatically determined by the system. The backlog could
 have multiple notices in different statuses.
 
 The backlog is divided in five categories as follows:
@@ -617,12 +614,29 @@ image:user_manual/media/image71.png[image,width=100%,height=49]
 
 ==== UC5.e: Deal with notices that couldn't be published
 
-In the case that the backlog contains notices that couldn’t be published at some point and will want to try to reprocess those notices just run the *reprocess_unpublished_notices_from_backlog* DAG following the instructions below.
+In the case that the backlog contains notices that couldn’t be published at some point and will want to try to reprocess those notices just run the  *reprocess_unpublished_notices_from_backlog* DAG following the instructions below.
 
 [arabic]
 . Enable the reprocess_unpublished_notices_from_backlog DAG
 
 image:user_manual/media/image38.png[image,width=100%,height=38]
+
+[arabic, start=2]
+. Trigger DAG
+
+image:user_manual/media/image19.png[image,width=100%,height=57]
+
+=== UC6: How to re-transform notices that have been successfully published and publicly available ?
+
+As a user I want to re-transform notices that have been successfully published and publicly available so that new versions of the RDF notices are published in Cellar and available to the public in RDF format.
+
+This use cases is appropriate only when a new version of the Mapping suite has been loaded into the TED-SWS system. Otherwise, the output of the re-transformation will be the same as before.
+
+
+[arabic]
+. Enable the *reprocess_published_in_cellar_notices* DAG
+
+image:user_manual/media/image109.png[image,width=100%,height=38]
 
 [arabic, start=2]
 . Trigger DAG

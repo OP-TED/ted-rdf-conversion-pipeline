@@ -60,7 +60,7 @@ class MetadataTransformer:
         metadata.notice.id = cls.normalize_value(notice_metadata.notice_publication_number)
         metadata.notice.public_number_document = publication_notice_number(metadata.notice.id)
         metadata.notice.public_number_edition = publication_notice_year(
-            notice_metadata) + notice_metadata.ojs_issue_number.zfill(3)
+            notice_metadata) + filled_ojs_issue_number(notice_metadata.ojs_issue_number)
 
         # WORK
         publication_date = datetime.datetime.strptime(notice_metadata.publication_date, '%Y%m%d').strftime('%Y-%m-%d')
@@ -132,10 +132,15 @@ def publication_notice_uri(notice_id, notice_metadata):
 def publication_work_identifier(notice_id, notice_metadata):
     year = publication_notice_year(notice_metadata)
     number = publication_notice_number(notice_id)
-    return f"{year}_{notice_metadata.ojs_type}_{notice_metadata.ojs_issue_number.zfill(3)}_{number}"
+    return f"{year}_{notice_metadata.ojs_type}_{filled_ojs_issue_number(notice_metadata.ojs_issue_number)}_{number}"
 
 
 def publication_work_oj_identifier(notice_id, notice_metadata):
     year = publication_notice_year(notice_metadata)
     number = publication_notice_number(notice_id)
-    return f"JOS_{year}_{notice_metadata.ojs_issue_number.zfill(3)}_R_{number}"
+    return f"JOS_{year}_{filled_ojs_issue_number(notice_metadata.ojs_issue_number)}_R_{number}"
+
+
+def filled_ojs_issue_number(ojs_issue_number: str) -> str:
+    # just return the number without any preceding 0 (leaved the formula as it is in case of revert)
+    return ojs_issue_number.zfill(0)

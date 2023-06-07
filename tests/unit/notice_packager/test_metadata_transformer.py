@@ -47,5 +47,5 @@ def test_publication_notice_uri(notice_id, notice_sample_metadata):
 
 def test_publication_work_identifier(notice_id, notice_sample_metadata):
     work_id = publication_work_identifier(notice_id, notice_sample_metadata)
-    assert work_id == "2018_S_022_196390"
+    assert work_id == "2018_S_22_196390"
 

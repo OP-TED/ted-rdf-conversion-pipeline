@@ -124,7 +124,8 @@ including their names, a short description and a high level diagram.
 
 [arabic]
 
-. *notice_processing_pipeline* - this DAG performs the processing of a
+=== notice_processing_pipeline
+This DAG performs the processing of a
 batch of notices, where the stages take place: normalization,
 transformation, validation, packaging, publishing. This is scheduled and
 automatically started by other DAGs.
@@ -137,9 +138,9 @@ image:user_manual/media/image25.png[image,width=100%,height=162]
 
 [arabic, start=2]
 
-. *load_mapping_suite_in_database* - this DAG performs the loading of a
-mapping suite or all mapping suites from a branch on GitHub, with the
-mapping suite the test data from it can also be loaded, if the test data
+=== load_mapping_suite_in_database
+
+This DAG performs the loading of a mapping suite or all mapping suites from a branch on GitHub, with the mapping suite the test data from it can also be loaded, if the test data
 is loaded the notice_processing_pipeline DAG will be triggered.
 
 
@@ -163,10 +164,8 @@ suites on that branch or tag)
 
 image:user_manual/media/image96.png[image,width=100%,height=56]
 
-[arabic, start=3]
-. *fetch_notices_by_query -* this DAG fetches notices from TED by using a
-query and, depending on an additional parameter, triggers the
-notice_processing_pipeline DAG in full or partial mode (execution of
+=== fetch_notices_by_query
+This DAG fetches notices from TED by using a query and, depending on an additional parameter, triggers the notice_processing_pipeline DAG in full or partial mode (execution of
 only one step).
 
 *Config DAG params:*
@@ -180,11 +179,9 @@ only one step).
 
 image:user_manual/media/image56.png[image,width=100%,height=92]
 
-[arabic, start=4]
-. *fetch_notices_by_date -* this DAG fetches notices from TED for a day
-and, depending on an additional parameter, triggers the
-notice_processing_pipeline DAG in full or partial mode (execution of
-only one step).
+===  fetch_notices_by_date
+
+This DAG fetches notices from TED for a day and, depending on an additional parameter, triggers the notice_processing_pipeline DAG in full or partial mode (execution of only one step).
 
 *Config DAG params:*
 
@@ -197,21 +194,20 @@ only one step).
 
 image:user_manual/media/image33.png[image,width=100%,height=100]
 
-[arabic, start=5]
-. *fetch_notices_by_date_range -* this DAG receives a date range and
-triggers the fetch_notices_by_date DAG for each day in the date range.
+=== fetch_notices_by_date_range
+
+This DAG receives a date range and triggers the fetch_notices_by_date DAG for each day in the date range.
 
 *Config DAG params:*
-
 
 * start_date : string with date format %Y%m%d
 * end_date : string with date format %Y%m%d
 
 image:user_manual/media/image75.png[image,width=601,height=128]
 
-[arabic, start=6]
-. *reprocess_unnormalised_notices_from_backlog -* this DAG selects all
-notices that are in RAW state and need to be processed and triggers the
+===  reprocess_unnormalised_notices_from_backlog
+
+This DAG selects all notices that are in RAW state and need to be processed and triggers the
 notice_processing_pipeline DAG to process them.
 
 *Config DAG params:*
@@ -226,9 +222,11 @@ notice_processing_pipeline DAG to process them.
 
 image:user_manual/media/image60.png[image,width=601,height=78]
 
-[arabic, start=7]
-. *reprocess_unpackaged_notices_from_backlog -* this DAG selects all
-notices to be repackaged and triggers the notice_processing_pipeline DAG
+image:user_manual/media/image106.png[image,width=100%,height=70]
+
+=== reprocess_unpackaged_notices_from_backlog
+
+This DAG selects all notices to be repackaged and triggers the notice_processing_pipeline DAG
 to repackage them.
 
 *Config DAG params:*
@@ -247,9 +245,11 @@ to repackage them.
 
 image:user_manual/media/image81.png[image,width=100%,height=73]
 
-[arabic, start=8]
-. *reprocess_unpublished_notices_from_backlog -* this DAG selects all
-notices to be republished and triggers the notice_processing_pipeline
+image:user_manual/media/image107.png[image,width=100%,height=70]
+
+===  reprocess_unpublished_notices_from_backlog
+
+This DAG selects all notices to be republished and triggers the notice_processing_pipeline
 DAG to republish them.
 
 *Config DAG params:*
@@ -263,16 +263,18 @@ DAG to republish them.
 *Default values:*
 
 
-* start_date = None , because this param is optional
+* start_date = None, because this param is optional
 * end_date = None, because this param is optional
 * form_number = None, because this param is optional
 * xsd_version = None, because this param is optional
 
 image:user_manual/media/image37.png[image,width=100%,height=70]
 
-[arabic, start=9]
-. *reprocess_untransformed_notices_from_backlog -* this DAG selects all
-notices to be retransformed and triggers the notice_processing_pipeline
+image:user_manual/media/image108.png[image,width=100%,height=70]
+
+===  reprocess_untransformed_notices_from_backlog
+
+This DAG selects all notices to be retransformed and triggers the notice_processing_pipeline
 DAG to retransform them.
 
 *Config DAG params:*
@@ -293,9 +295,11 @@ DAG to retransform them.
 
 image:user_manual/media/image102.png[image,width=100%,height=69]
 
-[arabic, start=10]
-. *reprocess_unvalidated_notices_from_backlog -* this DAG selects all
-notices to be revalidated and triggers the notice_processing_pipeline
+image:user_manual/media/image105.png[image,width=100%,height=70]
+
+===  reprocess_unvalidated_notices_from_backlog
+
+This DAG selects all notices to be revalidated and triggers the notice_processing_pipeline
 DAG to revalidate them.
 
 *Config DAG params:*
@@ -315,24 +319,49 @@ DAG to revalidate them.
 
 image:user_manual/media/image102.png[image,width=100%,height=69]
 
-[arabic, start=11]
-. *daily_materialized_views_update -* this DAG selects all notices to be
-revalidated and triggers the notice_processing_pipeline DAG to
+image:user_manual/media/image105.png[image,width=100%,height=70]
+
+=== daily_materialized_views_update
+
+This DAG selects all notices to be revalidated and triggers the notice_processing_pipeline DAG to
 revalidate them.
 
 *This DAG has no config or default params.*
 
 image:user_manual/media/image98.png[image,width=100%,height=90]
 
-[arabic, start=12]
-. *daily_check_notices_availability_in_cellar -* this DAG selects all
-notices to be revalidated and triggers the notice_processing_pipeline
+=== daily_check_notices_availability_in_cellar
+
+This DAG selects all notices to be revalidated and triggers the notice_processing_pipeline
 DAG to revalidate them.
 
 *This DAG has no config or default params.*
 
-
 image:user_manual/media/image67.png[image,width=339,height=81]
+
+=== reprocess_published_in_cellar_notices
+
+This DAG selects publicly available notices that shall be retransformed and triggers the notice_processing_pipeline DAG to republish them.
+
+*Config DAG params:*
+
+* start_date : string with date format %Y-%m-%d
+* end_date : string with date format %Y-%m-%d
+* form_number : string
+* xsd_version : string
+
+*Default values:*
+
+
+* start_date = None , because this param is optional
+* end_date = None, because this param is optional
+* form_number = None, because this param is optional
+* xsd_version = None, because this param is optional
+
+image:user_manual/media/image102.png[image,width=100%,height=69]
+
+image:user_manual/media/image105.png[image,width=100%,height=70]
+
 
 == Batch processing
 
@@ -471,7 +500,7 @@ be fetched and transformed with format: yyyymmdd.
 
 image:user_manual/media/image51.png[image,width=100%,height=331]
 
-==== UC4: How to fetch and process notices using a query?
+=== UC4: How to fetch and process notices using a query?
 
 As a user I want to fetch and process notices published by specific
 filters that are available from the TED API so that they are published
@@ -533,10 +562,7 @@ The backlog is divided in five categories as follows:
 
 ==== UC5.a Deal with notices that couldn't be normalised
 
-In the case that the backlog contains notices that couldn’t be
-normalised at some point and will want to try to reprocess those notices
-just run the *reprocess_unnormalised_notices_from_backlog* DAG following
-the instructions below.
+In the case that the backlog contains notices that couldn’t be normalised at some point and will want to try to reprocess those notices just run the *reprocess_unnormalised_notices_from_backlog* DAG following the instructions below.
 
 [arabic]
 . Enable the reprocess_unnormalised_notices_from_backlog DAG
@@ -550,10 +576,7 @@ image:user_manual/media/image76.png[image,width=100%,height=54]
 
 ==== UC5.b: Deal with notices that couldn't be transformed
 
-In the case that the backlog contains notices that couldn’t be
-transformed at some point and will want to try to reprocess those
-notices just run the *reprocess_untransformed_notices_from_backlog* DAG
-following the instructions below.
+In the case that the backlog contains notices that couldn’t be transformed at some point and will want to try to reprocess those notices just run the *reprocess_untransformed_notices_from_backlog* DAG following the instructions below.
 
 [arabic]
 . Enable the reprocess_untransformed_notices_from_backlog DAG
@@ -566,10 +589,7 @@ image:user_manual/media/image77.png[image,width=100%,height=54]
 
 ==== UC5.c: Deal with notices that couldn’t be validated
 
-In the case that the backlog contains notices that couldn’t be
-normalised at some point and will want to try to reprocess those notices
-just run the *reprocess_unvalidated_notices_from_backlog* DAG following
-the instructions below.
+In the case that the backlog contains notices that couldn’t be validated at some point and will want to try to reprocess those notices just run the *reprocess_unvalidated_notices_from_backlog* DAG following the instructions below.
 
 [arabic]
 . Enable the reprocess_unvalidated_notices_from_backlog DAG
@@ -581,12 +601,9 @@ image:user_manual/media/image66.png[image,width=100%,height=41]
 
 image:user_manual/media/image52.png[image,width=100%,height=52]
 
-==== UC5.d: Deal with notices that couldn't be published
+==== UC5.d: Deal with notices that couldn't be packages
 
-In the case that the backlog contains notices that couldn’t be
-normalised at some point and will want to try to reprocess those notices
-just run the *reprocess_unpackaged_notices_from_backlog* DAG following
-the instructions below.
+In the case that the backlog contains notices that could not be packaged at some point and will want to try to reprocess those notices just run the *reprocess_unpackaged_notices_from_backlog* DAG following the instructions below.
 
 [arabic]
 . Enable the reprocess_unpackaged_notices_from_backlog DAG
@@ -600,10 +617,7 @@ image:user_manual/media/image71.png[image,width=100%,height=49]
 
 ==== UC5.e: Deal with notices that couldn't be published
 
-In the case that the backlog contains notices that couldn’t be
-normalised at some point and will want to try to reprocess those notices
-just run the *reprocess_unpublished_notices_from_backlog* DAG following
-the instructions below.
+In the case that the backlog contains notices that couldn’t be published at some point and will want to try to reprocess those notices just run the *reprocess_unpublished_notices_from_backlog* DAG following the instructions below.
 
 [arabic]
 . Enable the reprocess_unpublished_notices_from_backlog DAG

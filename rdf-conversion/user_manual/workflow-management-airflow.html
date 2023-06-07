@@ -338,15 +338,13 @@ refer to the Airflow user manual
 <p>In this section we provide a brief inventory of provided pipelines
 including their names, a short description and a high level diagram.</p>
 </div>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p><strong>notice_processing_pipeline</strong> - this DAG performs the processing of a
+<div class="sect2">
+<h3 id="_notice_processing_pipeline"><a class="anchor" href="#_notice_processing_pipeline"></a>notice_processing_pipeline</h3>
+<div class="paragraph">
+<p>This DAG performs the processing of a
 batch of notices, where the stages take place: normalization,
 transformation, validation, packaging, publishing. This is scheduled and
 automatically started by other DAGs.</p>
-</li>
-</ol>
 </div>
 <div class="paragraph">
 <p><span class="image"><img src="../_images/user_manual/media/image31.png" alt="image" width="100%" height="176"></span></p>
@@ -354,15 +352,12 @@ automatically started by other DAGs.</p>
 <div class="paragraph">
 <p><span class="image"><img src="../_images/user_manual/media/image25.png" alt="image" width="100%" height="162"></span></p>
 </div>
-<div class="olist arabic">
-<ol class="arabic" start="2">
-<li>
-<p><strong>load_mapping_suite_in_database</strong> - this DAG performs the loading of a
-mapping suite or all mapping suites from a branch on GitHub, with the
-mapping suite the test data from it can also be loaded, if the test data
+</div>
+<div class="sect2">
+<h3 id="_load_mapping_suite_in_database"><a class="anchor" href="#_load_mapping_suite_in_database"></a>load_mapping_suite_in_database</h3>
+<div class="paragraph">
+<p>This DAG performs the loading of a mapping suite or all mapping suites from a branch on GitHub, with the mapping suite the test data from it can also be loaded, if the test data
 is loaded the notice_processing_pipeline DAG will be triggered.</p>
-</li>
-</ol>
 </div>
 <div class="paragraph">
 <p><strong>Config DAG params:</strong></p>
@@ -406,15 +401,12 @@ suites on that branch or tag)</p>
 <div class="paragraph">
 <p><span class="image"><img src="../_images/user_manual/media/image96.png" alt="image" width="100%" height="56"></span></p>
 </div>
-<div class="olist arabic">
-<ol class="arabic" start="3">
-<li>
-<p><strong>fetch_notices_by_query -</strong> this DAG fetches notices from TED by using a
-query and, depending on an additional parameter, triggers the
-notice_processing_pipeline DAG in full or partial mode (execution of
+</div>
+<div class="sect2">
+<h3 id="_fetch_notices_by_query"><a class="anchor" href="#_fetch_notices_by_query"></a>fetch_notices_by_query</h3>
+<div class="paragraph">
+<p>This DAG fetches notices from TED by using a query and, depending on an additional parameter, triggers the notice_processing_pipeline DAG in full or partial mode (execution of
 only one step).</p>
-</li>
-</ol>
 </div>
 <div class="paragraph">
 <p><strong>Config DAG params:</strong></p>
@@ -442,15 +434,11 @@ only one step).</p>
 <div class="paragraph">
 <p><span class="image"><img src="../_images/user_manual/media/image56.png" alt="image" width="100%" height="92"></span></p>
 </div>
-<div class="olist arabic">
-<ol class="arabic" start="4">
-<li>
-<p><strong>fetch_notices_by_date -</strong> this DAG fetches notices from TED for a day
-and, depending on an additional parameter, triggers the
-notice_processing_pipeline DAG in full or partial mode (execution of
-only one step).</p>
-</li>
-</ol>
+</div>
+<div class="sect2">
+<h3 id="_fetch_notices_by_date"><a class="anchor" href="#_fetch_notices_by_date"></a>fetch_notices_by_date</h3>
+<div class="paragraph">
+<p>This DAG fetches notices from TED for a day and, depending on an additional parameter, triggers the notice_processing_pipeline DAG in full or partial mode (execution of only one step).</p>
 </div>
 <div class="paragraph">
 <p><strong>Config DAG params:</strong></p>
@@ -478,13 +466,11 @@ only one step).</p>
 <div class="paragraph">
 <p><span class="image"><img src="../_images/user_manual/media/image33.png" alt="image" width="100%" height="100"></span></p>
 </div>
-<div class="olist arabic">
-<ol class="arabic" start="5">
-<li>
-<p><strong>fetch_notices_by_date_range -</strong> this DAG receives a date range and
-triggers the fetch_notices_by_date DAG for each day in the date range.</p>
-</li>
-</ol>
+</div>
+<div class="sect2">
+<h3 id="_fetch_notices_by_date_range"><a class="anchor" href="#_fetch_notices_by_date_range"></a>fetch_notices_by_date_range</h3>
+<div class="paragraph">
+<p>This DAG receives a date range and triggers the fetch_notices_by_date DAG for each day in the date range.</p>
 </div>
 <div class="paragraph">
 <p><strong>Config DAG params:</strong></p>
@@ -502,14 +488,12 @@ triggers the fetch_notices_by_date DAG for each day in the date range.</p>
 <div class="paragraph">
 <p><span class="image"><img src="../_images/user_manual/media/image75.png" alt="image" width="601" height="128"></span></p>
 </div>
-<div class="olist arabic">
-<ol class="arabic" start="6">
-<li>
-<p><strong>reprocess_unnormalised_notices_from_backlog -</strong> this DAG selects all
-notices that are in RAW state and need to be processed and triggers the
+</div>
+<div class="sect2">
+<h3 id="_reprocess_unnormalised_notices_from_backlog"><a class="anchor" href="#_reprocess_unnormalised_notices_from_backlog"></a>reprocess_unnormalised_notices_from_backlog</h3>
+<div class="paragraph">
+<p>This DAG selects all notices that are in RAW state and need to be processed and triggers the
 notice_processing_pipeline DAG to process them.</p>
-</li>
-</ol>
 </div>
 <div class="paragraph">
 <p><strong>Config DAG params:</strong></p>
@@ -540,14 +524,15 @@ notice_processing_pipeline DAG to process them.</p>
 <div class="paragraph">
 <p><span class="image"><img src="../_images/user_manual/media/image60.png" alt="image" width="601" height="78"></span></p>
 </div>
-<div class="olist arabic">
-<ol class="arabic" start="7">
-<li>
-<p><strong>reprocess_unpackaged_notices_from_backlog -</strong> this DAG selects all
-notices to be repackaged and triggers the notice_processing_pipeline DAG
+<div class="paragraph">
+<p><span class="image"><img src="../_images/user_manual/media/image106.png" alt="image" width="100%" height="70"></span></p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_reprocess_unpackaged_notices_from_backlog"><a class="anchor" href="#_reprocess_unpackaged_notices_from_backlog"></a>reprocess_unpackaged_notices_from_backlog</h3>
+<div class="paragraph">
+<p>This DAG selects all notices to be repackaged and triggers the notice_processing_pipeline DAG
 to repackage them.</p>
-</li>
-</ol>
 </div>
 <div class="paragraph">
 <p><strong>Config DAG params:</strong></p>
@@ -590,14 +575,15 @@ to repackage them.</p>
 <div class="paragraph">
 <p><span class="image"><img src="../_images/user_manual/media/image81.png" alt="image" width="100%" height="73"></span></p>
 </div>
-<div class="olist arabic">
-<ol class="arabic" start="8">
-<li>
-<p><strong>reprocess_unpublished_notices_from_backlog -</strong> this DAG selects all
-notices to be republished and triggers the notice_processing_pipeline
+<div class="paragraph">
+<p><span class="image"><img src="../_images/user_manual/media/image107.png" alt="image" width="100%" height="70"></span></p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_reprocess_unpublished_notices_from_backlog"><a class="anchor" href="#_reprocess_unpublished_notices_from_backlog"></a>reprocess_unpublished_notices_from_backlog</h3>
+<div class="paragraph">
+<p>This DAG selects all notices to be republished and triggers the notice_processing_pipeline
 DAG to republish them.</p>
-</li>
-</ol>
 </div>
 <div class="paragraph">
 <p><strong>Config DAG params:</strong></p>
@@ -624,7 +610,7 @@ DAG to republish them.</p>
 <div class="ulist">
 <ul>
 <li>
-<p>start_date = None , because this param is optional</p>
+<p>start_date = None, because this param is optional</p>
 </li>
 <li>
 <p>end_date = None, because this param is optional</p>
@@ -640,14 +626,15 @@ DAG to republish them.</p>
 <div class="paragraph">
 <p><span class="image"><img src="../_images/user_manual/media/image37.png" alt="image" width="100%" height="70"></span></p>
 </div>
-<div class="olist arabic">
-<ol class="arabic" start="9">
-<li>
-<p><strong>reprocess_untransformed_notices_from_backlog -</strong> this DAG selects all
-notices to be retransformed and triggers the notice_processing_pipeline
+<div class="paragraph">
+<p><span class="image"><img src="../_images/user_manual/media/image108.png" alt="image" width="100%" height="70"></span></p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_reprocess_untransformed_notices_from_backlog"><a class="anchor" href="#_reprocess_untransformed_notices_from_backlog"></a>reprocess_untransformed_notices_from_backlog</h3>
+<div class="paragraph">
+<p>This DAG selects all notices to be retransformed and triggers the notice_processing_pipeline
 DAG to retransform them.</p>
-</li>
-</ol>
 </div>
 <div class="paragraph">
 <p><strong>Config DAG params:</strong></p>
@@ -690,14 +677,15 @@ DAG to retransform them.</p>
 <div class="paragraph">
 <p><span class="image"><img src="../_images/user_manual/media/image102.png" alt="image" width="100%" height="69"></span></p>
 </div>
-<div class="olist arabic">
-<ol class="arabic" start="10">
-<li>
-<p><strong>reprocess_unvalidated_notices_from_backlog -</strong> this DAG selects all
-notices to be revalidated and triggers the notice_processing_pipeline
+<div class="paragraph">
+<p><span class="image"><img src="../_images/user_manual/media/image105.png" alt="image" width="100%" height="70"></span></p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_reprocess_unvalidated_notices_from_backlog"><a class="anchor" href="#_reprocess_unvalidated_notices_from_backlog"></a>reprocess_unvalidated_notices_from_backlog</h3>
+<div class="paragraph">
+<p>This DAG selects all notices to be revalidated and triggers the notice_processing_pipeline
 DAG to revalidate them.</p>
-</li>
-</ol>
 </div>
 <div class="paragraph">
 <p><strong>Config DAG params:</strong></p>
@@ -740,14 +728,15 @@ DAG to revalidate them.</p>
 <div class="paragraph">
 <p><span class="image"><img src="../_images/user_manual/media/image102.png" alt="image" width="100%" height="69"></span></p>
 </div>
-<div class="olist arabic">
-<ol class="arabic" start="11">
-<li>
-<p><strong>daily_materialized_views_update -</strong> this DAG selects all notices to be
-revalidated and triggers the notice_processing_pipeline DAG to
+<div class="paragraph">
+<p><span class="image"><img src="../_images/user_manual/media/image105.png" alt="image" width="100%" height="70"></span></p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_daily_materialized_views_update"><a class="anchor" href="#_daily_materialized_views_update"></a>daily_materialized_views_update</h3>
+<div class="paragraph">
+<p>This DAG selects all notices to be revalidated and triggers the notice_processing_pipeline DAG to
 revalidate them.</p>
-</li>
-</ol>
 </div>
 <div class="paragraph">
 <p><strong>This DAG has no config or default params.</strong></p>
@@ -755,20 +744,69 @@ revalidate them.</p>
 <div class="paragraph">
 <p><span class="image"><img src="../_images/user_manual/media/image98.png" alt="image" width="100%" height="90"></span></p>
 </div>
-<div class="olist arabic">
-<ol class="arabic" start="12">
-<li>
-<p><strong>daily_check_notices_availability_in_cellar -</strong> this DAG selects all
-notices to be revalidated and triggers the notice_processing_pipeline
+</div>
+<div class="sect2">
+<h3 id="_daily_check_notices_availability_in_cellar"><a class="anchor" href="#_daily_check_notices_availability_in_cellar"></a>daily_check_notices_availability_in_cellar</h3>
+<div class="paragraph">
+<p>This DAG selects all notices to be revalidated and triggers the notice_processing_pipeline
 DAG to revalidate them.</p>
-</li>
-</ol>
 </div>
 <div class="paragraph">
 <p><strong>This DAG has no config or default params.</strong></p>
 </div>
 <div class="paragraph">
 <p><span class="image"><img src="../_images/user_manual/media/image67.png" alt="image" width="339" height="81"></span></p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_reprocess_published_in_cellar_notices"><a class="anchor" href="#_reprocess_published_in_cellar_notices"></a>reprocess_published_in_cellar_notices</h3>
+<div class="paragraph">
+<p>This DAG selects publicly available notices that shall be retransformed and triggers the notice_processing_pipeline DAG to republish them.</p>
+</div>
+<div class="paragraph">
+<p><strong>Config DAG params:</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>start_date : string with date format %Y-%m-%d</p>
+</li>
+<li>
+<p>end_date : string with date format %Y-%m-%d</p>
+</li>
+<li>
+<p>form_number : string</p>
+</li>
+<li>
+<p>xsd_version : string</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><strong>Default values:</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>start_date = None , because this param is optional</p>
+</li>
+<li>
+<p>end_date = None, because this param is optional</p>
+</li>
+<li>
+<p>form_number = None, because this param is optional</p>
+</li>
+<li>
+<p>xsd_version = None, because this param is optional</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="../_images/user_manual/media/image102.png" alt="image" width="100%" height="69"></span></p>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="../_images/user_manual/media/image105.png" alt="image" width="100%" height="70"></span></p>
+</div>
 </div>
 </div>
 </div>
@@ -1040,8 +1078,9 @@ be fetched and transformed with format: yyyymmdd.</p>
 <div class="paragraph">
 <p><span class="image"><img src="../_images/user_manual/media/image51.png" alt="image" width="100%" height="331"></span></p>
 </div>
-<div class="sect3">
-<h4 id="_uc4_how_to_fetch_and_process_notices_using_a_query"><a class="anchor" href="#_uc4_how_to_fetch_and_process_notices_using_a_query"></a>UC4: How to fetch and process notices using a query?</h4>
+</div>
+<div class="sect2">
+<h3 id="_uc4_how_to_fetch_and_process_notices_using_a_query"><a class="anchor" href="#_uc4_how_to_fetch_and_process_notices_using_a_query"></a>UC4: How to fetch and process notices using a query?</h3>
 <div class="paragraph">
 <p>As a user I want to fetch and process notices published by specific
 filters that are available from the TED API so that they are published
@@ -1122,7 +1161,6 @@ transformation, add <strong>trigger_complete_workflow</strong> configuration as 
 <p><span class="image"><img src="../_images/user_manual/media/image49.png" alt="image" width="100%" height="357"></span></p>
 </div>
 </div>
-</div>
 <div class="sect2">
 <h3 id="_uc5_how_to_deal_with_notices_that_are_in_the_backlog_and_what_to_run"><a class="anchor" href="#_uc5_how_to_deal_with_notices_that_are_in_the_backlog_and_what_to_run"></a>UC5: How to deal with notices that are in the backlog and what to run?</h3>
 <div class="paragraph">
@@ -1130,10 +1168,7 @@ transformation, add <strong>trigger_complete_workflow</strong> configuration as 
 they are published in Cellar and available to the public in RDF format.</p>
 </div>
 <div class="paragraph">
-<p>Notices that have failed running a complete and successful
-notice_processing_pipeline run will be added to the backlog by using
-different statuses that will be added to these notices. The status of a
-notice will be automatically determined by the system. The backlog could
+<p>Notices that have failed running a complete and successful notice_processing_pipeline run will be added to the backlog by using different statuses that will be added to these notices. The status of a notice will be automatically determined by the system. The backlog could
 have multiple notices in different statuses.</p>
 </div>
 <div class="paragraph">
@@ -1161,10 +1196,7 @@ have multiple notices in different statuses.</p>
 <div class="sect3">
 <h4 id="_uc5_a_deal_with_notices_that_couldnt_be_normalised"><a class="anchor" href="#_uc5_a_deal_with_notices_that_couldnt_be_normalised"></a>UC5.a Deal with notices that couldn&#8217;t be normalised</h4>
 <div class="paragraph">
-<p>In the case that the backlog contains notices that couldn’t be
-normalised at some point and will want to try to reprocess those notices
-just run the <strong>reprocess_unnormalised_notices_from_backlog</strong> DAG following
-the instructions below.</p>
+<p>In the case that the backlog contains notices that couldn’t be normalised at some point and will want to try to reprocess those notices just run the <strong>reprocess_unnormalised_notices_from_backlog</strong> DAG following the instructions below.</p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
@@ -1190,10 +1222,7 @@ the instructions below.</p>
 <div class="sect3">
 <h4 id="_uc5_b_deal_with_notices_that_couldnt_be_transformed"><a class="anchor" href="#_uc5_b_deal_with_notices_that_couldnt_be_transformed"></a>UC5.b: Deal with notices that couldn&#8217;t be transformed</h4>
 <div class="paragraph">
-<p>In the case that the backlog contains notices that couldn’t be
-transformed at some point and will want to try to reprocess those
-notices just run the <strong>reprocess_untransformed_notices_from_backlog</strong> DAG
-following the instructions below.</p>
+<p>In the case that the backlog contains notices that couldn’t be transformed at some point and will want to try to reprocess those notices just run the <strong>reprocess_untransformed_notices_from_backlog</strong> DAG following the instructions below.</p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
@@ -1217,10 +1246,7 @@ following the instructions below.</p>
 <div class="sect3">
 <h4 id="_uc5_c_deal_with_notices_that_couldnt_be_validated"><a class="anchor" href="#_uc5_c_deal_with_notices_that_couldnt_be_validated"></a>UC5.c: Deal with notices that couldn’t be validated</h4>
 <div class="paragraph">
-<p>In the case that the backlog contains notices that couldn’t be
-normalised at some point and will want to try to reprocess those notices
-just run the <strong>reprocess_unvalidated_notices_from_backlog</strong> DAG following
-the instructions below.</p>
+<p>In the case that the backlog contains notices that couldn’t be validated at some point and will want to try to reprocess those notices just run the <strong>reprocess_unvalidated_notices_from_backlog</strong> DAG following the instructions below.</p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
@@ -1244,12 +1270,9 @@ the instructions below.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_uc5_d_deal_with_notices_that_couldnt_be_published"><a class="anchor" href="#_uc5_d_deal_with_notices_that_couldnt_be_published"></a>UC5.d: Deal with notices that couldn&#8217;t be published</h4>
+<h4 id="_uc5_d_deal_with_notices_that_couldnt_be_packages"><a class="anchor" href="#_uc5_d_deal_with_notices_that_couldnt_be_packages"></a>UC5.d: Deal with notices that couldn&#8217;t be packages</h4>
 <div class="paragraph">
-<p>In the case that the backlog contains notices that couldn’t be
-normalised at some point and will want to try to reprocess those notices
-just run the <strong>reprocess_unpackaged_notices_from_backlog</strong> DAG following
-the instructions below.</p>
+<p>In the case that the backlog contains notices that could not be packaged at some point and will want to try to reprocess those notices just run the <strong>reprocess_unpackaged_notices_from_backlog</strong> DAG following the instructions below.</p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
@@ -1275,10 +1298,7 @@ the instructions below.</p>
 <div class="sect3">
 <h4 id="_uc5_e_deal_with_notices_that_couldnt_be_published"><a class="anchor" href="#_uc5_e_deal_with_notices_that_couldnt_be_published"></a>UC5.e: Deal with notices that couldn&#8217;t be published</h4>
 <div class="paragraph">
-<p>In the case that the backlog contains notices that couldn’t be
-normalised at some point and will want to try to reprocess those notices
-just run the <strong>reprocess_unpublished_notices_from_backlog</strong> DAG following
-the instructions below.</p>
+<p>In the case that the backlog contains notices that couldn’t be published at some point and will want to try to reprocess those notices just run the  <strong>reprocess_unpublished_notices_from_backlog</strong> DAG following the instructions below.</p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
@@ -1300,6 +1320,35 @@ the instructions below.</p>
 <div class="paragraph">
 <p><span class="image"><img src="../_images/user_manual/media/image19.png" alt="image" width="100%" height="57"></span></p>
 </div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_uc6_how_to_re_transform_notices_that_have_been_successfully_published_and_publicly_available"><a class="anchor" href="#_uc6_how_to_re_transform_notices_that_have_been_successfully_published_and_publicly_available"></a>UC6: How to re-transform notices that have been successfully published and publicly available ?</h3>
+<div class="paragraph">
+<p>As a user I want to re-transform notices that have been successfully published and publicly available so that new versions of the RDF notices are published in Cellar and available to the public in RDF format.</p>
+</div>
+<div class="paragraph">
+<p>This use cases is appropriate only when a new version of the Mapping suite has been loaded into the TED-SWS system. Otherwise, the output of the re-transformation will be the same as before.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Enable the <strong>reprocess_published_in_cellar_notices</strong> DAG</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="../_images/user_manual/media/image109.png" alt="image" width="100%" height="38"></span></p>
+</div>
+<div class="olist arabic">
+<ol class="arabic" start="2">
+<li>
+<p>Trigger DAG</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="../_images/user_manual/media/image19.png" alt="image" width="100%" height="57"></span></p>
 </div>
 </div>
 </div>

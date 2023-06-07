@@ -35,6 +35,15 @@ ARCHIVE_NAME_FORMAT = "{work_identifier}_{action}" + DEFAULT_NOTICE_PACKAGE_EXTE
 FILE_METS_ACTION_FORMAT = "{work_identifier}_{action}.mets.xml"
 DEFAULT_RDF_FILE_FORMAT = "turtle"
 
+# The naming convention for an TEDRDF package:
+# {year}_{notice_metadata.ojs_type}_{notice_metadata.ojs_issue_number}_{notice_number}_{action}
+# ex.: "2021_S_4_003544_create.zip" , where:
+# year = 2021
+# notice_metadata.ojs_type = S
+# notice_metadata.ojs_issue_number = 4
+# notice_number = 003544
+# action = create
+
 
 def package_notice(notice: Notice, action: str = METS_TYPE_CREATE) -> Notice:
     """

@@ -3,7 +3,7 @@ from ted_sws.mapping_suite_processor.services.conceptual_mapping_processor impor
     mapping_suite_processor_from_github_expand_and_load_package_in_mongo_db
 
 MAPPING_SUITE_PACKAGE_NAME = "package_F03_test"
-MAPPING_SUITE_PACKAGE_ID = f"{MAPPING_SUITE_PACKAGE_NAME}_v2.3.0"
+MAPPING_SUITE_PACKAGE_ID = f"package_F03_v6.8.1"
 
 
 def test_mapping_suite_processor_from_github_expand_and_load_package_in_mongo_db(fake_mongodb_client):

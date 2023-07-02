@@ -19,14 +19,18 @@ def publish_notice(notice: Notice, publisher: SFTPPublisherABC = None,
     """
         This function publishes the METS manifestation for a Notice in Cellar.
     """
-    publisher = publisher if publisher else SFTPPublisher()
-    remote_folder_path = remote_folder_path if remote_folder_path else config.SFTP_PUBLISH_PATH
+    publisher = publisher or SFTPPublisher()
+    remote_folder_path = remote_folder_path or config.SFTP_PUBLISH_PATH
     mets_manifestation = notice.mets_manifestation
     if not mets_manifestation or not mets_manifestation.object_data:
         raise ValueError("Notice does not have a METS manifestation to be published.")
 
+    package_name = mets_manifestation.package_name
+    if not package_name:
+        raise ValueError("METS manifestation does not have a package name for publishing.")
+
     package_content = base64.b64decode(bytes(mets_manifestation.object_data, encoding='utf-8'), validate=True)
-    remote_notice_path = f"{remote_folder_path}/{notice.ted_id}{DEFAULT_NOTICE_PACKAGE_EXTENSION}"
+    remote_notice_path = f"{remote_folder_path}/{package_name}"
     source_file = tempfile.NamedTemporaryFile()
     source_file.write(package_content)
     try:
@@ -62,15 +66,19 @@ def publish_notice_into_s3(notice: Notice, s3_publisher: S3Publisher = None,
     :param bucket_name:
     :return:
     """
-    s3_publisher = s3_publisher if s3_publisher else S3Publisher()
+    s3_publisher = s3_publisher or S3Publisher()
     bucket_name = bucket_name or config.S3_PUBLISH_NOTICE_BUCKET
     mets_manifestation = notice.mets_manifestation
     if not mets_manifestation or not mets_manifestation.object_data:
         raise ValueError("Notice does not have a METS manifestation to be published.")
 
+    package_name = mets_manifestation.package_name
+    if not package_name:
+        raise ValueError("METS manifestation does not have a package name for publishing.")
+
     package_content = base64.b64decode(bytes(mets_manifestation.object_data, encoding='utf-8'), validate=True)
     result: S3PublishResult = s3_publisher.publish(bucket_name=bucket_name,
-                                                   object_name=f"{notice.ted_id}{DEFAULT_NOTICE_PACKAGE_EXTENSION}",
+                                                   object_name=f"{package_name}",
                                                    data=package_content)
     return result is not None
 
@@ -86,7 +94,7 @@ def publish_notice_into_s3_by_id(notice_id: str, notice_repository: NoticeReposi
     :param bucket_name:
     :return:
     """
-    s3_publisher = s3_publisher if s3_publisher else S3Publisher()
+    s3_publisher = s3_publisher or S3Publisher()
     bucket_name = bucket_name or config.S3_PUBLISH_NOTICE_BUCKET
     notice = notice_repository.get(reference=notice_id)
     result = publish_notice_into_s3(notice=notice, bucket_name=bucket_name, s3_publisher=s3_publisher)
@@ -102,7 +110,7 @@ def publish_notice_rdf_into_s3(notice: Notice, s3_publisher: S3Publisher = None,
     :param bucket_name:
     :return:
     """
-    s3_publisher = s3_publisher if s3_publisher else S3Publisher()
+    s3_publisher = s3_publisher or S3Publisher()
     bucket_name = bucket_name or config.S3_PUBLISH_NOTICE_RDF_BUCKET
     rdf_manifestation: RDFManifestation = notice.distilled_rdf_manifestation
     result: bool = publish_notice_rdf_content_into_s3(
@@ -125,7 +133,7 @@ def publish_notice_rdf_into_s3_by_id(notice_id: str, notice_repository: NoticeRe
     :param bucket_name:
     :return:
     """
-    s3_publisher = s3_publisher if s3_publisher else S3Publisher()
+    s3_publisher = s3_publisher or S3Publisher()
     bucket_name = bucket_name or config.S3_PUBLISH_NOTICE_RDF_BUCKET
     notice = notice_repository.get(reference=notice_id)
     return publish_notice_rdf_into_s3(notice=notice, bucket_name=bucket_name, s3_publisher=s3_publisher)
@@ -143,7 +151,7 @@ def publish_notice_rdf_content_into_s3(rdf_manifestation: RDFManifestation,
     :param bucket_name:
     :return:
     """
-    s3_publisher = s3_publisher if s3_publisher else S3Publisher()
+    s3_publisher = s3_publisher or S3Publisher()
     if not rdf_manifestation or not rdf_manifestation.object_data:
         raise ValueError("Notice does not have a RDF manifestation to be published.")
 

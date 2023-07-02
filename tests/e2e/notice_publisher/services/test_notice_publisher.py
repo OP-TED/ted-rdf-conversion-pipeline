@@ -15,6 +15,7 @@ from ted_sws.notice_transformer.services.notice_transformer import DEFAULT_TRANS
 
 def test_notice_publisher(notice_2016, fake_mongodb_client):
     notice = notice_2016
+    package_name = "test_package.zip"
     notice_repository = NoticeRepository(mongodb_client=fake_mongodb_client)
     notice_repository.add(notice)
     notice_id = notice.ted_id
@@ -34,6 +35,16 @@ def test_notice_publisher(notice_2016, fake_mongodb_client):
     notice_repository.update(notice)
     sftp_publisher = SFTPPublisher()
 
+    with pytest.raises(ValueError):
+        publish_notice_by_id(notice_id, notice_repository, publisher=sftp_publisher)
+
+    mets_manifestation = METSManifestation(
+        object_data="62f0baf9a5458a3a67761392",
+        package_name=package_name
+    )
+    notice.set_mets_manifestation(mets_manifestation)
+    notice._status = NoticeStatus.ELIGIBLE_FOR_PUBLISHING
+    notice_repository.update(notice)
     published = publish_notice_by_id(notice_id, notice_repository, publisher=sftp_publisher)
 
     assert published
@@ -48,7 +59,7 @@ def test_notice_publisher(notice_2016, fake_mongodb_client):
         notice._mets_manifestation = None
         publish_notice(notice, publisher=sftp_publisher)
     sftp_publisher.connect()
-    sftp_publisher.remove(f"{config.SFTP_PUBLISH_PATH}/{notice.ted_id}{DEFAULT_NOTICE_PACKAGE_EXTENSION}")
+    sftp_publisher.remove(f"{config.SFTP_PUBLISH_PATH}/{package_name}")
     sftp_publisher.disconnect()
     assert not sftp_publisher.is_connected
 
@@ -59,7 +70,7 @@ def test_s3_notice_publisher(notice_2016, fake_mongodb_client, notice_s3_bucket_
     notice_repository = NoticeRepository(mongodb_client=fake_mongodb_client)
     notice_repository.add(notice)
     notice_id = notice.ted_id
-    object_name = f"{notice_id}{DEFAULT_NOTICE_PACKAGE_EXTENSION}"
+    object_name = "test_package.zip"
 
     rdf_manifestation = RDFManifestation(object_data="62f0baf9a5458a3a67761392")
     mets_manifestation = notice_mets_manifestation
@@ -76,6 +87,21 @@ def test_s3_notice_publisher(notice_2016, fake_mongodb_client, notice_s3_bucket_
 
     notice_repository.update(notice)
 
+    with pytest.raises(ValueError):
+        publish_notice_into_s3_by_id(
+            notice_id=notice_id,
+            notice_repository=notice_repository,
+            bucket_name=notice_s3_bucket_name,
+            s3_publisher=s3_publisher
+        )
+
+    mets_manifestation = METSManifestation(
+        object_data="62f0baf9a5458a3a67761392",
+        package_name=object_name
+    )
+    notice.set_mets_manifestation(mets_manifestation)
+    notice._status = NoticeStatus.ELIGIBLE_FOR_PUBLISHING
+    notice_repository.update(notice)
     publish_result: bool = publish_notice_into_s3_by_id(
         notice_id=notice_id,
         notice_repository=notice_repository,

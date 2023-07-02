@@ -9,7 +9,8 @@
 
 from ted_sws.core.model.manifestation import RDFManifestation
 from ted_sws.core.model.notice import NoticeStatus
-from ted_sws.notice_packager.services.notice_packager import package_notice
+from ted_sws.notice_packager.model.metadata import METS_TYPE_CREATE
+from ted_sws.notice_packager.services.notice_packager import package_notice, NoticePackager
 
 
 def test_notice_packager_with_notice(notice_2018, rdf_content):
@@ -17,5 +18,8 @@ def test_notice_packager_with_notice(notice_2018, rdf_content):
     notice_2018._status = NoticeStatus.ELIGIBLE_FOR_PACKAGING
     notice_2018._rdf_manifestation = rdf_manifestation
     notice_2018._distilled_rdf_manifestation = rdf_manifestation
-    packaged_notice = package_notice(notice_2018)
+    packaged_notice = package_notice(notice_2018, action=METS_TYPE_CREATE)
+
     assert packaged_notice.mets_manifestation
+    assert packaged_notice.mets_manifestation.type == METS_TYPE_CREATE
+    assert packaged_notice.mets_manifestation.package_name == "2018_S_22_045279_create.zip"

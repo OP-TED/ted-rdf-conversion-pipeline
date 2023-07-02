@@ -26,11 +26,13 @@ def mongodb_client():
 
 
 @pytest.fixture(scope="function")
-def publish_eligible_notice(publicly_available_notice) -> Notice:
+def publish_eligible_notice(publicly_available_notice, mets_package_published_name) -> Notice:
     notice = publicly_available_notice
     notice.update_status_to(NoticeStatus.ELIGIBLE_FOR_PUBLISHING)
     notice._mets_manifestation = METSManifestation(
-        object_data=base64.b64encode("METS manifestation content".encode("utf-8")))
+        object_data=base64.b64encode("METS manifestation content".encode("utf-8")),
+        package_name=mets_package_published_name
+    )
     return notice
 
 
@@ -54,8 +56,8 @@ def s3_bucket_name():
     return "tmp-test-bucket"
 
 @pytest.fixture
-def mets_package_published_name(publish_eligible_notice):
-    return f"{publish_eligible_notice.ted_id}.zip"
+def mets_package_published_name():
+    return "test_package.zip"
 
 @pytest.fixture
 def rdf_manifestation_published_name(publish_eligible_notice):

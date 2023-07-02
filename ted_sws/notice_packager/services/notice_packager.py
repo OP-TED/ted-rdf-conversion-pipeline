@@ -35,6 +35,7 @@ ARCHIVE_NAME_FORMAT = "{work_identifier}_{action}" + DEFAULT_NOTICE_PACKAGE_EXTE
 FILE_METS_ACTION_FORMAT = "{work_identifier}_{action}.mets.xml"
 DEFAULT_RDF_FILE_FORMAT = "turtle"
 
+
 # The naming convention for an TEDRDF package:
 # {year}_{notice_metadata.ojs_type}_{notice_metadata.ojs_issue_number}_{notice_number}_{action}
 # ex.: "2021_S_4_003544_create.zip" , where:
@@ -53,8 +54,15 @@ def package_notice(notice: Notice, action: str = METS_TYPE_CREATE) -> Notice:
     notice_packager = NoticePackager(notice, action)
     notice_packager.add_template_files()
     notice_packager.add_rdf_content()
-    mets_manifestation_content = notice_packager.pack()
-    notice.set_mets_manifestation(mets_manifestation=METSManifestation(object_data=mets_manifestation_content))
+    package_name = notice_packager.get_archive_name()
+    mets_manifestation_content = notice_packager.pack(package_name=package_name)
+    notice.set_mets_manifestation(
+        mets_manifestation=METSManifestation(
+            object_data=mets_manifestation_content,
+            type=action,
+            package_name=package_name
+        )
+    )
     return notice
 
 
@@ -134,9 +142,10 @@ class NoticePackager:
         )
         return archive_name
 
-    def pack(self) -> str:
+    def pack(self, package_name: str = None) -> str:
+        package_name = package_name or self.get_archive_name()
         archiver = ZipArchiver()
-        archive_path = self.tmp_dir_path / self.get_archive_name()
+        archive_path = self.tmp_dir_path / package_name
         package_path = archiver.process_archive(archive_path, self.files)
         raw_archive_content = package_path.read_bytes()
         archive_content = base64.b64encode(raw_archive_content)

@@ -13,15 +13,15 @@ class SFTPPublisher(SFTPPublisherABC):
     def __init__(self, hostname: str = None, username: str = None, password: str = None, port: int = None,
                  private_key: str = None, private_key_passphrase: str = None):
         """Constructor Method"""
-        self.hostname = hostname if hostname else config.SFTP_PUBLISH_HOST
-        self.username = username if username else config.SFTP_PUBLISH_USER
-        self.password = password if password else config.SFTP_PUBLISH_PASSWORD
-        self.port = port if port else config.SFTP_PUBLISH_PORT
+        self.hostname = hostname or config.SFTP_PUBLISH_HOST
+        self.username = username or config.SFTP_PUBLISH_USER
+        self.password = password or config.SFTP_PUBLISH_PASSWORD
+        self.port = port or config.SFTP_PUBLISH_PORT
         self.connection = None
         self.is_connected = False
         self.private_key = None
-        self.private_key_passphrase = private_key_passphrase if private_key_passphrase else config.SFTP_PRIVATE_KEY_PASSPHRASE
-        private_key = private_key if private_key else config.SFTP_PRIVATE_KEY
+        self.private_key_passphrase = private_key_passphrase or config.SFTP_PRIVATE_KEY_PASSPHRASE
+        private_key = private_key or config.SFTP_PRIVATE_KEY
         if private_key:
             self.private_key = paramiko.RSAKey.from_private_key(io.StringIO(private_key),
                                                                 password=self.private_key_passphrase)

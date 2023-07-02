@@ -10,7 +10,6 @@ from pytest_bdd import (
 from ted_sws.core.model.notice import Notice, NoticeStatus
 from ted_sws.data_manager.adapters.repository_abc import NoticeRepositoryABC
 from ted_sws.notice_publisher.adapters.sftp_notice_publisher import SFTPPublisher
-from ted_sws.notice_publisher.adapters.sftp_publisher_abc import SFTPPublisherABC
 from ted_sws.notice_publisher.services.notice_publisher import publish_notice, publish_notice_by_id
 
 

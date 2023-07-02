@@ -14,6 +14,7 @@ from pydantic import Field
 
 from ted_sws.core.model import PropertyBaseModel
 from ted_sws.core.model.validation_report_data import ReportNoticeData
+from ted_sws.notice_packager.model.metadata import METS_TYPE_CREATE
 
 
 class ManifestationMimeType(Enum):
@@ -195,6 +196,8 @@ class METSManifestation(Manifestation):
     """
 
     """
+    type: str = METS_TYPE_CREATE
+    package_name: str = None
 
 
 class RDFValidationManifestation(ValidationManifestation):
@@ -301,5 +304,3 @@ class RDFManifestation(Manifestation):
         if len(self.shacl_validations) and len(self.sparql_validations):
             return True
         return False
-
-

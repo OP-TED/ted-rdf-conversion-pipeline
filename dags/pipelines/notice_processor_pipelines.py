@@ -84,7 +84,7 @@ def notice_validation_pipeline(notice: Notice, mongodb_client: MongoClient) -> N
     return NoticePipelineOutput(notice=notice)
 
 
-def notice_package_pipeline(notice: Notice) -> NoticePipelineOutput:
+def notice_package_pipeline(notice: Notice, mongodb_client: MongoClient = None) -> NoticePipelineOutput:
     """
 
     """
@@ -101,7 +101,7 @@ def notice_package_pipeline(notice: Notice) -> NoticePipelineOutput:
     return NoticePipelineOutput(notice=packaged_notice)
 
 
-def notice_publish_pipeline(notice: Notice) -> NoticePipelineOutput:
+def notice_publish_pipeline(notice: Notice, mongodb_client: MongoClient = None) -> NoticePipelineOutput:
     """
 
     """

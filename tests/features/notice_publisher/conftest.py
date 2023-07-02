@@ -30,7 +30,9 @@ def publish_eligible_notice(publicly_available_notice) -> Notice:
     notice = publicly_available_notice
     notice.update_status_to(NoticeStatus.ELIGIBLE_FOR_PUBLISHING)
     notice._mets_manifestation = METSManifestation(
-        object_data=base64.b64encode("METS manifestation content".encode("utf-8")))
+        object_data=base64.b64encode("METS manifestation content".encode("utf-8")),
+        package_name="test_package.zip"
+    )
     return notice
 
 

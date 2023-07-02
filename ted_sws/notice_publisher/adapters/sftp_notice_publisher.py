@@ -34,7 +34,7 @@ class SFTPPublisher(SFTPPublisherABC):
 
         ssh_client = paramiko.SSHClient()
         ssh_client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
-        ssh_client.connect(self.hostname, username=self.username, password=self.password,
+        ssh_client.connect(self.hostname, username=self.username,
                            pkey=self.private_key, port=self.port)
         self._ssh = ssh_client
         self._sftp = ssh_client.open_sftp()

@@ -73,7 +73,9 @@ def mapping_suite_processor_from_github_expand_and_load_package_in_mongo_db(mong
                                                                             mapping_suite_package_name: str = None,
                                                                             load_test_data: bool = False,
                                                                             branch_or_tag_name: str = None,
-                                                                            github_repository_url: str = None
+                                                                            github_repository_url: str = None,
+                                                                            github_username: str = None,
+                                                                            github_token: str = None
                                                                             ) -> List[str]:
     """
         This feature is intended to download a mapping_suite_package from GitHub and process it for upload to MongoDB.
@@ -82,12 +84,15 @@ def mapping_suite_processor_from_github_expand_and_load_package_in_mongo_db(mong
     :param mapping_suite_package_name:
     :param mongodb_client:
     :param load_test_data:
+    :param github_username:
+    :param github_token:
     :return:
     """
     branch_or_tag_name = branch_or_tag_name if branch_or_tag_name else DEFAULT_BRANCH_NAME
     github_repository_url = github_repository_url if github_repository_url else config.GITHUB_TED_SWS_ARTEFACTS_URL
     mapping_suite_package_downloader = GitHubMappingSuitePackageDownloader(
-        github_repository_url=github_repository_url, branch_or_tag_name=branch_or_tag_name)
+        github_repository_url=github_repository_url, branch_or_tag_name=branch_or_tag_name,
+        github_username=github_username, github_token=github_token)
     with tempfile.TemporaryDirectory() as tmp_dir:
         tmp_dir_path = pathlib.Path(tmp_dir)
         git_last_commit_hash = mapping_suite_package_downloader.download(output_mapping_suite_package_path=tmp_dir_path)

@@ -3,6 +3,7 @@ import pathlib
 import shutil
 import subprocess
 import tempfile
+from urllib.parse import urlparse
 
 GITHUB_TED_SWS_ARTEFACTS_REPOSITORY_NAME = "ted-rdf-mapping"
 GITHUB_TED_SWS_ARTEFACTS_MAPPINGS_PATH = f"{GITHUB_TED_SWS_ARTEFACTS_REPOSITORY_NAME}/mappings"
@@ -26,14 +27,21 @@ class GitHubMappingSuitePackageDownloader(MappingSuitePackageDownloaderABC):
     """
         This class downloads mapping_suite_package from GitHub.
     """
-    def __init__(self, github_repository_url: str, branch_or_tag_name: str):
+
+    def __init__(self, github_repository_url: str, branch_or_tag_name: str,
+                 github_username: str = None, github_token: str = None):
         """
-        Option can be branch or tag, not both
+        Option can be a branch or tag, not both
         :param github_repository_url:
         :param branch_or_tag_name:
+        :param github_username:
+        :param github_token:
         """
         self.github_repository_url = github_repository_url
         self.branch_or_tag_name = branch_or_tag_name
+        if github_username and github_token:
+            parsed_url = urlparse(github_repository_url)
+            self.github_repository_url = f"{parsed_url.scheme}://{github_username}:{github_token}@{parsed_url.netloc}{parsed_url.path}"
 
     def download(self, output_mapping_suite_package_path: pathlib.Path) -> str:
         """

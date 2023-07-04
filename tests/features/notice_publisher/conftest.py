@@ -57,7 +57,7 @@ def s3_bucket_name():
 
 @pytest.fixture
 def mets_package_published_name():
-    return "test_package.zip"
+    return "2021_S_4_003544_create_test_package.zip"
 
 @pytest.fixture
 def rdf_manifestation_published_name(publish_eligible_notice):

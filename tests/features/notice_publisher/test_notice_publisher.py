@@ -75,10 +75,11 @@ def the_notice_publication_by_id_is_executed(publish_notice_id, notice_repositor
 
 
 @then('the METS package available in a shared SFTP drive')
-def the_mets_package_available_in_a_shared_sftp_drive(published_notice: Notice, sftp_remote_folder_path):
+def the_mets_package_available_in_a_shared_sftp_drive(published_notice: Notice, sftp_remote_folder_path,
+                                                      mets_package_published_name):
     """the METS package available in a shared SFTP drive."""
     publisher: SFTPPublisher = SFTPPublisher()
-    remote_notice_path = f"{sftp_remote_folder_path}/{published_notice.ted_id}.zip"
+    remote_notice_path = f"{sftp_remote_folder_path}/{mets_package_published_name}"
     publisher.connect()
     assert publisher.exists(remote_path=remote_notice_path)
     publisher.disconnect()

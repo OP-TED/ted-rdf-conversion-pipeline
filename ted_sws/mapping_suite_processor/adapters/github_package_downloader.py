@@ -6,7 +6,7 @@ import tempfile
 from urllib.parse import urlparse
 
 GITHUB_TED_SWS_ARTEFACTS_REPOSITORY_NAME = "ted-rdf-mapping"
-GITHUB_TED_SWS_ARTEFACTS_MAPPINGS_PATH = f"{GITHUB_TED_SWS_ARTEFACTS_REPOSITORY_NAME}/mappings"
+MAPPINGS_DIR_NAME = "mappings"
 
 
 class MappingSuitePackageDownloaderABC(abc.ABC):
@@ -29,16 +29,18 @@ class GitHubMappingSuitePackageDownloader(MappingSuitePackageDownloaderABC):
     """
 
     def __init__(self, github_repository_url: str, branch_or_tag_name: str,
-                 github_username: str = None, github_token: str = None):
+                 github_username: str = None, github_token: str = None, github_repository_name: str = None):
         """
         Option can be a branch or tag, not both
         :param github_repository_url:
         :param branch_or_tag_name:
         :param github_username:
         :param github_token:
+        :param github_repository_name:
         """
         self.github_repository_url = github_repository_url
         self.branch_or_tag_name = branch_or_tag_name
+        self.github_repository_name = github_repository_name or GITHUB_TED_SWS_ARTEFACTS_REPOSITORY_NAME
         if github_username and github_token:
             parsed_url = urlparse(github_repository_url)
             self.github_repository_url = f"{parsed_url.scheme}://{github_username}:{github_token}@{parsed_url.netloc}{parsed_url.path}"
@@ -70,7 +72,7 @@ class GitHubMappingSuitePackageDownloader(MappingSuitePackageDownloaderABC):
                            stdout=subprocess.DEVNULL,
                            stderr=subprocess.STDOUT)
             git_last_commit_hash = get_git_head_hash(
-                git_repository_path=temp_dir_path / GITHUB_TED_SWS_ARTEFACTS_REPOSITORY_NAME)
-            downloaded_tmp_mapping_suite_path = temp_dir_path / GITHUB_TED_SWS_ARTEFACTS_MAPPINGS_PATH
+                git_repository_path=temp_dir_path / self.github_repository_name)
+            downloaded_tmp_mapping_suite_path = temp_dir_path / self.github_repository_name / MAPPINGS_DIR_NAME
             shutil.copytree(downloaded_tmp_mapping_suite_path, output_mapping_suite_package_path, dirs_exist_ok=True)
         return git_last_commit_hash

@@ -1,3 +1,4 @@
+from concurrent.futures import ThreadPoolExecutor
 from typing import Any, Protocol, List
 from uuid import uuid4
 from airflow.models import BaseOperator
@@ -6,9 +7,9 @@ from pymongo import MongoClient
 
 from dags.dags_utils import pull_dag_upstream, push_dag_downstream, get_dag_param, smart_xcom_pull, \
     smart_xcom_push
-from ted_sws.core.service.batch_processing import chunks
 from dags.pipelines.pipeline_protocols import NoticePipelineCallable
 from ted_sws import config
+from ted_sws.core.service.batch_processing import chunks
 from ted_sws.data_manager.adapters.notice_repository import NoticeRepository
 from ted_sws.event_manager.model.event_message import EventMessage, NoticeEventMessage
 from ted_sws.event_manager.services.log import log_notice_error
@@ -17,11 +18,12 @@ from ted_sws.event_manager.services.logger_from_context import get_logger, handl
 NOTICE_IDS_KEY = "notice_ids"
 START_WITH_STEP_NAME_KEY = "start_with_step_name"
 EXECUTE_ONLY_ONE_STEP_KEY = "execute_only_one_step"
-DEFAULT_NUMBER_OF_CELERY_WORKERS = 144  # TODO: revise this config
+DEFAULT_NUMBER_OF_CELERY_WORKERS = 6  # TODO: revise this config
 NOTICE_PROCESSING_PIPELINE_DAG_NAME = "notice_processing_pipeline"
 DEFAULT_START_WITH_TASK_ID = "notice_normalisation_pipeline"
 DEFAULT_PIPELINE_NAME_FOR_LOGS = "unknown_pipeline_name"
-MAX_BATCH_SIZE = 5000
+NUMBER_OF_AIRFLOW_WORKERS = config.NUMBER_OF_AIRFLOW_WORKERS
+MAX_BATCH_SIZE = 2000
 
 
 class BatchPipelineCallable(Protocol):
@@ -79,7 +81,7 @@ class NoticeBatchPipelineOperator(BaseOperator):
             processed_notice_ids.extend(
                 self.batch_pipeline_callable(notice_ids=notice_ids, mongodb_client=mongodb_client))
         elif self.notice_pipeline_callable is not None:
-            for notice_id in notice_ids:
+            def multithread_notice_processor(notice_id: str):
                 notice = None
                 try:
                     notice_event = NoticeEventMessage(notice_id=notice_id, domain_action=pipeline_name)
@@ -96,13 +98,21 @@ class NoticeBatchPipelineOperator(BaseOperator):
                         notice_event.notice_eforms_subtype = notice.normalised_metadata.eforms_subtype
                         notice_event.notice_status = str(notice.status)
                     logger.info(event_message=notice_event)
-                except Exception as e:
+                    error_message = result_notice_pipeline.error_message
+                except Exception as exception_error_message:
+                    error_message = str(exception_error_message)
+                if error_message:
                     notice_normalised_metadata = notice.normalised_metadata if notice else None
-                    log_notice_error(message=str(e), notice_id=notice_id, domain_action=pipeline_name,
+                    log_notice_error(message=error_message, notice_id=notice_id, domain_action=pipeline_name,
                                      notice_form_number=notice_normalised_metadata.form_number if notice_normalised_metadata else None,
                                      notice_status=notice.status if notice else None,
                                      notice_eforms_subtype=notice_normalised_metadata.eforms_subtype if notice_normalised_metadata else None)
 
+            with ThreadPoolExecutor() as executor:
+                futures = [executor.submit(multithread_notice_processor, notice_id) for notice_id in
+                           notice_ids]
+                for future in futures:
+                    future.result()
         batch_event_message.end_record()
         logger.info(event_message=batch_event_message)
         if not processed_notice_ids:

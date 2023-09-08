@@ -1,5 +1,5 @@
 import datetime
-from typing import Tuple
+from typing import Tuple, List, Optional
 
 import semantic_version
 
@@ -29,7 +29,8 @@ def check_package(mapping_suite: MappingSuite, notice_metadata: NormalisedMetada
     constraint_end_date = datetime.datetime.fromisoformat(end_date)
     constraint_min_xsd_version = constraints[MIN_XSD_VERSION_KEY][0]
     constraint_max_xsd_version = constraints[MAX_XSD_VERSION_KEY][0]
-    eform_subtype_constraint_values = [str(eforms_subtype_value) for eforms_subtype_value in constraints[E_FORMS_SUBTYPE_KEY]]
+    eform_subtype_constraint_values = [str(eforms_subtype_value) for eforms_subtype_value in
+                                       constraints[E_FORMS_SUBTYPE_KEY]]
 
     in_date_range = constraint_start_date <= notice_publication_date <= constraint_end_date
     in_version_range = constraint_min_xsd_version <= notice_xsd_version <= constraint_max_xsd_version
@@ -40,9 +41,9 @@ def check_package(mapping_suite: MappingSuite, notice_metadata: NormalisedMetada
 
 def notice_eligibility_checker(notice: Notice, mapping_suite_repository: MappingSuiteRepositoryABC) -> Tuple:
     """
-    Check if notice in eligible for transformation
-    :param mapping_suite_repository:
+    Check if notice is eligible for transformation
     :param notice:
+    :param mapping_suite_repository:
     :return:
     """
 
@@ -63,6 +64,35 @@ def notice_eligibility_checker(notice: Notice, mapping_suite_repository: Mapping
         return notice.ted_id, mapping_suite_identifier_with_version
     else:
         notice.set_is_eligible_for_transformation(eligibility=False)
+
+
+def notice_eligibility_checker_with_mapping_suites(notice: Notice, mapping_suites: List[MappingSuite]) -> Optional[str]:
+    """
+    Check if notice is eligible for transformation by list of mapping suites
+    :param notice:
+    :param mapping_suites:
+    :return:
+    """
+
+    possible_mapping_suites = []
+    for mapping_suite in mapping_suites:
+        if check_package(mapping_suite=mapping_suite, notice_metadata=notice.normalised_metadata):
+            possible_mapping_suites.append(mapping_suite)
+
+    if possible_mapping_suites:
+        best_version = semantic_version.Version(possible_mapping_suites[0].version)
+        mapping_suite_identifier_with_version = possible_mapping_suites[0].identifier
+        for mapping_suite in possible_mapping_suites[1:]:
+            if semantic_version.Version(mapping_suite.version) > best_version:
+                best_version = semantic_version.Version(mapping_suite.version)
+                mapping_suite_identifier_with_version = mapping_suite.identifier
+
+        notice.set_is_eligible_for_transformation(eligibility=True)
+        return mapping_suite_identifier_with_version
+    else:
+        notice.set_is_eligible_for_transformation(eligibility=False)
+
+    return None
 
 
 def notice_eligibility_checker_by_id(notice_id: str, notice_repository: NoticeRepositoryABC,

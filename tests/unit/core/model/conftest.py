@@ -34,7 +34,7 @@ def publicly_available_notice(fetched_notice_data, normalised_metadata_dict) -> 
     shacl_validation = SHACLTestSuiteValidationReport(object_data="This is validation report!",
                                                       test_suite_identifier="shacl_test_id",
                                                       mapping_suite_identifier="mapping_suite_id",
-                                                      validation_results=[])
+                                                      validation_results="")
     xpath_coverage_validation = XPATHCoverageValidationReport(object_data="This is validation report!",
                                                               test_suite_identifier="shacl_test_id",
                                                               mapping_suite_identifier="mapping_suite_id",

@@ -6,10 +6,9 @@
 # Email: costezki.eugen@gmail.com 
 
 """ """
-from typing import List, Optional
+from typing import List, Optional, NamedTuple
 
 from pydantic import Field
-from pydantic.annotated_types import NamedTuple
 
 from ted_sws.core.model import PropertyBaseModel
 
@@ -65,17 +64,17 @@ class NormalisedMetadata(Metadata):
     publication_date: str
     ojs_issue_number: str
     ojs_type: str
-    city_of_buyer: Optional[List[LanguageTaggedString]]
-    name_of_buyer: Optional[List[LanguageTaggedString]]
-    original_language: Optional[str]
-    country_of_buyer: Optional[str]
-    eu_institution: Optional[bool]
-    document_sent_date: Optional[str]
-    deadline_for_submission: Optional[str]
+    city_of_buyer: Optional[List[LanguageTaggedString]] = None
+    name_of_buyer: Optional[List[LanguageTaggedString]] = None
+    original_language: Optional[str] = None
+    country_of_buyer: Optional[str] = None
+    eu_institution: Optional[bool] = None
+    document_sent_date: Optional[str] = None
+    deadline_for_submission: Optional[str] = None
     notice_type: str
     form_type: str
-    place_of_performance: Optional[List[str]]
-    extracted_legal_basis_directive: Optional[str]
+    place_of_performance: Optional[List[str]] = None
+    extracted_legal_basis_directive: Optional[str] = None
     legal_basis_directive: str
     form_number: str
     eforms_subtype: str
@@ -90,17 +89,17 @@ class NormalisedMetadataView(Metadata):
     publication_date: str
     ojs_issue_number: str
     ojs_type: str
-    city_of_buyer: Optional[str]
-    name_of_buyer: Optional[str]
-    original_language: Optional[str]
-    country_of_buyer: Optional[str]
-    eu_institution: Optional[bool]
-    document_sent_date: Optional[str]
-    deadline_for_submission: Optional[str]
+    city_of_buyer: Optional[str] = None
+    name_of_buyer: Optional[str] = None
+    original_language: Optional[str] = None
+    country_of_buyer: Optional[str] = None
+    eu_institution: Optional[bool] = None
+    document_sent_date: Optional[str] = None
+    deadline_for_submission: Optional[str] = None
     notice_type: str
     form_type: str
-    place_of_performance: Optional[List[str]]
-    extracted_legal_basis_directive: Optional[str]
+    place_of_performance: Optional[List[str]] = None
+    extracted_legal_basis_directive: Optional[str] = None
     legal_basis_directive: str
     form_number: str
     eforms_subtype: str
@@ -113,34 +112,34 @@ class TEDMetadata(Metadata):
     """
         Stores notice original metadata
     """
-    AA: List[str] = None
-    AC: str = None
-    CY: List[str] = None
-    DD: str = None
-    DI: str = None
-    DS: str = None
-    DT: List[str] = None
-    MA: List[str] = None
-    NC: List[str] = None
-    ND: str = None
-    NL: str = None
-    OC: List[str] = None
-    OJ: str = None
-    OL: str = None
-    OY: List[str] = None
-    PC: List[str] = None
-    PD: str = None
-    PR: str = None
-    RC: List[str] = None
-    RN: List[str] = None
-    RP: str = None
-    TD: str = None
-    TVH: str = None
-    TVL: str = None
-    TY: str = None
-    award_criterion_type: str = Field(default=None, alias='award-criterion-type')
+    AA: Optional[List[str]] = None
+    AC: Optional[str] = None
+    CY: Optional[List[str]] = None
+    DD: Optional[str] = None
+    DI: Optional[str] = None
+    DS: Optional[str] = None
+    DT: Optional[List[str]] = None
+    MA: Optional[List[str]] = None
+    NC: Optional[List[str]] = None
+    ND: Optional[str] = None
+    NL: Optional[str] = None
+    OC: Optional[List[str]] = None
+    OJ: Optional[str] = None
+    OL: Optional[str] = None
+    OY: Optional[List[str]] = None
+    PC: Optional[List[str]] = None
+    PD: Optional[str] = None
+    PR: Optional[str] = None
+    RC: Optional[List[str]] = None
+    RN: Optional[List[int]] = None #TODO check if this is a list of strings, now we change to list of ints to fix errors
+    RP: Optional[str] = None
+    TD: Optional[str] = None
+    TVH: Optional[str] = None
+    TVL: Optional[str] = None
+    TY: Optional[str] = None
+    award_criterion_type: Optional[str] = Field(default=None, alias='award-criterion-type')
     corporate_body: List[str] = Field(default=None, alias='corporate-body')
-    funding: List[str] = None
-    notice_identifier: str = Field(default=None, alias='notice-identifier')
-    notice_type: str = Field(default=None, alias='notice-type')
-    notice_version: str = Field(default=None, alias='notice-version')
+    funding: Optional[List[str]] = None
+    notice_identifier: Optional[str] = Field(default=None, alias='notice-identifier')
+    notice_type: Optional[str] = Field(default=None, alias='notice-type')
+    notice_version: Optional[str] = Field(default=None, alias='notice-version')

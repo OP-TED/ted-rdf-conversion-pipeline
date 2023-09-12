@@ -69,6 +69,6 @@ def test_inter_transactions_mapping_suite_repositories(mongodb_client, file_syst
     result_mapping_suite = mapping_suite_repository_mongodb.get(reference=fake_mapping_suite_identifier_with_version)
     mapping_suite_repository_file_system.add(mapping_suite=result_mapping_suite)
     result_mapping_suite = mapping_suite_repository_file_system.get(reference=fake_mapping_suite.identifier)
-    assert DeepDiff(result_mapping_suite, fake_mapping_suite) == {}
+    assert DeepDiff(result_mapping_suite.model_dump(), fake_mapping_suite.model_dump()) == {}
     mapping_suite_repository_file_system.clear_repository()
     mongodb_client.drop_database(aggregates_database_name)

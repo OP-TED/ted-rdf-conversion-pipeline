@@ -8,7 +8,7 @@ from ted_sws.core.model.validation_report_data import ReportPackageNoticeData, R
 
 
 class ReportNoticeMetadata(PropertyBaseModel):
-    path: Optional[Path]
+    path: Optional[Path] = None
 
 
 class ReportNotice(PropertyBaseModel):
@@ -37,7 +37,7 @@ class SPARQLSummaryQuery(PropertyBaseModel):
     """
     Stores SPARQL query details
     """
-    title: Optional[str]
+    title: Optional[str] = None
     query: str
 
 
@@ -46,9 +46,9 @@ class SPARQLValidationSummaryQueryResult(PropertyBaseModel):
 
     """
     query: SPARQLSummaryQuery
-    identifier: Optional[str]
+    identifier: Optional[str] = None
     aggregate: Optional[SPARQLValidationSummaryCountReport] = SPARQLValidationSummaryCountReport()
-    test_suite_identifier: Optional[str]
+    test_suite_identifier: Optional[str] = None
 
 
 class SPARQLValidationSummaryReport(ValidationManifestation):
@@ -62,7 +62,7 @@ class SHACLSummaryQuery(PropertyBaseModel):
     """
     Stores SPARQL query details
     """
-    result_path: Optional[str]
+    result_path: Optional[str] = None
 
 
 class SHACLValidationSummarySeverityCountResult(PropertyBaseModel):
@@ -75,7 +75,7 @@ class SHACLValidationSummaryResult(PropertyBaseModel):
     query: Optional[SHACLSummaryQuery] = SHACLSummaryQuery()
     result_severity: Optional[SHACLValidationSummarySeverityCountResult] = SHACLValidationSummarySeverityCountResult()
     conforms: Optional[QueryValidationSummaryCountReportStatus] = QueryValidationSummaryCountReportStatus()
-    test_suite_identifier: Optional[str]
+    test_suite_identifier: Optional[str] = None
 
 
 class SHACLValidationSummaryReport(ValidationManifestation):

@@ -1,4 +1,4 @@
-FROM docker.io/apache/airflow:2.5.1-python3.8
+FROM docker.io/apache/airflow:2.7.1-python3.8
 
 # quick sudo
 USER root
@@ -14,7 +14,7 @@ COPY requirements.txt /opt/airflow
 # working in the /opt/airflow
 WORKDIR /opt/airflow
 RUN mkdir -p ./.rmlmapper ./dags ./ted_sws ./temp
-RUN wget -c https://github.com/RMLio/rmlmapper-java/releases/download/v6.1.3/rmlmapper-6.1.3-r367-all.jar -O ./.rmlmapper/rmlmapper.jar
+RUN wget -c https://github.com/RMLio/rmlmapper-java/releases/download/v6.2.1/rmlmapper-6.2.1-r368-all.jar -O ./.rmlmapper/rmlmapper.jar
 
 
 RUN wget -c https://kumisystems.dl.sourceforge.net/project/saxon/Saxon-HE/10/Java/SaxonHE10-6J.zip -P .saxon/
@@ -25,4 +25,4 @@ RUN wget -c https://github.com/dice-group/LIMES/releases/download/1.7.9/limes.ja
 
 
 RUN pip install --upgrade pip
-RUN pip install --no-cache-dir -r requirements.txt --constraint "https://raw.githubusercontent.com/apache/airflow/constraints-2.5.1/constraints-no-providers-3.8.txt"
+RUN pip install --no-cache-dir -r requirements.txt --constraint "https://raw.githubusercontent.com/apache/airflow/constraints-2.7.1/constraints-no-providers-3.8.txt"

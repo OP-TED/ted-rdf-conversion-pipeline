@@ -239,7 +239,7 @@ def deduplicate_procedure_entities(notices: List[Notice], procedure_cet_uri: str
     notice_families = defaultdict(list)
     for notice in notices:
         if notice.original_metadata and notice.original_metadata.RN:
-            parent_notice_id = notice.original_metadata.RN[0]
+            parent_notice_id = str(notice.original_metadata.RN[0])
             parent_notice_id = f"{parent_notice_id[4:]}-{parent_notice_id[:4]}"
             notice_families[parent_notice_id].append(notice)
 

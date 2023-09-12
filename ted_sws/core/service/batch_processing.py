@@ -4,7 +4,7 @@ from typing import Iterable
 
 def chunks(iterable: Iterable, chunk_size: int):
     """
-    This function split in chunks a iterable structure based on chunk_size parameter.
+    This function split in chunks an iterable structure based on chunk_size parameter.
     :param iterable:
     :param chunk_size:
     :return:

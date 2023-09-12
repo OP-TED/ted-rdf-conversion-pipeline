@@ -7,10 +7,11 @@ from airflow.utils.trigger_rule import TriggerRule
 from dags import DEFAULT_DAG_ARGUMENTS
 from dags.dags_utils import get_dag_param, smart_xcom_push, smart_xcom_forward, smart_xcom_pull
 from dags.operators.DagBatchPipelineOperator import NoticeBatchPipelineOperator, NOTICE_IDS_KEY, \
-    EXECUTE_ONLY_ONE_STEP_KEY, START_WITH_STEP_NAME_KEY
-from dags.pipelines.notice_batch_processor_pipelines import notices_batch_distillation_pipeline
-from dags.pipelines.notice_processor_pipelines import notice_normalisation_pipeline, notice_transformation_pipeline, \
-    notice_validation_pipeline, notice_package_pipeline, notice_publish_pipeline
+    EXECUTE_ONLY_ONE_STEP_KEY, START_WITH_STEP_NAME_KEY, NUMBER_OF_AIRFLOW_WORKERS
+from dags.pipelines.notice_batch_processor_pipelines import notices_batch_distillation_pipeline, \
+    notice_batch_transformer_pipeline
+from dags.pipelines.notice_processor_pipelines import notice_normalisation_pipeline, notice_validation_pipeline, \
+    notice_package_pipeline, notice_publish_pipeline
 
 NOTICE_NORMALISATION_PIPELINE_TASK_ID = "notice_normalisation_pipeline"
 NOTICE_TRANSFORMATION_PIPELINE_TASK_ID = "notice_transformation_pipeline"
@@ -46,8 +47,8 @@ def branch_selector(result_branch: str, xcom_forward_keys: List[str] = [NOTICE_I
 
 @dag(default_args=DEFAULT_DAG_ARGUMENTS,
      schedule_interval=None,
-     max_active_runs=256,
-     max_active_tasks=256,
+     max_active_runs=NUMBER_OF_AIRFLOW_WORKERS,
+     max_active_tasks=1,
      tags=['worker', 'pipeline'])
 def notice_processing_pipeline():
     """
@@ -118,7 +119,7 @@ def notice_processing_pipeline():
                                                             task_id=NOTICE_NORMALISATION_PIPELINE_TASK_ID,
                                                             trigger_rule=TriggerRule.NONE_FAILED_MIN_ONE_SUCCESS)
 
-    notice_transformation_step = NoticeBatchPipelineOperator(notice_pipeline_callable=notice_transformation_pipeline,
+    notice_transformation_step = NoticeBatchPipelineOperator(batch_pipeline_callable=notice_batch_transformer_pipeline,
                                                              task_id=NOTICE_TRANSFORMATION_PIPELINE_TASK_ID,
                                                              trigger_rule=TriggerRule.NONE_FAILED_MIN_ONE_SUCCESS)
 

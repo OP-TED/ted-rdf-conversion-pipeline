@@ -262,9 +262,16 @@ class S3PublishConfig:
         return config_value.lower() in ["1", "true"]
 
 
+class AirflowConfig:
+
+    @env_property(config_resolver_class=AirflowAndEnvConfigResolver, default_value="4")
+    def AIRFLOW_NUMBER_OF_WORKERS(self, config_value: str) -> int:
+        return int(config_value)
+
+
 class TedConfigResolver(MongoDBConfig, RMLMapperConfig, XMLProcessorConfig, ELKConfig, LoggingConfig,
                         GitHubArtefacts, API, AllegroConfig, TedAPIConfig, SFTPConfig, FusekiConfig,
-                        SPARQLConfig, LimesAlignmentConfig, S3PublishConfig):
+                        SPARQLConfig, LimesAlignmentConfig, S3PublishConfig, AirflowConfig):
     """
         This class resolve the secrets of the ted-sws project.
     """

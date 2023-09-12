@@ -7,7 +7,7 @@ from airflow.utils.trigger_rule import TriggerRule
 from dags import DEFAULT_DAG_ARGUMENTS
 from dags.dags_utils import get_dag_param, smart_xcom_push, smart_xcom_forward, smart_xcom_pull
 from dags.operators.DagBatchPipelineOperator import NoticeBatchPipelineOperator, NOTICE_IDS_KEY, \
-    EXECUTE_ONLY_ONE_STEP_KEY, START_WITH_STEP_NAME_KEY, NUMBER_OF_AIRFLOW_WORKERS
+    EXECUTE_ONLY_ONE_STEP_KEY, START_WITH_STEP_NAME_KEY, AIRFLOW_NUMBER_OF_WORKERS
 from dags.pipelines.notice_batch_processor_pipelines import notices_batch_distillation_pipeline, \
     notice_batch_transformer_pipeline
 from dags.pipelines.notice_processor_pipelines import notice_normalisation_pipeline, notice_validation_pipeline, \
@@ -47,7 +47,7 @@ def branch_selector(result_branch: str, xcom_forward_keys: List[str] = [NOTICE_I
 
 @dag(default_args=DEFAULT_DAG_ARGUMENTS,
      schedule_interval=None,
-     max_active_runs=NUMBER_OF_AIRFLOW_WORKERS,
+     max_active_runs=AIRFLOW_NUMBER_OF_WORKERS,
      max_active_tasks=1,
      tags=['worker', 'pipeline'])
 def notice_processing_pipeline():

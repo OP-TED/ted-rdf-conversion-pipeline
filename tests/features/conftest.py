@@ -81,11 +81,11 @@ def publicly_available_notice(fetched_notice_data, normalised_metadata_dict) -> 
     sparql_validation = SPARQLTestSuiteValidationReport(object_data="This is validation report!",
                                                         test_suite_identifier="sparql_test_id",
                                                         mapping_suite_identifier="mapping_suite_id",
-                                                        validation_results=[])
+                                                        validation_results="")
     shacl_validation = SHACLTestSuiteValidationReport(object_data="This is validation report!",
                                                       test_suite_identifier="shacl_test_id",
                                                       mapping_suite_identifier="mapping_suite_id",
-                                                      validation_results=[])
+                                                      validation_results="")
     notice = Notice(ted_id=ted_id)
     notice.set_xml_manifestation(xml_manifestation)
     notice.set_original_metadata(original_metadata)

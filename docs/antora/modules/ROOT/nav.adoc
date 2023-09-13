@@ -17,10 +17,6 @@
 ** link:{attachmentsdir}/aws-infra-docs/TED-SWS-Installation-manual-v2.5.0.pdf[AWS installation manual (v2.5.0)^]
 ** link:{attachmentsdir}/aws-infra-docs/TED-SWS-AWS-Infrastructure-architecture-overview-v0.9.pdf[AWS infrastructure architecture (v0.9)^]
 
-* [.separated]#**For End User Developers**#
-** xref:ted_data/using_procurement_data.adoc[Accessing data in Cellar]
-** link:https://docs.ted.europa.eu/EPO/latest/index.html[eProcurement ontology (latest)^]
-
 * [.separated]#**For TED-SWS Developers**#
 ** xref:technical/mapping_suite_cli_toolchain.adoc[Mapping suite toolchain]
 ** xref:technical/demo_installation.adoc[Development installation instructions]

@@ -2,6 +2,7 @@ import datetime
 
 from airflow.decorators import dag, task
 from airflow.models.param import Param
+from airflow.utils.types import NOTSET
 
 from dags import DEFAULT_DAG_ARGUMENTS
 from dags.dags_utils import get_dag_param
@@ -17,20 +18,21 @@ END_DATE_DAG_PARAM = "end_date"
      tags=['test', 'new-ui'],
      params={
          FORM_NUMBER_DAG_PARAM: Param(
-             type="string",
+             default=NOTSET,
+             type=["null", "string"],
              title="Form number",
              description="""Form number of the notice"""),
          START_DATE_DAG_PARAM: Param(
-             f"{datetime.date.today()}",
-             type="string",
+             default=f"{datetime.date.today()}",
+             type=["null", "string"],
              format="date",
              title="Date Picker",
              description="Please select a date, use the button on the left for a pup-up calendar. "
                          "See that here are no times!",
          ),
          END_DATE_DAG_PARAM: Param(
-             f"{datetime.date.today()}",
-             type="string",
+             default=f"{datetime.date.today()}",
+             type=["null", "string"],
              format="date",
              title="Date Picker",
              description="Please select a date, use the button on the left for a pup-up calendar. "

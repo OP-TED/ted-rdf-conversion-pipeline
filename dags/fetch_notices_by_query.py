@@ -26,7 +26,7 @@ FINISH_FETCH_BY_DATE_TASK_ID = "finish_fetch_by_query"
      tags=['fetch'],
      params={
          QUERY_DAG_KEY: Param(
-             default=None,
+             default="",
              type="string",
              title="Query",
              description="""This field is required.

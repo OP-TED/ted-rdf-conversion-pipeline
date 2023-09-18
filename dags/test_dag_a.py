@@ -18,7 +18,7 @@ END_DATE_DAG_PARAM = "end_date"
      tags=['test', 'new-ui'],
      params={
          FORM_NUMBER_DAG_PARAM: Param(
-             default=NOTSET,
+             default="",
              type=["null", "string"],
              title="Form number",
              description="""Form number of the notice"""),

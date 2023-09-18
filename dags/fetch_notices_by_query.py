@@ -1,6 +1,8 @@
+from datetime import date
+
 from airflow.decorators import dag, task
 from airflow.models import Param
-from airflow.operators.dummy import DummyOperator
+from airflow.operators.empty import EmptyOperator
 from airflow.operators.python import BranchPythonOperator
 from airflow.utils.trigger_rule import TriggerRule
 from dags import DEFAULT_DAG_ARGUMENTS
@@ -26,7 +28,7 @@ FINISH_FETCH_BY_DATE_TASK_ID = "finish_fetch_by_query"
      tags=['fetch'],
      params={
          QUERY_DAG_KEY: Param(
-             default="",
+             default=f"PD=[>={date.today().strftime('%Y%m%d')} AND <={date.today().strftime('%Y%m%d')}]",
              type="string",
              title="Query",
              description="""This field is required.
@@ -76,7 +78,7 @@ def fetch_notices_by_query():
         python_callable=_branch_selector,
     )
 
-    finish_step = DummyOperator(task_id=FINISH_FETCH_BY_DATE_TASK_ID,
+    finish_step = EmptyOperator(task_id=FINISH_FETCH_BY_DATE_TASK_ID,
                                 trigger_rule=TriggerRule.NONE_FAILED_MIN_ONE_SUCCESS)
 
     fetch_by_query_notice_from_ted() >> branch_task >> [trigger_normalisation_workflow,

@@ -1,3 +1,7 @@
+"""
+This DAG is responsible for loading a mapping suite package into the database.
+"""
+
 from airflow.decorators import dag, task
 from airflow.models import Param
 from airflow.operators.empty import EmptyOperator
@@ -32,6 +36,8 @@ CHECK_IF_LOAD_TEST_DATA_TASK_ID = "check_if_load_test_data"
 @dag(default_args=DEFAULT_DAG_ARGUMENTS,
      schedule_interval=None,
      tags=['fetch', 'mapping-suite', 'github'],
+     description=__doc__[0: __doc__.find(".")],
+     doc_md=__doc__,
      params={
          GITHUB_REPOSITORY_URL_DAG_PARAM_KEY: Param(
              default=None,

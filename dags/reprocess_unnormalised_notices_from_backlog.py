@@ -1,3 +1,7 @@
+"""
+This DAG is used to reprocess all notices in RAW status from the backlog.
+"""
+
 from airflow.decorators import dag, task
 from dags import DEFAULT_DAG_ARGUMENTS
 from dags.dags_utils import push_dag_downstream, get_dag_param
@@ -16,6 +20,8 @@ TRIGGER_NOTICE_PROCESS_WORKFLOW_TASK_ID = "trigger_notice_process_workflow"
 
 @dag(default_args=DEFAULT_DAG_ARGUMENTS,
      schedule_interval=None,
+     description=__doc__[0: __doc__.find(".")],
+     doc_md=__doc__,
      tags=['selector', 'raw-notices'],
      params=REPROCESS_DATE_RANGE_DAG_PARAMS
      )

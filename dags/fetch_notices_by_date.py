@@ -1,3 +1,7 @@
+"""
+This DAG is used to fetch notices from TED by date.
+"""
+
 from datetime import date, datetime
 
 from airflow.decorators import dag, task
@@ -29,6 +33,8 @@ VALIDATE_FETCHED_NOTICES_TASK_ID = "validate_fetched_notices"
 
 @dag(default_args=DEFAULT_DAG_ARGUMENTS,
      catchup=False,
+     description=__doc__[0: __doc__.find(".")],
+     doc_md=__doc__,
      timetable=CronTriggerTimetable('0 1 * * *', timezone='UTC'),
      tags=['selector', 'daily-fetch'],
      params={

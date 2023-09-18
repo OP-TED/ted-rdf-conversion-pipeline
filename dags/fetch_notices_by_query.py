@@ -1,3 +1,7 @@
+"""
+This DAG is responsible for fetching notices from TED by query.
+"""
+
 from datetime import date
 
 from airflow.decorators import dag, task
@@ -26,6 +30,8 @@ FINISH_FETCH_BY_DATE_TASK_ID = "finish_fetch_by_query"
 @dag(default_args=DEFAULT_DAG_ARGUMENTS,
      schedule_interval=None,
      tags=['fetch'],
+     description=__doc__[0: __doc__.find(".")],
+     doc_md=__doc__,
      params={
          QUERY_DAG_KEY: Param(
              default=f"PD=[>={date.today().strftime('%Y%m%d')} AND <={date.today().strftime('%Y%m%d')}]",

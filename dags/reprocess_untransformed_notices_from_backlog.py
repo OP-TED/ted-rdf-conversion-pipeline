@@ -1,3 +1,7 @@
+"""
+This DAG is used to re-transform notices.
+"""
+
 from airflow.decorators import dag, task
 
 from dags import DEFAULT_DAG_ARGUMENTS
@@ -24,6 +28,8 @@ TRIGGER_NOTICE_PROCESS_WORKFLOW_TASK_ID = "trigger_notice_process_workflow"
 
 @dag(default_args=DEFAULT_DAG_ARGUMENTS,
      schedule_interval=None,
+     description=__doc__[0: __doc__.find(".")],
+     doc_md=__doc__,
      tags=['selector', 're-transform'],
      params=REPROCESS_DAG_PARAMS
      )

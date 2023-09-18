@@ -1,3 +1,7 @@
+"""
+This DAG is responsible for updating the materialized views of the notice and batch collections.
+"""
+
 from airflow.decorators import dag, task
 from pymongo import MongoClient
 
@@ -13,6 +17,8 @@ DAG_NAME = "daily_materialized_views_update"
 
 @dag(default_args=DEFAULT_DAG_ARGUMENTS,
      catchup=False,
+     description=__doc__[0: __doc__.find(".")],
+     doc_md=__doc__,
      schedule_interval="0 6 * * *",
      tags=['mongodb', 'daily-views-update'])
 def daily_materialized_views_update():

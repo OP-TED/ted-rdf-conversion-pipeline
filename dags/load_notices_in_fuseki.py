@@ -1,3 +1,7 @@
+"""
+This DAG is used to load notices in Fuseki.
+"""
+
 from airflow.decorators import dag, task
 from airflow.models import Param
 from pymongo import MongoClient
@@ -19,6 +23,8 @@ DEFAULT_FUSEKI_DATASET_NAME = "mdr_dataset"
 @dag(default_args=DEFAULT_DAG_ARGUMENTS,
      schedule_interval=None,
      tags=['load', 'notices', 'fuseki'],
+     description=__doc__[0: __doc__.find(".")],
+     doc_md=__doc__,
      params={
             FUSEKI_DATASET_NAME_DAG_PARAM_KEY: Param(
                 default=DEFAULT_FUSEKI_DATASET_NAME,

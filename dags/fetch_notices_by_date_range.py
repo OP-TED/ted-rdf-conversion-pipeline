@@ -1,3 +1,7 @@
+"""
+This DAG is responsible for fetching notices from TED by date range.
+"""
+
 from datetime import datetime, date
 from typing import Any
 
@@ -36,6 +40,8 @@ def generate_wildcards_foreach_day_in_range(start_date: str, end_date: str) -> l
 
 
 @dag(default_args=DEFAULT_DAG_ARGUMENTS, schedule_interval=None, tags=['master'],
+     description=__doc__[0: __doc__.find(".")],
+     doc_md=__doc__,
      params={
          START_DATE_KEY: Param(
              default=f"{date.today()}",

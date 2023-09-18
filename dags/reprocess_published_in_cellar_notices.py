@@ -3,9 +3,10 @@ from airflow.decorators import dag, task
 from dags import DEFAULT_DAG_ARGUMENTS
 from dags.dags_utils import push_dag_downstream, get_dag_param
 from dags.notice_processing_pipeline import NOTICE_TRANSFORMATION_PIPELINE_TASK_ID
-from dags.operators.DagBatchPipelineOperator import NOTICE_IDS_KEY, TriggerNoticeBatchPipelineOperator, \
-    EXECUTE_ONLY_ONE_STEP_KEY
+from dags.operators.DagBatchPipelineOperator import NOTICE_IDS_KEY, TriggerNoticeBatchPipelineOperator
 from dags.pipelines.notice_selectors_pipelines import notice_ids_selector_by_status
+from dags.reprocess_dag_params import REPROCESS_DAG_PARAMS, FORM_NUMBER_DAG_PARAM, START_DATE_DAG_PARAM, \
+    END_DATE_DAG_PARAM, XSD_VERSION_DAG_PARAM
 from ted_sws.core.model.notice import NoticeStatus
 from ted_sws.event_manager.adapters.event_log_decorator import event_log
 from ted_sws.event_manager.model.event_message import TechnicalEventMessage, EventMessageMetadata, \
@@ -15,15 +16,13 @@ DAG_NAME = "reprocess_published_in_cellar_notices"
 
 RE_TRANSFORM_TARGET_NOTICE_STATES = [NoticeStatus.PUBLICLY_AVAILABLE]
 TRIGGER_NOTICE_PROCESS_WORKFLOW_TASK_ID = "trigger_notice_process_workflow"
-FORM_NUMBER_DAG_PARAM = "form_number"
-START_DATE_DAG_PARAM = "start_date"
-END_DATE_DAG_PARAM = "end_date"
-XSD_VERSION_DAG_PARAM = "xsd_version"
 
 
 @dag(default_args=DEFAULT_DAG_ARGUMENTS,
      schedule_interval=None,
-     tags=['selector', 're-transform-publicly-available'])
+     tags=['selector', 're-transform-publicly-available'],
+     params=REPROCESS_DAG_PARAMS
+     )
 def reprocess_published_in_cellar_notices():
     @task
     @event_log(TechnicalEventMessage(

@@ -7,19 +7,18 @@ from ted_sws.core.model.notice import NoticeStatus
 from ted_sws.event_manager.adapters.event_log_decorator import event_log
 from ted_sws.event_manager.model.event_message import TechnicalEventMessage, EventMessageMetadata, \
     EventMessageProcessType
+from dags.reprocess_dag_params import START_DATE_DAG_PARAM, END_DATE_DAG_PARAM, REPROCESS_DATE_RANGE_DAG_PARAMS
 
 DAG_NAME = "reprocess_unnormalised_notices_from_backlog"
 
 TRIGGER_NOTICE_PROCESS_WORKFLOW_TASK_ID = "trigger_notice_process_workflow"
-FORM_NUMBER_DAG_PARAM = "form_number"
-START_DATE_DAG_PARAM = "start_date"
-END_DATE_DAG_PARAM = "end_date"
-XSD_VERSION_DAG_PARAM = "xsd_version"
 
 
 @dag(default_args=DEFAULT_DAG_ARGUMENTS,
      schedule_interval=None,
-     tags=['selector', 'raw-notices'])
+     tags=['selector', 'raw-notices'],
+     params=REPROCESS_DATE_RANGE_DAG_PARAMS
+     )
 def reprocess_unnormalised_notices_from_backlog():
     @task
     @event_log(TechnicalEventMessage(

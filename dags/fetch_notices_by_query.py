@@ -1,4 +1,5 @@
 from airflow.decorators import dag, task
+from airflow.models import Param
 from airflow.operators.dummy import DummyOperator
 from airflow.operators.python import BranchPythonOperator
 from airflow.utils.trigger_rule import TriggerRule
@@ -22,7 +23,24 @@ FINISH_FETCH_BY_DATE_TASK_ID = "finish_fetch_by_query"
 
 @dag(default_args=DEFAULT_DAG_ARGUMENTS,
      schedule_interval=None,
-     tags=['fetch'])
+     tags=['fetch'],
+     params={
+         QUERY_DAG_KEY: Param(
+             default=None,
+             type="string",
+             title="Query",
+             description="""This field is required.
+                Query to fetch notices from TED."""
+         ),
+         TRIGGER_COMPLETE_WORKFLOW_DAG_KEY: Param(
+             default=True,
+             type="boolean",
+             title="Trigger Complete Workflow",
+             description="""This field is required.
+                If true, the complete workflow will be triggered, otherwise only the partial workflow will be triggered."""
+         )
+     }
+     )
 def fetch_notices_by_query():
     @task
     @event_log(TechnicalEventMessage(

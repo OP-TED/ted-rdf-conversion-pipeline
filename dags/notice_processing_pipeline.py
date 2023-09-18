@@ -78,7 +78,7 @@ def notice_processing_pipeline():
     def _stop_processing():
         notice_ids = smart_xcom_pull(key=NOTICE_IDS_KEY)
         if not notice_ids:
-            raise Exception(f"No notice has been processed!")
+            raise Exception("No notice has been processed!")
 
     start_processing = BranchPythonOperator(
         task_id=BRANCH_SELECTOR_TASK_ID,

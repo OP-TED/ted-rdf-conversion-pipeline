@@ -2,7 +2,6 @@ import datetime
 
 from airflow.decorators import dag, task
 from airflow.models.param import Param
-from airflow.utils.types import NOTSET
 
 from dags import DEFAULT_DAG_ARGUMENTS
 from dags.dags_utils import get_dag_param

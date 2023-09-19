@@ -1,5 +1,10 @@
+"""
+This DAG is responsible for loading a mapping suite package into the database.
+"""
+
 from airflow.decorators import dag, task
-from airflow.operators.dummy import DummyOperator
+from airflow.models import Param
+from airflow.operators.empty import EmptyOperator
 from airflow.operators.python import get_current_context, BranchPythonOperator
 from airflow.utils.trigger_rule import TriggerRule
 from pymongo import MongoClient
@@ -30,7 +35,39 @@ CHECK_IF_LOAD_TEST_DATA_TASK_ID = "check_if_load_test_data"
 
 @dag(default_args=DEFAULT_DAG_ARGUMENTS,
      schedule_interval=None,
-     tags=['fetch', 'mapping-suite', 'github'])
+     tags=['fetch', 'mapping-suite', 'github'],
+     description=__doc__[0: __doc__.find(".")],
+     doc_md=__doc__,
+     params={
+         GITHUB_REPOSITORY_URL_DAG_PARAM_KEY: Param(
+             default=None,
+             type=["null", "string"],
+             title="Github repository url",
+             description="""This is optional field.
+             Github repository url to fetch mapping suite package from."""
+         ),
+         BRANCH_OR_TAG_NAME_DAG_PARAM_KEY: Param(
+             default=None,
+             type=["null", "string"],
+             title="Branch or tag name",
+             description="""This is optional field.
+             Branch or tag name to fetch mapping suite package from."""
+         ),
+         MAPPING_SUITE_PACKAGE_NAME_DAG_PARAM_KEY: Param(
+             default=None,
+             type=["null", "string"],
+             title="Mapping suite package name",
+             description="""This is optional field.
+             Mapping suite package name to fetch from github repository."""
+         ),
+         LOAD_TEST_DATA_DAG_PARAM_KEY: Param(
+             default=False,
+             type="boolean",
+             title="Load test data",
+             description="""This field is used to load test data."""
+         )
+     }
+     )
 def load_mapping_suite_in_database():
     @task
     @event_log(is_loggable=False)
@@ -77,7 +114,7 @@ def load_mapping_suite_in_database():
         task_id=CHECK_IF_LOAD_TEST_DATA_TASK_ID,
         python_callable=_branch_selector,
     )
-    finish_step = DummyOperator(task_id=FINISH_LOADING_MAPPING_SUITE_TASK_ID,
+    finish_step = EmptyOperator(task_id=FINISH_LOADING_MAPPING_SUITE_TASK_ID,
                                 trigger_rule=TriggerRule.NONE_FAILED_MIN_ONE_SUCCESS)
 
     trigger_document_proc_pipeline = TriggerNoticeBatchPipelineOperator(task_id=TRIGGER_DOCUMENT_PROC_PIPELINE_TASK_ID)

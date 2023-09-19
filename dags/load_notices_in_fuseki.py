@@ -1,4 +1,9 @@
+"""
+This DAG is used to load notices in Fuseki.
+"""
+
 from airflow.decorators import dag, task
+from airflow.models import Param
 from pymongo import MongoClient
 
 from dags import DEFAULT_DAG_ARGUMENTS
@@ -17,7 +22,24 @@ DEFAULT_FUSEKI_DATASET_NAME = "mdr_dataset"
 
 @dag(default_args=DEFAULT_DAG_ARGUMENTS,
      schedule_interval=None,
-     tags=['load', 'notices', 'fuseki'])
+     tags=['load', 'notices', 'fuseki'],
+     description=__doc__[0: __doc__.find(".")],
+     doc_md=__doc__,
+     params={
+            FUSEKI_DATASET_NAME_DAG_PARAM_KEY: Param(
+                default=DEFAULT_FUSEKI_DATASET_NAME,
+                type="string",
+                title="Fuseki dataset name",
+                description="This field is used to specify the name of the dataset in Fuseki."
+            ),
+            NOTICE_STATUS_DAG_PARAM_KEY: Param(
+                default=str(NoticeStatus.PUBLISHED),
+                type="string",
+                title="Notice status",
+                description="This field is used to filter notices by status."
+            )
+     }
+     )
 def load_notices_in_fuseki():
     @task
     def load_distilled_rdf_manifestations_in_fuseki():

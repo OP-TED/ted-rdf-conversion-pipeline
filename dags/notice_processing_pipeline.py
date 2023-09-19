@@ -1,3 +1,7 @@
+"""
+This DAG is used to process notices in batch mode.
+"""
+
 from typing import List
 
 from airflow.operators.python import BranchPythonOperator, PythonOperator
@@ -47,6 +51,8 @@ def branch_selector(result_branch: str, xcom_forward_keys: List[str] = [NOTICE_I
 
 @dag(default_args=DEFAULT_DAG_ARGUMENTS,
      schedule_interval=None,
+     description=__doc__[0: __doc__.find(".")],
+     doc_md=__doc__,
      max_active_runs=AIRFLOW_NUMBER_OF_WORKERS,
      max_active_tasks=1,
      tags=['worker', 'pipeline'])
@@ -78,7 +84,7 @@ def notice_processing_pipeline():
     def _stop_processing():
         notice_ids = smart_xcom_pull(key=NOTICE_IDS_KEY)
         if not notice_ids:
-            raise Exception(f"No notice has been processed!")
+            raise Exception("No notice has been processed!")
 
     start_processing = BranchPythonOperator(
         task_id=BRANCH_SELECTOR_TASK_ID,

@@ -1,5 +1,11 @@
-from datetime import datetime
+"""
+This DAG is responsible for fetching notices from TED by date range.
+"""
+
+from datetime import datetime, date
 from typing import Any
+
+from airflow.models import Param
 from dateutil import rrule
 
 from airflow.decorators import dag, task
@@ -29,11 +35,39 @@ def generate_wildcards_foreach_day_in_range(start_date: str, end_date: str) -> l
     """
     return [dt.strftime('%Y%m%d*')
             for dt in rrule.rrule(rrule.DAILY,
-                                  dtstart=datetime.strptime(start_date, '%Y%m%d'),
-                                  until=datetime.strptime(end_date, '%Y%m%d'))]
+                                  dtstart=datetime.strptime(start_date, '%Y-%m-%d'),
+                                  until=datetime.strptime(end_date, '%Y-%m-%d'))]
 
 
-@dag(default_args=DEFAULT_DAG_ARGUMENTS, schedule_interval=None, tags=['master'])
+@dag(default_args=DEFAULT_DAG_ARGUMENTS, schedule_interval=None, tags=['master'],
+     description=__doc__[0: __doc__.find(".")],
+     doc_md=__doc__,
+     params={
+         START_DATE_KEY: Param(
+             default=f"{date.today()}",
+             type="string",
+             format="date",
+             title="Start Date",
+             description="""This field is required.
+                    Start date of the date range to fetch notices from TED."""
+         ),
+         END_DATE_KEY: Param(
+             default=f"{date.today()}",
+             type="string",
+             format="date",
+             title="End Date",
+             description="""This field is required.
+                    End date of the date range to fetch notices from TED."""
+         ),
+         TRIGGER_COMPLETE_WORKFLOW_DAG_KEY: Param(
+             default=False,
+             type="boolean",
+             title="Trigger Complete Workflow",
+             description="""This field is required.
+                If true, the complete workflow will be triggered, otherwise only the partial workflow will be triggered."""
+         )
+     }
+     )
 def fetch_notices_by_date_range():
     @task
     @event_log(TechnicalEventMessage(
@@ -46,7 +80,8 @@ def fetch_notices_by_date_range():
         context: Any = get_current_context()
         start_date = get_dag_param(key=START_DATE_KEY, raise_error=True)
         end_date = get_dag_param(key=END_DATE_KEY, raise_error=True)
-        trigger_complete_workflow = get_dag_param(key=TRIGGER_COMPLETE_WORKFLOW_DAG_KEY, default_value=False)
+        trigger_complete_workflow = get_dag_param(key=TRIGGER_COMPLETE_WORKFLOW_DAG_KEY,
+                                                  default_value=False)
         date_wildcards = generate_wildcards_foreach_day_in_range(start_date, end_date)
         for date_wildcard in date_wildcards:
             TriggerDagRunOperator(

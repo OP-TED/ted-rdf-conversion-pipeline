@@ -1,3 +1,8 @@
+"""
+This DAG is responsible for checking the availability of notices in the cellar.
+"""
+
+
 from airflow.decorators import dag, task
 from pymongo import MongoClient
 
@@ -11,6 +16,8 @@ DAG_NAME = "daily_check_notices_availability_in_cellar"
 
 
 @dag(default_args=DEFAULT_DAG_ARGUMENTS,
+     description=__doc__[0: __doc__.find(".")],
+     doc_md=__doc__,
      catchup=False,
      schedule_interval="0 0 * * *",
      tags=['daily', 'validation'])

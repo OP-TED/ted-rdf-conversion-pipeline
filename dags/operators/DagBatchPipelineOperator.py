@@ -22,7 +22,7 @@ NOTICE_PROCESSING_PIPELINE_DAG_NAME = "notice_processing_pipeline"
 DEFAULT_START_WITH_TASK_ID = "notice_normalisation_pipeline"
 DEFAULT_PIPELINE_NAME_FOR_LOGS = "unknown_pipeline_name"
 AIRFLOW_NUMBER_OF_WORKERS = config.AIRFLOW_NUMBER_OF_WORKERS
-DEFAULT_BATCH_SIZE = 5000
+DEFAULT_BATCH_SIZE = 2000
 
 
 class BatchPipelineCallable(Protocol):

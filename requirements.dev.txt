@@ -9,4 +9,3 @@ pytest-cov~=4.1.0
 pytest-subtests~=0.11.0
 tox~=4.11.3
 tox-pytest-summary~=0.1.2
-uvicorn[standard]~=0.23.2

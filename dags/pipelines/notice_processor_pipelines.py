@@ -9,7 +9,7 @@ from ted_sws.notice_validator.services.entity_deduplication_validation import \
 
 def notice_normalisation_pipeline(notice: Notice, mongodb_client: MongoClient = None) -> NoticePipelineOutput:
     """
-
+        Notice normalisation pipeline. This pipeline is responsible for normalising the notice metadata.
     """
     from ted_sws.data_sampler.services.notice_xml_indexer import index_notice
     from ted_sws.notice_metadata_processor.services.metadata_normalizer import normalise_notice
@@ -19,8 +19,8 @@ def notice_normalisation_pipeline(notice: Notice, mongodb_client: MongoClient = 
         normalised_notice = normalise_notice(notice=indexed_notice)
         return NoticePipelineOutput(notice=normalised_notice)
     except Exception as error_message:
-        return NoticePipelineOutput(notice=indexed_notice, processed=False, store_result=True,
-                                    error_message=str(error_message))
+        return NoticePipelineOutput(notice=indexed_notice, processed=False,
+                                    store_result=True, error_message=str(error_message))
 
 
 def notice_transformation_pipeline(notice: Notice, mongodb_client: MongoClient) -> NoticePipelineOutput:

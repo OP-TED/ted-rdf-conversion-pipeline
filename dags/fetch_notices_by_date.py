@@ -2,7 +2,7 @@
 This DAG is used to fetch notices from TED by date.
 """
 
-from datetime import date, datetime
+from datetime import date, datetime, timedelta
 
 from airflow.decorators import dag, task
 from airflow.models import Param
@@ -22,7 +22,7 @@ from ted_sws.event_manager.services.log import log_error
 
 DAG_NAME = "fetch_notices_by_date"
 BATCH_SIZE = 2000
-WILD_CARD_DAG_KEY = "wild_card"
+FETCH_DATE_DAG_KEY = "fetch_date"
 TRIGGER_COMPLETE_WORKFLOW_DAG_KEY = "trigger_complete_workflow"
 TRIGGER_PARTIAL_WORKFLOW_TASK_ID = "trigger_partial_notice_proc_workflow"
 TRIGGER_COMPLETE_WORKFLOW_TASK_ID = "trigger_complete_notice_proc_workflow"
@@ -38,8 +38,8 @@ VALIDATE_FETCHED_NOTICES_TASK_ID = "validate_fetched_notices"
      timetable=CronTriggerTimetable('0 1 * * *', timezone='UTC'),
      tags=['selector', 'daily-fetch'],
      params={
-         WILD_CARD_DAG_KEY: Param(
-             default=f"{date.today()}",
+         FETCH_DATE_DAG_KEY: Param(
+             default=f"{date.today() - timedelta(days=1)}",
              type="string",
              format="date",
              title="Date",
@@ -64,7 +64,9 @@ def fetch_notices_by_date():
         ))
     )
     def fetch_by_date_notice_from_ted():
-        selected_date = datetime.strptime(get_dag_param(key=WILD_CARD_DAG_KEY, raise_error=True), "%Y-%m-%d")
+        default_date = (datetime.now() - timedelta(days=1)).strftime("%Y-%m-%d")
+        selected_date = datetime.strptime(get_dag_param(key=FETCH_DATE_DAG_KEY,
+                                                        default_value=default_date), "%Y-%m-%d")
         date_wild_card = datetime.strftime(selected_date, "%Y%m%d*")
         notice_ids = notice_fetcher_by_date_pipeline(date_wild_card=date_wild_card)
         if not notice_ids:
@@ -88,8 +90,10 @@ def fetch_notices_by_date():
         from ted_sws.supra_notice_manager.services.supra_notice_validator import validate_and_update_daily_supra_notice
         from datetime import datetime
         from pymongo import MongoClient
-
-        publication_date = datetime.strptime(get_dag_param(key=WILD_CARD_DAG_KEY), "%Y-%m-%d")
+        default_date = (datetime.now() - timedelta(days=1)).strftime("%Y-%m-%d")
+        publication_date = datetime.strptime(get_dag_param(key=FETCH_DATE_DAG_KEY,
+                                                           default_value=default_date
+                                                           ), "%Y-%m-%d")
         mongodb_client = MongoClient(config.MONGO_DB_AUTH_URL)
         validate_and_update_daily_supra_notice(ted_publication_date=publication_date, mongodb_client=mongodb_client)
 

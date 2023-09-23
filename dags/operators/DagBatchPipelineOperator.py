@@ -142,7 +142,7 @@ class TriggerNoticeBatchPipelineOperator(BaseOperator):
             self.execute_only_one_step = get_dag_param(key=EXECUTE_ONLY_ONE_STEP_KEY, default_value=False)
         notice_ids = pull_dag_upstream(key=NOTICE_IDS_KEY)
         if notice_ids:
-            if self.batch_size:
+            if not self.batch_size:
                 batch_size = 1 + len(notice_ids) // AIRFLOW_NUMBER_OF_WORKERS
                 batch_size = batch_size if batch_size < MAX_BATCH_SIZE else MAX_BATCH_SIZE
             else:

@@ -36,7 +36,8 @@ def reprocess_unnormalised_notices_from_backlog():
     def select_all_raw_notices():
         start_date = get_dag_param(key=START_DATE_DAG_PARAM)
         end_date = get_dag_param(key=END_DATE_DAG_PARAM)
-        notice_ids = notice_ids_selector_by_status(notice_statuses=[NoticeStatus.RAW], start_date=start_date,
+        notice_ids = notice_ids_selector_by_status(notice_statuses=[NoticeStatus.RAW, NoticeStatus.INDEXED],
+                                                   start_date=start_date,
                                                    end_date=end_date)
         push_dag_downstream(key=NOTICE_IDS_KEY, value=notice_ids)
 

@@ -81,7 +81,7 @@ class NoticeBatchPipelineOperator(BaseOperator):
             error_message = result_notice_pipeline.error_message
         except Exception as exception_error_message:
             error_message = str(exception_error_message)
-        if error_message is not None:
+        if error_message:
             notice_normalised_metadata = notice.normalised_metadata if notice else None
             log_notice_error(message=error_message, notice_id=notice_id, domain_action=pipeline_name,
                              notice_form_number=notice_normalised_metadata.form_number if notice_normalised_metadata else None,

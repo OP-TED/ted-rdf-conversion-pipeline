@@ -14,7 +14,7 @@ This module contains event message related models.
 """
 
 
-class EventMessageProcessType(Enum):
+class EventMessageProcessType(str, Enum):
     """
     Event message process type.
     """

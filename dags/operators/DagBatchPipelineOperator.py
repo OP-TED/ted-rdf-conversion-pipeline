@@ -70,15 +70,16 @@ class NoticeBatchPipelineOperator(BaseOperator):
             result_notice_pipeline = self.notice_pipeline_callable(notice, notice_repository.mongodb_client)
             if result_notice_pipeline.store_result:
                 notice_repository.update(notice=result_notice_pipeline.notice)
+            notice_event.end_record()
             if result_notice_pipeline.processed:
                 processed_notice_id = notice_id
-            notice_event.end_record()
-            if notice.normalised_metadata:
-                notice_event.notice_form_number = notice.normalised_metadata.form_number
-                notice_event.notice_eforms_subtype = notice.normalised_metadata.eforms_subtype
-                notice_event.notice_status = str(notice.status)
-            logger.info(event_message=notice_event)
+                if notice.normalised_metadata:
+                    notice_event.notice_form_number = notice.normalised_metadata.form_number
+                    notice_event.notice_eforms_subtype = notice.normalised_metadata.eforms_subtype
+                    notice_event.notice_status = str(notice.status)
+                logger.info(event_message=notice_event)
             error_message = result_notice_pipeline.error_message
+            print("ERROR  MESSAGE: ", error_message)
         except Exception as exception_error_message:
             error_message = str(exception_error_message)
         if error_message:

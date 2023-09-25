@@ -481,6 +481,9 @@ class Notice(LazyWorkExpression):
         if type(new_status) is not NoticeStatus:
             raise ValueError(f"Status must be a NoticeStatus")
 
+        print("Current status is :", self._status)
+        print("New status is :", new_status)
+
         if self._status < new_status:
             if new_status in NOTICE_STATUS_DOWNSTREAM_TRANSITION[self._status]:
                 self._status = new_status
@@ -507,3 +510,5 @@ class Notice(LazyWorkExpression):
             if new_status < NoticeStatus.PACKAGED:
                 self.remove_lazy_field(Notice.mets_manifestation)
                 self._mets_manifestation = None
+
+        print("Updated status is :", self._status)

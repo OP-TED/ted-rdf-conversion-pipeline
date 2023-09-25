@@ -79,7 +79,6 @@ class NoticeBatchPipelineOperator(BaseOperator):
                     notice_event.notice_status = str(notice.status)
                 logger.info(event_message=notice_event)
             error_message = result_notice_pipeline.error_message
-            print("ERROR  MESSAGE: ", error_message)
         except Exception as exception_error_message:
             error_message = str(exception_error_message)
         if error_message is not None:

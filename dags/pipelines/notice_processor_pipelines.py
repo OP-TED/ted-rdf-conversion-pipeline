@@ -18,10 +18,8 @@ def notice_normalisation_pipeline(notice: Notice, mongodb_client: MongoClient = 
     try:
         normalised_notice = normalise_notice(notice=indexed_notice)
         normalised_notice.update_status_to(new_status=NoticeStatus.NORMALISED_METADATA)
-        print("Notice normalisation pipeline succes: ", normalised_notice.ted_id)
         return NoticePipelineOutput(notice=normalised_notice)
     except Exception as error_message:
-        print("Notice normalisation pipeline error: ", normalised_notice.ted_id)
         return NoticePipelineOutput(notice=indexed_notice, processed=False,
                                     store_result=True, error_message=str(error_message))
 

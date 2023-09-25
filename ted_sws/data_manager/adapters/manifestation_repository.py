@@ -10,7 +10,8 @@ from ted_sws.core.model.manifestation import Manifestation, RDFManifestation, XM
 from ted_sws.data_manager.adapters.repository_abc import ManifestationRepositoryABC
 
 MONGODB_COLLECTION_ID = "_id"
-FILE_STORAGE_COLLECTION_NAME = "fs.files"
+MANIFESTATION_GRID_FS_COLLECTION_NAME = "manifestations_fs"
+FILE_STORAGE_COLLECTION_NAME = f"{MANIFESTATION_GRID_FS_COLLECTION_NAME}.files"
 MANIFESTATION_ID = "manifestation_id"
 OBJECT_DATA_KEY = "object_data"
 AGGREGATE_REFERENCE_ID = "ted_id"
@@ -26,7 +27,7 @@ class BaseManifestationRepository(ManifestationRepositoryABC):
         self._database_name = database_name
         self.mongodb_client = mongodb_client
         db = mongodb_client[self._database_name]
-        self.file_storage = gridfs.GridFS(db)  # TODO: Investigate how it works in multiple processes in parallel.
+        self.file_storage = gridfs.GridFS(db, collection=MANIFESTATION_GRID_FS_COLLECTION_NAME)  # TODO: Investigate how it works in multiple processes in parallel.
         self.collection = db[self._collection_name]
         self.collection.create_index([(AGGREGATE_REFERENCE_ID, ASCENDING)])
         self.file_storage_collection = db[FILE_STORAGE_COLLECTION_NAME]

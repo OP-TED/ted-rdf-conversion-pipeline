@@ -5,6 +5,7 @@ from typing import Optional, Union, Dict, Any
 from pydantic import Field
 
 from ted_sws.core.model import PropertyBaseModel, BaseModel
+from ted_sws.core.model.notice import NoticeStatus
 from ted_sws.event_manager.adapters.log import SeverityLevelType
 
 DictType = Union[Dict[str, Any], None]
@@ -111,7 +112,7 @@ class NoticeEventMessage(EventMessage):
     domain_action: Optional[str] = None
     notice_form_number: Optional[str] = None
     notice_eforms_subtype: Optional[str] = None
-    notice_status: Optional[str] = None
+    notice_status: Optional[NoticeStatus] = None
 
 
 class MappingSuiteEventMessage(EventMessage):

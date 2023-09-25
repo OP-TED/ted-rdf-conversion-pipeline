@@ -479,7 +479,7 @@ class Notice(LazyWorkExpression):
         :return:
         """
         if type(new_status) is not NoticeStatus:
-            raise ValueError(f"Status must be a NoticeStatus")
+            raise ValueError("Status must be a NoticeStatus")
 
         if self._status < new_status:
             if new_status in NOTICE_STATUS_DOWNSTREAM_TRANSITION[self._status]:

@@ -4,7 +4,7 @@ from typing import List
 
 from ted_sws.core.model.manifestation import XMLManifestation
 from ted_sws.core.model.metadata import TEDMetadata
-from ted_sws.core.model.notice import Notice
+from ted_sws.core.model.notice import Notice, NoticeStatus
 from ted_sws.data_manager.adapters.repository_abc import NoticeRepositoryABC
 from ted_sws.notice_fetcher.adapters.ted_api_abc import TedAPIAdapterABC
 
@@ -77,18 +77,26 @@ class NoticeFetcher(NoticeFetcherABC):
         notice.set_original_metadata(original_metadata)
         return notice
 
-    def _store_to_notice_repository(self, documents: List[dict]) -> List[str]:
+    def _store_document_to_notice_repository(self, document: dict) -> str:
+        """
+            This method stores a document in NoticeRepository and returns the notice_id.
+        :param document:
+        :return:
+        """
+        notice_id = document["ND"]
+        already_fetched_notice = self.notice_repository.get(reference=notice_id)
+        if already_fetched_notice:
+            already_fetched_notice.update_status_to(NoticeStatus.RAW)
+        self.notice_repository.add(notice=self._create_notice(notice_data=document))
+        return notice_id
+
+    def _store_documents_to_notice_repository(self, documents: List[dict]) -> List[str]:
         """
             This method stores documents in NoticeRepository and returns the list of stored notice_id.
         :param documents:
         :return:
         """
-        notice_ids = set()
-        for document in documents:
-            notice_ids.add(document["ND"])
-            self.notice_repository.add(notice=self._create_notice(notice_data=document))
-
-        return list(notice_ids)
+        return list({self._store_document_to_notice_repository(document=document) for document in documents})
 
     def fetch_notice_by_id(self, document_id):
         """
@@ -97,7 +105,7 @@ class NoticeFetcher(NoticeFetcherABC):
         :return:
         """
         document_result = self.ted_api_adapter.get_by_id(document_id=document_id)
-        self.notice_repository.add(notice=self._create_notice(notice_data=document_result))
+        self._store_document_to_notice_repository(document=document_result)
 
     def fetch_notices_by_query(self, query: dict) -> List[str]:
         """
@@ -106,7 +114,7 @@ class NoticeFetcher(NoticeFetcherABC):
         :return:
         """
         documents = self.ted_api_adapter.get_by_query(query=query)
-        return self._store_to_notice_repository(documents=documents)
+        return self._store_documents_to_notice_repository(documents=documents)
 
     def fetch_notices_by_date_range(self, start_date: date, end_date: date) -> List[str]:
         """
@@ -116,7 +124,7 @@ class NoticeFetcher(NoticeFetcherABC):
         :return:
         """
         documents = self.ted_api_adapter.get_by_range_date(start_date=start_date, end_date=end_date)
-        return self._store_to_notice_repository(documents=documents)
+        return self._store_documents_to_notice_repository(documents=documents)
 
     def fetch_notices_by_date_wild_card(self, wildcard_date: str) -> List[str]:
         """
@@ -125,4 +133,4 @@ class NoticeFetcher(NoticeFetcherABC):
         :return:
         """
         documents = self.ted_api_adapter.get_by_wildcard_date(wildcard_date=wildcard_date)
-        return self._store_to_notice_repository(documents=documents)
+        return self._store_documents_to_notice_repository(documents=documents)

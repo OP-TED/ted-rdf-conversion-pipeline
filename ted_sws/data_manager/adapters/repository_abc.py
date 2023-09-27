@@ -53,6 +53,7 @@ class MetadataRepositoryABC(RepositoryABC):
         :return:
         """
 
+
 class ManifestationRepositoryABC(RepositoryABC):
     """
        This repository is intended for storing Manifestation objects.
@@ -91,6 +92,7 @@ class ManifestationRepositoryABC(RepositoryABC):
         :param reference:
         :return:
         """
+
 
 class NoticeRepositoryABC(RepositoryABC):
     """

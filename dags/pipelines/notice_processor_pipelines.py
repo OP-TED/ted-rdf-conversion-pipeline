@@ -113,17 +113,40 @@ def notice_publish_pipeline(notice: Notice, mongodb_client: MongoClient = None) 
     from ted_sws.event_manager.services.log import log_notice_error
     from ted_sws import config
     notice.update_status_to(new_status=NoticeStatus.PACKAGED)
-    if config.S3_PUBLISH_ENABLED:
-        published_rdf_into_s3 = publish_notice_rdf_into_s3(notice=notice)
+
+    unpublished_channels_count: int = 0
+    if config.S3_PUBLISH_NOTICE_BUCKET:
         publish_notice_into_s3 = publish_notice_into_s3(notice=notice)
-        if not (published_rdf_into_s3 and publish_notice_into_s3):
-            log_notice_error(message="Can't load notice distilled rdf manifestation and METS package into S3 bucket!",
+        if not publish_notice_into_s3:
+            unpublished_channels_count += 1
+            log_notice_error(message="Can't load METS package into S3 bucket!",
                              notice_id=notice.ted_id, notice_status=notice.status,
                              notice_form_number=notice.normalised_metadata.form_number,
                              notice_eforms_subtype=notice.normalised_metadata.eforms_subtype)
+
+
+    if config.S3_PUBLISH_NOTICE_RDF_BUCKET:
+        published_rdf_into_s3 = publish_notice_rdf_into_s3(notice=notice)
+        if not published_rdf_into_s3:
+            unpublished_channels_count += 1
+            log_notice_error(message="Can't load notice distilled rdf manifestation into S3 bucket!",
+                             notice_id=notice.ted_id, notice_status=notice.status,
+                             notice_form_number=notice.normalised_metadata.form_number,
+                             notice_eforms_subtype=notice.normalised_metadata.eforms_subtype)
+
     notice.set_is_eligible_for_publishing(eligibility=True)
-    result = publish_notice(notice=notice)
-    if result:
+
+    if config.SFTP_PUBLISH_HOST:
+        sftp_publish_result = publish_notice(notice=notice)
+        if not sftp_publish_result:
+            unpublished_channels_count += 1
+            log_notice_error(message="Can't load notice METS package into SFTP server!",
+                             notice_id=notice.ted_id, notice_status=notice.status,
+                             notice_form_number=notice.normalised_metadata.form_number,
+                             notice_eforms_subtype=notice.normalised_metadata.eforms_subtype)
+
+
+    if unpublished_channels_count == 0:
         return NoticePipelineOutput(notice=notice)
     else:
         notice.set_is_eligible_for_publishing(eligibility=False)

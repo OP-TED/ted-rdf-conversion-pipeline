@@ -257,9 +257,6 @@ class S3PublishConfig:
     def S3_PUBLISH_NOTICE_RDF_BUCKET(self, config_value: str) -> str:
         return config_value
 
-    @env_property(config_resolver_class=AirflowAndEnvConfigResolver, default_value="false")
-    def S3_PUBLISH_ENABLED(self, config_value: str) -> bool:
-        return config_value.lower() in ["1", "true"]
 
 
 class AirflowConfig:

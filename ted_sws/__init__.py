@@ -165,6 +165,10 @@ class TedAPIConfig:
     def TED_API_URL(self, config_value: str) -> str:
         return config_value
 
+    @env_property(config_resolver_class=AirflowAndEnvConfigResolver)
+    def TED_WEBAPI_SPARQL_URL(self, config_value: str) -> str:
+        return config_value
+
 
 class FusekiConfig:
     @env_property()
@@ -256,7 +260,6 @@ class S3PublishConfig:
     @env_property(config_resolver_class=AirflowAndEnvConfigResolver, default_value="notice-rdf")
     def S3_PUBLISH_NOTICE_RDF_BUCKET(self, config_value: str) -> str:
         return config_value
-
 
 
 class AirflowConfig:

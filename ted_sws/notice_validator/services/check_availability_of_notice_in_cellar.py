@@ -1,6 +1,8 @@
 import time
 from typing import List, Set
 from pymongo import MongoClient
+
+from ted_sws import config
 from ted_sws.core.model.notice import Notice, NoticeStatus
 from ted_sws.core.service.batch_processing import chunks
 from ted_sws.data_manager.adapters.notice_repository import NoticeRepository
@@ -9,33 +11,36 @@ from ted_sws.event_manager.services.log import log_notice_error
 from ted_sws.notice_validator.resources import NOTICE_AVAILABILITY_SPARQL_QUERY_TEMPLATE_PATH, \
     NOTICES_AVAILABILITY_SPARQL_QUERY_TEMPLATE_PATH, GET_NOTICE_URI_SPARQL_QUERY_TEMPLATE_PATH
 
-WEBAPI_SPARQL_URL = "https://publications.europa.eu/webapi/rdf/sparql"
 WEBAPI_SPARQL_RUN_FORMAT = "application/sparql-results+json"
 INVALID_NOTICE_URI = 'https://www.w3.org/1999/02/22-rdf-syntax-ns#type-invalid'
 DEFAULT_NOTICES_BATCH_SIZE = 5000
 DEFAULT_CELLAR_REQUEST_DELAY = 3
 
 
-def check_availability_of_notice_in_cellar(notice_uri: str, endpoint_url: str = WEBAPI_SPARQL_URL) -> bool:
+def check_availability_of_notice_in_cellar(notice_uri: str, endpoint_url: str = None) -> bool:
     """
     This service checks the notice availability in Cellar
     :param notice_uri:
     :param endpoint_url:
     :return:
     """
+    if not endpoint_url:
+        endpoint_url = config.TED_WEBAPI_SPARQL_URL
     query_template = NOTICE_AVAILABILITY_SPARQL_QUERY_TEMPLATE_PATH.read_text(encoding="utf-8")
     query = query_template.format(notice_uri=notice_uri)
     result = SPARQLTripleStoreEndpoint(endpoint_url=endpoint_url).with_query(sparql_query=query).fetch_tree()
     return result['boolean']
 
 
-def check_availability_of_notices_in_cellar(notice_uries: List[str], endpoint_url: str = WEBAPI_SPARQL_URL) -> Set[str]:
+def check_availability_of_notices_in_cellar(notice_uries: List[str], endpoint_url: str = None) -> Set[str]:
     """
     This service check the notices availability in Cellar, and return available set of notice uries.
     :param notice_uries:
     :param endpoint_url:
     :return:
     """
+    if not endpoint_url:
+        endpoint_url = config.TED_WEBAPI_SPARQL_URL
     query_template = NOTICES_AVAILABILITY_SPARQL_QUERY_TEMPLATE_PATH.read_text(encoding="utf-8")
     notice_uries = " ".join([f"<{notice_uri}>" for notice_uri in notice_uries])
     query = query_template.format(notice_uries=notice_uries)

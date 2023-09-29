@@ -19,7 +19,7 @@ services:
   metabase:
     container_name: metabase-${ENVIRONMENT}
     restart: unless-stopped
-    image: metabase/metabase:v0.44.6
+    image: metabase/metabase:v0.47.2
     environment:
       - MB_DB_TYPE=postgres
       - MB_DB_DBNAME=${ENV_MB_DB_DBNAME}

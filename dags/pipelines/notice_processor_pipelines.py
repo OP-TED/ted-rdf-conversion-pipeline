@@ -115,7 +115,7 @@ def notice_publish_pipeline(notice: Notice, mongodb_client: MongoClient = None) 
     notice.update_status_to(new_status=NoticeStatus.PACKAGED)
 
     unpublished_channels_count: int = 0
-    if config.S3_PUBLISH_NOTICE_ENABLED:
+    if config.S3_PUBLISH_NOTICE_BUCKET:
         publish_notice_into_s3 = publish_notice_into_s3(notice=notice)
         if not publish_notice_into_s3:
             unpublished_channels_count += 1
@@ -125,7 +125,7 @@ def notice_publish_pipeline(notice: Notice, mongodb_client: MongoClient = None) 
                              notice_eforms_subtype=notice.normalised_metadata.eforms_subtype)
 
 
-    if config.S3_PUBLISH_NOTICE_RDF_ENABLED:
+    if config.S3_PUBLISH_NOTICE_RDF_BUCKET:
         published_rdf_into_s3 = publish_notice_rdf_into_s3(notice=notice)
         if not published_rdf_into_s3:
             unpublished_channels_count += 1
@@ -136,7 +136,7 @@ def notice_publish_pipeline(notice: Notice, mongodb_client: MongoClient = None) 
 
     notice.set_is_eligible_for_publishing(eligibility=True)
 
-    if config.SFTP_PUBLISH_NOTICE_ENABLED:
+    if config.SFTP_PUBLISH_HOST:
         sftp_publish_result = publish_notice(notice=notice)
         if not sftp_publish_result:
             unpublished_channels_count += 1

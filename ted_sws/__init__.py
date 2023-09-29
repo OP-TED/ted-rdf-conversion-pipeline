@@ -216,10 +216,6 @@ class SFTPConfig:
             sftp_private_key_base64 = base64.b64decode(str(sftp_private_key_base64)).decode(encoding="utf-8")
         return sftp_private_key_base64
 
-    @env_property(config_resolver_class=AirflowAndEnvConfigResolver, default_value="false")
-    def SFTP_PUBLISH_NOTICE_ENABLED(self, config_value: str) -> bool:
-        return config_value.lower() in ["1", "true"]
-
 
 class SPARQLConfig:
 
@@ -261,13 +257,6 @@ class S3PublishConfig:
     def S3_PUBLISH_NOTICE_RDF_BUCKET(self, config_value: str) -> str:
         return config_value
 
-    @env_property(config_resolver_class=AirflowAndEnvConfigResolver, default_value="false")
-    def S3_PUBLISH_NOTICE_ENABLED(self, config_value: str) -> bool:
-        return config_value.lower() in ["1", "true"]
-
-    @env_property(config_resolver_class=AirflowAndEnvConfigResolver, default_value="false")
-    def S3_PUBLISH_NOTICE_RDF_ENABLED(self, config_value: str) -> bool:
-        return config_value.lower() in ["1", "true"]
 
 
 class AirflowConfig:

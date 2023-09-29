@@ -52,10 +52,10 @@ class ConceptualMappingReader:
         return base_xpath + xpath
 
     @classmethod
-    def _read_pd_value(cls, value, default=""):
+    def _read_str_pd_value(cls, value, default: str = "") -> str:
         if pd.isna(value):
             return default
-        return value
+        return str(value)
 
     @classmethod
     def read_list_from_pd_value(cls, value) -> list:
@@ -101,19 +101,19 @@ class ConceptualMappingReader:
 
         metadata: ConceptualMappingMetadata = ConceptualMappingMetadata()
 
-        metadata.identifier = cls._read_pd_value(raw_metadata[IDENTIFIER_FIELD][0])
-        metadata.title = cls._read_pd_value(raw_metadata[TITLE_FIELD][0])
-        metadata.description = cls._read_pd_value(raw_metadata[DESCRIPTION_FIELD][0])
-        metadata.mapping_version = cls._read_pd_value(raw_metadata[VERSION_FIELD][0])
-        metadata.epo_version = cls._read_pd_value(raw_metadata[EPO_VERSION_FIELD][0])
-        metadata.base_xpath = cls._read_pd_value(raw_metadata[BASE_XPATH_FIELD][0])
+        metadata.identifier = cls._read_str_pd_value(raw_metadata[IDENTIFIER_FIELD][0])
+        metadata.title = cls._read_str_pd_value(raw_metadata[TITLE_FIELD][0])
+        metadata.description = cls._read_str_pd_value(raw_metadata[DESCRIPTION_FIELD][0])
+        metadata.mapping_version = cls._read_str_pd_value(raw_metadata[VERSION_FIELD][0])
+        metadata.epo_version = cls._read_str_pd_value(raw_metadata[EPO_VERSION_FIELD][0])
+        metadata.base_xpath = cls._read_str_pd_value(raw_metadata[BASE_XPATH_FIELD][0])
 
         metadata_constraints: ConceptualMappingMetadataConstraints = ConceptualMappingMetadataConstraints()
         metadata_constraints.eforms_subtype = cls.read_list_from_pd_value(raw_metadata[E_FORMS_SUBTYPE_FIELD][0])
-        metadata_constraints.start_date = str(cls._read_pd_value(raw_metadata[START_DATE_FIELD][0]))
-        metadata_constraints.end_date = str(cls._read_pd_value(raw_metadata[END_DATE_FIELD][0]))
-        metadata_constraints.min_xsd_version = cls._read_pd_value(raw_metadata[MIN_XSD_VERSION_FIELD][0])
-        metadata_constraints.max_xsd_version = cls._read_pd_value(raw_metadata[MAX_XSD_VERSION_FIELD][0])
+        metadata_constraints.start_date = str(cls._read_str_pd_value(raw_metadata[START_DATE_FIELD][0]))
+        metadata_constraints.end_date = str(cls._read_str_pd_value(raw_metadata[END_DATE_FIELD][0]))
+        metadata_constraints.min_xsd_version = cls._read_str_pd_value(raw_metadata[MIN_XSD_VERSION_FIELD][0])
+        metadata_constraints.max_xsd_version = cls._read_str_pd_value(raw_metadata[MAX_XSD_VERSION_FIELD][0])
         metadata.metadata_constraints = metadata_constraints
 
         return metadata
@@ -135,10 +135,10 @@ class ConceptualMappingReader:
         rule: ConceptualMappingRule
         for idx, row in rules_df.iterrows():
             rule = ConceptualMappingRule()
-            rule.standard_form_field_id = cls._read_pd_value(row[RULES_SF_FIELD_ID])
-            rule.standard_form_field_name = cls._read_pd_value(row[RULES_SF_FIELD_NAME])
-            rule.eform_bt_id = cls._read_pd_value(row[RULES_E_FORM_BT_ID])
-            rule.eform_bt_name = cls._read_pd_value(row[RULES_E_FORM_BT_NAME])
+            rule.standard_form_field_id = cls._read_str_pd_value(row[RULES_SF_FIELD_ID])
+            rule.standard_form_field_name = cls._read_str_pd_value(row[RULES_SF_FIELD_NAME])
+            rule.eform_bt_id = cls._read_str_pd_value(row[RULES_E_FORM_BT_ID])
+            rule.eform_bt_name = cls._read_str_pd_value(row[RULES_E_FORM_BT_NAME])
             rule.field_xpath = cls._read_list_from_pd_multiline_value(row[RULES_FIELD_XPATH])
             rule.field_xpath_condition = cls._read_list_from_pd_multiline_value(row[RULES_FIELD_XPATH_CONDITION])
             rule.class_path = cls._read_list_from_pd_multiline_value(row[RULES_CLASS_PATH])
@@ -159,8 +159,8 @@ class ConceptualMappingReader:
         remark: ConceptualMappingRemark
         for idx, row in remarks_df.iterrows():
             remark = ConceptualMappingRemark()
-            remark.standard_form_field_id = cls._read_pd_value(row[RULES_SF_FIELD_ID])
-            remark.standard_form_field_name = cls._read_pd_value(row[RULES_SF_FIELD_NAME])
+            remark.standard_form_field_id = cls._read_str_pd_value(row[RULES_SF_FIELD_ID])
+            remark.standard_form_field_name = cls._read_str_pd_value(row[RULES_SF_FIELD_NAME])
             remarked_xpaths = cls._read_list_from_pd_multiline_value(row[RULES_FIELD_XPATH])
             if remarked_xpaths:
                 remark.field_xpath = []
@@ -181,7 +181,7 @@ class ConceptualMappingReader:
         resource: ConceptualMappingResource
         for value in list(df[FILE_NAME_KEY].values):
             resource = ConceptualMappingResource()
-            resource.file_name = cls._read_pd_value(value)
+            resource.file_name = cls._read_str_pd_value(value)
             resources.append(resource)
         return resources
 
@@ -197,7 +197,7 @@ class ConceptualMappingReader:
         rml_module: ConceptualMappingRMLModule
         for value in list(df[FILE_NAME_KEY].values):
             rml_module = ConceptualMappingRMLModule()
-            rml_module.file_name = cls._read_pd_value(value)
+            rml_module.file_name = cls._read_str_pd_value(value)
             rml_modules.append(rml_module)
         return rml_modules
 
@@ -216,10 +216,10 @@ class ConceptualMappingReader:
         item: ConceptualMappingControlList
         for idx, row in control_list_df.iterrows():
             item = ConceptualMappingControlList()
-            item.field_value = cls._read_pd_value(row[CL_FIELD_VALUE])
-            item.mapping_reference = cls._read_pd_value(row[CL_MAPPING_REFERENCE])
-            item.super_type = cls._read_pd_value(row[CL_SUPERTYPE])
-            item.xml_path_fragment = cls._read_pd_value(row[CL_XML_PATH_FRAGMENT])
+            item.field_value = cls._read_str_pd_value(row[CL_FIELD_VALUE])
+            item.mapping_reference = cls._read_str_pd_value(row[CL_MAPPING_REFERENCE])
+            item.super_type = cls._read_str_pd_value(row[CL_SUPERTYPE])
+            item.xml_path_fragment = cls._read_str_pd_value(row[CL_XML_PATH_FRAGMENT])
             control_list.append(item)
         return control_list
 

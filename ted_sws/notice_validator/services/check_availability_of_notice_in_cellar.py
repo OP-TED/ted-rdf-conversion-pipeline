@@ -25,7 +25,7 @@ def check_availability_of_notice_in_cellar(notice_uri: str, endpoint_url: str = 
     :return:
     """
     if not endpoint_url:
-        endpoint_url = config.TED_WEBAPI_SPARQL_URL
+        endpoint_url = config.CELLAR_WEBAPI_SPARQL_URL
     query_template = NOTICE_AVAILABILITY_SPARQL_QUERY_TEMPLATE_PATH.read_text(encoding="utf-8")
     query = query_template.format(notice_uri=notice_uri)
     result = SPARQLTripleStoreEndpoint(endpoint_url=endpoint_url).with_query(sparql_query=query).fetch_tree()
@@ -40,7 +40,7 @@ def check_availability_of_notices_in_cellar(notice_uries: List[str], endpoint_ur
     :return:
     """
     if not endpoint_url:
-        endpoint_url = config.TED_WEBAPI_SPARQL_URL
+        endpoint_url = config.CELLAR_WEBAPI_SPARQL_URL
     query_template = NOTICES_AVAILABILITY_SPARQL_QUERY_TEMPLATE_PATH.read_text(encoding="utf-8")
     notice_uries = " ".join([f"<{notice_uri}>" for notice_uri in notice_uries])
     query = query_template.format(notice_uries=notice_uries)

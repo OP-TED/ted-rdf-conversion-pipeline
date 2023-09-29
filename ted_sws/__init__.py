@@ -166,7 +166,7 @@ class TedAPIConfig:
         return config_value
 
     @env_property(config_resolver_class=AirflowAndEnvConfigResolver)
-    def TED_WEBAPI_SPARQL_URL(self, config_value: str) -> str:
+    def CELLAR_WEBAPI_SPARQL_URL(self, config_value: str) -> str:
         return config_value
 
 

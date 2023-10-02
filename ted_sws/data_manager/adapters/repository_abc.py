@@ -4,7 +4,7 @@ from typing import Iterator, Optional
 from ted_sws.core.model.manifestation import Manifestation
 from ted_sws.core.model.metadata import Metadata
 from ted_sws.core.model.notice import Notice
-from ted_sws.core.model.supra_notice import DailySupraNotice
+from ted_sws.core.model.supra_notice import DailySupraNotice, DailyNoticesMetadata
 from ted_sws.core.model.transform import MappingSuite
 
 
@@ -202,4 +202,41 @@ class DailySupraNoticeRepositoryABC(RepositoryABC):
         """
             This method allows all records to be retrieved from the repository.
         :return: list of DailySupraNotice
+        """
+
+
+class DailyNoticesMetadataRepositoryABC(RepositoryABC):
+    """
+       This repository is intended for storing DailyNoticesMetadata objects.
+    """
+
+    @abc.abstractmethod
+    def add(self, daily_notices_metadata: DailyNoticesMetadata):
+        """
+            This method allows you to add DailyNoticesMetadata objects to the repository.
+        :param daily_notices_metadata:
+        :return:
+        """
+
+    @abc.abstractmethod
+    def update(self, daily_notices_metadata: DailyNoticesMetadata):
+        """
+            This method allows you to update DailyNoticesMetadata objects to the repository
+        :param daily_notices_metadata:
+        :return:
+        """
+
+    @abc.abstractmethod
+    def get(self, reference) -> DailyNoticesMetadata:
+        """
+            This method allows a DailyNoticesMetadata to be obtained based on an identification reference.
+        :param reference:
+        :return: DailyNoticesMetadata
+        """
+
+    @abc.abstractmethod
+    def list(self) -> Iterator[DailyNoticesMetadata]:
+        """
+            This method allows all records to be retrieved from the repository.
+        :return: list of DailyNoticesMetadata
         """

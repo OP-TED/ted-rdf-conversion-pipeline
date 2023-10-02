@@ -6,6 +6,7 @@
 # Email: costezki.eugen@gmail.com 
 
 """ """
+from datetime import datetime, date
 
 import pytest
 
@@ -14,6 +15,7 @@ from ted_sws.core.model.manifestation import XMLManifestation, RDFManifestation,
     XPATHCoverageValidationReport
 from ted_sws.core.model.metadata import TEDMetadata, NormalisedMetadata
 from ted_sws.core.model.notice import Notice, NoticeStatus
+from ted_sws.core.model.supra_notice import DailyNoticesMetadata
 
 
 @pytest.fixture
@@ -77,3 +79,12 @@ def transformation_eligible_notice(indexed_notice) -> Notice:
     indexed_notice.set_normalised_metadata(normalised_metadata=NormalisedMetadata(**{"AA": "notice metadata "}))
     indexed_notice.update_status_to(NoticeStatus.ELIGIBLE_FOR_TRANSFORMATION)
     return indexed_notice
+
+
+@pytest.fixture()
+def notice_aggregation_date_date() -> date:
+    return datetime.strptime("2021-01-08", "%Y-%m-%d")
+
+@pytest.fixture()
+def daily_notice_metadata(notice_aggregation_date_date) -> DailyNoticesMetadata:
+    return DailyNoticesMetadata(aggregation_date=notice_aggregation_date_date)

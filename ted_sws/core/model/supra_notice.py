@@ -78,6 +78,13 @@ class DailyNoticesMetadata(DailyNoticesMetadataABC):
 
     @computed_field
     @property
+    def fetched_notices_coverage(self) -> float:
+        if self.fetched_notices_count > 0:
+            return self.ted_api_notice_count / self.fetched_notices_count
+        return 0
+
+    @computed_field
+    @property
     def notice_statuses_coverage(self) -> dict:
         ted_api_notice_count = self.ted_api_notice_count or 1
         return {f"{notice_status}_coverage": notice_status_count / ted_api_notice_count

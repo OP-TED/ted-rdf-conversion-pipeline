@@ -83,7 +83,7 @@ def update_daily_notices_metadata_from_ted(start_date: date = None,
     # Generate list of dates from date range
     date_range = generate_list_of_dates_from_date_range(start_date, end_date)
 
-    # Getting from metadata repository dates that are not in the repository from date range
+    # Getting from metadata repository dates that are not in the repository from date rangeasdasd
     dates_not_in_repository = [day for day in date_range if
                                day not in daily_notices_metadata_repo.list_daily_notices_metadata_aggregation_date()]
 
@@ -127,7 +127,7 @@ def update_daily_notices_metadata_with_fetched_data(start_date: date = None,
         mapping_suite_packages = []
         fetched_notice_ids = []
         notice_statuses = {notice_status: 0 for notice_status in daily_notices_metadata.notice_statuses.keys()}
-        result_notice_statuses = notice_statuses.copy()
+
 
         for notice_id in daily_notices_metadata.ted_api_notice_ids:
             notice: Notice = notice_repo.get(notice_id)
@@ -141,6 +141,7 @@ def update_daily_notices_metadata_with_fetched_data(start_date: date = None,
                     if mapping_suite_id not in mapping_suite_packages:
                         mapping_suite_packages.append(mapping_suite_id)
 
+        result_notice_statuses = notice_statuses.copy()
         #result_notice_statuses = {notice_status: 0 for notice_status in daily_notices_metadata.notice_statuses.keys()}
         for current_notice_status, linked_notice_statuses in NOTICE_STATUS_COVERAGE_DOWNSTREAM_TRANSITION.items():
             current_notice_status = str(current_notice_status)
@@ -154,3 +155,5 @@ def update_daily_notices_metadata_with_fetched_data(start_date: date = None,
         daily_notices_metadata.mapping_suite_packages = mapping_suite_packages
         daily_notices_metadata.fetched_notice_ids = fetched_notice_ids
         daily_notices_metadata_repo.update(daily_notices_metadata)
+
+

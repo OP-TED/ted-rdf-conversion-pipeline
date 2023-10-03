@@ -127,6 +127,7 @@ def update_daily_notices_metadata_with_fetched_data(start_date: date = None,
         mapping_suite_packages = []
         fetched_notice_ids = []
         notice_statuses = {notice_status: 0 for notice_status in daily_notices_metadata.notice_statuses.keys()}
+        result_notice_statuses = notice_statuses.copy()
 
         for notice_id in daily_notices_metadata.ted_api_notice_ids:
             notice: Notice = notice_repo.get(notice_id)
@@ -140,15 +141,16 @@ def update_daily_notices_metadata_with_fetched_data(start_date: date = None,
                     if mapping_suite_id not in mapping_suite_packages:
                         mapping_suite_packages.append(mapping_suite_id)
 
+        #result_notice_statuses = {notice_status: 0 for notice_status in daily_notices_metadata.notice_statuses.keys()}
         for current_notice_status, linked_notice_statuses in NOTICE_STATUS_COVERAGE_DOWNSTREAM_TRANSITION.items():
             current_notice_status = str(current_notice_status)
             if notice_statuses[current_notice_status] > 0:
                 for linked_notice_status in linked_notice_statuses:
-                    linked_notice_status = linked_notice_status
-                    notice_statuses[linked_notice_status] += notice_statuses[current_notice_status]
+                    #linked_notice_status = linked_notice_status
+                    result_notice_statuses[str(linked_notice_status)] += notice_statuses[current_notice_status]
 
 
-        daily_notices_metadata.notice_statuses = notice_statuses
+        daily_notices_metadata.notice_statuses = result_notice_statuses
         daily_notices_metadata.mapping_suite_packages = mapping_suite_packages
         daily_notices_metadata.fetched_notice_ids = fetched_notice_ids
         daily_notices_metadata_repo.update(daily_notices_metadata)

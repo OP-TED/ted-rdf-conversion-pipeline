@@ -61,7 +61,7 @@ class DailyNoticesMetadataABC(PropertyBaseModel):
         orm_mode = True
 
 
-NOTICE_STATUSES_DEFAULT_STATS = {notice_status: 0 for notice_status in NoticeStatus}
+NOTICE_STATUSES_DEFAULT_STATS = {str(notice_status): 0 for notice_status in NoticeStatus}
 
 
 class DailyNoticesMetadata(DailyNoticesMetadataABC):

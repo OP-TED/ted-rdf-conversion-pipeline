@@ -1,8 +1,11 @@
 from datetime import date
 
+from pymongo import MongoClient
+
 from ted_sws import config
 from ted_sws.data_manager.adapters.daily_notices_metadata_repository import DailyNoticesMetadataRepository
-from ted_sws.data_manager.services.daily_notices_metadata_services import update_daily_notices_metadata_from_ted
+from ted_sws.data_manager.services.daily_notices_metadata_services import update_daily_notices_metadata_from_ted, \
+    update_daily_notices_metadata_with_fetched_data
 from ted_sws.notice_fetcher.adapters.ted_api import TedAPIAdapter, TedRequestAPI
 
 
@@ -25,3 +28,17 @@ def test_update_daily_notices_metadata_from_ted(mongodb_client):
     #                                        ted_api=ted_api,
     #                                        mongo_client=mongodb_client,
     #                                        daily_notices_metadata_repo=daily_notices_metadata_repo)
+
+
+def test_update_daily_notices_metadata_with_fetched_data(): #mongodb_client
+    mongodb_client = MongoClient(config.MONGO_DB_AUTH_URL)
+
+    ted_api = TedAPIAdapter(TedRequestAPI(), config.TED_API_URL)
+
+
+    daily_notices_metadata_repo = DailyNoticesMetadataRepository(mongodb_client)
+
+    update_daily_notices_metadata_with_fetched_data(start_date=date(2021, 1, 7),
+                                                    end_date=date(2021, 1, 7),
+                                                    mongo_client=mongodb_client,
+                                                    daily_notices_metadata_repo=daily_notices_metadata_repo)

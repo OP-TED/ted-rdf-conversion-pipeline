@@ -1,5 +1,5 @@
 from datetime import date, datetime, timedelta
-from typing import Optional
+from typing import Optional, List
 
 from dateutil import rrule
 from pymongo import MongoClient
@@ -48,7 +48,7 @@ NOTICE_STATUS_COVERAGE_DOWNSTREAM_TRANSITION = {
 }
 
 
-def generate_list_of_dates_from_date_range(start_date: date, end_date: date) -> Optional[list]:
+def generate_list_of_dates_from_date_range(start_date: date, end_date: date) -> Optional[List[date]]:
     """
         Given a date range returns all daily dates in that range
     :param start_date:
@@ -57,7 +57,7 @@ def generate_list_of_dates_from_date_range(start_date: date, end_date: date) -> 
     """
     if start_date > end_date:
         return None
-    return [dt for dt in rrule.rrule(rrule.DAILY,
+    return [ dt.date() for dt in rrule.rrule(rrule.DAILY,
                                      dtstart=start_date,
                                      until=end_date)]
 
@@ -102,7 +102,6 @@ def update_daily_notices_metadata_from_ted(start_date: date = None,
 
 def update_daily_notices_metadata_with_fetched_data(start_date: date = None,
                                                     end_date: date = None,
-                                                    ted_api: TedAPIAdapter = None,
                                                     mongo_client: MongoClient = None,
                                                     daily_notices_metadata_repo: DailyNoticesMetadataRepository = None):
     """
@@ -115,7 +114,6 @@ def update_daily_notices_metadata_with_fetched_data(start_date: date = None,
     if start_date > end_date:
         raise Exception("Start date cannot be greater than end date")
 
-    ted_api = ted_api or TedAPIAdapter(TedRequestAPI(), config.TED_API_URL)
     mongo_client = mongo_client or MongoClient(config.MONGO_DB_AUTH_URL)
     daily_notices_metadata_repo = daily_notices_metadata_repo or DailyNoticesMetadataRepository(mongo_client)
     notice_repo = NoticeRepository(mongo_client)
@@ -125,27 +123,32 @@ def update_daily_notices_metadata_with_fetched_data(start_date: date = None,
 
     for day in date_range:
         daily_notices_metadata = daily_notices_metadata_repo.get(day)
+
+        mapping_suite_packages = []
+        fetched_notice_ids = []
+        notice_statuses = {notice_status: 0 for notice_status in daily_notices_metadata.notice_statuses.keys()}
+
         for notice_id in daily_notices_metadata.ted_api_notice_ids:
             notice: Notice = notice_repo.get(notice_id)
+
             if notice:
-                notice_statuses = {notice_status: 0 for notice_status in daily_notices_metadata.notice_statuses}
-                mapping_suite_packages = []
-                fetched_notice_ids = []
                 fetched_notice_ids.append(notice_id)
                 notice_status = notice.status
-                notice_statuses[notice_status] += 1
+                notice_statuses[str(notice_status)] += 1
                 if notice_status >= NoticeStatus.TRANSFORMED:  # Having distilled_rdf_manifestation
                     mapping_suite_id = notice.rdf_manifestation.mapping_suite_id
-                    mapping_suite_packages.append(mapping_suite_id)
-                for current_notice_status, linked_notice_statuses in NOTICE_STATUS_COVERAGE_DOWNSTREAM_TRANSITION.items():
-                    current_notice_status = current_notice_status
-                    if notice_statuses[current_notice_status] > 0:
-                        for linked_notice_status in linked_notice_statuses:
-                            linked_notice_status = linked_notice_status
-                            notice_statuses[linked_notice_status] += notice_statuses[current_notice_status]
+                    if mapping_suite_id not in mapping_suite_packages:
+                        mapping_suite_packages.append(mapping_suite_id)
 
-                daily_notices_metadata.notice_statuses = notice_statuses
-                daily_notices_metadata.mapping_suite_packages = mapping_suite_packages
-                daily_notices_metadata.fetched_notice_ids = fetched_notice_ids
+        for current_notice_status, linked_notice_statuses in NOTICE_STATUS_COVERAGE_DOWNSTREAM_TRANSITION.items():
+            current_notice_status = str(current_notice_status)
+            if notice_statuses[current_notice_status] > 0:
+                for linked_notice_status in linked_notice_statuses:
+                    linked_notice_status = linked_notice_status
+                    notice_statuses[linked_notice_status] += notice_statuses[current_notice_status]
 
+
+        daily_notices_metadata.notice_statuses = notice_statuses
+        daily_notices_metadata.mapping_suite_packages = mapping_suite_packages
+        daily_notices_metadata.fetched_notice_ids = fetched_notice_ids
         daily_notices_metadata_repo.update(daily_notices_metadata)

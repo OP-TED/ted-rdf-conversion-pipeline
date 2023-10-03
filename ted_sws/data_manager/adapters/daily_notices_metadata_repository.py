@@ -101,5 +101,5 @@ class DailyNoticesMetadataRepository(DailyNoticesMetadataRepositoryABC):
                                                                  DAILY_NOTICES_METADATA_ID: 0}))
         if not daily_notices_metadata_list:
             return []
-        return [datetime.fromisoformat(aggregation_date[DAILY_NOTICES_METADATA_AGGREGATION_DATE]) for aggregation_date
+        return [datetime.fromisoformat(aggregation_date[DAILY_NOTICES_METADATA_AGGREGATION_DATE]).date() for aggregation_date
                 in daily_notices_metadata_list]

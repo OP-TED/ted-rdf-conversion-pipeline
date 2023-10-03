@@ -21,6 +21,32 @@ DAILY_NOTICES_METADATA_TED_API_QUERY = {
     TED_API_QUERY_FIELD: "PD=[{aggregation_date}]"
 }
 
+NOTICE_SUCCESS_TRANSITION_DOWNSTREAM = [NoticeStatus.PUBLISHED, NoticeStatus.ELIGIBLE_FOR_PUBLISHING,
+                                        NoticeStatus.PACKAGED, NoticeStatus.ELIGIBLE_FOR_PACKAGING,
+                                        NoticeStatus.VALIDATED, NoticeStatus.DISTILLED,
+                                        NoticeStatus.TRANSFORMED, NoticeStatus.PREPROCESSED_FOR_TRANSFORMATION,
+                                        NoticeStatus.ELIGIBLE_FOR_TRANSFORMATION, NoticeStatus.NORMALISED_METADATA,
+                                        NoticeStatus.INDEXED, NoticeStatus.RAW]
+
+NOTICE_STATUS_COVERAGE_DOWNSTREAM_TRANSITION = {
+    NoticeStatus.PUBLICLY_AVAILABLE: NOTICE_SUCCESS_TRANSITION_DOWNSTREAM,
+    NoticeStatus.PUBLICLY_UNAVAILABLE: NOTICE_SUCCESS_TRANSITION_DOWNSTREAM,
+    NoticeStatus.PUBLISHED: NOTICE_SUCCESS_TRANSITION_DOWNSTREAM[1:],
+    NoticeStatus.ELIGIBLE_FOR_PUBLISHING: NOTICE_SUCCESS_TRANSITION_DOWNSTREAM[2:],
+    NoticeStatus.INELIGIBLE_FOR_PUBLISHING: NOTICE_SUCCESS_TRANSITION_DOWNSTREAM[2:],
+    NoticeStatus.PACKAGED: NOTICE_SUCCESS_TRANSITION_DOWNSTREAM[3:],
+    NoticeStatus.ELIGIBLE_FOR_PACKAGING: NOTICE_SUCCESS_TRANSITION_DOWNSTREAM[4:],
+    NoticeStatus.INELIGIBLE_FOR_PACKAGING: NOTICE_SUCCESS_TRANSITION_DOWNSTREAM[4:],
+    NoticeStatus.VALIDATED: NOTICE_SUCCESS_TRANSITION_DOWNSTREAM[5:],
+    NoticeStatus.DISTILLED: NOTICE_SUCCESS_TRANSITION_DOWNSTREAM[6:],
+    NoticeStatus.TRANSFORMED: NOTICE_SUCCESS_TRANSITION_DOWNSTREAM[7:],
+    NoticeStatus.PREPROCESSED_FOR_TRANSFORMATION: NOTICE_SUCCESS_TRANSITION_DOWNSTREAM[8:],
+    NoticeStatus.ELIGIBLE_FOR_TRANSFORMATION: NOTICE_SUCCESS_TRANSITION_DOWNSTREAM[9:],
+    NoticeStatus.INELIGIBLE_FOR_TRANSFORMATION: NOTICE_SUCCESS_TRANSITION_DOWNSTREAM[9:],
+    NoticeStatus.NORMALISED_METADATA: NOTICE_SUCCESS_TRANSITION_DOWNSTREAM[10:],
+    NoticeStatus.INDEXED: NOTICE_SUCCESS_TRANSITION_DOWNSTREAM[11:],
+}
+
 
 def generate_list_of_dates_from_date_range(start_date: date, end_date: date) -> Optional[list]:
     """
@@ -101,22 +127,25 @@ def update_daily_notices_metadata_with_fetched_data(start_date: date = None,
         daily_notices_metadata = daily_notices_metadata_repo.get(day)
         for notice_id in daily_notices_metadata.ted_api_notice_ids:
             notice: Notice = notice_repo.get(notice_id)
-
-            notice_statuses = {notice_status: 0 for notice_status in daily_notices_metadata.notice_statuses}
-            mapping_suite_packages = []
-            fetched_notice_ids = []
-
             if notice:
+                notice_statuses = {notice_status: 0 for notice_status in daily_notices_metadata.notice_statuses}
+                mapping_suite_packages = []
+                fetched_notice_ids = []
                 fetched_notice_ids.append(notice_id)
                 notice_status = notice.status
                 notice_statuses[notice_status] += 1
-                if notice_status >= NoticeStatus.TRANSFORMED: # Having distilled_rdf_manifestation
+                if notice_status >= NoticeStatus.TRANSFORMED:  # Having distilled_rdf_manifestation
                     mapping_suite_id = notice.rdf_manifestation.mapping_suite_id
                     mapping_suite_packages.append(mapping_suite_id)
+                for current_notice_status, linked_notice_statuses in NOTICE_STATUS_COVERAGE_DOWNSTREAM_TRANSITION.items():
+                    current_notice_status = current_notice_status
+                    if notice_statuses[current_notice_status] > 0:
+                        for linked_notice_status in linked_notice_statuses:
+                            linked_notice_status = linked_notice_status
+                            notice_statuses[linked_notice_status] += notice_statuses[current_notice_status]
 
-                daily_notices_metadata.notice_statuses= notice_statuses
+                daily_notices_metadata.notice_statuses = notice_statuses
                 daily_notices_metadata.mapping_suite_packages = mapping_suite_packages
                 daily_notices_metadata.fetched_notice_ids = fetched_notice_ids
-
 
         daily_notices_metadata_repo.update(daily_notices_metadata)

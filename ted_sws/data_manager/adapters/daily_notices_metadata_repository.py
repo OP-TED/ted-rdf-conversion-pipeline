@@ -1,5 +1,5 @@
-from datetime import datetime, time
-from typing import Iterator, Optional
+from datetime import datetime, time, date
+from typing import Iterator, Optional, List
 
 from pymongo import MongoClient, ASCENDING
 
@@ -90,3 +90,16 @@ class DailyNoticesMetadataRepository(DailyNoticesMetadataRepositoryABC):
         """
         for result_dict in self.collection.find():
             yield self._create_daily_notices_metadata_from_dict(daily_notices_metadata_dict=result_dict)
+
+    def list_daily_notices_metadata_aggregation_date(self) -> List[date]:
+        """
+            Gets all DailyNoticesMetadata ids from the repository.
+        :return:
+        """
+        daily_notices_metadata_list = list(self.collection.find({},
+                                                                {DAILY_NOTICES_METADATA_AGGREGATION_DATE: 1,
+                                                                 DAILY_NOTICES_METADATA_ID: 0}))
+        if not daily_notices_metadata_list:
+            return []
+        return [datetime.fromisoformat(aggregation_date[DAILY_NOTICES_METADATA_AGGREGATION_DATE]) for aggregation_date
+                in daily_notices_metadata_list]

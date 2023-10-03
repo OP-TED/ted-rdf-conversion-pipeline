@@ -5,11 +5,19 @@ from dateutil import rrule
 from pymongo import MongoClient
 
 from ted_sws import config
+from ted_sws.core.model.supra_notice import DailyNoticesMetadata
 from ted_sws.data_manager.adapters.daily_notices_metadata_repository import DailyNoticesMetadataRepository
 from ted_sws.notice_fetcher.adapters.ted_api import TedAPIAdapter, TedRequestAPI
 
-DEFAULT_TED_API_START_DATE = "2023-09-01" # TODO: Change to 2014-01-01
+DEFAULT_TED_API_START_DATE = "2023-09-29"  # TODO: Change to 2014-01-01
 DEFAULT_TED_API_START_DATE_FORMAT = "%Y-%m-%d"
+TED_API_NOTICE_ID_FIELD = "ND"
+TED_API_WILDCARD_DATE_FORMAT = "%Y%m%d*"
+DAILY_NOTICES_METADATA_TED_API_QUERY_RESULT_FIELDS = {"fields": ["ND"]}
+TED_API_QUERY_FIELD = "q"
+DAILY_NOTICES_METADATA_TED_API_QUERY = {
+    TED_API_QUERY_FIELD: "PD=[{aggregation_date}]"
+}
 
 
 def generate_list_of_dates_from_date_range(start_date: date, end_date: date) -> Optional[list]:
@@ -48,8 +56,17 @@ def update_daily_notices_metadata_from_ted(start_date: date = None,
     date_range = generate_list_of_dates_from_date_range(start_date, end_date)
 
     # Getting from metadata repository dates that are not in the repository from date range
-    dates_not_in_repository = [day for day in date_range if not daily_notices_metadata_repo.get(day)] # TODO: Lazy evaluation
+    dates_not_in_repository = [day for day in date_range if
+                               not daily_notices_metadata_repo.list_daily_notices_metadata_aggregation_date()]
 
     # Getting from TED API dates that are not in the repository from date range
-    #ted_api.get_by_query(query={"q": ""})
-
+    # TODO: If in ted are 0 notices, coverage is 1 to all
+    for day in dates_not_in_repository:
+        ted_api_query = DAILY_NOTICES_METADATA_TED_API_QUERY
+        ted_api_query[TED_API_QUERY_FIELD] = ted_api_query[TED_API_QUERY_FIELD].format(
+            aggregation_date=day.strftime(TED_API_WILDCARD_DATE_FORMAT))
+        notice_ids = ted_api.get_by_query(ted_api_query,
+                                          result_fields=DAILY_NOTICES_METADATA_TED_API_QUERY_RESULT_FIELDS)
+        daily_notices_metadata = DailyNoticesMetadata(aggregation_date=day)
+        daily_notices_metadata.ted_api_notice_ids = [notice[TED_API_NOTICE_ID_FIELD] for notice in notice_ids]
+        daily_notices_metadata_repo.add(daily_notices_metadata)

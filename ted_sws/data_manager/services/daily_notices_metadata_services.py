@@ -11,7 +11,7 @@ from ted_sws.data_manager.adapters.daily_notices_metadata_repository import Dail
 from ted_sws.data_manager.adapters.notice_repository import NoticeRepository
 from ted_sws.notice_fetcher.adapters.ted_api import TedAPIAdapter, TedRequestAPI
 
-DEFAULT_TED_API_START_DATE = "2023-09-29"  # TODO: Change to 2014-01-01
+DEFAULT_TED_API_START_DATE = "2014-01-01"
 DEFAULT_TED_API_START_DATE_FORMAT = "%Y-%m-%d"
 TED_API_NOTICE_ID_FIELD = "ND"
 TED_API_WILDCARD_DATE_FORMAT = "%Y%m%d*"
@@ -65,7 +65,6 @@ def generate_list_of_dates_from_date_range(start_date: date, end_date: date) -> 
 def update_daily_notices_metadata_from_ted(start_date: date = None,
                                            end_date: date = None,
                                            ted_api: TedAPIAdapter = None,
-                                           mongo_client: MongoClient = None,
                                            daily_notices_metadata_repo: DailyNoticesMetadataRepository = None):
     """
     Updates the daily notices metadata from the TED API.
@@ -77,18 +76,18 @@ def update_daily_notices_metadata_from_ted(start_date: date = None,
         raise Exception("Start date cannot be greater than end date")
 
     ted_api = ted_api or TedAPIAdapter(TedRequestAPI(), config.TED_API_URL)
-    mongo_client = mongo_client or MongoClient(config.MONGO_DB_AUTH_URL)
-    daily_notices_metadata_repo = daily_notices_metadata_repo or DailyNoticesMetadataRepository(mongo_client)
+    if not daily_notices_metadata_repo:
+        mongo_client = MongoClient(config.MONGO_DB_AUTH_URL)
+        daily_notices_metadata_repo = DailyNoticesMetadataRepository(mongo_client)
 
     # Generate list of dates from date range
     date_range = generate_list_of_dates_from_date_range(start_date, end_date)
 
-    # Getting from metadata repository dates that are not in the repository from date rangeasdasd
+    # Getting from metadata repository dates that are not in the repository from date range
     dates_not_in_repository = [day for day in date_range if
                                day not in daily_notices_metadata_repo.list_daily_notices_metadata_aggregation_date()]
 
     # Getting from TED API dates that are not in the repository from date range
-    # TODO: If in ted are 0 notices, coverage is 1 to all
     for day in dates_not_in_repository:
         ted_api_query = DAILY_NOTICES_METADATA_TED_API_QUERY
         ted_api_query[TED_API_QUERY_FIELD] = ted_api_query[TED_API_QUERY_FIELD].format(
@@ -102,7 +101,7 @@ def update_daily_notices_metadata_from_ted(start_date: date = None,
 
 def update_daily_notices_metadata_with_fetched_data(start_date: date = None,
                                                     end_date: date = None,
-                                                    mongo_client: MongoClient = None,
+                                                    notice_repo: NoticeRepository = None,
                                                     daily_notices_metadata_repo: DailyNoticesMetadataRepository = None):
     """
     Updates the daily notices metadata witch fetched data.
@@ -114,20 +113,22 @@ def update_daily_notices_metadata_with_fetched_data(start_date: date = None,
     if start_date > end_date:
         raise Exception("Start date cannot be greater than end date")
 
-    mongo_client = mongo_client or MongoClient(config.MONGO_DB_AUTH_URL)
-    daily_notices_metadata_repo = daily_notices_metadata_repo or DailyNoticesMetadataRepository(mongo_client)
-    notice_repo = NoticeRepository(mongo_client)
+    if not daily_notices_metadata_repo:
+        mongo_client = MongoClient(config.MONGO_DB_AUTH_URL)
+        daily_notices_metadata_repo = DailyNoticesMetadataRepository(mongo_client)
+    notice_repo = notice_repo or NoticeRepository(daily_notices_metadata_repo.mongodb_client)
 
     # Generate list of dates from date range
     date_range = generate_list_of_dates_from_date_range(start_date, end_date)
 
     for day in date_range:
         daily_notices_metadata = daily_notices_metadata_repo.get(day)
+        if not daily_notices_metadata:
+            continue
 
         mapping_suite_packages = []
         fetched_notice_ids = []
         notice_statuses = {notice_status: 0 for notice_status in daily_notices_metadata.notice_statuses.keys()}
-
 
         for notice_id in daily_notices_metadata.ted_api_notice_ids:
             notice: Notice = notice_repo.get(notice_id)
@@ -136,24 +137,20 @@ def update_daily_notices_metadata_with_fetched_data(start_date: date = None,
                 fetched_notice_ids.append(notice_id)
                 notice_status = notice.status
                 notice_statuses[str(notice_status)] += 1
-                if notice_status >= NoticeStatus.TRANSFORMED:  # Having distilled_rdf_manifestation
+                if notice_status >= NoticeStatus.TRANSFORMED:  # Having rdf_manifestation
                     mapping_suite_id = notice.rdf_manifestation.mapping_suite_id
                     if mapping_suite_id not in mapping_suite_packages:
                         mapping_suite_packages.append(mapping_suite_id)
 
         result_notice_statuses = notice_statuses.copy()
-        #result_notice_statuses = {notice_status: 0 for notice_status in daily_notices_metadata.notice_statuses.keys()}
         for current_notice_status, linked_notice_statuses in NOTICE_STATUS_COVERAGE_DOWNSTREAM_TRANSITION.items():
             current_notice_status = str(current_notice_status)
             if notice_statuses[current_notice_status] > 0:
                 for linked_notice_status in linked_notice_statuses:
-                    #linked_notice_status = linked_notice_status
                     result_notice_statuses[str(linked_notice_status)] += notice_statuses[current_notice_status]
-
 
         daily_notices_metadata.notice_statuses = result_notice_statuses
         daily_notices_metadata.mapping_suite_packages = mapping_suite_packages
         daily_notices_metadata.fetched_notice_ids = fetched_notice_ids
         daily_notices_metadata_repo.update(daily_notices_metadata)
-
 

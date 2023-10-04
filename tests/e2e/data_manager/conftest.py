@@ -1,5 +1,3 @@
-from datetime import date
-
 import pytest
 
 from ted_sws.core.model.manifestation import RDFManifestation
@@ -227,8 +225,3 @@ def notice_with_distilled_status(notice_2020, rdf_file_content):
 def packaged_notice():
     test_notice_repository = NoticeRepositoryInFileSystem(repository_path=TEST_DATA_PATH / "notices" / "packaged")
     return test_notice_repository.get("632521-2022")
-
-
-@pytest.fixture
-def example_date():
-    return date(2021, 1, 7)

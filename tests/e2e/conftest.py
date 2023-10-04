@@ -1,3 +1,5 @@
+from datetime import date
+
 import mongomock
 import pymongo
 import pytest
@@ -78,3 +80,8 @@ def path_to_file_system_repository():
 @pytest.fixture
 def fake_notice_repository(fake_mongodb_client):
     return NoticeRepository(mongodb_client=fake_mongodb_client)
+
+
+@pytest.fixture
+def example_date():
+    return date(2021, 1, 7)

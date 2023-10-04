@@ -82,9 +82,9 @@ def transformation_eligible_notice(indexed_notice) -> Notice:
 
 
 @pytest.fixture()
-def notice_aggregation_date_date() -> date:
+def notice_aggregation_date() -> date:
     return datetime.strptime("2021-01-08", "%Y-%m-%d")
 
 @pytest.fixture()
-def daily_notice_metadata(notice_aggregation_date_date) -> DailyNoticesMetadata:
-    return DailyNoticesMetadata(aggregation_date=notice_aggregation_date_date)
+def daily_notice_metadata(notice_aggregation_date) -> DailyNoticesMetadata:
+    return DailyNoticesMetadata(aggregation_date=notice_aggregation_date)

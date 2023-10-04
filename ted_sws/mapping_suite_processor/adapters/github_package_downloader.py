@@ -74,5 +74,6 @@ class GitHubMappingSuitePackageDownloader(MappingSuitePackageDownloaderABC):
             git_last_commit_hash = get_git_head_hash(
                 git_repository_path=temp_dir_path / self.github_repository_name)
             downloaded_tmp_mapping_suite_path = temp_dir_path / self.github_repository_name / MAPPINGS_DIR_NAME
+            downloaded_tmp_mapping_suite_path.mkdir(exist_ok=True, parents=True)
             shutil.copytree(downloaded_tmp_mapping_suite_path, output_mapping_suite_package_path, dirs_exist_ok=True)
         return git_last_commit_hash

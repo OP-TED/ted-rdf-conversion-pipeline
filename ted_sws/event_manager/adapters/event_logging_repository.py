@@ -84,7 +84,7 @@ class EventLoggingRepository(EventLoggingRepositoryABC):
         :return: The event message dict
         """
 
-        event_message_dict = event_message.dict()
+        event_message_dict = event_message.model_dump()
         for event_date_field_name in LOGGING_DATE_FIELD_NAMES:
             inject_date_string_fields(data=event_message_dict, date_field_name=event_date_field_name,
                                       date_string_fields_suffix_map=LOGGING_DATE_STRING_FIELDS_SUFFIX_MAP

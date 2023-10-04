@@ -113,7 +113,7 @@ class EventLoggingHandler(EventHandler):
         :return: None
         """
         event_message.caller_name = cls._caller_name(event_message)
-        return str(event_message.dict())
+        return str(event_message.model_dump())
 
     def log(self, severity_level: SeverityLevelType, event_message: EventMessage,
             settings: EventMessageLogSettings = EventMessageLogSettings()):

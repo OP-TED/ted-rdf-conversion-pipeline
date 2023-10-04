@@ -35,7 +35,7 @@ def test_update_daily_notices_metadata_from_ted(fake_mongodb_client, example_dat
 def test_update_daily_notices_metadata_with_fetched_data(fake_mongodb_client,
                                                          fake_notice_repository,
                                                          example_date,
-                                                         notice_with_distilled_status,
+                                                         notice_with_rdf_manifestation,
                                                          notice_2021):
     daily_notices_metadata_repo = DailyNoticesMetadataRepository(fake_mongodb_client)
 
@@ -46,11 +46,11 @@ def test_update_daily_notices_metadata_with_fetched_data(fake_mongodb_client,
 
     assert daily_notices_metadata_repo.get(example_date) is None
 
-    fake_notice_repository.add(notice_with_distilled_status)
+    fake_notice_repository.add(notice_with_rdf_manifestation)
     fake_notice_repository.add(notice_2021)
 
     daily_notices_metadata: DailyNoticesMetadata = DailyNoticesMetadata(aggregation_date=example_date)
-    daily_notices_metadata.ted_api_notice_ids.append(notice_with_distilled_status.ted_id)
+    daily_notices_metadata.ted_api_notice_ids.append(notice_with_rdf_manifestation.ted_id)
     daily_notices_metadata.ted_api_notice_ids.append(notice_2021.ted_id)
     daily_notices_metadata_repo.add(daily_notices_metadata)
 

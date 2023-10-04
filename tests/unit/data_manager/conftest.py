@@ -1,6 +1,6 @@
 from datetime import date
 import pytest
-from ted_sws.core.model.supra_notice import DailySupraNotice
+from ted_sws.core.model.supra_notice import DailySupraNotice, DailyNoticesMetadata
 from ted_sws.core.model.transform import MetadataConstraints, FileResource, TransformationRuleSet, SHACLTestSuite, \
     SPARQLTestSuite, MappingSuite, TransformationTestData
 from tests import TEST_DATA_PATH
@@ -47,3 +47,13 @@ def daily_supra_notice():
 @pytest.fixture
 def fake_mapping_suite_identifier_with_version(fake_mapping_suite):
     return fake_mapping_suite.get_mongodb_id()
+
+
+@pytest.fixture
+def daily_notices_metadata():
+    return DailyNoticesMetadata(aggregation_date=date.today(),
+                                ted_api_notice_ids=["1", "2", "3"],
+                                fetched_notice_ids=["1", "2", "3"],
+                                notice_statuses={"published": 3, "raw": 0},
+                                mapping_suite_packages=["fake_mapping_suite_ver_1", "fake_mapping_suite_ver_2"],
+                                notice_count=3)

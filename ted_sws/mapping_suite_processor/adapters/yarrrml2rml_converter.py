@@ -2,6 +2,8 @@ import abc
 import pathlib
 import subprocess
 
+YARRML_PARSER_VERSION = "1.5.4"
+
 
 class YARRRML2RMLConverterABC(abc.ABC):
     """
@@ -31,5 +33,5 @@ class YARRRML2RMLConverter(YARRRML2RMLConverterABC):
         :param rml_output_file_path:
         :return:
         """
-        bash_script = f"(docker run --rm -i -v {yarrrml_input_file_path.parent}:/data rmlio/yarrrml-parser:latest -i /data/{yarrrml_input_file_path.name}) > {rml_output_file_path}"
+        bash_script = f"(docker run --rm -i -v {yarrrml_input_file_path.parent}:/data rmlio/yarrrml-parser:{YARRML_PARSER_VERSION} -i /data/{yarrrml_input_file_path.name}) > {rml_output_file_path}"
         return subprocess.run(bash_script, shell=True, capture_output=True)

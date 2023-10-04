@@ -202,17 +202,17 @@ def mapping_suite_diff_conceptual_mappings(mappings: List[ConceptualMapping]) ->
             "conceptual_mapping": MS_TRANSFORM_FOLDER_NAME + "/" + MS_CONCEPTUAL_MAPPING_FILE_NAME
         },
         metadata=[
-            mappings[0].metadata.dict(),
-            mappings[1].metadata.dict()
+            mappings[0].metadata.model_dump(),
+            mappings[1].metadata.model_dump()
         ]
     )
-    mapping1: dict = mappings[0].dict()
-    mapping2: dict = mappings[1].dict()
+    mapping1: dict = mappings[0].model_dump()
+    mapping2: dict = mappings[1].model_dump()
 
     diff.data = transform_conceptual_mappings_diff_data(ConceptualMappingDiffData(
         original=DeepDiff(mapping1, mapping2, ignore_order=False)
     ), mapping1=mappings[0], mapping2=mappings[1])
-    return diff.dict()
+    return diff.model_dump()
 
 
 def mapping_suite_diff_files_conceptual_mappings(filepaths: List[Path]) -> dict:

@@ -16,6 +16,8 @@ from ted_sws.core.model import PropertyBaseModel
 from ted_sws.core.model.manifestation import Manifestation, ValidationSummaryReport
 from ted_sws.core.model.notice import NoticeStatus
 
+NOTICE_STATUSES_DEFAULT_STATS = {str(notice_status): 0 for notice_status in NoticeStatus}
+
 
 class SupraNotice(PropertyBaseModel, abc.ABC):
     """
@@ -54,14 +56,11 @@ class DailySupraNotice(SupraNotice):
     validation_summary: Optional[ValidationSummaryReport] = None
 
 
-class DailyNoticesMetadataABC(PropertyBaseModel):
+class DailyNoticesMetadataABC(PropertyBaseModel, abc.ABC):
     class Config:
         underscore_attrs_are_private = True
         validate_assignment = True
         orm_mode = True
-
-
-NOTICE_STATUSES_DEFAULT_STATS = {str(notice_status): 0 for notice_status in NoticeStatus}
 
 
 class DailyNoticesMetadata(DailyNoticesMetadataABC):

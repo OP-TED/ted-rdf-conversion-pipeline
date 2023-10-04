@@ -9,7 +9,7 @@ from airflow.decorators import dag, task
 
 from dags import DEFAULT_DAG_ARGUMENTS
 from dags.dags_utils import get_dag_param
-from ted_sws.data_manager.services.daily_notices_metadata_services import update_daily_notices_metadata_from_ted, \
+from ted_sws.supra_notice_manager.services.daily_notices_metadata_services import update_daily_notices_metadata_from_ted, \
     update_daily_notices_metadata_with_fetched_data
 
 START_DATE_PARAM_KEY = "start_date"

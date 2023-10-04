@@ -1,13 +1,7 @@
-from datetime import date
-
-from pymongo import MongoClient
-
 from ted_sws import config
-from ted_sws.core.model.notice import Notice
 from ted_sws.core.model.supra_notice import DailyNoticesMetadata
 from ted_sws.data_manager.adapters.daily_notices_metadata_repository import DailyNoticesMetadataRepository
-from ted_sws.data_manager.adapters.notice_repository import NoticeRepository
-from ted_sws.data_manager.services.daily_notices_metadata_services import update_daily_notices_metadata_from_ted, \
+from ted_sws.supra_notice_manager.services.daily_notices_metadata_services import update_daily_notices_metadata_from_ted, \
     update_daily_notices_metadata_with_fetched_data
 from ted_sws.notice_fetcher.adapters.ted_api import TedAPIAdapter, TedRequestAPI
 

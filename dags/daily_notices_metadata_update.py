@@ -49,8 +49,8 @@ DEFAULT_TED_API_START_DATE_FORMAT = "%Y-%m-%d"
 def daily_notices_metadata_update():
     @task
     def update_daily_notices_metadata_from_ted_api():
-        start_date = get_dag_param(key=START_DATE_PARAM_KEY, raise_error=False)
-        end_date = get_dag_param(key=END_DATE_PARAM_KEY, raise_error=False)
+        start_date = get_dag_param(key=START_DATE_PARAM_KEY)
+        end_date = get_dag_param(key=END_DATE_PARAM_KEY)
 
         if start_date and end_date:
             start_date = datetime.strptime(start_date, "%Y-%m-%d")
@@ -63,8 +63,8 @@ def daily_notices_metadata_update():
 
     @task
     def update_daily_notices_metadata_with_fetched_data_from_repo():
-        start_date = get_dag_param(key=START_DATE_PARAM_KEY, raise_error=False)
-        end_date = get_dag_param(key=END_DATE_PARAM_KEY, raise_error=False)
+        start_date = get_dag_param(key=START_DATE_PARAM_KEY)
+        end_date = get_dag_param(key=END_DATE_PARAM_KEY)
 
         if start_date and end_date:
             start_date = datetime.strptime(start_date, "%Y-%m-%d")

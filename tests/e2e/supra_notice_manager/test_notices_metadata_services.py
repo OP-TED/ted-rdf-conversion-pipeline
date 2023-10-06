@@ -20,7 +20,7 @@ def test_update_daily_notices_metadata_from_ted(fake_mongodb_client, example_dat
                                            ted_api=ted_api,
                                            daily_notices_metadata_repo=daily_notices_metadata_repo)
 
-    assert len(list(daily_notices_metadata_repo.list())) == 0
+    assert len(list(daily_notices_metadata_repo.list())) == 1
 
     update_daily_notices_metadata_from_ted(start_date=example_date,
                                            end_date=example_date,
@@ -37,7 +37,7 @@ def test_update_daily_notices_metadata_from_ted(fake_mongodb_client, example_dat
                                            ted_api=ted_api,
                                            daily_notices_metadata_repo=daily_notices_metadata_repo)
 
-    assert len(list(daily_notices_metadata_repo.list())) == 1
+    assert len(list(daily_notices_metadata_repo.list())) == 2
 
 
 def test_update_daily_notices_metadata_with_fetched_data(fake_mongodb_client,

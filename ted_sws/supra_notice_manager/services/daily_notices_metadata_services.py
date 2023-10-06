@@ -1,4 +1,4 @@
-from datetime import date, datetime, timedelta
+from datetime import date
 from typing import Optional, List
 
 from dateutil import rrule
@@ -11,8 +11,6 @@ from ted_sws.data_manager.adapters.daily_notices_metadata_repository import Dail
 from ted_sws.data_manager.adapters.notice_repository import NoticeRepository
 from ted_sws.notice_fetcher.adapters.ted_api import TedAPIAdapter, TedRequestAPI
 
-DEFAULT_TED_API_START_DATE = "2014-01-01"
-DEFAULT_TED_API_START_DATE_FORMAT = "%Y-%m-%d"
 TED_API_NOTICE_ID_FIELD = "ND"
 TED_API_WILDCARD_DATE_FORMAT = "%Y%m%d*"
 DAILY_NOTICES_METADATA_TED_API_QUERY_RESULT_FIELDS = {"fields": ["ND"]}
@@ -57,20 +55,18 @@ def generate_list_of_dates_from_date_range(start_date: date, end_date: date) -> 
     """
     if start_date > end_date:
         return None
-    return [ dt.date() for dt in rrule.rrule(rrule.DAILY,
-                                     dtstart=start_date,
-                                     until=end_date)]
+    return [dt.date() for dt in rrule.rrule(rrule.DAILY,
+                                            dtstart=start_date,
+                                            until=end_date)]
 
 
-def update_daily_notices_metadata_from_ted(start_date: date = None,
-                                           end_date: date = None,
+def update_daily_notices_metadata_from_ted(start_date: date,
+                                           end_date: date,
                                            ted_api: TedAPIAdapter = None,
                                            daily_notices_metadata_repo: DailyNoticesMetadataRepository = None):
     """
     Updates the daily notices metadata from the TED API.
     """
-    start_date = start_date or datetime.strptime(DEFAULT_TED_API_START_DATE, DEFAULT_TED_API_START_DATE_FORMAT)
-    end_date = end_date or datetime.today() - timedelta(days=1)
 
     if start_date > end_date:
         raise Exception("Start date cannot be greater than end date")
@@ -89,7 +85,7 @@ def update_daily_notices_metadata_from_ted(start_date: date = None,
 
     # Getting from TED API dates that are not in the repository from date range
     for day in dates_not_in_repository:
-        ted_api_query = DAILY_NOTICES_METADATA_TED_API_QUERY
+        ted_api_query = DAILY_NOTICES_METADATA_TED_API_QUERY.copy()
         ted_api_query[TED_API_QUERY_FIELD] = ted_api_query[TED_API_QUERY_FIELD].format(
             aggregation_date=day.strftime(TED_API_WILDCARD_DATE_FORMAT))
         notice_ids = ted_api.get_by_query(ted_api_query,
@@ -99,16 +95,13 @@ def update_daily_notices_metadata_from_ted(start_date: date = None,
         daily_notices_metadata_repo.add(daily_notices_metadata)
 
 
-def update_daily_notices_metadata_with_fetched_data(start_date: date = None,
-                                                    end_date: date = None,
+def update_daily_notices_metadata_with_fetched_data(start_date: date,
+                                                    end_date: date,
                                                     notice_repo: NoticeRepository = None,
                                                     daily_notices_metadata_repo: DailyNoticesMetadataRepository = None):
     """
     Updates the daily notices metadata witch fetched data.
     """
-
-    start_date = start_date or datetime.strptime(DEFAULT_TED_API_START_DATE, DEFAULT_TED_API_START_DATE_FORMAT)
-    end_date = end_date or datetime.today() - timedelta(days=1)
 
     if start_date > end_date:
         raise Exception("Start date cannot be greater than end date")
@@ -153,4 +146,3 @@ def update_daily_notices_metadata_with_fetched_data(start_date: date = None,
         daily_notices_metadata.mapping_suite_packages = mapping_suite_packages
         daily_notices_metadata.fetched_notice_ids = fetched_notice_ids
         daily_notices_metadata_repo.update(daily_notices_metadata)
-

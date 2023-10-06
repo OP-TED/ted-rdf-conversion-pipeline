@@ -1,18 +1,26 @@
 from ted_sws import config
 from ted_sws.core.model.supra_notice import DailyNoticesMetadata
 from ted_sws.data_manager.adapters.daily_notices_metadata_repository import DailyNoticesMetadataRepository
-from ted_sws.supra_notice_manager.services.daily_notices_metadata_services import update_daily_notices_metadata_from_ted, \
-    update_daily_notices_metadata_with_fetched_data
 from ted_sws.notice_fetcher.adapters.ted_api import TedAPIAdapter, TedRequestAPI
+from ted_sws.supra_notice_manager.services.daily_notices_metadata_services import \
+    update_daily_notices_metadata_from_ted, \
+    update_daily_notices_metadata_with_fetched_data
 
 
-def test_update_daily_notices_metadata_from_ted(fake_mongodb_client, example_date):
+def test_update_daily_notices_metadata_from_ted(fake_mongodb_client, example_date, example_date_without_notices):
     """
     Test update_daily_notices_metadata_from_ted function
     """
 
     ted_api = TedAPIAdapter(TedRequestAPI(), config.TED_API_URL)
     daily_notices_metadata_repo = DailyNoticesMetadataRepository(fake_mongodb_client)
+
+    update_daily_notices_metadata_from_ted(start_date=example_date_without_notices,
+                                           end_date=example_date_without_notices,
+                                           ted_api=ted_api,
+                                           daily_notices_metadata_repo=daily_notices_metadata_repo)
+
+    assert len(list(daily_notices_metadata_repo.list())) == 1
 
     update_daily_notices_metadata_from_ted(start_date=example_date,
                                            end_date=example_date,
@@ -29,7 +37,7 @@ def test_update_daily_notices_metadata_from_ted(fake_mongodb_client, example_dat
                                            ted_api=ted_api,
                                            daily_notices_metadata_repo=daily_notices_metadata_repo)
 
-    assert len(list(daily_notices_metadata_repo.list())) == 1
+    assert len(list(daily_notices_metadata_repo.list())) == 2
 
 
 def test_update_daily_notices_metadata_with_fetched_data(fake_mongodb_client,

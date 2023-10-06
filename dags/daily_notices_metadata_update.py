@@ -4,12 +4,14 @@ DAG to update daily notices metadata from TED.
 
 from datetime import date, datetime
 
-from airflow.models import Param
 from airflow.decorators import dag, task
+from airflow.models import Param
+from airflow.timetables.trigger import CronTriggerTimetable
 
 from dags import DEFAULT_DAG_ARGUMENTS
 from dags.dags_utils import get_dag_param
-from ted_sws.supra_notice_manager.services.daily_notices_metadata_services import update_daily_notices_metadata_from_ted, \
+from ted_sws.supra_notice_manager.services.daily_notices_metadata_services import \
+    update_daily_notices_metadata_from_ted, \
     update_daily_notices_metadata_with_fetched_data
 
 START_DATE_PARAM_KEY = "start_date"
@@ -19,6 +21,8 @@ END_DATE_PARAM_KEY = "end_date"
 @dag(default_args=DEFAULT_DAG_ARGUMENTS,
      schedule_interval=None,
      tags=['daily', "dashboards", "metadata", "ted", "notices"],
+     catchup=False,
+     timetable=CronTriggerTimetable('0 19 * * *', timezone='UTC'),
      description=__doc__[0: __doc__.find(".")],
      doc_md=__doc__,
      params={

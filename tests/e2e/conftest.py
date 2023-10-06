@@ -85,3 +85,8 @@ def fake_notice_repository(fake_mongodb_client):
 @pytest.fixture
 def example_date():
     return date(2021, 1, 7)
+
+
+@pytest.fixture
+def example_date_without_notices():
+    return date(2021, 1, 9)

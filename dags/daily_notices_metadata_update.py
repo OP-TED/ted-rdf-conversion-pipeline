@@ -49,29 +49,23 @@ DEFAULT_TED_API_START_DATE_FORMAT = "%Y-%m-%d"
 def daily_notices_metadata_update():
     @task
     def update_daily_notices_metadata_from_ted_api():
-        start_date = get_dag_param(key=START_DATE_PARAM_KEY)
-        end_date = get_dag_param(key=END_DATE_PARAM_KEY)
+        start_date = get_dag_param(key=START_DATE_PARAM_KEY, default_value=DEFAULT_TED_API_START_DATE)
+        end_date = get_dag_param(key=END_DATE_PARAM_KEY, default_value=(datetime.today() - timedelta(days=1)).strftime(
+            DEFAULT_TED_API_START_DATE_FORMAT))
 
-        if start_date and end_date:
-            start_date = datetime.strptime(start_date, "%Y-%m-%d")
-            end_date = datetime.strptime(end_date, "%Y-%m-%d")
-        else:
-            start_date = datetime.strptime(DEFAULT_TED_API_START_DATE, DEFAULT_TED_API_START_DATE_FORMAT)
-            end_date = datetime.today() - timedelta(days=1)
-
-        update_daily_notices_metadata_from_ted(start_date=start_date, end_date=end_date)
+        update_daily_notices_metadata_from_ted(
+            start_date=datetime.strptime(start_date, DEFAULT_TED_API_START_DATE_FORMAT),
+            end_date=datetime.strptime(end_date, DEFAULT_TED_API_START_DATE_FORMAT))
 
     @task
     def update_daily_notices_metadata_with_fetched_data_from_repo():
-        start_date = get_dag_param(key=START_DATE_PARAM_KEY)
-        end_date = get_dag_param(key=END_DATE_PARAM_KEY)
+        start_date = get_dag_param(key=START_DATE_PARAM_KEY, default_value=DEFAULT_TED_API_START_DATE)
+        end_date = get_dag_param(key=END_DATE_PARAM_KEY, default_value=(datetime.today() - timedelta(days=1)).strftime(
+            DEFAULT_TED_API_START_DATE_FORMAT))
 
-        if start_date and end_date:
-            start_date = datetime.strptime(start_date, "%Y-%m-%d")
-            end_date = datetime.strptime(end_date, "%Y-%m-%d")
-        else:
-            start_date = datetime.strptime(DEFAULT_TED_API_START_DATE, DEFAULT_TED_API_START_DATE_FORMAT)
-            end_date = datetime.today() - timedelta(days=1)
+        update_daily_notices_metadata_from_ted(
+            start_date=datetime.strptime(start_date, DEFAULT_TED_API_START_DATE_FORMAT),
+            end_date=datetime.strptime(end_date, DEFAULT_TED_API_START_DATE_FORMAT))
 
         update_daily_notices_metadata_with_fetched_data(start_date=start_date, end_date=end_date)
 

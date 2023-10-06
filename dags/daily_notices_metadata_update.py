@@ -55,8 +55,8 @@ def daily_notices_metadata_update():
 
     @task
     def update_daily_notices_metadata_with_fetched_data_from_repo():
-        start_date = get_dag_param(key=START_DATE_PARAM_KEY, raise_error=True)
-        end_date = get_dag_param(key=END_DATE_PARAM_KEY, raise_error=True)
+        start_date = get_dag_param(key=START_DATE_PARAM_KEY, raise_error=False)
+        end_date = get_dag_param(key=END_DATE_PARAM_KEY, raise_error=False)
 
         update_daily_notices_metadata_with_fetched_data(start_date=datetime.strptime(start_date, "%Y-%m-%d"),
                                                         end_date=datetime.strptime(end_date, "%Y-%m-%d"))

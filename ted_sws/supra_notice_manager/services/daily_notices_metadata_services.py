@@ -93,8 +93,6 @@ def update_daily_notices_metadata_from_ted(start_date: date = None,
         ted_api_query[TED_API_QUERY_FIELD] = ted_api_query[TED_API_QUERY_FIELD].format(
             aggregation_date=day.strftime(TED_API_WILDCARD_DATE_FORMAT))
         notice_ids = ted_api.get_by_query(ted_api_query, result_fields=DAILY_NOTICES_METADATA_TED_API_QUERY_RESULT_FIELDS)
-        if not notice_ids:
-            continue
         daily_notices_metadata = DailyNoticesMetadata(aggregation_date=day)
         daily_notices_metadata.ted_api_notice_ids = [notice[TED_API_NOTICE_ID_FIELD] for notice in notice_ids]
         daily_notices_metadata_repo.add(daily_notices_metadata)
@@ -154,4 +152,3 @@ def update_daily_notices_metadata_with_fetched_data(start_date: date = None,
         daily_notices_metadata.mapping_suite_packages = mapping_suite_packages
         daily_notices_metadata.fetched_notice_ids = fetched_notice_ids
         daily_notices_metadata_repo.update(daily_notices_metadata)
-

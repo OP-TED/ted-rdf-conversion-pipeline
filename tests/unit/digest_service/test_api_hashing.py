@@ -1,7 +1,8 @@
 import uuid
 
 from ted_sws.notice_transformer.entrypoints.api.digest_service.main import API_PREFIX
-from ted_sws.notice_transformer.entrypoints.api.digest_service.routes.hashing import string_md5, uuid_ns_by_type, ROUTE_PREFIX
+from ted_sws.notice_transformer.entrypoints.api.digest_service.routes.hashing import string_md5, uuid_ns_by_type, \
+    ROUTE_PREFIX
 
 URL_PREFIX = API_PREFIX + ROUTE_PREFIX
 

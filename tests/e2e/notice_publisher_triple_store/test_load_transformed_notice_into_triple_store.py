@@ -1,7 +1,8 @@
+import pytest
+
 from ted_sws.core.model.manifestation import RDFManifestation
 from ted_sws.notice_publisher_triple_store.services.load_transformed_notice_into_triple_store import \
     load_rdf_manifestation_into_triple_store
-import pytest
 
 SPARQL_QUERY_TRIPLES = "select * {?s ?p ?o}"
 SPARQL_QUERY_GRAPH = "SELECT ?g {  GRAPH ?g { ?s ?p ?o  } }"

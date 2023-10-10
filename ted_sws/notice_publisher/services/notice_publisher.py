@@ -6,7 +6,6 @@ from ted_sws import config
 from ted_sws.core.model.manifestation import RDFManifestation
 from ted_sws.core.model.notice import Notice, NoticeStatus
 from ted_sws.data_manager.adapters.notice_repository import NoticeRepositoryABC
-from ted_sws.notice_packager import DEFAULT_NOTICE_PACKAGE_EXTENSION
 from ted_sws.notice_publisher.adapters.s3_notice_publisher import S3Publisher, DEFAULT_S3_RDF_CONTENT_TYPE
 from ted_sws.notice_publisher.adapters.sftp_notice_publisher import SFTPPublisher
 from ted_sws.notice_publisher.adapters.sftp_publisher_abc import SFTPPublisherABC

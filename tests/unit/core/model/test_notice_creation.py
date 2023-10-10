@@ -49,8 +49,8 @@ def test_notice_invalid_creation():
 
 def test_notice_status_validation(indexed_notice):
     indexed_notice.update_status_to(NoticeStatus.NORMALISED_METADATA)
-    assert "status" in indexed_notice.dict().keys()
-    assert "_status" not in indexed_notice.dict().keys()
+    assert "status" in indexed_notice.model_dump().keys()
+    assert "_status" not in indexed_notice.model_dump().keys()
 
 
 def test_notice_status_comparison():

@@ -3,11 +3,11 @@ import subprocess
 import click
 
 from ted_sws import config
-from ted_sws.notice_transformer.entrypoints.api.digest_service.main import API_PREFIX
 from ted_sws.event_manager.adapters.event_handler_config import ConsoleLoggerConfig
 from ted_sws.event_manager.adapters.event_logger import EventLogger
 from ted_sws.event_manager.model.event_message import EventMessage
 from ted_sws.event_manager.services.logger_from_context import get_env_logger
+from ted_sws.notice_transformer.entrypoints.api.digest_service.main import API_PREFIX
 
 API_HOST: str = config.ID_MANAGER_PROD_API_HOST
 API_PORT: int = config.ID_MANAGER_API_PORT

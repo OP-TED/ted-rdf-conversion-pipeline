@@ -1,9 +1,10 @@
 from pytest_bdd import scenario, given, when, then, parsers
 
-from ted_sws.notice_metadata_processor.model.metadata import ExtractedMetadata
-from ted_sws.notice_metadata_processor.services.xml_manifestation_metadata_extractor import XMLManifestationMetadataExtractor
 from ted_sws.notice_fetcher.adapters.ted_api import TedRequestAPI, TedAPIAdapter
 from ted_sws.notice_fetcher.services.notice_fetcher import NoticeFetcher
+from ted_sws.notice_metadata_processor.model.metadata import ExtractedMetadata
+from ted_sws.notice_metadata_processor.services.xml_manifestation_metadata_extractor import \
+    XMLManifestationMetadataExtractor
 
 
 @scenario('notice_extractor.feature', 'Extracting metadata')
@@ -28,6 +29,6 @@ def step_impl(xml_manifestation):
 @then(parsers.parse("extracted {metadata} is possibly available"))
 def step_impl(extracted_metadata, notice_identifier, metadata):
     assert isinstance(extracted_metadata, ExtractedMetadata)
-    assert extracted_metadata.dict().keys() == ExtractedMetadata.__fields__.keys()
-    assert notice_identifier == extracted_metadata.dict()["notice_publication_number"]
-    assert metadata in extracted_metadata.dict()
+    assert extracted_metadata.model_dump().keys() == ExtractedMetadata.model_fields.keys()
+    assert notice_identifier == extracted_metadata.model_dump()["notice_publication_number"]
+    assert metadata in extracted_metadata.model_dump()

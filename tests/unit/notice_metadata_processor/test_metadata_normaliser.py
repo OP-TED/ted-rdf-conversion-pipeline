@@ -2,12 +2,12 @@ import pytest
 
 from ted_sws.core.model.notice import NoticeStatus
 from ted_sws.notice_metadata_processor.services.metadata_constraints import filter_df_by_variables
-from ted_sws.resources.mapping_files_registry import MappingFilesRegistry
 from ted_sws.notice_metadata_processor.services.metadata_normalizer import normalise_notice, normalise_notice_by_id, \
     MetadataNormaliser, ExtractedMetadataNormaliser, FORM_NUMBER_KEY, SF_NOTICE_TYPE_KEY, LEGAL_BASIS_KEY, \
     DOCUMENT_CODE_KEY
 from ted_sws.notice_metadata_processor.services.xml_manifestation_metadata_extractor import \
     XMLManifestationMetadataExtractor
+from ted_sws.resources.mapping_files_registry import MappingFilesRegistry
 
 
 def test_metadata_normaliser_by_notice(indexed_notice):

@@ -9,7 +9,6 @@ from ted_sws.notice_publisher.adapters.sftp_notice_publisher import SFTPPublishe
 from ted_sws.notice_publisher.services.notice_publisher import publish_notice_by_id, publish_notice, \
     publish_notice_into_s3, publish_notice_into_s3_by_id, publish_notice_rdf_into_s3_by_id, publish_notice_rdf_into_s3, \
     publish_notice_rdf_content_into_s3
-from ted_sws.notice_packager import DEFAULT_NOTICE_PACKAGE_EXTENSION
 from ted_sws.notice_transformer.services.notice_transformer import DEFAULT_TRANSFORMATION_FILE_EXTENSION
 
 

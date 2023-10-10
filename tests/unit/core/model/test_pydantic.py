@@ -50,9 +50,9 @@ def test_pydantic_1():
         'friends': [1, 2, '3'],
     }
 
-    user = User(**external_data)
+    User(**external_data)
 
-    uu = User.construct(external_data_1)
+    User.model_construct(external_data_1)
 
 
 def test_pydantic_2():

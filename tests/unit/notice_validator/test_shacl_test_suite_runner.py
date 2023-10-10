@@ -1,7 +1,7 @@
 import pytest
 
 from ted_sws.core.model.manifestation import RDFManifestation, RDFValidationManifestation, \
-    SHACLTestSuiteValidationReport, QueriedSHACLShapeValidationResult
+    SHACLTestSuiteValidationReport
 from ted_sws.core.model.notice import NoticeStatus
 from ted_sws.core.model.validation_report import ReportNotice, SHACLValidationSummaryReport
 from ted_sws.data_manager.adapters.mapping_suite_repository import MappingSuiteRepositoryInFileSystem

@@ -1,5 +1,3 @@
-import mongomock
-import pymongo
 import pytest
 
 from ted_sws.core.model.transform import MetadataConstraints, FileResource, TransformationRuleSet, SHACLTestSuite, \

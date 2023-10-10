@@ -1,9 +1,9 @@
 import pytest
 
 from ted_sws.core.model.validation_report import ReportNotice
+from ted_sws.data_manager.adapters.notice_repository import NoticeRepository
 from ted_sws.notice_validator.services.validation_summary_runner import validation_summary_report_notice_by_id, \
     generate_validation_summary_report_notices
-from ted_sws.data_manager.adapters.notice_repository import NoticeRepository
 
 
 def test_validation_summary_runner(fake_validation_notice, mongodb_client):

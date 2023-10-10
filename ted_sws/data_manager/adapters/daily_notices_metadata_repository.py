@@ -1,11 +1,10 @@
-from datetime import datetime, time, date
+from datetime import datetime, date
 from typing import Iterator, Optional, List
 
 from pymongo import MongoClient, ASCENDING
 
 from ted_sws import config
 from ted_sws.core.model.supra_notice import DailyNoticesMetadata
-from ted_sws.data_manager.adapters import inject_date_string_fields
 from ted_sws.data_manager.adapters.repository_abc import DailyNoticesMetadataRepositoryABC
 
 DAILY_NOTICES_METADATA_AGGREGATION_DATE = "aggregation_date"

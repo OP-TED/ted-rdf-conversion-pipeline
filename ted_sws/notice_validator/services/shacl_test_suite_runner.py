@@ -75,7 +75,7 @@ def generate_shacl_report(shacl_test_suite_execution: SHACLTestSuiteValidationRe
     :return:
     """
     if with_html:
-        template_data: dict = shacl_test_suite_execution.dict()
+        template_data: dict = shacl_test_suite_execution.model_dump()
         template_data[NOTICE_IDS_FIELD] = notice_ids
         html_report = TEMPLATES.get_template(SHACL_TEST_SUITE_EXECUTION_HTML_REPORT_TEMPLATE).render(template_data)
         shacl_test_suite_execution.object_data = html_report
@@ -165,7 +165,7 @@ def generate_shacl_validation_summary_report(report_notices: List[ReportNotice],
     report.mapping_suite_ids = list(set(report.mapping_suite_ids))
 
     if with_html:
-        template_data: dict = report.dict()
+        template_data: dict = report.model_dump()
         template_data[TEMPLATE_METADATA_KEY] = metadata
         html_report = TEMPLATES.get_template(SHACL_SUMMARY_HTML_REPORT_TEMPLATE).render(template_data)
         report.object_data = html_report

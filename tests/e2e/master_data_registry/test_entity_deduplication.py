@@ -2,7 +2,6 @@ import rdflib
 from rdflib import OWL
 
 from ted_sws.data_manager.adapters.triple_store import FusekiAdapter
-
 from ted_sws.master_data_registry.services.entity_deduplication import deduplicate_entities_by_cet_uri, \
     deduplicate_procedure_entities
 from ted_sws.notice_validator.services.entity_deduplication_validation import \

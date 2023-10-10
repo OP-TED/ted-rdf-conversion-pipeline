@@ -1,4 +1,5 @@
 import pytest
+
 from ted_sws.data_manager.adapters.triple_store import FusekiAdapter, FusekiException
 from tests import TEST_DATA_PATH
 

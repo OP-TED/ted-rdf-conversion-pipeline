@@ -1,4 +1,5 @@
 import pathlib
+
 import pytest
 
 from ted_sws import config

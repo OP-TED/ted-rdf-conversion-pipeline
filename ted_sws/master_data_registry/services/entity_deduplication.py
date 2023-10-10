@@ -1,11 +1,12 @@
 import pathlib
 import tempfile
+from collections import defaultdict
 from io import StringIO
 from typing import List, Tuple, Dict
+
 import rdflib
 from pymongo import MongoClient
 from rdflib import RDF, URIRef, OWL
-from collections import defaultdict
 
 from ted_sws.alignment_oracle.services.generate_alignment_links import generate_alignment_links, TURTLE_SOURCE_DATA_TYPE
 from ted_sws.alignment_oracle.services.limes_config_resolver import get_limes_config_generator_by_cet_uri

@@ -53,7 +53,7 @@ class MappingSuiteRepositoryMongoDB(MappingSuiteRepositoryABC):
         :param mapping_suite:
         :return:
         """
-        mapping_suite_dict = mapping_suite.dict()
+        mapping_suite_dict = mapping_suite.model_dump()
         mapping_suite_dict[MONGODB_COLLECTION_ID] = mapping_suite.get_mongodb_id()
         mapping_suite_dict[MS_CREATED_AT] = datetime.fromisoformat(mapping_suite_dict[MS_CREATED_AT])
         inject_date_string_fields(data=mapping_suite_dict, date_field_name=MS_CREATED_AT)
@@ -189,7 +189,7 @@ class MappingSuiteRepositoryInFileSystem(MappingSuiteRepositoryABC):
         package_path = self.repository_path / mapping_suite.identifier
         package_path.mkdir(parents=True, exist_ok=True)
         metadata_path = package_path / MS_METADATA_FILE_NAME
-        package_metadata = mapping_suite.dict()
+        package_metadata = mapping_suite.model_dump()
         [package_metadata.pop(key, None) for key in
          ["transformation_rule_set", "shacl_test_suites", "sparql_test_suites"]]
         with metadata_path.open("w", encoding="utf-8") as f:

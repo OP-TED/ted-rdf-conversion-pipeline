@@ -60,7 +60,7 @@ class BaseManifestationRepository(ManifestationRepositoryABC):
         :return:
         """
         if manifestation is not None:
-            manifestation_dict = manifestation.dict()
+            manifestation_dict = manifestation.model_dump()
             manifestation_dict[AGGREGATE_REFERENCE_ID] = reference
             manifestation_dict[MANIFESTATION_TYPE_ID] = self._manifestation_type
             reference = self._build_reference(base_reference=reference)

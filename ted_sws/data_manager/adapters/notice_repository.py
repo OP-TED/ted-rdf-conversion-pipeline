@@ -95,7 +95,7 @@ class NoticeRepositoryInFileSystem(NoticeRepositoryABC):
         :return:
         """
         notice_file_path = self.repository_path / f"{notice.ted_id}.json"
-        notice_dict = notice.dict()
+        notice_dict = notice.model_dump()
         notice_dict[NOTICE_STATUS] = str(notice_dict[NOTICE_STATUS])
         notice_file_path.write_text(data=json.dumps(notice_dict), encoding="utf-8")
 
@@ -243,14 +243,14 @@ class NoticeRepository(NoticeRepositoryABC, LazyObjectFieldsLoaderABC):
         :return:
         """
 
-        notice_dict = notice.dict(include={NOTICE_TED_ID: True, NOTICE_STATUS: True,
-                                           NOTICE_CREATED_AT: True, VALIDATION_SUMMARY: True})
+        notice_dict = notice.model_dump(include={NOTICE_TED_ID: True, NOTICE_STATUS: True,
+                                                 NOTICE_CREATED_AT: True, VALIDATION_SUMMARY: True})
         notice_dict[MONGODB_COLLECTION_ID] = notice_dict[NOTICE_TED_ID]
         notice_dict[NOTICE_STATUS] = str(notice_dict[NOTICE_STATUS])
         notice_dict[NOTICE_CREATED_AT] = datetime.fromisoformat(notice_dict[NOTICE_CREATED_AT])
 
         if notice._normalised_metadata:
-            normalised_metadata_dict = create_normalised_metadata_view(notice._normalised_metadata).dict()
+            normalised_metadata_dict = create_normalised_metadata_view(notice._normalised_metadata).model_dump()
             if normalised_metadata_dict[METADATA_PUBLICATION_DATE]:
                 normalised_metadata_dict[METADATA_PUBLICATION_DATE] = datetime.fromisoformat(
                     normalised_metadata_dict[METADATA_PUBLICATION_DATE])

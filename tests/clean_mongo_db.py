@@ -1,7 +1,8 @@
+from logging import getLogger
+
 from pymongo import MongoClient
 
 from ted_sws import config
-from logging import getLogger
 
 logger = getLogger(__name__)
 

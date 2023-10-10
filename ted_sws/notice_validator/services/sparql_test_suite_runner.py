@@ -154,7 +154,7 @@ class SPARQLReportBuilder:
 
     def generate_report(self) -> SPARQLTestSuiteValidationReport:
         if self.with_html:
-            template_data: dict = self.sparql_test_suite_execution.dict()
+            template_data: dict = self.sparql_test_suite_execution.model_dump()
             template_data[NOTICE_IDS_FIELD] = self.notice_ids
             html_report = TEMPLATES.get_template(SPARQL_TEST_SUITE_EXECUTION_HTML_REPORT_TEMPLATE).render(template_data)
             self.sparql_test_suite_execution.object_data = html_report
@@ -187,7 +187,7 @@ def process_sparql_validation_summary_report_data_with_notice(
             else:
                 validation_query_result = SPARQLValidationSummaryQueryResult(
                     test_suite_identifier=test_suite_id,
-                    **validation.dict()
+                    **validation.model_dump()
                 )
             notice_data: ReportPackageNoticeData = ReportPackageNoticeData(
                 notice_id=notice.ted_id,
@@ -221,7 +221,7 @@ def add_sparql_validation_summary_html_report(
         report: SPARQLValidationSummaryReport,
         metadata: dict = None
 ):
-    template_data: dict = report.dict()
+    template_data: dict = report.model_dump()
     template_data[TEMPLATE_METADATA_KEY] = metadata
     html_report = TEMPLATES.get_template(SPARQL_SUMMARY_HTML_REPORT_TEMPLATE).render(template_data)
     report.object_data = html_report

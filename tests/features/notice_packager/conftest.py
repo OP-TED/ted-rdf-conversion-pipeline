@@ -1,6 +1,5 @@
 import pytest
 
-from ted_sws.core.model.manifestation import RDFManifestation
 from ted_sws.core.model.notice import NoticeStatus, Notice
 from tests import TEST_DATA_PATH
 

@@ -8,7 +8,7 @@
 """ """
 
 from ted_sws.core.model.manifestation import XPATHCoverageValidationReport, SHACLTestSuiteValidationReport, \
-    QueriedSHACLShapeValidationResult, RDFManifestation
+    QueriedSHACLShapeValidationResult
 from ted_sws.core.model.notice import NoticeStatus
 
 

@@ -1,7 +1,7 @@
 from typing import Iterator
 
-from ted_sws.data_manager.adapters.repository_abc import NoticeRepositoryABC
 from ted_sws.core.model.notice import Notice, NoticeStatus
+from ted_sws.data_manager.adapters.repository_abc import NoticeRepositoryABC
 
 
 class FakeNoticeRepository(NoticeRepositoryABC):

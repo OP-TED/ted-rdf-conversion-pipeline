@@ -1,11 +1,13 @@
+from pathlib import Path
+
 import mongomock
 import pymongo
 import pytest
 
-from ted_sws.data_manager.adapters.mapping_suite_repository import MappingSuiteRepositoryInFileSystem
 from ted_sws.core.model.transform import MappingSuite
+from ted_sws.data_manager.adapters.mapping_suite_repository import MappingSuiteRepositoryInFileSystem
 from tests import TEST_DATA_PATH
-from pathlib import Path
+
 
 @pytest.fixture
 def fake_not_mapping_suite_id() -> str:

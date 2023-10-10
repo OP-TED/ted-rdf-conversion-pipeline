@@ -2,9 +2,9 @@ import logging
 import os
 from enum import Enum
 
-from ted_sws import RUN_ENV_NAME, RUN_TEST_ENV_VAL
-
 from colorama import Fore
+
+from ted_sws import RUN_ENV_NAME, RUN_TEST_ENV_VAL
 
 LOG_ERROR_TEXT = Fore.RED + "{}" + Fore.RESET
 LOG_SUCCESS_TEXT = Fore.GREEN + "{}" + Fore.RESET

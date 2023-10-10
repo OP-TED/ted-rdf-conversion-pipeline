@@ -1,10 +1,10 @@
 import pytest
 
-from ted_sws.data_manager.adapters.supra_notice_repository import DailySupraNoticeRepository
-from tests.fakes.fake_ted_api import FakeRequestAPI
-from ted_sws.core.model.notice import Notice
 from ted_sws.core.model.manifestation import XMLManifestation, RDFManifestation
+from ted_sws.core.model.notice import Notice
+from ted_sws.data_manager.adapters.supra_notice_repository import DailySupraNoticeRepository
 from tests import TEST_DATA_PATH
+from tests.fakes.fake_ted_api import FakeRequestAPI
 
 
 @pytest.fixture

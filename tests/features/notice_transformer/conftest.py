@@ -4,16 +4,11 @@ import mongomock
 import pymongo
 import pytest
 
-from ted_sws import config
-from ted_sws.core.model.manifestation import XMLManifestation, RDFManifestation, METSManifestation, \
-    SPARQLTestSuiteValidationReport, SHACLTestSuiteValidationReport
-from ted_sws.core.model.metadata import TEDMetadata, NormalisedMetadata
 from ted_sws.core.model.notice import Notice, NoticeStatus
 from ted_sws.core.model.transform import MappingSuite
-from ted_sws.data_manager.adapters.mapping_suite_repository import MappingSuiteRepositoryMongoDB, \
-    MappingSuiteRepositoryInFileSystem
+from ted_sws.data_manager.adapters.mapping_suite_repository import MappingSuiteRepositoryInFileSystem
 from ted_sws.data_manager.adapters.notice_repository import NoticeRepository
-from ted_sws.notice_transformer.adapters.rml_mapper import RMLMapper, SerializationFormat
+from ted_sws.notice_transformer.adapters.rml_mapper import SerializationFormat
 from tests import TEST_DATA_PATH
 from tests.fakes.fake_rml_mapper import FakeRMLMapper
 

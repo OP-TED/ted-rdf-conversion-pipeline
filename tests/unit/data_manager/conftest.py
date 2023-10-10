@@ -1,5 +1,7 @@
 from datetime import date
+
 import pytest
+
 from ted_sws.core.model.supra_notice import DailySupraNotice, DailyNoticesMetadata
 from ted_sws.core.model.transform import MetadataConstraints, FileResource, TransformationRuleSet, SHACLTestSuite, \
     SPARQLTestSuite, MappingSuite, TransformationTestData

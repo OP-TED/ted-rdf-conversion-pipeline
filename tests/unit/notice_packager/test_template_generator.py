@@ -6,7 +6,6 @@
 # Email: kalean.bl@gmail.com
 
 """ """
-import difflib
 import re
 
 import pytest

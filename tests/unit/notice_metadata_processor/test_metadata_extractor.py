@@ -1,16 +1,17 @@
+import xml.etree.ElementTree as ET
+
 from ted_sws.notice_metadata_processor.model.metadata import ExtractedMetadata, EncodedValue
 from ted_sws.notice_metadata_processor.services.xml_manifestation_metadata_extractor import extract_text_from_element, \
     extract_attribute_from_element, XMLManifestationMetadataExtractor, extract_code_and_value_from_element
 
-import xml.etree.ElementTree as ET
-
 
 def test_metadata_extractor(indexed_notice):
-    metadata_extractor = XMLManifestationMetadataExtractor(xml_manifestation=indexed_notice.xml_manifestation).to_metadata()
-    extracted_metadata_dict = metadata_extractor.dict()
+    metadata_extractor = XMLManifestationMetadataExtractor(
+        xml_manifestation=indexed_notice.xml_manifestation).to_metadata()
+    extracted_metadata_dict = metadata_extractor.model_dump()
 
     assert isinstance(metadata_extractor, ExtractedMetadata)
-    assert extracted_metadata_dict.keys() == ExtractedMetadata.__fields__.keys()
+    assert extracted_metadata_dict.keys() == ExtractedMetadata.model_fields.keys()
     assert "extracted_form_number", "xml_schema" in extracted_metadata_dict.keys()
     assert "067623-2022" in extracted_metadata_dict["notice_publication_number"]
     assert "http://publications.europa.eu/resource/schema/ted/R2.0.8/publication TED_EXPORT.xsd" in \
@@ -22,9 +23,9 @@ def test_metadata_extractor_2016(notice_2016):
     metadata_extractor = XMLManifestationMetadataExtractor(
         xml_manifestation=notice_2016.xml_manifestation).to_metadata()
 
-    extracted_metadata_dict = metadata_extractor.dict()
+    extracted_metadata_dict = metadata_extractor.model_dump()
     assert isinstance(metadata_extractor, ExtractedMetadata)
-    assert extracted_metadata_dict.keys() == ExtractedMetadata.__fields__.keys()
+    assert extracted_metadata_dict.keys() == ExtractedMetadata.model_fields.keys()
     assert notice_2016.ted_id in extracted_metadata_dict["notice_publication_number"]
 
 
@@ -32,9 +33,9 @@ def test_metadata_extractor_2015(notice_2015):
     metadata_extractor = XMLManifestationMetadataExtractor(
         xml_manifestation=notice_2015.xml_manifestation).to_metadata()
 
-    extracted_metadata_dict = metadata_extractor.dict()
+    extracted_metadata_dict = metadata_extractor.model_dump()
     assert isinstance(metadata_extractor, ExtractedMetadata)
-    assert extracted_metadata_dict.keys() == ExtractedMetadata.__fields__.keys()
+    assert extracted_metadata_dict.keys() == ExtractedMetadata.model_fields.keys()
     assert notice_2015.ted_id in extracted_metadata_dict["notice_publication_number"]
 
 
@@ -42,9 +43,9 @@ def test_metadata_extractor_2018(notice_2018):
     metadata_extractor = XMLManifestationMetadataExtractor(
         xml_manifestation=notice_2018.xml_manifestation).to_metadata()
 
-    extracted_metadata_dict = metadata_extractor.dict()
+    extracted_metadata_dict = metadata_extractor.model_dump()
     assert isinstance(metadata_extractor, ExtractedMetadata)
-    assert extracted_metadata_dict.keys() == ExtractedMetadata.__fields__.keys()
+    assert extracted_metadata_dict.keys() == ExtractedMetadata.model_fields.keys()
     assert notice_2018.ted_id in extracted_metadata_dict["notice_publication_number"]
 
 
@@ -82,7 +83,8 @@ def test_extract_code_and_value(indexed_notice):
     assert extracted_data.value == "Services"
     assert extracted_data.code == "4"
 
-    nonexisting_element = doc_root.find("epo:CODED_DATA_SECTION/epo:CODIF_DATA/NC_CONTRACT_NATURE", namespaces=namespace)
+    nonexisting_element = doc_root.find("epo:CODED_DATA_SECTION/epo:CODIF_DATA/NC_CONTRACT_NATURE",
+                                        namespaces=namespace)
     extracted_data = extract_code_and_value_from_element(element=nonexisting_element)
 
     assert extracted_data is None

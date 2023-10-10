@@ -144,7 +144,7 @@ class CoverageRunner:
 
     @classmethod
     def json_report(cls, report: XPATHCoverageValidationReport) -> dict:
-        return report.dict()
+        return report.model_dump()
 
     @classmethod
     def html_report(cls, report: XPATHCoverageValidationReport, metadata: dict = None) -> str:

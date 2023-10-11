@@ -5,6 +5,7 @@ NOTICE_STATUS = "status"
 FORM_NUMBER = "normalised_metadata.form_number"
 XSD_VERSION = "normalised_metadata.xsd_version"
 PUBLICATION_DATE = "normalised_metadata.publication_date"
+MAPPING_SUITE_ID = "mapping_suite_id"
 
 
 def build_selector_mongodb_filter(notice_statuses: List[str], form_number: str = None,
@@ -58,3 +59,22 @@ def notice_ids_selector_by_status(notice_statuses: List[NoticeStatus], form_numb
                                                    xsd_version=xsd_version)
     mongodb_result_iterator = notice_repository.collection.find(mongodb_filter, {NOTICE_TED_ID: 1})
     return [result_dict[NOTICE_TED_ID] for result_dict in mongodb_result_iterator]
+
+
+def notice_ids_selector_by_mapping_suite_id(mapping_suite_id: str) -> List[str]:
+    """
+        Return notice_ids for notices what are transformed with specific mapping_suite_id.
+    :param mapping_suite_id:
+    """
+    from pymongo import MongoClient
+    from ted_sws import config
+    from ted_sws.data_manager.adapters.manifestation_repository import RDFManifestationRepository, \
+        AGGREGATE_REFERENCE_ID, MANIFESTATION_TYPE_ID
+
+    mongodb_client = MongoClient(config.MONGO_DB_AUTH_URL)
+    rdf_manifestation_repository = RDFManifestationRepository(mongodb_client=mongodb_client)
+    mongodb_filter = {MANIFESTATION_TYPE_ID: {"$eq": "rdf"},
+                      MAPPING_SUITE_ID: {"$eq": mapping_suite_id}
+                      }
+    mongodb_result_iterator = rdf_manifestation_repository.collection.find(mongodb_filter, {AGGREGATE_REFERENCE_ID: 1})
+    return [result_dict[AGGREGATE_REFERENCE_ID] for result_dict in mongodb_result_iterator]

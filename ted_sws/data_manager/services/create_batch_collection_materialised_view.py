@@ -1,6 +1,5 @@
 from pymongo import MongoClient
 from ted_sws import config
-from ted_sws.data_manager.services import MONGO_DB_AGGREGATES_DATABASE_DEFAULT_NAME
 
 NOTICE_PROCESS_BATCH_COLLECTION_NAME = "batch_events"
 LOG_EVENTS_COLLECTION_NAME = "log_events"
@@ -13,7 +12,7 @@ def create_batch_collection_materialised_view(mongo_client: MongoClient):
 
     :param mongo_client: mongodb client to connect
     """
-    database = mongo_client[config.MONGO_DB_AGGREGATES_DATABASE_NAME or MONGO_DB_AGGREGATES_DATABASE_DEFAULT_NAME]
+    database = mongo_client[config.MONGO_DB_AGGREGATES_DATABASE_NAME]
     batch_collection = database[LOG_EVENTS_COLLECTION_NAME]
     batch_collection.aggregate([
         {

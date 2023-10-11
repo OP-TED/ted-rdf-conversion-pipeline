@@ -1,5 +1,6 @@
 import pandas as pd
 import rdflib
+
 from ted_sws.data_manager.adapters.sparql_endpoint import TripleStoreEndpointABC
 
 

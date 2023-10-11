@@ -10,7 +10,7 @@
 from ted_sws.core.model.manifestation import RDFManifestation
 from ted_sws.core.model.notice import NoticeStatus
 from ted_sws.notice_packager.model.metadata import METS_TYPE_CREATE
-from ted_sws.notice_packager.services.notice_packager import package_notice, NoticePackager
+from ted_sws.notice_packager.services.notice_packager import package_notice
 
 
 def test_notice_packager_with_notice(notice_2018, rdf_content):

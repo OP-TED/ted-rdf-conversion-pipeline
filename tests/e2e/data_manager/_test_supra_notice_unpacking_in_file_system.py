@@ -3,6 +3,7 @@ import pathlib
 from typing import Union
 
 from pymongo import MongoClient
+
 from ted_sws import config
 from ted_sws.core.model.supra_notice import DailySupraNotice
 from ted_sws.data_manager.adapters.supra_notice_repository import DailySupraNoticeRepository

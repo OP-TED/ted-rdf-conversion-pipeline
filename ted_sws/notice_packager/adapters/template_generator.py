@@ -19,7 +19,7 @@ TEMPLATES = Environment(loader=PackageLoader("ted_sws.notice_packager.resources"
 class TemplateGenerator:
     @classmethod
     def __generate_template(cls, template, data: PackagerMetadata = None) -> str:
-        template_render = TEMPLATES.get_template(template).render(data.dict())
+        template_render = TEMPLATES.get_template(template).render(data.model_dump())
         return template_render
 
     @classmethod

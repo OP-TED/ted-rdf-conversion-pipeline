@@ -1,4 +1,5 @@
 import datetime
+
 from ted_sws.core.model.notice import Notice, NoticeStatus
 from ted_sws.notice_fetcher.services.notice_fetcher import NoticeFetcher
 

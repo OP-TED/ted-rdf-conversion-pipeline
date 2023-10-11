@@ -1,6 +1,7 @@
-from ted_sws.core.model.transform import MappingSuite
 from urllib.parse import urlparse
+
 from ted_sws import config
+from ted_sws.core.model.transform import MappingSuite
 
 
 def update_digest_api_address_for_mapping_suite(mapping_suite: MappingSuite,

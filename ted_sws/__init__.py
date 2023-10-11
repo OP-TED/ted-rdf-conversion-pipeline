@@ -9,10 +9,11 @@
 
 __version__ = "0.0.1"
 
+import base64
 import json
 import os
 import pathlib
-import base64
+
 import dotenv
 
 from ted_sws.core.adapters.config_resolver import EnvConfigResolver, AirflowAndEnvConfigResolver, env_property

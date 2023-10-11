@@ -1,6 +1,6 @@
 import pathlib
 
-from ted_sws.notice_transformer.adapters.rml_mapper import RMLMapperABC, SerializationFormat
+from ted_sws.notice_transformer.adapters.rml_mapper import RMLMapperABC
 
 
 class FakeRMLMapper(RMLMapperABC):

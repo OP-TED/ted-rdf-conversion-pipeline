@@ -1,4 +1,3 @@
-import pytest
 from deepdiff import DeepDiff
 
 from ted_sws.data_manager.adapters.mapping_suite_repository import MappingSuiteRepositoryMongoDB, \

@@ -8,7 +8,6 @@ from pymongo import MongoClient
 from ted_sws import config
 from ted_sws.data_manager.adapters.notice_repository import NoticeRepository
 from ted_sws.data_manager.adapters.triple_store import AllegroGraphTripleStore, FusekiAdapter
-
 from tests import TEST_DATA_PATH
 
 

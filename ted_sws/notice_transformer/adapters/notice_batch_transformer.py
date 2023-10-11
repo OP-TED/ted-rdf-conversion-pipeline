@@ -6,6 +6,7 @@ from collections import defaultdict
 from pathlib import Path
 from threading import Lock
 from typing import Optional
+
 from pymongo import MongoClient
 
 from ted_sws import config

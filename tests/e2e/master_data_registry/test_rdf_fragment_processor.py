@@ -1,5 +1,6 @@
 import rdflib
 from rdflib.compare import similar
+
 from ted_sws.data_manager.adapters.triple_store import FusekiAdapter
 from ted_sws.master_data_registry.services.rdf_fragment_processor import get_rdf_fragment_by_cet_uri_from_notice, \
     write_rdf_fragments_in_triple_store

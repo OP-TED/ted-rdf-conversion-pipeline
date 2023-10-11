@@ -1,6 +1,6 @@
+from ted_sws.event_manager.adapters.event_logger import EventMessageLogSettings
 from ted_sws.event_manager.model.event_message import EventMessage, TechnicalEventMessage, NoticeEventMessage, \
     MappingSuiteEventMessage
-from ted_sws.event_manager.adapters.event_logger import EventMessageLogSettings
 from ted_sws.event_manager.services.logger_from_context import get_logger, get_cli_logger
 
 

@@ -5,8 +5,8 @@ from ted_sws.notice_metadata_processor.model.metadata import ExtractedMetadata, 
 def test_extracted_metadata(notice_id):
     metadata = ExtractedMetadata(**{"notice_publication_number": notice_id, "No_key": ["Value"]})
     assert metadata.notice_publication_number == notice_id
-    assert "No_key" not in metadata.dict().keys()
-    assert "country_of_buyer" in metadata.dict().keys()
+    assert "No_key" not in metadata.model_dump().keys()
+    assert "country_of_buyer" in metadata.model_dump().keys()
 
 
 def test_dict_extracted_metadata(notice_id):
@@ -15,8 +15,8 @@ def test_dict_extracted_metadata(notice_id):
         "city_of_buyer": [LanguageTaggedString("french", "fr"), LanguageTaggedString("english", "en")]
     }
     metadata = ExtractedMetadata(**data_dict)
-    filtered_metadata = {k: v for k, v in metadata.dict().items() if v is not None}
-    assert data_dict["city_of_buyer"] == metadata.dict()["city_of_buyer"]
+    filtered_metadata = {k: v for k, v in metadata.model_dump().items() if v is not None}
+    assert data_dict["city_of_buyer"] == metadata.model_dump()["city_of_buyer"]
     assert data_dict["city_of_buyer"][0].text == metadata.city_of_buyer[0].text
     assert data_dict == filtered_metadata
 

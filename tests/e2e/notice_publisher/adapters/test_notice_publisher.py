@@ -1,11 +1,11 @@
+import ssl
 import tempfile
 
 import pytest
 
 from ted_sws import config
-from ted_sws.notice_publisher.adapters.sftp_notice_publisher import SFTPPublisher
 from ted_sws.notice_publisher.adapters.s3_notice_publisher import S3Publisher
-import ssl
+from ted_sws.notice_publisher.adapters.sftp_notice_publisher import SFTPPublisher
 
 
 def test_sftp_notice_publisher():

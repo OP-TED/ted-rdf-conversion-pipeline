@@ -1,4 +1,5 @@
 import pathlib
+
 from ted_sws import config
 from ted_sws.mapping_suite_processor.adapters.github_package_downloader import GitHubMappingSuitePackageDownloader
 from tests.e2e.mapping_suite_processor import MAPPING_SUITE_PACKAGE_NAME

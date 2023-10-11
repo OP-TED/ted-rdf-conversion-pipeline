@@ -10,7 +10,8 @@ from fastapi.testclient import TestClient
 
 from ted_sws.notice_transformer.entrypoints.api.digest_service.common import ResponseType
 from ted_sws.notice_transformer.entrypoints.api.digest_service.main import app
-from ted_sws.notice_transformer.entrypoints.api.digest_service.routes.hashing import UUIDInputProcessType, UUIDNamespaceType, UUIDVersion
+from ted_sws.notice_transformer.entrypoints.api.digest_service.routes.hashing import UUIDInputProcessType, \
+    UUIDNamespaceType, UUIDVersion
 
 
 @pytest.fixture

@@ -1,5 +1,5 @@
-from ted_sws.core.model.notice import Notice
 from ted_sws.core.model.manifestation import XMLManifestation
+from ted_sws.core.model.notice import Notice
 
 
 class FakeNotice(Notice):

@@ -8,9 +8,8 @@
 """ """
 import pytest
 
-from ted_sws.core.model.manifestation import RDFValidationManifestation, SHACLTestSuiteValidationReport, \
+from ted_sws.core.model.manifestation import SHACLTestSuiteValidationReport, \
     QueriedSHACLShapeValidationResult
-from ted_sws.core.model.notice import NoticeStatus
 
 
 def test_set_notice_rdf_validation(publicly_available_notice, indexed_notice):

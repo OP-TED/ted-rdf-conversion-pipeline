@@ -1,5 +1,6 @@
 import time
 from typing import List, Set
+
 from pymongo import MongoClient
 
 from ted_sws import config

@@ -1,5 +1,7 @@
 import pathlib
+import re
 import tempfile
+import xml.etree.ElementTree as XMLElementTree
 from typing import List
 
 from pymongo import MongoClient
@@ -10,8 +12,6 @@ from ted_sws.core.model.notice import Notice
 from ted_sws.data_manager.adapters.notice_repository import NoticeRepository
 from ted_sws.mapping_suite_processor.adapters.conceptual_mapping_reader import ConceptualMappingReader
 from ted_sws.resources import XSLT_FILES_PATH
-import xml.etree.ElementTree as XMLElementTree
-import re
 
 UNIQUE_XPATHS_XSLT_FILE_PATH = "get_unique_xpaths.xsl"
 XSLT_PREFIX_RESULT = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>"

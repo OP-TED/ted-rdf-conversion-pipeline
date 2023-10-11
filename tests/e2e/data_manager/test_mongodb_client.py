@@ -1,8 +1,5 @@
 import random
 import string
-
-from pymongo import MongoClient
-
 from ted_sws import config
 from ted_sws.data_manager.adapters.notice_repository import NoticeRepository
 from ted_sws.data_manager.services.create_batch_collection_materialised_view import \
@@ -20,10 +17,7 @@ from ted_sws.notice_fetcher.services.notice_fetcher import NoticeFetcher
 from ted_sws.notice_metadata_processor.services.metadata_normalizer import normalise_notice
 
 
-def test_mongodb_client(notice_2016):
-    uri = config.MONGO_DB_AUTH_URL
-    mongodb_client = MongoClient(uri)
-    mongodb_client.drop_database('test')
+def test_mongodb_client(notice_2016, mongodb_client):
     test_db = mongodb_client['test']
     fruits_collection = test_db['fruits']
     fruits_collection.insert_one({"banana": 10, "orange": 50})
@@ -57,10 +51,7 @@ pipeline = [
 ]
 
 
-def test_mongodb_queries():
-    uri = config.MONGO_DB_AUTH_URL
-    mongodb_client = MongoClient(uri)
-    mongodb_client.drop_database('test')
+def test_mongodb_queries(mongodb_client):
     test_db = mongodb_client['test']
     objects_collection = test_db['objects']
     for i in range(0, 20):
@@ -105,10 +96,7 @@ def test_mongodb_queries():
             covered_notice_ids.append(notice_id)
 
 
-def test_mongo_db_query_2():
-    uri = config.MONGO_DB_AUTH_URL
-    mongodb_client = MongoClient(uri)
-    mongodb_client.drop_database('test')
+def test_mongo_db_query_2(mongodb_client):
     test_db = mongodb_client['test']
     objects_collection = test_db['objects']
     for i in range(0, 3):
@@ -191,9 +179,7 @@ def test_create_matview_for_notices(fake_mongodb_client):
         assert 'status' in fields_in_the_kpi_collection
 
 
-def test_create_matview_for_batches():
-    uri = config.MONGO_DB_AUTH_URL
-    mongodb_client = MongoClient(uri)
+def test_create_matview_for_batches(mongodb_client):
     create_batch_collection_materialised_view(mongo_client=mongodb_client)
     db = mongodb_client[config.MONGO_DB_AGGREGATES_DATABASE_NAME]
     assert NOTICE_PROCESS_BATCH_COLLECTION_NAME in db.list_collection_names()

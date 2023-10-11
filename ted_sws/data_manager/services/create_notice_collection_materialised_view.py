@@ -1,7 +1,6 @@
 from pymongo import MongoClient, ASCENDING, DESCENDING
 
 from ted_sws import config
-from ted_sws.data_manager.services import MONGO_DB_AGGREGATES_DATABASE_DEFAULT_NAME
 
 NOTICE_COLLECTION_NAME = "notice_collection"
 NOTICES_MATERIALISED_VIEW_NAME = "notices_collection_materialised_view"
@@ -14,7 +13,7 @@ def create_notice_collection_materialised_view(mongo_client: MongoClient):
     Creates a collection with materialized view used on metabase by aggregating notices collection.
     :param mongo_client: MongoDB client to connect
     """
-    database = mongo_client[config.MONGO_DB_AGGREGATES_DATABASE_NAME or MONGO_DB_AGGREGATES_DATABASE_DEFAULT_NAME]
+    database = mongo_client[config.MONGO_DB_AGGREGATES_DATABASE_NAME]
     notice_collection = database[NOTICE_COLLECTION_NAME]
     notice_collection.aggregate([
         {
@@ -63,7 +62,7 @@ def create_notice_kpi_collection(mongo_client: MongoClient):
     Creates a collection with kpi for existing notices.
     :param mongo_client: MongoDB client to connect
     """
-    database = mongo_client[config.MONGO_DB_AGGREGATES_DATABASE_NAME or MONGO_DB_AGGREGATES_DATABASE_DEFAULT_NAME]
+    database = mongo_client[config.MONGO_DB_AGGREGATES_DATABASE_NAME]
     notice_events_collection = database[NOTICE_EVENTS_COLLECTION_NAME]
     notice_events_collection.aggregate([
         {

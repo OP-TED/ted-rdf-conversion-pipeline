@@ -16,7 +16,7 @@ NOTICE_STORAGE_FEATURES_TEST_DB = "features_test_db_for_notice"
 
 @pytest.fixture
 def mongodb_end_point():
-    return config.MONGO_DB_AUTH_URL
+    return "fake_mongo_db_end_point"
 
 
 @pytest.fixture(scope="function")

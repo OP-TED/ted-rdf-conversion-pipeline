@@ -21,6 +21,7 @@ import rdflib
 from rdflib.parser import StringInputSource
 
 from ted_sws.core.model.manifestation import METSManifestation
+from ted_sws.core.model.metadata import NormalisedMetadata
 from ted_sws.core.model.notice import Notice
 from ted_sws.notice_metadata_processor.model.metadata import ExtractedMetadata
 from ted_sws.notice_metadata_processor.services.xml_manifestation_metadata_extractor import \
@@ -74,8 +75,7 @@ class NoticePackager:
     def __init__(self, notice: Notice, action: str):
         self.tmp_dir = TemporaryDirectory()
         self.tmp_dir_path = Path(self.tmp_dir.name)
-        notice_metadata: ExtractedMetadata = XMLManifestationMetadataExtractor(
-            xml_manifestation=notice.xml_manifestation).to_metadata()
+        notice_metadata: NormalisedMetadata = notice.normalised_metadata
         metadata_transformer = MetadataTransformer(notice_metadata)
         self.template_metadata = metadata_transformer.template_metadata(action=action)
         self.notice_id = self.template_metadata.notice.id

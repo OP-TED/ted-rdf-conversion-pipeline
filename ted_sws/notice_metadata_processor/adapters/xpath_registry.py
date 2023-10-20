@@ -10,10 +10,9 @@ class XPathRegistryABC(abc.ABC):
 class DefaultXPathRegistry(XPathRegistryABC):
     """
         Default XPath registry
-    """
-    """
+
             Holds xpath's to the elements necessary to extract metadata from XML manifestation
-        """
+    """
 
     @property
     def xpath_title_elements(self):
@@ -143,7 +142,74 @@ class DefaultXPathRegistry(XPathRegistryABC):
 class EformsXPathRegistry(XPathRegistryABC):
     """
         Eforms XPath registry
-    """
 
+            Holds xpath's to the elements necessary to extract metadata from XML manifestation (eForms)
+        """
 
+    @property
+    def xpath_title(self):
+        return ".//cac:ProcurementProject/cbc:Name"
 
+    @property
+    def xpath_title_country(self):
+        return ".//cac:ProcurementProject/cac:RealizedLocation/cac:Address/cac:Country/cbc:IdentificationCode[@listName='country']"
+
+    @property
+    def xpath_publication_date(self):
+        return ".//ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:Publication/efbc:PublicationDate"
+
+    @property
+    def xpath_publication_number(self):
+        return ".//ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:Publication/efbc:NoticePublicationID[@schemeName='ojs-notice-id']"
+
+    @property
+    def xpath_ojs_issue_number(self):
+        return ".//ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:Publication/efbc:GazetteID"
+
+    @property
+    def xpath_original_language(self):
+        return ".//cbc:NoticeLanguageCode"
+
+    @property
+    def xpath_document_sent_date(self):
+        return ".//cbc:IssueDate"
+
+    @property
+    def xpath_type_of_contract(self):
+        return ".//cac:ProcurementProject/cbc:ProcurementTypeCode[@listName='contract-nature']"
+
+    @property
+    def xpath_type_of_procedure(self):
+        return ".//cac:TenderingProcess/cbc:ProcedureCode[@listName='procurement-procedure-type']"
+
+    @property
+    def xpath_place_of_performance(self):
+        return ".//cac:ProcurementProject/cac:RealizedLocation/cac:Address/cbc:CountrySubentityCode[@listName='nuts']"
+
+    @property
+    def xpath_common_procurement_elements(self):
+        return ".//cac:ProcurementProject/*/cbc:ItemClassificationCode[@listName='cpv']"
+
+    @property
+    def xpath_internet_address(self):
+        return ".//cac:ProcurementProjectLot/cac:TenderingTerms/cac:CallForTendersDocumentReference/cac:Attachment/cac:ExternalReference/cbc:URI"
+
+    @property
+    def xpath_legal_basis_directive(self):
+        return ".//cbc:RegulatoryDomain"
+
+    @property
+    def xpath_notice_subtype(self):
+        return ".//ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:NoticeSubType/cbc:SubTypeCode[@listName='notice-subtype']"
+
+    @property
+    def xpath_form_type(self):
+        return ".//cbc:NoticeTypeCode"
+
+    @property
+    def xpath_notice_type(self):
+        return ".//cbc:NoticeTypeCode"
+
+    @property
+    def xpath_eform_sdk_version(self):
+        return ".//cbc:CustomizationID"

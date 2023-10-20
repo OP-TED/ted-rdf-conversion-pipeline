@@ -3,7 +3,6 @@ import pytest
 from ted_sws import config
 from ted_sws.data_manager.adapters.mapping_suite_repository import MappingSuiteRepositoryInFileSystem, \
     MappingSuiteRepositoryMongoDB
-from ted_sws.notice_metadata_processor.services.metadata_normalizer import MetadataNormaliser
 from tests import TEST_DATA_PATH
 from tests.fakes.fake_repository import FakeNoticeRepository
 

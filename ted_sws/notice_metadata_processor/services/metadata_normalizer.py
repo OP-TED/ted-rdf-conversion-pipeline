@@ -5,9 +5,9 @@ from ted_sws.core.model.manifestation import XMLManifestation
 from ted_sws.core.model.metadata import NormalisedMetadata, NormalisedMetadataView
 from ted_sws.core.model.notice import Notice
 from ted_sws.data_manager.adapters.notice_repository import NoticeRepositoryABC
-from ted_sws.notice_metadata_processor.adapters.notice_metadata_extractor_prototype import NoticeMetadataExtractorABC, \
+from ted_sws.notice_metadata_processor.adapters.notice_metadata_extractor import NoticeMetadataExtractorABC, \
     EformsNoticeMetadataExtractor, DefaultNoticeMetadataExtractor
-from ted_sws.notice_metadata_processor.adapters.notice_metadata_normaliser_prototype import NoticeMetadataNormaliserABC, \
+from ted_sws.notice_metadata_processor.adapters.notice_metadata_normaliser import NoticeMetadataNormaliserABC, \
     EformsNoticeMetadataNormaliser, DefaultNoticeMetadataNormaliser, ENGLISH_LANGUAGE_TAG, LONG_TITLE_KEY, TITLE_KEY, \
     BUYER_NAME_KEY, BUYER_CITY_KEY
 from ted_sws.notice_metadata_processor.model.metadata import ExtractedMetadata

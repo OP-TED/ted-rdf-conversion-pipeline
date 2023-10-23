@@ -23,9 +23,6 @@ from rdflib.parser import StringInputSource
 from ted_sws.core.model.manifestation import METSManifestation
 from ted_sws.core.model.metadata import NormalisedMetadata
 from ted_sws.core.model.notice import Notice
-from ted_sws.notice_metadata_processor.model.metadata import ExtractedMetadata
-from ted_sws.notice_metadata_processor.services.xml_manifestation_metadata_extractor import \
-    XMLManifestationMetadataExtractor
 from ted_sws.notice_packager import DEFAULT_NOTICE_PACKAGE_EXTENSION
 from ted_sws.notice_packager.adapters.archiver import ZipArchiver
 from ted_sws.notice_packager.adapters.template_generator import TemplateGenerator

@@ -13,13 +13,10 @@ from typing import Dict
 import pytest
 
 from ted_sws.core.model.metadata import NormalisedMetadata
-from ted_sws.notice_metadata_processor.adapters.notice_metadata_extractor_prototype import \
+from ted_sws.notice_metadata_processor.adapters.notice_metadata_extractor import \
     DefaultNoticeMetadataExtractor
-from ted_sws.notice_metadata_processor.adapters.notice_metadata_normaliser_prototype import \
+from ted_sws.notice_metadata_processor.adapters.notice_metadata_normaliser import \
     DefaultNoticeMetadataNormaliser
-from ted_sws.notice_metadata_processor.model.metadata import ExtractedMetadata
-from ted_sws.notice_metadata_processor.services.xml_manifestation_metadata_extractor import \
-    XMLManifestationMetadataExtractor
 from ted_sws.notice_packager.model.metadata import PackagerMetadata, NoticeMetadata, WorkMetadata, ExpressionMetadata, \
     ManifestationMetadata
 from tests import TEST_DATA_PATH

@@ -1,16 +1,15 @@
 import xml.etree.ElementTree as ET
 
-from ted_sws.notice_metadata_processor.adapters.notice_metadata_extractor_prototype import EformsNoticeMetadataExtractor
-from ted_sws.notice_metadata_processor.adapters.xpath_registry import EformsXPathRegistry
+from ted_sws.notice_metadata_processor.adapters.notice_metadata_extractor import EformsNoticeMetadataExtractor, \
+    DefaultNoticeMetadataExtractor, extract_text_from_element, extract_attribute_from_element, \
+    extract_code_and_value_from_element, parse_xml_manifestation, normalised_namespaces_from_xml_manifestation
 from ted_sws.notice_metadata_processor.model.metadata import ExtractedMetadata, EncodedValue
-from ted_sws.notice_metadata_processor.services.metadata_normalizer import check_if_xml_manifestation_is_eform
-from ted_sws.notice_metadata_processor.services.xml_manifestation_metadata_extractor import extract_text_from_element, \
-    extract_attribute_from_element, XMLManifestationMetadataExtractor, extract_code_and_value_from_element
+
 
 
 def test_metadata_extractor(indexed_notice):
-    metadata_extractor = XMLManifestationMetadataExtractor(
-        xml_manifestation=indexed_notice.xml_manifestation).to_metadata()
+    metadata_extractor = DefaultNoticeMetadataExtractor(
+        xml_manifestation=indexed_notice.xml_manifestation).extract_metadata()
     extracted_metadata_dict = metadata_extractor.model_dump()
 
     assert isinstance(metadata_extractor, ExtractedMetadata)
@@ -23,8 +22,8 @@ def test_metadata_extractor(indexed_notice):
 
 
 def test_metadata_extractor_2016(notice_2016):
-    metadata_extractor = XMLManifestationMetadataExtractor(
-        xml_manifestation=notice_2016.xml_manifestation).to_metadata()
+    metadata_extractor = DefaultNoticeMetadataExtractor(
+        xml_manifestation=notice_2016.xml_manifestation).extract_metadata()
 
     extracted_metadata_dict = metadata_extractor.model_dump()
     assert isinstance(metadata_extractor, ExtractedMetadata)
@@ -33,8 +32,8 @@ def test_metadata_extractor_2016(notice_2016):
 
 
 def test_metadata_extractor_2015(notice_2015):
-    metadata_extractor = XMLManifestationMetadataExtractor(
-        xml_manifestation=notice_2015.xml_manifestation).to_metadata()
+    metadata_extractor = DefaultNoticeMetadataExtractor(
+        xml_manifestation=notice_2015.xml_manifestation).extract_metadata()
 
     extracted_metadata_dict = metadata_extractor.model_dump()
     assert isinstance(metadata_extractor, ExtractedMetadata)
@@ -43,8 +42,8 @@ def test_metadata_extractor_2015(notice_2015):
 
 
 def test_metadata_extractor_2018(notice_2018):
-    metadata_extractor = XMLManifestationMetadataExtractor(
-        xml_manifestation=notice_2018.xml_manifestation).to_metadata()
+    metadata_extractor = DefaultNoticeMetadataExtractor(
+        xml_manifestation=notice_2018.xml_manifestation).extract_metadata()
 
     extracted_metadata_dict = metadata_extractor.model_dump()
     assert isinstance(metadata_extractor, ExtractedMetadata)
@@ -94,69 +93,16 @@ def test_extract_code_and_value(indexed_notice):
 
 
 def test_get_root_of_manifestation(indexed_notice):
-    manifestation_root = XMLManifestationMetadataExtractor(
-        xml_manifestation=indexed_notice.xml_manifestation)._parse_manifestation()
+    manifestation_root = parse_xml_manifestation(xml_manifestation=indexed_notice.xml_manifestation)
 
     assert isinstance(manifestation_root, ET.Element)
 
 
 def test_get_normalised_namespaces(indexed_notice):
-    namespaces = XMLManifestationMetadataExtractor(
-        xml_manifestation=indexed_notice.xml_manifestation)._get_normalised_namespaces()
+    namespaces = normalised_namespaces_from_xml_manifestation(xml_manifestation=indexed_notice.xml_manifestation)
 
     assert isinstance(namespaces, dict)
     assert "manifestation_ns", "nuts" in namespaces.keys()
-
-
-def test_check_if_xml_manifestation_is_eform(eform_notice_622690, notice_2018):
-    is_eform_notice_622690_a_eform = check_if_xml_manifestation_is_eform(
-        xml_manifestation=eform_notice_622690.xml_manifestation)
-    is_notice_2018_a_eform = check_if_xml_manifestation_is_eform(xml_manifestation=notice_2018.xml_manifestation)
-
-    assert is_eform_notice_622690_a_eform == True
-    assert is_notice_2018_a_eform == False
-
-
-
-def test_eform_xpath(eform_notice_622690):
-    namespaces = XMLManifestationMetadataExtractor(
-        xml_manifestation=eform_notice_622690.xml_manifestation)._get_normalised_namespaces()
-    # print(namespaces)
-    doc_root = ET.fromstring(eform_notice_622690.xml_manifestation.object_data)
-    xpaths = EformsXPathRegistry()
-    # element = doc_root.find(".//ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:NoticeSubType/cbc:SubTypeCode", namespaces=namespaces).text
-    # element = doc_root.find(".//ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:Publication/efbc:PublicationDate", namespaces=namespaces).text
-    # element = doc_root.find(".//cbc:RegulatoryDomain", namespaces=namespaces).text
-    # element = doc_root.find(".//cbc:RegulatoryDomain", namespaces=namespaces).text
-    # element = doc_root.find(".//cac:ProcurementProject/cac:MainCommodityClassification/cbc:ItemClassificationCode[@listName='cpv']", namespaces=namespaces).text
-    xpath_title = doc_root.find(xpaths.xpath_title, namespaces=namespaces).text
-    xpath_title_country = doc_root.find(xpaths.xpath_title_country, namespaces=namespaces).text
-    xpath_publication_date = doc_root.find(xpaths.xpath_publication_date, namespaces=namespaces).text
-    xpath_ojs_issue_number = doc_root.find(xpaths.xpath_ojs_issue_number, namespaces=namespaces).text
-    xpath_original_language = doc_root.find(xpaths.xpath_original_language, namespaces=namespaces).text
-    xpath_document_sent_date = doc_root.find(xpaths.xpath_document_sent_date, namespaces=namespaces).text
-    xpath_type_of_contract = doc_root.find(xpaths.xpath_type_of_contract, namespaces=namespaces).text
-    xpath_type_of_procedure = doc_root.find(xpaths.xpath_type_of_procedure, namespaces=namespaces).text
-    xpath_place_of_performance = doc_root.find(xpaths.xpath_place_of_performance, namespaces=namespaces).text
-    xpath_internet_address = doc_root.find(xpaths.xpath_internet_address, namespaces=namespaces).text
-    xpath_legal_basis_directive = doc_root.find(xpaths.xpath_legal_basis_directive, namespaces=namespaces).text
-    xpath_notice_subtype = doc_root.find(xpaths.xpath_notice_subtype, namespaces=namespaces).text
-    xpath_form_type = doc_root.find(xpaths.xpath_form_type, namespaces=namespaces).attrib["listName"]
-    xpath_notice_type = doc_root.find(xpaths.xpath_notice_type, namespaces=namespaces).text
-    print(xpath_title)
-    print(xpath_title_country)
-    print(xpath_publication_date)
-    print(xpath_ojs_issue_number)
-    print(xpath_original_language)
-    print(xpath_document_sent_date)
-    print(xpath_type_of_contract)
-    print(xpath_type_of_procedure)
-    print(xpath_place_of_performance)
-    print(xpath_internet_address)
-    print(xpath_legal_basis_directive)
-    print(xpath_notice_subtype)
-    print(xpath_form_type)
-    print(xpath_notice_type)
 
 
 def test_metadata_eform_extractor(eform_notice_622690):

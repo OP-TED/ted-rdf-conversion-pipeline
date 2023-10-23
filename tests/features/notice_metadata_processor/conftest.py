@@ -3,6 +3,7 @@ import pytest
 from ted_sws import config
 from ted_sws.data_manager.adapters.mapping_suite_repository import MappingSuiteRepositoryInFileSystem, \
     MappingSuiteRepositoryMongoDB
+from ted_sws.notice_metadata_processor.services.metadata_normalizer import normalise_notice
 from tests import TEST_DATA_PATH
 from tests.fakes.fake_repository import FakeNoticeRepository
 
@@ -30,7 +31,7 @@ def notice_eligibility_repository_path():
 @pytest.fixture
 def normalised_notice(notice_2020):
     notice = notice_2020.copy()
-    MetadataNormaliser(notice=notice).normalise_metadata()
+    normalise_notice(notice=notice)
     return notice
 
 

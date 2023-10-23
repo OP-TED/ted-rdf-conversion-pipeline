@@ -1,7 +1,7 @@
 from pytest_bdd import scenario, given, when, then, parsers
 
 from ted_sws.core.model.notice import NoticeStatus
-from ted_sws.notice_metadata_processor.services.metadata_normalizer import MetadataNormaliser
+from ted_sws.notice_metadata_processor.services.metadata_normalizer import normalise_notice
 
 
 @scenario('metadata_normaliser.feature', 'Normalizing a notice metadata')
@@ -16,7 +16,7 @@ def step_impl(f03_notice_2020):
 
 @when("the normalize process is executed")
 def step_impl(notice):
-    MetadataNormaliser(notice=notice).normalise_metadata()
+    normalise_notice(notice=notice)
 
 
 @then(parsers.parse("a normalized notice {metadata} is {possibly} available"))

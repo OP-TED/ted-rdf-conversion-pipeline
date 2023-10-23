@@ -269,8 +269,30 @@ class EformsNoticeMetadataNormaliser(NoticeMetadataNormaliserABC):
     @classmethod
     def iso_date_format(cls, _date: str, with_none=False):
         if _date or not with_none:
+            if 'Z' in _date:
+                # Replace 'Z' with '+00:00' and parse
+                _date = _date.replace('Z', '+00:00')
             return datetime.fromisoformat(_date).isoformat()
         return None
+
+    @classmethod
+    def get_form_type_notice_type_and_legal_basis(cls, extracted_notice_subtype: str) -> Tuple:
+        """
+         Get the values for form type, notice type and legal basis from the eForm mapping files
+        """
+        ef_map: pd.DataFrame = mapping_registry.ef_notice_df
+        filtered_df = ef_map.query(f"{E_FORMS_SUBTYPE_KEY}=='{extracted_notice_subtype}'").to_dict(orient='records')[0]
+        try:
+            form_type = filtered_df[FORM_TYPE_KEY]
+            notice_type = filtered_df[E_FORM_NOTICE_TYPE_COLUMN]
+            legal_basis = filtered_df[E_FORM_LEGAL_BASIS_COLUMN]
+        except:
+            raise Exception(
+                f"This notice can't be mapped with the current mapping files (standard forms mapping and eforms mapping)."
+                f"Searched values: notice_subtype = {extracted_notice_subtype},"
+                f"Therefore form_type, notice_type, legal_basis and eforms_subtype fields can't be normalised")
+
+        return form_type, notice_type, legal_basis
 
     def normalise_metadata(self, extracted_metadata: ExtractedMetadata) -> NormalisedMetadata:
         """
@@ -278,20 +300,19 @@ class EformsNoticeMetadataNormaliser(NoticeMetadataNormaliserABC):
         :return:
         """
         extracted_metadata = extracted_metadata
-        countries_map = mapping_registry.countries
         form_type_map = mapping_registry.form_type
         languages_map = mapping_registry.languages
         legal_basis_map = mapping_registry.legal_basis
         notice_type_map = mapping_registry.notice_type
         nuts_map = mapping_registry.nuts
-
+        form_type, notice_type, legal_basis = self.get_form_type_notice_type_and_legal_basis(
+            extracted_notice_subtype=extracted_metadata.extracted_notice_subtype)
         metadata = {
             TITLE_KEY: [title.title for title in extracted_metadata.title],
             LONG_TITLE_KEY: [
                 LanguageTaggedString(text=JOIN_SEP.join(
                     [
                         title.title_country.text,
-                        title.title_city.text,
                         title.title.text
                     ]),
                     language=title.title.language) for title in extracted_metadata.title
@@ -300,15 +321,11 @@ class EformsNoticeMetadataNormaliser(NoticeMetadataNormaliserABC):
             PUBLICATION_DATE_KEY: self.iso_date_format(extracted_metadata.publication_date),
             OJS_NUMBER_KEY: extracted_metadata.ojs_issue_number,
             OJS_TYPE_KEY: extracted_metadata.ojs_type if extracted_metadata.ojs_type else "S",
-            BUYER_CITY_KEY: [city_of_buyer for city_of_buyer in extracted_metadata.city_of_buyer],
-            BUYER_NAME_KEY: [name_of_buyer for name_of_buyer in extracted_metadata.name_of_buyer],
             LANGUAGE_KEY: get_map_value(mapping=languages_map, value=extracted_metadata.original_language),
-            BUYER_COUNTRY_KEY: get_map_value(mapping=countries_map, value=extracted_metadata.country_of_buyer),
-            EU_INSTITUTION_KEY: False if extracted_metadata.eu_institution == '-' else True,
             SENT_DATE_KEY: self.iso_date_format(extracted_metadata.document_sent_date, True),
             DEADLINE_DATE_KEY: self.iso_date_format(extracted_metadata.deadline_for_submission, True),
-            NOTICE_TYPE_KEY: get_map_value(mapping=notice_type_map, value=extracted_metadata.extracted_notice_type),
-            FORM_TYPE_KEY: get_map_value(mapping=form_type_map, value=extracted_metadata.extracted_eform_type),
+            NOTICE_TYPE_KEY: get_map_value(mapping=notice_type_map, value=notice_type),
+            FORM_TYPE_KEY: get_map_value(mapping=form_type_map, value=form_type),
             PLACE_OF_PERFORMANCE_KEY: get_map_list_value_by_code(
                 mapping=nuts_map,
                 listing=extracted_metadata.place_of_performance
@@ -318,7 +335,7 @@ class EformsNoticeMetadataNormaliser(NoticeMetadataNormaliserABC):
                                                      ) if extracted_metadata.legal_basis_directive else None,
             FORM_NUMBER_KEY: '',
             LEGAL_BASIS_DIRECTIVE_KEY: get_map_value(mapping=legal_basis_map,
-                                                     value=extracted_metadata.legal_basis_directive),
+                                                     value=legal_basis),
             E_FORMS_SUBTYPE_KEY: extracted_metadata.extracted_notice_subtype,
             XSD_VERSION_KEY: extracted_metadata.xml_schema_version
         }

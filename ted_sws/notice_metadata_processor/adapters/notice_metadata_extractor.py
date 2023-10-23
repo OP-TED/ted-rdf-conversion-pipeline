@@ -273,8 +273,8 @@ class EformsNoticeMetadataExtractor(NoticeMetadataExtractorABC):
 
     @property
     def title(self):
-        title_country = extract_text_from_element(
-            element=self.manifestation_root.find(self.xpath_registry.xpath_title_country, namespaces=self.namespaces))
+        title_country = LanguageTaggedString(text=extract_text_from_element(
+            element=self.manifestation_root.find(self.xpath_registry.xpath_title_country, namespaces=self.namespaces)),language='')
         title_text = LanguageTaggedString(
             text=extract_text_from_element(element=self.manifestation_root.find(
                 self.xpath_registry.xpath_title,

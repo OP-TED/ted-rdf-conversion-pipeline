@@ -12,8 +12,7 @@ from dags.operators.DagBatchPipelineOperator import NOTICE_IDS_KEY, TriggerNotic
 from dags.pipelines.notice_selectors_pipelines import notice_ids_selector_by_status, \
     notice_ids_selector_by_mapping_suite_id
 from dags.reprocess_dag_params import REPROCESS_DAG_PARAMS, FORM_NUMBER_DAG_PARAM, START_DATE_DAG_PARAM, \
-    END_DATE_DAG_PARAM, XSD_VERSION_DAG_PARAM
-from ted_sws.core.model.notice import NoticeStatus
+    END_DATE_DAG_PARAM, XSD_VERSION_DAG_PARAM, RE_TRANSFORM_TARGET_NOTICE_STATES
 from ted_sws.event_manager.adapters.event_log_decorator import event_log
 from ted_sws.event_manager.model.event_message import TechnicalEventMessage, EventMessageMetadata, \
     EventMessageProcessType
@@ -22,11 +21,6 @@ DAG_NAME = "reprocess_untransformed_notices_from_backlog"
 
 MAPPING_SUITE_ID_DAG_PARAM = "mapping_suite_id"
 
-RE_TRANSFORM_TARGET_NOTICE_STATES = [NoticeStatus.NORMALISED_METADATA, NoticeStatus.INELIGIBLE_FOR_TRANSFORMATION,
-                                     NoticeStatus.ELIGIBLE_FOR_TRANSFORMATION,
-                                     NoticeStatus.PREPROCESSED_FOR_TRANSFORMATION,
-                                     NoticeStatus.TRANSFORMED, NoticeStatus.DISTILLED
-                                     ]
 TRIGGER_NOTICE_PROCESS_WORKFLOW_TASK_ID = "trigger_notice_process_workflow"
 
 RE_TRANSFORM_DAG_PARAMS = {**REPROCESS_DAG_PARAMS,
@@ -65,7 +59,8 @@ def reprocess_untransformed_notices_from_backlog():
                                                    form_number=form_number, start_date=start_date,
                                                    end_date=end_date, xsd_version=xsd_version)
         if mapping_suite_id:
-            filtered_notice_ids_by_mapping_suite_id = notice_ids_selector_by_mapping_suite_id(mapping_suite_id=mapping_suite_id)
+            filtered_notice_ids_by_mapping_suite_id = notice_ids_selector_by_mapping_suite_id(
+                mapping_suite_id=mapping_suite_id)
             notice_ids = list(set(notice_ids).intersection(set(filtered_notice_ids_by_mapping_suite_id)))
         push_dag_downstream(key=NOTICE_IDS_KEY, value=notice_ids)
 

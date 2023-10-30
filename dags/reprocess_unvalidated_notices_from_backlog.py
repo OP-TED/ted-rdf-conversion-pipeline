@@ -10,15 +10,13 @@ from dags.notice_processing_pipeline import NOTICE_TRANSFORMATION_PIPELINE_TASK_
 from dags.operators.DagBatchPipelineOperator import NOTICE_IDS_KEY, TriggerNoticeBatchPipelineOperator
 from dags.pipelines.notice_selectors_pipelines import notice_ids_selector_by_status
 from dags.reprocess_dag_params import REPROCESS_DAG_PARAMS, FORM_NUMBER_DAG_PARAM, START_DATE_DAG_PARAM, \
-    END_DATE_DAG_PARAM, XSD_VERSION_DAG_PARAM
-from ted_sws.core.model.notice import NoticeStatus
+    END_DATE_DAG_PARAM, XSD_VERSION_DAG_PARAM, RE_VALIDATE_TARGET_NOTICE_STATES
 from ted_sws.event_manager.adapters.event_log_decorator import event_log
 from ted_sws.event_manager.model.event_message import TechnicalEventMessage, EventMessageMetadata, \
     EventMessageProcessType
 
 DAG_NAME = "reprocess_unvalidated_notices_from_backlog"
 
-RE_VALIDATE_TARGET_NOTICE_STATES = [NoticeStatus.DISTILLED]
 TRIGGER_NOTICE_PROCESS_WORKFLOW_TASK_ID = "trigger_notice_process_workflow"
 
 

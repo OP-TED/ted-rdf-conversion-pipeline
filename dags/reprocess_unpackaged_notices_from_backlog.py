@@ -9,18 +9,14 @@ from dags.dags_utils import push_dag_downstream, get_dag_param
 from dags.notice_processing_pipeline import NOTICE_PACKAGE_PIPELINE_TASK_ID
 from dags.operators.DagBatchPipelineOperator import NOTICE_IDS_KEY, TriggerNoticeBatchPipelineOperator
 from dags.pipelines.notice_selectors_pipelines import notice_ids_selector_by_status
-from ted_sws.core.model.notice import NoticeStatus
 from ted_sws.event_manager.adapters.event_log_decorator import event_log
 from ted_sws.event_manager.model.event_message import TechnicalEventMessage, EventMessageMetadata, \
     EventMessageProcessType
 from dags.reprocess_dag_params import REPROCESS_DAG_PARAMS, FORM_NUMBER_DAG_PARAM, START_DATE_DAG_PARAM, \
-    END_DATE_DAG_PARAM, XSD_VERSION_DAG_PARAM
+    END_DATE_DAG_PARAM, XSD_VERSION_DAG_PARAM, RE_PACKAGE_TARGET_NOTICE_STATES
 
 DAG_NAME = "reprocess_unpackaged_notices_from_backlog"
 
-RE_PACKAGE_TARGET_NOTICE_STATES = [NoticeStatus.VALIDATED, NoticeStatus.INELIGIBLE_FOR_PACKAGING,
-                                   NoticeStatus.ELIGIBLE_FOR_PACKAGING,
-                                   NoticeStatus.INELIGIBLE_FOR_PUBLISHING]
 TRIGGER_NOTICE_PROCESS_WORKFLOW_TASK_ID = "trigger_notice_process_workflow"
 
 

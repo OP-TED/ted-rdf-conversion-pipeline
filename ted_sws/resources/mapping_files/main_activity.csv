@@ -1,5 +1,5 @@
 xmlElement,code,conceptURI
-,OP_DATPRO,http://publications.europa.eu/resource/authority/main-activity/OP_DATPRO
+-,OP_DATPRO,http://publications.europa.eu/resource/authority/main-activity/OP_DATPRO
 AIRPORT_RELATED_ACTIVITIES,airport,http://publications.europa.eu/resource/authority/main-activity/airport
 DEFENCE,defence,http://publications.europa.eu/resource/authority/main-activity/defence
 ECONOMIC_AND_FINANCIAL_AFFAIRS,econ-aff,http://publications.europa.eu/resource/authority/main-activity/econ-aff
@@ -20,7 +20,3 @@ SOCIAL_PROTECTION,soc-pro,http://publications.europa.eu/resource/authority/main-
 EXPLORATION_EXTRACTION_COAL_OTHER_SOLID_FUEL,solid-fuel,http://publications.europa.eu/resource/authority/main-activity/solid-fuel
 URBAN_RAILWAY_TRAMWAY_TROLLEYBUS_BUS_SERVICES,urttb,http://publications.europa.eu/resource/authority/main-activity/urttb
 WATER,water,http://publications.europa.eu/resource/authority/main-activity/water
-,,
-Legend:,,
-CA_ACTIVITY,,
-CE_ACTIVITY,,

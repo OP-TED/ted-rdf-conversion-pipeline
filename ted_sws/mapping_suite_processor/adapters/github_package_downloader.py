@@ -3,9 +3,9 @@ import pathlib
 import shutil
 import subprocess
 import tempfile
+from ted_sws import config
 
-GITHUB_TED_SWS_ARTEFACTS_REPOSITORY_NAME = "ted-rdf-mapping"
-GITHUB_TED_SWS_ARTEFACTS_MAPPINGS_PATH = f"{GITHUB_TED_SWS_ARTEFACTS_REPOSITORY_NAME}/mappings"
+MAPPINGS_DIR_NAME = "mappings"
 
 
 class MappingSuitePackageDownloaderABC(abc.ABC):
@@ -26,6 +26,7 @@ class GitHubMappingSuitePackageDownloader(MappingSuitePackageDownloaderABC):
     """
         This class downloads mapping_suite_package from GitHub.
     """
+
     def __init__(self, github_repository_url: str, branch_or_tag_name: str):
         """
         Option can be branch or tag, not both
@@ -34,6 +35,7 @@ class GitHubMappingSuitePackageDownloader(MappingSuitePackageDownloaderABC):
         """
         self.github_repository_url = github_repository_url
         self.branch_or_tag_name = branch_or_tag_name
+        self.repository_name = config.GITHUB_TED_SWS_ARTEFACTS_REPOSITORY_NAME
 
     def download(self, output_mapping_suite_package_path: pathlib.Path) -> str:
         """
@@ -62,7 +64,7 @@ class GitHubMappingSuitePackageDownloader(MappingSuitePackageDownloaderABC):
                            stdout=subprocess.DEVNULL,
                            stderr=subprocess.STDOUT)
             git_last_commit_hash = get_git_head_hash(
-                git_repository_path=temp_dir_path / GITHUB_TED_SWS_ARTEFACTS_REPOSITORY_NAME)
-            downloaded_tmp_mapping_suite_path = temp_dir_path / GITHUB_TED_SWS_ARTEFACTS_MAPPINGS_PATH
+                git_repository_path=temp_dir_path / self.repository_name)
+            downloaded_tmp_mapping_suite_path = temp_dir_path / self.repository_name / MAPPINGS_DIR_NAME
             shutil.copytree(downloaded_tmp_mapping_suite_path, output_mapping_suite_package_path, dirs_exist_ok=True)
         return git_last_commit_hash

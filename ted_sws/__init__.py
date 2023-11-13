@@ -145,6 +145,10 @@ class GitHubArtefacts:
     def GITHUB_TED_SWS_ARTEFACTS_URL(self, config_value: str) -> str:
         return config_value
 
+    @env_property(config_resolver_class=AirflowAndEnvConfigResolver, default_value="ted-rdf-mapping")
+    def GITHUB_TED_SWS_ARTEFACTS_REPOSITORY_NAME(self, config_value: str) -> str:
+        return config_value
+
 
 class API:
     @env_property(default_value="localhost")

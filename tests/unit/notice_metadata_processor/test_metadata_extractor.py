@@ -1,13 +1,15 @@
 import xml.etree.ElementTree as ET
 
+from ted_sws.notice_metadata_processor.adapters.notice_metadata_extractor import EformsNoticeMetadataExtractor, \
+    DefaultNoticeMetadataExtractor, extract_text_from_element, extract_attribute_from_element, \
+    extract_code_and_value_from_element, parse_xml_manifestation, normalised_namespaces_from_xml_manifestation
 from ted_sws.notice_metadata_processor.model.metadata import ExtractedMetadata, EncodedValue
-from ted_sws.notice_metadata_processor.services.xml_manifestation_metadata_extractor import extract_text_from_element, \
-    extract_attribute_from_element, XMLManifestationMetadataExtractor, extract_code_and_value_from_element
+
 
 
 def test_metadata_extractor(indexed_notice):
-    metadata_extractor = XMLManifestationMetadataExtractor(
-        xml_manifestation=indexed_notice.xml_manifestation).to_metadata()
+    metadata_extractor = DefaultNoticeMetadataExtractor(
+        xml_manifestation=indexed_notice.xml_manifestation).extract_metadata()
     extracted_metadata_dict = metadata_extractor.model_dump()
 
     assert isinstance(metadata_extractor, ExtractedMetadata)
@@ -20,8 +22,8 @@ def test_metadata_extractor(indexed_notice):
 
 
 def test_metadata_extractor_2016(notice_2016):
-    metadata_extractor = XMLManifestationMetadataExtractor(
-        xml_manifestation=notice_2016.xml_manifestation).to_metadata()
+    metadata_extractor = DefaultNoticeMetadataExtractor(
+        xml_manifestation=notice_2016.xml_manifestation).extract_metadata()
 
     extracted_metadata_dict = metadata_extractor.model_dump()
     assert isinstance(metadata_extractor, ExtractedMetadata)
@@ -30,8 +32,8 @@ def test_metadata_extractor_2016(notice_2016):
 
 
 def test_metadata_extractor_2015(notice_2015):
-    metadata_extractor = XMLManifestationMetadataExtractor(
-        xml_manifestation=notice_2015.xml_manifestation).to_metadata()
+    metadata_extractor = DefaultNoticeMetadataExtractor(
+        xml_manifestation=notice_2015.xml_manifestation).extract_metadata()
 
     extracted_metadata_dict = metadata_extractor.model_dump()
     assert isinstance(metadata_extractor, ExtractedMetadata)
@@ -40,8 +42,8 @@ def test_metadata_extractor_2015(notice_2015):
 
 
 def test_metadata_extractor_2018(notice_2018):
-    metadata_extractor = XMLManifestationMetadataExtractor(
-        xml_manifestation=notice_2018.xml_manifestation).to_metadata()
+    metadata_extractor = DefaultNoticeMetadataExtractor(
+        xml_manifestation=notice_2018.xml_manifestation).extract_metadata()
 
     extracted_metadata_dict = metadata_extractor.model_dump()
     assert isinstance(metadata_extractor, ExtractedMetadata)
@@ -91,15 +93,26 @@ def test_extract_code_and_value(indexed_notice):
 
 
 def test_get_root_of_manifestation(indexed_notice):
-    manifestation_root = XMLManifestationMetadataExtractor(
-        xml_manifestation=indexed_notice.xml_manifestation)._parse_manifestation()
+    manifestation_root = parse_xml_manifestation(xml_manifestation=indexed_notice.xml_manifestation)
 
     assert isinstance(manifestation_root, ET.Element)
 
 
 def test_get_normalised_namespaces(indexed_notice):
-    namespaces = XMLManifestationMetadataExtractor(
-        xml_manifestation=indexed_notice.xml_manifestation)._get_normalised_namespaces()
+    namespaces = normalised_namespaces_from_xml_manifestation(xml_manifestation=indexed_notice.xml_manifestation)
 
     assert isinstance(namespaces, dict)
     assert "manifestation_ns", "nuts" in namespaces.keys()
+
+
+def test_metadata_eform_extractor(eform_notice_622690):
+    metadata_extractor = EformsNoticeMetadataExtractor(
+        xml_manifestation=eform_notice_622690.xml_manifestation).extract_metadata()
+    extracted_metadata_dict = metadata_extractor.model_dump()
+    print(extracted_metadata_dict)
+    assert isinstance(metadata_extractor, ExtractedMetadata)
+    assert extracted_metadata_dict.keys() == ExtractedMetadata.model_fields.keys()
+    assert "extracted_form_number", "xml_schema" in extracted_metadata_dict.keys()
+    assert "00622690-2023" in extracted_metadata_dict["notice_publication_number"]
+    assert "competition" in extracted_metadata_dict["extracted_eform_type"]
+    assert extracted_metadata_dict["extracted_form_number"] == None

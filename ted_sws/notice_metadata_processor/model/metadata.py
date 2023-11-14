@@ -35,3 +35,6 @@ class ExtractedMetadata(Metadata):
     xml_schema: str = None
     xml_schema_version: str = None
     extracted_notice_type: str = None
+    extracted_eform_type: str = None
+    extracted_notice_subtype: str = None
+

@@ -55,6 +55,7 @@ def a_notice(normalised_notice):
 @given('the notice is with form number F03')
 def the_notice_is_with_form_number_f03(normalised_notice):
     """the notice is with form number F03."""
+    print(normalised_notice.normalised_metadata)
     assert normalised_notice.normalised_metadata.form_number == "F03"
 
 

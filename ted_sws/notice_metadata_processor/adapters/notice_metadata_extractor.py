@@ -1,22 +1,28 @@
+import abc
 import xml.etree.ElementTree as ET
 from io import StringIO
+from typing import Dict
 
 from ted_sws.core.model.manifestation import XMLManifestation
-from ted_sws.notice_metadata_processor.model.metadata import ExtractedMetadata, LanguageTaggedString, CompositeTitle, \
-    EncodedValue
-from ted_sws.notice_metadata_processor.services.xpath_registry import XpathRegistry
+from ted_sws.core.model.metadata import LanguageTaggedString, CompositeTitle, EncodedValue
+from ted_sws.notice_metadata_processor.adapters.xpath_registry import EformsXPathRegistry, DefaultXPathRegistry
+from ted_sws.notice_metadata_processor.model.metadata import ExtractedMetadata
 
 
-class XMLManifestationMetadataExtractor:
-    """
-      Extracts metadata from an XML manifestation.
-    """
+class NoticeMetadataExtractorABC(abc.ABC):
+
+    @abc.abstractmethod
+    def extract_metadata(self) -> ExtractedMetadata:
+        pass
+
+
+class DefaultNoticeMetadataExtractor(NoticeMetadataExtractorABC):
 
     def __init__(self, xml_manifestation: XMLManifestation):
         self.xml_manifestation = xml_manifestation
-        self.manifestation_root = self._parse_manifestation()
-        self.namespaces = self._get_normalised_namespaces()
-        self.xpath_registry = XpathRegistry()
+        self.xpath_registry = DefaultXPathRegistry()
+        self.manifestation_root = parse_xml_manifestation(xml_manifestation=xml_manifestation)
+        self.namespaces = normalised_namespaces_from_xml_manifestation(xml_manifestation=xml_manifestation)
 
     @property
     def title(self):
@@ -225,11 +231,7 @@ class XMLManifestationMetadataExtractor:
             self.xpath_registry.xpath_notice_type,
             namespaces=self.namespaces), attrib_key="TYPE")
 
-    def to_metadata(self) -> ExtractedMetadata:
-        """
-         Creating extracted metadata
-        :return:
-        """
+    def extract_metadata(self) -> ExtractedMetadata:
         metadata: ExtractedMetadata = ExtractedMetadata()
         metadata.title = self.title
         metadata.notice_publication_number = self.notice_publication_number
@@ -260,34 +262,127 @@ class XMLManifestationMetadataExtractor:
         metadata.extracted_notice_type = self.extracted_notice_type
         return metadata
 
-    def _parse_manifestation(self):
-        """
-        Parsing XML manifestation and getting the root
-        :return:
-        """
-        xml_manifestation_content = self.xml_manifestation.object_data
-        return ET.fromstring(xml_manifestation_content)
 
-    def _get_normalised_namespaces(self):
-        """
-        Get normalised namespaces from XML manifestation
-        :return:
-        """
-        namespaces = dict([node for _, node in ET.iterparse(source=StringIO(self.xml_manifestation.object_data),
-                                                            events=['start-ns'])])
+class EformsNoticeMetadataExtractor(NoticeMetadataExtractorABC):
 
-        namespaces["manifestation_ns"] = namespaces.pop("") if "" in namespaces.keys() else ""
+    def __init__(self, xml_manifestation: XMLManifestation):
+        self.xpath_registry = EformsXPathRegistry()
+        self.xml_manifestation = xml_manifestation
+        self.manifestation_root = parse_xml_manifestation(xml_manifestation=xml_manifestation)
+        self.namespaces = normalised_namespaces_from_xml_manifestation(xml_manifestation=xml_manifestation)
 
-        tmp_dict = namespaces.copy()
-        items = tmp_dict.items()
-        for key, value in items:
-            if value.endswith("nuts"):
-                namespaces["nuts"] = namespaces.pop(key)
+    @property
+    def title(self):
+        title_country = LanguageTaggedString(text=extract_text_from_element(
+            element=self.manifestation_root.find(self.xpath_registry.xpath_title_country, namespaces=self.namespaces)),language='')
+        title_text = LanguageTaggedString(
+            text=extract_text_from_element(element=self.manifestation_root.find(
+                self.xpath_registry.xpath_title,
+                namespaces=self.namespaces)),
+            language=extract_attribute_from_element(element=self.manifestation_root.find(
+                self.xpath_registry.xpath_title,
+                namespaces=self.namespaces), attrib_key="languageID"))
+        return [CompositeTitle(title=title_text, title_country=title_country)]
 
-        if "nuts" not in namespaces.keys():
-            namespaces.update({"nuts": "no_nuts"})
+    @property
+    def publication_date(self):
+        return extract_text_from_element(
+            element=self.manifestation_root.find(self.xpath_registry.xpath_publication_date, namespaces=self.namespaces))
 
-        return namespaces
+    @property
+    def notice_publication_number(self):
+        return extract_text_from_element(
+            element=self.manifestation_root.find(self.xpath_registry.xpath_publication_number, namespaces=self.namespaces))
+
+    @property
+    def ojs_issue_number(self):
+        return extract_text_from_element(
+            element=self.manifestation_root.find(self.xpath_registry.xpath_ojs_issue_number, namespaces=self.namespaces))
+
+    @property
+    def original_language(self):
+        return extract_text_from_element(
+            element=self.manifestation_root.find(self.xpath_registry.xpath_original_language, namespaces=self.namespaces))
+
+    @property
+    def document_sent_date(self):
+        return extract_text_from_element(
+            element=self.manifestation_root.find(self.xpath_registry.xpath_document_sent_date, namespaces=self.namespaces))
+
+    @property
+    def type_of_contract(self):
+        return EncodedValue(value=extract_text_from_element(
+            element=self.manifestation_root.find(self.xpath_registry.xpath_type_of_contract, namespaces=self.namespaces)))
+
+    @property
+    def type_of_procedure(self):
+        return EncodedValue(value=extract_text_from_element(
+            element=self.manifestation_root.find(self.xpath_registry.xpath_type_of_procedure, namespaces=self.namespaces)))
+
+    @property
+    def place_of_performance(self):
+        extracted_nuts_code = extract_text_from_element(
+            element=self.manifestation_root.find(self.xpath_registry.xpath_place_of_performance, namespaces=self.namespaces))
+        return [EncodedValue(value=extracted_nuts_code,code=extracted_nuts_code)]
+
+    @property
+    def common_procurement(self):
+        common_procurement_elements = self.manifestation_root.findall(
+            self.xpath_registry.xpath_common_procurement_elements,
+            namespaces=self.namespaces)
+        return [extract_code_from_element(element=element) for element in common_procurement_elements]
+
+    @property
+    def internet_address(self):
+        return extract_text_from_element(
+            element=self.manifestation_root.find(self.xpath_registry.xpath_internet_address, namespaces=self.namespaces))
+
+    @property
+    def legal_basis_directive(self):
+        return extract_text_from_element(
+            element=self.manifestation_root.find(self.xpath_registry.xpath_legal_basis_directive, namespaces=self.namespaces))
+
+    @property
+    def extracted_notice_subtype(self):
+        return extract_text_from_element(
+            element=self.manifestation_root.find(self.xpath_registry.xpath_notice_subtype, namespaces=self.namespaces))
+
+    @property
+    def extracted_eform_type(self):
+        return extract_attribute_from_element(
+            element=self.manifestation_root.find(
+                self.xpath_registry.xpath_form_type,
+                namespaces=self.namespaces), attrib_key="listName")
+
+    @property
+    def extracted_notice_type(self):
+        return extract_text_from_element(
+            element=self.manifestation_root.find(self.xpath_registry.xpath_notice_type, namespaces=self.namespaces))
+
+    @property
+    def xml_schema_version(self):
+        return extract_text_from_element(
+            element=self.manifestation_root.find(self.xpath_registry.xpath_eform_sdk_version, namespaces=self.namespaces))
+
+    def extract_metadata(self) -> ExtractedMetadata:
+        metadata: ExtractedMetadata = ExtractedMetadata()
+        metadata.title = self.title
+        metadata.notice_publication_number = self.notice_publication_number
+        metadata.publication_date = self.publication_date
+        metadata.ojs_issue_number = self.ojs_issue_number
+        metadata.original_language = self.original_language
+        metadata.document_sent_date = self.document_sent_date
+        metadata.type_of_contract = self.type_of_contract
+        metadata.type_of_procedure = self.type_of_procedure
+        metadata.common_procurement = self.common_procurement
+        metadata.place_of_performance = self.place_of_performance
+        metadata.internet_address = self.internet_address
+        metadata.legal_basis_directive = self.legal_basis_directive
+        metadata.xml_schema_version = self.xml_schema_version
+        metadata.extracted_notice_type = self.extracted_notice_type
+        metadata.extracted_notice_subtype = self.extracted_notice_subtype
+        metadata.extracted_eform_type = self.extracted_eform_type
+        return metadata
 
 
 def extract_text_from_element(element: ET.Element) -> str:
@@ -320,3 +415,43 @@ def extract_code_and_value_from_element(element: ET.Element) -> EncodedValue:
     if element is not None:
         return EncodedValue(code=extract_attribute_from_element(element=element, attrib_key="CODE"),
                             value=extract_text_from_element(element=element))
+
+def extract_code_from_element(element: ET.Element) -> EncodedValue:
+    """
+    Extract code from text value from an element in the XML structure
+    :param element:
+    :return:
+    """
+    if element is not None:
+        return EncodedValue(code=extract_text_from_element(element=element),
+                            value=extract_text_from_element(element=element))
+
+def parse_xml_manifestation(xml_manifestation: XMLManifestation) -> ET.Element:
+    """
+    Parsing XML manifestation and getting the root
+    :return:
+    """
+    xml_manifestation_content = xml_manifestation.object_data
+    return ET.fromstring(xml_manifestation_content)
+
+
+def normalised_namespaces_from_xml_manifestation(xml_manifestation: XMLManifestation) -> Dict:
+    """
+    Get normalised namespaces from XML manifestation
+    :return:
+    """
+    namespaces = dict([node for _, node in ET.iterparse(source=StringIO(xml_manifestation.object_data),
+                                                        events=['start-ns'])])
+
+    namespaces["manifestation_ns"] = namespaces.pop("") if "" in namespaces.keys() else ""
+
+    tmp_dict = namespaces.copy()
+    items = tmp_dict.items()
+    for key, value in items:
+        if value.endswith("nuts"):
+            namespaces["nuts"] = namespaces.pop(key)
+
+    if "nuts" not in namespaces.keys():
+        namespaces.update({"nuts": "no_nuts"})
+
+    return namespaces

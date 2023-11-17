@@ -45,7 +45,7 @@ def generate_metadata(raw_metadata: dict) -> dict:
             return []
 
     constraints = {
-        E_FORMS_SUBTYPE_KEY: [int(float(x)) for x in get_list_from_raw_metadata(E_FORMS_SUBTYPE_FIELD)],
+        E_FORMS_SUBTYPE_KEY: get_list_from_raw_metadata(E_FORMS_SUBTYPE_FIELD),
         START_DATE_KEY: get_list_from_raw_metadata(START_DATE_FIELD),
         END_DATE_KEY: get_list_from_raw_metadata(END_DATE_FIELD),
         MIN_XSD_VERSION_KEY: get_list_from_raw_metadata(MIN_XSD_VERSION_FIELD),

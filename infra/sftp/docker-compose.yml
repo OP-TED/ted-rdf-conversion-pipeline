@@ -2,6 +2,7 @@ version: '3'
 
 services:
   sftp:
+    container_name: sftp-${ENVIRONMENT}
     image: atmoz/sftp:debian
     volumes:
       - sftp-data:/home
@@ -15,6 +16,7 @@ services:
     networks:
       - sftp-net
       - proxy-net
+      - common-ext
     labels:
       #### Labels define the behavior and rules of the traefik proxy for this container ####
       - "traefik.enable=true" # <== Enable traefik to proxy this container

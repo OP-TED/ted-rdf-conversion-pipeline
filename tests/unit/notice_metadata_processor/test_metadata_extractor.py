@@ -10,10 +10,10 @@ from ted_sws.notice_metadata_processor.model.metadata import ExtractedMetadata, 
 def test_metadata_extractor(indexed_notice):
     metadata_extractor = DefaultNoticeMetadataExtractor(
         xml_manifestation=indexed_notice.xml_manifestation).extract_metadata()
-    extracted_metadata_dict = metadata_extractor.model_dump()
+    extracted_metadata_dict = metadata_extractor.dict()
 
     assert isinstance(metadata_extractor, ExtractedMetadata)
-    assert extracted_metadata_dict.keys() == ExtractedMetadata.model_fields.keys()
+    assert extracted_metadata_dict.keys() == ExtractedMetadata.__fields__.keys()
     assert "extracted_form_number", "xml_schema" in extracted_metadata_dict.keys()
     assert "067623-2022" in extracted_metadata_dict["notice_publication_number"]
     assert "http://publications.europa.eu/resource/schema/ted/R2.0.8/publication TED_EXPORT.xsd" in \
@@ -25,9 +25,9 @@ def test_metadata_extractor_2016(notice_2016):
     metadata_extractor = DefaultNoticeMetadataExtractor(
         xml_manifestation=notice_2016.xml_manifestation).extract_metadata()
 
-    extracted_metadata_dict = metadata_extractor.model_dump()
+    extracted_metadata_dict = metadata_extractor.dict()
     assert isinstance(metadata_extractor, ExtractedMetadata)
-    assert extracted_metadata_dict.keys() == ExtractedMetadata.model_fields.keys()
+    assert extracted_metadata_dict.keys() == ExtractedMetadata.__fields__.keys()
     assert notice_2016.ted_id in extracted_metadata_dict["notice_publication_number"]
 
 
@@ -35,9 +35,9 @@ def test_metadata_extractor_2015(notice_2015):
     metadata_extractor = DefaultNoticeMetadataExtractor(
         xml_manifestation=notice_2015.xml_manifestation).extract_metadata()
 
-    extracted_metadata_dict = metadata_extractor.model_dump()
+    extracted_metadata_dict = metadata_extractor.dict()
     assert isinstance(metadata_extractor, ExtractedMetadata)
-    assert extracted_metadata_dict.keys() == ExtractedMetadata.model_fields.keys()
+    assert extracted_metadata_dict.keys() == ExtractedMetadata.__fields__.keys()
     assert notice_2015.ted_id in extracted_metadata_dict["notice_publication_number"]
 
 
@@ -45,9 +45,9 @@ def test_metadata_extractor_2018(notice_2018):
     metadata_extractor = DefaultNoticeMetadataExtractor(
         xml_manifestation=notice_2018.xml_manifestation).extract_metadata()
 
-    extracted_metadata_dict = metadata_extractor.model_dump()
+    extracted_metadata_dict = metadata_extractor.dict()
     assert isinstance(metadata_extractor, ExtractedMetadata)
-    assert extracted_metadata_dict.keys() == ExtractedMetadata.model_fields.keys()
+    assert extracted_metadata_dict.keys() == ExtractedMetadata.__fields__.keys()
     assert notice_2018.ted_id in extracted_metadata_dict["notice_publication_number"]
 
 
@@ -108,10 +108,10 @@ def test_get_normalised_namespaces(indexed_notice):
 def test_metadata_eform_extractor(eform_notice_622690):
     metadata_extractor = EformsNoticeMetadataExtractor(
         xml_manifestation=eform_notice_622690.xml_manifestation).extract_metadata()
-    extracted_metadata_dict = metadata_extractor.model_dump()
+    extracted_metadata_dict = metadata_extractor.dict()
     print(extracted_metadata_dict)
     assert isinstance(metadata_extractor, ExtractedMetadata)
-    assert extracted_metadata_dict.keys() == ExtractedMetadata.model_fields.keys()
+    assert extracted_metadata_dict.keys() == ExtractedMetadata.__fields__.keys()
     assert "extracted_form_number", "xml_schema" in extracted_metadata_dict.keys()
     assert "00622690-2023" in extracted_metadata_dict["notice_publication_number"]
     assert "competition" in extracted_metadata_dict["extracted_eform_type"]

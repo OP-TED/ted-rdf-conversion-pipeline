@@ -66,35 +66,6 @@ def notice_eligibility_checker(notice: Notice, mapping_suite_repository: Mapping
         notice.set_is_eligible_for_transformation(eligibility=False)
 
 
-def notice_eligibility_checker_with_mapping_suites(notice: Notice, mapping_suites: List[MappingSuite]) -> Optional[str]:
-    """
-    Check if notice is eligible for transformation by list of mapping suites
-    :param notice:
-    :param mapping_suites:
-    :return:
-    """
-
-    possible_mapping_suites = []
-    for mapping_suite in mapping_suites:
-        if check_package(mapping_suite=mapping_suite, notice_metadata=notice.normalised_metadata):
-            possible_mapping_suites.append(mapping_suite)
-
-    if possible_mapping_suites:
-        best_version = semantic_version.Version(possible_mapping_suites[0].version)
-        mapping_suite_identifier_with_version = possible_mapping_suites[0].identifier
-        for mapping_suite in possible_mapping_suites[1:]:
-            if semantic_version.Version(mapping_suite.version) > best_version:
-                best_version = semantic_version.Version(mapping_suite.version)
-                mapping_suite_identifier_with_version = mapping_suite.identifier
-
-        notice.set_is_eligible_for_transformation(eligibility=True)
-        return mapping_suite_identifier_with_version
-    else:
-        notice.set_is_eligible_for_transformation(eligibility=False)
-
-    return None
-
-
 def notice_eligibility_checker_by_id(notice_id: str, notice_repository: NoticeRepositoryABC,
                                      mapping_suite_repository: MappingSuiteRepositoryABC) -> Tuple:
     """

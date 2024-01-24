@@ -8,6 +8,9 @@ from ted_sws.core.model.metadata import LanguageTaggedString, CompositeTitle, En
 from ted_sws.notice_metadata_processor.adapters.xpath_registry import EformsXPathRegistry, DefaultXPathRegistry
 from ted_sws.notice_metadata_processor.model.metadata import ExtractedMetadata
 
+MANIFESTATION_NAMESPACE_KEY = "manifestation_ns"
+NUTS_NAMESPACE_KEY = "nuts"
+
 
 class NoticeMetadataExtractorABC(abc.ABC):
 
@@ -443,15 +446,15 @@ def normalised_namespaces_from_xml_manifestation(xml_manifestation: XMLManifesta
     namespaces = dict([node for _, node in ET.iterparse(source=StringIO(xml_manifestation.object_data),
                                                         events=['start-ns'])])
 
-    namespaces["manifestation_ns"] = namespaces.pop("") if "" in namespaces.keys() else ""
+    namespaces[MANIFESTATION_NAMESPACE_KEY] = namespaces.pop("") if "" in namespaces.keys() else ""
 
     tmp_dict = namespaces.copy()
     items = tmp_dict.items()
     for key, value in items:
-        if value.endswith("nuts"):
-            namespaces["nuts"] = namespaces.pop(key)
+        if value.endswith(NUTS_NAMESPACE_KEY):
+            namespaces[NUTS_NAMESPACE_KEY] = namespaces.pop(key)
 
     if "nuts" not in namespaces.keys():
-        namespaces.update({"nuts": "no_nuts"})
+        namespaces.update({NUTS_NAMESPACE_KEY: "no_nuts"})
 
     return namespaces

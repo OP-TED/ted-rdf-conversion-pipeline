@@ -36,7 +36,7 @@ SENT_DATE_KEY = "document_sent_date"
 DEADLINE_DATE_KEY = "deadline_for_submission"
 NOTICE_TYPE_KEY = "notice_type"
 XSD_VERSION_KEY = "xsd_version"
-IS_EFORM_KEY = "is_eForm"
+IS_EFORM_KEY = "is_eform"
 ENGLISH_LANGUAGE_TAG = "EN"
 mapping_registry = MappingFilesRegistry()
 

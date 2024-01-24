@@ -1,9 +1,11 @@
 from pytest_bdd import scenario, given, when, then, parsers
 
 from ted_sws.notice_metadata_processor.model.metadata import ExtractedMetadata
-from ted_sws.notice_metadata_processor.services.xml_manifestation_metadata_extractor import XMLManifestationMetadataExtractor
+
 from ted_sws.notice_fetcher.adapters.ted_api import TedRequestAPI, TedAPIAdapter
 from ted_sws.notice_fetcher.services.notice_fetcher import NoticeFetcher
+from ted_sws.notice_metadata_processor.services.metadata_normalizer import \
+    find_metadata_extractor_based_on_xml_manifestation
 
 
 @scenario('notice_extractor.feature', 'Extracting metadata')
@@ -22,7 +24,7 @@ def step_impl(notice_identifier, api_end_point, fake_notice_storage):
 
 @when("the extracting process is executed", target_fixture="extracted_metadata")
 def step_impl(xml_manifestation):
-    return XMLManifestationMetadataExtractor(xml_manifestation=xml_manifestation).to_metadata()
+    return find_metadata_extractor_based_on_xml_manifestation(xml_manifestation=xml_manifestation).extract_metadata()
 
 
 @then(parsers.parse("extracted {metadata} is possibly available"))

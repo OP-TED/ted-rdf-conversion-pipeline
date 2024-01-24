@@ -81,6 +81,7 @@ class NormalisedMetadata(Metadata):
     eforms_subtype: str
     xsd_version: str
     published_in_cellar_counter: int = Field(default=0)
+    is_eform: Optional[bool] = False
 
 
 class NormalisedMetadataView(Metadata):

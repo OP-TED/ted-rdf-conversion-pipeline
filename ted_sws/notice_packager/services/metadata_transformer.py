@@ -13,6 +13,7 @@ This transformed metadata is what adapters expect.
 
 import datetime
 
+from ted_sws.core.model.metadata import NormalisedMetadata
 from ted_sws.notice_metadata_processor.model.metadata import ExtractedMetadata
 from ted_sws.notice_packager.model.metadata import PackagerMetadata, METS_TYPE_CREATE, LANGUAGE, REVISION, BASE_WORK, \
     BASE_TITLE, METS_DMD_HREF, METS_DMD_ID, METS_TMD_ID, METS_TMD_HREF, METS_FILE_ID, METS_NOTICE_FILE_HREF
@@ -28,7 +29,7 @@ PROCUREMENT_NOTICE = "PROCUREMENT_NOTICE"
 
 
 class MetadataTransformer:
-    def __init__(self, notice_metadata: ExtractedMetadata):
+    def __init__(self, notice_metadata: NormalisedMetadata):
         self.notice_metadata = notice_metadata
 
     def template_metadata(self, action: str = METS_TYPE_CREATE) -> PackagerMetadata:
@@ -50,12 +51,11 @@ class MetadataTransformer:
         return value.replace(DENORMALIZED_SEPARATOR, NORMALIZED_SEPARATOR)
 
     @classmethod
-    def from_notice_metadata(cls, notice_metadata: ExtractedMetadata) -> PackagerMetadata:
+    def from_notice_metadata(cls, notice_metadata: NormalisedMetadata) -> PackagerMetadata:
         _date = datetime.datetime.now()
         _revision = REVISION
 
         metadata = PackagerMetadata()
-
         # NOTICE
         metadata.notice.id = cls.normalize_value(notice_metadata.notice_publication_number)
         metadata.notice.public_number_document = publication_notice_number(metadata.notice.id)
@@ -63,19 +63,20 @@ class MetadataTransformer:
             notice_metadata) + filled_ojs_issue_number(notice_metadata.ojs_issue_number)
 
         # WORK
-        publication_date = datetime.datetime.strptime(notice_metadata.publication_date, '%Y%m%d').strftime('%Y-%m-%d')
+        publication_date = datetime.datetime.fromisoformat(notice_metadata.publication_date).strftime('%Y-%m-%d')
         metadata.work.identifier = publication_work_identifier(metadata.notice.id, notice_metadata)
         metadata.work.oj_identifier = publication_work_oj_identifier(metadata.notice.id, notice_metadata)
         metadata.work.cdm_rdf_type = PROCUREMENT_PUBLIC
         metadata.work.resource_type = PROCUREMENT_NOTICE
         metadata.work.date_document = publication_date
         metadata.work.uri = publication_notice_uri(metadata.notice.id, notice_metadata)
-        title_search = [t.title.text for t in notice_metadata.title if t.title.language == LANGUAGE.upper()]
+        # TODO: If no title found in english get a random one
+        title_search = [title.text for title in notice_metadata.title if title.language == LANGUAGE.upper()]
         if len(title_search) > 0:
             metadata.work.title = {LANGUAGE: title_search[0]}
         metadata.work.dataset_version = _date.strftime('%Y%m%d') + '-' + _revision
         metadata.work.procurement_public_issued_by_country = notice_metadata.country_of_buyer
-        metadata.work.procurement_public_url_etendering = notice_metadata.uri_list
+        # metadata.work.procurement_public_url_etendering = notice_metadata.uri_list
 
         # EXPRESSION
         metadata.expression.identifier = f"{metadata.work.identifier}.MUL"
@@ -118,7 +119,7 @@ class MetadataTransformer:
 
 
 def publication_notice_year(notice_metadata):
-    return datetime.datetime.strptime(notice_metadata.publication_date, '%Y%m%d').strftime('%Y')
+    return str(datetime.datetime.fromisoformat(notice_metadata.publication_date).year)
 
 
 def publication_notice_number(notice_id):

@@ -1,0 +1,13 @@
+#title: BT-701-notice
+#description: “” The corresponding XML element is /*/cbc:ID[@schemeName='notice-id']. The expected ontology instances are epo: epo:Notice / adms:Identifier / rdf:langString .
+#xpath: /*/cbc:ID[@schemeName='notice-id']
+
+PREFIX adms: <http://www.w3.org/ns/adms#>
+PREFIX epo: <http://data.europa.eu/a4g/ontology#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+
+ASK WHERE { 
+	?this rdf:type epo:Notice .
+	?this adms:identifier / skos:notation ?value. 
+}

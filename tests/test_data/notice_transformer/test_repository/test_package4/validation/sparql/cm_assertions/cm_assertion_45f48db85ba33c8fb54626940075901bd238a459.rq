@@ -1,0 +1,9 @@
+#title: ND-Organization
+#description: “” The corresponding XML element is /*/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:Organizations/efac:Organization. The expected ontology instances are epo: None .
+#xpath: /*/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:Organizations/efac:Organization
+
+
+
+ASK WHERE { 
+	None 
+}

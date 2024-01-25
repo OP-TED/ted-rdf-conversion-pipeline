@@ -1,0 +1,9 @@
+#title: BT-09(a)-Procedure
+#description: “” The corresponding XML element is /*/cac:TenderingTerms/cac:ProcurementLegislationDocumentReference[cbc:ID/text()='CrossBorderLaw']/cbc:ID. The expected ontology instances are epo: None .
+#xpath: /*/cac:TenderingTerms/cac:ProcurementLegislationDocumentReference[cbc:ID/text()='CrossBorderLaw']/cbc:ID
+
+
+
+ASK WHERE { 
+	None 
+}

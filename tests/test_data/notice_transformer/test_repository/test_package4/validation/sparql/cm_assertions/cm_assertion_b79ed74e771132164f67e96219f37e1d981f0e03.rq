@@ -1,0 +1,9 @@
+#title: ND-AcceleratedProcedure
+#description: “” The corresponding XML element is /*/cac:TenderingProcess/cac:ProcessJustification[cbc:ProcessReasonCode/@listName='accelerated-procedure']. The expected ontology instances are epo: None .
+#xpath: /*/cac:TenderingProcess/cac:ProcessJustification[cbc:ProcessReasonCode/@listName='accelerated-procedure']
+
+
+
+ASK WHERE { 
+	None 
+}

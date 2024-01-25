@@ -1,0 +1,11 @@
+#title: BT-634-Procedure
+#description: “” The corresponding XML element is /*/cac:TenderingProcess/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efbc:ProcedureRelaunchIndicator. The expected ontology instances are epo: epo:ProcurementProcessInformation / epo:Procedure .
+#xpath: /*/cac:TenderingProcess/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efbc:ProcedureRelaunchIndicator
+
+PREFIX epo: <http://data.europa.eu/a4g/ontology#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+ASK WHERE { 
+	?this rdf:type epo:ProcurementProcessInformation .
+	?this epo:concernsProcedure ?value. 
+}

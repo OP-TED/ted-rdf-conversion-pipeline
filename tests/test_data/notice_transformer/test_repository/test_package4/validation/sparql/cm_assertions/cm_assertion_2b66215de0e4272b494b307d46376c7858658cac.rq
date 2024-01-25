@@ -1,0 +1,12 @@
+#title: ND-ContractingParty
+#description: “” The corresponding XML element is /*/cac:ContractingParty. The expected ontology instances are epo: epo-not:CompetitionNotice / epo:Lot .
+#xpath: /*/cac:ContractingParty
+
+PREFIX epo: <http://data.europa.eu/a4g/ontology#>
+PREFIX epo-not: <http://data.europa.eu/a4g/ontology#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+ASK WHERE { 
+	?this rdf:type epo-not:CompetitionNotice .
+	?this epo:announcesLot ?value. 
+}

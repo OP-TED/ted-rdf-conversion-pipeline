@@ -36,6 +36,7 @@ SENT_DATE_KEY = "document_sent_date"
 DEADLINE_DATE_KEY = "deadline_for_submission"
 NOTICE_TYPE_KEY = "notice_type"
 XSD_VERSION_KEY = "xsd_version"
+EFORM_SDK_VERSION_KEY = "eform_sdk_version"
 IS_EFORM_KEY = "is_eform"
 ENGLISH_LANGUAGE_TAG = "EN"
 mapping_registry = MappingFilesRegistry()
@@ -339,7 +340,7 @@ class EformsNoticeMetadataNormaliser(NoticeMetadataNormaliserABC):
             LEGAL_BASIS_DIRECTIVE_KEY: get_map_value(mapping=legal_basis_map,
                                                      value=legal_basis),
             E_FORMS_SUBTYPE_KEY: extracted_metadata.extracted_notice_subtype,
-            XSD_VERSION_KEY: extracted_metadata.xml_schema_version,
+            EFORM_SDK_VERSION_KEY: extracted_metadata.xml_schema_version,
             IS_EFORM_KEY: True
         }
 

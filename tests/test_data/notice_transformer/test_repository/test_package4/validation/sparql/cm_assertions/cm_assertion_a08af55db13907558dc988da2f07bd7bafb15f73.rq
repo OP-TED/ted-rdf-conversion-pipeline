@@ -1,0 +1,9 @@
+#title: ND-ProcedurePlacePerformance
+#description: “” The corresponding XML element is /*/cac:ProcurementProject/cac:RealizedLocation/cac:Address. The expected ontology instances are epo: None .
+#xpath: /*/cac:ProcurementProject/cac:RealizedLocation/cac:Address
+
+
+
+ASK WHERE { 
+	None 
+}

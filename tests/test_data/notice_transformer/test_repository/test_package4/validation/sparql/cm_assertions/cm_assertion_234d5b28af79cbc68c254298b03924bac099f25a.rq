@@ -1,0 +1,9 @@
+#title: BT-509-Organization-TouchPoint
+#description: “” The corresponding XML element is /*/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:Organizations/efac:Organization/efac:TouchPoint/cbc:EndpointID. The expected ontology instances are epo: epo:AgentInRole / cv:Channel / xsd:anyURI .
+#xpath: /*/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:Organizations/efac:Organization/efac:TouchPoint/cbc:EndpointID
+
+PREFIX epo: <http://data.europa.eu/a4g/ontology#>
+
+ASK WHERE { 
+	epo:exposesChannel / epo:hasAddressURL ?value. 
+}

@@ -79,9 +79,10 @@ class NormalisedMetadata(Metadata):
     legal_basis_directive: str
     form_number: str
     eforms_subtype: str
-    xsd_version: str
+    xsd_version: Optional[str]
     published_in_cellar_counter: int = Field(default=0)
     is_eform: Optional[bool] = False
+    eform_sdk_version: Optional[str]
 
 
 class NormalisedMetadataView(Metadata):

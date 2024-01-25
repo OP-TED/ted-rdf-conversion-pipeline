@@ -1,0 +1,1946 @@
+[
+    {
+        "eforms_sdk_element_id": null,
+        "eforms_sdk_element_title": null,
+        "eforms_sdk_element_xpath": null,
+        "test_data_id": "2024-OJS015-043489",
+        "test_data_xpath": "/ContractAwardNotice/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:NoticeResult/efac:LotResult/efac:LotTender",
+        "is_covered": false
+    },
+    {
+        "eforms_sdk_element_id": null,
+        "eforms_sdk_element_title": null,
+        "eforms_sdk_element_xpath": null,
+        "test_data_id": "2024-OJS015-043489",
+        "test_data_xpath": "/ContractAwardNotice/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:NoticeResult/efac:LotTender/efac:TenderingParty",
+        "is_covered": false
+    },
+    {
+        "eforms_sdk_element_id": "OPP-012-notice",
+        "eforms_sdk_element_title": "OJEU Publication Date",
+        "eforms_sdk_element_xpath": "/*/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:Publication/efbc:PublicationDate",
+        "test_data_id": "2024-OJS015-043489",
+        "test_data_xpath": "/ContractAwardNotice/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:Publication/efbc:PublicationDate",
+        "is_covered": true
+    },
+    {
+        "eforms_sdk_element_id": null,
+        "eforms_sdk_element_title": null,
+        "eforms_sdk_element_xpath": null,
+        "test_data_id": "2024-OJS015-043489",
+        "test_data_xpath": "/ContractAwardNotice/cac:TenderingTerms/cac:ProcurementLegislationDocumentReference/cbc:ID",
+        "is_covered": false
+    },
+    {
+        "eforms_sdk_element_id": "ND-ProcedureMainClassification",
+        "eforms_sdk_element_title": null,
+        "eforms_sdk_element_xpath": "/*/cac:ProcurementProject/cac:MainCommodityClassification",
+        "test_data_id": "2024-OJS015-043489",
+        "test_data_xpath": "/ContractAwardNotice/cac:ProcurementProject/cac:MainCommodityClassification",
+        "is_covered": true
+    },
+    {
+        "eforms_sdk_element_id": null,
+        "eforms_sdk_element_title": null,
+        "eforms_sdk_element_xpath": null,
+        "test_data_id": "2024-OJS015-043489",
+        "test_data_xpath": "/ContractAwardNotice/cac:ProcurementProjectLot/cac:TenderingTerms/cac:AppealTerms/cac:PresentationPeriod/cbc:Description/@languageID",
+        "is_covered": false
+    },
+    {
+        "eforms_sdk_element_id": "ND-Organizations",
+        "eforms_sdk_element_title": null,
+        "eforms_sdk_element_xpath": "/*/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:Organizations",
+        "test_data_id": "2024-OJS015-043489",
+        "test_data_xpath": "/ContractAwardNotice/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:Organizations",
+        "is_covered": true
+    },
+    {
+        "eforms_sdk_element_id": "OPT-200-Organization-Company",
+        "eforms_sdk_element_title": "Organisation Technical Identifier",
+        "eforms_sdk_element_xpath": "/*/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:Organizations/efac:Organization/efac:Company/cac:PartyIdentification/cbc:ID",
+        "test_data_id": "2024-OJS015-043489",
+        "test_data_xpath": "/ContractAwardNotice/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:Organizations/efac:Organization/efac:Company/cac:PartyIdentification/cbc:ID",
+        "is_covered": true
+    },
+    {
+        "eforms_sdk_element_id": null,
+        "eforms_sdk_element_title": null,
+        "eforms_sdk_element_xpath": null,
+        "test_data_id": "2024-OJS015-043489",
+        "test_data_xpath": "/ContractAwardNotice/cac:ProcurementProjectLot/cac:TenderingTerms/cac:AwardingTerms/cac:AwardingCriterion/cac:SubordinateAwardingCriterion/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:AwardCriterionParameter/efbc:ParameterCode/@listName",
+        "is_covered": false
+    },
+    {
+        "eforms_sdk_element_id": "BT-01-notice",
+        "eforms_sdk_element_title": "Procedure Legal Basis",
+        "eforms_sdk_element_xpath": "/*/cbc:RegulatoryDomain",
+        "test_data_id": "2024-OJS015-043489",
+        "test_data_xpath": "/ContractAwardNotice/cbc:RegulatoryDomain",
+        "is_covered": true
+    },
+    {
+        "eforms_sdk_element_id": null,
+        "eforms_sdk_element_title": null,
+        "eforms_sdk_element_xpath": null,
+        "test_data_id": "2024-OJS015-043489",
+        "test_data_xpath": "/ContractAwardNotice/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent",
+        "is_covered": false
+    },
+    {
+        "eforms_sdk_element_id": "BT-300-Procedure",
+        "eforms_sdk_element_title": "Additional Information",
+        "eforms_sdk_element_xpath": "/*/cac:ProcurementProject/cbc:Note",
+        "test_data_id": "2024-OJS015-043489",
+        "test_data_xpath": "/ContractAwardNotice/cac:ProcurementProjectLot/cac:ProcurementProject/cbc:Note",
+        "is_covered": true
+    },
+    {
+        "eforms_sdk_element_id": "BT-5101(a)-Procedure",
+        "eforms_sdk_element_title": "Place Performance Street",
+        "eforms_sdk_element_xpath": "/*/cac:ProcurementProject/cac:RealizedLocation/cac:Address/cbc:StreetName",
+        "test_data_id": "2024-OJS015-043489",
+        "test_data_xpath": "/ContractAwardNotice/cac:ProcurementProjectLot/cac:ProcurementProject/cac:RealizedLocation/cac:Address/cbc:StreetName",
+        "is_covered": true
+    },
+    {
+        "eforms_sdk_element_id": "OPT-300-Procedure-SProvider",
+        "eforms_sdk_element_title": "Service Provider Technical Identifier Reference",
+        "eforms_sdk_element_xpath": "/*/cac:ContractingParty/cac:Party/cac:ServiceProviderParty/cac:Party/cac:PartyIdentification/cbc:ID",
+        "test_data_id": "2024-OJS015-043489",
+        "test_data_xpath": "/ContractAwardNotice/cac:ContractingParty/cac:Party/cac:ServiceProviderParty/cac:Party/cac:PartyIdentification/cbc:ID",
+        "is_covered": true
+    },
+    {
+        "eforms_sdk_element_id": null,
+        "eforms_sdk_element_title": null,
+        "eforms_sdk_element_xpath": null,
+        "test_data_id": "2024-OJS015-043489",
+        "test_data_xpath": "/ContractAwardNotice/cac:ProcurementProjectLot/cac:TenderingTerms/cac:AwardingTerms",
+        "is_covered": false
+    },
+    {
+        "eforms_sdk_element_id": "ND-ProcedureTerms",
+        "eforms_sdk_element_title": null,
+        "eforms_sdk_element_xpath": "/*/cac:TenderingTerms",
+        "test_data_id": "2024-OJS015-043489",
+        "test_data_xpath": "/ContractAwardNotice/cac:TenderingTerms",
+        "is_covered": true
+    },
+    {
+        "eforms_sdk_element_id": "ND-ProcedureProcurementScope",
+        "eforms_sdk_element_title": null,
+        "eforms_sdk_element_xpath": "/*/cac:ProcurementProject",
+        "test_data_id": "2024-OJS015-043489",
+        "test_data_xpath": "/ContractAwardNotice/cac:ProcurementProject",
+        "is_covered": true
+    },
+    {
+        "eforms_sdk_element_id": null,
+        "eforms_sdk_element_title": null,
+        "eforms_sdk_element_xpath": null,
+        "test_data_id": "2024-OJS015-043489",
+        "test_data_xpath": "/ContractAwardNotice/cac:ProcurementProject/cbc:Name/@languageID",
+        "is_covered": false
+    },
+    {
+        "eforms_sdk_element_id": null,
+        "eforms_sdk_element_title": null,
+        "eforms_sdk_element_xpath": null,
+        "test_data_id": "2024-OJS015-043489",
+        "test_data_xpath": "/ContractAwardNotice/cac:ProcurementProjectLot/cac:TenderingTerms/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent",
+        "is_covered": false
+    },
+    {
+        "eforms_sdk_element_id": "BT-26(m)-Procedure",
+        "eforms_sdk_element_title": "Classification Type (e.g. CPV)",
+        "eforms_sdk_element_xpath": "/*/cac:ProcurementProject/cac:MainCommodityClassification/cbc:ItemClassificationCode/@listName",
+        "test_data_id": "2024-OJS015-043489",
+        "test_data_xpath": "/ContractAwardNotice/cac:ProcurementProjectLot/cac:ProcurementProject/cac:MainCommodityClassification/cbc:ItemClassificationCode/@listName",
+        "is_covered": true
+    },
+    {
+        "eforms_sdk_element_id": null,
+        "eforms_sdk_element_title": null,
+        "eforms_sdk_element_xpath": null,
+        "test_data_id": "2024-OJS015-043489",
+        "test_data_xpath": "/ContractAwardNotice/cac:ProcurementProjectLot/cac:TenderingTerms/ext:UBLExtensions/ext:UBLExtension",
+        "is_covered": false
+    },
+    {
+        "eforms_sdk_element_id": "BT-5131-Procedure",
+        "eforms_sdk_element_title": "Place Performance City",
+        "eforms_sdk_element_xpath": "/*/cac:ProcurementProject/cac:RealizedLocation/cac:Address/cbc:CityName",
+        "test_data_id": "2024-OJS015-043489",
+        "test_data_xpath": "/ContractAwardNotice/cac:ProcurementProjectLot/cac:ProcurementProject/cac:RealizedLocation/cac:Address/cbc:CityName",
+        "is_covered": true
+    },
+    {
+        "eforms_sdk_element_id": null,
+        "eforms_sdk_element_title": null,
+        "eforms_sdk_element_xpath": null,
+        "test_data_id": "2024-OJS015-043489",
+        "test_data_xpath": "/ContractAwardNotice/cac:ContractingParty/cac:Party/cac:ServiceProviderParty/cac:Party/cac:PartyIdentification/cbc:ID/@schemeName",
+        "is_covered": false
+    },
+    {
+        "eforms_sdk_element_id": null,
+        "eforms_sdk_element_title": null,
+        "eforms_sdk_element_xpath": null,
+        "test_data_id": "2024-OJS015-043489",
+        "test_data_xpath": "/ContractAwardNotice/cac:ProcurementProjectLot/cac:TenderingTerms/cac:AppealTerms/cac:AppealReceiverParty/cac:PartyIdentification/cbc:ID",
+        "is_covered": false
+    },
+    {
+        "eforms_sdk_element_id": null,
+        "eforms_sdk_element_title": null,
+        "eforms_sdk_element_xpath": null,
+        "test_data_id": "2024-OJS015-043489",
+        "test_data_xpath": "/ContractAwardNotice/cac:ProcurementProjectLot/cac:TenderingTerms/cac:AdditionalInformationParty/cac:PartyIdentification",
+        "is_covered": false
+    },
+    {
+        "eforms_sdk_element_id": null,
+        "eforms_sdk_element_title": null,
+        "eforms_sdk_element_xpath": null,
+        "test_data_id": "2024-OJS015-043489",
+        "test_data_xpath": "/ContractAwardNotice/ext:UBLExtensions",
+        "is_covered": false
+    },
+    {
+        "eforms_sdk_element_id": null,
+        "eforms_sdk_element_title": null,
+        "eforms_sdk_element_xpath": null,
+        "test_data_id": "2024-OJS015-043489",
+        "test_data_xpath": "/ContractAwardNotice/cac:ProcurementProjectLot/cac:TenderingTerms/ext:UBLExtensions",
+        "is_covered": false
+    },
+    {
+        "eforms_sdk_element_id": "BT-5101(a)-Procedure",
+        "eforms_sdk_element_title": "Place Performance Street",
+        "eforms_sdk_element_xpath": "/*/cac:ProcurementProject/cac:RealizedLocation/cac:Address/cbc:StreetName",
+        "test_data_id": "2024-OJS015-043489",
+        "test_data_xpath": "/ContractAwardNotice/cac:ProcurementProject/cac:RealizedLocation/cac:Address/cbc:StreetName",
+        "is_covered": true
+    },
+    {
+        "eforms_sdk_element_id": null,
+        "eforms_sdk_element_title": null,
+        "eforms_sdk_element_xpath": null,
+        "test_data_id": "2024-OJS015-043489",
+        "test_data_xpath": "/ContractAwardNotice/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:Organizations/efac:Organization/efbc:ListedOnRegulatedMarketIndicator",
+        "is_covered": false
+    },
+    {
+        "eforms_sdk_element_id": null,
+        "eforms_sdk_element_title": null,
+        "eforms_sdk_element_xpath": null,
+        "test_data_id": "2024-OJS015-043489",
+        "test_data_xpath": "/ContractAwardNotice/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:NoticeResult/efac:SettledContract",
+        "is_covered": false
+    },
+    {
+        "eforms_sdk_element_id": null,
+        "eforms_sdk_element_title": null,
+        "eforms_sdk_element_xpath": null,
+        "test_data_id": "2024-OJS015-043489",
+        "test_data_xpath": "/ContractAwardNotice/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:Organizations/efac:Organization/efac:Company/cac:PartyLegalEntity/cbc:CompanyID/@schemeID",
+        "is_covered": false
+    },
+    {
+        "eforms_sdk_element_id": "BT-02-notice",
+        "eforms_sdk_element_title": "Notice Type",
+        "eforms_sdk_element_xpath": "/*/cbc:NoticeTypeCode",
+        "test_data_id": "2024-OJS015-043489",
+        "test_data_xpath": "/ContractAwardNotice/cbc:NoticeTypeCode",
+        "is_covered": true
+    },
+    {
+        "eforms_sdk_element_id": null,
+        "eforms_sdk_element_title": null,
+        "eforms_sdk_element_xpath": null,
+        "test_data_id": "2024-OJS015-043489",
+        "test_data_xpath": "/ContractAwardNotice/cac:TenderingProcess/cbc:ProcedureCode/@listName",
+        "is_covered": false
+    },
+    {
+        "eforms_sdk_element_id": null,
+        "eforms_sdk_element_title": null,
+        "eforms_sdk_element_xpath": null,
+        "test_data_id": "2024-OJS015-043489",
+        "test_data_xpath": "/ContractAwardNotice/cac:ProcurementProjectLot/cac:TenderingTerms/cac:AppealTerms/cac:AppealReceiverParty/cac:PartyIdentification/cbc:ID/@schemeName",
+        "is_covered": false
+    },
+    {
+        "eforms_sdk_element_id": null,
+        "eforms_sdk_element_title": null,
+        "eforms_sdk_element_xpath": null,
+        "test_data_id": "2024-OJS015-043489",
+        "test_data_xpath": "/ContractAwardNotice/cac:ProcurementProjectLot/cac:TenderingTerms/cac:AppealTerms/cac:AppealReceiverParty/cac:PartyIdentification",
+        "is_covered": false
+    },
+    {
+        "eforms_sdk_element_id": null,
+        "eforms_sdk_element_title": null,
+        "eforms_sdk_element_xpath": null,
+        "test_data_id": "2024-OJS015-043489",
+        "test_data_xpath": "/ContractAwardNotice/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:NoticeResult/efac:LotResult/cbc:ID",
+        "is_covered": false
+    },
+    {
+        "eforms_sdk_element_id": null,
+        "eforms_sdk_element_title": null,
+        "eforms_sdk_element_xpath": null,
+        "test_data_id": "2024-OJS015-043489",
+        "test_data_xpath": "/ContractAwardNotice/cac:ProcurementProjectLot/cac:TenderingProcess/cac:ContractingSystem/cbc:ContractingSystemTypeCode/@listName",
+        "is_covered": false
+    },
+    {
+        "eforms_sdk_element_id": "ND-ProcedureTerms",
+        "eforms_sdk_element_title": null,
+        "eforms_sdk_element_xpath": "/*/cac:TenderingTerms",
+        "test_data_id": "2024-OJS015-043489",
+        "test_data_xpath": "/ContractAwardNotice/cac:ProcurementProjectLot/cac:TenderingTerms",
+        "is_covered": true
+    },
+    {
+        "eforms_sdk_element_id": null,
+        "eforms_sdk_element_title": null,
+        "eforms_sdk_element_xpath": null,
+        "test_data_id": "2024-OJS015-043489",
+        "test_data_xpath": "/ContractAwardNotice/cac:ProcurementProjectLot/cac:ProcurementProject/cbc:ProcurementTypeCode/@listName",
+        "is_covered": false
+    },
+    {
+        "eforms_sdk_element_id": null,
+        "eforms_sdk_element_title": null,
+        "eforms_sdk_element_xpath": null,
+        "test_data_id": "2024-OJS015-043489",
+        "test_data_xpath": "/ContractAwardNotice/cac:ProcurementProjectLot/cac:TenderingTerms/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:StrategicProcurement/efbc:ApplicableLegalBasis/@listName",
+        "is_covered": false
+    },
+    {
+        "eforms_sdk_element_id": "BT-5071-Procedure",
+        "eforms_sdk_element_title": "Place Performance Country Subdivision",
+        "eforms_sdk_element_xpath": "/*/cac:ProcurementProject/cac:RealizedLocation/cac:Address/cbc:CountrySubentityCode",
+        "test_data_id": "2024-OJS015-043489",
+        "test_data_xpath": "/ContractAwardNotice/cac:ProcurementProject/cac:RealizedLocation/cac:Address/cbc:CountrySubentityCode",
+        "is_covered": true
+    },
+    {
+        "eforms_sdk_element_id": "ND-ProcedureTenderingProcess",
+        "eforms_sdk_element_title": null,
+        "eforms_sdk_element_xpath": "/*/cac:TenderingProcess",
+        "test_data_id": "2024-OJS015-043489",
+        "test_data_xpath": "/ContractAwardNotice/cac:TenderingProcess",
+        "is_covered": true
+    },
+    {
+        "eforms_sdk_element_id": null,
+        "eforms_sdk_element_title": null,
+        "eforms_sdk_element_xpath": null,
+        "test_data_id": "2024-OJS015-043489",
+        "test_data_xpath": "/ContractAwardNotice/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:Organizations/efac:Organization/efac:Company/cac:PostalAddress/cac:Country",
+        "is_covered": false
+    },
+    {
+        "eforms_sdk_element_id": null,
+        "eforms_sdk_element_title": null,
+        "eforms_sdk_element_xpath": null,
+        "test_data_id": "2024-OJS015-043489",
+        "test_data_xpath": "/ContractAwardNotice/cac:ProcurementProjectLot/cac:TenderingTerms/cac:AwardingTerms/cac:AwardingCriterion/cac:SubordinateAwardingCriterion",
+        "is_covered": false
+    },
+    {
+        "eforms_sdk_element_id": null,
+        "eforms_sdk_element_title": null,
+        "eforms_sdk_element_xpath": null,
+        "test_data_id": "2024-OJS015-043489",
+        "test_data_xpath": "/ContractAwardNotice/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:NoticeResult/efac:LotResult/efac:SettledContract/cbc:ID/@schemeName",
+        "is_covered": false
+    },
+    {
+        "eforms_sdk_element_id": null,
+        "eforms_sdk_element_title": null,
+        "eforms_sdk_element_xpath": null,
+        "test_data_id": "2024-OJS015-043489",
+        "test_data_xpath": "/ContractAwardNotice/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:NoticeResult/efac:LotTender",
+        "is_covered": false
+    },
+    {
+        "eforms_sdk_element_id": null,
+        "eforms_sdk_element_title": null,
+        "eforms_sdk_element_xpath": null,
+        "test_data_id": "2024-OJS015-043489",
+        "test_data_xpath": "/ContractAwardNotice/cac:ProcurementProjectLot/cac:ProcurementProject/cac:PlannedPeriod/cbc:EndDate",
+        "is_covered": false
+    },
+    {
+        "eforms_sdk_element_id": "OPT-001-notice",
+        "eforms_sdk_element_title": "UBL version ID (UBL)",
+        "eforms_sdk_element_xpath": "/*/cbc:UBLVersionID",
+        "test_data_id": "2024-OJS015-043489",
+        "test_data_xpath": "/ContractAwardNotice/cbc:UBLVersionID",
+        "is_covered": true
+    },
+    {
+        "eforms_sdk_element_id": null,
+        "eforms_sdk_element_title": null,
+        "eforms_sdk_element_xpath": null,
+        "test_data_id": "2024-OJS015-043489",
+        "test_data_xpath": "/ContractAwardNotice/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:NoticeResult/efac:LotTender/efac:TenderingParty/cbc:ID",
+        "is_covered": false
+    },
+    {
+        "eforms_sdk_element_id": "BT-262-Procedure",
+        "eforms_sdk_element_title": "Main Classification Code",
+        "eforms_sdk_element_xpath": "/*/cac:ProcurementProject/cac:MainCommodityClassification/cbc:ItemClassificationCode",
+        "test_data_id": "2024-OJS015-043489",
+        "test_data_xpath": "/ContractAwardNotice/cac:ProcurementProject/cac:MainCommodityClassification/cbc:ItemClassificationCode",
+        "is_covered": true
+    },
+    {
+        "eforms_sdk_element_id": "BT-05(a)-notice",
+        "eforms_sdk_element_title": "Notice Dispatch Date",
+        "eforms_sdk_element_xpath": "/*/cbc:IssueDate",
+        "test_data_id": "2024-OJS015-043489",
+        "test_data_xpath": "/ContractAwardNotice/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:NoticeResult/efac:SettledContract/cbc:IssueDate",
+        "is_covered": true
+    },
+    {
+        "eforms_sdk_element_id": "BT-702(a)-notice",
+        "eforms_sdk_element_title": "Notice Official Language",
+        "eforms_sdk_element_xpath": "/*/cbc:NoticeLanguageCode",
+        "test_data_id": "2024-OJS015-043489",
+        "test_data_xpath": "/ContractAwardNotice/cbc:NoticeLanguageCode",
+        "is_covered": true
+    },
+    {
+        "eforms_sdk_element_id": "BT-21-Procedure",
+        "eforms_sdk_element_title": "Title",
+        "eforms_sdk_element_xpath": "/*/cac:ProcurementProject/cbc:Name",
+        "test_data_id": "2024-OJS015-043489",
+        "test_data_xpath": "/ContractAwardNotice/cac:ProcurementProject/cbc:Name",
+        "is_covered": true
+    },
+    {
+        "eforms_sdk_element_id": null,
+        "eforms_sdk_element_title": null,
+        "eforms_sdk_element_xpath": null,
+        "test_data_id": "2024-OJS015-043489",
+        "test_data_xpath": "/ContractAwardNotice/cac:ProcurementProjectLot/cac:TenderingTerms/cac:AppealTerms",
+        "is_covered": false
+    },
+    {
+        "eforms_sdk_element_id": null,
+        "eforms_sdk_element_title": null,
+        "eforms_sdk_element_xpath": null,
+        "test_data_id": "2024-OJS015-043489",
+        "test_data_xpath": "/ContractAwardNotice/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:NoticeResult/efac:LotResult/cbc:TenderResultCode",
+        "is_covered": false
+    },
+    {
+        "eforms_sdk_element_id": null,
+        "eforms_sdk_element_title": null,
+        "eforms_sdk_element_xpath": null,
+        "test_data_id": "2024-OJS015-043489",
+        "test_data_xpath": "/ContractAwardNotice/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:NoticeResult/efac:LotTender/efac:SubcontractingTerm/efbc:TermCode/@listName",
+        "is_covered": false
+    },
+    {
+        "eforms_sdk_element_id": null,
+        "eforms_sdk_element_title": null,
+        "eforms_sdk_element_xpath": null,
+        "test_data_id": "2024-OJS015-043489",
+        "test_data_xpath": "/ContractAwardNotice/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:Publication/efbc:NoticePublicationID",
+        "is_covered": false
+    },
+    {
+        "eforms_sdk_element_id": null,
+        "eforms_sdk_element_title": null,
+        "eforms_sdk_element_xpath": null,
+        "test_data_id": "2024-OJS015-043489",
+        "test_data_xpath": "/ContractAwardNotice/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:NoticeResult/efac:LotResult/efac:TenderLot/cbc:ID",
+        "is_covered": false
+    },
+    {
+        "eforms_sdk_element_id": null,
+        "eforms_sdk_element_title": null,
+        "eforms_sdk_element_xpath": null,
+        "test_data_id": "2024-OJS015-043489",
+        "test_data_xpath": "/ContractAwardNotice/cac:ProcurementProject/cac:RequestedTenderTotal/cbc:EstimatedOverallContractAmount/@currencyID",
+        "is_covered": false
+    },
+    {
+        "eforms_sdk_element_id": null,
+        "eforms_sdk_element_title": null,
+        "eforms_sdk_element_xpath": null,
+        "test_data_id": "2024-OJS015-043489",
+        "test_data_xpath": "/ContractAwardNotice/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:Organizations/efac:Organization/efac:UltimateBeneficialOwner",
+        "is_covered": false
+    },
+    {
+        "eforms_sdk_element_id": null,
+        "eforms_sdk_element_title": null,
+        "eforms_sdk_element_xpath": null,
+        "test_data_id": "2024-OJS015-043489",
+        "test_data_xpath": "/ContractAwardNotice/cac:ProcurementProjectLot/cac:TenderingTerms/cac:AwardingTerms/cac:AwardingCriterion/cac:SubordinateAwardingCriterion/cbc:Name/@languageID",
+        "is_covered": false
+    },
+    {
+        "eforms_sdk_element_id": "ND-RootExtension",
+        "eforms_sdk_element_title": null,
+        "eforms_sdk_element_xpath": "/*/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension",
+        "test_data_id": "2024-OJS015-043489",
+        "test_data_xpath": "/ContractAwardNotice/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension",
+        "is_covered": true
+    },
+    {
+        "eforms_sdk_element_id": null,
+        "eforms_sdk_element_title": null,
+        "eforms_sdk_element_xpath": null,
+        "test_data_id": "2024-OJS015-043489",
+        "test_data_xpath": "/ContractAwardNotice/cac:ProcurementProjectLot/cac:TenderingTerms/cac:AwardingTerms/cac:AwardingCriterion",
+        "is_covered": false
+    },
+    {
+        "eforms_sdk_element_id": "BT-5141-Procedure",
+        "eforms_sdk_element_title": "Place Performance Country Code",
+        "eforms_sdk_element_xpath": "/*/cac:ProcurementProject/cac:RealizedLocation/cac:Address/cac:Country/cbc:IdentificationCode",
+        "test_data_id": "2024-OJS015-043489",
+        "test_data_xpath": "/ContractAwardNotice/cac:ProcurementProjectLot/cac:ProcurementProject/cac:RealizedLocation/cac:Address/cac:Country/cbc:IdentificationCode",
+        "is_covered": true
+    },
+    {
+        "eforms_sdk_element_id": null,
+        "eforms_sdk_element_title": null,
+        "eforms_sdk_element_xpath": null,
+        "test_data_id": "2024-OJS015-043489",
+        "test_data_xpath": "/ContractAwardNotice/cac:ContractingParty/cac:Party/cac:PartyIdentification",
+        "is_covered": false
+    },
+    {
+        "eforms_sdk_element_id": "OPT-300-Procedure-Buyer",
+        "eforms_sdk_element_title": "Buyer Technical Identifier Reference",
+        "eforms_sdk_element_xpath": "/*/cac:ContractingParty/cac:Party/cac:PartyIdentification/cbc:ID",
+        "test_data_id": "2024-OJS015-043489",
+        "test_data_xpath": "/ContractAwardNotice/cac:ContractingParty/cac:Party/cac:PartyIdentification/cbc:ID",
+        "is_covered": true
+    },
+    {
+        "eforms_sdk_element_id": "BT-05(a)-notice",
+        "eforms_sdk_element_title": "Notice Dispatch Date",
+        "eforms_sdk_element_xpath": "/*/cbc:IssueDate",
+        "test_data_id": "2024-OJS015-043489",
+        "test_data_xpath": "/ContractAwardNotice/cbc:IssueDate",
+        "is_covered": true
+    },
+    {
+        "eforms_sdk_element_id": "BT-300-Procedure",
+        "eforms_sdk_element_title": "Additional Information",
+        "eforms_sdk_element_xpath": "/*/cac:ProcurementProject/cbc:Note",
+        "test_data_id": "2024-OJS015-043489",
+        "test_data_xpath": "/ContractAwardNotice/cac:ProcurementProject/cbc:Note",
+        "is_covered": true
+    },
+    {
+        "eforms_sdk_element_id": "BT-501-Organization-Company",
+        "eforms_sdk_element_title": "Organisation Identifier",
+        "eforms_sdk_element_xpath": "/*/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:Organizations/efac:Organization/efac:Company/cac:PartyLegalEntity/cbc:CompanyID",
+        "test_data_id": "2024-OJS015-043489",
+        "test_data_xpath": "/ContractAwardNotice/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:Organizations/efac:Organization/efac:Company/cac:PartyLegalEntity/cbc:CompanyID",
+        "is_covered": true
+    },
+    {
+        "eforms_sdk_element_id": null,
+        "eforms_sdk_element_title": null,
+        "eforms_sdk_element_xpath": null,
+        "test_data_id": "2024-OJS015-043489",
+        "test_data_xpath": "/ContractAwardNotice/cac:ProcurementProjectLot/cac:TenderingTerms/cac:AdditionalInformationParty/cac:PartyIdentification/cbc:ID/@schemeName",
+        "is_covered": false
+    },
+    {
+        "eforms_sdk_element_id": null,
+        "eforms_sdk_element_title": null,
+        "eforms_sdk_element_xpath": null,
+        "test_data_id": "2024-OJS015-043489",
+        "test_data_xpath": "/ContractAwardNotice/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:NoticeResult/efac:LotResult/efac:SettledContract",
+        "is_covered": false
+    },
+    {
+        "eforms_sdk_element_id": null,
+        "eforms_sdk_element_title": null,
+        "eforms_sdk_element_xpath": null,
+        "test_data_id": "2024-OJS015-043489",
+        "test_data_xpath": "/ContractAwardNotice/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:NoticeResult/efac:LotResult/efac:SettledContract/cbc:ID",
+        "is_covered": false
+    },
+    {
+        "eforms_sdk_element_id": null,
+        "eforms_sdk_element_title": null,
+        "eforms_sdk_element_xpath": null,
+        "test_data_id": "2024-OJS015-043489",
+        "test_data_xpath": "/ContractAwardNotice/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:NoticeResult",
+        "is_covered": false
+    },
+    {
+        "eforms_sdk_element_id": null,
+        "eforms_sdk_element_title": null,
+        "eforms_sdk_element_xpath": null,
+        "test_data_id": "2024-OJS015-043489",
+        "test_data_xpath": "/ContractAwardNotice/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:NoticeResult/efac:LotResult/cbc:ID/@schemeName",
+        "is_covered": false
+    },
+    {
+        "eforms_sdk_element_id": null,
+        "eforms_sdk_element_title": null,
+        "eforms_sdk_element_xpath": null,
+        "test_data_id": "2024-OJS015-043489",
+        "test_data_xpath": "/ContractAwardNotice/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:NoticeResult/efac:LotResult/efac:ReceivedSubmissionsStatistics/efbc:StatisticsCode",
+        "is_covered": false
+    },
+    {
+        "eforms_sdk_element_id": null,
+        "eforms_sdk_element_title": null,
+        "eforms_sdk_element_xpath": null,
+        "test_data_id": "2024-OJS015-043489",
+        "test_data_xpath": "/ContractAwardNotice/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:NoticeResult/efac:LotResult/efac:TenderLot",
+        "is_covered": false
+    },
+    {
+        "eforms_sdk_element_id": "BT-505-Organization-Company",
+        "eforms_sdk_element_title": "Organisation Internet Address",
+        "eforms_sdk_element_xpath": "/*/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:Organizations/efac:Organization/efac:Company/cbc:WebsiteURI",
+        "test_data_id": "2024-OJS015-043489",
+        "test_data_xpath": "/ContractAwardNotice/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:Organizations/efac:Organization/efac:Company/cbc:WebsiteURI",
+        "is_covered": true
+    },
+    {
+        "eforms_sdk_element_id": "BT-105-Procedure",
+        "eforms_sdk_element_title": "Procedure Type",
+        "eforms_sdk_element_xpath": "/*/cac:TenderingProcess/cbc:ProcedureCode",
+        "test_data_id": "2024-OJS015-043489",
+        "test_data_xpath": "/ContractAwardNotice/cac:TenderingProcess/cbc:ProcedureCode",
+        "is_covered": true
+    },
+    {
+        "eforms_sdk_element_id": "BT-22-Procedure",
+        "eforms_sdk_element_title": "Internal Identifier",
+        "eforms_sdk_element_xpath": "/*/cac:ProcurementProject/cbc:ID",
+        "test_data_id": "2024-OJS015-043489",
+        "test_data_xpath": "/ContractAwardNotice/cac:ProcurementProject/cbc:ID",
+        "is_covered": true
+    },
+    {
+        "eforms_sdk_element_id": null,
+        "eforms_sdk_element_title": null,
+        "eforms_sdk_element_xpath": null,
+        "test_data_id": "2024-OJS015-043489",
+        "test_data_xpath": "/ContractAwardNotice/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:NoticeResult/efac:LotTender/efac:SubcontractingTerm",
+        "is_covered": false
+    },
+    {
+        "eforms_sdk_element_id": null,
+        "eforms_sdk_element_title": null,
+        "eforms_sdk_element_xpath": null,
+        "test_data_id": "2024-OJS015-043489",
+        "test_data_xpath": "/ContractAwardNotice/cac:ProcurementProjectLot/cac:TenderingTerms/cac:AwardingTerms/cac:AwardingCriterion/cac:SubordinateAwardingCriterion/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:AwardCriterionParameter",
+        "is_covered": false
+    },
+    {
+        "eforms_sdk_element_id": "ND-ProcedureProcurementScope",
+        "eforms_sdk_element_title": null,
+        "eforms_sdk_element_xpath": "/*/cac:ProcurementProject",
+        "test_data_id": "2024-OJS015-043489",
+        "test_data_xpath": "/ContractAwardNotice/cac:ProcurementProjectLot/cac:ProcurementProject",
+        "is_covered": true
+    },
+    {
+        "eforms_sdk_element_id": null,
+        "eforms_sdk_element_title": null,
+        "eforms_sdk_element_xpath": null,
+        "test_data_id": "2024-OJS015-043489",
+        "test_data_xpath": "/ContractAwardNotice/cac:ProcurementProjectLot/cbc:ID",
+        "is_covered": false
+    },
+    {
+        "eforms_sdk_element_id": "ND-ContractingParty",
+        "eforms_sdk_element_title": null,
+        "eforms_sdk_element_xpath": "/*/cac:ContractingParty",
+        "test_data_id": "2024-OJS015-043489",
+        "test_data_xpath": "/ContractAwardNotice/cac:ContractingParty",
+        "is_covered": true
+    },
+    {
+        "eforms_sdk_element_id": "ND-ProviderParty",
+        "eforms_sdk_element_title": null,
+        "eforms_sdk_element_xpath": "/*/cac:ContractingParty/cac:Party/cac:ServiceProviderParty/cac:Party",
+        "test_data_id": "2024-OJS015-043489",
+        "test_data_xpath": "/ContractAwardNotice/cac:ContractingParty/cac:Party/cac:ServiceProviderParty/cac:Party",
+        "is_covered": true
+    },
+    {
+        "eforms_sdk_element_id": null,
+        "eforms_sdk_element_title": null,
+        "eforms_sdk_element_xpath": null,
+        "test_data_id": "2024-OJS015-043489",
+        "test_data_xpath": "/ContractAwardNotice/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:NoticeResult/efac:LotResult/efac:LotTender/cbc:ID/@schemeName",
+        "is_covered": false
+    },
+    {
+        "eforms_sdk_element_id": null,
+        "eforms_sdk_element_title": null,
+        "eforms_sdk_element_xpath": null,
+        "test_data_id": "2024-OJS015-043489",
+        "test_data_xpath": "/ContractAwardNotice/cac:ProcurementProjectLot/cac:TenderingTerms/cac:AppealTerms/cac:PresentationPeriod/cbc:Description",
+        "is_covered": false
+    },
+    {
+        "eforms_sdk_element_id": null,
+        "eforms_sdk_element_title": null,
+        "eforms_sdk_element_xpath": null,
+        "test_data_id": "2024-OJS015-043489",
+        "test_data_xpath": "/ContractAwardNotice/cac:ContractingParty/cac:Party/cac:PartyIdentification/cbc:ID/@schemeName",
+        "is_covered": false
+    },
+    {
+        "eforms_sdk_element_id": null,
+        "eforms_sdk_element_title": null,
+        "eforms_sdk_element_xpath": null,
+        "test_data_id": "2024-OJS015-043489",
+        "test_data_xpath": "/ContractAwardNotice/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:NoticeResult/efac:SettledContract/efac:LotTender/cbc:ID/@schemeName",
+        "is_covered": false
+    },
+    {
+        "eforms_sdk_element_id": null,
+        "eforms_sdk_element_title": null,
+        "eforms_sdk_element_xpath": null,
+        "test_data_id": "2024-OJS015-043489",
+        "test_data_xpath": "/ContractAwardNotice/cac:TenderingProcess/cac:ProcessJustification/cbc:ProcessReasonCode/@listName",
+        "is_covered": false
+    },
+    {
+        "eforms_sdk_element_id": null,
+        "eforms_sdk_element_title": null,
+        "eforms_sdk_element_xpath": null,
+        "test_data_id": "2024-OJS015-043489",
+        "test_data_xpath": "/ContractAwardNotice/cac:ProcurementProjectLot/cac:TenderingTerms/cbc:FundingProgramCode/@listName",
+        "is_covered": false
+    },
+    {
+        "eforms_sdk_element_id": null,
+        "eforms_sdk_element_title": null,
+        "eforms_sdk_element_xpath": null,
+        "test_data_id": "2024-OJS015-043489",
+        "test_data_xpath": "/ContractAwardNotice/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:Publication/efbc:GazetteID/@schemeName",
+        "is_covered": false
+    },
+    {
+        "eforms_sdk_element_id": null,
+        "eforms_sdk_element_title": null,
+        "eforms_sdk_element_xpath": null,
+        "test_data_id": "2024-OJS015-043489",
+        "test_data_xpath": "/ContractAwardNotice/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:Organizations/efac:UltimateBeneficialOwner/cbc:ID/@schemeName",
+        "is_covered": false
+    },
+    {
+        "eforms_sdk_element_id": "BT-23-Procedure",
+        "eforms_sdk_element_title": "Main Nature",
+        "eforms_sdk_element_xpath": "/*/cac:ProcurementProject/cbc:ProcurementTypeCode",
+        "test_data_id": "2024-OJS015-043489",
+        "test_data_xpath": "/ContractAwardNotice/cac:ProcurementProject/cbc:ProcurementTypeCode",
+        "is_covered": true
+    },
+    {
+        "eforms_sdk_element_id": "BT-506-Organization-Company",
+        "eforms_sdk_element_title": "Organisation Contact Email Address",
+        "eforms_sdk_element_xpath": "/*/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:Organizations/efac:Organization/efac:Company/cac:Contact/cbc:ElectronicMail",
+        "test_data_id": "2024-OJS015-043489",
+        "test_data_xpath": "/ContractAwardNotice/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:Organizations/efac:Organization/efac:Company/cac:Contact/cbc:ElectronicMail",
+        "is_covered": true
+    },
+    {
+        "eforms_sdk_element_id": null,
+        "eforms_sdk_element_title": null,
+        "eforms_sdk_element_xpath": null,
+        "test_data_id": "2024-OJS015-043489",
+        "test_data_xpath": "/ContractAwardNotice/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:Organizations/efac:Organization/efac:UltimateBeneficialOwner/cbc:ID/@schemeName",
+        "is_covered": false
+    },
+    {
+        "eforms_sdk_element_id": null,
+        "eforms_sdk_element_title": null,
+        "eforms_sdk_element_xpath": null,
+        "test_data_id": "2024-OJS015-043489",
+        "test_data_xpath": "/ContractAwardNotice/cac:ProcurementProjectLot/cac:TenderingTerms/cac:AwardingTerms/cac:AwardingCriterion/cac:SubordinateAwardingCriterion/cbc:Name",
+        "is_covered": false
+    },
+    {
+        "eforms_sdk_element_id": null,
+        "eforms_sdk_element_title": null,
+        "eforms_sdk_element_xpath": null,
+        "test_data_id": "2024-OJS015-043489",
+        "test_data_xpath": "/ContractAwardNotice/cac:ProcurementProjectLot/cac:ProcurementProject/cac:ProcurementAdditionalType/cbc:ProcurementTypeCode/@listName",
+        "is_covered": false
+    },
+    {
+        "eforms_sdk_element_id": null,
+        "eforms_sdk_element_title": null,
+        "eforms_sdk_element_xpath": null,
+        "test_data_id": "2024-OJS015-043489",
+        "test_data_xpath": "/ContractAwardNotice/cac:ProcurementProjectLot/cac:TenderingTerms/cac:AppealTerms/cac:PresentationPeriod",
+        "is_covered": false
+    },
+    {
+        "eforms_sdk_element_id": null,
+        "eforms_sdk_element_title": null,
+        "eforms_sdk_element_xpath": null,
+        "test_data_id": "2024-OJS015-043489",
+        "test_data_xpath": "/ContractAwardNotice/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:Organizations/efac:UltimateBeneficialOwner/efac:Nationality",
+        "is_covered": false
+    },
+    {
+        "eforms_sdk_element_id": "BT-514-Organization-Company",
+        "eforms_sdk_element_title": "Organisation Country Code",
+        "eforms_sdk_element_xpath": "/*/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:Organizations/efac:Organization/efac:Company/cac:PostalAddress/cac:Country/cbc:IdentificationCode",
+        "test_data_id": "2024-OJS015-043489",
+        "test_data_xpath": "/ContractAwardNotice/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:Organizations/efac:Organization/efac:Company/cac:PostalAddress/cac:Country/cbc:IdentificationCode",
+        "is_covered": true
+    },
+    {
+        "eforms_sdk_element_id": "BT-05(b)-notice",
+        "eforms_sdk_element_title": "Notice Dispatch Time",
+        "eforms_sdk_element_xpath": "/*/cbc:IssueTime",
+        "test_data_id": "2024-OJS015-043489",
+        "test_data_xpath": "/ContractAwardNotice/cbc:IssueTime",
+        "is_covered": true
+    },
+    {
+        "eforms_sdk_element_id": null,
+        "eforms_sdk_element_title": null,
+        "eforms_sdk_element_xpath": null,
+        "test_data_id": "2024-OJS015-043489",
+        "test_data_xpath": "/ContractAwardNotice/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:NoticeResult/efac:LotTender/cbc:ID/@schemeName",
+        "is_covered": false
+    },
+    {
+        "eforms_sdk_element_id": null,
+        "eforms_sdk_element_title": null,
+        "eforms_sdk_element_xpath": null,
+        "test_data_id": "2024-OJS015-043489",
+        "test_data_xpath": "/ContractAwardNotice/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:NoticeResult/efac:TenderingParty/cbc:ID/@schemeName",
+        "is_covered": false
+    },
+    {
+        "eforms_sdk_element_id": null,
+        "eforms_sdk_element_title": null,
+        "eforms_sdk_element_xpath": null,
+        "test_data_id": "2024-OJS015-043489",
+        "test_data_xpath": "/ContractAwardNotice/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:NoticeResult/efac:LotResult/cbc:TenderResultCode/@listName",
+        "is_covered": false
+    },
+    {
+        "eforms_sdk_element_id": null,
+        "eforms_sdk_element_title": null,
+        "eforms_sdk_element_xpath": null,
+        "test_data_id": "2024-OJS015-043489",
+        "test_data_xpath": "/ContractAwardNotice/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:NoticeResult/efac:LotResult/efac:ReceivedSubmissionsStatistics",
+        "is_covered": false
+    },
+    {
+        "eforms_sdk_element_id": null,
+        "eforms_sdk_element_title": null,
+        "eforms_sdk_element_xpath": null,
+        "test_data_id": "2024-OJS015-043489",
+        "test_data_xpath": "/ContractAwardNotice/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:NoticeResult/efac:LotTender/efac:TenderLot/cbc:ID",
+        "is_covered": false
+    },
+    {
+        "eforms_sdk_element_id": null,
+        "eforms_sdk_element_title": null,
+        "eforms_sdk_element_xpath": null,
+        "test_data_id": "2024-OJS015-043489",
+        "test_data_xpath": "/ContractAwardNotice/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:Organizations/efac:Organization/efac:Company/efbc:CompanySizeCode",
+        "is_covered": false
+    },
+    {
+        "eforms_sdk_element_id": null,
+        "eforms_sdk_element_title": null,
+        "eforms_sdk_element_xpath": null,
+        "test_data_id": "2024-OJS015-043489",
+        "test_data_xpath": "/ContractAwardNotice/cac:ContractingParty/cac:Party/cac:ServiceProviderParty/cbc:ServiceTypeCode/@listName",
+        "is_covered": false
+    },
+    {
+        "eforms_sdk_element_id": null,
+        "eforms_sdk_element_title": null,
+        "eforms_sdk_element_xpath": null,
+        "test_data_id": "2024-OJS015-043489",
+        "test_data_xpath": "/ContractAwardNotice/cac:TenderingProcess/cbc:TerminatedIndicator",
+        "is_covered": false
+    },
+    {
+        "eforms_sdk_element_id": null,
+        "eforms_sdk_element_title": null,
+        "eforms_sdk_element_xpath": null,
+        "test_data_id": "2024-OJS015-043489",
+        "test_data_xpath": "/ContractAwardNotice/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:NoticeResult/efac:TenderingParty/efac:Tenderer",
+        "is_covered": false
+    },
+    {
+        "eforms_sdk_element_id": null,
+        "eforms_sdk_element_title": null,
+        "eforms_sdk_element_xpath": null,
+        "test_data_id": "2024-OJS015-043489",
+        "test_data_xpath": "/ContractAwardNotice/cac:ProcurementProjectLot/cac:ProcurementProject/cbc:Name/@languageID",
+        "is_covered": false
+    },
+    {
+        "eforms_sdk_element_id": null,
+        "eforms_sdk_element_title": null,
+        "eforms_sdk_element_xpath": null,
+        "test_data_id": "2024-OJS015-043489",
+        "test_data_xpath": "/ContractAwardNotice/cac:ContractingParty/cac:ContractingActivity/cbc:ActivityTypeCode",
+        "is_covered": false
+    },
+    {
+        "eforms_sdk_element_id": null,
+        "eforms_sdk_element_title": null,
+        "eforms_sdk_element_xpath": null,
+        "test_data_id": "2024-OJS015-043489",
+        "test_data_xpath": "/ContractAwardNotice/cbc:ID",
+        "is_covered": false
+    },
+    {
+        "eforms_sdk_element_id": "BT-04-notice",
+        "eforms_sdk_element_title": "Procedure Identifier",
+        "eforms_sdk_element_xpath": "/*/cbc:ContractFolderID",
+        "test_data_id": "2024-OJS015-043489",
+        "test_data_xpath": "/ContractAwardNotice/cbc:ContractFolderID",
+        "is_covered": true
+    },
+    {
+        "eforms_sdk_element_id": "OPT-002-notice",
+        "eforms_sdk_element_title": "Customization ID (UBL)",
+        "eforms_sdk_element_xpath": "/*/cbc:CustomizationID",
+        "test_data_id": "2024-OJS015-043489",
+        "test_data_xpath": "/ContractAwardNotice/cbc:CustomizationID",
+        "is_covered": true
+    },
+    {
+        "eforms_sdk_element_id": "BT-24-Procedure",
+        "eforms_sdk_element_title": "Description",
+        "eforms_sdk_element_xpath": "/*/cac:ProcurementProject/cbc:Description",
+        "test_data_id": "2024-OJS015-043489",
+        "test_data_xpath": "/ContractAwardNotice/cac:ProcurementProject/cbc:Description",
+        "is_covered": true
+    },
+    {
+        "eforms_sdk_element_id": null,
+        "eforms_sdk_element_title": null,
+        "eforms_sdk_element_xpath": null,
+        "test_data_id": "2024-OJS015-043489",
+        "test_data_xpath": "/ContractAwardNotice/cac:ProcurementProjectLot/cac:TenderingTerms/cac:AwardingTerms/cac:AwardingCriterion/cac:SubordinateAwardingCriterion/cbc:AwardingCriterionTypeCode",
+        "is_covered": false
+    },
+    {
+        "eforms_sdk_element_id": null,
+        "eforms_sdk_element_title": null,
+        "eforms_sdk_element_xpath": null,
+        "test_data_id": "2024-OJS015-043489",
+        "test_data_xpath": "/ContractAwardNotice/cac:TenderResult",
+        "is_covered": false
+    },
+    {
+        "eforms_sdk_element_id": null,
+        "eforms_sdk_element_title": null,
+        "eforms_sdk_element_xpath": null,
+        "test_data_id": "2024-OJS015-043489",
+        "test_data_xpath": "/ContractAwardNotice/cac:ProcurementProjectLot/cac:TenderingTerms/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:StrategicProcurement/efbc:ApplicableLegalBasis",
+        "is_covered": false
+    },
+    {
+        "eforms_sdk_element_id": "BT-21-Procedure",
+        "eforms_sdk_element_title": "Title",
+        "eforms_sdk_element_xpath": "/*/cac:ProcurementProject/cbc:Name",
+        "test_data_id": "2024-OJS015-043489",
+        "test_data_xpath": "/ContractAwardNotice/cac:ProcurementProjectLot/cac:ProcurementProject/cbc:Name",
+        "is_covered": true
+    },
+    {
+        "eforms_sdk_element_id": null,
+        "eforms_sdk_element_title": null,
+        "eforms_sdk_element_xpath": null,
+        "test_data_id": "2024-OJS015-043489",
+        "test_data_xpath": "/ContractAwardNotice/cac:ProcurementProject/cac:RealizedLocation/cac:Address/cbc:CountrySubentityCode/@listName",
+        "is_covered": false
+    },
+    {
+        "eforms_sdk_element_id": null,
+        "eforms_sdk_element_title": null,
+        "eforms_sdk_element_xpath": null,
+        "test_data_id": "2024-OJS015-043489",
+        "test_data_xpath": "/ContractAwardNotice/cac:TenderingProcess/cac:ProcessJustification/cbc:ProcessReasonCode",
+        "is_covered": false
+    },
+    {
+        "eforms_sdk_element_id": null,
+        "eforms_sdk_element_title": null,
+        "eforms_sdk_element_xpath": null,
+        "test_data_id": "2024-OJS015-043489",
+        "test_data_xpath": "/ContractAwardNotice/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:NoticeResult/efac:TenderingParty",
+        "is_covered": false
+    },
+    {
+        "eforms_sdk_element_id": null,
+        "eforms_sdk_element_title": null,
+        "eforms_sdk_element_xpath": null,
+        "test_data_id": "2024-OJS015-043489",
+        "test_data_xpath": "/ContractAwardNotice/cac:ProcurementProject/cbc:Note/@languageID",
+        "is_covered": false
+    },
+    {
+        "eforms_sdk_element_id": null,
+        "eforms_sdk_element_title": null,
+        "eforms_sdk_element_xpath": null,
+        "test_data_id": "2024-OJS015-043489",
+        "test_data_xpath": "/ContractAwardNotice/cac:ProcurementProject/cbc:ProcurementTypeCode/@listName",
+        "is_covered": false
+    },
+    {
+        "eforms_sdk_element_id": null,
+        "eforms_sdk_element_title": null,
+        "eforms_sdk_element_xpath": null,
+        "test_data_id": "2024-OJS015-043489",
+        "test_data_xpath": "/ContractAwardNotice/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:Organizations/efac:Organization/efac:Company/cac:PartyIdentification/cbc:ID/@schemeName",
+        "is_covered": false
+    },
+    {
+        "eforms_sdk_element_id": null,
+        "eforms_sdk_element_title": null,
+        "eforms_sdk_element_xpath": null,
+        "test_data_id": "2024-OJS015-043489",
+        "test_data_xpath": "/ContractAwardNotice/cac:ProcurementProjectLot/cac:TenderingTerms/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:StrategicProcurement",
+        "is_covered": false
+    },
+    {
+        "eforms_sdk_element_id": null,
+        "eforms_sdk_element_title": null,
+        "eforms_sdk_element_xpath": null,
+        "test_data_id": "2024-OJS015-043489",
+        "test_data_xpath": "/ContractAwardNotice/cac:ProcurementProjectLot/cac:TenderingTerms/cbc:FundingProgramCode",
+        "is_covered": false
+    },
+    {
+        "eforms_sdk_element_id": "BT-5141-Procedure",
+        "eforms_sdk_element_title": "Place Performance Country Code",
+        "eforms_sdk_element_xpath": "/*/cac:ProcurementProject/cac:RealizedLocation/cac:Address/cac:Country/cbc:IdentificationCode",
+        "test_data_id": "2024-OJS015-043489",
+        "test_data_xpath": "/ContractAwardNotice/cac:ProcurementProject/cac:RealizedLocation/cac:Address/cac:Country/cbc:IdentificationCode",
+        "is_covered": true
+    },
+    {
+        "eforms_sdk_element_id": null,
+        "eforms_sdk_element_title": null,
+        "eforms_sdk_element_xpath": null,
+        "test_data_id": "2024-OJS015-043489",
+        "test_data_xpath": "/ContractAwardNotice/cbc:ID/@schemeName",
+        "is_covered": false
+    },
+    {
+        "eforms_sdk_element_id": "ND-ProcedurePlacePerformanceAdditionalInformation",
+        "eforms_sdk_element_title": null,
+        "eforms_sdk_element_xpath": "/*/cac:ProcurementProject/cac:RealizedLocation",
+        "test_data_id": "2024-OJS015-043489",
+        "test_data_xpath": "/ContractAwardNotice/cac:ProcurementProject/cac:RealizedLocation",
+        "is_covered": true
+    },
+    {
+        "eforms_sdk_element_id": null,
+        "eforms_sdk_element_title": null,
+        "eforms_sdk_element_xpath": null,
+        "test_data_id": "2024-OJS015-043489",
+        "test_data_xpath": "/ContractAwardNotice/cac:ProcurementProjectLot/cac:ProcurementProject/cac:PlannedPeriod",
+        "is_covered": false
+    },
+    {
+        "eforms_sdk_element_id": null,
+        "eforms_sdk_element_title": null,
+        "eforms_sdk_element_xpath": null,
+        "test_data_id": "2024-OJS015-043489",
+        "test_data_xpath": "/ContractAwardNotice/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:NoticeResult/efac:TenderingParty/efac:Tenderer/cbc:ID/@schemeName",
+        "is_covered": false
+    },
+    {
+        "eforms_sdk_element_id": null,
+        "eforms_sdk_element_title": null,
+        "eforms_sdk_element_xpath": null,
+        "test_data_id": "2024-OJS015-043489",
+        "test_data_xpath": "/ContractAwardNotice/cac:ContractingParty/cac:Party/cac:ServiceProviderParty/cac:Party/cac:PartyIdentification",
+        "is_covered": false
+    },
+    {
+        "eforms_sdk_element_id": null,
+        "eforms_sdk_element_title": null,
+        "eforms_sdk_element_xpath": null,
+        "test_data_id": "2024-OJS015-043489",
+        "test_data_xpath": "/ContractAwardNotice/cac:ProcurementProjectLot/cac:ProcurementProject/cac:RealizedLocation/cac:Address/cac:Country/cbc:IdentificationCode/@listName",
+        "is_covered": false
+    },
+    {
+        "eforms_sdk_element_id": null,
+        "eforms_sdk_element_title": null,
+        "eforms_sdk_element_xpath": null,
+        "test_data_id": "2024-OJS015-043489",
+        "test_data_xpath": "/ContractAwardNotice/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:NoticeResult/efac:TenderingParty/efac:Tenderer/cbc:ID",
+        "is_covered": false
+    },
+    {
+        "eforms_sdk_element_id": null,
+        "eforms_sdk_element_title": null,
+        "eforms_sdk_element_xpath": null,
+        "test_data_id": "2024-OJS015-043489",
+        "test_data_xpath": "/ContractAwardNotice/cac:ProcurementProjectLot/cac:ProcurementProject/cbc:Description/@languageID",
+        "is_covered": false
+    },
+    {
+        "eforms_sdk_element_id": "BT-513-Organization-Company",
+        "eforms_sdk_element_title": "Organisation City",
+        "eforms_sdk_element_xpath": "/*/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:Organizations/efac:Organization/efac:Company/cac:PostalAddress/cbc:CityName",
+        "test_data_id": "2024-OJS015-043489",
+        "test_data_xpath": "/ContractAwardNotice/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:Organizations/efac:Organization/efac:Company/cac:PostalAddress/cbc:CityName",
+        "is_covered": true
+    },
+    {
+        "eforms_sdk_element_id": "ND-ProcedurePlacePerformance",
+        "eforms_sdk_element_title": null,
+        "eforms_sdk_element_xpath": "/*/cac:ProcurementProject/cac:RealizedLocation/cac:Address",
+        "test_data_id": "2024-OJS015-043489",
+        "test_data_xpath": "/ContractAwardNotice/cac:ProcurementProjectLot/cac:ProcurementProject/cac:RealizedLocation/cac:Address",
+        "is_covered": true
+    },
+    {
+        "eforms_sdk_element_id": "OPP-052-Organization",
+        "eforms_sdk_element_title": "Acquiring CPB Buyer Indicator",
+        "eforms_sdk_element_xpath": "/*/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:Organizations/efac:Organization/efbc:AcquiringCPBIndicator",
+        "test_data_id": "2024-OJS015-043489",
+        "test_data_xpath": "/ContractAwardNotice/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:Organizations/efac:Organization/efbc:AcquiringCPBIndicator",
+        "is_covered": true
+    },
+    {
+        "eforms_sdk_element_id": null,
+        "eforms_sdk_element_title": null,
+        "eforms_sdk_element_xpath": null,
+        "test_data_id": "2024-OJS015-043489",
+        "test_data_xpath": "/ContractAwardNotice/cbc:RequestedPublicationDate",
+        "is_covered": false
+    },
+    {
+        "eforms_sdk_element_id": "ND-RootExtension",
+        "eforms_sdk_element_title": null,
+        "eforms_sdk_element_xpath": "/*/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension",
+        "test_data_id": "2024-OJS015-043489",
+        "test_data_xpath": "/ContractAwardNotice/cac:ProcurementProjectLot/cac:TenderingTerms/cac:AwardingTerms/cac:AwardingCriterion/cac:SubordinateAwardingCriterion/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension",
+        "is_covered": true
+    },
+    {
+        "eforms_sdk_element_id": null,
+        "eforms_sdk_element_title": null,
+        "eforms_sdk_element_xpath": null,
+        "test_data_id": "2024-OJS015-043489",
+        "test_data_xpath": "/ContractAwardNotice/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:NoticeResult/efac:LotResult/efac:LotTender/cbc:ID",
+        "is_covered": false
+    },
+    {
+        "eforms_sdk_element_id": null,
+        "eforms_sdk_element_title": null,
+        "eforms_sdk_element_xpath": null,
+        "test_data_id": "2024-OJS015-043489",
+        "test_data_xpath": "/ContractAwardNotice/cbc:NoticeLanguageCode/@listName",
+        "is_covered": false
+    },
+    {
+        "eforms_sdk_element_id": "ND-ProcedurePlacePerformanceAdditionalInformation",
+        "eforms_sdk_element_title": null,
+        "eforms_sdk_element_xpath": "/*/cac:ProcurementProject/cac:RealizedLocation",
+        "test_data_id": "2024-OJS015-043489",
+        "test_data_xpath": "/ContractAwardNotice/cac:ProcurementProjectLot/cac:ProcurementProject/cac:RealizedLocation",
+        "is_covered": true
+    },
+    {
+        "eforms_sdk_element_id": null,
+        "eforms_sdk_element_title": null,
+        "eforms_sdk_element_xpath": null,
+        "test_data_id": "2024-OJS015-043489",
+        "test_data_xpath": "/ContractAwardNotice/cac:ProcurementProjectLot/cac:ProcurementProject/cac:PlannedPeriod/cbc:StartDate",
+        "is_covered": false
+    },
+    {
+        "eforms_sdk_element_id": null,
+        "eforms_sdk_element_title": null,
+        "eforms_sdk_element_xpath": null,
+        "test_data_id": "2024-OJS015-043489",
+        "test_data_xpath": "/ContractAwardNotice/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:Publication/efbc:GazetteID",
+        "is_covered": false
+    },
+    {
+        "eforms_sdk_element_id": "BT-5131-Procedure",
+        "eforms_sdk_element_title": "Place Performance City",
+        "eforms_sdk_element_xpath": "/*/cac:ProcurementProject/cac:RealizedLocation/cac:Address/cbc:CityName",
+        "test_data_id": "2024-OJS015-043489",
+        "test_data_xpath": "/ContractAwardNotice/cac:ProcurementProject/cac:RealizedLocation/cac:Address/cbc:CityName",
+        "is_covered": true
+    },
+    {
+        "eforms_sdk_element_id": null,
+        "eforms_sdk_element_title": null,
+        "eforms_sdk_element_xpath": null,
+        "test_data_id": "2024-OJS015-043489",
+        "test_data_xpath": "/ContractAwardNotice/cac:ProcurementProjectLot/cac:TenderingProcess/cac:ContractingSystem",
+        "is_covered": false
+    },
+    {
+        "eforms_sdk_element_id": null,
+        "eforms_sdk_element_title": null,
+        "eforms_sdk_element_xpath": null,
+        "test_data_id": "2024-OJS015-043489",
+        "test_data_xpath": "/ContractAwardNotice/cac:ProcurementProject/cbc:Description/@languageID",
+        "is_covered": false
+    },
+    {
+        "eforms_sdk_element_id": "OPP-051-Organization",
+        "eforms_sdk_element_title": "Awarding CPB Buyer Indicator",
+        "eforms_sdk_element_xpath": "/*/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:Organizations/efac:Organization/efbc:AwardingCPBIndicator",
+        "test_data_id": "2024-OJS015-043489",
+        "test_data_xpath": "/ContractAwardNotice/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:Organizations/efac:Organization/efbc:AwardingCPBIndicator",
+        "is_covered": true
+    },
+    {
+        "eforms_sdk_element_id": "ND-ProcedureMainClassification",
+        "eforms_sdk_element_title": null,
+        "eforms_sdk_element_xpath": "/*/cac:ProcurementProject/cac:MainCommodityClassification",
+        "test_data_id": "2024-OJS015-043489",
+        "test_data_xpath": "/ContractAwardNotice/cac:ProcurementProjectLot/cac:ProcurementProject/cac:MainCommodityClassification",
+        "is_covered": true
+    },
+    {
+        "eforms_sdk_element_id": "BT-739-Organization-Company",
+        "eforms_sdk_element_title": "Organisation Contact Fax",
+        "eforms_sdk_element_xpath": "/*/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:Organizations/efac:Organization/efac:Company/cac:Contact/cbc:Telefax",
+        "test_data_id": "2024-OJS015-043489",
+        "test_data_xpath": "/ContractAwardNotice/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:Organizations/efac:Organization/efac:Company/cac:Contact/cbc:Telefax",
+        "is_covered": true
+    },
+    {
+        "eforms_sdk_element_id": "BT-5071-Procedure",
+        "eforms_sdk_element_title": "Place Performance Country Subdivision",
+        "eforms_sdk_element_xpath": "/*/cac:ProcurementProject/cac:RealizedLocation/cac:Address/cbc:CountrySubentityCode",
+        "test_data_id": "2024-OJS015-043489",
+        "test_data_xpath": "/ContractAwardNotice/cac:ProcurementProjectLot/cac:ProcurementProject/cac:RealizedLocation/cac:Address/cbc:CountrySubentityCode",
+        "is_covered": true
+    },
+    {
+        "eforms_sdk_element_id": "BT-510(a)-Organization-Company",
+        "eforms_sdk_element_title": "Street",
+        "eforms_sdk_element_xpath": "/*/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:Organizations/efac:Organization/efac:Company/cac:PostalAddress/cbc:StreetName",
+        "test_data_id": "2024-OJS015-043489",
+        "test_data_xpath": "/ContractAwardNotice/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:Organizations/efac:Organization/efac:Company/cac:PostalAddress/cbc:StreetName",
+        "is_covered": true
+    },
+    {
+        "eforms_sdk_element_id": null,
+        "eforms_sdk_element_title": null,
+        "eforms_sdk_element_xpath": null,
+        "test_data_id": "2024-OJS015-043489",
+        "test_data_xpath": "/ContractAwardNotice/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:Organizations/efac:UltimateBeneficialOwner/efac:Nationality/cbc:NationalityID",
+        "is_covered": false
+    },
+    {
+        "eforms_sdk_element_id": "ND-RootExtension",
+        "eforms_sdk_element_title": null,
+        "eforms_sdk_element_xpath": "/*/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension",
+        "test_data_id": "2024-OJS015-043489",
+        "test_data_xpath": "/ContractAwardNotice/cac:ProcurementProjectLot/cac:TenderingTerms/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension",
+        "is_covered": true
+    },
+    {
+        "eforms_sdk_element_id": null,
+        "eforms_sdk_element_title": null,
+        "eforms_sdk_element_xpath": null,
+        "test_data_id": "2024-OJS015-043489",
+        "test_data_xpath": "/ContractAwardNotice/cac:ProcurementProjectLot/cac:TenderingTerms/cac:AwardingTerms/cac:AwardingCriterion/cac:SubordinateAwardingCriterion/cbc:AwardingCriterionTypeCode/@listName",
+        "is_covered": false
+    },
+    {
+        "eforms_sdk_element_id": null,
+        "eforms_sdk_element_title": null,
+        "eforms_sdk_element_xpath": null,
+        "test_data_id": "2024-OJS015-043489",
+        "test_data_xpath": "/ContractAwardNotice/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:NoticeResult/efac:LotResult/efac:ReceivedSubmissionsStatistics/efbc:StatisticsCode/@listName",
+        "is_covered": false
+    },
+    {
+        "eforms_sdk_element_id": "ND-CompanyAddress",
+        "eforms_sdk_element_title": null,
+        "eforms_sdk_element_xpath": "/*/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:Organizations/efac:Organization/efac:Company/cac:PostalAddress",
+        "test_data_id": "2024-OJS015-043489",
+        "test_data_xpath": "/ContractAwardNotice/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:Organizations/efac:Organization/efac:Company/cac:PostalAddress",
+        "is_covered": true
+    },
+    {
+        "eforms_sdk_element_id": null,
+        "eforms_sdk_element_title": null,
+        "eforms_sdk_element_xpath": null,
+        "test_data_id": "2024-OJS015-043489",
+        "test_data_xpath": "/ContractAwardNotice/cac:ProcurementProjectLot/cac:TenderingTerms/cac:AdditionalInformationParty/cac:PartyIdentification/cbc:ID",
+        "is_covered": false
+    },
+    {
+        "eforms_sdk_element_id": "ND-ProcedureTenderingProcess",
+        "eforms_sdk_element_title": null,
+        "eforms_sdk_element_xpath": "/*/cac:TenderingProcess",
+        "test_data_id": "2024-OJS015-043489",
+        "test_data_xpath": "/ContractAwardNotice/cac:ProcurementProjectLot/cac:TenderingProcess",
+        "is_covered": true
+    },
+    {
+        "eforms_sdk_element_id": null,
+        "eforms_sdk_element_title": null,
+        "eforms_sdk_element_xpath": null,
+        "test_data_id": "2024-OJS015-043489",
+        "test_data_xpath": "/ContractAwardNotice/cac:ProcurementProjectLot/cac:ProcurementProject/cac:ProcurementAdditionalType",
+        "is_covered": false
+    },
+    {
+        "eforms_sdk_element_id": null,
+        "eforms_sdk_element_title": null,
+        "eforms_sdk_element_xpath": null,
+        "test_data_id": "2024-OJS015-043489",
+        "test_data_xpath": "/ContractAwardNotice/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:Organizations/efac:Organization/efac:Company/cac:PostalAddress/cac:Country/cbc:IdentificationCode/@listName",
+        "is_covered": false
+    },
+    {
+        "eforms_sdk_element_id": "BT-512-Organization-Company",
+        "eforms_sdk_element_title": "Organisation Post Code",
+        "eforms_sdk_element_xpath": "/*/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:Organizations/efac:Organization/efac:Company/cac:PostalAddress/cbc:PostalZone",
+        "test_data_id": "2024-OJS015-043489",
+        "test_data_xpath": "/ContractAwardNotice/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:Organizations/efac:Organization/efac:Company/cac:PostalAddress/cbc:PostalZone",
+        "is_covered": true
+    },
+    {
+        "eforms_sdk_element_id": null,
+        "eforms_sdk_element_title": null,
+        "eforms_sdk_element_xpath": null,
+        "test_data_id": "2024-OJS015-043489",
+        "test_data_xpath": "/ContractAwardNotice/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:NoticeResult/efac:LotTender/efac:TenderLot",
+        "is_covered": false
+    },
+    {
+        "eforms_sdk_element_id": "ND-Publication",
+        "eforms_sdk_element_title": null,
+        "eforms_sdk_element_xpath": "/*/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:Publication",
+        "test_data_id": "2024-OJS015-043489",
+        "test_data_xpath": "/ContractAwardNotice/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:Publication",
+        "is_covered": true
+    },
+    {
+        "eforms_sdk_element_id": "BT-5121-Procedure",
+        "eforms_sdk_element_title": "Place Performance Post Code",
+        "eforms_sdk_element_xpath": "/*/cac:ProcurementProject/cac:RealizedLocation/cac:Address/cbc:PostalZone",
+        "test_data_id": "2024-OJS015-043489",
+        "test_data_xpath": "/ContractAwardNotice/cac:ProcurementProject/cac:RealizedLocation/cac:Address/cbc:PostalZone",
+        "is_covered": true
+    },
+    {
+        "eforms_sdk_element_id": null,
+        "eforms_sdk_element_title": null,
+        "eforms_sdk_element_xpath": null,
+        "test_data_id": "2024-OJS015-043489",
+        "test_data_xpath": "/ContractAwardNotice/cac:ProcurementProjectLot/cac:TenderingTerms/cac:AwardingTerms/cac:AwardingCriterion/cac:SubordinateAwardingCriterion/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent",
+        "is_covered": false
+    },
+    {
+        "eforms_sdk_element_id": null,
+        "eforms_sdk_element_title": null,
+        "eforms_sdk_element_xpath": null,
+        "test_data_id": "2024-OJS015-043489",
+        "test_data_xpath": "/ContractAwardNotice/cac:ProcurementProjectLot/cac:TenderingTerms/cac:AppealTerms/cac:AppealReceiverParty",
+        "is_covered": false
+    },
+    {
+        "eforms_sdk_element_id": "ND-Organization",
+        "eforms_sdk_element_title": null,
+        "eforms_sdk_element_xpath": "/*/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:Organizations/efac:Organization",
+        "test_data_id": "2024-OJS015-043489",
+        "test_data_xpath": "/ContractAwardNotice/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:Organizations/efac:Organization",
+        "is_covered": true
+    },
+    {
+        "eforms_sdk_element_id": null,
+        "eforms_sdk_element_title": null,
+        "eforms_sdk_element_xpath": null,
+        "test_data_id": "2024-OJS015-043489",
+        "test_data_xpath": "/ContractAwardNotice",
+        "is_covered": false
+    },
+    {
+        "eforms_sdk_element_id": "ND-ServiceProviderParty",
+        "eforms_sdk_element_title": null,
+        "eforms_sdk_element_xpath": "/*/cac:ContractingParty/cac:Party/cac:ServiceProviderParty",
+        "test_data_id": "2024-OJS015-043489",
+        "test_data_xpath": "/ContractAwardNotice/cac:ContractingParty/cac:Party/cac:ServiceProviderParty",
+        "is_covered": true
+    },
+    {
+        "eforms_sdk_element_id": "BT-262-Procedure",
+        "eforms_sdk_element_title": "Main Classification Code",
+        "eforms_sdk_element_xpath": "/*/cac:ProcurementProject/cac:MainCommodityClassification/cbc:ItemClassificationCode",
+        "test_data_id": "2024-OJS015-043489",
+        "test_data_xpath": "/ContractAwardNotice/cac:ProcurementProjectLot/cac:ProcurementProject/cac:MainCommodityClassification/cbc:ItemClassificationCode",
+        "is_covered": true
+    },
+    {
+        "eforms_sdk_element_id": "BT-503-Organization-Company",
+        "eforms_sdk_element_title": "Organisation Contact Telephone Number",
+        "eforms_sdk_element_xpath": "/*/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:Organizations/efac:Organization/efac:Company/cac:Contact/cbc:Telephone",
+        "test_data_id": "2024-OJS015-043489",
+        "test_data_xpath": "/ContractAwardNotice/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:Organizations/efac:Organization/efac:Company/cac:Contact/cbc:Telephone",
+        "is_covered": true
+    },
+    {
+        "eforms_sdk_element_id": null,
+        "eforms_sdk_element_title": null,
+        "eforms_sdk_element_xpath": null,
+        "test_data_id": "2024-OJS015-043489",
+        "test_data_xpath": "/ContractAwardNotice/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:Organizations/efac:UltimateBeneficialOwner",
+        "is_covered": false
+    },
+    {
+        "eforms_sdk_element_id": null,
+        "eforms_sdk_element_title": null,
+        "eforms_sdk_element_xpath": null,
+        "test_data_id": "2024-OJS015-043489",
+        "test_data_xpath": "/ContractAwardNotice/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:NoticeResult/efac:LotResult",
+        "is_covered": false
+    },
+    {
+        "eforms_sdk_element_id": null,
+        "eforms_sdk_element_title": null,
+        "eforms_sdk_element_xpath": null,
+        "test_data_id": "2024-OJS015-043489",
+        "test_data_xpath": "/ContractAwardNotice/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:NoticeResult/efac:LotResult/efac:ReceivedSubmissionsStatistics/efbc:StatisticsNumeric",
+        "is_covered": false
+    },
+    {
+        "eforms_sdk_element_id": null,
+        "eforms_sdk_element_title": null,
+        "eforms_sdk_element_xpath": null,
+        "test_data_id": "2024-OJS015-043489",
+        "test_data_xpath": "/ContractAwardNotice/cac:ProcurementProjectLot/cac:ProcurementProject/cac:RealizedLocation/cac:Address/cbc:CountrySubentityCode/@listName",
+        "is_covered": false
+    },
+    {
+        "eforms_sdk_element_id": null,
+        "eforms_sdk_element_title": null,
+        "eforms_sdk_element_xpath": null,
+        "test_data_id": "2024-OJS015-043489",
+        "test_data_xpath": "/ContractAwardNotice/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:NoticeResult/efac:SettledContract/cbc:ID/@schemeName",
+        "is_covered": false
+    },
+    {
+        "eforms_sdk_element_id": "BT-26(m)-Procedure",
+        "eforms_sdk_element_title": "Classification Type (e.g. CPV)",
+        "eforms_sdk_element_xpath": "/*/cac:ProcurementProject/cac:MainCommodityClassification/cbc:ItemClassificationCode/@listName",
+        "test_data_id": "2024-OJS015-043489",
+        "test_data_xpath": "/ContractAwardNotice/cac:ProcurementProject/cac:MainCommodityClassification/cbc:ItemClassificationCode/@listName",
+        "is_covered": true
+    },
+    {
+        "eforms_sdk_element_id": "BT-03-notice",
+        "eforms_sdk_element_title": "Form Type",
+        "eforms_sdk_element_xpath": "/*/cbc:NoticeTypeCode/@listName",
+        "test_data_id": "2024-OJS015-043489",
+        "test_data_xpath": "/ContractAwardNotice/cbc:NoticeTypeCode/@listName",
+        "is_covered": true
+    },
+    {
+        "eforms_sdk_element_id": null,
+        "eforms_sdk_element_title": null,
+        "eforms_sdk_element_xpath": null,
+        "test_data_id": "2024-OJS015-043489",
+        "test_data_xpath": "/ContractAwardNotice/cac:ProcurementProjectLot/cac:ProcurementProject/cbc:Note/@languageID",
+        "is_covered": false
+    },
+    {
+        "eforms_sdk_element_id": null,
+        "eforms_sdk_element_title": null,
+        "eforms_sdk_element_xpath": null,
+        "test_data_id": "2024-OJS015-043489",
+        "test_data_xpath": "/ContractAwardNotice/cac:ProcurementProject/cac:RealizedLocation/cac:Address/cac:Country/cbc:IdentificationCode/@listName",
+        "is_covered": false
+    },
+    {
+        "eforms_sdk_element_id": null,
+        "eforms_sdk_element_title": null,
+        "eforms_sdk_element_xpath": null,
+        "test_data_id": "2024-OJS015-043489",
+        "test_data_xpath": "/ContractAwardNotice/cac:TenderResult/cbc:AwardDate",
+        "is_covered": false
+    },
+    {
+        "eforms_sdk_element_id": "ND-ProcedurePlacePerformance",
+        "eforms_sdk_element_title": null,
+        "eforms_sdk_element_xpath": "/*/cac:ProcurementProject/cac:RealizedLocation/cac:Address",
+        "test_data_id": "2024-OJS015-043489",
+        "test_data_xpath": "/ContractAwardNotice/cac:ProcurementProject/cac:RealizedLocation/cac:Address",
+        "is_covered": true
+    },
+    {
+        "eforms_sdk_element_id": null,
+        "eforms_sdk_element_title": null,
+        "eforms_sdk_element_xpath": null,
+        "test_data_id": "2024-OJS015-043489",
+        "test_data_xpath": "/ContractAwardNotice/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:NoticeResult/efac:TenderingParty/cbc:ID",
+        "is_covered": false
+    },
+    {
+        "eforms_sdk_element_id": null,
+        "eforms_sdk_element_title": null,
+        "eforms_sdk_element_xpath": null,
+        "test_data_id": "2024-OJS015-043489",
+        "test_data_xpath": "/ContractAwardNotice/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:NoticeResult/efac:TenderingParty/efac:Tenderer/efbc:GroupLeadIndicator",
+        "is_covered": false
+    },
+    {
+        "eforms_sdk_element_id": null,
+        "eforms_sdk_element_title": null,
+        "eforms_sdk_element_xpath": null,
+        "test_data_id": "2024-OJS015-043489",
+        "test_data_xpath": "/ContractAwardNotice/cac:ProcurementProjectLot/cac:ProcurementProject/cac:RealizedLocation/cac:Address/cac:Country",
+        "is_covered": false
+    },
+    {
+        "eforms_sdk_element_id": null,
+        "eforms_sdk_element_title": null,
+        "eforms_sdk_element_xpath": null,
+        "test_data_id": "2024-OJS015-043489",
+        "test_data_xpath": "/ContractAwardNotice/cac:TenderingTerms/cac:ProcurementLegislationDocumentReference",
+        "is_covered": false
+    },
+    {
+        "eforms_sdk_element_id": null,
+        "eforms_sdk_element_title": null,
+        "eforms_sdk_element_xpath": null,
+        "test_data_id": "2024-OJS015-043489",
+        "test_data_xpath": "/ContractAwardNotice/cac:TenderingProcess/cac:ProcessJustification",
+        "is_covered": false
+    },
+    {
+        "eforms_sdk_element_id": "ND-ProcedureValueEstimate",
+        "eforms_sdk_element_title": null,
+        "eforms_sdk_element_xpath": "/*/cac:ProcurementProject/cac:RequestedTenderTotal",
+        "test_data_id": "2024-OJS015-043489",
+        "test_data_xpath": "/ContractAwardNotice/cac:ProcurementProject/cac:RequestedTenderTotal",
+        "is_covered": true
+    },
+    {
+        "eforms_sdk_element_id": "OPT-030-Procedure-SProvider",
+        "eforms_sdk_element_title": "Provided Service Type",
+        "eforms_sdk_element_xpath": "/*/cac:ContractingParty/cac:Party/cac:ServiceProviderParty/cbc:ServiceTypeCode",
+        "test_data_id": "2024-OJS015-043489",
+        "test_data_xpath": "/ContractAwardNotice/cac:ContractingParty/cac:Party/cac:ServiceProviderParty/cbc:ServiceTypeCode",
+        "is_covered": true
+    },
+    {
+        "eforms_sdk_element_id": null,
+        "eforms_sdk_element_title": null,
+        "eforms_sdk_element_xpath": null,
+        "test_data_id": "2024-OJS015-043489",
+        "test_data_xpath": "/ContractAwardNotice/cac:ProcurementProjectLot/cac:TenderingProcess/cac:ContractingSystem/cbc:ContractingSystemTypeCode",
+        "is_covered": false
+    },
+    {
+        "eforms_sdk_element_id": null,
+        "eforms_sdk_element_title": null,
+        "eforms_sdk_element_xpath": null,
+        "test_data_id": "2024-OJS015-043489",
+        "test_data_xpath": "/ContractAwardNotice/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:Organizations/efac:Organization/efac:Company/cac:PartyIdentification",
+        "is_covered": false
+    },
+    {
+        "eforms_sdk_element_id": null,
+        "eforms_sdk_element_title": null,
+        "eforms_sdk_element_xpath": null,
+        "test_data_id": "2024-OJS015-043489",
+        "test_data_xpath": "/ContractAwardNotice/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:NoticeResult/efac:LotTender/efac:SubcontractingTerm/efbc:TermCode",
+        "is_covered": false
+    },
+    {
+        "eforms_sdk_element_id": "BT-5121-Procedure",
+        "eforms_sdk_element_title": "Place Performance Post Code",
+        "eforms_sdk_element_xpath": "/*/cac:ProcurementProject/cac:RealizedLocation/cac:Address/cbc:PostalZone",
+        "test_data_id": "2024-OJS015-043489",
+        "test_data_xpath": "/ContractAwardNotice/cac:ProcurementProjectLot/cac:ProcurementProject/cac:RealizedLocation/cac:Address/cbc:PostalZone",
+        "is_covered": true
+    },
+    {
+        "eforms_sdk_element_id": null,
+        "eforms_sdk_element_title": null,
+        "eforms_sdk_element_xpath": null,
+        "test_data_id": "2024-OJS015-043489",
+        "test_data_xpath": "/ContractAwardNotice/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:Organizations/efac:Organization/efac:Company/cac:PartyName/cbc:Name/@languageID",
+        "is_covered": false
+    },
+    {
+        "eforms_sdk_element_id": null,
+        "eforms_sdk_element_title": null,
+        "eforms_sdk_element_xpath": null,
+        "test_data_id": "2024-OJS015-043489",
+        "test_data_xpath": "/ContractAwardNotice/cac:ProcurementProjectLot/cac:TenderingTerms/cac:AwardingTerms/cac:AwardingCriterion/cac:SubordinateAwardingCriterion/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:AwardCriterionParameter/efbc:ParameterNumeric",
+        "is_covered": false
+    },
+    {
+        "eforms_sdk_element_id": null,
+        "eforms_sdk_element_title": null,
+        "eforms_sdk_element_xpath": null,
+        "test_data_id": "2024-OJS015-043489",
+        "test_data_xpath": "/ContractAwardNotice/cac:ContractingParty/cac:ContractingActivity/cbc:ActivityTypeCode/@listName",
+        "is_covered": false
+    },
+    {
+        "eforms_sdk_element_id": "BT-27-Procedure",
+        "eforms_sdk_element_title": "Estimated Value",
+        "eforms_sdk_element_xpath": "/*/cac:ProcurementProject/cac:RequestedTenderTotal/cbc:EstimatedOverallContractAmount",
+        "test_data_id": "2024-OJS015-043489",
+        "test_data_xpath": "/ContractAwardNotice/cac:ProcurementProject/cac:RequestedTenderTotal/cbc:EstimatedOverallContractAmount",
+        "is_covered": true
+    },
+    {
+        "eforms_sdk_element_id": "BT-23-Procedure",
+        "eforms_sdk_element_title": "Main Nature",
+        "eforms_sdk_element_xpath": "/*/cac:ProcurementProject/cbc:ProcurementTypeCode",
+        "test_data_id": "2024-OJS015-043489",
+        "test_data_xpath": "/ContractAwardNotice/cac:ProcurementProjectLot/cac:ProcurementProject/cbc:ProcurementTypeCode",
+        "is_covered": true
+    },
+    {
+        "eforms_sdk_element_id": "BT-500-Organization-Company",
+        "eforms_sdk_element_title": "Organisation Name",
+        "eforms_sdk_element_xpath": "/*/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:Organizations/efac:Organization/efac:Company/cac:PartyName/cbc:Name",
+        "test_data_id": "2024-OJS015-043489",
+        "test_data_xpath": "/ContractAwardNotice/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:Organizations/efac:Organization/efac:Company/cac:PartyName/cbc:Name",
+        "is_covered": true
+    },
+    {
+        "eforms_sdk_element_id": null,
+        "eforms_sdk_element_title": null,
+        "eforms_sdk_element_xpath": null,
+        "test_data_id": "2024-OJS015-043489",
+        "test_data_xpath": "/ContractAwardNotice/cac:ProcurementProjectLot",
+        "is_covered": false
+    },
+    {
+        "eforms_sdk_element_id": "ND-CompanyLegalEntity",
+        "eforms_sdk_element_title": null,
+        "eforms_sdk_element_xpath": "/*/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:Organizations/efac:Organization/efac:Company/cac:PartyLegalEntity",
+        "test_data_id": "2024-OJS015-043489",
+        "test_data_xpath": "/ContractAwardNotice/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:Organizations/efac:Organization/efac:Company/cac:PartyLegalEntity",
+        "is_covered": true
+    },
+    {
+        "eforms_sdk_element_id": "OPP-050-Organization",
+        "eforms_sdk_element_title": "Buyers Group Lead Indicator",
+        "eforms_sdk_element_xpath": "/*/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:Organizations/efac:Organization/efbc:GroupLeadIndicator",
+        "test_data_id": "2024-OJS015-043489",
+        "test_data_xpath": "/ContractAwardNotice/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:Organizations/efac:Organization/efbc:GroupLeadIndicator",
+        "is_covered": true
+    },
+    {
+        "eforms_sdk_element_id": "ND-ServiceProvider",
+        "eforms_sdk_element_title": null,
+        "eforms_sdk_element_xpath": "/*/cac:ContractingParty/cac:Party",
+        "test_data_id": "2024-OJS015-043489",
+        "test_data_xpath": "/ContractAwardNotice/cac:ContractingParty/cac:Party",
+        "is_covered": true
+    },
+    {
+        "eforms_sdk_element_id": null,
+        "eforms_sdk_element_title": null,
+        "eforms_sdk_element_xpath": null,
+        "test_data_id": "2024-OJS015-043489",
+        "test_data_xpath": "/ContractAwardNotice/cac:ProcurementProject/cac:RealizedLocation/cac:Address/cac:Country",
+        "is_covered": false
+    },
+    {
+        "eforms_sdk_element_id": null,
+        "eforms_sdk_element_title": null,
+        "eforms_sdk_element_xpath": null,
+        "test_data_id": "2024-OJS015-043489",
+        "test_data_xpath": "/ContractAwardNotice/cac:ProcurementProjectLot/cac:TenderingTerms/cac:AwardingTerms/cac:AwardingCriterion/cac:SubordinateAwardingCriterion/ext:UBLExtensions/ext:UBLExtension",
+        "is_covered": false
+    },
+    {
+        "eforms_sdk_element_id": null,
+        "eforms_sdk_element_title": null,
+        "eforms_sdk_element_xpath": null,
+        "test_data_id": "2024-OJS015-043489",
+        "test_data_xpath": "/ContractAwardNotice/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:Publication/efbc:NoticePublicationID/@schemeName",
+        "is_covered": false
+    },
+    {
+        "eforms_sdk_element_id": null,
+        "eforms_sdk_element_title": null,
+        "eforms_sdk_element_xpath": null,
+        "test_data_id": "2024-OJS015-043489",
+        "test_data_xpath": "/ContractAwardNotice/cac:ProcurementProjectLot/cac:ProcurementProject/cac:ProcurementAdditionalType/cbc:ProcurementTypeCode",
+        "is_covered": false
+    },
+    {
+        "eforms_sdk_element_id": null,
+        "eforms_sdk_element_title": null,
+        "eforms_sdk_element_xpath": null,
+        "test_data_id": "2024-OJS015-043489",
+        "test_data_xpath": "/ContractAwardNotice/cac:ProcurementProjectLot/cac:TenderingTerms/cac:AwardingTerms/cac:AwardingCriterion/cac:SubordinateAwardingCriterion/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:AwardCriterionParameter/efbc:ParameterCode",
+        "is_covered": false
+    },
+    {
+        "eforms_sdk_element_id": null,
+        "eforms_sdk_element_title": null,
+        "eforms_sdk_element_xpath": null,
+        "test_data_id": "2024-OJS015-043489",
+        "test_data_xpath": "/ContractAwardNotice/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:Organizations/efac:Organization/efac:Company/efbc:CompanySizeCode/@listName",
+        "is_covered": false
+    },
+    {
+        "eforms_sdk_element_id": "BT-22-Procedure",
+        "eforms_sdk_element_title": "Internal Identifier",
+        "eforms_sdk_element_xpath": "/*/cac:ProcurementProject/cbc:ID",
+        "test_data_id": "2024-OJS015-043489",
+        "test_data_xpath": "/ContractAwardNotice/cac:ProcurementProjectLot/cac:ProcurementProject/cbc:ID",
+        "is_covered": true
+    },
+    {
+        "eforms_sdk_element_id": null,
+        "eforms_sdk_element_title": null,
+        "eforms_sdk_element_xpath": null,
+        "test_data_id": "2024-OJS015-043489",
+        "test_data_xpath": "/ContractAwardNotice/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:NoticeResult/efac:SettledContract/efac:LotTender/cbc:ID",
+        "is_covered": false
+    },
+    {
+        "eforms_sdk_element_id": null,
+        "eforms_sdk_element_title": null,
+        "eforms_sdk_element_xpath": null,
+        "test_data_id": "2024-OJS015-043489",
+        "test_data_xpath": "/ContractAwardNotice/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:NoticeResult/efac:SettledContract/cbc:ID",
+        "is_covered": false
+    },
+    {
+        "eforms_sdk_element_id": null,
+        "eforms_sdk_element_title": null,
+        "eforms_sdk_element_xpath": null,
+        "test_data_id": "2024-OJS015-043489",
+        "test_data_xpath": "/ContractAwardNotice/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:Organizations/efac:Organization/efac:Company/cac:PostalAddress/cbc:CountrySubentityCode/@listName",
+        "is_covered": false
+    },
+    {
+        "eforms_sdk_element_id": null,
+        "eforms_sdk_element_title": null,
+        "eforms_sdk_element_xpath": null,
+        "test_data_id": "2024-OJS015-043489",
+        "test_data_xpath": "/ContractAwardNotice/ext:UBLExtensions/ext:UBLExtension",
+        "is_covered": false
+    },
+    {
+        "eforms_sdk_element_id": null,
+        "eforms_sdk_element_title": null,
+        "eforms_sdk_element_xpath": null,
+        "test_data_id": "2024-OJS015-043489",
+        "test_data_xpath": "/ContractAwardNotice/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:Organizations/efac:Organization/efac:UltimateBeneficialOwner/cbc:ID",
+        "is_covered": false
+    },
+    {
+        "eforms_sdk_element_id": null,
+        "eforms_sdk_element_title": null,
+        "eforms_sdk_element_xpath": null,
+        "test_data_id": "2024-OJS015-043489",
+        "test_data_xpath": "/ContractAwardNotice/cac:ProcurementProjectLot/cac:TenderingProcess/cbc:GovernmentAgreementConstraintIndicator",
+        "is_covered": false
+    },
+    {
+        "eforms_sdk_element_id": null,
+        "eforms_sdk_element_title": null,
+        "eforms_sdk_element_xpath": null,
+        "test_data_id": "2024-OJS015-043489",
+        "test_data_xpath": "/ContractAwardNotice/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:NoticeSubType/cbc:SubTypeCode/@listName",
+        "is_covered": false
+    },
+    {
+        "eforms_sdk_element_id": "BT-757-notice",
+        "eforms_sdk_element_title": "Notice Version",
+        "eforms_sdk_element_xpath": "/*/cbc:VersionID",
+        "test_data_id": "2024-OJS015-043489",
+        "test_data_xpath": "/ContractAwardNotice/cbc:VersionID",
+        "is_covered": true
+    },
+    {
+        "eforms_sdk_element_id": null,
+        "eforms_sdk_element_title": null,
+        "eforms_sdk_element_xpath": null,
+        "test_data_id": "2024-OJS015-043489",
+        "test_data_xpath": "/ContractAwardNotice/cac:ProcurementProjectLot/cac:TenderingProcess/cac:AuctionTerms",
+        "is_covered": false
+    },
+    {
+        "eforms_sdk_element_id": null,
+        "eforms_sdk_element_title": null,
+        "eforms_sdk_element_xpath": null,
+        "test_data_id": "2024-OJS015-043489",
+        "test_data_xpath": "/ContractAwardNotice/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:Organizations/efac:UltimateBeneficialOwner/cbc:ID",
+        "is_covered": false
+    },
+    {
+        "eforms_sdk_element_id": null,
+        "eforms_sdk_element_title": null,
+        "eforms_sdk_element_xpath": null,
+        "test_data_id": "2024-OJS015-043489",
+        "test_data_xpath": "/ContractAwardNotice/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:Organizations/efac:Organization/efac:Company/cac:PartyName",
+        "is_covered": false
+    },
+    {
+        "eforms_sdk_element_id": null,
+        "eforms_sdk_element_title": null,
+        "eforms_sdk_element_xpath": null,
+        "test_data_id": "2024-OJS015-043489",
+        "test_data_xpath": "/ContractAwardNotice/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:NoticeResult/efac:LotTender/efac:TenderLot/cbc:ID/@schemeName",
+        "is_covered": false
+    },
+    {
+        "eforms_sdk_element_id": "ND-CompanyContact",
+        "eforms_sdk_element_title": null,
+        "eforms_sdk_element_xpath": "/*/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:Organizations/efac:Organization/efac:Company/cac:Contact",
+        "test_data_id": "2024-OJS015-043489",
+        "test_data_xpath": "/ContractAwardNotice/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:Organizations/efac:Organization/efac:Company/cac:Contact",
+        "is_covered": true
+    },
+    {
+        "eforms_sdk_element_id": null,
+        "eforms_sdk_element_title": null,
+        "eforms_sdk_element_xpath": null,
+        "test_data_id": "2024-OJS015-043489",
+        "test_data_xpath": "/ContractAwardNotice/cac:ProcurementProjectLot/cac:TenderingTerms/cac:AwardingTerms/cac:AwardingCriterion/cac:SubordinateAwardingCriterion/ext:UBLExtensions",
+        "is_covered": false
+    },
+    {
+        "eforms_sdk_element_id": null,
+        "eforms_sdk_element_title": null,
+        "eforms_sdk_element_xpath": null,
+        "test_data_id": "2024-OJS015-043489",
+        "test_data_xpath": "/ContractAwardNotice/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:NoticeResult/efac:SettledContract/efac:LotTender",
+        "is_covered": false
+    },
+    {
+        "eforms_sdk_element_id": "ND-Company",
+        "eforms_sdk_element_title": null,
+        "eforms_sdk_element_xpath": "/*/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:Organizations/efac:Organization/efac:Company",
+        "test_data_id": "2024-OJS015-043489",
+        "test_data_xpath": "/ContractAwardNotice/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:Organizations/efac:Organization/efac:Company",
+        "is_covered": true
+    },
+    {
+        "eforms_sdk_element_id": null,
+        "eforms_sdk_element_title": null,
+        "eforms_sdk_element_xpath": null,
+        "test_data_id": "2024-OJS015-043489",
+        "test_data_xpath": "/ContractAwardNotice/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:NoticeResult/efac:LotTender/efac:TenderingParty/cbc:ID/@schemeName",
+        "is_covered": false
+    },
+    {
+        "eforms_sdk_element_id": "OPP-070-notice",
+        "eforms_sdk_element_title": "Notice Subtype",
+        "eforms_sdk_element_xpath": "/*/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:NoticeSubType/cbc:SubTypeCode",
+        "test_data_id": "2024-OJS015-043489",
+        "test_data_xpath": "/ContractAwardNotice/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:NoticeSubType/cbc:SubTypeCode",
+        "is_covered": true
+    },
+    {
+        "eforms_sdk_element_id": null,
+        "eforms_sdk_element_title": null,
+        "eforms_sdk_element_xpath": null,
+        "test_data_id": "2024-OJS015-043489",
+        "test_data_xpath": "/ContractAwardNotice/cac:ContractingParty/cac:ContractingActivity",
+        "is_covered": false
+    },
+    {
+        "eforms_sdk_element_id": "BT-507-Organization-Company",
+        "eforms_sdk_element_title": "Organisation Country Subdivision",
+        "eforms_sdk_element_xpath": "/*/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:Organizations/efac:Organization/efac:Company/cac:PostalAddress/cbc:CountrySubentityCode",
+        "test_data_id": "2024-OJS015-043489",
+        "test_data_xpath": "/ContractAwardNotice/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:Organizations/efac:Organization/efac:Company/cac:PostalAddress/cbc:CountrySubentityCode",
+        "is_covered": true
+    },
+    {
+        "eforms_sdk_element_id": null,
+        "eforms_sdk_element_title": null,
+        "eforms_sdk_element_xpath": null,
+        "test_data_id": "2024-OJS015-043489",
+        "test_data_xpath": "/ContractAwardNotice/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:NoticeResult/efac:LotResult/efac:TenderLot/cbc:ID/@schemeName",
+        "is_covered": false
+    },
+    {
+        "eforms_sdk_element_id": null,
+        "eforms_sdk_element_title": null,
+        "eforms_sdk_element_xpath": null,
+        "test_data_id": "2024-OJS015-043489",
+        "test_data_xpath": "/ContractAwardNotice/cac:ProcurementProjectLot/cac:TenderingProcess/cac:AuctionTerms/cbc:AuctionConstraintIndicator",
+        "is_covered": false
+    },
+    {
+        "eforms_sdk_element_id": null,
+        "eforms_sdk_element_title": null,
+        "eforms_sdk_element_xpath": null,
+        "test_data_id": "2024-OJS015-043489",
+        "test_data_xpath": "/ContractAwardNotice/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:NoticeResult/efac:LotResult/efbc:DPSTerminationIndicator",
+        "is_covered": false
+    },
+    {
+        "eforms_sdk_element_id": "BT-24-Procedure",
+        "eforms_sdk_element_title": "Description",
+        "eforms_sdk_element_xpath": "/*/cac:ProcurementProject/cbc:Description",
+        "test_data_id": "2024-OJS015-043489",
+        "test_data_xpath": "/ContractAwardNotice/cac:ProcurementProjectLot/cac:ProcurementProject/cbc:Description",
+        "is_covered": true
+    },
+    {
+        "eforms_sdk_element_id": null,
+        "eforms_sdk_element_title": null,
+        "eforms_sdk_element_xpath": null,
+        "test_data_id": "2024-OJS015-043489",
+        "test_data_xpath": "/ContractAwardNotice/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:NoticeSubType",
+        "is_covered": false
+    },
+    {
+        "eforms_sdk_element_id": null,
+        "eforms_sdk_element_title": null,
+        "eforms_sdk_element_xpath": null,
+        "test_data_id": "2024-OJS015-043489",
+        "test_data_xpath": "/ContractAwardNotice/cac:ProcurementProjectLot/cbc:ID/@schemeName",
+        "is_covered": false
+    },
+    {
+        "eforms_sdk_element_id": null,
+        "eforms_sdk_element_title": null,
+        "eforms_sdk_element_xpath": null,
+        "test_data_id": "2024-OJS015-043489",
+        "test_data_xpath": "/ContractAwardNotice/cac:ProcurementProjectLot/cac:TenderingTerms/cac:AdditionalInformationParty",
+        "is_covered": false
+    },
+    {
+        "eforms_sdk_element_id": null,
+        "eforms_sdk_element_title": null,
+        "eforms_sdk_element_xpath": null,
+        "test_data_id": "2024-OJS015-043489",
+        "test_data_xpath": "/ContractAwardNotice/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:NoticeResult/efac:LotTender/cbc:ID",
+        "is_covered": false
+    }
+]

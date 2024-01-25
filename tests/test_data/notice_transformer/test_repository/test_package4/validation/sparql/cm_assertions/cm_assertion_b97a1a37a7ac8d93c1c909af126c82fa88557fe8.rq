@@ -1,0 +1,9 @@
+#title: ND-LotSubmissionLanguage
+#description: “” The corresponding XML element is /*/cac:ProcurementProjectLot[cbc:ID/@schemeName='Lot']/cac:TenderingTerms/cac:Language. The expected ontology instances are epo: epo:Lot / epo:SubmissionTerm / at-voc:language .
+#xpath: /*/cac:ProcurementProjectLot[cbc:ID/@schemeName='Lot']/cac:TenderingTerms/cac:Language
+
+PREFIX epo: <http://data.europa.eu/a4g/ontology#>
+
+ASK WHERE { 
+	epo:isSubjectToLotSpecificTerm / epo:hasLanguage ?value . 
+}

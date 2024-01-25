@@ -1,0 +1,11 @@
+#title: BT-702(a)-notice
+#description: “” The corresponding XML element is /*/cbc:NoticeLanguageCode. The expected ontology instances are epo: epo:Notice / at-voc:language .
+#xpath: /*/cbc:NoticeLanguageCode
+
+PREFIX epo: <http://data.europa.eu/a4g/ontology#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+ASK WHERE { 
+	?this rdf:type epo:Notice .
+	?this epo:hasOfficialLanguage ?value. 
+}

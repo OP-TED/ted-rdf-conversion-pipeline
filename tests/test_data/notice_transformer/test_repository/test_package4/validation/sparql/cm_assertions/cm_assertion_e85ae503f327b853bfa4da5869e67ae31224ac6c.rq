@@ -1,0 +1,9 @@
+#title: ND-ProcedureMainClassification
+#description: “” The corresponding XML element is /*/cac:ProcurementProject/cac:MainCommodityClassification. The expected ontology instances are epo: None .
+#xpath: /*/cac:ProcurementProject/cac:MainCommodityClassification
+
+
+
+ASK WHERE { 
+	None 
+}

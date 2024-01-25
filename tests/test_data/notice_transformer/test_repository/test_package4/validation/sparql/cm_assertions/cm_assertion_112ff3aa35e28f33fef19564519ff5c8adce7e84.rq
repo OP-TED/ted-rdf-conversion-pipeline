@@ -1,0 +1,12 @@
+#title: OPP-051-Organization
+#description: “” The corresponding XML element is /*/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:Organizations/efac:Organization/efbc:AwardingCPBIndicator. The expected ontology instances are epo: epo-not:CompetitionNotice / epo:AwardingCentralPurchasingBody .
+#xpath: /*/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:Organizations/efac:Organization/efbc:AwardingCPBIndicator
+
+PREFIX epo: <http://data.europa.eu/a4g/ontology#>
+PREFIX epo-not: <http://data.europa.eu/a4g/ontology#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+ASK WHERE { 
+	?this rdf:type epo-not:CompetitionNotice .
+	?this epo:announcesRole ?value. 
+}

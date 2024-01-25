@@ -1,0 +1,9 @@
+#title: ND-ProcedureProcurementScope
+#description: “” The corresponding XML element is /*/cac:ProcurementProject. The expected ontology instances are epo: None .
+#xpath: /*/cac:ProcurementProject
+
+
+
+ASK WHERE { 
+	None 
+}

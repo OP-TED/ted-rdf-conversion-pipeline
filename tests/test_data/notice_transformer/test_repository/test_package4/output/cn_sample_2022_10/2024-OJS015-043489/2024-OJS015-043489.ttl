@@ -1,0 +1,418 @@
+@prefix cac: <urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2#> .
+@prefix cbc: <urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2#> .
+@prefix cccev: <http://data.europa.eu/m8g/> .
+@prefix dct: <http://purl.org/dc/terms/> .
+@prefix efac: <http://data.europa.eu/p27/eforms-ubl-extension-aggregate-components/1#> .
+@prefix efbc: <http://data.europa.eu/p27/eforms-ubl-extension-basic-components/1#> .
+@prefix efext: <http://data.europa.eu/p27/eforms-ubl-extensions/1#> .
+@prefix epd: <http://data.europa.eu/a4g/resource/> .
+@prefix epo: <http://data.europa.eu/a4g/ontology#> .
+@prefix ext: <urn:oasis:names:specification:ubl:schema:xsd:CommonExtensionComponents-2#> .
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+@prefix locn: <http://www.w3.org/ns/locn#> .
+@prefix org: <http://www.w3.org/ns/org#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix ql: <http://semweb.mmlab.be/ns/ql#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix rml: <http://semweb.mmlab.be/ns/rml#> .
+@prefix rr: <http://www.w3.org/ns/r2rml#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix tedm: <http://data.europa.eu/a4g/mapping/sf-rml/> .
+@prefix time: <http://www.w3.org/2006/time#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix xsi: <http://www.w3.org/2001/XMLSchema-instance#> .
+
+epd:id_b8407703-ba31-4e89-9d6e-c480388966ec_AuctionTerms_h8hgikxAY3BGCvpBi6x4FY a
+    epo:EAuctionTechniqueUsage;
+  epo:hasUsage "false" .
+
+epd:id_b8407703-ba31-4e89-9d6e-c480388966ec_AwardCriterion_gEfk5xwzbwzCCfk5CKnoFJ
+  a epo:AwardCriterion;
+  epo:hasAwardCriterionType """price
+                        """, """quality
+                        """;
+  epo:hasFixedValue 20.0, 80.0;
+  epo:hasWeightValueType 20.0, 80.0;
+  cccev:name "Entfernung der Entsorgungsanlage zur Baustelle", "Preis" .
+
+epd:id_b8407703-ba31-4e89-9d6e-c480388966ec_AwardingCentralPurchasingBody_6exJxkH865jVz7Ez7QNs35
+  a epo:AcquiringCentralPurchasingBody, epo:AwardingCentralPurchasingBody;
+  epo:playedBy epd:id_b8407703-ba31-4e89-9d6e-c480388966ec_Organization_ORG-7001 .
+
+epd:id_b8407703-ba31-4e89-9d6e-c480388966ec_Buyer_JGa56JxZ6vPv3NZm242nMu a epo:Buyer;
+  epo:playedBy epd:id_b8407703-ba31-4e89-9d6e-c480388966ec_Organization_ORG-7001 .
+
+epd:id_b8407703-ba31-4e89-9d6e-c480388966ec_CompanyAddress_5w4jTR6gfdXBvGkZDdofo7
+  a locn:Address;
+  epo:hasCountryCode "DEU";
+  epo:hasNutsCode <http://data.europa.eu/nuts/code/DEA22>;
+  locn:postCode "53119";
+  locn:postName "Bonn" .
+
+epd:id_b8407703-ba31-4e89-9d6e-c480388966ec_CompanyAddress_QLSEm2DyTzM8ssuHGXE6Hw
+  a locn:Address;
+  epo:hasCountryCode "DEU";
+  epo:hasNutsCode <http://data.europa.eu/nuts/code/DE300>;
+  locn:postCode "10179";
+  locn:postName "Berlin";
+  locn:thoroughfare "Holzmarktstraße 15-17" .
+
+epd:id_b8407703-ba31-4e89-9d6e-c480388966ec_CompanyAddress_amxyHzzWSDM5hALBwwbWuJ
+  a locn:Address;
+  epo:hasCountryCode "DEU";
+  epo:hasNutsCode <http://data.europa.eu/nuts/code/DE300>;
+  locn:postCode "10825";
+  locn:postName "Berlin";
+  locn:thoroughfare "Martin- Luther- Str. 105" .
+
+epd:id_b8407703-ba31-4e89-9d6e-c480388966ec_CompanyAddress_dsV3J5EGaewAFo9YuPgodC
+  a locn:Address;
+  epo:hasCountryCode "DEU";
+  epo:hasNutsCode <http://data.europa.eu/nuts/code/DE40A>;
+  locn:postCode "16727";
+  locn:postName "Velten";
+  locn:thoroughfare "Berliner Str. 4" .
+
+epd:id_b8407703-ba31-4e89-9d6e-c480388966ec_CompanyContactPoint_6r33Cv99oV38zobB7Hepex
+  a cccev:ContactPoint;
+  cccev:email "esender_hub@bescha.bund.de";
+  cccev:telephone "+49228996100" .
+
+epd:id_b8407703-ba31-4e89-9d6e-c480388966ec_CompanyContactPoint_NcbPXevKMmMoUV4ixLLM8J
+  a cccev:ContactPoint;
+  cccev:email "oft@dunkel.berlin";
+  cccev:telephone "+49 3304399121" .
+
+epd:id_b8407703-ba31-4e89-9d6e-c480388966ec_CompanyContactPoint_NsQgV4dy8XNKVeR2M8tt3c
+  a cccev:ContactPoint;
+  epo:hasFax "+49 30-9013-7613";
+  cccev:email "poststelle@senwtf.berlin.de";
+  cccev:telephone "+49 30-9013-8316" .
+
+epd:id_b8407703-ba31-4e89-9d6e-c480388966ec_CompanyContactPoint_boyhsCP9AduPpEce9s56fZ
+  a cccev:ContactPoint;
+  epo:hasInternetAddress "https://vergabekooperation.berlin"^^xsd:anyURI;
+  cccev:email "Einkauf.INF2@bvg.de";
+  cccev:telephone "+4930 256 28962" .
+
+epd:id_b8407703-ba31-4e89-9d6e-c480388966ec_ContractAddressIdentifier_ErdQPeUN4N2oStmSv2BNxj
+  a epo:Identifier;
+  epo:hasIdentifierValue "DEU" .
+
+epd:id_b8407703-ba31-4e89-9d6e-c480388966ec_ContractDuration_4TghaR9Riayv2Hb6XHyc6D
+  a epo:SpecificDuration .
+
+epd:id_b8407703-ba31-4e89-9d6e-c480388966ec_ContractLocationAddress_5zVCW3b2MSxAnzMuZRbDZB
+  a locn:Address;
+  epo:hasID epd:id_b8407703-ba31-4e89-9d6e-c480388966ec_ContractAddressIdentifier_ErdQPeUN4N2oStmSv2BNxj;
+  locn:addressArea "Berlin";
+  locn:fullAddress "U-Bahnhof Senefelder Platz";
+  locn:postCode "10405" .
+
+epd:id_b8407703-ba31-4e89-9d6e-c480388966ec_ContractLocation_P24wvVmaGggz3wQLy5GuUS
+  a dct:Location;
+  epo:hasCountryCode "DEU";
+  epo:hasNutsCode <http://data.europa.eu/nuts/code/DE300>;
+  locn:address epd:id_b8407703-ba31-4e89-9d6e-c480388966ec_ContractLocationAddress_5zVCW3b2MSxAnzMuZRbDZB .
+
+epd:id_b8407703-ba31-4e89-9d6e-c480388966ec_ContractPeriod_4TghaR9Riayv2Hb6XHyc6D
+  a epo:Period;
+  epo:hasBeginning "2024-01-01+01:00"^^xsd:dateTime;
+  epo:hasEnd "2026-12-31+01:00"^^xsd:dateTime .
+
+epd:id_b8407703-ba31-4e89-9d6e-c480388966ec_ContractTerm_jucn4erQJnXcty2wPoNNzB a
+    epo:ContractTerm;
+  epo:definesContractDuration epd:id_b8407703-ba31-4e89-9d6e-c480388966ec_ContractDuration_4TghaR9Riayv2Hb6XHyc6D;
+  epo:definesContractPeriod epd:id_b8407703-ba31-4e89-9d6e-c480388966ec_ContractPeriod_4TghaR9Riayv2Hb6XHyc6D;
+  epo:definesSpecificPlaceOfPerformance epd:id_b8407703-ba31-4e89-9d6e-c480388966ec_ContractLocation_P24wvVmaGggz3wQLy5GuUS;
+  epo:hasAdditionalContractNature "services";
+  epo:hasContractNatureType "services" .
+
+epd:id_b8407703-ba31-4e89-9d6e-c480388966ec_DynamicPurchaseSystemTechnicalUsage_Q4h2gSzyXb646JqueyB5tR
+  a epo:DynamicPurchaseSystemTechniqueUsage;
+  epo:hasDPSScope "none" .
+
+epd:id_b8407703-ba31-4e89-9d6e-c480388966ec_FrameworkAgreementTechnicalUsage_Q4h2gSzyXb646JqueyB5tR
+  a epo:FrameworkAgreementTechniqueUsage;
+  epo:hasUsage "none" .
+
+epd:id_b8407703-ba31-4e89-9d6e-c480388966ec_LeadBuyer_6exJxkH865jVz7Ez7QNs35 a epo:LeadBuyer;
+  epo:playedBy epd:id_b8407703-ba31-4e89-9d6e-c480388966ec_Organization_ORG-7001 .
+
+epd:id_b8407703-ba31-4e89-9d6e-c480388966ec_LotIdentifier_jucn4erQJnXcty2wPoNNzB a
+    epo:Identifier;
+  epo:hasIdentifierValue "LOT-0000" .
+
+epd:id_b8407703-ba31-4e89-9d6e-c480388966ec_Lot_LOT-0000 a epo:Lot;
+  epo:foreseesContractSpecificTerm epd:id_b8407703-ba31-4e89-9d6e-c480388966ec_ContractTerm_jucn4erQJnXcty2wPoNNzB;
+  epo:hasAdditionalInformation """Der Zugang zu den Vergabeunterlagen ist eingeschränkt. Der Auftraggeber weist
+                darauf hin, dass von § 41 Abs. 4 SektVO Gebrauch gemacht wird, weil in den Unterlagen vertrauliche
+                Betriebs- und Geschäftsgeheimnisse enthalten sind. Die den Vergabeunterlagen beigefügte
+                Vertraulichkeitsvereinbarung ist über das
+                Nachrichtenportal der Vergabeplattform handschriftlich (keine Signatur) unterschrieben einzureichen.
+                Anschließend erhalten die interessierten Unternehmen die Leistungsbeschreibung inkl. erster Anlagen über
+                das Nachrichtenportal.
+            """;
+  epo:hasID epd:id_b8407703-ba31-4e89-9d6e-c480388966ec_LotIdentifier_jucn4erQJnXcty2wPoNNzB;
+  epo:isCoveredByGPA false;
+  epo:isSubjectToLotSpecificTerm epd:id_b8407703-ba31-4e89-9d6e-c480388966ec_ReviewTerm_QmkiZENjGqABvzebdMdK43,
+    epd:id_b8407703-ba31-4e89-9d6e-c480388966ec_SubmissionTerm_jucn4erQJnXcty2wPoNNzB;
+  epo:isUsingEUFunds "no-eu-funds"^^xsd:boolean;
+  epo:specifiesAwardCriterion epd:id_b8407703-ba31-4e89-9d6e-c480388966ec_AwardCriterion_gEfk5xwzbwzCCfk5CKnoFJ;
+  epo:usesTechnique epd:id_b8407703-ba31-4e89-9d6e-c480388966ec_AuctionTerms_h8hgikxAY3BGCvpBi6x4FY,
+    epd:id_b8407703-ba31-4e89-9d6e-c480388966ec_DynamicPurchaseSystemTechnicalUsage_Q4h2gSzyXb646JqueyB5tR,
+    epd:id_b8407703-ba31-4e89-9d6e-c480388966ec_FrameworkAgreementTechnicalUsage_Q4h2gSzyXb646JqueyB5tR;
+  cccev:description """Die Berliner Verkehrsbetriebe (BVG), AöR - nachfolgend als Auftraggeber
+                (AG) bezeichnet - beabsichtigen, eine Tunnelsanierung am U-Bahnhof Senefelder Platz durchzuführen.
+                Der Projektbereich umfasst den U-Bahnhof Senefelder Platz.
+                Der U-Bahnhof wird bei den Bauarbeiten freigelegt und der Schutzbeton/das Ziegelmauerwerk wird
+                abgetragen und getrennt entsorgt. Im Anschluss daran wird die Teerabdichtung entfernt und chargenweise
+                entsorgt.
+                Entsorgung von asbest- und teerhaltiger Bauwerksabdichtung (Schwarzabdichtung) - ASN 170303*/ 170903*
+                Der Abfall wird chargenweise auf Asbest/KMF (WHO) und PAK beprobt. Die Ergebnisse bestimmen den
+                Charakter der Charge, so dass folgende Fraktionen anfallen können:
+                Charge PAK Asbest/KMF ASN
+                1 Charge >100 mg/ kg nicht nachweisbar 170303*
+                2 Charge >100 mg/kg und <= 8000 mg/kg nachweisbar 170903*
+                3 Chareg >8000 mg/kg nachweisbar 170903
+            """,
+    """§ 160 GWB
+                        (1) Die Vergabekammer leitet ein Nachprüfungsverfahren nur auf Antrag ein.
+                        (2) Antragsbefugt ist jedes Unternehmen, das ein Interesse an dem öffentlichen Auftrag oder der
+                        Konzession hat und eine Verletzung in seinen Rechten nach § 97 Absatz 6 durch Nichtbeachtung von
+                        Vergabevorschriften geltend macht. Dabei ist darzulegen, dass dem Unternehmen durch die
+                        behauptete Verletzung der Vergabevorschriften ein Schaden entstanden ist oder zu entstehen
+                        droht.
+                        (3) Der Antrag ist unzulässig, soweit
+
+                        1. der Antragsteller den geltend gemachten Verstoß gegen Vergabevorschriften vor Einreichen des
+                        Nachprüfungsantrags erkannt und gegenüber dem Auftraggeber nicht innerhalb einer Frist von zehn
+                        Kalendertagen gerügt hat; der Ablauf der Frist nach § 134 Absatz 2 bleibt unberührt,
+                        2. Verstöße gegen Vergabevorschriften, die aufgrund der Bekanntmachung erkennbar sind, nicht
+                        spätestens bis zum Ablauf der in der Bekanntmachung benannten Frist zur Bewerbung oder zur
+                        Angebotsabgabe gegenüber dem Auftraggeber gerügt werden,
+                        3. Verstöße gegen Vergabevorschriften, die erst in den Vergabeunterlagen erkennbar sind, nicht
+                        spätestens bis zum Ablauf der Frist zur Bewerbung oder zur Angebotsabgabe gegenüber dem
+                        Auftraggeber gerügt werden,
+                        4. mehr als 15 Kalendertage nach Eingang der Mitteilung des Auftraggebers, einer Rüge nicht
+                        abhelfen zu wollen, vergangen sind.
+                        Satz 1 gilt nicht bei einem Antrag auf Feststellung der Unwirksamkeit des Vertrags nach § 135
+                        Absatz 1 Nummer 2. § 134 Absatz 1 Satz 2 bleibt unberührt.
+                    """;
+  cccev:title "Entfernung der Entsorgungsanlage zur Baustelle", "Entsorgungsleistungen Schwarzabdichtung Bauvorhaben Senefelder Platz",
+    "Preis" .
+
+epd:id_b8407703-ba31-4e89-9d6e-c480388966ec_Notice a epo:Notice;
+  epo:announcesLot epd:id_b8407703-ba31-4e89-9d6e-c480388966ec_Lot_LOT-0000;
+  epo:announcesProcedure epd:id_b8407703-ba31-4e89-9d6e-c480388966ec_Procedure_6dcsBnuV4FTNoRpTZHckqN;
+  epo:announcesRole epd:id_b8407703-ba31-4e89-9d6e-c480388966ec_AwardingCentralPurchasingBody_6exJxkH865jVz7Ez7QNs35,
+    epd:id_b8407703-ba31-4e89-9d6e-c480388966ec_Buyer_JGa56JxZ6vPv3NZm242nMu, epd:id_b8407703-ba31-4e89-9d6e-c480388966ec_LeadBuyer_6exJxkH865jVz7Ez7QNs35,
+    epd:id_b8407703-ba31-4e89-9d6e-c480388966ec_ProcurementServiceProvider_AxEoDZth6eN89p7o8GWdBS,
+    epd:id_b8407703-ba31-4e89-9d6e-c480388966ec_ReviewProcedureInformationProvider_QmkiZENjGqABvzebdMdK43,
+    epd:id_b8407703-ba31-4e89-9d6e-c480388966ec_Reviewer_QmkiZENjGqABvzebdMdK43;
+  epo:hasID epd:id_b8407703-ba31-4e89-9d6e-c480388966ec_NoticeIdentifier_aHt4iskyRUJYALjw7mSMu2 .
+
+epd:id_b8407703-ba31-4e89-9d6e-c480388966ec_NoticeIdentifier_aHt4iskyRUJYALjw7mSMu2
+  a epo:Identifier;
+  epo:hasIdentifierValue "b8407703-ba31-4e89-9d6e-c480388966ec" .
+
+epd:id_b8407703-ba31-4e89-9d6e-c480388966ec_OrganisationIdentifier_3QxvrCR92jGE7vwf3CBGH5
+  a epo:Identifier;
+  epo:hasIdentifierValue "0204:11-2000016000-38" .
+
+epd:id_b8407703-ba31-4e89-9d6e-c480388966ec_OrganisationIdentifier_DTjRFKSaqHQqhEUsbbafqG
+  a epo:Identifier;
+  epo:hasIdentifierValue "994-DOEVD-83" .
+
+epd:id_b8407703-ba31-4e89-9d6e-c480388966ec_OrganisationIdentifier_GCMizHsJcKhUxUAk9nuvv3
+  a epo:Identifier;
+  epo:hasIdentifierValue "11-1300000V00-74" .
+
+epd:id_b8407703-ba31-4e89-9d6e-c480388966ec_OrganisationIdentifier_YeexBkyAL2q6DTvFuGf7Lc
+  a epo:Identifier;
+  epo:hasIdentifierValue "DE176071460" .
+
+epd:id_b8407703-ba31-4e89-9d6e-c480388966ec_Organization_ORG-0001 a org:Organization;
+  epo:hasID epd:id_b8407703-ba31-4e89-9d6e-c480388966ec_OrganisationIdentifier_YeexBkyAL2q6DTvFuGf7Lc;
+  epo:hasLegalName "Dunkel Baustoff-Recycling-Zentrum oHG";
+  epo:hasPrimaryContactPoint epd:id_b8407703-ba31-4e89-9d6e-c480388966ec_CompanyContactPoint_NcbPXevKMmMoUV4ixLLM8J;
+  cccev:registeredAddress epd:id_b8407703-ba31-4e89-9d6e-c480388966ec_CompanyAddress_dsV3J5EGaewAFo9YuPgodC .
+
+epd:id_b8407703-ba31-4e89-9d6e-c480388966ec_Organization_ORG-7001 a org:Organization;
+  epo:hasID epd:id_b8407703-ba31-4e89-9d6e-c480388966ec_OrganisationIdentifier_3QxvrCR92jGE7vwf3CBGH5;
+  epo:hasLegalName """Berliner Verkehrsbetriebe, Bereich Einkauf/
+                                        Materialwirtschaft
+                                    """;
+  epo:hasPrimaryContactPoint epd:id_b8407703-ba31-4e89-9d6e-c480388966ec_CompanyContactPoint_boyhsCP9AduPpEce9s56fZ;
+  cccev:registeredAddress epd:id_b8407703-ba31-4e89-9d6e-c480388966ec_CompanyAddress_QLSEm2DyTzM8ssuHGXE6Hw .
+
+epd:id_b8407703-ba31-4e89-9d6e-c480388966ec_Organization_ORG-7004 a org:Organization;
+  epo:hasID epd:id_b8407703-ba31-4e89-9d6e-c480388966ec_OrganisationIdentifier_GCMizHsJcKhUxUAk9nuvv3;
+  epo:hasLegalName "Vergabekammer des Landes Berlin";
+  epo:hasPrimaryContactPoint epd:id_b8407703-ba31-4e89-9d6e-c480388966ec_CompanyContactPoint_NsQgV4dy8XNKVeR2M8tt3c;
+  cccev:registeredAddress epd:id_b8407703-ba31-4e89-9d6e-c480388966ec_CompanyAddress_amxyHzzWSDM5hALBwwbWuJ .
+
+epd:id_b8407703-ba31-4e89-9d6e-c480388966ec_Organization_ORG-7005 a org:Organization;
+  epo:hasID epd:id_b8407703-ba31-4e89-9d6e-c480388966ec_OrganisationIdentifier_DTjRFKSaqHQqhEUsbbafqG;
+  epo:hasLegalName "Beschaffungsamt des BMI";
+  epo:hasPrimaryContactPoint epd:id_b8407703-ba31-4e89-9d6e-c480388966ec_CompanyContactPoint_6r33Cv99oV38zobB7Hepex;
+  cccev:registeredAddress epd:id_b8407703-ba31-4e89-9d6e-c480388966ec_CompanyAddress_5w4jTR6gfdXBvGkZDdofo7 .
+
+epd:id_b8407703-ba31-4e89-9d6e-c480388966ec_ProcedureIdentifier_Hu2nD8nFQkA5CPSQ43KMRD
+  a epo:Identifier;
+  epo:hasIdentifierValue "INF2-0652-2023" .
+
+epd:id_b8407703-ba31-4e89-9d6e-c480388966ec_ProcedureTerms_FKvSanpPGpNgZ5wvdufXWm
+  a epo:ProcedureTerm;
+  epo:hasCrossBorderLaw """
+            CrossBorderLaw
+        """, """
+            sektvo
+        """ .
+
+epd:id_b8407703-ba31-4e89-9d6e-c480388966ec_Procedure_6dcsBnuV4FTNoRpTZHckqN a epo:Procedure;
+  epo:foreseesContractSpecificTerm epd:id_b8407703-ba31-4e89-9d6e-c480388966ec_ProcurementProjectContractTerm_BAFiQAm5eaBz7sDFPbYXor;
+  epo:hasAdditionalInformation """Der Auftraggeber ist Sektorenauftraggeber nach § 100 Abs.1 Nr. 1 GWB und unterliegt
+            neben dem GWB und der SektVO insbesondere dem Berliner Ausschreibungs- und Vergabegesetz (BerlAVG).
+
+            2. Durch diese Bekanntmachung wird des Verfahrens begonnen, interessierte Unternehmen haben die Möglichkeit,
+            bis zu den unter Punkt 10 genannten Termin aus der Aufforderung zur Angebotsabgabe (AzA), ein Angebot über
+            die Vergabeplattform abzugeben. Mit Angebotsabgabe sind zusätzlich alle in dieser Bekanntmachung angegebenen
+            Angaben, Erklärungen, Nachweisen einzureichen.
+
+            3. Die Übermittlung von Fragen hat ausschließlich unter Nutzung der Funktionalität der Vergabeplattform AI
+            unter Angabe der Bezeichnung der Maßnahme und des Aktenzeichens zu erfolgen.
+            Auskünfte werden grundsätzlich nur auf solche Fragen erteilt, die bis spätestens 5 Arbeitstage vor
+            Beendigung des Wettbewerbs per Nachrichtenfunktion des Vergabemanagers eingereicht wurden.
+            Der Auftraggeber behält sich vor, verspätete Anfragen nicht zu beantworten. Mündliche Bieterfragen werden
+            nicht beantwortet. Der AG wird etwaige
+            Informationen (auch die Formulare) u. Beantwortung von Fragen von Bieter auf der Plattform AI
+            veröffentlichen.
+
+            4. Mit der Benennung der Referenzen stimmt der Bieter/Bietergemeinschaft der Kontaktaufnahme durch den AG zu
+            den jeweiligen Referenzgebern zu.
+
+            5. Der Auftraggeber weist darauf hin, dass alle Inhalte der vorliegenden EU-weiten Bekanntmachung maßgeblich
+            sind, insbesondere wenn die Bekanntmachung zusätzlich in weiteren Bekanntmachungsmedien veröffentlicht wird
+            und der Bekanntmachungstext in diesen zusätzlichen Bekanntmachungen nicht vollständig, unrichtig oder
+            verändert wiedergegeben wird.
+
+            6. Zu Kooperationsformen im vorliegenden Vergabeverfahren:
+            Sofern eine Bewerbung als Bietergemeinschaft erfolgt, ist mit dem Angebot eine von allen Mitgliedern der
+            Bietergemeinschaft ausgefüllte Erklärung einzureichen, aus der sich die gesamtschuldnerische Haftung ergibt.
+            Im Zuschlagsfall sind die Namen sämtlicher Mitglieder der Bietergemeinschaft, eines bevollmächtigten
+            Vertreters und die Absicht, sich im Zuschlagsfall zu einer Arbeitsgemeinschaft zusammenzuschließen per
+            Formular einzureichen.
+            Die in der AzA benannten Unterlagen Eigenerklärung zur Eignung und Eigenerklärung 5k sowie der
+            Frauenförderbogen sind bei Vorliegen einer Bietergemeinschaft für jedes Mitglied der Bietergemeinschaft in
+            einem gesonderten Formular vorzulegen. Bietergemeinschaft haben darüber hinaus eine Erklärung folgenden
+            Inhalts abzugeben: Sämtliche Mitglieder der Bietergemeinschaft bzw. der Vertreter der Bietergemeinschaft
+            haben/hat zu erklären, dass die Bildung keinen Verstoß gegen § 1 GWB darstellt. Darüber hinaus ist von den
+            Mitgliedern der Bietergemeinschaft bzw. dem Vertreter dieser zu erklären, inwiefern für das jeweilige
+            beteiligte Unternehmen wirtschaftlich zweckmäßige und kaufmännische Gründe vorliegen, sich nicht allein um
+            die Auftragsvergabe zu bewerben. Der AG stellt hierzu ein Formblatt zur Verfügung. Es kann auf Anlagen
+            verwiesen werden.
+
+            7. Beabsichtigt der Bieter oder ein Mitglied einer Bietergemeinschaft, sich hinsichtlich der
+            wirtschaftlichen und finanziellen oder technischen und beruflichen Leistungsfähigkeit auf andere Unternehmen
+            (Dritter / Nachunternehmer /konzernverbundener Unternehmen) zu berufen (Eignungsleihe), so sind die unter
+            Punkt 1.3 der AzA benannten Unterlagen für die anderen Unternehmen ebenfalls mit dem Angebot vorzulegen.
+            Angaben zu den benannten Eignungskriterien können im Umfang der gewünschten Eignungsleihe, bezogen auf die
+            anderen Unternehmen, gemacht werden. Soweit sich Angaben zur Eignung auf diese anderen Unternehmen
+            (Eignungsverleiher) beziehen, ist dies bei den jeweiligen Angaben zur Eignung deutlich zu machen.
+            Weiterhin ist mit dem Angebot die Verpflichtungserklärung der anderen Unternehmen vorzulegen, nach deren
+            Inhalt die rechtlich und tatsächlich abgesicherte Verfügbarkeit über die entsprechenden Ressourcen der
+            Dritten nachgewiesen wird.
+            Bei einer Bezugnahme auf Kapazitäten eines anderen Unternehmens im Hinblick auf die wirtschaftliche oder
+            finanzielle Leistungsfähigkeit ist durch dieses ausdrücklich zu
+            bestätigen, dass es mit dem Bieter im Auftragsfall gemeinsam für die Auftragsdurchführung entsprechend dem
+            Umfang der Eignungsleihe haftet.
+            Beabsichtigt der Bieter, im Hinblick auf vorzulegende Nachweise/Angaben/Erklärungen für die erforderliche
+            berufliche Leistungsfähigkeit wie Ausbildungs- oder Befähigungsnachweise oder die einschlägige berufliche
+            Erfahrung (Referenzen) die Kapazitäten anderer Unternehmen in Anspruch zu nehmen, so ist durch dieses
+            ausdrücklich zu bestätigen, dass es die Leistungen (üblicherweise als Unterauftragnehmer) im Auftragsfall
+            erbringen wird, für die diese Kapazitäten benötigt werden.
+
+            8. Datenschutz: Der Bieter hat die Bestimmungen der Datenschutz-Grundverordnung, des
+            Bundesdatenschutzgesetzes sowie anderer geltender Gesetze zum Schutz personenbezogenen Daten einzuhalten.
+            Für die
+            Übermittlung personenbezogener Daten an den Auftraggeber trägt der Bieter die datenschutzrechtliche
+            Verantwortung und hat entsprechend der Rechtmäßigkeit sicherzustellen (z.B. durch Einholung von
+            Einwilligungen bei Angaben natürlicher
+            Personen).
+        """;
+  epo:hasEstimatedValue epd:id_b8407703-ba31-4e89-9d6e-c480388966ec_ProcurementProjectMonetaryValue_YFTDpjyGUfQWdZ93njHfhX;
+  epo:hasID epd:id_b8407703-ba31-4e89-9d6e-c480388966ec_ProcedureIdentifier_Hu2nD8nFQkA5CPSQ43KMRD;
+  epo:hasLegalBasis "32014L0025  ";
+  epo:hasProcedureType "open";
+  epo:hasProcurementScopeDividedIntoLot epd:id_b8407703-ba31-4e89-9d6e-c480388966ec_Lot_LOT-0000;
+  epo:isAccelerated false;
+  epo:isSubjectToProcedureSpecificTerm epd:id_b8407703-ba31-4e89-9d6e-c480388966ec_ProcedureTerms_FKvSanpPGpNgZ5wvdufXWm;
+  epo:refersToProcedure epd:id_b8407703-ba31-4e89-9d6e-c480388966ec_Procedure_6dcsBnuV4FTNoRpTZHckqN;
+  cccev:description """Entsorgungsleistungen Schwarzabdichtung Bauvorhaben Senefelder Platz
+        """;
+  cccev:title "Entsorgungsleistungen Schwarzabdichtung Bauvorhaben Senefelder Platz" .
+
+epd:id_b8407703-ba31-4e89-9d6e-c480388966ec_ProcurementProjectContractAddress_Ts6NbgWz9wKHX3CqwnxxzK
+  a locn:Address;
+  locn:addressArea "Berlin";
+  locn:fullAddress "U-Bahnhof Senefelder Platz";
+  locn:postCode "10405" .
+
+epd:id_b8407703-ba31-4e89-9d6e-c480388966ec_ProcurementProjectContractLocation_BAFiQAm5eaBz7sDFPbYXor
+  a dct:Location;
+  epo:hasCountryCode "DEU";
+  epo:hasNutsCode <http://data.europa.eu/nuts/code/DE300>;
+  locn:address epd:id_b8407703-ba31-4e89-9d6e-c480388966ec_ProcurementProjectContractAddress_Ts6NbgWz9wKHX3CqwnxxzK .
+
+epd:id_b8407703-ba31-4e89-9d6e-c480388966ec_ProcurementProjectContractTerm_BAFiQAm5eaBz7sDFPbYXor
+  a epo:ContractTerm;
+  epo:definesSpecificPlaceOfPerformance epd:id_b8407703-ba31-4e89-9d6e-c480388966ec_ProcurementProjectContractLocation_BAFiQAm5eaBz7sDFPbYXor;
+  epo:hasContractNatureType "services" .
+
+epd:id_b8407703-ba31-4e89-9d6e-c480388966ec_ProcurementProjectMonetaryValue_YFTDpjyGUfQWdZ93njHfhX
+  a epo:MonetaryValue;
+  epo:hasAmountValue 89000.0;
+  epo:hasCurrency "EUR" .
+
+epd:id_b8407703-ba31-4e89-9d6e-c480388966ec_ProcurementServiceProvider_AxEoDZth6eN89p7o8GWdBS
+  a epo:ProcurementServiceProvider;
+  epo:actsOnBehalfOf epd:id_b8407703-ba31-4e89-9d6e-c480388966ec_Buyer_JGa56JxZ6vPv3NZm242nMu;
+  epo:playedBy epd:id_b8407703-ba31-4e89-9d6e-c480388966ec_Organization_ORG-7005 .
+
+epd:id_b8407703-ba31-4e89-9d6e-c480388966ec_ReviewProcedureInformationProvider_QmkiZENjGqABvzebdMdK43
+  a epo:ReviewProcedureInformationProvider .
+
+epd:id_b8407703-ba31-4e89-9d6e-c480388966ec_ReviewTerm_QmkiZENjGqABvzebdMdK43 a epo:ReviewTerm;
+  epo:definesReviewProcedureInformationProvider epd:id_b8407703-ba31-4e89-9d6e-c480388966ec_ReviewProcedureInformationProvider_QmkiZENjGqABvzebdMdK43;
+  epo:definesReviewer epd:id_b8407703-ba31-4e89-9d6e-c480388966ec_Reviewer_QmkiZENjGqABvzebdMdK43;
+  epo:hasReviewDeadlineInformation """§ 160 GWB
+                        (1) Die Vergabekammer leitet ein Nachprüfungsverfahren nur auf Antrag ein.
+                        (2) Antragsbefugt ist jedes Unternehmen, das ein Interesse an dem öffentlichen Auftrag oder der
+                        Konzession hat und eine Verletzung in seinen Rechten nach § 97 Absatz 6 durch Nichtbeachtung von
+                        Vergabevorschriften geltend macht. Dabei ist darzulegen, dass dem Unternehmen durch die
+                        behauptete Verletzung der Vergabevorschriften ein Schaden entstanden ist oder zu entstehen
+                        droht.
+                        (3) Der Antrag ist unzulässig, soweit
+
+                        1. der Antragsteller den geltend gemachten Verstoß gegen Vergabevorschriften vor Einreichen des
+                        Nachprüfungsantrags erkannt und gegenüber dem Auftraggeber nicht innerhalb einer Frist von zehn
+                        Kalendertagen gerügt hat; der Ablauf der Frist nach § 134 Absatz 2 bleibt unberührt,
+                        2. Verstöße gegen Vergabevorschriften, die aufgrund der Bekanntmachung erkennbar sind, nicht
+                        spätestens bis zum Ablauf der in der Bekanntmachung benannten Frist zur Bewerbung oder zur
+                        Angebotsabgabe gegenüber dem Auftraggeber gerügt werden,
+                        3. Verstöße gegen Vergabevorschriften, die erst in den Vergabeunterlagen erkennbar sind, nicht
+                        spätestens bis zum Ablauf der Frist zur Bewerbung oder zur Angebotsabgabe gegenüber dem
+                        Auftraggeber gerügt werden,
+                        4. mehr als 15 Kalendertage nach Eingang der Mitteilung des Auftraggebers, einer Rüge nicht
+                        abhelfen zu wollen, vergangen sind.
+                        Satz 1 gilt nicht bei einem Antrag auf Feststellung der Unwirksamkeit des Vertrags nach § 135
+                        Absatz 1 Nummer 2. § 134 Absatz 1 Satz 2 bleibt unberührt.
+                    """ .
+
+epd:id_b8407703-ba31-4e89-9d6e-c480388966ec_Reviewer_QmkiZENjGqABvzebdMdK43 a epo:Reviewer;
+  epo:playedBy epd:id_b8407703-ba31-4e89-9d6e-c480388966ec_Organization_ORG-7004 .
+
+epd:id_b8407703-ba31-4e89-9d6e-c480388966ec_SubmissionTerm_jucn4erQJnXcty2wPoNNzB
+  a epo:SubmissionTerm .

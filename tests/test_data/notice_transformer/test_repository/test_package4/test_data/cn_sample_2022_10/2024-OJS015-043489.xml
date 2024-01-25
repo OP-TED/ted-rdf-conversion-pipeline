@@ -1,0 +1,495 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<ContractAwardNotice xmlns="urn:oasis:names:specification:ubl:schema:xsd:ContractAwardNotice-2"
+                     xmlns:cac="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2"
+                     xmlns:cbc="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2"
+                     xmlns:efac="http://data.europa.eu/p27/eforms-ubl-extension-aggregate-components/1"
+                     xmlns:efbc="http://data.europa.eu/p27/eforms-ubl-extension-basic-components/1"
+                     xmlns:efext="http://data.europa.eu/p27/eforms-ubl-extensions/1"
+                     xmlns:ext="urn:oasis:names:specification:ubl:schema:xsd:CommonExtensionComponents-2"
+                     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <ext:UBLExtensions>
+        <ext:UBLExtension>
+            <ext:ExtensionContent>
+                <efext:EformsExtension>
+                    <efac:NoticeResult>
+                        <efac:LotResult>
+                            <cbc:ID schemeName="result">RES-0001</cbc:ID>
+                            <cbc:TenderResultCode listName="winner-selection-status">selec-w</cbc:TenderResultCode>
+                            <efbc:DPSTerminationIndicator>false</efbc:DPSTerminationIndicator>
+                            <efac:LotTender>
+                                <cbc:ID schemeName="tender">TEN-0001</cbc:ID>
+                            </efac:LotTender>
+                            <efac:ReceivedSubmissionsStatistics>
+                                <efbc:StatisticsCode listName="received-submission-type">tenders</efbc:StatisticsCode>
+                                <efbc:StatisticsNumeric>4</efbc:StatisticsNumeric>
+                            </efac:ReceivedSubmissionsStatistics>
+                            <efac:ReceivedSubmissionsStatistics>
+                                <efbc:StatisticsCode listName="received-submission-type">t-esubm</efbc:StatisticsCode>
+                                <efbc:StatisticsNumeric>4</efbc:StatisticsNumeric>
+                            </efac:ReceivedSubmissionsStatistics>
+                            <efac:ReceivedSubmissionsStatistics>
+                                <efbc:StatisticsCode listName="received-submission-type">t-sme</efbc:StatisticsCode>
+                                <efbc:StatisticsNumeric>3</efbc:StatisticsNumeric>
+                            </efac:ReceivedSubmissionsStatistics>
+                            <efac:SettledContract>
+                                <cbc:ID schemeName="contract">CON-0001</cbc:ID>
+                            </efac:SettledContract>
+                            <efac:TenderLot>
+                                <cbc:ID schemeName="Lot">LOT-0000</cbc:ID>
+                            </efac:TenderLot>
+                        </efac:LotResult>
+                        <efac:LotTender>
+                            <cbc:ID schemeName="tender">TEN-0001</cbc:ID>
+                            <efac:SubcontractingTerm>
+                                <efbc:TermCode listName="applicability">no</efbc:TermCode>
+                            </efac:SubcontractingTerm>
+                            <efac:TenderingParty>
+                                <cbc:ID schemeName="tendering-party">TPA-0001</cbc:ID>
+                            </efac:TenderingParty>
+                            <efac:TenderLot>
+                                <cbc:ID schemeName="Lot">LOT-0000</cbc:ID>
+                            </efac:TenderLot>
+                        </efac:LotTender>
+                        <efac:SettledContract>
+                            <cbc:ID schemeName="contract">CON-0001</cbc:ID>
+                            <cbc:IssueDate>2024-01-15+01:00</cbc:IssueDate>
+                            <efac:LotTender>
+                                <cbc:ID schemeName="tender">TEN-0001</cbc:ID>
+                            </efac:LotTender>
+                        </efac:SettledContract>
+                        <efac:TenderingParty>
+                            <cbc:ID schemeName="tendering-party">TPA-0001</cbc:ID>
+                            <efac:Tenderer>
+                                <cbc:ID schemeName="organization">ORG-0001</cbc:ID>
+                                <efbc:GroupLeadIndicator>true</efbc:GroupLeadIndicator>
+                            </efac:Tenderer>
+                        </efac:TenderingParty>
+                    </efac:NoticeResult>
+                    <efac:NoticeSubType>
+                        <cbc:SubTypeCode listName="notice-subtype">30</cbc:SubTypeCode>
+                    </efac:NoticeSubType>
+                    <efac:Organizations>
+                        <efac:Organization>
+                            <efac:Company>
+                                <cac:PartyIdentification>
+                                    <cbc:ID schemeName="organization">ORG-7005</cbc:ID>
+                                </cac:PartyIdentification>
+                                <cac:PartyName>
+                                    <cbc:Name languageID="DEU">Beschaffungsamt des BMI</cbc:Name>
+                                </cac:PartyName>
+                                <cac:PostalAddress>
+                                    <cbc:CityName>Bonn</cbc:CityName>
+                                    <cbc:PostalZone>53119</cbc:PostalZone>
+                                    <cbc:CountrySubentityCode listName="nuts">DEA22</cbc:CountrySubentityCode>
+                                    <cac:Country>
+                                        <cbc:IdentificationCode listName="country">DEU</cbc:IdentificationCode>
+                                    </cac:Country>
+                                </cac:PostalAddress>
+                                <cac:PartyLegalEntity>
+                                    <cbc:CompanyID schemeID="002">994-DOEVD-83</cbc:CompanyID>
+                                </cac:PartyLegalEntity>
+                                <cac:Contact>
+                                    <cbc:Telephone>+49228996100</cbc:Telephone>
+                                    <cbc:ElectronicMail>esender_hub@bescha.bund.de</cbc:ElectronicMail>
+                                </cac:Contact>
+                            </efac:Company>
+                        </efac:Organization>
+                        <efac:Organization>
+                            <efbc:GroupLeadIndicator>true</efbc:GroupLeadIndicator>
+                            <efbc:AcquiringCPBIndicator>false</efbc:AcquiringCPBIndicator>
+                            <efbc:AwardingCPBIndicator>false</efbc:AwardingCPBIndicator>
+                            <efac:Company>
+                                <cbc:WebsiteURI>https://vergabekooperation.berlin</cbc:WebsiteURI>
+                                <cac:PartyIdentification>
+                                    <cbc:ID schemeName="organization">ORG-7001</cbc:ID>
+                                </cac:PartyIdentification>
+                                <cac:PartyName>
+                                    <cbc:Name languageID="DEU">Berliner Verkehrsbetriebe, Bereich Einkauf/
+                                        Materialwirtschaft
+                                    </cbc:Name>
+                                </cac:PartyName>
+                                <cac:PostalAddress>
+                                    <cbc:StreetName>Holzmarktstraße 15-17</cbc:StreetName>
+                                    <cbc:CityName>Berlin</cbc:CityName>
+                                    <cbc:PostalZone>10179</cbc:PostalZone>
+                                    <cbc:CountrySubentityCode listName="nuts">DE300</cbc:CountrySubentityCode>
+                                    <cac:Country>
+                                        <cbc:IdentificationCode listName="country">DEU</cbc:IdentificationCode>
+                                    </cac:Country>
+                                </cac:PostalAddress>
+                                <cac:PartyLegalEntity>
+                                    <cbc:CompanyID>0204:11-2000016000-38</cbc:CompanyID>
+                                </cac:PartyLegalEntity>
+                                <cac:Contact>
+                                    <cbc:Telephone>+4930 256 28962</cbc:Telephone>
+                                    <cbc:ElectronicMail>Einkauf.INF2@bvg.de</cbc:ElectronicMail>
+                                </cac:Contact>
+                            </efac:Company>
+                        </efac:Organization>
+                        <efac:Organization>
+                            <efac:Company>
+                                <cac:PartyIdentification>
+                                    <cbc:ID schemeName="organization">ORG-7004</cbc:ID>
+                                </cac:PartyIdentification>
+                                <cac:PartyName>
+                                    <cbc:Name languageID="DEU">Vergabekammer des Landes Berlin</cbc:Name>
+                                </cac:PartyName>
+                                <cac:PostalAddress>
+                                    <cbc:StreetName>Martin- Luther- Str. 105</cbc:StreetName>
+                                    <cbc:CityName>Berlin</cbc:CityName>
+                                    <cbc:PostalZone>10825</cbc:PostalZone>
+                                    <cbc:CountrySubentityCode listName="nuts">DE300</cbc:CountrySubentityCode>
+                                    <cac:Country>
+                                        <cbc:IdentificationCode listName="country">DEU</cbc:IdentificationCode>
+                                    </cac:Country>
+                                </cac:PostalAddress>
+                                <cac:PartyLegalEntity>
+                                    <cbc:CompanyID>11-1300000V00-74</cbc:CompanyID>
+                                </cac:PartyLegalEntity>
+                                <cac:Contact>
+                                    <cbc:Telephone>+49 30-9013-8316</cbc:Telephone>
+                                    <cbc:Telefax>+49 30-9013-7613</cbc:Telefax>
+                                    <cbc:ElectronicMail>poststelle@senwtf.berlin.de</cbc:ElectronicMail>
+                                </cac:Contact>
+                            </efac:Company>
+                        </efac:Organization>
+                        <efac:Organization>
+                            <efbc:ListedOnRegulatedMarketIndicator>false</efbc:ListedOnRegulatedMarketIndicator>
+                            <efac:UltimateBeneficialOwner>
+                                <cbc:ID schemeName="ubo">UBO-0001</cbc:ID>
+                            </efac:UltimateBeneficialOwner>
+                            <efac:Company>
+                                <efbc:CompanySizeCode listName="economic-operator-size">small</efbc:CompanySizeCode>
+                                <cac:PartyIdentification>
+                                    <cbc:ID schemeName="organization">ORG-0001</cbc:ID>
+                                </cac:PartyIdentification>
+                                <cac:PartyName>
+                                    <cbc:Name languageID="DEU">Dunkel Baustoff-Recycling-Zentrum oHG</cbc:Name>
+                                </cac:PartyName>
+                                <cac:PostalAddress>
+                                    <cbc:StreetName>Berliner Str. 4</cbc:StreetName>
+                                    <cbc:CityName>Velten</cbc:CityName>
+                                    <cbc:PostalZone>16727</cbc:PostalZone>
+                                    <cbc:CountrySubentityCode listName="nuts">DE40A</cbc:CountrySubentityCode>
+                                    <cac:Country>
+                                        <cbc:IdentificationCode listName="country">DEU</cbc:IdentificationCode>
+                                    </cac:Country>
+                                </cac:PostalAddress>
+                                <cac:PartyLegalEntity>
+                                    <cbc:CompanyID>DE176071460</cbc:CompanyID>
+                                </cac:PartyLegalEntity>
+                                <cac:Contact>
+                                    <cbc:Telephone>+49 3304399121</cbc:Telephone>
+                                    <cbc:ElectronicMail>oft@dunkel.berlin</cbc:ElectronicMail>
+                                </cac:Contact>
+                            </efac:Company>
+                        </efac:Organization>
+                        <efac:UltimateBeneficialOwner>
+                            <cbc:ID schemeName="ubo">UBO-0001</cbc:ID>
+                            <efac:Nationality>
+                                <cbc:NationalityID>DEU</cbc:NationalityID>
+                            </efac:Nationality>
+                        </efac:UltimateBeneficialOwner>
+                    </efac:Organizations>
+                    <efac:Publication>
+                        <efbc:NoticePublicationID schemeName="ojs-notice-id">00043489-2024</efbc:NoticePublicationID>
+                        <efbc:GazetteID schemeName="ojs-id">15/2024</efbc:GazetteID>
+                        <efbc:PublicationDate>2024-01-22Z</efbc:PublicationDate>
+                    </efac:Publication>
+                </efext:EformsExtension>
+            </ext:ExtensionContent>
+        </ext:UBLExtension>
+    </ext:UBLExtensions>
+    <cbc:UBLVersionID>2.3</cbc:UBLVersionID>
+    <cbc:CustomizationID>eforms-sdk-1.7</cbc:CustomizationID>
+    <cbc:ID schemeName="notice-id">b8407703-ba31-4e89-9d6e-c480388966ec</cbc:ID>
+    <cbc:ContractFolderID>5ce49e8a-80e8-474a-acf7-cbee9904f38c</cbc:ContractFolderID>
+    <cbc:IssueDate>2024-01-19+01:00</cbc:IssueDate>
+    <cbc:IssueTime>12:04:01+01:00</cbc:IssueTime>
+    <cbc:VersionID>01</cbc:VersionID>
+    <cbc:RequestedPublicationDate>2024-01-19+01:00</cbc:RequestedPublicationDate>
+    <cbc:RegulatoryDomain>32014L0025</cbc:RegulatoryDomain>
+    <cbc:NoticeTypeCode listName="result">can-standard</cbc:NoticeTypeCode>
+    <cbc:NoticeLanguageCode listName="language">DEU</cbc:NoticeLanguageCode>
+    <cac:ContractingParty>
+        <cac:ContractingActivity>
+            <cbc:ActivityTypeCode listName="entity-activity">urttb</cbc:ActivityTypeCode>
+        </cac:ContractingActivity>
+        <cac:Party>
+            <cac:PartyIdentification>
+                <cbc:ID schemeName="organization">ORG-7001</cbc:ID>
+            </cac:PartyIdentification>
+            <cac:ServiceProviderParty>
+                <cbc:ServiceTypeCode listName="organisation-role">ted-esen</cbc:ServiceTypeCode>
+                <cac:Party>
+                    <cac:PartyIdentification>
+                        <cbc:ID schemeName="organization">ORG-7005</cbc:ID>
+                    </cac:PartyIdentification>
+                </cac:Party>
+            </cac:ServiceProviderParty>
+        </cac:Party>
+    </cac:ContractingParty>
+    <cac:TenderingTerms>
+        <cac:ProcurementLegislationDocumentReference>
+            <cbc:ID>sektvo</cbc:ID>
+        </cac:ProcurementLegislationDocumentReference>
+        <cac:ProcurementLegislationDocumentReference>
+            <cbc:ID>CrossBorderLaw</cbc:ID>
+        </cac:ProcurementLegislationDocumentReference>
+    </cac:TenderingTerms>
+    <cac:TenderingProcess>
+        <cbc:ProcedureCode listName="procurement-procedure-type">open</cbc:ProcedureCode>
+        <cbc:TerminatedIndicator>false</cbc:TerminatedIndicator>
+        <cac:ProcessJustification>
+            <cbc:ProcessReasonCode listName="accelerated-procedure">false</cbc:ProcessReasonCode>
+        </cac:ProcessJustification>
+    </cac:TenderingProcess>
+    <cac:ProcurementProject>
+        <cbc:ID>INF2-0652-2023</cbc:ID>
+        <cbc:Name languageID="DEU">Entsorgungsleistungen Schwarzabdichtung Bauvorhaben Senefelder Platz</cbc:Name>
+        <cbc:Description languageID="DEU">Entsorgungsleistungen Schwarzabdichtung Bauvorhaben Senefelder Platz
+        </cbc:Description>
+        <cbc:ProcurementTypeCode listName="contract-nature">services</cbc:ProcurementTypeCode>
+        <cbc:Note languageID="DEU">Der Auftraggeber ist Sektorenauftraggeber nach § 100 Abs.1 Nr. 1 GWB und unterliegt
+            neben dem GWB und der SektVO insbesondere dem Berliner Ausschreibungs- und Vergabegesetz (BerlAVG).
+
+            2. Durch diese Bekanntmachung wird des Verfahrens begonnen, interessierte Unternehmen haben die Möglichkeit,
+            bis zu den unter Punkt 10 genannten Termin aus der Aufforderung zur Angebotsabgabe (AzA), ein Angebot über
+            die Vergabeplattform abzugeben. Mit Angebotsabgabe sind zusätzlich alle in dieser Bekanntmachung angegebenen
+            Angaben, Erklärungen, Nachweisen einzureichen.
+
+            3. Die Übermittlung von Fragen hat ausschließlich unter Nutzung der Funktionalität der Vergabeplattform AI
+            unter Angabe der Bezeichnung der Maßnahme und des Aktenzeichens zu erfolgen.
+            Auskünfte werden grundsätzlich nur auf solche Fragen erteilt, die bis spätestens 5 Arbeitstage vor
+            Beendigung des Wettbewerbs per Nachrichtenfunktion des Vergabemanagers eingereicht wurden.
+            Der Auftraggeber behält sich vor, verspätete Anfragen nicht zu beantworten. Mündliche Bieterfragen werden
+            nicht beantwortet. Der AG wird etwaige
+            Informationen (auch die Formulare) u. Beantwortung von Fragen von Bieter auf der Plattform AI
+            veröffentlichen.
+
+            4. Mit der Benennung der Referenzen stimmt der Bieter/Bietergemeinschaft der Kontaktaufnahme durch den AG zu
+            den jeweiligen Referenzgebern zu.
+
+            5. Der Auftraggeber weist darauf hin, dass alle Inhalte der vorliegenden EU-weiten Bekanntmachung maßgeblich
+            sind, insbesondere wenn die Bekanntmachung zusätzlich in weiteren Bekanntmachungsmedien veröffentlicht wird
+            und der Bekanntmachungstext in diesen zusätzlichen Bekanntmachungen nicht vollständig, unrichtig oder
+            verändert wiedergegeben wird.
+
+            6. Zu Kooperationsformen im vorliegenden Vergabeverfahren:
+            Sofern eine Bewerbung als Bietergemeinschaft erfolgt, ist mit dem Angebot eine von allen Mitgliedern der
+            Bietergemeinschaft ausgefüllte Erklärung einzureichen, aus der sich die gesamtschuldnerische Haftung ergibt.
+            Im Zuschlagsfall sind die Namen sämtlicher Mitglieder der Bietergemeinschaft, eines bevollmächtigten
+            Vertreters und die Absicht, sich im Zuschlagsfall zu einer Arbeitsgemeinschaft zusammenzuschließen per
+            Formular einzureichen.
+            Die in der AzA benannten Unterlagen Eigenerklärung zur Eignung und Eigenerklärung 5k sowie der
+            Frauenförderbogen sind bei Vorliegen einer Bietergemeinschaft für jedes Mitglied der Bietergemeinschaft in
+            einem gesonderten Formular vorzulegen. Bietergemeinschaft haben darüber hinaus eine Erklärung folgenden
+            Inhalts abzugeben: Sämtliche Mitglieder der Bietergemeinschaft bzw. der Vertreter der Bietergemeinschaft
+            haben/hat zu erklären, dass die Bildung keinen Verstoß gegen § 1 GWB darstellt. Darüber hinaus ist von den
+            Mitgliedern der Bietergemeinschaft bzw. dem Vertreter dieser zu erklären, inwiefern für das jeweilige
+            beteiligte Unternehmen wirtschaftlich zweckmäßige und kaufmännische Gründe vorliegen, sich nicht allein um
+            die Auftragsvergabe zu bewerben. Der AG stellt hierzu ein Formblatt zur Verfügung. Es kann auf Anlagen
+            verwiesen werden.
+
+            7. Beabsichtigt der Bieter oder ein Mitglied einer Bietergemeinschaft, sich hinsichtlich der
+            wirtschaftlichen und finanziellen oder technischen und beruflichen Leistungsfähigkeit auf andere Unternehmen
+            (Dritter / Nachunternehmer /konzernverbundener Unternehmen) zu berufen (Eignungsleihe), so sind die unter
+            Punkt 1.3 der AzA benannten Unterlagen für die anderen Unternehmen ebenfalls mit dem Angebot vorzulegen.
+            Angaben zu den benannten Eignungskriterien können im Umfang der gewünschten Eignungsleihe, bezogen auf die
+            anderen Unternehmen, gemacht werden. Soweit sich Angaben zur Eignung auf diese anderen Unternehmen
+            (Eignungsverleiher) beziehen, ist dies bei den jeweiligen Angaben zur Eignung deutlich zu machen.
+            Weiterhin ist mit dem Angebot die Verpflichtungserklärung der anderen Unternehmen vorzulegen, nach deren
+            Inhalt die rechtlich und tatsächlich abgesicherte Verfügbarkeit über die entsprechenden Ressourcen der
+            Dritten nachgewiesen wird.
+            Bei einer Bezugnahme auf Kapazitäten eines anderen Unternehmens im Hinblick auf die wirtschaftliche oder
+            finanzielle Leistungsfähigkeit ist durch dieses ausdrücklich zu
+            bestätigen, dass es mit dem Bieter im Auftragsfall gemeinsam für die Auftragsdurchführung entsprechend dem
+            Umfang der Eignungsleihe haftet.
+            Beabsichtigt der Bieter, im Hinblick auf vorzulegende Nachweise/Angaben/Erklärungen für die erforderliche
+            berufliche Leistungsfähigkeit wie Ausbildungs- oder Befähigungsnachweise oder die einschlägige berufliche
+            Erfahrung (Referenzen) die Kapazitäten anderer Unternehmen in Anspruch zu nehmen, so ist durch dieses
+            ausdrücklich zu bestätigen, dass es die Leistungen (üblicherweise als Unterauftragnehmer) im Auftragsfall
+            erbringen wird, für die diese Kapazitäten benötigt werden.
+
+            8. Datenschutz: Der Bieter hat die Bestimmungen der Datenschutz-Grundverordnung, des
+            Bundesdatenschutzgesetzes sowie anderer geltender Gesetze zum Schutz personenbezogenen Daten einzuhalten.
+            Für die
+            Übermittlung personenbezogener Daten an den Auftraggeber trägt der Bieter die datenschutzrechtliche
+            Verantwortung und hat entsprechend der Rechtmäßigkeit sicherzustellen (z.B. durch Einholung von
+            Einwilligungen bei Angaben natürlicher
+            Personen).
+        </cbc:Note>
+        <cac:RequestedTenderTotal>
+            <cbc:EstimatedOverallContractAmount currencyID="EUR">89000.00</cbc:EstimatedOverallContractAmount>
+        </cac:RequestedTenderTotal>
+        <cac:MainCommodityClassification>
+            <cbc:ItemClassificationCode listName="cpv">90000000</cbc:ItemClassificationCode>
+        </cac:MainCommodityClassification>
+        <cac:RealizedLocation>
+            <cac:Address>
+                <cbc:StreetName>U-Bahnhof Senefelder Platz</cbc:StreetName>
+                <cbc:CityName>Berlin</cbc:CityName>
+                <cbc:PostalZone>10405</cbc:PostalZone>
+                <cbc:CountrySubentityCode listName="nuts">DE300</cbc:CountrySubentityCode>
+                <cac:Country>
+                    <cbc:IdentificationCode listName="country">DEU</cbc:IdentificationCode>
+                </cac:Country>
+            </cac:Address>
+        </cac:RealizedLocation>
+    </cac:ProcurementProject>
+    <cac:ProcurementProjectLot>
+        <cbc:ID schemeName="Lot">LOT-0000</cbc:ID>
+        <cac:TenderingTerms>
+            <ext:UBLExtensions>
+                <ext:UBLExtension>
+                    <ext:ExtensionContent>
+                        <efext:EformsExtension>
+                            <efac:StrategicProcurement>
+                                <efbc:ApplicableLegalBasis listName="cvd-scope">false</efbc:ApplicableLegalBasis>
+                            </efac:StrategicProcurement>
+                        </efext:EformsExtension>
+                    </ext:ExtensionContent>
+                </ext:UBLExtension>
+            </ext:UBLExtensions>
+            <cbc:FundingProgramCode listName="eu-funded">no-eu-funds</cbc:FundingProgramCode>
+            <cac:AwardingTerms>
+                <cac:AwardingCriterion>
+                    <cac:SubordinateAwardingCriterion>
+                        <ext:UBLExtensions>
+                            <ext:UBLExtension>
+                                <ext:ExtensionContent>
+                                    <efext:EformsExtension>
+                                        <efac:AwardCriterionParameter>
+                                            <efbc:ParameterCode listName="number-weight">per-exa</efbc:ParameterCode>
+                                            <efbc:ParameterNumeric>20.00</efbc:ParameterNumeric>
+                                        </efac:AwardCriterionParameter>
+                                    </efext:EformsExtension>
+                                </ext:ExtensionContent>
+                            </ext:UBLExtension>
+                        </ext:UBLExtensions>
+                        <cbc:AwardingCriterionTypeCode listName="award-criterion-type">quality
+                        </cbc:AwardingCriterionTypeCode>
+                        <cbc:Name languageID="DEU">Entfernung der Entsorgungsanlage zur Baustelle</cbc:Name>
+                    </cac:SubordinateAwardingCriterion>
+                    <cac:SubordinateAwardingCriterion>
+                        <ext:UBLExtensions>
+                            <ext:UBLExtension>
+                                <ext:ExtensionContent>
+                                    <efext:EformsExtension>
+                                        <efac:AwardCriterionParameter>
+                                            <efbc:ParameterCode listName="number-weight">per-exa</efbc:ParameterCode>
+                                            <efbc:ParameterNumeric>80.00</efbc:ParameterNumeric>
+                                        </efac:AwardCriterionParameter>
+                                    </efext:EformsExtension>
+                                </ext:ExtensionContent>
+                            </ext:UBLExtension>
+                        </ext:UBLExtensions>
+                        <cbc:AwardingCriterionTypeCode listName="award-criterion-type">price
+                        </cbc:AwardingCriterionTypeCode>
+                        <cbc:Name languageID="DEU">Preis</cbc:Name>
+                    </cac:SubordinateAwardingCriterion>
+                </cac:AwardingCriterion>
+            </cac:AwardingTerms>
+            <cac:AdditionalInformationParty>
+                <cac:PartyIdentification>
+                    <cbc:ID schemeName="organization">ORG-7001</cbc:ID>
+                </cac:PartyIdentification>
+            </cac:AdditionalInformationParty>
+            <cac:AppealTerms>
+                <cac:PresentationPeriod>
+                    <cbc:Description languageID="DEU">§ 160 GWB
+                        (1) Die Vergabekammer leitet ein Nachprüfungsverfahren nur auf Antrag ein.
+                        (2) Antragsbefugt ist jedes Unternehmen, das ein Interesse an dem öffentlichen Auftrag oder der
+                        Konzession hat und eine Verletzung in seinen Rechten nach § 97 Absatz 6 durch Nichtbeachtung von
+                        Vergabevorschriften geltend macht. Dabei ist darzulegen, dass dem Unternehmen durch die
+                        behauptete Verletzung der Vergabevorschriften ein Schaden entstanden ist oder zu entstehen
+                        droht.
+                        (3) Der Antrag ist unzulässig, soweit
+
+                        1. der Antragsteller den geltend gemachten Verstoß gegen Vergabevorschriften vor Einreichen des
+                        Nachprüfungsantrags erkannt und gegenüber dem Auftraggeber nicht innerhalb einer Frist von zehn
+                        Kalendertagen gerügt hat; der Ablauf der Frist nach § 134 Absatz 2 bleibt unberührt,
+                        2. Verstöße gegen Vergabevorschriften, die aufgrund der Bekanntmachung erkennbar sind, nicht
+                        spätestens bis zum Ablauf der in der Bekanntmachung benannten Frist zur Bewerbung oder zur
+                        Angebotsabgabe gegenüber dem Auftraggeber gerügt werden,
+                        3. Verstöße gegen Vergabevorschriften, die erst in den Vergabeunterlagen erkennbar sind, nicht
+                        spätestens bis zum Ablauf der Frist zur Bewerbung oder zur Angebotsabgabe gegenüber dem
+                        Auftraggeber gerügt werden,
+                        4. mehr als 15 Kalendertage nach Eingang der Mitteilung des Auftraggebers, einer Rüge nicht
+                        abhelfen zu wollen, vergangen sind.
+                        Satz 1 gilt nicht bei einem Antrag auf Feststellung der Unwirksamkeit des Vertrags nach § 135
+                        Absatz 1 Nummer 2. § 134 Absatz 1 Satz 2 bleibt unberührt.
+                    </cbc:Description>
+                </cac:PresentationPeriod>
+                <cac:AppealReceiverParty>
+                    <cac:PartyIdentification>
+                        <cbc:ID schemeName="organization">ORG-7004</cbc:ID>
+                    </cac:PartyIdentification>
+                </cac:AppealReceiverParty>
+            </cac:AppealTerms>
+        </cac:TenderingTerms>
+        <cac:TenderingProcess>
+            <cbc:GovernmentAgreementConstraintIndicator>false</cbc:GovernmentAgreementConstraintIndicator>
+            <cac:AuctionTerms>
+                <cbc:AuctionConstraintIndicator>false</cbc:AuctionConstraintIndicator>
+            </cac:AuctionTerms>
+            <cac:ContractingSystem>
+                <cbc:ContractingSystemTypeCode listName="framework-agreement">none</cbc:ContractingSystemTypeCode>
+            </cac:ContractingSystem>
+            <cac:ContractingSystem>
+                <cbc:ContractingSystemTypeCode listName="dps-usage">none</cbc:ContractingSystemTypeCode>
+            </cac:ContractingSystem>
+        </cac:TenderingProcess>
+        <cac:ProcurementProject>
+            <cbc:ID>LOT-0000</cbc:ID>
+            <cbc:Name languageID="DEU">Entsorgungsleistungen Schwarzabdichtung Bauvorhaben Senefelder Platz</cbc:Name>
+            <cbc:Description languageID="DEU">Die Berliner Verkehrsbetriebe (BVG), AöR - nachfolgend als Auftraggeber
+                (AG) bezeichnet - beabsichtigen, eine Tunnelsanierung am U-Bahnhof Senefelder Platz durchzuführen.
+                Der Projektbereich umfasst den U-Bahnhof Senefelder Platz.
+                Der U-Bahnhof wird bei den Bauarbeiten freigelegt und der Schutzbeton/das Ziegelmauerwerk wird
+                abgetragen und getrennt entsorgt. Im Anschluss daran wird die Teerabdichtung entfernt und chargenweise
+                entsorgt.
+                Entsorgung von asbest- und teerhaltiger Bauwerksabdichtung (Schwarzabdichtung) - ASN 170303*/ 170903*
+                Der Abfall wird chargenweise auf Asbest/KMF (WHO) und PAK beprobt. Die Ergebnisse bestimmen den
+                Charakter der Charge, so dass folgende Fraktionen anfallen können:
+                Charge PAK Asbest/KMF ASN
+                1 Charge &gt;100 mg/ kg nicht nachweisbar 170303*
+                2 Charge &gt;100 mg/kg und &lt;= 8000 mg/kg nachweisbar 170903*
+                3 Chareg &gt;8000 mg/kg nachweisbar 170903
+            </cbc:Description>
+            <cbc:ProcurementTypeCode listName="contract-nature">services</cbc:ProcurementTypeCode>
+            <cbc:Note languageID="DEU">Der Zugang zu den Vergabeunterlagen ist eingeschränkt. Der Auftraggeber weist
+                darauf hin, dass von § 41 Abs. 4 SektVO Gebrauch gemacht wird, weil in den Unterlagen vertrauliche
+                Betriebs- und Geschäftsgeheimnisse enthalten sind. Die den Vergabeunterlagen beigefügte
+                Vertraulichkeitsvereinbarung ist über das
+                Nachrichtenportal der Vergabeplattform handschriftlich (keine Signatur) unterschrieben einzureichen.
+                Anschließend erhalten die interessierten Unternehmen die Leistungsbeschreibung inkl. erster Anlagen über
+                das Nachrichtenportal.
+            </cbc:Note>
+            <cac:ProcurementAdditionalType>
+                <cbc:ProcurementTypeCode listName="strategic-procurement">none</cbc:ProcurementTypeCode>
+            </cac:ProcurementAdditionalType>
+            <cac:MainCommodityClassification>
+                <cbc:ItemClassificationCode listName="cpv">90000000</cbc:ItemClassificationCode>
+            </cac:MainCommodityClassification>
+            <cac:RealizedLocation>
+                <cac:Address>
+                    <cbc:StreetName>U-Bahnhof Senefelder Platz</cbc:StreetName>
+                    <cbc:CityName>Berlin</cbc:CityName>
+                    <cbc:PostalZone>10405</cbc:PostalZone>
+                    <cbc:CountrySubentityCode listName="nuts">DE300</cbc:CountrySubentityCode>
+                    <cac:Country>
+                        <cbc:IdentificationCode listName="country">DEU</cbc:IdentificationCode>
+                    </cac:Country>
+                </cac:Address>
+            </cac:RealizedLocation>
+            <cac:PlannedPeriod>
+                <cbc:StartDate>2024-01-01+01:00</cbc:StartDate>
+                <cbc:EndDate>2026-12-31+01:00</cbc:EndDate>
+            </cac:PlannedPeriod>
+        </cac:ProcurementProject>
+    </cac:ProcurementProjectLot>
+    <cac:TenderResult>
+        <cbc:AwardDate>2000-01-01+01:00</cbc:AwardDate>
+    </cac:TenderResult>
+</ContractAwardNotice>

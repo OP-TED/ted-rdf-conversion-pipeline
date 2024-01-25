@@ -212,6 +212,36 @@ def normalised_metadata_object():
 
     return NormalisedMetadata(**data)
 
+@pytest.fixture
+def eform_normalised_metadata_object():
+    data = {
+        "title": [LanguageTaggedString(text="Eteläisen Salon liikuntapaikkojen hoidon hankinta", language="FIN")],
+        "long_title": [
+            LanguageTaggedString(text="FIN :: Eteläisen Salon liikuntapaikkojen hoidon hankinta", language="FIN")],
+        "notice_publication_number": "00622690-2023",
+        "publication_date": "2023-10-13T00:00:00",
+        "ojs_issue_number": "198/2023",
+        "ojs_type": "S",
+        "city_of_buyer": None,
+        "name_of_buyer": None,
+        "original_language": None,
+        "country_of_buyer": None,
+        "eu_institution": None,
+        "document_sent_date": "2023-10-12T00:00:00",
+        "deadline_for_submission": None,
+        "notice_type": "http://publications.europa.eu/resource/authority/notice-type/cn-standard",
+        "form_type": "http://publications.europa.eu/resource/authority/form-type/competition",
+        "place_of_performance": ["http://data.europa.eu/nuts/code/FI1C1"],
+        "extracted_legal_basis_directive": "http://publications.europa.eu/resource/authority/legal-basis/32014L0024",
+        "legal_basis_directive": "http://publications.europa.eu/resource/authority/legal-basis/32014L0024",
+        "form_number": "",
+        "eforms_subtype": "16",
+        "eform_sdk_version": "eforms-sdk-1.7",
+        "published_in_cellar_counter": 0,
+        "is_eform": True
+    }
+
+    return NormalisedMetadata(**data)
 
 @pytest.fixture
 @mongomock.patch(servers=(('server.example.com', 27017),))

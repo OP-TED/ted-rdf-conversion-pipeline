@@ -1,0 +1,9 @@
+#title: ND-ProcedureTerms
+#description: “” The corresponding XML element is /*/cac:TenderingTerms. The expected ontology instances are epo: None .
+#xpath: /*/cac:TenderingTerms
+
+
+
+ASK WHERE { 
+	None 
+}

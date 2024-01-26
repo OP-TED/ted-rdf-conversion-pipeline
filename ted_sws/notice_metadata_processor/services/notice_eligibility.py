@@ -3,7 +3,7 @@ from typing import Tuple, List, Optional
 
 import semantic_version
 
-from ted_sws.core.model.metadata import NormalisedMetadata
+from ted_sws.core.model.metadata import NormalisedMetadata, NoticeSource
 from ted_sws.core.model.notice import Notice
 from ted_sws.core.model.transform import MappingSuite
 from ted_sws.data_manager.adapters.repository_abc import MappingSuiteRepositoryABC, NoticeRepositoryABC
@@ -48,8 +48,10 @@ def check_package(mapping_suite: MappingSuite, notice_metadata: NormalisedMetada
     eform_subtype = notice_metadata.eforms_subtype
     notice_publication_date = datetime.datetime.fromisoformat(notice_metadata.publication_date)
 
-    if notice_metadata.is_eform:
+    if notice_metadata.notice_source == NoticeSource.ELECTRONIC_FORM:
         notice_xsd_version = notice_metadata.eform_sdk_version
+        # eform sdk version value in metadata example: eforms-sdk-1.7 or  eforms-sdk-1.7.9
+        # we need to extract only the version i.e 1.7 or 1.7.9
         eforms_sdk_version = notice_xsd_version.rsplit('-', 1)[1]
         constraint_version_range = [format_version_with_zero_patch(version) for version in
                                     constraints[EFORMS_SDK_VERSIONS_KEY]]
@@ -67,7 +69,7 @@ def check_package(mapping_suite: MappingSuite, notice_metadata: NormalisedMetada
                                        constraints[E_FORMS_SUBTYPE_KEY]]
     covered_eform_type = eform_subtype in eform_subtype_constraint_values
 
-    return True if in_date_range and in_version_range and covered_eform_type else False
+    return in_date_range and in_version_range and covered_eform_type
 
 
 def notice_eligibility_checker(notice: Notice, mapping_suite_repository: MappingSuiteRepositoryABC) -> Tuple:

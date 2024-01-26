@@ -4,7 +4,7 @@ from typing import Dict, Tuple, List
 import re
 import pandas as pd
 
-from ted_sws.core.model.metadata import NormalisedMetadata, LanguageTaggedString
+from ted_sws.core.model.metadata import NormalisedMetadata, LanguageTaggedString, NoticeSource
 from ted_sws.notice_metadata_processor.model.metadata import ExtractedMetadata
 from ted_sws.notice_metadata_processor.services.metadata_constraints import filter_df_by_variables
 from ted_sws.resources.mapping_files_registry import MappingFilesRegistry
@@ -37,7 +37,7 @@ DEADLINE_DATE_KEY = "deadline_for_submission"
 NOTICE_TYPE_KEY = "notice_type"
 XSD_VERSION_KEY = "xsd_version"
 EFORM_SDK_VERSION_KEY = "eform_sdk_version"
-IS_EFORM_KEY = "is_eform"
+NOTICE_SOURCE_KEY = "notice_source"
 ENGLISH_LANGUAGE_TAG = "EN"
 mapping_registry = MappingFilesRegistry()
 
@@ -258,7 +258,7 @@ class DefaultNoticeMetadataNormaliser(NoticeMetadataNormaliserABC):
             LEGAL_BASIS_DIRECTIVE_KEY: get_map_value(mapping=legal_basis_map, value=legal_basis),
             E_FORMS_SUBTYPE_KEY: str(eforms_subtype),
             XSD_VERSION_KEY: extracted_metadata.xml_schema_version,
-            IS_EFORM_KEY: False
+            NOTICE_SOURCE_KEY: NoticeSource.STANDARD_FORM
         }
 
         return NormalisedMetadata(**metadata)
@@ -341,7 +341,7 @@ class EformsNoticeMetadataNormaliser(NoticeMetadataNormaliserABC):
                                                      value=legal_basis),
             E_FORMS_SUBTYPE_KEY: extracted_metadata.extracted_notice_subtype,
             EFORM_SDK_VERSION_KEY: extracted_metadata.xml_schema_version,
-            IS_EFORM_KEY: True
+            NOTICE_SOURCE_KEY: NoticeSource.ELECTRONIC_FORM
         }
 
         return NormalisedMetadata(**metadata)

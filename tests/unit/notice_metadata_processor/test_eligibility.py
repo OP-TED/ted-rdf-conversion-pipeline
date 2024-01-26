@@ -10,6 +10,7 @@ from ted_sws.notice_metadata_processor.services.notice_eligibility import check_
 
 
 # TODO remove min and max xsd version when the mapping loader is refactored tests/test_data/notice_transformer/test_repository/test_package4/metadata.json
+# TODO Add test for eform using mappinSuiteRepository
 def test_non_eligibility_by_notice(notice_eligibility_repository_path, indexed_notice):
     mapping_suite_repository = MappingSuiteRepositoryInFileSystem(repository_path=notice_eligibility_repository_path)
     normalise_notice(notice=indexed_notice)

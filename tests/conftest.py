@@ -18,7 +18,7 @@ from ted_sws.notice_metadata_processor.adapters.notice_metadata_normaliser impor
     NOTICE_NUMBER_KEY, PUBLICATION_DATE_KEY, OJS_NUMBER_KEY, OJS_TYPE_KEY, BUYER_CITY_KEY, BUYER_NAME_KEY, LANGUAGE_KEY, \
     BUYER_COUNTRY_KEY, EU_INSTITUTION_KEY, SENT_DATE_KEY, DEADLINE_DATE_KEY, NOTICE_TYPE_KEY, FORM_TYPE_KEY, \
     PLACE_OF_PERFORMANCE_KEY, EXTRACTED_LEGAL_BASIS_KEY, FORM_NUMBER_KEY, LEGAL_BASIS_DIRECTIVE_KEY, \
-    E_FORMS_SUBTYPE_KEY, XSD_VERSION_KEY
+    E_FORMS_SUBTYPE_KEY, XSD_VERSION_KEY, EFORM_SDK_VERSION_KEY, NOTICE_SOURCE_KEY
 
 from tests import TEST_DATA_PATH
 from tests.fakes.fake_repository import FakeNoticeRepository
@@ -215,30 +215,29 @@ def normalised_metadata_object():
 @pytest.fixture
 def eform_normalised_metadata_object():
     data = {
-        "title": [LanguageTaggedString(text="Eteläisen Salon liikuntapaikkojen hoidon hankinta", language="FIN")],
-        "long_title": [
+        TITLE_KEY: [LanguageTaggedString(text="Eteläisen Salon liikuntapaikkojen hoidon hankinta", language="FIN")],
+        LONG_TITLE_KEY: [
             LanguageTaggedString(text="FIN :: Eteläisen Salon liikuntapaikkojen hoidon hankinta", language="FIN")],
-        "notice_publication_number": "00622690-2023",
-        "publication_date": "2023-10-13T00:00:00",
-        "ojs_issue_number": "198/2023",
-        "ojs_type": "S",
-        "city_of_buyer": None,
-        "name_of_buyer": None,
-        "original_language": None,
-        "country_of_buyer": None,
-        "eu_institution": None,
-        "document_sent_date": "2023-10-12T00:00:00",
-        "deadline_for_submission": None,
-        "notice_type": "http://publications.europa.eu/resource/authority/notice-type/cn-standard",
-        "form_type": "http://publications.europa.eu/resource/authority/form-type/competition",
-        "place_of_performance": ["http://data.europa.eu/nuts/code/FI1C1"],
-        "extracted_legal_basis_directive": "http://publications.europa.eu/resource/authority/legal-basis/32014L0024",
-        "legal_basis_directive": "http://publications.europa.eu/resource/authority/legal-basis/32014L0024",
-        "form_number": "",
-        "eforms_subtype": "16",
-        "eform_sdk_version": "eforms-sdk-1.7",
-        "published_in_cellar_counter": 0,
-        "is_eform": True
+        NOTICE_NUMBER_KEY: "00622690-2023",
+        PUBLICATION_DATE_KEY: "2023-10-13T00:00:00",
+        OJS_NUMBER_KEY: "198/2023",
+        OJS_TYPE_KEY: "S",
+        BUYER_CITY_KEY: None,
+        BUYER_NAME_KEY: None,
+        LANGUAGE_KEY: None,
+        BUYER_COUNTRY_KEY: None,
+        EU_INSTITUTION_KEY: None,
+        SENT_DATE_KEY: "2023-10-12T00:00:00",
+        DEADLINE_DATE_KEY: None,
+        NOTICE_TYPE_KEY: "http://publications.europa.eu/resource/authority/notice-type/cn-standard",
+        FORM_TYPE_KEY: "http://publications.europa.eu/resource/authority/form-type/competition",
+        PLACE_OF_PERFORMANCE_KEY: ["http://data.europa.eu/nuts/code/FI1C1"],
+        EXTRACTED_LEGAL_BASIS_KEY: "http://publications.europa.eu/resource/authority/legal-basis/32014L0024",
+        LEGAL_BASIS_DIRECTIVE_KEY: "http://publications.europa.eu/resource/authority/legal-basis/32014L0024",
+        FORM_NUMBER_KEY: "",
+        E_FORMS_SUBTYPE_KEY: "16",
+        EFORM_SDK_VERSION_KEY: "eforms-sdk-1.7",
+        NOTICE_SOURCE_KEY: "eforms"
     }
 
     return NormalisedMetadata(**data)

@@ -6,6 +6,7 @@
 # Email: costezki.eugen@gmail.com 
 
 """ """
+from enum import Enum
 from typing import List, Optional
 
 from pydantic import Field
@@ -55,6 +56,17 @@ class EncodedValue(NamedTuple):
     value: str = None
 
 
+class NoticeSource(str, Enum):
+    """
+    Holds source of notice
+    """
+    STANDARD_FORM = "standard_forms"
+    ELECTRONIC_FORM = "eforms"
+
+    def __str__(self):
+        return self.value
+
+
 class NormalisedMetadata(Metadata):
     """
         Stores notice normalised metadata
@@ -81,7 +93,7 @@ class NormalisedMetadata(Metadata):
     eforms_subtype: str
     xsd_version: Optional[str]
     published_in_cellar_counter: int = Field(default=0)
-    is_eform: Optional[bool] = False
+    notice_source: Optional[NoticeSource] = NoticeSource.STANDARD_FORM
     eform_sdk_version: Optional[str]
 
 
@@ -106,8 +118,10 @@ class NormalisedMetadataView(Metadata):
     legal_basis_directive: str
     form_number: str
     eforms_subtype: str
-    xsd_version: str
+    xsd_version: Optional[str]
     published_in_cellar_counter: int = Field(default=0)
+    notice_source: Optional[NoticeSource] = NoticeSource.STANDARD_FORM
+    eform_sdk_version: Optional[str]
 
 
 

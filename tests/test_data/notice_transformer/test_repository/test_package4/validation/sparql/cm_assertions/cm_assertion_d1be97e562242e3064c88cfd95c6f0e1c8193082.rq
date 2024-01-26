@@ -1,0 +1,9 @@
+#title: ND-Company
+#description: “” The corresponding XML element is /*/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:Organizations/efac:Organization/efac:Company. The expected ontology instances are epo: None .
+#xpath: /*/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:Organizations/efac:Organization/efac:Company
+
+
+
+ASK WHERE { 
+	None 
+}

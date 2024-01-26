@@ -1,0 +1,9 @@
+#title: ND-PaymentTerms
+#description: “” The corresponding XML element is /*/cac:ProcurementProjectLot[cbc:ID/@schemeName='Lot']/cac:TenderingTerms/cac:PaymentTerms. The expected ontology instances are epo: None .
+#xpath: /*/cac:ProcurementProjectLot[cbc:ID/@schemeName='Lot']/cac:TenderingTerms/cac:PaymentTerms
+
+
+
+ASK WHERE { 
+	None 
+}

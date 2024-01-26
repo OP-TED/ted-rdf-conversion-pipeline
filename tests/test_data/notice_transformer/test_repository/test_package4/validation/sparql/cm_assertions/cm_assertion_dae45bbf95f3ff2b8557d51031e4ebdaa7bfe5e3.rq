@@ -1,0 +1,9 @@
+#title: ND-RootExtension
+#description: “” The corresponding XML element is /*/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension. The expected ontology instances are epo: None .
+#xpath: /*/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension
+
+
+
+ASK WHERE { 
+	None 
+}

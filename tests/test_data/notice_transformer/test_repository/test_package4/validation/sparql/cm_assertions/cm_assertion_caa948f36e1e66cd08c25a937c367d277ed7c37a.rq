@@ -1,0 +1,9 @@
+#title: ND-Publication
+#description: “” The corresponding XML element is /*/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:Publication. The expected ontology instances are epo: None .
+#xpath: /*/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:Publication
+
+
+
+ASK WHERE { 
+	None 
+}

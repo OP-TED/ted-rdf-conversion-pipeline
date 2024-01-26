@@ -1,0 +1,12 @@
+#title: BT-36-Lot
+#description: “” The corresponding XML element is /*/cac:ProcurementProjectLot[cbc:ID/@schemeName='Lot']/cac:ProcurementProject/cac:PlannedPeriod/cbc:DurationMeasure. The expected ontology instances are epo: epo:Lot / epo:ContractTerm / epo:SpecificDuration / xsd:decimal .
+#xpath: /*/cac:ProcurementProjectLot[cbc:ID/@schemeName='Lot']/cac:ProcurementProject/cac:PlannedPeriod/cbc:DurationMeasure
+
+PREFIX epo: <http://data.europa.eu/a4g/ontology#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX time: <http://www.w3.org/2006/time#>
+
+ASK WHERE { 
+	?this rdf:type epo:Lot .
+	?this epo:foreseesContractSpecificTerm / epo:definesContractDuration / time:numericDuration ?value. 
+}

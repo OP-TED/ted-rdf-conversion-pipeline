@@ -1,0 +1,11 @@
+#title: ND-LocalLegalBasisNoID
+#description: “” The corresponding XML element is /*/cac:TenderingTerms/cac:ProcurementLegislationDocumentReference[cbc:ID/text()='LocalLegalBasis']. The expected ontology instances are epo: epo:Procedure .
+#xpath: /*/cac:TenderingTerms/cac:ProcurementLegislationDocumentReference[cbc:ID/text()='LocalLegalBasis']
+
+PREFIX epo: <http://data.europa.eu/a4g/ontology#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+ASK WHERE { 
+	?this rdf:type epo:Procedure .
+	?this a epo:Procedure 
+}

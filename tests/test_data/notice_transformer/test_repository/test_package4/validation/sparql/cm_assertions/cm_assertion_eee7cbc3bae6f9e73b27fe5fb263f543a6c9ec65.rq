@@ -1,0 +1,9 @@
+#title: ND-LotDistribution
+#description: “” The corresponding XML element is /*/cac:TenderingTerms/cac:LotDistribution. The expected ontology instances are epo: None .
+#xpath: /*/cac:TenderingTerms/cac:LotDistribution
+
+
+
+ASK WHERE { 
+	None 
+}

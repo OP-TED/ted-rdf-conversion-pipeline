@@ -1,0 +1,10 @@
+#title: BT-22-LotsGroup
+#description: “” The corresponding XML element is /*/cac:ProcurementProjectLot[cbc:ID/@schemeName='LotsGroup']/cac:ProcurementProject/cbc:ID. The expected ontology instances are epo: epo:LotGroup / adms:Identifier / rdf:langString .
+#xpath: /*/cac:ProcurementProjectLot[cbc:ID/@schemeName='LotsGroup']/cac:ProcurementProject/cbc:ID
+
+PREFIX epo: <http://data.europa.eu/a4g/ontology#>
+PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+
+ASK WHERE { 
+	this? epo:hasInternalIdentifier / skos:notation ?value. 
+}

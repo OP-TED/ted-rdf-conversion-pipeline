@@ -1,0 +1,9 @@
+#title: ND-CrossBorderLaw
+#description: “” The corresponding XML element is /*/cac:TenderingTerms/cac:ProcurementLegislationDocumentReference[cbc:ID/text()='CrossBorderLaw']. The expected ontology instances are epo: None .
+#xpath: /*/cac:TenderingTerms/cac:ProcurementLegislationDocumentReference[cbc:ID/text()='CrossBorderLaw']
+
+
+
+ASK WHERE { 
+	None 
+}

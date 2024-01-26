@@ -1,0 +1,9 @@
+#title: ND-LotAdditionalClassification
+#description: “” The corresponding XML element is /*/cac:ProcurementProjectLot[cbc:ID/@schemeName='Lot']/cac:ProcurementProject/cac:AdditionalCommodityClassification. The expected ontology instances are epo: None .
+#xpath: /*/cac:ProcurementProjectLot[cbc:ID/@schemeName='Lot']/cac:ProcurementProject/cac:AdditionalCommodityClassification
+
+
+
+ASK WHERE { 
+	None 
+}

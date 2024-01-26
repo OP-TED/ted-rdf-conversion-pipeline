@@ -1,0 +1,9 @@
+#title: ND-Change
+#description: “” The corresponding XML element is /*/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:Changes/efac:Change. The expected ontology instances are epo: None .
+#xpath: /*/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:Changes/efac:Change
+
+
+
+ASK WHERE { 
+	None 
+}

@@ -1,0 +1,9 @@
+#title: OPT-001-notice
+#description: “” The corresponding XML element is /*/cbc:UBLVersionID. The expected ontology instances are epo: None .
+#xpath: /*/cbc:UBLVersionID
+
+
+
+ASK WHERE { 
+	None 
+}

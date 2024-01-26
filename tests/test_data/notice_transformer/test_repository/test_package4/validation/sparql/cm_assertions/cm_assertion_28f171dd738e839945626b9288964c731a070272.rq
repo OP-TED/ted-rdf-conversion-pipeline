@@ -1,0 +1,12 @@
+#title: ND-Root
+#description: “” The corresponding XML element is /*. The expected ontology instances are epo: epo:Notice .
+#xpath: /*
+
+PREFIX epo: <http://data.europa.eu/a4g/ontology#>
+PREFIX epo-not: <http://data.europa.eu/a4g/ontology#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+ASK WHERE { 
+	?this rdf:type epo:Notice .
+	?this a epo-not:CompetitionNotice. 
+}

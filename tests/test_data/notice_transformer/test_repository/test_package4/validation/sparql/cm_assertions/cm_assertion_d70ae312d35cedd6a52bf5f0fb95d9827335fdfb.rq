@@ -1,0 +1,9 @@
+#title: BT-21-LotsGroup
+#description: “” The corresponding XML element is /*/cac:ProcurementProjectLot[cbc:ID/@schemeName='LotsGroup']/cac:ProcurementProject/cbc:Name. The expected ontology instances are epo: epo:LotGroup / rdf:langString .
+#xpath: /*/cac:ProcurementProjectLot[cbc:ID/@schemeName='LotsGroup']/cac:ProcurementProject/cbc:Name
+
+PREFIX dct: <http://purl.org/dc/terms/>
+
+ASK WHERE { 
+	this? dct:title ?value. 
+}

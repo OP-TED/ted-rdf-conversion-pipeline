@@ -1,0 +1,9 @@
+#title: BT-26(m)-Procedure
+#description: “” The corresponding XML element is /*/cac:ProcurementProject/cac:MainCommodityClassification/cbc:ItemClassificationCode/@listName. The expected ontology instances are epo: None .
+#xpath: /*/cac:ProcurementProject/cac:MainCommodityClassification/cbc:ItemClassificationCode/@listName
+
+
+
+ASK WHERE { 
+	None 
+}

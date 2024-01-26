@@ -1,0 +1,9 @@
+#title: ND-ProviderParty
+#description: “” The corresponding XML element is /*/cac:ContractingParty/cac:Party/cac:ServiceProviderParty/cac:Party. The expected ontology instances are epo: None .
+#xpath: /*/cac:ContractingParty/cac:Party/cac:ServiceProviderParty/cac:Party
+
+
+
+ASK WHERE { 
+	None 
+}

@@ -1,0 +1,13 @@
+#title: BT-01(c)-Procedure
+#description: “” The corresponding XML element is /*/cac:TenderingTerms/cac:ProcurementLegislationDocumentReference[not(cbc:ID/text()=('CrossBorderLaw','LocalLegalBasis'))]/cbc:ID. The expected ontology instances are epo: epo:Procedure/ adms:identifier / rdf:langString .
+#xpath: /*/cac:TenderingTerms/cac:ProcurementLegislationDocumentReference[not(cbc:ID/text()=('CrossBorderLaw','LocalLegalBasis'))]/cbc:ID
+
+PREFIX adms: <http://www.w3.org/ns/adms#>
+PREFIX epo: <http://data.europa.eu/a4g/ontology#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+
+ASK WHERE { 
+	?this rdf:type epo:Procedure/ adms:identifier .
+	?this adms:identifier / skos:notation ?value. 
+}

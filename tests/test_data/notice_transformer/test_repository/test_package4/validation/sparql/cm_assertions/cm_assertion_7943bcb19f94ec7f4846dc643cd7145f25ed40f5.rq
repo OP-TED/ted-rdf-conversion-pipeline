@@ -1,0 +1,12 @@
+#title: OPT-030-Procedure-SProvider
+#description: “” The corresponding XML element is /*/cac:ContractingParty/cac:Party/cac:ServiceProviderParty/cbc:ServiceTypeCode. The expected ontology instances are epo: epo:AgentInRole / rdf:langString .
+#xpath: /*/cac:ContractingParty/cac:Party/cac:ServiceProviderParty/cbc:ServiceTypeCode
+
+PREFIX dct: <http://purl.org/dc/terms/>
+PREFIX epo: <http://data.europa.eu/a4g/ontology#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+ASK WHERE { 
+	?this rdf:type epo:AgentInRole .
+	?this dct:description ?value. 
+}

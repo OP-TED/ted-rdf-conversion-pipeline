@@ -1,0 +1,9 @@
+#title: ND-PreviousNoticeReference
+#description: “” The corresponding XML element is /*/cac:TenderingProcess/cac:NoticeDocumentReference. The expected ontology instances are epo: None .
+#xpath: /*/cac:TenderingProcess/cac:NoticeDocumentReference
+
+
+
+ASK WHERE { 
+	None 
+}

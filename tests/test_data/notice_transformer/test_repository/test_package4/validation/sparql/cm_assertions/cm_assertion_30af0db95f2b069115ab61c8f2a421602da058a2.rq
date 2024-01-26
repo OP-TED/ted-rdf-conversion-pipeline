@@ -1,0 +1,9 @@
+#title: OPT-002-notice
+#description: “” The corresponding XML element is /*/cbc:CustomizationID. The expected ontology instances are epo: None .
+#xpath: /*/cbc:CustomizationID
+
+
+
+ASK WHERE { 
+	None 
+}

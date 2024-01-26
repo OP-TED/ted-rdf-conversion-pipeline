@@ -1,0 +1,9 @@
+#title: ND-PostAwardProcess
+#description: “” The corresponding XML element is /*/cac:ProcurementProjectLot[cbc:ID/@schemeName='Lot']/cac:TenderingTerms/cac:PostAwardProcess. The expected ontology instances are epo: None .
+#xpath: /*/cac:ProcurementProjectLot[cbc:ID/@schemeName='Lot']/cac:TenderingTerms/cac:PostAwardProcess
+
+
+
+ASK WHERE { 
+	None 
+}

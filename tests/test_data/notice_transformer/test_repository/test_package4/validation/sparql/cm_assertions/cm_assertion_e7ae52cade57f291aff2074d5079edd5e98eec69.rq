@@ -1,0 +1,9 @@
+#title: ND-LotProcurementDocument
+#description: “” The corresponding XML element is /*/cac:ProcurementProjectLot[cbc:ID/@schemeName='Lot']/cac:TenderingTerms/cac:CallForTendersDocumentReference. The expected ontology instances are epo: None .
+#xpath: /*/cac:ProcurementProjectLot[cbc:ID/@schemeName='Lot']/cac:TenderingTerms/cac:CallForTendersDocumentReference
+
+
+
+ASK WHERE { 
+	None 
+}

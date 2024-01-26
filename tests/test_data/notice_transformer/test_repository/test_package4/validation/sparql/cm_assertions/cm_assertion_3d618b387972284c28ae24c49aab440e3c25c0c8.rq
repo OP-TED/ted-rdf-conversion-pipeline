@@ -1,0 +1,9 @@
+#title: BT-661-Lot
+#description: “” The corresponding XML element is /*/cac:ProcurementProjectLot[cbc:ID/@schemeName='Lot']/cac:TenderingProcess/cac:EconomicOperatorShortList/cbc:LimitationDescription. The expected ontology instances are epo: epo:Lot / epo:SelectionCriterion / xsd:boolean .
+#xpath: /*/cac:ProcurementProjectLot[cbc:ID/@schemeName='Lot']/cac:TenderingProcess/cac:EconomicOperatorShortList/cbc:LimitationDescription
+
+PREFIX epo: <http://data.europa.eu/a4g/ontology#>
+
+ASK WHERE { 
+	this epo:specifiesProcurementCriterion / epo:isUsedForCandidateRestriction ?value. 
+}

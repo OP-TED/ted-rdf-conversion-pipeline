@@ -1,0 +1,10 @@
+#title: BT-22-Lot
+#description: “” The corresponding XML element is /*/cac:ProcurementProjectLot[cbc:ID/@schemeName='Lot']/cac:ProcurementProject/cbc:ID. The expected ontology instances are epo: epo:Lot / adms:Identifier / rdf:langString .
+#xpath: /*/cac:ProcurementProjectLot[cbc:ID/@schemeName='Lot']/cac:ProcurementProject/cbc:ID
+
+PREFIX adms: <http://www.w3.org/ns/adms#>
+PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+
+ASK WHERE { 
+	adms:identifier / skos:notation ?value. 
+}

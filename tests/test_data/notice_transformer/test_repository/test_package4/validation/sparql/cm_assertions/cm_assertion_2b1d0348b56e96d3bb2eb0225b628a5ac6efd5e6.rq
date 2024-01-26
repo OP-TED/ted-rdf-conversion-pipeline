@@ -1,0 +1,11 @@
+#title: BT-263-Procedure
+#description: “” The corresponding XML element is /*/cac:ProcurementProject/cac:AdditionalCommodityClassification/cbc:ItemClassificationCode. The expected ontology instances are epo: epo:Procedure / epo:Purpose / at-voc:cpv .
+#xpath: /*/cac:ProcurementProject/cac:AdditionalCommodityClassification/cbc:ItemClassificationCode
+
+PREFIX epo: <http://data.europa.eu/a4g/ontology#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+ASK WHERE { 
+	?this rdf:type epo:Procedure .
+	?this epo:hasPurpose / epo:hasAdditionalClassification ?value. 
+}

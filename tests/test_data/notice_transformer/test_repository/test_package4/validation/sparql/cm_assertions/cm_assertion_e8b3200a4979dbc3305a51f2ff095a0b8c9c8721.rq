@@ -1,0 +1,9 @@
+#title: ND-ProcedureValueEstimate
+#description: “” The corresponding XML element is /*/cac:ProcurementProject/cac:RequestedTenderTotal. The expected ontology instances are epo: None .
+#xpath: /*/cac:ProcurementProject/cac:RequestedTenderTotal
+
+
+
+ASK WHERE { 
+	None 
+}

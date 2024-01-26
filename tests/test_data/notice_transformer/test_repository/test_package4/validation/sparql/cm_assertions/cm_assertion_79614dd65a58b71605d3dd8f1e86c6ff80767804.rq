@@ -1,0 +1,13 @@
+#title: BT-1375-Procedure
+#description: “” The corresponding XML element is /*/cac:TenderingTerms/cac:LotDistribution/cac:LotsGroup/cac:ProcurementProjectLotReference/cbc:ID[@schemeName='Lot']. The expected ontology instances are epo: epo:Procedure / epo:ProcedureTerm / epo:LotGroup / epo:Lot / adms:Identifier / rdf:langString .
+#xpath: /*/cac:TenderingTerms/cac:LotDistribution/cac:LotsGroup/cac:ProcurementProjectLotReference/cbc:ID[@schemeName='Lot']
+
+PREFIX adms: <http://www.w3.org/ns/adms#>
+PREFIX epo: <http://data.europa.eu/a4g/ontology#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+
+ASK WHERE { 
+	?this rdf:type epo:Procedure .
+	?this epo:isSubjectToProcedureSpecificTerm / epo:definesLotGroup / epo:setsGroupingContextForLot / adms:identifier / skos:notation ?value. 
+}

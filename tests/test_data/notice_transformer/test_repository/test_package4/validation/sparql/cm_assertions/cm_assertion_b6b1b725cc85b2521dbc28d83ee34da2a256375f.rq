@@ -1,0 +1,13 @@
+#title: OPT-301-Lot-FiscalLegis
+#description: “” The corresponding XML element is /*/cac:ProcurementProjectLot[cbc:ID/@schemeName='Lot']/cac:TenderingTerms/cac:FiscalLegislationDocumentReference/cac:IssuerParty/cac:PartyIdentification/cbc:ID. The expected ontology instances are epo: epo-not:CompetitionNotice / epo:TaxInformationProvider / org:Organization / adms:Identifier / rdf:langString .
+#xpath: /*/cac:ProcurementProjectLot[cbc:ID/@schemeName='Lot']/cac:TenderingTerms/cac:FiscalLegislationDocumentReference/cac:IssuerParty/cac:PartyIdentification/cbc:ID
+
+PREFIX epo: <http://data.europa.eu/a4g/ontology#>
+PREFIX epo-not: <http://data.europa.eu/a4g/ontology#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+
+ASK WHERE { 
+	?this rdf:type epo-not:CompetitionNotice .
+	?this epo:announcesRole / epo:playedBy / epo:hasLegalIdentifier/ skos:notation ?value. 
+}

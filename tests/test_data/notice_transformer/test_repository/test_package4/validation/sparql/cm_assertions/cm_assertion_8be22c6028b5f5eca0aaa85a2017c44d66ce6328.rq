@@ -1,0 +1,14 @@
+#title: BT-512-Organization-TouchPoint
+#description: “” The corresponding XML element is /*/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:Organizations/efac:Organization/efac:TouchPoint/cac:PostalAddress/cbc:PostalZone. The expected ontology instances are epo: org:Organization / cpov:ContactPoint / locn:Address / rdf:langString .
+#xpath: /*/ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:Organizations/efac:Organization/efac:TouchPoint/cac:PostalAddress/cbc:PostalZone
+
+PREFIX cv: <http://data.europa.eu/m8g/>
+PREFIX epo: <http://data.europa.eu/a4g/ontology#>
+PREFIX locn: <http://www.w3.org/ns/locn#>
+PREFIX org: <http://www.w3.org/ns/org#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+ASK WHERE { 
+	?this rdf:type org:Organization .
+	?this epo:hasPrimaryContactPoint / cv:address / locn:postCode ?value. 
+}

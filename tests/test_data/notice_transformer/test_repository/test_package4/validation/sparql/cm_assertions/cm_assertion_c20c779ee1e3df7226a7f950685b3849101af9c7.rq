@@ -1,0 +1,9 @@
+#title: ND-ProcedureContractAdditionalNature
+#description: “” The corresponding XML element is /*/cac:ProcurementProject/cac:ProcurementAdditionalType[cbc:ProcurementTypeCode/@listName='contract-nature']. The expected ontology instances are epo: None .
+#xpath: /*/cac:ProcurementProject/cac:ProcurementAdditionalType[cbc:ProcurementTypeCode/@listName='contract-nature']
+
+
+
+ASK WHERE { 
+	None 
+}

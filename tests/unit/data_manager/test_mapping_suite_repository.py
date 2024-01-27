@@ -38,6 +38,22 @@ def test_mapping_suite_repository_mongodb_update_invalid_id(mongodb_client, fake
     mongodb_client.drop_database(aggregates_database_name)
 
 
+def test_epo_mapping_suite_repository_in_file_system(file_system_repository_with_packages_path,
+                                                     epo_mapping_suite_package_name):
+    assert file_system_repository_with_packages_path.exists()
+    mapping_suite_repository = MappingSuiteRepositoryInFileSystem(
+        repository_path=file_system_repository_with_packages_path)
+    result_mapping_suite = mapping_suite_repository.get(reference=epo_mapping_suite_package_name)
+    assert result_mapping_suite
+    assert result_mapping_suite.identifier == "package_EF16"
+    assert result_mapping_suite.title == "Package EF16 v1.2"
+    assert result_mapping_suite.mapping_type == "eforms"
+    assert result_mapping_suite.metadata_constraints.constraints
+    constraints = result_mapping_suite.metadata_constraints.constraints
+    assert constraints["eforms_subtype"]
+    assert constraints["eforms_sdk_versions"]
+
+
 def test_mapping_suite_repository_in_file_system(file_system_repository_path, fake_mapping_suite):
     mapping_suite_repository = MappingSuiteRepositoryInFileSystem(repository_path=file_system_repository_path)
     mapping_suite_repository.clear_repository()

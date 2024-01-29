@@ -4,10 +4,9 @@
   "description": "This is the conceptual mapping for bla bla bla",
   "mapping_version": "3.0.0-alpha.1",
   "ontology_version": "4.0.0",
+  "mapping_type": "eforms",
   "metadata_constraints": {
     "constraints": {
-      "min_xsd_version": ["R2.0.9.S04.E01"],
-      "max_xsd_version": ["R2.0.9.S04.E01"],
       "eforms_subtype": [
         "16",
         "10",

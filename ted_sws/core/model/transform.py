@@ -8,6 +8,7 @@
 """ """
 import abc
 from datetime import datetime
+from enum import Enum
 from typing import List, Optional
 
 from ted_sws.core.model import PropertyBaseModel
@@ -188,6 +189,14 @@ class ConceptualMapping(MappingSuiteComponent):
     cl2_organisations: List[ConceptualMappingControlList] = []
 
 
+class MappingSuiteType(str, Enum):
+    STANDARD_FORMS = "standard_forms"
+    ELECTRONIC_FORMS = "eforms"
+
+    def __str__(self):
+        return self.value
+
+
 class MappingSuite(MappingSuiteComponent):
     """
 
@@ -199,6 +208,7 @@ class MappingSuite(MappingSuiteComponent):
     ontology_version: str = "0.0.1"
     git_latest_commit_hash: str = "no_hash"
     mapping_suite_hash_digest: str = "no_hash"
+    mapping_type: Optional[MappingSuiteType] = MappingSuiteType.STANDARD_FORMS
     metadata_constraints: MetadataConstraints
     transformation_rule_set: TransformationRuleSet
     shacl_test_suites: List[SHACLTestSuite]

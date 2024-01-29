@@ -212,6 +212,7 @@ def normalised_metadata_object():
 
     return NormalisedMetadata(**data)
 
+
 @pytest.fixture
 def eform_normalised_metadata_object():
     data = {
@@ -241,6 +242,7 @@ def eform_normalised_metadata_object():
     }
 
     return NormalisedMetadata(**data)
+
 
 @pytest.fixture
 @mongomock.patch(servers=(('server.example.com', 27017),))
@@ -303,3 +305,9 @@ def eform_notice_622690():
     notice.set_xml_manifestation(xml_manifestation)
     notice.set_original_metadata(original_metadata)
     return notice
+
+
+@pytest.fixture
+def indexed_eform_notice_622690(eform_notice_622690):
+    eform_notice_622690.set_xml_metadata(XMLMetadata(unique_xpaths=["FAKE_INDEX_XPATHS"]))
+    return eform_notice_622690

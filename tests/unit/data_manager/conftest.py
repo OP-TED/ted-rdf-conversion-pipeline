@@ -17,6 +17,15 @@ def file_system_repository_path():
 
 
 @pytest.fixture
+def file_system_repository_with_packages_path():
+    return TEST_DATA_PATH / "notice_transformer" / "test_repository"
+
+
+@pytest.fixture
+def epo_mapping_suite_package_name():
+    return "test_package4"
+
+@pytest.fixture
 def fake_mapping_suite():
     metadata_constrains = MetadataConstraints(constraints=dict())
     file_name = "fake_file.txt"

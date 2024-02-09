@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><urn:ContractNotice xmlns:urn="urn:oasis:names:specification:ubl:schema:xsd:ContractNotice-2" xmlns:cac="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2" xmlns:cbc="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2" xmlns:efac="http://data.europa.eu/p27/eforms-ubl-extension-aggregate-components/1" xmlns:efbc="http://data.europa.eu/p27/eforms-ubl-extension-basic-components/1" xmlns:efext="http://data.europa.eu/p27/eforms-ubl-extensions/1" xmlns:ext="urn:oasis:names:specification:ubl:schema:xsd:CommonExtensionComponents-2">
+   <ext:UBLExtensions>
+      <ext:UBLExtension>
+         <ext:ExtensionContent>
+            <efext:EformsExtension>
+               <efac:NoticeSubType>
+                  <cbc:SubTypeCode listName="notice-subtype">16</cbc:SubTypeCode>
+               </efac:NoticeSubType>
+               <efac:Organizations>
+                  <efac:Organization>
+                     <efbc:AcquiringCPBIndicator>false</efbc:AcquiringCPBIndicator>
+                     <efbc:AwardingCPBIndicator>false</efbc:AwardingCPBIndicator>
+                     <efac:Company>
+                        <cac:PartyIdentification>
+                           <cbc:ID>ORG-0001</cbc:ID>
+                        </cac:PartyIdentification>
+                        <cac:PartyName>
+                           <cbc:Name languageID="ELL">ΕΘΝΙΚΟΣ ΟΡΓΑΝΙΣΜΟΣ ΦΑΡΜΑΚΩΝ</cbc:Name>
+                        </cac:PartyName>
+                        <cac:PostalAddress>
+                           <cbc:StreetName>Λ. Μεσογειων 284</cbc:StreetName>
+                           <cbc:CityName>Χολαργός</cbc:CityName>
+                           <cbc:PostalZone>155 62</cbc:PostalZone>
+                           <cbc:CountrySubentityCode listName="nuts">EL301</cbc:CountrySubentityCode>
+                           <cac:Country>
+                              <cbc:IdentificationCode listName="country">GRC</cbc:IdentificationCode>
+                           </cac:Country>
+                        </cac:PostalAddress>
+                        <cac:PartyLegalEntity>
+                           <cbc:CompanyID>ΕΘΝΙΚΟΣ ΟΡΓΑΝΙΣΜΟΣ ΦΑΡΜΑΚΩΝ</cbc:CompanyID>
+                        </cac:PartyLegalEntity>
+                        <cac:Contact>
+                           <cbc:Telephone>+302132040473</cbc:Telephone>
+                           <cbc:ElectronicMail>procurements@eof.gr</cbc:ElectronicMail>
+                        </cac:Contact>
+                     </efac:Company>
+                  </efac:Organization>
+                  <efac:Organization>
+                     <efac:Company>
+                        <cac:PartyIdentification>
+                           <cbc:ID>ORG-0002</cbc:ID>
+                        </cac:PartyIdentification>
+                        <cac:PartyName>
+                           <cbc:Name languageID="ELL">Αρχή Εξέτασης Προδικαστικών Προσφυγών</cbc:Name>
+                        </cac:PartyName>
+                        <cac:PostalAddress>
+                           <cbc:CityName>Αθήνα</cbc:CityName>
+                           <cac:Country>
+                              <cbc:IdentificationCode listName="country">GRC</cbc:IdentificationCode>
+                           </cac:Country>
+                        </cac:PostalAddress>
+                        <cac:PartyLegalEntity>
+                           <cbc:CompanyID>Αρχή Εξέτασης Προδικαστικών Προσφυγών</cbc:CompanyID>
+                        </cac:PartyLegalEntity>
+                        <cac:Contact>
+                           <cbc:Telephone>+302132141216</cbc:Telephone>
+                           <cbc:ElectronicMail>aepp@aepp-procurement.gr</cbc:ElectronicMail>
+                        </cac:Contact>
+                     </efac:Company>
+                  </efac:Organization>
+               </efac:Organizations>
+            <efac:Publication><efbc:NoticePublicationID schemeName="ojs-notice-id">00497181-2023</efbc:NoticePublicationID><efbc:GazetteID schemeName="ojs-id">155/2023</efbc:GazetteID><efbc:PublicationDate>2023-08-14Z</efbc:PublicationDate></efac:Publication></efext:EformsExtension>
+         </ext:ExtensionContent>
+      </ext:UBLExtension>
+   </ext:UBLExtensions>
+   <cbc:UBLVersionID>2.3</cbc:UBLVersionID>
+   <cbc:CustomizationID>eforms-sdk-1.8</cbc:CustomizationID>
+   <cbc:ID schemeName="notice-id">459fbb96-f65d-48b0-9fe4-4d045b2d5a45</cbc:ID>
+   <cbc:ContractFolderID>fb632a23-e797-49df-91c8-af829d80170f</cbc:ContractFolderID>
+   <cbc:IssueDate>2023-08-11Z</cbc:IssueDate>
+   <cbc:IssueTime>07:00:17Z</cbc:IssueTime>
+   <cbc:VersionID>01</cbc:VersionID>
+   <cbc:RegulatoryDomain>32014L0024</cbc:RegulatoryDomain>
+   <cbc:NoticeTypeCode listName="competition">cn-standard</cbc:NoticeTypeCode>
+   <cbc:NoticeLanguageCode listName="language">ELL</cbc:NoticeLanguageCode>
+   <cac:ContractingParty>
+      <cac:ContractingPartyType>
+         <cbc:PartyTypeCode listName="buyer-legal-type">body-pl</cbc:PartyTypeCode>
+      </cac:ContractingPartyType>
+      <cac:ContractingActivity>
+         <cbc:ActivityTypeCode listName="authority-activity">health</cbc:ActivityTypeCode>
+      </cac:ContractingActivity>
+      <cac:Party>
+         <cac:PartyIdentification>
+            <cbc:ID>ORG-0001</cbc:ID>
+         </cac:PartyIdentification>
+      </cac:Party>
+   </cac:ContractingParty>
+   <cac:TenderingTerms>
+      <cac:TendererQualificationRequest>
+         <cac:SpecificTendererRequirement>
+            <cbc:TendererRequirementTypeCode listName="exclusion-ground">socsec-law</cbc:TendererRequirementTypeCode>
+            <cbc:Description languageID="ELL">Κατά την εκτέλεση της σύμβασης, ο ανάδοχος τηρεί τις υποχρεώσεις στους τομείς του περιβαλλοντικού, κοινωνικοασφαλιστικού και εργατικού δικαίου, που έχουν θεσπιστεί με το δίκαιο της Ε.Ε., το εθνικό δίκαιο, συλλογικές συμβάσεις ή διεθνείς διατάξεις περιβαλλοντικού, κοινωνικοασφαλιστικού και εργατικού δικαίου, οι οποίες απαριθμούνται στο παράρτημα Χ του προσαρτήματος Α' του νόμου 4412/2016. Η τήρηση των εν λόγω υποχρεώσεων από τον ανάδοχο και τους υπεργολάβους του ελέγχεται και βεβαιώνεται από τα όργανα που επιβλέπουν την εκτέλεση της σύμβασης και τις αρμόδιες δημόσιες αρχές και υπηρεσίες, που ενεργούν εντός των ορίων της ευθύνης και της αρμοδιότητάς τους.</cbc:Description>
+         </cac:SpecificTendererRequirement>
+      </cac:TendererQualificationRequest>
+   </cac:TenderingTerms>
+   <cac:TenderingProcess>
+      <cbc:ProcedureCode listName="procurement-procedure-type">open</cbc:ProcedureCode>
+   </cac:TenderingProcess>
+   <cac:ProcurementProject>
+      <cbc:ID>04/2023</cbc:ID>
+      <cbc:Name languageID="ELL">Προμήθεια (600.000.000) τεμαχίων αυτοκόλλητων ετικετών γνησιότητας φαρμάκων (CPV: 30192800-9) για χρονικό διάστημα (12) μηνών, με δικαίωμα προαίρεσης για (600.000.000) τεμάχια για επιπλέον (12) μήνες</cbc:Name>
+      <cbc:Description languageID="ELL">Προμήθεια (600.000.000) τεμαχίων αυτοκόλλητων ετικετών γνησιότητας φαρμάκων (CPV: 30192800-9) για χρονικό διάστημα (12) μηνών, με δικαίωμα προαίρεσης για (600.000.000) τεμάχια για επιπλέον (12) μήνες, για τη κάλυψη των αναγκών της φαρμακοβιομηχανίας στην ΕΛΛΑΔΑ.</cbc:Description>
+      <cbc:ProcurementTypeCode listName="contract-nature">supplies</cbc:ProcurementTypeCode>
+      <cac:RequestedTenderTotal>
+         <ext:UBLExtensions>
+            <ext:UBLExtension>
+               <ext:ExtensionContent>
+                  <efext:EformsExtension>
+                     <efbc:FrameworkMaximumAmount currencyID="EUR">1640000</efbc:FrameworkMaximumAmount>
+                  </efext:EformsExtension>
+               </ext:ExtensionContent>
+            </ext:UBLExtension>
+         </ext:UBLExtensions>
+         <cbc:EstimatedOverallContractAmount currencyID="EUR">1322581</cbc:EstimatedOverallContractAmount>
+      </cac:RequestedTenderTotal>
+      <cac:MainCommodityClassification>
+         <cbc:ItemClassificationCode listName="cpv">30192800</cbc:ItemClassificationCode>
+      </cac:MainCommodityClassification>
+   </cac:ProcurementProject>
+   <cac:ProcurementProjectLot>
+      <cbc:ID schemeName="Lot">LOT-0001</cbc:ID>
+      <cac:TenderingTerms>
+         <ext:UBLExtensions>
+            <ext:UBLExtension>
+               <ext:ExtensionContent>
+                  <efext:EformsExtension>
+                     <efac:SelectionCriteria>
+                        <cbc:CriterionTypeCode listName="selection-criterion">ef-stand</cbc:CriterionTypeCode>
+                     </efac:SelectionCriteria>
+                  </efext:EformsExtension>
+               </ext:ExtensionContent>
+            </ext:UBLExtension>
+         </ext:UBLExtensions>
+         <cbc:FundingProgramCode listName="eu-funded">no-eu-funds</cbc:FundingProgramCode>
+         <cac:CallForTendersDocumentReference>
+            <cbc:ID>_DEFAULT_VALUE_CHANGE_ME_</cbc:ID>
+            <cbc:DocumentType>non-restricted-document</cbc:DocumentType>
+            <cbc:LanguageID>ELL</cbc:LanguageID>
+            <cbc:DocumentStatusCode listName="document-status">official</cbc:DocumentStatusCode>
+            <cac:Attachment>
+               <cac:ExternalReference>
+                  <cbc:URI>https://portal.eprocurement.gov.gr/webcenter/portal/TestPortal</cbc:URI>
+               </cac:ExternalReference>
+            </cac:Attachment>
+         </cac:CallForTendersDocumentReference>
+         <cac:TendererQualificationRequest>
+            <cac:SpecificTendererRequirement>
+               <cbc:TendererRequirementTypeCode listName="reserved-procurement">none</cbc:TendererRequirementTypeCode>
+            </cac:SpecificTendererRequirement>
+         </cac:TendererQualificationRequest>
+         <cac:ContractExecutionRequirement>
+            <cbc:ExecutionRequirementCode listName="reserved-execution">no</cbc:ExecutionRequirementCode>
+         </cac:ContractExecutionRequirement>
+         <cac:ContractExecutionRequirement>
+            <cbc:ExecutionRequirementCode listName="einvoicing">required</cbc:ExecutionRequirementCode>
+         </cac:ContractExecutionRequirement>
+         <cac:ContractExecutionRequirement>
+            <cbc:ExecutionRequirementCode listName="ecatalog-submission">allowed</cbc:ExecutionRequirementCode>
+         </cac:ContractExecutionRequirement>
+         <cac:TenderValidityPeriod>
+            <cbc:DurationMeasure unitCode="DAY">180</cbc:DurationMeasure>
+         </cac:TenderValidityPeriod>
+         <cac:AppealTerms>
+            <cac:AppealReceiverParty>
+               <cac:PartyIdentification>
+                  <cbc:ID>ORG-0002</cbc:ID>
+               </cac:PartyIdentification>
+            </cac:AppealReceiverParty>
+         </cac:AppealTerms>
+         <cac:Language>
+            <cbc:ID>ELL</cbc:ID>
+         </cac:Language>
+         <cac:PostAwardProcess>
+            <cbc:ElectronicOrderUsageIndicator>false</cbc:ElectronicOrderUsageIndicator>
+            <cbc:ElectronicPaymentUsageIndicator>true</cbc:ElectronicPaymentUsageIndicator>
+         </cac:PostAwardProcess>
+      </cac:TenderingTerms>
+      <cac:TenderingProcess>
+         <cbc:SubmissionMethodCode listName="esubmission">required</cbc:SubmissionMethodCode>
+         <cbc:GovernmentAgreementConstraintIndicator>true</cbc:GovernmentAgreementConstraintIndicator>
+         <cac:TenderSubmissionDeadlinePeriod>
+            <cbc:EndDate>2023-09-20+03:00</cbc:EndDate>
+            <cbc:EndTime>17:00:00+03:00</cbc:EndTime>
+         </cac:TenderSubmissionDeadlinePeriod>
+         <cac:AdditionalInformationRequestPeriod>
+            <cbc:EndDate>2023-09-13+03:00</cbc:EndDate>
+            <cbc:EndTime>17:00:00+03:00</cbc:EndTime>
+         </cac:AdditionalInformationRequestPeriod>
+         <cac:OpenTenderEvent>
+            <cbc:OccurrenceDate>2023-09-25+03:00</cbc:OccurrenceDate>
+            <cbc:OccurrenceTime>11:00:00+03:00</cbc:OccurrenceTime>
+         </cac:OpenTenderEvent>
+         <cac:AuctionTerms>
+            <cbc:AuctionConstraintIndicator>false</cbc:AuctionConstraintIndicator>
+         </cac:AuctionTerms>
+         <cac:ContractingSystem>
+            <cbc:ContractingSystemTypeCode listName="framework-agreement">fa-wo-rc</cbc:ContractingSystemTypeCode>
+         </cac:ContractingSystem>
+         <cac:ContractingSystem>
+            <cbc:ContractingSystemTypeCode listName="dps-usage">dps-nlist</cbc:ContractingSystemTypeCode>
+         </cac:ContractingSystem>
+      </cac:TenderingProcess>
+      <cac:ProcurementProject>
+         <cbc:ID>04/2023</cbc:ID>
+         <cbc:Name languageID="ELL">Προμήθεια (600.000.000) τεμαχίων αυτοκόλλητων ετικετών γνησιότητας φαρμάκων (CPV: 30192800-9) για χρονικό διάστημα (12) μηνών, με δικαίωμα προαίρεσης για (600.000.000) τεμάχια για επιπλέον (12) μήνες.</cbc:Name>
+         <cbc:Description languageID="ELL">Προμήθεια (600.000.000) τεμαχίων αυτοκόλλητων ετικετών γνησιότητας φαρμάκων (CPV: 30192800-9) για χρονικό διάστημα (12) μηνών, με δικαίωμα προαίρεσης για (600.000.000) τεμάχια για επιπλέον (12) μήνες, για την κάλυψη των αναγκών της φαρμακοβιομηχανίας στην ΕΛΛΑΔΑ.</cbc:Description>
+         <cbc:ProcurementTypeCode listName="contract-nature">supplies</cbc:ProcurementTypeCode>
+         <cbc:EstimatedOverallContractQuantity>600000000</cbc:EstimatedOverallContractQuantity>
+         <cac:RequestedTenderTotal>
+            <cbc:EstimatedOverallContractAmount currencyID="EUR">1322581</cbc:EstimatedOverallContractAmount>
+         </cac:RequestedTenderTotal>
+         <cac:MainCommodityClassification>
+            <cbc:ItemClassificationCode listName="cpv">30192800</cbc:ItemClassificationCode>
+         </cac:MainCommodityClassification>
+      </cac:ProcurementProject>
+   </cac:ProcurementProjectLot>
+</urn:ContractNotice>

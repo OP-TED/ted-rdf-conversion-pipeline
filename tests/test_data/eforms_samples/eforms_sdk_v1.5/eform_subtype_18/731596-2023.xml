@@ -1,0 +1,400 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><ContractNotice xmlns="urn:oasis:names:specification:ubl:schema:xsd:ContractNotice-2" xmlns:cac="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2" xmlns:cbc="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2" xmlns:efac="http://data.europa.eu/p27/eforms-ubl-extension-aggregate-components/1" xmlns:efbc="http://data.europa.eu/p27/eforms-ubl-extension-basic-components/1" xmlns:efext="http://data.europa.eu/p27/eforms-ubl-extensions/1" xmlns:ext="urn:oasis:names:specification:ubl:schema:xsd:CommonExtensionComponents-2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+   <ext:UBLExtensions>
+      <ext:UBLExtension>
+         <ext:ExtensionContent>
+            <efext:EformsExtension>
+               <efac:NoticeSubType>
+                  <cbc:SubTypeCode listName="notice-subtype">18</cbc:SubTypeCode>
+               </efac:NoticeSubType>
+               <efac:Organizations><efac:Organization><efac:Company><cac:PartyIdentification><cbc:ID schemeName="organization">ORG-7005</cbc:ID></cac:PartyIdentification><cac:PartyName><cbc:Name languageID="DEU">Beschaffungsamt des BMI</cbc:Name></cac:PartyName><cac:PostalAddress><cbc:CityName>Bonn</cbc:CityName><cbc:PostalZone>53119</cbc:PostalZone><cbc:CountrySubentityCode listName="nuts">DEA22</cbc:CountrySubentityCode><cac:Country><cbc:IdentificationCode listName="country">DEU</cbc:IdentificationCode></cac:Country></cac:PostalAddress><cac:PartyLegalEntity><cbc:CompanyID schemeID="002">994-DOEVD-83</cbc:CompanyID></cac:PartyLegalEntity><cac:Contact><cbc:Telephone>+49228996100</cbc:Telephone><cbc:ElectronicMail>esender_hub@bescha.bund.de</cbc:ElectronicMail></cac:Contact></efac:Company></efac:Organization>
+                  <efac:Organization>
+                     <efbc:GroupLeadIndicator>true</efbc:GroupLeadIndicator>
+                     <efbc:AcquiringCPBIndicator>false</efbc:AcquiringCPBIndicator>
+                     <efbc:AwardingCPBIndicator>false</efbc:AwardingCPBIndicator>
+                     <efac:Company>
+                        <cbc:WebsiteURI>http://www.bwbm.de</cbc:WebsiteURI>
+                        <cac:PartyIdentification>
+                           <cbc:ID schemeName="organization">ORG-7001</cbc:ID>
+                        </cac:PartyIdentification>
+                        <cac:PartyName>
+                           <cbc:Name languageID="DEU">Bw Bekleidungsmanagement GmbH</cbc:Name>
+                        </cac:PartyName>
+                        <cac:PostalAddress>
+                           <cbc:StreetName>Edmund-Rumpler-Straße 8-10</cbc:StreetName>
+                           <cbc:CityName>Köln</cbc:CityName>
+                           <cbc:PostalZone>51149</cbc:PostalZone>
+                           <cbc:CountrySubentityCode listName="nuts">DEA23</cbc:CountrySubentityCode>
+                           <cac:Country>
+                              <cbc:IdentificationCode listName="country">DEU</cbc:IdentificationCode>
+                           </cac:Country>
+                        </cac:PostalAddress>
+                        <cac:PartyLegalEntity>
+                           <cbc:CompanyID>992-80002-47</cbc:CompanyID>
+                        </cac:PartyLegalEntity>
+                        <cac:Contact>
+                           <cbc:Telephone>000</cbc:Telephone>
+                           <cbc:ElectronicMail>Bieteranfragen@BwBM.de</cbc:ElectronicMail>
+                        </cac:Contact>
+                     </efac:Company>
+                  </efac:Organization>
+                  <efac:Organization>
+                     <efac:Company>
+                        <cbc:WebsiteURI>http://www.bundeskartellamt.de/</cbc:WebsiteURI>
+                        <cac:PartyIdentification>
+                           <cbc:ID schemeName="organization">ORG-7004</cbc:ID>
+                        </cac:PartyIdentification>
+                        <cac:PartyName>
+                           <cbc:Name languageID="DEU">Bundeskartellamt - Vergabekammer des Bundes -</cbc:Name>
+                        </cac:PartyName>
+                        <cac:PostalAddress>
+                           <cbc:StreetName>Villemombler Str. 76</cbc:StreetName>
+                           <cbc:CityName>Bonn</cbc:CityName>
+                           <cbc:PostalZone>53123</cbc:PostalZone>
+                           <cbc:CountrySubentityCode listName="nuts">DEA22</cbc:CountrySubentityCode>
+                           <cac:Country>
+                              <cbc:IdentificationCode listName="country">DEU</cbc:IdentificationCode>
+                           </cac:Country>
+                        </cac:PostalAddress>
+                        <cac:PartyLegalEntity>
+                           <cbc:CompanyID>n.n.</cbc:CompanyID>
+                        </cac:PartyLegalEntity>
+                        <cac:Contact>
+                           <cbc:Telephone>+49 228-94-99-0</cbc:Telephone>
+                           <cbc:Telefax>+49 228-94-99-400</cbc:Telefax>
+                           <cbc:ElectronicMail>poststelle@bundeskartellamt.bund.de</cbc:ElectronicMail>
+                        </cac:Contact>
+                     </efac:Company>
+                  </efac:Organization>
+               </efac:Organizations>
+            <efac:Publication><efbc:NoticePublicationID schemeName="ojs-notice-id">00731596-2023</efbc:NoticePublicationID><efbc:GazetteID schemeName="ojs-id">232/2023</efbc:GazetteID><efbc:PublicationDate>2023-12-01Z</efbc:PublicationDate></efac:Publication></efext:EformsExtension>
+         </ext:ExtensionContent>
+      </ext:UBLExtension>
+   </ext:UBLExtensions>
+   <cbc:UBLVersionID>2.3</cbc:UBLVersionID>
+   <cbc:CustomizationID>eforms-sdk-1.5</cbc:CustomizationID>
+   <cbc:ID schemeName="notice-id">a1de6283-f5de-43ff-ab8b-245555bffa11</cbc:ID>
+   <cbc:ContractFolderID>2579cfd9-9d18-454d-bc0b-e34d9734a0d8</cbc:ContractFolderID>
+   <cbc:IssueDate>2023-11-29+01:00</cbc:IssueDate>
+   <cbc:IssueTime>16:53:23+01:00</cbc:IssueTime>
+   <cbc:VersionID>01</cbc:VersionID>
+   <cbc:RequestedPublicationDate>2023-12-01+01:00</cbc:RequestedPublicationDate>
+   <cbc:RegulatoryDomain>32009L0081</cbc:RegulatoryDomain>
+   <cbc:NoticeTypeCode listName="competition">cn-standard</cbc:NoticeTypeCode>
+   <cbc:NoticeLanguageCode listName="language">DEU</cbc:NoticeLanguageCode>
+   <cac:ContractingParty>
+      <cbc:BuyerProfileURI>https://vergabe.bwbm.de</cbc:BuyerProfileURI>
+      <cac:ContractingPartyType>
+         <cbc:PartyTypeCode listName="buyer-legal-type">def-cont</cbc:PartyTypeCode>
+      </cac:ContractingPartyType>
+      <cac:ContractingActivity>
+         <cbc:ActivityTypeCode listName="authority-activity">defence</cbc:ActivityTypeCode>
+      </cac:ContractingActivity>
+      <cac:Party>
+         <cac:PartyIdentification>
+            <cbc:ID schemeName="organization">ORG-7001</cbc:ID>
+         </cac:PartyIdentification>
+      <cac:ServiceProviderParty><cbc:ServiceTypeCode listName="organisation-role">ted-esen</cbc:ServiceTypeCode><cac:Party><cac:PartyIdentification><cbc:ID schemeName="organization">ORG-7005</cbc:ID></cac:PartyIdentification></cac:Party></cac:ServiceProviderParty></cac:Party>
+   </cac:ContractingParty>
+   <cac:TenderingTerms>
+      <cac:ProcurementLegislationDocumentReference>
+         <cbc:ID>vsvgv</cbc:ID>
+      </cac:ProcurementLegislationDocumentReference>
+      <cac:ProcurementLegislationDocumentReference>
+         <cbc:ID>CrossBorderLaw</cbc:ID>
+      </cac:ProcurementLegislationDocumentReference>
+      <cac:TendererQualificationRequest>
+         <cac:SpecificTendererRequirement>
+            <cbc:TendererRequirementTypeCode listName="exclusion-ground">nati-ground</cbc:TendererRequirementTypeCode>
+            <cbc:Description languageID="DEU">siehe Übersicht Geforderte Nachweise Abschnitt A</cbc:Description>
+         </cac:SpecificTendererRequirement>
+      </cac:TendererQualificationRequest>
+   </cac:TenderingTerms>
+   <cac:TenderingProcess>
+      <cbc:ProcedureCode listName="procurement-procedure-type">neg-w-call</cbc:ProcedureCode>
+      <cac:ProcessJustification>
+         <cbc:ProcessReasonCode listName="accelerated-procedure">false</cbc:ProcessReasonCode>
+      </cac:ProcessJustification>
+   </cac:TenderingProcess>
+   <cac:ProcurementProject>
+      <cbc:ID>BWBM-2023-0078</cbc:ID>
+      <cbc:Name languageID="DEU">Verschieberegalanlage</cbc:Name>
+      <cbc:Description languageID="DEU">Planung, Lieferung, Aufbau und Inbetriebnahme einer Verschieberegalanlage am Standort Walsrode sowie Wartung für einen Zeitraum von 36 Monaten mit optionaler Verlängerungsmöglichkeit von viermal 12 Monaten</cbc:Description>
+      <cbc:ProcurementTypeCode listName="contract-nature">supplies</cbc:ProcurementTypeCode>
+      <cbc:Note languageID="DEU">Teilnahmeanträge und Angebote sind einzureichen elektronisch via https://vergabe.bwbm.de (Bietercockpit).</cbc:Note>
+      <cac:MainCommodityClassification>
+         <cbc:ItemClassificationCode listName="cpv">39151100</cbc:ItemClassificationCode>
+      </cac:MainCommodityClassification>
+      <cac:AdditionalCommodityClassification>
+         <cbc:ItemClassificationCode listName="cpv">39141100</cbc:ItemClassificationCode>
+      </cac:AdditionalCommodityClassification>
+      <cac:AdditionalCommodityClassification>
+         <cbc:ItemClassificationCode listName="cpv">39131100</cbc:ItemClassificationCode>
+      </cac:AdditionalCommodityClassification>
+      <cac:RealizedLocation>
+         <cac:Address>
+            <cbc:StreetName>A27 Park Walsrode</cbc:StreetName>
+            <cbc:CityName>Walsrode</cbc:CityName>
+            <cbc:PostalZone>29664</cbc:PostalZone>
+            <cbc:CountrySubentityCode listName="nuts">DE938</cbc:CountrySubentityCode>
+            <cac:Country>
+               <cbc:IdentificationCode listName="country">DEU</cbc:IdentificationCode>
+            </cac:Country>
+         </cac:Address>
+      </cac:RealizedLocation>
+   </cac:ProcurementProject>
+   <cac:ProcurementProjectLot>
+      <cbc:ID schemeName="Lot">LOT-0000</cbc:ID>
+      <cac:TenderingTerms>
+         <ext:UBLExtensions>
+            <ext:UBLExtension>
+               <ext:ExtensionContent>
+                  <efext:EformsExtension>
+                     <efac:SelectionCriteria>
+                        <cbc:CriterionTypeCode listName="selection-criterion">sui-act</cbc:CriterionTypeCode>
+                        <cbc:Description languageID="DEU">a) Anschreiben Teilnahmeantrag, Das "Formblatt 1.) a) " ist zu verwenden.
+
+b) Angaben zur Bewerbergemeinschaft. Sofern zutreffend ist für die Erklärung das "Formblatt 1.) b) " zu verwenden.
+
+c) Erklärungen der Mitglieder von Bewerbergemeinschaften. Sofern zutreffend ist für die Erklärung das "Formblatt 1.) c) " zu verwenden.
+
+d) Eigenerklärungen zum Nachweis über das Nichtvorliegen von Ausschlussgründen gem. §123 und §124 GWB. Für die Erklärung ist das "Formblatt 1.) d)" zu verwenden.
+
+e) Erklärung, dass die Vorgaben der EU-Russland-Sanktionen auf Grundlage von Artikel 5k der Verordnung (EU) 2022/576 des Rates vom 8. April 2022 eingehalten werden. Für die Erklärung ist das "Formblatt 1.) e)" zu verwenden.
+
+f)  aktueller, vollständiger Handelsregisterauszug (nicht älter als 12 Monate bei Angebotsabgabe)
+
+h) Angabe der Nachunternehmer. Für die Erklärung ist das 
+"Formblatt 1.) h) " zu verwenden.
+
+i) von den Nachunternehmern unterzeichnete Eigenerklärungen zum Nachweis über das Nichtvorliegen von Ausschlussgründen gem. §123 und §124 GWB sofern Nachunternehmer für die Auftragsausführung zum Einsatz kommen sollen. Für die Erklärung ist das "Formblatt 1.) i)" zu verwenden.
+
+j) Verpflichtungserklärung der Nachunternehmer, sofern Nachunternehmer für die Auftragsausführung zum Einsatz kommen sollen. Für die Erklärung ist das "Formblatt 1.) j) Verpflichtungserklärung der Nachunternehmer" zu verwenden.</cbc:Description>
+                     </efac:SelectionCriteria>
+                     <efac:SelectionCriteria>
+                        <cbc:CriterionTypeCode listName="selection-criterion">ef-stand</cbc:CriterionTypeCode>
+                        <cbc:Description languageID="DEU">a) Eigenerklärung über den Gesamtumsatz netto des Unternehmens der letzten 3 Geschäftsjahre. Für die Erklärung ist das "Formblatt 2.) a) " zu verwenden. 
+Mindestanforderung:
+Durchschnittlicher Mindestumsatz (Gesamtumsatz) für die letzten 3 Geschäftsjahre:
+20 Mio. € netto 
+
+b) Eigenerklärung über den Umsatz bezüglich der besonderen Leistungsart, die Gegenstand der Vergabe ist der letzten 3 Geschäftsjahre. Für die Erklärung ist das "Formblatt 2.) b) " zu verwenden.
+
+c) Nachweis einer bestehenden Betriebs- und Produkthaftpflichtversicherung inkl. Angabe der jeweiligen Haftpflichtversicherungssumme insbesondere für Personen- und Sachschäden sowie Vermögensschäden durch entweder Vorlage der Bescheinigung einer bestehenden Versicherung oder Vorlage eines vorbehaltlosen verbindlichen Angebotes des Versicherers in deutscher Sprache oder mit beigefügter beglaubigter Übersetzung in die deutsche Sprache 
+Mindestdeckungssummen:
+Personen- und Sachschäden in Höhe von 10 Mio EUR je Schadensfall
+Vermögensschäden in Höhe von 1 Mio EUR je Schadensfall</cbc:Description>
+                     </efac:SelectionCriteria>
+                     <efac:SelectionCriteria>
+                        <cbc:CriterionTypeCode listName="selection-criterion">tp-abil</cbc:CriterionTypeCode>
+                        <cbc:Description languageID="DEU">a) Liste der wesentlichen in den letzten 5 Jahren erbrachten Leistungen des Bewerbers, die in Art und Umfang mit der ausgeschriebenen Leistung vergleichbar sind, mit Angabe des Leistungsinhalts (max. 5 DIN A 4 Seiten), des Leistungsumfangs, der Leistungszeit und Kontaktdaten zu den genannten Referenzen. 
+
+Mindestanforderung: 
+2 vergleichbare Unternehmensreferenzen in Höhe von je mindestens 5.000 Palettenstellplätzen
+
+b) Referenzen über innerhalb der letzten 5 Jahre erbrachte Leistungen der für die Auftragsausführung vorgesehenen Personen für Projektleitung und Montageleitung 
+
+Mindestanforderung Projektleiter/in: 
+3 Referenzen über Projektsteuerung für die Erstellung einer Verschieberegalanlage
+
+Mindestanforderung Montageleiter/in:
+3 Referenzen über Leitung einer Montage einer Verschieberegalanlage
+
+c) Nachweis eines bestehenden Qualitätsmanagements nach ISO 9001 des Bewerbers (Zertifikat oder gleichwertiger Nachweis)</cbc:Description>
+                     </efac:SelectionCriteria>
+                     <efac:TenderSubcontractingRequirements>
+                        <efbc:TenderSubcontractingRequirementsCode listName="subcontracting-indication">shar-subc</efbc:TenderSubcontractingRequirementsCode>
+                     </efac:TenderSubcontractingRequirements>
+                  </efext:EformsExtension>
+               </ext:ExtensionContent>
+            </ext:UBLExtension>
+         </ext:UBLExtensions>
+         <cbc:VariantConstraintCode listName="permission">not-allowed</cbc:VariantConstraintCode>
+         <cbc:FundingProgramCode listName="eu-funded">no-eu-funds</cbc:FundingProgramCode>
+         <cbc:RequiredCurriculaCode listName="requirement-stage">par-requ</cbc:RequiredCurriculaCode>
+         <cbc:RecurringProcurementIndicator>false</cbc:RecurringProcurementIndicator>
+         <cbc:MultipleTendersCode listName="permission">not-allowed</cbc:MultipleTendersCode>
+         <cac:RequiredFinancialGuarantee>
+            <cbc:GuaranteeTypeCode listName="tender-guarantee-required">true</cbc:GuaranteeTypeCode>
+            <cbc:Description languageID="DEU">siehe Vergabeunterlagen</cbc:Description>
+         </cac:RequiredFinancialGuarantee>
+         <cac:CallForTendersDocumentReference>
+            <cbc:ID>TenderDoc</cbc:ID>
+            <cbc:DocumentType>non-restricted-document</cbc:DocumentType>
+            <cbc:LanguageID>DEU</cbc:LanguageID>
+            <cac:Attachment>
+               <cac:ExternalReference>
+                  <cbc:URI>https://vergabe.bwbm.de/NetServer/TenderingProcedureDetails?function=_Details&amp;TenderOID=54321-Tender-18bf6b4c6f0-1d537280740c5de2</cbc:URI>
+               </cac:ExternalReference>
+            </cac:Attachment>
+         </cac:CallForTendersDocumentReference>
+         <cac:PaymentTerms>
+            <cbc:Note languageID="DEU">siehe Vergabeunterlagen</cbc:Note>
+         </cac:PaymentTerms>
+         <cac:TendererQualificationRequest>
+            <cbc:CompanyLegalFormCode listName="required">false</cbc:CompanyLegalFormCode>
+            <cbc:CompanyLegalForm languageID="DEU">vergleiche Vergabeunterlagen</cbc:CompanyLegalForm>
+         </cac:TendererQualificationRequest>
+         <cac:TendererQualificationRequest>
+            <cac:SpecificTendererRequirement>
+               <cbc:TendererRequirementTypeCode listName="missing-info-submission">late-all</cbc:TendererRequirementTypeCode>
+               <cbc:Description languageID="DEU">Die Nichtvorlage der zum Nachweis der Eignung geforderten Nachweise bis zum Ablauf der Teilnahmefrist führt nicht zum automatischen Ausschluss des Teilnahmeantrags. Die Vergabestelle behält sich vor, im Rahmen der Prüfung des Teilnahmeantrags unter Wahrung des Gleichbehandlungsgrundsatzes die lt. Vergabebekanntmachung geforderten und von den Bewerbern nicht oder nicht vollständig eingereichten Eignungsnachweise unter Setzung einer Frist kurzfristig (innerhalb von 2 bis 3 Tagen) nachzufordern. Es besteht kein Anspruch der Bewerber auf Nachforderung fehlender Nachweise durch die Vergabestelle.
+Die Nichtvorlage der zum Nachweis der Eignung geforderten Nachweise bis zum Ablauf der Nachfrist führt zum Ausschluss des Teilnahmeantrages.
+
+Im Rahmen der Angebotsabgabe wird die Nachforderung von Unterlagen teilweise ausgeschlossen sein.</cbc:Description>
+            </cac:SpecificTendererRequirement>
+         </cac:TendererQualificationRequest>
+         <cac:TendererQualificationRequest>
+            <cac:SpecificTendererRequirement>
+               <cbc:TendererRequirementTypeCode listName="reserved-procurement">none</cbc:TendererRequirementTypeCode>
+            </cac:SpecificTendererRequirement>
+         </cac:TendererQualificationRequest>
+         <cac:AllowedSubcontractTerms>
+            <cbc:SubcontractingConditionsCode listName="subcontracting-obligation">subc-chng</cbc:SubcontractingConditionsCode>
+         </cac:AllowedSubcontractTerms>
+         <cac:ContractExecutionRequirement>
+            <cbc:Description languageID="DEU">siehe Vergabeunterlagen</cbc:Description>
+         </cac:ContractExecutionRequirement>
+         <cac:ContractExecutionRequirement>
+            <cbc:ExecutionRequirementCode listName="reserved-execution">no</cbc:ExecutionRequirementCode>
+         </cac:ContractExecutionRequirement>
+         <cac:ContractExecutionRequirement>
+            <cbc:ExecutionRequirementCode listName="einvoicing">required</cbc:ExecutionRequirementCode>
+         </cac:ContractExecutionRequirement>
+         <cac:ContractExecutionRequirement>
+            <cbc:ExecutionRequirementCode listName="ecatalog-submission">not-allowed</cbc:ExecutionRequirementCode>
+         </cac:ContractExecutionRequirement>
+         <cac:AwardingTerms>
+            <cac:AwardingCriterion>
+               <cac:SubordinateAwardingCriterion>
+                  <ext:UBLExtensions>
+                     <ext:UBLExtension>
+                        <ext:ExtensionContent>
+                           <efext:EformsExtension>
+                              <efac:AwardCriterionParameter>
+                                 <efbc:ParameterCode listName="number-weight">per-exa</efbc:ParameterCode>
+                                 <efbc:ParameterNumeric>30.00</efbc:ParameterNumeric>
+                              </efac:AwardCriterionParameter>
+                           </efext:EformsExtension>
+                        </ext:ExtensionContent>
+                     </ext:UBLExtension>
+                  </ext:UBLExtensions>
+                  <cbc:AwardingCriterionTypeCode listName="award-criterion-type">quality</cbc:AwardingCriterionTypeCode>
+                  <cbc:Description languageID="DEU">Liefer- und Montagezeit</cbc:Description>
+               </cac:SubordinateAwardingCriterion>
+               <cac:SubordinateAwardingCriterion>
+                  <ext:UBLExtensions>
+                     <ext:UBLExtension>
+                        <ext:ExtensionContent>
+                           <efext:EformsExtension>
+                              <efac:AwardCriterionParameter>
+                                 <efbc:ParameterCode listName="number-weight">per-exa</efbc:ParameterCode>
+                                 <efbc:ParameterNumeric>70.00</efbc:ParameterNumeric>
+                              </efac:AwardCriterionParameter>
+                           </efext:EformsExtension>
+                        </ext:ExtensionContent>
+                     </ext:UBLExtension>
+                  </ext:UBLExtensions>
+                  <cbc:AwardingCriterionTypeCode listName="award-criterion-type">price</cbc:AwardingCriterionTypeCode>
+                  <cbc:Description languageID="DEU">Preis</cbc:Description>
+               </cac:SubordinateAwardingCriterion>
+            </cac:AwardingCriterion>
+         </cac:AwardingTerms>
+         <cac:AdditionalInformationParty>
+            <cac:PartyIdentification>
+               <cbc:ID schemeName="organization">ORG-7001</cbc:ID>
+            </cac:PartyIdentification>
+         </cac:AdditionalInformationParty>
+         <cac:TenderRecipientParty>
+            <cbc:EndpointID>https://vergabe.bwbm.de</cbc:EndpointID>
+            <cac:PartyIdentification>
+               <cbc:ID schemeName="organization">ORG-7001</cbc:ID>
+            </cac:PartyIdentification>
+         </cac:TenderRecipientParty>
+         <cac:AppealTerms>
+            <cac:PresentationPeriod>
+               <cbc:Description languageID="DEU">§ 160 GWB Einleitung, Antrag
+(1) Die Vergabekammer leitet ein Nachprüfungsverfahren nur auf Antrag ein.
+(2) Antragsbefugt ist jedes Unternehmen, das ein Interesse an dem öffentlichen Auftrag oder der Konzession hat und eine Verletzung in seinen Rechten nach § 97 Absatz 6 durch Nichtbeachtung von Vergabevorschriften geltend macht. Dabei ist darzulegen, dass dem Unternehmen durch die behauptete Verletzung der Vergabevorschriften ein Schaden entstanden ist oder zu entstehen droht.
+(3) Der Antrag ist unzulässig, soweit 1. der Antragsteller den geltend gemachten Verstoß gegen Vergabevorschriften vor Einreichen des Nachprüfungsantrags erkannt und gegenüber dem Auftraggeber nicht innerhalb einer Frist von zehn Kalendertagen gerügt hat; der Ablauf der Frist nach § 134 Absatz 2 bleibt unberührt, 2. Verstöße gegen Vergabevorschriften, die aufgrund der Bekanntmachung erkennbar sind, nicht spätestens bis zum Ablauf der in der Bekanntmachung benannten Frist zur Bewerbung oder zur Angebotsabgabe gegenüber dem Auftraggeber gerügt werden,
+3. Verstöße gegen Vergabevorschriften, die erst in den Vergabeunterlagen erkennbar sind, nicht spätestens bis zum Ablauf der Frist zur Bewerbung oder zur Angebotsabgabe gegenüber dem Auftraggeber gerügt werden,
+4. mehr als 15 Kalendertage nach Eingang der Mitteilung des Auftraggebers, einer Rüge nicht abhelfen zu wollen, vergangen sind. Satz 1 gilt nicht bei einem Antrag auf Feststellung der Unwirksamkeit des Vertrags nach § 135 Absatz 1 Nummer 2. § 134 Absatz 1 Satz 2 bleibt unberührt.</cbc:Description>
+            </cac:PresentationPeriod>
+            <cac:AppealReceiverParty>
+               <cac:PartyIdentification>
+                  <cbc:ID schemeName="organization">ORG-7004</cbc:ID>
+               </cac:PartyIdentification>
+            </cac:AppealReceiverParty>
+         </cac:AppealTerms>
+         <cac:Language>
+            <cbc:ID>DEU</cbc:ID>
+         </cac:Language>
+         <cac:PostAwardProcess>
+            <cbc:ElectronicOrderUsageIndicator>true</cbc:ElectronicOrderUsageIndicator>
+            <cbc:ElectronicPaymentUsageIndicator>true</cbc:ElectronicPaymentUsageIndicator>
+         </cac:PostAwardProcess>
+      </cac:TenderingTerms>
+      <cac:TenderingProcess>
+         <cbc:SubmissionMethodCode listName="esubmission">allowed</cbc:SubmissionMethodCode>
+         <cbc:CandidateReductionConstraintIndicator>true</cbc:CandidateReductionConstraintIndicator>
+         <cbc:AccessToolsURI>https://vergabe.bwbm.de</cbc:AccessToolsURI>
+         <cac:ParticipationRequestReceptionPeriod>
+            <cbc:EndDate>2024-01-03+01:00</cbc:EndDate>
+            <cbc:EndTime>10:00:00+01:00</cbc:EndTime>
+         </cac:ParticipationRequestReceptionPeriod>
+         <cac:AuctionTerms>
+            <cbc:AuctionConstraintIndicator>false</cbc:AuctionConstraintIndicator>
+         </cac:AuctionTerms>
+         <cac:ContractingSystem>
+            <cbc:ContractingSystemTypeCode listName="framework-agreement">none</cbc:ContractingSystemTypeCode>
+         </cac:ContractingSystem>
+      </cac:TenderingProcess>
+      <cac:ProcurementProject>
+         <cbc:Name languageID="DEU">Verschieberegalanlage</cbc:Name>
+         <cbc:Description languageID="DEU">Lieferung und Montage (einschließlich Planung und Inbetriebnahme) einer Verschieberegalanlage für die Lagerung von palettierter Bekleidung und persönlicher Ausrüstung im Warendienstleistungszentrum Walsrode einschließlich Fahrwagen und Steuerungssoftware sowie Wartung dazu für einen Zeitraum von 36 Monaten mit optionaler Verlängerungsmöglichkeit von viermal 12 Monaten</cbc:Description>
+         <cbc:ProcurementTypeCode listName="contract-nature">supplies</cbc:ProcurementTypeCode>
+         <cbc:Note languageID="DEU">Präzisierung zu Anforderungen: Namen und Qualifikation des für die Auftragsausführung eingesetzten Personals:
+Mit dem Teilnahmeantrag sind Name und Referenzen des vorgesehenen Projektleiters/der Projektleiterin und des vorgesehenen Montageleiters/der Montageleiterin anzugeben.
+
+Ergänzung zu Geschätzte Laufzeit: Bei dem mit 28.2.2025 genannten Datum für das Ende der Vertragslaufzeit handelt es sich um den vom AG angestrebten Termin der Fertigstellung der Verschieberegalanlage einschließlich Montage und Endabnahme. Angebote werden nicht ausgeschlossen, sofern mit Fertigstellungstermin nach dem 28.2.2025 angeboten werden sollte, detaillierte Informationen siehe Vergabeunterlagen.
+
+ausgesuchte Termine des Vergabeverfahrens siehe Unterlagen des Teilnahmewettbewerbs</cbc:Note>
+         <cbc:SMESuitableIndicator>false</cbc:SMESuitableIndicator>
+         <cac:ProcurementAdditionalType>
+            <cbc:ProcurementTypeCode listName="strategic-procurement">none</cbc:ProcurementTypeCode>
+         </cac:ProcurementAdditionalType>
+         <cac:MainCommodityClassification>
+            <cbc:ItemClassificationCode listName="cpv">39151100</cbc:ItemClassificationCode>
+         </cac:MainCommodityClassification>
+         <cac:AdditionalCommodityClassification>
+            <cbc:ItemClassificationCode listName="cpv">39141100</cbc:ItemClassificationCode>
+         </cac:AdditionalCommodityClassification>
+         <cac:AdditionalCommodityClassification>
+            <cbc:ItemClassificationCode listName="cpv">39131100</cbc:ItemClassificationCode>
+         </cac:AdditionalCommodityClassification>
+         <cac:RealizedLocation>
+            <cac:Address>
+               <cbc:StreetName>A27 Park Walsrode</cbc:StreetName>
+               <cbc:CityName>Walsrode</cbc:CityName>
+               <cbc:PostalZone>29664</cbc:PostalZone>
+               <cbc:CountrySubentityCode listName="nuts">DE938</cbc:CountrySubentityCode>
+               <cac:Country>
+                  <cbc:IdentificationCode listName="country">DEU</cbc:IdentificationCode>
+               </cac:Country>
+            </cac:Address>
+         </cac:RealizedLocation>
+         <cac:PlannedPeriod>
+            <cbc:StartDate>2024-05-08+02:00</cbc:StartDate>
+            <cbc:EndDate>2025-02-28+01:00</cbc:EndDate>
+         </cac:PlannedPeriod>
+         <cac:ContractExtension>
+            <cbc:OptionsDescription languageID="DEU">Ersatzteile für die Verschieberegalanlage sowie Verlängerung des Wartungsvertrages</cbc:OptionsDescription>
+            <cbc:MaximumNumberNumeric>4</cbc:MaximumNumberNumeric>
+            <cac:Renewal>
+               <cac:Period>
+                  <cbc:Description languageID="DEU">Der Wartungsvertrag kann optional bis viermal um jeweils zwölf Monate verlängert werden.</cbc:Description>
+               </cac:Period>
+            </cac:Renewal>
+         </cac:ContractExtension>
+      </cac:ProcurementProject>
+   </cac:ProcurementProjectLot>
+</ContractNotice>

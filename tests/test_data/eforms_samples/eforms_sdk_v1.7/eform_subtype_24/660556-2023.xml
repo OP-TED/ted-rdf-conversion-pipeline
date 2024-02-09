@@ -1,0 +1,403 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><ContractNotice xmlns="urn:oasis:names:specification:ubl:schema:xsd:ContractNotice-2" xmlns:cac="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2" xmlns:cbc="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2" xmlns:efac="http://data.europa.eu/p27/eforms-ubl-extension-aggregate-components/1" xmlns:efbc="http://data.europa.eu/p27/eforms-ubl-extension-basic-components/1" xmlns:efext="http://data.europa.eu/p27/eforms-ubl-extensions/1" xmlns:ext="urn:oasis:names:specification:ubl:schema:xsd:CommonExtensionComponents-2">
+  <ext:UBLExtensions>
+    <ext:UBLExtension>
+      <ext:ExtensionContent>
+        <efext:EformsExtension>
+          <efbc:TransmissionDate>2023-10-27+00:00</efbc:TransmissionDate>
+          <efbc:TransmissionTime>07:06:44+00:00</efbc:TransmissionTime>
+          <efac:NoticeSubType>
+            <cbc:SubTypeCode listName="notice-subtype">24</cbc:SubTypeCode>
+          </efac:NoticeSubType>
+          <efac:Organizations>
+            <efac:Organization>
+              <efbc:GroupLeadIndicator>true</efbc:GroupLeadIndicator>
+              <efbc:AcquiringCPBIndicator>false</efbc:AcquiringCPBIndicator>
+              <efbc:AwardingCPBIndicator>true</efbc:AwardingCPBIndicator>
+              <efac:Company>
+                <cbc:WebsiteURI>http://www.vayla.fi</cbc:WebsiteURI>
+                <cac:PartyIdentification>
+                  <cbc:ID schemeName="organization">ORG-0001</cbc:ID>
+                </cac:PartyIdentification>
+                <cac:PartyName>
+                  <cbc:Name languageID="FIN">Väylävirasto</cbc:Name>
+                </cac:PartyName>
+                <cac:PostalAddress>
+                  <cbc:StreetName>PL 33 (Opastinsilta 12 A)</cbc:StreetName>
+                  <cbc:CityName>HELSINKI</cbc:CityName>
+                  <cbc:PostalZone>00521</cbc:PostalZone>
+                  <cbc:CountrySubentityCode listName="nuts">FI1B1</cbc:CountrySubentityCode>
+                  <cac:Country>
+                    <cbc:IdentificationCode listName="country">FIN</cbc:IdentificationCode>
+                  </cac:Country>
+                </cac:PostalAddress>
+                <cac:PartyLegalEntity>
+                  <cbc:CompanyID schemeID="002">1010547-1</cbc:CompanyID>
+                </cac:PartyLegalEntity>
+                <cac:Contact>
+                  <cbc:Name>Mikko Heiskanen</cbc:Name>
+                  <cbc:Telephone>+358 295343808</cbc:Telephone>
+                  <cbc:ElectronicMail>mikko.heiskanen@vayla.fi</cbc:ElectronicMail>
+                </cac:Contact>
+              </efac:Company>
+            </efac:Organization>
+            <efac:Organization>
+              <efbc:GroupLeadIndicator>false</efbc:GroupLeadIndicator>
+              <efbc:AcquiringCPBIndicator>false</efbc:AcquiringCPBIndicator>
+              <efbc:AwardingCPBIndicator>false</efbc:AwardingCPBIndicator>
+              <efac:Company>
+                <cac:PartyIdentification>
+                  <cbc:ID schemeName="organization">ORG-0002</cbc:ID>
+                </cac:PartyIdentification>
+                <cac:PartyName>
+                  <cbc:Name languageID="FIN">Sastamalan kaupunki</cbc:Name>
+                </cac:PartyName>
+                <cac:PostalAddress>
+                  <cbc:CityName>Sastamala</cbc:CityName>
+                  <cbc:CountrySubentityCode listName="nuts">FI197</cbc:CountrySubentityCode>
+                  <cac:Country>
+                    <cbc:IdentificationCode listName="country">FIN</cbc:IdentificationCode>
+                  </cac:Country>
+                </cac:PostalAddress>
+                <cac:PartyLegalEntity>
+                  <cbc:CompanyID schemeID="002">0144411-3</cbc:CompanyID>
+                </cac:PartyLegalEntity>
+                <cac:Contact>
+                  <cbc:Name>Kimmo Toukoniemi</cbc:Name>
+                  <cbc:Telephone>+358 406842716</cbc:Telephone>
+                  <cbc:ElectronicMail>kimmo.toukoniemi@sastamala.fi</cbc:ElectronicMail>
+                </cac:Contact>
+              </efac:Company>
+            </efac:Organization>
+            <efac:Organization>
+              <efac:Company>
+                <cbc:WebsiteURI>http://www.oikeus.fi/markkinaoikeus</cbc:WebsiteURI>
+                <cac:PartyIdentification>
+                  <cbc:ID schemeName="organization">ORG-0003</cbc:ID>
+                </cac:PartyIdentification>
+                <cac:PartyName>
+                  <cbc:Name languageID="FIN">Markkinaoikeus</cbc:Name>
+                </cac:PartyName>
+                <cac:PostalAddress>
+                  <cbc:StreetName>Radanrakentajantie 5</cbc:StreetName>
+                  <cbc:CityName>Helsinki</cbc:CityName>
+                  <cbc:PostalZone>00520</cbc:PostalZone>
+                  <cbc:CountrySubentityCode listName="nuts">FI1B1</cbc:CountrySubentityCode>
+                  <cac:Country>
+                    <cbc:IdentificationCode listName="country">FIN</cbc:IdentificationCode>
+                  </cac:Country>
+                </cac:PostalAddress>
+                <cac:PartyLegalEntity>
+                  <cbc:CompanyID schemeID="002">3006157-6</cbc:CompanyID>
+                </cac:PartyLegalEntity>
+                <cac:Contact>
+                  <cbc:Telephone>+358 295643300</cbc:Telephone>
+                  <cbc:ElectronicMail>markkinaoikeus@oikeus.fi</cbc:ElectronicMail>
+                </cac:Contact>
+              </efac:Company>
+            </efac:Organization>
+            <efac:Organization>
+              <efac:Company>
+                <cbc:WebsiteURI>http://hankintailmoitukset.fi</cbc:WebsiteURI>
+                <cac:PartyIdentification>
+                  <cbc:ID schemeName="organization">ORG-0004</cbc:ID>
+                </cac:PartyIdentification>
+                <cac:PartyName>
+                  <cbc:Name languageID="FIN">Hansel Oy (Hilma)</cbc:Name>
+                </cac:PartyName>
+                <cac:PostalAddress>
+                  <cbc:StreetName>Mannerheiminaukio 1a</cbc:StreetName>
+                  <cbc:CityName>Helsinki</cbc:CityName>
+                  <cbc:PostalZone>00100</cbc:PostalZone>
+                  <cbc:CountrySubentityCode listName="nuts">FI1B1</cbc:CountrySubentityCode>
+                  <cac:Country>
+                    <cbc:IdentificationCode listName="country">FIN</cbc:IdentificationCode>
+                  </cac:Country>
+                </cac:PostalAddress>
+                <cac:PartyLegalEntity>
+                  <cbc:CompanyID schemeID="002">0988084-1</cbc:CompanyID>
+                </cac:PartyLegalEntity>
+                <cac:Contact>
+                  <cbc:Name>eSender</cbc:Name>
+                  <cbc:Telephone>029 55 636 30</cbc:Telephone>
+                  <cbc:ElectronicMail>tekninen@hankintailmoitukset.fi</cbc:ElectronicMail>
+                </cac:Contact>
+              </efac:Company>
+            </efac:Organization>
+          </efac:Organizations>
+        <efac:Publication><efbc:NoticePublicationID schemeName="ojs-notice-id">00660556-2023</efbc:NoticePublicationID><efbc:GazetteID schemeName="ojs-id">209/2023</efbc:GazetteID><efbc:PublicationDate>2023-10-30Z</efbc:PublicationDate></efac:Publication></efext:EformsExtension>
+      </ext:ExtensionContent>
+    </ext:UBLExtension>
+  </ext:UBLExtensions>
+  <cbc:UBLVersionID>2.3</cbc:UBLVersionID>
+  <cbc:CustomizationID>eforms-sdk-1.7</cbc:CustomizationID>
+  <cbc:ID schemeName="notice-id">c2aa718d-75e5-437e-9d30-0bc875953798</cbc:ID>
+  <cbc:ContractFolderID>c226fb95-44f1-4e68-80e6-f4420a00b5d0</cbc:ContractFolderID>
+  <cbc:IssueDate>2023-10-27+00:00</cbc:IssueDate>
+  <cbc:IssueTime>07:04:40+00:00</cbc:IssueTime>
+  <cbc:VersionID>01</cbc:VersionID>
+  <cbc:RegulatoryDomain>32014L0025</cbc:RegulatoryDomain>
+  <cbc:NoticeTypeCode listName="competition">cn-desg</cbc:NoticeTypeCode>
+  <cbc:NoticeLanguageCode>FIN</cbc:NoticeLanguageCode>
+  <cac:ContractingParty>
+    <cac:ContractingPartyType>
+      <cbc:PartyTypeCode listName="buyer-legal-type">cga</cbc:PartyTypeCode>
+    </cac:ContractingPartyType>
+    <cac:ContractingActivity>
+      <cbc:ActivityTypeCode listName="authority-activity">gen-pub</cbc:ActivityTypeCode>
+    </cac:ContractingActivity>
+    <cac:ContractingActivity>
+      <cbc:ActivityTypeCode listName="entity-activity">rail</cbc:ActivityTypeCode>
+    </cac:ContractingActivity>
+    <cac:Party>
+      <cac:PartyIdentification>
+        <cbc:ID schemeName="organization">ORG-0001</cbc:ID>
+      </cac:PartyIdentification>
+      <cac:ServiceProviderParty>
+        <cbc:ServiceTypeCode listName="organisation-role">ted-esen</cbc:ServiceTypeCode>
+        <cac:Party>
+          <cac:PartyIdentification>
+            <cbc:ID schemeName="organization">ORG-0004</cbc:ID>
+          </cac:PartyIdentification>
+        </cac:Party>
+      </cac:ServiceProviderParty>
+    </cac:Party>
+  </cac:ContractingParty>
+  <cac:ContractingParty>
+    <cac:ContractingPartyType>
+      <cbc:PartyTypeCode listName="buyer-legal-type">la</cbc:PartyTypeCode>
+    </cac:ContractingPartyType>
+    <cac:ContractingActivity>
+      <cbc:ActivityTypeCode listName="authority-activity">gen-pub</cbc:ActivityTypeCode>
+    </cac:ContractingActivity>
+    <cac:ContractingActivity>
+      <cbc:ActivityTypeCode listName="entity-activity">rail</cbc:ActivityTypeCode>
+    </cac:ContractingActivity>
+    <cac:Party>
+      <cac:PartyIdentification>
+        <cbc:ID schemeName="organization">ORG-0002</cbc:ID>
+      </cac:PartyIdentification>
+      <cac:ServiceProviderParty>
+        <cbc:ServiceTypeCode listName="organisation-role">ted-esen</cbc:ServiceTypeCode>
+        <cac:Party>
+          <cac:PartyIdentification>
+            <cbc:ID schemeName="organization">ORG-0004</cbc:ID>
+          </cac:PartyIdentification>
+        </cac:Party>
+      </cac:ServiceProviderParty>
+    </cac:Party>
+  </cac:ContractingParty>
+  <cac:TenderingTerms>
+    <cac:TendererQualificationRequest>
+      <cac:SpecificTendererRequirement>
+        <cbc:TendererRequirementTypeCode listName="exclusion-ground">bankr-nat</cbc:TendererRequirementTypeCode>
+        <cbc:Description languageID="FIN">Tarjoaja kansalliseen lainsäädäntöön ja kansallisiin määräyksiin perustuvasta samankaltaisesta menettelystä johtuvassa konkurssissa tai muuta sellaista vastaavassa tilanteessa.</cbc:Description>
+      </cac:SpecificTendererRequirement>
+      <cac:SpecificTendererRequirement>
+        <cbc:TendererRequirementTypeCode listName="exclusion-ground">bankruptcy</cbc:TendererRequirementTypeCode>
+        <cbc:Description languageID="FIN">Tarjoaja on konkurssissa.</cbc:Description>
+      </cac:SpecificTendererRequirement>
+      <cac:SpecificTendererRequirement>
+        <cbc:TendererRequirementTypeCode listName="exclusion-ground">corruption</cbc:TendererRequirementTypeCode>
+        <cbc:Description languageID="FIN">Tarjoajalle itselleen tai mille tahansa henkilölle, joka on sen hallinto- , johto- tai valvontaelimen jäsen tai jolla on siinä päätös-, edustus- tai valvontavaltaa, annettu lahjonnasta lainvoimainen tuomio, joka on annettu enintään viisi vuotta sitten tai jolla suoraan vahvistettu poissulkeminen on edelleen voimassa.</cbc:Description>
+      </cac:SpecificTendererRequirement>
+      <cac:SpecificTendererRequirement>
+        <cbc:TendererRequirementTypeCode listName="exclusion-ground">cred-arran</cbc:TendererRequirementTypeCode>
+        <cbc:Description languageID="FIN">Tarjoajalla järjestelyjä velkojien kanssa.</cbc:Description>
+      </cac:SpecificTendererRequirement>
+      <cac:SpecificTendererRequirement>
+        <cbc:TendererRequirementTypeCode listName="exclusion-ground">crime-org</cbc:TendererRequirementTypeCode>
+        <cbc:Description languageID="FIN">Tarjoajalle itselleen tai mille tahansa henkilölle, joka on sen hallinto- , johto- tai valvontaelimen jäsen tai jolla on siinä päätös-, edustus- tai valvontavaltaa, annettu rikollisjärjestön toimintaan osallistumisesta lainvoimainen tuomio, joka on annettu enintään viisi vuotta sitten tai jolla suoraan vahvistettu poissulkeminen on edelleen voimassa.</cbc:Description>
+      </cac:SpecificTendererRequirement>
+      <cac:SpecificTendererRequirement>
+        <cbc:TendererRequirementTypeCode listName="exclusion-ground">distorsion</cbc:TendererRequirementTypeCode>
+        <cbc:Description languageID="FIN">Tarjoaja tehnyt muiden tarjoajien kanssa sopimuksia, joilla pyritään vääristämään kilpailua.</cbc:Description>
+      </cac:SpecificTendererRequirement>
+      <cac:SpecificTendererRequirement>
+        <cbc:TendererRequirementTypeCode listName="exclusion-ground">envir-law</cbc:TendererRequirementTypeCode>
+        <cbc:Description languageID="FIN">Tarjoaja rikkonut oman tietonsa mukaan ympäristölainsäädännön mukaisia velvoitteitaan.</cbc:Description>
+      </cac:SpecificTendererRequirement>
+      <cac:SpecificTendererRequirement>
+        <cbc:TendererRequirementTypeCode listName="exclusion-ground">finan-laund</cbc:TendererRequirementTypeCode>
+        <cbc:Description languageID="FIN">Tarjoajalle itselleen tai mille tahansa henkilölle, joka on sen hallinto- , johto- tai valvontaelimen jäsen tai jolla on siinä päätös-, edustus- tai valvontavaltaa, annettu rahanpesusta tai terrorismin rahoituksesta lainvoimainen tuomio, joka on annettu enintään viisi vuotta sitten tai jolla suoraan vahvistettu poissulkeminen on edelleen voimassa.</cbc:Description>
+      </cac:SpecificTendererRequirement>
+      <cac:SpecificTendererRequirement>
+        <cbc:TendererRequirementTypeCode listName="exclusion-ground">fraud</cbc:TendererRequirementTypeCode>
+        <cbc:Description languageID="FIN">Tarjoajalle itselleen tai mille tahansa henkilölle, joka on sen hallinto- , johto- tai valvontaelimen jäsen tai jolla on siinä päätös-, edustus- tai valvontavaltaa, annettu petoksesta lainvoimainen tuomio, joka on annettu enintään viisi vuotta sitten tai jolla suoraan vahvistettu poissulkeminen on edelleen voimassa.</cbc:Description>
+      </cac:SpecificTendererRequirement>
+      <cac:SpecificTendererRequirement>
+        <cbc:TendererRequirementTypeCode listName="exclusion-ground">human-traffic</cbc:TendererRequirementTypeCode>
+        <cbc:Description languageID="FIN">Tarjoajalle itselleen tai mille tahansa henkilölle, joka on sen hallinto- , johto- tai valvontaelimen jäsen tai jolla on siinä päätös-, edustus- tai valvontavaltaa, annettu lapsityövoiman käytöstä tai muista ihmiskaupan muodoista lainvoimainen tuomio, joka on annettu enintään viisi vuotta sitten tai jolla suoraan vahvistettu poissulkeminen on edelleen voimassa.</cbc:Description>
+      </cac:SpecificTendererRequirement>
+      <cac:SpecificTendererRequirement>
+        <cbc:TendererRequirementTypeCode listName="exclusion-ground">insolvency</cbc:TendererRequirementTypeCode>
+        <cbc:Description languageID="FIN">Tarjoajan osalta käynnistetty maksukyvyttömyys- tai likvidaatiomenettelyjä.</cbc:Description>
+      </cac:SpecificTendererRequirement>
+      <cac:SpecificTendererRequirement>
+        <cbc:TendererRequirementTypeCode listName="exclusion-ground">labour-law</cbc:TendererRequirementTypeCode>
+        <cbc:Description languageID="FIN">Tarjoaja rikkonut oman tietonsa mukaan työlainsäädännön mukaisia velvoitteitaan.</cbc:Description>
+      </cac:SpecificTendererRequirement>
+      <cac:SpecificTendererRequirement>
+        <cbc:TendererRequirementTypeCode listName="exclusion-ground">liq-admin</cbc:TendererRequirementTypeCode>
+        <cbc:Description languageID="FIN">Tarjoajan varat selvitysmiehen tai tuomioistuimen hallinnassa.</cbc:Description>
+      </cac:SpecificTendererRequirement>
+      <cac:SpecificTendererRequirement>
+        <cbc:TendererRequirementTypeCode listName="exclusion-ground">misrepresent</cbc:TendererRequirementTypeCode>
+        <cbc:Description languageID="FIN">Tarjoajaa koskee jokin seuraavista tilanteista? a) on syyllistynyt vakavaan väärään tulkintaan antaessaan poissulkemisperusteiden puuttumisen tai valintaperusteiden täyttymisen tarkistamiseen vaadittuja tietoja, b) on jättänyt antamatta tällaisia tietoja, c) ei ole kyennyt toimittamaan viiveettä hankintaviranomaisen tai -yksikön vaatimia liiteasiakirjoja, ja d) on yrittänyt vaikuttaa hankintaviranomaisen tai -yksikön päätöksentekoprosessiin asiattomalla tavalla tai hankkinut luottamuksellista tietoa, joista voisi olla sille hankintamenettelyssä asiaankuulumatonta etua, taikka on tuottamuksellisesti toimittanut harhaanjohtavia tietoja, joilla voi olla merkittävä vaikutus poissulkemista, valintaa tai myöntämistä koskeviin päätöksiin.</cbc:Description>
+      </cac:SpecificTendererRequirement>
+      <cac:SpecificTendererRequirement>
+        <cbc:TendererRequirementTypeCode listName="exclusion-ground">nati-ground</cbc:TendererRequirementTypeCode>
+        <cbc:Description languageID="FIN">Tarjoajan hallinto-, johto- tai valvontaelimen jäsen tai edustus-, päätös- tai valvontavaltaa käyttävää henkilöä lainvoimaisella tuomiolla tuomittu työturvallisuusrikoksesta, työaikasuojelurikoksesta, työsyrjinnästä, kiskonnantapaisesta työsyrjinnästä, työntekijöiden järjestäytymisvapauden loukkaamisesta tai luvattoman ulkomaisen työvoiman käytöstä.</cbc:Description>
+      </cac:SpecificTendererRequirement>
+      <cac:SpecificTendererRequirement>
+        <cbc:TendererRequirementTypeCode listName="exclusion-ground">partic-confl</cbc:TendererRequirementTypeCode>
+        <cbc:Description languageID="FIN">Tarjoaja tietoinen eturistiriidoista, joita sen hankintamenettelyyn osallistumisesta aiheutuu kansallisen lainsäädännön, asiaankuuluvan hankintailmoituksen tai hankinta-asiakirjojen perusteella.</cbc:Description>
+      </cac:SpecificTendererRequirement>
+      <cac:SpecificTendererRequirement>
+        <cbc:TendererRequirementTypeCode listName="exclusion-ground">prep-confl</cbc:TendererRequirementTypeCode>
+        <cbc:Description languageID="FIN">Tarjoaja tai tarjoajaan liittyvä yritys antanut hankintaviranomaiselle tai –yksikölle neuvoja tai muulla tavoin osallistunut hankintamenettelyn valmisteluun.</cbc:Description>
+      </cac:SpecificTendererRequirement>
+      <cac:SpecificTendererRequirement>
+        <cbc:TendererRequirementTypeCode listName="exclusion-ground">prof-misconduct</cbc:TendererRequirementTypeCode>
+        <cbc:Description languageID="FIN">Tarjoaja syyllistynyt ammatin harjoittamiseen liittyvään vakavaan virheeseen.</cbc:Description>
+      </cac:SpecificTendererRequirement>
+      <cac:SpecificTendererRequirement>
+        <cbc:TendererRequirementTypeCode listName="exclusion-ground">sanction</cbc:TendererRequirementTypeCode>
+        <cbc:Description languageID="FIN">Tarjoajalla kokemuksia siitä, että aikaisempi hankintasopimus, hankintayksikön kanssa tehty aikaisempi hankintasopimus tai aikaisempi käyttöoikeussopimus on irtisanottu ennenaikaisesti tai että kyseisen aikaisemman sopimuksen yhteydessä on vaadittu vahingonkorvauksia tai määrätty muita vastaavia seuraamuksia.</cbc:Description>
+      </cac:SpecificTendererRequirement>
+      <cac:SpecificTendererRequirement>
+        <cbc:TendererRequirementTypeCode listName="exclusion-ground">socsec-law</cbc:TendererRequirementTypeCode>
+        <cbc:Description languageID="FIN">Tarjoaja rikkonut oman tietonsa mukaan sosiaalilainsäädännön mukaisia velvoitteitaan.</cbc:Description>
+      </cac:SpecificTendererRequirement>
+      <cac:SpecificTendererRequirement>
+        <cbc:TendererRequirementTypeCode listName="exclusion-ground">socsec-pay</cbc:TendererRequirementTypeCode>
+        <cbc:Description languageID="FIN">Tarjoaja rikkonut sosiaaliturvamaksujen maksamiseen liittyviä velvoitteitaan joko maassa, johon toimija on sijoittautunut, tai hankintaviranomaisen tai -yksikön jäsenvaltiossa, jos se on muu kuin sijoittautumismaa.</cbc:Description>
+      </cac:SpecificTendererRequirement>
+      <cac:SpecificTendererRequirement>
+        <cbc:TendererRequirementTypeCode listName="exclusion-ground">susp-act</cbc:TendererRequirementTypeCode>
+        <cbc:Description languageID="FIN">Tarjoajan liiketoiminta keskeytetty.</cbc:Description>
+      </cac:SpecificTendererRequirement>
+      <cac:SpecificTendererRequirement>
+        <cbc:TendererRequirementTypeCode listName="exclusion-ground">tax-pay</cbc:TendererRequirementTypeCode>
+        <cbc:Description languageID="FIN">Tarjoaja rikkonut verojen maksamiseen liittyviä velvoitteitaan joko maassa, johon toimija on sijoittautunut, tai hankintaviranomaisen tai -yksikön jäsenvaltiossa, jos se on muu kuin sijoittautumismaa.</cbc:Description>
+      </cac:SpecificTendererRequirement>
+      <cac:SpecificTendererRequirement>
+        <cbc:TendererRequirementTypeCode listName="exclusion-ground">terr-offence</cbc:TendererRequirementTypeCode>
+        <cbc:Description languageID="FIN">Tarjoajalle itselleen tai mille tahansa henkilölle, joka on sen hallinto- , johto- tai valvontaelimen jäsen tai jolla on siinä päätös-, edustus- tai valvontavaltaa, annettu terrorismirikoksesta tai terroritoimintaan liittyvästä rikoksesta lainvoimainen tuomio, joka on annettu enintään viisi vuotta sitten tai jolla suoraan vahvistettu poissulkeminen on edelleen voimassa.</cbc:Description>
+      </cac:SpecificTendererRequirement>
+    </cac:TendererQualificationRequest>
+  </cac:TenderingTerms>
+  <cac:TenderingProcess>
+    <cbc:ProcedureCode listName="procurement-procedure-type">open</cbc:ProcedureCode>
+  </cac:TenderingProcess>
+  <cac:ProcurementProject>
+    <cbc:ID schemeName="InternalID">VÄYLÄ/6323/02.01.00/2023</cbc:ID>
+    <cbc:Name languageID="FIN">TAPO RaS ja KS suunnittelu Vammalan liikennepaikan kehittäminen</cbc:Name>
+    <cbc:Description languageID="FIN">TAPO RaS ja KS Vammalan liikennepaikan kehittäminen</cbc:Description>
+    <cbc:ProcurementTypeCode listName="contract-nature">services</cbc:ProcurementTypeCode>
+    <cbc:Note languageID="FIN">Työ sisältää ratasuunnitelman ja katusuunnitelman laatimisen Vammalan liikennepaikan kehittämisestä mukaan lukien tarvittavien maaperä- ja laboratoriotutkimusten suorittamisen.</cbc:Note>
+    <cac:MainCommodityClassification>
+      <cbc:ItemClassificationCode listName="cpv">71320000</cbc:ItemClassificationCode>
+    </cac:MainCommodityClassification>
+  </cac:ProcurementProject>
+  <cac:ProcurementProjectLot>
+    <cbc:ID schemeName="Lot">LOT-0000</cbc:ID>
+    <cac:TenderingTerms>
+      <ext:UBLExtensions>
+        <ext:UBLExtension>
+          <ext:ExtensionContent>
+            <efext:EformsExtension>
+              <efac:SelectionCriteria>
+                <cbc:CriterionTypeCode listName="selection-criterion">ef-stand</cbc:CriterionTypeCode>
+                <cbc:Name languageID="FIN">Vaatimukset taloudellisesta ja rahoituksellisesta tilanteesta.</cbc:Name>
+                <cbc:CalculationExpressionCode listName="usage">used</cbc:CalculationExpressionCode>
+              </efac:SelectionCriteria>
+              <efac:SelectionCriteria>
+                <cbc:CriterionTypeCode listName="selection-criterion">other</cbc:CriterionTypeCode>
+                <cbc:Name languageID="FIN">Sopimuksen täytäntöönpanoa koskevat ehdot</cbc:Name>
+                <cbc:Description languageID="FIN">Hankintasopimus voidaan solmia, kun hankintapäätös on lainvoimainen ja tarjoajan rikosrekisteriotteet on tarkistettu.</cbc:Description>
+                <cbc:CalculationExpressionCode listName="usage">used</cbc:CalculationExpressionCode>
+              </efac:SelectionCriteria>
+              <efac:SelectionCriteria>
+                <cbc:CriterionTypeCode listName="selection-criterion">sui-act</cbc:CriterionTypeCode>
+                <cbc:Name languageID="FIN">Ammattitoiminnan harjoittamiskelpoisuuden vaatimukset, myös ammatti- tai kaupparekistereihin kuulumista koskevat vaatimukset.</cbc:Name>
+                <cbc:CalculationExpressionCode listName="usage">used</cbc:CalculationExpressionCode>
+              </efac:SelectionCriteria>
+              <efac:SelectionCriteria>
+                <cbc:CriterionTypeCode listName="selection-criterion">tp-abil</cbc:CriterionTypeCode>
+                <cbc:Name languageID="FIN">Vaatimukset tekniselle ja ammatillisille pätevyydelle.</cbc:Name>
+                <cbc:CalculationExpressionCode listName="usage">used</cbc:CalculationExpressionCode>
+              </efac:SelectionCriteria>
+            </efext:EformsExtension>
+          </ext:ExtensionContent>
+        </ext:UBLExtension>
+      </ext:UBLExtensions>
+      <cbc:FundingProgramCode listName="eu-funded">no-eu-funds</cbc:FundingProgramCode>
+      <cbc:MultipleTendersCode listName="permission">not-allowed</cbc:MultipleTendersCode>
+      <cac:CallForTendersDocumentReference>
+        <cbc:ID>Linkki hankinta-asiakirjoihin</cbc:ID>
+        <cbc:DocumentType>non-restricted-document</cbc:DocumentType>
+        <cac:Attachment>
+          <cac:ExternalReference>
+            <cbc:URI>https://tarjouspalvelu.fi/vayla?id=479376&amp;tpk=56b5c143-fd18-4536-b452-6c508dfd4294</cbc:URI>
+          </cac:ExternalReference>
+        </cac:Attachment>
+      </cac:CallForTendersDocumentReference>
+      <cac:AwardingTerms>
+        <cbc:FollowupContractIndicator>true</cbc:FollowupContractIndicator>
+        <cbc:BindingOnBuyerIndicator>true</cbc:BindingOnBuyerIndicator>
+        <cac:AwardingCriterion>
+          <cac:SubordinateAwardingCriterion>
+            <cbc:AwardingCriterionTypeCode listName="award-criterion-type">price</cbc:AwardingCriterionTypeCode>
+          </cac:SubordinateAwardingCriterion>
+        </cac:AwardingCriterion>
+      </cac:AwardingTerms>
+      <cac:AdditionalInformationParty>
+        <cac:PartyIdentification>
+          <cbc:ID schemeName="organization">ORG-0001</cbc:ID>
+        </cac:PartyIdentification>
+      </cac:AdditionalInformationParty>
+      <cac:TenderRecipientParty>
+        <cbc:EndpointID>https://tarjouspalvelu.fi/vayla?id=479376&amp;tpk=56b5c143-fd18-4536-b452-6c508dfd4294</cbc:EndpointID>
+        <cac:PartyIdentification>
+          <cbc:ID schemeName="organization">ORG-0001</cbc:ID>
+        </cac:PartyIdentification>
+      </cac:TenderRecipientParty>
+      <cac:TenderEvaluationParty>
+        <cac:PartyIdentification>
+          <cbc:ID schemeName="organization">ORG-0001</cbc:ID>
+        </cac:PartyIdentification>
+      </cac:TenderEvaluationParty>
+      <cac:AppealTerms>
+        <cac:AppealReceiverParty>
+          <cac:PartyIdentification>
+            <cbc:ID schemeName="organization">ORG-0003</cbc:ID>
+          </cac:PartyIdentification>
+        </cac:AppealReceiverParty>
+      </cac:AppealTerms>
+      <cac:Language>
+        <cbc:ID>FIN</cbc:ID>
+      </cac:Language>
+    </cac:TenderingTerms>
+    <cac:TenderingProcess>
+      <cbc:SubmissionMethodCode listName="esubmission">required</cbc:SubmissionMethodCode>
+      <cac:TenderSubmissionDeadlinePeriod>
+        <cbc:EndDate>2023-11-30+02:00</cbc:EndDate>
+        <cbc:EndTime>13:00:00+02:00</cbc:EndTime>
+      </cac:TenderSubmissionDeadlinePeriod>
+      <cac:AdditionalInformationRequestPeriod>
+        <cbc:EndDate>2023-11-17+02:00</cbc:EndDate>
+        <cbc:EndTime>13:00:00+02:00</cbc:EndTime>
+      </cac:AdditionalInformationRequestPeriod>
+    </cac:TenderingProcess>
+    <cac:ProcurementProject>
+      <cbc:ID schemeName="InternalID">672529</cbc:ID>
+      <cbc:Name languageID="FIN">TAPO RaS ja KS suunnittelu Vammalan liikennepaikan kehittäminen</cbc:Name>
+      <cbc:Description languageID="FIN">TAPO RaS ja KS Vammalan liikennepaikan kehittäminen</cbc:Description>
+      <cbc:ProcurementTypeCode listName="contract-nature">services</cbc:ProcurementTypeCode>
+      <cbc:Note languageID="FIN">Työ sisältää ratasuunnitelman ja katusuunnitelman laatimisen Vammalan liikennepaikan kehittämisestä mukaan lukien tarvittavien maaperä- ja laboratoriotutkimusten suorittamisen.</cbc:Note>
+      <cac:MainCommodityClassification>
+        <cbc:ItemClassificationCode listName="cpv">71320000</cbc:ItemClassificationCode>
+      </cac:MainCommodityClassification>
+    </cac:ProcurementProject>
+  </cac:ProcurementProjectLot>
+</ContractNotice>

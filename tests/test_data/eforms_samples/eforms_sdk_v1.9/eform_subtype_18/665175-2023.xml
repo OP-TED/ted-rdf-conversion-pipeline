@@ -1,0 +1,1857 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><ContractNotice xmlns="urn:oasis:names:specification:ubl:schema:xsd:ContractNotice-2" xmlns:cac="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2" xmlns:cbc="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2" xmlns:efac="http://data.europa.eu/p27/eforms-ubl-extension-aggregate-components/1" xmlns:efbc="http://data.europa.eu/p27/eforms-ubl-extension-basic-components/1" xmlns:efext="http://data.europa.eu/p27/eforms-ubl-extensions/1" xmlns:ext="urn:oasis:names:specification:ubl:schema:xsd:CommonExtensionComponents-2">
+   <ext:UBLExtensions>
+      <ext:UBLExtension>
+         <ext:ExtensionContent>
+            <efext:EformsExtension>
+               <efac:NoticeSubType>
+                  <cbc:SubTypeCode listName="notice-subtype">18</cbc:SubTypeCode>
+               </efac:NoticeSubType>
+               <efac:Organizations>
+                  <efac:Organization>
+                     <efac:Company>
+                        <cbc:WebsiteURI>www.32wog.wp.mil.pl</cbc:WebsiteURI>
+                        <cbc:EndpointID>https://portal.smartpzp.pl/32wog</cbc:EndpointID>
+                        <cac:PartyIdentification>
+                           <cbc:ID>ORG-0001</cbc:ID>
+                        </cac:PartyIdentification>
+                        <cac:PartyName>
+                           <cbc:Name languageID="POL">32 Wojskowy Oddział Gospodarczy w Zamościu</cbc:Name>
+                        </cac:PartyName>
+                        <cac:PostalAddress>
+                           <cbc:StreetName>ul. Wojska Polskiego 2F</cbc:StreetName>
+                           <cbc:CityName>Zamość</cbc:CityName>
+                           <cbc:PostalZone>22-400</cbc:PostalZone>
+                           <cbc:CountrySubentityCode listName="nuts">PL812</cbc:CountrySubentityCode>
+                           <cac:Country>
+                              <cbc:IdentificationCode listName="country">POL</cbc:IdentificationCode>
+                           </cac:Country>
+                        </cac:PostalAddress>
+                        <cac:PartyLegalEntity>
+                           <cbc:CompanyID>922-304-63-57</cbc:CompanyID>
+                        </cac:PartyLegalEntity>
+                        <cac:Contact>
+                           <cbc:Name>Piotr MAJ</cbc:Name>
+                           <cbc:Telephone>261181536</cbc:Telephone>
+                           <cbc:Telefax>261181607</cbc:Telefax>
+                           <cbc:ElectronicMail>32wog.zampub@ron.mil.pl</cbc:ElectronicMail>
+                        </cac:Contact>
+                     </efac:Company>
+                  </efac:Organization>
+                  <efac:Organization>
+                     <efac:Company>
+                        <cac:PartyIdentification>
+                           <cbc:ID>ORG-0002</cbc:ID>
+                        </cac:PartyIdentification>
+                        <cac:PartyName>
+                           <cbc:Name languageID="POL">Krajowa Izba Odwoławcza</cbc:Name>
+                        </cac:PartyName>
+                        <cac:PostalAddress>
+                           <cbc:StreetName>ul. Postępu 17A</cbc:StreetName>
+                           <cbc:CityName>Warszawa</cbc:CityName>
+                           <cbc:PostalZone>02-676</cbc:PostalZone>
+                           <cbc:CountrySubentityCode listName="nuts">PL911</cbc:CountrySubentityCode>
+                           <cac:Country>
+                              <cbc:IdentificationCode listName="country">POL</cbc:IdentificationCode>
+                           </cac:Country>
+                        </cac:PostalAddress>
+                        <cac:Contact>
+                           <cbc:Name>Krajowa Izba Odwoławcza</cbc:Name>
+                           <cbc:Telephone>+48224587801</cbc:Telephone>
+                           <cbc:Telefax>+48224587800</cbc:Telefax>
+                           <cbc:ElectronicMail>odwolania@uzp.gov.pl</cbc:ElectronicMail>
+                        </cac:Contact>
+                     </efac:Company>
+                  </efac:Organization>
+               </efac:Organizations>
+            <efac:Publication><efbc:NoticePublicationID schemeName="ojs-notice-id">00665175-2023</efbc:NoticePublicationID><efbc:GazetteID schemeName="ojs-id">210/2023</efbc:GazetteID><efbc:PublicationDate>2023-10-31Z</efbc:PublicationDate></efac:Publication></efext:EformsExtension>
+         </ext:ExtensionContent>
+      </ext:UBLExtension>
+   </ext:UBLExtensions>
+   <cbc:UBLVersionID>2.3</cbc:UBLVersionID>
+   <cbc:CustomizationID>eforms-sdk-1.9</cbc:CustomizationID>
+   <cbc:ID schemeName="notice-id">c7580eab-e355-4b1e-874f-f4a818703953</cbc:ID>
+   <cbc:ContractFolderID>ae8b8145-fed3-47e4-bbd5-26c2549633ea</cbc:ContractFolderID>
+   <cbc:IssueDate>2023-10-30Z</cbc:IssueDate>
+   <cbc:IssueTime>10:54:21Z</cbc:IssueTime>
+   <cbc:VersionID>01</cbc:VersionID>
+   <cbc:RegulatoryDomain>32009L0081</cbc:RegulatoryDomain>
+   <cbc:NoticeTypeCode listName="competition">cn-standard</cbc:NoticeTypeCode>
+   <cbc:NoticeLanguageCode listName="language">POL</cbc:NoticeLanguageCode>
+   <cac:ContractingParty>
+      <cbc:BuyerProfileURI>www.32wog.wp.mil.pl</cbc:BuyerProfileURI>
+      <cac:ContractingPartyType>
+         <cbc:PartyTypeCode listName="buyer-legal-type">body-pl-cga</cbc:PartyTypeCode>
+      </cac:ContractingPartyType>
+      <cac:ContractingPartyType>
+         <cbc:PartyTypeCode listName="buyer-contracting-type">cont-ent</cbc:PartyTypeCode>
+      </cac:ContractingPartyType>
+      <cac:ContractingActivity>
+         <cbc:ActivityTypeCode listName="authority-activity">defence</cbc:ActivityTypeCode>
+      </cac:ContractingActivity>
+      <cac:Party>
+         <cac:PartyIdentification>
+            <cbc:ID>ORG-0001</cbc:ID>
+         </cac:PartyIdentification>
+      </cac:Party>
+   </cac:ContractingParty>
+   <cac:TenderingTerms>
+      <cac:ProcurementLegislationDocumentReference>
+         <cbc:ID>art. 410 ust. 1 ustawy z dnia 11 września 2019 r. - Prawo zamówień publicznych (Dz. U. z 2023r. poz. 1605 t.j.)</cbc:ID>
+      </cac:ProcurementLegislationDocumentReference>
+      <cac:TendererQualificationRequest>
+         <cac:SpecificTendererRequirement>
+            <cbc:TendererRequirementTypeCode listName="exclusion-ground">prep-confl</cbc:TendererRequirementTypeCode>
+            <cbc:Description languageID="POL">Wykonawcę, jeżeli, w przypadkach, o których mowa w art. 85 ust. 1, doszło do zakłócenia konkurencji wynikającego z wcześniejszego zaangażowania tego wykonawcy lub podmiotu, który należy z wykonawcą do tej samej grupy kapitałowej w rozumieniu ustawy z dnia 16 lutego 2007 r. o ochronie konkurencji i konsumentów, chyba że spowodowane tym zakłócenie konkurencji może być wyeliminowane w inny sposób niż przez wykluczenie wykonawcy z udziału w postępowaniu o udzielenie zamówienia.</cbc:Description>
+         </cac:SpecificTendererRequirement>
+         <cac:SpecificTendererRequirement>
+            <cbc:TendererRequirementTypeCode listName="exclusion-ground">corruption</cbc:TendererRequirementTypeCode>
+            <cbc:Description languageID="POL">1)	Wykonawcę będącego osobą fizyczną, którego prawomocnie skazano za przestępstwo:
+o którym mowa w art. 228-230a, art. 250a Kodeksu karnego, w art. 46-48 ustawy z dnia 25 czerwca 2010 r. o sporcie (Dz.U. z 2020 r. poz. 1133 oraz z 2021r. poz. 2054 i 2142) lub w art.  54 ust 1-4 ustawy z dnia 12 maja 2011 r. o refundacji leków, środków spożywczych specjalnego przeznaczenia żywieniowego oraz wyrobów medycznych (Dz. U. z 2022r. poz. 463, 583 i 974). 
+</cbc:Description>
+         </cac:SpecificTendererRequirement>
+         <cac:SpecificTendererRequirement>
+            <cbc:TendererRequirementTypeCode listName="exclusion-ground">fraud</cbc:TendererRequirementTypeCode>
+            <cbc:Description languageID="POL">przeciwko obrotowi gospodarczemu, o których mowa w art. 296-307 Kodeksu karnego, przestępstwo oszustwa, o którym mowa w art. 286 Kodeksu karnego, przestępstwo przeciwko wiarygodności dokumentów, o których w art. 270-277d Kodeksu karnego, lub przestępstwo skarbowe,</cbc:Description>
+         </cac:SpecificTendererRequirement>
+         <cac:SpecificTendererRequirement>
+            <cbc:TendererRequirementTypeCode listName="exclusion-ground">labour-law</cbc:TendererRequirementTypeCode>
+            <cbc:Description languageID="POL">h)	o którym mowa w art. 9 ust. 1 i 3 lub art. 10 ustawy z dnia 15 czerwca 2012 r. o skutkach powierzania wykonywania pracy cudzoziemcom przebywającym brew przepisom na terytorium Rzeczypospolitej Polskiej
+- lub za odpowiedni czyn zabroniony określony w przepisach prawa obcego;
+2)	Wykonawcę, jeżeli urzędującego członka jego organu zarządzającego lub nadzorczego, wspólnika spółki w spółce jawnej lub partnerskiej albo komplementariusza w spółce komandytowej lub komandytowo-akcyjnej lub prokurenta prawomocnie skazano za przestępstwo, o którym mowa w pkt 1;
+</cbc:Description>
+         </cac:SpecificTendererRequirement>
+         <cac:SpecificTendererRequirement>
+            <cbc:TendererRequirementTypeCode listName="exclusion-ground">socsec-pay</cbc:TendererRequirementTypeCode>
+            <cbc:Description languageID="POL">3)	Wykonawcę, wobec którego wydano prawomocny wyrok sądu lub ostateczną decyzję administracyjną o zaleganiu z uiszczeniem podatków, opłat lub składek na ubezpieczenie społeczne lub zdrowotne, chyba że wykonawca odpowiednio przed upływem terminu do składania wniosków o dopuszczenie do udziału w postępowaniu albo przed upływem terminu składania ofert dokonał płatności należnych podatków, opłat lub składek na ubezpieczenie społeczne lub zdrowotne wraz z odsetkami lub grzywnami lub zawarł wiążące porozumienie w sprawie spłaty tych należności;</cbc:Description>
+         </cac:SpecificTendererRequirement>
+         <cac:SpecificTendererRequirement>
+            <cbc:TendererRequirementTypeCode listName="exclusion-ground">tax-pay</cbc:TendererRequirementTypeCode>
+            <cbc:Description languageID="POL">Wykonawcę, wobec którego wydano prawomocny wyrok sądu lub ostateczną decyzję administracyjną o zaleganiu z uiszczeniem podatków, opłat lub składek na ubezpieczenie społeczne lub zdrowotne, chyba że wykonawca odpowiednio przed upływem terminu do składania wniosków o dopuszczenie do udziału w postępowaniu albo przed upływem terminu składania ofert dokonał płatności należnych podatków, opłat lub składek na ubezpieczenie społeczne lub zdrowotne wraz z odsetkami lub grzywnami lub zawarł wiążące porozumienie w sprawie spłaty tych należności;</cbc:Description>
+         </cac:SpecificTendererRequirement>
+         <cac:SpecificTendererRequirement>
+            <cbc:TendererRequirementTypeCode listName="exclusion-ground">nati-ground</cbc:TendererRequirementTypeCode>
+            <cbc:Description languageID="POL">c)	o którym mowa w art. 47 ustawy z dnia 25 czerwca 2010 r. o sporcie (Dz.U. z 2020 r. poz. 1133 oraz z 2021r. poz. 2054 i 2142) 
+g)	przeciwko obrotowi gospodarczemu, o których mowa w art. 296-307 Kodeksu karnego, przestępstwo oszustwa, o którym mowa w art. 286 Kodeksu karnego, przestępstwo przeciwko wiarygodności dokumentów, o których w art. 270-277d Kodeksu karnego, lub przestępstwo skarbowe,
+4)	Wykonawcę, wobec którego prawomocnie orzeczono zakaz ubiegania się 
+o zamówienia publiczne;
+2.	W związku z art. 7 ustawy  z dnia 13 kwietnia  2022r. (poz. 835) o szczególnych rozwiązaniach w zakresie przeciwdziałania  wspieraniu agresji  na Ukrainę oraz służących  ochronie bezpieczeństwa narodowego z postępowania o udzielenie zamówienia publicznego lub konkursu prowadzonego na podstawie ustawy z dnia 11 września  2019 r – Prawo zamówień publicznych  wyklucza się :
+1)	Wykonawcę   wymienionego w wykazach określonych w Rozporządzeniu Rady (WE) 765/2006 i Rozporządzeniu (UE)  269/2014 albo wpisanego na listę  na podstawie decyzji w sprawie wpisu na listę rozstrzygającej o zastosowaniu wykluczenia z postępowania  o zamówienie publiczne na podstawie ustawy  Pzp;
+2)	Wykonawcę którego beneficjentem rzeczywistym w rozumieniu ustawy z dnia 1 marca 2018 r.,  o przeciwdziałaniu praniu  pieniędzy oraz finansowaniu terroryzmu (Dz. U.  z 2022 r. poz. 593 i 655) jest osoba wymieniona  w wykazach określonych  w Rozporządzeniu Rady (WE) 765/2006 i Rozporządzeniu (UE)  269/2014 albo wpisana  na listę lub będąca takim beneficjentem rzeczywistym od dnia 24 lutego 2022 r., o ile została wpisana na listę prowadzoną przez  ministra właściwego do spraw wewnętrznych na podstawie decyzji w sprawie wpisu na listę rozstrzygającej o zastosowaniu środka wykluczenia z postępowania  o zamówienie publiczne na podstawie ustawy  Pzp; 
+3)	Wykonawcę , którego jednostką dominującą w rozumieniu art. 3 ust 1 pkt 37 ustawy z dnia 29 września  1994 r. o rachunkowości (Dz. U. z 2021r. poz 217, 2105 i 2106) jest podmiot wymieniony w wykazach określonych w Rozporządzeniu Rady (WE)  765/2006 i Rozporządzeniu (UE)   269/2014 albo wpisana na listę lub będącą  taka jednostka dominującą od dnia 24 lutego 2022 r.,  o ile został wpisany na listę prowadzoną przez  ministra właściwego do spraw wewnętrznych na podstawie decyzji w sprawie wpisu na listę rozstrzygającej  o zastosowaniu wykluczenia z postępowania  o zamówienie publiczne na podstawie ustawy  Pzp; 
+3.	W przypadku wykonawcy wykluczonego na podst. ust 2 pkt 1),2),3) Zamawiający odrzuca  ofertę takiego wykonawcy; 
+</cbc:Description>
+         </cac:SpecificTendererRequirement>
+         <cac:SpecificTendererRequirement>
+            <cbc:TendererRequirementTypeCode listName="exclusion-ground">distorsion</cbc:TendererRequirementTypeCode>
+            <cbc:Description languageID="POL">5)	Wykonawcę, jeżeli Zamawiający może stwierdzić, na podstawie wiarygodnych przesłanek, że Wykonawca zawarł z innymi Wykonawcami porozumienie mające na celu zakłócenie konkurencji, w szczególności jeżeli należąc do tej samej grupy kapitałowej w rozumieniu ustawy z dnia 16 lutego 2007 r. o ochronie konkurencji konsumentów, złożyli odrębne oferty, oferty częściowe lub wnioski o dopuszczenie do udziału w postępowaniu, chyba że wykażą, że przygotowali te oferty lub wnioski niezależnie od siebie;</cbc:Description>
+         </cac:SpecificTendererRequirement>
+         <cac:SpecificTendererRequirement>
+            <cbc:TendererRequirementTypeCode listName="exclusion-ground">finan-laund</cbc:TendererRequirementTypeCode>
+            <cbc:Description languageID="POL">d)	finansowania przestępstwa o charakterze terrorystycznym, o którym mowa w art. 165a Kodeksu karnego, lub przestępstwo udaremniania lub utrudniania stwierdzenia przestępnego pochodzenia pieniędzy lub ukrywania ich pochodzenia, o którym mowa w art. 299 Kodeksu karnego
+2)	Wykonawcę, jeżeli urzędującego członka jego organu zarządzającego lub nadzorczego, wspólnika spółki w spółce jawnej lub partnerskiej albo komplementariusza w spółce komandytowej lub komandytowo-akcyjnej lub prokurenta prawomocnie skazano za przestępstwo, o którym mowa w pkt 1;</cbc:Description>
+         </cac:SpecificTendererRequirement>
+         <cac:SpecificTendererRequirement>
+            <cbc:TendererRequirementTypeCode listName="exclusion-ground">terr-offence</cbc:TendererRequirementTypeCode>
+            <cbc:Description languageID="POL">e)	o charakterze terrorystycznym, o którym mowa w art. 115 § 20 Kodeksu karnego, lub mające na celu popełnienie tego przestępstwa,
+Wykonawcę, jeżeli urzędującego członka jego organu zarządzającego lub nadzorczego, wspólnika spółki w spółce jawnej lub partnerskiej albo komplementariusza w spółce komandytowej lub komandytowo-akcyjnej lub prokurenta prawomocnie skazano za przestępstwo, o którym mowa w pkt 1;</cbc:Description>
+         </cac:SpecificTendererRequirement>
+         <cac:SpecificTendererRequirement>
+            <cbc:TendererRequirementTypeCode listName="exclusion-ground">crime-org</cbc:TendererRequirementTypeCode>
+            <cbc:Description languageID="POL">a)	udziału w zorganizowanej grupie przestępczej albo związku mającym na celu popełnienie przestępstwa lub przestępstwa skarbowego, o którym mowa w art. 258 Kodeksu karnego,
+Wykonawcę, jeżeli urzędującego członka jego organu zarządzającego lub nadzorczego, wspólnika spółki w spółce jawnej lub partnerskiej albo komplementariusza w spółce komandytowej lub komandytowo-akcyjnej lub prokurenta prawomocnie skazano za przestępstwo, o którym mowa w pkt 1;</cbc:Description>
+         </cac:SpecificTendererRequirement>
+      </cac:TendererQualificationRequest>
+      <cac:LotDistribution>
+         <cbc:MaximumLotsAwardedNumeric>4</cbc:MaximumLotsAwardedNumeric>
+         <cbc:MaximumLotsSubmittedNumeric>4</cbc:MaximumLotsSubmittedNumeric>
+         <cac:LotsGroup>
+            <cbc:LotsGroupID>GLO-0008</cbc:LotsGroupID>
+            <cac:ProcurementProjectLotReference>
+               <cbc:ID schemeName="Lot">LOT-0001</cbc:ID>
+            </cac:ProcurementProjectLotReference>
+            <cac:ProcurementProjectLotReference>
+               <cbc:ID schemeName="Lot">LOT-0003</cbc:ID>
+            </cac:ProcurementProjectLotReference>
+            <cac:ProcurementProjectLotReference>
+               <cbc:ID schemeName="Lot">LOT-0002</cbc:ID>
+            </cac:ProcurementProjectLotReference>
+            <cac:ProcurementProjectLotReference>
+               <cbc:ID schemeName="Lot">LOT-0004</cbc:ID>
+            </cac:ProcurementProjectLotReference>
+         </cac:LotsGroup>
+      </cac:LotDistribution>
+   </cac:TenderingTerms>
+   <cac:TenderingProcess>
+      <ext:UBLExtensions>
+         <ext:UBLExtension>
+            <ext:ExtensionContent>
+               <efext:EformsExtension>
+                  <efbc:ProcedureRelaunchIndicator>true</efbc:ProcedureRelaunchIndicator>
+               </efext:EformsExtension>
+            </ext:ExtensionContent>
+         </ext:UBLExtension>
+      </ext:UBLExtensions>
+      <cbc:Description languageID="POL">OCENA  SPEŁNIANIA  WARUNKÓW udziału w postępowaniu, wymaganych  
+od  Wykonawcy zostanie dokonana wg formuły spełnia / nie spełnia na podstawie oświadczeń i dokumentów złożonych, zgodnie z wykazem dokumentów i oświadczeń zawartych w Rozdziale X niniejszego opisu. Wykonawca, który składając  Wniosek o dopuszczenie do udziału w postepowaniu, nie wykaże spełnienia warunków udziału w postępowaniu lub nie  wykaże braku podstaw do wykluczenia  -  na podst. art. 146 ustawy Pzp jego wniosek  zostanie odrzucony. 
+OPIS KRYTERIÓW SELEKCJI WYKONAWCÓW, którzy zostaną zaproszeni do składania ofert:
+1.	Zamawiający zaprosi do składania ofert jednocześnie Wykonawców, którzy spełnią warunki udziału w postępowaniu. 
+2.	Zamawiający nie zamierza stosować kryteriów selekcji w celu ograniczenia liczby wykonawców zaproszonych do składania ofert.
+3.	W przypadku gdy liczba wykonawców, którzy złożyli niepodlegające odrzuceniu wnioski o dopuszczenie do udziału w postepowaniu jest  mniejsza od 3 (trzech) – tj minimalnej liczby określonej  art. 411 ust 8 ustawy Pzp – zamawiający może:
+1)	Kontynuować postępowanie, zapraszając do składania ofert tych wykonawców albo
+2)	Zawiesić postępowanie  i ponownie opublikować ogłoszenie o zamówieniu określając z zastosowaniem przepisów dotyczących terminów składania wniosków o dopuszczenie do udziału w postepowaniu nowy termin składania wniosków oraz informując o tym wykonawców, którzy spełniają warunki udziału w postepowaniu albo
+3)	Unieważnić postepowanie na podstawie art. 258 ust 1 ustawy Pzp
+1.	Każdy Wykonawca może złożyć jeden wniosek o dopuszczenie do udziału 
+w postępowaniu dla każdej części oddzielnie.
+2.	Wniosek składa się pod rygorem nieważności w formie elektronicznej opatrzonej kwalifikowanym podpisem elektronicznym. (zgodnie z art. 63 ust. 1 ustawy Pzp)
+3.	Środkiem komunikacji elektronicznej, służącym złożeniu przez Wykonawcę wniosku o dopuszczenie do udziału w postępowaniu jest platforma zakupowa https://portal.smartpzp.pl/32wog 
+UWAGA! Złożenie dokumentów przetargowych na nośniku danych (np. CD, pendrive) jest niedopuszczalne, nie stanowi bowiem ich złożenia przy użyciu środków komunikacji elektronicznej w rozumieniu przepisów ustawy z dnia 18 lipca 2002 o świadczeniu usług drogą elektroniczną.
+Zamawiający rekomenduje wykorzystanie formatów: .pdf .doc .docx .xls .xlsx .jpg (.jpeg) ze szczególnym wskazaniem na .pdf
+4.	Każdy wniosek o dopuszczenie do udziału w postępowaniu winien zawierać komplet załączników odpowiednio do danej części przedmiotu zamówienia, określonych w Rozdziale X niniejszego opisu,
+5.	Wniosek o dopuszczenie do udziału w postępowaniu wraz z załącznikami musi być podpisany kwalifikowanym podpisem elektronicznym przez osobę upoważnioną do reprezentowania Wykonawcy. Powyższe upoważnienie musi być zgodne z dokumentami  rejestracyjnymi  (ewidencyjnymi) Wykonawcy. W przeciwnym wypadku,  do wniosku należy dołączyć stosowne pełnomocnictwo. Treść pełnomocnictwa powinna dokładnie określać zakres umocowania. Pełnomocnictwo do reprezentowania Wykonawcy składane jest w formie oryginału lub notarialnie poświadczonej kopii.
+6.	W przypadku, gdy Wykonawcy wspólnie ubiegają się o udzielenie zamówienia, ustanawiają pełnomocnika do reprezentowania ich w postępowaniu o udzielenie zamówienia albo reprezentowania w postępowaniu i zawarcia umowy w sprawie zamówienia publicznego. Wspólnicy spółki cywilnej traktowani są jako Wykonawcy wspólnie ubiegający się o udzielenie zamówienia. W tym przypadku Zamawiający nie wymaga pełnomocnictwa, o ile Wykonawca załączy poświadczoną  za zgodność z oryginałem kopię umowy spółki regulującą  formę reprezentacji spółki.
+7.	Wzory dokumentów i formularzy należy wypełnić ściśle według wskazówek określonych w niniejszym opisie.
+8.	Wniosek o dopuszczenie do udziału w postepowaniu musi być sporządzony w języku polskim, trwałą, czytelną techniką.
+9.	Wszelkie miejsca we wniosku, w których Wykonawca naniósł poprawki lub  zmiany wpisywanej przez siebie treści muszą być parafowane przez osobę/y uprawnioną/e do reprezentacji.
+10.	Dokumenty sporządzone w języku obcym są składane wraz z tłumaczeniem na język polski poprzez platformę zakupową https://portal.smartpzp.pl/32wog
+</cbc:Description>
+      <cbc:ProcedureCode listName="procurement-procedure-type">restricted</cbc:ProcedureCode>
+      <cac:ProcessJustification>
+         <cbc:ProcessReasonCode listName="accelerated-procedure">true</cbc:ProcessReasonCode>
+         <cbc:ProcessReason languageID="POL">Zamawiający informuję, że na mocy art. 411 ust. 7 ustawy Pzp, wyznacza termin składania wniosków nie krótszy niż 10 dni od dnia przekazania do publikacji ogłoszenia o zamówieniu Urzędowi Publikacji Unii Europejskiej, gdyż zachodzi pilna potrzeba i skrócenie  terminu składania wniosków w związku z tym, że obecnie obowiązujące umowy kończą się z dniem 01 stycznia 2024r., a terminy na składanie wniosków o dopuszczenie do udziału 
+w postępowaniu wynoszą 30 dni oraz termin na składanie ofert 40 dni, oraz dotrzymanie pozostałych ustawowych terminów w postępowaniu, powodują, że koniec postępowania przewidywany byłby na miesiąc luty 2024r., podczas, gdy Siły Zbrojne RP muszą zachować ciągłość w uczestniczeniu w szkoleniach poligonowych, zgrupowaniach oraz realizacji zabezpieczenia granicy Państwa do czego niezbędne jest zapewnienie odpowiedniego transportu żołnierzy. 
+</cbc:ProcessReason>
+      </cac:ProcessJustification>
+   </cac:TenderingProcess>
+   <cac:ProcurementProject>
+      <cbc:ID>ZP/PO/62/2023</cbc:ID>
+      <cbc:Name languageID="POL">Świadczenie usługi nieregularnego przewozu żołnierzy wraz z uzbrojeniem i wyposażeniem do ośrodków szkoleniowych własnym środkiem transportu wraz z kierowcą  na potrzeby 32 WOG Zamość oraz jednostek i instytucji wojskowych znajdujących się na zaopatrzeniu logistycznym 32 WOG Zamość, zlokalizowanych na terenie miast: Zamość, Chełm, Lublin i Hrubieszów. Usługa może objąć cały obszar Rzeczypospolitej</cbc:Name>
+      <cbc:Description languageID="POL">Świadczenie usługi nieregularnego przewozu żołnierzy wraz z uzbrojeniem i wyposażeniem do ośrodków szkoleniowych własnym środkiem transportu wraz z kierowcą  na potrzeby 32 WOG Zamość oraz jednostek i instytucji wojskowych znajdujących się na zaopatrzeniu logistycznym 32 WOG Zamość, zlokalizowanych na terenie miast: Zamość, Chełm, Lublin i Hrubieszów. Usługa może objąć cały obszar Rzeczypospolitej Polskiej oraz przejazdy poza jej granice- w zakresie 4 (czterech) części.
+Część 1 -  Przewóz osób ( z  lub do) 3bz, 25 blp OT,  32 WOG, 8 krrl, RCI(WT), 18pplot, 19 BZ, 4 blog, ul. Wojska Polskiego 2F, 22-400 Zamość; WCR Zamość ul. Koszary 52, 22-400 Zamość, oraz pozostałych jednostek i organizacji będących na zaopatrzeniu 32 WOG,.
+Część 2 - Przewóz osób (z lub do) 19 bz,  19 das, 19 NBOT, ul. Lubelska 139, 22-100 Chełm; WCR Chełm, ul. Koszarowa 1B, 22-100 Chełm; oraz pozostałych jednostek i organizacji będących na zaopatrzeniu 32 WOG, 
+Część 3 - Przewóz osób (z lub do) WCR w Lublinie, ul. Spadochroniarzy 5, 20 – 043 Lublin; Wojskowej Komendy Transportu Lublin ul. al Racławickie 44, 20 – 043 Lublin; CWCR ul. Spadochroniarzy 5, 20 – 043 Lublin; Dowództwa Wielonarodowej Brygady LITPOLUKRBRIG ul. Radziszewskiego 4, 20-031 Lublin; Rejonowego Zarządu Infrastruktury ul. Lipowa 1A, 20 – 020 Lublin; Orkiestry Wojskowej Lublin ul. Nowy Świat 40, 20-400 Lublin; 2 Lubelskiej Brygady Obrony Terytorialnej w Lublinie ul. Droga Męczenników Majdanka 70, 20-325 Lublin; 19 Brygady Zmechanizowanej, ul. Z. Herberta 49, 20 – 468 Lublin oraz pozostałych jednostek i organizacji będących na zaopatrzeniu 32 WOG.
+Część 4 - - Przewóz osób ( z lub do) 2pr, ul. Dwernickiego 4, 22 – 500 Hrubieszów, oraz pozostałych jednostek i organizacji będących na zaopatrzeniu 32 WOG
+</cbc:Description>
+      <cbc:ProcurementTypeCode listName="contract-nature">services</cbc:ProcurementTypeCode>
+      <cac:MainCommodityClassification>
+         <cbc:ItemClassificationCode listName="cpv">60140000</cbc:ItemClassificationCode>
+      </cac:MainCommodityClassification>
+      <cac:RealizedLocation>
+         <cac:Address>
+            <cbc:StreetName>ul. Wojska Polskiego 2F</cbc:StreetName>
+            <cbc:CityName>Zamość</cbc:CityName>
+            <cbc:PostalZone>22-400</cbc:PostalZone>
+            <cbc:CountrySubentityCode listName="nuts">PL812</cbc:CountrySubentityCode>
+            <cac:Country>
+               <cbc:IdentificationCode listName="country">POL</cbc:IdentificationCode>
+            </cac:Country>
+         </cac:Address>
+      </cac:RealizedLocation>
+   </cac:ProcurementProject>
+   <cac:ProcurementProjectLot>
+      <cbc:ID schemeName="Lot">LOT-0001</cbc:ID>
+      <cac:TenderingTerms>
+         <ext:UBLExtensions>
+            <ext:UBLExtension>
+               <ext:ExtensionContent>
+                  <efext:EformsExtension>
+                     <efac:SelectionCriteria>
+                        <cbc:CriterionTypeCode listName="selection-criterion">sui-act</cbc:CriterionTypeCode>
+                        <cbc:Name languageID="POL">1)	Zezwolenie na wykonywanie zawodu przewoźnika drogowego lub aktualna licencja na wykonywanie krajowego i międzynarodowego transportu drogowego osób </cbc:Name>
+                        <cbc:Description languageID="POL">Warunek ten zostanie spełniony, jeżeli Wykonawca wykaże, że posiada:
+1)	Zezwolenie na wykonywanie zawodu przewoźnika drogowego, na zasadach określonych w rozporządzeniu Parlamentu Europejskiego i Rady (WE) nr 1071/2009 z dnia 21 października 2009 r. ustanawiającym wspólne zasady dotyczące warunków wykonywania zawodu przewoźnika drogowego i uchylającym dyrektywę Rady 96/26/WE, zwanym dalej „rozporządzeniem (WE) nr 1071/2009 lub aktualną licencję na wykonywanie krajowego i międzynarodowego transportu drogowego osób wydaną na podstawie art. 5 ustawy z dnia 6 września 2001 r.  o transporcie drogowym (Dz. U. z 2019 r., poz. 2140).  Wykonawca zobowiązany jest do posiadania ww. Zezwolenia lub licencji ważnej przez cały okres trwania umowy (w przypadku gdy ww. dokument traci ważność w trakcie trwania umowy, Wykonawca zobowiązany jest przedstawić Zamawiającemu dokument ważny na kolejny okres trwania umowy, przed wygaśnięciem ważności  poprzedniego dokumentu).
+</cbc:Description>
+                        <cbc:CalculationExpressionCode listName="usage">used</cbc:CalculationExpressionCode>
+                        <efbc:SecondStageIndicator>false</efbc:SecondStageIndicator>
+                     </efac:SelectionCriteria>
+                     <efac:SelectionCriteria>
+                        <cbc:CriterionTypeCode listName="selection-criterion">tp-abil</cbc:CriterionTypeCode>
+                        <cbc:Name languageID="POL">DOŚWIADCZENIE: 
+W ZAKRESIE CZĘŚCI NR 1 
+</cbc:Name>
+                        <cbc:Description languageID="POL">Zamawiający uzna, że Wykonawca spełnił ww. warunek – jeżeli wykaże, że: W ZAKRESIE CZĘŚCI NR 1 
+a)	posiada doświadczenie nabyte poprzez realizację usług, odpowiadających swoim rodzajem usłudze objętej przedmiotem zamówienia publicznego, przez co Zamawiający rozumie wykonanie w okresie ostatnich 5 lat, a jeżeli okres prowadzenia działalności jest krótszy – w tym okresie, wykonał, lub wykonuje przez okres co najmniej 6 miesięcy co najmniej 2 (usługi) polegające na usługach nieregularnego przewozu żołnierzy wraz z uzbrojeniem i wyposażeniem do ośrodków szkoleniowych własnym środkiem transportu wraz z kierowcą - na kwotę co najmniej 50 000,00 zł. brutto każda,  wraz z podaniem ich wartości, przedmiotu, dat wykonania i podmiotów na rzecz których usługi te zostały wykonane, lub są wykonywane oraz załączeniem dowodów określających, czy te usługi zostały wykonane lub są wykonywane należycie, przy czym dowodami o których mowa, są referencje bądź inne dokumenty sporządzone przez podmiot na rzecz którego usługi zostały wykonane, a jeżeli wykonawca z przyczyn niezależnych od niego nie jest w stanie uzyskać tych dokumentów – oświadczenie wykonawcy; w przypadku świadczeń powtarzających się lub ciągłych nadal wykonywanych referencje bądź inne dokumenty potwierdzające ich należyte wykonywanie powinny być wystawione w okresie ostatnich 3 miesięcy
+</cbc:Description>
+                        <cbc:CalculationExpressionCode listName="usage">used</cbc:CalculationExpressionCode>
+                        <efbc:SecondStageIndicator>false</efbc:SecondStageIndicator>
+                     </efac:SelectionCriteria>
+                     <efac:SelectionCriteria>
+                        <cbc:CriterionTypeCode listName="selection-criterion">tp-abil</cbc:CriterionTypeCode>
+                        <cbc:Name languageID="POL">Dysponowanie POTENCJAŁEM TECHNICZNYM i OSOBOWYM:  </cbc:Name>
+                        <cbc:Description languageID="POL">Warunek ten zostanie spełniony, jeżeli Wykonawca wykaże, iż posiada:
+W ZAKRESIE CZĘŚCI NR 1, 
+a)	  narzędzia oddzielnie dla każdej części zamówienia dostępne wykonawcy 
+w celu wykonania zamówienia  publicznego tj.:  6 pojazdów oraz 1 - dla autokaru o liczbie miejsc siedzących od 23 i więcej; 6 pojazdów oraz 1 rezerwowy - dla BUS do 22 miejsc siedzących. Pojazdy muszą posiadać aktualne badania techniczne, polisę OC, polisę NNW
+b)	potencjał osobowy oddzielnie dla każdej części zamówienia tj. kierowcy którzy będą posiadać kwalifikacje  zawodowe, to jest uprawnienia do kierowania pojazdami   kategorii  ,,D”-  zgodnie działem 4, rozdział 1, art. 87 - 94 ustawy z dnia 20 czerwca 1997 r. Prawo o ruchu drogowym (Dz. U. z 2020 r., poz. 110 tekst jednolity z późniejszymi zmianami); ustawą z dnia 5 stycznia 2011 roku o kierujących pojazdami (Dz. U. z 2020r., poz.1268 tekst jednolity z późniejszymi  zmianami) w tym: 6 kierowców autokaru oraz 1 rezerwowy; 6 kierowców BUS oraz 1 rezerwowy.
+</cbc:Description>
+                        <cbc:CalculationExpressionCode listName="usage">used</cbc:CalculationExpressionCode>
+                        <efbc:SecondStageIndicator>false</efbc:SecondStageIndicator>
+                     </efac:SelectionCriteria>
+                     <efac:StrategicProcurement>
+                        <efbc:ApplicableLegalBasis listName="cvd-scope">false</efbc:ApplicableLegalBasis>
+                     </efac:StrategicProcurement>
+                     <efac:TenderSubcontractingRequirements>
+                        <efbc:TenderSubcontractingRequirementsCode listName="subcontracting-indication">shar-subc</efbc:TenderSubcontractingRequirementsCode>
+                     </efac:TenderSubcontractingRequirements>
+                  </efext:EformsExtension>
+               </ext:ExtensionContent>
+            </ext:UBLExtension>
+         </ext:UBLExtensions>
+         <cbc:VariantConstraintCode listName="permission">not-allowed</cbc:VariantConstraintCode>
+         <cbc:FundingProgramCode listName="eu-funded">no-eu-funds</cbc:FundingProgramCode>
+         <cbc:RequiredCurriculaCode listName="requirement-stage">par-requ</cbc:RequiredCurriculaCode>
+         <cbc:RecurringProcurementIndicator>false</cbc:RecurringProcurementIndicator>
+         <cbc:MultipleTendersCode listName="permission">not-allowed</cbc:MultipleTendersCode>
+         <cac:RequiredFinancialGuarantee>
+            <cbc:GuaranteeTypeCode listName="tender-guarantee-required">true</cbc:GuaranteeTypeCode>
+            <cbc:Description languageID="POL">Zamawiający wymaga wniesienia wadium: w zakresie części nr 1: 6500,00 zł; 
+</cbc:Description>
+         </cac:RequiredFinancialGuarantee>
+         <cac:EnvironmentalLegislationDocumentReference>
+            <cbc:ID>_DEFAULT_VALUE_CHANGE_ME_</cbc:ID>
+            <cac:IssuerParty>
+               <cac:PartyIdentification>
+                  <cbc:ID>ORG-0001</cbc:ID>
+               </cac:PartyIdentification>
+            </cac:IssuerParty>
+         </cac:EnvironmentalLegislationDocumentReference>
+         <cac:EmploymentLegislationDocumentReference>
+            <cbc:ID>_DEFAULT_VALUE_CHANGE_ME_</cbc:ID>
+            <cac:IssuerParty>
+               <cac:PartyIdentification>
+                  <cbc:ID>ORG-0001</cbc:ID>
+               </cac:PartyIdentification>
+            </cac:IssuerParty>
+         </cac:EmploymentLegislationDocumentReference>
+         <cac:CallForTendersDocumentReference>
+            <ext:UBLExtensions>
+               <ext:UBLExtension>
+                  <ext:ExtensionContent>
+                     <efext:EformsExtension>
+                        <efac:OfficialLanguages>
+                           <cac:Language>
+                              <cbc:ID>POL</cbc:ID>
+                           </cac:Language>
+                        </efac:OfficialLanguages>
+                     </efext:EformsExtension>
+                  </ext:ExtensionContent>
+               </ext:UBLExtension>
+            </ext:UBLExtensions>
+            <cbc:ID>_DEFAULT_VALUE_CHANGE_ME_</cbc:ID>
+            <cbc:DocumentType>non-restricted-document</cbc:DocumentType>
+            <cac:Attachment>
+               <cac:ExternalReference>
+                  <cbc:URI>https://portal.smartpzp.pl/32wog</cbc:URI>
+               </cac:ExternalReference>
+            </cac:Attachment>
+         </cac:CallForTendersDocumentReference>
+         <cac:PaymentTerms>
+            <cbc:Note languageID="POL">Wynagrodzenie będzie płatne na podstawie prawidłowo wystawionej przez Wykonawcę faktury, w terminie 21 dni od daty doręczenia faktury z dołączoną kopią Karty rozliczenia zadania transportowego do siedziby Zamawiającego, na numer konta bankowego Wykonawcy wskazany na fakturze.
+Wynagrodzenie za wykonaną usługę będzie obliczone jako iloczyn ceny jednego kilometra i ilości przejechanych kilometrów.
+Kartę rozliczenia zadania transportowego wypełnia się w dwóch egzemplarzach. Powinna ona być wypełniona i podpisaną przez kierowcę oraz dysponenta pojazdu. 
+Za prawidłowe wypełnienie Karty rozliczenia zadania transportowego odpowiada dysponent pojazdu, ze szczególnym uwzględnieniem podpisów wymaganych na ww. dokumencie.
+Kartę rozliczenia zadania transportowego przed rozpoczęciem usługi transportowej zobowiązany jest dostarczyć do pojazdu dysponent pojazdu, który po zakończeniu wykonania usługi transportowej jest zobowiązany do przekazania jednego wypełnionego egzemplarza dla kierowcy.
+</cbc:Note>
+         </cac:PaymentTerms>
+         <cac:TendererQualificationRequest>
+            <cbc:CompanyLegalFormCode listName="required">true</cbc:CompanyLegalFormCode>
+            <cbc:CompanyLegalForm languageID="POL">1)	W przypadku, gdy Wykonawcy wspólnie ubiegają się o zamówienia, ustanawiają pełnomocnika do reprezentowania ich w postępowaniu o udzielenie zamówienia albo do reprezentowania w postępowaniu i zawarcia umowy w sprawie zamówienia publicznego. Pełnomocnictwo w formie oryginału należy dołączyć do wniosku, przy czym dokument musi być zgodny z dokumentami rejestracyjnymi Wykonawcy/Wykonawców, a jego treść winna dokładnie określać zakres umocowania. Wspólnicy spółki cywilnej traktowani są jako Wykonawcy wspólnie ubiegający się o udzielenia zamówienia. W tym przypadku Zamawiający nie wymaga pełnomocnictwa, o ile Wykonawca załączy poświadczoną za zgodność z oryginałem kopię umowy spółki regulującą formę reprezentacji spółki.
+2)	W przypadku realizacji przedmiotu zamówienia przez konsorcjum, umowa konsorcjum winna jednoznacznie regulować zakres odpowiedzialności za ochronę informacji niejawnych, zgodnie z ustawą o ochronie informacji niejawnych.
+</cbc:CompanyLegalForm>
+         </cac:TendererQualificationRequest>
+         <cac:TendererQualificationRequest>
+            <cac:SpecificTendererRequirement>
+               <cbc:TendererRequirementTypeCode listName="missing-info-submission">late-some</cbc:TendererRequirementTypeCode>
+            </cac:SpecificTendererRequirement>
+         </cac:TendererQualificationRequest>
+         <cac:AllowedSubcontractTerms>
+            <cbc:SubcontractingConditionsCode listName="subcontracting-obligation">none</cbc:SubcontractingConditionsCode>
+         </cac:AllowedSubcontractTerms>
+         <cac:ContractExecutionRequirement>
+            <cbc:ExecutionRequirementCode listName="reserved-execution">no</cbc:ExecutionRequirementCode>
+         </cac:ContractExecutionRequirement>
+         <cac:ContractExecutionRequirement>
+            <cbc:ExecutionRequirementCode listName="conditions">performance</cbc:ExecutionRequirementCode>
+            <cbc:Description languageID="POL">Warunki zmiany umowy, wszystkie postanowienia umowy, warunki wypowiedzenia lub rozwiązania umowy, zmiany umowy oraz zapłaty kar umownych zostały określone we wzorze umowy stanowiącym załącznik do SWZ</cbc:Description>
+         </cac:ContractExecutionRequirement>
+         <cac:ContractExecutionRequirement>
+            <cbc:ExecutionRequirementCode listName="einvoicing">allowed</cbc:ExecutionRequirementCode>
+         </cac:ContractExecutionRequirement>
+         <cac:ContractExecutionRequirement>
+            <cbc:ExecutionRequirementCode listName="nda">false</cbc:ExecutionRequirementCode>
+         </cac:ContractExecutionRequirement>
+         <cac:ContractExecutionRequirement>
+            <cbc:ExecutionRequirementCode listName="ecatalog-submission">not-allowed</cbc:ExecutionRequirementCode>
+         </cac:ContractExecutionRequirement>
+         <cac:ContractExecutionRequirement>
+            <cbc:ExecutionRequirementCode listName="esignature-submission">true</cbc:ExecutionRequirementCode>
+         </cac:ContractExecutionRequirement>
+         <cac:AwardingTerms>
+            <cac:AwardingCriterion>
+               <cac:SubordinateAwardingCriterion>
+                  <ext:UBLExtensions>
+                     <ext:UBLExtension>
+                        <ext:ExtensionContent>
+                           <efext:EformsExtension>
+                              <efac:AwardCriterionParameter>
+                                 <efbc:ParameterCode listName="number-weight">per-exa</efbc:ParameterCode>
+                                 <efbc:ParameterNumeric>40</efbc:ParameterNumeric>
+                              </efac:AwardCriterionParameter>
+                           </efext:EformsExtension>
+                        </ext:ExtensionContent>
+                     </ext:UBLExtension>
+                  </ext:UBLExtensions>
+                  <cbc:AwardingCriterionTypeCode listName="award-criterion-type">price</cbc:AwardingCriterionTypeCode>
+                  <cbc:Name languageID="POL">Kryterium „cena  za 1km autokaru  przejazdy krajowe o liczbie miejsc od 23 siedzących”; </cbc:Name>
+                  <cbc:Description languageID="POL">a)	Kryterium „cena  za 1km autokaru  przejazdy krajowe o liczbie miejsc od 23 siedzących”; 
+(PK1) – waga 40 %; liczone według wzoru:
+             PK1  = Cn / Cb x 40% x 100 
+     gdzie: 
+PK1 – ilość punktów, jakie otrzyma oferta badana za kryterium „cena za 1 km autokaru przejazdy krajowe”;
+Cn – oferta z najniższą ceną netto za 1km autokaru przejazdy krajowe;
+Cb – cena netto badanej oferty za 1km autokaru przejazdy krajowe.
+</cbc:Description>
+               </cac:SubordinateAwardingCriterion>
+               <cac:SubordinateAwardingCriterion>
+                  <ext:UBLExtensions>
+                     <ext:UBLExtension>
+                        <ext:ExtensionContent>
+                           <efext:EformsExtension>
+                              <efac:AwardCriterionParameter>
+                                 <efbc:ParameterCode listName="number-weight">per-exa</efbc:ParameterCode>
+                                 <efbc:ParameterNumeric>10</efbc:ParameterNumeric>
+                              </efac:AwardCriterionParameter>
+                           </efext:EformsExtension>
+                        </ext:ExtensionContent>
+                     </ext:UBLExtension>
+                  </ext:UBLExtensions>
+                  <cbc:AwardingCriterionTypeCode listName="award-criterion-type">price</cbc:AwardingCriterionTypeCode>
+                  <cbc:Name languageID="POL">Kryterium „ceny”  za 1km autokaru  przejazdy zagraniczne o liczbie miejsc od 23 siedzących</cbc:Name>
+                  <cbc:Description languageID="POL">Kryterium „ceny”  za 1km autokaru  przejazdy zagraniczne o liczbie miejsc od 23 siedzących; 
+(PZ1) – waga 10 %; liczone według wzoru:
+             PZ1  = Cn / Cb x 10% x 100 
+     gdzie: 
+PZ1 – ilość punktów, jakie otrzyma oferta badana za kryterium „cena za 1km autokaru  przejazdy zagraniczne”;
+Cn – oferta z najniższą ceną netto za 1km autokaru przejazdy zagraniczne;
+Cb – cena za 1km autokaru netto badanej oferty przejazdy zagraniczne.
+</cbc:Description>
+               </cac:SubordinateAwardingCriterion>
+               <cac:SubordinateAwardingCriterion>
+                  <ext:UBLExtensions>
+                     <ext:UBLExtension>
+                        <ext:ExtensionContent>
+                           <efext:EformsExtension>
+                              <efac:AwardCriterionParameter>
+                                 <efbc:ParameterCode listName="number-weight">per-exa</efbc:ParameterCode>
+                                 <efbc:ParameterNumeric>35</efbc:ParameterNumeric>
+                              </efac:AwardCriterionParameter>
+                           </efext:EformsExtension>
+                        </ext:ExtensionContent>
+                     </ext:UBLExtension>
+                  </ext:UBLExtensions>
+                  <cbc:AwardingCriterionTypeCode listName="award-criterion-type">price</cbc:AwardingCriterionTypeCode>
+                  <cbc:Name languageID="POL">Kryterium „ceny”  za 1km busa przejazdy krajowe do 22 miejsc siedzących; </cbc:Name>
+                  <cbc:Description languageID="POL">Kryterium „ceny”  za 1km busa przejazdy krajowe do 22 miejsc siedzących; 
+(PK2) – waga 35 %; liczone według wzoru:
+             PK2  = Cn / Cb x 35% x 100 
+     gdzie: 
+PK2 – ilość punktów, jakie otrzyma oferta badana za kryterium „cena za 1km   busa przejazdy krajowe do 22 miejsc siedzących”;
+Cn – oferta z najniższą ceną netto za 1km busa przejazdy krajowe;
+Cb – cena netto za 1km busa badanej oferty przejazdy krajowe .
+</cbc:Description>
+               </cac:SubordinateAwardingCriterion>
+               <cac:SubordinateAwardingCriterion>
+                  <ext:UBLExtensions>
+                     <ext:UBLExtension>
+                        <ext:ExtensionContent>
+                           <efext:EformsExtension>
+                              <efac:AwardCriterionParameter>
+                                 <efbc:ParameterCode listName="number-weight">per-exa</efbc:ParameterCode>
+                                 <efbc:ParameterNumeric>5</efbc:ParameterNumeric>
+                              </efac:AwardCriterionParameter>
+                           </efext:EformsExtension>
+                        </ext:ExtensionContent>
+                     </ext:UBLExtension>
+                  </ext:UBLExtensions>
+                  <cbc:AwardingCriterionTypeCode listName="award-criterion-type">price</cbc:AwardingCriterionTypeCode>
+                  <cbc:Name languageID="POL">Kryterium „ceny”  za 1km busa przejazdy zagraniczne do 22 miejsc siedzących</cbc:Name>
+                  <cbc:Description languageID="POL">Kryterium „ceny”  za 1km busa przejazdy zagraniczne do 22 miejsc siedzących; 
+(PZ2) – waga 5 %; liczone według wzoru:
+             PZ2  = Cn / Cb x 5% x 100 
+     gdzie: 
+PZ2 – ilość punktów, jakie otrzyma oferta badana za kryterium „cena za 1km   busa przejazdy zagraniczne do 22 miejsc siedzących”;
+Cn – oferta z najniższą ceną netto za 1km busa przejazdy zagraniczne;
+Cb – cena netto za 1km busa badanej oferty przejazdy zagraniczne.</cbc:Description>
+               </cac:SubordinateAwardingCriterion>
+               <cac:SubordinateAwardingCriterion>
+                  <ext:UBLExtensions>
+                     <ext:UBLExtension>
+                        <ext:ExtensionContent>
+                           <efext:EformsExtension>
+                              <efac:AwardCriterionParameter>
+                                 <efbc:ParameterCode listName="number-weight">per-exa</efbc:ParameterCode>
+                                 <efbc:ParameterNumeric>10</efbc:ParameterNumeric>
+                              </efac:AwardCriterionParameter>
+                           </efext:EformsExtension>
+                        </ext:ExtensionContent>
+                     </ext:UBLExtension>
+                  </ext:UBLExtensions>
+                  <cbc:AwardingCriterionTypeCode listName="award-criterion-type">quality</cbc:AwardingCriterionTypeCode>
+                  <cbc:Name languageID="POL">Kryterium „Dyspozycyjność Wykonawcy” </cbc:Name>
+                  <cbc:Description languageID="POL">Kryterium „Dyspozycyjność Wykonawcy” Pd:  - 10 pkt		Dyspozycyjność Wykonawcy, rozumiana  jako czas reakcji Wykonawcy to jest rozpoczęcie wykonywania usługi, w odpowiedzi na zgłoszenie przez Zamawiającego zapotrzebowania na wykonanie usługi w trybie przyśpieszonym, w odniesieniu do zadań wynikających ze zgłaszanych zapotrzebowań,  których Zamawiający nie mógł zgłosić Wykonawcy z co najmniej 48 godzinnym wyprzedzeniem. Zamawiający dokona oceny na podstawie złożonego przez Wykonawcę oświadczenia w ofercie  o dyspozycyjności za wykonanie usługi w trybie przyśpieszonym , którą Wykonawca określi w pełnych godzinach, przy czym czas reakcji nie może być krótszy niż 1(jedna) godzina i dłuższy niż 12 (dwanaście) godzin. Kryterium „dyspozycyjność Wykonawcy” (DW) – waga 10%, liczone według wzoru:
+DW = DWn / DWb x 10% x 100 
+     gdzie: 
+DW – ilość punktów, jakie otrzyma oferta badana za kryterium „dyspozycyjność Wykonawcy” 
+DWn –  oferta z najniższą liczbą godzin spośród ofert badanych;
+DWb – liczbą godzin przedstawiona w ofercie badanej spośród ofert   badanych.</cbc:Description>
+               </cac:SubordinateAwardingCriterion>
+            </cac:AwardingCriterion>
+         </cac:AwardingTerms>
+         <cac:DocumentProviderParty>
+            <cac:PartyIdentification>
+               <cbc:ID>ORG-0001</cbc:ID>
+            </cac:PartyIdentification>
+         </cac:DocumentProviderParty>
+         <cac:TenderRecipientParty>
+            <cbc:EndpointID>https://portal.smartpzp.pl/32wog</cbc:EndpointID>
+            <cac:PartyIdentification>
+               <cbc:ID>ORG-0001</cbc:ID>
+            </cac:PartyIdentification>
+         </cac:TenderRecipientParty>
+         <cac:TenderEvaluationParty>
+            <cac:PartyIdentification>
+               <cbc:ID>ORG-0001</cbc:ID>
+            </cac:PartyIdentification>
+         </cac:TenderEvaluationParty>
+         <cac:AppealTerms>
+            <cac:AppealInformationParty>
+               <cac:PartyIdentification>
+                  <cbc:ID>ORG-0002</cbc:ID>
+               </cac:PartyIdentification>
+            </cac:AppealInformationParty>
+            <cac:AppealReceiverParty>
+               <cac:PartyIdentification>
+                  <cbc:ID>ORG-0002</cbc:ID>
+               </cac:PartyIdentification>
+            </cac:AppealReceiverParty>
+            <cac:MediationParty>
+               <cac:PartyIdentification>
+                  <cbc:ID>ORG-0002</cbc:ID>
+               </cac:PartyIdentification>
+            </cac:MediationParty>
+         </cac:AppealTerms>
+         <cac:Language>
+            <cbc:ID>POL</cbc:ID>
+         </cac:Language>
+         <cac:PostAwardProcess>
+            <cbc:ElectronicOrderUsageIndicator>true</cbc:ElectronicOrderUsageIndicator>
+            <cbc:ElectronicPaymentUsageIndicator>true</cbc:ElectronicPaymentUsageIndicator>
+         </cac:PostAwardProcess>
+         <cac:SecurityClearanceTerm>
+            <cbc:Code listName="required">false</cbc:Code>
+         </cac:SecurityClearanceTerm>
+      </cac:TenderingTerms>
+      <cac:TenderingProcess>
+         <ext:UBLExtensions>
+            <ext:UBLExtension>
+               <ext:ExtensionContent>
+                  <efext:EformsExtension>
+                     <efbc:AccessToolName>platforma zakupowa https://portal.smartpzp.pl/32wog </efbc:AccessToolName>
+                  </efext:EformsExtension>
+               </ext:ExtensionContent>
+            </ext:UBLExtension>
+         </ext:UBLExtensions>
+         <cbc:SubmissionMethodCode listName="esubmission">required</cbc:SubmissionMethodCode>
+         <cbc:CandidateReductionConstraintIndicator>true</cbc:CandidateReductionConstraintIndicator>
+         <cbc:AccessToolsURI>https://portal.smartpzp.pl/32wog</cbc:AccessToolsURI>
+         <cac:ParticipationRequestReceptionPeriod>
+            <cbc:EndDate>2023-11-14+01:00</cbc:EndDate>
+            <cbc:EndTime>10:00:00+01:00</cbc:EndTime>
+         </cac:ParticipationRequestReceptionPeriod>
+         <cac:EconomicOperatorShortList>
+            <cbc:LimitationDescription>false</cbc:LimitationDescription>
+         </cac:EconomicOperatorShortList>
+         <cac:AuctionTerms>
+            <cbc:AuctionConstraintIndicator>false</cbc:AuctionConstraintIndicator>
+         </cac:AuctionTerms>
+         <cac:ContractingSystem>
+            <cbc:ContractingSystemTypeCode listName="framework-agreement">none</cbc:ContractingSystemTypeCode>
+         </cac:ContractingSystem>
+         <cac:ContractingSystem>
+            <cbc:ContractingSystemTypeCode listName="dps-usage">none</cbc:ContractingSystemTypeCode>
+         </cac:ContractingSystem>
+      </cac:TenderingProcess>
+      <cac:ProcurementProject>
+         <cbc:ID>CZĘŚĆ NR 1</cbc:ID>
+         <cbc:Name languageID="POL">Przewóz osób ( z  lub do) 3bz, 25 blp OT,  32 WOG, 8 krrl, RCI(WT), 18pplot, 19 BZ, 4 blog, ul. Wojska Polskiego 2F, 22-400 Zamość; WCR Zamość ul. Koszary 52, 22-400 Zamość, oraz pozostałych jednostek i organizacji będących na zaopatrzeniu 32 WOG</cbc:Name>
+         <cbc:Description languageID="POL">Przewóz osób ( z  lub do) 3bz, 25 blp OT,  32 WOG, 8 krrl, RCI(WT), 18pplot, 19 BZ, 4 blog, ul. Wojska Polskiego 2F, 22-400 Zamość; WCR Zamość ul. Koszary 52, 22-400 Zamość, oraz pozostałych jednostek i organizacji będących na zaopatrzeniu 32 WOG</cbc:Description>
+         <cbc:ProcurementTypeCode listName="contract-nature">services</cbc:ProcurementTypeCode>
+         <cbc:SMESuitableIndicator>true</cbc:SMESuitableIndicator>
+         <cac:MainCommodityClassification>
+            <cbc:ItemClassificationCode listName="cpv">60140000</cbc:ItemClassificationCode>
+         </cac:MainCommodityClassification>
+         <cac:RealizedLocation>
+            <cac:Address>
+               <cbc:StreetName>ul. Wojska Polskiego 2F</cbc:StreetName>
+               <cbc:AdditionalStreetName>ul. Koszary 52</cbc:AdditionalStreetName>
+               <cbc:CityName>Zamość</cbc:CityName>
+               <cbc:PostalZone>22-400</cbc:PostalZone>
+               <cbc:CountrySubentityCode listName="nuts">PL812</cbc:CountrySubentityCode>
+               <cac:Country>
+                  <cbc:IdentificationCode listName="country">POL</cbc:IdentificationCode>
+               </cac:Country>
+            </cac:Address>
+         </cac:RealizedLocation>
+         <cac:PlannedPeriod>
+            <cbc:StartDate>2024-01-01+01:00</cbc:StartDate>
+            <cbc:EndDate>2024-12-31+01:00</cbc:EndDate>
+         </cac:PlannedPeriod>
+         <cac:ContractExtension>
+            <cbc:OptionsDescription languageID="POL">1.	Zamawiający przewiduje możliwość skorzystania z prawa opcji, polegającym na możliwości zwiększenia zamówienia podstawowego określonego w § 5 ust. 1 niniejszej umowy, w ramach limitu finansowego określonego w § 5 ust. 2 niniejszej umowy - nie więcej jednak niż do 100% łącznej wartości zamówienia podstawowego w okresie trwania umowy. Wykonanie opcji może, ale nie musi nastąpić, w zależności od zapotrzebowania Zamawiającego i na skutek jego dyspozycji w tym zakresie. Wykonanie prawa opcji nie będzie wymagać wykonania aneksu do umowy, odbywać się będzie w oparciu o skierowaną do Wykonawcy informację o uruchomieniu prawa opcji.
+2.	 Prawem opcji objęta jest możliwość uzupełniającego zwiększenia usług stanowiących przedmiot niniejszej umowy w zakresie maksymalnym wynoszącym 100 % niniejszej wartości umowy.
+3.	 Zamawiający zastrzega, iż usługi objęte prawem opcji muszą być realizowane na warunkach określonych dla zamówienia podstawowego.
+4.	 W ramach prawa opcji Zamawiający zastrzega sobie możliwość pełnego albo wyłącznie częściowego wykorzystania zamówień objętych prawem opcji, co każdorazowo zostanie sprecyzowane w oświadczeniu o udzieleniu zamówienia składanym w ramach prawa opcji.
+5.	 Zamawiający wymaga, aby wartość ceny jednostkowej przysługującej Wykonawcy z tytułu przejechania jednego kilometra była jednakowa w odniesieniu do zamówienia podstawowego oraz zamówień udzielanych w ramach prawa opcji.
+6.	 Prawo opcji stanowi uprawnienie Zamawiającego, z którego może, ale nie musi skorzystać w ramach realizacji niniejszej umowy.
+</cbc:OptionsDescription>
+            <cbc:MaximumNumberNumeric>0</cbc:MaximumNumberNumeric>
+         </cac:ContractExtension>
+      </cac:ProcurementProject>
+   </cac:ProcurementProjectLot>
+   <cac:ProcurementProjectLot>
+      <cbc:ID schemeName="Lot">LOT-0002</cbc:ID>
+      <cac:TenderingTerms>
+         <ext:UBLExtensions>
+            <ext:UBLExtension>
+               <ext:ExtensionContent>
+                  <efext:EformsExtension>
+                     <efac:SelectionCriteria>
+                        <cbc:CriterionTypeCode listName="selection-criterion">sui-act</cbc:CriterionTypeCode>
+                        <cbc:Name languageID="POL">1)	Zezwolenie na wykonywanie zawodu przewoźnika drogowego lub aktualna licencja na wykonywanie krajowego i międzynarodowego transportu drogowego osób </cbc:Name>
+                        <cbc:Description languageID="POL">Warunek ten zostanie spełniony, jeżeli Wykonawca wykaże, że posiada:
+1)	Zezwolenie na wykonywanie zawodu przewoźnika drogowego, na zasadach określonych w rozporządzeniu Parlamentu Europejskiego i Rady (WE) nr 1071/2009 z dnia 21 października 2009 r. ustanawiającym wspólne zasady dotyczące warunków wykonywania zawodu przewoźnika drogowego i uchylającym dyrektywę Rady 96/26/WE, zwanym dalej „rozporządzeniem (WE) nr 1071/2009 lub aktualną licencję na wykonywanie krajowego i międzynarodowego transportu drogowego osób wydaną na podstawie art. 5 ustawy z dnia 6 września 2001 r.  o transporcie drogowym (Dz. U. z 2019 r., poz. 2140).  Wykonawca zobowiązany jest do posiadania ww. Zezwolenia lub licencji ważnej przez cały okres trwania umowy (w przypadku gdy ww. dokument traci ważność w trakcie trwania umowy, Wykonawca zobowiązany jest przedstawić Zamawiającemu dokument ważny na kolejny okres trwania umowy, przed wygaśnięciem ważności  poprzedniego dokumentu).
+</cbc:Description>
+                        <cbc:CalculationExpressionCode listName="usage">used</cbc:CalculationExpressionCode>
+                        <efbc:SecondStageIndicator>false</efbc:SecondStageIndicator>
+                     </efac:SelectionCriteria>
+                     <efac:SelectionCriteria>
+                        <cbc:CriterionTypeCode listName="selection-criterion">tp-abil</cbc:CriterionTypeCode>
+                        <cbc:Name languageID="POL">DOŚWIADCZENIE: 
+W ZAKRESIE CZĘŚCI NR 2 
+</cbc:Name>
+                        <cbc:Description languageID="POL">Zamawiający uzna, że Wykonawca spełnił ww. warunek – jeżeli wykaże, że: W ZAKRESIE CZĘŚCI NR 2
+a)	posiada doświadczenie nabyte poprzez realizację usług, odpowiadających swoim rodzajem usłudze objętej przedmiotem zamówienia publicznego, przez co Zamawiający rozumie wykonanie w okresie ostatnich 5 lat, a jeżeli okres prowadzenia działalności jest krótszy – w tym okresie, wykonał, lub wykonuje przez okres co najmniej 6 miesięcy co najmniej 2 (usługi) polegające na usługach nieregularnego przewozu żołnierzy wraz z uzbrojeniem i wyposażeniem do ośrodków szkoleniowych własnym środkiem transportu wraz z kierowcą - na kwotę co najmniej 50 000,00 zł. brutto każda,  wraz z podaniem ich wartości, przedmiotu, dat wykonania i podmiotów na rzecz których usługi te zostały wykonane, lub są wykonywane oraz załączeniem dowodów określających, czy te usługi zostały wykonane lub są wykonywane należycie, przy czym dowodami o których mowa, są referencje bądź inne dokumenty sporządzone przez podmiot na rzecz którego usługi zostały wykonane, a jeżeli wykonawca z przyczyn niezależnych od niego nie jest w stanie uzyskać tych dokumentów – oświadczenie wykonawcy; w przypadku świadczeń powtarzających się lub ciągłych nadal wykonywanych referencje bądź inne dokumenty potwierdzające ich należyte wykonywanie powinny być wystawione w okresie ostatnich 3 miesięcy
+</cbc:Description>
+                        <cbc:CalculationExpressionCode listName="usage">used</cbc:CalculationExpressionCode>
+                        <efbc:SecondStageIndicator>false</efbc:SecondStageIndicator>
+                     </efac:SelectionCriteria>
+                     <efac:SelectionCriteria>
+                        <cbc:CriterionTypeCode listName="selection-criterion">tp-abil</cbc:CriterionTypeCode>
+                        <cbc:Name languageID="POL">Dysponowanie POTENCJAŁEM TECHNICZNYM i OSOBOWYM:  </cbc:Name>
+                        <cbc:Description languageID="POL">Warunek ten zostanie spełniony, jeżeli Wykonawca wykaże, iż posiada:
+W ZAKRESIE CZĘŚCI NR 2, 
+a)	  narzędzia oddzielnie dla każdej części zamówienia dostępne wykonawcy 
+w celu wykonania zamówienia  publicznego tj.:  6 pojazdów oraz 1 - dla autokaru o liczbie miejsc siedzących od 23 i więcej; 6 pojazdów oraz 1 rezerwowy - dla BUS do 22 miejsc siedzących. Pojazdy muszą posiadać aktualne badania techniczne, polisę OC, polisę NNW
+b)	potencjał osobowy oddzielnie dla każdej części zamówienia tj. kierowcy którzy będą posiadać kwalifikacje  zawodowe, to jest uprawnienia do kierowania pojazdami   kategorii  ,,D”-  zgodnie działem 4, rozdział 1, art. 87 - 94 ustawy z dnia 20 czerwca 1997 r. Prawo o ruchu drogowym (Dz. U. z 2020 r., poz. 110 tekst jednolity z późniejszymi zmianami); ustawą z dnia 5 stycznia 2011 roku o kierujących pojazdami (Dz. U. z 2020r., poz.1268 tekst jednolity z późniejszymi  zmianami) w tym: 6 kierowców autokaru oraz 1 rezerwowy; 6 kierowców BUS oraz 1 rezerwowy.
+</cbc:Description>
+                        <cbc:CalculationExpressionCode listName="usage">used</cbc:CalculationExpressionCode>
+                        <efbc:SecondStageIndicator>false</efbc:SecondStageIndicator>
+                     </efac:SelectionCriteria>
+                     <efac:StrategicProcurement>
+                        <efbc:ApplicableLegalBasis listName="cvd-scope">false</efbc:ApplicableLegalBasis>
+                     </efac:StrategicProcurement>
+                     <efac:TenderSubcontractingRequirements>
+                        <efbc:TenderSubcontractingRequirementsCode listName="subcontracting-indication">shar-subc</efbc:TenderSubcontractingRequirementsCode>
+                     </efac:TenderSubcontractingRequirements>
+                  </efext:EformsExtension>
+               </ext:ExtensionContent>
+            </ext:UBLExtension>
+         </ext:UBLExtensions>
+         <cbc:VariantConstraintCode listName="permission">not-allowed</cbc:VariantConstraintCode>
+         <cbc:FundingProgramCode listName="eu-funded">no-eu-funds</cbc:FundingProgramCode>
+         <cbc:RequiredCurriculaCode listName="requirement-stage">par-requ</cbc:RequiredCurriculaCode>
+         <cbc:RecurringProcurementIndicator>false</cbc:RecurringProcurementIndicator>
+         <cbc:MultipleTendersCode listName="permission">not-allowed</cbc:MultipleTendersCode>
+         <cac:RequiredFinancialGuarantee>
+            <cbc:GuaranteeTypeCode listName="tender-guarantee-required">true</cbc:GuaranteeTypeCode>
+            <cbc:Description languageID="POL">Zamawiający wymaga wniesienia wadium w wysokości: 3500,00 zł</cbc:Description>
+         </cac:RequiredFinancialGuarantee>
+         <cac:EnvironmentalLegislationDocumentReference>
+            <cbc:ID>_DEFAULT_VALUE_CHANGE_ME_</cbc:ID>
+            <cac:IssuerParty>
+               <cac:PartyIdentification>
+                  <cbc:ID>ORG-0001</cbc:ID>
+               </cac:PartyIdentification>
+            </cac:IssuerParty>
+         </cac:EnvironmentalLegislationDocumentReference>
+         <cac:EmploymentLegislationDocumentReference>
+            <cbc:ID>_DEFAULT_VALUE_CHANGE_ME_</cbc:ID>
+            <cac:IssuerParty>
+               <cac:PartyIdentification>
+                  <cbc:ID>ORG-0001</cbc:ID>
+               </cac:PartyIdentification>
+            </cac:IssuerParty>
+         </cac:EmploymentLegislationDocumentReference>
+         <cac:CallForTendersDocumentReference>
+            <ext:UBLExtensions>
+               <ext:UBLExtension>
+                  <ext:ExtensionContent>
+                     <efext:EformsExtension>
+                        <efac:OfficialLanguages>
+                           <cac:Language>
+                              <cbc:ID>POL</cbc:ID>
+                           </cac:Language>
+                        </efac:OfficialLanguages>
+                     </efext:EformsExtension>
+                  </ext:ExtensionContent>
+               </ext:UBLExtension>
+            </ext:UBLExtensions>
+            <cbc:ID>_DEFAULT_VALUE_CHANGE_ME_</cbc:ID>
+            <cbc:DocumentType>non-restricted-document</cbc:DocumentType>
+            <cac:Attachment>
+               <cac:ExternalReference>
+                  <cbc:URI>https://portal.smartpzp.pl/32wog</cbc:URI>
+               </cac:ExternalReference>
+            </cac:Attachment>
+         </cac:CallForTendersDocumentReference>
+         <cac:PaymentTerms>
+            <cbc:Note languageID="POL">Wynagrodzenie będzie płatne na podstawie prawidłowo wystawionej przez Wykonawcę faktury, w terminie 21 dni od daty doręczenia faktury z dołączoną kopią Karty rozliczenia zadania transportowego do siedziby Zamawiającego, na numer konta bankowego Wykonawcy wskazany na fakturze.
+Wynagrodzenie za wykonaną usługę będzie obliczone jako iloczyn ceny jednego kilometra i ilości przejechanych kilometrów.
+Kartę rozliczenia zadania transportowego wypełnia się w dwóch egzemplarzach. Powinna ona być wypełniona i podpisaną przez kierowcę oraz dysponenta pojazdu. 
+Za prawidłowe wypełnienie Karty rozliczenia zadania transportowego odpowiada dysponent pojazdu, ze szczególnym uwzględnieniem podpisów wymaganych na ww. dokumencie.
+Kartę rozliczenia zadania transportowego przed rozpoczęciem usługi transportowej zobowiązany jest dostarczyć do pojazdu dysponent pojazdu, który po zakończeniu wykonania usługi transportowej jest zobowiązany do przekazania jednego wypełnionego egzemplarza dla kierowcy.
+</cbc:Note>
+         </cac:PaymentTerms>
+         <cac:TendererQualificationRequest>
+            <cbc:CompanyLegalFormCode listName="required">true</cbc:CompanyLegalFormCode>
+            <cbc:CompanyLegalForm languageID="POL">1)	W przypadku, gdy Wykonawcy wspólnie ubiegają się o zamówienia, ustanawiają pełnomocnika do reprezentowania ich w postępowaniu o udzielenie zamówienia albo do reprezentowania w postępowaniu i zawarcia umowy w sprawie zamówienia publicznego. Pełnomocnictwo w formie oryginału należy dołączyć do wniosku, przy czym dokument musi być zgodny z dokumentami rejestracyjnymi Wykonawcy/Wykonawców, a jego treść winna dokładnie określać zakres umocowania. Wspólnicy spółki cywilnej traktowani są jako Wykonawcy wspólnie ubiegający się o udzielenia zamówienia. W tym przypadku Zamawiający nie wymaga pełnomocnictwa, o ile Wykonawca załączy poświadczoną za zgodność z oryginałem kopię umowy spółki regulującą formę reprezentacji spółki.
+2)	W przypadku realizacji przedmiotu zamówienia przez konsorcjum, umowa konsorcjum winna jednoznacznie regulować zakres odpowiedzialności za ochronę informacji niejawnych, zgodnie z ustawą o ochronie informacji niejawnych.
+</cbc:CompanyLegalForm>
+         </cac:TendererQualificationRequest>
+         <cac:TendererQualificationRequest>
+            <cac:SpecificTendererRequirement>
+               <cbc:TendererRequirementTypeCode listName="missing-info-submission">late-some</cbc:TendererRequirementTypeCode>
+            </cac:SpecificTendererRequirement>
+         </cac:TendererQualificationRequest>
+         <cac:AllowedSubcontractTerms>
+            <cbc:SubcontractingConditionsCode listName="subcontracting-obligation">none</cbc:SubcontractingConditionsCode>
+         </cac:AllowedSubcontractTerms>
+         <cac:ContractExecutionRequirement>
+            <cbc:ExecutionRequirementCode listName="reserved-execution">no</cbc:ExecutionRequirementCode>
+         </cac:ContractExecutionRequirement>
+         <cac:ContractExecutionRequirement>
+            <cbc:ExecutionRequirementCode listName="conditions">performance</cbc:ExecutionRequirementCode>
+            <cbc:Description languageID="POL">Warunki zmiany umowy, wszystkie postanowienia umowy, warunki wypowiedzenia lub rozwiązania umowy, zmiany umowy oraz zapłaty kar umownych zostały określone we wzorze umowy stanowiącym załącznik do SWZ</cbc:Description>
+         </cac:ContractExecutionRequirement>
+         <cac:ContractExecutionRequirement>
+            <cbc:ExecutionRequirementCode listName="einvoicing">allowed</cbc:ExecutionRequirementCode>
+         </cac:ContractExecutionRequirement>
+         <cac:ContractExecutionRequirement>
+            <cbc:ExecutionRequirementCode listName="nda">false</cbc:ExecutionRequirementCode>
+         </cac:ContractExecutionRequirement>
+         <cac:ContractExecutionRequirement>
+            <cbc:ExecutionRequirementCode listName="ecatalog-submission">not-allowed</cbc:ExecutionRequirementCode>
+         </cac:ContractExecutionRequirement>
+         <cac:ContractExecutionRequirement>
+            <cbc:ExecutionRequirementCode listName="esignature-submission">true</cbc:ExecutionRequirementCode>
+         </cac:ContractExecutionRequirement>
+         <cac:AwardingTerms>
+            <cac:AwardingCriterion>
+               <cac:SubordinateAwardingCriterion>
+                  <ext:UBLExtensions>
+                     <ext:UBLExtension>
+                        <ext:ExtensionContent>
+                           <efext:EformsExtension>
+                              <efac:AwardCriterionParameter>
+                                 <efbc:ParameterCode listName="number-weight">per-exa</efbc:ParameterCode>
+                                 <efbc:ParameterNumeric>40</efbc:ParameterNumeric>
+                              </efac:AwardCriterionParameter>
+                           </efext:EformsExtension>
+                        </ext:ExtensionContent>
+                     </ext:UBLExtension>
+                  </ext:UBLExtensions>
+                  <cbc:AwardingCriterionTypeCode listName="award-criterion-type">price</cbc:AwardingCriterionTypeCode>
+                  <cbc:Name languageID="POL">Kryterium „cena  za 1km autokaru  przejazdy krajowe o liczbie miejsc od 23 siedzących”; </cbc:Name>
+                  <cbc:Description languageID="POL">a)	Kryterium „cena  za 1km autokaru  przejazdy krajowe o liczbie miejsc od 23 siedzących”; 
+(PK1) – waga 40 %; liczone według wzoru:
+             PK1  = Cn / Cb x 40% x 100 
+     gdzie: 
+PK1 – ilość punktów, jakie otrzyma oferta badana za kryterium „cena za 1 km autokaru przejazdy krajowe”;
+Cn – oferta z najniższą ceną netto za 1km autokaru przejazdy krajowe;
+Cb – cena netto badanej oferty za 1km autokaru przejazdy krajowe.
+</cbc:Description>
+               </cac:SubordinateAwardingCriterion>
+               <cac:SubordinateAwardingCriterion>
+                  <ext:UBLExtensions>
+                     <ext:UBLExtension>
+                        <ext:ExtensionContent>
+                           <efext:EformsExtension>
+                              <efac:AwardCriterionParameter>
+                                 <efbc:ParameterCode listName="number-weight">per-exa</efbc:ParameterCode>
+                                 <efbc:ParameterNumeric>10</efbc:ParameterNumeric>
+                              </efac:AwardCriterionParameter>
+                           </efext:EformsExtension>
+                        </ext:ExtensionContent>
+                     </ext:UBLExtension>
+                  </ext:UBLExtensions>
+                  <cbc:AwardingCriterionTypeCode listName="award-criterion-type">price</cbc:AwardingCriterionTypeCode>
+                  <cbc:Name languageID="POL">Kryterium „ceny”  za 1km autokaru  przejazdy zagraniczne o liczbie miejsc od 23 siedzących</cbc:Name>
+                  <cbc:Description languageID="POL">Kryterium „ceny”  za 1km autokaru  przejazdy zagraniczne o liczbie miejsc od 23 siedzących; 
+(PZ1) – waga 10 %; liczone według wzoru:
+             PZ1  = Cn / Cb x 10% x 100 
+     gdzie: 
+PZ1 – ilość punktów, jakie otrzyma oferta badana za kryterium „cena za 1km autokaru  przejazdy zagraniczne”;
+Cn – oferta z najniższą ceną netto za 1km autokaru przejazdy zagraniczne;
+Cb – cena za 1km autokaru netto badanej oferty przejazdy zagraniczne.
+</cbc:Description>
+               </cac:SubordinateAwardingCriterion>
+               <cac:SubordinateAwardingCriterion>
+                  <ext:UBLExtensions>
+                     <ext:UBLExtension>
+                        <ext:ExtensionContent>
+                           <efext:EformsExtension>
+                              <efac:AwardCriterionParameter>
+                                 <efbc:ParameterCode listName="number-weight">per-exa</efbc:ParameterCode>
+                                 <efbc:ParameterNumeric>35</efbc:ParameterNumeric>
+                              </efac:AwardCriterionParameter>
+                           </efext:EformsExtension>
+                        </ext:ExtensionContent>
+                     </ext:UBLExtension>
+                  </ext:UBLExtensions>
+                  <cbc:AwardingCriterionTypeCode listName="award-criterion-type">price</cbc:AwardingCriterionTypeCode>
+                  <cbc:Name languageID="POL">Kryterium „ceny”  za 1km busa przejazdy krajowe do 22 miejsc siedzących; </cbc:Name>
+                  <cbc:Description languageID="POL">Kryterium „ceny”  za 1km busa przejazdy krajowe do 22 miejsc siedzących; 
+(PK2) – waga 35 %; liczone według wzoru:
+             PK2  = Cn / Cb x 35% x 100 
+     gdzie: 
+PK2 – ilość punktów, jakie otrzyma oferta badana za kryterium „cena za 1km   busa przejazdy krajowe do 22 miejsc siedzących”;
+Cn – oferta z najniższą ceną netto za 1km busa przejazdy krajowe;
+Cb – cena netto za 1km busa badanej oferty przejazdy krajowe .
+</cbc:Description>
+               </cac:SubordinateAwardingCriterion>
+               <cac:SubordinateAwardingCriterion>
+                  <ext:UBLExtensions>
+                     <ext:UBLExtension>
+                        <ext:ExtensionContent>
+                           <efext:EformsExtension>
+                              <efac:AwardCriterionParameter>
+                                 <efbc:ParameterCode listName="number-weight">per-exa</efbc:ParameterCode>
+                                 <efbc:ParameterNumeric>5</efbc:ParameterNumeric>
+                              </efac:AwardCriterionParameter>
+                           </efext:EformsExtension>
+                        </ext:ExtensionContent>
+                     </ext:UBLExtension>
+                  </ext:UBLExtensions>
+                  <cbc:AwardingCriterionTypeCode listName="award-criterion-type">price</cbc:AwardingCriterionTypeCode>
+                  <cbc:Name languageID="POL">Kryterium „ceny”  za 1km busa przejazdy zagraniczne do 22 miejsc siedzących</cbc:Name>
+                  <cbc:Description languageID="POL">Kryterium „ceny”  za 1km busa przejazdy zagraniczne do 22 miejsc siedzących; 
+(PZ2) – waga 5 %; liczone według wzoru:
+             PZ2  = Cn / Cb x 5% x 100 
+     gdzie: 
+PZ2 – ilość punktów, jakie otrzyma oferta badana za kryterium „cena za 1km   busa przejazdy zagraniczne do 22 miejsc siedzących”;
+Cn – oferta z najniższą ceną netto za 1km busa przejazdy zagraniczne;
+Cb – cena netto za 1km busa badanej oferty przejazdy zagraniczne.</cbc:Description>
+               </cac:SubordinateAwardingCriterion>
+               <cac:SubordinateAwardingCriterion>
+                  <ext:UBLExtensions>
+                     <ext:UBLExtension>
+                        <ext:ExtensionContent>
+                           <efext:EformsExtension>
+                              <efac:AwardCriterionParameter>
+                                 <efbc:ParameterCode listName="number-weight">per-exa</efbc:ParameterCode>
+                                 <efbc:ParameterNumeric>10</efbc:ParameterNumeric>
+                              </efac:AwardCriterionParameter>
+                           </efext:EformsExtension>
+                        </ext:ExtensionContent>
+                     </ext:UBLExtension>
+                  </ext:UBLExtensions>
+                  <cbc:AwardingCriterionTypeCode listName="award-criterion-type">quality</cbc:AwardingCriterionTypeCode>
+                  <cbc:Name languageID="POL">Kryterium „Dyspozycyjność Wykonawcy” </cbc:Name>
+                  <cbc:Description languageID="POL">Kryterium „Dyspozycyjność Wykonawcy” Pd:  - 10 pkt		Dyspozycyjność Wykonawcy, rozumiana  jako czas reakcji Wykonawcy to jest rozpoczęcie wykonywania usługi, w odpowiedzi na zgłoszenie przez Zamawiającego zapotrzebowania na wykonanie usługi w trybie przyśpieszonym, w odniesieniu do zadań wynikających ze zgłaszanych zapotrzebowań,  których Zamawiający nie mógł zgłosić Wykonawcy z co najmniej 48 godzinnym wyprzedzeniem. Zamawiający dokona oceny na podstawie złożonego przez Wykonawcę oświadczenia w ofercie  o dyspozycyjności za wykonanie usługi w trybie przyśpieszonym , którą Wykonawca określi w pełnych godzinach, przy czym czas reakcji nie może być krótszy niż 1(jedna) godzina i dłuższy niż 12 (dwanaście) godzin. Kryterium „dyspozycyjność Wykonawcy” (DW) – waga 10%, liczone według wzoru:
+DW = DWn / DWb x 10% x 100 
+     gdzie: 
+DW – ilość punktów, jakie otrzyma oferta badana za kryterium „dyspozycyjność Wykonawcy” 
+DWn –  oferta z najniższą liczbą godzin spośród ofert badanych;
+DWb – liczbą godzin przedstawiona w ofercie badanej spośród ofert   badanych.</cbc:Description>
+               </cac:SubordinateAwardingCriterion>
+            </cac:AwardingCriterion>
+         </cac:AwardingTerms>
+         <cac:DocumentProviderParty>
+            <cac:PartyIdentification>
+               <cbc:ID>ORG-0001</cbc:ID>
+            </cac:PartyIdentification>
+         </cac:DocumentProviderParty>
+         <cac:TenderRecipientParty>
+            <cbc:EndpointID>https://portal.smartpzp.pl/32wog</cbc:EndpointID>
+            <cac:PartyIdentification>
+               <cbc:ID>ORG-0001</cbc:ID>
+            </cac:PartyIdentification>
+         </cac:TenderRecipientParty>
+         <cac:TenderEvaluationParty>
+            <cac:PartyIdentification>
+               <cbc:ID>ORG-0001</cbc:ID>
+            </cac:PartyIdentification>
+         </cac:TenderEvaluationParty>
+         <cac:AppealTerms>
+            <cac:AppealInformationParty>
+               <cac:PartyIdentification>
+                  <cbc:ID>ORG-0002</cbc:ID>
+               </cac:PartyIdentification>
+            </cac:AppealInformationParty>
+            <cac:AppealReceiverParty>
+               <cac:PartyIdentification>
+                  <cbc:ID>ORG-0002</cbc:ID>
+               </cac:PartyIdentification>
+            </cac:AppealReceiverParty>
+            <cac:MediationParty>
+               <cac:PartyIdentification>
+                  <cbc:ID>ORG-0002</cbc:ID>
+               </cac:PartyIdentification>
+            </cac:MediationParty>
+         </cac:AppealTerms>
+         <cac:Language>
+            <cbc:ID>POL</cbc:ID>
+         </cac:Language>
+         <cac:PostAwardProcess>
+            <cbc:ElectronicOrderUsageIndicator>true</cbc:ElectronicOrderUsageIndicator>
+            <cbc:ElectronicPaymentUsageIndicator>true</cbc:ElectronicPaymentUsageIndicator>
+         </cac:PostAwardProcess>
+         <cac:SecurityClearanceTerm>
+            <cbc:Code listName="required">false</cbc:Code>
+         </cac:SecurityClearanceTerm>
+      </cac:TenderingTerms>
+      <cac:TenderingProcess>
+         <ext:UBLExtensions>
+            <ext:UBLExtension>
+               <ext:ExtensionContent>
+                  <efext:EformsExtension>
+                     <efbc:AccessToolName>platforma zakupowa https://portal.smartpzp.pl/32wog </efbc:AccessToolName>
+                  </efext:EformsExtension>
+               </ext:ExtensionContent>
+            </ext:UBLExtension>
+         </ext:UBLExtensions>
+         <cbc:SubmissionMethodCode listName="esubmission">required</cbc:SubmissionMethodCode>
+         <cbc:CandidateReductionConstraintIndicator>true</cbc:CandidateReductionConstraintIndicator>
+         <cbc:AccessToolsURI>https://portal.smartpzp.pl/32wog</cbc:AccessToolsURI>
+         <cac:ParticipationRequestReceptionPeriod>
+            <cbc:EndDate>2023-11-14+01:00</cbc:EndDate>
+            <cbc:EndTime>10:00:00+01:00</cbc:EndTime>
+         </cac:ParticipationRequestReceptionPeriod>
+         <cac:EconomicOperatorShortList>
+            <cbc:LimitationDescription>false</cbc:LimitationDescription>
+         </cac:EconomicOperatorShortList>
+         <cac:AuctionTerms>
+            <cbc:AuctionConstraintIndicator>false</cbc:AuctionConstraintIndicator>
+         </cac:AuctionTerms>
+         <cac:ContractingSystem>
+            <cbc:ContractingSystemTypeCode listName="framework-agreement">none</cbc:ContractingSystemTypeCode>
+         </cac:ContractingSystem>
+         <cac:ContractingSystem>
+            <cbc:ContractingSystemTypeCode listName="dps-usage">none</cbc:ContractingSystemTypeCode>
+         </cac:ContractingSystem>
+      </cac:TenderingProcess>
+      <cac:ProcurementProject>
+         <cbc:ID>CZĘŚĆ NR 2</cbc:ID>
+         <cbc:Name languageID="POL">Przewóz osób (z lub do) 19 bz,  19 das, 19 NBOT, ul. Lubelska 139, 22-100 Chełm; WCR Chełm, ul. Koszarowa 1B, 22-100 Chełm; oraz pozostałych jednostek i organizacji będących na zaopatrzeniu 32 WOG, </cbc:Name>
+         <cbc:Description languageID="POL">Przewóz osób (z lub do) 19 bz,  19 das, 19 NBOT, ul. Lubelska 139, 22-100 Chełm; WCR Chełm, ul. Koszarowa 1B, 22-100 Chełm; oraz pozostałych jednostek i organizacji będących na zaopatrzeniu 32 WOG, </cbc:Description>
+         <cbc:ProcurementTypeCode listName="contract-nature">services</cbc:ProcurementTypeCode>
+         <cbc:SMESuitableIndicator>true</cbc:SMESuitableIndicator>
+         <cac:MainCommodityClassification>
+            <cbc:ItemClassificationCode listName="cpv">60140000</cbc:ItemClassificationCode>
+         </cac:MainCommodityClassification>
+         <cac:RealizedLocation>
+            <cac:Address>
+               <cbc:StreetName>ul. Wojska Polskiego 2F</cbc:StreetName>
+               <cbc:AdditionalStreetName>ul. Koszary 52</cbc:AdditionalStreetName>
+               <cbc:CityName>Zamość</cbc:CityName>
+               <cbc:PostalZone>22-400</cbc:PostalZone>
+               <cbc:CountrySubentityCode listName="nuts">PL812</cbc:CountrySubentityCode>
+               <cac:Country>
+                  <cbc:IdentificationCode listName="country">POL</cbc:IdentificationCode>
+               </cac:Country>
+            </cac:Address>
+         </cac:RealizedLocation>
+         <cac:PlannedPeriod>
+            <cbc:StartDate>2024-01-01+01:00</cbc:StartDate>
+            <cbc:EndDate>2024-12-31+01:00</cbc:EndDate>
+         </cac:PlannedPeriod>
+         <cac:ContractExtension>
+            <cbc:OptionsDescription languageID="POL">1.	Zamawiający przewiduje możliwość skorzystania z prawa opcji, polegającym na możliwości zwiększenia zamówienia podstawowego określonego w § 5 ust. 1 niniejszej umowy, w ramach limitu finansowego określonego w § 5 ust. 2 niniejszej umowy - nie więcej jednak niż do 100% łącznej wartości zamówienia podstawowego w okresie trwania umowy. Wykonanie opcji może, ale nie musi nastąpić, w zależności od zapotrzebowania Zamawiającego i na skutek jego dyspozycji w tym zakresie. Wykonanie prawa opcji nie będzie wymagać wykonania aneksu do umowy, odbywać się będzie w oparciu o skierowaną do Wykonawcy informację o uruchomieniu prawa opcji.
+2.	 Prawem opcji objęta jest możliwość uzupełniającego zwiększenia usług stanowiących przedmiot niniejszej umowy w zakresie maksymalnym wynoszącym 100 % niniejszej wartości umowy.
+3.	 Zamawiający zastrzega, iż usługi objęte prawem opcji muszą być realizowane na warunkach określonych dla zamówienia podstawowego.
+4.	 W ramach prawa opcji Zamawiający zastrzega sobie możliwość pełnego albo wyłącznie częściowego wykorzystania zamówień objętych prawem opcji, co każdorazowo zostanie sprecyzowane w oświadczeniu o udzieleniu zamówienia składanym w ramach prawa opcji.
+5.	 Zamawiający wymaga, aby wartość ceny jednostkowej przysługującej Wykonawcy z tytułu przejechania jednego kilometra była jednakowa w odniesieniu do zamówienia podstawowego oraz zamówień udzielanych w ramach prawa opcji.
+6.	 Prawo opcji stanowi uprawnienie Zamawiającego, z którego może, ale nie musi skorzystać w ramach realizacji niniejszej umowy.
+</cbc:OptionsDescription>
+            <cbc:MaximumNumberNumeric>0</cbc:MaximumNumberNumeric>
+         </cac:ContractExtension>
+      </cac:ProcurementProject>
+   </cac:ProcurementProjectLot>
+   <cac:ProcurementProjectLot>
+      <cbc:ID schemeName="Lot">LOT-0003</cbc:ID>
+      <cac:TenderingTerms>
+         <ext:UBLExtensions>
+            <ext:UBLExtension>
+               <ext:ExtensionContent>
+                  <efext:EformsExtension>
+                     <efac:SelectionCriteria>
+                        <cbc:CriterionTypeCode listName="selection-criterion">sui-act</cbc:CriterionTypeCode>
+                        <cbc:Name languageID="POL">1)	Zezwolenie na wykonywanie zawodu przewoźnika drogowego lub aktualna licencja na wykonywanie krajowego i międzynarodowego transportu drogowego osób </cbc:Name>
+                        <cbc:Description languageID="POL">Warunek ten zostanie spełniony, jeżeli Wykonawca wykaże, że posiada:
+1)	Zezwolenie na wykonywanie zawodu przewoźnika drogowego, na zasadach określonych w rozporządzeniu Parlamentu Europejskiego i Rady (WE) nr 1071/2009 z dnia 21 października 2009 r. ustanawiającym wspólne zasady dotyczące warunków wykonywania zawodu przewoźnika drogowego i uchylającym dyrektywę Rady 96/26/WE, zwanym dalej „rozporządzeniem (WE) nr 1071/2009 lub aktualną licencję na wykonywanie krajowego i międzynarodowego transportu drogowego osób wydaną na podstawie art. 5 ustawy z dnia 6 września 2001 r.  o transporcie drogowym (Dz. U. z 2019 r., poz. 2140).  Wykonawca zobowiązany jest do posiadania ww. Zezwolenia lub licencji ważnej przez cały okres trwania umowy (w przypadku gdy ww. dokument traci ważność w trakcie trwania umowy, Wykonawca zobowiązany jest przedstawić Zamawiającemu dokument ważny na kolejny okres trwania umowy, przed wygaśnięciem ważności  poprzedniego dokumentu).
+</cbc:Description>
+                        <cbc:CalculationExpressionCode listName="usage">used</cbc:CalculationExpressionCode>
+                        <efbc:SecondStageIndicator>false</efbc:SecondStageIndicator>
+                     </efac:SelectionCriteria>
+                     <efac:SelectionCriteria>
+                        <cbc:CriterionTypeCode listName="selection-criterion">tp-abil</cbc:CriterionTypeCode>
+                        <cbc:Name languageID="POL">DOŚWIADCZENIE: 
+W ZAKRESIE CZĘŚCI NR 3 
+</cbc:Name>
+                        <cbc:Description languageID="POL">Zamawiający uzna, że Wykonawca spełnił ww. warunek – jeżeli wykaże, że: W ZAKRESIE CZĘŚCI NR 3
+a)	posiada doświadczenie nabyte poprzez realizację usług, odpowiadających swoim rodzajem usłudze objętej przedmiotem zamówienia publicznego, przez co Zamawiający rozumie wykonanie w okresie ostatnich 5 lat, a jeżeli okres prowadzenia działalności jest krótszy – w tym okresie, wykonał, lub wykonuje przez okres co najmniej 6 miesięcy co najmniej 2 (usługi) polegające na usługach nieregularnego przewozu żołnierzy wraz z uzbrojeniem i wyposażeniem do ośrodków szkoleniowych własnym środkiem transportu wraz z kierowcą - na kwotę co najmniej 50 000,00 zł. brutto każda,  wraz z podaniem ich wartości, przedmiotu, dat wykonania i podmiotów na rzecz których usługi te zostały wykonane, lub są wykonywane oraz załączeniem dowodów określających, czy te usługi zostały wykonane lub są wykonywane należycie, przy czym dowodami o których mowa, są referencje bądź inne dokumenty sporządzone przez podmiot na rzecz którego usługi zostały wykonane, a jeżeli wykonawca z przyczyn niezależnych od niego nie jest w stanie uzyskać tych dokumentów – oświadczenie wykonawcy; w przypadku świadczeń powtarzających się lub ciągłych nadal wykonywanych referencje bądź inne dokumenty potwierdzające ich należyte wykonywanie powinny być wystawione w okresie ostatnich 3 miesięcy
+</cbc:Description>
+                        <cbc:CalculationExpressionCode listName="usage">used</cbc:CalculationExpressionCode>
+                        <efbc:SecondStageIndicator>false</efbc:SecondStageIndicator>
+                     </efac:SelectionCriteria>
+                     <efac:SelectionCriteria>
+                        <cbc:CriterionTypeCode listName="selection-criterion">tp-abil</cbc:CriterionTypeCode>
+                        <cbc:Name languageID="POL">Dysponowanie POTENCJAŁEM TECHNICZNYM i OSOBOWYM:  </cbc:Name>
+                        <cbc:Description languageID="POL">Warunek ten zostanie spełniony, jeżeli Wykonawca wykaże, iż posiada:
+W ZAKRESIE CZĘŚCI NR 3, 
+a)	  narzędzia oddzielnie dla każdej części zamówienia dostępne wykonawcy 
+w celu wykonania zamówienia  publicznego tj.:  6 pojazdów oraz 1 - dla autokaru o liczbie miejsc siedzących od 23 i więcej; 6 pojazdów oraz 1 rezerwowy - dla BUS do 22 miejsc siedzących. Pojazdy muszą posiadać aktualne badania techniczne, polisę OC, polisę NNW
+b)	potencjał osobowy oddzielnie dla każdej części zamówienia tj. kierowcy którzy będą posiadać kwalifikacje  zawodowe, to jest uprawnienia do kierowania pojazdami   kategorii  ,,D”-  zgodnie działem 4, rozdział 1, art. 87 - 94 ustawy z dnia 20 czerwca 1997 r. Prawo o ruchu drogowym (Dz. U. z 2020 r., poz. 110 tekst jednolity z późniejszymi zmianami); ustawą z dnia 5 stycznia 2011 roku o kierujących pojazdami (Dz. U. z 2020r., poz.1268 tekst jednolity z późniejszymi  zmianami) w tym: 6 kierowców autokaru oraz 1 rezerwowy; 6 kierowców BUS oraz 1 rezerwowy.
+</cbc:Description>
+                        <cbc:CalculationExpressionCode listName="usage">used</cbc:CalculationExpressionCode>
+                        <efbc:SecondStageIndicator>false</efbc:SecondStageIndicator>
+                     </efac:SelectionCriteria>
+                     <efac:StrategicProcurement>
+                        <efbc:ApplicableLegalBasis listName="cvd-scope">false</efbc:ApplicableLegalBasis>
+                     </efac:StrategicProcurement>
+                     <efac:TenderSubcontractingRequirements>
+                        <efbc:TenderSubcontractingRequirementsCode listName="subcontracting-indication">shar-subc</efbc:TenderSubcontractingRequirementsCode>
+                     </efac:TenderSubcontractingRequirements>
+                  </efext:EformsExtension>
+               </ext:ExtensionContent>
+            </ext:UBLExtension>
+         </ext:UBLExtensions>
+         <cbc:VariantConstraintCode listName="permission">not-allowed</cbc:VariantConstraintCode>
+         <cbc:FundingProgramCode listName="eu-funded">no-eu-funds</cbc:FundingProgramCode>
+         <cbc:RequiredCurriculaCode listName="requirement-stage">par-requ</cbc:RequiredCurriculaCode>
+         <cbc:RecurringProcurementIndicator>false</cbc:RecurringProcurementIndicator>
+         <cbc:MultipleTendersCode listName="permission">not-allowed</cbc:MultipleTendersCode>
+         <cac:RequiredFinancialGuarantee>
+            <cbc:GuaranteeTypeCode listName="tender-guarantee-required">true</cbc:GuaranteeTypeCode>
+            <cbc:Description languageID="POL">Zamawiający wymaga wniesienia wadium w wysokości: 6000,00 zł</cbc:Description>
+         </cac:RequiredFinancialGuarantee>
+         <cac:EnvironmentalLegislationDocumentReference>
+            <cbc:ID>_DEFAULT_VALUE_CHANGE_ME_</cbc:ID>
+            <cac:IssuerParty>
+               <cac:PartyIdentification>
+                  <cbc:ID>ORG-0001</cbc:ID>
+               </cac:PartyIdentification>
+            </cac:IssuerParty>
+         </cac:EnvironmentalLegislationDocumentReference>
+         <cac:EmploymentLegislationDocumentReference>
+            <cbc:ID>_DEFAULT_VALUE_CHANGE_ME_</cbc:ID>
+            <cac:IssuerParty>
+               <cac:PartyIdentification>
+                  <cbc:ID>ORG-0001</cbc:ID>
+               </cac:PartyIdentification>
+            </cac:IssuerParty>
+         </cac:EmploymentLegislationDocumentReference>
+         <cac:CallForTendersDocumentReference>
+            <ext:UBLExtensions>
+               <ext:UBLExtension>
+                  <ext:ExtensionContent>
+                     <efext:EformsExtension>
+                        <efac:OfficialLanguages>
+                           <cac:Language>
+                              <cbc:ID>POL</cbc:ID>
+                           </cac:Language>
+                        </efac:OfficialLanguages>
+                     </efext:EformsExtension>
+                  </ext:ExtensionContent>
+               </ext:UBLExtension>
+            </ext:UBLExtensions>
+            <cbc:ID>_DEFAULT_VALUE_CHANGE_ME_</cbc:ID>
+            <cbc:DocumentType>non-restricted-document</cbc:DocumentType>
+            <cac:Attachment>
+               <cac:ExternalReference>
+                  <cbc:URI>https://portal.smartpzp.pl/32wog</cbc:URI>
+               </cac:ExternalReference>
+            </cac:Attachment>
+         </cac:CallForTendersDocumentReference>
+         <cac:PaymentTerms>
+            <cbc:Note languageID="POL">Wynagrodzenie będzie płatne na podstawie prawidłowo wystawionej przez Wykonawcę faktury, w terminie 21 dni od daty doręczenia faktury z dołączoną kopią Karty rozliczenia zadania transportowego do siedziby Zamawiającego, na numer konta bankowego Wykonawcy wskazany na fakturze.
+Wynagrodzenie za wykonaną usługę będzie obliczone jako iloczyn ceny jednego kilometra i ilości przejechanych kilometrów.
+Kartę rozliczenia zadania transportowego wypełnia się w dwóch egzemplarzach. Powinna ona być wypełniona i podpisaną przez kierowcę oraz dysponenta pojazdu. 
+Za prawidłowe wypełnienie Karty rozliczenia zadania transportowego odpowiada dysponent pojazdu, ze szczególnym uwzględnieniem podpisów wymaganych na ww. dokumencie.
+Kartę rozliczenia zadania transportowego przed rozpoczęciem usługi transportowej zobowiązany jest dostarczyć do pojazdu dysponent pojazdu, który po zakończeniu wykonania usługi transportowej jest zobowiązany do przekazania jednego wypełnionego egzemplarza dla kierowcy.
+</cbc:Note>
+         </cac:PaymentTerms>
+         <cac:TendererQualificationRequest>
+            <cbc:CompanyLegalFormCode listName="required">true</cbc:CompanyLegalFormCode>
+            <cbc:CompanyLegalForm languageID="POL">1)	W przypadku, gdy Wykonawcy wspólnie ubiegają się o zamówienia, ustanawiają pełnomocnika do reprezentowania ich w postępowaniu o udzielenie zamówienia albo do reprezentowania w postępowaniu i zawarcia umowy w sprawie zamówienia publicznego. Pełnomocnictwo w formie oryginału należy dołączyć do wniosku, przy czym dokument musi być zgodny z dokumentami rejestracyjnymi Wykonawcy/Wykonawców, a jego treść winna dokładnie określać zakres umocowania. Wspólnicy spółki cywilnej traktowani są jako Wykonawcy wspólnie ubiegający się o udzielenia zamówienia. W tym przypadku Zamawiający nie wymaga pełnomocnictwa, o ile Wykonawca załączy poświadczoną za zgodność z oryginałem kopię umowy spółki regulującą formę reprezentacji spółki.
+2)	W przypadku realizacji przedmiotu zamówienia przez konsorcjum, umowa konsorcjum winna jednoznacznie regulować zakres odpowiedzialności za ochronę informacji niejawnych, zgodnie z ustawą o ochronie informacji niejawnych.
+</cbc:CompanyLegalForm>
+         </cac:TendererQualificationRequest>
+         <cac:TendererQualificationRequest>
+            <cac:SpecificTendererRequirement>
+               <cbc:TendererRequirementTypeCode listName="missing-info-submission">late-some</cbc:TendererRequirementTypeCode>
+            </cac:SpecificTendererRequirement>
+         </cac:TendererQualificationRequest>
+         <cac:AllowedSubcontractTerms>
+            <cbc:SubcontractingConditionsCode listName="subcontracting-obligation">none</cbc:SubcontractingConditionsCode>
+         </cac:AllowedSubcontractTerms>
+         <cac:ContractExecutionRequirement>
+            <cbc:ExecutionRequirementCode listName="reserved-execution">no</cbc:ExecutionRequirementCode>
+         </cac:ContractExecutionRequirement>
+         <cac:ContractExecutionRequirement>
+            <cbc:ExecutionRequirementCode listName="conditions">performance</cbc:ExecutionRequirementCode>
+            <cbc:Description languageID="POL">Warunki zmiany umowy, wszystkie postanowienia umowy, warunki wypowiedzenia lub rozwiązania umowy, zmiany umowy oraz zapłaty kar umownych zostały określone we wzorze umowy stanowiącym załącznik do SWZ</cbc:Description>
+         </cac:ContractExecutionRequirement>
+         <cac:ContractExecutionRequirement>
+            <cbc:ExecutionRequirementCode listName="einvoicing">allowed</cbc:ExecutionRequirementCode>
+         </cac:ContractExecutionRequirement>
+         <cac:ContractExecutionRequirement>
+            <cbc:ExecutionRequirementCode listName="nda">false</cbc:ExecutionRequirementCode>
+         </cac:ContractExecutionRequirement>
+         <cac:ContractExecutionRequirement>
+            <cbc:ExecutionRequirementCode listName="ecatalog-submission">not-allowed</cbc:ExecutionRequirementCode>
+         </cac:ContractExecutionRequirement>
+         <cac:ContractExecutionRequirement>
+            <cbc:ExecutionRequirementCode listName="esignature-submission">true</cbc:ExecutionRequirementCode>
+         </cac:ContractExecutionRequirement>
+         <cac:AwardingTerms>
+            <cac:AwardingCriterion>
+               <cac:SubordinateAwardingCriterion>
+                  <ext:UBLExtensions>
+                     <ext:UBLExtension>
+                        <ext:ExtensionContent>
+                           <efext:EformsExtension>
+                              <efac:AwardCriterionParameter>
+                                 <efbc:ParameterCode listName="number-weight">per-exa</efbc:ParameterCode>
+                                 <efbc:ParameterNumeric>40</efbc:ParameterNumeric>
+                              </efac:AwardCriterionParameter>
+                           </efext:EformsExtension>
+                        </ext:ExtensionContent>
+                     </ext:UBLExtension>
+                  </ext:UBLExtensions>
+                  <cbc:AwardingCriterionTypeCode listName="award-criterion-type">price</cbc:AwardingCriterionTypeCode>
+                  <cbc:Name languageID="POL">Kryterium „cena  za 1km autokaru  przejazdy krajowe o liczbie miejsc od 23 siedzących”; </cbc:Name>
+                  <cbc:Description languageID="POL">a)	Kryterium „cena  za 1km autokaru  przejazdy krajowe o liczbie miejsc od 23 siedzących”; 
+(PK1) – waga 40 %; liczone według wzoru:
+             PK1  = Cn / Cb x 40% x 100 
+     gdzie: 
+PK1 – ilość punktów, jakie otrzyma oferta badana za kryterium „cena za 1 km autokaru przejazdy krajowe”;
+Cn – oferta z najniższą ceną netto za 1km autokaru przejazdy krajowe;
+Cb – cena netto badanej oferty za 1km autokaru przejazdy krajowe.
+</cbc:Description>
+               </cac:SubordinateAwardingCriterion>
+               <cac:SubordinateAwardingCriterion>
+                  <ext:UBLExtensions>
+                     <ext:UBLExtension>
+                        <ext:ExtensionContent>
+                           <efext:EformsExtension>
+                              <efac:AwardCriterionParameter>
+                                 <efbc:ParameterCode listName="number-weight">per-exa</efbc:ParameterCode>
+                                 <efbc:ParameterNumeric>10</efbc:ParameterNumeric>
+                              </efac:AwardCriterionParameter>
+                           </efext:EformsExtension>
+                        </ext:ExtensionContent>
+                     </ext:UBLExtension>
+                  </ext:UBLExtensions>
+                  <cbc:AwardingCriterionTypeCode listName="award-criterion-type">price</cbc:AwardingCriterionTypeCode>
+                  <cbc:Name languageID="POL">Kryterium „ceny”  za 1km autokaru  przejazdy zagraniczne o liczbie miejsc od 23 siedzących</cbc:Name>
+                  <cbc:Description languageID="POL">Kryterium „ceny”  za 1km autokaru  przejazdy zagraniczne o liczbie miejsc od 23 siedzących; 
+(PZ1) – waga 10 %; liczone według wzoru:
+             PZ1  = Cn / Cb x 10% x 100 
+     gdzie: 
+PZ1 – ilość punktów, jakie otrzyma oferta badana za kryterium „cena za 1km autokaru  przejazdy zagraniczne”;
+Cn – oferta z najniższą ceną netto za 1km autokaru przejazdy zagraniczne;
+Cb – cena za 1km autokaru netto badanej oferty przejazdy zagraniczne.
+</cbc:Description>
+               </cac:SubordinateAwardingCriterion>
+               <cac:SubordinateAwardingCriterion>
+                  <ext:UBLExtensions>
+                     <ext:UBLExtension>
+                        <ext:ExtensionContent>
+                           <efext:EformsExtension>
+                              <efac:AwardCriterionParameter>
+                                 <efbc:ParameterCode listName="number-weight">per-exa</efbc:ParameterCode>
+                                 <efbc:ParameterNumeric>35</efbc:ParameterNumeric>
+                              </efac:AwardCriterionParameter>
+                           </efext:EformsExtension>
+                        </ext:ExtensionContent>
+                     </ext:UBLExtension>
+                  </ext:UBLExtensions>
+                  <cbc:AwardingCriterionTypeCode listName="award-criterion-type">price</cbc:AwardingCriterionTypeCode>
+                  <cbc:Name languageID="POL">Kryterium „ceny”  za 1km busa przejazdy krajowe do 22 miejsc siedzących; </cbc:Name>
+                  <cbc:Description languageID="POL">Kryterium „ceny”  za 1km busa przejazdy krajowe do 22 miejsc siedzących; 
+(PK2) – waga 35 %; liczone według wzoru:
+             PK2  = Cn / Cb x 35% x 100 
+     gdzie: 
+PK2 – ilość punktów, jakie otrzyma oferta badana za kryterium „cena za 1km   busa przejazdy krajowe do 22 miejsc siedzących”;
+Cn – oferta z najniższą ceną netto za 1km busa przejazdy krajowe;
+Cb – cena netto za 1km busa badanej oferty przejazdy krajowe .
+</cbc:Description>
+               </cac:SubordinateAwardingCriterion>
+               <cac:SubordinateAwardingCriterion>
+                  <ext:UBLExtensions>
+                     <ext:UBLExtension>
+                        <ext:ExtensionContent>
+                           <efext:EformsExtension>
+                              <efac:AwardCriterionParameter>
+                                 <efbc:ParameterCode listName="number-weight">per-exa</efbc:ParameterCode>
+                                 <efbc:ParameterNumeric>5</efbc:ParameterNumeric>
+                              </efac:AwardCriterionParameter>
+                           </efext:EformsExtension>
+                        </ext:ExtensionContent>
+                     </ext:UBLExtension>
+                  </ext:UBLExtensions>
+                  <cbc:AwardingCriterionTypeCode listName="award-criterion-type">price</cbc:AwardingCriterionTypeCode>
+                  <cbc:Name languageID="POL">Kryterium „ceny”  za 1km busa przejazdy zagraniczne do 22 miejsc siedzących</cbc:Name>
+                  <cbc:Description languageID="POL">Kryterium „ceny”  za 1km busa przejazdy zagraniczne do 22 miejsc siedzących; 
+(PZ2) – waga 5 %; liczone według wzoru:
+             PZ2  = Cn / Cb x 5% x 100 
+     gdzie: 
+PZ2 – ilość punktów, jakie otrzyma oferta badana za kryterium „cena za 1km   busa przejazdy zagraniczne do 22 miejsc siedzących”;
+Cn – oferta z najniższą ceną netto za 1km busa przejazdy zagraniczne;
+Cb – cena netto za 1km busa badanej oferty przejazdy zagraniczne.</cbc:Description>
+               </cac:SubordinateAwardingCriterion>
+               <cac:SubordinateAwardingCriterion>
+                  <ext:UBLExtensions>
+                     <ext:UBLExtension>
+                        <ext:ExtensionContent>
+                           <efext:EformsExtension>
+                              <efac:AwardCriterionParameter>
+                                 <efbc:ParameterCode listName="number-weight">per-exa</efbc:ParameterCode>
+                                 <efbc:ParameterNumeric>10</efbc:ParameterNumeric>
+                              </efac:AwardCriterionParameter>
+                           </efext:EformsExtension>
+                        </ext:ExtensionContent>
+                     </ext:UBLExtension>
+                  </ext:UBLExtensions>
+                  <cbc:AwardingCriterionTypeCode listName="award-criterion-type">quality</cbc:AwardingCriterionTypeCode>
+                  <cbc:Name languageID="POL">Kryterium „Dyspozycyjność Wykonawcy” </cbc:Name>
+                  <cbc:Description languageID="POL">Kryterium „Dyspozycyjność Wykonawcy” Pd:  - 10 pkt		Dyspozycyjność Wykonawcy, rozumiana  jako czas reakcji Wykonawcy to jest rozpoczęcie wykonywania usługi, w odpowiedzi na zgłoszenie przez Zamawiającego zapotrzebowania na wykonanie usługi w trybie przyśpieszonym, w odniesieniu do zadań wynikających ze zgłaszanych zapotrzebowań,  których Zamawiający nie mógł zgłosić Wykonawcy z co najmniej 48 godzinnym wyprzedzeniem. Zamawiający dokona oceny na podstawie złożonego przez Wykonawcę oświadczenia w ofercie  o dyspozycyjności za wykonanie usługi w trybie przyśpieszonym , którą Wykonawca określi w pełnych godzinach, przy czym czas reakcji nie może być krótszy niż 1(jedna) godzina i dłuższy niż 12 (dwanaście) godzin. Kryterium „dyspozycyjność Wykonawcy” (DW) – waga 10%, liczone według wzoru:
+DW = DWn / DWb x 10% x 100 
+     gdzie: 
+DW – ilość punktów, jakie otrzyma oferta badana za kryterium „dyspozycyjność Wykonawcy” 
+DWn –  oferta z najniższą liczbą godzin spośród ofert badanych;
+DWb – liczbą godzin przedstawiona w ofercie badanej spośród ofert   badanych.</cbc:Description>
+               </cac:SubordinateAwardingCriterion>
+            </cac:AwardingCriterion>
+         </cac:AwardingTerms>
+         <cac:DocumentProviderParty>
+            <cac:PartyIdentification>
+               <cbc:ID>ORG-0001</cbc:ID>
+            </cac:PartyIdentification>
+         </cac:DocumentProviderParty>
+         <cac:TenderRecipientParty>
+            <cbc:EndpointID>https://portal.smartpzp.pl/32wog</cbc:EndpointID>
+            <cac:PartyIdentification>
+               <cbc:ID>ORG-0001</cbc:ID>
+            </cac:PartyIdentification>
+         </cac:TenderRecipientParty>
+         <cac:TenderEvaluationParty>
+            <cac:PartyIdentification>
+               <cbc:ID>ORG-0001</cbc:ID>
+            </cac:PartyIdentification>
+         </cac:TenderEvaluationParty>
+         <cac:AppealTerms>
+            <cac:AppealInformationParty>
+               <cac:PartyIdentification>
+                  <cbc:ID>ORG-0002</cbc:ID>
+               </cac:PartyIdentification>
+            </cac:AppealInformationParty>
+            <cac:AppealReceiverParty>
+               <cac:PartyIdentification>
+                  <cbc:ID>ORG-0002</cbc:ID>
+               </cac:PartyIdentification>
+            </cac:AppealReceiverParty>
+            <cac:MediationParty>
+               <cac:PartyIdentification>
+                  <cbc:ID>ORG-0002</cbc:ID>
+               </cac:PartyIdentification>
+            </cac:MediationParty>
+         </cac:AppealTerms>
+         <cac:Language>
+            <cbc:ID>POL</cbc:ID>
+         </cac:Language>
+         <cac:PostAwardProcess>
+            <cbc:ElectronicOrderUsageIndicator>true</cbc:ElectronicOrderUsageIndicator>
+            <cbc:ElectronicPaymentUsageIndicator>true</cbc:ElectronicPaymentUsageIndicator>
+         </cac:PostAwardProcess>
+         <cac:SecurityClearanceTerm>
+            <cbc:Code listName="required">false</cbc:Code>
+         </cac:SecurityClearanceTerm>
+      </cac:TenderingTerms>
+      <cac:TenderingProcess>
+         <ext:UBLExtensions>
+            <ext:UBLExtension>
+               <ext:ExtensionContent>
+                  <efext:EformsExtension>
+                     <efbc:AccessToolName>platforma zakupowa https://portal.smartpzp.pl/32wog </efbc:AccessToolName>
+                  </efext:EformsExtension>
+               </ext:ExtensionContent>
+            </ext:UBLExtension>
+         </ext:UBLExtensions>
+         <cbc:SubmissionMethodCode listName="esubmission">required</cbc:SubmissionMethodCode>
+         <cbc:CandidateReductionConstraintIndicator>true</cbc:CandidateReductionConstraintIndicator>
+         <cbc:AccessToolsURI>https://portal.smartpzp.pl/32wog</cbc:AccessToolsURI>
+         <cac:ParticipationRequestReceptionPeriod>
+            <cbc:EndDate>2023-11-14+01:00</cbc:EndDate>
+            <cbc:EndTime>10:00:00+01:00</cbc:EndTime>
+         </cac:ParticipationRequestReceptionPeriod>
+         <cac:EconomicOperatorShortList>
+            <cbc:LimitationDescription>false</cbc:LimitationDescription>
+         </cac:EconomicOperatorShortList>
+         <cac:AuctionTerms>
+            <cbc:AuctionConstraintIndicator>false</cbc:AuctionConstraintIndicator>
+         </cac:AuctionTerms>
+         <cac:ContractingSystem>
+            <cbc:ContractingSystemTypeCode listName="framework-agreement">none</cbc:ContractingSystemTypeCode>
+         </cac:ContractingSystem>
+         <cac:ContractingSystem>
+            <cbc:ContractingSystemTypeCode listName="dps-usage">none</cbc:ContractingSystemTypeCode>
+         </cac:ContractingSystem>
+      </cac:TenderingProcess>
+      <cac:ProcurementProject>
+         <cbc:ID>CZĘŚĆ NR 3</cbc:ID>
+         <cbc:Name languageID="POL">Przewóz osób (z lub do) WCR w Lublinie, ul. Spadochroniarzy 5, 20 – 043 Lublin; Wojskowej Komendy Transportu Lublin ul. al Racławickie 44, 20 – 043 Lublin; CWCR ul. Spadochroniarzy 5, 20 – 043 Lublin; Dowództwa Wielonarodowej Brygady LITPOLUKRBRIG ul. Radziszewskiego 4, 20-031 Lublin; Rejonowego Zarządu Infrastruktury ul. Lipowa 1A, 20 – 020 Lublin; Orkiestry Wojskowej Lublin ul. Nowy Świat 40, 20</cbc:Name>
+         <cbc:Description languageID="POL">Przewóz osób (z lub do) WCR w Lublinie, ul. Spadochroniarzy 5, 20 – 043 Lublin; Wojskowej Komendy Transportu Lublin ul. al Racławickie 44, 20 – 043 Lublin; CWCR ul. Spadochroniarzy 5, 20 – 043 Lublin; Dowództwa Wielonarodowej Brygady LITPOLUKRBRIG ul. Radziszewskiego 4, 20-031 Lublin; Rejonowego Zarządu Infrastruktury ul. Lipowa 1A, 20 – 020 Lublin; Orkiestry Wojskowej Lublin ul. Nowy Świat 40, 20-400 Lublin; 2 Lubelskiej Brygady Obrony Terytorialnej w Lublinie ul. Droga Męczenników Majdanka 70, 20-325 Lublin; 19 Brygady Zmechanizowanej, ul. Z. Herberta 49, 20 – 468 Lublin oraz pozostałych jednostek i organizacji będących na zaopatrzeniu 32 WOG.</cbc:Description>
+         <cbc:ProcurementTypeCode listName="contract-nature">services</cbc:ProcurementTypeCode>
+         <cbc:SMESuitableIndicator>true</cbc:SMESuitableIndicator>
+         <cac:MainCommodityClassification>
+            <cbc:ItemClassificationCode listName="cpv">60140000</cbc:ItemClassificationCode>
+         </cac:MainCommodityClassification>
+         <cac:RealizedLocation>
+            <cac:Address>
+               <cbc:StreetName>ul. Wojska Polskiego 2F</cbc:StreetName>
+               <cbc:AdditionalStreetName>ul. Koszary 52</cbc:AdditionalStreetName>
+               <cbc:CityName>Zamość</cbc:CityName>
+               <cbc:PostalZone>22-400</cbc:PostalZone>
+               <cbc:CountrySubentityCode listName="nuts">PL812</cbc:CountrySubentityCode>
+               <cac:Country>
+                  <cbc:IdentificationCode listName="country">POL</cbc:IdentificationCode>
+               </cac:Country>
+            </cac:Address>
+         </cac:RealizedLocation>
+         <cac:PlannedPeriod>
+            <cbc:StartDate>2024-01-01+01:00</cbc:StartDate>
+            <cbc:EndDate>2024-12-31+01:00</cbc:EndDate>
+         </cac:PlannedPeriod>
+         <cac:ContractExtension>
+            <cbc:OptionsDescription languageID="POL">1.	Zamawiający przewiduje możliwość skorzystania z prawa opcji, polegającym na możliwości zwiększenia zamówienia podstawowego określonego w § 5 ust. 1 niniejszej umowy, w ramach limitu finansowego określonego w § 5 ust. 2 niniejszej umowy - nie więcej jednak niż do 100% łącznej wartości zamówienia podstawowego w okresie trwania umowy. Wykonanie opcji może, ale nie musi nastąpić, w zależności od zapotrzebowania Zamawiającego i na skutek jego dyspozycji w tym zakresie. Wykonanie prawa opcji nie będzie wymagać wykonania aneksu do umowy, odbywać się będzie w oparciu o skierowaną do Wykonawcy informację o uruchomieniu prawa opcji.
+2.	 Prawem opcji objęta jest możliwość uzupełniającego zwiększenia usług stanowiących przedmiot niniejszej umowy w zakresie maksymalnym wynoszącym 100 % niniejszej wartości umowy.
+3.	 Zamawiający zastrzega, iż usługi objęte prawem opcji muszą być realizowane na warunkach określonych dla zamówienia podstawowego.
+4.	 W ramach prawa opcji Zamawiający zastrzega sobie możliwość pełnego albo wyłącznie częściowego wykorzystania zamówień objętych prawem opcji, co każdorazowo zostanie sprecyzowane w oświadczeniu o udzieleniu zamówienia składanym w ramach prawa opcji.
+5.	 Zamawiający wymaga, aby wartość ceny jednostkowej przysługującej Wykonawcy z tytułu przejechania jednego kilometra była jednakowa w odniesieniu do zamówienia podstawowego oraz zamówień udzielanych w ramach prawa opcji.
+6.	 Prawo opcji stanowi uprawnienie Zamawiającego, z którego może, ale nie musi skorzystać w ramach realizacji niniejszej umowy.
+</cbc:OptionsDescription>
+            <cbc:MaximumNumberNumeric>0</cbc:MaximumNumberNumeric>
+         </cac:ContractExtension>
+      </cac:ProcurementProject>
+   </cac:ProcurementProjectLot>
+   <cac:ProcurementProjectLot>
+      <cbc:ID schemeName="Lot">LOT-0004</cbc:ID>
+      <cac:TenderingTerms>
+         <ext:UBLExtensions>
+            <ext:UBLExtension>
+               <ext:ExtensionContent>
+                  <efext:EformsExtension>
+                     <efac:SelectionCriteria>
+                        <cbc:CriterionTypeCode listName="selection-criterion">sui-act</cbc:CriterionTypeCode>
+                        <cbc:Name languageID="POL">1)	Zezwolenie na wykonywanie zawodu przewoźnika drogowego lub aktualna licencja na wykonywanie krajowego i międzynarodowego transportu drogowego osób </cbc:Name>
+                        <cbc:Description languageID="POL">Warunek ten zostanie spełniony, jeżeli Wykonawca wykaże, że posiada:
+1)	Zezwolenie na wykonywanie zawodu przewoźnika drogowego, na zasadach określonych w rozporządzeniu Parlamentu Europejskiego i Rady (WE) nr 1071/2009 z dnia 21 października 2009 r. ustanawiającym wspólne zasady dotyczące warunków wykonywania zawodu przewoźnika drogowego i uchylającym dyrektywę Rady 96/26/WE, zwanym dalej „rozporządzeniem (WE) nr 1071/2009 lub aktualną licencję na wykonywanie krajowego i międzynarodowego transportu drogowego osób wydaną na podstawie art. 5 ustawy z dnia 6 września 2001 r.  o transporcie drogowym (Dz. U. z 2019 r., poz. 2140).  Wykonawca zobowiązany jest do posiadania ww. Zezwolenia lub licencji ważnej przez cały okres trwania umowy (w przypadku gdy ww. dokument traci ważność w trakcie trwania umowy, Wykonawca zobowiązany jest przedstawić Zamawiającemu dokument ważny na kolejny okres trwania umowy, przed wygaśnięciem ważności  poprzedniego dokumentu).
+</cbc:Description>
+                        <cbc:CalculationExpressionCode listName="usage">used</cbc:CalculationExpressionCode>
+                        <efbc:SecondStageIndicator>false</efbc:SecondStageIndicator>
+                     </efac:SelectionCriteria>
+                     <efac:SelectionCriteria>
+                        <cbc:CriterionTypeCode listName="selection-criterion">tp-abil</cbc:CriterionTypeCode>
+                        <cbc:Name languageID="POL">DOŚWIADCZENIE: 
+W ZAKRESIE CZĘŚCI NR 3 
+</cbc:Name>
+                        <cbc:Description languageID="POL">Zamawiający uzna, że Wykonawca spełnił ww. warunek – jeżeli wykaże, że: W ZAKRESIE CZĘŚCI NR 4
+a)	posiada doświadczenie nabyte poprzez realizację usług, odpowiadających swoim rodzajem usłudze objętej przedmiotem zamówienia publicznego, przez co Zamawiający rozumie wykonanie w okresie ostatnich 5 lat, a jeżeli okres prowadzenia działalności jest krótszy – w tym okresie, wykonał, lub wykonuje przez okres co najmniej 6 miesięcy co najmniej 2 (usługi) polegające na usługach nieregularnego przewozu żołnierzy wraz z uzbrojeniem i wyposażeniem do ośrodków szkoleniowych własnym środkiem transportu wraz z kierowcą - na kwotę co najmniej 50 000,00 zł. brutto każda,  wraz z podaniem ich wartości, przedmiotu, dat wykonania i podmiotów na rzecz których usługi te zostały wykonane, lub są wykonywane oraz załączeniem dowodów określających, czy te usługi zostały wykonane lub są wykonywane należycie, przy czym dowodami o których mowa, są referencje bądź inne dokumenty sporządzone przez podmiot na rzecz którego usługi zostały wykonane, a jeżeli wykonawca z przyczyn niezależnych od niego nie jest w stanie uzyskać tych dokumentów – oświadczenie wykonawcy; w przypadku świadczeń powtarzających się lub ciągłych nadal wykonywanych referencje bądź inne dokumenty potwierdzające ich należyte wykonywanie powinny być wystawione w okresie ostatnich 3 miesięcy
+</cbc:Description>
+                        <cbc:CalculationExpressionCode listName="usage">used</cbc:CalculationExpressionCode>
+                        <efbc:SecondStageIndicator>false</efbc:SecondStageIndicator>
+                     </efac:SelectionCriteria>
+                     <efac:SelectionCriteria>
+                        <cbc:CriterionTypeCode listName="selection-criterion">tp-abil</cbc:CriterionTypeCode>
+                        <cbc:Name languageID="POL">Dysponowanie POTENCJAŁEM TECHNICZNYM i OSOBOWYM:  </cbc:Name>
+                        <cbc:Description languageID="POL">Warunek ten zostanie spełniony, jeżeli Wykonawca wykaże, iż posiada:
+W ZAKRESIE CZĘŚCI NR 4, 
+a)	  narzędzia oddzielnie dla każdej części zamówienia dostępne wykonawcy 
+w celu wykonania zamówienia  publicznego tj.:  6 pojazdów oraz 1 - dla autokaru o liczbie miejsc siedzących od 23 i więcej; 6 pojazdów oraz 1 rezerwowy - dla BUS do 22 miejsc siedzących. Pojazdy muszą posiadać aktualne badania techniczne, polisę OC, polisę NNW
+b)	potencjał osobowy oddzielnie dla każdej części zamówienia tj. kierowcy którzy będą posiadać kwalifikacje  zawodowe, to jest uprawnienia do kierowania pojazdami   kategorii  ,,D”-  zgodnie działem 4, rozdział 1, art. 87 - 94 ustawy z dnia 20 czerwca 1997 r. Prawo o ruchu drogowym (Dz. U. z 2020 r., poz. 110 tekst jednolity z późniejszymi zmianami); ustawą z dnia 5 stycznia 2011 roku o kierujących pojazdami (Dz. U. z 2020r., poz.1268 tekst jednolity z późniejszymi  zmianami) w tym: 6 kierowców autokaru oraz 1 rezerwowy; 6 kierowców BUS oraz 1 rezerwowy.
+</cbc:Description>
+                        <cbc:CalculationExpressionCode listName="usage">used</cbc:CalculationExpressionCode>
+                        <efbc:SecondStageIndicator>false</efbc:SecondStageIndicator>
+                     </efac:SelectionCriteria>
+                     <efac:StrategicProcurement>
+                        <efbc:ApplicableLegalBasis listName="cvd-scope">false</efbc:ApplicableLegalBasis>
+                     </efac:StrategicProcurement>
+                     <efac:TenderSubcontractingRequirements>
+                        <efbc:TenderSubcontractingRequirementsCode listName="subcontracting-indication">shar-subc</efbc:TenderSubcontractingRequirementsCode>
+                     </efac:TenderSubcontractingRequirements>
+                  </efext:EformsExtension>
+               </ext:ExtensionContent>
+            </ext:UBLExtension>
+         </ext:UBLExtensions>
+         <cbc:VariantConstraintCode listName="permission">not-allowed</cbc:VariantConstraintCode>
+         <cbc:FundingProgramCode listName="eu-funded">no-eu-funds</cbc:FundingProgramCode>
+         <cbc:RequiredCurriculaCode listName="requirement-stage">par-requ</cbc:RequiredCurriculaCode>
+         <cbc:RecurringProcurementIndicator>false</cbc:RecurringProcurementIndicator>
+         <cbc:MultipleTendersCode listName="permission">not-allowed</cbc:MultipleTendersCode>
+         <cac:RequiredFinancialGuarantee>
+            <cbc:GuaranteeTypeCode listName="tender-guarantee-required">true</cbc:GuaranteeTypeCode>
+            <cbc:Description languageID="POL">Zamawiający wymaga wniesienia wadium w wysokości: 5000,00 zł</cbc:Description>
+         </cac:RequiredFinancialGuarantee>
+         <cac:EnvironmentalLegislationDocumentReference>
+            <cbc:ID>_DEFAULT_VALUE_CHANGE_ME_</cbc:ID>
+            <cac:IssuerParty>
+               <cac:PartyIdentification>
+                  <cbc:ID>ORG-0001</cbc:ID>
+               </cac:PartyIdentification>
+            </cac:IssuerParty>
+         </cac:EnvironmentalLegislationDocumentReference>
+         <cac:EmploymentLegislationDocumentReference>
+            <cbc:ID>_DEFAULT_VALUE_CHANGE_ME_</cbc:ID>
+            <cac:IssuerParty>
+               <cac:PartyIdentification>
+                  <cbc:ID>ORG-0001</cbc:ID>
+               </cac:PartyIdentification>
+            </cac:IssuerParty>
+         </cac:EmploymentLegislationDocumentReference>
+         <cac:CallForTendersDocumentReference>
+            <ext:UBLExtensions>
+               <ext:UBLExtension>
+                  <ext:ExtensionContent>
+                     <efext:EformsExtension>
+                        <efac:OfficialLanguages>
+                           <cac:Language>
+                              <cbc:ID>POL</cbc:ID>
+                           </cac:Language>
+                        </efac:OfficialLanguages>
+                     </efext:EformsExtension>
+                  </ext:ExtensionContent>
+               </ext:UBLExtension>
+            </ext:UBLExtensions>
+            <cbc:ID>_DEFAULT_VALUE_CHANGE_ME_</cbc:ID>
+            <cbc:DocumentType>non-restricted-document</cbc:DocumentType>
+            <cac:Attachment>
+               <cac:ExternalReference>
+                  <cbc:URI>https://portal.smartpzp.pl/32wog</cbc:URI>
+               </cac:ExternalReference>
+            </cac:Attachment>
+         </cac:CallForTendersDocumentReference>
+         <cac:PaymentTerms>
+            <cbc:Note languageID="POL">Wynagrodzenie będzie płatne na podstawie prawidłowo wystawionej przez Wykonawcę faktury, w terminie 21 dni od daty doręczenia faktury z dołączoną kopią Karty rozliczenia zadania transportowego do siedziby Zamawiającego, na numer konta bankowego Wykonawcy wskazany na fakturze.
+Wynagrodzenie za wykonaną usługę będzie obliczone jako iloczyn ceny jednego kilometra i ilości przejechanych kilometrów.
+Kartę rozliczenia zadania transportowego wypełnia się w dwóch egzemplarzach. Powinna ona być wypełniona i podpisaną przez kierowcę oraz dysponenta pojazdu. 
+Za prawidłowe wypełnienie Karty rozliczenia zadania transportowego odpowiada dysponent pojazdu, ze szczególnym uwzględnieniem podpisów wymaganych na ww. dokumencie.
+Kartę rozliczenia zadania transportowego przed rozpoczęciem usługi transportowej zobowiązany jest dostarczyć do pojazdu dysponent pojazdu, który po zakończeniu wykonania usługi transportowej jest zobowiązany do przekazania jednego wypełnionego egzemplarza dla kierowcy.
+</cbc:Note>
+         </cac:PaymentTerms>
+         <cac:TendererQualificationRequest>
+            <cbc:CompanyLegalFormCode listName="required">true</cbc:CompanyLegalFormCode>
+            <cbc:CompanyLegalForm languageID="POL">1)	W przypadku, gdy Wykonawcy wspólnie ubiegają się o zamówienia, ustanawiają pełnomocnika do reprezentowania ich w postępowaniu o udzielenie zamówienia albo do reprezentowania w postępowaniu i zawarcia umowy w sprawie zamówienia publicznego. Pełnomocnictwo w formie oryginału należy dołączyć do wniosku, przy czym dokument musi być zgodny z dokumentami rejestracyjnymi Wykonawcy/Wykonawców, a jego treść winna dokładnie określać zakres umocowania. Wspólnicy spółki cywilnej traktowani są jako Wykonawcy wspólnie ubiegający się o udzielenia zamówienia. W tym przypadku Zamawiający nie wymaga pełnomocnictwa, o ile Wykonawca załączy poświadczoną za zgodność z oryginałem kopię umowy spółki regulującą formę reprezentacji spółki.
+2)	W przypadku realizacji przedmiotu zamówienia przez konsorcjum, umowa konsorcjum winna jednoznacznie regulować zakres odpowiedzialności za ochronę informacji niejawnych, zgodnie z ustawą o ochronie informacji niejawnych.
+</cbc:CompanyLegalForm>
+         </cac:TendererQualificationRequest>
+         <cac:TendererQualificationRequest>
+            <cac:SpecificTendererRequirement>
+               <cbc:TendererRequirementTypeCode listName="missing-info-submission">late-some</cbc:TendererRequirementTypeCode>
+            </cac:SpecificTendererRequirement>
+         </cac:TendererQualificationRequest>
+         <cac:AllowedSubcontractTerms>
+            <cbc:SubcontractingConditionsCode listName="subcontracting-obligation">none</cbc:SubcontractingConditionsCode>
+         </cac:AllowedSubcontractTerms>
+         <cac:ContractExecutionRequirement>
+            <cbc:ExecutionRequirementCode listName="reserved-execution">no</cbc:ExecutionRequirementCode>
+         </cac:ContractExecutionRequirement>
+         <cac:ContractExecutionRequirement>
+            <cbc:ExecutionRequirementCode listName="conditions">performance</cbc:ExecutionRequirementCode>
+            <cbc:Description languageID="POL">Warunki zmiany umowy, wszystkie postanowienia umowy, warunki wypowiedzenia lub rozwiązania umowy, zmiany umowy oraz zapłaty kar umownych zostały określone we wzorze umowy stanowiącym załącznik do SWZ</cbc:Description>
+         </cac:ContractExecutionRequirement>
+         <cac:ContractExecutionRequirement>
+            <cbc:ExecutionRequirementCode listName="einvoicing">allowed</cbc:ExecutionRequirementCode>
+         </cac:ContractExecutionRequirement>
+         <cac:ContractExecutionRequirement>
+            <cbc:ExecutionRequirementCode listName="nda">false</cbc:ExecutionRequirementCode>
+         </cac:ContractExecutionRequirement>
+         <cac:ContractExecutionRequirement>
+            <cbc:ExecutionRequirementCode listName="ecatalog-submission">not-allowed</cbc:ExecutionRequirementCode>
+         </cac:ContractExecutionRequirement>
+         <cac:ContractExecutionRequirement>
+            <cbc:ExecutionRequirementCode listName="esignature-submission">true</cbc:ExecutionRequirementCode>
+         </cac:ContractExecutionRequirement>
+         <cac:AwardingTerms>
+            <cac:AwardingCriterion>
+               <cac:SubordinateAwardingCriterion>
+                  <ext:UBLExtensions>
+                     <ext:UBLExtension>
+                        <ext:ExtensionContent>
+                           <efext:EformsExtension>
+                              <efac:AwardCriterionParameter>
+                                 <efbc:ParameterCode listName="number-weight">per-exa</efbc:ParameterCode>
+                                 <efbc:ParameterNumeric>40</efbc:ParameterNumeric>
+                              </efac:AwardCriterionParameter>
+                           </efext:EformsExtension>
+                        </ext:ExtensionContent>
+                     </ext:UBLExtension>
+                  </ext:UBLExtensions>
+                  <cbc:AwardingCriterionTypeCode listName="award-criterion-type">price</cbc:AwardingCriterionTypeCode>
+                  <cbc:Name languageID="POL">Kryterium „cena  za 1km autokaru  przejazdy krajowe o liczbie miejsc od 23 siedzących”; </cbc:Name>
+                  <cbc:Description languageID="POL">a)	Kryterium „cena  za 1km autokaru  przejazdy krajowe o liczbie miejsc od 23 siedzących”; 
+(PK1) – waga 40 %; liczone według wzoru:
+             PK1  = Cn / Cb x 40% x 100 
+     gdzie: 
+PK1 – ilość punktów, jakie otrzyma oferta badana za kryterium „cena za 1 km autokaru przejazdy krajowe”;
+Cn – oferta z najniższą ceną netto za 1km autokaru przejazdy krajowe;
+Cb – cena netto badanej oferty za 1km autokaru przejazdy krajowe.
+</cbc:Description>
+               </cac:SubordinateAwardingCriterion>
+               <cac:SubordinateAwardingCriterion>
+                  <ext:UBLExtensions>
+                     <ext:UBLExtension>
+                        <ext:ExtensionContent>
+                           <efext:EformsExtension>
+                              <efac:AwardCriterionParameter>
+                                 <efbc:ParameterCode listName="number-weight">per-exa</efbc:ParameterCode>
+                                 <efbc:ParameterNumeric>10</efbc:ParameterNumeric>
+                              </efac:AwardCriterionParameter>
+                           </efext:EformsExtension>
+                        </ext:ExtensionContent>
+                     </ext:UBLExtension>
+                  </ext:UBLExtensions>
+                  <cbc:AwardingCriterionTypeCode listName="award-criterion-type">price</cbc:AwardingCriterionTypeCode>
+                  <cbc:Name languageID="POL">Kryterium „ceny”  za 1km autokaru  przejazdy zagraniczne o liczbie miejsc od 23 siedzących</cbc:Name>
+                  <cbc:Description languageID="POL">Kryterium „ceny”  za 1km autokaru  przejazdy zagraniczne o liczbie miejsc od 23 siedzących; 
+(PZ1) – waga 10 %; liczone według wzoru:
+             PZ1  = Cn / Cb x 10% x 100 
+     gdzie: 
+PZ1 – ilość punktów, jakie otrzyma oferta badana za kryterium „cena za 1km autokaru  przejazdy zagraniczne”;
+Cn – oferta z najniższą ceną netto za 1km autokaru przejazdy zagraniczne;
+Cb – cena za 1km autokaru netto badanej oferty przejazdy zagraniczne.
+</cbc:Description>
+               </cac:SubordinateAwardingCriterion>
+               <cac:SubordinateAwardingCriterion>
+                  <ext:UBLExtensions>
+                     <ext:UBLExtension>
+                        <ext:ExtensionContent>
+                           <efext:EformsExtension>
+                              <efac:AwardCriterionParameter>
+                                 <efbc:ParameterCode listName="number-weight">per-exa</efbc:ParameterCode>
+                                 <efbc:ParameterNumeric>35</efbc:ParameterNumeric>
+                              </efac:AwardCriterionParameter>
+                           </efext:EformsExtension>
+                        </ext:ExtensionContent>
+                     </ext:UBLExtension>
+                  </ext:UBLExtensions>
+                  <cbc:AwardingCriterionTypeCode listName="award-criterion-type">price</cbc:AwardingCriterionTypeCode>
+                  <cbc:Name languageID="POL">Kryterium „ceny”  za 1km busa przejazdy krajowe do 22 miejsc siedzących; </cbc:Name>
+                  <cbc:Description languageID="POL">Kryterium „ceny”  za 1km busa przejazdy krajowe do 22 miejsc siedzących; 
+(PK2) – waga 35 %; liczone według wzoru:
+             PK2  = Cn / Cb x 35% x 100 
+     gdzie: 
+PK2 – ilość punktów, jakie otrzyma oferta badana za kryterium „cena za 1km   busa przejazdy krajowe do 22 miejsc siedzących”;
+Cn – oferta z najniższą ceną netto za 1km busa przejazdy krajowe;
+Cb – cena netto za 1km busa badanej oferty przejazdy krajowe .
+</cbc:Description>
+               </cac:SubordinateAwardingCriterion>
+               <cac:SubordinateAwardingCriterion>
+                  <ext:UBLExtensions>
+                     <ext:UBLExtension>
+                        <ext:ExtensionContent>
+                           <efext:EformsExtension>
+                              <efac:AwardCriterionParameter>
+                                 <efbc:ParameterCode listName="number-weight">per-exa</efbc:ParameterCode>
+                                 <efbc:ParameterNumeric>5</efbc:ParameterNumeric>
+                              </efac:AwardCriterionParameter>
+                           </efext:EformsExtension>
+                        </ext:ExtensionContent>
+                     </ext:UBLExtension>
+                  </ext:UBLExtensions>
+                  <cbc:AwardingCriterionTypeCode listName="award-criterion-type">price</cbc:AwardingCriterionTypeCode>
+                  <cbc:Name languageID="POL">Kryterium „ceny”  za 1km busa przejazdy zagraniczne do 22 miejsc siedzących</cbc:Name>
+                  <cbc:Description languageID="POL">Kryterium „ceny”  za 1km busa przejazdy zagraniczne do 22 miejsc siedzących; 
+(PZ2) – waga 5 %; liczone według wzoru:
+             PZ2  = Cn / Cb x 5% x 100 
+     gdzie: 
+PZ2 – ilość punktów, jakie otrzyma oferta badana za kryterium „cena za 1km   busa przejazdy zagraniczne do 22 miejsc siedzących”;
+Cn – oferta z najniższą ceną netto za 1km busa przejazdy zagraniczne;
+Cb – cena netto za 1km busa badanej oferty przejazdy zagraniczne.</cbc:Description>
+               </cac:SubordinateAwardingCriterion>
+               <cac:SubordinateAwardingCriterion>
+                  <ext:UBLExtensions>
+                     <ext:UBLExtension>
+                        <ext:ExtensionContent>
+                           <efext:EformsExtension>
+                              <efac:AwardCriterionParameter>
+                                 <efbc:ParameterCode listName="number-weight">per-exa</efbc:ParameterCode>
+                                 <efbc:ParameterNumeric>10</efbc:ParameterNumeric>
+                              </efac:AwardCriterionParameter>
+                           </efext:EformsExtension>
+                        </ext:ExtensionContent>
+                     </ext:UBLExtension>
+                  </ext:UBLExtensions>
+                  <cbc:AwardingCriterionTypeCode listName="award-criterion-type">quality</cbc:AwardingCriterionTypeCode>
+                  <cbc:Name languageID="POL">Kryterium „Dyspozycyjność Wykonawcy” </cbc:Name>
+                  <cbc:Description languageID="POL">Kryterium „Dyspozycyjność Wykonawcy” Pd:  - 10 pkt		Dyspozycyjność Wykonawcy, rozumiana  jako czas reakcji Wykonawcy to jest rozpoczęcie wykonywania usługi, w odpowiedzi na zgłoszenie przez Zamawiającego zapotrzebowania na wykonanie usługi w trybie przyśpieszonym, w odniesieniu do zadań wynikających ze zgłaszanych zapotrzebowań,  których Zamawiający nie mógł zgłosić Wykonawcy z co najmniej 48 godzinnym wyprzedzeniem. Zamawiający dokona oceny na podstawie złożonego przez Wykonawcę oświadczenia w ofercie  o dyspozycyjności za wykonanie usługi w trybie przyśpieszonym , którą Wykonawca określi w pełnych godzinach, przy czym czas reakcji nie może być krótszy niż 1(jedna) godzina i dłuższy niż 12 (dwanaście) godzin. Kryterium „dyspozycyjność Wykonawcy” (DW) – waga 10%, liczone według wzoru:
+DW = DWn / DWb x 10% x 100 
+     gdzie: 
+DW – ilość punktów, jakie otrzyma oferta badana za kryterium „dyspozycyjność Wykonawcy” 
+DWn –  oferta z najniższą liczbą godzin spośród ofert badanych;
+DWb – liczbą godzin przedstawiona w ofercie badanej spośród ofert   badanych.</cbc:Description>
+               </cac:SubordinateAwardingCriterion>
+            </cac:AwardingCriterion>
+         </cac:AwardingTerms>
+         <cac:DocumentProviderParty>
+            <cac:PartyIdentification>
+               <cbc:ID>ORG-0001</cbc:ID>
+            </cac:PartyIdentification>
+         </cac:DocumentProviderParty>
+         <cac:TenderRecipientParty>
+            <cbc:EndpointID>https://portal.smartpzp.pl/32wog</cbc:EndpointID>
+            <cac:PartyIdentification>
+               <cbc:ID>ORG-0001</cbc:ID>
+            </cac:PartyIdentification>
+         </cac:TenderRecipientParty>
+         <cac:TenderEvaluationParty>
+            <cac:PartyIdentification>
+               <cbc:ID>ORG-0001</cbc:ID>
+            </cac:PartyIdentification>
+         </cac:TenderEvaluationParty>
+         <cac:AppealTerms>
+            <cac:AppealInformationParty>
+               <cac:PartyIdentification>
+                  <cbc:ID>ORG-0002</cbc:ID>
+               </cac:PartyIdentification>
+            </cac:AppealInformationParty>
+            <cac:AppealReceiverParty>
+               <cac:PartyIdentification>
+                  <cbc:ID>ORG-0002</cbc:ID>
+               </cac:PartyIdentification>
+            </cac:AppealReceiverParty>
+            <cac:MediationParty>
+               <cac:PartyIdentification>
+                  <cbc:ID>ORG-0002</cbc:ID>
+               </cac:PartyIdentification>
+            </cac:MediationParty>
+         </cac:AppealTerms>
+         <cac:Language>
+            <cbc:ID>POL</cbc:ID>
+         </cac:Language>
+         <cac:PostAwardProcess>
+            <cbc:ElectronicOrderUsageIndicator>true</cbc:ElectronicOrderUsageIndicator>
+            <cbc:ElectronicPaymentUsageIndicator>true</cbc:ElectronicPaymentUsageIndicator>
+         </cac:PostAwardProcess>
+         <cac:SecurityClearanceTerm>
+            <cbc:Code listName="required">false</cbc:Code>
+         </cac:SecurityClearanceTerm>
+      </cac:TenderingTerms>
+      <cac:TenderingProcess>
+         <ext:UBLExtensions>
+            <ext:UBLExtension>
+               <ext:ExtensionContent>
+                  <efext:EformsExtension>
+                     <efbc:AccessToolName>platforma zakupowa https://portal.smartpzp.pl/32wog </efbc:AccessToolName>
+                  </efext:EformsExtension>
+               </ext:ExtensionContent>
+            </ext:UBLExtension>
+         </ext:UBLExtensions>
+         <cbc:SubmissionMethodCode listName="esubmission">required</cbc:SubmissionMethodCode>
+         <cbc:CandidateReductionConstraintIndicator>true</cbc:CandidateReductionConstraintIndicator>
+         <cbc:AccessToolsURI>https://portal.smartpzp.pl/32wog</cbc:AccessToolsURI>
+         <cac:ParticipationRequestReceptionPeriod>
+            <cbc:EndDate>2023-11-14+01:00</cbc:EndDate>
+            <cbc:EndTime>10:00:00+01:00</cbc:EndTime>
+         </cac:ParticipationRequestReceptionPeriod>
+         <cac:EconomicOperatorShortList>
+            <cbc:LimitationDescription>false</cbc:LimitationDescription>
+         </cac:EconomicOperatorShortList>
+         <cac:AuctionTerms>
+            <cbc:AuctionConstraintIndicator>false</cbc:AuctionConstraintIndicator>
+         </cac:AuctionTerms>
+         <cac:ContractingSystem>
+            <cbc:ContractingSystemTypeCode listName="framework-agreement">none</cbc:ContractingSystemTypeCode>
+         </cac:ContractingSystem>
+         <cac:ContractingSystem>
+            <cbc:ContractingSystemTypeCode listName="dps-usage">none</cbc:ContractingSystemTypeCode>
+         </cac:ContractingSystem>
+      </cac:TenderingProcess>
+      <cac:ProcurementProject>
+         <cbc:ID>CZĘŚĆ NR 4</cbc:ID>
+         <cbc:Name languageID="POL">Przewóz osób ( z lub do) 2pr, ul. Dwernickiego 4, 22 – 500 Hrubieszów, oraz pozostałych jednostek i organizacji będących na zaopatrzeniu 32 WOG</cbc:Name>
+         <cbc:Description languageID="POL">Przewóz osób ( z lub do) 2pr, ul. Dwernickiego 4, 22 – 500 Hrubieszów, oraz pozostałych jednostek i organizacji będących na zaopatrzeniu 32 WOG</cbc:Description>
+         <cbc:ProcurementTypeCode listName="contract-nature">services</cbc:ProcurementTypeCode>
+         <cbc:SMESuitableIndicator>true</cbc:SMESuitableIndicator>
+         <cac:MainCommodityClassification>
+            <cbc:ItemClassificationCode listName="cpv">60140000</cbc:ItemClassificationCode>
+         </cac:MainCommodityClassification>
+         <cac:RealizedLocation>
+            <cac:Address>
+               <cbc:StreetName>ul. Wojska Polskiego 2F</cbc:StreetName>
+               <cbc:AdditionalStreetName>ul. Koszary 52</cbc:AdditionalStreetName>
+               <cbc:CityName>Zamość</cbc:CityName>
+               <cbc:PostalZone>22-400</cbc:PostalZone>
+               <cbc:CountrySubentityCode listName="nuts">PL812</cbc:CountrySubentityCode>
+               <cac:Country>
+                  <cbc:IdentificationCode listName="country">POL</cbc:IdentificationCode>
+               </cac:Country>
+            </cac:Address>
+         </cac:RealizedLocation>
+         <cac:PlannedPeriod>
+            <cbc:StartDate>2024-01-01+01:00</cbc:StartDate>
+            <cbc:EndDate>2024-12-31+01:00</cbc:EndDate>
+         </cac:PlannedPeriod>
+         <cac:ContractExtension>
+            <cbc:OptionsDescription languageID="POL">1.	Zamawiający przewiduje możliwość skorzystania z prawa opcji, polegającym na możliwości zwiększenia zamówienia podstawowego określonego w § 5 ust. 1 niniejszej umowy, w ramach limitu finansowego określonego w § 5 ust. 2 niniejszej umowy - nie więcej jednak niż do 100% łącznej wartości zamówienia podstawowego w okresie trwania umowy. Wykonanie opcji może, ale nie musi nastąpić, w zależności od zapotrzebowania Zamawiającego i na skutek jego dyspozycji w tym zakresie. Wykonanie prawa opcji nie będzie wymagać wykonania aneksu do umowy, odbywać się będzie w oparciu o skierowaną do Wykonawcy informację o uruchomieniu prawa opcji.
+2.	 Prawem opcji objęta jest możliwość uzupełniającego zwiększenia usług stanowiących przedmiot niniejszej umowy w zakresie maksymalnym wynoszącym 100 % niniejszej wartości umowy.
+3.	 Zamawiający zastrzega, iż usługi objęte prawem opcji muszą być realizowane na warunkach określonych dla zamówienia podstawowego.
+4.	 W ramach prawa opcji Zamawiający zastrzega sobie możliwość pełnego albo wyłącznie częściowego wykorzystania zamówień objętych prawem opcji, co każdorazowo zostanie sprecyzowane w oświadczeniu o udzieleniu zamówienia składanym w ramach prawa opcji.
+5.	 Zamawiający wymaga, aby wartość ceny jednostkowej przysługującej Wykonawcy z tytułu przejechania jednego kilometra była jednakowa w odniesieniu do zamówienia podstawowego oraz zamówień udzielanych w ramach prawa opcji.
+6.	 Prawo opcji stanowi uprawnienie Zamawiającego, z którego może, ale nie musi skorzystać w ramach realizacji niniejszej umowy.
+</cbc:OptionsDescription>
+            <cbc:MaximumNumberNumeric>0</cbc:MaximumNumberNumeric>
+         </cac:ContractExtension>
+      </cac:ProcurementProject>
+   </cac:ProcurementProjectLot>
+   <cac:ProcurementProjectLot>
+      <cbc:ID schemeName="LotsGroup">GLO-0008</cbc:ID>
+      <cac:TenderingTerms>
+         <cac:AwardingTerms>
+            <cac:AwardingCriterion>
+               <cac:SubordinateAwardingCriterion>
+                  <ext:UBLExtensions>
+                     <ext:UBLExtension>
+                        <ext:ExtensionContent>
+                           <efext:EformsExtension>
+                              <efac:AwardCriterionParameter>
+                                 <efbc:ParameterCode listName="number-weight">per-exa</efbc:ParameterCode>
+                                 <efbc:ParameterNumeric>40</efbc:ParameterNumeric>
+                              </efac:AwardCriterionParameter>
+                           </efext:EformsExtension>
+                        </ext:ExtensionContent>
+                     </ext:UBLExtension>
+                  </ext:UBLExtensions>
+                  <cbc:AwardingCriterionTypeCode listName="award-criterion-type">price</cbc:AwardingCriterionTypeCode>
+                  <cbc:Name languageID="POL">Kryterium „cena  za 1km autokaru  przejazdy krajowe o liczbie miejsc od 23 siedzących</cbc:Name>
+                  <cbc:Description languageID="POL">a)	Kryterium „cena  za 1km autokaru  przejazdy krajowe o liczbie miejsc od 23 siedzących”; 
+(PK1) – waga 40 %; liczone według wzoru:
+             PK1  = Cn / Cb x 40% x 100 
+     gdzie: 
+PK1 – ilość punktów, jakie otrzyma oferta badana za kryterium „cena za 1 km autokaru przejazdy krajowe”;
+Cn – oferta z najniższą ceną netto za 1km autokaru przejazdy krajowe;
+Cb – cena netto badanej oferty za 1km autokaru przejazdy krajowe
+</cbc:Description>
+               </cac:SubordinateAwardingCriterion>
+               <cac:SubordinateAwardingCriterion>
+                  <ext:UBLExtensions>
+                     <ext:UBLExtension>
+                        <ext:ExtensionContent>
+                           <efext:EformsExtension>
+                              <efac:AwardCriterionParameter>
+                                 <efbc:ParameterCode listName="number-weight">per-exa</efbc:ParameterCode>
+                                 <efbc:ParameterNumeric>10</efbc:ParameterNumeric>
+                              </efac:AwardCriterionParameter>
+                           </efext:EformsExtension>
+                        </ext:ExtensionContent>
+                     </ext:UBLExtension>
+                  </ext:UBLExtensions>
+                  <cbc:AwardingCriterionTypeCode listName="award-criterion-type">price</cbc:AwardingCriterionTypeCode>
+                  <cbc:Name languageID="POL">Kryterium „ceny”  za 1km autokaru  przejazdy zagraniczne o liczbie miejsc od 23 siedzących</cbc:Name>
+                  <cbc:Description languageID="POL">Kryterium „ceny”  za 1km autokaru  przejazdy zagraniczne o liczbie miejsc od 23 siedzących; 
+(PZ1) – waga 10 %; liczone według wzoru:
+             PZ1  = Cn / Cb x 10% x 100 
+     gdzie: 
+PZ1 – ilość punktów, jakie otrzyma oferta badana za kryterium „cena za 1km autokaru  przejazdy zagraniczne”;
+Cn – oferta z najniższą ceną netto za 1km autokaru przejazdy zagraniczne;
+Cb – cena za 1km autokaru netto badanej oferty przejazdy zagraniczne.
+</cbc:Description>
+               </cac:SubordinateAwardingCriterion>
+               <cac:SubordinateAwardingCriterion>
+                  <ext:UBLExtensions>
+                     <ext:UBLExtension>
+                        <ext:ExtensionContent>
+                           <efext:EformsExtension>
+                              <efac:AwardCriterionParameter>
+                                 <efbc:ParameterCode listName="number-weight">per-exa</efbc:ParameterCode>
+                                 <efbc:ParameterNumeric>35</efbc:ParameterNumeric>
+                              </efac:AwardCriterionParameter>
+                           </efext:EformsExtension>
+                        </ext:ExtensionContent>
+                     </ext:UBLExtension>
+                  </ext:UBLExtensions>
+                  <cbc:AwardingCriterionTypeCode listName="award-criterion-type">price</cbc:AwardingCriterionTypeCode>
+                  <cbc:Name languageID="POL">Kryterium „ceny”  za 1km busa przejazdy krajowe do 22 miejsc siedzących</cbc:Name>
+                  <cbc:Description languageID="POL">Kryterium „ceny”  za 1km busa przejazdy krajowe do 22 miejsc siedzących; 
+(PK2) – waga 35 %; liczone według wzoru:
+             PK2  = Cn / Cb x 35% x 100 
+     gdzie: 
+PK2 – ilość punktów, jakie otrzyma oferta badana za kryterium „cena za 1km   busa przejazdy krajowe do 22 miejsc siedzących”;
+Cn – oferta z najniższą ceną netto za 1km busa przejazdy krajowe;
+Cb – cena netto za 1km busa badanej oferty przejazdy krajowe .
+</cbc:Description>
+               </cac:SubordinateAwardingCriterion>
+               <cac:SubordinateAwardingCriterion>
+                  <ext:UBLExtensions>
+                     <ext:UBLExtension>
+                        <ext:ExtensionContent>
+                           <efext:EformsExtension>
+                              <efac:AwardCriterionParameter>
+                                 <efbc:ParameterCode listName="number-weight">per-exa</efbc:ParameterCode>
+                                 <efbc:ParameterNumeric>5</efbc:ParameterNumeric>
+                              </efac:AwardCriterionParameter>
+                           </efext:EformsExtension>
+                        </ext:ExtensionContent>
+                     </ext:UBLExtension>
+                  </ext:UBLExtensions>
+                  <cbc:AwardingCriterionTypeCode listName="award-criterion-type">price</cbc:AwardingCriterionTypeCode>
+                  <cbc:Name languageID="POL">Kryterium „ceny”  za 1km busa przejazdy zagraniczne do 22 miejsc siedzących</cbc:Name>
+                  <cbc:Description languageID="POL">Kryterium „ceny”  za 1km busa przejazdy zagraniczne do 22 miejsc siedzących; 
+(PZ2) – waga 5 %; liczone według wzoru:
+             PZ2  = Cn / Cb x 5% x 100 
+     gdzie: 
+PZ2 – ilość punktów, jakie otrzyma oferta badana za kryterium „cena za 1km   busa przejazdy zagraniczne do 22 miejsc siedzących”;
+Cn – oferta z najniższą ceną netto za 1km busa przejazdy zagraniczne;
+Cb – cena netto za 1km busa badanej oferty przejazdy zagraniczne.
+</cbc:Description>
+               </cac:SubordinateAwardingCriterion>
+               <cac:SubordinateAwardingCriterion>
+                  <ext:UBLExtensions>
+                     <ext:UBLExtension>
+                        <ext:ExtensionContent>
+                           <efext:EformsExtension>
+                              <efac:AwardCriterionParameter>
+                                 <efbc:ParameterCode listName="number-weight">per-exa</efbc:ParameterCode>
+                                 <efbc:ParameterNumeric>10</efbc:ParameterNumeric>
+                              </efac:AwardCriterionParameter>
+                           </efext:EformsExtension>
+                        </ext:ExtensionContent>
+                     </ext:UBLExtension>
+                  </ext:UBLExtensions>
+                  <cbc:AwardingCriterionTypeCode listName="award-criterion-type">quality</cbc:AwardingCriterionTypeCode>
+                  <cbc:Name languageID="POL">Kryterium „Dyspozycyjność Wykonawcy” Pd:  - 10 pkt</cbc:Name>
+                  <cbc:Description languageID="POL">Kryterium „Dyspozycyjność Wykonawcy” Pd:  - 10 pkt		Dyspozycyjność Wykonawcy, rozumiana  jako czas reakcji Wykonawcy to jest rozpoczęcie wykonywania usługi, w odpowiedzi na zgłoszenie przez Zamawiającego zapotrzebowania na wykonanie usługi w trybie przyśpieszonym, w odniesieniu do zadań wynikających ze zgłaszanych zapotrzebowań,  których Zamawiający nie mógł zgłosić Wykonawcy z co najmniej 48 godzinnym wyprzedzeniem. Zamawiający dokona oceny na podstawie złożonego przez Wykonawcę oświadczenia w ofercie  o dyspozycyjności za wykonanie usługi w trybie przyśpieszonym , którą Wykonawca określi w pełnych godzinach, przy czym czas reakcji nie może być krótszy niż 1(jedna) godzina i dłuższy niż 12 (dwanaście) godzin. Kryterium „dyspozycyjność Wykonawcy” (DW) – waga 10%, liczone według wzoru:
+DW = DWn / DWb x 10% x 100 
+     gdzie: 
+DW – ilość punktów, jakie otrzyma oferta badana za kryterium „dyspozycyjność Wykonawcy” 
+DWn –  oferta z najniższą liczbą godzin spośród ofert badanych;
+DWb – liczbą godzin przedstawiona w ofercie badanej spośród ofert   badanych</cbc:Description>
+               </cac:SubordinateAwardingCriterion>
+            </cac:AwardingCriterion>
+         </cac:AwardingTerms>
+      </cac:TenderingTerms>
+      <cac:ProcurementProject>
+         <cbc:SMESuitableIndicator>true</cbc:SMESuitableIndicator>
+      </cac:ProcurementProject>
+   </cac:ProcurementProjectLot>
+</ContractNotice>

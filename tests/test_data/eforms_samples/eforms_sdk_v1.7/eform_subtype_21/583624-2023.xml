@@ -1,0 +1,934 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><ContractNotice xmlns="urn:oasis:names:specification:ubl:schema:xsd:ContractNotice-2" xmlns:cac="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2" xmlns:cbc="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2" xmlns:efac="http://data.europa.eu/p27/eforms-ubl-extension-aggregate-components/1" xmlns:efbc="http://data.europa.eu/p27/eforms-ubl-extension-basic-components/1" xmlns:efext="http://data.europa.eu/p27/eforms-ubl-extensions/1" xmlns:ext="urn:oasis:names:specification:ubl:schema:xsd:CommonExtensionComponents-2">
+  <ext:UBLExtensions>
+    <ext:UBLExtension>
+      <ext:ExtensionContent>
+        <efext:EformsExtension>
+          <efbc:TransmissionDate>2023-09-27+00:00</efbc:TransmissionDate>
+          <efbc:TransmissionTime>12:49:07+00:00</efbc:TransmissionTime>
+          <efac:NoticeSubType>
+            <cbc:SubTypeCode listName="notice-subtype">21</cbc:SubTypeCode>
+          </efac:NoticeSubType>
+          <efac:Organizations>
+            <efac:Organization>
+              <efbc:AcquiringCPBIndicator>false</efbc:AcquiringCPBIndicator>
+              <efbc:AwardingCPBIndicator>false</efbc:AwardingCPBIndicator>
+              <efac:Company>
+                <cbc:WebsiteURI>https://www.hel.fi/sote/fi</cbc:WebsiteURI>
+                <cac:PartyIdentification>
+                  <cbc:ID schemeName="organization">ORG-0001</cbc:ID>
+                </cac:PartyIdentification>
+                <cac:PartyName>
+                  <cbc:Name languageID="FIN">Helsingin kaupungin sosiaali-, terveys- ja pelastustoimiala</cbc:Name>
+                </cac:PartyName>
+                <cac:PostalAddress>
+                  <cbc:StreetName>Toinen linja 4 A</cbc:StreetName>
+                  <cbc:CityName>Helsinki</cbc:CityName>
+                  <cbc:PostalZone>00530</cbc:PostalZone>
+                  <cbc:CountrySubentityCode listName="nuts">FI1B1</cbc:CountrySubentityCode>
+                  <cac:Country>
+                    <cbc:IdentificationCode listName="country">FIN</cbc:IdentificationCode>
+                  </cac:Country>
+                </cac:PostalAddress>
+                <cac:PartyLegalEntity>
+                  <cbc:CompanyID schemeID="002">0201256-6</cbc:CompanyID>
+                </cac:PartyLegalEntity>
+                <cac:Contact>
+                  <cbc:Name>Hankintapalvelut</cbc:Name>
+                  <cbc:Telephone>+358 503809958</cbc:Telephone>
+                  <cbc:ElectronicMail>sote.hankinnat@hel.fi</cbc:ElectronicMail>
+                </cac:Contact>
+              </efac:Company>
+            </efac:Organization>
+            <efac:Organization>
+              <efac:Company>
+                <cbc:WebsiteURI>http://www.oikeus.fi/markkinaoikeus</cbc:WebsiteURI>
+                <cac:PartyIdentification>
+                  <cbc:ID schemeName="organization">ORG-0002</cbc:ID>
+                </cac:PartyIdentification>
+                <cac:PartyName>
+                  <cbc:Name languageID="FIN">Markkinaoikeus</cbc:Name>
+                </cac:PartyName>
+                <cac:PostalAddress>
+                  <cbc:StreetName>Radanrakentajantie 5</cbc:StreetName>
+                  <cbc:CityName>Helsinki</cbc:CityName>
+                  <cbc:PostalZone>00520</cbc:PostalZone>
+                  <cbc:CountrySubentityCode listName="nuts">FI1B1</cbc:CountrySubentityCode>
+                  <cac:Country>
+                    <cbc:IdentificationCode listName="country">FIN</cbc:IdentificationCode>
+                  </cac:Country>
+                </cac:PostalAddress>
+                <cac:PartyLegalEntity>
+                  <cbc:CompanyID schemeID="002">3006157-6</cbc:CompanyID>
+                </cac:PartyLegalEntity>
+                <cac:Contact>
+                  <cbc:Telephone>+358 295643300</cbc:Telephone>
+                  <cbc:ElectronicMail>markkinaoikeus@oikeus.fi</cbc:ElectronicMail>
+                </cac:Contact>
+              </efac:Company>
+            </efac:Organization>
+            <efac:Organization>
+              <efac:Company>
+                <cbc:WebsiteURI>http://www.hansel.fi</cbc:WebsiteURI>
+                <cac:PartyIdentification>
+                  <cbc:ID schemeName="organization">ORG-0003</cbc:ID>
+                </cac:PartyIdentification>
+                <cac:PartyName>
+                  <cbc:Name languageID="FIN">Hansel Oy</cbc:Name>
+                </cac:PartyName>
+                <cac:PostalAddress>
+                  <cbc:StreetName>Mannerheiminaukio 1a</cbc:StreetName>
+                  <cbc:CityName>Helsinki</cbc:CityName>
+                  <cbc:PostalZone>00100</cbc:PostalZone>
+                  <cbc:CountrySubentityCode listName="nuts">FI1B1</cbc:CountrySubentityCode>
+                  <cac:Country>
+                    <cbc:IdentificationCode listName="country">FIN</cbc:IdentificationCode>
+                  </cac:Country>
+                </cac:PostalAddress>
+                <cac:PartyLegalEntity>
+                  <cbc:CompanyID schemeID="002">0988084-1</cbc:CompanyID>
+                </cac:PartyLegalEntity>
+                <cac:Contact>
+                  <cbc:Name>eSender</cbc:Name>
+                  <cbc:Telephone>029 444 4288</cbc:Telephone>
+                  <cbc:ElectronicMail>tuki@hansel.fi</cbc:ElectronicMail>
+                </cac:Contact>
+              </efac:Company>
+            </efac:Organization>
+          </efac:Organizations>
+        <efac:Publication><efbc:NoticePublicationID schemeName="ojs-notice-id">00583624-2023</efbc:NoticePublicationID><efbc:GazetteID schemeName="ojs-id">187/2023</efbc:GazetteID><efbc:PublicationDate>2023-09-28Z</efbc:PublicationDate></efac:Publication></efext:EformsExtension>
+      </ext:ExtensionContent>
+    </ext:UBLExtension>
+  </ext:UBLExtensions>
+  <cbc:UBLVersionID>2.3</cbc:UBLVersionID>
+  <cbc:CustomizationID>eforms-sdk-1.7</cbc:CustomizationID>
+  <cbc:ID schemeName="notice-id">fc03ac5b-6834-418e-bf20-75d2a9c99d75</cbc:ID>
+  <cbc:ContractFolderID>ba7e3e11-1a8f-4404-bea9-b813e03864d2</cbc:ContractFolderID>
+  <cbc:IssueDate>2023-09-27+00:00</cbc:IssueDate>
+  <cbc:IssueTime>12:48:10+00:00</cbc:IssueTime>
+  <cbc:VersionID>01</cbc:VersionID>
+  <cbc:RegulatoryDomain>32014L0025</cbc:RegulatoryDomain>
+  <cbc:NoticeTypeCode listName="competition">cn-social</cbc:NoticeTypeCode>
+  <cbc:NoticeLanguageCode>FIN</cbc:NoticeLanguageCode>
+  <cac:ContractingParty>
+    <cac:Party>
+      <cac:PartyIdentification>
+        <cbc:ID schemeName="organization">ORG-0001</cbc:ID>
+      </cac:PartyIdentification>
+      <cac:ServiceProviderParty>
+        <cbc:ServiceTypeCode listName="organisation-role">ted-esen</cbc:ServiceTypeCode>
+        <cac:Party>
+          <cac:PartyIdentification>
+            <cbc:ID schemeName="organization">ORG-0003</cbc:ID>
+          </cac:PartyIdentification>
+        </cac:Party>
+      </cac:ServiceProviderParty>
+    </cac:Party>
+  </cac:ContractingParty>
+  <cac:TenderingTerms>
+    <cac:TendererQualificationRequest>
+      <cac:SpecificTendererRequirement>
+        <cbc:TendererRequirementTypeCode listName="exclusion-ground">bankr-nat</cbc:TendererRequirementTypeCode>
+        <cbc:Description languageID="FIN">Onko tarjoaja kansalliseen lainsäädäntöön ja kansallisiin määräyksiin perustuvasta samankaltaisesta menettelystä
+johtuvassa konkurssissa tai muuta sellaista vastaavassa tilanteessa?
+</cbc:Description>
+      </cac:SpecificTendererRequirement>
+      <cac:SpecificTendererRequirement>
+        <cbc:TendererRequirementTypeCode listName="exclusion-ground">bankruptcy</cbc:TendererRequirementTypeCode>
+        <cbc:Description languageID="FIN">Onko tarjoaja konkurssissa?
+</cbc:Description>
+      </cac:SpecificTendererRequirement>
+      <cac:SpecificTendererRequirement>
+        <cbc:TendererRequirementTypeCode listName="exclusion-ground">corruption</cbc:TendererRequirementTypeCode>
+        <cbc:Description languageID="FIN">Onko tarjoajalle itselleen tai mille tahansa henkilölle, joka on sen hallinto-, johto- tai valvontaelimen jäsen tai jolla on
+siinä päätös-, edustus- tai valvontavaltaa, annettu lahjonnasta lainvoimainen tuomio, joka on annettu enintään viisi vuotta sitten tai jolla suoraan vahvistettu poissulkeminen on edelleen voimassa?
+Sellaisena kuin se määritellään sellaisen lahjonnan torjumisesta, jossa on osallisena Euroopan yhteisöjen
+virkamiehiä tai Euroopan unionin jäsenvaltioiden virkamiehiä, tehdyn yleissopimuksen 3 artiklassa (EUVL C 195, 25.6.1997, s. 1) ja lahjonnan torjumisesta yksityisellä sektorilla 22 päivänä heinäkuuta 2003 annetun neuvoston
+puitepäätöksen 2003/568/YOS 2 artiklan 1 kohdassa (EUVL L 192, 31.7.2003, s. 54). Tämä poissulkemisperuste kattaa
+myös hankintaviranomaisen (-yksikön) tai tarjoajan kansallisen lainsäädännön määritelmän mukaisen korruption.</cbc:Description>
+      </cac:SpecificTendererRequirement>
+      <cac:SpecificTendererRequirement>
+        <cbc:TendererRequirementTypeCode listName="exclusion-ground">cred-arran</cbc:TendererRequirementTypeCode>
+        <cbc:Description languageID="FIN">Onko tarjoajalla järjestelyjä velkojien kanssa?</cbc:Description>
+      </cac:SpecificTendererRequirement>
+      <cac:SpecificTendererRequirement>
+        <cbc:TendererRequirementTypeCode listName="exclusion-ground">crime-org</cbc:TendererRequirementTypeCode>
+        <cbc:Description languageID="FIN">Onko tarjoajalle itselleen tai mille tahansa henkilölle, joka on sen hallinto-, johto- tai valvontaelimen jäsen tai jolla on
+siinä päätös-, edustus- tai valvontavaltaa, annettu rikollisjärjestön toimintaan osallistumisesta lainvoimainen
+tuomio, joka on annettu enintään viisi vuotta sitten tai jolla suoraan vahvistettu poissulkeminen on edelleen
+voimassa?
+Sellaisena kuin se määritellään järjestäytyneen rikollisuuden torjunnasta 24 päivänä lokakuuta 2008 annetun
+neuvoston puitepäätöksen 2008/841/YOS 2 artiklassa (EUVL L 300, 11.11.2008, s. 42).
+</cbc:Description>
+      </cac:SpecificTendererRequirement>
+      <cac:SpecificTendererRequirement>
+        <cbc:TendererRequirementTypeCode listName="exclusion-ground">distorsion</cbc:TendererRequirementTypeCode>
+        <cbc:Description languageID="FIN">Onko tarjoaja tehnyt muiden tarjoajien kanssa sopimuksia, joilla pyritään vääristämään kilpailua?</cbc:Description>
+      </cac:SpecificTendererRequirement>
+      <cac:SpecificTendererRequirement>
+        <cbc:TendererRequirementTypeCode listName="exclusion-ground">envir-law</cbc:TendererRequirementTypeCode>
+        <cbc:Description languageID="FIN">Onko tarjoaja rikkonut oman tietonsa mukaan ympäristölainsäädännön mukaisia velvoitteitaan?
+Kansallisessa lainsäädännössä taikka direktiivin 2014/24/EU 18 artiklan 2 kohdassa (Erityisalat: 2014/25/EU 36 artiklan 2 kohta) tämän hankinnan osalta tarkoitetut velvoitteet.</cbc:Description>
+      </cac:SpecificTendererRequirement>
+      <cac:SpecificTendererRequirement>
+        <cbc:TendererRequirementTypeCode listName="exclusion-ground">finan-laund</cbc:TendererRequirementTypeCode>
+        <cbc:Description languageID="FIN">Onko tarjoajalle itselleen tai mille tahansa henkilölle, joka on sen hallinto-, johto- tai valvontaelimen jäsen tai jolla on
+siinä päätös-, edustus- tai valvontavaltaa, annettu rahanpesusta tai terrorismin rahoituksesta lainvoimainen tuomio, joka on annettu enintään viisi vuotta sitten tai jolla suoraan vahvistettu poissulkeminen on edelleen voimassa?
+Sellaisina kuin ne määritellään rahoitusjärjestelmän käytön estämisestä rahanpesutarkoituksiin sekä terrorismin
+rahoitukseen 26 päivänä lokakuuta 2005 annetun Euroopan parlamentin ja neuvoston direktiivin 2005/60/EY 1
+artiklassa (EUVL L 309, 25.11.2005, s. 15).
+</cbc:Description>
+      </cac:SpecificTendererRequirement>
+      <cac:SpecificTendererRequirement>
+        <cbc:TendererRequirementTypeCode listName="exclusion-ground">fraud</cbc:TendererRequirementTypeCode>
+        <cbc:Description languageID="FIN">Onko tarjoajalle itselleen tai mille tahansa henkilölle, joka on sen hallinto-, johto- tai valvontaelimen jäsen tai jolla on
+siinä päätös-, edustus- tai valvontavaltaa, annettu petoksesta lainvoimainen tuomio, joka on annettu enintään viisi vuotta sitten tai jolla suoraan vahvistettu poissulkeminen on edelleen voimassa?
+Sellaisina kuin ne määritellään Euroopan yhteisöjen taloudellisten etujen suojaamisesta tehdyn yleissopimuksen 1 artiklassa (EUVL C 316, 27.11.1995, s. 48).
+</cbc:Description>
+      </cac:SpecificTendererRequirement>
+      <cac:SpecificTendererRequirement>
+        <cbc:TendererRequirementTypeCode listName="exclusion-ground">human-traffic</cbc:TendererRequirementTypeCode>
+        <cbc:Description languageID="FIN">Onko tarjoajalle itselleen tai mille tahansa henkilölle, joka on sen hallinto-, johto- tai valvontaelimen jäsen tai jolla on
+siinä päätös-, edustus- tai valvontavaltaa, annettu lapsityövoiman käytöstä tai muista ihmiskaupan muodoista
+lainvoimainen tuomio, joka on annettu enintään viisi vuotta sitten tai jolla suoraan vahvistettu poissulkeminen on
+edelleen voimassa?
+Sellaisina kuin ne määritellään ihmiskaupan ehkäisemisestä ja torjumisesta sekä ihmiskaupan uhrien
+suojelemisesta ja neuvoston puitepäätöksen 2002/629/YOS korvaamisesta 5 päivänä huhtikuuta 2011 annetun Euroopan parlamentin ja neuvoston direktiivin 2011/36/EU 2 artiklassa (EUVL L 101, 15.4.2011, s. 1).
+</cbc:Description>
+      </cac:SpecificTendererRequirement>
+      <cac:SpecificTendererRequirement>
+        <cbc:TendererRequirementTypeCode listName="exclusion-ground">insolvency</cbc:TendererRequirementTypeCode>
+        <cbc:Description languageID="FIN">Onko tarjoajan osalta käynnistetty maksukyvyttömyys- tai likvidaatiomenettelyjä?
+</cbc:Description>
+      </cac:SpecificTendererRequirement>
+      <cac:SpecificTendererRequirement>
+        <cbc:TendererRequirementTypeCode listName="exclusion-ground">labour-law</cbc:TendererRequirementTypeCode>
+        <cbc:Description languageID="FIN">Onko tarjoaja rikkonut oman tietonsa mukaan työlainsäädännön mukaisia velvoitteitaan?
+Kansallisessa lainsäädännössä taikka direktiivin 2014/24/EU 18 artiklan 2 kohdassa (Erityisalat: 2014/25/EU 36 artiklan 2 kohta) tämän hankinnan osalta tarkoitetut velvoitteet.</cbc:Description>
+      </cac:SpecificTendererRequirement>
+      <cac:SpecificTendererRequirement>
+        <cbc:TendererRequirementTypeCode listName="exclusion-ground">liq-admin</cbc:TendererRequirementTypeCode>
+        <cbc:Description languageID="FIN">Ovatko tarjoajan varat selvitysmiehen tai tuomioistuimen hallinnassa?
+</cbc:Description>
+      </cac:SpecificTendererRequirement>
+      <cac:SpecificTendererRequirement>
+        <cbc:TendererRequirementTypeCode listName="exclusion-ground">misrepresent</cbc:TendererRequirementTypeCode>
+        <cbc:Description languageID="FIN">Koskeeko tarjoajaa jokin seuraavista tilanteista? a) on syyllistynyt vakavaan väärään tulkintaan antaessaan
+poissulkemisperusteiden puuttumisen tai valintaperusteiden täyttymisen tarkistamiseen vaadittuja tietoja, b) on jättänyt antamatta tällaisia tietoja, c) ei ole kyennyt toimittamaan viiveettä hankintaviranomaisen tai -yksikön vaatimia liiteasiakirjoja, ja d) on yrittänyt vaikuttaa hankintaviranomaisen tai -yksikön päätöksentekoprosessiin
+asiattomalla tavalla tai hankkinut luottamuksellista tietoa, joista voisi olla sille hankintamenettelyssä
+asiaankuulumatonta etua, taikka on tuottamuksellisesti toimittanut harhaanjohtavia tietoja, joilla voi olla merkittävä
+vaikutus poissulkemista, valintaa tai myöntämistä koskeviin päätöksiin?
+</cbc:Description>
+      </cac:SpecificTendererRequirement>
+      <cac:SpecificTendererRequirement>
+        <cbc:TendererRequirementTypeCode listName="exclusion-ground">nati-ground</cbc:TendererRequirementTypeCode>
+        <cbc:Description languageID="FIN">Onko tarjoajan hallinto-, johto- tai valvontaelimen jäsen tai edustus-, päätös- tai valvontavaltaa käyttävää henkilöä
+lainvoimaisella tuomiolla tuomittu työturvallisuusrikoksesta, työaikasuojelurikoksesta, työsyrjinnästä, kiskonnantapaisesta työsyrjinnästä, työntekijöiden järjestäytymisvapauden loukkaamisesta tai luvattoman ulkomaisen työvoiman käytöstä.
+</cbc:Description>
+      </cac:SpecificTendererRequirement>
+      <cac:SpecificTendererRequirement>
+        <cbc:TendererRequirementTypeCode listName="exclusion-ground">partic-confl</cbc:TendererRequirementTypeCode>
+        <cbc:Description languageID="FIN">Onko tarjoaja tietoinen eturistiriidoista, joita sen hankintamenettelyyn osallistumisesta aiheutuu kansallisen
+lainsäädännön, asiaankuuluvan hankintailmoituksen tai hankinta-asiakirjojen perusteella?</cbc:Description>
+      </cac:SpecificTendererRequirement>
+      <cac:SpecificTendererRequirement>
+        <cbc:TendererRequirementTypeCode listName="exclusion-ground">prep-confl</cbc:TendererRequirementTypeCode>
+        <cbc:Description languageID="FIN">Onko tarjoaja tai tarjoajaan liittyvä yritys antanut hankintaviranomaiselle tai –yksikölle neuvoja tai muulla tavoin
+osallistunut hankintamenettelyn valmisteluun?</cbc:Description>
+      </cac:SpecificTendererRequirement>
+      <cac:SpecificTendererRequirement>
+        <cbc:TendererRequirementTypeCode listName="exclusion-ground">prof-misconduct</cbc:TendererRequirementTypeCode>
+        <cbc:Description languageID="FIN">Onko tarjoaja syyllistynyt ammatin harjoittamiseen liittyvään vakavaan virheeseen?
+Ks. tarvittaessa kansallisessa lainsäädännössä annetut määritelmät.
+</cbc:Description>
+      </cac:SpecificTendererRequirement>
+      <cac:SpecificTendererRequirement>
+        <cbc:TendererRequirementTypeCode listName="exclusion-ground">sanction</cbc:TendererRequirementTypeCode>
+        <cbc:Description languageID="FIN">Onko tarjoajalla kokemuksia siitä, että aikaisempi hankintasopimus, hankintayksikön kanssa tehty aikaisempi
+hankintasopimus tai aikaisempi käyttöoikeussopimus on irtisanottu ennenaikaisesti tai että kyseisen aikaisemman
+sopimuksen yhteydessä on vaadittu vahingonkorvauksia tai määrätty muita vastaavia seuraamuksia?</cbc:Description>
+      </cac:SpecificTendererRequirement>
+      <cac:SpecificTendererRequirement>
+        <cbc:TendererRequirementTypeCode listName="exclusion-ground">socsec-law</cbc:TendererRequirementTypeCode>
+        <cbc:Description languageID="FIN">Onko tarjoaja rikkonut oman tietonsa mukaan sosiaalilainsäädännön mukaisia velvoitteitaan?
+Kansallisessa lainsäädännössä taikka direktiivin 2014/24/EU 18 artiklan 2 kohdassa (Erityisalat: 2014/25/EU 36 artiklan 2 kohta) tämän hankinnan osalta tarkoitetut velvoitteet.</cbc:Description>
+      </cac:SpecificTendererRequirement>
+      <cac:SpecificTendererRequirement>
+        <cbc:TendererRequirementTypeCode listName="exclusion-ground">socsec-pay</cbc:TendererRequirementTypeCode>
+        <cbc:Description languageID="FIN">Onko tarjoaja rikkonut sosiaaliturvamaksujen maksamiseen liittyviä velvoitteitaan joko maassa, johon toimija on
+sijoittautunut, tai hankintaviranomaisen tai -yksikön jäsenvaltiossa, jos se on muu kuin sijoittautumismaa?
+</cbc:Description>
+      </cac:SpecificTendererRequirement>
+      <cac:SpecificTendererRequirement>
+        <cbc:TendererRequirementTypeCode listName="exclusion-ground">susp-act</cbc:TendererRequirementTypeCode>
+        <cbc:Description languageID="FIN">Onko tarjoajan liiketoiminta keskeytetty?
+</cbc:Description>
+      </cac:SpecificTendererRequirement>
+      <cac:SpecificTendererRequirement>
+        <cbc:TendererRequirementTypeCode listName="exclusion-ground">tax-pay</cbc:TendererRequirementTypeCode>
+        <cbc:Description languageID="FIN">Onko tarjoaja rikkonut verojen maksamiseen liittyviä velvoitteitaan joko maassa, johon toimija on sijoittautunut, tai
+hankintaviranomaisen tai -yksikön jäsenvaltiossa, jos se on muu kuin sijoittautumismaa?
+</cbc:Description>
+      </cac:SpecificTendererRequirement>
+      <cac:SpecificTendererRequirement>
+        <cbc:TendererRequirementTypeCode listName="exclusion-ground">terr-offence</cbc:TendererRequirementTypeCode>
+        <cbc:Description languageID="FIN">Onko tarjoajalle itselleen tai mille tahansa henkilölle, joka on sen hallinto-, johto- tai valvontaelimen jäsen tai jolla on
+siinä päätös-, edustus- tai valvontavaltaa, annettu terrorismirikoksesta tai terroritoimintaan liittyvästä rikoksesta lainvoimainen tuomio, joka on annettu enintään viisi vuotta sitten tai jolla suoraan vahvistettu poissulkeminen on edelleen voimassa? 
+Sellaisina kuin ne määritellään terrorismin torjumisesta 13 päivänä kesäkuuta 2002 tehdyn neuvoston puitepäätöksen 1 ja 3 artiklassa (EUVL L 164, 22.6.2002, s. 3). Tämä poissulkemisperuste kattaa myös kyseisen puitepäätöksen 4 artiklassa tarkoitetun rikoksiin yllyttämisen tai niissä avun antamisen tai rikoksen yrityksen.</cbc:Description>
+      </cac:SpecificTendererRequirement>
+    </cac:TendererQualificationRequest>
+  </cac:TenderingTerms>
+  <cac:TenderingProcess>
+    <cbc:Description languageID="FIN">Kyseessä on julkisista hankinnoista ja käyttöoikeussopimuksista annetun lain (1397/2016, jatkossa hankintalain) luvun 12
+mukainen hankinta. Hankinta toteutetaan dynaamisena puitejärjestelynä, joka tarkoittaa hankintayksikön itsensä suunnittelemaa, hankintalain periaatteiden mukaista menettelyä hankinnan kohteena olevien palveluiden hankkimiseen. Hankintamenettely on kuvattu yksityiskohtaisesti tarjouspyynnön liitteessä 3.</cbc:Description>
+    <cbc:ProcedureCode listName="procurement-procedure-type">open</cbc:ProcedureCode>
+  </cac:TenderingProcess>
+  <cac:ProcurementProject>
+    <cbc:ID schemeName="InternalID">HEL 2019-011004</cbc:ID>
+    <cbc:Name languageID="FIN">Ikääntyneiden ympärivuorokautinen palveluasuminen Dynaamisen puitejärjestelyn 3. avaaminen</cbc:Name>
+    <cbc:Description languageID="FIN">Helsingin kaupungin sosiaali-, terveys- ja pelastustoimiala avaa tällä tarjouspyynnöllä ikääntyneiden ympärivuorokautisen palveluasumisen dynaamisen puitejärjestelyn kolmatta kertaa.
+
+Ikääntyneiden ympärivuorokautisen palveluasumisen dynaaminen puitejärjestely on perustettu vuoden 2021 alussa. Helsingin kaupungin sosiaali- ja terveystoimialan sairaala-, kuntoutus- ja hoivapalvelujen johtaja on tehnyt asiasta päätöksen 10.3.2020 § 41.
+
+Tässä ikääntyneiden ympärivuorokautisen palveluasumisen dynaamisen puitejärjestelyn kolmannessa avaamisessa palveluntuottaja, joka ei ole jättänyt tarjousta tai ei ole tullut valituksi palveluntuottajaksi dynaamisen puitejärjestelyn perustamisvaiheessa tai sen aiemmissa avauksissa, voi jättää tarjouksen ja tulla valituksi palveluntuottajaksi. Lisäksi dynaamiseen puitejärjestelyyn aiemmin valitut palveluntuottajat voivat jättää avaamisen yhteydessä uuden tarjouksen uusien toimintayksiköiden tai hankinnan osa-alueiden osalta. 
+
+Tähän dynaamisen puitejärjestelyn avaamisen liittyy hinnantarkistusmahdollisuus:
+- 2023 vuoden alusta dynaamiseen puitejärjestelyyn valituilla yksiköillä on mahdollisuus esittää hinnanalennuksia niiden palvelujen osalta, joista heillä on sopimus.
+- Muilla dynaamiseen puitejärjestelyyn jo aiemmin valituilla yksiköillä on mahdollisuus esittää hinnanalennuksia ja hinnankorotuksia niiden palvelujen osalta, joista heillä on sopimus. 
+
+Hintaa voidaan tarkistaa ainoastaan dynaamisen puitejärjestelyn avaamisen yhteydessä, ottaen huomioon mitä hinnan korotusten perusteista on puitesopimuksessa sovittu.
+
+Tässä nyt tehtävässä dynaamisen puitejärjestelyn avaamisessa vertaillaan, puitesopimuksen ehtojen mukaisesti, hinnan lisäksi myös laatua sekä puitejärjestelyyn aiemmin valittujen palveluntuottajien että uusien tarjoajien tarjousten osalta.  
+
+Dynaamiseen puitejärjestelyyn aiemmin valitut palveluntuottajat osallistuvat laatuvertailuun jättämällä tarjouksen.
+
+Helsingin sosiaali, terveys- ja pelastustoimialan palvelustrategisena tavoitteena on ikääntyneiden henkilöiden kotona asumisen tukeminen ja kotiin vietävien palvelujen kehittäminen kansallisten sosiaali- ja terveydenhuollon linjausten mukaisesti. Palvelurakenteen muutos tarkoittaa edelleen laitoshoidon vähenemistä ja asiakkaiden valinnanmahdollisuuksien lisäämistä muun muassa kehittämällä palvelusetelivaihtoehtoa palvelujen ostamisen tapana. 
+
+Helsingissä on laaja ikääntyneiden ympärivuorokautisen hoivan palvelutuotanto, jota kaupunki täydentää ostamalla arviolta noin 1300–2040 palveluasumisen paikkaa vuodessa. Helsingin kaupungin sosiaali-, terveys- ja pelastustoimi tulee hankkimaan ikääntyneiden henkilöiden ympärivuorokautista palveluasumista yksityisiltä palveluntuottajilta tarjouspyyntöasiakirjoissa tarkemmin määritellyin ehdoin.
+
+Hankinnan kohteena on neljä erilaista ympärivuorokautisen palveluasumisen palvelumuotoa.</cbc:Description>
+    <cbc:ProcurementTypeCode listName="contract-nature">services</cbc:ProcurementTypeCode>
+    <cac:MainCommodityClassification>
+      <cbc:ItemClassificationCode listName="cpv">85000000</cbc:ItemClassificationCode>
+    </cac:MainCommodityClassification>
+  </cac:ProcurementProject>
+  <cac:ProcurementProjectLot>
+    <cbc:ID schemeName="Lot">LOT-0001</cbc:ID>
+    <cac:TenderingTerms>
+      <ext:UBLExtensions>
+        <ext:UBLExtension>
+          <ext:ExtensionContent>
+            <efext:EformsExtension>
+              <efac:SelectionCriteria>
+                <cbc:CriterionTypeCode listName="selection-criterion">ef-stand</cbc:CriterionTypeCode>
+                <cbc:Name languageID="FIN">Tarjoajan taloudellisen tilanteen on oltava sellainen, että se Suomen Asiakastieto Oy:n ratingluokituksessa on vähintään tyydyttävä A tai riskiluokka on 1-3 tai sen katsotaan tilinpäätöstietojen tai muun vastaavan selvityksen mukaan olevan vastaava. </cbc:Name>
+                <cbc:Description languageID="FIN">Tarjoajat, joiden luokitus Suomen Asiakastieto Oy:n ratingluokituksessa on C taikka riskiluokituksessa 5, suljetaan tarjouskilpailusta. Tarjoajat, joiden ratingluokitus on B taikka riskiluokitus on 4, voidaan sulkea tarjouskilpailusta, jos tarjoaja ei kykene esittämään luotettavaa selvitystä toimenpiteistä, joihin se ryhtyy tai on ryhtynyt taloudellisen tilanteensa parantamiseksi.</cbc:Description>
+                <cbc:CalculationExpressionCode listName="usage">used</cbc:CalculationExpressionCode>
+              </efac:SelectionCriteria>
+              <efac:SelectionCriteria>
+                <cbc:CriterionTypeCode listName="selection-criterion">ef-stand</cbc:CriterionTypeCode>
+                <cbc:Name languageID="FIN">Tarjoaja täyttää tilaajavastuulain (1233/2006) mukaiset vaatimukset.</cbc:Name>
+                <cbc:CalculationExpressionCode listName="usage">used</cbc:CalculationExpressionCode>
+              </efac:SelectionCriteria>
+              <efac:SelectionCriteria>
+                <cbc:CriterionTypeCode listName="selection-criterion">sui-act</cbc:CriterionTypeCode>
+                <cbc:Name languageID="FIN">Tarjoajalla on oltava viimeistään ennen sopimuksen allekirjoittamista aluehallintoviraston (AVI:n tai entisen lääninhallituksen) tai Valviran lupa tuottaa ympärivuorokautisia yksityisiä sosiaalipalveluja.</cbc:Name>
+                <cbc:CalculationExpressionCode listName="usage">used</cbc:CalculationExpressionCode>
+              </efac:SelectionCriteria>
+              <efac:SelectionCriteria>
+                <cbc:CriterionTypeCode listName="selection-criterion">tp-abil</cbc:CriterionTypeCode>
+                <cbc:Name languageID="FIN">Tarjoajalla on palveluiden toteuttamiseen liittyvä omavalvontasuunnitelma.</cbc:Name>
+                <cbc:CalculationExpressionCode listName="usage">used</cbc:CalculationExpressionCode>
+              </efac:SelectionCriteria>
+            </efext:EformsExtension>
+          </ext:ExtensionContent>
+        </ext:UBLExtension>
+      </ext:UBLExtensions>
+      <cbc:MultipleTendersCode listName="permission">allowed</cbc:MultipleTendersCode>
+      <cac:CallForTendersDocumentReference>
+        <cbc:ID>Linkki hankinta-asiakirjoihin</cbc:ID>
+        <cbc:DocumentType>non-restricted-document</cbc:DocumentType>
+        <cac:Attachment>
+          <cac:ExternalReference>
+            <cbc:URI>https://tarjouspalvelu.fi/helsinki?id=474648&amp;tpk=58eb638a-e850-4fa3-b713-d27e0ec2a981</cbc:URI>
+          </cac:ExternalReference>
+        </cac:Attachment>
+      </cac:CallForTendersDocumentReference>
+      <cac:TendererQualificationRequest>
+        <cac:SpecificTendererRequirement>
+          <cbc:TendererRequirementTypeCode listName="reserved-procurement">none</cbc:TendererRequirementTypeCode>
+        </cac:SpecificTendererRequirement>
+      </cac:TendererQualificationRequest>
+      <cac:ContractExecutionRequirement>
+        <cbc:ExecutionRequirementCode listName="reserved-execution">no</cbc:ExecutionRequirementCode>
+      </cac:ContractExecutionRequirement>
+      <cac:ContractExecutionRequirement>
+        <cbc:ExecutionRequirementCode listName="conditions">performance</cbc:ExecutionRequirementCode>
+        <cbc:Description languageID="FIN">Sopimus syntyy vasta, kun molemmat osapuolet ovat allekirjoittaneet
+sopimuksen.
+
+Hankintapäätös on ehdollinen jokaisen palveluntuottajan osalta sillä ehdolla, että he toimittavat rikosrekisteriotteensa ja muut vaadittavat lisäselvitykset
+(mm. Valviran lupa-asiakirjat uusien kohteiden osalta) ennen sopimusten
+allekirjoittamista.
+
+Sopimus voidaan allekirjoittaa aikaisintaan 14 päivän kuluttua siitä, kun tarjoajat ovat saaneet tai heidän katsotaan saaneen hankintapäätöksen ja valitusoikeuden tiedoksi.</cbc:Description>
+      </cac:ContractExecutionRequirement>
+      <cac:AwardingTerms>
+        <cac:AwardingCriterion>
+          <cac:SubordinateAwardingCriterion>
+            <ext:UBLExtensions>
+              <ext:UBLExtension>
+                <ext:ExtensionContent>
+                  <efext:EformsExtension>
+                    <efac:AwardCriterionParameter>
+                      <efbc:ParameterNumeric>40</efbc:ParameterNumeric>
+                    </efac:AwardCriterionParameter>
+                  </efext:EformsExtension>
+                </ext:ExtensionContent>
+              </ext:UBLExtension>
+            </ext:UBLExtensions>
+            <cbc:AwardingCriterionTypeCode listName="award-criterion-type">price</cbc:AwardingCriterionTypeCode>
+          </cac:SubordinateAwardingCriterion>
+          <cac:SubordinateAwardingCriterion>
+            <ext:UBLExtensions>
+              <ext:UBLExtension>
+                <ext:ExtensionContent>
+                  <efext:EformsExtension>
+                    <efac:AwardCriterionParameter>
+                      <efbc:ParameterNumeric>60</efbc:ParameterNumeric>
+                    </efac:AwardCriterionParameter>
+                  </efext:EformsExtension>
+                </ext:ExtensionContent>
+              </ext:UBLExtension>
+            </ext:UBLExtensions>
+            <cbc:AwardingCriterionTypeCode listName="award-criterion-type">quality</cbc:AwardingCriterionTypeCode>
+          </cac:SubordinateAwardingCriterion>
+        </cac:AwardingCriterion>
+      </cac:AwardingTerms>
+      <cac:AdditionalInformationParty>
+        <cac:PartyIdentification>
+          <cbc:ID schemeName="organization">ORG-0001</cbc:ID>
+        </cac:PartyIdentification>
+      </cac:AdditionalInformationParty>
+      <cac:TenderRecipientParty>
+        <cbc:EndpointID>https://tarjouspalvelu.fi/helsinki?id=474648&amp;tpk=58eb638a-e850-4fa3-b713-d27e0ec2a981</cbc:EndpointID>
+      </cac:TenderRecipientParty>
+      <cac:TenderValidityPeriod>
+        <cbc:DurationMeasure unitCode="MONTH">6</cbc:DurationMeasure>
+      </cac:TenderValidityPeriod>
+      <cac:AppealTerms>
+        <cac:AppealReceiverParty>
+          <cac:PartyIdentification>
+            <cbc:ID schemeName="organization">ORG-0002</cbc:ID>
+          </cac:PartyIdentification>
+        </cac:AppealReceiverParty>
+      </cac:AppealTerms>
+      <cac:Language>
+        <cbc:ID>FIN</cbc:ID>
+      </cac:Language>
+    </cac:TenderingTerms>
+    <cac:TenderingProcess>
+      <cbc:SubmissionMethodCode listName="esubmission">required</cbc:SubmissionMethodCode>
+      <cac:TenderSubmissionDeadlinePeriod>
+        <cbc:EndDate>2023-10-19+03:00</cbc:EndDate>
+        <cbc:EndTime>12:00:00+03:00</cbc:EndTime>
+      </cac:TenderSubmissionDeadlinePeriod>
+      <cac:AdditionalInformationRequestPeriod>
+        <cbc:EndDate>2023-10-06+03:00</cbc:EndDate>
+        <cbc:EndTime>12:00:00+03:00</cbc:EndTime>
+      </cac:AdditionalInformationRequestPeriod>
+      <cac:AuctionTerms>
+        <cbc:AuctionConstraintIndicator>false</cbc:AuctionConstraintIndicator>
+      </cac:AuctionTerms>
+      <cac:ContractingSystem>
+        <cbc:ContractingSystemTypeCode listName="dps-usage">none</cbc:ContractingSystemTypeCode>
+      </cac:ContractingSystem>
+      <cac:ContractingSystem>
+        <cbc:ContractingSystemTypeCode listName="framework-agreement">none</cbc:ContractingSystemTypeCode>
+      </cac:ContractingSystem>
+    </cac:TenderingProcess>
+    <cac:ProcurementProject>
+      <cbc:ID schemeName="InternalID">kohde A</cbc:ID>
+      <cbc:Name languageID="FIN">Ympärivuorokautinen palveluasuminen suomenkielisille ikääntyneille  (kohde A)</cbc:Name>
+      <cbc:Description languageID="FIN">Ks. tarkka kuvaus hankittavasta palvelusta tarjouspyynnön liitteeltä Palvelukuvaus (liite 1).</cbc:Description>
+      <cbc:ProcurementTypeCode listName="contract-nature">services</cbc:ProcurementTypeCode>
+      <cbc:SMESuitableIndicator>true</cbc:SMESuitableIndicator>
+      <cac:ProcurementAdditionalType>
+        <cbc:ProcurementTypeCode listName="social-objective">opp</cbc:ProcurementTypeCode>
+      </cac:ProcurementAdditionalType>
+      <cac:ProcurementAdditionalType>
+        <cbc:ProcurementTypeCode listName="social-objective">work-cond</cbc:ProcurementTypeCode>
+      </cac:ProcurementAdditionalType>
+      <cac:MainCommodityClassification>
+        <cbc:ItemClassificationCode listName="cpv">85000000</cbc:ItemClassificationCode>
+      </cac:MainCommodityClassification>
+      <cac:PlannedPeriod>
+        <cbc:DurationMeasure unitCode="MONTH">36</cbc:DurationMeasure>
+      </cac:PlannedPeriod>
+    </cac:ProcurementProject>
+  </cac:ProcurementProjectLot>
+  <cac:ProcurementProjectLot>
+    <cbc:ID schemeName="Lot">LOT-0002</cbc:ID>
+    <cac:TenderingTerms>
+      <ext:UBLExtensions>
+        <ext:UBLExtension>
+          <ext:ExtensionContent>
+            <efext:EformsExtension>
+              <efac:SelectionCriteria>
+                <cbc:CriterionTypeCode listName="selection-criterion">ef-stand</cbc:CriterionTypeCode>
+                <cbc:Name languageID="FIN">Tarjoajan taloudellisen tilanteen on oltava sellainen, että se Suomen Asiakastieto Oy:n ratingluokituksessa on vähintään tyydyttävä A tai riskiluokka on 1-3 tai sen katsotaan tilinpäätöstietojen tai muun vastaavan selvityksen mukaan olevan vastaava. </cbc:Name>
+                <cbc:Description languageID="FIN">Tarjoajat, joiden luokitus Suomen Asiakastieto Oy:n ratingluokituksessa on C taikka riskiluokituksessa 5, suljetaan tarjouskilpailusta. Tarjoajat, joiden ratingluokitus on B taikka riskiluokitus on 4, voidaan sulkea tarjouskilpailusta, jos tarjoaja ei kykene esittämään luotettavaa selvitystä toimenpiteistä, joihin se ryhtyy tai on ryhtynyt taloudellisen tilanteensa parantamiseksi.</cbc:Description>
+                <cbc:CalculationExpressionCode listName="usage">used</cbc:CalculationExpressionCode>
+              </efac:SelectionCriteria>
+              <efac:SelectionCriteria>
+                <cbc:CriterionTypeCode listName="selection-criterion">ef-stand</cbc:CriterionTypeCode>
+                <cbc:Name languageID="FIN">Tarjoaja täyttää tilaajavastuulain (1233/2006) mukaiset vaatimukset.</cbc:Name>
+                <cbc:CalculationExpressionCode listName="usage">used</cbc:CalculationExpressionCode>
+              </efac:SelectionCriteria>
+              <efac:SelectionCriteria>
+                <cbc:CriterionTypeCode listName="selection-criterion">sui-act</cbc:CriterionTypeCode>
+                <cbc:Name languageID="FIN">Tarjoajalla on oltava viimeistään ennen sopimuksen allekirjoittamista aluehallintoviraston (AVI:n tai entisen lääninhallituksen) tai Valviran lupa tuottaa ympärivuorokautisia yksityisiä sosiaalipalveluja.</cbc:Name>
+                <cbc:CalculationExpressionCode listName="usage">used</cbc:CalculationExpressionCode>
+              </efac:SelectionCriteria>
+              <efac:SelectionCriteria>
+                <cbc:CriterionTypeCode listName="selection-criterion">tp-abil</cbc:CriterionTypeCode>
+                <cbc:Name languageID="FIN">Tarjoajalla on palveluiden toteuttamiseen liittyvä omavalvontasuunnitelma.</cbc:Name>
+                <cbc:CalculationExpressionCode listName="usage">used</cbc:CalculationExpressionCode>
+              </efac:SelectionCriteria>
+            </efext:EformsExtension>
+          </ext:ExtensionContent>
+        </ext:UBLExtension>
+      </ext:UBLExtensions>
+      <cbc:MultipleTendersCode listName="permission">allowed</cbc:MultipleTendersCode>
+      <cac:CallForTendersDocumentReference>
+        <cbc:ID>Linkki hankinta-asiakirjoihin</cbc:ID>
+        <cbc:DocumentType>non-restricted-document</cbc:DocumentType>
+        <cac:Attachment>
+          <cac:ExternalReference>
+            <cbc:URI>https://tarjouspalvelu.fi/helsinki?id=474648&amp;tpk=58eb638a-e850-4fa3-b713-d27e0ec2a981</cbc:URI>
+          </cac:ExternalReference>
+        </cac:Attachment>
+      </cac:CallForTendersDocumentReference>
+      <cac:TendererQualificationRequest>
+        <cac:SpecificTendererRequirement>
+          <cbc:TendererRequirementTypeCode listName="reserved-procurement">none</cbc:TendererRequirementTypeCode>
+        </cac:SpecificTendererRequirement>
+      </cac:TendererQualificationRequest>
+      <cac:ContractExecutionRequirement>
+        <cbc:ExecutionRequirementCode listName="reserved-execution">no</cbc:ExecutionRequirementCode>
+      </cac:ContractExecutionRequirement>
+      <cac:ContractExecutionRequirement>
+        <cbc:ExecutionRequirementCode listName="conditions">performance</cbc:ExecutionRequirementCode>
+        <cbc:Description languageID="FIN">Sopimus syntyy vasta, kun molemmat osapuolet ovat allekirjoittaneet
+sopimuksen.
+
+Hankintapäätös on ehdollinen jokaisen palveluntuottajan osalta sillä ehdolla, että he toimittavat rikosrekisteriotteensa ja muut vaadittavat lisäselvitykset
+(mm. Valviran lupa-asiakirjat uusien kohteiden osalta) ennen sopimusten
+allekirjoittamista.
+
+Sopimus voidaan allekirjoittaa aikaisintaan 14 päivän kuluttua siitä, kun tarjoajat ovat saaneet tai heidän katsotaan saaneen hankintapäätöksen ja valitusoikeuden tiedoksi.</cbc:Description>
+      </cac:ContractExecutionRequirement>
+      <cac:AwardingTerms>
+        <cac:AwardingCriterion>
+          <cac:SubordinateAwardingCriterion>
+            <ext:UBLExtensions>
+              <ext:UBLExtension>
+                <ext:ExtensionContent>
+                  <efext:EformsExtension>
+                    <efac:AwardCriterionParameter>
+                      <efbc:ParameterNumeric>40</efbc:ParameterNumeric>
+                    </efac:AwardCriterionParameter>
+                  </efext:EformsExtension>
+                </ext:ExtensionContent>
+              </ext:UBLExtension>
+            </ext:UBLExtensions>
+            <cbc:AwardingCriterionTypeCode listName="award-criterion-type">price</cbc:AwardingCriterionTypeCode>
+          </cac:SubordinateAwardingCriterion>
+          <cac:SubordinateAwardingCriterion>
+            <ext:UBLExtensions>
+              <ext:UBLExtension>
+                <ext:ExtensionContent>
+                  <efext:EformsExtension>
+                    <efac:AwardCriterionParameter>
+                      <efbc:ParameterNumeric>60</efbc:ParameterNumeric>
+                    </efac:AwardCriterionParameter>
+                  </efext:EformsExtension>
+                </ext:ExtensionContent>
+              </ext:UBLExtension>
+            </ext:UBLExtensions>
+            <cbc:AwardingCriterionTypeCode listName="award-criterion-type">quality</cbc:AwardingCriterionTypeCode>
+          </cac:SubordinateAwardingCriterion>
+        </cac:AwardingCriterion>
+      </cac:AwardingTerms>
+      <cac:AdditionalInformationParty>
+        <cac:PartyIdentification>
+          <cbc:ID schemeName="organization">ORG-0001</cbc:ID>
+        </cac:PartyIdentification>
+      </cac:AdditionalInformationParty>
+      <cac:TenderRecipientParty>
+        <cbc:EndpointID>https://tarjouspalvelu.fi/helsinki?id=474648&amp;tpk=58eb638a-e850-4fa3-b713-d27e0ec2a981</cbc:EndpointID>
+      </cac:TenderRecipientParty>
+      <cac:TenderValidityPeriod>
+        <cbc:DurationMeasure unitCode="MONTH">6</cbc:DurationMeasure>
+      </cac:TenderValidityPeriod>
+      <cac:AppealTerms>
+        <cac:AppealReceiverParty>
+          <cac:PartyIdentification>
+            <cbc:ID schemeName="organization">ORG-0002</cbc:ID>
+          </cac:PartyIdentification>
+        </cac:AppealReceiverParty>
+      </cac:AppealTerms>
+      <cac:Language>
+        <cbc:ID>FIN</cbc:ID>
+      </cac:Language>
+    </cac:TenderingTerms>
+    <cac:TenderingProcess>
+      <cbc:SubmissionMethodCode listName="esubmission">required</cbc:SubmissionMethodCode>
+      <cac:TenderSubmissionDeadlinePeriod>
+        <cbc:EndDate>2023-10-19+03:00</cbc:EndDate>
+        <cbc:EndTime>12:00:00+03:00</cbc:EndTime>
+      </cac:TenderSubmissionDeadlinePeriod>
+      <cac:AdditionalInformationRequestPeriod>
+        <cbc:EndDate>2023-10-06+03:00</cbc:EndDate>
+        <cbc:EndTime>12:00:00+03:00</cbc:EndTime>
+      </cac:AdditionalInformationRequestPeriod>
+      <cac:AuctionTerms>
+        <cbc:AuctionConstraintIndicator>false</cbc:AuctionConstraintIndicator>
+      </cac:AuctionTerms>
+      <cac:ContractingSystem>
+        <cbc:ContractingSystemTypeCode listName="dps-usage">none</cbc:ContractingSystemTypeCode>
+      </cac:ContractingSystem>
+      <cac:ContractingSystem>
+        <cbc:ContractingSystemTypeCode listName="framework-agreement">none</cbc:ContractingSystemTypeCode>
+      </cac:ContractingSystem>
+    </cac:TenderingProcess>
+    <cac:ProcurementProject>
+      <cbc:ID schemeName="InternalID">kohde B</cbc:ID>
+      <cbc:Name languageID="FIN">Ympärivuorokautinen palveluasuminen ruotsinkielisille ikääntyneille (kohde B)</cbc:Name>
+      <cbc:Description languageID="FIN">Ks. tarkka kuvaus hankittavasta palvelusta tarjouspyynnön liitteeltä Palvelukuvaus (liite 1).</cbc:Description>
+      <cbc:ProcurementTypeCode listName="contract-nature">services</cbc:ProcurementTypeCode>
+      <cbc:SMESuitableIndicator>true</cbc:SMESuitableIndicator>
+      <cac:ProcurementAdditionalType>
+        <cbc:ProcurementTypeCode listName="social-objective">opp</cbc:ProcurementTypeCode>
+      </cac:ProcurementAdditionalType>
+      <cac:ProcurementAdditionalType>
+        <cbc:ProcurementTypeCode listName="social-objective">work-cond</cbc:ProcurementTypeCode>
+      </cac:ProcurementAdditionalType>
+      <cac:MainCommodityClassification>
+        <cbc:ItemClassificationCode listName="cpv">85000000</cbc:ItemClassificationCode>
+      </cac:MainCommodityClassification>
+      <cac:PlannedPeriod>
+        <cbc:DurationMeasure unitCode="MONTH">36</cbc:DurationMeasure>
+      </cac:PlannedPeriod>
+    </cac:ProcurementProject>
+  </cac:ProcurementProjectLot>
+  <cac:ProcurementProjectLot>
+    <cbc:ID schemeName="Lot">LOT-0003</cbc:ID>
+    <cac:TenderingTerms>
+      <ext:UBLExtensions>
+        <ext:UBLExtension>
+          <ext:ExtensionContent>
+            <efext:EformsExtension>
+              <efac:SelectionCriteria>
+                <cbc:CriterionTypeCode listName="selection-criterion">ef-stand</cbc:CriterionTypeCode>
+                <cbc:Name languageID="FIN">Tarjoajan taloudellisen tilanteen on oltava sellainen, että se Suomen Asiakastieto Oy:n ratingluokituksessa on vähintään tyydyttävä A tai riskiluokka on 1-3 tai sen katsotaan tilinpäätöstietojen tai muun vastaavan selvityksen mukaan olevan vastaava. </cbc:Name>
+                <cbc:Description languageID="FIN">Tarjoajat, joiden luokitus Suomen Asiakastieto Oy:n ratingluokituksessa on C taikka riskiluokituksessa 5, suljetaan tarjouskilpailusta. Tarjoajat, joiden ratingluokitus on B taikka riskiluokitus on 4, voidaan sulkea tarjouskilpailusta, jos tarjoaja ei kykene esittämään luotettavaa selvitystä toimenpiteistä, joihin se ryhtyy tai on ryhtynyt taloudellisen tilanteensa parantamiseksi.</cbc:Description>
+                <cbc:CalculationExpressionCode listName="usage">used</cbc:CalculationExpressionCode>
+              </efac:SelectionCriteria>
+              <efac:SelectionCriteria>
+                <cbc:CriterionTypeCode listName="selection-criterion">ef-stand</cbc:CriterionTypeCode>
+                <cbc:Name languageID="FIN">Tarjoaja täyttää tilaajavastuulain (1233/2006) mukaiset vaatimukset.</cbc:Name>
+                <cbc:CalculationExpressionCode listName="usage">used</cbc:CalculationExpressionCode>
+              </efac:SelectionCriteria>
+              <efac:SelectionCriteria>
+                <cbc:CriterionTypeCode listName="selection-criterion">sui-act</cbc:CriterionTypeCode>
+                <cbc:Name languageID="FIN">Tarjoajalla on oltava viimeistään ennen sopimuksen allekirjoittamista aluehallintoviraston (AVI:n tai entisen lääninhallituksen) tai Valviran lupa tuottaa ympärivuorokautisia yksityisiä sosiaalipalveluja.</cbc:Name>
+                <cbc:CalculationExpressionCode listName="usage">used</cbc:CalculationExpressionCode>
+              </efac:SelectionCriteria>
+              <efac:SelectionCriteria>
+                <cbc:CriterionTypeCode listName="selection-criterion">tp-abil</cbc:CriterionTypeCode>
+                <cbc:Name languageID="FIN">Tarjoajalla on palveluiden toteuttamiseen liittyvä omavalvontasuunnitelma.</cbc:Name>
+                <cbc:CalculationExpressionCode listName="usage">used</cbc:CalculationExpressionCode>
+              </efac:SelectionCriteria>
+            </efext:EformsExtension>
+          </ext:ExtensionContent>
+        </ext:UBLExtension>
+      </ext:UBLExtensions>
+      <cbc:MultipleTendersCode listName="permission">allowed</cbc:MultipleTendersCode>
+      <cac:CallForTendersDocumentReference>
+        <cbc:ID>Linkki hankinta-asiakirjoihin</cbc:ID>
+        <cbc:DocumentType>non-restricted-document</cbc:DocumentType>
+        <cac:Attachment>
+          <cac:ExternalReference>
+            <cbc:URI>https://tarjouspalvelu.fi/helsinki?id=474648&amp;tpk=58eb638a-e850-4fa3-b713-d27e0ec2a981</cbc:URI>
+          </cac:ExternalReference>
+        </cac:Attachment>
+      </cac:CallForTendersDocumentReference>
+      <cac:TendererQualificationRequest>
+        <cac:SpecificTendererRequirement>
+          <cbc:TendererRequirementTypeCode listName="reserved-procurement">none</cbc:TendererRequirementTypeCode>
+        </cac:SpecificTendererRequirement>
+      </cac:TendererQualificationRequest>
+      <cac:ContractExecutionRequirement>
+        <cbc:ExecutionRequirementCode listName="reserved-execution">no</cbc:ExecutionRequirementCode>
+      </cac:ContractExecutionRequirement>
+      <cac:ContractExecutionRequirement>
+        <cbc:ExecutionRequirementCode listName="conditions">performance</cbc:ExecutionRequirementCode>
+        <cbc:Description languageID="FIN">Sopimus syntyy vasta, kun molemmat osapuolet ovat allekirjoittaneet
+sopimuksen.
+
+Hankintapäätös on ehdollinen jokaisen palveluntuottajan osalta sillä ehdolla, että he toimittavat rikosrekisteriotteensa ja muut vaadittavat lisäselvitykset
+(mm. Valviran lupa-asiakirjat uusien kohteiden osalta) ennen sopimusten
+allekirjoittamista.
+
+Sopimus voidaan allekirjoittaa aikaisintaan 14 päivän kuluttua siitä, kun tarjoajat ovat saaneet tai heidän katsotaan saaneen hankintapäätöksen ja valitusoikeuden tiedoksi.</cbc:Description>
+      </cac:ContractExecutionRequirement>
+      <cac:AwardingTerms>
+        <cac:AwardingCriterion>
+          <cac:SubordinateAwardingCriterion>
+            <ext:UBLExtensions>
+              <ext:UBLExtension>
+                <ext:ExtensionContent>
+                  <efext:EformsExtension>
+                    <efac:AwardCriterionParameter>
+                      <efbc:ParameterNumeric>40</efbc:ParameterNumeric>
+                    </efac:AwardCriterionParameter>
+                  </efext:EformsExtension>
+                </ext:ExtensionContent>
+              </ext:UBLExtension>
+            </ext:UBLExtensions>
+            <cbc:AwardingCriterionTypeCode listName="award-criterion-type">price</cbc:AwardingCriterionTypeCode>
+          </cac:SubordinateAwardingCriterion>
+          <cac:SubordinateAwardingCriterion>
+            <ext:UBLExtensions>
+              <ext:UBLExtension>
+                <ext:ExtensionContent>
+                  <efext:EformsExtension>
+                    <efac:AwardCriterionParameter>
+                      <efbc:ParameterNumeric>60</efbc:ParameterNumeric>
+                    </efac:AwardCriterionParameter>
+                  </efext:EformsExtension>
+                </ext:ExtensionContent>
+              </ext:UBLExtension>
+            </ext:UBLExtensions>
+            <cbc:AwardingCriterionTypeCode listName="award-criterion-type">quality</cbc:AwardingCriterionTypeCode>
+          </cac:SubordinateAwardingCriterion>
+        </cac:AwardingCriterion>
+      </cac:AwardingTerms>
+      <cac:AdditionalInformationParty>
+        <cac:PartyIdentification>
+          <cbc:ID schemeName="organization">ORG-0001</cbc:ID>
+        </cac:PartyIdentification>
+      </cac:AdditionalInformationParty>
+      <cac:TenderRecipientParty>
+        <cbc:EndpointID>https://tarjouspalvelu.fi/helsinki?id=474648&amp;tpk=58eb638a-e850-4fa3-b713-d27e0ec2a981</cbc:EndpointID>
+      </cac:TenderRecipientParty>
+      <cac:TenderValidityPeriod>
+        <cbc:DurationMeasure unitCode="MONTH">6</cbc:DurationMeasure>
+      </cac:TenderValidityPeriod>
+      <cac:AppealTerms>
+        <cac:AppealReceiverParty>
+          <cac:PartyIdentification>
+            <cbc:ID schemeName="organization">ORG-0002</cbc:ID>
+          </cac:PartyIdentification>
+        </cac:AppealReceiverParty>
+      </cac:AppealTerms>
+      <cac:Language>
+        <cbc:ID>FIN</cbc:ID>
+      </cac:Language>
+    </cac:TenderingTerms>
+    <cac:TenderingProcess>
+      <cbc:SubmissionMethodCode listName="esubmission">required</cbc:SubmissionMethodCode>
+      <cac:TenderSubmissionDeadlinePeriod>
+        <cbc:EndDate>2023-10-19+03:00</cbc:EndDate>
+        <cbc:EndTime>12:00:00+03:00</cbc:EndTime>
+      </cac:TenderSubmissionDeadlinePeriod>
+      <cac:AdditionalInformationRequestPeriod>
+        <cbc:EndDate>2023-10-06+03:00</cbc:EndDate>
+        <cbc:EndTime>12:00:00+03:00</cbc:EndTime>
+      </cac:AdditionalInformationRequestPeriod>
+      <cac:AuctionTerms>
+        <cbc:AuctionConstraintIndicator>false</cbc:AuctionConstraintIndicator>
+      </cac:AuctionTerms>
+      <cac:ContractingSystem>
+        <cbc:ContractingSystemTypeCode listName="dps-usage">none</cbc:ContractingSystemTypeCode>
+      </cac:ContractingSystem>
+      <cac:ContractingSystem>
+        <cbc:ContractingSystemTypeCode listName="framework-agreement">none</cbc:ContractingSystemTypeCode>
+      </cac:ContractingSystem>
+    </cac:TenderingProcess>
+    <cac:ProcurementProject>
+      <cbc:ID schemeName="InternalID">kohde C</cbc:ID>
+      <cbc:Name languageID="FIN">Ympärivuorokautinen erittäin haastavasti käyttäytyvien asiakkaiden palveluasuminen (kohde C)</cbc:Name>
+      <cbc:Description languageID="FIN">Ks. tarkka kuvaus hankittavasta palvelusta tarjouspyynnön liitteeltä Palvelukuvaus (liite 1).</cbc:Description>
+      <cbc:ProcurementTypeCode listName="contract-nature">services</cbc:ProcurementTypeCode>
+      <cbc:SMESuitableIndicator>true</cbc:SMESuitableIndicator>
+      <cac:ProcurementAdditionalType>
+        <cbc:ProcurementTypeCode listName="social-objective">opp</cbc:ProcurementTypeCode>
+      </cac:ProcurementAdditionalType>
+      <cac:ProcurementAdditionalType>
+        <cbc:ProcurementTypeCode listName="social-objective">work-cond</cbc:ProcurementTypeCode>
+      </cac:ProcurementAdditionalType>
+      <cac:MainCommodityClassification>
+        <cbc:ItemClassificationCode listName="cpv">85000000</cbc:ItemClassificationCode>
+      </cac:MainCommodityClassification>
+      <cac:PlannedPeriod>
+        <cbc:DurationMeasure unitCode="MONTH">36</cbc:DurationMeasure>
+      </cac:PlannedPeriod>
+    </cac:ProcurementProject>
+  </cac:ProcurementProjectLot>
+  <cac:ProcurementProjectLot>
+    <cbc:ID schemeName="Lot">LOT-0004</cbc:ID>
+    <cac:TenderingTerms>
+      <ext:UBLExtensions>
+        <ext:UBLExtension>
+          <ext:ExtensionContent>
+            <efext:EformsExtension>
+              <efac:SelectionCriteria>
+                <cbc:CriterionTypeCode listName="selection-criterion">ef-stand</cbc:CriterionTypeCode>
+                <cbc:Name languageID="FIN">Tarjoajan taloudellisen tilanteen on oltava sellainen, että se Suomen Asiakastieto Oy:n ratingluokituksessa on vähintään tyydyttävä A tai riskiluokka on 1-3 tai sen katsotaan tilinpäätöstietojen tai muun vastaavan selvityksen mukaan olevan vastaava. </cbc:Name>
+                <cbc:Description languageID="FIN">Tarjoajat, joiden luokitus Suomen Asiakastieto Oy:n ratingluokituksessa on C taikka riskiluokituksessa 5, suljetaan tarjouskilpailusta. Tarjoajat, joiden ratingluokitus on B taikka riskiluokitus on 4, voidaan sulkea tarjouskilpailusta, jos tarjoaja ei kykene esittämään luotettavaa selvitystä toimenpiteistä, joihin se ryhtyy tai on ryhtynyt taloudellisen tilanteensa parantamiseksi.</cbc:Description>
+                <cbc:CalculationExpressionCode listName="usage">used</cbc:CalculationExpressionCode>
+              </efac:SelectionCriteria>
+              <efac:SelectionCriteria>
+                <cbc:CriterionTypeCode listName="selection-criterion">ef-stand</cbc:CriterionTypeCode>
+                <cbc:Name languageID="FIN">Tarjoaja täyttää tilaajavastuulain (1233/2006) mukaiset vaatimukset.</cbc:Name>
+                <cbc:CalculationExpressionCode listName="usage">used</cbc:CalculationExpressionCode>
+              </efac:SelectionCriteria>
+              <efac:SelectionCriteria>
+                <cbc:CriterionTypeCode listName="selection-criterion">sui-act</cbc:CriterionTypeCode>
+                <cbc:Name languageID="FIN">Tarjoajalla on oltava viimeistään ennen sopimuksen allekirjoittamista aluehallintoviraston (AVI:n tai entisen lääninhallituksen) tai Valviran lupa tuottaa ympärivuorokautisia yksityisiä sosiaalipalveluja.</cbc:Name>
+                <cbc:CalculationExpressionCode listName="usage">used</cbc:CalculationExpressionCode>
+              </efac:SelectionCriteria>
+              <efac:SelectionCriteria>
+                <cbc:CriterionTypeCode listName="selection-criterion">tp-abil</cbc:CriterionTypeCode>
+                <cbc:Name languageID="FIN">Tarjoajalla on palveluiden toteuttamiseen liittyvä omavalvontasuunnitelma.</cbc:Name>
+                <cbc:CalculationExpressionCode listName="usage">used</cbc:CalculationExpressionCode>
+              </efac:SelectionCriteria>
+            </efext:EformsExtension>
+          </ext:ExtensionContent>
+        </ext:UBLExtension>
+      </ext:UBLExtensions>
+      <cbc:MultipleTendersCode listName="permission">allowed</cbc:MultipleTendersCode>
+      <cac:CallForTendersDocumentReference>
+        <cbc:ID>Linkki hankinta-asiakirjoihin</cbc:ID>
+        <cbc:DocumentType>non-restricted-document</cbc:DocumentType>
+        <cac:Attachment>
+          <cac:ExternalReference>
+            <cbc:URI>https://tarjouspalvelu.fi/helsinki?id=474648&amp;tpk=58eb638a-e850-4fa3-b713-d27e0ec2a981</cbc:URI>
+          </cac:ExternalReference>
+        </cac:Attachment>
+      </cac:CallForTendersDocumentReference>
+      <cac:TendererQualificationRequest>
+        <cac:SpecificTendererRequirement>
+          <cbc:TendererRequirementTypeCode listName="reserved-procurement">none</cbc:TendererRequirementTypeCode>
+        </cac:SpecificTendererRequirement>
+      </cac:TendererQualificationRequest>
+      <cac:ContractExecutionRequirement>
+        <cbc:ExecutionRequirementCode listName="reserved-execution">no</cbc:ExecutionRequirementCode>
+      </cac:ContractExecutionRequirement>
+      <cac:ContractExecutionRequirement>
+        <cbc:ExecutionRequirementCode listName="conditions">performance</cbc:ExecutionRequirementCode>
+        <cbc:Description languageID="FIN">Sopimus syntyy vasta, kun molemmat osapuolet ovat allekirjoittaneet
+sopimuksen.
+
+Hankintapäätös on ehdollinen jokaisen palveluntuottajan osalta sillä ehdolla, että he toimittavat rikosrekisteriotteensa ja muut vaadittavat lisäselvitykset
+(mm. Valviran lupa-asiakirjat uusien kohteiden osalta) ennen sopimusten
+allekirjoittamista.
+
+Sopimus voidaan allekirjoittaa aikaisintaan 14 päivän kuluttua siitä, kun tarjoajat ovat saaneet tai heidän katsotaan saaneen hankintapäätöksen ja valitusoikeuden tiedoksi.</cbc:Description>
+      </cac:ContractExecutionRequirement>
+      <cac:AwardingTerms>
+        <cac:AwardingCriterion>
+          <cac:SubordinateAwardingCriterion>
+            <ext:UBLExtensions>
+              <ext:UBLExtension>
+                <ext:ExtensionContent>
+                  <efext:EformsExtension>
+                    <efac:AwardCriterionParameter>
+                      <efbc:ParameterNumeric>40</efbc:ParameterNumeric>
+                    </efac:AwardCriterionParameter>
+                  </efext:EformsExtension>
+                </ext:ExtensionContent>
+              </ext:UBLExtension>
+            </ext:UBLExtensions>
+            <cbc:AwardingCriterionTypeCode listName="award-criterion-type">price</cbc:AwardingCriterionTypeCode>
+          </cac:SubordinateAwardingCriterion>
+          <cac:SubordinateAwardingCriterion>
+            <ext:UBLExtensions>
+              <ext:UBLExtension>
+                <ext:ExtensionContent>
+                  <efext:EformsExtension>
+                    <efac:AwardCriterionParameter>
+                      <efbc:ParameterNumeric>60</efbc:ParameterNumeric>
+                    </efac:AwardCriterionParameter>
+                  </efext:EformsExtension>
+                </ext:ExtensionContent>
+              </ext:UBLExtension>
+            </ext:UBLExtensions>
+            <cbc:AwardingCriterionTypeCode listName="award-criterion-type">quality</cbc:AwardingCriterionTypeCode>
+          </cac:SubordinateAwardingCriterion>
+        </cac:AwardingCriterion>
+      </cac:AwardingTerms>
+      <cac:AdditionalInformationParty>
+        <cac:PartyIdentification>
+          <cbc:ID schemeName="organization">ORG-0001</cbc:ID>
+        </cac:PartyIdentification>
+      </cac:AdditionalInformationParty>
+      <cac:TenderRecipientParty>
+        <cbc:EndpointID>https://tarjouspalvelu.fi/helsinki?id=474648&amp;tpk=58eb638a-e850-4fa3-b713-d27e0ec2a981</cbc:EndpointID>
+      </cac:TenderRecipientParty>
+      <cac:TenderValidityPeriod>
+        <cbc:DurationMeasure unitCode="MONTH">6</cbc:DurationMeasure>
+      </cac:TenderValidityPeriod>
+      <cac:AppealTerms>
+        <cac:AppealReceiverParty>
+          <cac:PartyIdentification>
+            <cbc:ID schemeName="organization">ORG-0002</cbc:ID>
+          </cac:PartyIdentification>
+        </cac:AppealReceiverParty>
+      </cac:AppealTerms>
+      <cac:Language>
+        <cbc:ID>FIN</cbc:ID>
+      </cac:Language>
+    </cac:TenderingTerms>
+    <cac:TenderingProcess>
+      <cbc:SubmissionMethodCode listName="esubmission">required</cbc:SubmissionMethodCode>
+      <cac:TenderSubmissionDeadlinePeriod>
+        <cbc:EndDate>2023-10-19+03:00</cbc:EndDate>
+        <cbc:EndTime>12:00:00+03:00</cbc:EndTime>
+      </cac:TenderSubmissionDeadlinePeriod>
+      <cac:AdditionalInformationRequestPeriod>
+        <cbc:EndDate>2023-10-06+03:00</cbc:EndDate>
+        <cbc:EndTime>12:00:00+03:00</cbc:EndTime>
+      </cac:AdditionalInformationRequestPeriod>
+      <cac:AuctionTerms>
+        <cbc:AuctionConstraintIndicator>false</cbc:AuctionConstraintIndicator>
+      </cac:AuctionTerms>
+      <cac:ContractingSystem>
+        <cbc:ContractingSystemTypeCode listName="dps-usage">none</cbc:ContractingSystemTypeCode>
+      </cac:ContractingSystem>
+      <cac:ContractingSystem>
+        <cbc:ContractingSystemTypeCode listName="framework-agreement">none</cbc:ContractingSystemTypeCode>
+      </cac:ContractingSystem>
+    </cac:TenderingProcess>
+    <cac:ProcurementProject>
+      <cbc:ID schemeName="InternalID">kohde D</cbc:ID>
+      <cbc:Name languageID="FIN">Ympärivuorokautinen palveluasuminen ikääntyneille päihdeongelmaisille (kohde D)</cbc:Name>
+      <cbc:Description languageID="FIN">Ks. tarkka kuvaus hankittavasta palvelusta tarjouspyynnön liitteeltä Palvelukuvaus (liite 1).</cbc:Description>
+      <cbc:ProcurementTypeCode listName="contract-nature">services</cbc:ProcurementTypeCode>
+      <cbc:SMESuitableIndicator>true</cbc:SMESuitableIndicator>
+      <cac:ProcurementAdditionalType>
+        <cbc:ProcurementTypeCode listName="social-objective">opp</cbc:ProcurementTypeCode>
+      </cac:ProcurementAdditionalType>
+      <cac:ProcurementAdditionalType>
+        <cbc:ProcurementTypeCode listName="social-objective">work-cond</cbc:ProcurementTypeCode>
+      </cac:ProcurementAdditionalType>
+      <cac:MainCommodityClassification>
+        <cbc:ItemClassificationCode listName="cpv">85000000</cbc:ItemClassificationCode>
+      </cac:MainCommodityClassification>
+      <cac:PlannedPeriod>
+        <cbc:DurationMeasure unitCode="MONTH">36</cbc:DurationMeasure>
+      </cac:PlannedPeriod>
+    </cac:ProcurementProject>
+  </cac:ProcurementProjectLot>
+</ContractNotice>

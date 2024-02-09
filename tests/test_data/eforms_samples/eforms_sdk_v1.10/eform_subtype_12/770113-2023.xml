@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><PriorInformationNotice xmlns="urn:oasis:names:specification:ubl:schema:xsd:PriorInformationNotice-2" xmlns:cac="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2" xmlns:cbc="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2" xmlns:efac="http://data.europa.eu/p27/eforms-ubl-extension-aggregate-components/1" xmlns:efbc="http://data.europa.eu/p27/eforms-ubl-extension-basic-components/1" xmlns:efext="http://data.europa.eu/p27/eforms-ubl-extensions/1" xmlns:ext="urn:oasis:names:specification:ubl:schema:xsd:CommonExtensionComponents-2">
+   <ext:UBLExtensions>
+      <ext:UBLExtension>
+         <ext:ExtensionContent>
+            <efext:EformsExtension>
+               <efac:NoticeSubType>
+                  <cbc:SubTypeCode listName="notice-subtype">12</cbc:SubTypeCode>
+               </efac:NoticeSubType>
+               <efac:Organizations>
+                  <efac:Organization>
+                     <efac:Company>
+                        <cbc:WebsiteURI>www.eps.rs</cbc:WebsiteURI>
+                        <cbc:EndpointID>www.eps.rs</cbc:EndpointID>
+                        <cac:PartyIdentification>
+                           <cbc:ID>ORG-0001</cbc:ID>
+                        </cac:PartyIdentification>
+                        <cac:PartyName>
+                           <cbc:Name languageID="ENG">	Joint Stock Company Elektroprivreda Srbije, Belgrade</cbc:Name>
+                        </cac:PartyName>
+                        <cac:PostalAddress>
+                           <cbc:StreetName>Beograd</cbc:StreetName>
+                           <cbc:AdditionalStreetName>Balkanska 13</cbc:AdditionalStreetName>
+                           <cbc:CityName>Beograd</cbc:CityName>
+                           <cbc:PostalZone>11000</cbc:PostalZone>
+                           <cbc:CountrySubentityCode listName="nuts">RS218</cbc:CountrySubentityCode>
+                           <cac:Country>
+                              <cbc:IdentificationCode listName="country">SRB</cbc:IdentificationCode>
+                           </cac:Country>
+                        </cac:PostalAddress>
+                        <cac:PartyLegalEntity>
+                           <cbc:CompanyID>20053658</cbc:CompanyID>
+                        </cac:PartyLegalEntity>
+                        <cac:Contact>
+                           <cbc:Telephone>+381112024766</cbc:Telephone>
+                           <cbc:ElectronicMail>epsjn@eps.rs</cbc:ElectronicMail>
+                        </cac:Contact>
+                     </efac:Company>
+                  </efac:Organization>
+                  <efac:Organization>
+                     <efac:Company>
+                        <cbc:WebsiteURI>www.eps.rs</cbc:WebsiteURI>
+                        <cac:PartyIdentification>
+                           <cbc:ID>ORG-0002</cbc:ID>
+                        </cac:PartyIdentification>
+                        <cac:PartyName>
+                           <cbc:Name languageID="ENG">Joint Stock Company Elektroprivreda Srbije, Belgrade</cbc:Name>
+                        </cac:PartyName>
+                        <cac:PostalAddress>
+                           <cbc:CityName>Beograd</cbc:CityName>
+                           <cbc:PostalZone>11000</cbc:PostalZone>
+                           <cbc:CountrySubentityCode listName="nuts">RS218</cbc:CountrySubentityCode>
+                           <cac:Country>
+                              <cbc:IdentificationCode listName="country">SRB</cbc:IdentificationCode>
+                           </cac:Country>
+                        </cac:PostalAddress>
+                        <cac:PartyLegalEntity>
+                           <cbc:CompanyID>20053658 - APR</cbc:CompanyID>
+                        </cac:PartyLegalEntity>
+                        <cac:Contact>
+                           <cbc:Telephone>+381112024766</cbc:Telephone>
+                           <cbc:ElectronicMail>epsjn@eps.rs</cbc:ElectronicMail>
+                        </cac:Contact>
+                     </efac:Company>
+                  </efac:Organization>
+               </efac:Organizations>
+            <efac:Publication><efbc:NoticePublicationID schemeName="ojs-notice-id">00770113-2023</efbc:NoticePublicationID><efbc:GazetteID schemeName="ojs-id">244/2023</efbc:GazetteID><efbc:PublicationDate>2023-12-19Z</efbc:PublicationDate></efac:Publication></efext:EformsExtension>
+         </ext:ExtensionContent>
+      </ext:UBLExtension>
+   </ext:UBLExtensions>
+   <cbc:UBLVersionID>2.3</cbc:UBLVersionID>
+   <cbc:CustomizationID>eforms-sdk-1.10</cbc:CustomizationID>
+   <cbc:ID schemeName="notice-id">3d3ef86c-0a47-4048-92b1-202330e8c472</cbc:ID>
+   <cbc:ContractFolderID>f6f43267-28f3-44f0-bde8-befdc1479bff</cbc:ContractFolderID>
+   <cbc:IssueDate>2023-12-18Z</cbc:IssueDate>
+   <cbc:IssueTime>07:33:20Z</cbc:IssueTime>
+   <cbc:VersionID>01</cbc:VersionID>
+   <cbc:RegulatoryDomain>32014L0024</cbc:RegulatoryDomain>
+   <cbc:NoticeTypeCode listName="competition">pin-cfc-social</cbc:NoticeTypeCode>
+   <cbc:NoticeLanguageCode listName="language">ENG</cbc:NoticeLanguageCode>
+   <cac:ContractingParty>
+      <cac:Party>
+         <cac:PartyIdentification>
+            <cbc:ID>ORG-0001</cbc:ID>
+         </cac:PartyIdentification>
+      </cac:Party>
+   </cac:ContractingParty>
+   <cac:TenderingProcess>
+      <cbc:Description languageID="ENG">two Bucket Wheel Excavators with a capacity of 4800 m3/h (SChRs 740L) and two Belt Wagons/Spreaders with a capacity of 4800 m3/h (ARs/BRs1600(28+50)x17) with a total estimated value of RSD 9,919,757,000.00</cbc:Description>
+      <cbc:PartPresentationCode listName="tenderlot-presentation">all</cbc:PartPresentationCode>
+   </cac:TenderingProcess>
+   <cac:ProcurementProject>
+      <cbc:ID>ЈН/4000/0163/2023 (3258/2023)</cbc:ID>
+      <cbc:Name languageID="ENG">two Bucket Wheel Excavators with a capacity of 4800 m3/h (SChRs 740L) and two Belt Wagons/Spreaders with a capacity of 4800 m3/h (ARs/BRs1600(28+50)x17) with a total estimated value of RSD 9,919,757,000.00</cbc:Name>
+      <cbc:Description languageID="ENG">two Bucket Wheel Excavators with a capacity of 4800 m3/h (SChRs 740L) and two Belt Wagons/Spreaders with a capacity of 4800 m3/h (ARs/BRs1600(28+50)x17) with a total estimated value of RSD 9,919,757,000.00</cbc:Description>
+      <cbc:ProcurementTypeCode listName="contract-nature">supplies</cbc:ProcurementTypeCode>
+      <cac:MainCommodityClassification>
+         <cbc:ItemClassificationCode listName="cpv">43100000</cbc:ItemClassificationCode>
+      </cac:MainCommodityClassification>
+      <cac:RealizedLocation>
+         <cac:Address>
+            <cbc:StreetName>https://jnportal.ujn.gov.rs/</cbc:StreetName>
+            <cbc:AdditionalStreetName>https://jnportal.ujn.gov.rs/</cbc:AdditionalStreetName>
+            <cbc:CityName>belgrad</cbc:CityName>
+            <cbc:PostalZone>11000</cbc:PostalZone>
+            <cbc:CountrySubentityCode listName="nuts">RS218</cbc:CountrySubentityCode>
+            <cac:AddressLine>
+               <cbc:Line>https://jnportal.ujn.gov.rs/</cbc:Line>
+            </cac:AddressLine>
+            <cac:Country>
+               <cbc:IdentificationCode listName="country">SRB</cbc:IdentificationCode>
+            </cac:Country>
+         </cac:Address>
+      </cac:RealizedLocation>
+   </cac:ProcurementProject>
+   <cac:ProcurementProjectLot>
+      <cbc:ID schemeName="Lot">LOT-0001</cbc:ID>
+      <cac:TenderingTerms>
+         <ext:UBLExtensions>
+            <ext:UBLExtension>
+               <ext:ExtensionContent>
+                  <efext:EformsExtension>
+                     <efac:SelectionCriteria>
+                        <cbc:CriterionTypeCode listName="selection-criterion">other</cbc:CriterionTypeCode>
+                     </efac:SelectionCriteria>
+                  </efext:EformsExtension>
+               </ext:ExtensionContent>
+            </ext:UBLExtension>
+         </ext:UBLExtensions>
+         <cac:TendererQualificationRequest>
+            <cac:SpecificTendererRequirement>
+               <cbc:TendererRequirementTypeCode listName="reserved-procurement">none</cbc:TendererRequirementTypeCode>
+            </cac:SpecificTendererRequirement>
+         </cac:TendererQualificationRequest>
+         <cac:ContractExecutionRequirement>
+            <cbc:ExecutionRequirementCode listName="reserved-execution">no</cbc:ExecutionRequirementCode>
+         </cac:ContractExecutionRequirement>
+         <cac:AppealTerms>
+            <cac:AppealReceiverParty>
+               <cac:PartyIdentification>
+                  <cbc:ID>ORG-0002</cbc:ID>
+               </cac:PartyIdentification>
+            </cac:AppealReceiverParty>
+         </cac:AppealTerms>
+         <cac:Language>
+            <cbc:ID>SRP</cbc:ID>
+         </cac:Language>
+      </cac:TenderingTerms>
+      <cac:TenderingProcess>
+         <ext:UBLExtensions>
+            <ext:UBLExtension>
+               <ext:ExtensionContent>
+                  <efext:EformsExtension>
+                     <efac:InterestExpressionReceptionPeriod>
+                        <cbc:EndDate>2024-01-26+01:00</cbc:EndDate>
+                        <cbc:EndTime>10:00:00+01:00</cbc:EndTime>
+                     </efac:InterestExpressionReceptionPeriod>
+                  </efext:EformsExtension>
+               </ext:ExtensionContent>
+            </ext:UBLExtension>
+         </ext:UBLExtensions>
+      </cac:TenderingProcess>
+      <cac:ProcurementProject>
+         <cbc:ID>two Bucket Wheel Excavators with a capacity of 4800 m3/h (SChRs 740L) and two Belt Wagons/Spreaders with a capacity of 4800 m3/h (ARs/BRs1600(28+50)x17) with a total estimated value of RSD 9,919,757,000.00</cbc:ID>
+         <cbc:Name languageID="ENG">two Bucket Wheel Excavators with a capacity of 4800 m3/h (SChRs 740L) and two Belt Wagons/Spreaders with a capacity of 4800 m3/h (ARs/BRs1600(28+50)x17) with a total estimated value of RSD 9,919,757,000.00</cbc:Name>
+         <cbc:Description languageID="ENG">two Bucket Wheel Excavators with a capacity of 4800 m3/h (SChRs 740L) and two Belt Wagons/Spreaders with a capacity of 4800 m3/h (ARs/BRs1600(28+50)x17) with a total estimated value of RSD 9,919,757,000.00</cbc:Description>
+         <cbc:ProcurementTypeCode listName="contract-nature">supplies</cbc:ProcurementTypeCode>
+         <cac:MainCommodityClassification>
+            <cbc:ItemClassificationCode listName="cpv">43100000</cbc:ItemClassificationCode>
+         </cac:MainCommodityClassification>
+      </cac:ProcurementProject>
+   </cac:ProcurementProjectLot>
+</PriorInformationNotice>

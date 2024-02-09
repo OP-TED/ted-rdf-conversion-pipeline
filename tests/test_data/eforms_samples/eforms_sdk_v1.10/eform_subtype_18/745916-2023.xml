@@ -1,0 +1,860 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><ContractNotice xmlns="urn:oasis:names:specification:ubl:schema:xsd:ContractNotice-2" xmlns:cac="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2" xmlns:cbc="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2" xmlns:efac="http://data.europa.eu/p27/eforms-ubl-extension-aggregate-components/1" xmlns:efbc="http://data.europa.eu/p27/eforms-ubl-extension-basic-components/1" xmlns:efext="http://data.europa.eu/p27/eforms-ubl-extensions/1" xmlns:ext="urn:oasis:names:specification:ubl:schema:xsd:CommonExtensionComponents-2">
+   <ext:UBLExtensions>
+      <ext:UBLExtension>
+         <ext:ExtensionContent>
+            <efext:EformsExtension>
+               <efac:NoticeSubType>
+                  <cbc:SubTypeCode listName="notice-subtype">18</cbc:SubTypeCode>
+               </efac:NoticeSubType>
+               <efac:Organizations>
+                  <efac:Organization>
+                     <efac:Company>
+                        <cbc:WebsiteURI>https://1rblog.wp.mil.pl/pl/</cbc:WebsiteURI>
+                        <cbc:EndpointID>https://portal.smartpzp.pl/1rblog</cbc:EndpointID>
+                        <cac:PartyIdentification>
+                           <cbc:ID>ORG-0001</cbc:ID>
+                        </cac:PartyIdentification>
+                        <cac:PartyName>
+                           <cbc:Name languageID="POL">1 REGIONALNA BAZA LOGISTYCZNA</cbc:Name>
+                        </cac:PartyName>
+                        <cac:PostalAddress>
+                           <cbc:StreetName>ul. Ciasna 7</cbc:StreetName>
+                           <cbc:Department>JEDNOSTKA WOJSKOWA</cbc:Department>
+                           <cbc:CityName>Wałcz</cbc:CityName>
+                           <cbc:PostalZone>78-600</cbc:PostalZone>
+                           <cbc:CountrySubentityCode listName="nuts">PL427</cbc:CountrySubentityCode>
+                           <cac:Country>
+                              <cbc:IdentificationCode listName="country">POL</cbc:IdentificationCode>
+                           </cac:Country>
+                        </cac:PostalAddress>
+                        <cac:PartyLegalEntity>
+                           <cbc:CompanyID>7651684463</cbc:CompanyID>
+                        </cac:PartyLegalEntity>
+                        <cac:Contact>
+                           <cbc:Name>Sekcja Zamówień Publicznych</cbc:Name>
+                           <cbc:Telephone>+48 261 47 25 17</cbc:Telephone>
+                           <cbc:Telefax>+48 261 47 29 71</cbc:Telefax>
+                           <cbc:ElectronicMail>1rblog.szp@ron.mil.pl</cbc:ElectronicMail>
+                        </cac:Contact>
+                     </efac:Company>
+                  </efac:Organization>
+               </efac:Organizations>
+            <efac:Publication><efbc:NoticePublicationID schemeName="ojs-notice-id">00745916-2023</efbc:NoticePublicationID><efbc:GazetteID schemeName="ojs-id">237/2023</efbc:GazetteID><efbc:PublicationDate>2023-12-08Z</efbc:PublicationDate></efac:Publication></efext:EformsExtension>
+         </ext:ExtensionContent>
+      </ext:UBLExtension>
+   </ext:UBLExtensions>
+   <cbc:UBLVersionID>2.3</cbc:UBLVersionID>
+   <cbc:CustomizationID>eforms-sdk-1.10</cbc:CustomizationID>
+   <cbc:ID schemeName="notice-id">92632372-01f5-4884-b2cf-daaffd4f3084</cbc:ID>
+   <cbc:ContractFolderID>3e2fc040-7d00-4e57-9eea-c634a2eb7306</cbc:ContractFolderID>
+   <cbc:IssueDate>2023-12-07Z</cbc:IssueDate>
+   <cbc:IssueTime>13:24:53Z</cbc:IssueTime>
+   <cbc:VersionID>01</cbc:VersionID>
+   <cbc:RegulatoryDomain>32009L0081</cbc:RegulatoryDomain>
+   <cbc:NoticeTypeCode listName="competition">cn-standard</cbc:NoticeTypeCode>
+   <cbc:NoticeLanguageCode listName="language">POL</cbc:NoticeLanguageCode>
+   <cac:ContractingParty>
+      <cbc:BuyerProfileURI>https://portal.smartpzp.pl/1rblog</cbc:BuyerProfileURI>
+      <cac:ContractingPartyType>
+         <cbc:PartyTypeCode listName="buyer-legal-type">body-pl</cbc:PartyTypeCode>
+      </cac:ContractingPartyType>
+      <cac:ContractingActivity>
+         <cbc:ActivityTypeCode listName="authority-activity">defence</cbc:ActivityTypeCode>
+      </cac:ContractingActivity>
+      <cac:Party>
+         <cac:PartyIdentification>
+            <cbc:ID>ORG-0001</cbc:ID>
+         </cac:PartyIdentification>
+      </cac:Party>
+   </cac:ContractingParty>
+   <cac:TenderingTerms>
+      <cac:ProcurementLegislationDocumentReference>
+         <cbc:ID>ustawa z dnia 11 września 2019 r. Prawo zamówień publicznych</cbc:ID>
+      </cac:ProcurementLegislationDocumentReference>
+      <cac:TendererQualificationRequest>
+         <cac:SpecificTendererRequirement>
+            <cbc:TendererRequirementTypeCode listName="exclusion-ground">liq-admin</cbc:TendererRequirementTypeCode>
+            <cbc:Description languageID="POL"> art. 109 ust. 1 pkt 4 ustawy Pzp</cbc:Description>
+         </cac:SpecificTendererRequirement>
+         <cac:SpecificTendererRequirement>
+            <cbc:TendererRequirementTypeCode listName="exclusion-ground">prep-confl</cbc:TendererRequirementTypeCode>
+            <cbc:Description languageID="POL">art. 108 ust. 1 pkt 6 ustawy Pzp</cbc:Description>
+         </cac:SpecificTendererRequirement>
+         <cac:SpecificTendererRequirement>
+            <cbc:TendererRequirementTypeCode listName="exclusion-ground">susp-act</cbc:TendererRequirementTypeCode>
+            <cbc:Description languageID="POL"> art. 109 ust. 1 pkt 4 ustawy Pzp</cbc:Description>
+         </cac:SpecificTendererRequirement>
+         <cac:SpecificTendererRequirement>
+            <cbc:TendererRequirementTypeCode listName="exclusion-ground">bankr-nat</cbc:TendererRequirementTypeCode>
+            <cbc:Description languageID="POL"> art. 109 ust. 1 pkt 4 ustawy Pzp</cbc:Description>
+         </cac:SpecificTendererRequirement>
+         <cac:SpecificTendererRequirement>
+            <cbc:TendererRequirementTypeCode listName="exclusion-ground">corruption</cbc:TendererRequirementTypeCode>
+            <cbc:Description languageID="POL">art. 108 ust. 1 pkt 1 i 2 ustawy Pzp</cbc:Description>
+         </cac:SpecificTendererRequirement>
+         <cac:SpecificTendererRequirement>
+            <cbc:TendererRequirementTypeCode listName="exclusion-ground">fraud</cbc:TendererRequirementTypeCode>
+            <cbc:Description languageID="POL">art. 108 ust. 1 pkt 1 i 2 ustawy Pzp</cbc:Description>
+         </cac:SpecificTendererRequirement>
+         <cac:SpecificTendererRequirement>
+            <cbc:TendererRequirementTypeCode listName="exclusion-ground">labour-law</cbc:TendererRequirementTypeCode>
+            <cbc:Description languageID="POL">art. 108 ust. 1 pkt 1 i 2 ustawy Pzp</cbc:Description>
+         </cac:SpecificTendererRequirement>
+         <cac:SpecificTendererRequirement>
+            <cbc:TendererRequirementTypeCode listName="exclusion-ground">insolvency</cbc:TendererRequirementTypeCode>
+            <cbc:Description languageID="POL"> art. 109 ust. 1 pkt 4 ustawy Pzp</cbc:Description>
+         </cac:SpecificTendererRequirement>
+         <cac:SpecificTendererRequirement>
+            <cbc:TendererRequirementTypeCode listName="exclusion-ground">socsec-pay</cbc:TendererRequirementTypeCode>
+            <cbc:Description languageID="POL">art. 108 ust. 1 pkt 3 ustawy Pzp oraz art. 109 ust. 1 pkt 1 ustawy Pzp</cbc:Description>
+         </cac:SpecificTendererRequirement>
+         <cac:SpecificTendererRequirement>
+            <cbc:TendererRequirementTypeCode listName="exclusion-ground">tax-pay</cbc:TendererRequirementTypeCode>
+            <cbc:Description languageID="POL">art. 108 ust. 1 pkt 3 ustawy Pzp oraz art. 109 ust. 1 pkt 1 ustawy Pzp</cbc:Description>
+         </cac:SpecificTendererRequirement>
+         <cac:SpecificTendererRequirement>
+            <cbc:TendererRequirementTypeCode listName="exclusion-ground">nati-ground</cbc:TendererRequirementTypeCode>
+            <cbc:Description languageID="POL">art. 108 ust. 1 pkt 1 i 4 ustawy Pzp; art. 7 ust. 1 ustawy z dnia 13 kwietnia 2022 r. o szczególnych rozwiązaniach w zakresie przeciwdziałania wspieraniu agresji na Ukrainę oraz służących ochronie bezpieczeństwa (t. j. Dz. U. z 2023 r., poz.
+1497 ze zm.); art. 5k rozporządzenia 833/2014</cbc:Description>
+         </cac:SpecificTendererRequirement>
+         <cac:SpecificTendererRequirement>
+            <cbc:TendererRequirementTypeCode listName="exclusion-ground">distorsion</cbc:TendererRequirementTypeCode>
+            <cbc:Description languageID="POL">art. 108 ust. 1 pkt 5 ustawy Pzp</cbc:Description>
+         </cac:SpecificTendererRequirement>
+         <cac:SpecificTendererRequirement>
+            <cbc:TendererRequirementTypeCode listName="exclusion-ground">human-traffic</cbc:TendererRequirementTypeCode>
+            <cbc:Description languageID="POL">art. 108 ust. 1 pkt 1 i 2 ustawy Pzp</cbc:Description>
+         </cac:SpecificTendererRequirement>
+         <cac:SpecificTendererRequirement>
+            <cbc:TendererRequirementTypeCode listName="exclusion-ground">finan-laund</cbc:TendererRequirementTypeCode>
+            <cbc:Description languageID="POL">art. 108 ust. 1 pkt 1 i 2 ustawy Pzp</cbc:Description>
+         </cac:SpecificTendererRequirement>
+         <cac:SpecificTendererRequirement>
+            <cbc:TendererRequirementTypeCode listName="exclusion-ground">terr-offence</cbc:TendererRequirementTypeCode>
+            <cbc:Description languageID="POL">art. 108 ust. 1 pkt 1 i 2 ustawy Pzp</cbc:Description>
+         </cac:SpecificTendererRequirement>
+         <cac:SpecificTendererRequirement>
+            <cbc:TendererRequirementTypeCode listName="exclusion-ground">crime-org</cbc:TendererRequirementTypeCode>
+            <cbc:Description languageID="POL">art. 108 ust. 1 pkt 1 i 2 ustawy Pzp</cbc:Description>
+         </cac:SpecificTendererRequirement>
+         <cac:SpecificTendererRequirement>
+            <cbc:TendererRequirementTypeCode listName="exclusion-ground">cred-arran</cbc:TendererRequirementTypeCode>
+            <cbc:Description languageID="POL">art. 109 ust. 1 pkt 4 ustawy Pzp</cbc:Description>
+         </cac:SpecificTendererRequirement>
+         <cac:SpecificTendererRequirement>
+            <cbc:TendererRequirementTypeCode listName="exclusion-ground">bankruptcy</cbc:TendererRequirementTypeCode>
+            <cbc:Description languageID="POL">art. 109 ust. 1 pkt 4 ustawy Pzp</cbc:Description>
+         </cac:SpecificTendererRequirement>
+      </cac:TendererQualificationRequest>
+   </cac:TenderingTerms>
+   <cac:TenderingProcess>
+      <cbc:ProcedureCode listName="procurement-procedure-type">restricted</cbc:ProcedureCode>
+      <cac:ProcessJustification>
+         <cbc:ProcessReasonCode listName="accelerated-procedure">false</cbc:ProcessReasonCode>
+      </cac:ProcessJustification>
+   </cac:TenderingProcess>
+   <cac:ProcurementProject>
+      <cbc:ID>110/2023</cbc:ID>
+      <cbc:Name languageID="POL">Dostawa koszulobluzy pod kamizelkę ochronną w kamuflażu pustynnym WTU nr 7/WOBWSM</cbc:Name>
+      <cbc:Description languageID="POL">1. Przedmiotem zamówienia jest dostawa koszulobluzy pod kamizelkę ochronną w kamuflażu pustynnym WTU nr 7/WOBWSM z podziałem na trzy części (zadania), tj.: zadanie nr 1 - dostawa koszulobluzy pod kamizelkę ochronną w kamuflażu pustynnym WTU nr 7/WOBWSM w ilości 1 500 kpl.
+zadanie nr 2 - dostawa koszulobluzy pod kamizelkę ochronną w kamuflażu pustynnym WTU nr 7/WOBWSM w ilości 3 500 kpl. (w tym ilość podstawowa: 1 500 kpl., ilość opcjonalna 2 000 kpl.)
+zadanie nr 3 - dostawa koszulobluzy pod kamizelkę ochronną w kamuflażu pustynnym WTU nr 7/WOBWSM w ilości 4 000 kpl. (w tym ilość podstawowa: 2 000 kpl., ilość opcjonalna 2 000 kpl.)
+2. Szczegóły dotyczące przedmiotu zamówienia i kryteriów oceny ofert zostaną zamieszczone w Specyfikacji Warunków Zamówienia (SWZ), która wraz z "Wojskową Dokumentacją Techniczno - Technologiczną" zostanie przekazana Wykonawcom zaproszonym do składania ofert.</cbc:Description>
+      <cbc:ProcurementTypeCode listName="contract-nature">supplies</cbc:ProcurementTypeCode>
+      <cbc:Note languageID="POL">1. Wykonawcy chcący wziąć udział w postępowaniu winni wykazać spełnianie warunków udziału w postępowaniu, o których mowa w pkt. 5.1.9 niniejszego ogłoszenia oraz brak podstaw wykluczenia, o których mowa w pkt. 2.1.6 niniejszego ogłoszenia. Zamawiający żąda zatem złożenia wraz z wnioskiem o dopuszczenie do udziału w postępowaniu (wg Załącznika do ogłoszenia o zamówieniu zamieszczonego na platformie zakupowej) oprócz dokumentów potwierdzających spełnianie warunków udziału w postępowaniu opisanych w pkt 5.1.9 niniejszego ogłoszenia, złożenia niżej wymienionych oświadczeń i dokumentów potwierdzających brak podstaw wykluczenia: 
+1) oświadczenie o niepodleganiu wykluczeniu w okolicznościach, o których mowa w art. 405 ust. 1 oraz art. 405 ust. 2 pkt 3), pkt 4) i pkt 5) w zakresie określonym w art. 109 ust. 1 pkt 1) i 4) ustawy Prawo zamówień publicznych uwzględniające przesłanki wykluczenia z art. 5k rozporządzenia 833/2014 oraz przesłanki wykluczenia z art. 7 ust. 1 ustawy o szczególnych rozwiązaniach w zakresie przeciwdziałania wspieraniu agresji na Ukrainę oraz służących ochronie bezpieczeństwa narodowego – wg załącznika nr 2 do wniosku udostępnionego na stronie internetowej Zamawiającego; 
+2) odpis lub informację z Krajowego Rejestru Sądowego lub z Centralnej Ewidencji i Informacji o Działalności Gospodarczej, w zakresie art. 109 ust. 1 pkt 4) ustawy Pzp, sporządzone nie wcześniej niż 3 miesiące przed upływem terminu składania wniosków o dopuszczenie do udziału w postępowaniu, jeżeli odrębne przepisy wymagają wpisu do rejestru lub ewidencji; 
+3) zaświadczenie właściwego naczelnika urzędu skarbowego potwierdzające, że Wykonawca nie zalega z opłacaniem podatków i opłat w zakresie art. 109 ust. 1 pkt 1) ustawy Pzp, wystawione nie wcześniej niż 3 miesiące przed upływem terminu składania wniosków o dopuszczenie do udziału w postępowaniu, a w przypadku zalegania z opłaceniem podatków lub opłat wraz z zaświadczeniem Zamawiający żąda złożenia dokumentów potwierdzających, że przed upływem terminu składania wniosków o dopuszczenie do udziału w postępowaniu Wykonawca dokonał płatności należnych podatków lub opłat wraz z odsetkami lub grzywnami lub zawarł wiążące porozumienie w sprawie spłat tych należności. 
+4) zaświadczenie lub inny dokument właściwej terenowej jednostki organizacyjnej Zakładu Ubezpieczeń Społecznych lub właściwego oddziału regionalnego lub właściwej placówki terenowej Kasy Rolniczego Ubezpieczenia Społecznego potwierdzające, że Wykonawca nie zalega z opłacaniem składek na ubezpieczenia społeczne i zdrowotne, w zakresie art. 109 ust. 1 pkt 1) ustawy Pzp, wystawione nie wcześniej niż 3 miesiące przed upływem terminu składania wniosków o dopuszczenie do udziału w postępowaniu, a w przypadku zalegania z opłacaniem składek na ubezpieczenie społeczne lub zdrowotne wraz z zaświadczeniem albo innym dokumentem, Zamawiający żąda złożenia dokumentów potwierdzających, że przed upływem terminu składania wniosków o dopuszczenie do udziału w postępowaniu Wykonawca dokonał płatności należnych składek na ubezpieczenie społeczne lub zdrowotne wraz z odsetkami lub grzywnami lub zawarł wiążące porozumienie w sprawie spłat tych należności;
+5) informację z Krajowego Rejestru Karnego w zakresie określonym w art. 108 ust. 1 pkt 1, 2 i 4 ustawy Pzp, sporządzoną nie wcześniej niż 6 miesięcy przed upływem terminu składania wniosków o dopuszczenie do udziału w postępowaniu o udzielenie zamówienia 6) oświadczenia Wykonawcy, w zakresie art. 108 ust. 1 pkt 5) ustawy Pzp, o braku przynależności do tej samej grupy kapitałowej w rozumieniu ustawy z dnia 16 lutego 2007 roku o ochronie konkurencji i konsumentów (t. j. Dz. U. z 2023 r., poz. 1689 ze zm.), z innym Wykonawcom, który złożył odrębne wnioski o dopuszczenie do udziału w postępowaniu albo oświadczenie o przynależności do tej samej grupy kapitałowej wraz z dokumentami lub informacjami potwierdzającymi przygotowanie wniosku, niezależnie od innego Wykonawcy należącego do tej samej grupy kapitałowej – wg załącznika nr 4 do wniosku udostępnionego na stronie internetowej Zamawiającego 
+2. Jeżeli Wykonawca ma siedzibę lub miejsce zamieszkania poza granicami Rzeczypospolitej Polskiej, zamiast: 
+1) informacji z Krajowego Rejestru Karnego składa informację z odpowiedniego rejestru, takiego jak rejestr sądowy, albo, w przypadku braku takiego rejestru, inny równoważny dokument wydany przez właściwy organ sądowy lub administracyjny kraju, w którym Wykonawca ma siedzibę lub miejsce zamieszkania lub miejsce zamieszkania ma osoba, której dotyczy informacja albo dokument, w zakresie, o którym mowa w art. 108 ust. 1 pkt 1), 2) i 4) ustawy Pzp; 
+2) zaświadczenia albo innego dokumentu potwierdzającego, że Wykonawca nie zalega z opłacaniem składek na ubezpieczenie społeczne lub zdrowotne lub odpisu albo informacji z Krajowego Rejestru Sądowego lub Centralnej Ewidencji i Informacji o Działalności Gospodarczej składa dokument lub dokumenty wystawione w kraju, w którym Wykonawca ma siedzibę lub miejsce zamieszkania, potwierdzające odpowiednio, że: 
+a) nie naruszył obowiązków dotyczących płatności podatków, opłat lub składek na ubezpieczenie społeczne lub zdrowotne, 
+b) nie otwarto jego likwidacji, nie ogłoszono upadłości, jego aktywami nie zarządza likwidator lub sąd, nie zawarł układu z wierzycielami, jego działalność gospodarcza nie jest zawieszona ani nie znajduje się on w innej tego rodzaju sytuacji wynikającej z podobnej procedury przewidzianej w przepisach miejsca wszczęcia tej procedury. 
+3. Dokument, o którym mowa w ust. 2 pkt 1), powinien być wystawiony nie wcześniej niż 6 miesięcy przed upływem terminu składania wniosków o dopuszczenie do udziału w postępowaniu. Dokumenty, o których mowa w ust. 2 pkt 2) powinny być wystawione nie wcześniej niż 3 miesiące przed upływem terminu składania wniosków o dopuszczenie do udziału w postępowaniu. 
+4. Jeżeli w kraju, w którym Wykonawca ma siedzibę lub miejsce zamieszkania lub miejsce zamieszkania ma osoba, której dokument dotyczy, nie wydaje się dokumentów, o których mowa w ust. 2, lub gdy dokumenty te nie odnoszą się do wszystkich przypadków, o których mowa w art. 108 ust. 1 pkt 1), 2) i 4), art. 109 ust. 1 pkt 1) ustawy Pzp, zastępuje się je odpowiednio w całości lub w części dokumentem zawierającym odpowiednio oświadczenie Wykonawcy, ze wskazaniem osoby albo osób uprawnionych do jego reprezentacji, lub oświadczenie osoby, której dokument miał dotyczyć, złożone pod przysięgą, lub, jeśli w kraju, w którym Wykonawca ma siedzibę lub miejsce zamieszkania lub miejsce zamieszkania ma osoba, której dokument miał dotyczyć, nie ma przepisów o oświadczeniu pod przysięgą, złożone przed organem sądowym lub administracyjnym, notariuszem, organem samorządu zawodowego lub gospodarczego, właściwym ze względu na siedzibę lub miejsce zamieszkania Wykonawcy lub miejsce zamieszkania osoby, której dokument miał dotyczyć. Przepis ust. 3 stosuje się. 
+5. Załącznik do ogłoszenia o zamówieniu w dziedzinach obronności i bezpieczeństwa prowadzonym w trybie przetargu ograniczonego zamieszczony na platformie zakupowej prowadzonego postępowania stanowi integralną część niniejszego ogłoszenia. 
+6. Wniosek o dopuszczenie do udziału w postępowaniu oraz oświadczenia, o których mowa w art. 125 ust. 1 uPzp sporządza się: - w postaci pisemnej (papierowej) opatrzone własnoręcznym podpisem, - w postaci elektronicznej opatrzone kwalifikowanym podpisem elektronicznym (forma rekomendowana przez Zamawiającego). 
+7. Składanie wniosku o dopuszczenie do udziału w postępowaniu wraz z oświadczeniami, o których mowa w art. 125 ustawy Pzp w formie pisemnej – w przypadku wyboru przez Wykonawcę tej formy: 
+1) W przypadku wyboru przez Wykonawcę formy pisemnej wniosek o dopuszczenie do udziału w postępowaniu wraz z oświadczeniami, o których mowa w art. 125 ust. 1 ustawy Pzp (załącznik nr 1 i 2 do wniosku o dopuszczenie do udziału w postępowaniu) sporządza się w języku polskim w postaci papierowej opatrzone własnoręcznym podpisem i składa się za pośrednictwem operatora pocztowego w rozumieniu ustawy z dnia 23 listopada 2012 r. Prawo pocztowe, osobiście lub przez posłańca w siedzibie Zamawiającego. 
+2) Wniosek o dopuszczenie do udziału w postępowaniu wraz z oświadczeniami, o których mowa w art. 125 ust. 1 ustawy Pzp składać należy w Kancelarii Jawnej Zamawiającego – budynek nr 1, pokój numer 2, ul. Ciasna 7, 78 – 600 Wałcz do dnia 12.01.2024 r. godz. 09:30. 
+3) Wniosek o dopuszczenie do udziału w postępowaniu wraz z oświadczeniami, o których mowa w art. 125 ust. 1 ustawy Pzp. należy umieścić w kopercie. Koperta winna być zamknięta i zabezpieczona przed otwarciem, bez uszkodzenia gwarantując zachowanie poufności jej treści – do terminu otwarcia wniosków. 
+4) Kopertę należy opisać hasłem: „1 Regionalna Baza Logistyczna, ul. Ciasna 7, 78 – 600 Wałcz Wniosek o dopuszczenie do udziału w postępowaniu o udzielenie zamówienia w dziedzinach obronności i bezpieczeństwa prowadzonym w trybie przetargu ograniczonego na „Dostawę koszulobluzy pod kamizelkę ochronną w kamuflażu pustynnym nr 7/WOBWSM ”, nr sprawy 110/2023, nie otwierać do dnia 12.01.2024r. do godziny 10.00” 
+8. Składanie wniosku o dopuszczenie do udziału w postępowaniu wraz z załącznikami w formie elektronicznej (forma rekomendowana przez Zamawiającego) – w przypadku wyboru przez Wykonawcę tej formy: 
+1) Wykonawca składa wniosek o dopuszczenie do udziału w postępowaniu wraz z załącznikami za pośrednictwem platformy zakupowej pod adresem: https://portal.smartpzp.pl/1rblog. Podczas składania wniosku zaleca się korzystanie z instrukcji udostępnionej na platformie. 
+2) Wniosek o dopuszczenie do udziału w postępowaniu wraz z załącznikami należy składać za pośrednictwem platformy zakupowej pod adresem: https://portal.smartpzp.pl/1rblog do dnia 12.01.2024 r. do godziny 09:30. 
+3) Komisyjne otwarcie wniosków o dopuszczenie do udziału w postępowaniu nastąpi w siedzibie Zamawiającego, ul. Ciasna 7, 78 – 600 Wałcz – budynek nr 1, w dniu 12.01.2024 r. o godzinie 10:00.</cbc:Note>
+      <cac:MainCommodityClassification>
+         <cbc:ItemClassificationCode listName="cpv">18400000</cbc:ItemClassificationCode>
+      </cac:MainCommodityClassification>
+      <cac:AdditionalCommodityClassification>
+         <cbc:ItemClassificationCode listName="cpv">18410000</cbc:ItemClassificationCode>
+      </cac:AdditionalCommodityClassification>
+      <cac:RealizedLocation>
+         <cbc:Description languageID="POL">Miejscem dostawy jest: 1 Regionalna Baza Logistyczna - Skład Toruń</cbc:Description>
+         <cac:Address>
+            <cbc:StreetName>ul. Balonowa 9</cbc:StreetName>
+            <cbc:CityName>Toruń</cbc:CityName>
+            <cbc:PostalZone>87-100</cbc:PostalZone>
+            <cbc:CountrySubentityCode listName="nuts">PL613</cbc:CountrySubentityCode>
+            <cac:Country>
+               <cbc:IdentificationCode listName="country">POL</cbc:IdentificationCode>
+            </cac:Country>
+         </cac:Address>
+      </cac:RealizedLocation>
+   </cac:ProcurementProject>
+   <cac:ProcurementProjectLot>
+      <cbc:ID schemeName="Lot">LOT-0001</cbc:ID>
+      <cac:TenderingTerms>
+         <ext:UBLExtensions>
+            <ext:UBLExtension>
+               <ext:ExtensionContent>
+                  <efext:EformsExtension>
+                     <efac:SelectionCriteria>
+                        <cbc:CriterionTypeCode listName="selection-criterion">tp-abil</cbc:CriterionTypeCode>
+                        <cbc:Name languageID="POL">Zdolność techniczna</cbc:Name>
+                        <cbc:Description languageID="POL">1. W postępowaniu mogą wziąć udział Wykonawcy, którzy w okresie ostatnich 5 lat, a jeżeli okres prowadzenia działalności jest krótszy – w tym okresie wykonali należycie dostawy odzieży, których suma odpowiada co najmniej wartości: 
+- zadanie nr 1 –  406 800,00 zł 
+- zadanie nr 2 –  949 300,00 zł, 
+- zadanie nr 3 – 1 084 900,00 zł. 
+2. W celu potwierdzenia spełniania warunku Wykonawca zobowiązany jest złożyć wykaz dostaw potwierdzający, że w okresie ostatnich 5 lat przed upływem terminu składania wniosków o dopuszczenie do udziału w postępowaniu, a jeżeli okres prowadzenia działalności jest krótszy – w tym okresie – Wykonawca wykonał należycie dostawy odzieży, których suma odpowiada, co najmniej wartości: 
+- zadanie nr 1 –  406 800,00 zł 
+- zadanie nr 2 – 949 300,00 zł, 
+- zadanie nr 3 – 1 084 900,00 zł. (załącznik nr 3 do wniosku) oraz dowody określające, czy dostawy te zostały wykonane należycie. Wykonawca w wykazie – w załączniku nr 3 do wniosku - podaje wartość dostaw, ich przedmiot, datę wykonania i podmiot, na rzecz, którego dostawy zostały wykonane. 
+Dowodami, o których mowa wyżej, są referencje bądź inne dokumenty sporządzone przez podmiot, na rzecz, którego dostawy zostały wykonane, a jeżeli Wykonawca z przyczyn niezależnych od niego nie jest w stanie uzyskać tych dokumentów - oświadczenie Wykonawcy. Oświadczenie Wykonawcy powinno jednoznacznie wskazywać na przyczyny braku możliwości pozyskania dowodów określających (referencji) od podmiotów na rzecz których realizowane były dostawy. 
+Uwaga: 
+• W przypadku, kiedy Wykonawca składa wniosek na kilka zadań winien zsumować wartość poszczególnych zadań i na łączną kwotę przedstawić wykaz dostaw i tak np: jeżeli Wykonawca składa wniosek na zad. od 1 do 3 wykaz winien opiewać na wartość 1 2 441 000,00 zł. 
+• Jeżeli w dokumentach składanych w celu potwierdzenia spełniania warunku udziału w postępowaniu, kwoty będą wyrażane w walucie obcej, kwoty te zostaną przeliczone na PLN wg średniego kursu PLN w stosunku do walut obcych ogłaszanego przez Narodowy Bank Polski (Tabela A kursów średnich walut obcych) w dniu wykonania dostawy. W przypadku braku publikacji kursów walut NBP obowiązujących w dniu, o którym mowa powyżej, zastosowanie ma kurs ostatnio ogłoszony przed tym dniem. 
+• Jeżeli z uzasadnionej przyczyny Wykonawca nie może złożyć dokumentów dotyczących zdolności technicznej, o których mowa wyżej, wymaganych przez Zamawiającego, może złożyć inne podmiotowe środki dowodowe, które w wystarczający sposób potwierdzają spełnianie opisanego przez Zamawiającego warunku udziału w postępowaniu. Jeżeli Wykonawca powołuje się na doświadczenie w realizacji dostaw wykonywanych wspólnie z innymi Wykonawcami, wykaz dotyczyć ma wyłącznie dostaw, w których wykonaniu Wykonawca bezpośrednio uczestniczył.
+3. Wykonawca może w celu potwierdzenia spełniania warunków udziału w postępowaniu, w stosownych sytuacjach oraz w odniesieniu do konkretnego zamówienia, lub jego części, polegać na zdolnościach technicznych lub zawodowych podmiotów, udostępniających zasoby, niezależnie od charakteru prawnego łączących go z nim stosunków prawnych. 
+4. Wykonawca, który polega na zdolnościach podmiotów udostępniających zasoby składa, wraz z wnioskiem o dopuszczenie do udziału w postępowaniu, zobowiązanie podmiotu udostępniającego zasoby do oddania mu do dyspozycji niezbędnych zasobów na potrzeby realizacji zamówienia lub inny podmiotowy środek dowodowy potwierdzający, że Wykonawca realizując zamówienie, będzie dysponował niezbędnymi zasobami tych podmiotów. Zobowiązanie podmiotu udostępniającego zasoby, musi potwierdzać, że stosunek łączący Wykonawcę z podmiotami udostępniającymi zasoby gwarantuje rzeczywisty dostęp do tych zasobów oraz musi określać w szczególności:
+a)	zakres dostępnych Wykonawcy zasobów podmiotu udostępniającego zasoby,
+b)	sposób i okres udostępnienia Wykonawcy i wykorzystania przez niego zasobów podmiotu udostępniającego te zasoby przy wykonywaniu zamówienia.
+Zamawiający ocenia, czy udostępniane Wykonawcy przez podmioty udostępniające zasoby zdolności techniczne lub zawodowe, pozwalają na wykazanie przez Wykonawcę spełniania warunków udziału w postępowaniu dotyczące zdolności technicznej lub zawodowej oraz bada, czy nie zachodzą wobec tego podmiotu podstawy wykluczenia, o których mowa w art. 405 ust. 1 oraz art. 405 ust. 2 pkt 3), 4) i pkt 5) w zakresie określonym w art. 109 ust. 1 pkt 1) i 4) ustawy Pzp., a także w art. 5k rozporządzenia 833/2014 oraz w art. 7 ust. 1 ustawy o szczególnych rozwiązaniach w zakresie przeciwdziałania wspieraniu agresji na Ukrainę oraz służących ochronie bezpieczeństwa narodowego. 
+5. Zamawiający żąda od Wykonawcy, który polega na zdolnościach podmiotów udostępniających zasoby na zasadach określonych w art. 118 ustawy Pzp, przedstawienia w odniesieniu do tych podmiotów dokumentów i oświadczeń wymienionych w części A ust. X załącznika do ogłoszenia zamieszczonego na platformie zakupowej.
+6. Wykonawca nie może, po upływie terminu składania wniosków o dopuszczenie do udziału w postępowaniu, powoływać się na zdolności udostępniających zasoby, jeżeli na etapie składania wniosków nie polegał on w danym zakresie na zdolnościach  podmiotów udostępniających zasoby.</cbc:Description>
+                        <cbc:CalculationExpressionCode listName="usage">used</cbc:CalculationExpressionCode>
+                     </efac:SelectionCriteria>
+                     <efac:SelectionCriteria>
+                        <cbc:CriterionTypeCode listName="selection-criterion">ef-stand</cbc:CriterionTypeCode>
+                        <cbc:Name languageID="POL">Sytuacja finansowa</cbc:Name>
+                        <cbc:Description languageID="POL">1. Wykonawca spełni warunek, jeżeli wykaże, że w okresie nie wcześniejszym niż 3 miesiące przed upływem terminu składania wniosków o dopuszczenie do udziału w postępowaniu o udzielenie zamówienia, posiada środki finansowe lub zdolność kredytową w wysokości minimum: - zadanie nr 1 – 101 700,00 zł - zadanie nr 2 – 237 300,00 zł, - zadanie nr 3 – 271 200,00 zł 
+2. W celu potwierdzenia spełniania warunku, Wykonawca zobowiązany jest złożyć informację banku lub spółdzielczej kasy oszczędnościowo – kredytowej, potwierdzającą wysokość posiadanych środków finansowych lub zdolność kredytową Wykonawcy w okresie nie wcześniejszym niż 3 miesiące przed upływem terminu składania wniosków o dopuszczenie do udziału w postępowaniu, w wysokości minimum: zadanie nr 1 – 101 700,00 zł - zadanie nr 2 – 237 300,00 zł, - zadanie nr 3 – 271 200,00 zł 
+Uwaga: 
+• Jeżeli w dokumentach składanych w celu potwierdzenia spełniania warunku udziału w postępowaniu, kwoty będą wyrażane w walucie obcej, kwoty te zostaną przeliczone na PLN wg średniego kursu PLN w stosunku do walut obcych ogłaszanego przez Narodowy Bank Polski (Tabela A kursów średnich walut obcych) w dniu wystawienia dokumentu. W przypadku braku publikacji kursów walut NBP obowiązujących w dniu, o którym mowa powyżej, zastosowanie ma kurs ostatnio ogłoszony przed tym dniem, 
+• Jeżeli z uzasadnionej przyczyny wykonawca nie może złożyć dokumentów dotyczących sytuacji finansowej, o których mowa wyżej, wymaganych przez Zamawiającego, może złożyć inne podmiotowe środki dowodowe, które w wystarczający sposób potwierdzają spełnianie opisanego przez Zamawiającego warunku udziału w postępowaniu. 
+• W przypadku kiedy Wykonawca składa wniosek na kilka zadań winien zsumować wartość poszczególnych zadań i wykazać wysokość posiadanych środków finansowych lub zdolność kredytową dla ich zsumowanej wartości i tak np.: jeżeli Wykonawca składa wniosek na zadanie od 1 do 3 wysokość środków finansowych lub zdolność kredytowa winna opiewać na wartość 610 200,00 zł.
+3. Wykonawca może w celu potwierdzenia spełniania niniejszego warunku udziału w postępowaniu, w stosownych sytuacjach oraz w odniesieniu do konkretnego zamówienia, lub jego części, polegać na sytuacji finansowej lub ekonomicznej podmiotów, udostępniających zasoby, niezależnie od charakteru prawnego łączących go z nim stosunków prawnych. 
+4. Wykonawca, który polega na sytuacji podmiotów udostępniających zasoby składa, wraz z wnioskiem o dopuszczenie do udziału w postępowaniu, zobowiązanie podmiotu udostępniającego zasoby do oddania mu do dyspozycji niezbędnych zasobów na potrzeby realizacji zamówienia lub inny podmiotowy środek dowodowy potwierdzający, że Wykonawca realizując zamówienie, będzie dysponował niezbędnymi zasobami tych podmiotów. Zobowiązanie podmiotu udostępniającego zasoby, musi potwierdzać, że stosunek łączący Wykonawcę z podmiotami udostępniającymi zasoby gwarantuje rzeczywisty dostęp do tych zasobów oraz musi określać w szczególności:
+a)	zakres dostępnych Wykonawcy zasobów podmiotu udostępniającego zasoby,
+b)	sposób i okres udostępnienia Wykonawcy i wykorzystania przez niego zasobów podmiotu udostępniającego te zasoby przy wykonywaniu zamówienia.
+Zamawiający ocenia, czy udostępniane Wykonawcy przez podmioty udostępniające zasoby ich sytuacja finansowa lub ekonomiczna, pozwalają na wykazanie przez Wykonawcę spełniania warunków udziału w postępowaniu dotyczące sytuacji ekonomicznej lub finansowej oraz bada, czy nie zachodzą wobec tego podmiotu podstawy wykluczenia, o których mowa w art. 405 ust. 1 oraz art. 405 ust. 2 pkt 3), 4) i pkt 5) w zakresie określonym w art. 109 ust. 1 pkt 1) i 4) ustawy Pzp., a także w art. 5k rozporządzenia 833/2014 oraz w art. 7 ust. 1 ustawy o szczególnych rozwiązaniach w zakresie przeciwdziałania wspieraniu agresji na Ukrainę oraz służących ochronie bezpieczeństwa narodowego. 
+5. Zamawiający żąda od Wykonawcy, który polega na sytuacji podmiotów udostępniających zasoby na zasadach określonych w art. 118 ustawy Pzp, przedstawienia w odniesieniu do tych podmiotów dokumentów i oświadczeń wymienionych w części A ust. X załącznika do ogłoszenia zamieszczonego na platformie zakupowej.
+6. Wykonawca nie może, po upływie terminu składania wniosków o dopuszczenie do udziału w postępowaniu, powoływać się na  sytuacje podmiotów udostępniających zasoby, jeżeli na etapie składania wniosków nie polegał on w danym zakresie na zdolnościach lub sytuacji podmiotów udostępniających zasoby.
+7. Podmiot, który zobowiązał się do udostępnienia zasobów, odpowiada solidarnie z Wykonawcą, który polega na jego sytuacji finansowej lub ekonomicznej, za szkodę poniesioną przez Zamawiającego powstałą, wskutek nieudostępnienia tych zasobów, chyba, że za nieudostępnienie zasobów podmiot ten nie ponosi winy.</cbc:Description>
+                        <cbc:CalculationExpressionCode listName="usage">used</cbc:CalculationExpressionCode>
+                     </efac:SelectionCriteria>
+                     <efac:TenderSubcontractingRequirements>
+                        <efbc:TenderSubcontractingRequirementsCode listName="subcontracting-indication">shar-subc</efbc:TenderSubcontractingRequirementsCode>
+                     </efac:TenderSubcontractingRequirements>
+                  </efext:EformsExtension>
+               </ext:ExtensionContent>
+            </ext:UBLExtension>
+         </ext:UBLExtensions>
+         <cbc:VariantConstraintCode listName="permission">not-allowed</cbc:VariantConstraintCode>
+         <cac:RequiredFinancialGuarantee>
+            <cbc:GuaranteeTypeCode listName="tender-guarantee-required">true</cbc:GuaranteeTypeCode>
+            <cbc:Description languageID="POL">Zaproszeni do składania ofert Wykonawcy zobowiązani będą do zabezpieczenia ofert wadium na cały okres związania ofertą. Wykonawca, którego oferta zostanie wybrana jako najkorzystniejsza przez Zamawiającego zobowiązany będzie do wniesienia zabezpieczenia należytego wykonania umowy. Szczegółowe informacje na temat wadium i zabezpieczenia należytego wykonania umowy zostaną zawarte w SWZ, która zostanie przekazana Wykonawcom zaproszonym do składania ofert.</cbc:Description>
+         </cac:RequiredFinancialGuarantee>
+         <cac:CallForTendersDocumentReference>
+            <ext:UBLExtensions>
+               <ext:UBLExtension>
+                  <ext:ExtensionContent>
+                     <efext:EformsExtension>
+                        <efac:OfficialLanguages>
+                           <cac:Language>
+                              <cbc:ID>POL</cbc:ID>
+                           </cac:Language>
+                        </efac:OfficialLanguages>
+                     </efext:EformsExtension>
+                  </ext:ExtensionContent>
+               </ext:UBLExtension>
+            </ext:UBLExtensions>
+            <cbc:ID>_DEFAULT_VALUE_CHANGE_ME_</cbc:ID>
+            <cbc:DocumentType>non-restricted-document</cbc:DocumentType>
+            <cac:Attachment>
+               <cac:ExternalReference>
+                  <cbc:URI>https://portal.smartpzp.pl/1rblog</cbc:URI>
+               </cac:ExternalReference>
+            </cac:Attachment>
+         </cac:CallForTendersDocumentReference>
+         <cac:PaymentTerms>
+            <cbc:Note languageID="POL">Zapłata należności za wykonaną dostawę nastąpi w formie polecenia przelewu z rachunku Zamawiającego na rachunek bankowy Wykonawcy umieszczony na fakturze, w terminie 30 dni od daty wykonania przedmiotu umowy, potwierdzonego zgodnie z zapisami umowy i otrzymania przez Zamawiającego prawidłowo wystawionej faktury wraz z kompletem wymaganych dokumentów. Termin zapłaty uważa się za zachowany, jeżeli obciążenie rachunku dłużnika nastąpi najpóźniej w ostatnim dniu terminu płatności</cbc:Note>
+         </cac:PaymentTerms>
+         <cac:TendererQualificationRequest>
+            <cbc:CompanyLegalFormCode listName="required">true</cbc:CompanyLegalFormCode>
+            <cbc:CompanyLegalForm languageID="POL">Zgodnie z art. 58 ust. 1 ustawy Pzp, Wykonawcy mogą wspólnie ubiegać się o udzielenie zamówienia. 
+Wykonawcy wspólnie składający wniosek o dopuszczenie do udziału w postępowaniu: 
+1. złożą oddzielnie dla każdego z nich oświadczenia i dokumenty dotyczące wykazania braku podstaw wykluczenia, 
+2. przynajmniej jedna z firm wspólnie składających wniosek o dopuszczenie do udziału w postępowaniu winna jest przedstawić oświadczenie i dokumenty dotyczące spełnienia warunków udziału w postępowaniu, 
+3. spełnią warunek dotyczący zdolności technicznej lub zawodowej - Wykonawcy wspólnie ubiegający się o udzielenie zamówienia mogą spełnić ten warunek łącznie tzn. co najmniej jeden z Wykonawców spełni warunek lub Wykonawcy spełnią go łącznie, 
+4. spełnią warunek dotyczący sytuacji ekonomicznej lub finansowej - Wykonawcy wspólnie ubiegający się o udzielenie zamówienia mogą spełnić ten warunek łącznie tzn. co najmniej jeden z Wykonawców spełni warunek lub Wykonawcy spełnią go łącznie. 
+Ponadto Wykonawcy wspólnie ubiegający się o udzielenie zamówienia zobowiązani są przedłożyć:  
+1) pełnomocnictwo, w którym Wykonawcy ustanawiają pełnomocnika do reprezentowania ich w postępowaniu o udzielenia zamówienia albo reprezentowania w postępowaniu i zawarcia umowy w sprawie zamówienia publicznego (w pełnomocnictwie należy skonkretyzować postępowanie o udzielenie zamówienia publicznego, z podaniem numeru sprawy i przedmiotu zamówienia), 
+2) kopię umowy regulującej współpracę Wykonawców składających ofertę wspólnie przed zawarciem umowy w sprawie zamówienia w dziedzinach obronności i bezpieczeństwa (kopia potwierdzona za zgodność z oryginałem przez Wykonawcę).</cbc:CompanyLegalForm>
+         </cac:TendererQualificationRequest>
+         <cac:TendererQualificationRequest>
+            <cac:SpecificTendererRequirement>
+               <cbc:TendererRequirementTypeCode listName="reserved-procurement">none</cbc:TendererRequirementTypeCode>
+            </cac:SpecificTendererRequirement>
+         </cac:TendererQualificationRequest>
+         <cac:AllowedSubcontractTerms>
+            <cbc:SubcontractingConditionsCode listName="subcontracting-obligation">subc-chng</cbc:SubcontractingConditionsCode>
+         </cac:AllowedSubcontractTerms>
+         <cac:ContractExecutionRequirement>
+            <cbc:ExecutionRequirementCode listName="reserved-execution">no</cbc:ExecutionRequirementCode>
+         </cac:ContractExecutionRequirement>
+         <cac:ContractExecutionRequirement>
+            <cbc:ExecutionRequirementCode listName="conditions">performance</cbc:ExecutionRequirementCode>
+            <cbc:Description languageID="POL">Warunki przyszłej umowy zostaną określone w SWZ</cbc:Description>
+         </cac:ContractExecutionRequirement>
+         <cac:ContractExecutionRequirement>
+            <cbc:ExecutionRequirementCode listName="einvoicing">allowed</cbc:ExecutionRequirementCode>
+         </cac:ContractExecutionRequirement>
+         <cac:ContractExecutionRequirement>
+            <cbc:ExecutionRequirementCode listName="ecatalog-submission">not-allowed</cbc:ExecutionRequirementCode>
+         </cac:ContractExecutionRequirement>
+         <cac:AwardingTerms>
+            <cac:AwardingCriterion>
+               <cac:SubordinateAwardingCriterion>
+                  <ext:UBLExtensions>
+                     <ext:UBLExtension>
+                        <ext:ExtensionContent>
+                           <efext:EformsExtension>
+                              <efac:AwardCriterionParameter>
+                                 <efbc:ParameterCode listName="number-weight">per-exa</efbc:ParameterCode>
+                                 <efbc:ParameterNumeric>100</efbc:ParameterNumeric>
+                              </efac:AwardCriterionParameter>
+                           </efext:EformsExtension>
+                        </ext:ExtensionContent>
+                     </ext:UBLExtension>
+                  </ext:UBLExtensions>
+                  <cbc:AwardingCriterionTypeCode listName="award-criterion-type">price</cbc:AwardingCriterionTypeCode>
+                  <cbc:Description languageID="POL">Najkorzystniejszą ofertą będzie oferta, która uzyska najwyższą ilość punktów w kryterium oceny ofert: cena 100%</cbc:Description>
+               </cac:SubordinateAwardingCriterion>
+            </cac:AwardingCriterion>
+         </cac:AwardingTerms>
+         <cac:TenderRecipientParty>
+            <cbc:EndpointID>https://portal.smartpzp.pl/1rblog</cbc:EndpointID>
+            <cac:PartyIdentification>
+               <cbc:ID>ORG-0001</cbc:ID>
+            </cac:PartyIdentification>
+         </cac:TenderRecipientParty>
+         <cac:TenderEvaluationParty>
+            <cac:PartyIdentification>
+               <cbc:ID>ORG-0001</cbc:ID>
+            </cac:PartyIdentification>
+         </cac:TenderEvaluationParty>
+         <cac:AppealTerms>
+            <cac:PresentationPeriod>
+               <cbc:Description languageID="POL">Dokładne informacje na temat terminów składania odwołań: 
+1. Środki ochrony prawnej przysługują Wykonawcy a także innemu podmiotowi, jeżeli ma lub miał interes w uzyskaniu niniejszego zamówienia oraz poniósł lub może ponieść szkodę w wyniku naruszenia przez Zamawiającego przepisów ustawy. Środki ochrony prawnej wobec ogłoszenia o zamówieniu oraz dokumentów zamówienia przysługują również organizacjom wpisanym na listę, o której mowa w art. 469 pkt 15 ustawy oraz Rzecznikowi Małych i Średnich Przedsiębiorców. 
+2. Odwołanie przysługuje na: 1) niezgodną z przepisami ustawy czynność Zamawiającego, podjętą w postępowaniu o udzielenie zamówienia, w tym na projektowane postanowienia umowy, 2) zaniechanie czynności w postępowaniu o udzielenie zamówienia, do której Zamawiający był obowiązany na podstawie ustawy. 
+3. Odwołanie wnosi się do Prezesa Izby (art. 514 ust. 1 uPzp). 
+4. Odwołanie wnosi się w terminie 10 dni od dnia przekazania informacji o czynności Zamawiającego stanowiącej podstawę jego wniesienia, jeżeli informacja została przekazana przy użyciu środków komunikacji elektronicznej, albo w terminie 15 dni - jeżeli informacja została przekazana w inny sposób (art. 515 ust. 1 pkt 1) u Pzp) 
+5. Odwołanie wobec treści ogłoszenia wszczynającego postępowanie o udzielenie zamówienia lub wobec treści dokumentów zamówienia wnosi się w terminie 10 dni od dnia publikacji ogłoszenia w Dzienniku Urzędowym Unii Europejskiej lub zamieszczenia dokumentów zamówienia na stronie internetowej (art. 515 ust. 2 pkt 1) uPzp). 
+6. Odwołanie w przypadkach innych, niż określone w ust. 4 i 5 wnosi się w terminie 10 dni od dnia, w którym powzięto lub przy zachowaniu należytej staranności można było powziąć wiadomość o okolicznościach stanowiących podstawę jego wniesienia. (art. 515 ust. 3 pkt. 1 uPzp). 
+7. Na orzeczenie Izby oraz postanowienie Prezesa Izby, o którym mowa w art. 519 ust. 1, stronom oraz i uczestnikom postępowania odwoławczego przysługuje skarga do sądu. 
+8. Pozostałe zasady dot. środków ochrony prawnej zostały zawarte w Dziale IX ustawy Pzp.</cbc:Description>
+            </cac:PresentationPeriod>
+         </cac:AppealTerms>
+         <cac:Language>
+            <cbc:ID>POL</cbc:ID>
+         </cac:Language>
+      </cac:TenderingTerms>
+      <cac:TenderingProcess>
+         <cac:ParticipationRequestReceptionPeriod>
+            <cbc:EndDate>2024-01-12+01:00</cbc:EndDate>
+            <cbc:EndTime>09:30:00+01:00</cbc:EndTime>
+         </cac:ParticipationRequestReceptionPeriod>
+         <cac:AuctionTerms>
+            <cbc:AuctionConstraintIndicator>false</cbc:AuctionConstraintIndicator>
+         </cac:AuctionTerms>
+         <cac:ContractingSystem>
+            <cbc:ContractingSystemTypeCode listName="framework-agreement">none</cbc:ContractingSystemTypeCode>
+         </cac:ContractingSystem>
+         <cac:ContractingSystem>
+            <cbc:ContractingSystemTypeCode listName="dps-usage">none</cbc:ContractingSystemTypeCode>
+         </cac:ContractingSystem>
+      </cac:TenderingProcess>
+      <cac:ProcurementProject>
+         <cbc:ID>Zadanie nr 1</cbc:ID>
+         <cbc:Name languageID="POL">Dostawa koszulobluzy pod kamizelkę ochronną w kamuflażu pustynnym WTU nr 7/WOBWSM</cbc:Name>
+         <cbc:Description languageID="POL">Przedmiotem zamówienia jest dostawa koszulobluzy pod kamizelkę ochronną w kamuflażu pustynnym WTU nr 7/WOBWSM w ilości 1 500 kpl. 
+Szczegóły dotyczące przedmiotu zamówienia i kryteriów oceny ofert zostaną zamieszczone w Specyfikacji Warunków Zamówienia (SWZ), która wraz z "Wojskową Dokumentacją Techniczno - Technologiczną" zostanie przekazana Wykonawcom zaproszonym do składania ofert.</cbc:Description>
+         <cbc:ProcurementTypeCode listName="contract-nature">supplies</cbc:ProcurementTypeCode>
+         <cac:MainCommodityClassification>
+            <cbc:ItemClassificationCode listName="cpv">18400000</cbc:ItemClassificationCode>
+         </cac:MainCommodityClassification>
+         <cac:AdditionalCommodityClassification>
+            <cbc:ItemClassificationCode listName="cpv">18410000</cbc:ItemClassificationCode>
+         </cac:AdditionalCommodityClassification>
+         <cac:RealizedLocation>
+            <cbc:Description languageID="POL">Miejscem dostawy jest: 1 Regionalna Baza Logistyczna - Skład Toruń</cbc:Description>
+            <cac:Address>
+               <cbc:StreetName>ul. Balonowa 9</cbc:StreetName>
+               <cbc:CityName>Toruń</cbc:CityName>
+               <cbc:PostalZone>87-100</cbc:PostalZone>
+               <cbc:CountrySubentityCode listName="nuts">PL613</cbc:CountrySubentityCode>
+               <cac:Country>
+                  <cbc:IdentificationCode listName="country">POL</cbc:IdentificationCode>
+               </cac:Country>
+            </cac:Address>
+         </cac:RealizedLocation>
+         <cac:PlannedPeriod>
+            <cbc:DurationMeasure unitCode="DAY">90</cbc:DurationMeasure>
+         </cac:PlannedPeriod>
+         <cac:ContractExtension>
+            <cbc:OptionsDescription languageID="POL">W zakresie niniejszego zadania Zamawiający nie przewiduje prawa opcji</cbc:OptionsDescription>
+            <cbc:MaximumNumberNumeric>0</cbc:MaximumNumberNumeric>
+         </cac:ContractExtension>
+      </cac:ProcurementProject>
+   </cac:ProcurementProjectLot>
+   <cac:ProcurementProjectLot>
+      <cbc:ID schemeName="Lot">LOT-0002</cbc:ID>
+      <cac:TenderingTerms>
+         <ext:UBLExtensions>
+            <ext:UBLExtension>
+               <ext:ExtensionContent>
+                  <efext:EformsExtension>
+                     <efac:SelectionCriteria>
+                        <cbc:CriterionTypeCode listName="selection-criterion">tp-abil</cbc:CriterionTypeCode>
+                        <cbc:Name languageID="POL">Zdolność techniczna</cbc:Name>
+                        <cbc:Description languageID="POL">1. W postępowaniu mogą wziąć udział Wykonawcy, którzy w okresie ostatnich 5 lat, a jeżeli okres prowadzenia działalności jest krótszy – w tym okresie wykonali należycie dostawy odzieży, których suma odpowiada co najmniej wartości: 
+- zadanie nr 1 –  406 800,00 zł 
+- zadanie nr 2 –  949 300,00 zł, 
+- zadanie nr 3 – 1 084 900,00 zł. 
+2. W celu potwierdzenia spełniania warunku Wykonawca zobowiązany jest złożyć wykaz dostaw potwierdzający, że w okresie ostatnich 5 lat przed upływem terminu składania wniosków o dopuszczenie do udziału w postępowaniu, a jeżeli okres prowadzenia działalności jest krótszy – w tym okresie – Wykonawca wykonał należycie dostawy odzieży, których suma odpowiada, co najmniej wartości: 
+- zadanie nr 1 –  406 800,00 zł 
+- zadanie nr 2 – 949 300,00 zł, 
+- zadanie nr 3 – 1 084 900,00 zł. (załącznik nr 3 do wniosku) oraz dowody określające, czy dostawy te zostały wykonane należycie. Wykonawca w wykazie – w załączniku nr 3 do wniosku - podaje wartość dostaw, ich przedmiot, datę wykonania i podmiot, na rzecz, którego dostawy zostały wykonane. 
+Dowodami, o których mowa wyżej, są referencje bądź inne dokumenty sporządzone przez podmiot, na rzecz, którego dostawy zostały wykonane, a jeżeli Wykonawca z przyczyn niezależnych od niego nie jest w stanie uzyskać tych dokumentów - oświadczenie Wykonawcy. Oświadczenie Wykonawcy powinno jednoznacznie wskazywać na przyczyny braku możliwości pozyskania dowodów określających (referencji) od podmiotów na rzecz których realizowane były dostawy. 
+Uwaga: 
+• W przypadku, kiedy Wykonawca składa wniosek na kilka zadań winien zsumować wartość poszczególnych zadań i na łączną kwotę przedstawić wykaz dostaw i tak np: jeżeli Wykonawca składa wniosek na zad. od 1 do 3 wykaz winien opiewać na wartość 1 2 441 000,00 zł. 
+• Jeżeli w dokumentach składanych w celu potwierdzenia spełniania warunku udziału w postępowaniu, kwoty będą wyrażane w walucie obcej, kwoty te zostaną przeliczone na PLN wg średniego kursu PLN w stosunku do walut obcych ogłaszanego przez Narodowy Bank Polski (Tabela A kursów średnich walut obcych) w dniu wykonania dostawy. W przypadku braku publikacji kursów walut NBP obowiązujących w dniu, o którym mowa powyżej, zastosowanie ma kurs ostatnio ogłoszony przed tym dniem. 
+• Jeżeli z uzasadnionej przyczyny Wykonawca nie może złożyć dokumentów dotyczących zdolności technicznej, o których mowa wyżej, wymaganych przez Zamawiającego, może złożyć inne podmiotowe środki dowodowe, które w wystarczający sposób potwierdzają spełnianie opisanego przez Zamawiającego warunku udziału w postępowaniu. Jeżeli Wykonawca powołuje się na doświadczenie w realizacji dostaw wykonywanych wspólnie z innymi Wykonawcami, wykaz dotyczyć ma wyłącznie dostaw, w których wykonaniu Wykonawca bezpośrednio uczestniczył.
+3. Wykonawca może w celu potwierdzenia spełniania warunków udziału w postępowaniu, w stosownych sytuacjach oraz w odniesieniu do konkretnego zamówienia, lub jego części, polegać na zdolnościach technicznych lub zawodowych podmiotów, udostępniających zasoby, niezależnie od charakteru prawnego łączących go z nim stosunków prawnych. 
+4. Wykonawca, który polega na zdolnościach podmiotów udostępniających zasoby składa, wraz z wnioskiem o dopuszczenie do udziału w postępowaniu, zobowiązanie podmiotu udostępniającego zasoby do oddania mu do dyspozycji niezbędnych zasobów na potrzeby realizacji zamówienia lub inny podmiotowy środek dowodowy potwierdzający, że Wykonawca realizując zamówienie, będzie dysponował niezbędnymi zasobami tych podmiotów. Zobowiązanie podmiotu udostępniającego zasoby, musi potwierdzać, że stosunek łączący Wykonawcę z podmiotami udostępniającymi zasoby gwarantuje rzeczywisty dostęp do tych zasobów oraz musi określać w szczególności:
+a)	zakres dostępnych Wykonawcy zasobów podmiotu udostępniającego zasoby,
+b)	sposób i okres udostępnienia Wykonawcy i wykorzystania przez niego zasobów podmiotu udostępniającego te zasoby przy wykonywaniu zamówienia.
+Zamawiający ocenia, czy udostępniane Wykonawcy przez podmioty udostępniające zasoby zdolności techniczne lub zawodowe, pozwalają na wykazanie przez Wykonawcę spełniania warunków udziału w postępowaniu dotyczące zdolności technicznej lub zawodowej oraz bada, czy nie zachodzą wobec tego podmiotu podstawy wykluczenia, o których mowa w art. 405 ust. 1 oraz art. 405 ust. 2 pkt 3), 4) i pkt 5) w zakresie określonym w art. 109 ust. 1 pkt 1) i 4) ustawy Pzp., a także w art. 5k rozporządzenia 833/2014 oraz w art. 7 ust. 1 ustawy o szczególnych rozwiązaniach w zakresie przeciwdziałania wspieraniu agresji na Ukrainę oraz służących ochronie bezpieczeństwa narodowego. 
+5. Zamawiający żąda od Wykonawcy, który polega na zdolnościach podmiotów udostępniających zasoby na zasadach określonych w art. 118 ustawy Pzp, przedstawienia w odniesieniu do tych podmiotów dokumentów i oświadczeń wymienionych w części A ust. X załącznika do ogłoszenia zamieszczonego na platformie zakupowej.
+6. Wykonawca nie może, po upływie terminu składania wniosków o dopuszczenie do udziału w postępowaniu, powoływać się na zdolności udostępniających zasoby, jeżeli na etapie składania wniosków nie polegał on w danym zakresie na zdolnościach  podmiotów udostępniających zasoby.</cbc:Description>
+                        <cbc:CalculationExpressionCode listName="usage">used</cbc:CalculationExpressionCode>
+                     </efac:SelectionCriteria>
+                     <efac:SelectionCriteria>
+                        <cbc:CriterionTypeCode listName="selection-criterion">ef-stand</cbc:CriterionTypeCode>
+                        <cbc:Name languageID="POL">Sytuacja finansowa</cbc:Name>
+                        <cbc:Description languageID="POL">1. Wykonawca spełni warunek, jeżeli wykaże, że w okresie nie wcześniejszym niż 3 miesiące przed upływem terminu składania wniosków o dopuszczenie do udziału w postępowaniu o udzielenie zamówienia, posiada środki finansowe lub zdolność kredytową w wysokości minimum: - zadanie nr 1 – 101 700,00 zł - zadanie nr 2 – 237 300,00 zł, - zadanie nr 3 – 271 200,00 zł 
+2. W celu potwierdzenia spełniania warunku, Wykonawca zobowiązany jest złożyć informację banku lub spółdzielczej kasy oszczędnościowo – kredytowej, potwierdzającą wysokość posiadanych środków finansowych lub zdolność kredytową Wykonawcy w okresie nie wcześniejszym niż 3 miesiące przed upływem terminu składania wniosków o dopuszczenie do udziału w postępowaniu, w wysokości minimum: zadanie nr 1 – 101 700,00 zł - zadanie nr 2 – 237 300,00 zł, - zadanie nr 3 – 271 200,00 zł 
+Uwaga: 
+• Jeżeli w dokumentach składanych w celu potwierdzenia spełniania warunku udziału w postępowaniu, kwoty będą wyrażane w walucie obcej, kwoty te zostaną przeliczone na PLN wg średniego kursu PLN w stosunku do walut obcych ogłaszanego przez Narodowy Bank Polski (Tabela A kursów średnich walut obcych) w dniu wystawienia dokumentu. W przypadku braku publikacji kursów walut NBP obowiązujących w dniu, o którym mowa powyżej, zastosowanie ma kurs ostatnio ogłoszony przed tym dniem, 
+• Jeżeli z uzasadnionej przyczyny wykonawca nie może złożyć dokumentów dotyczących sytuacji finansowej, o których mowa wyżej, wymaganych przez Zamawiającego, może złożyć inne podmiotowe środki dowodowe, które w wystarczający sposób potwierdzają spełnianie opisanego przez Zamawiającego warunku udziału w postępowaniu. 
+• W przypadku kiedy Wykonawca składa wniosek na kilka zadań winien zsumować wartość poszczególnych zadań i wykazać wysokość posiadanych środków finansowych lub zdolność kredytową dla ich zsumowanej wartości i tak np.: jeżeli Wykonawca składa wniosek na zadanie od 1 do 3 wysokość środków finansowych lub zdolność kredytowa winna opiewać na wartość 610 200,00 zł.
+3. Wykonawca może w celu potwierdzenia spełniania niniejszego warunku udziału w postępowaniu, w stosownych sytuacjach oraz w odniesieniu do konkretnego zamówienia, lub jego części, polegać na sytuacji finansowej lub ekonomicznej podmiotów, udostępniających zasoby, niezależnie od charakteru prawnego łączących go z nim stosunków prawnych. 
+4. Wykonawca, który polega na sytuacji podmiotów udostępniających zasoby składa, wraz z wnioskiem o dopuszczenie do udziału w postępowaniu, zobowiązanie podmiotu udostępniającego zasoby do oddania mu do dyspozycji niezbędnych zasobów na potrzeby realizacji zamówienia lub inny podmiotowy środek dowodowy potwierdzający, że Wykonawca realizując zamówienie, będzie dysponował niezbędnymi zasobami tych podmiotów. Zobowiązanie podmiotu udostępniającego zasoby, musi potwierdzać, że stosunek łączący Wykonawcę z podmiotami udostępniającymi zasoby gwarantuje rzeczywisty dostęp do tych zasobów oraz musi określać w szczególności:
+a)	zakres dostępnych Wykonawcy zasobów podmiotu udostępniającego zasoby,
+b)	sposób i okres udostępnienia Wykonawcy i wykorzystania przez niego zasobów podmiotu udostępniającego te zasoby przy wykonywaniu zamówienia.
+Zamawiający ocenia, czy udostępniane Wykonawcy przez podmioty udostępniające zasoby ich sytuacja finansowa lub ekonomiczna, pozwalają na wykazanie przez Wykonawcę spełniania warunków udziału w postępowaniu dotyczące sytuacji ekonomicznej lub finansowej oraz bada, czy nie zachodzą wobec tego podmiotu podstawy wykluczenia, o których mowa w art. 405 ust. 1 oraz art. 405 ust. 2 pkt 3), 4) i pkt 5) w zakresie określonym w art. 109 ust. 1 pkt 1) i 4) ustawy Pzp., a także w art. 5k rozporządzenia 833/2014 oraz w art. 7 ust. 1 ustawy o szczególnych rozwiązaniach w zakresie przeciwdziałania wspieraniu agresji na Ukrainę oraz służących ochronie bezpieczeństwa narodowego. 
+5. Zamawiający żąda od Wykonawcy, który polega na sytuacji podmiotów udostępniających zasoby na zasadach określonych w art. 118 ustawy Pzp, przedstawienia w odniesieniu do tych podmiotów dokumentów i oświadczeń wymienionych w części A ust. X załącznika do ogłoszenia zamieszczonego na platformie zakupowej.
+6. Wykonawca nie może, po upływie terminu składania wniosków o dopuszczenie do udziału w postępowaniu, powoływać się na  sytuacje podmiotów udostępniających zasoby, jeżeli na etapie składania wniosków nie polegał on w danym zakresie na zdolnościach lub sytuacji podmiotów udostępniających zasoby.
+7. Podmiot, który zobowiązał się do udostępnienia zasobów, odpowiada solidarnie z Wykonawcą, który polega na jego sytuacji finansowej lub ekonomicznej, za szkodę poniesioną przez Zamawiającego powstałą, wskutek nieudostępnienia tych zasobów, chyba, że za nieudostępnienie zasobów podmiot ten nie ponosi winy.</cbc:Description>
+                        <cbc:CalculationExpressionCode listName="usage">used</cbc:CalculationExpressionCode>
+                     </efac:SelectionCriteria>
+                     <efac:TenderSubcontractingRequirements>
+                        <efbc:TenderSubcontractingRequirementsCode listName="subcontracting-indication">shar-subc</efbc:TenderSubcontractingRequirementsCode>
+                     </efac:TenderSubcontractingRequirements>
+                  </efext:EformsExtension>
+               </ext:ExtensionContent>
+            </ext:UBLExtension>
+         </ext:UBLExtensions>
+         <cbc:VariantConstraintCode listName="permission">not-allowed</cbc:VariantConstraintCode>
+         <cac:RequiredFinancialGuarantee>
+            <cbc:GuaranteeTypeCode listName="tender-guarantee-required">true</cbc:GuaranteeTypeCode>
+            <cbc:Description languageID="POL">Zaproszeni do składania ofert Wykonawcy zobowiązani będą do zabezpieczenia ofert wadium na cały okres związania ofertą. Wykonawca, którego oferta zostanie wybrana jako najkorzystniejsza przez Zamawiającego zobowiązany będzie do wniesienia zabezpieczenia należytego wykonania umowy. Szczegółowe informacje na temat wadium i zabezpieczenia należytego wykonania umowy zostaną zawarte w SWZ, która zostanie przekazana Wykonawcom zaproszonym do składania ofert.</cbc:Description>
+         </cac:RequiredFinancialGuarantee>
+         <cac:CallForTendersDocumentReference>
+            <ext:UBLExtensions>
+               <ext:UBLExtension>
+                  <ext:ExtensionContent>
+                     <efext:EformsExtension>
+                        <efac:OfficialLanguages>
+                           <cac:Language>
+                              <cbc:ID>POL</cbc:ID>
+                           </cac:Language>
+                        </efac:OfficialLanguages>
+                     </efext:EformsExtension>
+                  </ext:ExtensionContent>
+               </ext:UBLExtension>
+            </ext:UBLExtensions>
+            <cbc:ID>_DEFAULT_VALUE_CHANGE_ME_</cbc:ID>
+            <cbc:DocumentType>non-restricted-document</cbc:DocumentType>
+            <cac:Attachment>
+               <cac:ExternalReference>
+                  <cbc:URI>https://portal.smartpzp.pl/1rblog</cbc:URI>
+               </cac:ExternalReference>
+            </cac:Attachment>
+         </cac:CallForTendersDocumentReference>
+         <cac:PaymentTerms>
+            <cbc:Note languageID="POL">Zapłata należności za wykonaną dostawę nastąpi w formie polecenia przelewu z rachunku Zamawiającego na rachunek bankowy Wykonawcy umieszczony na fakturze, w terminie 30 dni od daty wykonania przedmiotu umowy, potwierdzonego zgodnie z zapisami umowy i otrzymania przez Zamawiającego prawidłowo wystawionej faktury wraz z kompletem wymaganych dokumentów. Termin zapłaty uważa się za zachowany, jeżeli obciążenie rachunku dłużnika nastąpi najpóźniej w ostatnim dniu terminu płatności</cbc:Note>
+         </cac:PaymentTerms>
+         <cac:TendererQualificationRequest>
+            <cbc:CompanyLegalFormCode listName="required">true</cbc:CompanyLegalFormCode>
+            <cbc:CompanyLegalForm languageID="POL">Zgodnie z art. 58 ust. 1 ustawy Pzp, Wykonawcy mogą wspólnie ubiegać się o udzielenie zamówienia. 
+Wykonawcy wspólnie składający wniosek o dopuszczenie do udziału w postępowaniu: 
+1. złożą oddzielnie dla każdego z nich oświadczenia i dokumenty dotyczące wykazania braku podstaw wykluczenia, 
+2. przynajmniej jedna z firm wspólnie składających wniosek o dopuszczenie do udziału w postępowaniu winna jest przedstawić oświadczenie i dokumenty dotyczące spełnienia warunków udziału w postępowaniu, 
+3. spełnią warunek dotyczący zdolności technicznej lub zawodowej - Wykonawcy wspólnie ubiegający się o udzielenie zamówienia mogą spełnić ten warunek łącznie tzn. co najmniej jeden z Wykonawców spełni warunek lub Wykonawcy spełnią go łącznie, 
+4. spełnią warunek dotyczący sytuacji ekonomicznej lub finansowej - Wykonawcy wspólnie ubiegający się o udzielenie zamówienia mogą spełnić ten warunek łącznie tzn. co najmniej jeden z Wykonawców spełni warunek lub Wykonawcy spełnią go łącznie. 
+Ponadto Wykonawcy wspólnie ubiegający się o udzielenie zamówienia zobowiązani są przedłożyć: 
+1) pełnomocnictwo, w którym Wykonawcy ustanawiają pełnomocnika do reprezentowania ich w postępowaniu o udzielenia zamówienia albo reprezentowania w postępowaniu i zawarcia umowy w sprawie zamówienia publicznego (w pełnomocnictwie należy skonkretyzować postępowanie o udzielenie zamówienia publicznego, z podaniem numeru sprawy i przedmiotu zamówienia), 
+2) kopię umowy regulującej współpracę Wykonawców składających ofertę wspólnie przed zawarciem umowy w sprawie zamówienia w dziedzinach obronności i bezpieczeństwa (kopia potwierdzona za zgodność z oryginałem przez Wykonawcę).</cbc:CompanyLegalForm>
+         </cac:TendererQualificationRequest>
+         <cac:TendererQualificationRequest>
+            <cac:SpecificTendererRequirement>
+               <cbc:TendererRequirementTypeCode listName="reserved-procurement">none</cbc:TendererRequirementTypeCode>
+            </cac:SpecificTendererRequirement>
+         </cac:TendererQualificationRequest>
+         <cac:AllowedSubcontractTerms>
+            <cbc:SubcontractingConditionsCode listName="subcontracting-obligation">subc-chng</cbc:SubcontractingConditionsCode>
+         </cac:AllowedSubcontractTerms>
+         <cac:ContractExecutionRequirement>
+            <cbc:ExecutionRequirementCode listName="reserved-execution">no</cbc:ExecutionRequirementCode>
+         </cac:ContractExecutionRequirement>
+         <cac:ContractExecutionRequirement>
+            <cbc:ExecutionRequirementCode listName="conditions">performance</cbc:ExecutionRequirementCode>
+            <cbc:Description languageID="POL">Warunki przyszłej umowy zostaną określone w SWZ</cbc:Description>
+         </cac:ContractExecutionRequirement>
+         <cac:ContractExecutionRequirement>
+            <cbc:ExecutionRequirementCode listName="einvoicing">allowed</cbc:ExecutionRequirementCode>
+         </cac:ContractExecutionRequirement>
+         <cac:ContractExecutionRequirement>
+            <cbc:ExecutionRequirementCode listName="ecatalog-submission">not-allowed</cbc:ExecutionRequirementCode>
+         </cac:ContractExecutionRequirement>
+         <cac:AwardingTerms>
+            <cac:AwardingCriterion>
+               <cac:SubordinateAwardingCriterion>
+                  <ext:UBLExtensions>
+                     <ext:UBLExtension>
+                        <ext:ExtensionContent>
+                           <efext:EformsExtension>
+                              <efac:AwardCriterionParameter>
+                                 <efbc:ParameterCode listName="number-weight">per-exa</efbc:ParameterCode>
+                                 <efbc:ParameterNumeric>100</efbc:ParameterNumeric>
+                              </efac:AwardCriterionParameter>
+                           </efext:EformsExtension>
+                        </ext:ExtensionContent>
+                     </ext:UBLExtension>
+                  </ext:UBLExtensions>
+                  <cbc:AwardingCriterionTypeCode listName="award-criterion-type">price</cbc:AwardingCriterionTypeCode>
+                  <cbc:Description languageID="POL">Najkorzystniejszą ofertą będzie oferta, która uzyska najwyższą ilość punktów w kryterium oceny ofert: cena 100%</cbc:Description>
+               </cac:SubordinateAwardingCriterion>
+            </cac:AwardingCriterion>
+         </cac:AwardingTerms>
+         <cac:TenderRecipientParty>
+            <cbc:EndpointID>https://portal.smartpzp.pl/1rblog</cbc:EndpointID>
+            <cac:PartyIdentification>
+               <cbc:ID>ORG-0001</cbc:ID>
+            </cac:PartyIdentification>
+         </cac:TenderRecipientParty>
+         <cac:TenderEvaluationParty>
+            <cac:PartyIdentification>
+               <cbc:ID>ORG-0001</cbc:ID>
+            </cac:PartyIdentification>
+         </cac:TenderEvaluationParty>
+         <cac:AppealTerms>
+            <cac:PresentationPeriod>
+               <cbc:Description languageID="POL">Dokładne informacje na temat terminów składania odwołań: 
+1. Środki ochrony prawnej przysługują Wykonawcy a także innemu podmiotowi, jeżeli ma lub miał interes w uzyskaniu niniejszego zamówienia oraz poniósł lub może ponieść szkodę w wyniku naruszenia przez Zamawiającego przepisów ustawy. Środki ochrony prawnej wobec ogłoszenia o zamówieniu oraz dokumentów zamówienia przysługują również organizacjom wpisanym na listę, o której mowa w art. 469 pkt 15 ustawy oraz Rzecznikowi Małych i Średnich Przedsiębiorców. 
+2. Odwołanie przysługuje na: 1) niezgodną z przepisami ustawy czynność Zamawiającego, podjętą w postępowaniu o udzielenie zamówienia, w tym na projektowane postanowienia umowy, 2) zaniechanie czynności w postępowaniu o udzielenie zamówienia, do której Zamawiający był obowiązany na podstawie ustawy. 
+3. Odwołanie wnosi się do Prezesa Izby (art. 514 ust. 1 uPzp). 
+4. Odwołanie wnosi się w terminie 10 dni od dnia przekazania informacji o czynności Zamawiającego stanowiącej podstawę jego wniesienia, jeżeli informacja została przekazana przy użyciu środków komunikacji elektronicznej, albo w terminie 15 dni - jeżeli informacja została przekazana w inny sposób (art. 515 ust. 1 pkt 1) u Pzp) 
+5. Odwołanie wobec treści ogłoszenia wszczynającego postępowanie o udzielenie zamówienia lub wobec treści dokumentów zamówienia wnosi się w terminie 10 dni od dnia publikacji ogłoszenia w Dzienniku Urzędowym Unii Europejskiej lub zamieszczenia dokumentów zamówienia na stronie internetowej (art. 515 ust. 2 pkt 1) uPzp). 
+6. Odwołanie w przypadkach innych, niż określone w ust. 4 i 5 wnosi się w terminie 10 dni od dnia, w którym powzięto lub przy zachowaniu należytej staranności można było powziąć wiadomość o okolicznościach stanowiących podstawę jego wniesienia. (art. 515 ust. 3 pkt. 1 uPzp). 
+7. Na orzeczenie Izby oraz postanowienie Prezesa Izby, o którym mowa w art. 519 ust. 1, stronom oraz i uczestnikom postępowania odwoławczego przysługuje skarga do sądu. 
+8. Pozostałe zasady dot. środków ochrony prawnej zostały zawarte w Dziale IX ustawy Pzp.</cbc:Description>
+            </cac:PresentationPeriod>
+         </cac:AppealTerms>
+         <cac:Language>
+            <cbc:ID>POL</cbc:ID>
+         </cac:Language>
+      </cac:TenderingTerms>
+      <cac:TenderingProcess>
+         <cac:ParticipationRequestReceptionPeriod>
+            <cbc:EndDate>2024-01-12+01:00</cbc:EndDate>
+            <cbc:EndTime>09:30:00+01:00</cbc:EndTime>
+         </cac:ParticipationRequestReceptionPeriod>
+         <cac:AuctionTerms>
+            <cbc:AuctionConstraintIndicator>false</cbc:AuctionConstraintIndicator>
+         </cac:AuctionTerms>
+         <cac:ContractingSystem>
+            <cbc:ContractingSystemTypeCode listName="framework-agreement">none</cbc:ContractingSystemTypeCode>
+         </cac:ContractingSystem>
+         <cac:ContractingSystem>
+            <cbc:ContractingSystemTypeCode listName="dps-usage">none</cbc:ContractingSystemTypeCode>
+         </cac:ContractingSystem>
+      </cac:TenderingProcess>
+      <cac:ProcurementProject>
+         <cbc:ID>Zadanie nr 2</cbc:ID>
+         <cbc:Name languageID="POL">Dostawa koszulobluzy pod kamizelkę ochronną w kamuflażu pustynnym WTU nr 7/WOBWSM</cbc:Name>
+         <cbc:Description languageID="POL">Przedmiotem zamówienia jest dostawa koszulobluzy pod kamizelkę ochronną w kamuflażu pustynnym WTU nr 7/WOBWSM w ilości 3 500 kpl (w tym zamówienie podstawowe: 1 500 kpl, zamówienie w opcji 2 000 kpl.) 
+Szczegóły dotyczące przedmiotu zamówienia i kryteriów oceny ofert zostaną zamieszczone w Specyfikacji Warunków Zamówienia (SWZ), która wraz z "Wojskową Dokumentacją Techniczno - Technologiczną" zostanie przekazana Wykonawcom zaproszonym do składania ofert.</cbc:Description>
+         <cbc:ProcurementTypeCode listName="contract-nature">supplies</cbc:ProcurementTypeCode>
+         <cac:MainCommodityClassification>
+            <cbc:ItemClassificationCode listName="cpv">18400000</cbc:ItemClassificationCode>
+         </cac:MainCommodityClassification>
+         <cac:AdditionalCommodityClassification>
+            <cbc:ItemClassificationCode listName="cpv">18410000</cbc:ItemClassificationCode>
+         </cac:AdditionalCommodityClassification>
+         <cac:RealizedLocation>
+            <cbc:Description languageID="POL">Miejscem dostawy jest: 1 Regionalna Baza Logistyczna - Skład Toruń</cbc:Description>
+            <cac:Address>
+               <cbc:StreetName>ul. Balonowa 9</cbc:StreetName>
+               <cbc:CityName>Toruń</cbc:CityName>
+               <cbc:PostalZone>87-100</cbc:PostalZone>
+               <cbc:CountrySubentityCode listName="nuts">PL613</cbc:CountrySubentityCode>
+               <cac:Country>
+                  <cbc:IdentificationCode listName="country">POL</cbc:IdentificationCode>
+               </cac:Country>
+            </cac:Address>
+         </cac:RealizedLocation>
+         <cac:PlannedPeriod>
+            <cbc:DurationMeasure unitCode="DAY">120</cbc:DurationMeasure>
+         </cac:PlannedPeriod>
+         <cac:ContractExtension>
+            <cbc:OptionsDescription languageID="POL">W zakresie niniejszego zadania Zamawiający przewiduje możliwość skorzystania z prawa opcji. 
+Przedmiotem zamówienia jest dostawa koszulobluzy pod kamizelkę ochronną w kamuflażu pustynnym WTU nr 7/WOBWSM zgodnie z zestawieniem: ilość podstawowa: 1 500 kpl, ilość w opcji: 2 000 kpl, Razem - 3 500 kpl. przy czym ilości ujęte w opcji mogą być wykorzystane wg potrzeb Zamawiającego. O zamiarze skorzystania z prawa opcji wraz z podaniem ilości zamówionego przedmiotu zamówienia, Zamawiający poinformuje Wykonawcę (pisemnie lub e – mailem lub faksem) w terminie określonym w „Projektowanych postanowieniach umowy” stanowiących załącznik do SWZ.</cbc:OptionsDescription>
+            <cbc:MaximumNumberNumeric>0</cbc:MaximumNumberNumeric>
+         </cac:ContractExtension>
+      </cac:ProcurementProject>
+   </cac:ProcurementProjectLot>
+   <cac:ProcurementProjectLot>
+      <cbc:ID schemeName="Lot">LOT-0003</cbc:ID>
+      <cac:TenderingTerms>
+         <ext:UBLExtensions>
+            <ext:UBLExtension>
+               <ext:ExtensionContent>
+                  <efext:EformsExtension>
+                     <efac:SelectionCriteria>
+                        <cbc:CriterionTypeCode listName="selection-criterion">tp-abil</cbc:CriterionTypeCode>
+                        <cbc:Name languageID="POL">Zdolność techniczna</cbc:Name>
+                        <cbc:Description languageID="POL">1. W postępowaniu mogą wziąć udział Wykonawcy, którzy w okresie ostatnich 5 lat, a jeżeli okres prowadzenia działalności jest krótszy – w tym okresie wykonali należycie dostawy odzieży, których suma odpowiada co najmniej wartości: 
+- zadanie nr 1 –  406 800,00 zł 
+- zadanie nr 2 –  949 300,00 zł, 
+- zadanie nr 3 – 1 084 900,00 zł. 
+2. W celu potwierdzenia spełniania warunku Wykonawca zobowiązany jest złożyć wykaz dostaw potwierdzający, że w okresie ostatnich 5 lat przed upływem terminu składania wniosków o dopuszczenie do udziału w postępowaniu, a jeżeli okres prowadzenia działalności jest krótszy – w tym okresie – Wykonawca wykonał należycie dostawy odzieży, których suma odpowiada, co najmniej wartości: 
+- zadanie nr 1 –  406 800,00 zł 
+- zadanie nr 2 – 949 300,00 zł, 
+- zadanie nr 3 – 1 084 900,00 zł. (załącznik nr 3 do wniosku) oraz dowody określające, czy dostawy te zostały wykonane należycie. Wykonawca w wykazie – w załączniku nr 3 do wniosku - podaje wartość dostaw, ich przedmiot, datę wykonania i podmiot, na rzecz, którego dostawy zostały wykonane. 
+Dowodami, o których mowa wyżej, są referencje bądź inne dokumenty sporządzone przez podmiot, na rzecz, którego dostawy zostały wykonane, a jeżeli Wykonawca z przyczyn niezależnych od niego nie jest w stanie uzyskać tych dokumentów - oświadczenie Wykonawcy. Oświadczenie Wykonawcy powinno jednoznacznie wskazywać na przyczyny braku możliwości pozyskania dowodów określających (referencji) od podmiotów na rzecz których realizowane były dostawy. 
+Uwaga: 
+• W przypadku, kiedy Wykonawca składa wniosek na kilka zadań winien zsumować wartość poszczególnych zadań i na łączną kwotę przedstawić wykaz dostaw i tak np: jeżeli Wykonawca składa wniosek na zad. od 1 do 3 wykaz winien opiewać na wartość 1 2 441 000,00 zł. 
+• Jeżeli w dokumentach składanych w celu potwierdzenia spełniania warunku udziału w postępowaniu, kwoty będą wyrażane w walucie obcej, kwoty te zostaną przeliczone na PLN wg średniego kursu PLN w stosunku do walut obcych ogłaszanego przez Narodowy Bank Polski (Tabela A kursów średnich walut obcych) w dniu wykonania dostawy. W przypadku braku publikacji kursów walut NBP obowiązujących w dniu, o którym mowa powyżej, zastosowanie ma kurs ostatnio ogłoszony przed tym dniem. 
+• Jeżeli z uzasadnionej przyczyny Wykonawca nie może złożyć dokumentów dotyczących zdolności technicznej, o których mowa wyżej, wymaganych przez Zamawiającego, może złożyć inne podmiotowe środki dowodowe, które w wystarczający sposób potwierdzają spełnianie opisanego przez Zamawiającego warunku udziału w postępowaniu. Jeżeli Wykonawca powołuje się na doświadczenie w realizacji dostaw wykonywanych wspólnie z innymi Wykonawcami, wykaz dotyczyć ma wyłącznie dostaw, w których wykonaniu Wykonawca bezpośrednio uczestniczył.
+3. Wykonawca może w celu potwierdzenia spełniania warunków udziału w postępowaniu, w stosownych sytuacjach oraz w odniesieniu do konkretnego zamówienia, lub jego części, polegać na zdolnościach technicznych lub zawodowych podmiotów, udostępniających zasoby, niezależnie od charakteru prawnego łączących go z nim stosunków prawnych. 
+4. Wykonawca, który polega na zdolnościach podmiotów udostępniających zasoby składa, wraz z wnioskiem o dopuszczenie do udziału w postępowaniu, zobowiązanie podmiotu udostępniającego zasoby do oddania mu do dyspozycji niezbędnych zasobów na potrzeby realizacji zamówienia lub inny podmiotowy środek dowodowy potwierdzający, że Wykonawca realizując zamówienie, będzie dysponował niezbędnymi zasobami tych podmiotów. Zobowiązanie podmiotu udostępniającego zasoby, musi potwierdzać, że stosunek łączący Wykonawcę z podmiotami udostępniającymi zasoby gwarantuje rzeczywisty dostęp do tych zasobów oraz musi określać w szczególności:
+a)	zakres dostępnych Wykonawcy zasobów podmiotu udostępniającego zasoby,
+b)	sposób i okres udostępnienia Wykonawcy i wykorzystania przez niego zasobów podmiotu udostępniającego te zasoby przy wykonywaniu zamówienia.
+Zamawiający ocenia, czy udostępniane Wykonawcy przez podmioty udostępniające zasoby zdolności techniczne lub zawodowe, pozwalają na wykazanie przez Wykonawcę spełniania warunków udziału w postępowaniu dotyczące zdolności technicznej lub zawodowej oraz bada, czy nie zachodzą wobec tego podmiotu podstawy wykluczenia, o których mowa w art. 405 ust. 1 oraz art. 405 ust. 2 pkt 3), 4) i pkt 5) w zakresie określonym w art. 109 ust. 1 pkt 1) i 4) ustawy Pzp., a także w art. 5k rozporządzenia 833/2014 oraz w art. 7 ust. 1 ustawy o szczególnych rozwiązaniach w zakresie przeciwdziałania wspieraniu agresji na Ukrainę oraz służących ochronie bezpieczeństwa narodowego. 
+5. Zamawiający żąda od Wykonawcy, który polega na zdolnościach podmiotów udostępniających zasoby na zasadach określonych w art. 118 ustawy Pzp, przedstawienia w odniesieniu do tych podmiotów dokumentów i oświadczeń wymienionych w części A ust. X załącznika do ogłoszenia zamieszczonego na platformie zakupowej.
+6. Wykonawca nie może, po upływie terminu składania wniosków o dopuszczenie do udziału w postępowaniu, powoływać się na zdolności udostępniających zasoby, jeżeli na etapie składania wniosków nie polegał on w danym zakresie na zdolnościach  podmiotów udostępniających zasoby.</cbc:Description>
+                        <cbc:CalculationExpressionCode listName="usage">used</cbc:CalculationExpressionCode>
+                     </efac:SelectionCriteria>
+                     <efac:SelectionCriteria>
+                        <cbc:CriterionTypeCode listName="selection-criterion">ef-stand</cbc:CriterionTypeCode>
+                        <cbc:Name languageID="POL">Sytuacja finansowa</cbc:Name>
+                        <cbc:Description languageID="POL">1. Wykonawca spełni warunek, jeżeli wykaże, że w okresie nie wcześniejszym niż 3 miesiące przed upływem terminu składania wniosków o dopuszczenie do udziału w postępowaniu o udzielenie zamówienia, posiada środki finansowe lub zdolność kredytową w wysokości minimum: - zadanie nr 1 – 101 700,00 zł - zadanie nr 2 – 237 300,00 zł, - zadanie nr 3 – 271 200,00 zł 
+2. W celu potwierdzenia spełniania warunku, Wykonawca zobowiązany jest złożyć informację banku lub spółdzielczej kasy oszczędnościowo – kredytowej, potwierdzającą wysokość posiadanych środków finansowych lub zdolność kredytową Wykonawcy w okresie nie wcześniejszym niż 3 miesiące przed upływem terminu składania wniosków o dopuszczenie do udziału w postępowaniu, w wysokości minimum: zadanie nr 1 – 101 700,00 zł - zadanie nr 2 – 237 300,00 zł, - zadanie nr 3 – 271 200,00 zł 
+Uwaga: 
+• Jeżeli w dokumentach składanych w celu potwierdzenia spełniania warunku udziału w postępowaniu, kwoty będą wyrażane w walucie obcej, kwoty te zostaną przeliczone na PLN wg średniego kursu PLN w stosunku do walut obcych ogłaszanego przez Narodowy Bank Polski (Tabela A kursów średnich walut obcych) w dniu wystawienia dokumentu. W przypadku braku publikacji kursów walut NBP obowiązujących w dniu, o którym mowa powyżej, zastosowanie ma kurs ostatnio ogłoszony przed tym dniem, 
+• Jeżeli z uzasadnionej przyczyny wykonawca nie może złożyć dokumentów dotyczących sytuacji finansowej, o których mowa wyżej, wymaganych przez Zamawiającego, może złożyć inne podmiotowe środki dowodowe, które w wystarczający sposób potwierdzają spełnianie opisanego przez Zamawiającego warunku udziału w postępowaniu. 
+• W przypadku kiedy Wykonawca składa wniosek na kilka zadań winien zsumować wartość poszczególnych zadań i wykazać wysokość posiadanych środków finansowych lub zdolność kredytową dla ich zsumowanej wartości i tak np.: jeżeli Wykonawca składa wniosek na zadanie od 1 do 3 wysokość środków finansowych lub zdolność kredytowa winna opiewać na wartość 610 200,00 zł.
+3. Wykonawca może w celu potwierdzenia spełniania niniejszego warunku udziału w postępowaniu, w stosownych sytuacjach oraz w odniesieniu do konkretnego zamówienia, lub jego części, polegać na sytuacji finansowej lub ekonomicznej podmiotów, udostępniających zasoby, niezależnie od charakteru prawnego łączących go z nim stosunków prawnych. 
+4. Wykonawca, który polega na sytuacji podmiotów udostępniających zasoby składa, wraz z wnioskiem o dopuszczenie do udziału w postępowaniu, zobowiązanie podmiotu udostępniającego zasoby do oddania mu do dyspozycji niezbędnych zasobów na potrzeby realizacji zamówienia lub inny podmiotowy środek dowodowy potwierdzający, że Wykonawca realizując zamówienie, będzie dysponował niezbędnymi zasobami tych podmiotów. Zobowiązanie podmiotu udostępniającego zasoby, musi potwierdzać, że stosunek łączący Wykonawcę z podmiotami udostępniającymi zasoby gwarantuje rzeczywisty dostęp do tych zasobów oraz musi określać w szczególności:
+a)	zakres dostępnych Wykonawcy zasobów podmiotu udostępniającego zasoby,
+b)	sposób i okres udostępnienia Wykonawcy i wykorzystania przez niego zasobów podmiotu udostępniającego te zasoby przy wykonywaniu zamówienia.
+Zamawiający ocenia, czy udostępniane Wykonawcy przez podmioty udostępniające zasoby ich sytuacja finansowa lub ekonomiczna, pozwalają na wykazanie przez Wykonawcę spełniania warunków udziału w postępowaniu dotyczące sytuacji ekonomicznej lub finansowej oraz bada, czy nie zachodzą wobec tego podmiotu podstawy wykluczenia, o których mowa w art. 405 ust. 1 oraz art. 405 ust. 2 pkt 3), 4) i pkt 5) w zakresie określonym w art. 109 ust. 1 pkt 1) i 4) ustawy Pzp., a także w art. 5k rozporządzenia 833/2014 oraz w art. 7 ust. 1 ustawy o szczególnych rozwiązaniach w zakresie przeciwdziałania wspieraniu agresji na Ukrainę oraz służących ochronie bezpieczeństwa narodowego. 
+5. Zamawiający żąda od Wykonawcy, który polega na sytuacji podmiotów udostępniających zasoby na zasadach określonych w art. 118 ustawy Pzp, przedstawienia w odniesieniu do tych podmiotów dokumentów i oświadczeń wymienionych w części A ust. X załącznika do ogłoszenia zamieszczonego na platformie zakupowej.
+6. Wykonawca nie może, po upływie terminu składania wniosków o dopuszczenie do udziału w postępowaniu, powoływać się na  sytuacje podmiotów udostępniających zasoby, jeżeli na etapie składania wniosków nie polegał on w danym zakresie na zdolnościach lub sytuacji podmiotów udostępniających zasoby.
+7. Podmiot, który zobowiązał się do udostępnienia zasobów, odpowiada solidarnie z Wykonawcą, który polega na jego sytuacji finansowej lub ekonomicznej, za szkodę poniesioną przez Zamawiającego powstałą, wskutek nieudostępnienia tych zasobów, chyba, że za nieudostępnienie zasobów podmiot ten nie ponosi winy.</cbc:Description>
+                        <cbc:CalculationExpressionCode listName="usage">used</cbc:CalculationExpressionCode>
+                     </efac:SelectionCriteria>
+                     <efac:TenderSubcontractingRequirements>
+                        <efbc:TenderSubcontractingRequirementsCode listName="subcontracting-indication">shar-subc</efbc:TenderSubcontractingRequirementsCode>
+                     </efac:TenderSubcontractingRequirements>
+                  </efext:EformsExtension>
+               </ext:ExtensionContent>
+            </ext:UBLExtension>
+         </ext:UBLExtensions>
+         <cbc:VariantConstraintCode listName="permission">not-allowed</cbc:VariantConstraintCode>
+         <cac:RequiredFinancialGuarantee>
+            <cbc:GuaranteeTypeCode listName="tender-guarantee-required">true</cbc:GuaranteeTypeCode>
+            <cbc:Description languageID="POL">Zaproszeni do składania ofert Wykonawcy zobowiązani będą do zabezpieczenia ofert wadium na cały okres związania ofertą. Wykonawca, którego oferta zostanie wybrana jako najkorzystniejsza przez Zamawiającego zobowiązany będzie do wniesienia zabezpieczenia należytego wykonania umowy. Szczegółowe informacje na temat wadium i zabezpieczenia należytego wykonania umowy zostaną zawarte w SWZ, która zostanie przekazana Wykonawcom zaproszonym do składania ofert.</cbc:Description>
+         </cac:RequiredFinancialGuarantee>
+         <cac:CallForTendersDocumentReference>
+            <ext:UBLExtensions>
+               <ext:UBLExtension>
+                  <ext:ExtensionContent>
+                     <efext:EformsExtension>
+                        <efac:OfficialLanguages>
+                           <cac:Language>
+                              <cbc:ID>POL</cbc:ID>
+                           </cac:Language>
+                        </efac:OfficialLanguages>
+                     </efext:EformsExtension>
+                  </ext:ExtensionContent>
+               </ext:UBLExtension>
+            </ext:UBLExtensions>
+            <cbc:ID>_DEFAULT_VALUE_CHANGE_ME_</cbc:ID>
+            <cbc:DocumentType>non-restricted-document</cbc:DocumentType>
+            <cac:Attachment>
+               <cac:ExternalReference>
+                  <cbc:URI>https://portal.smartpzp.pl/1rblog</cbc:URI>
+               </cac:ExternalReference>
+            </cac:Attachment>
+         </cac:CallForTendersDocumentReference>
+         <cac:PaymentTerms>
+            <cbc:Note languageID="POL">Zapłata należności za wykonaną dostawę nastąpi w formie polecenia przelewu z rachunku Zamawiającego na rachunek bankowy Wykonawcy umieszczony na fakturze, w terminie 30 dni od daty wykonania przedmiotu umowy, potwierdzonego zgodnie z zapisami umowy i otrzymania przez Zamawiającego prawidłowo wystawionej faktury wraz z kompletem wymaganych dokumentów. Termin zapłaty uważa się za zachowany, jeżeli obciążenie rachunku dłużnika nastąpi najpóźniej w ostatnim dniu terminu płatności</cbc:Note>
+         </cac:PaymentTerms>
+         <cac:TendererQualificationRequest>
+            <cbc:CompanyLegalFormCode listName="required">true</cbc:CompanyLegalFormCode>
+            <cbc:CompanyLegalForm languageID="POL">Zgodnie z art. 58 ust. 1 ustawy Pzp, Wykonawcy mogą wspólnie ubiegać się o udzielenie zamówienia. 
+Wykonawcy wspólnie składający wniosek o dopuszczenie do udziału w postępowaniu: 
+1. złożą oddzielnie dla każdego z nich oświadczenia i dokumenty dotyczące wykazania braku podstaw wykluczenia, 
+2. przynajmniej jedna z firm wspólnie składających wniosek o dopuszczenie do udziału w postępowaniu winna jest przedstawić oświadczenie i dokumenty dotyczące spełnienia warunków udziału w postępowaniu, 
+3. spełnią warunek dotyczący zdolności technicznej lub zawodowej - Wykonawcy wspólnie ubiegający się o udzielenie zamówienia mogą spełnić ten warunek łącznie tzn. co najmniej jeden z Wykonawców spełni warunek lub Wykonawcy spełnią go łącznie, 
+4. spełnią warunek dotyczący sytuacji ekonomicznej lub finansowej - Wykonawcy wspólnie ubiegający się o udzielenie zamówienia mogą spełnić ten warunek łącznie tzn. co najmniej jeden z Wykonawców spełni warunek lub Wykonawcy spełnią go łącznie. 
+Ponadto Wykonawcy wspólnie ubiegający się o udzielenie zamówienia zobowiązani są przedłożyć: 
+1) pełnomocnictwo, w którym Wykonawcy ustanawiają pełnomocnika do reprezentowania ich w postępowaniu o udzielenia zamówienia albo reprezentowania w postępowaniu i zawarcia umowy w sprawie zamówienia publicznego (w pełnomocnictwie należy skonkretyzować postępowanie o udzielenie zamówienia publicznego, z podaniem numeru sprawy i przedmiotu zamówienia), 
+2) kopię umowy regulującej współpracę Wykonawców składających ofertę wspólnie przed zawarciem umowy w sprawie zamówienia w dziedzinach obronności i bezpieczeństwa (kopia potwierdzona za zgodność z oryginałem przez Wykonawcę).</cbc:CompanyLegalForm>
+         </cac:TendererQualificationRequest>
+         <cac:TendererQualificationRequest>
+            <cac:SpecificTendererRequirement>
+               <cbc:TendererRequirementTypeCode listName="reserved-procurement">none</cbc:TendererRequirementTypeCode>
+            </cac:SpecificTendererRequirement>
+         </cac:TendererQualificationRequest>
+         <cac:AllowedSubcontractTerms>
+            <cbc:SubcontractingConditionsCode listName="subcontracting-obligation">subc-chng</cbc:SubcontractingConditionsCode>
+         </cac:AllowedSubcontractTerms>
+         <cac:ContractExecutionRequirement>
+            <cbc:ExecutionRequirementCode listName="reserved-execution">no</cbc:ExecutionRequirementCode>
+         </cac:ContractExecutionRequirement>
+         <cac:ContractExecutionRequirement>
+            <cbc:ExecutionRequirementCode listName="conditions">performance</cbc:ExecutionRequirementCode>
+            <cbc:Description languageID="POL">Warunki przyszłej umowy zostaną określone w SWZ</cbc:Description>
+         </cac:ContractExecutionRequirement>
+         <cac:ContractExecutionRequirement>
+            <cbc:ExecutionRequirementCode listName="einvoicing">allowed</cbc:ExecutionRequirementCode>
+         </cac:ContractExecutionRequirement>
+         <cac:ContractExecutionRequirement>
+            <cbc:ExecutionRequirementCode listName="ecatalog-submission">not-allowed</cbc:ExecutionRequirementCode>
+         </cac:ContractExecutionRequirement>
+         <cac:AwardingTerms>
+            <cac:AwardingCriterion>
+               <cac:SubordinateAwardingCriterion>
+                  <ext:UBLExtensions>
+                     <ext:UBLExtension>
+                        <ext:ExtensionContent>
+                           <efext:EformsExtension>
+                              <efac:AwardCriterionParameter>
+                                 <efbc:ParameterCode listName="number-weight">per-exa</efbc:ParameterCode>
+                                 <efbc:ParameterNumeric>100</efbc:ParameterNumeric>
+                              </efac:AwardCriterionParameter>
+                           </efext:EformsExtension>
+                        </ext:ExtensionContent>
+                     </ext:UBLExtension>
+                  </ext:UBLExtensions>
+                  <cbc:AwardingCriterionTypeCode listName="award-criterion-type">price</cbc:AwardingCriterionTypeCode>
+                  <cbc:Description languageID="POL">Najkorzystniejszą ofertą będzie oferta, która uzyska najwyższą ilość punktów w kryterium oceny ofert: cena 100%</cbc:Description>
+               </cac:SubordinateAwardingCriterion>
+            </cac:AwardingCriterion>
+         </cac:AwardingTerms>
+         <cac:TenderRecipientParty>
+            <cbc:EndpointID>https://portal.smartpzp.pl/1rblog</cbc:EndpointID>
+            <cac:PartyIdentification>
+               <cbc:ID>ORG-0001</cbc:ID>
+            </cac:PartyIdentification>
+         </cac:TenderRecipientParty>
+         <cac:TenderEvaluationParty>
+            <cac:PartyIdentification>
+               <cbc:ID>ORG-0001</cbc:ID>
+            </cac:PartyIdentification>
+         </cac:TenderEvaluationParty>
+         <cac:AppealTerms>
+            <cac:PresentationPeriod>
+               <cbc:Description languageID="POL">Dokładne informacje na temat terminów składania odwołań: 
+1. Środki ochrony prawnej przysługują Wykonawcy a także innemu podmiotowi, jeżeli ma lub miał interes w uzyskaniu niniejszego zamówienia oraz poniósł lub może ponieść szkodę w wyniku naruszenia przez Zamawiającego przepisów ustawy. Środki ochrony prawnej wobec ogłoszenia o zamówieniu oraz dokumentów zamówienia przysługują również organizacjom wpisanym na listę, o której mowa w art. 469 pkt 15 ustawy oraz Rzecznikowi Małych i Średnich Przedsiębiorców. 
+2. Odwołanie przysługuje na: 1) niezgodną z przepisami ustawy czynność Zamawiającego, podjętą w postępowaniu o udzielenie zamówienia, w tym na projektowane postanowienia umowy, 2) zaniechanie czynności w postępowaniu o udzielenie zamówienia, do której Zamawiający był obowiązany na podstawie ustawy. 
+3. Odwołanie wnosi się do Prezesa Izby (art. 514 ust. 1 uPzp). 
+4. Odwołanie wnosi się w terminie 10 dni od dnia przekazania informacji o czynności Zamawiającego stanowiącej podstawę jego wniesienia, jeżeli informacja została przekazana przy użyciu środków komunikacji elektronicznej, albo w terminie 15 dni - jeżeli informacja została przekazana w inny sposób (art. 515 ust. 1 pkt 1) u Pzp) 
+5. Odwołanie wobec treści ogłoszenia wszczynającego postępowanie o udzielenie zamówienia lub wobec treści dokumentów zamówienia wnosi się w terminie 10 dni od dnia publikacji ogłoszenia w Dzienniku Urzędowym Unii Europejskiej lub zamieszczenia dokumentów zamówienia na stronie internetowej (art. 515 ust. 2 pkt 1) uPzp). 
+6. Odwołanie w przypadkach innych, niż określone w ust. 4 i 5 wnosi się w terminie 10 dni od dnia, w którym powzięto lub przy zachowaniu należytej staranności można było powziąć wiadomość o okolicznościach stanowiących podstawę jego wniesienia. (art. 515 ust. 3 pkt. 1 uPzp). 
+7. Na orzeczenie Izby oraz postanowienie Prezesa Izby, o którym mowa w art. 519 ust. 1, stronom oraz i uczestnikom postępowania odwoławczego przysługuje skarga do sądu. 
+8. Pozostałe zasady dot. środków ochrony prawnej zostały zawarte w Dziale IX ustawy Pzp.</cbc:Description>
+            </cac:PresentationPeriod>
+         </cac:AppealTerms>
+         <cac:Language>
+            <cbc:ID>POL</cbc:ID>
+         </cac:Language>
+      </cac:TenderingTerms>
+      <cac:TenderingProcess>
+         <cac:ParticipationRequestReceptionPeriod>
+            <cbc:EndDate>2024-01-12+01:00</cbc:EndDate>
+            <cbc:EndTime>09:30:00+01:00</cbc:EndTime>
+         </cac:ParticipationRequestReceptionPeriod>
+         <cac:AuctionTerms>
+            <cbc:AuctionConstraintIndicator>false</cbc:AuctionConstraintIndicator>
+         </cac:AuctionTerms>
+         <cac:ContractingSystem>
+            <cbc:ContractingSystemTypeCode listName="framework-agreement">none</cbc:ContractingSystemTypeCode>
+         </cac:ContractingSystem>
+         <cac:ContractingSystem>
+            <cbc:ContractingSystemTypeCode listName="dps-usage">none</cbc:ContractingSystemTypeCode>
+         </cac:ContractingSystem>
+      </cac:TenderingProcess>
+      <cac:ProcurementProject>
+         <cbc:ID>Zadanie nr 3</cbc:ID>
+         <cbc:Name languageID="POL">Dostawa koszulobluzy pod kamizelkę ochronną w kamuflażu pustynnym WTU nr 7/WOBWSM</cbc:Name>
+         <cbc:Description languageID="POL">Przedmiotem zamówienia jest dostawa koszulobluzy pod kamizelkę ochronną w kamuflażu pustynnym WTU nr 7/WOBWSM w ilości 4 000 kpl (w tym zamówienie podstawowe: 2 000 kpl, zamówienie w opcji 2 000 kpl.) 
+Szczegóły dotyczące przedmiotu zamówienia i kryteriów oceny ofert zostaną zamieszczone w Specyfikacji Warunków Zamówienia (SWZ), która wraz z "Wojskową Dokumentacją Techniczno - Technologiczną" zostanie przekazana Wykonawcom zaproszonym do składania ofert.</cbc:Description>
+         <cbc:ProcurementTypeCode listName="contract-nature">supplies</cbc:ProcurementTypeCode>
+         <cac:MainCommodityClassification>
+            <cbc:ItemClassificationCode listName="cpv">18400000</cbc:ItemClassificationCode>
+         </cac:MainCommodityClassification>
+         <cac:AdditionalCommodityClassification>
+            <cbc:ItemClassificationCode listName="cpv">18410000</cbc:ItemClassificationCode>
+         </cac:AdditionalCommodityClassification>
+         <cac:RealizedLocation>
+            <cbc:Description languageID="POL">Miejscem dostawy jest: 1 Regionalna Baza Logistyczna - Skład Toruń</cbc:Description>
+            <cac:Address>
+               <cbc:StreetName>ul. Balonowa 9</cbc:StreetName>
+               <cbc:CityName>Toruń</cbc:CityName>
+               <cbc:PostalZone>87-100</cbc:PostalZone>
+               <cbc:CountrySubentityCode listName="nuts">PL613</cbc:CountrySubentityCode>
+               <cac:Country>
+                  <cbc:IdentificationCode listName="country">POL</cbc:IdentificationCode>
+               </cac:Country>
+            </cac:Address>
+         </cac:RealizedLocation>
+         <cac:PlannedPeriod>
+            <cbc:DurationMeasure unitCode="DAY">120</cbc:DurationMeasure>
+         </cac:PlannedPeriod>
+         <cac:ContractExtension>
+            <cbc:OptionsDescription languageID="POL">W zakresie niniejszego zadania Zamawiający przewiduje możliwość skorzystania z prawa opcji. 
+Przedmiotem zamówienia jest dostawa koszulobluzy pod kamizelkę ochronną w kamuflażu pustynnym WTU nr 7/WOBWSM zgodnie z zestawieniem: ilość podstawowa: 2 000 kpl, ilość w opcji: 2 000 kpl, Razem - 4 000 kpl. przy czym ilości ujęte w opcji mogą być wykorzystane wg potrzeb Zamawiającego. O zamiarze skorzystania z prawa opcji wraz z podaniem ilości zamówionego przedmiotu zamówienia, Zamawiający poinformuje Wykonawcę (pisemnie lub e – mailem lub faksem) w terminie określonym w „Projektowanych postanowieniach umowy” stanowiących załącznik do SWZ.</cbc:OptionsDescription>
+            <cbc:MaximumNumberNumeric>0</cbc:MaximumNumberNumeric>
+         </cac:ContractExtension>
+      </cac:ProcurementProject>
+   </cac:ProcurementProjectLot>
+</ContractNotice>

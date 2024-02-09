@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><ContractNotice xmlns="urn:oasis:names:specification:ubl:schema:xsd:ContractNotice-2" xmlns:cac="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2" xmlns:cbc="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2" xmlns:efac="http://data.europa.eu/p27/eforms-ubl-extension-aggregate-components/1" xmlns:efbc="http://data.europa.eu/p27/eforms-ubl-extension-basic-components/1" xmlns:efext="http://data.europa.eu/p27/eforms-ubl-extensions/1" xmlns:ext="urn:oasis:names:specification:ubl:schema:xsd:CommonExtensionComponents-2">
+   <ext:UBLExtensions>
+      <ext:UBLExtension>
+         <ext:ExtensionContent>
+            <efext:EformsExtension>
+               <efac:NoticeSubType>
+                  <cbc:SubTypeCode listName="notice-subtype">15</cbc:SubTypeCode>
+               </efac:NoticeSubType>
+               <efac:Organizations>
+                  <efac:Organization>
+                     <efbc:AcquiringCPBIndicator>false</efbc:AcquiringCPBIndicator>
+                     <efbc:AwardingCPBIndicator>false</efbc:AwardingCPBIndicator>
+                     <efac:Company>
+                        <cbc:WebsiteURI>https://konzern.oebb.at</cbc:WebsiteURI>
+                        <cbc:EndpointID>https://www.provia.at</cbc:EndpointID>
+                        <cac:PartyIdentification>
+                           <cbc:ID>ORG-0001</cbc:ID>
+                        </cac:PartyIdentification>
+                        <cac:PartyName>
+                           <cbc:Name languageID="DEU">ÖBB-Holding AG sowie die mit ihr im Sinne des § 189a Z 8 UGB verbundenen Gesellschaften, alle vertreten durch die ÖBB-Infrastruktur AG</cbc:Name>
+                        </cac:PartyName>
+                        <cac:PostalAddress>
+                           <cbc:StreetName>Praterstern 3</cbc:StreetName>
+                           <cbc:CityName>Wien</cbc:CityName>
+                           <cbc:PostalZone>1020</cbc:PostalZone>
+                           <cbc:CountrySubentityCode listName="nuts">AT130</cbc:CountrySubentityCode>
+                           <cac:Country>
+                              <cbc:IdentificationCode listName="country">AUT</cbc:IdentificationCode>
+                           </cac:Country>
+                        </cac:PostalAddress>
+                        <cac:PartyLegalEntity>
+                           <cbc:CompanyID>FN71396w</cbc:CompanyID>
+                        </cac:PartyLegalEntity>
+                        <cac:Contact>
+                           <cbc:Name>Florian Lederer (Stab Einkauf)</cbc:Name>
+                           <cbc:Telephone>+43 664 2866586</cbc:Telephone>
+                           <cbc:ElectronicMail>florian.lederer@oebb.at</cbc:ElectronicMail>
+                        </cac:Contact>
+                     </efac:Company>
+                  </efac:Organization>
+                  <efac:Organization>
+                     <efac:Company>
+                        <cbc:WebsiteURI>http://www.bvwg.gv.at</cbc:WebsiteURI>
+                        <cac:PartyIdentification>
+                           <cbc:ID>ORG-0002</cbc:ID>
+                        </cac:PartyIdentification>
+                        <cac:PartyName>
+                           <cbc:Name languageID="DEU">Bundesverwaltungsgericht</cbc:Name>
+                        </cac:PartyName>
+                        <cac:PostalAddress>
+                           <cbc:StreetName>Erdbergstraße 192-196</cbc:StreetName>
+                           <cbc:CityName>Wien</cbc:CityName>
+                           <cbc:PostalZone>1030</cbc:PostalZone>
+                           <cbc:CountrySubentityCode listName="nuts">AT130</cbc:CountrySubentityCode>
+                           <cac:Country>
+                              <cbc:IdentificationCode listName="country">AUT</cbc:IdentificationCode>
+                           </cac:Country>
+                        </cac:PostalAddress>
+                        <cac:PartyLegalEntity>
+                           <cbc:CompanyID>9110008059823</cbc:CompanyID>
+                        </cac:PartyLegalEntity>
+                        <cac:Contact>
+                           <cbc:Telephone>+43 1-60149-0</cbc:Telephone>
+                           <cbc:Telefax>+43 1-711-23-889-1541</cbc:Telefax>
+                           <cbc:ElectronicMail>einlaufstelle@bvwg.gv.at</cbc:ElectronicMail>
+                        </cac:Contact>
+                     </efac:Company>
+                  </efac:Organization>
+               </efac:Organizations>
+            <efac:Publication><efbc:NoticePublicationID schemeName="ojs-notice-id">00741214-2023</efbc:NoticePublicationID><efbc:GazetteID schemeName="ojs-id">235/2023</efbc:GazetteID><efbc:PublicationDate>2023-12-06Z</efbc:PublicationDate></efac:Publication></efext:EformsExtension>
+         </ext:ExtensionContent>
+      </ext:UBLExtension>
+   </ext:UBLExtensions>
+   <cbc:UBLVersionID>2.3</cbc:UBLVersionID>
+   <cbc:CustomizationID>eforms-sdk-1.10</cbc:CustomizationID>
+   <cbc:ID schemeName="notice-id">5ddc39ed-ed39-435f-987a-69c4e4dcfe9a</cbc:ID>
+   <cbc:ContractFolderID>e7a837d2-ab0a-4c77-bc18-98acb35a7b80</cbc:ContractFolderID>
+   <cbc:IssueDate>2023-12-05Z</cbc:IssueDate>
+   <cbc:IssueTime>14:15:15Z</cbc:IssueTime>
+   <cbc:VersionID>01</cbc:VersionID>
+   <cbc:RegulatoryDomain>32014L0025</cbc:RegulatoryDomain>
+   <cbc:NoticeTypeCode listName="competition">qu-sy</cbc:NoticeTypeCode>
+   <cbc:NoticeLanguageCode listName="language">DEU</cbc:NoticeLanguageCode>
+   <cac:ContractingParty>
+      <cbc:BuyerProfileURI>https://www.provia.at</cbc:BuyerProfileURI>
+      <cac:ContractingPartyType>
+         <cbc:PartyTypeCode listName="buyer-legal-type">pub-undert</cbc:PartyTypeCode>
+      </cac:ContractingPartyType>
+      <cac:ContractingActivity>
+         <cbc:ActivityTypeCode listName="entity-activity">rail</cbc:ActivityTypeCode>
+      </cac:ContractingActivity>
+      <cac:Party>
+         <cac:PartyIdentification>
+            <cbc:ID>ORG-0001</cbc:ID>
+         </cac:PartyIdentification>
+      </cac:Party>
+   </cac:ContractingParty>
+   <cac:ProcurementProject>
+      <cbc:ID>ProVia -ID 1026</cbc:ID>
+      <cbc:Name languageID="DEU">(ProVia-ID 1026) Aluminiumguss-Armaturen für Oberleitungs-Porzellan-Isolatoren</cbc:Name>
+      <cbc:Description languageID="DEU">Aluminiumguss-Armaturen für Oberleitungs-Porzellan-Isolatoren:
+Es gelten die Technischen Lieferbedingungen TL E 530 sowie zugehörige Normen für folgende Alugussbauteile (ED-Zeichnungen):
+ED 6515 Stützerkappe Ausgabe 03-02-2015
+ED 6525 Rohrkappe 5-4 Zoll Ausgabe 03-02-2015
+ED 6526 Gabelkappe Strunk 80 Ausgabe 03-02-2015
+ED 6527 Gabelkappe Strunk 60 Ausgabe 03-02-2015
+ED 6529 Pfannenkappe Ausgabe 03-02-2015
+ED 6530 Rohrkappe 6-4 Zoll Ausgabe 03-02-2015
+ED 6557-1 Anschlussflansch Ausgabe 02-04-2015
+ED 6557-2 Isolatorkappe mit Lasche Ausgabe 02-04-2015
+Das Prüfsystem wird ausschließlich auf der Plattform ProVia (https://www.provia.at) &gt; Veröffentlichungen &gt; Veröffentlichte Prüfsysteme zur Verfügung gestellt!</cbc:Description>
+      <cbc:ProcurementTypeCode listName="contract-nature">supplies</cbc:ProcurementTypeCode>
+      <cbc:Note languageID="DEU">Wir weisen ausdrücklich darauf hin dass es sich bei dieser Bekanntmachung um ein Prüfsystem und keine Ausschreibung handelt! Das Prüfsystem ermöglicht eine Eignungsprüfung von Unternehmen losgelöst von konkreten Vergabeverfahren. Die im Rahmen des Prüfsystems erfolgreichen Unternehmer werden in ein Verzeichnis aufgenommen und bei konkreten Vergaben direkt – d.h. ohne weitere Bekanntmachung – zur Angebotslegung eingeladen (siehe §§ 228, 256 BVergG 2018). Das Prüfsystem wird ausschließlich auf der Plattform ProVia (https://www.provia.at) &gt; Veröffentlichungen &gt; Veröffentlichte Prüfsysteme zur Verfügung gestellt! Rückfragen per E-Mail oder Post müssen ausnahmslos im Betreff die Worte „PS – Aluminiumguss-Armaturen für Oberleitungs-Porzellan-Isolatoren“ beinhalten.</cbc:Note>
+      <cac:MainCommodityClassification>
+         <cbc:ItemClassificationCode listName="cpv">44530000</cbc:ItemClassificationCode>
+      </cac:MainCommodityClassification>
+      <cac:RealizedLocation>
+         <cbc:Description languageID="DEU">Österreichweit</cbc:Description>
+         <cac:Address>
+            <cbc:Region>anyw</cbc:Region>
+         </cac:Address>
+      </cac:RealizedLocation>
+   </cac:ProcurementProject>
+   <cac:ProcurementProjectLot>
+      <cbc:ID schemeName="Lot">LOT-0000</cbc:ID>
+      <cac:TenderingTerms>
+         <ext:UBLExtensions>
+            <ext:UBLExtension>
+               <ext:ExtensionContent>
+                  <efext:EformsExtension>
+                     <efac:SelectionCriteria>
+                        <cbc:CriterionTypeCode listName="selection-criterion">sui-act</cbc:CriterionTypeCode>
+                        <cbc:Description languageID="DEU">Die Anforderungen an die Eignungskriterien sind im Prüfsystem definiert.</cbc:Description>
+                     </efac:SelectionCriteria>
+                     <efac:SelectionCriteria>
+                        <cbc:CriterionTypeCode listName="selection-criterion">ef-stand</cbc:CriterionTypeCode>
+                        <cbc:Description languageID="DEU">Die Anforderungen an die Eignungskriterien sind im Prüfsystem definiert.</cbc:Description>
+                     </efac:SelectionCriteria>
+                     <efac:SelectionCriteria>
+                        <cbc:CriterionTypeCode listName="selection-criterion">tp-abil</cbc:CriterionTypeCode>
+                        <cbc:Description languageID="DEU">Die Anforderungen an die Eignungskriterien sind im Prüfsystem definiert.</cbc:Description>
+                     </efac:SelectionCriteria>
+                     <efac:SelectionCriteria>
+                        <cbc:CriterionTypeCode listName="selection-criterion">other</cbc:CriterionTypeCode>
+                        <cbc:Description languageID="DEU">Die Anforderungen an die Eignungskriterien sind im Prüfsystem definiert.</cbc:Description>
+                     </efac:SelectionCriteria>
+                  </efext:EformsExtension>
+               </ext:ExtensionContent>
+            </ext:UBLExtension>
+         </ext:UBLExtensions>
+         <cac:TendererQualificationRequest>
+            <cac:SpecificTendererRequirement>
+               <cbc:TendererRequirementTypeCode listName="reserved-procurement">none</cbc:TendererRequirementTypeCode>
+            </cac:SpecificTendererRequirement>
+         </cac:TendererQualificationRequest>
+         <cac:ContractExecutionRequirement>
+            <cbc:ExecutionRequirementCode listName="reserved-execution">no</cbc:ExecutionRequirementCode>
+         </cac:ContractExecutionRequirement>
+         <cac:ContractExecutionRequirement>
+            <cbc:ExecutionRequirementCode listName="conditions">performance</cbc:ExecutionRequirementCode>
+            <cbc:Description languageID="DEU">Die Anforderungen an die Leistungsbedingungen sind im Prüfsystem definiert.</cbc:Description>
+         </cac:ContractExecutionRequirement>
+         <cac:ContractExecutionRequirement>
+            <cbc:ExecutionRequirementCode listName="einvoicing">required</cbc:ExecutionRequirementCode>
+         </cac:ContractExecutionRequirement>
+         <cac:ContractExecutionRequirement>
+            <cbc:ExecutionRequirementCode listName="esignature-submission">true</cbc:ExecutionRequirementCode>
+         </cac:ContractExecutionRequirement>
+         <cac:AdditionalInformationParty>
+            <cac:PartyIdentification>
+               <cbc:ID>ORG-0001</cbc:ID>
+            </cac:PartyIdentification>
+         </cac:AdditionalInformationParty>
+         <cac:TenderRecipientParty>
+            <cbc:EndpointID>https://www.provia.at</cbc:EndpointID>
+         </cac:TenderRecipientParty>
+         <cac:AppealTerms>
+            <cac:AppealReceiverParty>
+               <cac:PartyIdentification>
+                  <cbc:ID>ORG-0002</cbc:ID>
+               </cac:PartyIdentification>
+            </cac:AppealReceiverParty>
+         </cac:AppealTerms>
+         <cac:Language>
+            <cbc:ID>DEU</cbc:ID>
+         </cac:Language>
+         <cac:PostAwardProcess>
+            <cbc:ElectronicOrderUsageIndicator>true</cbc:ElectronicOrderUsageIndicator>
+            <cbc:ElectronicPaymentUsageIndicator>true</cbc:ElectronicPaymentUsageIndicator>
+         </cac:PostAwardProcess>
+      </cac:TenderingTerms>
+      <cac:TenderingProcess>
+         <cbc:SubmissionMethodCode listName="esubmission">required</cbc:SubmissionMethodCode>
+         <cbc:GovernmentAgreementConstraintIndicator>false</cbc:GovernmentAgreementConstraintIndicator>
+      </cac:TenderingProcess>
+      <cac:ProcurementProject>
+         <cbc:ID>ProVia-ID 1026</cbc:ID>
+         <cbc:Name languageID="DEU">(ProVia-ID 1026) Aluminiumguss-Armaturen für Oberleitungs-Porzellan-Isolatoren</cbc:Name>
+         <cbc:Description languageID="DEU">Aluminiumguss-Armaturen für Oberleitungs-Porzellan-Isolatoren:
+Es gelten die Technischen Lieferbedingungen TL E 530 sowie zugehörige Normen für folgende Alugussbauteile (ED-Zeichnungen):
+ED 6515 Stützerkappe Ausgabe 03-02-2015
+ED 6525 Rohrkappe 5-4 Zoll Ausgabe 03-02-2015
+ED 6526 Gabelkappe Strunk 80 Ausgabe 03-02-2015
+ED 6527 Gabelkappe Strunk 60 Ausgabe 03-02-2015
+ED 6529 Pfannenkappe Ausgabe 03-02-2015
+ED 6530 Rohrkappe 6-4 Zoll Ausgabe 03-02-2015
+ED 6557-1 Anschlussflansch Ausgabe 02-04-2015
+ED 6557-2 Isolatorkappe mit Lasche Ausgabe 02-04-2015
+Das Prüfsystem wird ausschließlich auf der Plattform ProVia (https://www.provia.at) &gt; Veröffentlichungen &gt; Veröffentlichte Prüfsysteme zur Verfügung gestellt!</cbc:Description>
+         <cbc:ProcurementTypeCode listName="contract-nature">supplies</cbc:ProcurementTypeCode>
+         <cbc:SMESuitableIndicator>true</cbc:SMESuitableIndicator>
+         <cac:MainCommodityClassification>
+            <cbc:ItemClassificationCode listName="cpv">44530000</cbc:ItemClassificationCode>
+         </cac:MainCommodityClassification>
+         <cac:AdditionalCommodityClassification>
+            <cbc:ItemClassificationCode listName="cpv">44111500</cbc:ItemClassificationCode>
+         </cac:AdditionalCommodityClassification>
+         <cac:RealizedLocation>
+            <cbc:Description languageID="DEU">Österreichweit</cbc:Description>
+            <cac:Address>
+               <cbc:Region>anyw</cbc:Region>
+            </cac:Address>
+         </cac:RealizedLocation>
+         <cac:PlannedPeriod>
+            <cbc:DescriptionCode listName="timeperiod">UNLIMITED</cbc:DescriptionCode>
+         </cac:PlannedPeriod>
+         <cac:ContractExtension>
+            <cbc:MaximumNumberNumeric>0</cbc:MaximumNumberNumeric>
+         </cac:ContractExtension>
+      </cac:ProcurementProject>
+   </cac:ProcurementProjectLot>
+</ContractNotice>

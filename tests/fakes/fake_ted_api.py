@@ -8,7 +8,7 @@ from tests import TEST_DATA_PATH
 
 
 def get_fake_api_response() -> dict:
-    path = TEST_DATA_PATH / "notices" / "2021-OJS237-623049.json"
+    path = TEST_DATA_PATH / "notice_fetcher" / "ted_api_response" / "ted_api_response.json"
     return json.loads(path.read_text())
 
 
@@ -38,7 +38,7 @@ class FakeTedApiAdapter(TedAPIAdapterABC):
         :param wildcard_date:
         :return:
         """
-        return [notice_data for notice_data in get_fake_api_response()["results"]]
+        return [notice_data for notice_data in get_fake_api_response()["notices"]]
 
     def get_by_id(self, document_id: str) -> dict:
         """
@@ -46,7 +46,7 @@ class FakeTedApiAdapter(TedAPIAdapterABC):
         :param document_id:
         :return:
         """
-        return get_fake_api_response()["results"][0]
+        return get_fake_api_response()["notices"][0]
 
     def get_by_range_date(self, start_date: date, end_date: date) -> List[dict]:
         """
@@ -55,7 +55,7 @@ class FakeTedApiAdapter(TedAPIAdapterABC):
         :param end_date:
         :return:
         """
-        return [notice_data for notice_data in get_fake_api_response()["results"]]
+        return [notice_data for notice_data in get_fake_api_response()["notices"]]
 
     def get_by_query(self, query: dict, result_fields: dict = None) -> List[dict]:
         """
@@ -64,4 +64,4 @@ class FakeTedApiAdapter(TedAPIAdapterABC):
         :param result_fields:
         :return:
         """
-        return [notice_data for notice_data in get_fake_api_response()["results"]]
+        return [notice_data for notice_data in get_fake_api_response()["notices"]]

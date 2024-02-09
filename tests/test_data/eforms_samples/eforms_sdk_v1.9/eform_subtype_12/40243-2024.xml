@@ -1,0 +1,945 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><PriorInformationNotice xmlns="urn:oasis:names:specification:ubl:schema:xsd:PriorInformationNotice-2" xmlns:cac="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2" xmlns:cbc="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2" xmlns:efac="http://data.europa.eu/p27/eforms-ubl-extension-aggregate-components/1" xmlns:efbc="http://data.europa.eu/p27/eforms-ubl-extension-basic-components/1" xmlns:efext="http://data.europa.eu/p27/eforms-ubl-extensions/1" xmlns:ext="urn:oasis:names:specification:ubl:schema:xsd:CommonExtensionComponents-2">
+    <ext:UBLExtensions>
+        <ext:UBLExtension>
+            <ext:ExtensionContent>
+                <efext:EformsExtension>
+                    <efbc:TransmissionDate>2024-01-18+02:00</efbc:TransmissionDate>
+                    <efbc:TransmissionTime>13:02:40.479+02:00</efbc:TransmissionTime>
+                    <efac:NoticeSubType>
+                        <cbc:SubTypeCode>12</cbc:SubTypeCode>
+                    </efac:NoticeSubType>
+                    <efac:Organizations>
+                        <efac:Organization>
+                            <efac:Company>
+                                <cbc:WebsiteURI>http://www.tartu.ee</cbc:WebsiteURI>
+                                <cac:PartyIdentification>
+                                    <cbc:ID schemeName="organization">ORG-0001</cbc:ID>
+                                </cac:PartyIdentification>
+                                <cac:PartyName>
+                                    <cbc:Name languageID="EST">Tartu Linnavalitsus</cbc:Name>
+                                </cac:PartyName>
+                                <cac:PostalAddress>
+                                    <cbc:StreetName>Raekoja plats 1a</cbc:StreetName>
+                                    <cbc:CityName> Tartu linn</cbc:CityName>
+                                    <cbc:PostalZone>50089</cbc:PostalZone>
+                                    <cac:Country>
+                                        <cbc:IdentificationCode listName="country">EST</cbc:IdentificationCode>
+                                    </cac:Country>
+                                </cac:PostalAddress>
+                                <cac:PartyLegalEntity>
+                                    <cbc:CompanyID>75006546</cbc:CompanyID>
+                                </cac:PartyLegalEntity>
+                                <cac:Contact>
+                                    <cbc:Name>SIRLE SÕSTRA-ORU</cbc:Name>
+                                    <cbc:Telephone>+372 5121899</cbc:Telephone>
+                                    <cbc:ElectronicMail>lv@tartu.ee</cbc:ElectronicMail>
+                                </cac:Contact>
+                            </efac:Company>
+                        </efac:Organization>
+                        <efac:Organization>
+                            <efac:Company>
+                                <cac:PartyIdentification>
+                                    <cbc:ID schemeName="organization">ORG-0002</cbc:ID>
+                                </cac:PartyIdentification>
+                                <cac:PartyName>
+                                    <cbc:Name languageID="EST">Riigihangete vaidlustuskomisjon</cbc:Name>
+                                </cac:PartyName>
+                                <cac:PostalAddress>
+                                    <cbc:StreetName>Tartu mnt 85</cbc:StreetName>
+                                    <cbc:CityName>Tallinn</cbc:CityName>
+                                    <cbc:PostalZone>10115</cbc:PostalZone>
+                                    <cac:Country>
+                                        <cbc:IdentificationCode listName="country">EST</cbc:IdentificationCode>
+                                    </cac:Country>
+                                </cac:PostalAddress>
+                                <cac:PartyLegalEntity>
+                                    <cbc:CompanyID>1000123</cbc:CompanyID>
+                                </cac:PartyLegalEntity>
+                                <cac:Contact>
+                                    <cbc:Telephone>+3726113713</cbc:Telephone>
+                                    <cbc:ElectronicMail>vako@fin.ee</cbc:ElectronicMail>
+                                </cac:Contact>
+                            </efac:Company>
+                        </efac:Organization>
+                        <efac:Organization>
+                            <efac:Company>
+                                <cac:PartyIdentification>
+                                    <cbc:ID schemeName="organization">ORG-0003</cbc:ID>
+                                </cac:PartyIdentification>
+                                <cac:PartyName>
+                                    <cbc:Name languageID="EST">Riigihangete register</cbc:Name>
+                                </cac:PartyName>
+                                <cac:PostalAddress>
+                                    <cbc:CityName>Tallinn</cbc:CityName>
+                                    <cac:Country>
+                                        <cbc:IdentificationCode listName="country">EST</cbc:IdentificationCode>
+                                    </cac:Country>
+                                </cac:PostalAddress>
+                                <cac:PartyLegalEntity>
+                                    <cbc:CompanyID>TED64</cbc:CompanyID>
+                                </cac:PartyLegalEntity>
+                                <cac:Contact>
+                                    <cbc:Telephone>+3726113693</cbc:Telephone>
+                                    <cbc:ElectronicMail>register@riigihanked.riik.ee</cbc:ElectronicMail>
+                                </cac:Contact>
+                            </efac:Company>
+                        </efac:Organization>
+                    </efac:Organizations>
+                <efac:Publication><efbc:NoticePublicationID schemeName="ojs-notice-id">00040243-2024</efbc:NoticePublicationID><efbc:GazetteID schemeName="ojs-id">14/2024</efbc:GazetteID><efbc:PublicationDate>2024-01-19Z</efbc:PublicationDate></efac:Publication></efext:EformsExtension>
+            </ext:ExtensionContent>
+        </ext:UBLExtension>
+    </ext:UBLExtensions>
+    <cbc:UBLVersionID>2.3</cbc:UBLVersionID>
+    <cbc:CustomizationID>eforms-sdk-1.9</cbc:CustomizationID>
+    <cbc:ID schemeName="notice-id">eded51b3-2dd3-4ecf-b275-c1e9351c75c8</cbc:ID>
+    <cbc:ContractFolderID>72cffc24-57e3-4e84-a93c-adc596ef169b</cbc:ContractFolderID>
+    <cbc:IssueDate>2024-01-18+02:00</cbc:IssueDate>
+    <cbc:IssueTime>08:44:07.490+02:00</cbc:IssueTime>
+    <cbc:VersionID>02</cbc:VersionID>
+    <cbc:RegulatoryDomain>32014L0024</cbc:RegulatoryDomain>
+    <cbc:NoticeTypeCode listName="competition">pin-cfc-social</cbc:NoticeTypeCode>
+    <cbc:NoticeLanguageCode>EST</cbc:NoticeLanguageCode>
+    <cac:ContractingParty>
+        <cbc:BuyerProfileURI>http://www.tartu.ee</cbc:BuyerProfileURI>
+        <cac:ContractingPartyType>
+            <cbc:PartyTypeCode listName="buyer-legal-type">la</cbc:PartyTypeCode>
+        </cac:ContractingPartyType>
+        <cac:ContractingActivity>
+            <cbc:ActivityTypeCode listName="authority-activity">gen-pub</cbc:ActivityTypeCode>
+        </cac:ContractingActivity>
+        <cac:Party>
+            <cac:PartyIdentification>
+                <cbc:ID schemeName="organization">ORG-0001</cbc:ID>
+            </cac:PartyIdentification>
+            <cac:ServiceProviderParty>
+                <cbc:ServiceTypeCode listName="organisation-role">ted-esen</cbc:ServiceTypeCode>
+                <cac:Party>
+                    <cac:PartyIdentification>
+                        <cbc:ID schemeName="organization">ORG-0003</cbc:ID>
+                    </cac:PartyIdentification>
+                </cac:Party>
+            </cac:ServiceProviderParty>
+        </cac:Party>
+    </cac:ContractingParty>
+    <cac:TenderingTerms>
+        <cac:TendererQualificationRequest>
+            <cac:SpecificTendererRequirement>
+                <cbc:TendererRequirementTypeCode listName="exclusion-ground">nati-ground</cbc:TendererRequirementTypeCode>
+                <cbc:Description languageID="EST">https://riigihanked.riik.ee/rhr-web/#/procurement/6656768/procurement-passport</cbc:Description>
+            </cac:SpecificTendererRequirement>
+        </cac:TendererQualificationRequest>
+    </cac:TenderingTerms>
+    <cac:TenderingProcess>
+        <cbc:Description languageID="EST">Sotsiaal- ja eriteenuste erimenetlus</cbc:Description>
+        <cbc:PartPresentationCode listName="tenderlot-presentation">all</cbc:PartPresentationCode>
+    </cac:TenderingProcess>
+    <cac:ProcurementProject>
+        <cbc:ID>272644</cbc:ID>
+        <cbc:Name languageID="EST">Toitlustamisteenuse osutaja leidmine Tartu linna lasteaedadele</cbc:Name>
+        <cbc:Description languageID="EST">Toitlustamisteenuse osutajate leidmine Tartu linna lasteaedadele Hellik, Klaabumaa, Lotte, Rõõmumaa ning Tõruke. Teenuse osutaja valmistab toidu lasteaia köögis. Lasteaedade Klaabumaa ja Rõõmumaa puhul tuleb toit transportida ka kolm korda päevas lasteaia teistesse üksustesse. Täpsemalt on tingimused sätestatud lepingu projektides.</cbc:Description>
+        <cbc:ProcurementTypeCode listName="contract-nature">services</cbc:ProcurementTypeCode>
+        <cac:MainCommodityClassification>
+            <cbc:ItemClassificationCode listName="cpv">55520000</cbc:ItemClassificationCode>
+        </cac:MainCommodityClassification>
+    </cac:ProcurementProject>
+    <cac:ProcurementProjectLot>
+        <cbc:ID schemeName="Lot">LOT-0001</cbc:ID>
+        <cac:TenderingTerms>
+            <ext:UBLExtensions>
+                <ext:UBLExtension>
+                    <ext:ExtensionContent>
+                        <efext:EformsExtension>
+                            <efac:SelectionCriteria>
+                                <cbc:CriterionTypeCode listName="selection-criterion">sui-act</cbc:CriterionTypeCode>
+                                <cbc:CalculationExpressionCode listName="usage">n-used</cbc:CalculationExpressionCode>
+                                <efbc:SecondStageIndicator>false</efbc:SecondStageIndicator>
+                            </efac:SelectionCriteria>
+                            <efac:SelectionCriteria>
+                                <cbc:CriterionTypeCode listName="selection-criterion">ef-stand</cbc:CriterionTypeCode>
+                                <cbc:CalculationExpressionCode listName="usage">n-used</cbc:CalculationExpressionCode>
+                                <efbc:SecondStageIndicator>false</efbc:SecondStageIndicator>
+                            </efac:SelectionCriteria>
+                            <efac:SelectionCriteria>
+                                <cbc:CriterionTypeCode listName="selection-criterion">tp-abil</cbc:CriterionTypeCode>
+                                <cbc:Description languageID="EST">https://riigihanked.riik.ee/rhr-web/#/procurement/6656768/procurement-passport</cbc:Description>
+                                <cbc:CalculationExpressionCode listName="usage">used</cbc:CalculationExpressionCode>
+                                <efbc:SecondStageIndicator>false</efbc:SecondStageIndicator>
+                            </efac:SelectionCriteria>
+                        </efext:EformsExtension>
+                    </ext:ExtensionContent>
+                </ext:UBLExtension>
+            </ext:UBLExtensions>
+            <cbc:FundingProgramCode listName="eu-funded">no-eu-funds</cbc:FundingProgramCode>
+            <cac:RequiredFinancialGuarantee>
+                <cbc:GuaranteeTypeCode listName="tender-guarantee-required">false</cbc:GuaranteeTypeCode>
+            </cac:RequiredFinancialGuarantee>
+            <cac:CallForTendersDocumentReference>
+                <cbc:ID>7718126</cbc:ID>
+                <cbc:DocumentType>non-restricted-document</cbc:DocumentType>
+                <cbc:LanguageID>EST</cbc:LanguageID>
+                <cac:Attachment>
+                    <cac:ExternalReference>
+                        <cbc:URI>https://riigihanked.riik.ee/rhr-web/#/procurement/6656768/general-info</cbc:URI>
+                    </cac:ExternalReference>
+                </cac:Attachment>
+            </cac:CallForTendersDocumentReference>
+            <cac:TendererQualificationRequest>
+                <cac:SpecificTendererRequirement>
+                    <cbc:TendererRequirementTypeCode listName="reserved-procurement">none</cbc:TendererRequirementTypeCode>
+                </cac:SpecificTendererRequirement>
+            </cac:TendererQualificationRequest>
+            <cac:TendererQualificationRequest>
+                <cbc:CompanyLegalFormCode>false</cbc:CompanyLegalFormCode>
+            </cac:TendererQualificationRequest>
+            <cac:ContractExecutionRequirement>
+                <cbc:ExecutionRequirementCode listName="reserved-execution">no</cbc:ExecutionRequirementCode>
+            </cac:ContractExecutionRequirement>
+            <cac:ContractExecutionRequirement>
+                <cbc:ExecutionRequirementCode listName="ecatalog-submission">not-allowed</cbc:ExecutionRequirementCode>
+            </cac:ContractExecutionRequirement>
+            <cac:ContractExecutionRequirement>
+                <cbc:ExecutionRequirementCode listName="einvoicing">required</cbc:ExecutionRequirementCode>
+            </cac:ContractExecutionRequirement>
+            <cac:AwardingTerms>
+                <cac:AwardingCriterion>
+                    <cac:SubordinateAwardingCriterion>
+                        <ext:UBLExtensions>
+                            <ext:UBLExtension>
+                                <ext:ExtensionContent>
+                                    <efext:EformsExtension>
+                                        <efac:AwardCriterionParameter>
+                                            <efbc:ParameterCode listName="number-weight">poi-exa</efbc:ParameterCode>
+                                            <efbc:ParameterNumeric>100.0</efbc:ParameterNumeric>
+                                        </efac:AwardCriterionParameter>
+                                    </efext:EformsExtension>
+                                </ext:ExtensionContent>
+                            </ext:UBLExtension>
+                        </ext:UBLExtensions>
+                        <cbc:AwardingCriterionTypeCode listName="award-criterion-type">quality</cbc:AwardingCriterionTypeCode>
+                        <cbc:Description languageID="EST">Vaata hanke alusdokumentidest</cbc:Description>
+                    </cac:SubordinateAwardingCriterion>
+                </cac:AwardingCriterion>
+            </cac:AwardingTerms>
+            <cac:AdditionalInformationParty>
+                <cac:PartyIdentification>
+                    <cbc:ID schemeName="organization">ORG-0001</cbc:ID>
+                </cac:PartyIdentification>
+            </cac:AdditionalInformationParty>
+            <cac:TenderRecipientParty>
+                <cbc:EndpointID>https://riigihanked.riik.ee/rhr-web/#/procurement/6656768/tenders</cbc:EndpointID>
+                <cac:PartyIdentification>
+                    <cbc:ID schemeName="organization">ORG-0001</cbc:ID>
+                </cac:PartyIdentification>
+            </cac:TenderRecipientParty>
+            <cac:AppealTerms>
+                <cac:AppealReceiverParty>
+                    <cac:PartyIdentification>
+                        <cbc:ID schemeName="organization">ORG-0002</cbc:ID>
+                    </cac:PartyIdentification>
+                </cac:AppealReceiverParty>
+                <cac:MediationParty>
+                    <cac:PartyIdentification>
+                        <cbc:ID schemeName="organization">ORG-0002</cbc:ID>
+                    </cac:PartyIdentification>
+                </cac:MediationParty>
+            </cac:AppealTerms>
+            <cac:Language>
+                <cbc:ID>EST</cbc:ID>
+            </cac:Language>
+            <cac:PostAwardProcess>
+                <cbc:ElectronicOrderUsageIndicator>false</cbc:ElectronicOrderUsageIndicator>
+                <cbc:ElectronicPaymentUsageIndicator>true</cbc:ElectronicPaymentUsageIndicator>
+            </cac:PostAwardProcess>
+        </cac:TenderingTerms>
+        <cac:TenderingProcess>
+            <ext:UBLExtensions>
+                <ext:UBLExtension>
+                    <ext:ExtensionContent>
+                        <efext:EformsExtension>
+                            <efac:InterestExpressionReceptionPeriod>
+                                <cbc:EndDate>2024-02-12+02:00</cbc:EndDate>
+                                <cbc:EndTime>09:00:00.000+02:00</cbc:EndTime>
+                            </efac:InterestExpressionReceptionPeriod>
+                        </efext:EformsExtension>
+                    </ext:ExtensionContent>
+                </ext:UBLExtension>
+            </ext:UBLExtensions>
+            <cbc:SubmissionMethodCode listName="esubmission">allowed</cbc:SubmissionMethodCode>
+            <cac:EconomicOperatorShortList>
+                <cbc:LimitationDescription>false</cbc:LimitationDescription>
+            </cac:EconomicOperatorShortList>
+            <cac:AuctionTerms>
+                <cbc:AuctionConstraintIndicator>false</cbc:AuctionConstraintIndicator>
+            </cac:AuctionTerms>
+            <cac:ContractingSystem>
+                <cbc:ContractingSystemTypeCode listName="framework-agreement">none</cbc:ContractingSystemTypeCode>
+            </cac:ContractingSystem>
+            <cac:ContractingSystem>
+                <cbc:ContractingSystemTypeCode listName="dps-usage">none</cbc:ContractingSystemTypeCode>
+            </cac:ContractingSystem>
+        </cac:TenderingProcess>
+        <cac:ProcurementProject>
+            <cbc:ID>272644</cbc:ID>
+            <cbc:Name languageID="EST">Tartu Lasteaed Hellik ja Tartu Lasteaed Tõruke</cbc:Name>
+            <cbc:Description languageID="EST">Toitlustaja valmistab toidu Tartu Lasteaed Hellik köögiruumides aadressil Aardla 138, Tartu Lasteaed Hellik lastele kolm korda päevas hankelepingu projektis ja selle lisas (tehniline kirjeldus) toodud tingimustel.
+Toitlustaja valmistab toidu, Tartu Lasteaed Tõruke köögiruumides aadressil Tamme puiestee 43, Tartu Lasteaed Tõruke lastele kolm korda päevas hankelepingu projektis ja selle lisas (tehniline kirjeldus) toodud tingimustel.</cbc:Description>
+            <cbc:ProcurementTypeCode listName="contract-nature">services</cbc:ProcurementTypeCode>
+            <cbc:Note languageID="EST">1. Hankija sõlmib pakkujaga kaks eraldi lepingut so ühe Tartu Lasteaiaga Hellik ja teise Tartu Lasteaiaga Tõruke.
+
+2. Tartu Lasteaed Hellik eeldatav lepingu kestvus on 01.09.2024 - 30.06.2027; Tartu Lasteaed Tõruke eeldatav lepingu kestvus on 01.08.2024 - 30.06.2027.</cbc:Note>
+            <cac:ProcurementAdditionalType>
+                <cbc:ProcurementTypeCode listName="accessibility">n-inc-just</cbc:ProcurementTypeCode>
+                <cbc:ProcurementType languageID="EST">Lasteaias ei viibi puuetega kliente - lapsi ega töötajaid.</cbc:ProcurementType>
+            </cac:ProcurementAdditionalType>
+            <cac:MainCommodityClassification>
+                <cbc:ItemClassificationCode listName="cpv">55520000</cbc:ItemClassificationCode>
+            </cac:MainCommodityClassification>
+            <cac:RealizedLocation>
+                <cbc:Description languageID="EST">Aardla 138, Tartu linn ja Tamme puiestee 43</cbc:Description>
+                <cac:Address>
+                    <cbc:CountrySubentityCode listName="nuts">EE001</cbc:CountrySubentityCode>
+                    <cac:Country>
+                        <cbc:IdentificationCode listName="country">EST</cbc:IdentificationCode>
+                    </cac:Country>
+                </cac:Address>
+            </cac:RealizedLocation>
+            <cac:RealizedLocation>
+                <cbc:Description languageID="EST">Aardla 138, Tartu linn ja Tamme puiestee 43</cbc:Description>
+                <cac:Address>
+                    <cbc:CountrySubentityCode listName="nuts">EE008</cbc:CountrySubentityCode>
+                    <cac:Country>
+                        <cbc:IdentificationCode listName="country">EST</cbc:IdentificationCode>
+                    </cac:Country>
+                </cac:Address>
+            </cac:RealizedLocation>
+            <cac:RealizedLocation>
+                <cbc:Description languageID="EST">Aardla 138, Tartu linn ja Tamme puiestee 43</cbc:Description>
+                <cac:Address>
+                    <cbc:CountrySubentityCode listName="nuts">EE004</cbc:CountrySubentityCode>
+                    <cac:Country>
+                        <cbc:IdentificationCode listName="country">EST</cbc:IdentificationCode>
+                    </cac:Country>
+                </cac:Address>
+            </cac:RealizedLocation>
+            <cac:RealizedLocation>
+                <cbc:Description languageID="EST">Aardla 138, Tartu linn ja Tamme puiestee 43</cbc:Description>
+                <cac:Address>
+                    <cbc:CountrySubentityCode listName="nuts">EE00A</cbc:CountrySubentityCode>
+                    <cac:Country>
+                        <cbc:IdentificationCode listName="country">EST</cbc:IdentificationCode>
+                    </cac:Country>
+                </cac:Address>
+            </cac:RealizedLocation>
+            <cac:RealizedLocation>
+                <cbc:Description languageID="EST">Aardla 138, Tartu linn ja Tamme puiestee 43</cbc:Description>
+                <cac:Address>
+                    <cbc:CountrySubentityCode listName="nuts">EE009</cbc:CountrySubentityCode>
+                    <cac:Country>
+                        <cbc:IdentificationCode listName="country">EST</cbc:IdentificationCode>
+                    </cac:Country>
+                </cac:Address>
+            </cac:RealizedLocation>
+            <cac:PlannedPeriod>
+                <cbc:StartDate>2024-08-01+03:00</cbc:StartDate>
+                <cbc:EndDate>2027-06-30+03:00</cbc:EndDate>
+            </cac:PlannedPeriod>
+        </cac:ProcurementProject>
+    </cac:ProcurementProjectLot>
+    <cac:ProcurementProjectLot>
+        <cbc:ID schemeName="Lot">LOT-0002</cbc:ID>
+        <cac:TenderingTerms>
+            <ext:UBLExtensions>
+                <ext:UBLExtension>
+                    <ext:ExtensionContent>
+                        <efext:EformsExtension>
+                            <efac:SelectionCriteria>
+                                <cbc:CriterionTypeCode listName="selection-criterion">sui-act</cbc:CriterionTypeCode>
+                                <cbc:CalculationExpressionCode listName="usage">n-used</cbc:CalculationExpressionCode>
+                                <efbc:SecondStageIndicator>false</efbc:SecondStageIndicator>
+                            </efac:SelectionCriteria>
+                            <efac:SelectionCriteria>
+                                <cbc:CriterionTypeCode listName="selection-criterion">ef-stand</cbc:CriterionTypeCode>
+                                <cbc:CalculationExpressionCode listName="usage">n-used</cbc:CalculationExpressionCode>
+                                <efbc:SecondStageIndicator>false</efbc:SecondStageIndicator>
+                            </efac:SelectionCriteria>
+                            <efac:SelectionCriteria>
+                                <cbc:CriterionTypeCode listName="selection-criterion">tp-abil</cbc:CriterionTypeCode>
+                                <cbc:Description languageID="EST">https://riigihanked.riik.ee/rhr-web/#/procurement/6656768/procurement-passport</cbc:Description>
+                                <cbc:CalculationExpressionCode listName="usage">used</cbc:CalculationExpressionCode>
+                                <efbc:SecondStageIndicator>false</efbc:SecondStageIndicator>
+                            </efac:SelectionCriteria>
+                        </efext:EformsExtension>
+                    </ext:ExtensionContent>
+                </ext:UBLExtension>
+            </ext:UBLExtensions>
+            <cbc:FundingProgramCode listName="eu-funded">no-eu-funds</cbc:FundingProgramCode>
+            <cac:RequiredFinancialGuarantee>
+                <cbc:GuaranteeTypeCode listName="tender-guarantee-required">false</cbc:GuaranteeTypeCode>
+            </cac:RequiredFinancialGuarantee>
+            <cac:CallForTendersDocumentReference>
+                <cbc:ID>7718126</cbc:ID>
+                <cbc:DocumentType>non-restricted-document</cbc:DocumentType>
+                <cbc:LanguageID>EST</cbc:LanguageID>
+                <cac:Attachment>
+                    <cac:ExternalReference>
+                        <cbc:URI>https://riigihanked.riik.ee/rhr-web/#/procurement/6656768/general-info</cbc:URI>
+                    </cac:ExternalReference>
+                </cac:Attachment>
+            </cac:CallForTendersDocumentReference>
+            <cac:TendererQualificationRequest>
+                <cac:SpecificTendererRequirement>
+                    <cbc:TendererRequirementTypeCode listName="reserved-procurement">none</cbc:TendererRequirementTypeCode>
+                </cac:SpecificTendererRequirement>
+            </cac:TendererQualificationRequest>
+            <cac:TendererQualificationRequest>
+                <cbc:CompanyLegalFormCode>false</cbc:CompanyLegalFormCode>
+            </cac:TendererQualificationRequest>
+            <cac:ContractExecutionRequirement>
+                <cbc:ExecutionRequirementCode listName="reserved-execution">no</cbc:ExecutionRequirementCode>
+            </cac:ContractExecutionRequirement>
+            <cac:ContractExecutionRequirement>
+                <cbc:ExecutionRequirementCode listName="ecatalog-submission">not-allowed</cbc:ExecutionRequirementCode>
+            </cac:ContractExecutionRequirement>
+            <cac:ContractExecutionRequirement>
+                <cbc:ExecutionRequirementCode listName="einvoicing">required</cbc:ExecutionRequirementCode>
+            </cac:ContractExecutionRequirement>
+            <cac:AwardingTerms>
+                <cac:AwardingCriterion>
+                    <cac:SubordinateAwardingCriterion>
+                        <ext:UBLExtensions>
+                            <ext:UBLExtension>
+                                <ext:ExtensionContent>
+                                    <efext:EformsExtension>
+                                        <efac:AwardCriterionParameter>
+                                            <efbc:ParameterCode listName="number-weight">poi-exa</efbc:ParameterCode>
+                                            <efbc:ParameterNumeric>100.0</efbc:ParameterNumeric>
+                                        </efac:AwardCriterionParameter>
+                                    </efext:EformsExtension>
+                                </ext:ExtensionContent>
+                            </ext:UBLExtension>
+                        </ext:UBLExtensions>
+                        <cbc:AwardingCriterionTypeCode listName="award-criterion-type">quality</cbc:AwardingCriterionTypeCode>
+                        <cbc:Description languageID="EST">Vaata hanke alusdokumentidest</cbc:Description>
+                    </cac:SubordinateAwardingCriterion>
+                </cac:AwardingCriterion>
+            </cac:AwardingTerms>
+            <cac:AdditionalInformationParty>
+                <cac:PartyIdentification>
+                    <cbc:ID schemeName="organization">ORG-0001</cbc:ID>
+                </cac:PartyIdentification>
+            </cac:AdditionalInformationParty>
+            <cac:TenderRecipientParty>
+                <cbc:EndpointID>https://riigihanked.riik.ee/rhr-web/#/procurement/6656768/tenders</cbc:EndpointID>
+                <cac:PartyIdentification>
+                    <cbc:ID schemeName="organization">ORG-0001</cbc:ID>
+                </cac:PartyIdentification>
+            </cac:TenderRecipientParty>
+            <cac:AppealTerms>
+                <cac:AppealReceiverParty>
+                    <cac:PartyIdentification>
+                        <cbc:ID schemeName="organization">ORG-0002</cbc:ID>
+                    </cac:PartyIdentification>
+                </cac:AppealReceiverParty>
+                <cac:MediationParty>
+                    <cac:PartyIdentification>
+                        <cbc:ID schemeName="organization">ORG-0002</cbc:ID>
+                    </cac:PartyIdentification>
+                </cac:MediationParty>
+            </cac:AppealTerms>
+            <cac:Language>
+                <cbc:ID>EST</cbc:ID>
+            </cac:Language>
+            <cac:PostAwardProcess>
+                <cbc:ElectronicOrderUsageIndicator>false</cbc:ElectronicOrderUsageIndicator>
+                <cbc:ElectronicPaymentUsageIndicator>true</cbc:ElectronicPaymentUsageIndicator>
+            </cac:PostAwardProcess>
+        </cac:TenderingTerms>
+        <cac:TenderingProcess>
+            <ext:UBLExtensions>
+                <ext:UBLExtension>
+                    <ext:ExtensionContent>
+                        <efext:EformsExtension>
+                            <efac:InterestExpressionReceptionPeriod>
+                                <cbc:EndDate>2024-02-12+02:00</cbc:EndDate>
+                                <cbc:EndTime>09:00:00.000+02:00</cbc:EndTime>
+                            </efac:InterestExpressionReceptionPeriod>
+                        </efext:EformsExtension>
+                    </ext:ExtensionContent>
+                </ext:UBLExtension>
+            </ext:UBLExtensions>
+            <cbc:SubmissionMethodCode listName="esubmission">allowed</cbc:SubmissionMethodCode>
+            <cac:EconomicOperatorShortList>
+                <cbc:LimitationDescription>false</cbc:LimitationDescription>
+            </cac:EconomicOperatorShortList>
+            <cac:AuctionTerms>
+                <cbc:AuctionConstraintIndicator>false</cbc:AuctionConstraintIndicator>
+            </cac:AuctionTerms>
+            <cac:ContractingSystem>
+                <cbc:ContractingSystemTypeCode listName="framework-agreement">none</cbc:ContractingSystemTypeCode>
+            </cac:ContractingSystem>
+            <cac:ContractingSystem>
+                <cbc:ContractingSystemTypeCode listName="dps-usage">none</cbc:ContractingSystemTypeCode>
+            </cac:ContractingSystem>
+        </cac:TenderingProcess>
+        <cac:ProcurementProject>
+            <cbc:ID>272644</cbc:ID>
+            <cbc:Name languageID="EST">Tartu Lasteaed Klaabumaa</cbc:Name>
+            <cbc:Description languageID="EST">Toitlustaja valmistab toidu Tartu Lasteaed Klaabumaa köögiruumides aadressil Kummeli 5, Tartu Lasteaed Klaabumaa lastele kolm korda päevas hankelepingu projektis ja selle lisas (tehniline kirjeldus) toodud tingimustel sh transpordib toidu kolm korda päevas lasteaia teisse üksusesse aadressil Lubja 14, Tartu linn.</cbc:Description>
+            <cbc:ProcurementTypeCode listName="contract-nature">services</cbc:ProcurementTypeCode>
+            <cac:ProcurementAdditionalType>
+                <cbc:ProcurementTypeCode listName="accessibility">n-inc-just</cbc:ProcurementTypeCode>
+                <cbc:ProcurementType languageID="EST">Lasteaias ei viibi puuetega kliente - lapsi ega töötajaid.</cbc:ProcurementType>
+            </cac:ProcurementAdditionalType>
+            <cac:MainCommodityClassification>
+                <cbc:ItemClassificationCode listName="cpv">55520000</cbc:ItemClassificationCode>
+            </cac:MainCommodityClassification>
+            <cac:RealizedLocation>
+                <cbc:Description languageID="EST">Kummeli 5, Tartu linn</cbc:Description>
+                <cac:Address>
+                    <cbc:CountrySubentityCode listName="nuts">EE001</cbc:CountrySubentityCode>
+                    <cac:Country>
+                        <cbc:IdentificationCode listName="country">EST</cbc:IdentificationCode>
+                    </cac:Country>
+                </cac:Address>
+            </cac:RealizedLocation>
+            <cac:RealizedLocation>
+                <cbc:Description languageID="EST">Kummeli 5, Tartu linn</cbc:Description>
+                <cac:Address>
+                    <cbc:CountrySubentityCode listName="nuts">EE008</cbc:CountrySubentityCode>
+                    <cac:Country>
+                        <cbc:IdentificationCode listName="country">EST</cbc:IdentificationCode>
+                    </cac:Country>
+                </cac:Address>
+            </cac:RealizedLocation>
+            <cac:RealizedLocation>
+                <cbc:Description languageID="EST">Kummeli 5, Tartu linn</cbc:Description>
+                <cac:Address>
+                    <cbc:CountrySubentityCode listName="nuts">EE004</cbc:CountrySubentityCode>
+                    <cac:Country>
+                        <cbc:IdentificationCode listName="country">EST</cbc:IdentificationCode>
+                    </cac:Country>
+                </cac:Address>
+            </cac:RealizedLocation>
+            <cac:RealizedLocation>
+                <cbc:Description languageID="EST">Kummeli 5, Tartu linn</cbc:Description>
+                <cac:Address>
+                    <cbc:CountrySubentityCode listName="nuts">EE00A</cbc:CountrySubentityCode>
+                    <cac:Country>
+                        <cbc:IdentificationCode listName="country">EST</cbc:IdentificationCode>
+                    </cac:Country>
+                </cac:Address>
+            </cac:RealizedLocation>
+            <cac:RealizedLocation>
+                <cbc:Description languageID="EST">Kummeli 5, Tartu linn</cbc:Description>
+                <cac:Address>
+                    <cbc:CountrySubentityCode listName="nuts">EE009</cbc:CountrySubentityCode>
+                    <cac:Country>
+                        <cbc:IdentificationCode listName="country">EST</cbc:IdentificationCode>
+                    </cac:Country>
+                </cac:Address>
+            </cac:RealizedLocation>
+            <cac:PlannedPeriod>
+                <cbc:StartDate>2024-08-01+03:00</cbc:StartDate>
+                <cbc:EndDate>2027-06-30+03:00</cbc:EndDate>
+            </cac:PlannedPeriod>
+        </cac:ProcurementProject>
+    </cac:ProcurementProjectLot>
+    <cac:ProcurementProjectLot>
+        <cbc:ID schemeName="Lot">LOT-0003</cbc:ID>
+        <cac:TenderingTerms>
+            <ext:UBLExtensions>
+                <ext:UBLExtension>
+                    <ext:ExtensionContent>
+                        <efext:EformsExtension>
+                            <efac:SelectionCriteria>
+                                <cbc:CriterionTypeCode listName="selection-criterion">sui-act</cbc:CriterionTypeCode>
+                                <cbc:CalculationExpressionCode listName="usage">n-used</cbc:CalculationExpressionCode>
+                                <efbc:SecondStageIndicator>false</efbc:SecondStageIndicator>
+                            </efac:SelectionCriteria>
+                            <efac:SelectionCriteria>
+                                <cbc:CriterionTypeCode listName="selection-criterion">ef-stand</cbc:CriterionTypeCode>
+                                <cbc:CalculationExpressionCode listName="usage">n-used</cbc:CalculationExpressionCode>
+                                <efbc:SecondStageIndicator>false</efbc:SecondStageIndicator>
+                            </efac:SelectionCriteria>
+                            <efac:SelectionCriteria>
+                                <cbc:CriterionTypeCode listName="selection-criterion">tp-abil</cbc:CriterionTypeCode>
+                                <cbc:Description languageID="EST">https://riigihanked.riik.ee/rhr-web/#/procurement/6656768/procurement-passport</cbc:Description>
+                                <cbc:CalculationExpressionCode listName="usage">used</cbc:CalculationExpressionCode>
+                                <efbc:SecondStageIndicator>false</efbc:SecondStageIndicator>
+                            </efac:SelectionCriteria>
+                        </efext:EformsExtension>
+                    </ext:ExtensionContent>
+                </ext:UBLExtension>
+            </ext:UBLExtensions>
+            <cbc:FundingProgramCode listName="eu-funded">no-eu-funds</cbc:FundingProgramCode>
+            <cac:RequiredFinancialGuarantee>
+                <cbc:GuaranteeTypeCode listName="tender-guarantee-required">false</cbc:GuaranteeTypeCode>
+            </cac:RequiredFinancialGuarantee>
+            <cac:CallForTendersDocumentReference>
+                <cbc:ID>7718126</cbc:ID>
+                <cbc:DocumentType>non-restricted-document</cbc:DocumentType>
+                <cbc:LanguageID>EST</cbc:LanguageID>
+                <cac:Attachment>
+                    <cac:ExternalReference>
+                        <cbc:URI>https://riigihanked.riik.ee/rhr-web/#/procurement/6656768/general-info</cbc:URI>
+                    </cac:ExternalReference>
+                </cac:Attachment>
+            </cac:CallForTendersDocumentReference>
+            <cac:TendererQualificationRequest>
+                <cac:SpecificTendererRequirement>
+                    <cbc:TendererRequirementTypeCode listName="reserved-procurement">none</cbc:TendererRequirementTypeCode>
+                </cac:SpecificTendererRequirement>
+            </cac:TendererQualificationRequest>
+            <cac:TendererQualificationRequest>
+                <cbc:CompanyLegalFormCode>false</cbc:CompanyLegalFormCode>
+            </cac:TendererQualificationRequest>
+            <cac:ContractExecutionRequirement>
+                <cbc:ExecutionRequirementCode listName="reserved-execution">no</cbc:ExecutionRequirementCode>
+            </cac:ContractExecutionRequirement>
+            <cac:ContractExecutionRequirement>
+                <cbc:ExecutionRequirementCode listName="ecatalog-submission">not-allowed</cbc:ExecutionRequirementCode>
+            </cac:ContractExecutionRequirement>
+            <cac:ContractExecutionRequirement>
+                <cbc:ExecutionRequirementCode listName="einvoicing">required</cbc:ExecutionRequirementCode>
+            </cac:ContractExecutionRequirement>
+            <cac:AwardingTerms>
+                <cac:AwardingCriterion>
+                    <cac:SubordinateAwardingCriterion>
+                        <ext:UBLExtensions>
+                            <ext:UBLExtension>
+                                <ext:ExtensionContent>
+                                    <efext:EformsExtension>
+                                        <efac:AwardCriterionParameter>
+                                            <efbc:ParameterCode listName="number-weight">poi-exa</efbc:ParameterCode>
+                                            <efbc:ParameterNumeric>100.0</efbc:ParameterNumeric>
+                                        </efac:AwardCriterionParameter>
+                                    </efext:EformsExtension>
+                                </ext:ExtensionContent>
+                            </ext:UBLExtension>
+                        </ext:UBLExtensions>
+                        <cbc:AwardingCriterionTypeCode listName="award-criterion-type">quality</cbc:AwardingCriterionTypeCode>
+                        <cbc:Description languageID="EST">Vaata hanke alusdokumentidest</cbc:Description>
+                    </cac:SubordinateAwardingCriterion>
+                </cac:AwardingCriterion>
+            </cac:AwardingTerms>
+            <cac:AdditionalInformationParty>
+                <cac:PartyIdentification>
+                    <cbc:ID schemeName="organization">ORG-0001</cbc:ID>
+                </cac:PartyIdentification>
+            </cac:AdditionalInformationParty>
+            <cac:TenderRecipientParty>
+                <cbc:EndpointID>https://riigihanked.riik.ee/rhr-web/#/procurement/6656768/tenders</cbc:EndpointID>
+                <cac:PartyIdentification>
+                    <cbc:ID schemeName="organization">ORG-0001</cbc:ID>
+                </cac:PartyIdentification>
+            </cac:TenderRecipientParty>
+            <cac:AppealTerms>
+                <cac:AppealReceiverParty>
+                    <cac:PartyIdentification>
+                        <cbc:ID schemeName="organization">ORG-0002</cbc:ID>
+                    </cac:PartyIdentification>
+                </cac:AppealReceiverParty>
+                <cac:MediationParty>
+                    <cac:PartyIdentification>
+                        <cbc:ID schemeName="organization">ORG-0002</cbc:ID>
+                    </cac:PartyIdentification>
+                </cac:MediationParty>
+            </cac:AppealTerms>
+            <cac:Language>
+                <cbc:ID>EST</cbc:ID>
+            </cac:Language>
+            <cac:PostAwardProcess>
+                <cbc:ElectronicOrderUsageIndicator>false</cbc:ElectronicOrderUsageIndicator>
+                <cbc:ElectronicPaymentUsageIndicator>true</cbc:ElectronicPaymentUsageIndicator>
+            </cac:PostAwardProcess>
+        </cac:TenderingTerms>
+        <cac:TenderingProcess>
+            <ext:UBLExtensions>
+                <ext:UBLExtension>
+                    <ext:ExtensionContent>
+                        <efext:EformsExtension>
+                            <efac:InterestExpressionReceptionPeriod>
+                                <cbc:EndDate>2024-02-12+02:00</cbc:EndDate>
+                                <cbc:EndTime>09:00:00.000+02:00</cbc:EndTime>
+                            </efac:InterestExpressionReceptionPeriod>
+                        </efext:EformsExtension>
+                    </ext:ExtensionContent>
+                </ext:UBLExtension>
+            </ext:UBLExtensions>
+            <cbc:SubmissionMethodCode listName="esubmission">allowed</cbc:SubmissionMethodCode>
+            <cac:EconomicOperatorShortList>
+                <cbc:LimitationDescription>false</cbc:LimitationDescription>
+            </cac:EconomicOperatorShortList>
+            <cac:AuctionTerms>
+                <cbc:AuctionConstraintIndicator>false</cbc:AuctionConstraintIndicator>
+            </cac:AuctionTerms>
+            <cac:ContractingSystem>
+                <cbc:ContractingSystemTypeCode listName="framework-agreement">none</cbc:ContractingSystemTypeCode>
+            </cac:ContractingSystem>
+            <cac:ContractingSystem>
+                <cbc:ContractingSystemTypeCode listName="dps-usage">none</cbc:ContractingSystemTypeCode>
+            </cac:ContractingSystem>
+        </cac:TenderingProcess>
+        <cac:ProcurementProject>
+            <cbc:ID>272644</cbc:ID>
+            <cbc:Name languageID="EST">Tartu Lasteaed Lotte</cbc:Name>
+            <cbc:Description languageID="EST">Toitlustaja valmistab toidu Tartu Lasteaed Lotte köögiruumides aadressil Ida 8, Tartu Lasteaed Lotte lastele kolm korda päevas hankelepingu projektis ja selle lisas (tehniline kirjeldus) toodud tingimustel.</cbc:Description>
+            <cbc:ProcurementTypeCode listName="contract-nature">services</cbc:ProcurementTypeCode>
+            <cac:ProcurementAdditionalType>
+                <cbc:ProcurementTypeCode listName="accessibility">n-inc-just</cbc:ProcurementTypeCode>
+                <cbc:ProcurementType languageID="EST">Lasteaias ei viibi puuetega kliente - lapsi ega töötajaid.</cbc:ProcurementType>
+            </cac:ProcurementAdditionalType>
+            <cac:MainCommodityClassification>
+                <cbc:ItemClassificationCode listName="cpv">55520000</cbc:ItemClassificationCode>
+            </cac:MainCommodityClassification>
+            <cac:RealizedLocation>
+                <cbc:Description languageID="EST">Ida 8, Tartu linn</cbc:Description>
+                <cac:Address>
+                    <cbc:CountrySubentityCode listName="nuts">EE001</cbc:CountrySubentityCode>
+                    <cac:Country>
+                        <cbc:IdentificationCode listName="country">EST</cbc:IdentificationCode>
+                    </cac:Country>
+                </cac:Address>
+            </cac:RealizedLocation>
+            <cac:RealizedLocation>
+                <cbc:Description languageID="EST">Ida 8, Tartu linn</cbc:Description>
+                <cac:Address>
+                    <cbc:CountrySubentityCode listName="nuts">EE008</cbc:CountrySubentityCode>
+                    <cac:Country>
+                        <cbc:IdentificationCode listName="country">EST</cbc:IdentificationCode>
+                    </cac:Country>
+                </cac:Address>
+            </cac:RealizedLocation>
+            <cac:RealizedLocation>
+                <cbc:Description languageID="EST">Ida 8, Tartu linn</cbc:Description>
+                <cac:Address>
+                    <cbc:CountrySubentityCode listName="nuts">EE004</cbc:CountrySubentityCode>
+                    <cac:Country>
+                        <cbc:IdentificationCode listName="country">EST</cbc:IdentificationCode>
+                    </cac:Country>
+                </cac:Address>
+            </cac:RealizedLocation>
+            <cac:RealizedLocation>
+                <cbc:Description languageID="EST">Ida 8, Tartu linn</cbc:Description>
+                <cac:Address>
+                    <cbc:CountrySubentityCode listName="nuts">EE00A</cbc:CountrySubentityCode>
+                    <cac:Country>
+                        <cbc:IdentificationCode listName="country">EST</cbc:IdentificationCode>
+                    </cac:Country>
+                </cac:Address>
+            </cac:RealizedLocation>
+            <cac:RealizedLocation>
+                <cbc:Description languageID="EST">Ida 8, Tartu linn</cbc:Description>
+                <cac:Address>
+                    <cbc:CountrySubentityCode listName="nuts">EE009</cbc:CountrySubentityCode>
+                    <cac:Country>
+                        <cbc:IdentificationCode listName="country">EST</cbc:IdentificationCode>
+                    </cac:Country>
+                </cac:Address>
+            </cac:RealizedLocation>
+            <cac:PlannedPeriod>
+                <cbc:StartDate>2024-08-01+03:00</cbc:StartDate>
+                <cbc:EndDate>2027-06-30+03:00</cbc:EndDate>
+            </cac:PlannedPeriod>
+        </cac:ProcurementProject>
+    </cac:ProcurementProjectLot>
+    <cac:ProcurementProjectLot>
+        <cbc:ID schemeName="Lot">LOT-0004</cbc:ID>
+        <cac:TenderingTerms>
+            <ext:UBLExtensions>
+                <ext:UBLExtension>
+                    <ext:ExtensionContent>
+                        <efext:EformsExtension>
+                            <efac:SelectionCriteria>
+                                <cbc:CriterionTypeCode listName="selection-criterion">sui-act</cbc:CriterionTypeCode>
+                                <cbc:CalculationExpressionCode listName="usage">n-used</cbc:CalculationExpressionCode>
+                                <efbc:SecondStageIndicator>false</efbc:SecondStageIndicator>
+                            </efac:SelectionCriteria>
+                            <efac:SelectionCriteria>
+                                <cbc:CriterionTypeCode listName="selection-criterion">ef-stand</cbc:CriterionTypeCode>
+                                <cbc:CalculationExpressionCode listName="usage">n-used</cbc:CalculationExpressionCode>
+                                <efbc:SecondStageIndicator>false</efbc:SecondStageIndicator>
+                            </efac:SelectionCriteria>
+                            <efac:SelectionCriteria>
+                                <cbc:CriterionTypeCode listName="selection-criterion">tp-abil</cbc:CriterionTypeCode>
+                                <cbc:Description languageID="EST">https://riigihanked.riik.ee/rhr-web/#/procurement/6656768/procurement-passport</cbc:Description>
+                                <cbc:CalculationExpressionCode listName="usage">used</cbc:CalculationExpressionCode>
+                                <efbc:SecondStageIndicator>false</efbc:SecondStageIndicator>
+                            </efac:SelectionCriteria>
+                        </efext:EformsExtension>
+                    </ext:ExtensionContent>
+                </ext:UBLExtension>
+            </ext:UBLExtensions>
+            <cbc:FundingProgramCode listName="eu-funded">no-eu-funds</cbc:FundingProgramCode>
+            <cac:RequiredFinancialGuarantee>
+                <cbc:GuaranteeTypeCode listName="tender-guarantee-required">false</cbc:GuaranteeTypeCode>
+            </cac:RequiredFinancialGuarantee>
+            <cac:CallForTendersDocumentReference>
+                <cbc:ID>7718126</cbc:ID>
+                <cbc:DocumentType>non-restricted-document</cbc:DocumentType>
+                <cbc:LanguageID>EST</cbc:LanguageID>
+                <cac:Attachment>
+                    <cac:ExternalReference>
+                        <cbc:URI>https://riigihanked.riik.ee/rhr-web/#/procurement/6656768/general-info</cbc:URI>
+                    </cac:ExternalReference>
+                </cac:Attachment>
+            </cac:CallForTendersDocumentReference>
+            <cac:TendererQualificationRequest>
+                <cac:SpecificTendererRequirement>
+                    <cbc:TendererRequirementTypeCode listName="reserved-procurement">none</cbc:TendererRequirementTypeCode>
+                </cac:SpecificTendererRequirement>
+            </cac:TendererQualificationRequest>
+            <cac:TendererQualificationRequest>
+                <cbc:CompanyLegalFormCode>false</cbc:CompanyLegalFormCode>
+            </cac:TendererQualificationRequest>
+            <cac:ContractExecutionRequirement>
+                <cbc:ExecutionRequirementCode listName="reserved-execution">no</cbc:ExecutionRequirementCode>
+            </cac:ContractExecutionRequirement>
+            <cac:ContractExecutionRequirement>
+                <cbc:ExecutionRequirementCode listName="ecatalog-submission">not-allowed</cbc:ExecutionRequirementCode>
+            </cac:ContractExecutionRequirement>
+            <cac:ContractExecutionRequirement>
+                <cbc:ExecutionRequirementCode listName="einvoicing">required</cbc:ExecutionRequirementCode>
+            </cac:ContractExecutionRequirement>
+            <cac:AwardingTerms>
+                <cac:AwardingCriterion>
+                    <cac:SubordinateAwardingCriterion>
+                        <ext:UBLExtensions>
+                            <ext:UBLExtension>
+                                <ext:ExtensionContent>
+                                    <efext:EformsExtension>
+                                        <efac:AwardCriterionParameter>
+                                            <efbc:ParameterCode listName="number-weight">poi-exa</efbc:ParameterCode>
+                                            <efbc:ParameterNumeric>100.0</efbc:ParameterNumeric>
+                                        </efac:AwardCriterionParameter>
+                                    </efext:EformsExtension>
+                                </ext:ExtensionContent>
+                            </ext:UBLExtension>
+                        </ext:UBLExtensions>
+                        <cbc:AwardingCriterionTypeCode listName="award-criterion-type">quality</cbc:AwardingCriterionTypeCode>
+                        <cbc:Description languageID="EST">Vaata hanke alusdokumentidest</cbc:Description>
+                    </cac:SubordinateAwardingCriterion>
+                </cac:AwardingCriterion>
+            </cac:AwardingTerms>
+            <cac:AdditionalInformationParty>
+                <cac:PartyIdentification>
+                    <cbc:ID schemeName="organization">ORG-0001</cbc:ID>
+                </cac:PartyIdentification>
+            </cac:AdditionalInformationParty>
+            <cac:TenderRecipientParty>
+                <cbc:EndpointID>https://riigihanked.riik.ee/rhr-web/#/procurement/6656768/tenders</cbc:EndpointID>
+                <cac:PartyIdentification>
+                    <cbc:ID schemeName="organization">ORG-0001</cbc:ID>
+                </cac:PartyIdentification>
+            </cac:TenderRecipientParty>
+            <cac:AppealTerms>
+                <cac:AppealReceiverParty>
+                    <cac:PartyIdentification>
+                        <cbc:ID schemeName="organization">ORG-0002</cbc:ID>
+                    </cac:PartyIdentification>
+                </cac:AppealReceiverParty>
+                <cac:MediationParty>
+                    <cac:PartyIdentification>
+                        <cbc:ID schemeName="organization">ORG-0002</cbc:ID>
+                    </cac:PartyIdentification>
+                </cac:MediationParty>
+            </cac:AppealTerms>
+            <cac:Language>
+                <cbc:ID>EST</cbc:ID>
+            </cac:Language>
+            <cac:PostAwardProcess>
+                <cbc:ElectronicOrderUsageIndicator>false</cbc:ElectronicOrderUsageIndicator>
+                <cbc:ElectronicPaymentUsageIndicator>true</cbc:ElectronicPaymentUsageIndicator>
+            </cac:PostAwardProcess>
+        </cac:TenderingTerms>
+        <cac:TenderingProcess>
+            <ext:UBLExtensions>
+                <ext:UBLExtension>
+                    <ext:ExtensionContent>
+                        <efext:EformsExtension>
+                            <efac:InterestExpressionReceptionPeriod>
+                                <cbc:EndDate>2024-02-12+02:00</cbc:EndDate>
+                                <cbc:EndTime>09:00:00.000+02:00</cbc:EndTime>
+                            </efac:InterestExpressionReceptionPeriod>
+                        </efext:EformsExtension>
+                    </ext:ExtensionContent>
+                </ext:UBLExtension>
+            </ext:UBLExtensions>
+            <cbc:SubmissionMethodCode listName="esubmission">allowed</cbc:SubmissionMethodCode>
+            <cac:EconomicOperatorShortList>
+                <cbc:LimitationDescription>false</cbc:LimitationDescription>
+            </cac:EconomicOperatorShortList>
+            <cac:AuctionTerms>
+                <cbc:AuctionConstraintIndicator>false</cbc:AuctionConstraintIndicator>
+            </cac:AuctionTerms>
+            <cac:ContractingSystem>
+                <cbc:ContractingSystemTypeCode listName="framework-agreement">none</cbc:ContractingSystemTypeCode>
+            </cac:ContractingSystem>
+            <cac:ContractingSystem>
+                <cbc:ContractingSystemTypeCode listName="dps-usage">none</cbc:ContractingSystemTypeCode>
+            </cac:ContractingSystem>
+        </cac:TenderingProcess>
+        <cac:ProcurementProject>
+            <cbc:ID>272644</cbc:ID>
+            <cbc:Name languageID="EST">Tartu Lasteaed Rõõmumaa</cbc:Name>
+            <cbc:Description languageID="EST">Toitlustaja valmistab toidu Tartu Lasteaed Rõõmumaa köögiruumides aadressil Akadeemia 2 ning Vanemuise 28 Tartu Lasteaed Rõõmumaa lastele kolm korda päevas hankelepingu projektis ja selle lisas (tehniline kirjeldus) toodud tingimustel sh transpordib toidu kolm korda päevas lasteaia kolmadasse üksusesse aadressil Ülikooli 1, Tartu linn.</cbc:Description>
+            <cbc:ProcurementTypeCode listName="contract-nature">services</cbc:ProcurementTypeCode>
+            <cac:ProcurementAdditionalType>
+                <cbc:ProcurementTypeCode listName="accessibility">n-inc-just</cbc:ProcurementTypeCode>
+                <cbc:ProcurementType languageID="EST">Lasteaias ei viibi puuetega kliente - lapsi ega töötajaid.</cbc:ProcurementType>
+            </cac:ProcurementAdditionalType>
+            <cac:MainCommodityClassification>
+                <cbc:ItemClassificationCode listName="cpv">55520000</cbc:ItemClassificationCode>
+            </cac:MainCommodityClassification>
+            <cac:RealizedLocation>
+                <cbc:Description languageID="EST">Akadeemia 2 ja Vanemuise 48, Tartu linn</cbc:Description>
+                <cac:Address>
+                    <cbc:CountrySubentityCode listName="nuts">EE001</cbc:CountrySubentityCode>
+                    <cac:Country>
+                        <cbc:IdentificationCode listName="country">EST</cbc:IdentificationCode>
+                    </cac:Country>
+                </cac:Address>
+            </cac:RealizedLocation>
+            <cac:RealizedLocation>
+                <cbc:Description languageID="EST">Akadeemia 2 ja Vanemuise 48, Tartu linn</cbc:Description>
+                <cac:Address>
+                    <cbc:CountrySubentityCode listName="nuts">EE008</cbc:CountrySubentityCode>
+                    <cac:Country>
+                        <cbc:IdentificationCode listName="country">EST</cbc:IdentificationCode>
+                    </cac:Country>
+                </cac:Address>
+            </cac:RealizedLocation>
+            <cac:RealizedLocation>
+                <cbc:Description languageID="EST">Akadeemia 2 ja Vanemuise 48, Tartu linn</cbc:Description>
+                <cac:Address>
+                    <cbc:CountrySubentityCode listName="nuts">EE004</cbc:CountrySubentityCode>
+                    <cac:Country>
+                        <cbc:IdentificationCode listName="country">EST</cbc:IdentificationCode>
+                    </cac:Country>
+                </cac:Address>
+            </cac:RealizedLocation>
+            <cac:RealizedLocation>
+                <cbc:Description languageID="EST">Akadeemia 2 ja Vanemuise 48, Tartu linn</cbc:Description>
+                <cac:Address>
+                    <cbc:CountrySubentityCode listName="nuts">EE00A</cbc:CountrySubentityCode>
+                    <cac:Country>
+                        <cbc:IdentificationCode listName="country">EST</cbc:IdentificationCode>
+                    </cac:Country>
+                </cac:Address>
+            </cac:RealizedLocation>
+            <cac:RealizedLocation>
+                <cbc:Description languageID="EST">Akadeemia 2 ja Vanemuise 48, Tartu linn</cbc:Description>
+                <cac:Address>
+                    <cbc:CountrySubentityCode listName="nuts">EE009</cbc:CountrySubentityCode>
+                    <cac:Country>
+                        <cbc:IdentificationCode listName="country">EST</cbc:IdentificationCode>
+                    </cac:Country>
+                </cac:Address>
+            </cac:RealizedLocation>
+            <cac:PlannedPeriod>
+                <cbc:StartDate>2024-08-01+03:00</cbc:StartDate>
+                <cbc:EndDate>2027-06-30+03:00</cbc:EndDate>
+            </cac:PlannedPeriod>
+        </cac:ProcurementProject>
+    </cac:ProcurementProjectLot>
+</PriorInformationNotice>

@@ -1,0 +1,446 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><ContractNotice xmlns="urn:oasis:names:specification:ubl:schema:xsd:ContractNotice-2" xmlns:cac="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2" xmlns:cbc="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2" xmlns:efac="http://data.europa.eu/p27/eforms-ubl-extension-aggregate-components/1" xmlns:efbc="http://data.europa.eu/p27/eforms-ubl-extension-basic-components/1" xmlns:efext="http://data.europa.eu/p27/eforms-ubl-extensions/1" xmlns:ext="urn:oasis:names:specification:ubl:schema:xsd:CommonExtensionComponents-2">
+   <ext:UBLExtensions>
+      <ext:UBLExtension>
+         <ext:ExtensionContent>
+            <efext:EformsExtension>
+               <efac:NoticeSubType>
+                  <cbc:SubTypeCode listName="notice-subtype">23</cbc:SubTypeCode>
+               </efac:NoticeSubType>
+               <efac:Organizations>
+                  <efac:Organization>
+                     <efac:Company>
+                        <cac:PartyIdentification>
+                           <cbc:ID>ORG-0001</cbc:ID>
+                        </cac:PartyIdentification>
+                        <cac:PartyName>
+                           <cbc:Name languageID="POL">Urząd Miasta i Gminy Piaseczno</cbc:Name>
+                        </cac:PartyName>
+                        <cac:PostalAddress>
+                           <cbc:StreetName>ul. Kościuszki 5</cbc:StreetName>
+                           <cbc:CityName>Piaseczno</cbc:CityName>
+                           <cbc:PostalZone>05-500</cbc:PostalZone>
+                           <cbc:CountrySubentityCode listName="nuts">PL913</cbc:CountrySubentityCode>
+                           <cac:Country>
+                              <cbc:IdentificationCode listName="country">POL</cbc:IdentificationCode>
+                           </cac:Country>
+                        </cac:PostalAddress>
+                        <cac:PartyLegalEntity>
+                           <cbc:CompanyID>015891289</cbc:CompanyID>
+                        </cac:PartyLegalEntity>
+                        <cac:Contact>
+                           <cbc:Telephone>(+48) 22 70 17 654</cbc:Telephone>
+                           <cbc:ElectronicMail>rzp@piaseczno.eu</cbc:ElectronicMail>
+                        </cac:Contact>
+                     </efac:Company>
+                  </efac:Organization>
+                  <efac:Organization>
+                     <efac:Company>
+                        <cac:PartyIdentification>
+                           <cbc:ID>ORG-0002</cbc:ID>
+                        </cac:PartyIdentification>
+                        <cac:PartyName>
+                           <cbc:Name languageID="POL">Prezes Krajowej Izby Odwoławczej</cbc:Name>
+                        </cac:PartyName>
+                        <cac:PostalAddress>
+                           <cbc:StreetName>ul. Postępu 17a</cbc:StreetName>
+                           <cbc:CityName>Warszawa</cbc:CityName>
+                           <cbc:PostalZone>02-676</cbc:PostalZone>
+                           <cac:Country>
+                              <cbc:IdentificationCode listName="country">POL</cbc:IdentificationCode>
+                           </cac:Country>
+                        </cac:PostalAddress>
+                        <cac:PartyLegalEntity>
+                           <cbc:CompanyID>000000000</cbc:CompanyID>
+                        </cac:PartyLegalEntity>
+                        <cac:Contact>
+                           <cbc:Telephone>(+48) 22 458 78 40</cbc:Telephone>
+                           <cbc:ElectronicMail>odwolania@uzp.gov.pl</cbc:ElectronicMail>
+                        </cac:Contact>
+                     </efac:Company>
+                  </efac:Organization>
+                  <efac:Organization>
+                     <efac:Company>
+                        <cac:PartyIdentification>
+                           <cbc:ID>ORG-0003</cbc:ID>
+                        </cac:PartyIdentification>
+                        <cac:PartyName>
+                           <cbc:Name languageID="POL">Oddział Warszawski Stowarzyszenia Architektów Polskich</cbc:Name>
+                        </cac:PartyName>
+                        <cac:PostalAddress>
+                           <cbc:StreetName>ul. Foksal 2</cbc:StreetName>
+                           <cbc:CityName>Warszawa</cbc:CityName>
+                           <cbc:PostalZone>00-366</cbc:PostalZone>
+                           <cac:Country>
+                              <cbc:IdentificationCode listName="country">POL</cbc:IdentificationCode>
+                           </cac:Country>
+                        </cac:PostalAddress>
+                        <cac:PartyLegalEntity>
+                           <cbc:CompanyID>012591718</cbc:CompanyID>
+                        </cac:PartyLegalEntity>
+                        <cac:Contact>
+                           <cbc:Telephone>(+48) 22 826 74 39</cbc:Telephone>
+                           <cbc:ElectronicMail>biuro@sarp.warszawa.pl</cbc:ElectronicMail>
+                        </cac:Contact>
+                     </efac:Company>
+                  </efac:Organization>
+               </efac:Organizations>
+            <efac:Publication><efbc:NoticePublicationID schemeName="ojs-notice-id">00671040-2023</efbc:NoticePublicationID><efbc:GazetteID schemeName="ojs-id">212/2023</efbc:GazetteID><efbc:PublicationDate>2023-11-03Z</efbc:PublicationDate></efac:Publication></efext:EformsExtension>
+         </ext:ExtensionContent>
+      </ext:UBLExtension>
+   </ext:UBLExtensions>
+   <cbc:UBLVersionID>2.3</cbc:UBLVersionID>
+   <cbc:CustomizationID>eforms-sdk-1.9</cbc:CustomizationID>
+   <cbc:ID schemeName="notice-id">a443a513-0d90-4999-aba8-2616f7f86867</cbc:ID>
+   <cbc:ContractFolderID>7e9aac5e-29b8-4e66-aa7b-b3fde8d53372</cbc:ContractFolderID>
+   <cbc:IssueDate>2023-11-02Z</cbc:IssueDate>
+   <cbc:IssueTime>12:57:42Z</cbc:IssueTime>
+   <cbc:VersionID>01</cbc:VersionID>
+   <cbc:RegulatoryDomain>32014L0024</cbc:RegulatoryDomain>
+   <cbc:NoticeTypeCode listName="competition">cn-desg</cbc:NoticeTypeCode>
+   <cbc:NoticeLanguageCode listName="language">POL</cbc:NoticeLanguageCode>
+   <cac:ContractingParty>
+      <cac:ContractingPartyType>
+         <cbc:PartyTypeCode listName="buyer-legal-type">grp-p-aut</cbc:PartyTypeCode>
+      </cac:ContractingPartyType>
+      <cac:ContractingActivity>
+         <cbc:ActivityTypeCode listName="authority-activity">gen-pub</cbc:ActivityTypeCode>
+      </cac:ContractingActivity>
+      <cac:Party>
+         <cac:PartyIdentification>
+            <cbc:ID>ORG-0001</cbc:ID>
+         </cac:PartyIdentification>
+      </cac:Party>
+   </cac:ContractingParty>
+   <cac:TenderingTerms>
+      <cac:TendererQualificationRequest>
+         <cac:SpecificTendererRequirement>
+            <cbc:TendererRequirementTypeCode listName="exclusion-ground">corruption</cbc:TendererRequirementTypeCode>
+            <cbc:Description languageID="POL">dotyczy art. 108 ust. 1 pkt 1 i 2 ustawy Pzp</cbc:Description>
+         </cac:SpecificTendererRequirement>
+         <cac:SpecificTendererRequirement>
+            <cbc:TendererRequirementTypeCode listName="exclusion-ground">fraud</cbc:TendererRequirementTypeCode>
+            <cbc:Description languageID="POL">dotyczy art. 108 ust. 1 pkt 1 i 2 ustawy Pzp</cbc:Description>
+         </cac:SpecificTendererRequirement>
+         <cac:SpecificTendererRequirement>
+            <cbc:TendererRequirementTypeCode listName="exclusion-ground">labour-law</cbc:TendererRequirementTypeCode>
+            <cbc:Description languageID="POL">dotyczy art. 108 ust. 1 pkt 1 lit. h i pkt 2 ustawy Pzp</cbc:Description>
+         </cac:SpecificTendererRequirement>
+         <cac:SpecificTendererRequirement>
+            <cbc:TendererRequirementTypeCode listName="exclusion-ground">tax-pay</cbc:TendererRequirementTypeCode>
+            <cbc:Description languageID="POL">dotyczy art. 108 ust. 1 pkt 3 ustawy Pzp</cbc:Description>
+         </cac:SpecificTendererRequirement>
+         <cac:SpecificTendererRequirement>
+            <cbc:TendererRequirementTypeCode listName="exclusion-ground">nati-ground</cbc:TendererRequirementTypeCode>
+            <cbc:Description languageID="POL">dotyczy art. 108 ust. 1 pkt 1 i 4 ustawy Pzp</cbc:Description>
+         </cac:SpecificTendererRequirement>
+         <cac:SpecificTendererRequirement>
+            <cbc:TendererRequirementTypeCode listName="exclusion-ground">distorsion</cbc:TendererRequirementTypeCode>
+            <cbc:Description languageID="POL">dotyczy art. 108 ust. 1 pkt 5 ustawy Pzp</cbc:Description>
+         </cac:SpecificTendererRequirement>
+         <cac:SpecificTendererRequirement>
+            <cbc:TendererRequirementTypeCode listName="exclusion-ground">human-traffic</cbc:TendererRequirementTypeCode>
+            <cbc:Description languageID="POL">dotyczy art. 108 ust. 1 pkt 1 i 2 ustawy Pzp</cbc:Description>
+         </cac:SpecificTendererRequirement>
+         <cac:SpecificTendererRequirement>
+            <cbc:TendererRequirementTypeCode listName="exclusion-ground">finan-laund</cbc:TendererRequirementTypeCode>
+            <cbc:Description languageID="POL">dotyczy art. 108 ust. 1 pkt 1 i 2 ustawy Pzp</cbc:Description>
+         </cac:SpecificTendererRequirement>
+         <cac:SpecificTendererRequirement>
+            <cbc:TendererRequirementTypeCode listName="exclusion-ground">terr-offence</cbc:TendererRequirementTypeCode>
+            <cbc:Description languageID="POL">dotyczy art. 108 ust. 1 pkt 1 i 2 ustawy Pzp</cbc:Description>
+         </cac:SpecificTendererRequirement>
+         <cac:SpecificTendererRequirement>
+            <cbc:TendererRequirementTypeCode listName="exclusion-ground">crime-org</cbc:TendererRequirementTypeCode>
+            <cbc:Description languageID="POL">dotyczy art. 108 ust. 1 pkt 1 i 2 ustawy Pzp</cbc:Description>
+         </cac:SpecificTendererRequirement>
+         <cac:SpecificTendererRequirement>
+            <cbc:TendererRequirementTypeCode listName="exclusion-ground">prep-confl</cbc:TendererRequirementTypeCode>
+            <cbc:Description languageID="POL">dotyczy art. 108 ust. 1 pkt 6 ustawy Pzp</cbc:Description>
+         </cac:SpecificTendererRequirement>
+         <cac:SpecificTendererRequirement>
+            <cbc:TendererRequirementTypeCode listName="exclusion-ground">liq-admin</cbc:TendererRequirementTypeCode>
+            <cbc:Description languageID="POL">dotyczy art. 109 ust. 1 pkt 4 ustawy Pzp</cbc:Description>
+         </cac:SpecificTendererRequirement>
+         <cac:SpecificTendererRequirement>
+            <cbc:TendererRequirementTypeCode listName="exclusion-ground">susp-act</cbc:TendererRequirementTypeCode>
+            <cbc:Description languageID="POL">dotyczy art. 109 ust. 1 pkt 4 ustawy Pzp</cbc:Description>
+         </cac:SpecificTendererRequirement>
+         <cac:SpecificTendererRequirement>
+            <cbc:TendererRequirementTypeCode listName="exclusion-ground">bankr-nat</cbc:TendererRequirementTypeCode>
+            <cbc:Description languageID="POL">dotyczy art. 109 ust. 1 pkt 4 ustawy Pzp</cbc:Description>
+         </cac:SpecificTendererRequirement>
+         <cac:SpecificTendererRequirement>
+            <cbc:TendererRequirementTypeCode listName="exclusion-ground">insolvency</cbc:TendererRequirementTypeCode>
+            <cbc:Description languageID="POL">dotyczy art. 109 ust. 1 pkt 4 ustawy Pzp</cbc:Description>
+         </cac:SpecificTendererRequirement>
+         <cac:SpecificTendererRequirement>
+            <cbc:TendererRequirementTypeCode listName="exclusion-ground">cred-arran</cbc:TendererRequirementTypeCode>
+            <cbc:Description languageID="POL">dotyczy art. 109 ust. 1 pkt 4 ustawy Pzp</cbc:Description>
+         </cac:SpecificTendererRequirement>
+         <cac:SpecificTendererRequirement>
+            <cbc:TendererRequirementTypeCode listName="exclusion-ground">bankruptcy</cbc:TendererRequirementTypeCode>
+            <cbc:Description languageID="POL">dotyczy art. 109 ust. 1 pkt 4 ustawy Pzp</cbc:Description>
+         </cac:SpecificTendererRequirement>
+         <cac:SpecificTendererRequirement>
+            <cbc:TendererRequirementTypeCode listName="exclusion-ground">prof-misconduct</cbc:TendererRequirementTypeCode>
+            <cbc:Description languageID="POL">dotyczy art. 109 ust. 1 pkt 5 ustawy Pzp</cbc:Description>
+         </cac:SpecificTendererRequirement>
+         <cac:SpecificTendererRequirement>
+            <cbc:TendererRequirementTypeCode listName="exclusion-ground">partic-confl</cbc:TendererRequirementTypeCode>
+            <cbc:Description languageID="POL">dotyczy art. 109 ust. 1 pkt 6 ustawy Pzp</cbc:Description>
+         </cac:SpecificTendererRequirement>
+         <cac:SpecificTendererRequirement>
+            <cbc:TendererRequirementTypeCode listName="exclusion-ground">sanction</cbc:TendererRequirementTypeCode>
+            <cbc:Description languageID="POL">dotyczy art. 109 ust. 1 pkt 7 ustawy Pzp</cbc:Description>
+         </cac:SpecificTendererRequirement>
+         <cac:SpecificTendererRequirement>
+            <cbc:TendererRequirementTypeCode listName="exclusion-ground">misrepresent</cbc:TendererRequirementTypeCode>
+            <cbc:Description languageID="POL">dotyczy art. 109 ust. 1 pkt 8-10 ustawy Pzp</cbc:Description>
+         </cac:SpecificTendererRequirement>
+      </cac:TendererQualificationRequest>
+   </cac:TenderingTerms>
+   <cac:TenderingProcess>
+      <ext:UBLExtensions>
+         <ext:UBLExtension>
+            <ext:ExtensionContent>
+               <efext:EformsExtension>
+                  <efbc:ProcedureRelaunchIndicator>false</efbc:ProcedureRelaunchIndicator>
+               </efext:EformsExtension>
+            </ext:ExtensionContent>
+         </ext:UBLExtension>
+      </ext:UBLExtensions>
+      <cbc:ProcedureCode listName="procurement-procedure-type">restricted</cbc:ProcedureCode>
+   </cac:TenderingProcess>
+   <cac:ProcurementProject>
+      <cbc:ID>Spr. 120/2023</cbc:ID>
+      <cbc:Name languageID="POL">Konkurs realizacyjny na opracowanie koncepcji architektonicznej dwóch budynków: budynku administracji publicznej na potrzeby Urzędu Miasta i Gminy Piaseczno oraz budynku kultury na potrzeby Centrum Kultury w Piasecznie, w ramach zadania inwestycyjnego „Kompleks zabudowy teatralno-kulturalnej i administracji publicznej"</cbc:Name>
+      <cbc:Description languageID="POL">Konkurs jest konkursem realizacyjnym tzn. takim, w którym Nagrodą jest nagroda pieniężna oraz zaproszenie autora (Uczestnika konkursu) wybranej Pracy konkursowej do negocjacji w trybie zamówienia z wolnej ręki, w celu wykonania usługi na podstawie Pracy konkursowej. Przedmiot usługi został opisany w Istotnych postanowieniach umowy stanowiących Załącznik nr 1 do Regulaminu.
+Celem Konkursu jest uzyskanie najlepszej pod względem architektonicznym, przestrzennym i funkcjonalno–użytkowym koncepcji zespołu budynków administracji publicznej i kultury na potrzeby urzędu Miasta i Gminy Piaseczno oraz Centrum Kultury z salą widowiskową wraz z zagospodarowaniem terenu, w obszarze wskazanym w Załączniku nr 7a jako zakres opracowania konkursowego.
+Przedmiotem konkursu jest koncepcja architektoniczno - przestrzenna zespołu budynków: budynku administracji publicznej na potrzeby Urzędu Miasta i Gminy Piaseczno oraz budynku kultury z salą widowiskową na potrzeby Centrum Kultury w Piasecznie wraz z zagospodarowaniem terenu, w obszarze wskazanym w Załączniku nr 7a jako zakres opracowania konkursowego.
+Dodatkowo przedmiotem konkursu dla Etapu I (Opracowanie studialne) objęta jest Dz. ew. nr 56/2 przylegająca do terenu opracowania realizacyjnego od północno-wschodniej strony oraz działki drogowe otaczające teren planowanej inwestycji. Na działce ew. nr 56/2 należy zaproponować jako etap studialny, ideowy (nie realizacyjny) lokalizację budynku związanego z historia Żydów piaseczyńskich wraz z zagospodarowaniem działki i kontekstem z częścią realizacyjną konkursu i pozostałym otoczeniem. Szczegółowo wytyczne dla tego terenu opisano w Załączniku nr 7b do Regulaminu.
+</cbc:Description>
+      <cbc:ProcurementTypeCode listName="contract-nature">services</cbc:ProcurementTypeCode>
+      <cbc:Note languageID="POL">Konkurs dwuetapowy, realizacyjny na opracowanie koncepcji architektonicznej budynków na potrzeby Urzędu Miasta i Gminy Piaseczno oraz Centrum Kultury z salą widowiskową.
+Kryteria kwalifikacji uczestników:
+1)	Uczestnik konkursu musi spełnić wszystkie następujące wymagania:
+a)	nie podlega wykluczeniu na podstawie art. 108 ust 1 oraz art. 109 ust. 1 pkt 4-5, pkt 6 w zakresie członków Sądu Konkursowego oraz pkt 7-10 Ustawy;
+b)	nie podlega wykluczeniu na podstawie art. 7 ust. 1 ustawy z dnia 13 kwietnia 2022 r. o szczególnych rozwiązaniach w zakresie przeciwdziałania wspieraniu agresji na Ukrainę oraz służących ochronie bezpieczeństwa narodowego,
+c)	nie podlega wykluczeniu na podstawie art. 5k Rozporządzenia 833/2014 w brzmieniu nadanym Rozporządzeniem Rady (UE) 2022/576 z dnia 8 kwietnia 2022 r. w sprawie zmiany rozporządzenia (UE) nr 833/2014 dotyczącego środków ograniczających w związku z działaniami Rosji destabilizującymi sytuację na Ukrainie.
+UWAGA: 
+Powyższe wymagania dotyczą Uczestnika samodzielnie biorącego udział w konkursie jak i każdego z Uczestników wspólnie biorących udział w Konkursie oraz podmiotów, których zasobami Uczestnik konkursu dysponuje.
+d)	spełnia określony przez Organizatora warunek udziału w Konkursie dotyczący zdolności technicznej i zawodowej w zakresie wykształcenia, kwalifikacji zawodowych. Niniejszy warunek zostanie uznany za spełniony, jeżeli Uczestnik konkursu wykaże, iż dysponuje na etapie Konkursu co najmniej:
+–	jedną osobą która będzie uczestniczyć w wykonywaniu koncepcji konkursowej oraz Dokumentacji projektowej posiadającą uprawnienia budowlane do projektowania w specjalności architektonicznej bez ograniczeń, oraz posiadającą doświadczenie polegające na wykonaniu, w okresie ostatnich 15 lat przed terminem składania wniosków o dopuszczenie do udziału w konkursie, (jako autor lub członek zespołu autorskiego) co najmniej jednej wielobranżowej dokumentacji projektowej (obejmującej projekt budowlany, projekty wykonawcze i przedmiar robót), na której podstawie uzyskano prawomocne pozwolenie na budowę, dla budowy lub przebudowy (z wyłączeniem remontu) budynku użyteczności publicznej o powierzchni netto minimum 5 000 m2, w którym mieści się sala koncertowa, operowa, teatralna lub widowiskowa (z wyłączeniem kin i hal sportowych) przeznaczona m.in. dla wydarzeń muzycznych o pojemności widowni nie mniej niż 300 miejsc.
+–	jedną osobą która będzie uczestniczyć w wykonywaniu koncepcji konkursowej oraz Dokumentacji projektowej posiadającą wyższe wykształcenie techniczne w specjalności akustyka, oraz posiadającą doświadczenie polegające na wykonaniu, w okresie ostatnich 15 lat przed terminem składania wniosków o dopuszczenie do udziału w konkursie, (jako autor lub członek zespołu autorskiego w funkcji kierownika) co najmniej 1 projekt ochrony przeciwdźwiękowej i akustyki wnętrz dla budowy lub przebudowy (z wyłączeniem remontu) budynku użyteczności publicznej o powierzchni netto minimum 5 000 m2, w którym mieści się sala koncertowa, operowa, teatralna lub widowiskowa (z wyłączeniem kin, i hal sportowych) przeznaczona m.in. dla wydarzeń muzycznych o pojemności widowni nie mniej niż 300 miejsc oraz który uzyskał prawomocne pozwolenie na budowę.
+e)	spełnia określony przez Organizatora warunek udziału w Konkursie dotyczący zdolności technicznej i zawodowej w zakresie doświadczenia. Niniejszy warunek zostanie uznany za spełniony, jeżeli Uczestnik konkursu wykaże, iż:
+- posiada doświadczenie w należytym wykonaniu w ciągu ostatnich 15 lat przed upływem terminu o składanie wniosków o dopuszczenie do udziału w konkursie co najmniej jednej wielobranżowej dokumentacji projektowej (obejmującej projekt budowlany, projekty wykonawcze i przedmiar robót), na której podstawie uzyskano prawomocne pozwolenie na budowę, dla budowy lub przebudowy (z wyłączeniem remontu) budynku użyteczności publicznej o powierzchni netto minimum 5 000 m2, w którym mieści się sala koncertowa, operowa, teatralna lub widowiskowa (z wyłączeniem kin, i hal sportowych) przeznaczona m.in. dla wydarzeń muzycznych o pojemności widowni nie mniej niż 300 miejsc.
+f)	Organizator informuje, że uczestnik zaproszony do negocjacji będzie zobowiązany wykazać, że będzie dysponować osobami zdolnymi do wykonania zamówienia, o których mowa w Rozdziale XI ust. 1 pkt 2) lit. c) Regulaminu.
+g)	Na spełnienie warunku, o którym mowa w pkt 1) lit. d) tiret pierwsze oraz tiret drugie powyżej, Organizator wymaga złożenia wraz z wnioskiem o dopuszczenie do udziału w Konkursie Oświadczenia o spełnieniu warunku dysponowania w/w osobami wraz z wykazem osób, zawierającym informacje o posiadanych przez nie uprawnieniach oraz doświadczeniu wraz z podstawą do dysponowania tymi osobami.
+h)	Uwaga: dopuszcza się także kwalifikacje równoważne, zdobyte w innych państwach, na zasadach określonych w art. 12a ustawy z dnia 7 lipca 1994 r. Prawo budowlane, z uwzględnieniem postanowień ustawy z dnia 22 grudnia 2015 r. o zasadach uznawania kwalifikacji zawodowych nabytych w państwach członkowskich Unii Europejskiej.
+2)	W przypadku, gdy Uczestnicy konkursu wspólnie biorą udział w konkursie, każdy z warunków, o których mowa powyżej w pkt 1) lit. d) będzie spełniony, gdy spełni go przynajmniej jeden z Uczestników konkursu występujący wspólnie.
+3)	Uczestnik konkursu, aby spełnić warunek udziału w Konkursie określony w pkt. 8. lit. d) niniejszego Rozdziału może polegać na zasobach innych podmiotów, na zasadzie art. 118 Ustawy tj.:
+a)	W odniesieniu do warunków dotyczących wykształcenia, kwalifikacji zawodowych lub doświadczenia Uczestnicy konkursu mogą polegać na zdolnościach podmiotów udostępniających zasoby, jeśli podmioty te wykonają roboty budowlane lub usługi, do realizacji których te zdolności są wymagane.
+b)	Uczestnik konkursu, który polega na zdolnościach podmiotów udostępniających zasoby, składa, wraz z wnioskiem o dopuszczenie do udziału w Konkursie, zobowiązanie podmiotu udostępniającego zasoby do oddania mu do dyspozycji niezbędnych zasobów na potrzeby realizacji zadania konkursowego lub inny podmiotowy środek dowodowy potwierdzający, że Uczestnik konkursu będzie dysponował niezbędnymi zasobami tych podmiotów.
+c)	Zobowiązanie podmiotu udostępniającego zasoby potwierdza, że stosunek łączący Uczestnika konkursu z podmiotami udostępniającymi zasoby gwarantuje rzeczywisty dostęp do tych zasobów oraz określa w szczególności:
+–	zakres dostępnych Uczestnikowi konkursu zasobów podmiotu udostępniającego zasoby;
+–	sposób i okres udostępnienia Uczestnikowi konkursu i wykorzystania przez niego zasobów podmiotu udostępniającego te zasoby przy wykonywaniu zadania konkursowego;
+–	czy i w jakim zakresie podmiot udostępniający zasoby, na zdolnościach którego Uczestnik konkursu polega w odniesieniu do warunków udziału w Konkursie dotyczących wykształcenia, kwalifikacji zawodowych lub doświadczenia, zrealizuje zadanie konkursowe, których wskazane zdolności dotyczą.
+UWAGA do pkt 10) powyżej: 
+Poleganie na zdolnościach innych podmiotów będzie występować, jeśli pomiędzy Uczestnikiem Konkursu a osobą, którą będzie dysponował, będzie zachodził stosunek dysponowania pośredniego, tj. osoby, którymi będzie dysponował Uczestnik Konkursu należą do innych podmiotów, tj. są pracownikami podmiotu, który zobowiązuje się do udostępnienia zasobów Uczestnikowi konkursu. Natomiast, jeśli z osobami, którymi będzie dysponował Uczestnik konkursu będzie zachodził stosunek prawny łączący bezpośrednio strony, np. umowa o pracę, umowa o dzieło, zlecenia, świadczenie usług, itd., wówczas jest to dysponowanie bezpośrednie i nie wiąże się to z poleganiem na zasobach innych podmiotów w celu wykazania spełniania warunku udziału w Konkursie.
+4)	W przypadku warunku udziału w konkursie określonym w ust. 1 pkt 8) lit. e) niniejszego Rozdziału, Uczestnik konkursu nie może polegać na zasobach innych podmiotów. Musi to być doświadczenie własne Uczestnika konkursu.</cbc:Note>
+      <cac:MainCommodityClassification>
+         <cbc:ItemClassificationCode listName="cpv">71000000</cbc:ItemClassificationCode>
+      </cac:MainCommodityClassification>
+      <cac:AdditionalCommodityClassification>
+         <cbc:ItemClassificationCode listName="cpv">71200000</cbc:ItemClassificationCode>
+      </cac:AdditionalCommodityClassification>
+      <cac:AdditionalCommodityClassification>
+         <cbc:ItemClassificationCode listName="cpv">71300000</cbc:ItemClassificationCode>
+      </cac:AdditionalCommodityClassification>
+      <cac:AdditionalCommodityClassification>
+         <cbc:ItemClassificationCode listName="cpv">71400000</cbc:ItemClassificationCode>
+      </cac:AdditionalCommodityClassification>
+      <cac:AdditionalCommodityClassification>
+         <cbc:ItemClassificationCode listName="cpv">71220000</cbc:ItemClassificationCode>
+      </cac:AdditionalCommodityClassification>
+      <cac:AdditionalCommodityClassification>
+         <cbc:ItemClassificationCode listName="cpv">71320000</cbc:ItemClassificationCode>
+      </cac:AdditionalCommodityClassification>
+      <cac:AdditionalCommodityClassification>
+         <cbc:ItemClassificationCode listName="cpv">71420000</cbc:ItemClassificationCode>
+      </cac:AdditionalCommodityClassification>
+      <cac:AdditionalCommodityClassification>
+         <cbc:ItemClassificationCode listName="cpv">71248000</cbc:ItemClassificationCode>
+      </cac:AdditionalCommodityClassification>
+      <cac:AdditionalCommodityClassification>
+         <cbc:ItemClassificationCode listName="cpv">71322000</cbc:ItemClassificationCode>
+      </cac:AdditionalCommodityClassification>
+   </cac:ProcurementProject>
+   <cac:ProcurementProjectLot>
+      <cbc:ID schemeName="Lot">LOT-0001</cbc:ID>
+      <cac:TenderingTerms>
+         <ext:UBLExtensions>
+            <ext:UBLExtension>
+               <ext:ExtensionContent>
+                  <efext:EformsExtension>
+                     <efac:SelectionCriteria>
+                        <cbc:CriterionTypeCode listName="selection-criterion">tp-abil</cbc:CriterionTypeCode>
+                        <cbc:Name languageID="POL">Warunek udziału w Konkursie dotyczący zdolności technicznej i zawodowej w zakresie wykształcenia, kwalifikacji zawodowych, doświadczenia</cbc:Name>
+                        <cbc:Description languageID="POL">1. Niniejszy warunek zostanie uznany za spełniony, jeżeli Uczestnik konkursu wykaże, iż dysponuje na etapie Konkursu co najmniej:
+– jedną osobą która będzie uczestniczyć w wykonywaniu koncepcji konkursowej oraz Dokumentacji projektowej posiadającą uprawnienia budowlane do projektowania w specjalności architektonicznej bez ograniczeń, oraz posiadającą doświadczenie polegające na wykonaniu, w okresie ostatnich 15 lat przed terminem składania wniosków o dopuszczenie do udziału w konkursie, (jako autor lub członek zespołu autorskiego) co najmniej jednej wielobranżowej dokumentacji projektowej (obejmującej projekt budowlany, projekty wykonawcze i przedmiar robót), na której podstawie uzyskano prawomocne pozwolenie na budowę, dla budowy lub przebudowy (z wyłączeniem remontu) budynku użyteczności publicznej o powierzchni netto minimum 5 000 m2, w którym mieści się sala koncertowa, operowa, teatralna lub widowiskowa (z wyłączeniem kin i hal sportowych) przeznaczona m.in. dla wydarzeń muzycznych o pojemności widowni nie mniej niż 300 miejsc.
+– jedną osobą która będzie uczestniczyć w wykonywaniu koncepcji konkursowej oraz Dokumentacji projektowej posiadającą wyższe wykształcenie techniczne w specjalności akustyka, oraz posiadającą doświadczenie polegające na wykonaniu, w okresie ostatnich 15 lat przed terminem składania wniosków o dopuszczenie do udziału w konkursie, (jako autor lub członek zespołu autorskiego w funkcji kierownika) co najmniej 1 projekt ochrony przeciwdźwiękowej i akustyki wnętrz dla budowy lub przebudowy (z wyłączeniem remontu) budynku użyteczności publicznej o powierzchni netto minimum 5 000 m2, w którym mieści się sala koncertowa, operowa, teatralna lub widowiskowa (z wyłączeniem kin, i hal sportowych) przeznaczona m.in. dla wydarzeń muzycznych o pojemności widowni nie mniej niż 300 miejsc oraz który uzyskał prawomocne pozwolenie na budowę.
+2. Niniejszy warunek zostanie uznany za spełniony, jeżeli Uczestnik konkursu wykaże, iż:
+- posiada doświadczenie w należytym wykonaniu w ciągu ostatnich 15 lat przed upływem terminu o składanie wniosków o dopuszczenie do udziału w konkursie co najmniej jednej wielobranżowej dokumentacji projektowej (obejmującej projekt budowlany, projekty wykonawcze i przedmiar robót), na której podstawie uzyskano prawomocne pozwolenie na budowę, dla budowy lub przebudowy (z wyłączeniem remontu) budynku użyteczności publicznej o powierzchni netto minimum 5 000 m2, w którym mieści się sala koncertowa, operowa, teatralna lub widowiskowa (z wyłączeniem kin, i hal sportowych) przeznaczona m.in. dla wydarzeń muzycznych o pojemności widowni nie mniej niż 300 miejsc.</cbc:Description>
+                        <cbc:CalculationExpressionCode listName="usage">used</cbc:CalculationExpressionCode>
+                        <efbc:SecondStageIndicator>true</efbc:SecondStageIndicator>
+                     </efac:SelectionCriteria>
+                  </efext:EformsExtension>
+               </ext:ExtensionContent>
+            </ext:UBLExtension>
+         </ext:UBLExtensions>
+         <cbc:VariantConstraintCode listName="permission">not-allowed</cbc:VariantConstraintCode>
+         <cbc:FundingProgramCode listName="eu-funded">no-eu-funds</cbc:FundingProgramCode>
+         <cbc:MultipleTendersCode listName="permission">not-allowed</cbc:MultipleTendersCode>
+         <cac:CallForTendersDocumentReference>
+            <ext:UBLExtensions>
+               <ext:UBLExtension>
+                  <ext:ExtensionContent>
+                     <efext:EformsExtension>
+                        <efac:OfficialLanguages>
+                           <cac:Language>
+                              <cbc:ID>POL</cbc:ID>
+                           </cac:Language>
+                        </efac:OfficialLanguages>
+                     </efext:EformsExtension>
+                  </ext:ExtensionContent>
+               </ext:UBLExtension>
+            </ext:UBLExtensions>
+            <cbc:ID>_DEFAULT_VALUE_CHANGE_ME_</cbc:ID>
+            <cbc:DocumentType>non-restricted-document</cbc:DocumentType>
+            <cac:Attachment>
+               <cac:ExternalReference>
+                  <cbc:URI>https://epk.sarp.pl</cbc:URI>
+               </cac:ExternalReference>
+            </cac:Attachment>
+         </cac:CallForTendersDocumentReference>
+         <cac:ContractExecutionRequirement>
+            <cbc:ExecutionRequirementCode listName="esignature-submission">true</cbc:ExecutionRequirementCode>
+         </cac:ContractExecutionRequirement>
+         <cac:AwardingTerms>
+            <cbc:FollowupContractIndicator>true</cbc:FollowupContractIndicator>
+            <cbc:BindingOnBuyerIndicator>false</cbc:BindingOnBuyerIndicator>
+            <cac:AwardingCriterion>
+               <cbc:Description languageID="POL">Opracowania studialne oceniane będą według następujących kryteriów:
+1)	Kryteria pierwszorzędowe (w tej grupie wymienione poniżej kryteria są równoważne)
+a)	Trafność wpisania pod względem urbanistycznym i architektonicznym nowych obiektów i zagospodarowania terenu w obecny układ tkanki miejskiej.
+b)	Atrakcyjność i oryginalność proponowanych rozwiązań urbanistycznych i architektonicznych,
+c)	Efektywność i zasadność rozwiązań przestrzenno-funkcjonalnych i programowych budynków i zagospodarowania,
+d)	Zastosowanie rozwiązań proekologicznych i energooszczędnych oraz ich efektywność i zasadność.
+2)	Kryterium drugorzędowe
+a)	Realność i optymalizacja ekonomiczna przyjętych rozwiązań w odniesieniu do kosztów realizacji Inwestycji i kosztów jej użytkowania i utrzymania.
+Prace konkursowe oceniane będą według następujących kryteriów:
+1)	Kryteria pierwszorzędowe (w tej grupie wymienione poniżej kryteria są równoważne)
+a)	Trafność wpisania pod względem urbanistycznym i architektonicznym nowych obiektów i zagospodarowania terenu w obecny układ tkanki miejskiej.
+b)	Atrakcyjność i oryginalność proponowanych rozwiązań urbanistycznych i architektonicznych
+c)	Efektywność i zasadność rozwiązań przestrzenno-funkcjonalnych i programowych budynków i zagospodarowania,
+d)	Sprawność funkcjonalna i trafność zastosowanych technologii scenicznych sali widowiskowej Centrum Kultury.
+e)	Zastosowanie rozwiązań proekologicznych i energooszczędnych oraz ich efektywność i zasadność.
+2)	Kryterium drugorzędowe
+a)	Realność i optymalizacja ekonomiczna przyjętych rozwiązań w odniesieniu do kosztów realizacji Inwestycji i kosztów jej użytkowania i utrzymania.</cbc:Description>
+            </cac:AwardingCriterion>
+            <cac:TechnicalCommitteePerson>
+               <cbc:FamilyName>arch. Andrzej Bulanda – Przewodniczący Sądu Konkurs.; arch. Maria Saloni-Sadowska –Sędzia referent; arch. Bartosz Lewandowski – Asystent Sędziego referenta; Robert Widz –Członek Sądu Konkurs.; Agnieszka Zubala – Członek Sądu Konkurs.; arch. Kinga Socha –Członek Sądu Konkurs.; arch. Piotr Piętka – Członek Sądu Konkurs.; arch. Rafał Sieraczyński –Członek Sądu Konkurs.; Rafał Mroczkowski - Sekretarz</cbc:FamilyName>
+            </cac:TechnicalCommitteePerson>
+            <cac:Prize>
+               <cbc:RankCode>_DEFAULT_VALUE_CHANGE_ME_</cbc:RankCode>
+               <cbc:Description languageID="POL">W konkursie mogą zostać przyznane następujące nagrody:
+Nagrody pieniężne
+I Nagroda - 60 000,00 zł brutto;
+II Nagroda - 50 000,00 zł brutto;
+III Nagroda - 40 000,00 zł brutto;
+Dwie Nagrody pieniężne w formie wyróżnień, po 20 000,00 zł brutto dla każdej wyróżnionej Pracy konkursowej
+oraz
+Nagroda w postaci zaproszenia do negocjacji w trybie zamówienia z wolnej ręki na wykonanie usługi na podstawie wybranej pracy konkursowej dla Uczestnika konkursu, którego praca konkursowa otrzymała największą liczbę punktów (I Nagroda pieniężna)</cbc:Description>
+            </cac:Prize>
+         </cac:AwardingTerms>
+         <cac:TenderRecipientParty>
+            <cbc:EndpointID>https://epk.sarp.pl/</cbc:EndpointID>
+            <cac:PartyIdentification>
+               <cbc:ID>ORG-0003</cbc:ID>
+            </cac:PartyIdentification>
+         </cac:TenderRecipientParty>
+         <cac:TenderEvaluationParty>
+            <cac:PartyIdentification>
+               <cbc:ID>ORG-0003</cbc:ID>
+            </cac:PartyIdentification>
+         </cac:TenderEvaluationParty>
+         <cac:AppealTerms>
+            <cac:PresentationPeriod>
+               <cbc:Description languageID="POL">Środki ochrony prawnej określone w Dziale IX ustawy PZP</cbc:Description>
+            </cac:PresentationPeriod>
+            <cac:AppealInformationParty>
+               <cac:PartyIdentification>
+                  <cbc:ID>ORG-0002</cbc:ID>
+               </cac:PartyIdentification>
+            </cac:AppealInformationParty>
+            <cac:AppealReceiverParty>
+               <cac:PartyIdentification>
+                  <cbc:ID>ORG-0002</cbc:ID>
+               </cac:PartyIdentification>
+            </cac:AppealReceiverParty>
+         </cac:AppealTerms>
+         <cac:Language>
+            <cbc:ID>POL</cbc:ID>
+         </cac:Language>
+      </cac:TenderingTerms>
+      <cac:TenderingProcess>
+         <cbc:SubmissionMethodCode listName="esubmission">required</cbc:SubmissionMethodCode>
+         <cbc:CandidateReductionConstraintIndicator>true</cbc:CandidateReductionConstraintIndicator>
+         <cac:ParticipationRequestReceptionPeriod>
+            <cbc:EndDate>2023-11-24+01:00</cbc:EndDate>
+            <cbc:EndTime>23:59:00+01:00</cbc:EndTime>
+         </cac:ParticipationRequestReceptionPeriod>
+         <cac:EconomicOperatorShortList>
+            <cbc:LimitationDescription>true</cbc:LimitationDescription>
+            <cbc:MaximumQuantity>999</cbc:MaximumQuantity>
+            <cbc:MinimumQuantity>2</cbc:MinimumQuantity>
+         </cac:EconomicOperatorShortList>
+      </cac:TenderingProcess>
+      <cac:ProcurementProject>
+         <cbc:ID>Spr. 120/2023</cbc:ID>
+         <cbc:Name languageID="POL">Konkurs realizacyjny na opracowanie koncepcji architektonicznej dwóch budynków: budynku administracji publicznej na potrzeby Urzędu Miasta i Gminy Piaseczno oraz budynku kultury na potrzeby Centrum Kultury w Piasecznie, w ramach zadania inwestycyjnego „Kompleks zabudowy teatralno-kulturalnej i administracji publicznej”</cbc:Name>
+         <cbc:Description languageID="POL">Konkurs jest konkursem realizacyjnym tzn. takim, w którym Nagrodą jest nagroda pieniężna oraz zaproszenie autora (Uczestnika konkursu) wybranej Pracy konkursowej do negocjacji w trybie zamówienia z wolnej ręki, w celu wykonania usługi na podstawie Pracy konkursowej. Przedmiot usługi został opisany w Istotnych postanowieniach umowy stanowiących Załącznik nr 1 do Regulaminu.
+Celem Konkursu jest uzyskanie najlepszej pod względem architektonicznym, przestrzennym i funkcjonalno–użytkowym koncepcji zespołu budynków administracji publicznej i kultury na potrzeby urzędu Miasta i Gminy Piaseczno oraz Centrum Kultury z salą widowiskową wraz z zagospodarowaniem terenu, w obszarze wskazanym w Załączniku nr 7a jako zakres opracowania konkursowego.
+Przedmiotem konkursu jest koncepcja architektoniczno - przestrzenna zespołu budynków: budynku administracji publicznej na potrzeby Urzędu Miasta i Gminy Piaseczno oraz budynku kultury z salą widowiskową na potrzeby Centrum Kultury w Piasecznie wraz z zagospodarowaniem terenu, w obszarze wskazanym w Załączniku nr 7a jako zakres opracowania konkursowego.
+Dodatkowo przedmiotem konkursu dla Etapu I (Opracowanie studialne) objęta jest Dz. ew. nr 56/2 przylegająca do terenu opracowania realizacyjnego od północno-wschodniej strony oraz działki drogowe otaczające teren planowanej inwestycji. Na działce ew. nr 56/2 należy zaproponować jako etap studialny, ideowy (nie realizacyjny) lokalizację budynku związanego z historia Żydów piaseczyńskich wraz z zagospodarowaniem działki i kontekstem z częścią realizacyjną konkursu i pozostałym otoczeniem. Szczegółowo wytyczne dla tego terenu opisano w Załączniku nr 7b do Regulaminu.
+Teren inwestycji: 12 845,0 m2
+Budynek administracji publicznej - powierzchnia użytkowa - ok. 6 800 m2
+Budynek kulturalny - powierzchnia użytkowa - ok. 4 700 m2
+Garaż podziemny - powierzchnia użytkowa ok. 5 500 m2</cbc:Description>
+         <cbc:ProcurementTypeCode listName="contract-nature">services</cbc:ProcurementTypeCode>
+         <cac:MainCommodityClassification>
+            <cbc:ItemClassificationCode listName="cpv">71000000</cbc:ItemClassificationCode>
+         </cac:MainCommodityClassification>
+         <cac:AdditionalCommodityClassification>
+            <cbc:ItemClassificationCode listName="cpv">71200000</cbc:ItemClassificationCode>
+         </cac:AdditionalCommodityClassification>
+         <cac:AdditionalCommodityClassification>
+            <cbc:ItemClassificationCode listName="cpv">71300000</cbc:ItemClassificationCode>
+         </cac:AdditionalCommodityClassification>
+         <cac:AdditionalCommodityClassification>
+            <cbc:ItemClassificationCode listName="cpv">71400000</cbc:ItemClassificationCode>
+         </cac:AdditionalCommodityClassification>
+         <cac:AdditionalCommodityClassification>
+            <cbc:ItemClassificationCode listName="cpv">71220000</cbc:ItemClassificationCode>
+         </cac:AdditionalCommodityClassification>
+         <cac:AdditionalCommodityClassification>
+            <cbc:ItemClassificationCode listName="cpv">71320000</cbc:ItemClassificationCode>
+         </cac:AdditionalCommodityClassification>
+         <cac:AdditionalCommodityClassification>
+            <cbc:ItemClassificationCode listName="cpv">71420000</cbc:ItemClassificationCode>
+         </cac:AdditionalCommodityClassification>
+         <cac:AdditionalCommodityClassification>
+            <cbc:ItemClassificationCode listName="cpv">71322000</cbc:ItemClassificationCode>
+         </cac:AdditionalCommodityClassification>
+      </cac:ProcurementProject>
+   </cac:ProcurementProjectLot>
+</ContractNotice>

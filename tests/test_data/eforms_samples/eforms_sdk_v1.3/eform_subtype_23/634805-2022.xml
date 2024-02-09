@@ -1,0 +1,342 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><!-- Based on https://ted.europa.eu/udl?uri=TED:NOTICE:176972-2020:TEXT:EN:HTML
+--><ContractNotice xmlns="urn:oasis:names:specification:ubl:schema:xsd:ContractNotice-2" xmlns:cac="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2" xmlns:cbc="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2" xmlns:efac="http://data.europa.eu/p27/eforms-ubl-extension-aggregate-components/1" xmlns:efbc="http://data.europa.eu/p27/eforms-ubl-extension-basic-components/1" xmlns:efext="http://data.europa.eu/p27/eforms-ubl-extensions/1" xmlns:ext="urn:oasis:names:specification:ubl:schema:xsd:CommonExtensionComponents-2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<ext:UBLExtensions>
+		<ext:UBLExtension>
+			<ext:ExtensionContent>
+				<efext:EformsExtension>
+					<efac:NoticeSubType>
+						<cbc:SubTypeCode listName="notice-subtype">23</cbc:SubTypeCode>
+					</efac:NoticeSubType>
+					<efac:Organizations>
+						<efac:Organization>
+							<efac:Company>
+								<cbc:WebsiteURI>https://www.url-inexistante.fr/</cbc:WebsiteURI>
+								<cbc:EndpointID>https://url-inexistante.com</cbc:EndpointID>
+								<cac:PartyIdentification>
+									<cbc:ID schemeName="organization">ORG-0001</cbc:ID>
+								</cac:PartyIdentification>
+								<cac:PartyName>
+									<cbc:Name languageID="FRA">Communauté XYZ</cbc:Name>
+								</cac:PartyName>
+								<cac:PostalAddress>
+									<cbc:StreetName>Rue 1</cbc:StreetName>
+									<cbc:CityName>Ville</cbc:CityName>
+									<cbc:PostalZone>1234</cbc:PostalZone>
+									<cbc:CountrySubentityCode listName="nuts">FRF12</cbc:CountrySubentityCode>
+									<cac:Country>
+										<cbc:IdentificationCode listName="country">FRA</cbc:IdentificationCode>
+									</cac:Country>
+								</cac:PostalAddress>
+								<cac:PartyLegalEntity>
+									<cbc:CompanyID>Org-0001-identifiant</cbc:CompanyID>
+								</cac:PartyLegalEntity>
+								<cac:Contact>
+									<cbc:Name>Service Accueil</cbc:Name>
+									<cbc:Telephone>+33 12345678</cbc:Telephone>
+									<cbc:Telefax>+33 12345678</cbc:Telefax>
+									<cbc:ElectronicMail>contact@example.fr</cbc:ElectronicMail>
+								</cac:Contact>
+							</efac:Company>
+						</efac:Organization>
+						<efac:Organization>
+							<efac:Company>
+								<cbc:WebsiteURI>https://www.url-inexistante.fr</cbc:WebsiteURI>
+								<cbc:EndpointID>https://url-inexistante.com</cbc:EndpointID>
+								<cac:PartyIdentification>
+									<cbc:ID schemeName="organization">ORG-0002</cbc:ID>
+								</cac:PartyIdentification>
+								<cac:PartyName>
+									<cbc:Name languageID="FRA">Organisation</cbc:Name>
+								</cac:PartyName>
+								<cac:PostalAddress>
+									<cbc:StreetName>Rue 2</cbc:StreetName>
+									<cbc:CityName>Ville</cbc:CityName>
+									<cbc:PostalZone>XY1234</cbc:PostalZone>
+									<cbc:CountrySubentityCode listName="nuts">FRF12</cbc:CountrySubentityCode>
+									<cac:Country>
+										<cbc:IdentificationCode listName="country">FRA</cbc:IdentificationCode>
+									</cac:Country>
+								</cac:PostalAddress>
+								<cac:PartyLegalEntity>
+									<cbc:CompanyID>Org-0002-identifiant</cbc:CompanyID>
+								</cac:PartyLegalEntity>
+								<cac:Contact>
+									<cbc:Name>Contact</cbc:Name>
+									<cbc:Telephone>+33 12377777</cbc:Telephone>
+									<cbc:Telefax>+33 12377777</cbc:Telefax>
+									<cbc:ElectronicMail>example@email.com</cbc:ElectronicMail>
+								</cac:Contact>
+							</efac:Company>
+						</efac:Organization>
+						<efac:Organization>
+							<efac:Company>
+								<cbc:WebsiteURI>https://www.url-inexistante.fr</cbc:WebsiteURI>
+								<cac:PartyIdentification>
+									<cbc:ID schemeName="organization">ORG-0003</cbc:ID>
+								</cac:PartyIdentification>
+								<cac:PartyName>
+									<cbc:Name languageID="FRA">Tribunal administratif</cbc:Name>
+								</cac:PartyName>
+								<cac:PostalAddress>
+									<cbc:StreetName>Avenue 1</cbc:StreetName>
+									<cbc:CityName>Ville</cbc:CityName>
+									<cbc:PostalZone>ABC123</cbc:PostalZone>
+									<cbc:CountrySubentityCode listName="nuts">FRF11</cbc:CountrySubentityCode>
+									<cac:Country>
+										<cbc:IdentificationCode listName="country">FRA</cbc:IdentificationCode>
+									</cac:Country>
+								</cac:PostalAddress>
+								<cac:PartyLegalEntity>
+									<cbc:CompanyID>123 456 789</cbc:CompanyID>
+								</cac:PartyLegalEntity>
+								<cac:Contact>
+									<cbc:Telephone>+33 234567</cbc:Telephone>
+									<cbc:Telefax>+33 234567</cbc:Telefax>
+									<cbc:ElectronicMail>contact@example.fr</cbc:ElectronicMail>
+								</cac:Contact>
+							</efac:Company>
+						</efac:Organization>
+						<efac:Organization>
+							<efac:Company>
+								<cbc:WebsiteURI>https://www.url-inexistante.fr</cbc:WebsiteURI>
+								<cac:PartyIdentification>
+									<cbc:ID schemeName="organization">ORG-0004</cbc:ID>
+								</cac:PartyIdentification>
+								<cac:PartyName>
+									<cbc:Name languageID="FRA">Comité consultatif</cbc:Name>
+								</cac:PartyName>
+								<cac:PostalAddress>
+									<cbc:StreetName>Avenue 2</cbc:StreetName>
+									<cbc:CityName>Ville</cbc:CityName>
+									<cbc:PostalZone>DEF123</cbc:PostalZone>
+									<cbc:CountrySubentityCode listName="nuts">FRF31</cbc:CountrySubentityCode>
+									<cac:Country>
+										<cbc:IdentificationCode listName="country">FRA</cbc:IdentificationCode>
+									</cac:Country>
+								</cac:PostalAddress>
+								<cac:PartyLegalEntity>
+									<cbc:CompanyID>123 456 789</cbc:CompanyID>
+								</cac:PartyLegalEntity>
+								<cac:Contact>
+									<cbc:Telephone>+33 98765432</cbc:Telephone>
+									<cbc:Telefax>+33 98765432</cbc:Telefax>
+									<cbc:ElectronicMail>contact@example-mediator.com</cbc:ElectronicMail>
+								</cac:Contact>
+							</efac:Company>
+						</efac:Organization>
+						<efac:Organization>
+							<efac:Company>
+								<cbc:WebsiteURI>https://esendercorp.eu</cbc:WebsiteURI>
+								<cac:PartyIdentification>
+									<cbc:ID schemeName="organization">ORG-0005</cbc:ID>
+								</cac:PartyIdentification>
+								<cac:PartyName>
+									<cbc:Name languageID="FRA">eSendCorp</cbc:Name>
+								</cac:PartyName>
+								<cac:PostalAddress>
+									<cbc:CityName>Luxembourg</cbc:CityName>
+									<cbc:PostalZone>678</cbc:PostalZone>
+									<cbc:CountrySubentityCode listName="nuts">LU000</cbc:CountrySubentityCode>
+									<cac:Country>
+										<cbc:IdentificationCode listName="country">LUX</cbc:IdentificationCode>
+									</cac:Country>
+								</cac:PostalAddress>
+								<cac:PartyLegalEntity>
+									<cbc:CompanyID>111 222 333</cbc:CompanyID>
+								</cac:PartyLegalEntity>
+								<cac:Contact>
+									<cbc:Telephone>+352 123456789</cbc:Telephone>
+									<cbc:Telefax>+352 1234567899</cbc:Telefax>
+									<cbc:ElectronicMail>esender@example.com</cbc:ElectronicMail>
+								</cac:Contact>
+							</efac:Company>
+						</efac:Organization>
+					</efac:Organizations>
+				<efac:Publication><efbc:NoticePublicationID schemeName="ojs-notice-id">00634805-2022</efbc:NoticePublicationID><efbc:GazetteID schemeName="ojs-id">220/2022</efbc:GazetteID><efbc:PublicationDate>2022-11-15Z</efbc:PublicationDate></efac:Publication></efext:EformsExtension>
+			</ext:ExtensionContent>
+		</ext:UBLExtension>
+	</ext:UBLExtensions>
+	<cbc:UBLVersionID>2.3</cbc:UBLVersionID>
+	<cbc:CustomizationID>eforms-sdk-1.3</cbc:CustomizationID>
+	<cbc:ID schemeName="notice-id">992a728c-7116-4fcf-9364-b1e04ed48d3a</cbc:ID>
+	<cbc:ContractFolderID>c91dc275-062c-45b2-b9d0-edddee79e560</cbc:ContractFolderID>
+	<cbc:IssueDate>2022-11-10+01:00</cbc:IssueDate>
+	<cbc:IssueTime>09:09:09+01:00</cbc:IssueTime>
+	<cbc:VersionID>01</cbc:VersionID>
+	<cbc:RegulatoryDomain>32014L0024</cbc:RegulatoryDomain>
+	<cbc:NoticeTypeCode listName="competition">cn-desg</cbc:NoticeTypeCode>
+	<cbc:NoticeLanguageCode>FRA</cbc:NoticeLanguageCode>
+	<cac:ContractingParty>
+		<cac:ContractingPartyType>
+			<cbc:PartyTypeCode listName="buyer-legal-type">la</cbc:PartyTypeCode>
+		</cac:ContractingPartyType>
+		<cac:ContractingActivity>
+			<cbc:ActivityTypeCode listName="authority-activity">gen-pub</cbc:ActivityTypeCode>
+		</cac:ContractingActivity>
+		<cac:Party>
+			<cac:PartyIdentification>
+				<cbc:ID schemeName="organization">ORG-0001</cbc:ID>
+			</cac:PartyIdentification>
+			<cac:ServiceProviderParty>
+				<cbc:ServiceTypeCode listName="organisation-role">ted-esen</cbc:ServiceTypeCode>
+				<cac:Party>
+					<cac:PartyIdentification>
+						<cbc:ID schemeName="organization">ORG-0005</cbc:ID>
+					</cac:PartyIdentification>
+				</cac:Party>
+			</cac:ServiceProviderParty>
+		</cac:Party>
+	</cac:ContractingParty>
+	<cac:TenderingProcess>
+		<cbc:ProcedureCode listName="procurement-procedure-type">restricted</cbc:ProcedureCode>
+	</cac:TenderingProcess>
+	<cac:ProcurementProject>
+		<cbc:ID>xyz</cbc:ID>
+		<cbc:Name languageID="FRA">Ut iusto deserunt ut veritatis quidem ut galisum animi</cbc:Name>
+		<cbc:Description languageID="FRA">Ut pariatur quis est ducimus explicabo et voluptas culpa et accusantium voluptas qui nemo saepe sit beatae ipsum sed nihil ducimus. Ut assumenda officia sit ipsa quia ad omnis quod sit eligendi mollitia eum iusto laborum sit ipsum quas.</cbc:Description>
+		<cbc:ProcurementTypeCode listName="contract-nature">services</cbc:ProcurementTypeCode>
+		<cbc:Note languageID="FRA">In voluptatem laboriosam ut nihil autem qui beatae temporibus qui laborum similique qui omnis dolores non autem quasi id repellendus rerum.</cbc:Note>
+		<cac:MainCommodityClassification>
+			<cbc:ItemClassificationCode listName="cpv">71000000</cbc:ItemClassificationCode>
+		</cac:MainCommodityClassification>
+		<cac:AdditionalCommodityClassification>
+			<cbc:ItemClassificationCode listName="cpv">71000000</cbc:ItemClassificationCode>
+		</cac:AdditionalCommodityClassification>
+	</cac:ProcurementProject>
+	<cac:ProcurementProjectLot>
+		<cbc:ID schemeName="Lot">LOT-0000</cbc:ID>
+		<cac:TenderingTerms>
+			<ext:UBLExtensions>
+				<ext:UBLExtension>
+					<ext:ExtensionContent>
+						<efext:EformsExtension>
+							<efac:SelectionCriteria>
+								<cbc:CriterionTypeCode listName="selection-criterion">sui-act</cbc:CriterionTypeCode>
+								<cbc:Description languageID="FRA">Cum nesciunt voluptatibus nam dolorum ducimus est eligendi impedit a voluptas quae.</cbc:Description>
+								<cbc:CalculationExpressionCode listName="usage">used</cbc:CalculationExpressionCode>
+								<efbc:SecondStageIndicator>false</efbc:SecondStageIndicator>
+							</efac:SelectionCriteria>
+							<efac:SelectionCriteria>
+								<cbc:CriterionTypeCode listName="selection-criterion">ef-stand</cbc:CriterionTypeCode>
+								<cbc:Description languageID="FRA">Quo quod suscipit quo itaque sint qui delectus maiores id omnis vero ad doloribus aspernatur.</cbc:Description>
+								<cbc:CalculationExpressionCode listName="usage">used</cbc:CalculationExpressionCode>
+								<efbc:SecondStageIndicator>false</efbc:SecondStageIndicator>
+							</efac:SelectionCriteria>
+							<efac:SelectionCriteria>
+								<cbc:CriterionTypeCode listName="selection-criterion">tp-abil</cbc:CriterionTypeCode>
+								<cbc:Description languageID="FRA">Quo quod suscipit quo itaque sint qui delectus maiores id omnis vero ad doloribus aspernatur.</cbc:Description>
+								<cbc:CalculationExpressionCode listName="usage">used</cbc:CalculationExpressionCode>
+								<efbc:SecondStageIndicator>false</efbc:SecondStageIndicator>
+							</efac:SelectionCriteria>
+						</efext:EformsExtension>
+					</ext:ExtensionContent>
+				</ext:UBLExtension>
+			</ext:UBLExtensions>
+			<cbc:FundingProgramCode listName="eu-funded">no-eu-funds</cbc:FundingProgramCode>
+			<cac:CallForTendersDocumentReference>
+				<cbc:ID>DocID1</cbc:ID>
+				<cbc:DocumentType>non-restricted-document</cbc:DocumentType>
+				<cac:Attachment>
+					<cac:ExternalReference>
+						<cbc:URI>https://www.url-inexistante.com/</cbc:URI>
+					</cac:ExternalReference>
+				</cac:Attachment>
+			</cac:CallForTendersDocumentReference>
+			<cac:AwardingTerms>
+				<cbc:FollowupContractIndicator>true</cbc:FollowupContractIndicator>
+				<cbc:BindingOnBuyerIndicator>true</cbc:BindingOnBuyerIndicator>
+				<cac:AwardingCriterion>
+					<cac:SubordinateAwardingCriterion>
+						<cbc:AwardingCriterionTypeCode listName="award-criterion-type">quality</cbc:AwardingCriterionTypeCode>
+						<cbc:Description languageID="FRA">Qui quae animi et harum omnis est adipisci sunt:
+
+							— Qui obcaecati Quis sed unde dolore nam necessitatibus omnis ut iusto odit:
+							
+							1) Nam impedit officiis qui perferendis dolores sed adipisci doloribus aut voluptates tempore qui excepturi perferendis est laborum cupiditate (et galisum quas qui magni omnis non ipsa repellat);
+							
+							2) Qui optio tempore et vero repellendus, qui asperiores commodi aut eligendi omnis et explicabo reprehenderit ut tempora suscipit:
+							
+							— sit commodi labore quo aliquam voluptatibus eum aliquid delectus a quia nostrum:
+							
+							—— qui eveniet inventore ex consequuntur obcaecati qui maxime nisi;
+							
+							—— qui eveniet inventore ex consequuntur obcaecati qui a minima superiori a nostrum — 30 %;
+							
+							—— qui eveniet inventore ex consequuntur obcaecati galisum et sunt voluptatem nam amet voluptatem qui minima debitis 3 000 000 EUR;
+							
+							— hic voluptatem nesciunt vel dicta magnam quo sapiente neque est eligendi unde;
+							
+							3) aut quia numquam eos necessitatibus voluptatibus aut nihil necessitatibus non earum rerum qui voluptatum nesciunt At optio voluptatibus.
+						</cbc:Description>
+					</cac:SubordinateAwardingCriterion>
+				</cac:AwardingCriterion>
+				<cac:TechnicalCommitteePerson>
+					<cbc:FirstName>Eos maiores quod ut reiciendis velit et quia obcaecati At illum voluptatem</cbc:FirstName>
+				</cac:TechnicalCommitteePerson>
+				<cac:Prize>
+					<cbc:RankCode>1</cbc:RankCode>
+					<cbc:ValueAmount currencyID="EUR">10000</cbc:ValueAmount>
+					<cbc:Description languageID="FRA">Et numquam autem quo numquam omnis a repellat ipsum ut odio cupiditate sit voluptate pariatur qui odio numquam; et illo perspiciatis aut necessitatibus voluptatem qui odit sint..</cbc:Description>
+				</cac:Prize>
+				<cac:Prize>
+					<cbc:RankCode>2</cbc:RankCode>
+					<cbc:ValueAmount currencyID="EUR">10000</cbc:ValueAmount>
+					<cbc:Description languageID="FRA">Aut fuga mollitia et illo consectetur qui obcaecati sunt eos adipisci sint ea iusto dolorem aut nihil rerum aut provident sunt.</cbc:Description>
+				</cac:Prize>
+			</cac:AwardingTerms>
+			<cac:AdditionalInformationParty>
+				<cac:PartyIdentification>
+					<cbc:ID schemeName="organization">ORG-0002</cbc:ID>
+				</cac:PartyIdentification>
+			</cac:AdditionalInformationParty>
+			<cac:TenderRecipientParty>
+				<cac:PartyIdentification>
+					<cbc:ID schemeName="organization">ORG-0001</cbc:ID>
+				</cac:PartyIdentification>
+			</cac:TenderRecipientParty>
+			<cac:AppealTerms>
+				<cac:AppealReceiverParty>
+					<cac:PartyIdentification>
+						<cbc:ID schemeName="organization">ORG-0003</cbc:ID>
+					</cac:PartyIdentification>
+				</cac:AppealReceiverParty>
+				<cac:MediationParty>
+					<cac:PartyIdentification>
+						<cbc:ID schemeName="organization">ORG-0004</cbc:ID>
+					</cac:PartyIdentification>
+				</cac:MediationParty>
+			</cac:AppealTerms>
+			<cac:Language>
+				<cbc:ID>FRA</cbc:ID>
+			</cac:Language>
+		</cac:TenderingTerms>
+		<cac:TenderingProcess>
+			<cbc:SubmissionMethodCode listName="esubmission">required</cbc:SubmissionMethodCode>
+			<cbc:CandidateReductionConstraintIndicator>true</cbc:CandidateReductionConstraintIndicator>
+			<cac:ParticipationRequestReceptionPeriod>
+				<cbc:EndDate>2020-06-05+01:00</cbc:EndDate>
+				<cbc:EndTime>12:00:00+01:00</cbc:EndTime>
+			</cac:ParticipationRequestReceptionPeriod>
+		</cac:TenderingProcess>
+		<cac:ProcurementProject>
+			<cbc:ID>xyz</cbc:ID>
+			<cbc:Name languageID="FRA">Ut iusto deserunt ut veritatis quidem ut galisum animi</cbc:Name>
+			<cbc:Description languageID="FRA">Ut pariatur quis est ducimus explicabo et voluptas culpa et accusantium voluptas qui nemo saepe sit beatae ipsum sed nihil ducimus; — Ut assumenda officia sit ipsa quia ad omnis quod sit eligendi mollitia eum iusto laborum sit ipsum quas.</cbc:Description>
+			<cbc:ProcurementTypeCode listName="contract-nature">services</cbc:ProcurementTypeCode>
+			<cac:MainCommodityClassification>
+				<cbc:ItemClassificationCode listName="cpv">71000000</cbc:ItemClassificationCode>
+			</cac:MainCommodityClassification>
+			<cac:AdditionalCommodityClassification>
+				<cbc:ItemClassificationCode listName="cpv">71000000</cbc:ItemClassificationCode>
+			</cac:AdditionalCommodityClassification>
+			<cac:RealizedLocation>
+				<cac:Address>
+					<cbc:CountrySubentityCode listName="nuts">FRF12</cbc:CountrySubentityCode>
+					<cac:Country>
+						<cbc:IdentificationCode listName="country">FRA</cbc:IdentificationCode>
+					</cac:Country>
+				</cac:Address>
+			</cac:RealizedLocation>
+		</cac:ProcurementProject>
+	</cac:ProcurementProjectLot>
+</ContractNotice>

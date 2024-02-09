@@ -1,0 +1,364 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><ContractNotice xmlns="urn:oasis:names:specification:ubl:schema:xsd:ContractNotice-2" xmlns:cac="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2" xmlns:cbc="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2" xmlns:efac="http://data.europa.eu/p27/eforms-ubl-extension-aggregate-components/1" xmlns:efbc="http://data.europa.eu/p27/eforms-ubl-extension-basic-components/1" xmlns:efext="http://data.europa.eu/p27/eforms-ubl-extensions/1" xmlns:ext="urn:oasis:names:specification:ubl:schema:xsd:CommonExtensionComponents-2">
+    <ext:UBLExtensions>
+        <ext:UBLExtension>
+            <ext:ExtensionContent>
+                <efext:EformsExtension>
+                    <efbc:TransmissionDate>2023-06-16+03:00</efbc:TransmissionDate>
+                    <efbc:TransmissionTime>19:30:36.03+03:00</efbc:TransmissionTime>
+                    <efac:Changes>
+                        <efbc:ChangedNoticeIdentifier schemeName="ojs-notice-id">259785-2023</efbc:ChangedNoticeIdentifier>
+                        <efac:Change>
+                            <efbc:ChangedSectionIdentifier>PROCEDURE</efbc:ChangedSectionIdentifier>
+                            <efbc:ChangeDescription languageID="EST">Hankija pikendas pakkumuste esitamise tähtaega kuni 31.07.2023. a.</efbc:ChangeDescription>
+                        </efac:Change>
+                        <efac:ChangeReason>
+                            <cbc:ReasonCode languageID="EST" listName="change-corrig-justification">update-add</cbc:ReasonCode>
+                        </efac:ChangeReason>
+                    </efac:Changes>
+                    <efac:NoticeSubType>
+                        <cbc:SubTypeCode>19</cbc:SubTypeCode>
+                    </efac:NoticeSubType>
+                    <efac:Organizations>
+                        <efac:Organization>
+                            <efac:Company>
+                                <cbc:WebsiteURI>http://www.tallinn.ee/est/kesklinn/</cbc:WebsiteURI>
+                                <cac:PartyIdentification>
+                                    <cbc:ID schemeName="organization">ORG-0001</cbc:ID>
+                                </cac:PartyIdentification>
+                                <cac:PartyName>
+                                    <cbc:Name languageID="EST">Tallinna Kesklinna Valitsus</cbc:Name>
+                                </cac:PartyName>
+                                <cac:PostalAddress>
+                                    <cbc:StreetName>Nunne tn 18</cbc:StreetName>
+                                    <cbc:CityName> Tallinn</cbc:CityName>
+                                    <cbc:PostalZone>15058</cbc:PostalZone>
+                                    <cac:Country>
+                                        <cbc:IdentificationCode listName="country">EST</cbc:IdentificationCode>
+                                    </cac:Country>
+                                </cac:PostalAddress>
+                                <cac:PartyLegalEntity>
+                                    <cbc:CompanyID>75014221</cbc:CompanyID>
+                                </cac:PartyLegalEntity>
+                                <cac:Contact>
+                                    <cbc:Name>RIHO KANGUR</cbc:Name>
+                                    <cbc:Telephone>+372 5022143</cbc:Telephone>
+                                    <cbc:ElectronicMail>kesklinn@tallinnlv.ee</cbc:ElectronicMail>
+                                </cac:Contact>
+                            </efac:Company>
+                        </efac:Organization>
+                        <efac:Organization>
+                            <efac:Company>
+                                <cac:PartyIdentification>
+                                    <cbc:ID schemeName="organization">ORG-0002</cbc:ID>
+                                </cac:PartyIdentification>
+                                <cac:PartyName>
+                                    <cbc:Name languageID="EST">Riigihangete vaidlustuskomisjon</cbc:Name>
+                                </cac:PartyName>
+                                <cac:PostalAddress>
+                                    <cbc:StreetName>Tartu mnt 85</cbc:StreetName>
+                                    <cbc:CityName>Tallinn</cbc:CityName>
+                                    <cbc:PostalZone>10115</cbc:PostalZone>
+                                    <cac:Country>
+                                        <cbc:IdentificationCode listName="country">EST</cbc:IdentificationCode>
+                                    </cac:Country>
+                                </cac:PostalAddress>
+                                <cac:PartyLegalEntity>
+                                    <cbc:CompanyID>1000123</cbc:CompanyID>
+                                </cac:PartyLegalEntity>
+                                <cac:Contact>
+                                    <cbc:Telephone>+3726113713</cbc:Telephone>
+                                    <cbc:ElectronicMail>vako@fin.ee</cbc:ElectronicMail>
+                                </cac:Contact>
+                            </efac:Company>
+                        </efac:Organization>
+                        <efac:Organization>
+                            <efac:Company>
+                                <cac:PartyIdentification>
+                                    <cbc:ID schemeName="organization">ORG-0003</cbc:ID>
+                                </cac:PartyIdentification>
+                                <cac:PartyName>
+                                    <cbc:Name languageID="EST">Riigihangete register</cbc:Name>
+                                </cac:PartyName>
+                                <cac:PostalAddress>
+                                    <cbc:CityName>Tallinn</cbc:CityName>
+                                    <cac:Country>
+                                        <cbc:IdentificationCode listName="country">EST</cbc:IdentificationCode>
+                                    </cac:Country>
+                                </cac:PostalAddress>
+                                <cac:PartyLegalEntity>
+                                    <cbc:CompanyID>TED64</cbc:CompanyID>
+                                </cac:PartyLegalEntity>
+                                <cac:Contact>
+                                    <cbc:Telephone>+3726113693</cbc:Telephone>
+                                    <cbc:ElectronicMail>register@riigihanked.riik.ee</cbc:ElectronicMail>
+                                </cac:Contact>
+                            </efac:Company>
+                        </efac:Organization>
+                    </efac:Organizations>
+                <efac:Publication><efbc:NoticePublicationID schemeName="ojs-notice-id">00368245-2023</efbc:NoticePublicationID><efbc:GazetteID schemeName="ojs-id">117/2023</efbc:GazetteID><efbc:PublicationDate>2023-06-20Z</efbc:PublicationDate></efac:Publication></efext:EformsExtension>
+            </ext:ExtensionContent>
+        </ext:UBLExtension>
+    </ext:UBLExtensions>
+    <cbc:UBLVersionID>2.3</cbc:UBLVersionID>
+    <cbc:CustomizationID>eforms-sdk-1.3</cbc:CustomizationID>
+    <cbc:ID schemeName="notice-id">7f55a23d-985b-408c-8763-a6d88bc8bfff</cbc:ID>
+    <cbc:ContractFolderID>eb2321a7-6826-44c8-ae7d-37606e09a02f</cbc:ContractFolderID>
+    <cbc:IssueDate>2023-06-16+03:00</cbc:IssueDate>
+    <cbc:IssueTime>09:39:24.044+03:00</cbc:IssueTime>
+    <cbc:VersionID>01</cbc:VersionID>
+    <cbc:RegulatoryDomain>32014L0023</cbc:RegulatoryDomain>
+    <cbc:NoticeTypeCode listName="competition">cn-standard</cbc:NoticeTypeCode>
+    <cbc:NoticeLanguageCode>EST</cbc:NoticeLanguageCode>
+    <cac:ContractingParty>
+        <cbc:BuyerProfileURI>http://www.tallinn.ee/est/kesklinn/</cbc:BuyerProfileURI>
+        <cac:ContractingPartyType>
+            <cbc:PartyTypeCode listName="buyer-legal-type">la</cbc:PartyTypeCode>
+        </cac:ContractingPartyType>
+        <cac:ContractingPartyType>
+            <cbc:PartyTypeCode listName="buyer-contracting-type">not-cont-ent</cbc:PartyTypeCode>
+        </cac:ContractingPartyType>
+        <cac:ContractingActivity>
+            <cbc:ActivityTypeCode listName="authority-activity">gen-pub</cbc:ActivityTypeCode>
+        </cac:ContractingActivity>
+        <cac:Party>
+            <cac:PartyIdentification>
+                <cbc:ID schemeName="organization">ORG-0001</cbc:ID>
+            </cac:PartyIdentification>
+            <cac:ServiceProviderParty>
+                <cbc:ServiceTypeCode listName="organisation-role">ted-esen</cbc:ServiceTypeCode>
+                <cac:Party>
+                    <cac:PartyIdentification>
+                        <cbc:ID schemeName="organization">ORG-0003</cbc:ID>
+                    </cac:PartyIdentification>
+                </cac:Party>
+            </cac:ServiceProviderParty>
+        </cac:Party>
+    </cac:ContractingParty>
+    <cac:TenderingTerms>
+        <cac:TendererQualificationRequest>
+            <cac:SpecificTendererRequirement>
+                <cbc:TendererRequirementTypeCode listName="exclusion-ground">nati-ground</cbc:TendererRequirementTypeCode>
+                <cbc:Description languageID="EST">https://riigihanked.riik.ee/rhr-web/#/procurement/5842080/procurement-passport</cbc:Description>
+            </cac:SpecificTendererRequirement>
+        </cac:TendererQualificationRequest>
+    </cac:TenderingTerms>
+    <cac:TenderingProcess>
+        <cbc:Description languageID="EST">Kontsessioonilepingu sõlmimise menetlus</cbc:Description>
+        <cbc:ProcedureCode listName="procurement-procedure-type">oth-single</cbc:ProcedureCode>
+    </cac:TenderingProcess>
+    <cac:ProcurementProject>
+        <cbc:ID>263919</cbc:ID>
+        <cbc:Name languageID="EST">Linnamaa kasutamise eest üüritasu maksmine reklaami eksponeerimise otstarbel koos linnareklaami näitamise kohustusega digitaalsetel kandjatel</cbc:Name>
+        <cbc:Description languageID="EST">Lepingu esemeks on 21 Tallinna linnale kuuluvat asukohta, mis antakse kasutusse reklaami eksponeerimise eesmärgil. Igale asukohale on lubatud paigaldada üks reklaamkandja (olenevalt asukohast kas plakatreklaam või LED-ekraan). Pakkuja maksab linnamaa kasutamise eest hankijale üüritasu ning pakkujal on kohustus näidata igal digitaalsel kandjal linnareklaami vähemalt nelikümmend kümnesekundilist klippi ühes tunnis.</cbc:Description>
+        <cbc:ProcurementTypeCode listName="contract-nature">services</cbc:ProcurementTypeCode>
+        <cbc:Note languageID="EST">Hankija soovib kohaldada avatud hankemenetlust, mis ületab rahvusvahelist piirmäära. 
+7-aastane lepinguperiood on valitud põhjusel, et ühe ekraani eeldatav eluaeg on 7 aastat.
+
+Hanke menetlemisel lähtub hankija riigihangete seadusest, Tallinna hankekorrast ning Tallinna Kesklinna Valitsuse riigihangete korrast. (259785-2023)</cbc:Note>
+        <cac:RequestedTenderTotal>
+            <cbc:EstimatedOverallContractAmount currencyID="EUR">6594671.00</cbc:EstimatedOverallContractAmount>
+        </cac:RequestedTenderTotal>
+        <cac:MainCommodityClassification>
+            <cbc:ItemClassificationCode listName="cpv">79341000</cbc:ItemClassificationCode>
+        </cac:MainCommodityClassification>
+        <cac:RealizedLocation>
+            <cbc:Description languageID="EST">Tallinn</cbc:Description>
+            <cac:Address>
+                <cac:Country>
+                    <cbc:IdentificationCode listName="country">EST</cbc:IdentificationCode>
+                </cac:Country>
+            </cac:Address>
+        </cac:RealizedLocation>
+        <cac:PlannedPeriod>
+            <cbc:DurationMeasure unitCode="MONTH">84</cbc:DurationMeasure>
+        </cac:PlannedPeriod>
+    </cac:ProcurementProject>
+    <cac:ProcurementProjectLot>
+        <cbc:ID schemeName="Lot">LOT-0000</cbc:ID>
+        <cac:TenderingTerms>
+            <ext:UBLExtensions>
+                <ext:UBLExtension>
+                    <ext:ExtensionContent>
+                        <efext:EformsExtension>
+                            <efac:SelectionCriteria>
+                                <cbc:CriterionTypeCode listName="selection-criterion">sui-act</cbc:CriterionTypeCode>
+                                <cbc:CalculationExpressionCode listName="usage">n-used</cbc:CalculationExpressionCode>
+                            </efac:SelectionCriteria>
+                            <efac:SelectionCriteria>
+                                <cbc:CriterionTypeCode listName="selection-criterion">ef-stand</cbc:CriterionTypeCode>
+                                <cbc:Description languageID="EST">https://riigihanked.riik.ee/rhr-web/#/procurement/5842080/procurement-passport</cbc:Description>
+                                <cbc:CalculationExpressionCode listName="usage">used</cbc:CalculationExpressionCode>
+                            </efac:SelectionCriteria>
+                            <efac:SelectionCriteria>
+                                <cbc:CriterionTypeCode listName="selection-criterion">tp-abil</cbc:CriterionTypeCode>
+                                <cbc:Description languageID="EST">https://riigihanked.riik.ee/rhr-web/#/procurement/5842080/procurement-passport</cbc:Description>
+                                <cbc:CalculationExpressionCode listName="usage">used</cbc:CalculationExpressionCode>
+                            </efac:SelectionCriteria>
+                        </efext:EformsExtension>
+                    </ext:ExtensionContent>
+                </ext:UBLExtension>
+            </ext:UBLExtensions>
+            <cbc:FundingProgramCode listName="eu-funded">no-eu-funds</cbc:FundingProgramCode>
+            <cbc:RecurringProcurementIndicator>false</cbc:RecurringProcurementIndicator>
+            <cac:RequiredFinancialGuarantee>
+                <cbc:GuaranteeTypeCode listName="tender-guarantee-required">false</cbc:GuaranteeTypeCode>
+            </cac:RequiredFinancialGuarantee>
+            <cac:CallForTendersDocumentReference>
+                <cbc:ID>6909703</cbc:ID>
+                <cbc:DocumentType>non-restricted-document</cbc:DocumentType>
+                <cbc:LanguageID>EST</cbc:LanguageID>
+                <cac:Attachment>
+                    <cac:ExternalReference>
+                        <cbc:URI>https://riigihanked.riik.ee/rhr-web/#/procurement/5842080/general-info</cbc:URI>
+                    </cac:ExternalReference>
+                </cac:Attachment>
+            </cac:CallForTendersDocumentReference>
+            <cac:TendererQualificationRequest>
+                <cac:SpecificTendererRequirement>
+                    <cbc:TendererRequirementTypeCode listName="reserved-procurement">none</cbc:TendererRequirementTypeCode>
+                </cac:SpecificTendererRequirement>
+            </cac:TendererQualificationRequest>
+            <cac:TendererQualificationRequest>
+                <cbc:CompanyLegalFormCode>false</cbc:CompanyLegalFormCode>
+            </cac:TendererQualificationRequest>
+            <cac:ContractExecutionRequirement>
+                <cbc:ExecutionRequirementCode listName="reserved-execution">no</cbc:ExecutionRequirementCode>
+            </cac:ContractExecutionRequirement>
+            <cac:ContractExecutionRequirement>
+                <cbc:ExecutionRequirementCode listName="einvoicing">required</cbc:ExecutionRequirementCode>
+            </cac:ContractExecutionRequirement>
+            <cac:AwardingTerms>
+                <cac:AwardingCriterion>
+                    <cac:SubordinateAwardingCriterion>
+                        <ext:UBLExtensions>
+                            <ext:UBLExtension>
+                                <ext:ExtensionContent>
+                                    <efext:EformsExtension>
+                                        <efac:AwardCriterionParameter>
+                                            <efbc:ParameterCode listName="number-weight">poi-exa</efbc:ParameterCode>
+                                            <efbc:ParameterNumeric>20.0</efbc:ParameterNumeric>
+                                        </efac:AwardCriterionParameter>
+                                    </efext:EformsExtension>
+                                </ext:ExtensionContent>
+                            </ext:UBLExtension>
+                        </ext:UBLExtensions>
+                        <cbc:AwardingCriterionTypeCode listName="award-criterion-type">cost</cbc:AwardingCriterionTypeCode>
+                    </cac:SubordinateAwardingCriterion>
+                    <cac:SubordinateAwardingCriterion>
+                        <ext:UBLExtensions>
+                            <ext:UBLExtension>
+                                <ext:ExtensionContent>
+                                    <efext:EformsExtension>
+                                        <efac:AwardCriterionParameter>
+                                            <efbc:ParameterCode listName="number-weight">poi-exa</efbc:ParameterCode>
+                                            <efbc:ParameterNumeric>40.0</efbc:ParameterNumeric>
+                                        </efac:AwardCriterionParameter>
+                                    </efext:EformsExtension>
+                                </ext:ExtensionContent>
+                            </ext:UBLExtension>
+                        </ext:UBLExtensions>
+                        <cbc:AwardingCriterionTypeCode listName="award-criterion-type">cost</cbc:AwardingCriterionTypeCode>
+                    </cac:SubordinateAwardingCriterion>
+                    <cac:SubordinateAwardingCriterion>
+                        <ext:UBLExtensions>
+                            <ext:UBLExtension>
+                                <ext:ExtensionContent>
+                                    <efext:EformsExtension>
+                                        <efac:AwardCriterionParameter>
+                                            <efbc:ParameterCode listName="number-weight">poi-exa</efbc:ParameterCode>
+                                            <efbc:ParameterNumeric>20.0</efbc:ParameterNumeric>
+                                        </efac:AwardCriterionParameter>
+                                    </efext:EformsExtension>
+                                </ext:ExtensionContent>
+                            </ext:UBLExtension>
+                        </ext:UBLExtensions>
+                        <cbc:AwardingCriterionTypeCode listName="award-criterion-type">quality</cbc:AwardingCriterionTypeCode>
+                    </cac:SubordinateAwardingCriterion>
+                    <cac:SubordinateAwardingCriterion>
+                        <ext:UBLExtensions>
+                            <ext:UBLExtension>
+                                <ext:ExtensionContent>
+                                    <efext:EformsExtension>
+                                        <efac:AwardCriterionParameter>
+                                            <efbc:ParameterCode listName="number-weight">poi-exa</efbc:ParameterCode>
+                                            <efbc:ParameterNumeric>20.0</efbc:ParameterNumeric>
+                                        </efac:AwardCriterionParameter>
+                                    </efext:EformsExtension>
+                                </ext:ExtensionContent>
+                            </ext:UBLExtension>
+                        </ext:UBLExtensions>
+                        <cbc:AwardingCriterionTypeCode listName="award-criterion-type">quality</cbc:AwardingCriterionTypeCode>
+                    </cac:SubordinateAwardingCriterion>
+                </cac:AwardingCriterion>
+            </cac:AwardingTerms>
+            <cac:AdditionalInformationParty>
+                <cac:PartyIdentification>
+                    <cbc:ID schemeName="organization">ORG-0001</cbc:ID>
+                </cac:PartyIdentification>
+            </cac:AdditionalInformationParty>
+            <cac:TenderRecipientParty>
+                <cbc:EndpointID>https://riigihanked.riik.ee/rhr-web/#/procurement/5842080/tenders</cbc:EndpointID>
+                <cac:PartyIdentification>
+                    <cbc:ID schemeName="organization">ORG-0001</cbc:ID>
+                </cac:PartyIdentification>
+            </cac:TenderRecipientParty>
+            <cac:AppealTerms>
+                <cac:AppealReceiverParty>
+                    <cac:PartyIdentification>
+                        <cbc:ID schemeName="organization">ORG-0002</cbc:ID>
+                    </cac:PartyIdentification>
+                </cac:AppealReceiverParty>
+                <cac:MediationParty>
+                    <cac:PartyIdentification>
+                        <cbc:ID schemeName="organization">ORG-0002</cbc:ID>
+                    </cac:PartyIdentification>
+                </cac:MediationParty>
+            </cac:AppealTerms>
+            <cac:Language>
+                <cbc:ID>EST</cbc:ID>
+            </cac:Language>
+            <cac:PostAwardProcess>
+                <cbc:ElectronicOrderUsageIndicator>false</cbc:ElectronicOrderUsageIndicator>
+                <cbc:ElectronicPaymentUsageIndicator>true</cbc:ElectronicPaymentUsageIndicator>
+            </cac:PostAwardProcess>
+        </cac:TenderingTerms>
+        <cac:TenderingProcess>
+            <cbc:SubmissionMethodCode listName="esubmission">allowed</cbc:SubmissionMethodCode>
+            <cbc:GovernmentAgreementConstraintIndicator>false</cbc:GovernmentAgreementConstraintIndicator>
+            <cac:TenderSubmissionDeadlinePeriod>
+                <cbc:EndDate>2023-07-31+03:00</cbc:EndDate>
+                <cbc:EndTime>09:00:00.000+03:00</cbc:EndTime>
+            </cac:TenderSubmissionDeadlinePeriod>
+            <cac:AuctionTerms>
+                <cbc:AuctionConstraintIndicator>false</cbc:AuctionConstraintIndicator>
+            </cac:AuctionTerms>
+        </cac:TenderingProcess>
+        <cac:ProcurementProject>
+            <cbc:ID>263919</cbc:ID>
+            <cbc:Name languageID="EST">Linnamaa kasutamise eest üüritasu maksmine reklaami eksponeerimise otstarbel koos linnareklaami näitamise kohustusega digitaalsetel kandjatel</cbc:Name>
+            <cbc:Description languageID="EST">Lepingu esemeks on 21 Tallinna linnale kuuluvat asukohta, mis antakse kasutusse reklaami eksponeerimise eesmärgil. Igale asukohale on lubatud paigaldada üks reklaamkandja (olenevalt asukohast kas plakatreklaam või LED-ekraan). Pakkuja maksab linnamaa kasutamise eest hankijale üüritasu ning pakkujal on kohustus näidata igal digitaalsel kandjal linnareklaami vähemalt nelikümmend kümnesekundilist klippi ühes tunnis.</cbc:Description>
+            <cbc:ProcurementTypeCode listName="contract-nature">services</cbc:ProcurementTypeCode>
+            <cbc:Note languageID="EST">Hankija soovib kohaldada avatud hankemenetlust, mis ületab rahvusvahelist piirmäära. 
+7-aastane lepinguperiood on valitud põhjusel, et ühe ekraani eeldatav eluaeg on 7 aastat.
+
+Hanke menetlemisel lähtub hankija riigihangete seadusest, Tallinna hankekorrast ning Tallinna Kesklinna Valitsuse riigihangete korrast. (259785-2023)</cbc:Note>
+            <cac:RequestedTenderTotal>
+                <cbc:EstimatedOverallContractAmount currencyID="EUR">6594671.00</cbc:EstimatedOverallContractAmount>
+            </cac:RequestedTenderTotal>
+            <cac:MainCommodityClassification>
+                <cbc:ItemClassificationCode listName="cpv">79341000</cbc:ItemClassificationCode>
+            </cac:MainCommodityClassification>
+            <cac:RealizedLocation>
+                <cbc:Description languageID="EST">Tallinn</cbc:Description>
+                <cac:Address>
+                    <cac:Country>
+                        <cbc:IdentificationCode listName="country">EST</cbc:IdentificationCode>
+                    </cac:Country>
+                </cac:Address>
+            </cac:RealizedLocation>
+            <cac:PlannedPeriod>
+                <cbc:DurationMeasure unitCode="MONTH">84</cbc:DurationMeasure>
+            </cac:PlannedPeriod>
+        </cac:ProcurementProject>
+    </cac:ProcurementProjectLot>
+</ContractNotice>

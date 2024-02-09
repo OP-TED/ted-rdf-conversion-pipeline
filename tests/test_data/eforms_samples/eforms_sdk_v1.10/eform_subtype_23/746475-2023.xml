@@ -1,0 +1,569 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><ContractNotice xmlns="urn:oasis:names:specification:ubl:schema:xsd:ContractNotice-2" xmlns:cac="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2" xmlns:cbc="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2" xmlns:efac="http://data.europa.eu/p27/eforms-ubl-extension-aggregate-components/1" xmlns:efbc="http://data.europa.eu/p27/eforms-ubl-extension-basic-components/1" xmlns:efext="http://data.europa.eu/p27/eforms-ubl-extensions/1" xmlns:ext="urn:oasis:names:specification:ubl:schema:xsd:CommonExtensionComponents-2">
+   <ext:UBLExtensions>
+      <ext:UBLExtension>
+         <ext:ExtensionContent>
+            <efext:EformsExtension>
+               <efac:NoticeSubType>
+                  <cbc:SubTypeCode listName="notice-subtype">23</cbc:SubTypeCode>
+               </efac:NoticeSubType>
+               <efac:Organizations>
+                  <efac:Organization>
+                     <efac:Company>
+                        <cbc:WebsiteURI>http://www.uw.edu.pl</cbc:WebsiteURI>
+                        <cac:PartyIdentification>
+                           <cbc:ID>ORG-0001</cbc:ID>
+                        </cac:PartyIdentification>
+                        <cac:PartyName>
+                           <cbc:Name languageID="POL">Uniwersytet Warszawski </cbc:Name>
+                        </cac:PartyName>
+                        <cac:PostalAddress>
+                           <cbc:StreetName>Krakowskie Przedmieście 26/28</cbc:StreetName>
+                           <cbc:Department>Dział Zamówień Publicznych </cbc:Department>
+                           <cbc:CityName>Warszawa</cbc:CityName>
+                           <cbc:PostalZone>00-927</cbc:PostalZone>
+                           <cbc:CountrySubentityCode listName="nuts">PL911</cbc:CountrySubentityCode>
+                           <cac:Country>
+                              <cbc:IdentificationCode listName="country">POL</cbc:IdentificationCode>
+                           </cac:Country>
+                        </cac:PostalAddress>
+                        <cac:PartyLegalEntity>
+                           <cbc:CompanyID>000001258</cbc:CompanyID>
+                        </cac:PartyLegalEntity>
+                        <cac:Contact>
+                           <cbc:Name>DZP@ADM.UW.EDU.PL</cbc:Name>
+                           <cbc:Telephone>+48225522533</cbc:Telephone>
+                           <cbc:ElectronicMail>SBINKOWSKI@ADM.UW.EDU.PL</cbc:ElectronicMail>
+                        </cac:Contact>
+                     </efac:Company>
+                  </efac:Organization>
+                  <efac:Organization>
+                     <efac:Company>
+                        <cac:PartyIdentification>
+                           <cbc:ID>ORG-0002</cbc:ID>
+                        </cac:PartyIdentification>
+                        <cac:PartyName>
+                           <cbc:Name languageID="POL">Stowarzyszenie Architektów Polskich </cbc:Name>
+                        </cac:PartyName>
+                        <cac:PostalAddress>
+                           <cbc:StreetName>ul.Foksal 2</cbc:StreetName>
+                           <cbc:CityName>Warszawa </cbc:CityName>
+                           <cbc:PostalZone>00-366</cbc:PostalZone>
+                           <cbc:CountrySubentityCode listName="nuts">PL911</cbc:CountrySubentityCode>
+                           <cac:Country>
+                              <cbc:IdentificationCode listName="country">POL</cbc:IdentificationCode>
+                           </cac:Country>
+                        </cac:PostalAddress>
+                        <cac:PartyLegalEntity>
+                           <cbc:CompanyID>5260029262</cbc:CompanyID>
+                        </cac:PartyLegalEntity>
+                        <cac:Contact>
+                           <cbc:Telephone>(22) 827 87 12</cbc:Telephone>
+                           <cbc:ElectronicMail>zg@sarp.pl</cbc:ElectronicMail>
+                        </cac:Contact>
+                     </efac:Company>
+                  </efac:Organization>
+                  <efac:Organization>
+                     <efac:Company>
+                        <cbc:WebsiteURI>https://www.uzp.gov.pl/kio/kontakt</cbc:WebsiteURI>
+                        <cac:PartyIdentification>
+                           <cbc:ID>ORG-0003</cbc:ID>
+                        </cac:PartyIdentification>
+                        <cac:PartyName>
+                           <cbc:Name languageID="POL">Krajowa Izba odwoławcza </cbc:Name>
+                        </cac:PartyName>
+                        <cac:PostalAddress>
+                           <cbc:StreetName>ul.Postępu 17A</cbc:StreetName>
+                           <cbc:CityName>Warszawa</cbc:CityName>
+                           <cbc:PostalZone>02-676 </cbc:PostalZone>
+                           <cbc:CountrySubentityCode listName="nuts">PL911</cbc:CountrySubentityCode>
+                           <cac:Country>
+                              <cbc:IdentificationCode listName="country">POL</cbc:IdentificationCode>
+                           </cac:Country>
+                        </cac:PostalAddress>
+                        <cac:PartyLegalEntity>
+                           <cbc:CompanyID>5262239325</cbc:CompanyID>
+                        </cac:PartyLegalEntity>
+                        <cac:Contact>
+                           <cbc:Telephone>(22) 458 78 01</cbc:Telephone>
+                           <cbc:ElectronicMail>odwolania@uzp.gov.pl</cbc:ElectronicMail>
+                        </cac:Contact>
+                     </efac:Company>
+                  </efac:Organization>
+               </efac:Organizations>
+            <efac:Publication><efbc:NoticePublicationID schemeName="ojs-notice-id">00746475-2023</efbc:NoticePublicationID><efbc:GazetteID schemeName="ojs-id">237/2023</efbc:GazetteID><efbc:PublicationDate>2023-12-08Z</efbc:PublicationDate></efac:Publication></efext:EformsExtension>
+         </ext:ExtensionContent>
+      </ext:UBLExtension>
+   </ext:UBLExtensions>
+   <cbc:UBLVersionID>2.3</cbc:UBLVersionID>
+   <cbc:CustomizationID>eforms-sdk-1.10</cbc:CustomizationID>
+   <cbc:ID schemeName="notice-id">df860363-19ff-4bdd-8684-522e35991795</cbc:ID>
+   <cbc:ContractFolderID>409d8c17-aa0f-49b8-a680-7de1b1f5536d</cbc:ContractFolderID>
+   <cbc:IssueDate>2023-12-07Z</cbc:IssueDate>
+   <cbc:IssueTime>12:52:28Z</cbc:IssueTime>
+   <cbc:VersionID>01</cbc:VersionID>
+   <cbc:RegulatoryDomain>32014L0024</cbc:RegulatoryDomain>
+   <cbc:NoticeTypeCode listName="competition">cn-desg</cbc:NoticeTypeCode>
+   <cbc:NoticeLanguageCode listName="language">POL</cbc:NoticeLanguageCode>
+   <cac:ContractingParty>
+      <cbc:BuyerProfileURI>http://www.uw.edu.pl</cbc:BuyerProfileURI>
+      <cac:ContractingPartyType>
+         <cbc:PartyTypeCode listName="buyer-legal-type">body-pl</cbc:PartyTypeCode>
+      </cac:ContractingPartyType>
+      <cac:ContractingActivity>
+         <cbc:ActivityTypeCode listName="authority-activity">education</cbc:ActivityTypeCode>
+      </cac:ContractingActivity>
+      <cac:Party>
+         <cac:PartyIdentification>
+            <cbc:ID>ORG-0001</cbc:ID>
+         </cac:PartyIdentification>
+      </cac:Party>
+   </cac:ContractingParty>
+   <cac:TenderingTerms>
+      <cac:TendererQualificationRequest>
+         <cac:SpecificTendererRequirement>
+            <cbc:TendererRequirementTypeCode listName="exclusion-ground">corruption</cbc:TendererRequirementTypeCode>
+            <cbc:Description languageID="POL">art. 108 ust.1 pkt 1 i 2 ustawy Pzp </cbc:Description>
+         </cac:SpecificTendererRequirement>
+         <cac:SpecificTendererRequirement>
+            <cbc:TendererRequirementTypeCode listName="exclusion-ground">fraud</cbc:TendererRequirementTypeCode>
+            <cbc:Description languageID="POL">art. 108 ust.1 pkt 1 i 2 ustawy Pzp </cbc:Description>
+         </cac:SpecificTendererRequirement>
+         <cac:SpecificTendererRequirement>
+            <cbc:TendererRequirementTypeCode listName="exclusion-ground">labour-law</cbc:TendererRequirementTypeCode>
+            <cbc:Description languageID="POL">art. 108 ust.1 pkt 1 lit.h i pkt. 2 ustawy Pzp </cbc:Description>
+         </cac:SpecificTendererRequirement>
+         <cac:SpecificTendererRequirement>
+            <cbc:TendererRequirementTypeCode listName="exclusion-ground">tax-pay</cbc:TendererRequirementTypeCode>
+            <cbc:Description languageID="POL">art. 108 ust.1 pkt 3 ustawy Pzp </cbc:Description>
+         </cac:SpecificTendererRequirement>
+         <cac:SpecificTendererRequirement>
+            <cbc:TendererRequirementTypeCode listName="exclusion-ground">nati-ground</cbc:TendererRequirementTypeCode>
+            <cbc:Description languageID="POL">art. 108 ust.1 pkt 1 i 4 ustawy Pzp </cbc:Description>
+         </cac:SpecificTendererRequirement>
+         <cac:SpecificTendererRequirement>
+            <cbc:TendererRequirementTypeCode listName="exclusion-ground">distorsion</cbc:TendererRequirementTypeCode>
+            <cbc:Description languageID="POL">art. 108 ust.1 pkt 5 ustawy Pzp </cbc:Description>
+         </cac:SpecificTendererRequirement>
+         <cac:SpecificTendererRequirement>
+            <cbc:TendererRequirementTypeCode listName="exclusion-ground">human-traffic</cbc:TendererRequirementTypeCode>
+            <cbc:Description languageID="POL">art. 108 ust.1 pkt 1 i 2 ustawy Pzp </cbc:Description>
+         </cac:SpecificTendererRequirement>
+         <cac:SpecificTendererRequirement>
+            <cbc:TendererRequirementTypeCode listName="exclusion-ground">finan-laund</cbc:TendererRequirementTypeCode>
+            <cbc:Description languageID="POL">art. 108 ust.1 pkt 1 i 2 ustawy Pzp </cbc:Description>
+         </cac:SpecificTendererRequirement>
+         <cac:SpecificTendererRequirement>
+            <cbc:TendererRequirementTypeCode listName="exclusion-ground">terr-offence</cbc:TendererRequirementTypeCode>
+            <cbc:Description languageID="POL">art. 108 ust.1 pkt 1 i 2 ustawy Pzp </cbc:Description>
+         </cac:SpecificTendererRequirement>
+         <cac:SpecificTendererRequirement>
+            <cbc:TendererRequirementTypeCode listName="exclusion-ground">prep-confl</cbc:TendererRequirementTypeCode>
+            <cbc:Description languageID="POL">art. 108 ust.1 pkt 6 ustawy Pzp </cbc:Description>
+         </cac:SpecificTendererRequirement>
+         <cac:SpecificTendererRequirement>
+            <cbc:TendererRequirementTypeCode listName="exclusion-ground">liq-admin</cbc:TendererRequirementTypeCode>
+            <cbc:Description languageID="POL">art. 109 ust.1 pkt 4 ustawy Pzp </cbc:Description>
+         </cac:SpecificTendererRequirement>
+         <cac:SpecificTendererRequirement>
+            <cbc:TendererRequirementTypeCode listName="exclusion-ground">susp-act</cbc:TendererRequirementTypeCode>
+            <cbc:Description languageID="POL">art. 109 ust.1 pkt 4 ustawy Pzp </cbc:Description>
+         </cac:SpecificTendererRequirement>
+         <cac:SpecificTendererRequirement>
+            <cbc:TendererRequirementTypeCode listName="exclusion-ground">bankr-nat</cbc:TendererRequirementTypeCode>
+            <cbc:Description languageID="POL">art. 109 ust.1 pkt 4 ustawy Pzp </cbc:Description>
+         </cac:SpecificTendererRequirement>
+         <cac:SpecificTendererRequirement>
+            <cbc:TendererRequirementTypeCode listName="exclusion-ground">insolvency</cbc:TendererRequirementTypeCode>
+            <cbc:Description languageID="POL">art. 109 ust.1 pkt 4 ustawy Pzp </cbc:Description>
+         </cac:SpecificTendererRequirement>
+         <cac:SpecificTendererRequirement>
+            <cbc:TendererRequirementTypeCode listName="exclusion-ground">cred-arran</cbc:TendererRequirementTypeCode>
+            <cbc:Description languageID="POL">art. 109 ust.1 pkt 4 ustawy Pzp </cbc:Description>
+         </cac:SpecificTendererRequirement>
+         <cac:SpecificTendererRequirement>
+            <cbc:TendererRequirementTypeCode listName="exclusion-ground">bankruptcy</cbc:TendererRequirementTypeCode>
+            <cbc:Description languageID="POL">art. 109 ust.1 pkt 4 ustawy Pzp </cbc:Description>
+         </cac:SpecificTendererRequirement>
+         <cac:SpecificTendererRequirement>
+            <cbc:TendererRequirementTypeCode listName="exclusion-ground">prof-misconduct</cbc:TendererRequirementTypeCode>
+            <cbc:Description languageID="POL">art. 109 ust.1 pkt 5 ustawy Pzp </cbc:Description>
+         </cac:SpecificTendererRequirement>
+         <cac:SpecificTendererRequirement>
+            <cbc:TendererRequirementTypeCode listName="exclusion-ground">partic-confl</cbc:TendererRequirementTypeCode>
+            <cbc:Description languageID="POL">art. 109 ust.1 pkt 6 ustawy Pzp </cbc:Description>
+         </cac:SpecificTendererRequirement>
+         <cac:SpecificTendererRequirement>
+            <cbc:TendererRequirementTypeCode listName="exclusion-ground">sanction</cbc:TendererRequirementTypeCode>
+            <cbc:Description languageID="POL">art. 109 ust.1 pkt 7 ustawy Pzp </cbc:Description>
+         </cac:SpecificTendererRequirement>
+         <cac:SpecificTendererRequirement>
+            <cbc:TendererRequirementTypeCode listName="exclusion-ground">misrepresent</cbc:TendererRequirementTypeCode>
+            <cbc:Description languageID="POL">art. 109 ust.1 pkt 8-10 ustawy Pzp </cbc:Description>
+         </cac:SpecificTendererRequirement>
+         <cac:SpecificTendererRequirement>
+            <cbc:TendererRequirementTypeCode listName="exclusion-ground">crime-org</cbc:TendererRequirementTypeCode>
+            <cbc:Description languageID="POL">art. 108 ust.1 pkt 1 i 2 ustawy Pzp </cbc:Description>
+         </cac:SpecificTendererRequirement>
+      </cac:TendererQualificationRequest>
+   </cac:TenderingTerms>
+   <cac:TenderingProcess>
+      <ext:UBLExtensions>
+         <ext:UBLExtension>
+            <ext:ExtensionContent>
+               <efext:EformsExtension>
+                  <efbc:ProcedureRelaunchIndicator>true</efbc:ProcedureRelaunchIndicator>
+               </efext:EformsExtension>
+            </ext:ExtensionContent>
+         </ext:UBLExtension>
+      </ext:UBLExtensions>
+      <cbc:ProcedureCode listName="procurement-procedure-type">open</cbc:ProcedureCode>
+   </cac:TenderingProcess>
+   <cac:ProcurementProject>
+      <cbc:ID>DZP-361/161/2022</cbc:ID>
+      <cbc:Name languageID="POL">Konkurs architektoniczno-urbanistyczny na opracowanie koncepcji architektonicznej wraz z zagospodarowaniem terenu dla inwestycji pn. „Budowa Centrum Sportu i Rekreacji na potrzeby zajęć dydaktycznych oraz budowa Centrum Kultury Studenckiej na Kampusie Ochota realizowanego w ramach Programu Wieloletniego pn. „Uniwersytet Warszawski 2016-2027”.</cbc:Name>
+      <cbc:Description languageID="POL">Konkurs jest nieograniczonym konkursem realizacyjnym tzn. takim, w którym Nagrodą jest nagroda pieniężna oraz zaproszenie autora (Uczestnika konkursu) wybranej Pracy konkursowej do negocjacji w trybie zamówienia z wolnej ręki, w celu wykonania usługi na podstawie Pracy konkursowej. Przedmiot usługi został opisany w Istotnych postanowieniach umowy stanowiących Załącznik nr F01 do Regulaminu.
+Celem Konkursu jest uzyskanie najlepszej pod względem architektonicznym, przestrzennym i funkcjonalno–użytkowym koncepcji Centrum Sportu I Rekreacji na potrzeby zajęć dydaktycznych oraz budowa Centrum Kultury Studenckiej wraz z  zagospodarowaniem terenu, w obszarze wskazanym w Załączniku nr M01 jako zakres opracowania konkursowego. Przedmiotem konkursu jest koncepcja architektoniczno – przestrzenna wyżej wymienionego obiektu wraz z zagospodarowaniem terenu, w obszarze wskazanym w Załączniku nr M01 jako zakres opracowania konkursowego. Szczegółowo wytyczne dla tego terenu opisano w Załączniku nr M13 do Regulaminu.</cbc:Description>
+      <cbc:ProcurementTypeCode listName="contract-nature">services</cbc:ProcurementTypeCode>
+      <cac:MainCommodityClassification>
+         <cbc:ItemClassificationCode listName="cpv">71000000</cbc:ItemClassificationCode>
+      </cac:MainCommodityClassification>
+      <cac:AdditionalCommodityClassification>
+         <cbc:ItemClassificationCode listName="cpv">71200000</cbc:ItemClassificationCode>
+      </cac:AdditionalCommodityClassification>
+      <cac:AdditionalCommodityClassification>
+         <cbc:ItemClassificationCode listName="cpv">71400000</cbc:ItemClassificationCode>
+      </cac:AdditionalCommodityClassification>
+      <cac:AdditionalCommodityClassification>
+         <cbc:ItemClassificationCode listName="cpv">71220000</cbc:ItemClassificationCode>
+      </cac:AdditionalCommodityClassification>
+      <cac:AdditionalCommodityClassification>
+         <cbc:ItemClassificationCode listName="cpv">71320000</cbc:ItemClassificationCode>
+      </cac:AdditionalCommodityClassification>
+      <cac:AdditionalCommodityClassification>
+         <cbc:ItemClassificationCode listName="cpv">71420000</cbc:ItemClassificationCode>
+      </cac:AdditionalCommodityClassification>
+      <cac:AdditionalCommodityClassification>
+         <cbc:ItemClassificationCode listName="cpv">71248000</cbc:ItemClassificationCode>
+      </cac:AdditionalCommodityClassification>
+      <cac:AdditionalCommodityClassification>
+         <cbc:ItemClassificationCode listName="cpv">71322000</cbc:ItemClassificationCode>
+      </cac:AdditionalCommodityClassification>
+      <cac:AdditionalCommodityClassification>
+         <cbc:ItemClassificationCode listName="cpv">71300000</cbc:ItemClassificationCode>
+      </cac:AdditionalCommodityClassification>
+      <cac:RealizedLocation>
+         <cac:Address>
+            <cbc:StreetName>Krakowskie Przedmieście 26/28</cbc:StreetName>
+            <cbc:CityName>Warszawa</cbc:CityName>
+            <cbc:PostalZone>00-927</cbc:PostalZone>
+            <cbc:CountrySubentityCode listName="nuts">PL911</cbc:CountrySubentityCode>
+            <cac:Country>
+               <cbc:IdentificationCode listName="country">POL</cbc:IdentificationCode>
+            </cac:Country>
+         </cac:Address>
+      </cac:RealizedLocation>
+   </cac:ProcurementProject>
+   <cac:ProcurementProjectLot>
+      <cbc:ID schemeName="Lot">LOT-0001</cbc:ID>
+      <cac:TenderingTerms>
+         <ext:UBLExtensions>
+            <ext:UBLExtension>
+               <ext:ExtensionContent>
+                  <efext:EformsExtension>
+                     <efac:SelectionCriteria>
+                        <cbc:CriterionTypeCode listName="selection-criterion">tp-abil</cbc:CriterionTypeCode>
+                        <cbc:Name languageID="POL">Warunek udziału w Konkursie dotyczący zdolności technicznej i zawodowej w zakresie wykształcenia, kwalifikacji zawodowych, doświadczenia</cbc:Name>
+                        <cbc:Description languageID="POL">Uczestnik konkursu musi spełnić wszystkie następujące wymagania:
+-	nie podlega wykluczeniu na podstawie art. 108 ust 1 oraz art. 109 ust. 1 pkt 4-5, pkt 6 oraz pkt 9-10 Ustawy,
+	UWAGA: po stronie Uczestnika samodzielnie biorącego udział w konkursie jak i każdego z Uczestników wspólnie biorących udział w Konkursie leży obowiązek oceny wystąpienia konfliktu interesu Uczestnika w zakresie członków Sądu Konkursowego.
+-	nie podlega wykluczeniu na podstawie art. 7 ust. 1 ustawy z dnia 13 kwietnia 2022 r. o szczególnych rozwiązaniach w zakresie przeciwdziałania wspieraniu agresji na Ukrainę oraz służących ochronie bezpieczeństwa narodowego (Dz.U. 2023 poz.129),
+-	nie podlega wykluczeniu na podstawie art. 5k Rozporządzenia 833/2014 w brzmieniu nadanym Rozporządzeniem Rady (UE) 2022/576 z dnia 8 kwietnia 2022 r. w sprawie zmiany rozporządzenia (UE) nr 833/2014 dotyczącego środków ograniczających w związku z działaniami Rosji destabilizującymi sytuację na Ukrainie.
+	UWAGA: powyższy wymóg dotyczy Uczestnika samodzielnie biorącego udział w konkursie jak i każdego z Uczestników wspólnie biorących udział w Konkursie oraz podmiotów, których zasobami Uczestnik konkursu dysponuje.
+-	spełnia określony przez Organizatora warunek udziału w Konkursie dotyczący zdolności technicznej i zawodowej w zakresie wykształcenia, kwalifikacji zawodowych i doświadczenia. Niniejszy warunek zostanie uznany za spełniony, jeżeli Uczestnik konkursu wykaże, iż dysponuje na etapie Konkursu co najmniej (warunek może być rozpatrywany łącznie lub rozdzielnie):
+1) 	jedną osobą która będzie uczestniczyć w wykonywaniu koncepcji konkursowej oraz Dokumentacji projektowej posiadającą uprawnienia budowlane do projektowania w specjalności architektonicznej bez ograniczeń
+2) 	jedną osobą która będzie uczestniczyć w wykonywaniu koncepcji konkursowej oraz Dokumentacji projektowej posiadającą uprawnienia budowlane do projektowania w specjalności konstrukcyjno-budowlanej bez ograniczeń,
+3) 	jedną osobą która będzie uczestniczyć w wykonywaniu koncepcji konkursowej oraz Dokumentacji projektowej posiadającą wykształcenie z dziedziny architektury krajobrazu
+Organizator informuje, że Wykonawca zaproszony do negocjacji będzie zobowiązany wykazać, że będzie dysponować osobami zdolnymi do wykonania zamówienia, o których mowa w Rozdziale VIII ust. 1 pkt 2) lit. b Regulaminu konkursu.</cbc:Description>
+                        <cbc:CalculationExpressionCode listName="usage">used</cbc:CalculationExpressionCode>
+                        <efbc:SecondStageIndicator>false</efbc:SecondStageIndicator>
+                     </efac:SelectionCriteria>
+                  </efext:EformsExtension>
+               </ext:ExtensionContent>
+            </ext:UBLExtension>
+         </ext:UBLExtensions>
+         <cbc:VariantConstraintCode listName="permission">not-allowed</cbc:VariantConstraintCode>
+         <cbc:FundingProgramCode listName="eu-funded">no-eu-funds</cbc:FundingProgramCode>
+         <cbc:MultipleTendersCode listName="permission">not-allowed</cbc:MultipleTendersCode>
+         <cac:FiscalLegislationDocumentReference>
+            <cbc:ID>_DEFAULT_VALUE_CHANGE_ME_</cbc:ID>
+            <cac:IssuerParty>
+               <cac:PartyIdentification>
+                  <cbc:ID>ORG-0001</cbc:ID>
+               </cac:PartyIdentification>
+            </cac:IssuerParty>
+         </cac:FiscalLegislationDocumentReference>
+         <cac:EnvironmentalLegislationDocumentReference>
+            <cbc:ID>_DEFAULT_VALUE_CHANGE_ME_</cbc:ID>
+            <cac:IssuerParty>
+               <cac:PartyIdentification>
+                  <cbc:ID>ORG-0001</cbc:ID>
+               </cac:PartyIdentification>
+            </cac:IssuerParty>
+         </cac:EnvironmentalLegislationDocumentReference>
+         <cac:EmploymentLegislationDocumentReference>
+            <cbc:ID>_DEFAULT_VALUE_CHANGE_ME_</cbc:ID>
+            <cac:IssuerParty>
+               <cac:PartyIdentification>
+                  <cbc:ID>ORG-0001</cbc:ID>
+               </cac:PartyIdentification>
+            </cac:IssuerParty>
+         </cac:EmploymentLegislationDocumentReference>
+         <cac:CallForTendersDocumentReference>
+            <ext:UBLExtensions>
+               <ext:UBLExtension>
+                  <ext:ExtensionContent>
+                     <efext:EformsExtension>
+                        <efac:NonOfficialLanguages>
+                           <cac:Language>
+                              <cbc:ID>POL</cbc:ID>
+                           </cac:Language>
+                        </efac:NonOfficialLanguages>
+                        <efac:OfficialLanguages>
+                           <cac:Language>
+                              <cbc:ID>POL</cbc:ID>
+                           </cac:Language>
+                        </efac:OfficialLanguages>
+                     </efext:EformsExtension>
+                  </ext:ExtensionContent>
+               </ext:UBLExtension>
+            </ext:UBLExtensions>
+            <cbc:ID>_DEFAULT_VALUE_CHANGE_ME_</cbc:ID>
+            <cbc:DocumentType>non-restricted-document</cbc:DocumentType>
+            <cac:Attachment>
+               <cac:ExternalReference>
+                  <cbc:URI>https://1050.konkurs.sarp.pl</cbc:URI>
+               </cac:ExternalReference>
+            </cac:Attachment>
+         </cac:CallForTendersDocumentReference>
+         <cac:ContractExecutionRequirement>
+            <cbc:ExecutionRequirementCode listName="esignature-submission">true</cbc:ExecutionRequirementCode>
+         </cac:ContractExecutionRequirement>
+         <cac:AwardingTerms>
+            <cbc:FollowupContractIndicator>true</cbc:FollowupContractIndicator>
+            <cbc:BindingOnBuyerIndicator>true</cbc:BindingOnBuyerIndicator>
+            <cac:AwardingCriterion>
+               <cbc:Description languageID="POL">Prace konkursowe oceniane będą według następujących kryteriów:
+- 	Atrakcyjność i oryginalność proponowanych rozwiązań architektonicznych.
+- 	Jakość proponowanych rozwiązań przestrzenno-funkcjonalnych budynków wraz z rozwiązaniem funkcjonalnym terenu Inwestycji.
+- 	Rozwiązanie układu obsługi komunikacyjnej.
+- 	Zastosowane rozwiązania proekologiczne i energooszczędne.
+- 	Realność i optymalizacja ekonomiczna przyjętych rozwiązań w odniesieniu do kosztów realizacji Inwestycji.
+Prace konkursowe będą oceniane z uwzględnieniem poszczególnych kryteriów oceny w sposób całościowy (agregowane kryteria) kierując się zasadą integralności poszczególnych cech charakteryzujących obiekty architektoniczne i zagospodarowania terenu. </cbc:Description>
+               <cac:SubordinateAwardingCriterion>
+                  <cbc:AwardingCriterionTypeCode listName="award-criterion-type">quality</cbc:AwardingCriterionTypeCode>
+                  <cbc:Name languageID="POL">Atrakcyjność i oryginalność proponowanych rozwiązań architektonicznych</cbc:Name>
+                  <cbc:Description languageID="POL">Atrakcyjność i oryginalność proponowanych rozwiązań architektonicznych</cbc:Description>
+               </cac:SubordinateAwardingCriterion>
+               <cac:SubordinateAwardingCriterion>
+                  <cbc:AwardingCriterionTypeCode listName="award-criterion-type">quality</cbc:AwardingCriterionTypeCode>
+                  <cbc:Name languageID="POL">Jakość proponowanych rozwiązań przestrzenno-funkcjonalnych budynków wraz z rozwiązaniem funkcjonalnym terenu Inwestycji</cbc:Name>
+                  <cbc:Description languageID="POL">Jakość proponowanych rozwiązań przestrzenno-funkcjonalnych budynków wraz z rozwiązaniem funkcjonalnym terenu Inwestycji</cbc:Description>
+               </cac:SubordinateAwardingCriterion>
+               <cac:SubordinateAwardingCriterion>
+                  <cbc:AwardingCriterionTypeCode listName="award-criterion-type">quality</cbc:AwardingCriterionTypeCode>
+                  <cbc:Name languageID="POL">Rozwiązanie układu obsługi komunikacyjnej</cbc:Name>
+                  <cbc:Description languageID="POL">Rozwiązanie układu obsługi komunikacyjnej</cbc:Description>
+               </cac:SubordinateAwardingCriterion>
+               <cac:SubordinateAwardingCriterion>
+                  <cbc:AwardingCriterionTypeCode listName="award-criterion-type">quality</cbc:AwardingCriterionTypeCode>
+                  <cbc:Name languageID="POL">Zastosowane rozwiązania proekologiczne i energooszczędne</cbc:Name>
+                  <cbc:Description languageID="POL">Zastosowane rozwiązania proekologiczne i energooszczędne</cbc:Description>
+               </cac:SubordinateAwardingCriterion>
+               <cac:SubordinateAwardingCriterion>
+                  <cbc:AwardingCriterionTypeCode listName="award-criterion-type">quality</cbc:AwardingCriterionTypeCode>
+                  <cbc:Name languageID="POL">Realność i optymalizacja ekonomiczna przyjętych rozwiązań w odniesieniu do kosztów realizacji Inwestycji</cbc:Name>
+                  <cbc:Description languageID="POL">Realność i optymalizacja ekonomiczna przyjętych rozwiązań w odniesieniu do kosztów realizacji Inwestycji</cbc:Description>
+               </cac:SubordinateAwardingCriterion>
+            </cac:AwardingCriterion>
+            <cac:TechnicalCommitteePerson>
+               <cbc:FamilyName>arch. Marcin Brataniec – Przewodniczący Sądu Konkursowego. Sędzia Konkursowy Stowarzyszenia Architektów Polskich (SARP),</cbc:FamilyName>
+            </cac:TechnicalCommitteePerson>
+            <cac:TechnicalCommitteePerson>
+               <cbc:FamilyName>arch. Marek Perepeczo – Zastępca przewodniczącego Sądu Konkursowego. Sędzia Konkursowy Stowarzyszenia Architektów Polskich,</cbc:FamilyName>
+            </cac:TechnicalCommitteePerson>
+            <cac:TechnicalCommitteePerson>
+               <cbc:FamilyName>arch. Maciej Kuryłowicz – Sędzia Referent. Sędzia Konkursowy Stowarzyszenia Architektów Polskich,</cbc:FamilyName>
+            </cac:TechnicalCommitteePerson>
+            <cac:TechnicalCommitteePerson>
+               <cbc:FamilyName>arch., arch. kraj. Jacek Krych – Członek Sądu Konkursowego. Sędzia Konkursowy Stowarzyszenia Architektów Polskich,</cbc:FamilyName>
+            </cac:TechnicalCommitteePerson>
+            <cac:TechnicalCommitteePerson>
+               <cbc:FamilyName>prof. dr hab. Ewa Krogulec, Prorektor UW ds. Rozwoju – Członek Sądu Konkursowego,</cbc:FamilyName>
+            </cac:TechnicalCommitteePerson>
+            <cac:TechnicalCommitteePerson>
+               <cbc:FamilyName>arch. Andrzej Alinkiewicz, Z-ca Kanclerza ds. Nieruchomości UW – Członek Sądu Konkursowego,</cbc:FamilyName>
+            </cac:TechnicalCommitteePerson>
+            <cac:TechnicalCommitteePerson>
+               <cbc:FamilyName>mgr Paweł Jastrzębski, Kierownik Biura Innowacji w Przestrzeni Akademickiej UW – Członek Sądu Konkursowego,</cbc:FamilyName>
+            </cac:TechnicalCommitteePerson>
+            <cac:TechnicalCommitteePerson>
+               <cbc:FamilyName>arch. Wojciech Młynarczyk, Architekt, Biuro Innowacji w Przestrzeni Akademickiej UW  – Członek Sądu Konkursowego,</cbc:FamilyName>
+            </cac:TechnicalCommitteePerson>
+            <cac:TechnicalCommitteePerson>
+               <cbc:FamilyName>mgr Alicja Wleciał, Dyrektor Studium Wychowania Fizycznego i Sportu UW – Członek Sądu Konkursowego,</cbc:FamilyName>
+            </cac:TechnicalCommitteePerson>
+            <cac:TechnicalCommitteePerson>
+               <cbc:FamilyName>mgr Włodzimierz Leśniewski, Dyrektor Klubu Uczelnianego AZS UW – Członek Sądu Konkursowego,</cbc:FamilyName>
+            </cac:TechnicalCommitteePerson>
+            <cac:TechnicalCommitteePerson>
+               <cbc:FamilyName>M.Sc. Wojciech Wagner, Zastępca dyrektora Biura Architektury i Planowania Przestrzennego  – Członek Sądu Konkursowego,</cbc:FamilyName>
+            </cac:TechnicalCommitteePerson>
+            <cac:TechnicalCommitteePerson>
+               <cbc:FamilyName>arch. Daniel Frąc – Sędzia zapasowy. Sędzia Konkursowy Stowarzyszenia Architektów Polskich (SARP),</cbc:FamilyName>
+            </cac:TechnicalCommitteePerson>
+            <cac:TechnicalCommitteePerson>
+               <cbc:FamilyName>Sekretarz Konkursu: arch. kraj Marek Szeniawski</cbc:FamilyName>
+            </cac:TechnicalCommitteePerson>
+            <cac:Prize>
+               <cbc:RankCode>_DEFAULT_VALUE_CHANGE_ME_</cbc:RankCode>
+               <cbc:Description languageID="POL">1)	W Konkursie mogą zostać przyznane trzy Nagrody pieniężne tj.: I , II i III Nagroda oraz dwie nagrody niepieniężne w formie wyróżnień honorowych przy czym pierwsza (I) Nagroda zostanie przyznana najlepszej pracy konkursowej.
+2)	Całkowita kwota przeznaczona przez Organizatora na Nagrody pieniężne wynosi 150 000,00 zł brutto. Niezależnie od liczby przyznanych nagród kwota ta zostanie obligatoryjnie rozdzielona w całości wśród prac nagrodzonych. Oprócz Nagród pieniężnych Organizator przewiduje przyznanie Nagrody w postaci zaproszenia do negocjacji w trybie zamówienia z wolnej ręki na wykonanie usługi na podstawie wybranej pracy konkursowej dla Uczestnika konkursu, którego praca konkursowa otrzymała największą liczbę punktów (I Nagroda pieniężna) w głosowaniu, o którym mowa w Rozdziale V. ust. 2.
+3)	W konkursie Organizator przewiduje przyznanie Nagród jak następuje:
+a)	Nagrody pieniężne
+– I NAGRODA
+kwota pieniężna w wysokości 60 000,00 zł brutto;
+– II NAGRODA
+kwota pieniężna w wysokości 55 000,00 zł brutto;
+– III NAGRODA
+kwota pieniężna w wysokości 30 000,00 zł brutto.
+– Dwa wyróżnienia honorowe.
+b)	Nagroda w postaci zaproszenia do negocjacji w trybie zamówienia z wolnej ręki na wykonanie usługi na podstawie wybranej pracy konkurs dla Uczestnika konkursu, którego praca konkursowa otrzymały największą liczbę punktów (I Nagroda pieniężna).
+4)	Nagrody pieniężne podlegają opodatkowaniu zgodnie ze stos. przepisami. Wymienione nagrody zostaną wypłacone z zastosowaniem odpowiedniego przepis
+Ewentualne zamówienie na usługi po przeprowadzonym konkursie zostanie udzielone jednemu ze zwycięzców konkursu
+Warunkiem wypłaty Nagród pieniężnych oraz zaproszenia do negocjacji w trybie zamówienia z wolnej ręki jest:
+a)	Przedstawienie przez Uczestnika konkursu na ewentualne wezwanie Organizatora podmiotowych środków dowodowych lub dokumentów na potwierdzenie oświadczeń, które Uczestnik składał wraz z wnioskiem o dopuszczenie do udziału w Konkursie na potwierdzenie braku podstaw do wykluczenia i warunków udziału w Konkursie.
+b)	Podpisanie przez Uczestnika konkursu umowy o przeniesieniu na Organizatora autorskich praw majątkowych na polach eksploatacji związanych z wykorzystaniem utworu do celów promocji konkursu i Organizatora oraz publikacji utworu. Postanowienia tej umowy zostały opisane w Załączniku nr 2 do Regulaminu.
+	Organizator nie wypłaca Nagród pieniężnych i nie zaprasza do negocjacji w trybie zamówienia z wolnej ręki Uczestnika, który uzyskał tą Nagrodę, jeżeli Uczestnik konkursu:
+a)	Nie przedstawił wymaganych dokumentów lub podmiotowych środków dowodowych potwierdzających spełnienie obiektywnych wymagań Zamawiającego, o których mowa w ust. 1 pkt 11) lit. a) powyżej.
+b)	Nie zachował zasady anonimowości w postępowaniu konkursowym albo innych obowiązków określonych w Regulaminie konkursu.
+c)	Przedstawił prace konkursową z naruszeniem praw autorskich osób trzecich.
+d)	Odmówił podpisania umowy o przekazaniu autorskich praw majątkowych o której mowa w ust. 1 pkt 11) lit b) powyżej.
+</cbc:Description>
+            </cac:Prize>
+         </cac:AwardingTerms>
+         <cac:AdditionalInformationParty>
+            <cac:PartyIdentification>
+               <cbc:ID>ORG-0001</cbc:ID>
+            </cac:PartyIdentification>
+         </cac:AdditionalInformationParty>
+         <cac:DocumentProviderParty>
+            <cac:PartyIdentification>
+               <cbc:ID>ORG-0001</cbc:ID>
+            </cac:PartyIdentification>
+         </cac:DocumentProviderParty>
+         <cac:TenderRecipientParty>
+            <cbc:EndpointID>https://epk.sarp.pl/</cbc:EndpointID>
+            <cac:PartyIdentification>
+               <cbc:ID>ORG-0002</cbc:ID>
+            </cac:PartyIdentification>
+         </cac:TenderRecipientParty>
+         <cac:TenderEvaluationParty>
+            <cac:PartyIdentification>
+               <cbc:ID>ORG-0002</cbc:ID>
+            </cac:PartyIdentification>
+         </cac:TenderEvaluationParty>
+         <cac:AppealTerms>
+            <cac:PresentationPeriod>
+               <cbc:Description languageID="POL">Środki ochrony prawnej określone w Dziale IX ustawy PZP</cbc:Description>
+            </cac:PresentationPeriod>
+            <cac:AppealInformationParty>
+               <cac:PartyIdentification>
+                  <cbc:ID>ORG-0003</cbc:ID>
+               </cac:PartyIdentification>
+            </cac:AppealInformationParty>
+            <cac:AppealReceiverParty>
+               <cac:PartyIdentification>
+                  <cbc:ID>ORG-0003</cbc:ID>
+               </cac:PartyIdentification>
+            </cac:AppealReceiverParty>
+            <cac:MediationParty>
+               <cac:PartyIdentification>
+                  <cbc:ID>ORG-0003</cbc:ID>
+               </cac:PartyIdentification>
+            </cac:MediationParty>
+         </cac:AppealTerms>
+         <cac:Language>
+            <cbc:ID>POL</cbc:ID>
+         </cac:Language>
+      </cac:TenderingTerms>
+      <cac:TenderingProcess>
+         <ext:UBLExtensions>
+            <ext:UBLExtension>
+               <ext:ExtensionContent>
+                  <efext:EformsExtension>
+                     <efbc:ProcedureRelaunchIndicator>false</efbc:ProcedureRelaunchIndicator>
+                  </efext:EformsExtension>
+               </ext:ExtensionContent>
+            </ext:UBLExtension>
+         </ext:UBLExtensions>
+         <cbc:SubmissionMethodCode listName="esubmission">required</cbc:SubmissionMethodCode>
+         <cbc:CandidateReductionConstraintIndicator>false</cbc:CandidateReductionConstraintIndicator>
+         <cac:TenderSubmissionDeadlinePeriod>
+            <cbc:EndDate>2024-01-30+01:00</cbc:EndDate>
+            <cbc:EndTime>15:00:00+01:00</cbc:EndTime>
+         </cac:TenderSubmissionDeadlinePeriod>
+         <cac:EconomicOperatorShortList>
+            <cbc:LimitationDescription>false</cbc:LimitationDescription>
+         </cac:EconomicOperatorShortList>
+      </cac:TenderingProcess>
+      <cac:ProcurementProject>
+         <cbc:ID>DZP-361/161/2022</cbc:ID>
+         <cbc:Name languageID="POL">Konkurs architektoniczno-urbanistyczny na opracowanie koncepcji architektonicznej wraz z zagospodarowaniem terenu dla inwestycji pn.”Budowa Centrum Sportu I Rekreacji na potrzeby zajęć dydaktycznych oraz budowa Centrum Kultury Studenckiej na Kampusie Ochota realizowanego w ramach Programu Wieloletniego pn. “Uniwersytet Warszawski 2016-2027”.</cbc:Name>
+         <cbc:Description languageID="POL">Konkurs jest konkursem realizacyjnym tzn. takim, w którym Nagrodą jest nagroda pieniężna oraz zaproszenie autora (Uczestnika konkursu) wybranej Pracy konkursowej do negocjacji w trybie zamówienia z wolnej ręki, w celu wykonania usługi na podstawie Pracy konkursowej. Przedmiot usługi został opisany w Istotnych postanowieniach umowy stanowiących Załącznik nr 1 do Regulaminu.
+Celem Konkursu jest uzyskanie najlepszej pod względem architektonicznym, przestrzennym i funkcjonalno-użytkowym koncepcji Przedmiotem konkursu jest koncepcja architektoniczna wraz z zagospodarowaniem terenu dla Inwestycji pn. „Budowa Centrum Sportu i Rekreacji na potrzeby zajęć dydaktycznych oraz budowa centrum kultury studenckiej na Kampusie Ochota”.
+Teren inwestycji znajduje się na terenie Kampusu Ochota Uniwersytetu Warszawskiego, przy ulicy Banacha 2a w Warszawie, na działce 18/2, obrębie 2-02-09 w Dzielnicy Ochota.
+Budowa budynku Centrum Sportu i Rekreacji oraz budowa centrum kultury studenckiej jest jedną z inwestycji programu wieloletniego pn. „Uniwersytet Warszawski 2016-2027”. Głównym celem inwestycji jest uzupełnienie oferty sportowej i kulturalnej Uniwersytetu Warszawskiego.
+Stale rosnące zapotrzebowanie na zwiększenie zakresu funkcji sportowych i kulturalnych na terenie Kampusu Ochota sprawiły, że powstała potrzeba rozbudowy istniejącego obiektu Centrum Sportu i Rekreacji (CSiR). Wykonana w 2019 r. ekspertyza techniczna wskazuje jednak na brak możliwości jego rozbudowy w zakresie spełniającym oczekiwania społeczności akademickiej. W ramach inwestycji planuje się więc jego rozbiórkę oraz budowę nowego obiektu Centrum Sportu i Rekreacji oraz budowę centrum kultury studenckiej odpowiadającego na bieżące i przyszłe zapotrzebowanie społeczności akademickiej.
+Nowy budynek zapewni komfortowe warunki do uprawiania sportu oraz organizacji wydarzeń o charakterze kulturalnym. Budynek będzie wykonany w standardzie energooszczędnym ograniczając koszty związane z jego eksploatacją. W ramach nowego budynku planuje się budowę m.in. nowoczesnej pływalni z widownią oraz wielofunkcyjnej sali sportowej z widownią, umożliwiając organizację zawodów na szczeblu akademickim. Przewiduje się również budowę pełnowymiarowej ścianki wspinaczkowej, sali do sportów walki w tym do judo. Planowana jest realizacja dodatkowych sal wielofunkcyjnych z możliwością ich wykorzystania na cele sportowe bądź kulturalne. Planuje się również udostępnić dach budynku na cele rekreacyjne. Nowy budynek oraz zagospodarowanie otaczającego go terenu pozbawiane będzie barier architektonicznych, udostępniając obiekt dla osób z niepełnosprawnościami. Zamawiający oczekuje koncepcji budynku o łącznej powierzchni całkowitej na poziomie ok. 12 600 m².</cbc:Description>
+         <cbc:ProcurementTypeCode listName="contract-nature">services</cbc:ProcurementTypeCode>
+         <cac:MainCommodityClassification>
+            <cbc:ItemClassificationCode listName="cpv">71000000</cbc:ItemClassificationCode>
+         </cac:MainCommodityClassification>
+         <cac:AdditionalCommodityClassification>
+            <cbc:ItemClassificationCode listName="cpv">71200000</cbc:ItemClassificationCode>
+         </cac:AdditionalCommodityClassification>
+         <cac:AdditionalCommodityClassification>
+            <cbc:ItemClassificationCode listName="cpv">71300000</cbc:ItemClassificationCode>
+         </cac:AdditionalCommodityClassification>
+         <cac:AdditionalCommodityClassification>
+            <cbc:ItemClassificationCode listName="cpv">71400000</cbc:ItemClassificationCode>
+         </cac:AdditionalCommodityClassification>
+         <cac:AdditionalCommodityClassification>
+            <cbc:ItemClassificationCode listName="cpv">71220000</cbc:ItemClassificationCode>
+         </cac:AdditionalCommodityClassification>
+         <cac:AdditionalCommodityClassification>
+            <cbc:ItemClassificationCode listName="cpv">71320000</cbc:ItemClassificationCode>
+         </cac:AdditionalCommodityClassification>
+         <cac:AdditionalCommodityClassification>
+            <cbc:ItemClassificationCode listName="cpv">71420000</cbc:ItemClassificationCode>
+         </cac:AdditionalCommodityClassification>
+         <cac:AdditionalCommodityClassification>
+            <cbc:ItemClassificationCode listName="cpv">71248000</cbc:ItemClassificationCode>
+         </cac:AdditionalCommodityClassification>
+         <cac:AdditionalCommodityClassification>
+            <cbc:ItemClassificationCode listName="cpv">71322000</cbc:ItemClassificationCode>
+         </cac:AdditionalCommodityClassification>
+         <cac:RealizedLocation>
+            <cac:Address>
+               <cbc:StreetName>ul. Krakowskie Przedmieście 26/28</cbc:StreetName>
+               <cbc:CityName>Warszawa</cbc:CityName>
+               <cbc:PostalZone>00-927</cbc:PostalZone>
+               <cbc:CountrySubentityCode listName="nuts">PL911</cbc:CountrySubentityCode>
+               <cac:Country>
+                  <cbc:IdentificationCode listName="country">POL</cbc:IdentificationCode>
+               </cac:Country>
+            </cac:Address>
+         </cac:RealizedLocation>
+      </cac:ProcurementProject>
+   </cac:ProcurementProjectLot>
+</ContractNotice>

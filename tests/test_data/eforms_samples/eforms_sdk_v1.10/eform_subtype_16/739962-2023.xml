@@ -1,0 +1,2171 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><ContractNotice xmlns="urn:oasis:names:specification:ubl:schema:xsd:ContractNotice-2" xmlns:cac="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2" xmlns:cbc="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2" xmlns:efac="http://data.europa.eu/p27/eforms-ubl-extension-aggregate-components/1" xmlns:efbc="http://data.europa.eu/p27/eforms-ubl-extension-basic-components/1" xmlns:efext="http://data.europa.eu/p27/eforms-ubl-extensions/1" xmlns:ext="urn:oasis:names:specification:ubl:schema:xsd:CommonExtensionComponents-2">
+   <ext:UBLExtensions>
+      <ext:UBLExtension>
+         <ext:ExtensionContent>
+            <efext:EformsExtension>
+               <efac:NoticeSubType>
+                  <cbc:SubTypeCode listName="notice-subtype">16</cbc:SubTypeCode>
+               </efac:NoticeSubType>
+               <efac:Organizations>
+                  <efac:Organization>
+                     <efac:Company>
+                        <cbc:WebsiteURI>www.szpital-konin.pl</cbc:WebsiteURI>
+                        <cbc:EndpointID>https://platformazakupowa.pl/wsz_konin</cbc:EndpointID>
+                        <cac:PartyIdentification>
+                           <cbc:ID>ORG-0003</cbc:ID>
+                        </cac:PartyIdentification>
+                        <cac:PartyName>
+                           <cbc:Name languageID="POL">Wojewódzki Szpital Zespolony im. dr. Romana Ostrzyckiego w Koninie</cbc:Name>
+                        </cac:PartyName>
+                        <cac:PostalAddress>
+                           <cbc:StreetName>ul. Szpitalna 45</cbc:StreetName>
+                           <cbc:Department>Dział Zamówień Publicznych</cbc:Department>
+                           <cbc:CityName>Konin</cbc:CityName>
+                           <cbc:PostalZone>62-504</cbc:PostalZone>
+                           <cbc:CountrySubentityCode listName="nuts">PL414</cbc:CountrySubentityCode>
+                           <cac:Country>
+                              <cbc:IdentificationCode listName="country">POL</cbc:IdentificationCode>
+                           </cac:Country>
+                        </cac:PostalAddress>
+                        <cac:PartyLegalEntity>
+                           <cbc:CompanyID>6651042675</cbc:CompanyID>
+                        </cac:PartyLegalEntity>
+                        <cac:Contact>
+                           <cbc:Name>Dział Zamówień Publicznych</cbc:Name>
+                           <cbc:Telephone>+48632404133</cbc:Telephone>
+                           <cbc:ElectronicMail>szp@szpital-konin.pl</cbc:ElectronicMail>
+                        </cac:Contact>
+                     </efac:Company>
+                  </efac:Organization>
+                  <efac:Organization>
+                     <efac:Company>
+                        <cbc:WebsiteURI>https://www.uzp.gov.pl/kio/strona-glowna</cbc:WebsiteURI>
+                        <cbc:EndpointID>https://www.uzp.gov.pl/kio/strona-glowna</cbc:EndpointID>
+                        <cac:PartyIdentification>
+                           <cbc:ID>ORG-0004</cbc:ID>
+                        </cac:PartyIdentification>
+                        <cac:PartyName>
+                           <cbc:Name languageID="POL">Krajowa Izba Odwoławcza</cbc:Name>
+                        </cac:PartyName>
+                        <cac:PostalAddress>
+                           <cbc:StreetName>ul. Postępu 17a</cbc:StreetName>
+                           <cbc:CityName>Warszawa</cbc:CityName>
+                           <cbc:PostalZone>02-676</cbc:PostalZone>
+                           <cbc:CountrySubentityCode listName="nuts">PL911</cbc:CountrySubentityCode>
+                           <cac:Country>
+                              <cbc:IdentificationCode listName="country">POL</cbc:IdentificationCode>
+                           </cac:Country>
+                        </cac:PostalAddress>
+                        <cac:PartyLegalEntity>
+                           <cbc:CompanyID>5262239325</cbc:CompanyID>
+                        </cac:PartyLegalEntity>
+                        <cac:Contact>
+                           <cbc:Telephone>+48224587840</cbc:Telephone>
+                           <cbc:ElectronicMail>odwolania@uzp.gov.pl</cbc:ElectronicMail>
+                        </cac:Contact>
+                     </efac:Company>
+                  </efac:Organization>
+               </efac:Organizations>
+            <efac:Publication><efbc:NoticePublicationID schemeName="ojs-notice-id">00739962-2023</efbc:NoticePublicationID><efbc:GazetteID schemeName="ojs-id">235/2023</efbc:GazetteID><efbc:PublicationDate>2023-12-06Z</efbc:PublicationDate></efac:Publication></efext:EformsExtension>
+         </ext:ExtensionContent>
+      </ext:UBLExtension>
+   </ext:UBLExtensions>
+   <cbc:UBLVersionID>2.3</cbc:UBLVersionID>
+   <cbc:CustomizationID>eforms-sdk-1.10</cbc:CustomizationID>
+   <cbc:ID schemeName="notice-id">11d541f3-2f2f-4eef-8216-ae7e5039a47d</cbc:ID>
+   <cbc:ContractFolderID>34a9a8e3-6f35-4733-83cf-c5eb49a0ab35</cbc:ContractFolderID>
+   <cbc:IssueDate>2023-12-05Z</cbc:IssueDate>
+   <cbc:IssueTime>09:20:37Z</cbc:IssueTime>
+   <cbc:VersionID>01</cbc:VersionID>
+   <cbc:RequestedPublicationDate>2023-12-06Z</cbc:RequestedPublicationDate>
+   <cbc:RegulatoryDomain>32014L0024</cbc:RegulatoryDomain>
+   <cbc:NoticeTypeCode listName="competition">cn-standard</cbc:NoticeTypeCode>
+   <cbc:NoticeLanguageCode listName="language">POL</cbc:NoticeLanguageCode>
+   <cac:ContractingParty>
+      <cac:ContractingPartyType>
+         <cbc:PartyTypeCode listName="buyer-legal-type">body-pl</cbc:PartyTypeCode>
+      </cac:ContractingPartyType>
+      <cac:ContractingActivity>
+         <cbc:ActivityTypeCode listName="authority-activity">health</cbc:ActivityTypeCode>
+      </cac:ContractingActivity>
+      <cac:Party>
+         <cac:PartyIdentification>
+            <cbc:ID>ORG-0003</cbc:ID>
+         </cac:PartyIdentification>
+      </cac:Party>
+   </cac:ContractingParty>
+   <cac:TenderingTerms>
+      <cac:TendererQualificationRequest>
+         <cac:SpecificTendererRequirement>
+            <cbc:TendererRequirementTypeCode listName="exclusion-ground">crime-org</cbc:TendererRequirementTypeCode>
+            <cbc:Description languageID="POL">Wykluczenie z postępowania na podstawie art. 108 ust. 1 pkt 1 i 2 ustawy Pzp. w odniesieniu do przestępstwa wskazanego w art. 258 Kodeksu karnego. W celu potwierdzenia braku podstaw wykluczenia wykonawcy z udziału w postępowaniu o udzielenie zamówienia publicznego, Zamawiający żąda następujących dokumentów: - oświadczenia o niepodleganiu wykluczeniu oraz spełnianiu warunków udziału w postępowaniu, o którym mowa w art. 125 ust. 1 ustawy Pzp. ¬„JEDZ” – zgodnie z wymaganiami zamawiającego określonymi w Załączniku nr 3 do SWZ; - informacji z Krajowego Rejestru Karnego - sporządzonej nie wcześniej niż 6 miesięcy przed jej złożeniem.</cbc:Description>
+         </cac:SpecificTendererRequirement>
+         <cac:SpecificTendererRequirement>
+            <cbc:TendererRequirementTypeCode listName="exclusion-ground">corruption</cbc:TendererRequirementTypeCode>
+            <cbc:Description languageID="POL">Wykluczenie z postępowania na podstawie art. 108 ust. 1 pkt 1 i 2 ustawy Pzp. w odniesieniu do przestępstw wskazanych w art. 228-230a lub art. 250a Kodeksu karnego, art. 46 lub 48 ustawy z dnia 25 czerwca 2010 r. o sporcie lub w art. 54 ust. 1-4 ustawy z dnia 12 maja 2011 r. o refundacji leków, środków spożywczych specjalnego przeznaczenia żywieniowego oraz wyrobów medycznych. W celu potwierdzenia braku podstaw wykluczenia wykonawcy z udziału w postępowaniu o udzielenie zamówienia publicznego, Zamawiający żąda następujących dokumentów: - oświadczenia o niepodleganiu wykluczeniu oraz spełnianiu warunków udziału w postępowaniu, o którym mowa w art. 125 ust. 1 ustawy Pzp. ¬„JEDZ” – zgodnie z wymaganiami zamawiającego określonymi w Załączniku nr 3 do SWZ; - informacji z Krajowego Rejestru Karnego - sporządzonej nie wcześniej niż 6 miesięcy przed jej złożeniem.</cbc:Description>
+         </cac:SpecificTendererRequirement>
+         <cac:SpecificTendererRequirement>
+            <cbc:TendererRequirementTypeCode listName="exclusion-ground">fraud</cbc:TendererRequirementTypeCode>
+            <cbc:Description languageID="POL">Wykluczenie z postępowania na podstawie art. 108 ust. 1 pkt 1 i 2 ustawy Pzp. w odniesieniu do przestępstwa wskazanego w art. 286 Kodeksu karnego oraz przestępstw skarbowych, o których mowa w art. 108 ust. 1 pkt 1 lit. g) ustawy Pzp. W celu potwierdzenia braku podstaw wykluczenia wykonawcy z udziału w postępowaniu o udzielenie zamówienia publicznego, Zamawiający żąda następujących dokumentów: - oświadczenia o niepodleganiu wykluczeniu oraz spełnianiu warunków udziału w postępowaniu, o którym mowa w art. 125 ust. 1 ustawy Pzp. ¬„JEDZ” – zgodnie z wymaganiami zamawiającego określonymi w Załączniku nr 3 do SWZ; - informacji z Krajowego Rejestru Karnego - sporządzonej nie wcześniej niż 6 miesięcy przed jej złożeniem.</cbc:Description>
+         </cac:SpecificTendererRequirement>
+         <cac:SpecificTendererRequirement>
+            <cbc:TendererRequirementTypeCode listName="exclusion-ground">terr-offence</cbc:TendererRequirementTypeCode>
+            <cbc:Description languageID="POL">Wykluczenie z postępowania na podstawie art. 108 ust. 1 pkt 1 i 2 ustawy Pzp. w odniesieniu do przestępstw wskazanych w art. 115 par. 20 Kodeksu karnego. W celu potwierdzenia braku podstaw wykluczenia wykonawcy z udziału w postępowaniu o udzielenie zamówienia publicznego, Zamawiający żąda następujących dokumentów: - oświadczenia o niepodleganiu wykluczeniu oraz spełnianiu warunków udziału w postępowaniu, o którym mowa w art. 125 ust. 1 ustawy Pzp. ¬„JEDZ” – zgodnie z wymaganiami zamawiającego określonymi w Załączniku nr 3 do SWZ; - informacji z Krajowego Rejestru Karnego - sporządzonej nie wcześniej niż 6 miesięcy przed jej złożeniem.</cbc:Description>
+         </cac:SpecificTendererRequirement>
+         <cac:SpecificTendererRequirement>
+            <cbc:TendererRequirementTypeCode listName="exclusion-ground">finan-laund</cbc:TendererRequirementTypeCode>
+            <cbc:Description languageID="POL">Wykluczenie z postępowania na podstawie art. 108 ust. 1 pkt 1 i 2 ustawy Pzp. w odniesieniu do przestępstw wskazanych w art. 299 lub art. 165a Kodeksu karnego. W celu potwierdzenia braku podstaw wykluczenia wykonawcy z udziału w postępowaniu o udzielenie zamówienia publicznego, Zamawiający żąda następujących dokumentów: - oświadczenia o niepodleganiu wykluczeniu oraz spełnianiu warunków udziału w postępowaniu, o którym mowa w art. 125 ust. 1 ustawy Pzp. ¬„JEDZ” – zgodnie z wymaganiami zamawiającego określonymi w Załączniku nr 3 do SWZ; - informacji z Krajowego Rejestru Karnego - sporządzonej nie wcześniej niż 6 miesięcy przed jej złożeniem.</cbc:Description>
+         </cac:SpecificTendererRequirement>
+         <cac:SpecificTendererRequirement>
+            <cbc:TendererRequirementTypeCode listName="exclusion-ground">human-traffic</cbc:TendererRequirementTypeCode>
+            <cbc:Description languageID="POL">Wykluczenie z postępowania na podstawie art. 108 ust. 1 pkt 1 i 2 ustawy Pzp. w odniesieniu do przestępstwa powierzenia wykonywania pracy małoletniemu cudzoziemcowi, o którym mowa w art. 9 ust. 2 ustawy z dnia 15 czerwca 2012 r. o skutkach powierzania wykonywania pracy cudzoziemcom przebywającym wbrew przepisom na terytorium Rzeczypospolitej Polskiej, oraz handlu ludźmi, o którym mowa w art. 189a Kodeksu karnego. W celu potwierdzenia braku podstaw wykluczenia wykonawcy z udziału w postępowaniu o udzielenie zamówienia publicznego, Zamawiający żąda następujących dokumentów: - oświadczenia o niepodleganiu wykluczeniu oraz spełnianiu warunków udziału w postępowaniu, o którym mowa w art. 125 ust. 1 ustawy Pzp. ¬„JEDZ” – zgodnie z wymaganiami zamawiającego określonymi w Załączniku nr 3 do SWZ; - informacji z Krajowego Rejestru Karnego - sporządzonej nie wcześniej niż 6 miesięcy przed jej złożeniem.</cbc:Description>
+         </cac:SpecificTendererRequirement>
+         <cac:SpecificTendererRequirement>
+            <cbc:TendererRequirementTypeCode listName="exclusion-ground">tax-pay</cbc:TendererRequirementTypeCode>
+            <cbc:Description languageID="POL">Wykluczenie z postępowania na podstawie art. 108 ust. 1 pkt 3 ustawy Pzp. W celu potwierdzenia braku podstaw wykluczenia wykonawcy z udziału w postępowaniu o udzielenie zamówienia publicznego, Zamawiający żąda następujących dokumentów: - oświadczenia o niepodleganiu wykluczeniu oraz spełnianiu warunków udziału w postępowaniu, o którym mowa w art. 125 ust. 1 ustawy Pzp. ¬„JEDZ” – zgodnie z wymaganiami zamawiającego określonymi w Załączniku nr 3 do SWZ; - oświadczenia wykonawcy o aktualności informacji zawartych w oświadczeniu, o którym mowa w art. 125 ust. 1 ustawy Pzp - zgodnie z wymaganiami zamawiającego określonymi w Załączniku nr 6 do SWZ.</cbc:Description>
+         </cac:SpecificTendererRequirement>
+         <cac:SpecificTendererRequirement>
+            <cbc:TendererRequirementTypeCode listName="exclusion-ground">socsec-pay</cbc:TendererRequirementTypeCode>
+            <cbc:Description languageID="POL">Wykluczenie z postępowania na podstawie art. 108 ust. 1 pkt 3 ustawy Pzp. W celu potwierdzenia braku podstaw wykluczenia wykonawcy z udziału w postępowaniu o udzielenie zamówienia publicznego, Zamawiający żąda następujących dokumentów: - oświadczenia o niepodleganiu wykluczeniu oraz spełnianiu warunków udziału w postępowaniu, o którym mowa w art. 125 ust. 1 ustawy Pzp. ¬„JEDZ” – zgodnie z wymaganiami zamawiającego określonymi w Załączniku nr 3 do SWZ; - oświadczenia wykonawcy o aktualności informacji zawartych w oświadczeniu, o którym mowa w art. 125 ust. 1 ustawy Pzp - zgodnie z wymaganiami zamawiającego określonymi w Załączniku nr 6 do SWZ.</cbc:Description>
+         </cac:SpecificTendererRequirement>
+         <cac:SpecificTendererRequirement>
+            <cbc:TendererRequirementTypeCode listName="exclusion-ground">bankruptcy</cbc:TendererRequirementTypeCode>
+            <cbc:Description languageID="POL">Wykluczenie z postępowania na podstawie art. 109 ust. 1 pkt 4 ustawy Pzp., w zakresie w jakim dotyczy on ogłoszenia upadłości. W celu potwierdzenia braku podstaw wykluczenia wykonawcy z udziału w postępowaniu o udzielenie zamówienia publicznego, Zamawiający żąda następujących dokumentów: - oświadczenia o niepodleganiu wykluczeniu oraz spełnianiu warunków udziału w postępowaniu, o którym mowa w art. 125 ust. 1 ustawy Pzp. ¬„JEDZ” – zgodnie z wymaganiami zamawiającego określonymi w Załączniku nr 3 do SWZ; - odpisu lub informacji z Krajowego Rejestru Sądowego lub z Centralnej Ewidencji i Informacji o Działalności Gospodarczej, w zakresie art. 109 ust. 1 pkt 4 ustawy Pzp., sporządzonych nie wcześniej niż 3 miesiące przed jej złożeniem, jeżeli odrębne przepisy wymagają wpisu do rejestru lub ewidencji; Zamawiający nie wzywa do złożenia odpisu lub informacji z Krajowego Rejestru Sądowego lub z Centralnej Ewidencji i Informacji o Działalności Gospodarczej, jeżeli może je uzyskać za pomocą bezpłatnych i ogólnodostępnych baz danych, o ile wykonawca wskazał w JEDZ (w części III w sekcji C) dane umożliwiające dostęp do tych środków (adres internetowy pod którym dostępna jest baza, dane wydającego urzędu lub organu, dokładne dane referencyjne dokumentacji, w szczególności numer KRS Wykonawcy).</cbc:Description>
+         </cac:SpecificTendererRequirement>
+         <cac:SpecificTendererRequirement>
+            <cbc:TendererRequirementTypeCode listName="exclusion-ground">insolvency</cbc:TendererRequirementTypeCode>
+            <cbc:Description languageID="POL">Wykluczenie z postępowania na podstawie art. 109 ust. 1 pkt 4 ustawy Pzp., w zakresie w jakim dotyczy on do otwarcia likwidacji wykonawcy. W celu potwierdzenia braku podstaw wykluczenia wykonawcy z udziału w postępowaniu o udzielenie zamówienia publicznego, Zamawiający żąda następującego dokumentu: - oświadczenia o niepodleganiu wykluczeniu oraz spełnianiu warunków udziału w postępowaniu, o którym mowa w art. 125 ust. 1 ustawy Pzp. ¬„JEDZ” – zgodnie z wymaganiami zamawiającego określonymi w Załączniku nr 3 do SWZ; - odpisu lub informacji z Krajowego Rejestru Sądowego lub z Centralnej Ewidencji i Informacji o Działalności Gospodarczej, w zakresie art. 109 ust. 1 pkt 4 ustawy Pzp., sporządzonych nie wcześniej niż 3 miesiące przed jej złożeniem, jeżeli odrębne przepisy wymagają wpisu do rejestru lub ewidencji; Zamawiający nie wzywa do złożenia odpisu lub informacji z Krajowego Rejestru Sądowego lub z Centralnej Ewidencji i Informacji o Działalności Gospodarczej, jeżeli może je uzyskać za pomocą bezpłatnych i ogólnodostępnych baz danych, o ile wykonawca wskazał w JEDZ (w części III w sekcji C) dane umożliwiające dostęp do tych środków (adres internetowy pod którym dostępna jest baza, dane wydającego urzędu lub organu, dokładne dane referencyjne dokumentacji, w szczególności numer KRS Wykonawcy).</cbc:Description>
+         </cac:SpecificTendererRequirement>
+         <cac:SpecificTendererRequirement>
+            <cbc:TendererRequirementTypeCode listName="exclusion-ground">cred-arran</cbc:TendererRequirementTypeCode>
+            <cbc:Description languageID="POL">Wykluczenie z postępowania na podstawie art. 109 ust. 1 pkt 4 ustawy Pzp., w zakresie w jakim dotyczy on układu z wierzycielami. W celu potwierdzenia braku podstaw wykluczenia wykonawcy z udziału w postępowaniu o udzielenie zamówienia publicznego, Zamawiający żąda następującego dokumentu: - oświadczenia o niepodleganiu wykluczeniu oraz spełnianiu warunków udziału w postępowaniu, o którym mowa w art. 125 ust. 1 ustawy Pzp. ¬„JEDZ” – zgodnie z wymaganiami zamawiającego określonymi w Załączniku nr 3 do SWZ; - odpisu lub informacji z Krajowego Rejestru Sądowego lub z Centralnej Ewidencji i Informacji o Działalności Gospodarczej, w zakresie art. 109 ust. 1 pkt 4 ustawy Pzp., sporządzonych nie wcześniej niż 3 miesiące przed jej złożeniem, jeżeli odrębne przepisy wymagają wpisu do rejestru lub ewidencji; Zamawiający nie wzywa do złożenia odpisu lub informacji z Krajowego Rejestru Sądowego lub z Centralnej Ewidencji i Informacji o Działalności Gospodarczej, jeżeli może je uzyskać za pomocą bezpłatnych i ogólnodostępnych baz danych, o ile wykonawca wskazał w JEDZ (w części III w sekcji C) dane umożliwiające dostęp do tych środków (adres internetowy pod którym dostępna jest baza, dane wydającego urzędu lub organu, dokładne dane referencyjne dokumentacji, w szczególności numer KRS Wykonawcy).</cbc:Description>
+         </cac:SpecificTendererRequirement>
+         <cac:SpecificTendererRequirement>
+            <cbc:TendererRequirementTypeCode listName="exclusion-ground">bankr-nat</cbc:TendererRequirementTypeCode>
+            <cbc:Description languageID="POL">Wykluczenie z postępowania na podstawie art. 109 ust. 1 pkt 4 ustawy Pzp., w zakresie w jakim dotyczy on podobnej sytuacji jak określona w art. 109 ust. 1 pkt 4 ustawy Pzp., wynikającej z podobnej procedury przewidzianej w przepisach miejsca wszczęcia tej procedury. W celu potwierdzenia braku podstaw wykluczenia wykonawcy z udziału w postępowaniu o udzielenie zamówienia publicznego, Zamawiający żąda następującego dokumentu: - oświadczenia o niepodleganiu wykluczeniu oraz spełnianiu warunków udziału w postępowaniu, o którym mowa w art. 125 ust. 1 ustawy Pzp. ¬„JEDZ” – zgodnie z wymaganiami zamawiającego określonymi w Załączniku nr 3 do SWZ; - odpisu lub informacji z Krajowego Rejestru Sądowego lub z Centralnej Ewidencji i Informacji o Działalności Gospodarczej, w zakresie art. 109 ust. 1 pkt 4 ustawy Pzp., sporządzonych nie wcześniej niż 3 miesiące przed jej złożeniem, jeżeli odrębne przepisy wymagają wpisu do rejestru lub ewidencji; Zamawiający nie wzywa do złożenia odpisu lub informacji z Krajowego Rejestru Sądowego lub z Centralnej Ewidencji i Informacji o Działalności Gospodarczej, jeżeli może je uzyskać za pomocą bezpłatnych i ogólnodostępnych baz danych, o ile wykonawca wskazał w JEDZ (w części III w sekcji C) dane umożliwiające dostęp do tych środków (adres internetowy pod którym dostępna jest baza, dane wydającego urzędu lub organu, dokładne dane referencyjne dokumentacji, w szczególności numer KRS Wykonawcy).</cbc:Description>
+         </cac:SpecificTendererRequirement>
+         <cac:SpecificTendererRequirement>
+            <cbc:TendererRequirementTypeCode listName="exclusion-ground">liq-admin</cbc:TendererRequirementTypeCode>
+            <cbc:Description languageID="POL">Wykluczenie z postępowania na podstawie art. 109 ust. 1 pkt 4 ustawy Pzp., w zakresie w jakim dotyczy on zarządzania aktywami wykonawcy przez likwidatora lub sąd. W celu potwierdzenia braku podstaw wykluczenia wykonawcy z udziału w postępowaniu o udzielenie zamówienia publicznego, Zamawiający żąda następującego dokumentu: - oświadczenia o niepodleganiu wykluczeniu oraz spełnianiu warunków udziału w postępowaniu, o którym mowa w art. 125 ust. 1 ustawy Pzp. ¬„JEDZ” – zgodnie z wymaganiami zamawiającego określonymi w Załączniku nr 3 do SWZ; - odpisu lub informacji z Krajowego Rejestru Sądowego lub z Centralnej Ewidencji i Informacji o Działalności Gospodarczej, w zakresie art. 109 ust. 1 pkt 4 ustawy Pzp., sporządzonych nie wcześniej niż 3 miesiące przed jej złożeniem, jeżeli odrębne przepisy wymagają wpisu do rejestru lub ewidencji; Zamawiający nie wzywa do złożenia odpisu lub informacji z Krajowego Rejestru Sądowego lub z Centralnej Ewidencji i Informacji o Działalności Gospodarczej, jeżeli może je uzyskać za pomocą bezpłatnych i ogólnodostępnych baz danych, o ile wykonawca wskazał w JEDZ (w części III w sekcji C) dane umożliwiające dostęp do tych środków (adres internetowy pod którym dostępna jest baza, dane wydającego urzędu lub organu, dokładne dane referencyjne dokumentacji, w szczególności numer KRS Wykonawcy).</cbc:Description>
+         </cac:SpecificTendererRequirement>
+         <cac:SpecificTendererRequirement>
+            <cbc:TendererRequirementTypeCode listName="exclusion-ground">susp-act</cbc:TendererRequirementTypeCode>
+            <cbc:Description languageID="POL">Wykluczenie z postępowania na podstawie art. 109 ust. 1 pkt 4 ustawy Pzp., w zakresie w jakim dotyczy on zawieszenia prowadzonej działalności. W celu potwierdzenia braku podstaw wykluczenia wykonawcy z udziału w postępowaniu o udzielenie zamówienia publicznego, Zamawiający żąda następującego dokumentu: - oświadczenia o niepodleganiu wykluczeniu oraz spełnianiu warunków udziału w postępowaniu, o którym mowa w art. 125 ust. 1 ustawy Pzp. ¬„JEDZ” – zgodnie z wymaganiami zamawiającego określonymi w Załączniku nr 3 do SWZ; - odpisu lub informacji z Krajowego Rejestru Sądowego lub z Centralnej Ewidencji i Informacji o Działalności Gospodarczej, w zakresie art. 109 ust. 1 pkt 4 ustawy Pzp., sporządzonych nie wcześniej niż 3 miesiące przed jej złożeniem, jeżeli odrębne przepisy wymagają wpisu do rejestru lub ewidencji; Zamawiający nie wzywa do złożenia odpisu lub informacji z Krajowego Rejestru Sądowego lub z Centralnej Ewidencji i Informacji o Działalności Gospodarczej, jeżeli może je uzyskać za pomocą bezpłatnych i ogólnodostępnych baz danych, o ile wykonawca wskazał w JEDZ (w części III w sekcji C) dane umożliwiające dostęp do tych środków (adres internetowy pod którym dostępna jest baza, dane wydającego urzędu lub organu, dokładne dane referencyjne dokumentacji, w szczególności numer KRS Wykonawcy).</cbc:Description>
+         </cac:SpecificTendererRequirement>
+         <cac:SpecificTendererRequirement>
+            <cbc:TendererRequirementTypeCode listName="exclusion-ground">distorsion</cbc:TendererRequirementTypeCode>
+            <cbc:Description languageID="POL">Wykluczenie z postępowania na podstawie art. 108 ust. 1 pkt 5 ustawy Pzp. W celu potwierdzenia braku podstaw wykluczenia wykonawcy z udziału w postępowaniu o udzielenie zamówienia publicznego, Zamawiający żąda następującego dokumentu: - oświadczenia o niepodleganiu wykluczeniu oraz spełnianiu warunków udziału w postępowaniu, o którym mowa w art. 125 ust. 1 ustawy Pzp. ¬„JEDZ” – zgodnie z wymaganiami zamawiającego określonymi w Załączniku nr 3 do SWZ; - oświadczenia wykonawcy, w zakresie art. 108 ust. 1 pkt 5 ustawy Pzp., o braku przynależności do tej samej grupy kapitałowej w rozumieniu ustawy z dnia 16 lutego 2007 r. o ochronie konkurencji i konsumentów (Dz. U. z 2020 r. poz. 1076 i 1086), z innym wykonawcą, który złożył odrębną ofertę, ofertę częściową lub wniosek o dopuszczenie do udziału w postępowaniu, albo oświadczenia o przynależności do tej samej grupy kapitałowej wraz z dokumentami lub informacjami potwierdzającymi przygotowanie oferty, oferty częściowej lub wniosku o dopuszczenie do udziału w postępowaniu niezależnie od innego wykonawcy należącego do tej samej grupy kapitałowej - zgodnie z wymaganiami zamawiającego określonymi w Załączniku nr 5 do SWZ; - oświadczenia wykonawcy o aktualności informacji zawartych w oświadczeniu, o którym mowa w art. 125 ust. 1 ustawy Pzp - zgodnie z wymaganiami zamawiającego określonymi w Załączniku nr 6 do SWZ.</cbc:Description>
+         </cac:SpecificTendererRequirement>
+         <cac:SpecificTendererRequirement>
+            <cbc:TendererRequirementTypeCode listName="exclusion-ground">prep-confl</cbc:TendererRequirementTypeCode>
+            <cbc:Description languageID="POL">Wykluczenie z postępowania na podstawie art. 108 ust. 1 pkt 6 ustawy Pzp. W celu potwierdzenia braku podstaw wykluczenia wykonawcy z udziału w postępowaniu o udzielenie zamówienia publicznego, Zamawiający żąda następującego dokumentu: - oświadczenia o niepodleganiu wykluczeniu oraz spełnianiu warunków udziału w postępowaniu, o którym mowa w art. 125 ust. 1 ustawy Pzp. ¬„JEDZ” – zgodnie z wymaganiami zamawiającego określonymi w Załączniku nr 3 do SWZ; - oświadczenia wykonawcy o aktualności informacji zawartych w oświadczeniu, o którym mowa w art. 125 ust. 1 ustawy Pzp - zgodnie z wymaganiami zamawiającego określonymi w Załączniku nr 6 do SWZ.</cbc:Description>
+         </cac:SpecificTendererRequirement>
+         <cac:SpecificTendererRequirement>
+            <cbc:TendererRequirementTypeCode listName="exclusion-ground">labour-law</cbc:TendererRequirementTypeCode>
+            <cbc:Description languageID="POL">Wykluczenie z postępowania na podstawie art. 108 ust. 1 pkt 1 lit. h i pkt 2 ustawy Pzp. – w przypadku skazania za przestępstwo, o którym mowa w art. 9 ust. 1 i 3 lub art. 10 ustawy z dnia 15 czerwca 2012 r. o skutkach powierzenia wykonywania pracy cudzoziemcom przebywającym wbrew przepisom na terytorium Rzeczypospolitej Polskiej. W celu potwierdzenia braku podstaw wykluczenia wykonawcy z udziału w postępowaniu o udzielenie zamówienia publicznego, Zamawiający żąda następujących dokumentów: - oświadczenia o niepodleganiu wykluczeniu oraz spełnianiu warunków udziału w postępowaniu, o którym mowa w art. 125 ust. 1 ustawy Pzp. ¬„JEDZ” – zgodnie z wymaganiami zamawiającego określonymi w Załączniku nr 3 do SWZ; - informacji z Krajowego Rejestru Karnego w zakresie art. 108 ust. 1 pkt 1 i 2 ustawy Pzp. - sporządzonej nie wcześniej niż 6 miesięcy przed jej złożeniem.</cbc:Description>
+         </cac:SpecificTendererRequirement>
+         <cac:SpecificTendererRequirement>
+            <cbc:TendererRequirementTypeCode listName="exclusion-ground">nati-ground</cbc:TendererRequirementTypeCode>
+            <cbc:Description languageID="POL">Wykluczenie z postępowania na podstawie art. 108 ust. 1 pkt 1 lit. c ustawy Pzp. – w przypadku skazania za przestępstwo, o którym mowa w art. 47 ustawy z dnia 25 czerwca 2010 r. o sporcie. W celu potwierdzenia braku podstaw wykluczenia wykonawcy z udziału w postępowaniu o udzielenie zamówienia publicznego, Zamawiający żąda następujących dokumentów: - oświadczenia o niepodleganiu wykluczeniu oraz spełnianiu warunków udziału w postępowaniu, o którym mowa w art. 125 ust. 1 ustawy Pzp. ¬„JEDZ” – zgodnie z wymaganiami zamawiającego określonymi w Załączniku nr 3 do SWZ; - informacji z Krajowego Rejestru Karnego w zakresie art. 108 ust. 1 pkt 1 i 2 ustawy Pzp. - sporządzonej nie wcześniej niż 6 miesięcy przed jej złożeniem. Wykluczenie z postępowania na podstawie art. 108 ust. 1 pkt 1 lit. g i pkt 2 ustawy Pzp. – w przypadku skazania za przestępstwo przeciwko wiarygodności dokumentów, o których mowa w art. 270-277d Kodeksu karnego i przestępstwa przeciwko obrotowi gospodarczemu, o których mowa w art. 296-307 Kodeksu karnego, z wyjątkiem przestępstwa udaremniania lub utrudniania stwierdzenia przestępnego pochodzenia pieniędzy lub ukrywania ich pochodzenia, o którym mowa w art. 299 Kodeksu karnego. W celu potwierdzenia braku podstaw wykluczenia wykonawcy z udziału w postępowaniu o udzielenie zamówienia publicznego, Zamawiający żąda następujących dokumentów: - oświadczenia o niepodleganiu wykluczeniu oraz spełnianiu warunków udziału w postępowaniu, o którym mowa w art. 125 ust. 1 ustawy Pzp. ¬„JEDZ” – zgodnie z wymaganiami zamawiającego określonymi w Załączniku nr 3 do SWZ; - informacji z Krajowego Rejestru Karnego w zakresie art. 108 ust. 1 pkt 1 i 2 ustawy Pzp. - sporządzonej nie wcześniej niż 6 miesięcy przed jej złożeniem. Wykluczenie z postępowania na podstawie art. 108 ust. 1 pkt 4 ustawy Pzp. – w przypadku wykonawcy, wobec którego prawomocnie orzeczono zakaz ubiegania się o zamówienia publiczne. W celu potwierdzenia braku podstaw wykluczenia wykonawcy z udziału w postępowaniu o udzielenie zamówienia publicznego, Zamawiający żąda następujących dokumentów: - oświadczenia o niepodleganiu wykluczeniu oraz spełnianiu warunków udziału w postępowaniu, o którym mowa w art. 125 ust. 1 ustawy Pzp. ¬„JEDZ” – zgodnie z wymaganiami zamawiającego określonymi w Załączniku nr 3 do SWZ; - informacji z Krajowego Rejestru Karnego w zakresie art. 108 ust. 1 pkt 1 i 2 ustawy Pzp. - sporządzonej nie wcześniej niż 6 miesięcy przed jej złożeniem; - oświadczenia wykonawcy o aktualności informacji zawartych w oświadczeniu, o którym mowa w art. 125 ust. 1 ustawy Pzp - zgodnie z wymaganiami zamawiającego określonymi w Załączniku nr 6 do SWZ. Wykluczenie z postępowania na podstawie art. 7 ust. 1 ustawy z dnia 13 kwietnia 2022 r. o szczególnych rozwiązaniach w zakresie przeciwdziałania wspieraniu agresji na Ukrainę oraz służących ochronie bezpieczeństwa narodowego. W celu potwierdzenia braku podstaw wykluczenia wykonawcy z udziału w postępowaniu o udzielenie zamówienia publicznego, Zamawiający żąda następujących dokumentów: - oświadczenia wykonawcy dotyczącego przesłanek wykluczenia, o których mowa w Rozdziałach VIIA i VIIB SWZ, składane na podstawie art. 125 ust. 1 Pzp - zgodnie z wymaganiami zamawiającego określonymi w Załączniku nr 7 do SWZ; - oświadczenia wykonawcy o aktualności informacji zawartych w oświadczeniu dotyczącym przesłanek wykluczenia, o których mowa w Rozdziałach VIIA i VIIB SWZ - zgodnie z wymaganiami zamawiającego określonymi w Załączniku nr 8 do SWZ.</cbc:Description>
+         </cac:SpecificTendererRequirement>
+      </cac:TendererQualificationRequest>
+   </cac:TenderingTerms>
+   <cac:TenderingProcess>
+      <ext:UBLExtensions>
+         <ext:UBLExtension>
+            <ext:ExtensionContent>
+               <efext:EformsExtension>
+                  <efbc:ProcedureRelaunchIndicator>false</efbc:ProcedureRelaunchIndicator>
+               </efext:EformsExtension>
+            </ext:ExtensionContent>
+         </ext:UBLExtension>
+      </ext:UBLExtensions>
+      <cbc:ProcedureCode listName="procurement-procedure-type">open</cbc:ProcedureCode>
+      <cac:ProcessJustification>
+         <cbc:ProcessReasonCode listName="accelerated-procedure">false</cbc:ProcessReasonCode>
+      </cac:ProcessJustification>
+   </cac:TenderingProcess>
+   <cac:ProcurementProject>
+      <cbc:ID>WSZ-EP-39/2023</cbc:ID>
+      <cbc:Name languageID="POL">Dostawa dializatorów i wyrobów medycznych dla potrzeb Stacji Dializ</cbc:Name>
+      <cbc:Description languageID="POL">Przedmiotem zamówienia jest sukcesywna dostawa dializatorów i wyrobów medycznych dla potrzeb Stacji Dializ Wojewódzkiego Szpitala Zespolonego im. dr. Romana Ostrzyckiego w Koninie. Przedmiot zamówienia został szczegółowo opisany w Załączniku nr 2 do SWZ (formularz asortymentowo-cenowy), w którym podano ilość przedmiotu zamówienia oraz opis przedmiotu zamówienia. Zamawiający dopuszcza  możliwość składania ofert częściowych. Przedmiot zamówienia został podzielony na części (pakiety).</cbc:Description>
+      <cbc:ProcurementTypeCode listName="contract-nature">supplies</cbc:ProcurementTypeCode>
+      <cac:MainCommodityClassification>
+         <cbc:ItemClassificationCode listName="cpv">33140000</cbc:ItemClassificationCode>
+      </cac:MainCommodityClassification>
+      <cac:AdditionalCommodityClassification>
+         <cbc:ItemClassificationCode listName="cpv">33141200</cbc:ItemClassificationCode>
+      </cac:AdditionalCommodityClassification>
+      <cac:AdditionalCommodityClassification>
+         <cbc:ItemClassificationCode listName="cpv">33141320</cbc:ItemClassificationCode>
+      </cac:AdditionalCommodityClassification>
+      <cac:RealizedLocation>
+         <cbc:Description languageID="POL">Zgodnie z art. 5k ust. 1 rozporządzenia Rady (UE) nr 833/2014 z dnia 31 lipca 2014 r. dotyczącego środków ograniczających w związku z działaniami Rosji destabilizującymi sytuację na Ukrainie (Dz. Urz. UE nr L 229 z 31.7.2014, str. 1 ze zm.) w brzmieniu nadanym rozporządzeniem Rady (UE) 2022/576 w sprawie zmiany rozporządzenia (UE) nr 833/2014 dotyczącego środków ograniczających w związku z działaniami Rosji destabilizującymi sytuację na Ukrainie (Dz.Urz. UE nr L 111 z 8.4.2022): Zakazuje się udzielania lub dalszego wykonywania wszelkich zamówień publicznych lub koncesji objętych zakresem dyrektyw w sprawie zamówień publicznych, a także zakresem art. 10 ust. 1, 3, ust. 6 lit. a)–e), ust. 8, 9 i 10, art. 11, 12, 13 i 14 dyrektywy 2014/23/UE, art. 7 lit. a) – d) i 8, art. 10 lit. b)–f) i lit. h)–j) dyrektywy 2014/24/UE, art. 18, art. 21 lit. b)–e) i lit. g)–i), art. 29 i 30 dyrektywy 2014/25/UE oraz art. 13 lit. a)–d), lit. f)–h) i lit. j) dyrektywy 2009/81/WE oraz tytułu VII rozporządzenia (UE, Euratom) 2018/1046 na rzecz lub z udziałem: a) obywateli rosyjskich, osób fizycznych zamieszkałych w Rosji lub osób prawnych, podmiotów lub organów z siedzibą w Rosji; b) osób prawnych, podmiotów lub organów, do których prawa własności bezpośrednio lub pośrednio w ponad 50 % należą do podmiotu, o którym mowa w lit. a) niniejszego ustępu; lub c) osób fizycznych lub prawnych, podmiotów lub organów działających w imieniu lub pod kierunkiem podmiotu, o którym mowa w lit. a) lub b) niniejszego ustępu, w tym podwykonawców, dostawców lub podmiotów, na których zdolności polega się w rozumieniu dyrektyw w sprawie zamówień publicznych, w przypadku gdy przypada na nich ponad 10 % wartości zamówienia. W celu potwierdzenia braku podstaw wykluczenia wykonawcy z udziału w postępowaniu o udzielenie zamówienia publicznego, Zamawiający żąda następujących dokumentów: - oświadczenia wykonawcy dotyczącego przesłanek wykluczenia, o których mowa w Rozdziałach VIIA i VIIB SWZ, składanego na podstawie art. 125 ust. 1 Pzp - zgodnie z wymaganiami zamawiającego określonymi w Załączniku nr 7 do SWZ; - oświadczenia wykonawcy o aktualności informacji zawartych w oświadczeniu dotyczącym przesłanek wykluczenia, o których mowa w Rozdziałach VIIA i VIIB SWZ - zgodnie z wymaganiami zamawiającego określonymi w Załączniku nr 8 do SWZ.</cbc:Description>
+         <cac:Address>
+            <cbc:StreetName>ul. Szpitalna 45</cbc:StreetName>
+            <cbc:CityName>Konin</cbc:CityName>
+            <cbc:PostalZone>62-504</cbc:PostalZone>
+            <cbc:CountrySubentityCode listName="nuts">PL414</cbc:CountrySubentityCode>
+            <cac:Country>
+               <cbc:IdentificationCode listName="country">POL</cbc:IdentificationCode>
+            </cac:Country>
+         </cac:Address>
+      </cac:RealizedLocation>
+   </cac:ProcurementProject>
+   <cac:ProcurementProjectLot>
+      <cbc:ID schemeName="Lot">LOT-0001</cbc:ID>
+      <cac:TenderingTerms>
+         <ext:UBLExtensions>
+            <ext:UBLExtension>
+               <ext:ExtensionContent>
+                  <efext:EformsExtension>
+                     <efac:SelectionCriteria>
+                        <cbc:CriterionTypeCode listName="selection-criterion">sui-act</cbc:CriterionTypeCode>
+                        <cbc:Name languageID="POL">Zdolność do występowania w obrocie gospodarczym</cbc:Name>
+                        <cbc:Description languageID="POL">Zamawiający nie wyznacza szczegółowego warunku w tym zakresie.</cbc:Description>
+                        <cbc:CalculationExpressionCode listName="usage">n-used</cbc:CalculationExpressionCode>
+                        <efbc:SecondStageIndicator>false</efbc:SecondStageIndicator>
+                     </efac:SelectionCriteria>
+                     <efac:SelectionCriteria>
+                        <cbc:CriterionTypeCode listName="selection-criterion">ef-stand</cbc:CriterionTypeCode>
+                        <cbc:Description languageID="POL">Zamawiający nie wyznacza szczegółowego warunku w tym zakresie.</cbc:Description>
+                        <cbc:CalculationExpressionCode listName="usage">n-used</cbc:CalculationExpressionCode>
+                        <efbc:SecondStageIndicator>false</efbc:SecondStageIndicator>
+                     </efac:SelectionCriteria>
+                     <efac:SelectionCriteria>
+                        <cbc:CriterionTypeCode listName="selection-criterion">tp-abil</cbc:CriterionTypeCode>
+                        <cbc:Description languageID="POL">Zamawiający nie wyznacza szczegółowego warunku w tym zakresie.</cbc:Description>
+                        <cbc:CalculationExpressionCode listName="usage">n-used</cbc:CalculationExpressionCode>
+                        <efbc:SecondStageIndicator>false</efbc:SecondStageIndicator>
+                     </efac:SelectionCriteria>
+                     <efac:SelectionCriteria>
+                        <cbc:CriterionTypeCode listName="selection-criterion">sui-act</cbc:CriterionTypeCode>
+                        <cbc:Name languageID="POL">Uprawnienia do prowadzenia określonej działalności gospodarczej lub zawodowej, o ile wynika to z odrębnych przepisów</cbc:Name>
+                        <cbc:Description languageID="POL">Zamawiający nie wyznacza szczegółowego warunku w tym zakresie.</cbc:Description>
+                        <cbc:CalculationExpressionCode listName="usage">n-used</cbc:CalculationExpressionCode>
+                        <efbc:SecondStageIndicator>false</efbc:SecondStageIndicator>
+                     </efac:SelectionCriteria>
+                     <efac:StrategicProcurement>
+                        <efbc:ApplicableLegalBasis listName="cvd-scope">false</efbc:ApplicableLegalBasis>
+                     </efac:StrategicProcurement>
+                  </efext:EformsExtension>
+               </ext:ExtensionContent>
+            </ext:UBLExtension>
+         </ext:UBLExtensions>
+         <cbc:VariantConstraintCode listName="permission">not-allowed</cbc:VariantConstraintCode>
+         <cbc:FundingProgramCode listName="eu-funded">no-eu-funds</cbc:FundingProgramCode>
+         <cbc:RequiredCurriculaCode listName="requirement-stage">nyk</cbc:RequiredCurriculaCode>
+         <cbc:RecurringProcurementIndicator>false</cbc:RecurringProcurementIndicator>
+         <cac:RequiredFinancialGuarantee>
+            <cbc:GuaranteeTypeCode listName="tender-guarantee-required">false</cbc:GuaranteeTypeCode>
+         </cac:RequiredFinancialGuarantee>
+         <cac:CallForTendersDocumentReference>
+            <ext:UBLExtensions>
+               <ext:UBLExtension>
+                  <ext:ExtensionContent>
+                     <efext:EformsExtension>
+                        <efac:OfficialLanguages>
+                           <cac:Language>
+                              <cbc:ID>POL</cbc:ID>
+                           </cac:Language>
+                        </efac:OfficialLanguages>
+                     </efext:EformsExtension>
+                  </ext:ExtensionContent>
+               </ext:UBLExtension>
+            </ext:UBLExtensions>
+            <cbc:ID>https://platformazakupowa.pl/wsz_konin</cbc:ID>
+            <cbc:DocumentType>non-restricted-document</cbc:DocumentType>
+            <cac:Attachment>
+               <cac:ExternalReference>
+                  <cbc:URI>https://platformazakupowa.pl/wsz_konin</cbc:URI>
+               </cac:ExternalReference>
+            </cac:Attachment>
+         </cac:CallForTendersDocumentReference>
+         <cac:PaymentTerms>
+            <cbc:Note languageID="POL">Zasady finansowe zawarte zostały w Projektowanych Postanowieniach Umowy, stanowiących Załącznik nr 5 do SWZ.</cbc:Note>
+         </cac:PaymentTerms>
+         <cac:TendererQualificationRequest>
+            <cac:SpecificTendererRequirement>
+               <cbc:TendererRequirementTypeCode listName="reserved-procurement">none</cbc:TendererRequirementTypeCode>
+            </cac:SpecificTendererRequirement>
+         </cac:TendererQualificationRequest>
+         <cac:ContractExecutionRequirement>
+            <cbc:ExecutionRequirementCode listName="reserved-execution">no</cbc:ExecutionRequirementCode>
+         </cac:ContractExecutionRequirement>
+         <cac:ContractExecutionRequirement>
+            <cbc:ExecutionRequirementCode listName="conditions">performance</cbc:ExecutionRequirementCode>
+            <cbc:Description languageID="POL">Warunki dotyczące realizacji Przedmiotu Zamówienia zawarte zostały również w Projektowanych Postanowieniach Umowy, stanowiących Załącznik nr 5 do SWZ.</cbc:Description>
+         </cac:ContractExecutionRequirement>
+         <cac:ContractExecutionRequirement>
+            <cbc:ExecutionRequirementCode listName="einvoicing">allowed</cbc:ExecutionRequirementCode>
+         </cac:ContractExecutionRequirement>
+         <cac:ContractExecutionRequirement>
+            <cbc:ExecutionRequirementCode listName="nda">false</cbc:ExecutionRequirementCode>
+         </cac:ContractExecutionRequirement>
+         <cac:ContractExecutionRequirement>
+            <cbc:ExecutionRequirementCode listName="ecatalog-submission">not-allowed</cbc:ExecutionRequirementCode>
+         </cac:ContractExecutionRequirement>
+         <cac:ContractExecutionRequirement>
+            <cbc:ExecutionRequirementCode listName="esignature-submission">true</cbc:ExecutionRequirementCode>
+         </cac:ContractExecutionRequirement>
+         <cac:AwardingTerms>
+            <cbc:NoFurtherNegotiationIndicator>false</cbc:NoFurtherNegotiationIndicator>
+            <cac:AwardingCriterion>
+               <cac:SubordinateAwardingCriterion>
+                  <ext:UBLExtensions>
+                     <ext:UBLExtension>
+                        <ext:ExtensionContent>
+                           <efext:EformsExtension>
+                              <efac:AwardCriterionParameter>
+                                 <efbc:ParameterCode listName="number-weight">per-exa</efbc:ParameterCode>
+                                 <efbc:ParameterNumeric>60</efbc:ParameterNumeric>
+                              </efac:AwardCriterionParameter>
+                           </efext:EformsExtension>
+                        </ext:ExtensionContent>
+                     </ext:UBLExtension>
+                  </ext:UBLExtensions>
+                  <cbc:AwardingCriterionTypeCode listName="award-criterion-type">price</cbc:AwardingCriterionTypeCode>
+                  <cbc:Description languageID="POL">Cena</cbc:Description>
+               </cac:SubordinateAwardingCriterion>
+               <cac:SubordinateAwardingCriterion>
+                  <ext:UBLExtensions>
+                     <ext:UBLExtension>
+                        <ext:ExtensionContent>
+                           <efext:EformsExtension>
+                              <efac:AwardCriterionParameter>
+                                 <efbc:ParameterCode listName="number-weight">per-exa</efbc:ParameterCode>
+                                 <efbc:ParameterNumeric>40</efbc:ParameterNumeric>
+                              </efac:AwardCriterionParameter>
+                           </efext:EformsExtension>
+                        </ext:ExtensionContent>
+                     </ext:UBLExtension>
+                  </ext:UBLExtensions>
+                  <cbc:AwardingCriterionTypeCode listName="award-criterion-type">quality</cbc:AwardingCriterionTypeCode>
+                  <cbc:Description languageID="POL">Termin dostawy (TD)</cbc:Description>
+               </cac:SubordinateAwardingCriterion>
+            </cac:AwardingCriterion>
+         </cac:AwardingTerms>
+         <cac:TenderRecipientParty>
+            <cbc:EndpointID>https://platformazakupowa.pl/wsz_konin</cbc:EndpointID>
+         </cac:TenderRecipientParty>
+         <cac:TenderValidityPeriod>
+            <cbc:DurationMeasure unitCode="DAY">90</cbc:DurationMeasure>
+         </cac:TenderValidityPeriod>
+         <cac:AppealTerms>
+            <cac:PresentationPeriod>
+               <cbc:Description languageID="POL">1. Odwołanie wnosi się w terminie:
+1.1. 10 dni od dnia przekazania informacji o czynności zamawiającego stanowiącej podstawę jego wniesienia, jeżeli informacja została przekazana przy użyciu środków komunikacji elektronicznej; 
+1.2. 15 dni od dnia przekazania informacji o czynności zamawiającego stanowiącej podstawę jego wniesienia, jeżeli informacja została przekazana w sposób inny niż określony w pkt 1.1.
+2. Odwołanie wobec treści ogłoszenia wszczynającego postępowanie o udzielenie zamówienia lub wobec treści dokumentów zamówienia wnosi się w terminie 10 dni od dnia publikacji ogłoszenia w Dzienniku Urzędowym Unii Europejskiej lub zamieszczenia dokumentów zamówienia na stronie internetowej.
+3. Odwołanie w przypadkach innych niż określone w ust. 1 i 2 wnosi się w terminie 10 dni od dnia, w którym powzięto lub przy zachowaniu należytej staranności można było powziąć wiadomość o okolicznościach stanowiących podstawę jego wniesienia.</cbc:Description>
+            </cac:PresentationPeriod>
+            <cac:AppealReceiverParty>
+               <cac:PartyIdentification>
+                  <cbc:ID>ORG-0004</cbc:ID>
+               </cac:PartyIdentification>
+            </cac:AppealReceiverParty>
+         </cac:AppealTerms>
+         <cac:Language>
+            <cbc:ID>POL</cbc:ID>
+         </cac:Language>
+         <cac:PostAwardProcess>
+            <cbc:ElectronicOrderUsageIndicator>false</cbc:ElectronicOrderUsageIndicator>
+            <cbc:ElectronicPaymentUsageIndicator>true</cbc:ElectronicPaymentUsageIndicator>
+         </cac:PostAwardProcess>
+         <cac:SecurityClearanceTerm>
+            <cbc:Code listName="required">false</cbc:Code>
+         </cac:SecurityClearanceTerm>
+      </cac:TenderingTerms>
+      <cac:TenderingProcess>
+         <ext:UBLExtensions>
+            <ext:UBLExtension>
+               <ext:ExtensionContent>
+                  <efext:EformsExtension>
+                     <efbc:ProcedureRelaunchIndicator>false</efbc:ProcedureRelaunchIndicator>
+                  </efext:EformsExtension>
+               </ext:ExtensionContent>
+            </ext:UBLExtension>
+         </ext:UBLExtensions>
+         <cbc:SubmissionMethodCode listName="esubmission">required</cbc:SubmissionMethodCode>
+         <cbc:CandidateReductionConstraintIndicator>false</cbc:CandidateReductionConstraintIndicator>
+         <cbc:GovernmentAgreementConstraintIndicator>false</cbc:GovernmentAgreementConstraintIndicator>
+         <cac:TenderSubmissionDeadlinePeriod>
+            <cbc:EndDate>2024-01-09+01:00</cbc:EndDate>
+            <cbc:EndTime>08:00:00+01:00</cbc:EndTime>
+         </cac:TenderSubmissionDeadlinePeriod>
+         <cac:EconomicOperatorShortList>
+            <cbc:LimitationDescription>false</cbc:LimitationDescription>
+         </cac:EconomicOperatorShortList>
+         <cac:OpenTenderEvent>
+            <cbc:OccurrenceDate>2024-01-09+01:00</cbc:OccurrenceDate>
+            <cbc:OccurrenceTime>11:00:00+01:00</cbc:OccurrenceTime>
+            <cac:OccurenceLocation>
+               <cbc:Description languageID="POL">Otwarcie ofert nastąpi za pośrednictwem Platformy zakupowej, działającej pod adresem https://platformazakupowa.pl/wsz_konin.</cbc:Description>
+            </cac:OccurenceLocation>
+         </cac:OpenTenderEvent>
+         <cac:AuctionTerms>
+            <cbc:AuctionConstraintIndicator>false</cbc:AuctionConstraintIndicator>
+         </cac:AuctionTerms>
+         <cac:ContractingSystem>
+            <cbc:ContractingSystemTypeCode listName="framework-agreement">none</cbc:ContractingSystemTypeCode>
+         </cac:ContractingSystem>
+         <cac:ContractingSystem>
+            <cbc:ContractingSystemTypeCode listName="dps-usage">none</cbc:ContractingSystemTypeCode>
+         </cac:ContractingSystem>
+      </cac:TenderingProcess>
+      <cac:ProcurementProject>
+         <cbc:ID>Część nr 1</cbc:ID>
+         <cbc:Name languageID="POL">Pakiet nr 1: Dostawa dializatorów dla potrzeb Stacji Dializ</cbc:Name>
+         <cbc:Description languageID="POL">Przedmiot zamówienia został szczegółowo opisany w Załączniku nr 2 do SWZ (formularz asortymentowo-cenowy).</cbc:Description>
+         <cbc:ProcurementTypeCode listName="contract-nature">supplies</cbc:ProcurementTypeCode>
+         <cbc:SMESuitableIndicator>true</cbc:SMESuitableIndicator>
+         <cac:ProcurementAdditionalType>
+            <cbc:ProcurementTypeCode listName="gpp-criteria">none</cbc:ProcurementTypeCode>
+         </cac:ProcurementAdditionalType>
+         <cac:MainCommodityClassification>
+            <cbc:ItemClassificationCode listName="cpv">33140000</cbc:ItemClassificationCode>
+         </cac:MainCommodityClassification>
+         <cac:RealizedLocation>
+            <cac:Address>
+               <cbc:StreetName>Apteka Szpitalna Wojewódzkiego Szpitala Zespolonego im. dr. Romana Ostrzyckiego w Koninie</cbc:StreetName>
+               <cbc:AdditionalStreetName>ul. Szpitalna 45</cbc:AdditionalStreetName>
+               <cbc:CityName>Konin</cbc:CityName>
+               <cbc:PostalZone>62-504</cbc:PostalZone>
+               <cbc:CountrySubentityCode listName="nuts">PL414</cbc:CountrySubentityCode>
+               <cac:Country>
+                  <cbc:IdentificationCode listName="country">POL</cbc:IdentificationCode>
+               </cac:Country>
+            </cac:Address>
+         </cac:RealizedLocation>
+         <cac:RealizedLocation>
+            <cac:Address>
+               <cbc:StreetName>Apteka Szpitalna Wojewódzkiego Szpitala Zespolonego im. dr. Romana Ostrzyckiego w Koninie</cbc:StreetName>
+               <cbc:AdditionalStreetName>ul. Szpitalna 45</cbc:AdditionalStreetName>
+               <cbc:CityName>Konin</cbc:CityName>
+               <cbc:PostalZone>62-504</cbc:PostalZone>
+               <cbc:CountrySubentityCode listName="nuts">PL414</cbc:CountrySubentityCode>
+               <cac:Country>
+                  <cbc:IdentificationCode listName="country">POL</cbc:IdentificationCode>
+               </cac:Country>
+            </cac:Address>
+         </cac:RealizedLocation>
+         <cac:PlannedPeriod>
+            <cbc:StartDate>2024-03-03+01:00</cbc:StartDate>
+            <cbc:DurationMeasure unitCode="MONTH">24</cbc:DurationMeasure>
+         </cac:PlannedPeriod>
+      </cac:ProcurementProject>
+   </cac:ProcurementProjectLot>
+   <cac:ProcurementProjectLot>
+      <cbc:ID schemeName="Lot">LOT-0002</cbc:ID>
+      <cac:TenderingTerms>
+         <ext:UBLExtensions>
+            <ext:UBLExtension>
+               <ext:ExtensionContent>
+                  <efext:EformsExtension>
+                     <efac:SelectionCriteria>
+                        <cbc:CriterionTypeCode listName="selection-criterion">sui-act</cbc:CriterionTypeCode>
+                        <cbc:Name languageID="POL">Zdolność do występowania w obrocie gospodarczym</cbc:Name>
+                        <cbc:Description languageID="POL">Zamawiający nie wyznacza szczegółowego warunku w tym zakresie.</cbc:Description>
+                        <cbc:CalculationExpressionCode listName="usage">n-used</cbc:CalculationExpressionCode>
+                        <efbc:SecondStageIndicator>false</efbc:SecondStageIndicator>
+                     </efac:SelectionCriteria>
+                     <efac:SelectionCriteria>
+                        <cbc:CriterionTypeCode listName="selection-criterion">ef-stand</cbc:CriterionTypeCode>
+                        <cbc:Description languageID="POL">Zamawiający nie wyznacza szczegółowego warunku w tym zakresie.</cbc:Description>
+                        <cbc:CalculationExpressionCode listName="usage">n-used</cbc:CalculationExpressionCode>
+                        <efbc:SecondStageIndicator>false</efbc:SecondStageIndicator>
+                     </efac:SelectionCriteria>
+                     <efac:SelectionCriteria>
+                        <cbc:CriterionTypeCode listName="selection-criterion">tp-abil</cbc:CriterionTypeCode>
+                        <cbc:Description languageID="POL">Zamawiający nie wyznacza szczegółowego warunku w tym zakresie.</cbc:Description>
+                        <cbc:CalculationExpressionCode listName="usage">n-used</cbc:CalculationExpressionCode>
+                        <efbc:SecondStageIndicator>false</efbc:SecondStageIndicator>
+                     </efac:SelectionCriteria>
+                     <efac:SelectionCriteria>
+                        <cbc:CriterionTypeCode listName="selection-criterion">sui-act</cbc:CriterionTypeCode>
+                        <cbc:Name languageID="POL">Uprawnienia do prowadzenia określonej działalności gospodarczej lub zawodowej, o ile wynika to z odrębnych przepisów</cbc:Name>
+                        <cbc:Description languageID="POL">Zamawiający nie wyznacza szczegółowego warunku w tym zakresie.</cbc:Description>
+                        <cbc:CalculationExpressionCode listName="usage">n-used</cbc:CalculationExpressionCode>
+                        <efbc:SecondStageIndicator>false</efbc:SecondStageIndicator>
+                     </efac:SelectionCriteria>
+                     <efac:StrategicProcurement>
+                        <efbc:ApplicableLegalBasis listName="cvd-scope">false</efbc:ApplicableLegalBasis>
+                     </efac:StrategicProcurement>
+                  </efext:EformsExtension>
+               </ext:ExtensionContent>
+            </ext:UBLExtension>
+         </ext:UBLExtensions>
+         <cbc:VariantConstraintCode listName="permission">not-allowed</cbc:VariantConstraintCode>
+         <cbc:FundingProgramCode listName="eu-funded">no-eu-funds</cbc:FundingProgramCode>
+         <cbc:RequiredCurriculaCode listName="requirement-stage">nyk</cbc:RequiredCurriculaCode>
+         <cbc:RecurringProcurementIndicator>false</cbc:RecurringProcurementIndicator>
+         <cac:RequiredFinancialGuarantee>
+            <cbc:GuaranteeTypeCode listName="tender-guarantee-required">false</cbc:GuaranteeTypeCode>
+         </cac:RequiredFinancialGuarantee>
+         <cac:CallForTendersDocumentReference>
+            <ext:UBLExtensions>
+               <ext:UBLExtension>
+                  <ext:ExtensionContent>
+                     <efext:EformsExtension>
+                        <efac:OfficialLanguages>
+                           <cac:Language>
+                              <cbc:ID>POL</cbc:ID>
+                           </cac:Language>
+                        </efac:OfficialLanguages>
+                     </efext:EformsExtension>
+                  </ext:ExtensionContent>
+               </ext:UBLExtension>
+            </ext:UBLExtensions>
+            <cbc:ID>https://platformazakupowa.pl/wsz_konin</cbc:ID>
+            <cbc:DocumentType>non-restricted-document</cbc:DocumentType>
+            <cac:Attachment>
+               <cac:ExternalReference>
+                  <cbc:URI>https://platformazakupowa.pl/wsz_konin</cbc:URI>
+               </cac:ExternalReference>
+            </cac:Attachment>
+         </cac:CallForTendersDocumentReference>
+         <cac:PaymentTerms>
+            <cbc:Note languageID="POL">Zasady finansowe zawarte zostały w Projektowanych Postanowieniach Umowy, stanowiących Załącznik nr 5 do SWZ.</cbc:Note>
+         </cac:PaymentTerms>
+         <cac:TendererQualificationRequest>
+            <cac:SpecificTendererRequirement>
+               <cbc:TendererRequirementTypeCode listName="reserved-procurement">none</cbc:TendererRequirementTypeCode>
+            </cac:SpecificTendererRequirement>
+         </cac:TendererQualificationRequest>
+         <cac:ContractExecutionRequirement>
+            <cbc:ExecutionRequirementCode listName="reserved-execution">no</cbc:ExecutionRequirementCode>
+         </cac:ContractExecutionRequirement>
+         <cac:ContractExecutionRequirement>
+            <cbc:ExecutionRequirementCode listName="conditions">performance</cbc:ExecutionRequirementCode>
+            <cbc:Description languageID="POL">Warunki dotyczące realizacji Przedmiotu Zamówienia zawarte zostały również w Projektowanych Postanowieniach Umowy, stanowiących Załącznik nr 5 do SWZ.</cbc:Description>
+         </cac:ContractExecutionRequirement>
+         <cac:ContractExecutionRequirement>
+            <cbc:ExecutionRequirementCode listName="einvoicing">allowed</cbc:ExecutionRequirementCode>
+         </cac:ContractExecutionRequirement>
+         <cac:ContractExecutionRequirement>
+            <cbc:ExecutionRequirementCode listName="nda">false</cbc:ExecutionRequirementCode>
+         </cac:ContractExecutionRequirement>
+         <cac:ContractExecutionRequirement>
+            <cbc:ExecutionRequirementCode listName="ecatalog-submission">not-allowed</cbc:ExecutionRequirementCode>
+         </cac:ContractExecutionRequirement>
+         <cac:ContractExecutionRequirement>
+            <cbc:ExecutionRequirementCode listName="esignature-submission">true</cbc:ExecutionRequirementCode>
+         </cac:ContractExecutionRequirement>
+         <cac:AwardingTerms>
+            <cbc:NoFurtherNegotiationIndicator>false</cbc:NoFurtherNegotiationIndicator>
+            <cac:AwardingCriterion>
+               <cac:SubordinateAwardingCriterion>
+                  <ext:UBLExtensions>
+                     <ext:UBLExtension>
+                        <ext:ExtensionContent>
+                           <efext:EformsExtension>
+                              <efac:AwardCriterionParameter>
+                                 <efbc:ParameterCode listName="number-weight">per-exa</efbc:ParameterCode>
+                                 <efbc:ParameterNumeric>60</efbc:ParameterNumeric>
+                              </efac:AwardCriterionParameter>
+                           </efext:EformsExtension>
+                        </ext:ExtensionContent>
+                     </ext:UBLExtension>
+                  </ext:UBLExtensions>
+                  <cbc:AwardingCriterionTypeCode listName="award-criterion-type">price</cbc:AwardingCriterionTypeCode>
+                  <cbc:Description languageID="POL">Cena</cbc:Description>
+               </cac:SubordinateAwardingCriterion>
+               <cac:SubordinateAwardingCriterion>
+                  <ext:UBLExtensions>
+                     <ext:UBLExtension>
+                        <ext:ExtensionContent>
+                           <efext:EformsExtension>
+                              <efac:AwardCriterionParameter>
+                                 <efbc:ParameterCode listName="number-weight">per-exa</efbc:ParameterCode>
+                                 <efbc:ParameterNumeric>40</efbc:ParameterNumeric>
+                              </efac:AwardCriterionParameter>
+                           </efext:EformsExtension>
+                        </ext:ExtensionContent>
+                     </ext:UBLExtension>
+                  </ext:UBLExtensions>
+                  <cbc:AwardingCriterionTypeCode listName="award-criterion-type">quality</cbc:AwardingCriterionTypeCode>
+                  <cbc:Description languageID="POL">Termin dostawy (TD)</cbc:Description>
+               </cac:SubordinateAwardingCriterion>
+            </cac:AwardingCriterion>
+         </cac:AwardingTerms>
+         <cac:TenderRecipientParty>
+            <cbc:EndpointID>https://platformazakupowa.pl/wsz_konin</cbc:EndpointID>
+         </cac:TenderRecipientParty>
+         <cac:TenderValidityPeriod>
+            <cbc:DurationMeasure unitCode="DAY">90</cbc:DurationMeasure>
+         </cac:TenderValidityPeriod>
+         <cac:AppealTerms>
+            <cac:PresentationPeriod>
+               <cbc:Description languageID="POL">1. Odwołanie wnosi się w terminie:
+1.1. 10 dni od dnia przekazania informacji o czynności zamawiającego stanowiącej podstawę jego wniesienia, jeżeli informacja została przekazana przy użyciu środków komunikacji elektronicznej; 
+1.2. 15 dni od dnia przekazania informacji o czynności zamawiającego stanowiącej podstawę jego wniesienia, jeżeli informacja została przekazana w sposób inny niż określony w pkt 1.1.
+2. Odwołanie wobec treści ogłoszenia wszczynającego postępowanie o udzielenie zamówienia lub wobec treści dokumentów zamówienia wnosi się w terminie 10 dni od dnia publikacji ogłoszenia w Dzienniku Urzędowym Unii Europejskiej lub zamieszczenia dokumentów zamówienia na stronie internetowej.
+3. Odwołanie w przypadkach innych niż określone w ust. 1 i 2 wnosi się w terminie 10 dni od dnia, w którym powzięto lub przy zachowaniu należytej staranności można było powziąć wiadomość o okolicznościach stanowiących podstawę jego wniesienia.</cbc:Description>
+            </cac:PresentationPeriod>
+            <cac:AppealReceiverParty>
+               <cac:PartyIdentification>
+                  <cbc:ID>ORG-0004</cbc:ID>
+               </cac:PartyIdentification>
+            </cac:AppealReceiverParty>
+         </cac:AppealTerms>
+         <cac:Language>
+            <cbc:ID>POL</cbc:ID>
+         </cac:Language>
+         <cac:PostAwardProcess>
+            <cbc:ElectronicOrderUsageIndicator>false</cbc:ElectronicOrderUsageIndicator>
+            <cbc:ElectronicPaymentUsageIndicator>true</cbc:ElectronicPaymentUsageIndicator>
+         </cac:PostAwardProcess>
+         <cac:SecurityClearanceTerm>
+            <cbc:Code listName="required">false</cbc:Code>
+         </cac:SecurityClearanceTerm>
+      </cac:TenderingTerms>
+      <cac:TenderingProcess>
+         <ext:UBLExtensions>
+            <ext:UBLExtension>
+               <ext:ExtensionContent>
+                  <efext:EformsExtension>
+                     <efbc:ProcedureRelaunchIndicator>false</efbc:ProcedureRelaunchIndicator>
+                  </efext:EformsExtension>
+               </ext:ExtensionContent>
+            </ext:UBLExtension>
+         </ext:UBLExtensions>
+         <cbc:SubmissionMethodCode listName="esubmission">required</cbc:SubmissionMethodCode>
+         <cbc:CandidateReductionConstraintIndicator>false</cbc:CandidateReductionConstraintIndicator>
+         <cbc:GovernmentAgreementConstraintIndicator>false</cbc:GovernmentAgreementConstraintIndicator>
+         <cac:TenderSubmissionDeadlinePeriod>
+            <cbc:EndDate>2024-01-09+01:00</cbc:EndDate>
+            <cbc:EndTime>08:00:00+01:00</cbc:EndTime>
+         </cac:TenderSubmissionDeadlinePeriod>
+         <cac:EconomicOperatorShortList>
+            <cbc:LimitationDescription>false</cbc:LimitationDescription>
+         </cac:EconomicOperatorShortList>
+         <cac:OpenTenderEvent>
+            <cbc:OccurrenceDate>2024-01-09+01:00</cbc:OccurrenceDate>
+            <cbc:OccurrenceTime>11:00:00+01:00</cbc:OccurrenceTime>
+            <cac:OccurenceLocation>
+               <cbc:Description languageID="POL">Otwarcie ofert nastąpi za pośrednictwem Platformy zakupowej, działającej pod adresem https://platformazakupowa.pl/wsz_konin.</cbc:Description>
+            </cac:OccurenceLocation>
+         </cac:OpenTenderEvent>
+         <cac:AuctionTerms>
+            <cbc:AuctionConstraintIndicator>false</cbc:AuctionConstraintIndicator>
+         </cac:AuctionTerms>
+         <cac:ContractingSystem>
+            <cbc:ContractingSystemTypeCode listName="framework-agreement">none</cbc:ContractingSystemTypeCode>
+         </cac:ContractingSystem>
+         <cac:ContractingSystem>
+            <cbc:ContractingSystemTypeCode listName="dps-usage">none</cbc:ContractingSystemTypeCode>
+         </cac:ContractingSystem>
+      </cac:TenderingProcess>
+      <cac:ProcurementProject>
+         <cbc:ID>Część nr 2</cbc:ID>
+         <cbc:Name languageID="POL">Pakiet nr 2: Dostawa igieł do hemodializ dla potrzeb Stacji Dializ</cbc:Name>
+         <cbc:Description languageID="POL">Przedmiot zamówienia został szczegółowo opisany w Załączniku nr 2 do SWZ (formularz asortymentowo-cenowy).</cbc:Description>
+         <cbc:ProcurementTypeCode listName="contract-nature">supplies</cbc:ProcurementTypeCode>
+         <cbc:SMESuitableIndicator>true</cbc:SMESuitableIndicator>
+         <cac:ProcurementAdditionalType>
+            <cbc:ProcurementTypeCode listName="gpp-criteria">none</cbc:ProcurementTypeCode>
+         </cac:ProcurementAdditionalType>
+         <cac:MainCommodityClassification>
+            <cbc:ItemClassificationCode listName="cpv">33140000</cbc:ItemClassificationCode>
+         </cac:MainCommodityClassification>
+         <cac:AdditionalCommodityClassification>
+            <cbc:ItemClassificationCode listName="cpv">33141320</cbc:ItemClassificationCode>
+         </cac:AdditionalCommodityClassification>
+         <cac:RealizedLocation>
+            <cac:Address>
+               <cbc:StreetName>Apteka Szpitalna Wojewódzkiego Szpitala Zespolonego im. dr. Romana Ostrzyckiego w Koninie</cbc:StreetName>
+               <cbc:AdditionalStreetName>ul. Szpitalna 45</cbc:AdditionalStreetName>
+               <cbc:CityName>Konin</cbc:CityName>
+               <cbc:PostalZone>62-504</cbc:PostalZone>
+               <cbc:CountrySubentityCode listName="nuts">PL414</cbc:CountrySubentityCode>
+               <cac:Country>
+                  <cbc:IdentificationCode listName="country">POL</cbc:IdentificationCode>
+               </cac:Country>
+            </cac:Address>
+         </cac:RealizedLocation>
+         <cac:RealizedLocation>
+            <cac:Address>
+               <cbc:StreetName>Apteka Szpitalna Wojewódzkiego Szpitala Zespolonego im. dr. Romana Ostrzyckiego w Koninie</cbc:StreetName>
+               <cbc:AdditionalStreetName>ul. Szpitalna 45</cbc:AdditionalStreetName>
+               <cbc:CityName>Konin</cbc:CityName>
+               <cbc:PostalZone>62-504</cbc:PostalZone>
+               <cbc:CountrySubentityCode listName="nuts">PL414</cbc:CountrySubentityCode>
+               <cac:Country>
+                  <cbc:IdentificationCode listName="country">POL</cbc:IdentificationCode>
+               </cac:Country>
+            </cac:Address>
+         </cac:RealizedLocation>
+         <cac:PlannedPeriod>
+            <cbc:StartDate>2024-03-03+01:00</cbc:StartDate>
+            <cbc:DurationMeasure unitCode="MONTH">24</cbc:DurationMeasure>
+         </cac:PlannedPeriod>
+      </cac:ProcurementProject>
+   </cac:ProcurementProjectLot>
+   <cac:ProcurementProjectLot>
+      <cbc:ID schemeName="Lot">LOT-0003</cbc:ID>
+      <cac:TenderingTerms>
+         <ext:UBLExtensions>
+            <ext:UBLExtension>
+               <ext:ExtensionContent>
+                  <efext:EformsExtension>
+                     <efac:SelectionCriteria>
+                        <cbc:CriterionTypeCode listName="selection-criterion">sui-act</cbc:CriterionTypeCode>
+                        <cbc:Name languageID="POL">Zdolność do występowania w obrocie gospodarczym</cbc:Name>
+                        <cbc:Description languageID="POL">Zamawiający nie wyznacza szczegółowego warunku w tym zakresie.</cbc:Description>
+                        <cbc:CalculationExpressionCode listName="usage">n-used</cbc:CalculationExpressionCode>
+                        <efbc:SecondStageIndicator>false</efbc:SecondStageIndicator>
+                     </efac:SelectionCriteria>
+                     <efac:SelectionCriteria>
+                        <cbc:CriterionTypeCode listName="selection-criterion">ef-stand</cbc:CriterionTypeCode>
+                        <cbc:Description languageID="POL">Zamawiający nie wyznacza szczegółowego warunku w tym zakresie.</cbc:Description>
+                        <cbc:CalculationExpressionCode listName="usage">n-used</cbc:CalculationExpressionCode>
+                        <efbc:SecondStageIndicator>false</efbc:SecondStageIndicator>
+                     </efac:SelectionCriteria>
+                     <efac:SelectionCriteria>
+                        <cbc:CriterionTypeCode listName="selection-criterion">tp-abil</cbc:CriterionTypeCode>
+                        <cbc:Description languageID="POL">Zamawiający nie wyznacza szczegółowego warunku w tym zakresie.</cbc:Description>
+                        <cbc:CalculationExpressionCode listName="usage">n-used</cbc:CalculationExpressionCode>
+                        <efbc:SecondStageIndicator>false</efbc:SecondStageIndicator>
+                     </efac:SelectionCriteria>
+                     <efac:SelectionCriteria>
+                        <cbc:CriterionTypeCode listName="selection-criterion">sui-act</cbc:CriterionTypeCode>
+                        <cbc:Name languageID="POL">Uprawnienia do prowadzenia określonej działalności gospodarczej lub zawodowej, o ile wynika to z odrębnych przepisów</cbc:Name>
+                        <cbc:Description languageID="POL">Zamawiający nie wyznacza szczegółowego warunku w tym zakresie.</cbc:Description>
+                        <cbc:CalculationExpressionCode listName="usage">n-used</cbc:CalculationExpressionCode>
+                        <efbc:SecondStageIndicator>false</efbc:SecondStageIndicator>
+                     </efac:SelectionCriteria>
+                     <efac:StrategicProcurement>
+                        <efbc:ApplicableLegalBasis listName="cvd-scope">false</efbc:ApplicableLegalBasis>
+                     </efac:StrategicProcurement>
+                  </efext:EformsExtension>
+               </ext:ExtensionContent>
+            </ext:UBLExtension>
+         </ext:UBLExtensions>
+         <cbc:VariantConstraintCode listName="permission">not-allowed</cbc:VariantConstraintCode>
+         <cbc:FundingProgramCode listName="eu-funded">no-eu-funds</cbc:FundingProgramCode>
+         <cbc:RequiredCurriculaCode listName="requirement-stage">nyk</cbc:RequiredCurriculaCode>
+         <cbc:RecurringProcurementIndicator>false</cbc:RecurringProcurementIndicator>
+         <cac:RequiredFinancialGuarantee>
+            <cbc:GuaranteeTypeCode listName="tender-guarantee-required">false</cbc:GuaranteeTypeCode>
+         </cac:RequiredFinancialGuarantee>
+         <cac:CallForTendersDocumentReference>
+            <ext:UBLExtensions>
+               <ext:UBLExtension>
+                  <ext:ExtensionContent>
+                     <efext:EformsExtension>
+                        <efac:OfficialLanguages>
+                           <cac:Language>
+                              <cbc:ID>POL</cbc:ID>
+                           </cac:Language>
+                        </efac:OfficialLanguages>
+                     </efext:EformsExtension>
+                  </ext:ExtensionContent>
+               </ext:UBLExtension>
+            </ext:UBLExtensions>
+            <cbc:ID>https://platformazakupowa.pl/wsz_konin</cbc:ID>
+            <cbc:DocumentType>non-restricted-document</cbc:DocumentType>
+            <cac:Attachment>
+               <cac:ExternalReference>
+                  <cbc:URI>https://platformazakupowa.pl/wsz_konin</cbc:URI>
+               </cac:ExternalReference>
+            </cac:Attachment>
+         </cac:CallForTendersDocumentReference>
+         <cac:PaymentTerms>
+            <cbc:Note languageID="POL">Zasady finansowe zawarte zostały w Projektowanych Postanowieniach Umowy, stanowiących Załącznik nr 5 do SWZ.</cbc:Note>
+         </cac:PaymentTerms>
+         <cac:TendererQualificationRequest>
+            <cac:SpecificTendererRequirement>
+               <cbc:TendererRequirementTypeCode listName="reserved-procurement">none</cbc:TendererRequirementTypeCode>
+            </cac:SpecificTendererRequirement>
+         </cac:TendererQualificationRequest>
+         <cac:ContractExecutionRequirement>
+            <cbc:ExecutionRequirementCode listName="reserved-execution">no</cbc:ExecutionRequirementCode>
+         </cac:ContractExecutionRequirement>
+         <cac:ContractExecutionRequirement>
+            <cbc:ExecutionRequirementCode listName="conditions">performance</cbc:ExecutionRequirementCode>
+            <cbc:Description languageID="POL">Warunki dotyczące realizacji Przedmiotu Zamówienia zawarte zostały również w Projektowanych Postanowieniach Umowy, stanowiących Załącznik nr 5 do SWZ.</cbc:Description>
+         </cac:ContractExecutionRequirement>
+         <cac:ContractExecutionRequirement>
+            <cbc:ExecutionRequirementCode listName="einvoicing">allowed</cbc:ExecutionRequirementCode>
+         </cac:ContractExecutionRequirement>
+         <cac:ContractExecutionRequirement>
+            <cbc:ExecutionRequirementCode listName="nda">false</cbc:ExecutionRequirementCode>
+         </cac:ContractExecutionRequirement>
+         <cac:ContractExecutionRequirement>
+            <cbc:ExecutionRequirementCode listName="ecatalog-submission">not-allowed</cbc:ExecutionRequirementCode>
+         </cac:ContractExecutionRequirement>
+         <cac:ContractExecutionRequirement>
+            <cbc:ExecutionRequirementCode listName="esignature-submission">true</cbc:ExecutionRequirementCode>
+         </cac:ContractExecutionRequirement>
+         <cac:AwardingTerms>
+            <cbc:NoFurtherNegotiationIndicator>false</cbc:NoFurtherNegotiationIndicator>
+            <cac:AwardingCriterion>
+               <cac:SubordinateAwardingCriterion>
+                  <ext:UBLExtensions>
+                     <ext:UBLExtension>
+                        <ext:ExtensionContent>
+                           <efext:EformsExtension>
+                              <efac:AwardCriterionParameter>
+                                 <efbc:ParameterCode listName="number-weight">per-exa</efbc:ParameterCode>
+                                 <efbc:ParameterNumeric>60</efbc:ParameterNumeric>
+                              </efac:AwardCriterionParameter>
+                           </efext:EformsExtension>
+                        </ext:ExtensionContent>
+                     </ext:UBLExtension>
+                  </ext:UBLExtensions>
+                  <cbc:AwardingCriterionTypeCode listName="award-criterion-type">price</cbc:AwardingCriterionTypeCode>
+                  <cbc:Description languageID="POL">Cena</cbc:Description>
+               </cac:SubordinateAwardingCriterion>
+               <cac:SubordinateAwardingCriterion>
+                  <ext:UBLExtensions>
+                     <ext:UBLExtension>
+                        <ext:ExtensionContent>
+                           <efext:EformsExtension>
+                              <efac:AwardCriterionParameter>
+                                 <efbc:ParameterCode listName="number-weight">per-exa</efbc:ParameterCode>
+                                 <efbc:ParameterNumeric>40</efbc:ParameterNumeric>
+                              </efac:AwardCriterionParameter>
+                           </efext:EformsExtension>
+                        </ext:ExtensionContent>
+                     </ext:UBLExtension>
+                  </ext:UBLExtensions>
+                  <cbc:AwardingCriterionTypeCode listName="award-criterion-type">quality</cbc:AwardingCriterionTypeCode>
+                  <cbc:Description languageID="POL">Termin dostawy (TD)</cbc:Description>
+               </cac:SubordinateAwardingCriterion>
+            </cac:AwardingCriterion>
+         </cac:AwardingTerms>
+         <cac:TenderRecipientParty>
+            <cbc:EndpointID>https://platformazakupowa.pl/wsz_konin</cbc:EndpointID>
+         </cac:TenderRecipientParty>
+         <cac:TenderValidityPeriod>
+            <cbc:DurationMeasure unitCode="DAY">90</cbc:DurationMeasure>
+         </cac:TenderValidityPeriod>
+         <cac:AppealTerms>
+            <cac:PresentationPeriod>
+               <cbc:Description languageID="POL">1. Odwołanie wnosi się w terminie:
+1.1. 10 dni od dnia przekazania informacji o czynności zamawiającego stanowiącej podstawę jego wniesienia, jeżeli informacja została przekazana przy użyciu środków komunikacji elektronicznej; 
+1.2. 15 dni od dnia przekazania informacji o czynności zamawiającego stanowiącej podstawę jego wniesienia, jeżeli informacja została przekazana w sposób inny niż określony w pkt 1.1.
+2. Odwołanie wobec treści ogłoszenia wszczynającego postępowanie o udzielenie zamówienia lub wobec treści dokumentów zamówienia wnosi się w terminie 10 dni od dnia publikacji ogłoszenia w Dzienniku Urzędowym Unii Europejskiej lub zamieszczenia dokumentów zamówienia na stronie internetowej.
+3. Odwołanie w przypadkach innych niż określone w ust. 1 i 2 wnosi się w terminie 10 dni od dnia, w którym powzięto lub przy zachowaniu należytej staranności można było powziąć wiadomość o okolicznościach stanowiących podstawę jego wniesienia.</cbc:Description>
+            </cac:PresentationPeriod>
+            <cac:AppealReceiverParty>
+               <cac:PartyIdentification>
+                  <cbc:ID>ORG-0004</cbc:ID>
+               </cac:PartyIdentification>
+            </cac:AppealReceiverParty>
+         </cac:AppealTerms>
+         <cac:Language>
+            <cbc:ID>POL</cbc:ID>
+         </cac:Language>
+         <cac:PostAwardProcess>
+            <cbc:ElectronicOrderUsageIndicator>false</cbc:ElectronicOrderUsageIndicator>
+            <cbc:ElectronicPaymentUsageIndicator>true</cbc:ElectronicPaymentUsageIndicator>
+         </cac:PostAwardProcess>
+         <cac:SecurityClearanceTerm>
+            <cbc:Code listName="required">false</cbc:Code>
+         </cac:SecurityClearanceTerm>
+      </cac:TenderingTerms>
+      <cac:TenderingProcess>
+         <ext:UBLExtensions>
+            <ext:UBLExtension>
+               <ext:ExtensionContent>
+                  <efext:EformsExtension>
+                     <efbc:ProcedureRelaunchIndicator>false</efbc:ProcedureRelaunchIndicator>
+                  </efext:EformsExtension>
+               </ext:ExtensionContent>
+            </ext:UBLExtension>
+         </ext:UBLExtensions>
+         <cbc:SubmissionMethodCode listName="esubmission">required</cbc:SubmissionMethodCode>
+         <cbc:CandidateReductionConstraintIndicator>false</cbc:CandidateReductionConstraintIndicator>
+         <cbc:GovernmentAgreementConstraintIndicator>false</cbc:GovernmentAgreementConstraintIndicator>
+         <cac:TenderSubmissionDeadlinePeriod>
+            <cbc:EndDate>2024-01-09+01:00</cbc:EndDate>
+            <cbc:EndTime>08:00:00+01:00</cbc:EndTime>
+         </cac:TenderSubmissionDeadlinePeriod>
+         <cac:EconomicOperatorShortList>
+            <cbc:LimitationDescription>false</cbc:LimitationDescription>
+         </cac:EconomicOperatorShortList>
+         <cac:OpenTenderEvent>
+            <cbc:OccurrenceDate>2024-01-09+01:00</cbc:OccurrenceDate>
+            <cbc:OccurrenceTime>11:00:00+01:00</cbc:OccurrenceTime>
+            <cac:OccurenceLocation>
+               <cbc:Description languageID="POL">Otwarcie ofert nastąpi za pośrednictwem Platformy zakupowej, działającej pod adresem https://platformazakupowa.pl/wsz_konin.</cbc:Description>
+            </cac:OccurenceLocation>
+         </cac:OpenTenderEvent>
+         <cac:AuctionTerms>
+            <cbc:AuctionConstraintIndicator>false</cbc:AuctionConstraintIndicator>
+         </cac:AuctionTerms>
+         <cac:ContractingSystem>
+            <cbc:ContractingSystemTypeCode listName="framework-agreement">none</cbc:ContractingSystemTypeCode>
+         </cac:ContractingSystem>
+         <cac:ContractingSystem>
+            <cbc:ContractingSystemTypeCode listName="dps-usage">none</cbc:ContractingSystemTypeCode>
+         </cac:ContractingSystem>
+      </cac:TenderingProcess>
+      <cac:ProcurementProject>
+         <cbc:ID>Część nr 3</cbc:ID>
+         <cbc:Name languageID="POL">Pakiet nr 3: Dostawa igieł do dializ dla potrzeb Stacji Dializ</cbc:Name>
+         <cbc:Description languageID="POL">Przedmiot zamówienia został szczegółowo opisany w Załączniku nr 2 do SWZ (formularz asortymentowo-cenowy).</cbc:Description>
+         <cbc:ProcurementTypeCode listName="contract-nature">supplies</cbc:ProcurementTypeCode>
+         <cbc:SMESuitableIndicator>true</cbc:SMESuitableIndicator>
+         <cac:ProcurementAdditionalType>
+            <cbc:ProcurementTypeCode listName="gpp-criteria">none</cbc:ProcurementTypeCode>
+         </cac:ProcurementAdditionalType>
+         <cac:MainCommodityClassification>
+            <cbc:ItemClassificationCode listName="cpv">33140000</cbc:ItemClassificationCode>
+         </cac:MainCommodityClassification>
+         <cac:AdditionalCommodityClassification>
+            <cbc:ItemClassificationCode listName="cpv">33141320</cbc:ItemClassificationCode>
+         </cac:AdditionalCommodityClassification>
+         <cac:RealizedLocation>
+            <cac:Address>
+               <cbc:StreetName>Apteka Szpitalna Wojewódzkiego Szpitala Zespolonego im. dr. Romana Ostrzyckiego w Koninie</cbc:StreetName>
+               <cbc:AdditionalStreetName>ul. Szpitalna 45</cbc:AdditionalStreetName>
+               <cbc:CityName>Konin</cbc:CityName>
+               <cbc:PostalZone>62-504</cbc:PostalZone>
+               <cbc:CountrySubentityCode listName="nuts">PL414</cbc:CountrySubentityCode>
+               <cac:Country>
+                  <cbc:IdentificationCode listName="country">POL</cbc:IdentificationCode>
+               </cac:Country>
+            </cac:Address>
+         </cac:RealizedLocation>
+         <cac:RealizedLocation>
+            <cac:Address>
+               <cbc:StreetName>Apteka Szpitalna Wojewódzkiego Szpitala Zespolonego im. dr. Romana Ostrzyckiego w Koninie</cbc:StreetName>
+               <cbc:AdditionalStreetName>ul. Szpitalna 45</cbc:AdditionalStreetName>
+               <cbc:CityName>Konin</cbc:CityName>
+               <cbc:PostalZone>62-504</cbc:PostalZone>
+               <cbc:CountrySubentityCode listName="nuts">PL414</cbc:CountrySubentityCode>
+               <cac:Country>
+                  <cbc:IdentificationCode listName="country">POL</cbc:IdentificationCode>
+               </cac:Country>
+            </cac:Address>
+         </cac:RealizedLocation>
+         <cac:PlannedPeriod>
+            <cbc:StartDate>2024-03-03+01:00</cbc:StartDate>
+            <cbc:DurationMeasure unitCode="MONTH">24</cbc:DurationMeasure>
+         </cac:PlannedPeriod>
+      </cac:ProcurementProject>
+   </cac:ProcurementProjectLot>
+   <cac:ProcurementProjectLot>
+      <cbc:ID schemeName="Lot">LOT-0004</cbc:ID>
+      <cac:TenderingTerms>
+         <ext:UBLExtensions>
+            <ext:UBLExtension>
+               <ext:ExtensionContent>
+                  <efext:EformsExtension>
+                     <efac:SelectionCriteria>
+                        <cbc:CriterionTypeCode listName="selection-criterion">sui-act</cbc:CriterionTypeCode>
+                        <cbc:Name languageID="POL">Zdolność do występowania w obrocie gospodarczym</cbc:Name>
+                        <cbc:Description languageID="POL">Zamawiający nie wyznacza szczegółowego warunku w tym zakresie.</cbc:Description>
+                        <cbc:CalculationExpressionCode listName="usage">n-used</cbc:CalculationExpressionCode>
+                        <efbc:SecondStageIndicator>false</efbc:SecondStageIndicator>
+                     </efac:SelectionCriteria>
+                     <efac:SelectionCriteria>
+                        <cbc:CriterionTypeCode listName="selection-criterion">ef-stand</cbc:CriterionTypeCode>
+                        <cbc:Description languageID="POL">Zamawiający nie wyznacza szczegółowego warunku w tym zakresie.</cbc:Description>
+                        <cbc:CalculationExpressionCode listName="usage">n-used</cbc:CalculationExpressionCode>
+                        <efbc:SecondStageIndicator>false</efbc:SecondStageIndicator>
+                     </efac:SelectionCriteria>
+                     <efac:SelectionCriteria>
+                        <cbc:CriterionTypeCode listName="selection-criterion">tp-abil</cbc:CriterionTypeCode>
+                        <cbc:Description languageID="POL">Zamawiający nie wyznacza szczegółowego warunku w tym zakresie.</cbc:Description>
+                        <cbc:CalculationExpressionCode listName="usage">n-used</cbc:CalculationExpressionCode>
+                        <efbc:SecondStageIndicator>false</efbc:SecondStageIndicator>
+                     </efac:SelectionCriteria>
+                     <efac:SelectionCriteria>
+                        <cbc:CriterionTypeCode listName="selection-criterion">sui-act</cbc:CriterionTypeCode>
+                        <cbc:Name languageID="POL">Uprawnienia do prowadzenia określonej działalności gospodarczej lub zawodowej, o ile wynika to z odrębnych przepisów</cbc:Name>
+                        <cbc:Description languageID="POL">Zamawiający nie wyznacza szczegółowego warunku w tym zakresie.</cbc:Description>
+                        <cbc:CalculationExpressionCode listName="usage">n-used</cbc:CalculationExpressionCode>
+                        <efbc:SecondStageIndicator>false</efbc:SecondStageIndicator>
+                     </efac:SelectionCriteria>
+                     <efac:StrategicProcurement>
+                        <efbc:ApplicableLegalBasis listName="cvd-scope">false</efbc:ApplicableLegalBasis>
+                     </efac:StrategicProcurement>
+                  </efext:EformsExtension>
+               </ext:ExtensionContent>
+            </ext:UBLExtension>
+         </ext:UBLExtensions>
+         <cbc:VariantConstraintCode listName="permission">not-allowed</cbc:VariantConstraintCode>
+         <cbc:FundingProgramCode listName="eu-funded">no-eu-funds</cbc:FundingProgramCode>
+         <cbc:RequiredCurriculaCode listName="requirement-stage">nyk</cbc:RequiredCurriculaCode>
+         <cbc:RecurringProcurementIndicator>false</cbc:RecurringProcurementIndicator>
+         <cac:RequiredFinancialGuarantee>
+            <cbc:GuaranteeTypeCode listName="tender-guarantee-required">false</cbc:GuaranteeTypeCode>
+         </cac:RequiredFinancialGuarantee>
+         <cac:CallForTendersDocumentReference>
+            <ext:UBLExtensions>
+               <ext:UBLExtension>
+                  <ext:ExtensionContent>
+                     <efext:EformsExtension>
+                        <efac:OfficialLanguages>
+                           <cac:Language>
+                              <cbc:ID>POL</cbc:ID>
+                           </cac:Language>
+                        </efac:OfficialLanguages>
+                     </efext:EformsExtension>
+                  </ext:ExtensionContent>
+               </ext:UBLExtension>
+            </ext:UBLExtensions>
+            <cbc:ID>https://platformazakupowa.pl/wsz_konin</cbc:ID>
+            <cbc:DocumentType>non-restricted-document</cbc:DocumentType>
+            <cac:Attachment>
+               <cac:ExternalReference>
+                  <cbc:URI>https://platformazakupowa.pl/wsz_konin</cbc:URI>
+               </cac:ExternalReference>
+            </cac:Attachment>
+         </cac:CallForTendersDocumentReference>
+         <cac:PaymentTerms>
+            <cbc:Note languageID="POL">Zasady finansowe zawarte zostały w Projektowanych Postanowieniach Umowy, stanowiących Załącznik nr 5 do SWZ.</cbc:Note>
+         </cac:PaymentTerms>
+         <cac:TendererQualificationRequest>
+            <cac:SpecificTendererRequirement>
+               <cbc:TendererRequirementTypeCode listName="reserved-procurement">none</cbc:TendererRequirementTypeCode>
+            </cac:SpecificTendererRequirement>
+         </cac:TendererQualificationRequest>
+         <cac:ContractExecutionRequirement>
+            <cbc:ExecutionRequirementCode listName="reserved-execution">no</cbc:ExecutionRequirementCode>
+         </cac:ContractExecutionRequirement>
+         <cac:ContractExecutionRequirement>
+            <cbc:ExecutionRequirementCode listName="conditions">performance</cbc:ExecutionRequirementCode>
+            <cbc:Description languageID="POL">Warunki dotyczące realizacji Przedmiotu Zamówienia zawarte zostały również w Projektowanych Postanowieniach Umowy, stanowiących Załącznik nr 5 do SWZ.</cbc:Description>
+         </cac:ContractExecutionRequirement>
+         <cac:ContractExecutionRequirement>
+            <cbc:ExecutionRequirementCode listName="einvoicing">allowed</cbc:ExecutionRequirementCode>
+         </cac:ContractExecutionRequirement>
+         <cac:ContractExecutionRequirement>
+            <cbc:ExecutionRequirementCode listName="nda">false</cbc:ExecutionRequirementCode>
+         </cac:ContractExecutionRequirement>
+         <cac:ContractExecutionRequirement>
+            <cbc:ExecutionRequirementCode listName="ecatalog-submission">not-allowed</cbc:ExecutionRequirementCode>
+         </cac:ContractExecutionRequirement>
+         <cac:ContractExecutionRequirement>
+            <cbc:ExecutionRequirementCode listName="esignature-submission">true</cbc:ExecutionRequirementCode>
+         </cac:ContractExecutionRequirement>
+         <cac:AwardingTerms>
+            <cbc:NoFurtherNegotiationIndicator>false</cbc:NoFurtherNegotiationIndicator>
+            <cac:AwardingCriterion>
+               <cac:SubordinateAwardingCriterion>
+                  <ext:UBLExtensions>
+                     <ext:UBLExtension>
+                        <ext:ExtensionContent>
+                           <efext:EformsExtension>
+                              <efac:AwardCriterionParameter>
+                                 <efbc:ParameterCode listName="number-weight">per-exa</efbc:ParameterCode>
+                                 <efbc:ParameterNumeric>60</efbc:ParameterNumeric>
+                              </efac:AwardCriterionParameter>
+                           </efext:EformsExtension>
+                        </ext:ExtensionContent>
+                     </ext:UBLExtension>
+                  </ext:UBLExtensions>
+                  <cbc:AwardingCriterionTypeCode listName="award-criterion-type">price</cbc:AwardingCriterionTypeCode>
+                  <cbc:Description languageID="POL">Cena</cbc:Description>
+               </cac:SubordinateAwardingCriterion>
+               <cac:SubordinateAwardingCriterion>
+                  <ext:UBLExtensions>
+                     <ext:UBLExtension>
+                        <ext:ExtensionContent>
+                           <efext:EformsExtension>
+                              <efac:AwardCriterionParameter>
+                                 <efbc:ParameterCode listName="number-weight">per-exa</efbc:ParameterCode>
+                                 <efbc:ParameterNumeric>40</efbc:ParameterNumeric>
+                              </efac:AwardCriterionParameter>
+                           </efext:EformsExtension>
+                        </ext:ExtensionContent>
+                     </ext:UBLExtension>
+                  </ext:UBLExtensions>
+                  <cbc:AwardingCriterionTypeCode listName="award-criterion-type">quality</cbc:AwardingCriterionTypeCode>
+                  <cbc:Description languageID="POL">Termin dostawy (TD)</cbc:Description>
+               </cac:SubordinateAwardingCriterion>
+            </cac:AwardingCriterion>
+         </cac:AwardingTerms>
+         <cac:TenderRecipientParty>
+            <cbc:EndpointID>https://platformazakupowa.pl/wsz_konin</cbc:EndpointID>
+         </cac:TenderRecipientParty>
+         <cac:TenderValidityPeriod>
+            <cbc:DurationMeasure unitCode="DAY">90</cbc:DurationMeasure>
+         </cac:TenderValidityPeriod>
+         <cac:AppealTerms>
+            <cac:PresentationPeriod>
+               <cbc:Description languageID="POL">1. Odwołanie wnosi się w terminie:
+1.1. 10 dni od dnia przekazania informacji o czynności zamawiającego stanowiącej podstawę jego wniesienia, jeżeli informacja została przekazana przy użyciu środków komunikacji elektronicznej; 
+1.2. 15 dni od dnia przekazania informacji o czynności zamawiającego stanowiącej podstawę jego wniesienia, jeżeli informacja została przekazana w sposób inny niż określony w pkt 1.1.
+2. Odwołanie wobec treści ogłoszenia wszczynającego postępowanie o udzielenie zamówienia lub wobec treści dokumentów zamówienia wnosi się w terminie 10 dni od dnia publikacji ogłoszenia w Dzienniku Urzędowym Unii Europejskiej lub zamieszczenia dokumentów zamówienia na stronie internetowej.
+3. Odwołanie w przypadkach innych niż określone w ust. 1 i 2 wnosi się w terminie 10 dni od dnia, w którym powzięto lub przy zachowaniu należytej staranności można było powziąć wiadomość o okolicznościach stanowiących podstawę jego wniesienia.</cbc:Description>
+            </cac:PresentationPeriod>
+            <cac:AppealReceiverParty>
+               <cac:PartyIdentification>
+                  <cbc:ID>ORG-0004</cbc:ID>
+               </cac:PartyIdentification>
+            </cac:AppealReceiverParty>
+         </cac:AppealTerms>
+         <cac:Language>
+            <cbc:ID>POL</cbc:ID>
+         </cac:Language>
+         <cac:PostAwardProcess>
+            <cbc:ElectronicOrderUsageIndicator>false</cbc:ElectronicOrderUsageIndicator>
+            <cbc:ElectronicPaymentUsageIndicator>true</cbc:ElectronicPaymentUsageIndicator>
+         </cac:PostAwardProcess>
+         <cac:SecurityClearanceTerm>
+            <cbc:Code listName="required">false</cbc:Code>
+         </cac:SecurityClearanceTerm>
+      </cac:TenderingTerms>
+      <cac:TenderingProcess>
+         <ext:UBLExtensions>
+            <ext:UBLExtension>
+               <ext:ExtensionContent>
+                  <efext:EformsExtension>
+                     <efbc:ProcedureRelaunchIndicator>false</efbc:ProcedureRelaunchIndicator>
+                  </efext:EformsExtension>
+               </ext:ExtensionContent>
+            </ext:UBLExtension>
+         </ext:UBLExtensions>
+         <cbc:SubmissionMethodCode listName="esubmission">required</cbc:SubmissionMethodCode>
+         <cbc:CandidateReductionConstraintIndicator>false</cbc:CandidateReductionConstraintIndicator>
+         <cbc:GovernmentAgreementConstraintIndicator>false</cbc:GovernmentAgreementConstraintIndicator>
+         <cac:TenderSubmissionDeadlinePeriod>
+            <cbc:EndDate>2024-01-09+01:00</cbc:EndDate>
+            <cbc:EndTime>08:00:00+01:00</cbc:EndTime>
+         </cac:TenderSubmissionDeadlinePeriod>
+         <cac:EconomicOperatorShortList>
+            <cbc:LimitationDescription>false</cbc:LimitationDescription>
+         </cac:EconomicOperatorShortList>
+         <cac:OpenTenderEvent>
+            <cbc:OccurrenceDate>2024-01-09+01:00</cbc:OccurrenceDate>
+            <cbc:OccurrenceTime>11:00:00+01:00</cbc:OccurrenceTime>
+            <cac:OccurenceLocation>
+               <cbc:Description languageID="POL">Otwarcie ofert nastąpi za pośrednictwem Platformy zakupowej, działającej pod adresem https://platformazakupowa.pl/wsz_konin.</cbc:Description>
+            </cac:OccurenceLocation>
+         </cac:OpenTenderEvent>
+         <cac:AuctionTerms>
+            <cbc:AuctionConstraintIndicator>false</cbc:AuctionConstraintIndicator>
+         </cac:AuctionTerms>
+         <cac:ContractingSystem>
+            <cbc:ContractingSystemTypeCode listName="framework-agreement">none</cbc:ContractingSystemTypeCode>
+         </cac:ContractingSystem>
+         <cac:ContractingSystem>
+            <cbc:ContractingSystemTypeCode listName="dps-usage">none</cbc:ContractingSystemTypeCode>
+         </cac:ContractingSystem>
+      </cac:TenderingProcess>
+      <cac:ProcurementProject>
+         <cbc:ID>Część nr 4</cbc:ID>
+         <cbc:Name languageID="POL">Pakiet nr 4: Dostawa materiałów medycznych dla potrzeb Stacji Dializ</cbc:Name>
+         <cbc:Description languageID="POL">Przedmiot zamówienia został szczegółowo opisany w Załączniku nr 2 do SWZ (formularz asortymentowo-cenowy).</cbc:Description>
+         <cbc:ProcurementTypeCode listName="contract-nature">supplies</cbc:ProcurementTypeCode>
+         <cbc:SMESuitableIndicator>true</cbc:SMESuitableIndicator>
+         <cac:ProcurementAdditionalType>
+            <cbc:ProcurementTypeCode listName="gpp-criteria">none</cbc:ProcurementTypeCode>
+         </cac:ProcurementAdditionalType>
+         <cac:MainCommodityClassification>
+            <cbc:ItemClassificationCode listName="cpv">33140000</cbc:ItemClassificationCode>
+         </cac:MainCommodityClassification>
+         <cac:RealizedLocation>
+            <cac:Address>
+               <cbc:StreetName>Apteka Szpitalna Wojewódzkiego Szpitala Zespolonego im. dr. Romana Ostrzyckiego w Koninie</cbc:StreetName>
+               <cbc:AdditionalStreetName>ul. Szpitalna 45</cbc:AdditionalStreetName>
+               <cbc:CityName>Konin</cbc:CityName>
+               <cbc:PostalZone>62-504</cbc:PostalZone>
+               <cbc:CountrySubentityCode listName="nuts">PL414</cbc:CountrySubentityCode>
+               <cac:Country>
+                  <cbc:IdentificationCode listName="country">POL</cbc:IdentificationCode>
+               </cac:Country>
+            </cac:Address>
+         </cac:RealizedLocation>
+         <cac:RealizedLocation>
+            <cac:Address>
+               <cbc:StreetName>Apteka Szpitalna Wojewódzkiego Szpitala Zespolonego im. dr. Romana Ostrzyckiego w Koninie</cbc:StreetName>
+               <cbc:AdditionalStreetName>ul. Szpitalna 45</cbc:AdditionalStreetName>
+               <cbc:CityName>Konin</cbc:CityName>
+               <cbc:PostalZone>62-504</cbc:PostalZone>
+               <cbc:CountrySubentityCode listName="nuts">PL414</cbc:CountrySubentityCode>
+               <cac:Country>
+                  <cbc:IdentificationCode listName="country">POL</cbc:IdentificationCode>
+               </cac:Country>
+            </cac:Address>
+         </cac:RealizedLocation>
+         <cac:PlannedPeriod>
+            <cbc:StartDate>2024-03-03+01:00</cbc:StartDate>
+            <cbc:DurationMeasure unitCode="MONTH">24</cbc:DurationMeasure>
+         </cac:PlannedPeriod>
+      </cac:ProcurementProject>
+   </cac:ProcurementProjectLot>
+   <cac:ProcurementProjectLot>
+      <cbc:ID schemeName="Lot">LOT-0005</cbc:ID>
+      <cac:TenderingTerms>
+         <ext:UBLExtensions>
+            <ext:UBLExtension>
+               <ext:ExtensionContent>
+                  <efext:EformsExtension>
+                     <efac:SelectionCriteria>
+                        <cbc:CriterionTypeCode listName="selection-criterion">sui-act</cbc:CriterionTypeCode>
+                        <cbc:Name languageID="POL">Zdolność do występowania w obrocie gospodarczym</cbc:Name>
+                        <cbc:Description languageID="POL">Zamawiający nie wyznacza szczegółowego warunku w tym zakresie.</cbc:Description>
+                        <cbc:CalculationExpressionCode listName="usage">n-used</cbc:CalculationExpressionCode>
+                        <efbc:SecondStageIndicator>false</efbc:SecondStageIndicator>
+                     </efac:SelectionCriteria>
+                     <efac:SelectionCriteria>
+                        <cbc:CriterionTypeCode listName="selection-criterion">ef-stand</cbc:CriterionTypeCode>
+                        <cbc:Description languageID="POL">Zamawiający nie wyznacza szczegółowego warunku w tym zakresie.</cbc:Description>
+                        <cbc:CalculationExpressionCode listName="usage">n-used</cbc:CalculationExpressionCode>
+                        <efbc:SecondStageIndicator>false</efbc:SecondStageIndicator>
+                     </efac:SelectionCriteria>
+                     <efac:SelectionCriteria>
+                        <cbc:CriterionTypeCode listName="selection-criterion">tp-abil</cbc:CriterionTypeCode>
+                        <cbc:Description languageID="POL">Zamawiający nie wyznacza szczegółowego warunku w tym zakresie.</cbc:Description>
+                        <cbc:CalculationExpressionCode listName="usage">n-used</cbc:CalculationExpressionCode>
+                        <efbc:SecondStageIndicator>false</efbc:SecondStageIndicator>
+                     </efac:SelectionCriteria>
+                     <efac:SelectionCriteria>
+                        <cbc:CriterionTypeCode listName="selection-criterion">sui-act</cbc:CriterionTypeCode>
+                        <cbc:Name languageID="POL">Uprawnienia do prowadzenia określonej działalności gospodarczej lub zawodowej, o ile wynika to z odrębnych przepisów</cbc:Name>
+                        <cbc:Description languageID="POL">Zamawiający nie wyznacza szczegółowego warunku w tym zakresie.</cbc:Description>
+                        <cbc:CalculationExpressionCode listName="usage">n-used</cbc:CalculationExpressionCode>
+                        <efbc:SecondStageIndicator>false</efbc:SecondStageIndicator>
+                     </efac:SelectionCriteria>
+                     <efac:StrategicProcurement>
+                        <efbc:ApplicableLegalBasis listName="cvd-scope">false</efbc:ApplicableLegalBasis>
+                     </efac:StrategicProcurement>
+                  </efext:EformsExtension>
+               </ext:ExtensionContent>
+            </ext:UBLExtension>
+         </ext:UBLExtensions>
+         <cbc:VariantConstraintCode listName="permission">not-allowed</cbc:VariantConstraintCode>
+         <cbc:FundingProgramCode listName="eu-funded">no-eu-funds</cbc:FundingProgramCode>
+         <cbc:RequiredCurriculaCode listName="requirement-stage">nyk</cbc:RequiredCurriculaCode>
+         <cbc:RecurringProcurementIndicator>false</cbc:RecurringProcurementIndicator>
+         <cac:RequiredFinancialGuarantee>
+            <cbc:GuaranteeTypeCode listName="tender-guarantee-required">false</cbc:GuaranteeTypeCode>
+         </cac:RequiredFinancialGuarantee>
+         <cac:CallForTendersDocumentReference>
+            <ext:UBLExtensions>
+               <ext:UBLExtension>
+                  <ext:ExtensionContent>
+                     <efext:EformsExtension>
+                        <efac:OfficialLanguages>
+                           <cac:Language>
+                              <cbc:ID>POL</cbc:ID>
+                           </cac:Language>
+                        </efac:OfficialLanguages>
+                     </efext:EformsExtension>
+                  </ext:ExtensionContent>
+               </ext:UBLExtension>
+            </ext:UBLExtensions>
+            <cbc:ID>https://platformazakupowa.pl/wsz_konin</cbc:ID>
+            <cbc:DocumentType>non-restricted-document</cbc:DocumentType>
+            <cac:Attachment>
+               <cac:ExternalReference>
+                  <cbc:URI>https://platformazakupowa.pl/wsz_konin</cbc:URI>
+               </cac:ExternalReference>
+            </cac:Attachment>
+         </cac:CallForTendersDocumentReference>
+         <cac:PaymentTerms>
+            <cbc:Note languageID="POL">Zasady finansowe zostały zawarte w Projektowanych Postanowieniach Umowy, stanowiących Załącznik nr 5 do SWZ.</cbc:Note>
+         </cac:PaymentTerms>
+         <cac:TendererQualificationRequest>
+            <cac:SpecificTendererRequirement>
+               <cbc:TendererRequirementTypeCode listName="reserved-procurement">none</cbc:TendererRequirementTypeCode>
+            </cac:SpecificTendererRequirement>
+         </cac:TendererQualificationRequest>
+         <cac:ContractExecutionRequirement>
+            <cbc:ExecutionRequirementCode listName="reserved-execution">no</cbc:ExecutionRequirementCode>
+         </cac:ContractExecutionRequirement>
+         <cac:ContractExecutionRequirement>
+            <cbc:ExecutionRequirementCode listName="conditions">performance</cbc:ExecutionRequirementCode>
+            <cbc:Description languageID="POL">Warunki dotyczące realizacji Przedmiotu Zamówienia zawarte zostały również w Projektowanych Postanowieniach Umowy, stanowiących Załącznik nr 5 do SWZ.</cbc:Description>
+         </cac:ContractExecutionRequirement>
+         <cac:ContractExecutionRequirement>
+            <cbc:ExecutionRequirementCode listName="einvoicing">allowed</cbc:ExecutionRequirementCode>
+         </cac:ContractExecutionRequirement>
+         <cac:ContractExecutionRequirement>
+            <cbc:ExecutionRequirementCode listName="nda">false</cbc:ExecutionRequirementCode>
+         </cac:ContractExecutionRequirement>
+         <cac:ContractExecutionRequirement>
+            <cbc:ExecutionRequirementCode listName="ecatalog-submission">not-allowed</cbc:ExecutionRequirementCode>
+         </cac:ContractExecutionRequirement>
+         <cac:ContractExecutionRequirement>
+            <cbc:ExecutionRequirementCode listName="esignature-submission">true</cbc:ExecutionRequirementCode>
+         </cac:ContractExecutionRequirement>
+         <cac:AwardingTerms>
+            <cbc:NoFurtherNegotiationIndicator>false</cbc:NoFurtherNegotiationIndicator>
+            <cac:AwardingCriterion>
+               <cac:SubordinateAwardingCriterion>
+                  <ext:UBLExtensions>
+                     <ext:UBLExtension>
+                        <ext:ExtensionContent>
+                           <efext:EformsExtension>
+                              <efac:AwardCriterionParameter>
+                                 <efbc:ParameterCode listName="number-weight">per-exa</efbc:ParameterCode>
+                                 <efbc:ParameterNumeric>60</efbc:ParameterNumeric>
+                              </efac:AwardCriterionParameter>
+                           </efext:EformsExtension>
+                        </ext:ExtensionContent>
+                     </ext:UBLExtension>
+                  </ext:UBLExtensions>
+                  <cbc:AwardingCriterionTypeCode listName="award-criterion-type">price</cbc:AwardingCriterionTypeCode>
+                  <cbc:Description languageID="POL">Cena</cbc:Description>
+               </cac:SubordinateAwardingCriterion>
+               <cac:SubordinateAwardingCriterion>
+                  <ext:UBLExtensions>
+                     <ext:UBLExtension>
+                        <ext:ExtensionContent>
+                           <efext:EformsExtension>
+                              <efac:AwardCriterionParameter>
+                                 <efbc:ParameterCode listName="number-weight">per-exa</efbc:ParameterCode>
+                                 <efbc:ParameterNumeric>40</efbc:ParameterNumeric>
+                              </efac:AwardCriterionParameter>
+                           </efext:EformsExtension>
+                        </ext:ExtensionContent>
+                     </ext:UBLExtension>
+                  </ext:UBLExtensions>
+                  <cbc:AwardingCriterionTypeCode listName="award-criterion-type">quality</cbc:AwardingCriterionTypeCode>
+                  <cbc:Description languageID="POL">Termin dostawy (TD)</cbc:Description>
+               </cac:SubordinateAwardingCriterion>
+            </cac:AwardingCriterion>
+         </cac:AwardingTerms>
+         <cac:TenderRecipientParty>
+            <cbc:EndpointID>https://platformazakupowa.pl/wsz_konin</cbc:EndpointID>
+         </cac:TenderRecipientParty>
+         <cac:TenderValidityPeriod>
+            <cbc:DurationMeasure unitCode="DAY">90</cbc:DurationMeasure>
+         </cac:TenderValidityPeriod>
+         <cac:AppealTerms>
+            <cac:PresentationPeriod>
+               <cbc:Description languageID="POL">1. Odwołanie wnosi się w terminie:
+1.1. 10 dni od dnia przekazania informacji o czynności zamawiającego stanowiącej podstawę jego wniesienia, jeżeli informacja została przekazana przy użyciu środków komunikacji elektronicznej; 
+1.2. 15 dni od dnia przekazania informacji o czynności zamawiającego stanowiącej podstawę jego wniesienia, jeżeli informacja została przekazana w sposób inny niż określony w pkt 1.1.
+2. Odwołanie wobec treści ogłoszenia wszczynającego postępowanie o udzielenie zamówienia lub wobec treści dokumentów zamówienia wnosi się w terminie 10 dni od dnia publikacji ogłoszenia w Dzienniku Urzędowym Unii Europejskiej lub zamieszczenia dokumentów zamówienia na stronie internetowej.
+3. Odwołanie w przypadkach innych niż określone w ust. 1 i 2 wnosi się w terminie 10 dni od dnia, w którym powzięto lub przy zachowaniu należytej staranności można było powziąć wiadomość o okolicznościach stanowiących podstawę jego wniesienia.</cbc:Description>
+            </cac:PresentationPeriod>
+            <cac:AppealReceiverParty>
+               <cac:PartyIdentification>
+                  <cbc:ID>ORG-0004</cbc:ID>
+               </cac:PartyIdentification>
+            </cac:AppealReceiverParty>
+         </cac:AppealTerms>
+         <cac:Language>
+            <cbc:ID>POL</cbc:ID>
+         </cac:Language>
+         <cac:PostAwardProcess>
+            <cbc:ElectronicOrderUsageIndicator>false</cbc:ElectronicOrderUsageIndicator>
+            <cbc:ElectronicPaymentUsageIndicator>true</cbc:ElectronicPaymentUsageIndicator>
+         </cac:PostAwardProcess>
+         <cac:SecurityClearanceTerm>
+            <cbc:Code listName="required">false</cbc:Code>
+         </cac:SecurityClearanceTerm>
+      </cac:TenderingTerms>
+      <cac:TenderingProcess>
+         <ext:UBLExtensions>
+            <ext:UBLExtension>
+               <ext:ExtensionContent>
+                  <efext:EformsExtension>
+                     <efbc:ProcedureRelaunchIndicator>false</efbc:ProcedureRelaunchIndicator>
+                  </efext:EformsExtension>
+               </ext:ExtensionContent>
+            </ext:UBLExtension>
+         </ext:UBLExtensions>
+         <cbc:SubmissionMethodCode listName="esubmission">required</cbc:SubmissionMethodCode>
+         <cbc:CandidateReductionConstraintIndicator>false</cbc:CandidateReductionConstraintIndicator>
+         <cbc:GovernmentAgreementConstraintIndicator>false</cbc:GovernmentAgreementConstraintIndicator>
+         <cac:TenderSubmissionDeadlinePeriod>
+            <cbc:EndDate>2024-01-09+01:00</cbc:EndDate>
+            <cbc:EndTime>08:00:00+01:00</cbc:EndTime>
+         </cac:TenderSubmissionDeadlinePeriod>
+         <cac:EconomicOperatorShortList>
+            <cbc:LimitationDescription>false</cbc:LimitationDescription>
+         </cac:EconomicOperatorShortList>
+         <cac:OpenTenderEvent>
+            <cbc:OccurrenceDate>2024-01-09+01:00</cbc:OccurrenceDate>
+            <cbc:OccurrenceTime>11:00:00+01:00</cbc:OccurrenceTime>
+            <cac:OccurenceLocation>
+               <cbc:Description languageID="POL">Otwarcie ofert nastąpi za pośrednictwem Platformy zakupowej, działającej pod adresem https://platformazakupowa.pl/wsz_konin.</cbc:Description>
+            </cac:OccurenceLocation>
+         </cac:OpenTenderEvent>
+         <cac:AuctionTerms>
+            <cbc:AuctionConstraintIndicator>false</cbc:AuctionConstraintIndicator>
+         </cac:AuctionTerms>
+         <cac:ContractingSystem>
+            <cbc:ContractingSystemTypeCode listName="framework-agreement">none</cbc:ContractingSystemTypeCode>
+         </cac:ContractingSystem>
+         <cac:ContractingSystem>
+            <cbc:ContractingSystemTypeCode listName="dps-usage">none</cbc:ContractingSystemTypeCode>
+         </cac:ContractingSystem>
+      </cac:TenderingProcess>
+      <cac:ProcurementProject>
+         <cbc:ID>Część nr 5</cbc:ID>
+         <cbc:Name languageID="POL">Pakiet nr 5: Dostawa dializatorów dla potrzeb Stacji Dializ</cbc:Name>
+         <cbc:Description languageID="POL">Przedmiot zamówienia został szczegółowo opisany w Załączniku nr 2 do SWZ (formularz asortymentowo-cenowy).</cbc:Description>
+         <cbc:ProcurementTypeCode listName="contract-nature">supplies</cbc:ProcurementTypeCode>
+         <cbc:SMESuitableIndicator>true</cbc:SMESuitableIndicator>
+         <cac:ProcurementAdditionalType>
+            <cbc:ProcurementTypeCode listName="gpp-criteria">none</cbc:ProcurementTypeCode>
+         </cac:ProcurementAdditionalType>
+         <cac:MainCommodityClassification>
+            <cbc:ItemClassificationCode listName="cpv">33140000</cbc:ItemClassificationCode>
+         </cac:MainCommodityClassification>
+         <cac:RealizedLocation>
+            <cac:Address>
+               <cbc:StreetName>Apteka Szpitalna Wojewódzkiego Szpitala Zespolonego im. dr. Romana Ostrzyckiego w Koninie</cbc:StreetName>
+               <cbc:AdditionalStreetName>ul. Szpitalna 45</cbc:AdditionalStreetName>
+               <cbc:CityName>Konin</cbc:CityName>
+               <cbc:PostalZone>62-504</cbc:PostalZone>
+               <cbc:CountrySubentityCode listName="nuts">PL414</cbc:CountrySubentityCode>
+               <cac:Country>
+                  <cbc:IdentificationCode listName="country">POL</cbc:IdentificationCode>
+               </cac:Country>
+            </cac:Address>
+         </cac:RealizedLocation>
+         <cac:RealizedLocation>
+            <cac:Address>
+               <cbc:StreetName>Apteka Szpitalna Wojewódzkiego Szpitala Zespolonego im. dr. Romana Ostrzyckiego w Koninie</cbc:StreetName>
+               <cbc:AdditionalStreetName>ul. Szpitalna 45</cbc:AdditionalStreetName>
+               <cbc:CityName>Konin</cbc:CityName>
+               <cbc:PostalZone>62-504</cbc:PostalZone>
+               <cbc:CountrySubentityCode listName="nuts">PL414</cbc:CountrySubentityCode>
+               <cac:Country>
+                  <cbc:IdentificationCode listName="country">POL</cbc:IdentificationCode>
+               </cac:Country>
+            </cac:Address>
+         </cac:RealizedLocation>
+         <cac:PlannedPeriod>
+            <cbc:StartDate>2024-03-03+01:00</cbc:StartDate>
+            <cbc:DurationMeasure unitCode="MONTH">24</cbc:DurationMeasure>
+         </cac:PlannedPeriod>
+      </cac:ProcurementProject>
+   </cac:ProcurementProjectLot>
+   <cac:ProcurementProjectLot>
+      <cbc:ID schemeName="Lot">LOT-0006</cbc:ID>
+      <cac:TenderingTerms>
+         <ext:UBLExtensions>
+            <ext:UBLExtension>
+               <ext:ExtensionContent>
+                  <efext:EformsExtension>
+                     <efac:SelectionCriteria>
+                        <cbc:CriterionTypeCode listName="selection-criterion">sui-act</cbc:CriterionTypeCode>
+                        <cbc:Name languageID="POL">Zdolność do występowania w obrocie gospodarczym</cbc:Name>
+                        <cbc:Description languageID="POL">Zamawiający nie wyznacza szczegółowego warunku w tym zakresie.</cbc:Description>
+                        <cbc:CalculationExpressionCode listName="usage">n-used</cbc:CalculationExpressionCode>
+                        <efbc:SecondStageIndicator>false</efbc:SecondStageIndicator>
+                     </efac:SelectionCriteria>
+                     <efac:SelectionCriteria>
+                        <cbc:CriterionTypeCode listName="selection-criterion">ef-stand</cbc:CriterionTypeCode>
+                        <cbc:Description languageID="POL">Zamawiający nie wyznacza szczegółowego warunku w tym zakresie.</cbc:Description>
+                        <cbc:CalculationExpressionCode listName="usage">n-used</cbc:CalculationExpressionCode>
+                        <efbc:SecondStageIndicator>false</efbc:SecondStageIndicator>
+                     </efac:SelectionCriteria>
+                     <efac:SelectionCriteria>
+                        <cbc:CriterionTypeCode listName="selection-criterion">tp-abil</cbc:CriterionTypeCode>
+                        <cbc:Description languageID="POL">Zamawiający nie wyznacza szczegółowego warunku w tym zakresie.</cbc:Description>
+                        <cbc:CalculationExpressionCode listName="usage">n-used</cbc:CalculationExpressionCode>
+                        <efbc:SecondStageIndicator>false</efbc:SecondStageIndicator>
+                     </efac:SelectionCriteria>
+                     <efac:SelectionCriteria>
+                        <cbc:CriterionTypeCode listName="selection-criterion">sui-act</cbc:CriterionTypeCode>
+                        <cbc:Name languageID="POL">Uprawnienia do prowadzenia określonej działalności gospodarczej lub zawodowej, o ile wynika to z odrębnych przepisów</cbc:Name>
+                        <cbc:Description languageID="POL">Zamawiający nie wyznacza szczegółowego warunku w tym zakresie.</cbc:Description>
+                        <cbc:CalculationExpressionCode listName="usage">n-used</cbc:CalculationExpressionCode>
+                        <efbc:SecondStageIndicator>false</efbc:SecondStageIndicator>
+                     </efac:SelectionCriteria>
+                     <efac:StrategicProcurement>
+                        <efbc:ApplicableLegalBasis listName="cvd-scope">false</efbc:ApplicableLegalBasis>
+                     </efac:StrategicProcurement>
+                  </efext:EformsExtension>
+               </ext:ExtensionContent>
+            </ext:UBLExtension>
+         </ext:UBLExtensions>
+         <cbc:VariantConstraintCode listName="permission">not-allowed</cbc:VariantConstraintCode>
+         <cbc:FundingProgramCode listName="eu-funded">no-eu-funds</cbc:FundingProgramCode>
+         <cbc:RequiredCurriculaCode listName="requirement-stage">nyk</cbc:RequiredCurriculaCode>
+         <cbc:RecurringProcurementIndicator>false</cbc:RecurringProcurementIndicator>
+         <cac:RequiredFinancialGuarantee>
+            <cbc:GuaranteeTypeCode listName="tender-guarantee-required">false</cbc:GuaranteeTypeCode>
+         </cac:RequiredFinancialGuarantee>
+         <cac:CallForTendersDocumentReference>
+            <ext:UBLExtensions>
+               <ext:UBLExtension>
+                  <ext:ExtensionContent>
+                     <efext:EformsExtension>
+                        <efac:OfficialLanguages>
+                           <cac:Language>
+                              <cbc:ID>POL</cbc:ID>
+                           </cac:Language>
+                        </efac:OfficialLanguages>
+                     </efext:EformsExtension>
+                  </ext:ExtensionContent>
+               </ext:UBLExtension>
+            </ext:UBLExtensions>
+            <cbc:ID>https://platformazakupowa.pl/wsz_konin</cbc:ID>
+            <cbc:DocumentType>non-restricted-document</cbc:DocumentType>
+            <cac:Attachment>
+               <cac:ExternalReference>
+                  <cbc:URI>https://platformazakupowa.pl/wsz_konin</cbc:URI>
+               </cac:ExternalReference>
+            </cac:Attachment>
+         </cac:CallForTendersDocumentReference>
+         <cac:PaymentTerms>
+            <cbc:Note languageID="POL">Zasady finansowe zawarte zostały w Projektowanych Postanowieniach Umowy, stanowiących Załącznik nr 5 do SWZ.</cbc:Note>
+         </cac:PaymentTerms>
+         <cac:TendererQualificationRequest>
+            <cac:SpecificTendererRequirement>
+               <cbc:TendererRequirementTypeCode listName="reserved-procurement">none</cbc:TendererRequirementTypeCode>
+            </cac:SpecificTendererRequirement>
+         </cac:TendererQualificationRequest>
+         <cac:ContractExecutionRequirement>
+            <cbc:ExecutionRequirementCode listName="reserved-execution">no</cbc:ExecutionRequirementCode>
+         </cac:ContractExecutionRequirement>
+         <cac:ContractExecutionRequirement>
+            <cbc:ExecutionRequirementCode listName="conditions">performance</cbc:ExecutionRequirementCode>
+            <cbc:Description languageID="POL">Warunki dotyczące realizacji Przedmiotu Zamówienia zawarte zostały również w Projektowanych Postanowieniach Umowy, stanowiących Załącznik nr 5 do SWZ.</cbc:Description>
+         </cac:ContractExecutionRequirement>
+         <cac:ContractExecutionRequirement>
+            <cbc:ExecutionRequirementCode listName="einvoicing">allowed</cbc:ExecutionRequirementCode>
+         </cac:ContractExecutionRequirement>
+         <cac:ContractExecutionRequirement>
+            <cbc:ExecutionRequirementCode listName="nda">false</cbc:ExecutionRequirementCode>
+         </cac:ContractExecutionRequirement>
+         <cac:ContractExecutionRequirement>
+            <cbc:ExecutionRequirementCode listName="ecatalog-submission">not-allowed</cbc:ExecutionRequirementCode>
+         </cac:ContractExecutionRequirement>
+         <cac:ContractExecutionRequirement>
+            <cbc:ExecutionRequirementCode listName="esignature-submission">true</cbc:ExecutionRequirementCode>
+         </cac:ContractExecutionRequirement>
+         <cac:AwardingTerms>
+            <cbc:NoFurtherNegotiationIndicator>false</cbc:NoFurtherNegotiationIndicator>
+            <cac:AwardingCriterion>
+               <cac:SubordinateAwardingCriterion>
+                  <ext:UBLExtensions>
+                     <ext:UBLExtension>
+                        <ext:ExtensionContent>
+                           <efext:EformsExtension>
+                              <efac:AwardCriterionParameter>
+                                 <efbc:ParameterCode listName="number-weight">per-exa</efbc:ParameterCode>
+                                 <efbc:ParameterNumeric>60</efbc:ParameterNumeric>
+                              </efac:AwardCriterionParameter>
+                           </efext:EformsExtension>
+                        </ext:ExtensionContent>
+                     </ext:UBLExtension>
+                  </ext:UBLExtensions>
+                  <cbc:AwardingCriterionTypeCode listName="award-criterion-type">price</cbc:AwardingCriterionTypeCode>
+                  <cbc:Description languageID="POL">Cena</cbc:Description>
+               </cac:SubordinateAwardingCriterion>
+               <cac:SubordinateAwardingCriterion>
+                  <ext:UBLExtensions>
+                     <ext:UBLExtension>
+                        <ext:ExtensionContent>
+                           <efext:EformsExtension>
+                              <efac:AwardCriterionParameter>
+                                 <efbc:ParameterCode listName="number-weight">per-exa</efbc:ParameterCode>
+                                 <efbc:ParameterNumeric>40</efbc:ParameterNumeric>
+                              </efac:AwardCriterionParameter>
+                           </efext:EformsExtension>
+                        </ext:ExtensionContent>
+                     </ext:UBLExtension>
+                  </ext:UBLExtensions>
+                  <cbc:AwardingCriterionTypeCode listName="award-criterion-type">quality</cbc:AwardingCriterionTypeCode>
+                  <cbc:Description languageID="POL">Termin dostawy (TD)</cbc:Description>
+               </cac:SubordinateAwardingCriterion>
+            </cac:AwardingCriterion>
+         </cac:AwardingTerms>
+         <cac:TenderRecipientParty>
+            <cbc:EndpointID>https://platformazakupowa.pl/wsz_konin</cbc:EndpointID>
+         </cac:TenderRecipientParty>
+         <cac:TenderValidityPeriod>
+            <cbc:DurationMeasure unitCode="DAY">90</cbc:DurationMeasure>
+         </cac:TenderValidityPeriod>
+         <cac:AppealTerms>
+            <cac:PresentationPeriod>
+               <cbc:Description languageID="POL">1. Odwołanie wnosi się w terminie:
+1.1. 10 dni od dnia przekazania informacji o czynności zamawiającego stanowiącej podstawę jego wniesienia, jeżeli informacja została przekazana przy użyciu środków komunikacji elektronicznej; 
+1.2. 15 dni od dnia przekazania informacji o czynności zamawiającego stanowiącej podstawę jego wniesienia, jeżeli informacja została przekazana w sposób inny niż określony w pkt 1.1.
+2. Odwołanie wobec treści ogłoszenia wszczynającego postępowanie o udzielenie zamówienia lub wobec treści dokumentów zamówienia wnosi się w terminie 10 dni od dnia publikacji ogłoszenia w Dzienniku Urzędowym Unii Europejskiej lub zamieszczenia dokumentów zamówienia na stronie internetowej.
+3. Odwołanie w przypadkach innych niż określone w ust. 1 i 2 wnosi się w terminie 10 dni od dnia, w którym powzięto lub przy zachowaniu należytej staranności można było powziąć wiadomość o okolicznościach stanowiących podstawę jego wniesienia.</cbc:Description>
+            </cac:PresentationPeriod>
+            <cac:AppealReceiverParty>
+               <cac:PartyIdentification>
+                  <cbc:ID>ORG-0004</cbc:ID>
+               </cac:PartyIdentification>
+            </cac:AppealReceiverParty>
+         </cac:AppealTerms>
+         <cac:Language>
+            <cbc:ID>POL</cbc:ID>
+         </cac:Language>
+         <cac:PostAwardProcess>
+            <cbc:ElectronicOrderUsageIndicator>false</cbc:ElectronicOrderUsageIndicator>
+            <cbc:ElectronicPaymentUsageIndicator>true</cbc:ElectronicPaymentUsageIndicator>
+         </cac:PostAwardProcess>
+         <cac:SecurityClearanceTerm>
+            <cbc:Code listName="required">false</cbc:Code>
+         </cac:SecurityClearanceTerm>
+      </cac:TenderingTerms>
+      <cac:TenderingProcess>
+         <ext:UBLExtensions>
+            <ext:UBLExtension>
+               <ext:ExtensionContent>
+                  <efext:EformsExtension>
+                     <efbc:ProcedureRelaunchIndicator>false</efbc:ProcedureRelaunchIndicator>
+                  </efext:EformsExtension>
+               </ext:ExtensionContent>
+            </ext:UBLExtension>
+         </ext:UBLExtensions>
+         <cbc:SubmissionMethodCode listName="esubmission">required</cbc:SubmissionMethodCode>
+         <cbc:CandidateReductionConstraintIndicator>false</cbc:CandidateReductionConstraintIndicator>
+         <cbc:GovernmentAgreementConstraintIndicator>false</cbc:GovernmentAgreementConstraintIndicator>
+         <cac:TenderSubmissionDeadlinePeriod>
+            <cbc:EndDate>2024-01-09+01:00</cbc:EndDate>
+            <cbc:EndTime>08:00:00+01:00</cbc:EndTime>
+         </cac:TenderSubmissionDeadlinePeriod>
+         <cac:EconomicOperatorShortList>
+            <cbc:LimitationDescription>false</cbc:LimitationDescription>
+         </cac:EconomicOperatorShortList>
+         <cac:OpenTenderEvent>
+            <cbc:OccurrenceDate>2024-01-09+01:00</cbc:OccurrenceDate>
+            <cbc:OccurrenceTime>11:00:00+01:00</cbc:OccurrenceTime>
+            <cac:OccurenceLocation>
+               <cbc:Description languageID="POL">Otwarcie ofert nastąpi za pośrednictwem Platformy zakupowej, działającej pod adresem https://platformazakupowa.pl/wsz_konin.</cbc:Description>
+            </cac:OccurenceLocation>
+         </cac:OpenTenderEvent>
+         <cac:AuctionTerms>
+            <cbc:AuctionConstraintIndicator>false</cbc:AuctionConstraintIndicator>
+         </cac:AuctionTerms>
+         <cac:ContractingSystem>
+            <cbc:ContractingSystemTypeCode listName="framework-agreement">none</cbc:ContractingSystemTypeCode>
+         </cac:ContractingSystem>
+         <cac:ContractingSystem>
+            <cbc:ContractingSystemTypeCode listName="dps-usage">none</cbc:ContractingSystemTypeCode>
+         </cac:ContractingSystem>
+      </cac:TenderingProcess>
+      <cac:ProcurementProject>
+         <cbc:ID>Część nr 6</cbc:ID>
+         <cbc:Name languageID="POL">Pakiet nr 6: Dostawa filtrów płynu dializacyjnego dla potrzeb Stacji Dializ</cbc:Name>
+         <cbc:Description languageID="POL">Przedmiot zamówienia został szczegółowo opisany w Załączniku nr 2 do SWZ (formularz asortymentowo-cenowy).</cbc:Description>
+         <cbc:ProcurementTypeCode listName="contract-nature">supplies</cbc:ProcurementTypeCode>
+         <cbc:SMESuitableIndicator>true</cbc:SMESuitableIndicator>
+         <cac:ProcurementAdditionalType>
+            <cbc:ProcurementTypeCode listName="gpp-criteria">none</cbc:ProcurementTypeCode>
+         </cac:ProcurementAdditionalType>
+         <cac:MainCommodityClassification>
+            <cbc:ItemClassificationCode listName="cpv">33140000</cbc:ItemClassificationCode>
+         </cac:MainCommodityClassification>
+         <cac:RealizedLocation>
+            <cac:Address>
+               <cbc:StreetName>Apteka Szpitalna Wojewódzkiego Szpitala Zespolonego im. dr. Romana Ostrzyckiego w Koninie</cbc:StreetName>
+               <cbc:AdditionalStreetName>ul. Szpitalna 45</cbc:AdditionalStreetName>
+               <cbc:CityName>Konin</cbc:CityName>
+               <cbc:PostalZone>62-504</cbc:PostalZone>
+               <cbc:CountrySubentityCode listName="nuts">PL414</cbc:CountrySubentityCode>
+               <cac:Country>
+                  <cbc:IdentificationCode listName="country">POL</cbc:IdentificationCode>
+               </cac:Country>
+            </cac:Address>
+         </cac:RealizedLocation>
+         <cac:RealizedLocation>
+            <cac:Address>
+               <cbc:StreetName>Apteka Szpitalna Wojewódzkiego Szpitala Zespolonego im. dr. Romana Ostrzyckiego w Koninie</cbc:StreetName>
+               <cbc:AdditionalStreetName>ul. Szpitalna 45</cbc:AdditionalStreetName>
+               <cbc:CityName>Konin</cbc:CityName>
+               <cbc:PostalZone>62-504</cbc:PostalZone>
+               <cbc:CountrySubentityCode listName="nuts">PL414</cbc:CountrySubentityCode>
+               <cac:Country>
+                  <cbc:IdentificationCode listName="country">POL</cbc:IdentificationCode>
+               </cac:Country>
+            </cac:Address>
+         </cac:RealizedLocation>
+         <cac:PlannedPeriod>
+            <cbc:StartDate>2024-03-03+01:00</cbc:StartDate>
+            <cbc:DurationMeasure unitCode="MONTH">24</cbc:DurationMeasure>
+         </cac:PlannedPeriod>
+      </cac:ProcurementProject>
+   </cac:ProcurementProjectLot>
+   <cac:ProcurementProjectLot>
+      <cbc:ID schemeName="Lot">LOT-0007</cbc:ID>
+      <cac:TenderingTerms>
+         <ext:UBLExtensions>
+            <ext:UBLExtension>
+               <ext:ExtensionContent>
+                  <efext:EformsExtension>
+                     <efac:SelectionCriteria>
+                        <cbc:CriterionTypeCode listName="selection-criterion">sui-act</cbc:CriterionTypeCode>
+                        <cbc:Name languageID="POL">Zdolność do występowania w obrocie gospodarczym</cbc:Name>
+                        <cbc:Description languageID="POL">Zamawiający nie wyznacza szczegółowego warunku w tym zakresie.</cbc:Description>
+                        <cbc:CalculationExpressionCode listName="usage">n-used</cbc:CalculationExpressionCode>
+                        <efbc:SecondStageIndicator>false</efbc:SecondStageIndicator>
+                     </efac:SelectionCriteria>
+                     <efac:SelectionCriteria>
+                        <cbc:CriterionTypeCode listName="selection-criterion">ef-stand</cbc:CriterionTypeCode>
+                        <cbc:Description languageID="POL">Zamawiający nie wyznacza szczegółowego warunku w tym zakresie.</cbc:Description>
+                        <cbc:CalculationExpressionCode listName="usage">n-used</cbc:CalculationExpressionCode>
+                        <efbc:SecondStageIndicator>false</efbc:SecondStageIndicator>
+                     </efac:SelectionCriteria>
+                     <efac:SelectionCriteria>
+                        <cbc:CriterionTypeCode listName="selection-criterion">tp-abil</cbc:CriterionTypeCode>
+                        <cbc:Description languageID="POL">Zamawiający nie wyznacza szczegółowego warunku w tym zakresie.</cbc:Description>
+                        <cbc:CalculationExpressionCode listName="usage">n-used</cbc:CalculationExpressionCode>
+                        <efbc:SecondStageIndicator>false</efbc:SecondStageIndicator>
+                     </efac:SelectionCriteria>
+                     <efac:SelectionCriteria>
+                        <cbc:CriterionTypeCode listName="selection-criterion">sui-act</cbc:CriterionTypeCode>
+                        <cbc:Name languageID="POL">Uprawnienia do prowadzenia określonej działalności gospodarczej lub zawodowej, o ile wynika to z odrębnych przepisów</cbc:Name>
+                        <cbc:Description languageID="POL">Zamawiający nie wyznacza szczegółowego warunku w tym zakresie.</cbc:Description>
+                        <cbc:CalculationExpressionCode listName="usage">n-used</cbc:CalculationExpressionCode>
+                        <efbc:SecondStageIndicator>false</efbc:SecondStageIndicator>
+                     </efac:SelectionCriteria>
+                     <efac:StrategicProcurement>
+                        <efbc:ApplicableLegalBasis listName="cvd-scope">false</efbc:ApplicableLegalBasis>
+                     </efac:StrategicProcurement>
+                  </efext:EformsExtension>
+               </ext:ExtensionContent>
+            </ext:UBLExtension>
+         </ext:UBLExtensions>
+         <cbc:VariantConstraintCode listName="permission">not-allowed</cbc:VariantConstraintCode>
+         <cbc:FundingProgramCode listName="eu-funded">no-eu-funds</cbc:FundingProgramCode>
+         <cbc:RequiredCurriculaCode listName="requirement-stage">nyk</cbc:RequiredCurriculaCode>
+         <cbc:RecurringProcurementIndicator>false</cbc:RecurringProcurementIndicator>
+         <cac:RequiredFinancialGuarantee>
+            <cbc:GuaranteeTypeCode listName="tender-guarantee-required">false</cbc:GuaranteeTypeCode>
+         </cac:RequiredFinancialGuarantee>
+         <cac:CallForTendersDocumentReference>
+            <ext:UBLExtensions>
+               <ext:UBLExtension>
+                  <ext:ExtensionContent>
+                     <efext:EformsExtension>
+                        <efac:OfficialLanguages>
+                           <cac:Language>
+                              <cbc:ID>POL</cbc:ID>
+                           </cac:Language>
+                        </efac:OfficialLanguages>
+                     </efext:EformsExtension>
+                  </ext:ExtensionContent>
+               </ext:UBLExtension>
+            </ext:UBLExtensions>
+            <cbc:ID>https://platformazakupowa.pl/wsz_konin</cbc:ID>
+            <cbc:DocumentType>non-restricted-document</cbc:DocumentType>
+            <cac:Attachment>
+               <cac:ExternalReference>
+                  <cbc:URI>https://platformazakupowa.pl/wsz_konin</cbc:URI>
+               </cac:ExternalReference>
+            </cac:Attachment>
+         </cac:CallForTendersDocumentReference>
+         <cac:PaymentTerms>
+            <cbc:Note languageID="POL">Zasady finansowe zawarte zostały w Projektowanych Postanowieniach Umowy, stanowiących Załącznik nr 5 do SWZ.</cbc:Note>
+         </cac:PaymentTerms>
+         <cac:TendererQualificationRequest>
+            <cac:SpecificTendererRequirement>
+               <cbc:TendererRequirementTypeCode listName="reserved-procurement">none</cbc:TendererRequirementTypeCode>
+            </cac:SpecificTendererRequirement>
+         </cac:TendererQualificationRequest>
+         <cac:ContractExecutionRequirement>
+            <cbc:ExecutionRequirementCode listName="reserved-execution">no</cbc:ExecutionRequirementCode>
+         </cac:ContractExecutionRequirement>
+         <cac:ContractExecutionRequirement>
+            <cbc:ExecutionRequirementCode listName="conditions">performance</cbc:ExecutionRequirementCode>
+            <cbc:Description languageID="POL">Warunki dotyczące realizacji Przedmiotu Zamówienia zawarte zostały również w Projektowanych Postanowieniach Umowy, stanowiących Załącznik nr 5 do SWZ.</cbc:Description>
+         </cac:ContractExecutionRequirement>
+         <cac:ContractExecutionRequirement>
+            <cbc:ExecutionRequirementCode listName="einvoicing">allowed</cbc:ExecutionRequirementCode>
+         </cac:ContractExecutionRequirement>
+         <cac:ContractExecutionRequirement>
+            <cbc:ExecutionRequirementCode listName="nda">false</cbc:ExecutionRequirementCode>
+         </cac:ContractExecutionRequirement>
+         <cac:ContractExecutionRequirement>
+            <cbc:ExecutionRequirementCode listName="ecatalog-submission">not-allowed</cbc:ExecutionRequirementCode>
+         </cac:ContractExecutionRequirement>
+         <cac:ContractExecutionRequirement>
+            <cbc:ExecutionRequirementCode listName="esignature-submission">true</cbc:ExecutionRequirementCode>
+         </cac:ContractExecutionRequirement>
+         <cac:AwardingTerms>
+            <cbc:NoFurtherNegotiationIndicator>false</cbc:NoFurtherNegotiationIndicator>
+            <cac:AwardingCriterion>
+               <cac:SubordinateAwardingCriterion>
+                  <ext:UBLExtensions>
+                     <ext:UBLExtension>
+                        <ext:ExtensionContent>
+                           <efext:EformsExtension>
+                              <efac:AwardCriterionParameter>
+                                 <efbc:ParameterCode listName="number-weight">per-exa</efbc:ParameterCode>
+                                 <efbc:ParameterNumeric>60</efbc:ParameterNumeric>
+                              </efac:AwardCriterionParameter>
+                           </efext:EformsExtension>
+                        </ext:ExtensionContent>
+                     </ext:UBLExtension>
+                  </ext:UBLExtensions>
+                  <cbc:AwardingCriterionTypeCode listName="award-criterion-type">price</cbc:AwardingCriterionTypeCode>
+                  <cbc:Description languageID="POL">Cena</cbc:Description>
+               </cac:SubordinateAwardingCriterion>
+               <cac:SubordinateAwardingCriterion>
+                  <ext:UBLExtensions>
+                     <ext:UBLExtension>
+                        <ext:ExtensionContent>
+                           <efext:EformsExtension>
+                              <efac:AwardCriterionParameter>
+                                 <efbc:ParameterCode listName="number-weight">per-exa</efbc:ParameterCode>
+                                 <efbc:ParameterNumeric>40</efbc:ParameterNumeric>
+                              </efac:AwardCriterionParameter>
+                           </efext:EformsExtension>
+                        </ext:ExtensionContent>
+                     </ext:UBLExtension>
+                  </ext:UBLExtensions>
+                  <cbc:AwardingCriterionTypeCode listName="award-criterion-type">quality</cbc:AwardingCriterionTypeCode>
+                  <cbc:Description languageID="POL">Termin dostawy (TD)</cbc:Description>
+               </cac:SubordinateAwardingCriterion>
+            </cac:AwardingCriterion>
+         </cac:AwardingTerms>
+         <cac:TenderRecipientParty>
+            <cbc:EndpointID>https://platformazakupowa.pl/wsz_konin</cbc:EndpointID>
+         </cac:TenderRecipientParty>
+         <cac:TenderValidityPeriod>
+            <cbc:DurationMeasure unitCode="DAY">90</cbc:DurationMeasure>
+         </cac:TenderValidityPeriod>
+         <cac:AppealTerms>
+            <cac:PresentationPeriod>
+               <cbc:Description languageID="POL">1. Odwołanie wnosi się w terminie:
+1.1. 10 dni od dnia przekazania informacji o czynności zamawiającego stanowiącej podstawę jego wniesienia, jeżeli informacja została przekazana przy użyciu środków komunikacji elektronicznej; 
+1.2. 15 dni od dnia przekazania informacji o czynności zamawiającego stanowiącej podstawę jego wniesienia, jeżeli informacja została przekazana w sposób inny niż określony w pkt 1.1.
+2. Odwołanie wobec treści ogłoszenia wszczynającego postępowanie o udzielenie zamówienia lub wobec treści dokumentów zamówienia wnosi się w terminie 10 dni od dnia publikacji ogłoszenia w Dzienniku Urzędowym Unii Europejskiej lub zamieszczenia dokumentów zamówienia na stronie internetowej.
+3. Odwołanie w przypadkach innych niż określone w ust. 1 i 2 wnosi się w terminie 10 dni od dnia, w którym powzięto lub przy zachowaniu należytej staranności można było powziąć wiadomość o okolicznościach stanowiących podstawę jego wniesienia.</cbc:Description>
+            </cac:PresentationPeriod>
+            <cac:AppealReceiverParty>
+               <cac:PartyIdentification>
+                  <cbc:ID>ORG-0004</cbc:ID>
+               </cac:PartyIdentification>
+            </cac:AppealReceiverParty>
+         </cac:AppealTerms>
+         <cac:Language>
+            <cbc:ID>POL</cbc:ID>
+         </cac:Language>
+         <cac:PostAwardProcess>
+            <cbc:ElectronicOrderUsageIndicator>false</cbc:ElectronicOrderUsageIndicator>
+            <cbc:ElectronicPaymentUsageIndicator>true</cbc:ElectronicPaymentUsageIndicator>
+         </cac:PostAwardProcess>
+         <cac:SecurityClearanceTerm>
+            <cbc:Code listName="required">false</cbc:Code>
+         </cac:SecurityClearanceTerm>
+      </cac:TenderingTerms>
+      <cac:TenderingProcess>
+         <ext:UBLExtensions>
+            <ext:UBLExtension>
+               <ext:ExtensionContent>
+                  <efext:EformsExtension>
+                     <efbc:ProcedureRelaunchIndicator>false</efbc:ProcedureRelaunchIndicator>
+                  </efext:EformsExtension>
+               </ext:ExtensionContent>
+            </ext:UBLExtension>
+         </ext:UBLExtensions>
+         <cbc:SubmissionMethodCode listName="esubmission">required</cbc:SubmissionMethodCode>
+         <cbc:CandidateReductionConstraintIndicator>false</cbc:CandidateReductionConstraintIndicator>
+         <cbc:GovernmentAgreementConstraintIndicator>false</cbc:GovernmentAgreementConstraintIndicator>
+         <cac:TenderSubmissionDeadlinePeriod>
+            <cbc:EndDate>2024-01-09+01:00</cbc:EndDate>
+            <cbc:EndTime>08:00:00+01:00</cbc:EndTime>
+         </cac:TenderSubmissionDeadlinePeriod>
+         <cac:EconomicOperatorShortList>
+            <cbc:LimitationDescription>false</cbc:LimitationDescription>
+         </cac:EconomicOperatorShortList>
+         <cac:OpenTenderEvent>
+            <cbc:OccurrenceDate>2024-01-09+01:00</cbc:OccurrenceDate>
+            <cbc:OccurrenceTime>11:00:00+01:00</cbc:OccurrenceTime>
+            <cac:OccurenceLocation>
+               <cbc:Description languageID="POL">Otwarcie ofert nastąpi za pośrednictwem Platformy zakupowej, działającej pod adresem https://platformazakupowa.pl/wsz_konin.</cbc:Description>
+            </cac:OccurenceLocation>
+         </cac:OpenTenderEvent>
+         <cac:AuctionTerms>
+            <cbc:AuctionConstraintIndicator>false</cbc:AuctionConstraintIndicator>
+         </cac:AuctionTerms>
+         <cac:ContractingSystem>
+            <cbc:ContractingSystemTypeCode listName="framework-agreement">none</cbc:ContractingSystemTypeCode>
+         </cac:ContractingSystem>
+         <cac:ContractingSystem>
+            <cbc:ContractingSystemTypeCode listName="dps-usage">none</cbc:ContractingSystemTypeCode>
+         </cac:ContractingSystem>
+      </cac:TenderingProcess>
+      <cac:ProcurementProject>
+         <cbc:ID>Część nr 7</cbc:ID>
+         <cbc:Name languageID="POL">Pakiet nr 7: Dostawa materiałów medycznych dla potrzeb Stacji Dializ</cbc:Name>
+         <cbc:Description languageID="POL">Przedmiot zamówienia został szczegółowo opisany w Załączniku nr 2 do SWZ (formularz asortymentowo-cenowy).</cbc:Description>
+         <cbc:ProcurementTypeCode listName="contract-nature">supplies</cbc:ProcurementTypeCode>
+         <cbc:SMESuitableIndicator>true</cbc:SMESuitableIndicator>
+         <cac:ProcurementAdditionalType>
+            <cbc:ProcurementTypeCode listName="gpp-criteria">none</cbc:ProcurementTypeCode>
+         </cac:ProcurementAdditionalType>
+         <cac:MainCommodityClassification>
+            <cbc:ItemClassificationCode listName="cpv">33140000</cbc:ItemClassificationCode>
+         </cac:MainCommodityClassification>
+         <cac:AdditionalCommodityClassification>
+            <cbc:ItemClassificationCode listName="cpv">33141200</cbc:ItemClassificationCode>
+         </cac:AdditionalCommodityClassification>
+         <cac:RealizedLocation>
+            <cac:Address>
+               <cbc:StreetName>Apteka Szpitalna Wojewódzkiego Szpitala Zespolonego im. dr. Romana Ostrzyckiego w Koninie</cbc:StreetName>
+               <cbc:AdditionalStreetName>ul. Szpitalna 45</cbc:AdditionalStreetName>
+               <cbc:CityName>Konin</cbc:CityName>
+               <cbc:PostalZone>62-504</cbc:PostalZone>
+               <cbc:CountrySubentityCode listName="nuts">PL414</cbc:CountrySubentityCode>
+               <cac:Country>
+                  <cbc:IdentificationCode listName="country">POL</cbc:IdentificationCode>
+               </cac:Country>
+            </cac:Address>
+         </cac:RealizedLocation>
+         <cac:RealizedLocation>
+            <cac:Address>
+               <cbc:StreetName>Apteka Szpitalna Wojewódzkiego Szpitala Zespolonego im. dr. Romana Ostrzyckiego w Koninie</cbc:StreetName>
+               <cbc:AdditionalStreetName>ul. Szpitalna 45</cbc:AdditionalStreetName>
+               <cbc:CityName>Konin</cbc:CityName>
+               <cbc:PostalZone>62-504</cbc:PostalZone>
+               <cbc:CountrySubentityCode listName="nuts">PL414</cbc:CountrySubentityCode>
+               <cac:Country>
+                  <cbc:IdentificationCode listName="country">POL</cbc:IdentificationCode>
+               </cac:Country>
+            </cac:Address>
+         </cac:RealizedLocation>
+         <cac:PlannedPeriod>
+            <cbc:StartDate>2024-03-03+01:00</cbc:StartDate>
+            <cbc:DurationMeasure unitCode="MONTH">24</cbc:DurationMeasure>
+         </cac:PlannedPeriod>
+      </cac:ProcurementProject>
+   </cac:ProcurementProjectLot>
+   <cac:ProcurementProjectLot>
+      <cbc:ID schemeName="Lot">LOT-0008</cbc:ID>
+      <cac:TenderingTerms>
+         <ext:UBLExtensions>
+            <ext:UBLExtension>
+               <ext:ExtensionContent>
+                  <efext:EformsExtension>
+                     <efac:SelectionCriteria>
+                        <cbc:CriterionTypeCode listName="selection-criterion">sui-act</cbc:CriterionTypeCode>
+                        <cbc:Name languageID="POL">Zdolność do występowania w obrocie gospodarczym</cbc:Name>
+                        <cbc:Description languageID="POL">Zamawiający nie wyznacza szczegółowego warunku w tym zakresie.</cbc:Description>
+                        <cbc:CalculationExpressionCode listName="usage">n-used</cbc:CalculationExpressionCode>
+                        <efbc:SecondStageIndicator>false</efbc:SecondStageIndicator>
+                     </efac:SelectionCriteria>
+                     <efac:SelectionCriteria>
+                        <cbc:CriterionTypeCode listName="selection-criterion">ef-stand</cbc:CriterionTypeCode>
+                        <cbc:Description languageID="POL">Zamawiający nie wyznacza szczegółowego warunku w tym zakresie.</cbc:Description>
+                        <cbc:CalculationExpressionCode listName="usage">n-used</cbc:CalculationExpressionCode>
+                        <efbc:SecondStageIndicator>false</efbc:SecondStageIndicator>
+                     </efac:SelectionCriteria>
+                     <efac:SelectionCriteria>
+                        <cbc:CriterionTypeCode listName="selection-criterion">tp-abil</cbc:CriterionTypeCode>
+                        <cbc:Description languageID="POL">Zamawiający nie wyznacza szczegółowego warunku w tym zakresie.</cbc:Description>
+                        <cbc:CalculationExpressionCode listName="usage">n-used</cbc:CalculationExpressionCode>
+                        <efbc:SecondStageIndicator>false</efbc:SecondStageIndicator>
+                     </efac:SelectionCriteria>
+                     <efac:SelectionCriteria>
+                        <cbc:CriterionTypeCode listName="selection-criterion">sui-act</cbc:CriterionTypeCode>
+                        <cbc:Name languageID="POL">Uprawnienia do prowadzenia określonej działalności gospodarczej lub zawodowej, o ile wynika to z odrębnych przepisów</cbc:Name>
+                        <cbc:Description languageID="POL">Zamawiający nie wyznacza szczegółowego warunku w tym zakresie.</cbc:Description>
+                        <cbc:CalculationExpressionCode listName="usage">n-used</cbc:CalculationExpressionCode>
+                        <efbc:SecondStageIndicator>false</efbc:SecondStageIndicator>
+                     </efac:SelectionCriteria>
+                     <efac:StrategicProcurement>
+                        <efbc:ApplicableLegalBasis listName="cvd-scope">false</efbc:ApplicableLegalBasis>
+                     </efac:StrategicProcurement>
+                  </efext:EformsExtension>
+               </ext:ExtensionContent>
+            </ext:UBLExtension>
+         </ext:UBLExtensions>
+         <cbc:VariantConstraintCode listName="permission">not-allowed</cbc:VariantConstraintCode>
+         <cbc:FundingProgramCode listName="eu-funded">no-eu-funds</cbc:FundingProgramCode>
+         <cbc:RequiredCurriculaCode listName="requirement-stage">nyk</cbc:RequiredCurriculaCode>
+         <cbc:RecurringProcurementIndicator>false</cbc:RecurringProcurementIndicator>
+         <cac:RequiredFinancialGuarantee>
+            <cbc:GuaranteeTypeCode listName="tender-guarantee-required">false</cbc:GuaranteeTypeCode>
+         </cac:RequiredFinancialGuarantee>
+         <cac:CallForTendersDocumentReference>
+            <ext:UBLExtensions>
+               <ext:UBLExtension>
+                  <ext:ExtensionContent>
+                     <efext:EformsExtension>
+                        <efac:OfficialLanguages>
+                           <cac:Language>
+                              <cbc:ID>POL</cbc:ID>
+                           </cac:Language>
+                        </efac:OfficialLanguages>
+                     </efext:EformsExtension>
+                  </ext:ExtensionContent>
+               </ext:UBLExtension>
+            </ext:UBLExtensions>
+            <cbc:ID>https://platformazakupowa.pl/wsz_konin</cbc:ID>
+            <cbc:DocumentType>non-restricted-document</cbc:DocumentType>
+            <cac:Attachment>
+               <cac:ExternalReference>
+                  <cbc:URI>https://platformazakupowa.pl/wsz_konin</cbc:URI>
+               </cac:ExternalReference>
+            </cac:Attachment>
+         </cac:CallForTendersDocumentReference>
+         <cac:PaymentTerms>
+            <cbc:Note languageID="POL">Zasady finansowe zawarte zostały w Projektowanych Postanowieniach Umowy, stanowiących Załącznik nr 5 do SWZ.</cbc:Note>
+         </cac:PaymentTerms>
+         <cac:TendererQualificationRequest>
+            <cac:SpecificTendererRequirement>
+               <cbc:TendererRequirementTypeCode listName="reserved-procurement">none</cbc:TendererRequirementTypeCode>
+            </cac:SpecificTendererRequirement>
+         </cac:TendererQualificationRequest>
+         <cac:ContractExecutionRequirement>
+            <cbc:ExecutionRequirementCode listName="reserved-execution">no</cbc:ExecutionRequirementCode>
+         </cac:ContractExecutionRequirement>
+         <cac:ContractExecutionRequirement>
+            <cbc:ExecutionRequirementCode listName="conditions">performance</cbc:ExecutionRequirementCode>
+            <cbc:Description languageID="POL">Warunki dotyczące realizacji Przedmiotu Zamówienia zawarte zostały również w Projektowanych Postanowieniach Umowy, stanowiących Załącznik nr 5 do SWZ.</cbc:Description>
+         </cac:ContractExecutionRequirement>
+         <cac:ContractExecutionRequirement>
+            <cbc:ExecutionRequirementCode listName="einvoicing">allowed</cbc:ExecutionRequirementCode>
+         </cac:ContractExecutionRequirement>
+         <cac:ContractExecutionRequirement>
+            <cbc:ExecutionRequirementCode listName="nda">false</cbc:ExecutionRequirementCode>
+         </cac:ContractExecutionRequirement>
+         <cac:ContractExecutionRequirement>
+            <cbc:ExecutionRequirementCode listName="ecatalog-submission">not-allowed</cbc:ExecutionRequirementCode>
+         </cac:ContractExecutionRequirement>
+         <cac:ContractExecutionRequirement>
+            <cbc:ExecutionRequirementCode listName="esignature-submission">true</cbc:ExecutionRequirementCode>
+         </cac:ContractExecutionRequirement>
+         <cac:AwardingTerms>
+            <cbc:NoFurtherNegotiationIndicator>false</cbc:NoFurtherNegotiationIndicator>
+            <cac:AwardingCriterion>
+               <cac:SubordinateAwardingCriterion>
+                  <ext:UBLExtensions>
+                     <ext:UBLExtension>
+                        <ext:ExtensionContent>
+                           <efext:EformsExtension>
+                              <efac:AwardCriterionParameter>
+                                 <efbc:ParameterCode listName="number-weight">per-exa</efbc:ParameterCode>
+                                 <efbc:ParameterNumeric>60</efbc:ParameterNumeric>
+                              </efac:AwardCriterionParameter>
+                           </efext:EformsExtension>
+                        </ext:ExtensionContent>
+                     </ext:UBLExtension>
+                  </ext:UBLExtensions>
+                  <cbc:AwardingCriterionTypeCode listName="award-criterion-type">price</cbc:AwardingCriterionTypeCode>
+                  <cbc:Description languageID="POL">Cena</cbc:Description>
+               </cac:SubordinateAwardingCriterion>
+               <cac:SubordinateAwardingCriterion>
+                  <ext:UBLExtensions>
+                     <ext:UBLExtension>
+                        <ext:ExtensionContent>
+                           <efext:EformsExtension>
+                              <efac:AwardCriterionParameter>
+                                 <efbc:ParameterCode listName="number-weight">per-exa</efbc:ParameterCode>
+                                 <efbc:ParameterNumeric>40</efbc:ParameterNumeric>
+                              </efac:AwardCriterionParameter>
+                           </efext:EformsExtension>
+                        </ext:ExtensionContent>
+                     </ext:UBLExtension>
+                  </ext:UBLExtensions>
+                  <cbc:AwardingCriterionTypeCode listName="award-criterion-type">quality</cbc:AwardingCriterionTypeCode>
+                  <cbc:Description languageID="POL">Termin dostawy (TD)</cbc:Description>
+               </cac:SubordinateAwardingCriterion>
+            </cac:AwardingCriterion>
+         </cac:AwardingTerms>
+         <cac:TenderRecipientParty>
+            <cbc:EndpointID>https://platformazakupowa.pl/wsz_konin</cbc:EndpointID>
+         </cac:TenderRecipientParty>
+         <cac:TenderValidityPeriod>
+            <cbc:DurationMeasure unitCode="DAY">90</cbc:DurationMeasure>
+         </cac:TenderValidityPeriod>
+         <cac:AppealTerms>
+            <cac:PresentationPeriod>
+               <cbc:Description languageID="POL">1. Odwołanie wnosi się w terminie:
+1.1. 10 dni od dnia przekazania informacji o czynności zamawiającego stanowiącej podstawę jego wniesienia, jeżeli informacja została przekazana przy użyciu środków komunikacji elektronicznej; 
+1.2. 15 dni od dnia przekazania informacji o czynności zamawiającego stanowiącej podstawę jego wniesienia, jeżeli informacja została przekazana w sposób inny niż określony w pkt 1.1.
+2. Odwołanie wobec treści ogłoszenia wszczynającego postępowanie o udzielenie zamówienia lub wobec treści dokumentów zamówienia wnosi się w terminie 10 dni od dnia publikacji ogłoszenia w Dzienniku Urzędowym Unii Europejskiej lub zamieszczenia dokumentów zamówienia na stronie internetowej.
+3. Odwołanie w przypadkach innych niż określone w ust. 1 i 2 wnosi się w terminie 10 dni od dnia, w którym powzięto lub przy zachowaniu należytej staranności można było powziąć wiadomość o okolicznościach stanowiących podstawę jego wniesienia.</cbc:Description>
+            </cac:PresentationPeriod>
+            <cac:AppealReceiverParty>
+               <cac:PartyIdentification>
+                  <cbc:ID>ORG-0004</cbc:ID>
+               </cac:PartyIdentification>
+            </cac:AppealReceiverParty>
+         </cac:AppealTerms>
+         <cac:Language>
+            <cbc:ID>POL</cbc:ID>
+         </cac:Language>
+         <cac:PostAwardProcess>
+            <cbc:ElectronicOrderUsageIndicator>false</cbc:ElectronicOrderUsageIndicator>
+            <cbc:ElectronicPaymentUsageIndicator>true</cbc:ElectronicPaymentUsageIndicator>
+         </cac:PostAwardProcess>
+         <cac:SecurityClearanceTerm>
+            <cbc:Code listName="required">false</cbc:Code>
+         </cac:SecurityClearanceTerm>
+      </cac:TenderingTerms>
+      <cac:TenderingProcess>
+         <ext:UBLExtensions>
+            <ext:UBLExtension>
+               <ext:ExtensionContent>
+                  <efext:EformsExtension>
+                     <efbc:ProcedureRelaunchIndicator>false</efbc:ProcedureRelaunchIndicator>
+                  </efext:EformsExtension>
+               </ext:ExtensionContent>
+            </ext:UBLExtension>
+         </ext:UBLExtensions>
+         <cbc:SubmissionMethodCode listName="esubmission">required</cbc:SubmissionMethodCode>
+         <cbc:CandidateReductionConstraintIndicator>false</cbc:CandidateReductionConstraintIndicator>
+         <cbc:GovernmentAgreementConstraintIndicator>false</cbc:GovernmentAgreementConstraintIndicator>
+         <cac:TenderSubmissionDeadlinePeriod>
+            <cbc:EndDate>2024-01-09+01:00</cbc:EndDate>
+            <cbc:EndTime>08:00:00+01:00</cbc:EndTime>
+         </cac:TenderSubmissionDeadlinePeriod>
+         <cac:EconomicOperatorShortList>
+            <cbc:LimitationDescription>false</cbc:LimitationDescription>
+         </cac:EconomicOperatorShortList>
+         <cac:OpenTenderEvent>
+            <cbc:OccurrenceDate>2024-01-09+01:00</cbc:OccurrenceDate>
+            <cbc:OccurrenceTime>11:00:00+01:00</cbc:OccurrenceTime>
+            <cac:OccurenceLocation>
+               <cbc:Description languageID="POL">Otwarcie ofert nastąpi za pośrednictwem Platformy zakupowej, działającej pod adresem https://platformazakupowa.pl/wsz_konin.</cbc:Description>
+            </cac:OccurenceLocation>
+         </cac:OpenTenderEvent>
+         <cac:AuctionTerms>
+            <cbc:AuctionConstraintIndicator>false</cbc:AuctionConstraintIndicator>
+         </cac:AuctionTerms>
+         <cac:ContractingSystem>
+            <cbc:ContractingSystemTypeCode listName="framework-agreement">none</cbc:ContractingSystemTypeCode>
+         </cac:ContractingSystem>
+         <cac:ContractingSystem>
+            <cbc:ContractingSystemTypeCode listName="dps-usage">none</cbc:ContractingSystemTypeCode>
+         </cac:ContractingSystem>
+      </cac:TenderingProcess>
+      <cac:ProcurementProject>
+         <cbc:ID>Część nr 8</cbc:ID>
+         <cbc:Name languageID="POL">Pakiet nr 8: Dostawa cewników dla potrzeb Stacji Dializ</cbc:Name>
+         <cbc:Description languageID="POL">Przedmiot zamówienia został szczegółowo opisany w Załączniku nr 2 do SWZ (formularz asortymentowo-cenowy).</cbc:Description>
+         <cbc:ProcurementTypeCode listName="contract-nature">supplies</cbc:ProcurementTypeCode>
+         <cbc:SMESuitableIndicator>true</cbc:SMESuitableIndicator>
+         <cac:ProcurementAdditionalType>
+            <cbc:ProcurementTypeCode listName="gpp-criteria">none</cbc:ProcurementTypeCode>
+         </cac:ProcurementAdditionalType>
+         <cac:MainCommodityClassification>
+            <cbc:ItemClassificationCode listName="cpv">33140000</cbc:ItemClassificationCode>
+         </cac:MainCommodityClassification>
+         <cac:AdditionalCommodityClassification>
+            <cbc:ItemClassificationCode listName="cpv">33141200</cbc:ItemClassificationCode>
+         </cac:AdditionalCommodityClassification>
+         <cac:RealizedLocation>
+            <cac:Address>
+               <cbc:StreetName>Apteka Szpitalna Wojewódzkiego Szpitala Zespolonego im. dr. Romana Ostrzyckiego w Koninie</cbc:StreetName>
+               <cbc:AdditionalStreetName>ul. Szpitalna 45</cbc:AdditionalStreetName>
+               <cbc:CityName>Konin</cbc:CityName>
+               <cbc:PostalZone>62-504</cbc:PostalZone>
+               <cbc:CountrySubentityCode listName="nuts">PL414</cbc:CountrySubentityCode>
+               <cac:Country>
+                  <cbc:IdentificationCode listName="country">POL</cbc:IdentificationCode>
+               </cac:Country>
+            </cac:Address>
+         </cac:RealizedLocation>
+         <cac:RealizedLocation>
+            <cac:Address>
+               <cbc:StreetName>Apteka Szpitalna Wojewódzkiego Szpitala Zespolonego im. dr. Romana Ostrzyckiego w Koninie</cbc:StreetName>
+               <cbc:AdditionalStreetName>ul. Szpitalna 45</cbc:AdditionalStreetName>
+               <cbc:CityName>Konin</cbc:CityName>
+               <cbc:PostalZone>62-504</cbc:PostalZone>
+               <cbc:CountrySubentityCode listName="nuts">PL414</cbc:CountrySubentityCode>
+               <cac:Country>
+                  <cbc:IdentificationCode listName="country">POL</cbc:IdentificationCode>
+               </cac:Country>
+            </cac:Address>
+         </cac:RealizedLocation>
+         <cac:PlannedPeriod>
+            <cbc:StartDate>2024-03-03+01:00</cbc:StartDate>
+            <cbc:DurationMeasure unitCode="MONTH">24</cbc:DurationMeasure>
+         </cac:PlannedPeriod>
+      </cac:ProcurementProject>
+   </cac:ProcurementProjectLot>
+</ContractNotice>

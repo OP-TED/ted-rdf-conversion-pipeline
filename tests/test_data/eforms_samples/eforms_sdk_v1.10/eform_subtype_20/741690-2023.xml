@@ -1,0 +1,484 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><ContractNotice xmlns="urn:oasis:names:specification:ubl:schema:xsd:ContractNotice-2" xmlns:cac="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2" xmlns:cbc="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2" xmlns:efac="http://data.europa.eu/p27/eforms-ubl-extension-aggregate-components/1" xmlns:efbc="http://data.europa.eu/p27/eforms-ubl-extension-basic-components/1" xmlns:efext="http://data.europa.eu/p27/eforms-ubl-extensions/1" xmlns:ext="urn:oasis:names:specification:ubl:schema:xsd:CommonExtensionComponents-2">
+   <ext:UBLExtensions>
+      <ext:UBLExtension>
+         <ext:ExtensionContent>
+            <efext:EformsExtension>
+               <efac:NoticeSubType>
+                  <cbc:SubTypeCode listName="notice-subtype">20</cbc:SubTypeCode>
+               </efac:NoticeSubType>
+               <efac:Organizations>
+                  <efac:Organization>
+                     <efac:Company>
+                        <cbc:WebsiteURI>www.gumed.edu.pl</cbc:WebsiteURI>
+                        <cbc:EndpointID>https://platformazakupowa.pl/pn/gumed</cbc:EndpointID>
+                        <cac:PartyIdentification>
+                           <cbc:ID>ORG-0001</cbc:ID>
+                        </cac:PartyIdentification>
+                        <cac:PartyName>
+                           <cbc:Name languageID="POL">Gdański Uniwersytet Medyczny</cbc:Name>
+                        </cac:PartyName>
+                        <cac:PostalAddress>
+                           <cbc:StreetName>ul. M.Skłodowskiej-Curie 3 A</cbc:StreetName>
+                           <cbc:Department>Sekcja Zamówień Publicznych</cbc:Department>
+                           <cbc:CityName>Gdańsk</cbc:CityName>
+                           <cbc:PostalZone>80-210</cbc:PostalZone>
+                           <cbc:CountrySubentityCode listName="nuts">PL634</cbc:CountrySubentityCode>
+                           <cac:Country>
+                              <cbc:IdentificationCode listName="country">POL</cbc:IdentificationCode>
+                           </cac:Country>
+                        </cac:PostalAddress>
+                        <cac:PartyLegalEntity>
+                           <cbc:CompanyID>584-095-59-85</cbc:CompanyID>
+                        </cac:PartyLegalEntity>
+                        <cac:Contact>
+                           <cbc:Name>Sekcja Zamówień Publicznych</cbc:Name>
+                           <cbc:Telephone>+48 583491223</cbc:Telephone>
+                           <cbc:ElectronicMail>zp@gumed.edu.pl</cbc:ElectronicMail>
+                        </cac:Contact>
+                     </efac:Company>
+                  </efac:Organization>
+                  <efac:Organization>
+                     <efac:Company>
+                        <cac:PartyIdentification>
+                           <cbc:ID>ORG-0002</cbc:ID>
+                        </cac:PartyIdentification>
+                        <cac:PartyName>
+                           <cbc:Name languageID="POL">Prezes Krajowej Izby Odwoławczej</cbc:Name>
+                        </cac:PartyName>
+                        <cac:PostalAddress>
+                           <cbc:StreetName>Postępu 17A</cbc:StreetName>
+                           <cbc:CityName>Warszawa</cbc:CityName>
+                           <cbc:PostalZone>02-676</cbc:PostalZone>
+                           <cbc:CountrySubentityCode listName="nuts">PL911</cbc:CountrySubentityCode>
+                           <cac:Country>
+                              <cbc:IdentificationCode listName="country">POL</cbc:IdentificationCode>
+                           </cac:Country>
+                        </cac:PostalAddress>
+                        <cac:PartyLegalEntity>
+                           <cbc:CompanyID>pl</cbc:CompanyID>
+                        </cac:PartyLegalEntity>
+                        <cac:Contact>
+                           <cbc:Name>odwolania@uzp.gov.pl</cbc:Name>
+                           <cbc:Telephone>+48224587840</cbc:Telephone>
+                           <cbc:ElectronicMail>odwolania@uzp.gov.pl</cbc:ElectronicMail>
+                        </cac:Contact>
+                     </efac:Company>
+                     <efac:TouchPoint>
+                        <cbc:WebsiteURI>https://www.uzp.gov.pl/kio</cbc:WebsiteURI>
+                        <cbc:EndpointID>https://www.uzp.gov.pl/kio</cbc:EndpointID>
+                        <cac:PartyIdentification>
+                           <cbc:ID>TPO-0002</cbc:ID>
+                        </cac:PartyIdentification>
+                        <cac:PartyName>
+                           <cbc:Name languageID="POL">Prezes Krajowej Izby Odwoławczej</cbc:Name>
+                        </cac:PartyName>
+                        <cac:PostalAddress>
+                           <cbc:Department>Krajowa Izba Odwoławcza</cbc:Department>
+                        </cac:PostalAddress>
+                     </efac:TouchPoint>
+                  </efac:Organization>
+               </efac:Organizations>
+            <efac:Publication><efbc:NoticePublicationID schemeName="ojs-notice-id">00741690-2023</efbc:NoticePublicationID><efbc:GazetteID schemeName="ojs-id">236/2023</efbc:GazetteID><efbc:PublicationDate>2023-12-07Z</efbc:PublicationDate></efac:Publication></efext:EformsExtension>
+         </ext:ExtensionContent>
+      </ext:UBLExtension>
+   </ext:UBLExtensions>
+   <cbc:UBLVersionID>2.3</cbc:UBLVersionID>
+   <cbc:CustomizationID>eforms-sdk-1.10</cbc:CustomizationID>
+   <cbc:ID schemeName="notice-id">bdcd01c8-0ad8-42f8-b226-060e5d8b9e6d</cbc:ID>
+   <cbc:ContractFolderID>5230c85c-89f1-4c77-9972-b7a1e1247677</cbc:ContractFolderID>
+   <cbc:IssueDate>2023-12-06Z</cbc:IssueDate>
+   <cbc:IssueTime>08:05:46Z</cbc:IssueTime>
+   <cbc:VersionID>01</cbc:VersionID>
+   <cbc:RegulatoryDomain>32014L0024</cbc:RegulatoryDomain>
+   <cbc:NoticeTypeCode listName="competition">cn-social</cbc:NoticeTypeCode>
+   <cbc:NoticeLanguageCode listName="language">POL</cbc:NoticeLanguageCode>
+   <cac:ContractingParty>
+      <cbc:BuyerProfileURI>https://platformazakupowa.pl/pn/gumed</cbc:BuyerProfileURI>
+      <cac:ContractingPartyType>
+         <cbc:PartyTypeCode listName="buyer-legal-type">body-pl</cbc:PartyTypeCode>
+      </cac:ContractingPartyType>
+      <cac:ContractingActivity>
+         <cbc:ActivityTypeCode listName="authority-activity">education</cbc:ActivityTypeCode>
+      </cac:ContractingActivity>
+      <cac:Party>
+         <cac:PartyIdentification>
+            <cbc:ID>ORG-0001</cbc:ID>
+         </cac:PartyIdentification>
+      </cac:Party>
+   </cac:ContractingParty>
+   <cac:TenderingTerms>
+      <cac:ProcurementLegislationDocumentReference>
+         <cbc:ID>http://data.europa.eu/eli/dir/2014/24/oj</cbc:ID>
+         <cbc:DocumentDescription languageID="POL">Postępowanie o udzielenie zamówienia publicznego prowadzone jest w trybie przetargu nieograniczonego - art. 132 ustawy z dnia 11 września 2019 r. - Prawo zamówień publicznych (Dz.U. z 2023 r. poz. 1605)</cbc:DocumentDescription>
+      </cac:ProcurementLegislationDocumentReference>
+      <cac:ProcurementLegislationDocumentReference>
+         <cbc:ID>LocalLegalBasis</cbc:ID>
+         <cbc:DocumentDescription languageID="POL">Oddział 2 ustawy Pzp w tym art. 138 ust. 2 pkt 2 ustawy Pzp</cbc:DocumentDescription>
+      </cac:ProcurementLegislationDocumentReference>
+      <cac:ProcurementLegislationDocumentReference>
+         <cbc:ID>CrossBorderLaw</cbc:ID>
+         <cbc:DocumentDescription languageID="POL">nie dotyczy</cbc:DocumentDescription>
+      </cac:ProcurementLegislationDocumentReference>
+      <cac:TendererQualificationRequest>
+         <cac:SpecificTendererRequirement>
+            <cbc:TendererRequirementTypeCode listName="exclusion-ground">liq-admin</cbc:TendererRequirementTypeCode>
+         </cac:SpecificTendererRequirement>
+         <cac:SpecificTendererRequirement>
+            <cbc:TendererRequirementTypeCode listName="exclusion-ground">prep-confl</cbc:TendererRequirementTypeCode>
+         </cac:SpecificTendererRequirement>
+         <cac:SpecificTendererRequirement>
+            <cbc:TendererRequirementTypeCode listName="exclusion-ground">susp-act</cbc:TendererRequirementTypeCode>
+         </cac:SpecificTendererRequirement>
+         <cac:SpecificTendererRequirement>
+            <cbc:TendererRequirementTypeCode listName="exclusion-ground">bankr-nat</cbc:TendererRequirementTypeCode>
+         </cac:SpecificTendererRequirement>
+         <cac:SpecificTendererRequirement>
+            <cbc:TendererRequirementTypeCode listName="exclusion-ground">corruption</cbc:TendererRequirementTypeCode>
+         </cac:SpecificTendererRequirement>
+         <cac:SpecificTendererRequirement>
+            <cbc:TendererRequirementTypeCode listName="exclusion-ground">fraud</cbc:TendererRequirementTypeCode>
+         </cac:SpecificTendererRequirement>
+         <cac:SpecificTendererRequirement>
+            <cbc:TendererRequirementTypeCode listName="exclusion-ground">socsec-law</cbc:TendererRequirementTypeCode>
+         </cac:SpecificTendererRequirement>
+         <cac:SpecificTendererRequirement>
+            <cbc:TendererRequirementTypeCode listName="exclusion-ground">labour-law</cbc:TendererRequirementTypeCode>
+         </cac:SpecificTendererRequirement>
+         <cac:SpecificTendererRequirement>
+            <cbc:TendererRequirementTypeCode listName="exclusion-ground">insolvency</cbc:TendererRequirementTypeCode>
+         </cac:SpecificTendererRequirement>
+         <cac:SpecificTendererRequirement>
+            <cbc:TendererRequirementTypeCode listName="exclusion-ground">socsec-pay</cbc:TendererRequirementTypeCode>
+         </cac:SpecificTendererRequirement>
+         <cac:SpecificTendererRequirement>
+            <cbc:TendererRequirementTypeCode listName="exclusion-ground">tax-pay</cbc:TendererRequirementTypeCode>
+         </cac:SpecificTendererRequirement>
+         <cac:SpecificTendererRequirement>
+            <cbc:TendererRequirementTypeCode listName="exclusion-ground">nati-ground</cbc:TendererRequirementTypeCode>
+         </cac:SpecificTendererRequirement>
+         <cac:SpecificTendererRequirement>
+            <cbc:TendererRequirementTypeCode listName="exclusion-ground">distorsion</cbc:TendererRequirementTypeCode>
+         </cac:SpecificTendererRequirement>
+         <cac:SpecificTendererRequirement>
+            <cbc:TendererRequirementTypeCode listName="exclusion-ground">human-traffic</cbc:TendererRequirementTypeCode>
+         </cac:SpecificTendererRequirement>
+         <cac:SpecificTendererRequirement>
+            <cbc:TendererRequirementTypeCode listName="exclusion-ground">finan-laund</cbc:TendererRequirementTypeCode>
+         </cac:SpecificTendererRequirement>
+         <cac:SpecificTendererRequirement>
+            <cbc:TendererRequirementTypeCode listName="exclusion-ground">terr-offence</cbc:TendererRequirementTypeCode>
+         </cac:SpecificTendererRequirement>
+         <cac:SpecificTendererRequirement>
+            <cbc:TendererRequirementTypeCode listName="exclusion-ground">crime-org</cbc:TendererRequirementTypeCode>
+         </cac:SpecificTendererRequirement>
+         <cac:SpecificTendererRequirement>
+            <cbc:TendererRequirementTypeCode listName="exclusion-ground">cred-arran</cbc:TendererRequirementTypeCode>
+         </cac:SpecificTendererRequirement>
+         <cac:SpecificTendererRequirement>
+            <cbc:TendererRequirementTypeCode listName="exclusion-ground">bankruptcy</cbc:TendererRequirementTypeCode>
+         </cac:SpecificTendererRequirement>
+      </cac:TendererQualificationRequest>
+      <cac:LotDistribution>
+         <cbc:MaximumLotsAwardedNumeric>1</cbc:MaximumLotsAwardedNumeric>
+         <cbc:MaximumLotsSubmittedNumeric>1</cbc:MaximumLotsSubmittedNumeric>
+      </cac:LotDistribution>
+   </cac:TenderingTerms>
+   <cac:TenderingProcess>
+      <cbc:Description languageID="POL">Pełny opis procedury stosowanej w prowadzonym postępowaniu wskazany został w:
+1)  Specyfikacji Warunków Zamówienia dostępnej pod adresem https://platformazakupowa.pl/transakcja/858110 
+2)  w Oddziale 2 ustawy z dnia 11 września 2019 r. - Prawo zamówień publicznych (Dz.U. z 2023 r. poz. 1605)</cbc:Description>
+      <cbc:ProcedureCode listName="procurement-procedure-type">open</cbc:ProcedureCode>
+      <cbc:PartPresentationCode listName="tenderlot-presentation">all</cbc:PartPresentationCode>
+   </cac:TenderingProcess>
+   <cac:ProcurementProject>
+      <cbc:ID>GUM2023ZP0129</cbc:ID>
+      <cbc:Name languageID="POL">Dostawa energii elektrycznej do obiektów Gdańskiego Uniwersytetu Medycznego</cbc:Name>
+      <cbc:Description languageID="POL">1.	Przedmiotem zamówienia jest dostawa energii elektrycznej, zgodnie z przepisami ustawy z dnia 10 kwietnia 1997 r. Prawo energetyczne, (PE), do obiektów, budynków oraz ich infrastruktury Gdańskiego Uniwersytetu Medycznego (GUMed), zgodnie z posiadanymi przez Zamawiającego tytułami prawnymi. 
+Niniejsze zamówienie nie obejmuje usług dystrybucji energii elektrycznej.
+2.	Wykaz Punktów Poboru Energii (PPE) oraz zużyć energii elektrycznej został zawarty w załączniku nr 3 SWZ.
+3.	Szczegółowe postanowienia dotyczące wykonywania zobowiązań odnoszących się do niniejszego zamówienia zawarto w projekcie umowy – załącznik nr 4 do SWZ.
+</cbc:Description>
+      <cbc:ProcurementTypeCode listName="contract-nature">supplies</cbc:ProcurementTypeCode>
+      <cbc:Note languageID="POL">1.	W związku z art. 5k rozporządzenia Rady (UE) 833/2014 z dnia 31 lipca 2014 r. dotyczącego środków ograniczających w związku z działaniami Rosji destabilizującymi sytuację na Ukrainie (Dz.Urz.UE.L Nr 229, str. 1) w brzmieniu nadanym rozporządzeniem Rady (UE) 2022/576 z dnia 8 kwietnia 2022 r. w sprawie zmiany rozporządzenia (UE) nr 833/2014 dotyczącego środków ograniczających w związku z działaniami Rosji destabilizującymi sytuację na Ukrainie (Dz. Urz. UE nr L 111, str. 1), Zamawiający informuje, że nie udzieli zamówienia publicznego objęte-go zakresem dyrektyw w sprawie zamówień publicznych, a także zakresem art. 10 ust. 1, 3, ust. 6 lit. a)–e), ust. 8, 9 i 10, art. 11, 12, 13 i 14 dyrektywy 2014/23/UE, art. 7 i 8, art. 10 lit. b)–f) i lit. h)–j) dyrektywy 2014/24/UE, art. 18, art. 21 lit. b)–e) i lit. g)–i), art. 29 i 30 dyrektywy 2014/25/UE oraz art. 13 lit. a)–d), lit. f)–h) i lit. j) dyrektywy 2009/81/WE na rzecz lub z udziałem:
+-	obywateli rosyjskich lub osób fizycznych lub prawnych, podmiotów lub organów z siedzibą w Rosji;
+-	osób prawnych, podmiotów lub organów, do których prawa własności bezpośrednio lub pośrednio w ponad 50 % należą do podmiotu, o którym mowa w lit. a) niniejszego ustępu;
+-	osób fizycznych lub prawnych, podmiotów lub organów działających w imieniu lub
+pod kierunkiem podmiotu, o którym mowa w lit. a) lub b) niniejszego ustępu, w tym podwykonawców, dostawców lub podmiotów, na których zdolności polega się w rozumieniu dyrektyw w sprawie zamówień publicznych, w przypadku gdy przypada na nich ponad 10 % wartości zamówienia.
+2.	W celu potwierdzenia, że wobec Wykonawcy nie zachodzi którakolwiek z przesłanych wyszczególnionych w ust. 1 powyżej,  do oferty należy załączyć oświadczenie – załącznik nr 5.1. do SWZ – w postaci elektronicznej opatrzone kwalifikowanym podpisem elektronicznym.
+3.	W przypadku wspólnego ubiegania się o zamówienie przez Wykonawców oświadczenie, o którym mowa w ust. 2 powyżej, składa każdy z wykonawców wspólnie ubiegających się o zamówienie. 
+4.	Wykluczenie wykonawcy wspierającego agresję na Ukrainę.
+Z postępowania o udzielenie zamówienia, zgodnie z art. 7 ust. 1 Ustawy o szczególnych rozwiązaniach w zakresie przeciwdziałania wspieraniu agresji na Ukrainę oraz służących ochronie bezpieczeństwa narodowego (Dz. U. z 2022 r., poz. 835), wyklucza się:
+a)	wykonawcę oraz uczestnika konkursu wymienionego w wykazach określonych w rozporządzeniu 765/2006 i rozporządzeniu 269/2014 albo wpisanego na listę na podstawie decyzji w sprawie wpisu na listę rozstrzygającej o zastosowaniu środka, o którym mowa w art. 1 pkt 3;
+b)	wykonawcę oraz uczestnika konkursu, którego beneficjentem rzeczywistym w rozumieniu ustawy z dnia 1 marca 2018 r. o przeciwdziałaniu praniu pieniędzy oraz finansowaniu terroryzmu (Dz. U. z 2022 r. poz. 593 i 655) jest osoba wymieniona w wykazach określonych w rozporządzeniu 765/2006 i rozporządzeniu 269/2014 albo wpisana na listę lub będąca takim beneficjentem rzeczywistym od dnia 24 lutego 2022 r., o ile została wpisana na listę na podstawie decyzji w sprawie wpisu na listę rozstrzygającej o zastosowaniu środka, o którym mowa w art. 1 pkt 3;
+c)	wykonawcę oraz uczestnika konkursu, którego jednostką dominującą w rozumieniu art. 3 ust. 1 pkt 37 ustawy z dnia 29 września 1994 r. o rachunkowości (Dz. U. z 2021 r. poz. 217, 2105 i 2106) jest podmiot wymieniony w wykazach określonych w rozporządzeniu 765/2006 i rozporządzeniu 269/2014 albo wpisany na listę lub będący taką jednostką dominującą od dnia 24 lutego 2022 r., o ile został wpisany na listę na podstawie decyzji w sprawie wpisu na listę rozstrzygającej o zastosowaniu środka, o którym mowa w art. 1 pkt 3.
+5.	Wykluczenie wskazane powyżej następuje na okres trwania okoliczności określonych w ust. 4 powyżej.
+6.	W celu potwierdzenia, że Wykonawca nie podlega wykluczeniu z postępowania zgodnie z ust. 4 do oferty należy załączyć oświadczenie o niepodleganiu wykluczeniu w postępowaniu – załącznik nr 5 do SWZ – w postaci elektronicznej opatrzone kwalifikowanym podpisem elektronicznym.
+7.	W przypadku wspólnego ubiegania się o zamówienie przez Wykonawców oświadczenie, o którym mowa w ust. 6 powyżej, składa każdy z wykonawców wspólnie ubiegających się o zamówienie. 
+8.	W celu wstępnego potwierdzenia niepodlegania wykluczeniu, na podstawie art. 125 ust. 1 i 2 ustawy pzp, Wykonawca składa oświadczenie w postaci Jednolitego Europejskiego Dokumentu Zamówienia (dalej jako JEDZ/jednolity dokument), sporządzonego zgodnie ze wzorem zawartym w załączniku nr  2 do SWZ, (standardowy formularz określono w rozporządzeniu wykonawczym Komisji (UE) 2016/7 z dnia 5 stycznia 2016 r. - Dz. Urz. UE L 3 z 06.01.2016, str. 16).  Jednolity dokument (JEDZ), sporządza się, pod rygorem nieważności, w postaci elektronicznej i opatruje się kwalifikowanym podpisem elektronicznym.
+Zamawiający informuje, że w Części IV JEDZ dopuszcza możliwość wypełnienia tego dokumentu jedynie w sekcji α (alfa) – „ogólne oświadczenie” i w związku z tym wykonawca nie musi wypełniać żadnej z pozostałych sekcji w Części IV JEDZ.
+9.	W przypadku Wykonawców wspólnie ubiegających się o udzielenie zamówienia oświadczenie w postaci JEDZ składa każdy z Wykonawców wspólnie ubiegających się o zamówienie. Oświadczenie te ma potwierdzać brak podstaw wykluczenia oraz spełnianie warunków udziału w postępowaniu w zakresie, w którym każdy z Wykonawców wykazuje spełnianie warunków udziału w postępowaniu .
+10.	Wykonawca, w przypadku polegania na zdolnościach lub sytuacji podmiotów udostępniających zasoby, przedstawia, wraz z JEDZ-em, o którym mowa w ust. 8, także JEDZ podmiotu udostępniającego zasoby, potwierdzające brak podstaw wykluczenia tego podmiotu oraz odpowiednio spełnianie warunków udziału w postępowaniu lub kryteriów selekcji, w zakresie, w jakim wykonawca powołuje się na jego zasoby.
+11.	Wykonawca składa JEDZ w oryginale w postaci dokumentu elektronicznego podpisanego kwalifikowanym podpisem elektronicznym przez osobę upoważnioną do reprezentowania wykonawcy zgodnie z formą reprezentacji określoną w dokumencie rejestrowym właściwym dla formy organizacyjnej lub innym dokumencie.
+12.	Zamawiający przed wyborem najkorzystniejszej oferty wezwie Wykonawcę, którego oferta została najwyżej oceniona, do złożenia w wyznaczonym, nie krótszym niż 10 dni, terminie aktualnych na dzień złożenia podmiotowych środków dowodowych (art. 126 ustawy pzp) tj.:
+1)	informację z Krajowego Rejestru Karnego w zakresie określonym w art. 108 ust. 1 pkt. 1, 2, 4 ustawy pzp, sporządzonej nie wcześniej niż 6 miesięcy przed jej złożeniem,
+2)	odpisu lub informacji z Krajowego Rejestru Sądowego lub z Centralnej Ewidencji i Informacji o Działalności Gospodarczej, w zakresie określonym w art. 109 ust. 1 pkt 4 ustawy pzp, sporządzonych nie wcześniej niż 3 miesiące przed jej złożeniem, jeżeli odrębne przepisy wymagają wpisu do rejestru lub ewidencji,
+3)	oświadczenia Wykonawcy o braku przynależności do tej samej grupy kapitałowej (w zakresie art. 108 ust. 1 pkt. 5 ustawy pzp), w rozumieniu ustawy z dnia 16 lutego 2007 r. o ochronie konkurencji i konsumentów (Dz. U. z 2020 r. poz. 1076 i 1086), z innym wykonawcą, który złożył odrębną ofertę, ofertę częściową lub wniosek o dopuszczenie do udziału w postępowaniu, albo oświadczenia o przynależności do tej samej grupy kapitałowej wraz z dokumentami lub informacjami potwierdzającymi przygotowanie oferty, oferty częściowej lub wniosku o dopuszczenie do udziału w postępowaniu niezależnie od innego wykonawcy należącego do tej samej grupy kapitałowej;
+4)	oświadczenia Wykonawcy o aktualności informacji zawartych w oświadczeniu, o którym mowa w art. 125 ust. 1 ustawy pzp, w zakresie podstaw wykluczenia z postępowania wskazanych przez Zamawiającego, o których mowa w rozdz. VII SWZ oraz w:
+a)	art. 108 ust. 1 pkt. 3) ustawy pzp, 
+b)	art. 108 ust. 1 pkt. 4) ustawy pzp, dotyczących orzeczenia zakazu ubiegania się o zamówienie publiczne tytułem środka zapobiegawczego, 
+c)	art. 108 ust. 1 pkt. 5) ustawy pzp, dotyczących zawarcia z innymi wykonawcami porozumienia mającego na celu zakłócenie konkurencji, 
+d)	art. 108 ust. 1 pkt. 6) ustawy pzp. 
+5)	wykaz dostaw wykonanych w okresie ostatnich 3 lat, a jeżeli okres prowadzenia działalności jest krótszy – 
+w tym okresie, wraz z podaniem ich wartości, przedmiotu, dat wykonania i podmiotów, na rzecz których dostawy zostały wykonane lub są wykonywane, oraz załączeniem dowodów określających, czy te dostawy zostały wykonane należycie, przy czym dowodami, o których mowa, są referencje bądź inne dokumenty sporządzone przez podmiot, na rzecz którego dostawy zostały wykonane, a jeżeli wykonawca z przyczyn niezależnych od niego nie jest w stanie uzyskać tych dokumentów – oświadczenie wykonawcy;
+6)	aktualną na dzień składania ofert koncesję na wykonywanie działalności gospodarczej w zakresie obrotu energią elektryczną wydanej przez Prezesa Urzędu Regulacji Energetyki.
+</cbc:Note>
+      <cac:MainCommodityClassification>
+         <cbc:ItemClassificationCode listName="cpv">09300000</cbc:ItemClassificationCode>
+      </cac:MainCommodityClassification>
+      <cac:RealizedLocation>
+         <cbc:Description languageID="POL">Wykaz Punktów Poboru Energii (PPE) oraz zużyć energii elektrycznej został zawarty w załączniku nr 3 SWZ.</cbc:Description>
+         <cac:Address>
+            <cbc:StreetName>Gdański Uniwersytet Medyczny</cbc:StreetName>
+            <cbc:CityName>Gdańsk</cbc:CityName>
+            <cbc:PostalZone>80-211</cbc:PostalZone>
+            <cbc:CountrySubentityCode listName="nuts">PL634</cbc:CountrySubentityCode>
+            <cac:Country>
+               <cbc:IdentificationCode listName="country">POL</cbc:IdentificationCode>
+            </cac:Country>
+         </cac:Address>
+      </cac:RealizedLocation>
+   </cac:ProcurementProject>
+   <cac:ProcurementProjectLot>
+      <cbc:ID schemeName="Lot">LOT-0001</cbc:ID>
+      <cac:TenderingTerms>
+         <ext:UBLExtensions>
+            <ext:UBLExtension>
+               <ext:ExtensionContent>
+                  <efext:EformsExtension>
+                     <efac:SelectionCriteria>
+                        <cbc:CriterionTypeCode listName="selection-criterion">sui-act</cbc:CriterionTypeCode>
+                        <cbc:Name languageID="POL">Zamawiający uzna warunek za spełniony, jeżeli Wykonawca wykaże, że posiada uprawnienia do prowadzenia określonej działalności zawodowej, o ile wynika to z odrębnych przepisów, tj. posiada aktualną na dzień składania ofert koncesję na wykonywanie działalności gospodarczej w zakresie obrotu energią elektryczną, wydaną przez Prezesa Urzędu Regulacji Energetyki.</cbc:Name>
+                        <cbc:Description languageID="POL">Zamawiający przed wyborem najkorzystniejszej oferty wezwie Wykonawcę, którego oferta została najwyżej oceniona, do złożenia w wyznaczonym, nie krótszym niż 10 dni, terminie aktualnych na dzień złożenia podmiotowych środków dowodowych (art. 126 ustawy pzp) tj.: aktualną na dzień składania ofert koncesję na wykonywanie działalności gospodarczej w zakresie obrotu energią elektryczną wydanej przez Prezesa Urzędu Regulacji Energetyki.</cbc:Description>
+                     </efac:SelectionCriteria>
+                     <efac:SelectionCriteria>
+                        <cbc:CriterionTypeCode listName="selection-criterion">tp-abil</cbc:CriterionTypeCode>
+                        <cbc:Name languageID="POL">Zamawiający wymaga, aby Wykonawca wykazał, że w okresie ostatnich trzech lat przed upływem terminu składania ofert, a jeżeli okres prowadzenia działalności jest krótszy – w tym okresie, wykonał należycie co najmniej dwie dostawy energii elektrycznej o wartości nie mniejszej niż 5 000 000,00 (słownie: pięć milionów złotych) PLN brutto każda.</cbc:Name>
+                        <cbc:Description languageID="POL">Zamawiający przed wyborem najkorzystniejszej oferty wezwie Wykonawcę, którego oferta została najwyżej oceniona, do złożenia w wyznaczonym, nie krótszym niż 10 dni, terminie aktualnych na dzień złożenia podmiotowych środków dowodowych (art. 126 ustawy pzp) tj.: wykazu dostaw wykonanych w okresie ostatnich 3 lat, a jeżeli okres prowadzenia działalności jest krótszy –  w tym okresie, wraz z podaniem ich wartości, przedmiotu, dat wykonania i podmiotów, na rzecz których dostawy zostały wykonane lub są wykonywane, oraz załączeniem dowodów określających, czy te dostawy zostały wykonane należycie, przy czym dowodami, o których mowa, są referencje bądź inne dokumenty sporządzone przez podmiot, na rzecz którego dostawy zostały wykonane, a jeżeli wykonawca z przyczyn niezależnych od niego nie jest w stanie uzyskać tych dokumentów – oświadczenie wykonawcy;
+</cbc:Description>
+                        <efbc:SecondStageIndicator>false</efbc:SecondStageIndicator>
+                     </efac:SelectionCriteria>
+                     <efac:StrategicProcurement>
+                        <efbc:ApplicableLegalBasis listName="cvd-scope">false</efbc:ApplicableLegalBasis>
+                     </efac:StrategicProcurement>
+                  </efext:EformsExtension>
+               </ext:ExtensionContent>
+            </ext:UBLExtension>
+         </ext:UBLExtensions>
+         <cbc:VariantConstraintCode listName="permission">not-allowed</cbc:VariantConstraintCode>
+         <cbc:FundingProgramCode listName="eu-funded">no-eu-funds</cbc:FundingProgramCode>
+         <cbc:RequiredCurriculaCode listName="requirement-stage">not-requ</cbc:RequiredCurriculaCode>
+         <cbc:MultipleTendersCode listName="permission">not-allowed</cbc:MultipleTendersCode>
+         <cac:RequiredFinancialGuarantee>
+            <cbc:GuaranteeTypeCode listName="tender-guarantee-required">true</cbc:GuaranteeTypeCode>
+            <cbc:Description languageID="POL">1.	Zamawiający w niniejszym postępowaniu wymaga wniesienia zabezpieczenia należytego wykonania umowy.
+2.	Wykonawca, który wygra przedmiotowe postępowanie zobowiązany będzie do wniesienia, najpóźniej w dniu zawarcia umowy, zabezpieczenia należytego wykonania umowy w wysokości 5% całkowitej ceny oferty brutto.
+3.	Zabezpieczenie należytego wykonania umowy może być wnoszone według wyboru Wykonawcy w jednej lub kilku formach, zgodnie z art. 450 ustawy pzp. 
+4.	Zabezpieczenie wnoszone w pieniądzu Wykonawca zobowiązany jest wpłacić przelewem na rachunek bankowy Zamawiającego.
+5.	Zamawiający dokona zwrotu zabezpieczenia należytego wykonania umowy zgodnie z art. 450 ust. 5 ustawy pzp.
+</cbc:Description>
+         </cac:RequiredFinancialGuarantee>
+         <cac:CallForTendersDocumentReference>
+            <ext:UBLExtensions>
+               <ext:UBLExtension>
+                  <ext:ExtensionContent>
+                     <efext:EformsExtension>
+                        <efac:OfficialLanguages>
+                           <cac:Language>
+                              <cbc:ID>POL</cbc:ID>
+                           </cac:Language>
+                        </efac:OfficialLanguages>
+                     </efext:EformsExtension>
+                  </ext:ExtensionContent>
+               </ext:UBLExtension>
+            </ext:UBLExtensions>
+            <cbc:ID>_DEFAULT_VALUE_CHANGE_ME_</cbc:ID>
+            <cbc:DocumentType>non-restricted-document</cbc:DocumentType>
+            <cac:Attachment>
+               <cac:ExternalReference>
+                  <cbc:URI>https://platformazakupowa.pl/transakcja/858110</cbc:URI>
+               </cac:ExternalReference>
+            </cac:Attachment>
+         </cac:CallForTendersDocumentReference>
+         <cac:TendererQualificationRequest>
+            <cac:SpecificTendererRequirement>
+               <cbc:TendererRequirementTypeCode listName="reserved-procurement">none</cbc:TendererRequirementTypeCode>
+            </cac:SpecificTendererRequirement>
+         </cac:TendererQualificationRequest>
+         <cac:ContractExecutionRequirement>
+            <cbc:ExecutionRequirementCode listName="reserved-execution">no</cbc:ExecutionRequirementCode>
+         </cac:ContractExecutionRequirement>
+         <cac:ContractExecutionRequirement>
+            <cbc:ExecutionRequirementCode listName="conditions">performance</cbc:ExecutionRequirementCode>
+            <cbc:Description languageID="POL">Szczegółowe postanowienia i warunki dotyczące wykonywania zamówienia zawarto w projekcie umowy – załącznik nr 4 do SWZ.</cbc:Description>
+         </cac:ContractExecutionRequirement>
+         <cac:ContractExecutionRequirement>
+            <cbc:ExecutionRequirementCode listName="nda">false</cbc:ExecutionRequirementCode>
+         </cac:ContractExecutionRequirement>
+         <cac:ContractExecutionRequirement>
+            <cbc:ExecutionRequirementCode listName="ecatalog-submission">not-allowed</cbc:ExecutionRequirementCode>
+         </cac:ContractExecutionRequirement>
+         <cac:ContractExecutionRequirement>
+            <cbc:ExecutionRequirementCode listName="esignature-submission">true</cbc:ExecutionRequirementCode>
+         </cac:ContractExecutionRequirement>
+         <cac:AwardingTerms>
+            <cac:AwardingCriterion>
+               <cac:SubordinateAwardingCriterion>
+                  <ext:UBLExtensions>
+                     <ext:UBLExtension>
+                        <ext:ExtensionContent>
+                           <efext:EformsExtension>
+                              <efac:AwardCriterionParameter>
+                                 <efbc:ParameterCode listName="number-weight">per-exa</efbc:ParameterCode>
+                                 <efbc:ParameterNumeric>100</efbc:ParameterNumeric>
+                              </efac:AwardCriterionParameter>
+                           </efext:EformsExtension>
+                        </ext:ExtensionContent>
+                     </ext:UBLExtension>
+                  </ext:UBLExtensions>
+                  <cbc:AwardingCriterionTypeCode listName="award-criterion-type">price</cbc:AwardingCriterionTypeCode>
+                  <cbc:Name languageID="POL">kryterium Cena</cbc:Name>
+                  <cbc:Description languageID="POL">1. Przy wyborze oferty Zamawiający będzie się kierował kryterium ceny.
+2. Ocena ofert i obliczenie punktów w danym kryterium zostanie dokonana w oparciu o następujący wzór: C = (C min / C x ) x 100.
+3. Obliczenia dokonane zostaną z dokładnością do 0,01 punktu (dwóch miejsc po przecinku, zgodnie z ogólnie przyjętymi zasadami matematyki.
+4.   Oferta nie podlegająca odrzuceniu złożona przez Wykonawcę niewykluczonego z postępowania, która uzyska największą liczbę punktów - maksymalnie 100 - zostanie uznana jako najkorzystniejsza.
+5.	Ocenie będą podlegać wyłącznie oferty nie podlegające odrzuceniu.
+</cbc:Description>
+               </cac:SubordinateAwardingCriterion>
+            </cac:AwardingCriterion>
+         </cac:AwardingTerms>
+         <cac:AdditionalInformationParty>
+            <cac:PartyIdentification>
+               <cbc:ID>ORG-0001</cbc:ID>
+            </cac:PartyIdentification>
+         </cac:AdditionalInformationParty>
+         <cac:TenderRecipientParty>
+            <cbc:EndpointID>https://platformazakupowa.pl/transakcja/858110</cbc:EndpointID>
+            <cac:PartyIdentification>
+               <cbc:ID>ORG-0001</cbc:ID>
+            </cac:PartyIdentification>
+         </cac:TenderRecipientParty>
+         <cac:TenderEvaluationParty>
+            <cac:PartyIdentification>
+               <cbc:ID>ORG-0001</cbc:ID>
+            </cac:PartyIdentification>
+         </cac:TenderEvaluationParty>
+         <cac:TenderValidityPeriod>
+            <cbc:DurationMeasure unitCode="DAY">90</cbc:DurationMeasure>
+         </cac:TenderValidityPeriod>
+         <cac:AppealTerms>
+            <cac:PresentationPeriod>
+               <cbc:Description languageID="POL">1.	Środki ochrony prawnej przysługują  Wykonawcy, jeżeli ma lub miał interes w uzyskaniu zamówienia oraz poniósł lub może ponieść szkodę w wyniku naruszenia przez Zamawiającego przepisów pzp.
+2.	Odwołanie przysługuje na: 
+1)	niezgodną z przepisami ustawy czynność zamawiającego, podjętą w postępowaniu o udzielenie zamówienia,  w tym na projektowane postanowienie umowy; 
+2)	zaniechanie czynności w postępowaniu o udzielenie zamówienia, do której zamawiający był obowiązany na podstawie ustawy; 
+3)	zaniechanie przeprowadzenia postępowania o udzielenie zamówienia na podstawie ustawy, mimo że zamawiający był do tego obowiązany.
+2.	Odwołanie wnosi się do Prezesa Krajowej Izby Odwoławczej w formie pisemnej albo w formie elektronicznej albo w postaci elektronicznej opatrzone podpisem zaufanym.
+3.	Odwołujący przekazuje zamawiającemu odwołanie wniesione w formie elektronicznej albo postaci elektronicznej albo kopię tego odwołania, jeżeli zostało ono wniesione w formie pisemnej, przed upływem terminu do wniesienia odwołania w taki sposób, aby mógł on zapoznać się z jego treścią przed upływem tego terminu.
+4.	Odwołanie wnosi się w terminie 10 dni od dnia publikacji ogłoszenia w Dzienniku Urzędowym Unii Europejskiej lub zamieszczenia dokumentów zamówienia na stronie internetowej oraz w terminie 10 dni od dnia przekazania informacji o czynności zamawiającego stanowiącej podstawę jego wniesienia.
+5.	Na orzeczenie Krajowej Izby Odwoławczej oraz postanowienie Prezesa Krajowej Izby Odwoławczej, o którym mowa w art.  519 ust. 1 pzp, stronom oraz uczestnikom postępowania odwoławczego przysługuje skarga do sądu. Skargę wnosi się do Sądu Okręgowego w Warszawie za pośrednictwem Prezesa Krajowej Izby Odwoławczej.
+6.	Szczegółowe informacje dotyczące środków ochrony prawnej określone są w Dziale IX „Środki ochrony prawnej” pzp.
+</cbc:Description>
+            </cac:PresentationPeriod>
+            <cac:AppealInformationParty>
+               <cac:PartyIdentification>
+                  <cbc:ID>ORG-0002</cbc:ID>
+               </cac:PartyIdentification>
+            </cac:AppealInformationParty>
+            <cac:AppealReceiverParty>
+               <cac:PartyIdentification>
+                  <cbc:ID>TPO-0002</cbc:ID>
+               </cac:PartyIdentification>
+            </cac:AppealReceiverParty>
+            <cac:MediationParty>
+               <cac:PartyIdentification>
+                  <cbc:ID>TPO-0002</cbc:ID>
+               </cac:PartyIdentification>
+            </cac:MediationParty>
+         </cac:AppealTerms>
+         <cac:Language>
+            <cbc:ID>POL</cbc:ID>
+         </cac:Language>
+         <cac:SecurityClearanceTerm>
+            <cbc:Code listName="required">false</cbc:Code>
+         </cac:SecurityClearanceTerm>
+      </cac:TenderingTerms>
+      <cac:TenderingProcess>
+         <ext:UBLExtensions>
+            <ext:UBLExtension>
+               <ext:ExtensionContent>
+                  <efext:EformsExtension>
+                     <efbc:AccessToolName>Komunikacja między Zamawiającym, a Wykonawcami odbywać się będzie się drogą elektroniczną przy użyciu platformy zakupowej  </efbc:AccessToolName>
+                  </efext:EformsExtension>
+               </ext:ExtensionContent>
+            </ext:UBLExtension>
+         </ext:UBLExtensions>
+         <cbc:SubmissionMethodCode listName="esubmission">required</cbc:SubmissionMethodCode>
+         <cbc:AccessToolsURI>https://platformazakupowa.pl/transakcja/858110</cbc:AccessToolsURI>
+         <cac:TenderSubmissionDeadlinePeriod>
+            <cbc:EndDate>2023-12-22+01:00</cbc:EndDate>
+            <cbc:EndTime>09:00:00+01:00</cbc:EndTime>
+         </cac:TenderSubmissionDeadlinePeriod>
+         <cac:OpenTenderEvent>
+            <cbc:OccurrenceDate>2023-12-22+01:00</cbc:OccurrenceDate>
+            <cbc:OccurrenceTime>09:15:00+01:00</cbc:OccurrenceTime>
+            <cbc:Description languageID="POL">1. Otwarcie ofert jest niejawne.
+2. Zamawiający, najpóźniej przed otwarciem ofert, udostępnia na stronie internetowej prowadzonego postępowania informację o kwocie, jaką zamierza przeznaczyć́ na sfinansowanie zamówienia.
+3.	Zamawiający, niezwłocznie po otwarciu ofert, udostępnia na stronie internetowej prowadzonego postępowania informacje o:
+1)	nazwach albo imionach i nazwiskach oraz siedzibach lub miejscach prowadzonej działalności gospodarczej albo miejscach zamieszkania wykonawców, których oferty zostały otwarte,
+2)	cenach lub kosztach zawartych w ofertach.
+4.	W przypadku wystąpienia awarii systemu teleinformatycznego, która spowoduje brak możliwości otwarcia ofert w terminie określonym przez Zamawiającego, otwarcie ofert nastąpi niezwłocznie po usunięciu awarii.
+5.	Zamawiający poinformuje o zmianie terminu otwarcia ofert na stronie internetowej prowadzonego postępowania.
+</cbc:Description>
+            <cac:OccurenceLocation>
+               <cbc:Description languageID="POL">Otwarcie ofert nastąpi za pośrednictwem platformy zakupowej pod adresem: https://platformazakupowa.pl/transakcja/858110.</cbc:Description>
+            </cac:OccurenceLocation>
+         </cac:OpenTenderEvent>
+         <cac:AuctionTerms>
+            <cbc:AuctionConstraintIndicator>false</cbc:AuctionConstraintIndicator>
+         </cac:AuctionTerms>
+         <cac:ContractingSystem>
+            <cbc:ContractingSystemTypeCode listName="framework-agreement">none</cbc:ContractingSystemTypeCode>
+         </cac:ContractingSystem>
+         <cac:ContractingSystem>
+            <cbc:ContractingSystemTypeCode listName="dps-usage">none</cbc:ContractingSystemTypeCode>
+         </cac:ContractingSystem>
+      </cac:TenderingProcess>
+      <cac:ProcurementProject>
+         <cbc:ID>GUM2023ZP0129</cbc:ID>
+         <cbc:Name languageID="POL">Dostawa energii elektrycznej do obiektów Gdańskiego Uniwersytetu Medycznego</cbc:Name>
+         <cbc:Description languageID="POL">1.	Przedmiotem zamówienia jest dostawa energii elektrycznej, zgodnie z przepisami ustawy z dnia 10 kwietnia 1997 r. Prawo energetyczne, (PE), do obiektów, budynków oraz ich infrastruktury Gdańskiego Uniwersytetu Medycznego (GUMed), zgodnie z posiadanymi przez Zamawiającego tytułami prawnymi. 
+Niniejsze zamówienie nie obejmuje usług dystrybucji energii elektrycznej.
+2.	Wykaz Punktów Poboru Energii (PPE) oraz zużyć energii elektrycznej został zawarty w załączniku nr 3 SWZ.
+3.	Szczegółowe postanowienia dotyczące wykonywania zobowiązań odnoszących się do niniejszego zamówienia zawarto w projekcie umowy – załącznik nr 4 do SWZ.</cbc:Description>
+         <cbc:ProcurementTypeCode listName="contract-nature">supplies</cbc:ProcurementTypeCode>
+         <cac:MainCommodityClassification>
+            <cbc:ItemClassificationCode listName="cpv">09300000</cbc:ItemClassificationCode>
+         </cac:MainCommodityClassification>
+         <cac:RealizedLocation>
+            <cbc:Description languageID="POL">Wykaz Punktów Poboru Energii (PPE) oraz zużyć energii elektrycznej został zawarty w załączniku nr 3 SWZ.</cbc:Description>
+            <cac:Address>
+               <cbc:StreetName>Wykaz Punktów Poboru Energii (PPE) oraz zużyć energii elektrycznej został zawarty w załączniku nr 3 SWZ.</cbc:StreetName>
+               <cbc:CityName>Gdańsk</cbc:CityName>
+               <cbc:PostalZone>80-000</cbc:PostalZone>
+               <cbc:CountrySubentityCode listName="nuts">PL634</cbc:CountrySubentityCode>
+               <cac:Country>
+                  <cbc:IdentificationCode listName="country">POL</cbc:IdentificationCode>
+               </cac:Country>
+            </cac:Address>
+         </cac:RealizedLocation>
+         <cac:PlannedPeriod>
+            <cbc:EndDate>2024-12-31+01:00</cbc:EndDate>
+         </cac:PlannedPeriod>
+      </cac:ProcurementProject>
+   </cac:ProcurementProjectLot>
+</ContractNotice>

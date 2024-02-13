@@ -4,7 +4,7 @@ from ted_sws.notice_fetcher.services.notice_fetcher import NoticeFetcher
 
 
 def test_notice_fetcher_by_identifier(notice_repository, ted_document_search):
-    document_id = "67623-2023"
+    document_id = "067623-2022"
     NoticeFetcher(notice_repository=notice_repository, ted_api_adapter=ted_document_search).fetch_notice_by_id(
         document_id=document_id)
     notice = notice_repository.get(reference=document_id)

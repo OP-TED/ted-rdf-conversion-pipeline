@@ -29,7 +29,7 @@ enable_gridfs_integration()
 
 @pytest.fixture
 def notice_id():
-    return "067623-2022"
+    return "67623-2022"
 
 
 @pytest.fixture

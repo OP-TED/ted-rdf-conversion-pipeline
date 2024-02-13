@@ -10,7 +10,7 @@ from tests.fakes.fake_repository import FakeNoticeRepository
 
 @pytest.fixture
 def notice_identifier():
-    return "067623-2022"
+    return "67623-2022"
 
 
 @pytest.fixture

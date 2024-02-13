@@ -9,7 +9,10 @@ from ted_sws import config
 from ted_sws.event_manager.services.log import log_warning
 from ted_sws.notice_fetcher.adapters.ted_api_abc import TedAPIAdapterABC, RequestAPI
 
-DEFAULT_TED_API_QUERY_RESULT_SIZE = {"limit": 100,
+
+DOCUMENTS_PER_PAGE = 100
+
+DEFAULT_TED_API_QUERY_RESULT_SIZE = {"limit": DOCUMENTS_PER_PAGE,
                                      "page": 1,
                                      "scope": "ALL",
                                      }
@@ -43,7 +46,7 @@ class TedRequestAPI(RequestAPI):
             response_content = json.loads(response.text)
             return response_content
         else:
-            raise Exception(f"The TED-API call failed with: {response}, {response.content}, {api_url}")
+            raise Exception(f"The TED-API call failed with: {response}")
 
 
 class TedAPIAdapter(TedAPIAdapterABC):
@@ -123,7 +126,7 @@ class TedAPIAdapter(TedAPIAdapterABC):
         query.update(result_fields or DEFAULT_TED_API_QUERY_RESULT_FIELDS)
         response_body = self.request_api(api_url=self.ted_api_url, api_query=query)
         documents_number = response_body[TOTAL_DOCUMENTS_NUMBER]
-        result_pages = 1 + int(documents_number) // 100
+        result_pages = 1 + int(documents_number) // DOCUMENTS_PER_PAGE
         documents_content = response_body[RESPONSE_RESULTS]
         if result_pages > 1:
             for page_number in range(2, result_pages + 1):
@@ -136,7 +139,6 @@ class TedAPIAdapter(TedAPIAdapterABC):
                     # document_id = "0" * (11 - len(document_id)) + document_id
                     # document_content[DOCUMENT_NOTICE_ID_KEY] = document_id
                     del document_content[LINKS_TO_CONTENT_KEY]
-                    print("content exist")
                     yield document_content
         else:
             for document_content in documents_content:

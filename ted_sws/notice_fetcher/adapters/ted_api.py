@@ -132,11 +132,17 @@ class TedAPIAdapter(TedAPIAdapterABC):
                 documents_content += response_body[RESPONSE_RESULTS]
                 for document_content in documents_content:
                     document_content[DOCUMENT_CONTENT] = self._retrieve_document_content(document_content)
+                    document_id = document_content[DOCUMENT_NOTICE_ID_KEY]
+                    document_id = "0" * (11 - len(document_id)) + document_id
+                    document_content[DOCUMENT_NOTICE_ID_KEY] = document_id
                     del document_content[LINKS_TO_CONTENT_KEY]
                     yield document_content
         else:
             for document_content in documents_content:
                 document_content[DOCUMENT_CONTENT] = self._retrieve_document_content(document_content)
+                document_id = document_content[DOCUMENT_NOTICE_ID_KEY]
+                document_id = "0" * (11 - len(document_id)) + document_id
+                document_content[DOCUMENT_NOTICE_ID_KEY] = document_id
                 del document_content[LINKS_TO_CONTENT_KEY]
                 yield document_content
 

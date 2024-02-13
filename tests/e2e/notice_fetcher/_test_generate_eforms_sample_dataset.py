@@ -29,3 +29,12 @@ def _test_generate_eforms_sample_dataset(ted_document_search):
                 results_dir_path.mkdir(parents=True, exist_ok=True)
                 result_notice_xml_path = results_dir_path / f"{notice['ND']}.xml"
                 result_notice_xml_path.write_text(notice["content"], encoding="utf-8")
+
+
+def test_fetch_notice_by_id(ted_document_search):
+    notice_id = "067623-2022"
+    import json
+    notice_content = ted_document_search.get_by_id(document_id=notice_id)
+    result_notice_path = pathlib.Path(__file__).parent / "epo_notice.xml"
+    result_notice_path.write_text(json.dumps(notice_content), encoding="utf-8")
+

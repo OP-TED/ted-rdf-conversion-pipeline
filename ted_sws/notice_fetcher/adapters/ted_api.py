@@ -1,6 +1,7 @@
 import json
-import pathlib
+import time
 from datetime import date
+from http import HTTPStatus
 from typing import List, Generator
 
 import requests
@@ -8,7 +9,6 @@ import requests
 from ted_sws import config
 from ted_sws.event_manager.services.log import log_warning
 from ted_sws.notice_fetcher.adapters.ted_api_abc import TedAPIAdapterABC, RequestAPI
-
 
 DOCUMENTS_PER_PAGE = 100
 
@@ -42,6 +42,13 @@ class TedRequestAPI(RequestAPI):
         """
 
         response = requests.post(api_url, json=api_query)
+        try_again_request_count = 0
+        while response.status_code == HTTPStatus.TOO_MANY_REQUESTS:
+            try_again_request_count += 1
+            time.sleep(try_again_request_count * 0.1)
+            response = requests.post(api_url, json=api_query)
+            if try_again_request_count > 5:
+                break
         if response.ok:
             response_content = json.loads(response.text)
             return response_content
@@ -109,7 +116,13 @@ class TedAPIAdapter(TedAPIAdapterABC):
 
         xml_document_content_link = xml_links[language_key]
         response = requests.get(xml_document_content_link)
-
+        try_again_request_count = 0
+        while response.status_code == HTTPStatus.TOO_MANY_REQUESTS:
+            try_again_request_count += 1
+            time.sleep(try_again_request_count * 0.1)
+            response = requests.get(xml_document_content_link)
+            if try_again_request_count > 5:
+                break
         if response.ok:
             return response.text
         else:

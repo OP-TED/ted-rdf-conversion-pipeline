@@ -128,11 +128,13 @@ class TedAPIAdapter(TedAPIAdapterABC):
         else:
             raise Exception(f"The notice content can't be loaded!: {response}, {response.content}")
 
-    def get_generator_by_query(self, query: dict, result_fields: dict = None) -> Generator[dict, None, None]:
+    def get_generator_by_query(self, query: dict, result_fields: dict = None, load_content: bool = True) -> Generator[
+        dict, None, None]:
         """
         Method to get a documents content by passing a query to the API (json)
         :param query:
         :param result_fields:
+        :param load_content:
         :return:Generator[dict]
         """
         query.update(DEFAULT_TED_API_QUERY_RESULT_SIZE)
@@ -146,30 +148,28 @@ class TedAPIAdapter(TedAPIAdapterABC):
                 query[RESULT_PAGE_NUMBER] = page_number
                 response_body = self.request_api(api_url=self.ted_api_url, api_query=query)
                 documents_content += response_body[RESPONSE_RESULTS]
-                for document_content in documents_content:
+
+            for document_content in documents_content:
+                if load_content:
                     document_content[DOCUMENT_CONTENT] = self._retrieve_document_content(document_content)
-                    # document_id = document_content[DOCUMENT_NOTICE_ID_KEY]
-                    # document_id = "0" * (11 - len(document_id)) + document_id
-                    # document_content[DOCUMENT_NOTICE_ID_KEY] = document_id
                     del document_content[LINKS_TO_CONTENT_KEY]
-                    yield document_content
+                yield document_content
         else:
             for document_content in documents_content:
-                document_content[DOCUMENT_CONTENT] = self._retrieve_document_content(document_content)
-                # document_id = document_content[DOCUMENT_NOTICE_ID_KEY]
-                # document_id = "0" * (11 - len(document_id)) + document_id
-                # document_content[DOCUMENT_NOTICE_ID_KEY] = document_id
-                del document_content[LINKS_TO_CONTENT_KEY]
+                if load_content:
+                    document_content[DOCUMENT_CONTENT] = self._retrieve_document_content(document_content)
+                    del document_content[LINKS_TO_CONTENT_KEY]
                 yield document_content
 
-    def get_by_query(self, query: dict, result_fields: dict = None) -> List[dict]:
+    def get_by_query(self, query: dict, result_fields: dict = None, load_content: bool = True) -> List[dict]:
         """
         Method to get a documents content by passing a query to the API (json)
         :param query:
         :param result_fields:
+        :param load_content:
         :return:List[dict]
         """
-        return list(self.get_generator_by_query(query=query, result_fields=result_fields))
+        return list(self.get_generator_by_query(query=query, result_fields=result_fields, load_content=load_content))
 
     def get_by_id(self, document_id: str) -> dict:
         """

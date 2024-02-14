@@ -36,7 +36,7 @@ def validate_and_update_daily_supra_notice(ted_publication_date: day_type, mongo
 
     ted_api_adapter: TedAPIAdapter = TedAPIAdapter(request_api=request_api)
     query = {"query": f"PD={ted_publication_date.strftime('%Y%m%d*')}"}
-    documents = ted_api_adapter.get_by_query(query=query, result_fields={"fields": ["ND"]})
+    documents = ted_api_adapter.get_by_query(query=query, result_fields={"fields": ["ND"]}, load_content=False)
     api_notice_ids_list = [document["ND"] for document in documents] if documents and len(documents) else []
     api_notice_ids = set(api_notice_ids_list)
 

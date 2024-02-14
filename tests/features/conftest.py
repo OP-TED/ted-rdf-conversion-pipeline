@@ -40,7 +40,7 @@ def notice_repository(mongodb_client):
 
 @pytest.fixture
 def f03_notice_2020(notice_repository, ted_api_end_point):
-    notice_search_query = {"q": "ND=[408313-2020]"}
+    notice_search_query = {"query": "ND=408313-2020"}
     NoticeFetcher(notice_repository=notice_repository,
                   ted_api_adapter=TedAPIAdapter(request_api=TedRequestAPI(),
                                                 ted_api_url=ted_api_end_point)).fetch_notices_by_query(
@@ -52,12 +52,12 @@ def f03_notice_2020(notice_repository, ted_api_end_point):
 
 @pytest.fixture
 def f18_notice_2022(notice_repository, ted_api_end_point):
-    notice_search_query = {"q": "ND=[067623-2022]"}
+    notice_search_query = {"query": "ND=67623-2022"}
     NoticeFetcher(notice_repository=notice_repository,
                   ted_api_adapter=TedAPIAdapter(request_api=TedRequestAPI(),
                                                 ted_api_url=ted_api_end_point)).fetch_notices_by_query(
         query=notice_search_query)
-    notice = notice_repository.get(reference="067623-2022")
+    notice = notice_repository.get(reference="67623-2022")
     notice.set_xml_metadata(xml_metadata=XMLMetadata(unique_xpaths=["FAKE_INDEX_XPATHS"]))
     return notice
 

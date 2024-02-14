@@ -12,8 +12,8 @@ from ted_sws.core.model.metadata import TEDMetadata
 
 
 def test_metadata():
-    metadata = TEDMetadata(**{"AA": ["Value here"], "No_key": "Value"})
-    assert metadata.AA == ["Value here"]
+    metadata = TEDMetadata(**{"ND": "number", "No_key": "Value"})
+    assert metadata.ND == "number"
     assert "No_key" not in metadata.dict().keys()
 
 
@@ -33,9 +33,9 @@ def test_dict_comparison():
 
 
 def test_metadata_equality():
-    md1 = TEDMetadata(**{"AA": ["Value here"], "No_key": "Value"})
-    md2 = TEDMetadata(**{"AA": ["Value here"], })
-    md3 = TEDMetadata(**{"AA": ["Value "], "AC": "Value ", })
+    md1 = TEDMetadata(**{"ND": "number", "No_key": "Value"})
+    md2 = TEDMetadata(**{"ND": "number", })
+    md3 = TEDMetadata(**{"ND": "number", "RN": "Value ", })
 
     assert md1 == md2
     assert md1 != md3

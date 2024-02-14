@@ -15,7 +15,7 @@ def test_supra_notice_validator(mongodb_client, daily_supra_notice_repository, f
     with pytest.raises(ValueError):
         validate_and_update_daily_supra_notice(day, mongodb_client, fake_request_api)
 
-    api_document_id = "067623-2022"
+    api_document_id = "67623-2022"
 
     notice_ids = ["1", "2", "3"]
     create_and_store_in_mongo_db_daily_supra_notice(notice_ids=notice_ids, mongodb_client=mongodb_client,

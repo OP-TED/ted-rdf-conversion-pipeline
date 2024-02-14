@@ -1,0 +1,280 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><ContractNotice xmlns="urn:oasis:names:specification:ubl:schema:xsd:ContractNotice-2" xmlns:cac="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2" xmlns:cbc="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2" xmlns:efac="http://data.europa.eu/p27/eforms-ubl-extension-aggregate-components/1" xmlns:efbc="http://data.europa.eu/p27/eforms-ubl-extension-basic-components/1" xmlns:efext="http://data.europa.eu/p27/eforms-ubl-extensions/1" xmlns:ext="urn:oasis:names:specification:ubl:schema:xsd:CommonExtensionComponents-2">
+   <ext:UBLExtensions>
+      <ext:UBLExtension>
+         <ext:ExtensionContent>
+            <efext:EformsExtension>
+               <efac:NoticeSubType>
+                  <cbc:SubTypeCode listName="notice-subtype">15</cbc:SubTypeCode>
+               </efac:NoticeSubType>
+               <efac:Organizations>
+                  <efac:Organization>
+                     <efac:Company>
+                        <cbc:WebsiteURI>https://baltica.energy/?sc_lang=en</cbc:WebsiteURI>
+                        <cbc:EndpointID>https://www.achilles.com/community/utilities-nce/</cbc:EndpointID>
+                        <cac:PartyIdentification>
+                           <cbc:ID>ORG-0001</cbc:ID>
+                        </cac:PartyIdentification>
+                        <cac:PartyName>
+                           <cbc:Name languageID="ENG">Elektrownia Wiatrowa Baltica – 2 SP. Z o.o.</cbc:Name>
+                        </cac:PartyName>
+                        <cac:PostalAddress>
+                           <cbc:StreetName>Mokotowska 49</cbc:StreetName>
+                           <cbc:CityName>Warszawa</cbc:CityName>
+                           <cbc:PostalZone>00-542</cbc:PostalZone>
+                           <cac:Country>
+                              <cbc:IdentificationCode listName="country">POL</cbc:IdentificationCode>
+                           </cac:Country>
+                        </cac:PostalAddress>
+                        <cac:PartyLegalEntity>
+                           <cbc:CompanyID>0000393178</cbc:CompanyID>
+                        </cac:PartyLegalEntity>
+                        <cac:Contact>
+                           <cbc:Telephone>+4599552348</cbc:Telephone>
+                           <cbc:ElectronicMail>hndam@orsted.com</cbc:ElectronicMail>
+                        </cac:Contact>
+                     </efac:Company>
+                  </efac:Organization>
+                  <efac:Organization>
+                     <efac:Company>
+                        <cbc:WebsiteURI>https://www.iccpolska.pl/</cbc:WebsiteURI>
+                        <cac:PartyIdentification>
+                           <cbc:ID>ORG-0002</cbc:ID>
+                        </cac:PartyIdentification>
+                        <cac:PartyName>
+                           <cbc:Name languageID="ENG">ICC International Court of Arbitration</cbc:Name>
+                        </cac:PartyName>
+                        <cac:PostalAddress>
+                           <cbc:StreetName>ul. Kruczkowskiego 8</cbc:StreetName>
+                           <cbc:CityName>Warszawa</cbc:CityName>
+                           <cbc:PostalZone>00-380</cbc:PostalZone>
+                           <cac:Country>
+                              <cbc:IdentificationCode listName="country">POL</cbc:IdentificationCode>
+                           </cac:Country>
+                        </cac:PostalAddress>
+                        <cac:PartyLegalEntity>
+                           <cbc:CompanyID>0000061010</cbc:CompanyID>
+                        </cac:PartyLegalEntity>
+                        <cac:Contact>
+                           <cbc:Telephone>+48224868109</cbc:Telephone>
+                           <cbc:Telefax>+48224868100</cbc:Telefax>
+                           <cbc:ElectronicMail>sekretariat@iccpolska.pl</cbc:ElectronicMail>
+                        </cac:Contact>
+                     </efac:Company>
+                  </efac:Organization>
+                  <efac:Organization>
+                     <efac:Company>
+                        <cbc:WebsiteURI>https://orsted.com/</cbc:WebsiteURI>
+                        <cac:PartyIdentification>
+                           <cbc:ID>ORG-0004</cbc:ID>
+                        </cac:PartyIdentification>
+                        <cac:PartyName>
+                           <cbc:Name languageID="ENG">Ørsted Wind Power A/S</cbc:Name>
+                        </cac:PartyName>
+                        <cac:PostalAddress>
+                           <cbc:CityName>Fredericia</cbc:CityName>
+                           <cbc:PostalZone>7000</cbc:PostalZone>
+                           <cac:Country>
+                              <cbc:IdentificationCode listName="country">DNK</cbc:IdentificationCode>
+                           </cac:Country>
+                        </cac:PostalAddress>
+                        <cac:PartyLegalEntity>
+                           <cbc:CompanyID>DK31849292</cbc:CompanyID>
+                        </cac:PartyLegalEntity>
+                        <cac:Contact>
+                           <cbc:Telephone>+4599551111</cbc:Telephone>
+                           <cbc:ElectronicMail>info@orsted.com</cbc:ElectronicMail>
+                        </cac:Contact>
+                     </efac:Company>
+                  </efac:Organization>
+               </efac:Organizations>
+            <efac:Publication><efbc:NoticePublicationID schemeName="ojs-notice-id">00665610-2023</efbc:NoticePublicationID><efbc:GazetteID schemeName="ojs-id">210/2023</efbc:GazetteID><efbc:PublicationDate>2023-10-31Z</efbc:PublicationDate></efac:Publication></efext:EformsExtension>
+         </ext:ExtensionContent>
+      </ext:UBLExtension>
+   </ext:UBLExtensions>
+   <cbc:UBLVersionID>2.3</cbc:UBLVersionID>
+   <cbc:CustomizationID>eforms-sdk-1.9</cbc:CustomizationID>
+   <cbc:ID schemeName="notice-id">ba58348e-08d3-4bfa-a5e3-ba6e4e89ed87</cbc:ID>
+   <cbc:ContractFolderID>03565bed-1fca-4944-8170-6028e0c7f795</cbc:ContractFolderID>
+   <cbc:IssueDate>2023-10-30Z</cbc:IssueDate>
+   <cbc:IssueTime>09:01:02Z</cbc:IssueTime>
+   <cbc:VersionID>01</cbc:VersionID>
+   <cbc:RegulatoryDomain>32014L0025</cbc:RegulatoryDomain>
+   <cbc:NoticeTypeCode listName="competition">qu-sy</cbc:NoticeTypeCode>
+   <cbc:NoticeLanguageCode listName="language">ENG</cbc:NoticeLanguageCode>
+   <cac:ContractingParty>
+      <cac:ContractingPartyType>
+         <cbc:PartyTypeCode listName="buyer-legal-type">pub-undert</cbc:PartyTypeCode>
+      </cac:ContractingPartyType>
+      <cac:ContractingActivity>
+         <cbc:ActivityTypeCode listName="entity-activity">electricity</cbc:ActivityTypeCode>
+      </cac:ContractingActivity>
+      <cac:Party>
+         <cac:PartyIdentification>
+            <cbc:ID>ORG-0001</cbc:ID>
+         </cac:PartyIdentification>
+      </cac:Party>
+   </cac:ContractingParty>
+   <cac:TenderingProcess>
+      <cac:NoticeDocumentReference>
+         <cbc:ID>485884-2022</cbc:ID>
+      </cac:NoticeDocumentReference>
+   </cac:TenderingProcess>
+   <cac:ProcurementProject>
+      <cbc:ID>Notice regarding measurement campaign</cbc:ID>
+      <cbc:Name languageID="ENG">BAL02 structural measurements campaign</cbc:Name>
+      <cbc:Description languageID="ENG">This notice supplements previously published notice from Elektrownia Wiatrowa Baltica – 2 SP. Z o.o. 2022/S 171-485785 (Supplies). This notice is published on a voluntary basis in order to increase transparency and knowledge about Ørsted Entities' purchases in EU tender procedures.
+This notice relates to the contracting entity's project for the development, construction and operation of one offshore wind project in the Baltic Sea with a total potential capacity of up to 1.5 GW where Ørsted Wind Power A/S is representing the Contracting Entity in the entire tender procedure (‘Entity represented by Ørsted Wind Power A/S’), specifically to the tender for the structural measurements campaign. 
+Ørsted Wind Power A/S will use the UNCE qualification system for procurement and expects to launch the tender via said qualification system in January 2024 under product codes:3.2.0.0 and 4.8.1.</cbc:Description>
+      <cbc:ProcurementTypeCode listName="contract-nature">supplies</cbc:ProcurementTypeCode>
+      <cbc:Note languageID="ENG">Please also refer to the following TED notices: 2022/S 171-485785 (Supplies).
+Continuance of section I.2): The Utilities Directive govern this tender procedure. Any matters not covered by the Utilities Directive will be governed by the following provisions of the Polish Civil Code of 23 April 1964 (consolidated text Journal of Laws of 2020 item 1740 as amended): articles 61 §§ 1-2, 65 § 2, 66 §§ 1-2, 66.1 §§ 1-4, 66.2 §§ 1-2, 67, 68, 68.1 §§ 1-2, 68.2, 69, 70 §§ 1-2, 70.1 §§ 1-2 and 4, 70.2 §§ 1-3, 70.3 §§ 1-3, 70.4 §§ 1- 2, 70.5 §§ 1-2, 71, 72 §§ 1-2 and 72.1 §§ 1-2. 
+In case of any discrepancies between the Polish Civil Code and the Utilities Directive including case law from the Court of Justice of the European Union, the Utilities Directive prevails, and in particular, any provisions of the Polish Civil Code, which are not compliant with the Utilities Directive shall be disregarded.
+In case of Services: The Contracting Entity might use the procedure described in the Utilities Directive article 50, (f) which prescribes that new services that are repetition of services similar to the scope of this tender and which are awarded to the Tenderer winning this Tender can be awarded without a call for competition. Such procedures might be used for up to three repetitive contracts should the contracting entity decide to purchase similar services in the EU within 3 years from signing of the contract comprised by this tender. The conditions for awarding possible additional services are the following: 
+— the performance of the services will be subject to the same commercial terms as the provision of the Scope of Works specified in the prequalification notice with necessary amendments following from the different timing and geographic location of the project. 
+— the contractor must comply with mandatory statutory law in the country, where the individual offshore wind farms for which the Contracting Entity chooses to apply this right to repeat similar services are placed, 
+— minor necessary adjustments of technical specifications due to site specific matters, — amendment of time schedule to reflect the timing of the new project for which the repetition of similar services is applied.</cbc:Note>
+      <cac:ProcurementAdditionalType>
+         <cbc:ProcurementTypeCode listName="contract-nature">services</cbc:ProcurementTypeCode>
+      </cac:ProcurementAdditionalType>
+      <cac:MainCommodityClassification>
+         <cbc:ItemClassificationCode listName="cpv">31682210</cbc:ItemClassificationCode>
+      </cac:MainCommodityClassification>
+      <cac:AdditionalCommodityClassification>
+         <cbc:ItemClassificationCode listName="cpv">31644000</cbc:ItemClassificationCode>
+      </cac:AdditionalCommodityClassification>
+      <cac:RealizedLocation>
+         <cbc:Description languageID="ENG">The primary geographical location for the campaign is to be: Nordenham</cbc:Description>
+         <cac:Address>
+            <cbc:CountrySubentityCode listName="nuts">DE502</cbc:CountrySubentityCode>
+            <cac:Country>
+               <cbc:IdentificationCode listName="country">DEU</cbc:IdentificationCode>
+            </cac:Country>
+         </cac:Address>
+      </cac:RealizedLocation>
+   </cac:ProcurementProject>
+   <cac:ProcurementProjectLot>
+      <cbc:ID schemeName="Lot">LOT-0001</cbc:ID>
+      <cac:TenderingTerms>
+         <ext:UBLExtensions>
+            <ext:UBLExtension>
+               <ext:ExtensionContent>
+                  <efext:EformsExtension>
+                     <efac:SelectionCriteria>
+                        <cbc:CriterionTypeCode listName="selection-criterion">other</cbc:CriterionTypeCode>
+                        <cbc:CalculationExpressionCode listName="usage">n-used</cbc:CalculationExpressionCode>
+                        <efbc:SecondStageIndicator>false</efbc:SecondStageIndicator>
+                     </efac:SelectionCriteria>
+                     <efac:SelectionCriteria>
+                        <cbc:CriterionTypeCode listName="selection-criterion">other</cbc:CriterionTypeCode>
+                        <efbc:SecondStageIndicator>false</efbc:SecondStageIndicator>
+                     </efac:SelectionCriteria>
+                  </efext:EformsExtension>
+               </ext:ExtensionContent>
+            </ext:UBLExtension>
+         </ext:UBLExtensions>
+         <cbc:FundingProgramCode listName="eu-funded">no-eu-funds</cbc:FundingProgramCode>
+         <cac:CallForTendersDocumentReference>
+            <ext:UBLExtensions>
+               <ext:UBLExtension>
+                  <ext:ExtensionContent>
+                     <efext:EformsExtension>
+                        <efac:OfficialLanguages>
+                           <cac:Language>
+                              <cbc:ID>ENG</cbc:ID>
+                           </cac:Language>
+                        </efac:OfficialLanguages>
+                     </efext:EformsExtension>
+                  </ext:ExtensionContent>
+               </ext:UBLExtension>
+            </ext:UBLExtensions>
+            <cbc:ID>_DEFAULT_VALUE_CHANGE_ME_</cbc:ID>
+            <cbc:DocumentType>non-restricted-document</cbc:DocumentType>
+            <cac:Attachment>
+               <cac:ExternalReference>
+                  <cbc:URI>https://www.achilles.com/community/utilities-nce/</cbc:URI>
+               </cac:ExternalReference>
+            </cac:Attachment>
+         </cac:CallForTendersDocumentReference>
+         <cac:TendererQualificationRequest>
+            <cbc:CompanyLegalFormCode listName="required">false</cbc:CompanyLegalFormCode>
+         </cac:TendererQualificationRequest>
+         <cac:TendererQualificationRequest>
+            <cac:SpecificTendererRequirement>
+               <cbc:TendererRequirementTypeCode listName="reserved-procurement">none</cbc:TendererRequirementTypeCode>
+            </cac:SpecificTendererRequirement>
+         </cac:TendererQualificationRequest>
+         <cac:ContractExecutionRequirement>
+            <cbc:ExecutionRequirementCode listName="reserved-execution">no</cbc:ExecutionRequirementCode>
+         </cac:ContractExecutionRequirement>
+         <cac:AwardingTerms>
+            <cac:AwardingCriterion>
+               <cac:SubordinateAwardingCriterion>
+                  <cbc:Name languageID="ENG">Price is not the only award criterion and all criteria are stated only in the procurement documents.</cbc:Name>
+               </cac:SubordinateAwardingCriterion>
+            </cac:AwardingCriterion>
+         </cac:AwardingTerms>
+         <cac:AdditionalInformationParty>
+            <cac:PartyIdentification>
+               <cbc:ID>ORG-0004</cbc:ID>
+            </cac:PartyIdentification>
+         </cac:AdditionalInformationParty>
+         <cac:TenderRecipientParty>
+            <cbc:EndpointID>https://www.achilles.com/community/utilities-nce/</cbc:EndpointID>
+         </cac:TenderRecipientParty>
+         <cac:AppealTerms>
+            <cac:PresentationPeriod>
+               <cbc:Description languageID="ENG">Claims must be submitted to the Secretariat of the ICC International Court of Arbitration before the deadline mentioned below:
+Claims to invalidate the Prequalification Notice, the future tender material including the Tender Conditions, or any decision of the Contracting Entities made on its basis, declare it null and void or otherwise in-effective, terminate it or suspend its performance, after the lapse of 30 calendar days from the date of: 
+(i) the receipt of this Prequalification Notice or later the tender material and/or the Tender Conditions; or 
+(ii) the receipt of written information about the Contracting Entity's decision, when it is accompanied by a justification for the decision.</cbc:Description>
+            </cac:PresentationPeriod>
+            <cac:AppealInformationParty>
+               <cac:PartyIdentification>
+                  <cbc:ID>ORG-0002</cbc:ID>
+               </cac:PartyIdentification>
+            </cac:AppealInformationParty>
+            <cac:AppealReceiverParty>
+               <cac:PartyIdentification>
+                  <cbc:ID>ORG-0002</cbc:ID>
+               </cac:PartyIdentification>
+            </cac:AppealReceiverParty>
+         </cac:AppealTerms>
+         <cac:Language>
+            <cbc:ID>ENG</cbc:ID>
+         </cac:Language>
+      </cac:TenderingTerms>
+      <cac:TenderingProcess>
+         <cbc:SubmissionMethodCode listName="esubmission">required</cbc:SubmissionMethodCode>
+         <cbc:GovernmentAgreementConstraintIndicator>true</cbc:GovernmentAgreementConstraintIndicator>
+      </cac:TenderingProcess>
+      <cac:ProcurementProject>
+         <cbc:ID>BAL02 structural measurements campaign</cbc:ID>
+         <cbc:Name languageID="ENG">BAL02 structural measurements campaign</cbc:Name>
+         <cbc:Description languageID="ENG">This notice supplements previously published notice from Elektrownia Wiatrowa Baltica – 2 SP. Z o.o. 2022/S 171-485884 (Supplies). This notice is published on a voluntary basis in order to increase transparency and knowledge about Ørsted Entities' purchases in EU tender procedures.
+This notice relates to the contracting entity projects for the development, construction and operation of one offshore wind project in the Baltic Sea with a total potential capacity of up to 1.5 GW where Ørsted Wind Power A/S is representing the Contracting Entity in the entire tender procedure (‘Entity represented by Ørsted Wind Power A/S’), specifically to the tender for the structural measurements campaign. 
+Ørsted Wind Power A/S will use the UNCE qualification system for procurement and expects to launch the tender via said qualification system in January 2024 under product codes:3.2.0.0 and 4.8.1.</cbc:Description>
+         <cbc:ProcurementTypeCode listName="contract-nature">supplies</cbc:ProcurementTypeCode>
+         <cac:ProcurementAdditionalType>
+            <cbc:ProcurementTypeCode listName="contract-nature">services</cbc:ProcurementTypeCode>
+         </cac:ProcurementAdditionalType>
+         <cac:MainCommodityClassification>
+            <cbc:ItemClassificationCode listName="cpv">31682210</cbc:ItemClassificationCode>
+         </cac:MainCommodityClassification>
+         <cac:AdditionalCommodityClassification>
+            <cbc:ItemClassificationCode listName="cpv">31644000</cbc:ItemClassificationCode>
+         </cac:AdditionalCommodityClassification>
+         <cac:RealizedLocation>
+            <cbc:Description languageID="ENG">The primary geographical location for the campaign is to be: Nordenham</cbc:Description>
+            <cac:Address>
+               <cbc:CountrySubentityCode listName="nuts">DE502</cbc:CountrySubentityCode>
+               <cac:Country>
+                  <cbc:IdentificationCode listName="country">DEU</cbc:IdentificationCode>
+               </cac:Country>
+            </cac:Address>
+         </cac:RealizedLocation>
+         <cac:ContractExtension>
+            <cbc:MaximumNumberNumeric>0</cbc:MaximumNumberNumeric>
+         </cac:ContractExtension>
+      </cac:ProcurementProject>
+   </cac:ProcurementProjectLot>
+</ContractNotice>

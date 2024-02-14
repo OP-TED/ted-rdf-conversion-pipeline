@@ -14,22 +14,22 @@ def test_notice_repository_create(mongodb_client):
     notice_repository = NoticeRepository(mongodb_client=mongodb_client, database_name=TEST_DATABASE_NAME)
     notice = Notice(ted_id=NOTICE_TED_ID)
     notice.set_xml_manifestation(XMLManifestation(object_data="HELLO"))
-    notice.set_original_metadata(TEDMetadata(**{"AA": ["Metadata"]}))
+    notice.set_original_metadata(TEDMetadata(**{"RN": ["Metadata"]}))
     notice_repository.add(notice)
     result_notice = notice_repository.get(reference=NOTICE_TED_ID)
     assert result_notice
     assert result_notice.ted_id == NOTICE_TED_ID
-    assert result_notice.original_metadata.AA == ["Metadata"]
+    assert result_notice.original_metadata.RN == ["Metadata"]
     result_notices = list(notice_repository.list())
     assert result_notices
     assert len(result_notices) == 1
     notice_repository.add(notice)
-    notice.set_original_metadata(ted_metadata=TEDMetadata(**{"AA": ["Updated metadata"]}))
+    notice.set_original_metadata(ted_metadata=TEDMetadata(**{"RN": ["Updated metadata"]}))
     notice_repository.update(notice)
     result_notice = notice_repository.get(reference=NOTICE_TED_ID)
     assert result_notice
     assert result_notice.ted_id == NOTICE_TED_ID
-    assert result_notice.original_metadata.AA == ["Updated metadata"]
+    assert result_notice.original_metadata.RN == ["Updated metadata"]
     mongodb_client.drop_database(TEST_DATABASE_NAME)
 
 

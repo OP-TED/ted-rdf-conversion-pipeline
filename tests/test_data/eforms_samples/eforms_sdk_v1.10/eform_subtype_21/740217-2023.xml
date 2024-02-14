@@ -1,0 +1,1530 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><ContractNotice xmlns="urn:oasis:names:specification:ubl:schema:xsd:ContractNotice-2" xmlns:cac="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2" xmlns:cbc="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2" xmlns:efac="http://data.europa.eu/p27/eforms-ubl-extension-aggregate-components/1" xmlns:efbc="http://data.europa.eu/p27/eforms-ubl-extension-basic-components/1" xmlns:efext="http://data.europa.eu/p27/eforms-ubl-extensions/1" xmlns:ext="urn:oasis:names:specification:ubl:schema:xsd:CommonExtensionComponents-2">
+   <ext:UBLExtensions>
+      <ext:UBLExtension>
+         <ext:ExtensionContent>
+            <efext:EformsExtension>
+               <efac:NoticeSubType>
+                  <cbc:SubTypeCode listName="notice-subtype">21</cbc:SubTypeCode>
+               </efac:NoticeSubType>
+               <efac:Organizations>
+                  <efac:Organization>
+                     <efac:Company>
+                        <cac:PartyIdentification>
+                           <cbc:ID>ORG-0001</cbc:ID>
+                        </cac:PartyIdentification>
+                        <cac:PartyName>
+                           <cbc:Name languageID="POL">Poczta Polska S.A.</cbc:Name>
+                        </cac:PartyName>
+                        <cac:PostalAddress>
+                           <cbc:CityName>Warszawa</cbc:CityName>
+                           <cbc:PostalZone>00-940</cbc:PostalZone>
+                           <cbc:CountrySubentityCode listName="nuts">PL911</cbc:CountrySubentityCode>
+                           <cac:Country>
+                              <cbc:IdentificationCode listName="country">POL</cbc:IdentificationCode>
+                           </cac:Country>
+                        </cac:PostalAddress>
+                        <cac:PartyLegalEntity>
+                           <cbc:CompanyID>5250007313</cbc:CompanyID>
+                        </cac:PartyLegalEntity>
+                        <cac:Contact>
+                           <cbc:Telephone>22 656 58 04</cbc:Telephone>
+                           <cbc:ElectronicMail>zamowienia.wschod@poczta-polska.pl</cbc:ElectronicMail>
+                        </cac:Contact>
+                     </efac:Company>
+                  </efac:Organization>
+               </efac:Organizations>
+            <efac:Publication><efbc:NoticePublicationID schemeName="ojs-notice-id">00740217-2023</efbc:NoticePublicationID><efbc:GazetteID schemeName="ojs-id">235/2023</efbc:GazetteID><efbc:PublicationDate>2023-12-06Z</efbc:PublicationDate></efac:Publication></efext:EformsExtension>
+         </ext:ExtensionContent>
+      </ext:UBLExtension>
+   </ext:UBLExtensions>
+   <cbc:UBLVersionID>2.3</cbc:UBLVersionID>
+   <cbc:CustomizationID>eforms-sdk-1.10</cbc:CustomizationID>
+   <cbc:ID schemeName="notice-id">c375c8fe-2808-4c55-906e-456826b874dd</cbc:ID>
+   <cbc:ContractFolderID>7c40fa93-9b6b-4990-9085-2953261a315e</cbc:ContractFolderID>
+   <cbc:IssueDate>2023-12-05Z</cbc:IssueDate>
+   <cbc:IssueTime>09:44:02Z</cbc:IssueTime>
+   <cbc:VersionID>01</cbc:VersionID>
+   <cbc:RegulatoryDomain>32014L0025</cbc:RegulatoryDomain>
+   <cbc:NoticeTypeCode listName="competition">cn-social</cbc:NoticeTypeCode>
+   <cbc:NoticeLanguageCode listName="language">POL</cbc:NoticeLanguageCode>
+   <cac:ContractingParty>
+      <cbc:BuyerProfileURI>https://www.poczta-polska.pl</cbc:BuyerProfileURI>
+      <cac:ContractingPartyType>
+         <cbc:PartyTypeCode listName="buyer-legal-type">body-pl</cbc:PartyTypeCode>
+      </cac:ContractingPartyType>
+      <cac:ContractingActivity>
+         <cbc:ActivityTypeCode listName="authority-activity">gen-pub</cbc:ActivityTypeCode>
+      </cac:ContractingActivity>
+      <cac:Party>
+         <cac:PartyIdentification>
+            <cbc:ID>ORG-0001</cbc:ID>
+         </cac:PartyIdentification>
+      </cac:Party>
+   </cac:ContractingParty>
+   <cac:TenderingTerms>
+      <cac:TendererQualificationRequest>
+         <cac:SpecificTendererRequirement>
+            <cbc:TendererRequirementTypeCode listName="exclusion-ground">prep-confl</cbc:TendererRequirementTypeCode>
+            <cbc:Description languageID="POL">Dotyczy art. 108 ust. 1 pkt 6 ustawy Pzp</cbc:Description>
+         </cac:SpecificTendererRequirement>
+         <cac:SpecificTendererRequirement>
+            <cbc:TendererRequirementTypeCode listName="exclusion-ground">corruption</cbc:TendererRequirementTypeCode>
+            <cbc:Description languageID="POL">Dotyczy art. 108 ust. 1 pkt 1 i 2 ustawy Pzp</cbc:Description>
+         </cac:SpecificTendererRequirement>
+         <cac:SpecificTendererRequirement>
+            <cbc:TendererRequirementTypeCode listName="exclusion-ground">fraud</cbc:TendererRequirementTypeCode>
+            <cbc:Description languageID="POL">Dotyczy art. 108 ust. 1 pkt 1 i 2 ustawy Pzp</cbc:Description>
+         </cac:SpecificTendererRequirement>
+         <cac:SpecificTendererRequirement>
+            <cbc:TendererRequirementTypeCode listName="exclusion-ground">labour-law</cbc:TendererRequirementTypeCode>
+            <cbc:Description languageID="POL">Dotyczy art. 108 ust. 1 pkt 1 lit. h i pkt 2 ustawy Pzp</cbc:Description>
+         </cac:SpecificTendererRequirement>
+         <cac:SpecificTendererRequirement>
+            <cbc:TendererRequirementTypeCode listName="exclusion-ground">socsec-pay</cbc:TendererRequirementTypeCode>
+            <cbc:Description languageID="POL">Dotyczy art. 108 ust. 1 pkt 3 ustawy Pzp</cbc:Description>
+         </cac:SpecificTendererRequirement>
+         <cac:SpecificTendererRequirement>
+            <cbc:TendererRequirementTypeCode listName="exclusion-ground">tax-pay</cbc:TendererRequirementTypeCode>
+            <cbc:Description languageID="POL">Dotyczy art. 108 ust. 1 pkt 3 ustawy Pzp</cbc:Description>
+         </cac:SpecificTendererRequirement>
+         <cac:SpecificTendererRequirement>
+            <cbc:TendererRequirementTypeCode listName="exclusion-ground">nati-ground</cbc:TendererRequirementTypeCode>
+            <cbc:Description languageID="POL">Dotyczy art.108 ust. 1 pkt 1 ustawy Pzp
+Dotyczy art.108 ust. 1 pkt 4 ustawy Pzp
+Dotyczy art. 7 ust. 1 ustawy z dnia 13 kwietnia 2022 r. o szczególnych rozwiązaniach w zakresie przeciwdziałania wspieraniu agresji na Ukrainę oraz służących ochronie bezpieczeństwa narodowego</cbc:Description>
+         </cac:SpecificTendererRequirement>
+         <cac:SpecificTendererRequirement>
+            <cbc:TendererRequirementTypeCode listName="exclusion-ground">distorsion</cbc:TendererRequirementTypeCode>
+            <cbc:Description languageID="POL">Dotyczy art. 108 ust. 1 pkt 5 ustawy Pzp</cbc:Description>
+         </cac:SpecificTendererRequirement>
+         <cac:SpecificTendererRequirement>
+            <cbc:TendererRequirementTypeCode listName="exclusion-ground">human-traffic</cbc:TendererRequirementTypeCode>
+            <cbc:Description languageID="POL">Dotyczy art. 108 ust. 1 pkt 1 i 2 ustawy Pzp</cbc:Description>
+         </cac:SpecificTendererRequirement>
+         <cac:SpecificTendererRequirement>
+            <cbc:TendererRequirementTypeCode listName="exclusion-ground">finan-laund</cbc:TendererRequirementTypeCode>
+            <cbc:Description languageID="POL">Dotyczy art. 108 ust. 1 pkt 1 i 2 ustawy Pzp</cbc:Description>
+         </cac:SpecificTendererRequirement>
+         <cac:SpecificTendererRequirement>
+            <cbc:TendererRequirementTypeCode listName="exclusion-ground">terr-offence</cbc:TendererRequirementTypeCode>
+            <cbc:Description languageID="POL">Dotyczy art. 108 ust. 1 pkt 1 i 2 ustawy Pzp</cbc:Description>
+         </cac:SpecificTendererRequirement>
+         <cac:SpecificTendererRequirement>
+            <cbc:TendererRequirementTypeCode listName="exclusion-ground">crime-org</cbc:TendererRequirementTypeCode>
+            <cbc:Description languageID="POL">Dotyczy art. 108 ust. 1 pkt 1 i 2 ustawy Pzp</cbc:Description>
+         </cac:SpecificTendererRequirement>
+      </cac:TendererQualificationRequest>
+      <cac:LotDistribution>
+         <cbc:MaximumLotsAwardedNumeric>10</cbc:MaximumLotsAwardedNumeric>
+         <cbc:MaximumLotsSubmittedNumeric>10</cbc:MaximumLotsSubmittedNumeric>
+      </cac:LotDistribution>
+   </cac:TenderingTerms>
+   <cac:TenderingProcess>
+      <cbc:Description languageID="POL">Pełny opis procedury stosowanej w prowadzonym postępowaniu znajduje się w Specyfikacji Warunków Zamówienia.</cbc:Description>
+      <cbc:ProcedureCode listName="procurement-procedure-type">open</cbc:ProcedureCode>
+   </cac:TenderingProcess>
+   <cac:ProcurementProject>
+      <cbc:Name languageID="POL">Świadczenie usług medycznych dla pracowników PP S.A. na terenie woj. podkarpackiego-
+10 części</cbc:Name>
+      <cbc:Description languageID="POL">Przedmiotem zamówienia jest świadczenie usług medycznych z zakresu medycyny pracy dla pracowników Poczty Polskiej S.A. przez placówki medycyny pracy zlokalizowane w Rzeszowie, Krośnie, Przemyślu, Stalowej Woli, Dębicy, Jarosławiu, Jaśle, Mielcu ,Sanoku, Tarnobrzegu (10 części). Szczegółowy opis przedmiotu zamówienia, odpowiednio dla danej części, zawarto w Załącznikach nr 2.1-2.10 do SWZ (formularze cenowe) oraz w Załącznikach nr 3a (projekt umowy dla cz.1-4) i 3b (projekt umowy dla cz.5-10) do SWZ. Szczegółowe zasady realizacji przedmiotu zamówienia, odpowiednio dla danej części, zostały określone w projektach umów stanowiących Załączniki 3a i 3b do SWZ.
+</cbc:Description>
+      <cbc:ProcurementTypeCode listName="contract-nature">services</cbc:ProcurementTypeCode>
+      <cbc:Note languageID="POL">O udzielenie zamówienia mogą ubiegać się Wykonawcy, którzy nie podlegają wykluczeniu na podstawie:
+-art. 7 ust. 1 ustawy z dnia 13 kwietnia 2022 r. o szczególnych rozwiązaniach w zakresie przeciwdziałania wspieraniu agresji na Ukrainę oraz służących ochronie bezpieczeństwa narodowego (Dz. U. z 2022 r. poz. 835),
+-art. 5k rozporządzenia Rady (UE) nr 833/2014 z dnia 31 lipca 2014 r. dotyczącego środków ograniczających w związku z działaniami Rosji destabilizującymi sytuację na Ukrainie (Dz. Urz. UE nr L 229 z 31.7.2014, str. 1), w brzmieniu nadanym rozporządzeniem Rady (UE) 2022/576 w sprawie zmiany rozporządzenia (UE) nr 833/2014 dotyczącego środków ograniczających w związku z działaniami Rosji destabilizującymi sytuację na Ukrainie (Dz. Urz. UE nr L 111 z 8.4.2022, str. 1).
+W postępowaniu o udzielenie zamówienia sektorowego Wykonawca nie podlega wykluczeniu w przypadku, o którym mowa w art. 108 ust. 1 pkt 1 lit. h, oraz w przypadku, o którym mowa w art. 108 ust. 1 pkt 2, jeżeli osoba, o której mowa w tym przepisie została skazana za przestępstwo wymienione  w art. 108 ust. 1 pkt 1 lit. h PZP.
+</cbc:Note>
+      <cac:MainCommodityClassification>
+         <cbc:ItemClassificationCode listName="cpv">85120000</cbc:ItemClassificationCode>
+      </cac:MainCommodityClassification>
+   </cac:ProcurementProject>
+   <cac:ProcurementProjectLot>
+      <cbc:ID schemeName="Lot">LOT-0001</cbc:ID>
+      <cac:TenderingTerms>
+         <ext:UBLExtensions>
+            <ext:UBLExtension>
+               <ext:ExtensionContent>
+                  <efext:EformsExtension>
+                     <efac:SelectionCriteria>
+                        <cbc:CriterionTypeCode listName="selection-criterion">sui-act</cbc:CriterionTypeCode>
+                        <cbc:Name languageID="POL">Uprawnienia do prowadzenia określonej działalności gospodarczej lub zawodowej</cbc:Name>
+                        <cbc:Description languageID="POL">Zamawiający uzna warunek za spełniony, jeżeli Wykonawca wykaże, że  jest podmiotem leczniczym w rozumieniu ustawy z dnia 15.04.2011 r. o działalności leczniczej  - dokument potwierdzający wpis do rejestru podmiotów wykonujących działalność leczniczą. Warunek dotyczący uprawnień do prowadzenia określonej działalności gospodarczej lub zawodowej zostanie spełniony, jeżeli co najmniej jeden z Wykonawców wspólnie ubiegających się o udzielenie zamówienia posiada uprawnienia do prowadzenia określonej działalności gospodarczej lub zawodowej  i zrealizuje usługi, do których realizacji te uprawnienia są wymagane.</cbc:Description>
+                        <cbc:CalculationExpressionCode listName="usage">used</cbc:CalculationExpressionCode>
+                     </efac:SelectionCriteria>
+                  </efext:EformsExtension>
+               </ext:ExtensionContent>
+            </ext:UBLExtension>
+         </ext:UBLExtensions>
+         <cbc:VariantConstraintCode listName="permission">not-allowed</cbc:VariantConstraintCode>
+         <cbc:FundingProgramCode listName="eu-funded">no-eu-funds</cbc:FundingProgramCode>
+         <cac:RequiredFinancialGuarantee>
+            <cbc:GuaranteeTypeCode listName="tender-guarantee-required">false</cbc:GuaranteeTypeCode>
+         </cac:RequiredFinancialGuarantee>
+         <cac:CallForTendersDocumentReference>
+            <ext:UBLExtensions>
+               <ext:UBLExtension>
+                  <ext:ExtensionContent>
+                     <efext:EformsExtension>
+                        <efac:OfficialLanguages>
+                           <cac:Language>
+                              <cbc:ID>POL</cbc:ID>
+                           </cac:Language>
+                        </efac:OfficialLanguages>
+                     </efext:EformsExtension>
+                  </ext:ExtensionContent>
+               </ext:UBLExtension>
+            </ext:UBLExtensions>
+            <cbc:ID>_DEFAULT_VALUE_CHANGE_ME_</cbc:ID>
+            <cbc:DocumentType>non-restricted-document</cbc:DocumentType>
+            <cac:Attachment>
+               <cac:ExternalReference>
+                  <cbc:URI>https://portal.smartpzp.pl/poczta-polska/public/postepowanie?postepowanie=56832216</cbc:URI>
+               </cac:ExternalReference>
+            </cac:Attachment>
+         </cac:CallForTendersDocumentReference>
+         <cac:TendererQualificationRequest>
+            <cbc:CompanyLegalFormCode listName="required">true</cbc:CompanyLegalFormCode>
+            <cbc:CompanyLegalForm languageID="POL">W  przypadku Wykonawców wspólnie ubiegających się o udzielenie zamówienia Zamawiający będzie żądał po wyborze oferty kopii umowy współpracy, potwierdzonej „za zgodność z oryginałem” przez lidera umocowanego do reprezentowania wszystkich Wykonawców wspólnie ubiegających się o udzielenie zamówienia.</cbc:CompanyLegalForm>
+         </cac:TendererQualificationRequest>
+         <cac:TendererQualificationRequest>
+            <cac:SpecificTendererRequirement>
+               <cbc:TendererRequirementTypeCode listName="reserved-procurement">none</cbc:TendererRequirementTypeCode>
+            </cac:SpecificTendererRequirement>
+         </cac:TendererQualificationRequest>
+         <cac:ContractExecutionRequirement>
+            <cbc:ExecutionRequirementCode listName="reserved-execution">no</cbc:ExecutionRequirementCode>
+         </cac:ContractExecutionRequirement>
+         <cac:ContractExecutionRequirement>
+            <cbc:ExecutionRequirementCode listName="conditions">performance</cbc:ExecutionRequirementCode>
+            <cbc:Description languageID="POL">Szczegółowe zasady realizacji przedmiotu zamówienia zostały określone w projekcie umowy stanowiącej Załącznik 3a  do SWZ.</cbc:Description>
+         </cac:ContractExecutionRequirement>
+         <cac:ContractExecutionRequirement>
+            <cbc:ExecutionRequirementCode listName="einvoicing">allowed</cbc:ExecutionRequirementCode>
+         </cac:ContractExecutionRequirement>
+         <cac:AwardingTerms>
+            <cac:AwardingCriterion>
+               <cbc:CalculationExpression languageID="POL">Za ofertę najkorzystniejszą zostanie uznana oferta, która uzyska najwyższą liczbę punktów w kryterium cena. Oferty będą oceniane wg wzoru:
+      C= Cena brutto najtańszej oferty/ Cena brutto badanej oferty  X 100,  gdzie, C-kryterium cena</cbc:CalculationExpression>
+               <cac:SubordinateAwardingCriterion>
+                  <cbc:AwardingCriterionTypeCode listName="award-criterion-type">price</cbc:AwardingCriterionTypeCode>
+                  <cbc:Name languageID="POL">Kryterium cena</cbc:Name>
+                  <cbc:Description languageID="POL">Za ofertę najkorzystniejszą zostanie uznana oferta, która uzyska najwyższą liczbę punktów w kryterium cena. Oferty będą oceniane wg wzoru:
+      C= Cena brutto najtańszej oferty/ Cena brutto badanej oferty  X 100,  gdzie, C-kryterium cena
+</cbc:Description>
+               </cac:SubordinateAwardingCriterion>
+            </cac:AwardingCriterion>
+         </cac:AwardingTerms>
+         <cac:AdditionalInformationParty>
+            <cac:PartyIdentification>
+               <cbc:ID>ORG-0001</cbc:ID>
+            </cac:PartyIdentification>
+         </cac:AdditionalInformationParty>
+         <cac:TenderRecipientParty>
+            <cbc:EndpointID>https://portal.smartpzp.pl/poczta-polska</cbc:EndpointID>
+         </cac:TenderRecipientParty>
+         <cac:TenderValidityPeriod>
+            <cbc:DurationMeasure unitCode="DAY">90</cbc:DurationMeasure>
+         </cac:TenderValidityPeriod>
+         <cac:AppealTerms>
+            <cac:PresentationPeriod>
+               <cbc:Description languageID="POL">1.	Każdemu Wykonawcy, a także innemu podmiotowi, jeżeli ma lub miał interes w uzyskaniu danego zamówienia oraz poniósł lub może ponieść szkodę w wyniku naruszenia przez Zamawiającego przepisów PZP przysługują środki ochrony prawnej przewidziane w PZP jak dla postępowań o wartości przekraczającej równowartość kwoty określonej na podstawie art. 2 ust. 1 pkt 2 PZP.
+2.	Środki ochrony prawnej wobec ogłoszenia o zamówieniu oraz SWZ przysługują również organizacjom wpisanym na listę, o której mowa w art. 469 pkt. 15 PZP, oraz Rzecznikowi Małych i Średnich Przedsiębiorców.
+3.	Szczegółowe przepisy dotyczące środków ochrony prawnej zawarte są w Dziale IX PZP.
+</cbc:Description>
+            </cac:PresentationPeriod>
+         </cac:AppealTerms>
+         <cac:Language>
+            <cbc:ID>POL</cbc:ID>
+         </cac:Language>
+      </cac:TenderingTerms>
+      <cac:TenderingProcess>
+         <cbc:SubmissionMethodCode listName="esubmission">required</cbc:SubmissionMethodCode>
+         <cac:TenderSubmissionDeadlinePeriod>
+            <cbc:EndDate>2023-12-29+01:00</cbc:EndDate>
+            <cbc:EndTime>12:00:00+01:00</cbc:EndTime>
+         </cac:TenderSubmissionDeadlinePeriod>
+         <cac:OpenTenderEvent>
+            <cbc:OccurrenceDate>2023-12-29+01:00</cbc:OccurrenceDate>
+            <cbc:OccurrenceTime>13:00:00+01:00</cbc:OccurrenceTime>
+            <cbc:Description languageID="POL">Otwarcie ofert nastąpi poprzez odszyfrowanie ofert na Platformie.
+W przypadku awarii systemu, która powoduje brak możliwości otwarcia ofert w terminie określonym w rozdz. XVIII ust. 1 SWZ, otwarcie ofert nastąpi niezwłocznie po usunięciu awarii.
+</cbc:Description>
+            <cac:OccurenceLocation>
+               <cbc:Description languageID="POL">https://portal.smartpzp.pl/poczta-polska</cbc:Description>
+            </cac:OccurenceLocation>
+         </cac:OpenTenderEvent>
+         <cac:AuctionTerms>
+            <cbc:AuctionConstraintIndicator>false</cbc:AuctionConstraintIndicator>
+         </cac:AuctionTerms>
+      </cac:TenderingProcess>
+      <cac:ProcurementProject>
+         <cbc:ID>CZ.26.776.2023.DTW-1</cbc:ID>
+         <cbc:Name languageID="POL">Świadczenie usług medycznych z zakresu medycyny pracy dla pracowników Poczty Polskiej S.A. przez placówki medycyny pracy zlokalizowane 
+w Rzeszowie-część 1.</cbc:Name>
+         <cbc:Description languageID="POL">Świadczenie usług medycznych z zakresu medycyny pracy dla pracowników Poczty Polskiej S.A. przez placówki medycyny pracy zlokalizowane 
+w Rzeszowie-badania profilaktyczne, badania pracowników ochrony.Szacunkowa liczba  pracowników/kandydatów do badania (w tym 24 godz. posiedzenia komisji BHP)- 3407.</cbc:Description>
+         <cbc:ProcurementTypeCode listName="contract-nature">services</cbc:ProcurementTypeCode>
+         <cac:MainCommodityClassification>
+            <cbc:ItemClassificationCode listName="cpv">85120000</cbc:ItemClassificationCode>
+         </cac:MainCommodityClassification>
+         <cac:PlannedPeriod>
+            <cbc:StartDate>2024-03-19+01:00</cbc:StartDate>
+            <cbc:DurationMeasure unitCode="MONTH">24</cbc:DurationMeasure>
+         </cac:PlannedPeriod>
+         <cac:ContractExtension>
+            <cbc:OptionsDescription languageID="POL">Zamawiający gwarantuje realizację Umowy na poziomie 80% wartości wskazanej w § 5 ust. 5 umowy. Wartość Umowy może ulec zmniejszeniu maksymalnie o 20% wartości wskazanej w § 5 ust. 5 umowy. Niewykorzystanie wartości Umowy w zakresie, o którym mowa w zdaniu poprzednim nie może stanowić podstawy do żadnych roszczeń finansowych i odszkodowawczych ze strony Wykonawcy z tytułu niezrealizowania Umowy. Ograniczenie wartości Umowy nie wymaga zgody Wykonawcy i podpisywania aneksu do Umowy.</cbc:OptionsDescription>
+         </cac:ContractExtension>
+      </cac:ProcurementProject>
+   </cac:ProcurementProjectLot>
+   <cac:ProcurementProjectLot>
+      <cbc:ID schemeName="Lot">LOT-0011</cbc:ID>
+      <cac:TenderingTerms>
+         <ext:UBLExtensions>
+            <ext:UBLExtension>
+               <ext:ExtensionContent>
+                  <efext:EformsExtension>
+                     <efac:SelectionCriteria>
+                        <cbc:CriterionTypeCode listName="selection-criterion">sui-act</cbc:CriterionTypeCode>
+                        <cbc:Name languageID="POL">Uprawnienia do prowadzenia określonej działalności gospodarczej lub zawodowej</cbc:Name>
+                        <cbc:Description languageID="POL">Zamawiający uzna warunek za spełniony, jeżeli Wykonawca wykaże, że  jest podmiotem leczniczym w rozumieniu ustawy z dnia 15.04.2011 r. o działalności leczniczej  - dokument potwierdzający wpis do rejestru podmiotów wykonujących działalność leczniczą. Warunek dotyczący uprawnień do prowadzenia określonej działalności gospodarczej lub zawodowej zostanie spełniony, jeżeli co najmniej jeden z Wykonawców wspólnie ubiegających się o udzielenie zamówienia posiada uprawnienia do prowadzenia określonej działalności gospodarczej lub zawodowej  i zrealizuje usługi, do których realizacji te uprawnienia są wymagane.</cbc:Description>
+                        <cbc:CalculationExpressionCode listName="usage">used</cbc:CalculationExpressionCode>
+                     </efac:SelectionCriteria>
+                  </efext:EformsExtension>
+               </ext:ExtensionContent>
+            </ext:UBLExtension>
+         </ext:UBLExtensions>
+         <cbc:VariantConstraintCode listName="permission">not-allowed</cbc:VariantConstraintCode>
+         <cbc:FundingProgramCode listName="eu-funded">no-eu-funds</cbc:FundingProgramCode>
+         <cac:RequiredFinancialGuarantee>
+            <cbc:GuaranteeTypeCode listName="tender-guarantee-required">false</cbc:GuaranteeTypeCode>
+         </cac:RequiredFinancialGuarantee>
+         <cac:CallForTendersDocumentReference>
+            <ext:UBLExtensions>
+               <ext:UBLExtension>
+                  <ext:ExtensionContent>
+                     <efext:EformsExtension>
+                        <efac:OfficialLanguages>
+                           <cac:Language>
+                              <cbc:ID>POL</cbc:ID>
+                           </cac:Language>
+                        </efac:OfficialLanguages>
+                     </efext:EformsExtension>
+                  </ext:ExtensionContent>
+               </ext:UBLExtension>
+            </ext:UBLExtensions>
+            <cbc:ID>_DEFAULT_VALUE_CHANGE_ME_</cbc:ID>
+            <cbc:DocumentType>non-restricted-document</cbc:DocumentType>
+            <cac:Attachment>
+               <cac:ExternalReference>
+                  <cbc:URI>https://portal.smartpzp.pl/poczta-polska/public/postepowanie?postepowanie=56832216</cbc:URI>
+               </cac:ExternalReference>
+            </cac:Attachment>
+         </cac:CallForTendersDocumentReference>
+         <cac:TendererQualificationRequest>
+            <cbc:CompanyLegalFormCode listName="required">true</cbc:CompanyLegalFormCode>
+            <cbc:CompanyLegalForm languageID="POL">W  przypadku Wykonawców wspólnie ubiegających się o udzielenie zamówienia Zamawiający będzie żądał po wyborze oferty kopii umowy współpracy, potwierdzonej „za zgodność z oryginałem” przez lidera umocowanego do reprezentowania wszystkich Wykonawców wspólnie ubiegających się o udzielenie zamówienia.</cbc:CompanyLegalForm>
+         </cac:TendererQualificationRequest>
+         <cac:TendererQualificationRequest>
+            <cac:SpecificTendererRequirement>
+               <cbc:TendererRequirementTypeCode listName="reserved-procurement">none</cbc:TendererRequirementTypeCode>
+            </cac:SpecificTendererRequirement>
+         </cac:TendererQualificationRequest>
+         <cac:ContractExecutionRequirement>
+            <cbc:ExecutionRequirementCode listName="reserved-execution">no</cbc:ExecutionRequirementCode>
+         </cac:ContractExecutionRequirement>
+         <cac:ContractExecutionRequirement>
+            <cbc:ExecutionRequirementCode listName="conditions">performance</cbc:ExecutionRequirementCode>
+            <cbc:Description languageID="POL">Szczegółowe zasady realizacji przedmiotu zamówienia zostały określone w projekcie umowy stanowiącej Załącznik 3a  do SWZ.</cbc:Description>
+         </cac:ContractExecutionRequirement>
+         <cac:ContractExecutionRequirement>
+            <cbc:ExecutionRequirementCode listName="einvoicing">allowed</cbc:ExecutionRequirementCode>
+         </cac:ContractExecutionRequirement>
+         <cac:AwardingTerms>
+            <cac:AwardingCriterion>
+               <cbc:CalculationExpression languageID="POL">Za ofertę najkorzystniejszą zostanie uznana oferta, która uzyska najwyższą liczbę punktów w kryterium cena. Oferty będą oceniane wg wzoru:
+      C= Cena brutto najtańszej oferty/ Cena brutto badanej oferty  X 100,  gdzie, C-kryterium cena
+</cbc:CalculationExpression>
+               <cac:SubordinateAwardingCriterion>
+                  <cbc:AwardingCriterionTypeCode listName="award-criterion-type">price</cbc:AwardingCriterionTypeCode>
+                  <cbc:Name languageID="POL">Kryterium cena</cbc:Name>
+                  <cbc:Description languageID="POL">Za ofertę najkorzystniejszą zostanie uznana oferta, która uzyska najwyższą liczbę punktów w kryterium cena. Oferty będą oceniane wg wzoru:
+      C= Cena brutto najtańszej oferty/ Cena brutto badanej oferty  X 100,  gdzie, C-kryterium cena
+</cbc:Description>
+               </cac:SubordinateAwardingCriterion>
+            </cac:AwardingCriterion>
+         </cac:AwardingTerms>
+         <cac:AdditionalInformationParty>
+            <cac:PartyIdentification>
+               <cbc:ID>ORG-0001</cbc:ID>
+            </cac:PartyIdentification>
+         </cac:AdditionalInformationParty>
+         <cac:TenderRecipientParty>
+            <cbc:EndpointID>https://portal.smartpzp.pl/poczta-polska</cbc:EndpointID>
+         </cac:TenderRecipientParty>
+         <cac:TenderValidityPeriod>
+            <cbc:DurationMeasure unitCode="DAY">90</cbc:DurationMeasure>
+         </cac:TenderValidityPeriod>
+         <cac:AppealTerms>
+            <cac:PresentationPeriod>
+               <cbc:Description languageID="POL">1.	Każdemu Wykonawcy, a także innemu podmiotowi, jeżeli ma lub miał interes w uzyskaniu danego zamówienia oraz poniósł lub może ponieść szkodę w wyniku naruszenia przez Zamawiającego przepisów PZP przysługują środki ochrony prawnej przewidziane w PZP jak dla postępowań o wartości przekraczającej równowartość kwoty określonej na podstawie art. 2 ust. 1 pkt 2 PZP.
+2.	Środki ochrony prawnej wobec ogłoszenia o zamówieniu oraz SWZ przysługują również organizacjom wpisanym na listę, o której mowa w art. 469 pkt. 15 PZP, oraz Rzecznikowi Małych i Średnich Przedsiębiorców.
+3.	Szczegółowe przepisy dotyczące środków ochrony prawnej zawarte są w Dziale IX PZP.
+</cbc:Description>
+            </cac:PresentationPeriod>
+         </cac:AppealTerms>
+         <cac:Language>
+            <cbc:ID>POL</cbc:ID>
+         </cac:Language>
+      </cac:TenderingTerms>
+      <cac:TenderingProcess>
+         <cbc:SubmissionMethodCode listName="esubmission">required</cbc:SubmissionMethodCode>
+         <cac:TenderSubmissionDeadlinePeriod>
+            <cbc:EndDate>2023-12-29+01:00</cbc:EndDate>
+            <cbc:EndTime>12:00:00+01:00</cbc:EndTime>
+         </cac:TenderSubmissionDeadlinePeriod>
+         <cac:OpenTenderEvent>
+            <cbc:OccurrenceDate>2023-12-29+01:00</cbc:OccurrenceDate>
+            <cbc:OccurrenceTime>13:00:00+01:00</cbc:OccurrenceTime>
+            <cbc:Description languageID="POL">Otwarcie ofert nastąpi poprzez odszyfrowanie ofert na Platformie.
+W przypadku awarii systemu, która powoduje brak możliwości otwarcia ofert w terminie określonym w rozdz. XVIII ust. 1 SWZ, otwarcie ofert nastąpi niezwłocznie po usunięciu awarii.
+</cbc:Description>
+            <cac:OccurenceLocation>
+               <cbc:Description languageID="POL">https://portal.smartpzp.pl/poczta-polska</cbc:Description>
+            </cac:OccurenceLocation>
+         </cac:OpenTenderEvent>
+         <cac:AuctionTerms>
+            <cbc:AuctionConstraintIndicator>false</cbc:AuctionConstraintIndicator>
+         </cac:AuctionTerms>
+      </cac:TenderingProcess>
+      <cac:ProcurementProject>
+         <cbc:ID>CZ.26.776.2023.DTW-2</cbc:ID>
+         <cbc:Name languageID="POL">Świadczenie usług medycznych z zakresu medycyny pracy dla pracowników Poczty Polskiej S.A. przez placówki medycyny pracy zlokalizowane 
+w Krośnie-część 2.</cbc:Name>
+         <cbc:Description languageID="POL">Świadczenie usług medycznych z zakresu medycyny pracy dla pracowników Poczty Polskiej S.A. przez placówki medycyny pracy zlokalizowane 
+w Krośnie-badania profilaktyczne, badania pracowników ochrony.Szacunkowa liczba  pracowników/kandydatów do badania (w tym 24 godz. posiedzenia komisji BHP)- 781.</cbc:Description>
+         <cbc:ProcurementTypeCode listName="contract-nature">services</cbc:ProcurementTypeCode>
+         <cac:MainCommodityClassification>
+            <cbc:ItemClassificationCode listName="cpv">85120000</cbc:ItemClassificationCode>
+         </cac:MainCommodityClassification>
+         <cac:PlannedPeriod>
+            <cbc:StartDate>2024-03-19+01:00</cbc:StartDate>
+            <cbc:DurationMeasure unitCode="MONTH">24</cbc:DurationMeasure>
+         </cac:PlannedPeriod>
+         <cac:ContractExtension>
+            <cbc:OptionsDescription languageID="POL">Zamawiający gwarantuje realizację Umowy na poziomie 80% wartości wskazanej w § 5 ust. 5 umowy. Wartość Umowy może ulec zmniejszeniu maksymalnie o 20% wartości wskazanej w § 5 ust. 5 umowy. Niewykorzystanie wartości Umowy w zakresie, o którym mowa w zdaniu poprzednim nie może stanowić podstawy do żadnych roszczeń finansowych i odszkodowawczych ze strony Wykonawcy z tytułu niezrealizowania Umowy. Ograniczenie wartości Umowy nie wymaga zgody Wykonawcy i podpisywania aneksu do Umowy.</cbc:OptionsDescription>
+         </cac:ContractExtension>
+      </cac:ProcurementProject>
+   </cac:ProcurementProjectLot>
+   <cac:ProcurementProjectLot>
+      <cbc:ID schemeName="Lot">LOT-0012</cbc:ID>
+      <cac:TenderingTerms>
+         <ext:UBLExtensions>
+            <ext:UBLExtension>
+               <ext:ExtensionContent>
+                  <efext:EformsExtension>
+                     <efac:SelectionCriteria>
+                        <cbc:CriterionTypeCode listName="selection-criterion">sui-act</cbc:CriterionTypeCode>
+                        <cbc:Name languageID="POL">Uprawnienia do prowadzenia określonej działalności gospodarczej lub zawodowej</cbc:Name>
+                        <cbc:Description languageID="POL">Zamawiający uzna warunek za spełniony, jeżeli Wykonawca wykaże, że  jest podmiotem leczniczym w rozumieniu ustawy z dnia 15.04.2011 r. o działalności leczniczej  - dokument potwierdzający wpis do rejestru podmiotów wykonujących działalność leczniczą. Warunek dotyczący uprawnień do prowadzenia określonej działalności gospodarczej lub zawodowej zostanie spełniony, jeżeli co najmniej jeden z Wykonawców wspólnie ubiegających się o udzielenie zamówienia posiada uprawnienia do prowadzenia określonej działalności gospodarczej lub zawodowej  i zrealizuje usługi, do których realizacji te uprawnienia są wymagane.</cbc:Description>
+                        <cbc:CalculationExpressionCode listName="usage">used</cbc:CalculationExpressionCode>
+                     </efac:SelectionCriteria>
+                  </efext:EformsExtension>
+               </ext:ExtensionContent>
+            </ext:UBLExtension>
+         </ext:UBLExtensions>
+         <cbc:VariantConstraintCode listName="permission">not-allowed</cbc:VariantConstraintCode>
+         <cbc:FundingProgramCode listName="eu-funded">no-eu-funds</cbc:FundingProgramCode>
+         <cac:RequiredFinancialGuarantee>
+            <cbc:GuaranteeTypeCode listName="tender-guarantee-required">false</cbc:GuaranteeTypeCode>
+         </cac:RequiredFinancialGuarantee>
+         <cac:CallForTendersDocumentReference>
+            <ext:UBLExtensions>
+               <ext:UBLExtension>
+                  <ext:ExtensionContent>
+                     <efext:EformsExtension>
+                        <efac:OfficialLanguages>
+                           <cac:Language>
+                              <cbc:ID>POL</cbc:ID>
+                           </cac:Language>
+                        </efac:OfficialLanguages>
+                     </efext:EformsExtension>
+                  </ext:ExtensionContent>
+               </ext:UBLExtension>
+            </ext:UBLExtensions>
+            <cbc:ID>_DEFAULT_VALUE_CHANGE_ME_</cbc:ID>
+            <cbc:DocumentType>non-restricted-document</cbc:DocumentType>
+            <cac:Attachment>
+               <cac:ExternalReference>
+                  <cbc:URI>https://portal.smartpzp.pl/poczta-polska/public/postepowanie?postepowanie=56832216</cbc:URI>
+               </cac:ExternalReference>
+            </cac:Attachment>
+         </cac:CallForTendersDocumentReference>
+         <cac:TendererQualificationRequest>
+            <cbc:CompanyLegalFormCode listName="required">true</cbc:CompanyLegalFormCode>
+            <cbc:CompanyLegalForm languageID="POL">W  przypadku Wykonawców wspólnie ubiegających się o udzielenie zamówienia Zamawiający będzie żądał po wyborze oferty kopii umowy współpracy, potwierdzonej „za zgodność z oryginałem” przez lidera umocowanego do reprezentowania wszystkich Wykonawców wspólnie ubiegających się o udzielenie zamówienia.</cbc:CompanyLegalForm>
+         </cac:TendererQualificationRequest>
+         <cac:TendererQualificationRequest>
+            <cac:SpecificTendererRequirement>
+               <cbc:TendererRequirementTypeCode listName="reserved-procurement">none</cbc:TendererRequirementTypeCode>
+            </cac:SpecificTendererRequirement>
+         </cac:TendererQualificationRequest>
+         <cac:ContractExecutionRequirement>
+            <cbc:ExecutionRequirementCode listName="reserved-execution">no</cbc:ExecutionRequirementCode>
+         </cac:ContractExecutionRequirement>
+         <cac:ContractExecutionRequirement>
+            <cbc:ExecutionRequirementCode listName="conditions">performance</cbc:ExecutionRequirementCode>
+            <cbc:Description languageID="POL">Szczegółowe zasady realizacji przedmiotu zamówienia zostały określone w projekcie umowy stanowiącej Załącznik 3a  do SWZ.</cbc:Description>
+         </cac:ContractExecutionRequirement>
+         <cac:ContractExecutionRequirement>
+            <cbc:ExecutionRequirementCode listName="einvoicing">allowed</cbc:ExecutionRequirementCode>
+         </cac:ContractExecutionRequirement>
+         <cac:AwardingTerms>
+            <cac:AwardingCriterion>
+               <cbc:CalculationExpression languageID="POL">Za ofertę najkorzystniejszą zostanie uznana oferta, która uzyska najwyższą liczbę punktów w kryterium cena. Oferty będą oceniane wg wzoru:
+      C= Cena brutto najtańszej oferty/ Cena brutto badanej oferty  X 100,  gdzie, C-kryterium cena
+</cbc:CalculationExpression>
+               <cac:SubordinateAwardingCriterion>
+                  <cbc:AwardingCriterionTypeCode listName="award-criterion-type">price</cbc:AwardingCriterionTypeCode>
+                  <cbc:Name languageID="POL">Kryterium cena</cbc:Name>
+                  <cbc:Description languageID="POL">Za ofertę najkorzystniejszą zostanie uznana oferta, która uzyska najwyższą liczbę punktów w kryterium cena. Oferty będą oceniane wg wzoru:
+      C= Cena brutto najtańszej oferty/ Cena brutto badanej oferty  X 100,  gdzie, C-kryterium cena
+</cbc:Description>
+               </cac:SubordinateAwardingCriterion>
+            </cac:AwardingCriterion>
+         </cac:AwardingTerms>
+         <cac:AdditionalInformationParty>
+            <cac:PartyIdentification>
+               <cbc:ID>ORG-0001</cbc:ID>
+            </cac:PartyIdentification>
+         </cac:AdditionalInformationParty>
+         <cac:TenderRecipientParty>
+            <cbc:EndpointID>https://portal.smartpzp.pl/poczta-polska</cbc:EndpointID>
+         </cac:TenderRecipientParty>
+         <cac:TenderValidityPeriod>
+            <cbc:DurationMeasure unitCode="DAY">90</cbc:DurationMeasure>
+         </cac:TenderValidityPeriod>
+         <cac:AppealTerms>
+            <cac:PresentationPeriod>
+               <cbc:Description languageID="POL">1.	Każdemu Wykonawcy, a także innemu podmiotowi, jeżeli ma lub miał interes w uzyskaniu danego zamówienia oraz poniósł lub może ponieść szkodę w wyniku naruszenia przez Zamawiającego przepisów PZP przysługują środki ochrony prawnej przewidziane w PZP jak dla postępowań o wartości przekraczającej równowartość kwoty określonej na podstawie art. 2 ust. 1 pkt 2 PZP.
+2.	Środki ochrony prawnej wobec ogłoszenia o zamówieniu oraz SWZ przysługują również organizacjom wpisanym na listę, o której mowa w art. 469 pkt. 15 PZP, oraz Rzecznikowi Małych i Średnich Przedsiębiorców.
+3.	Szczegółowe przepisy dotyczące środków ochrony prawnej zawarte są w Dziale IX PZP.
+</cbc:Description>
+            </cac:PresentationPeriod>
+         </cac:AppealTerms>
+         <cac:Language>
+            <cbc:ID>POL</cbc:ID>
+         </cac:Language>
+      </cac:TenderingTerms>
+      <cac:TenderingProcess>
+         <cbc:SubmissionMethodCode listName="esubmission">required</cbc:SubmissionMethodCode>
+         <cac:TenderSubmissionDeadlinePeriod>
+            <cbc:EndDate>2023-12-29+01:00</cbc:EndDate>
+            <cbc:EndTime>12:00:00+01:00</cbc:EndTime>
+         </cac:TenderSubmissionDeadlinePeriod>
+         <cac:OpenTenderEvent>
+            <cbc:OccurrenceDate>2023-12-29+01:00</cbc:OccurrenceDate>
+            <cbc:OccurrenceTime>13:00:00+01:00</cbc:OccurrenceTime>
+            <cbc:Description languageID="POL">Otwarcie ofert nastąpi poprzez odszyfrowanie ofert na Platformie.
+W przypadku awarii systemu, która powoduje brak możliwości otwarcia ofert w terminie określonym w rozdz. XVIII ust. 1 SWZ, otwarcie ofert nastąpi niezwłocznie po usunięciu awarii.
+</cbc:Description>
+            <cac:OccurenceLocation>
+               <cbc:Description languageID="POL">https://portal.smartpzp.pl/poczta-polska</cbc:Description>
+            </cac:OccurenceLocation>
+         </cac:OpenTenderEvent>
+         <cac:AuctionTerms>
+            <cbc:AuctionConstraintIndicator>false</cbc:AuctionConstraintIndicator>
+         </cac:AuctionTerms>
+      </cac:TenderingProcess>
+      <cac:ProcurementProject>
+         <cbc:ID>CZ.26.776.2023.DTW-3</cbc:ID>
+         <cbc:Name languageID="POL">Świadczenie usług medycznych z zakresu medycyny pracy dla pracowników Poczty Polskiej S.A. przez placówki medycyny pracy zlokalizowane 
+w Przemyślu-część 3.</cbc:Name>
+         <cbc:Description languageID="POL">Świadczenie usług medycznych z zakresu medycyny pracy dla pracowników Poczty Polskiej S.A. przez placówki medycyny pracy zlokalizowane 
+w Przemyślu-badania profilaktyczne, badania pracowników ochrony.Szacunkowa liczba  pracowników/kandydatów do badania (w tym 24 godz. posiedzenia komisji BHP)- 721.</cbc:Description>
+         <cbc:ProcurementTypeCode listName="contract-nature">services</cbc:ProcurementTypeCode>
+         <cac:MainCommodityClassification>
+            <cbc:ItemClassificationCode listName="cpv">85120000</cbc:ItemClassificationCode>
+         </cac:MainCommodityClassification>
+         <cac:PlannedPeriod>
+            <cbc:StartDate>2024-03-19+01:00</cbc:StartDate>
+            <cbc:DurationMeasure unitCode="MONTH">24</cbc:DurationMeasure>
+         </cac:PlannedPeriod>
+         <cac:ContractExtension>
+            <cbc:OptionsDescription languageID="POL">Zamawiający gwarantuje realizację Umowy na poziomie 80% wartości wskazanej w § 5 ust. 5 umowy. Wartość Umowy może ulec zmniejszeniu maksymalnie o 20% wartości wskazanej w § 5 ust. 5 umowy. Niewykorzystanie wartości Umowy w zakresie, o którym mowa w zdaniu poprzednim nie może stanowić podstawy do żadnych roszczeń finansowych i odszkodowawczych ze strony Wykonawcy z tytułu niezrealizowania Umowy. Ograniczenie wartości Umowy nie wymaga zgody Wykonawcy i podpisywania aneksu do Umowy.</cbc:OptionsDescription>
+         </cac:ContractExtension>
+      </cac:ProcurementProject>
+   </cac:ProcurementProjectLot>
+   <cac:ProcurementProjectLot>
+      <cbc:ID schemeName="Lot">LOT-0013</cbc:ID>
+      <cac:TenderingTerms>
+         <ext:UBLExtensions>
+            <ext:UBLExtension>
+               <ext:ExtensionContent>
+                  <efext:EformsExtension>
+                     <efac:SelectionCriteria>
+                        <cbc:CriterionTypeCode listName="selection-criterion">sui-act</cbc:CriterionTypeCode>
+                        <cbc:Name languageID="POL">Uprawnienia do prowadzenia określonej działalności gospodarczej lub zawodowej</cbc:Name>
+                        <cbc:Description languageID="POL">Zamawiający uzna warunek za spełniony, jeżeli Wykonawca wykaże, że  jest podmiotem leczniczym w rozumieniu ustawy z dnia 15.04.2011 r. o działalności leczniczej  - dokument potwierdzający wpis do rejestru podmiotów wykonujących działalność leczniczą. Warunek dotyczący uprawnień do prowadzenia określonej działalności gospodarczej lub zawodowej zostanie spełniony, jeżeli co najmniej jeden z Wykonawców wspólnie ubiegających się o udzielenie zamówienia posiada uprawnienia do prowadzenia określonej działalności gospodarczej lub zawodowej  i zrealizuje usługi, do których realizacji te uprawnienia są wymagane.</cbc:Description>
+                        <cbc:CalculationExpressionCode listName="usage">used</cbc:CalculationExpressionCode>
+                     </efac:SelectionCriteria>
+                  </efext:EformsExtension>
+               </ext:ExtensionContent>
+            </ext:UBLExtension>
+         </ext:UBLExtensions>
+         <cbc:VariantConstraintCode listName="permission">not-allowed</cbc:VariantConstraintCode>
+         <cbc:FundingProgramCode listName="eu-funded">no-eu-funds</cbc:FundingProgramCode>
+         <cac:RequiredFinancialGuarantee>
+            <cbc:GuaranteeTypeCode listName="tender-guarantee-required">false</cbc:GuaranteeTypeCode>
+         </cac:RequiredFinancialGuarantee>
+         <cac:CallForTendersDocumentReference>
+            <ext:UBLExtensions>
+               <ext:UBLExtension>
+                  <ext:ExtensionContent>
+                     <efext:EformsExtension>
+                        <efac:OfficialLanguages>
+                           <cac:Language>
+                              <cbc:ID>POL</cbc:ID>
+                           </cac:Language>
+                        </efac:OfficialLanguages>
+                     </efext:EformsExtension>
+                  </ext:ExtensionContent>
+               </ext:UBLExtension>
+            </ext:UBLExtensions>
+            <cbc:ID>_DEFAULT_VALUE_CHANGE_ME_</cbc:ID>
+            <cbc:DocumentType>non-restricted-document</cbc:DocumentType>
+            <cac:Attachment>
+               <cac:ExternalReference>
+                  <cbc:URI>https://portal.smartpzp.pl/poczta-polska/public/postepowanie?postepowanie=56832216</cbc:URI>
+               </cac:ExternalReference>
+            </cac:Attachment>
+         </cac:CallForTendersDocumentReference>
+         <cac:TendererQualificationRequest>
+            <cbc:CompanyLegalFormCode listName="required">true</cbc:CompanyLegalFormCode>
+            <cbc:CompanyLegalForm languageID="POL">W  przypadku Wykonawców wspólnie ubiegających się o udzielenie zamówienia Zamawiający będzie żądał po wyborze oferty kopii umowy współpracy, potwierdzonej „za zgodność z oryginałem” przez lidera umocowanego do reprezentowania wszystkich Wykonawców wspólnie ubiegających się o udzielenie zamówienia.</cbc:CompanyLegalForm>
+         </cac:TendererQualificationRequest>
+         <cac:TendererQualificationRequest>
+            <cac:SpecificTendererRequirement>
+               <cbc:TendererRequirementTypeCode listName="reserved-procurement">none</cbc:TendererRequirementTypeCode>
+            </cac:SpecificTendererRequirement>
+         </cac:TendererQualificationRequest>
+         <cac:ContractExecutionRequirement>
+            <cbc:ExecutionRequirementCode listName="reserved-execution">no</cbc:ExecutionRequirementCode>
+         </cac:ContractExecutionRequirement>
+         <cac:ContractExecutionRequirement>
+            <cbc:ExecutionRequirementCode listName="conditions">performance</cbc:ExecutionRequirementCode>
+            <cbc:Description languageID="POL">Szczegółowe zasady realizacji przedmiotu zamówienia zostały określone w projekcie umowy stanowiącej Załącznik 3a  do SWZ.</cbc:Description>
+         </cac:ContractExecutionRequirement>
+         <cac:ContractExecutionRequirement>
+            <cbc:ExecutionRequirementCode listName="einvoicing">allowed</cbc:ExecutionRequirementCode>
+         </cac:ContractExecutionRequirement>
+         <cac:AwardingTerms>
+            <cac:AwardingCriterion>
+               <cbc:CalculationExpression languageID="POL">Za ofertę najkorzystniejszą zostanie uznana oferta, która uzyska najwyższą liczbę punktów w kryterium cena. Oferty będą oceniane wg wzoru:
+      C= Cena brutto najtańszej oferty/ Cena brutto badanej oferty  X 100,  gdzie, C-kryterium cena
+</cbc:CalculationExpression>
+               <cac:SubordinateAwardingCriterion>
+                  <cbc:AwardingCriterionTypeCode listName="award-criterion-type">price</cbc:AwardingCriterionTypeCode>
+                  <cbc:Name languageID="POL">Kryterium cena</cbc:Name>
+                  <cbc:Description languageID="POL">Za ofertę najkorzystniejszą zostanie uznana oferta, która uzyska najwyższą liczbę punktów w kryterium cena. Oferty będą oceniane wg wzoru:
+      C= Cena brutto najtańszej oferty/ Cena brutto badanej oferty  X 100,  gdzie, C-kryterium cena
+</cbc:Description>
+               </cac:SubordinateAwardingCriterion>
+            </cac:AwardingCriterion>
+         </cac:AwardingTerms>
+         <cac:AdditionalInformationParty>
+            <cac:PartyIdentification>
+               <cbc:ID>ORG-0001</cbc:ID>
+            </cac:PartyIdentification>
+         </cac:AdditionalInformationParty>
+         <cac:TenderRecipientParty>
+            <cbc:EndpointID>https://portal.smartpzp.pl/poczta-polska</cbc:EndpointID>
+         </cac:TenderRecipientParty>
+         <cac:TenderValidityPeriod>
+            <cbc:DurationMeasure unitCode="DAY">90</cbc:DurationMeasure>
+         </cac:TenderValidityPeriod>
+         <cac:AppealTerms>
+            <cac:PresentationPeriod>
+               <cbc:Description languageID="POL">1.	Każdemu Wykonawcy, a także innemu podmiotowi, jeżeli ma lub miał interes w uzyskaniu danego zamówienia oraz poniósł lub może ponieść szkodę w wyniku naruszenia przez Zamawiającego przepisów PZP przysługują środki ochrony prawnej przewidziane w PZP jak dla postępowań o wartości przekraczającej równowartość kwoty określonej na podstawie art. 2 ust. 1 pkt 2 PZP.
+2.	Środki ochrony prawnej wobec ogłoszenia o zamówieniu oraz SWZ przysługują również organizacjom wpisanym na listę, o której mowa w art. 469 pkt. 15 PZP, oraz Rzecznikowi Małych i Średnich Przedsiębiorców.
+3.	Szczegółowe przepisy dotyczące środków ochrony prawnej zawarte są w Dziale IX PZP.
+</cbc:Description>
+            </cac:PresentationPeriod>
+         </cac:AppealTerms>
+         <cac:Language>
+            <cbc:ID>POL</cbc:ID>
+         </cac:Language>
+      </cac:TenderingTerms>
+      <cac:TenderingProcess>
+         <cbc:SubmissionMethodCode listName="esubmission">required</cbc:SubmissionMethodCode>
+         <cac:TenderSubmissionDeadlinePeriod>
+            <cbc:EndDate>2023-12-29+01:00</cbc:EndDate>
+            <cbc:EndTime>12:00:00+01:00</cbc:EndTime>
+         </cac:TenderSubmissionDeadlinePeriod>
+         <cac:OpenTenderEvent>
+            <cbc:OccurrenceDate>2023-12-29+01:00</cbc:OccurrenceDate>
+            <cbc:OccurrenceTime>13:00:00+01:00</cbc:OccurrenceTime>
+            <cbc:Description languageID="POL">Otwarcie ofert nastąpi poprzez odszyfrowanie ofert na Platformie.
+W przypadku awarii systemu, która powoduje brak możliwości otwarcia ofert w terminie określonym w rozdz. XVIII ust. 1 SWZ, otwarcie ofert nastąpi niezwłocznie po usunięciu awarii.
+</cbc:Description>
+            <cac:OccurenceLocation>
+               <cbc:Description languageID="POL">https://portal.smartpzp.pl/poczta-polska</cbc:Description>
+            </cac:OccurenceLocation>
+         </cac:OpenTenderEvent>
+         <cac:AuctionTerms>
+            <cbc:AuctionConstraintIndicator>false</cbc:AuctionConstraintIndicator>
+         </cac:AuctionTerms>
+      </cac:TenderingProcess>
+      <cac:ProcurementProject>
+         <cbc:ID>CZ.26.776.2023.DTW-4</cbc:ID>
+         <cbc:Name languageID="POL">Świadczenie usług medycznych z zakresu medycyny pracy dla pracowników Poczty Polskiej S.A. przez placówki medycyny pracy zlokalizowane 
+w Stalowej Woli-część 4.</cbc:Name>
+         <cbc:Description languageID="POL">Świadczenie usług medycznych z zakresu medycyny pracy dla pracowników Poczty Polskiej S.A. przez placówki medycyny pracy zlokalizowane 
+w Stalowej Woli-badania profilaktyczne, badania pracowników ochrony.Szacunkowa liczba  pracowników/kandydatów do badania (w tym 24 godz. posiedzenia komisji BHP)- 814.</cbc:Description>
+         <cbc:ProcurementTypeCode listName="contract-nature">services</cbc:ProcurementTypeCode>
+         <cac:MainCommodityClassification>
+            <cbc:ItemClassificationCode listName="cpv">85120000</cbc:ItemClassificationCode>
+         </cac:MainCommodityClassification>
+         <cac:PlannedPeriod>
+            <cbc:StartDate>2024-03-19+01:00</cbc:StartDate>
+            <cbc:DurationMeasure unitCode="MONTH">24</cbc:DurationMeasure>
+         </cac:PlannedPeriod>
+         <cac:ContractExtension>
+            <cbc:OptionsDescription languageID="POL">Zamawiający gwarantuje realizację Umowy na poziomie 80% wartości wskazanej w § 5 ust. 5 umowy. Wartość Umowy może ulec zmniejszeniu maksymalnie o 20% wartości wskazanej w § 5 ust. 5 umowy. Niewykorzystanie wartości Umowy w zakresie, o którym mowa w zdaniu poprzednim nie może stanowić podstawy do żadnych roszczeń finansowych i odszkodowawczych ze strony Wykonawcy z tytułu niezrealizowania Umowy. Ograniczenie wartości Umowy nie wymaga zgody Wykonawcy i podpisywania aneksu do Umowy.</cbc:OptionsDescription>
+         </cac:ContractExtension>
+      </cac:ProcurementProject>
+   </cac:ProcurementProjectLot>
+   <cac:ProcurementProjectLot>
+      <cbc:ID schemeName="Lot">LOT-0014</cbc:ID>
+      <cac:TenderingTerms>
+         <ext:UBLExtensions>
+            <ext:UBLExtension>
+               <ext:ExtensionContent>
+                  <efext:EformsExtension>
+                     <efac:SelectionCriteria>
+                        <cbc:CriterionTypeCode listName="selection-criterion">sui-act</cbc:CriterionTypeCode>
+                        <cbc:Name languageID="POL">Uprawnienia do prowadzenia określonej działalności gospodarczej lub zawodowej</cbc:Name>
+                        <cbc:Description languageID="POL">Zamawiający uzna warunek za spełniony, jeżeli Wykonawca wykaże, że  jest podmiotem leczniczym w rozumieniu ustawy z dnia 15.04.2011 r. o działalności leczniczej  - dokument potwierdzający wpis do rejestru podmiotów wykonujących działalność leczniczą. Warunek dotyczący uprawnień do prowadzenia określonej działalności gospodarczej lub zawodowej zostanie spełniony, jeżeli co najmniej jeden z Wykonawców wspólnie ubiegających się o udzielenie zamówienia posiada uprawnienia do prowadzenia określonej działalności gospodarczej lub zawodowej  i zrealizuje usługi, do których realizacji te uprawnienia są wymagane.</cbc:Description>
+                        <cbc:CalculationExpressionCode listName="usage">used</cbc:CalculationExpressionCode>
+                     </efac:SelectionCriteria>
+                  </efext:EformsExtension>
+               </ext:ExtensionContent>
+            </ext:UBLExtension>
+         </ext:UBLExtensions>
+         <cbc:VariantConstraintCode listName="permission">not-allowed</cbc:VariantConstraintCode>
+         <cbc:FundingProgramCode listName="eu-funded">no-eu-funds</cbc:FundingProgramCode>
+         <cac:RequiredFinancialGuarantee>
+            <cbc:GuaranteeTypeCode listName="tender-guarantee-required">false</cbc:GuaranteeTypeCode>
+         </cac:RequiredFinancialGuarantee>
+         <cac:CallForTendersDocumentReference>
+            <ext:UBLExtensions>
+               <ext:UBLExtension>
+                  <ext:ExtensionContent>
+                     <efext:EformsExtension>
+                        <efac:OfficialLanguages>
+                           <cac:Language>
+                              <cbc:ID>POL</cbc:ID>
+                           </cac:Language>
+                        </efac:OfficialLanguages>
+                     </efext:EformsExtension>
+                  </ext:ExtensionContent>
+               </ext:UBLExtension>
+            </ext:UBLExtensions>
+            <cbc:ID>_DEFAULT_VALUE_CHANGE_ME_</cbc:ID>
+            <cbc:DocumentType>non-restricted-document</cbc:DocumentType>
+            <cac:Attachment>
+               <cac:ExternalReference>
+                  <cbc:URI>https://portal.smartpzp.pl/poczta-polska/public/postepowanie?postepowanie=56832216</cbc:URI>
+               </cac:ExternalReference>
+            </cac:Attachment>
+         </cac:CallForTendersDocumentReference>
+         <cac:TendererQualificationRequest>
+            <cbc:CompanyLegalFormCode listName="required">true</cbc:CompanyLegalFormCode>
+            <cbc:CompanyLegalForm languageID="POL">W  przypadku Wykonawców wspólnie ubiegających się o udzielenie zamówienia Zamawiający będzie żądał po wyborze oferty kopii umowy współpracy, potwierdzonej „za zgodność z oryginałem” przez lidera umocowanego do reprezentowania wszystkich Wykonawców wspólnie ubiegających się o udzielenie zamówienia.</cbc:CompanyLegalForm>
+         </cac:TendererQualificationRequest>
+         <cac:TendererQualificationRequest>
+            <cac:SpecificTendererRequirement>
+               <cbc:TendererRequirementTypeCode listName="reserved-procurement">none</cbc:TendererRequirementTypeCode>
+            </cac:SpecificTendererRequirement>
+         </cac:TendererQualificationRequest>
+         <cac:ContractExecutionRequirement>
+            <cbc:ExecutionRequirementCode listName="reserved-execution">no</cbc:ExecutionRequirementCode>
+         </cac:ContractExecutionRequirement>
+         <cac:ContractExecutionRequirement>
+            <cbc:ExecutionRequirementCode listName="conditions">performance</cbc:ExecutionRequirementCode>
+            <cbc:Description languageID="POL">Szczegółowe zasady realizacji przedmiotu zamówienia zostały określone w projekcie umowy stanowiącej Załącznik 3b  do SWZ.</cbc:Description>
+         </cac:ContractExecutionRequirement>
+         <cac:ContractExecutionRequirement>
+            <cbc:ExecutionRequirementCode listName="einvoicing">allowed</cbc:ExecutionRequirementCode>
+         </cac:ContractExecutionRequirement>
+         <cac:AwardingTerms>
+            <cac:AwardingCriterion>
+               <cbc:CalculationExpression languageID="POL">Za ofertę najkorzystniejszą zostanie uznana oferta, która uzyska najwyższą liczbę punktów w kryterium cena. Oferty będą oceniane wg wzoru:
+      C= Cena brutto najtańszej oferty/ Cena brutto badanej oferty  X 100,  gdzie, C-kryterium cena
+</cbc:CalculationExpression>
+               <cac:SubordinateAwardingCriterion>
+                  <cbc:AwardingCriterionTypeCode listName="award-criterion-type">price</cbc:AwardingCriterionTypeCode>
+                  <cbc:Name languageID="POL">Kryterium cena</cbc:Name>
+                  <cbc:Description languageID="POL">Za ofertę najkorzystniejszą zostanie uznana oferta, która uzyska najwyższą liczbę punktów w kryterium cena. Oferty będą oceniane wg wzoru:
+      C= Cena brutto najtańszej oferty/ Cena brutto badanej oferty  X 100,  gdzie, C-kryterium cena
+</cbc:Description>
+               </cac:SubordinateAwardingCriterion>
+            </cac:AwardingCriterion>
+         </cac:AwardingTerms>
+         <cac:AdditionalInformationParty>
+            <cac:PartyIdentification>
+               <cbc:ID>ORG-0001</cbc:ID>
+            </cac:PartyIdentification>
+         </cac:AdditionalInformationParty>
+         <cac:TenderRecipientParty>
+            <cbc:EndpointID>https://portal.smartpzp.pl/poczta-polska</cbc:EndpointID>
+         </cac:TenderRecipientParty>
+         <cac:TenderValidityPeriod>
+            <cbc:DurationMeasure unitCode="DAY">90</cbc:DurationMeasure>
+         </cac:TenderValidityPeriod>
+         <cac:AppealTerms>
+            <cac:PresentationPeriod>
+               <cbc:Description languageID="POL">1.	Każdemu Wykonawcy, a także innemu podmiotowi, jeżeli ma lub miał interes w uzyskaniu danego zamówienia oraz poniósł lub może ponieść szkodę w wyniku naruszenia przez Zamawiającego przepisów PZP przysługują środki ochrony prawnej przewidziane w PZP jak dla postępowań o wartości przekraczającej równowartość kwoty określonej na podstawie art. 2 ust. 1 pkt 2 PZP.
+2.	Środki ochrony prawnej wobec ogłoszenia o zamówieniu oraz SWZ przysługują również organizacjom wpisanym na listę, o której mowa w art. 469 pkt. 15 PZP, oraz Rzecznikowi Małych i Średnich Przedsiębiorców.
+3.	Szczegółowe przepisy dotyczące środków ochrony prawnej zawarte są w Dziale IX PZP.
+</cbc:Description>
+            </cac:PresentationPeriod>
+         </cac:AppealTerms>
+         <cac:Language>
+            <cbc:ID>POL</cbc:ID>
+         </cac:Language>
+      </cac:TenderingTerms>
+      <cac:TenderingProcess>
+         <cbc:SubmissionMethodCode listName="esubmission">required</cbc:SubmissionMethodCode>
+         <cac:TenderSubmissionDeadlinePeriod>
+            <cbc:EndDate>2023-12-29+01:00</cbc:EndDate>
+            <cbc:EndTime>12:00:00+01:00</cbc:EndTime>
+         </cac:TenderSubmissionDeadlinePeriod>
+         <cac:OpenTenderEvent>
+            <cbc:OccurrenceDate>2023-12-29+01:00</cbc:OccurrenceDate>
+            <cbc:OccurrenceTime>13:00:00+01:00</cbc:OccurrenceTime>
+            <cbc:Description languageID="POL">Otwarcie ofert nastąpi poprzez odszyfrowanie ofert na Platformie.
+W przypadku awarii systemu, która powoduje brak możliwości otwarcia ofert w terminie określonym w rozdz. XVIII ust. 1 SWZ, otwarcie ofert nastąpi niezwłocznie po usunięciu awarii.
+</cbc:Description>
+            <cac:OccurenceLocation>
+               <cbc:Description languageID="POL">https://portal.smartpzp.pl/poczta-polska</cbc:Description>
+            </cac:OccurenceLocation>
+         </cac:OpenTenderEvent>
+         <cac:AuctionTerms>
+            <cbc:AuctionConstraintIndicator>false</cbc:AuctionConstraintIndicator>
+         </cac:AuctionTerms>
+      </cac:TenderingProcess>
+      <cac:ProcurementProject>
+         <cbc:ID>CZ.26.776.2023.DTW-5</cbc:ID>
+         <cbc:Name languageID="POL">Świadczenie usług medycznych z zakresu medycyny pracy dla pracowników Poczty Polskiej S.A. przez placówki medycyny pracy zlokalizowane 
+w Dębicy-część 5.</cbc:Name>
+         <cbc:Description languageID="POL">Świadczenie usług medycznych z zakresu medycyny pracy dla pracowników Poczty Polskiej S.A. przez placówki medycyny pracy zlokalizowane 
+w Dębicy-badania profilaktyczne. Szacunkowa liczba  pracowników/kandydatów do badania (w tym 24 godz. posiedzenia komisji BHP)- 545.</cbc:Description>
+         <cbc:ProcurementTypeCode listName="contract-nature">services</cbc:ProcurementTypeCode>
+         <cac:MainCommodityClassification>
+            <cbc:ItemClassificationCode listName="cpv">85120000</cbc:ItemClassificationCode>
+         </cac:MainCommodityClassification>
+         <cac:PlannedPeriod>
+            <cbc:StartDate>2024-03-19+01:00</cbc:StartDate>
+            <cbc:DurationMeasure unitCode="MONTH">24</cbc:DurationMeasure>
+         </cac:PlannedPeriod>
+         <cac:ContractExtension>
+            <cbc:OptionsDescription languageID="POL">Zamawiający gwarantuje realizację Umowy na poziomie 80% wartości wskazanej w § 5 ust. 5 umowy. Wartość Umowy może ulec zmniejszeniu maksymalnie o 20% wartości wskazanej w § 5 ust. 5 umowy. Niewykorzystanie wartości Umowy w zakresie, o którym mowa w zdaniu poprzednim nie może stanowić podstawy do żadnych roszczeń finansowych i odszkodowawczych ze strony Wykonawcy z tytułu niezrealizowania Umowy. Ograniczenie wartości Umowy nie wymaga zgody Wykonawcy i podpisywania aneksu do Umowy.</cbc:OptionsDescription>
+         </cac:ContractExtension>
+      </cac:ProcurementProject>
+   </cac:ProcurementProjectLot>
+   <cac:ProcurementProjectLot>
+      <cbc:ID schemeName="Lot">LOT-0015</cbc:ID>
+      <cac:TenderingTerms>
+         <ext:UBLExtensions>
+            <ext:UBLExtension>
+               <ext:ExtensionContent>
+                  <efext:EformsExtension>
+                     <efac:SelectionCriteria>
+                        <cbc:CriterionTypeCode listName="selection-criterion">sui-act</cbc:CriterionTypeCode>
+                        <cbc:Name languageID="POL">Uprawnienia do prowadzenia określonej działalności gospodarczej lub zawodowej</cbc:Name>
+                        <cbc:Description languageID="POL">Zamawiający uzna warunek za spełniony, jeżeli Wykonawca wykaże, że  jest podmiotem leczniczym w rozumieniu ustawy z dnia 15.04.2011 r. o działalności leczniczej  - dokument potwierdzający wpis do rejestru podmiotów wykonujących działalność leczniczą. Warunek dotyczący uprawnień do prowadzenia określonej działalności gospodarczej lub zawodowej zostanie spełniony, jeżeli co najmniej jeden z Wykonawców wspólnie ubiegających się o udzielenie zamówienia posiada uprawnienia do prowadzenia określonej działalności gospodarczej lub zawodowej  i zrealizuje usługi, do których realizacji te uprawnienia są wymagane.</cbc:Description>
+                        <cbc:CalculationExpressionCode listName="usage">used</cbc:CalculationExpressionCode>
+                     </efac:SelectionCriteria>
+                  </efext:EformsExtension>
+               </ext:ExtensionContent>
+            </ext:UBLExtension>
+         </ext:UBLExtensions>
+         <cbc:VariantConstraintCode listName="permission">not-allowed</cbc:VariantConstraintCode>
+         <cbc:FundingProgramCode listName="eu-funded">no-eu-funds</cbc:FundingProgramCode>
+         <cac:RequiredFinancialGuarantee>
+            <cbc:GuaranteeTypeCode listName="tender-guarantee-required">false</cbc:GuaranteeTypeCode>
+         </cac:RequiredFinancialGuarantee>
+         <cac:CallForTendersDocumentReference>
+            <ext:UBLExtensions>
+               <ext:UBLExtension>
+                  <ext:ExtensionContent>
+                     <efext:EformsExtension>
+                        <efac:OfficialLanguages>
+                           <cac:Language>
+                              <cbc:ID>POL</cbc:ID>
+                           </cac:Language>
+                        </efac:OfficialLanguages>
+                     </efext:EformsExtension>
+                  </ext:ExtensionContent>
+               </ext:UBLExtension>
+            </ext:UBLExtensions>
+            <cbc:ID>_DEFAULT_VALUE_CHANGE_ME_</cbc:ID>
+            <cbc:DocumentType>non-restricted-document</cbc:DocumentType>
+            <cac:Attachment>
+               <cac:ExternalReference>
+                  <cbc:URI>https://portal.smartpzp.pl/poczta-polska/public/postepowanie?postepowanie=56832216</cbc:URI>
+               </cac:ExternalReference>
+            </cac:Attachment>
+         </cac:CallForTendersDocumentReference>
+         <cac:TendererQualificationRequest>
+            <cbc:CompanyLegalFormCode listName="required">true</cbc:CompanyLegalFormCode>
+            <cbc:CompanyLegalForm languageID="POL">W  przypadku Wykonawców wspólnie ubiegających się o udzielenie zamówienia Zamawiający będzie żądał po wyborze oferty kopii umowy współpracy, potwierdzonej „za zgodność z oryginałem” przez lidera umocowanego do reprezentowania wszystkich Wykonawców wspólnie ubiegających się o udzielenie zamówienia.</cbc:CompanyLegalForm>
+         </cac:TendererQualificationRequest>
+         <cac:TendererQualificationRequest>
+            <cac:SpecificTendererRequirement>
+               <cbc:TendererRequirementTypeCode listName="reserved-procurement">none</cbc:TendererRequirementTypeCode>
+            </cac:SpecificTendererRequirement>
+         </cac:TendererQualificationRequest>
+         <cac:ContractExecutionRequirement>
+            <cbc:ExecutionRequirementCode listName="reserved-execution">no</cbc:ExecutionRequirementCode>
+         </cac:ContractExecutionRequirement>
+         <cac:ContractExecutionRequirement>
+            <cbc:ExecutionRequirementCode listName="conditions">performance</cbc:ExecutionRequirementCode>
+            <cbc:Description languageID="POL">Szczegółowe zasady realizacji przedmiotu zamówienia zostały określone w projekcie umowy stanowiącej Załącznik 3b  do SWZ.</cbc:Description>
+         </cac:ContractExecutionRequirement>
+         <cac:ContractExecutionRequirement>
+            <cbc:ExecutionRequirementCode listName="einvoicing">allowed</cbc:ExecutionRequirementCode>
+         </cac:ContractExecutionRequirement>
+         <cac:AwardingTerms>
+            <cac:AwardingCriterion>
+               <cbc:CalculationExpression languageID="POL">Za ofertę najkorzystniejszą zostanie uznana oferta, która uzyska najwyższą liczbę punktów w kryterium cena. Oferty będą oceniane wg wzoru:
+      C= Cena brutto najtańszej oferty/ Cena brutto badanej oferty  X 100,  gdzie, C-kryterium cena
+</cbc:CalculationExpression>
+               <cac:SubordinateAwardingCriterion>
+                  <cbc:AwardingCriterionTypeCode listName="award-criterion-type">price</cbc:AwardingCriterionTypeCode>
+                  <cbc:Name languageID="POL">Kryterium cena</cbc:Name>
+                  <cbc:Description languageID="POL">Za ofertę najkorzystniejszą zostanie uznana oferta, która uzyska najwyższą liczbę punktów w kryterium cena. Oferty będą oceniane wg wzoru:
+      C= Cena brutto najtańszej oferty/ Cena brutto badanej oferty  X 100,  gdzie, C-kryterium cena
+</cbc:Description>
+               </cac:SubordinateAwardingCriterion>
+            </cac:AwardingCriterion>
+         </cac:AwardingTerms>
+         <cac:AdditionalInformationParty>
+            <cac:PartyIdentification>
+               <cbc:ID>ORG-0001</cbc:ID>
+            </cac:PartyIdentification>
+         </cac:AdditionalInformationParty>
+         <cac:TenderRecipientParty>
+            <cbc:EndpointID>https://portal.smartpzp.pl/poczta-polska</cbc:EndpointID>
+         </cac:TenderRecipientParty>
+         <cac:TenderValidityPeriod>
+            <cbc:DurationMeasure unitCode="DAY">90</cbc:DurationMeasure>
+         </cac:TenderValidityPeriod>
+         <cac:AppealTerms>
+            <cac:PresentationPeriod>
+               <cbc:Description languageID="POL">1.	Każdemu Wykonawcy, a także innemu podmiotowi, jeżeli ma lub miał interes w uzyskaniu danego zamówienia oraz poniósł lub może ponieść szkodę w wyniku naruszenia przez Zamawiającego przepisów PZP przysługują środki ochrony prawnej przewidziane w PZP jak dla postępowań o wartości przekraczającej równowartość kwoty określonej na podstawie art. 2 ust. 1 pkt 2 PZP.
+2.	Środki ochrony prawnej wobec ogłoszenia o zamówieniu oraz SWZ przysługują również organizacjom wpisanym na listę, o której mowa w art. 469 pkt. 15 PZP, oraz Rzecznikowi Małych i Średnich Przedsiębiorców.
+3.	Szczegółowe przepisy dotyczące środków ochrony prawnej zawarte są w Dziale IX PZP.
+</cbc:Description>
+            </cac:PresentationPeriod>
+         </cac:AppealTerms>
+         <cac:Language>
+            <cbc:ID>POL</cbc:ID>
+         </cac:Language>
+      </cac:TenderingTerms>
+      <cac:TenderingProcess>
+         <cbc:SubmissionMethodCode listName="esubmission">required</cbc:SubmissionMethodCode>
+         <cac:TenderSubmissionDeadlinePeriod>
+            <cbc:EndDate>2023-12-29+01:00</cbc:EndDate>
+            <cbc:EndTime>12:00:00+01:00</cbc:EndTime>
+         </cac:TenderSubmissionDeadlinePeriod>
+         <cac:OpenTenderEvent>
+            <cbc:OccurrenceDate>2023-12-29+01:00</cbc:OccurrenceDate>
+            <cbc:OccurrenceTime>13:00:00+01:00</cbc:OccurrenceTime>
+            <cbc:Description languageID="POL">Otwarcie ofert nastąpi poprzez odszyfrowanie ofert na Platformie.
+W przypadku awarii systemu, która powoduje brak możliwości otwarcia ofert w terminie określonym w rozdz. XVIII ust. 1 SWZ, otwarcie ofert nastąpi niezwłocznie po usunięciu awarii.
+</cbc:Description>
+            <cac:OccurenceLocation>
+               <cbc:Description languageID="POL">https://portal.smartpzp.pl/poczta-polska</cbc:Description>
+            </cac:OccurenceLocation>
+         </cac:OpenTenderEvent>
+         <cac:AuctionTerms>
+            <cbc:AuctionConstraintIndicator>false</cbc:AuctionConstraintIndicator>
+         </cac:AuctionTerms>
+      </cac:TenderingProcess>
+      <cac:ProcurementProject>
+         <cbc:ID>CZ.26.776.2023.DTW-6</cbc:ID>
+         <cbc:Name languageID="POL">Świadczenie usług medycznych z zakresu medycyny pracy dla pracowników Poczty Polskiej S.A. przez placówki medycyny pracy zlokalizowane 
+w Jarosławiu-część 6.</cbc:Name>
+         <cbc:Description languageID="POL">Świadczenie usług medycznych z zakresu medycyny pracy dla pracowników Poczty Polskiej S.A. przez placówki medycyny pracy zlokalizowane 
+w Jarosławiu-badania profilaktyczne. Szacunkowa liczba  pracowników/kandydatów do badania (w tym 24 godz. posiedzenia komisji BHP)- 690.</cbc:Description>
+         <cbc:ProcurementTypeCode listName="contract-nature">services</cbc:ProcurementTypeCode>
+         <cac:MainCommodityClassification>
+            <cbc:ItemClassificationCode listName="cpv">85120000</cbc:ItemClassificationCode>
+         </cac:MainCommodityClassification>
+         <cac:PlannedPeriod>
+            <cbc:StartDate>2024-03-19+01:00</cbc:StartDate>
+            <cbc:DurationMeasure unitCode="MONTH">24</cbc:DurationMeasure>
+         </cac:PlannedPeriod>
+         <cac:ContractExtension>
+            <cbc:OptionsDescription languageID="POL">Zamawiający gwarantuje realizację Umowy na poziomie 80% wartości wskazanej w § 5 ust. 5 umowy. Wartość Umowy może ulec zmniejszeniu maksymalnie o 20% wartości wskazanej w § 5 ust. 5 umowy. Niewykorzystanie wartości Umowy w zakresie, o którym mowa w zdaniu poprzednim nie może stanowić podstawy do żadnych roszczeń finansowych i odszkodowawczych ze strony Wykonawcy z tytułu niezrealizowania Umowy. Ograniczenie wartości Umowy nie wymaga zgody Wykonawcy i podpisywania aneksu do Umowy.</cbc:OptionsDescription>
+         </cac:ContractExtension>
+      </cac:ProcurementProject>
+   </cac:ProcurementProjectLot>
+   <cac:ProcurementProjectLot>
+      <cbc:ID schemeName="Lot">LOT-0016</cbc:ID>
+      <cac:TenderingTerms>
+         <ext:UBLExtensions>
+            <ext:UBLExtension>
+               <ext:ExtensionContent>
+                  <efext:EformsExtension>
+                     <efac:SelectionCriteria>
+                        <cbc:CriterionTypeCode listName="selection-criterion">sui-act</cbc:CriterionTypeCode>
+                        <cbc:Name languageID="POL">Uprawnienia do prowadzenia określonej działalności gospodarczej lub zawodowej</cbc:Name>
+                        <cbc:Description languageID="POL">Zamawiający uzna warunek za spełniony, jeżeli Wykonawca wykaże, że  jest podmiotem leczniczym w rozumieniu ustawy z dnia 15.04.2011 r. o działalności leczniczej  - dokument potwierdzający wpis do rejestru podmiotów wykonujących działalność leczniczą. Warunek dotyczący uprawnień do prowadzenia określonej działalności gospodarczej lub zawodowej zostanie spełniony, jeżeli co najmniej jeden z Wykonawców wspólnie ubiegających się o udzielenie zamówienia posiada uprawnienia do prowadzenia określonej działalności gospodarczej lub zawodowej  i zrealizuje usługi, do których realizacji te uprawnienia są wymagane.</cbc:Description>
+                        <cbc:CalculationExpressionCode listName="usage">used</cbc:CalculationExpressionCode>
+                     </efac:SelectionCriteria>
+                  </efext:EformsExtension>
+               </ext:ExtensionContent>
+            </ext:UBLExtension>
+         </ext:UBLExtensions>
+         <cbc:VariantConstraintCode listName="permission">not-allowed</cbc:VariantConstraintCode>
+         <cbc:FundingProgramCode listName="eu-funded">no-eu-funds</cbc:FundingProgramCode>
+         <cac:RequiredFinancialGuarantee>
+            <cbc:GuaranteeTypeCode listName="tender-guarantee-required">false</cbc:GuaranteeTypeCode>
+         </cac:RequiredFinancialGuarantee>
+         <cac:CallForTendersDocumentReference>
+            <ext:UBLExtensions>
+               <ext:UBLExtension>
+                  <ext:ExtensionContent>
+                     <efext:EformsExtension>
+                        <efac:OfficialLanguages>
+                           <cac:Language>
+                              <cbc:ID>POL</cbc:ID>
+                           </cac:Language>
+                        </efac:OfficialLanguages>
+                     </efext:EformsExtension>
+                  </ext:ExtensionContent>
+               </ext:UBLExtension>
+            </ext:UBLExtensions>
+            <cbc:ID>_DEFAULT_VALUE_CHANGE_ME_</cbc:ID>
+            <cbc:DocumentType>non-restricted-document</cbc:DocumentType>
+            <cac:Attachment>
+               <cac:ExternalReference>
+                  <cbc:URI>https://portal.smartpzp.pl/poczta-polska/public/postepowanie?postepowanie=56832216</cbc:URI>
+               </cac:ExternalReference>
+            </cac:Attachment>
+         </cac:CallForTendersDocumentReference>
+         <cac:TendererQualificationRequest>
+            <cbc:CompanyLegalFormCode listName="required">true</cbc:CompanyLegalFormCode>
+            <cbc:CompanyLegalForm languageID="POL">W  przypadku Wykonawców wspólnie ubiegających się o udzielenie zamówienia Zamawiający będzie żądał po wyborze oferty kopii umowy współpracy, potwierdzonej „za zgodność z oryginałem” przez lidera umocowanego do reprezentowania wszystkich Wykonawców wspólnie ubiegających się o udzielenie zamówienia.</cbc:CompanyLegalForm>
+         </cac:TendererQualificationRequest>
+         <cac:TendererQualificationRequest>
+            <cac:SpecificTendererRequirement>
+               <cbc:TendererRequirementTypeCode listName="reserved-procurement">none</cbc:TendererRequirementTypeCode>
+            </cac:SpecificTendererRequirement>
+         </cac:TendererQualificationRequest>
+         <cac:ContractExecutionRequirement>
+            <cbc:ExecutionRequirementCode listName="reserved-execution">no</cbc:ExecutionRequirementCode>
+         </cac:ContractExecutionRequirement>
+         <cac:ContractExecutionRequirement>
+            <cbc:ExecutionRequirementCode listName="conditions">performance</cbc:ExecutionRequirementCode>
+            <cbc:Description languageID="POL">Szczegółowe zasady realizacji przedmiotu zamówienia zostały określone w projekcie umowy stanowiącej Załącznik 3b  do SWZ.</cbc:Description>
+         </cac:ContractExecutionRequirement>
+         <cac:ContractExecutionRequirement>
+            <cbc:ExecutionRequirementCode listName="einvoicing">allowed</cbc:ExecutionRequirementCode>
+         </cac:ContractExecutionRequirement>
+         <cac:AwardingTerms>
+            <cac:AwardingCriterion>
+               <cbc:CalculationExpression languageID="POL">Za ofertę najkorzystniejszą zostanie uznana oferta, która uzyska najwyższą liczbę punktów w kryterium cena. Oferty będą oceniane wg wzoru:
+      C= Cena brutto najtańszej oferty/ Cena brutto badanej oferty  X 100,  gdzie, C-kryterium cena
+</cbc:CalculationExpression>
+               <cac:SubordinateAwardingCriterion>
+                  <cbc:AwardingCriterionTypeCode listName="award-criterion-type">price</cbc:AwardingCriterionTypeCode>
+                  <cbc:Name languageID="POL">Kryterium cena</cbc:Name>
+                  <cbc:Description languageID="POL">Za ofertę najkorzystniejszą zostanie uznana oferta, która uzyska najwyższą liczbę punktów w kryterium cena. Oferty będą oceniane wg wzoru:
+      C= Cena brutto najtańszej oferty/ Cena brutto badanej oferty  X 100,  gdzie, C-kryterium cena
+</cbc:Description>
+               </cac:SubordinateAwardingCriterion>
+            </cac:AwardingCriterion>
+         </cac:AwardingTerms>
+         <cac:AdditionalInformationParty>
+            <cac:PartyIdentification>
+               <cbc:ID>ORG-0001</cbc:ID>
+            </cac:PartyIdentification>
+         </cac:AdditionalInformationParty>
+         <cac:TenderRecipientParty>
+            <cbc:EndpointID>https://portal.smartpzp.pl/poczta-polska</cbc:EndpointID>
+         </cac:TenderRecipientParty>
+         <cac:TenderValidityPeriod>
+            <cbc:DurationMeasure unitCode="DAY">90</cbc:DurationMeasure>
+         </cac:TenderValidityPeriod>
+         <cac:AppealTerms>
+            <cac:PresentationPeriod>
+               <cbc:Description languageID="POL">1.	Każdemu Wykonawcy, a także innemu podmiotowi, jeżeli ma lub miał interes w uzyskaniu danego zamówienia oraz poniósł lub może ponieść szkodę w wyniku naruszenia przez Zamawiającego przepisów PZP przysługują środki ochrony prawnej przewidziane w PZP jak dla postępowań o wartości przekraczającej równowartość kwoty określonej na podstawie art. 2 ust. 1 pkt 2 PZP.
+2.	Środki ochrony prawnej wobec ogłoszenia o zamówieniu oraz SWZ przysługują również organizacjom wpisanym na listę, o której mowa w art. 469 pkt. 15 PZP, oraz Rzecznikowi Małych i Średnich Przedsiębiorców.
+3.	Szczegółowe przepisy dotyczące środków ochrony prawnej zawarte są w Dziale IX PZP.
+</cbc:Description>
+            </cac:PresentationPeriod>
+         </cac:AppealTerms>
+         <cac:Language>
+            <cbc:ID>POL</cbc:ID>
+         </cac:Language>
+      </cac:TenderingTerms>
+      <cac:TenderingProcess>
+         <cbc:SubmissionMethodCode listName="esubmission">required</cbc:SubmissionMethodCode>
+         <cac:TenderSubmissionDeadlinePeriod>
+            <cbc:EndDate>2023-12-29+01:00</cbc:EndDate>
+            <cbc:EndTime>12:00:00+01:00</cbc:EndTime>
+         </cac:TenderSubmissionDeadlinePeriod>
+         <cac:OpenTenderEvent>
+            <cbc:OccurrenceDate>2023-12-29+01:00</cbc:OccurrenceDate>
+            <cbc:OccurrenceTime>13:00:00+01:00</cbc:OccurrenceTime>
+            <cbc:Description languageID="POL">Otwarcie ofert nastąpi poprzez odszyfrowanie ofert na Platformie.
+W przypadku awarii systemu, która powoduje brak możliwości otwarcia ofert w terminie określonym w rozdz. XVIII ust. 1 SWZ, otwarcie ofert nastąpi niezwłocznie po usunięciu awarii.
+</cbc:Description>
+            <cac:OccurenceLocation>
+               <cbc:Description languageID="POL">https://portal.smartpzp.pl/poczta-polska</cbc:Description>
+            </cac:OccurenceLocation>
+         </cac:OpenTenderEvent>
+         <cac:AuctionTerms>
+            <cbc:AuctionConstraintIndicator>false</cbc:AuctionConstraintIndicator>
+         </cac:AuctionTerms>
+      </cac:TenderingProcess>
+      <cac:ProcurementProject>
+         <cbc:ID>CZ.26.776.2023.DTW-7</cbc:ID>
+         <cbc:Name languageID="POL">Świadczenie usług medycznych z zakresu medycyny pracy dla pracowników Poczty Polskiej S.A. przez placówki medycyny pracy zlokalizowane 
+w Jaśle-część 7.</cbc:Name>
+         <cbc:Description languageID="POL">Świadczenie usług medycznych z zakresu medycyny pracy dla pracowników Poczty Polskiej S.A. przez placówki medycyny pracy zlokalizowane 
+w Jaśle-badania profilaktyczne. Szacunkowa liczba  pracowników/kandydatów do badania (w tym 24 godz. posiedzenia komisji BHP)- 457.</cbc:Description>
+         <cbc:ProcurementTypeCode listName="contract-nature">services</cbc:ProcurementTypeCode>
+         <cac:MainCommodityClassification>
+            <cbc:ItemClassificationCode listName="cpv">85120000</cbc:ItemClassificationCode>
+         </cac:MainCommodityClassification>
+         <cac:PlannedPeriod>
+            <cbc:StartDate>2024-03-19+01:00</cbc:StartDate>
+            <cbc:DurationMeasure unitCode="MONTH">24</cbc:DurationMeasure>
+         </cac:PlannedPeriod>
+         <cac:ContractExtension>
+            <cbc:OptionsDescription languageID="POL">Zamawiający gwarantuje realizację Umowy na poziomie 80% wartości wskazanej w § 5 ust. 5 umowy. Wartość Umowy może ulec zmniejszeniu maksymalnie o 20% wartości wskazanej w § 5 ust. 5 umowy. Niewykorzystanie wartości Umowy w zakresie, o którym mowa w zdaniu poprzednim nie może stanowić podstawy do żadnych roszczeń finansowych i odszkodowawczych ze strony Wykonawcy z tytułu niezrealizowania Umowy. Ograniczenie wartości Umowy nie wymaga zgody Wykonawcy i podpisywania aneksu do Umowy.</cbc:OptionsDescription>
+         </cac:ContractExtension>
+      </cac:ProcurementProject>
+   </cac:ProcurementProjectLot>
+   <cac:ProcurementProjectLot>
+      <cbc:ID schemeName="Lot">LOT-0017</cbc:ID>
+      <cac:TenderingTerms>
+         <ext:UBLExtensions>
+            <ext:UBLExtension>
+               <ext:ExtensionContent>
+                  <efext:EformsExtension>
+                     <efac:SelectionCriteria>
+                        <cbc:CriterionTypeCode listName="selection-criterion">sui-act</cbc:CriterionTypeCode>
+                        <cbc:Name languageID="POL">Uprawnienia do prowadzenia określonej działalności gospodarczej lub zawodowej</cbc:Name>
+                        <cbc:Description languageID="POL">Zamawiający uzna warunek za spełniony, jeżeli Wykonawca wykaże, że  jest podmiotem leczniczym w rozumieniu ustawy z dnia 15.04.2011 r. o działalności leczniczej  - dokument potwierdzający wpis do rejestru podmiotów wykonujących działalność leczniczą. Warunek dotyczący uprawnień do prowadzenia określonej działalności gospodarczej lub zawodowej zostanie spełniony, jeżeli co najmniej jeden z Wykonawców wspólnie ubiegających się o udzielenie zamówienia posiada uprawnienia do prowadzenia określonej działalności gospodarczej lub zawodowej  i zrealizuje usługi, do których realizacji te uprawnienia są wymagane.</cbc:Description>
+                        <cbc:CalculationExpressionCode listName="usage">used</cbc:CalculationExpressionCode>
+                     </efac:SelectionCriteria>
+                  </efext:EformsExtension>
+               </ext:ExtensionContent>
+            </ext:UBLExtension>
+         </ext:UBLExtensions>
+         <cbc:VariantConstraintCode listName="permission">not-allowed</cbc:VariantConstraintCode>
+         <cbc:FundingProgramCode listName="eu-funded">no-eu-funds</cbc:FundingProgramCode>
+         <cac:RequiredFinancialGuarantee>
+            <cbc:GuaranteeTypeCode listName="tender-guarantee-required">false</cbc:GuaranteeTypeCode>
+         </cac:RequiredFinancialGuarantee>
+         <cac:CallForTendersDocumentReference>
+            <ext:UBLExtensions>
+               <ext:UBLExtension>
+                  <ext:ExtensionContent>
+                     <efext:EformsExtension>
+                        <efac:OfficialLanguages>
+                           <cac:Language>
+                              <cbc:ID>POL</cbc:ID>
+                           </cac:Language>
+                        </efac:OfficialLanguages>
+                     </efext:EformsExtension>
+                  </ext:ExtensionContent>
+               </ext:UBLExtension>
+            </ext:UBLExtensions>
+            <cbc:ID>_DEFAULT_VALUE_CHANGE_ME_</cbc:ID>
+            <cbc:DocumentType>non-restricted-document</cbc:DocumentType>
+            <cac:Attachment>
+               <cac:ExternalReference>
+                  <cbc:URI>https://portal.smartpzp.pl/poczta-polska/public/postepowanie?postepowanie=56832216</cbc:URI>
+               </cac:ExternalReference>
+            </cac:Attachment>
+         </cac:CallForTendersDocumentReference>
+         <cac:TendererQualificationRequest>
+            <cbc:CompanyLegalFormCode listName="required">true</cbc:CompanyLegalFormCode>
+            <cbc:CompanyLegalForm languageID="POL">W  przypadku Wykonawców wspólnie ubiegających się o udzielenie zamówienia Zamawiający będzie żądał po wyborze oferty kopii umowy współpracy, potwierdzonej „za zgodność z oryginałem” przez lidera umocowanego do reprezentowania wszystkich Wykonawców wspólnie ubiegających się o udzielenie zamówienia.</cbc:CompanyLegalForm>
+         </cac:TendererQualificationRequest>
+         <cac:TendererQualificationRequest>
+            <cac:SpecificTendererRequirement>
+               <cbc:TendererRequirementTypeCode listName="reserved-procurement">none</cbc:TendererRequirementTypeCode>
+            </cac:SpecificTendererRequirement>
+         </cac:TendererQualificationRequest>
+         <cac:ContractExecutionRequirement>
+            <cbc:ExecutionRequirementCode listName="reserved-execution">no</cbc:ExecutionRequirementCode>
+         </cac:ContractExecutionRequirement>
+         <cac:ContractExecutionRequirement>
+            <cbc:ExecutionRequirementCode listName="conditions">performance</cbc:ExecutionRequirementCode>
+            <cbc:Description languageID="POL">Szczegółowe zasady realizacji przedmiotu zamówienia zostały określone w projekcie umowy stanowiącej Załącznik 3b  do SWZ.</cbc:Description>
+         </cac:ContractExecutionRequirement>
+         <cac:ContractExecutionRequirement>
+            <cbc:ExecutionRequirementCode listName="einvoicing">allowed</cbc:ExecutionRequirementCode>
+         </cac:ContractExecutionRequirement>
+         <cac:AwardingTerms>
+            <cac:AwardingCriterion>
+               <cbc:CalculationExpression languageID="POL">Za ofertę najkorzystniejszą zostanie uznana oferta, która uzyska najwyższą liczbę punktów w kryterium cena. Oferty będą oceniane wg wzoru:
+      C= Cena brutto najtańszej oferty/ Cena brutto badanej oferty  X 100,  gdzie, C-kryterium cena
+</cbc:CalculationExpression>
+               <cac:SubordinateAwardingCriterion>
+                  <cbc:AwardingCriterionTypeCode listName="award-criterion-type">price</cbc:AwardingCriterionTypeCode>
+                  <cbc:Name languageID="POL">Kryterium cena</cbc:Name>
+                  <cbc:Description languageID="POL">Za ofertę najkorzystniejszą zostanie uznana oferta, która uzyska najwyższą liczbę punktów w kryterium cena. Oferty będą oceniane wg wzoru:
+      C= Cena brutto najtańszej oferty/ Cena brutto badanej oferty  X 100,  gdzie, C-kryterium cena
+</cbc:Description>
+               </cac:SubordinateAwardingCriterion>
+            </cac:AwardingCriterion>
+         </cac:AwardingTerms>
+         <cac:AdditionalInformationParty>
+            <cac:PartyIdentification>
+               <cbc:ID>ORG-0001</cbc:ID>
+            </cac:PartyIdentification>
+         </cac:AdditionalInformationParty>
+         <cac:TenderRecipientParty>
+            <cbc:EndpointID>https://portal.smartpzp.pl/poczta-polska</cbc:EndpointID>
+         </cac:TenderRecipientParty>
+         <cac:TenderValidityPeriod>
+            <cbc:DurationMeasure unitCode="DAY">90</cbc:DurationMeasure>
+         </cac:TenderValidityPeriod>
+         <cac:AppealTerms>
+            <cac:PresentationPeriod>
+               <cbc:Description languageID="POL">1.	Każdemu Wykonawcy, a także innemu podmiotowi, jeżeli ma lub miał interes w uzyskaniu danego zamówienia oraz poniósł lub może ponieść szkodę w wyniku naruszenia przez Zamawiającego przepisów PZP przysługują środki ochrony prawnej przewidziane w PZP jak dla postępowań o wartości przekraczającej równowartość kwoty określonej na podstawie art. 2 ust. 1 pkt 2 PZP.
+2.	Środki ochrony prawnej wobec ogłoszenia o zamówieniu oraz SWZ przysługują również organizacjom wpisanym na listę, o której mowa w art. 469 pkt. 15 PZP, oraz Rzecznikowi Małych i Średnich Przedsiębiorców.
+3.	Szczegółowe przepisy dotyczące środków ochrony prawnej zawarte są w Dziale IX PZP.
+</cbc:Description>
+            </cac:PresentationPeriod>
+         </cac:AppealTerms>
+         <cac:Language>
+            <cbc:ID>POL</cbc:ID>
+         </cac:Language>
+      </cac:TenderingTerms>
+      <cac:TenderingProcess>
+         <cbc:SubmissionMethodCode listName="esubmission">required</cbc:SubmissionMethodCode>
+         <cac:TenderSubmissionDeadlinePeriod>
+            <cbc:EndDate>2023-12-29+01:00</cbc:EndDate>
+            <cbc:EndTime>12:00:00+01:00</cbc:EndTime>
+         </cac:TenderSubmissionDeadlinePeriod>
+         <cac:OpenTenderEvent>
+            <cbc:OccurrenceDate>2023-12-29+01:00</cbc:OccurrenceDate>
+            <cbc:OccurrenceTime>13:00:00+01:00</cbc:OccurrenceTime>
+            <cbc:Description languageID="POL">Otwarcie ofert nastąpi poprzez odszyfrowanie ofert na Platformie.
+W przypadku awarii systemu, która powoduje brak możliwości otwarcia ofert w terminie określonym w rozdz. XVIII ust. 1 SWZ, otwarcie ofert nastąpi niezwłocznie po usunięciu awarii.
+</cbc:Description>
+            <cac:OccurenceLocation>
+               <cbc:Description languageID="POL">https://portal.smartpzp.pl/poczta-polska</cbc:Description>
+            </cac:OccurenceLocation>
+         </cac:OpenTenderEvent>
+         <cac:AuctionTerms>
+            <cbc:AuctionConstraintIndicator>false</cbc:AuctionConstraintIndicator>
+         </cac:AuctionTerms>
+      </cac:TenderingProcess>
+      <cac:ProcurementProject>
+         <cbc:ID>CZ.26.776.2023.DTW-8</cbc:ID>
+         <cbc:Name languageID="POL">Świadczenie usług medycznych z zakresu medycyny pracy dla pracowników Poczty Polskiej S.A. przez placówki medycyny pracy zlokalizowane 
+w Mielcu-część 8.</cbc:Name>
+         <cbc:Description languageID="POL">Świadczenie usług medycznych z zakresu medycyny pracy dla pracowników Poczty Polskiej S.A. przez placówki medycyny pracy zlokalizowane 
+w Mielcu-badania profilaktyczne. Szacunkowa liczba  pracowników/kandydatów do badania (w tym 24 godz. posiedzenia komisji BHP)- 421.</cbc:Description>
+         <cbc:ProcurementTypeCode listName="contract-nature">services</cbc:ProcurementTypeCode>
+         <cac:MainCommodityClassification>
+            <cbc:ItemClassificationCode listName="cpv">85120000</cbc:ItemClassificationCode>
+         </cac:MainCommodityClassification>
+         <cac:PlannedPeriod>
+            <cbc:StartDate>2024-03-19+01:00</cbc:StartDate>
+            <cbc:DurationMeasure unitCode="MONTH">24</cbc:DurationMeasure>
+         </cac:PlannedPeriod>
+         <cac:ContractExtension>
+            <cbc:OptionsDescription languageID="POL">Zamawiający gwarantuje realizację Umowy na poziomie 80% wartości wskazanej w § 5 ust. 5 umowy. Wartość Umowy może ulec zmniejszeniu maksymalnie o 20% wartości wskazanej w § 5 ust. 5 umowy. Niewykorzystanie wartości Umowy w zakresie, o którym mowa w zdaniu poprzednim nie może stanowić podstawy do żadnych roszczeń finansowych i odszkodowawczych ze strony Wykonawcy z tytułu niezrealizowania Umowy. Ograniczenie wartości Umowy nie wymaga zgody Wykonawcy i podpisywania aneksu do Umowy.</cbc:OptionsDescription>
+         </cac:ContractExtension>
+      </cac:ProcurementProject>
+   </cac:ProcurementProjectLot>
+   <cac:ProcurementProjectLot>
+      <cbc:ID schemeName="Lot">LOT-0018</cbc:ID>
+      <cac:TenderingTerms>
+         <ext:UBLExtensions>
+            <ext:UBLExtension>
+               <ext:ExtensionContent>
+                  <efext:EformsExtension>
+                     <efac:SelectionCriteria>
+                        <cbc:CriterionTypeCode listName="selection-criterion">sui-act</cbc:CriterionTypeCode>
+                        <cbc:Name languageID="POL">Uprawnienia do prowadzenia określonej działalności gospodarczej lub zawodowej</cbc:Name>
+                        <cbc:Description languageID="POL">Zamawiający uzna warunek za spełniony, jeżeli Wykonawca wykaże, że  jest podmiotem leczniczym w rozumieniu ustawy z dnia 15.04.2011 r. o działalności leczniczej  - dokument potwierdzający wpis do rejestru podmiotów wykonujących działalność leczniczą. Warunek dotyczący uprawnień do prowadzenia określonej działalności gospodarczej lub zawodowej zostanie spełniony, jeżeli co najmniej jeden z Wykonawców wspólnie ubiegających się o udzielenie zamówienia posiada uprawnienia do prowadzenia określonej działalności gospodarczej lub zawodowej  i zrealizuje usługi, do których realizacji te uprawnienia są wymagane.</cbc:Description>
+                        <cbc:CalculationExpressionCode listName="usage">used</cbc:CalculationExpressionCode>
+                     </efac:SelectionCriteria>
+                  </efext:EformsExtension>
+               </ext:ExtensionContent>
+            </ext:UBLExtension>
+         </ext:UBLExtensions>
+         <cbc:VariantConstraintCode listName="permission">not-allowed</cbc:VariantConstraintCode>
+         <cbc:FundingProgramCode listName="eu-funded">no-eu-funds</cbc:FundingProgramCode>
+         <cac:RequiredFinancialGuarantee>
+            <cbc:GuaranteeTypeCode listName="tender-guarantee-required">false</cbc:GuaranteeTypeCode>
+         </cac:RequiredFinancialGuarantee>
+         <cac:CallForTendersDocumentReference>
+            <ext:UBLExtensions>
+               <ext:UBLExtension>
+                  <ext:ExtensionContent>
+                     <efext:EformsExtension>
+                        <efac:OfficialLanguages>
+                           <cac:Language>
+                              <cbc:ID>POL</cbc:ID>
+                           </cac:Language>
+                        </efac:OfficialLanguages>
+                     </efext:EformsExtension>
+                  </ext:ExtensionContent>
+               </ext:UBLExtension>
+            </ext:UBLExtensions>
+            <cbc:ID>_DEFAULT_VALUE_CHANGE_ME_</cbc:ID>
+            <cbc:DocumentType>non-restricted-document</cbc:DocumentType>
+            <cac:Attachment>
+               <cac:ExternalReference>
+                  <cbc:URI>https://portal.smartpzp.pl/poczta-polska/public/postepowanie?postepowanie=56832216</cbc:URI>
+               </cac:ExternalReference>
+            </cac:Attachment>
+         </cac:CallForTendersDocumentReference>
+         <cac:TendererQualificationRequest>
+            <cbc:CompanyLegalFormCode listName="required">true</cbc:CompanyLegalFormCode>
+            <cbc:CompanyLegalForm languageID="POL">W  przypadku Wykonawców wspólnie ubiegających się o udzielenie zamówienia Zamawiający będzie żądał po wyborze oferty kopii umowy współpracy, potwierdzonej „za zgodność z oryginałem” przez lidera umocowanego do reprezentowania wszystkich Wykonawców wspólnie ubiegających się o udzielenie zamówienia.</cbc:CompanyLegalForm>
+         </cac:TendererQualificationRequest>
+         <cac:TendererQualificationRequest>
+            <cac:SpecificTendererRequirement>
+               <cbc:TendererRequirementTypeCode listName="reserved-procurement">none</cbc:TendererRequirementTypeCode>
+            </cac:SpecificTendererRequirement>
+         </cac:TendererQualificationRequest>
+         <cac:ContractExecutionRequirement>
+            <cbc:ExecutionRequirementCode listName="reserved-execution">no</cbc:ExecutionRequirementCode>
+         </cac:ContractExecutionRequirement>
+         <cac:ContractExecutionRequirement>
+            <cbc:ExecutionRequirementCode listName="conditions">performance</cbc:ExecutionRequirementCode>
+            <cbc:Description languageID="POL">Szczegółowe zasady realizacji przedmiotu zamówienia zostały określone w projekcie umowy stanowiącej Załącznik 3b  do SWZ.</cbc:Description>
+         </cac:ContractExecutionRequirement>
+         <cac:ContractExecutionRequirement>
+            <cbc:ExecutionRequirementCode listName="einvoicing">allowed</cbc:ExecutionRequirementCode>
+         </cac:ContractExecutionRequirement>
+         <cac:AwardingTerms>
+            <cac:AwardingCriterion>
+               <cbc:CalculationExpression languageID="POL">Za ofertę najkorzystniejszą zostanie uznana oferta, która uzyska najwyższą liczbę punktów w kryterium cena. Oferty będą oceniane wg wzoru:
+      C= Cena brutto najtańszej oferty/ Cena brutto badanej oferty  X 100,  gdzie, C-kryterium cena
+</cbc:CalculationExpression>
+               <cac:SubordinateAwardingCriterion>
+                  <cbc:AwardingCriterionTypeCode listName="award-criterion-type">price</cbc:AwardingCriterionTypeCode>
+                  <cbc:Name languageID="POL">Kryterium cena</cbc:Name>
+                  <cbc:Description languageID="POL">Za ofertę najkorzystniejszą zostanie uznana oferta, która uzyska najwyższą liczbę punktów w kryterium cena. Oferty będą oceniane wg wzoru:
+      C= Cena brutto najtańszej oferty/ Cena brutto badanej oferty  X 100,  gdzie, C-kryterium cena
+</cbc:Description>
+               </cac:SubordinateAwardingCriterion>
+            </cac:AwardingCriterion>
+         </cac:AwardingTerms>
+         <cac:AdditionalInformationParty>
+            <cac:PartyIdentification>
+               <cbc:ID>ORG-0001</cbc:ID>
+            </cac:PartyIdentification>
+         </cac:AdditionalInformationParty>
+         <cac:TenderRecipientParty>
+            <cbc:EndpointID>https://portal.smartpzp.pl/poczta-polska</cbc:EndpointID>
+         </cac:TenderRecipientParty>
+         <cac:TenderValidityPeriod>
+            <cbc:DurationMeasure unitCode="DAY">90</cbc:DurationMeasure>
+         </cac:TenderValidityPeriod>
+         <cac:AppealTerms>
+            <cac:PresentationPeriod>
+               <cbc:Description languageID="POL">1.	Każdemu Wykonawcy, a także innemu podmiotowi, jeżeli ma lub miał interes w uzyskaniu danego zamówienia oraz poniósł lub może ponieść szkodę w wyniku naruszenia przez Zamawiającego przepisów PZP przysługują środki ochrony prawnej przewidziane w PZP jak dla postępowań o wartości przekraczającej równowartość kwoty określonej na podstawie art. 2 ust. 1 pkt 2 PZP.
+2.	Środki ochrony prawnej wobec ogłoszenia o zamówieniu oraz SWZ przysługują również organizacjom wpisanym na listę, o której mowa w art. 469 pkt. 15 PZP, oraz Rzecznikowi Małych i Średnich Przedsiębiorców.
+3.	Szczegółowe przepisy dotyczące środków ochrony prawnej zawarte są w Dziale IX PZP.
+</cbc:Description>
+            </cac:PresentationPeriod>
+         </cac:AppealTerms>
+         <cac:Language>
+            <cbc:ID>POL</cbc:ID>
+         </cac:Language>
+      </cac:TenderingTerms>
+      <cac:TenderingProcess>
+         <cbc:SubmissionMethodCode listName="esubmission">required</cbc:SubmissionMethodCode>
+         <cac:TenderSubmissionDeadlinePeriod>
+            <cbc:EndDate>2023-12-29+01:00</cbc:EndDate>
+            <cbc:EndTime>12:00:00+01:00</cbc:EndTime>
+         </cac:TenderSubmissionDeadlinePeriod>
+         <cac:OpenTenderEvent>
+            <cbc:OccurrenceDate>2023-12-29+01:00</cbc:OccurrenceDate>
+            <cbc:OccurrenceTime>13:00:00+01:00</cbc:OccurrenceTime>
+            <cbc:Description languageID="POL">Otwarcie ofert nastąpi poprzez odszyfrowanie ofert na Platformie.
+W przypadku awarii systemu, która powoduje brak możliwości otwarcia ofert w terminie określonym w rozdz. XVIII ust. 1 SWZ, otwarcie ofert nastąpi niezwłocznie po usunięciu awarii.
+</cbc:Description>
+            <cac:OccurenceLocation>
+               <cbc:Description languageID="POL">https://portal.smartpzp.pl/poczta-polska</cbc:Description>
+            </cac:OccurenceLocation>
+         </cac:OpenTenderEvent>
+         <cac:AuctionTerms>
+            <cbc:AuctionConstraintIndicator>false</cbc:AuctionConstraintIndicator>
+         </cac:AuctionTerms>
+      </cac:TenderingProcess>
+      <cac:ProcurementProject>
+         <cbc:ID>CZ.26.776.2023.DTW-9</cbc:ID>
+         <cbc:Name languageID="POL">Świadczenie usług medycznych z zakresu medycyny pracy dla pracowników Poczty Polskiej S.A. przez placówki medycyny pracy zlokalizowane 
+w Sanoku-część 9.</cbc:Name>
+         <cbc:Description languageID="POL">Świadczenie usług medycznych z zakresu medycyny pracy dla pracowników Poczty Polskiej S.A. przez placówki medycyny pracy zlokalizowane 
+w Sanoku-badania profilaktyczne. Szacunkowa liczba  pracowników/kandydatów do badania (w tym 24 godz. posiedzenia komisji BHP)- 683.</cbc:Description>
+         <cbc:ProcurementTypeCode listName="contract-nature">services</cbc:ProcurementTypeCode>
+         <cac:MainCommodityClassification>
+            <cbc:ItemClassificationCode listName="cpv">85120000</cbc:ItemClassificationCode>
+         </cac:MainCommodityClassification>
+         <cac:PlannedPeriod>
+            <cbc:StartDate>2024-03-19+01:00</cbc:StartDate>
+            <cbc:DurationMeasure unitCode="MONTH">24</cbc:DurationMeasure>
+         </cac:PlannedPeriod>
+         <cac:ContractExtension>
+            <cbc:OptionsDescription languageID="POL">Zamawiający gwarantuje realizację Umowy na poziomie 80% wartości wskazanej w § 5 ust. 5 umowy. Wartość Umowy może ulec zmniejszeniu maksymalnie o 20% wartości wskazanej w § 5 ust. 5 umowy. Niewykorzystanie wartości Umowy w zakresie, o którym mowa w zdaniu poprzednim nie może stanowić podstawy do żadnych roszczeń finansowych i odszkodowawczych ze strony Wykonawcy z tytułu niezrealizowania Umowy. Ograniczenie wartości Umowy nie wymaga zgody Wykonawcy i podpisywania aneksu do Umowy.</cbc:OptionsDescription>
+         </cac:ContractExtension>
+      </cac:ProcurementProject>
+   </cac:ProcurementProjectLot>
+   <cac:ProcurementProjectLot>
+      <cbc:ID schemeName="Lot">LOT-0019</cbc:ID>
+      <cac:TenderingTerms>
+         <ext:UBLExtensions>
+            <ext:UBLExtension>
+               <ext:ExtensionContent>
+                  <efext:EformsExtension>
+                     <efac:SelectionCriteria>
+                        <cbc:CriterionTypeCode listName="selection-criterion">sui-act</cbc:CriterionTypeCode>
+                        <cbc:Name languageID="POL">Uprawnienia do prowadzenia określonej działalności gospodarczej lub zawodowej</cbc:Name>
+                        <cbc:Description languageID="POL">Zamawiający uzna warunek za spełniony, jeżeli Wykonawca wykaże, że  jest podmiotem leczniczym w rozumieniu ustawy z dnia 15.04.2011 r. o działalności leczniczej  - dokument potwierdzający wpis do rejestru podmiotów wykonujących działalność leczniczą. Warunek dotyczący uprawnień do prowadzenia określonej działalności gospodarczej lub zawodowej zostanie spełniony, jeżeli co najmniej jeden z Wykonawców wspólnie ubiegających się o udzielenie zamówienia posiada uprawnienia do prowadzenia określonej działalności gospodarczej lub zawodowej  i zrealizuje usługi, do których realizacji te uprawnienia są wymagane.</cbc:Description>
+                        <cbc:CalculationExpressionCode listName="usage">used</cbc:CalculationExpressionCode>
+                     </efac:SelectionCriteria>
+                  </efext:EformsExtension>
+               </ext:ExtensionContent>
+            </ext:UBLExtension>
+         </ext:UBLExtensions>
+         <cbc:VariantConstraintCode listName="permission">not-allowed</cbc:VariantConstraintCode>
+         <cbc:FundingProgramCode listName="eu-funded">no-eu-funds</cbc:FundingProgramCode>
+         <cac:RequiredFinancialGuarantee>
+            <cbc:GuaranteeTypeCode listName="tender-guarantee-required">false</cbc:GuaranteeTypeCode>
+         </cac:RequiredFinancialGuarantee>
+         <cac:CallForTendersDocumentReference>
+            <ext:UBLExtensions>
+               <ext:UBLExtension>
+                  <ext:ExtensionContent>
+                     <efext:EformsExtension>
+                        <efac:OfficialLanguages>
+                           <cac:Language>
+                              <cbc:ID>POL</cbc:ID>
+                           </cac:Language>
+                        </efac:OfficialLanguages>
+                     </efext:EformsExtension>
+                  </ext:ExtensionContent>
+               </ext:UBLExtension>
+            </ext:UBLExtensions>
+            <cbc:ID>_DEFAULT_VALUE_CHANGE_ME_</cbc:ID>
+            <cbc:DocumentType>non-restricted-document</cbc:DocumentType>
+            <cac:Attachment>
+               <cac:ExternalReference>
+                  <cbc:URI>https://portal.smartpzp.pl/poczta-polska/public/postepowanie?postepowanie=56832216</cbc:URI>
+               </cac:ExternalReference>
+            </cac:Attachment>
+         </cac:CallForTendersDocumentReference>
+         <cac:TendererQualificationRequest>
+            <cbc:CompanyLegalFormCode listName="required">true</cbc:CompanyLegalFormCode>
+            <cbc:CompanyLegalForm languageID="POL">W  przypadku Wykonawców wspólnie ubiegających się o udzielenie zamówienia Zamawiający będzie żądał po wyborze oferty kopii umowy współpracy, potwierdzonej „za zgodność z oryginałem” przez lidera umocowanego do reprezentowania wszystkich Wykonawców wspólnie ubiegających się o udzielenie zamówienia.</cbc:CompanyLegalForm>
+         </cac:TendererQualificationRequest>
+         <cac:TendererQualificationRequest>
+            <cac:SpecificTendererRequirement>
+               <cbc:TendererRequirementTypeCode listName="reserved-procurement">none</cbc:TendererRequirementTypeCode>
+            </cac:SpecificTendererRequirement>
+         </cac:TendererQualificationRequest>
+         <cac:ContractExecutionRequirement>
+            <cbc:ExecutionRequirementCode listName="reserved-execution">no</cbc:ExecutionRequirementCode>
+         </cac:ContractExecutionRequirement>
+         <cac:ContractExecutionRequirement>
+            <cbc:ExecutionRequirementCode listName="conditions">performance</cbc:ExecutionRequirementCode>
+            <cbc:Description languageID="POL">Szczegółowe zasady realizacji przedmiotu zamówienia zostały określone w projekcie umowy stanowiącej Załącznik 3b  do SWZ.</cbc:Description>
+         </cac:ContractExecutionRequirement>
+         <cac:ContractExecutionRequirement>
+            <cbc:ExecutionRequirementCode listName="einvoicing">allowed</cbc:ExecutionRequirementCode>
+         </cac:ContractExecutionRequirement>
+         <cac:AwardingTerms>
+            <cac:AwardingCriterion>
+               <cbc:CalculationExpression languageID="POL">Za ofertę najkorzystniejszą zostanie uznana oferta, która uzyska najwyższą liczbę punktów w kryterium cena. Oferty będą oceniane wg wzoru:
+      C= Cena brutto najtańszej oferty/ Cena brutto badanej oferty  X 100,  gdzie, C-kryterium cena
+</cbc:CalculationExpression>
+               <cac:SubordinateAwardingCriterion>
+                  <cbc:AwardingCriterionTypeCode listName="award-criterion-type">price</cbc:AwardingCriterionTypeCode>
+                  <cbc:Name languageID="POL">Kryterium cena</cbc:Name>
+                  <cbc:Description languageID="POL">Za ofertę najkorzystniejszą zostanie uznana oferta, która uzyska najwyższą liczbę punktów w kryterium cena. Oferty będą oceniane wg wzoru:
+      C= Cena brutto najtańszej oferty/ Cena brutto badanej oferty  X 100,  gdzie, C-kryterium cena
+</cbc:Description>
+               </cac:SubordinateAwardingCriterion>
+            </cac:AwardingCriterion>
+         </cac:AwardingTerms>
+         <cac:AdditionalInformationParty>
+            <cac:PartyIdentification>
+               <cbc:ID>ORG-0001</cbc:ID>
+            </cac:PartyIdentification>
+         </cac:AdditionalInformationParty>
+         <cac:TenderRecipientParty>
+            <cbc:EndpointID>https://portal.smartpzp.pl/poczta-polska</cbc:EndpointID>
+         </cac:TenderRecipientParty>
+         <cac:TenderValidityPeriod>
+            <cbc:DurationMeasure unitCode="DAY">90</cbc:DurationMeasure>
+         </cac:TenderValidityPeriod>
+         <cac:AppealTerms>
+            <cac:PresentationPeriod>
+               <cbc:Description languageID="POL">1.	Każdemu Wykonawcy, a także innemu podmiotowi, jeżeli ma lub miał interes w uzyskaniu danego zamówienia oraz poniósł lub może ponieść szkodę w wyniku naruszenia przez Zamawiającego przepisów PZP przysługują środki ochrony prawnej przewidziane w PZP jak dla postępowań o wartości przekraczającej równowartość kwoty określonej na podstawie art. 2 ust. 1 pkt 2 PZP.
+2.	Środki ochrony prawnej wobec ogłoszenia o zamówieniu oraz SWZ przysługują również organizacjom wpisanym na listę, o której mowa w art. 469 pkt. 15 PZP, oraz Rzecznikowi Małych i Średnich Przedsiębiorców.
+3.	Szczegółowe przepisy dotyczące środków ochrony prawnej zawarte są w Dziale IX PZP.
+</cbc:Description>
+            </cac:PresentationPeriod>
+         </cac:AppealTerms>
+         <cac:Language>
+            <cbc:ID>POL</cbc:ID>
+         </cac:Language>
+      </cac:TenderingTerms>
+      <cac:TenderingProcess>
+         <cbc:SubmissionMethodCode listName="esubmission">required</cbc:SubmissionMethodCode>
+         <cac:TenderSubmissionDeadlinePeriod>
+            <cbc:EndDate>2023-12-29+01:00</cbc:EndDate>
+            <cbc:EndTime>12:00:00+01:00</cbc:EndTime>
+         </cac:TenderSubmissionDeadlinePeriod>
+         <cac:OpenTenderEvent>
+            <cbc:OccurrenceDate>2023-12-29+01:00</cbc:OccurrenceDate>
+            <cbc:OccurrenceTime>13:00:00+01:00</cbc:OccurrenceTime>
+            <cbc:Description languageID="POL">Otwarcie ofert nastąpi poprzez odszyfrowanie ofert na Platformie.
+W przypadku awarii systemu, która powoduje brak możliwości otwarcia ofert w terminie określonym w rozdz. XVIII ust. 1 SWZ, otwarcie ofert nastąpi niezwłocznie po usunięciu awarii.
+</cbc:Description>
+            <cac:OccurenceLocation>
+               <cbc:Description languageID="POL">https://portal.smartpzp.pl/poczta-polska</cbc:Description>
+            </cac:OccurenceLocation>
+         </cac:OpenTenderEvent>
+         <cac:AuctionTerms>
+            <cbc:AuctionConstraintIndicator>false</cbc:AuctionConstraintIndicator>
+         </cac:AuctionTerms>
+      </cac:TenderingProcess>
+      <cac:ProcurementProject>
+         <cbc:ID>CZ.26.776.2023.DTW-10</cbc:ID>
+         <cbc:Name languageID="POL">Świadczenie usług medycznych z zakresu medycyny pracy dla pracowników Poczty Polskiej S.A. przez placówki medycyny pracy zlokalizowane 
+w Tarnobrzegu-część 10.</cbc:Name>
+         <cbc:Description languageID="POL">Świadczenie usług medycznych z zakresu medycyny pracy dla pracowników Poczty Polskiej S.A. przez placówki medycyny pracy zlokalizowane 
+w Tarnobrzegu-badania profilaktyczne. Szacunkowa liczba  pracowników/kandydatów do badania (w tym 24 godz. posiedzenia komisji BHP)- 574.</cbc:Description>
+         <cbc:ProcurementTypeCode listName="contract-nature">services</cbc:ProcurementTypeCode>
+         <cac:MainCommodityClassification>
+            <cbc:ItemClassificationCode listName="cpv">85120000</cbc:ItemClassificationCode>
+         </cac:MainCommodityClassification>
+         <cac:PlannedPeriod>
+            <cbc:StartDate>2024-03-19+01:00</cbc:StartDate>
+            <cbc:DurationMeasure unitCode="MONTH">24</cbc:DurationMeasure>
+         </cac:PlannedPeriod>
+         <cac:ContractExtension>
+            <cbc:OptionsDescription languageID="POL">Zamawiający gwarantuje realizację Umowy na poziomie 80% wartości wskazanej w § 5 ust. 5 umowy. Wartość Umowy może ulec zmniejszeniu maksymalnie o 20% wartości wskazanej w § 5 ust. 5 umowy. Niewykorzystanie wartości Umowy w zakresie, o którym mowa w zdaniu poprzednim nie może stanowić podstawy do żadnych roszczeń finansowych i odszkodowawczych ze strony Wykonawcy z tytułu niezrealizowania Umowy. Ograniczenie wartości Umowy nie wymaga zgody Wykonawcy i podpisywania aneksu do Umowy.</cbc:OptionsDescription>
+         </cac:ContractExtension>
+      </cac:ProcurementProject>
+   </cac:ProcurementProjectLot>
+</ContractNotice>

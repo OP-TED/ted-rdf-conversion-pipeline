@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><urn:ContractNotice xmlns:urn="urn:oasis:names:specification:ubl:schema:xsd:ContractNotice-2" xmlns:cac="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2" xmlns:cbc="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2" xmlns:efac="http://data.europa.eu/p27/eforms-ubl-extension-aggregate-components/1" xmlns:efbc="http://data.europa.eu/p27/eforms-ubl-extension-basic-components/1" xmlns:efext="http://data.europa.eu/p27/eforms-ubl-extensions/1" xmlns:ext="urn:oasis:names:specification:ubl:schema:xsd:CommonExtensionComponents-2">
+   <ext:UBLExtensions>
+      <ext:UBLExtension>
+         <ext:ExtensionContent>
+            <efext:EformsExtension>
+               <efac:NoticeSubType>
+                  <cbc:SubTypeCode listName="notice-subtype">19</cbc:SubTypeCode>
+               </efac:NoticeSubType>
+               <efac:Organizations>
+                  <efac:Organization>
+                     <efac:Company>
+                        <cbc:WebsiteURI>https://www.portdebarcelona.cat/home_apb</cbc:WebsiteURI>
+                        <cac:PartyIdentification>
+                           <cbc:ID>ORG-0001</cbc:ID>
+                        </cac:PartyIdentification>
+                        <cac:PartyName>
+                           <cbc:Name languageID="SPA">Autoridad Portuaria de Barcelona</cbc:Name>
+                        </cac:PartyName>
+                        <cac:PostalAddress>
+                           <cbc:StreetName>Portal de la Pau, 6</cbc:StreetName>
+                           <cbc:CityName>Barcelona</cbc:CityName>
+                           <cbc:PostalZone>08039</cbc:PostalZone>
+                           <cbc:CountrySubentityCode listName="nuts">ES511</cbc:CountrySubentityCode>
+                           <cac:Country>
+                              <cbc:IdentificationCode listName="country">ESP</cbc:IdentificationCode>
+                           </cac:Country>
+                        </cac:PostalAddress>
+                        <cac:PartyLegalEntity>
+                           <cbc:CompanyID>Q0867012G</cbc:CompanyID>
+                        </cac:PartyLegalEntity>
+                        <cac:Contact>
+                           <cbc:Name>Servicio de Acceso Unificado</cbc:Name>
+                           <cbc:Telephone>+34932986000</cbc:Telephone>
+                           <cbc:ElectronicMail>sau@portdebarcelona.cat</cbc:ElectronicMail>
+                        </cac:Contact>
+                     </efac:Company>
+                  </efac:Organization>
+               </efac:Organizations>
+            <efac:Publication><efbc:NoticePublicationID schemeName="ojs-notice-id">00402363-2023</efbc:NoticePublicationID><efbc:GazetteID schemeName="ojs-id">126/2023</efbc:GazetteID><efbc:PublicationDate>2023-07-04Z</efbc:PublicationDate></efac:Publication></efext:EformsExtension>
+         </ext:ExtensionContent>
+      </ext:UBLExtension>
+   </ext:UBLExtensions>
+   <cbc:UBLVersionID>2.3</cbc:UBLVersionID>
+   <cbc:CustomizationID>eforms-sdk-1.7</cbc:CustomizationID>
+   <cbc:ID schemeName="notice-id">76a55a6e-51db-4212-a09d-a7273d080024</cbc:ID>
+   <cbc:ContractFolderID>e9ae18aa-1fec-4ffe-9475-17330e441834</cbc:ContractFolderID>
+   <cbc:IssueDate>2023-07-03Z</cbc:IssueDate>
+   <cbc:IssueTime>08:44:01Z</cbc:IssueTime>
+   <cbc:VersionID>01</cbc:VersionID>
+   <cbc:RegulatoryDomain>32014L0023</cbc:RegulatoryDomain>
+   <cbc:NoticeTypeCode listName="competition">cn-standard</cbc:NoticeTypeCode>
+   <cbc:NoticeLanguageCode listName="language">SPA</cbc:NoticeLanguageCode>
+   <cac:ContractingParty>
+      <cac:ContractingPartyType>
+         <cbc:PartyTypeCode listName="buyer-legal-type">body-pl</cbc:PartyTypeCode>
+      </cac:ContractingPartyType>
+      <cac:ContractingPartyType>
+         <cbc:PartyTypeCode listName="buyer-contracting-type">not-cont-ent</cbc:PartyTypeCode>
+      </cac:ContractingPartyType>
+      <cac:ContractingActivity>
+         <cbc:ActivityTypeCode listName="authority-activity">gen-pub</cbc:ActivityTypeCode>
+      </cac:ContractingActivity>
+      <cac:ContractingActivity>
+         <cbc:ActivityTypeCode listName="entity-activity">port</cbc:ActivityTypeCode>
+      </cac:ContractingActivity>
+      <cac:Party>
+         <cac:PartyIdentification>
+            <cbc:ID>ORG-0001</cbc:ID>
+         </cac:PartyIdentification>
+      </cac:Party>
+   </cac:ContractingParty>
+   <cac:ProcurementProject>
+      <cbc:ID>Exp. 086/2023-SGSJC</cbc:ID>
+      <cbc:Name languageID="SPA">Concurso Estación marítima de cruceros de uso particular, Terminal "G"</cbc:Name>
+      <cbc:Description languageID="SPA">Concurso para la adjudicación de una concesión administrativa que tenga por objeto la construcción y explotación de una terminal marítima de pasajeros en régimen de crucero turístico dedicada a uso particular, Terminal "G"</cbc:Description>
+      <cbc:ProcurementTypeCode listName="contract-nature">services</cbc:ProcurementTypeCode>
+      <cbc:Note languageID="SPA">a) Plazos: - El plazo para la obtención de la documentación relativa a la convocatoria del concurso finalizará el día 3 de octubre de 2023 a las 12:00 horas. - El plazo para formular consultas finalizará el día 5 de octubre de 2023 a las 12:00 horas. - Las ofertas podrán ser entregadas en mano en el Registro del Servicio de Acceso Unificado (SAU) de la Autoridad Portuaria de Barcelona o por correo postal (SAU, World Trade Center Barcelona, Edificio Este, planta baja, 08039 Barcelona), hasta el día 27 de octubre de 2023 a las 12:00 horas. - Fecha prevista para la apertura pública del sobre número 3 que contiene la oferta económica: 12 de diciembre de 2023, a las 12:00 horas. Esta fecha es estimativa. La fecha definitiva se publicará oportunamente en el Tablón de anuncios de la sede electrónica de la Autoridad Portuaria de Barcelona (https://seu.portdebarcelona.gob.es/es/web/seuelectronica/tauler-d-anuncis). - Plazo de validez de las ofertas: las ofertas deberán mantener su vigencia hasta como mínimo el día 5 de abril de 2024. 
+b) Gastos a cargo del adjudicatario del concurso: b.1) Los derivados de la participación en el concurso, incluyendo la publicación de anuncios oficiales ; b.2) gastos del proyecto archivado con motivo de la convocatoria de concurso (estimados en un importe de 455.895 euros).</cbc:Note>
+      <cac:RequestedTenderTotal>
+         <cbc:EstimatedOverallContractAmount currencyID="EUR">50000000</cbc:EstimatedOverallContractAmount>
+      </cac:RequestedTenderTotal>
+      <cac:MainCommodityClassification>
+         <cbc:ItemClassificationCode listName="cpv">63721200</cbc:ItemClassificationCode>
+      </cac:MainCommodityClassification>
+      <cac:RealizedLocation>
+         <cac:Address>
+            <cbc:StreetName>Portal de la Pau, 6</cbc:StreetName>
+            <cbc:CityName>Barcelona</cbc:CityName>
+            <cbc:PostalZone>08039</cbc:PostalZone>
+            <cbc:CountrySubentityCode listName="nuts">ES511</cbc:CountrySubentityCode>
+            <cac:Country>
+               <cbc:IdentificationCode listName="country">ESP</cbc:IdentificationCode>
+            </cac:Country>
+         </cac:Address>
+      </cac:RealizedLocation>
+   </cac:ProcurementProject>
+   <cac:ProcurementProjectLot>
+      <cbc:ID schemeName="Lot">LOT-0001</cbc:ID>
+      <cac:TenderingTerms>
+         <ext:UBLExtensions>
+            <ext:UBLExtension>
+               <ext:ExtensionContent>
+                  <efext:EformsExtension>
+                     <efac:SelectionCriteria>
+                        <cbc:CriterionTypeCode listName="selection-criterion">other</cbc:CriterionTypeCode>
+                        <cbc:Name languageID="SPA">Actividad del licitador</cbc:Name>
+                        <cbc:Description languageID="SPA">La actividad del licitador ha de tener relación directa con el objeto del concurso, según resulte, en su caso, de sus respectivos estatutos o reglas fundacionales.</cbc:Description>
+                     </efac:SelectionCriteria>
+                     <efac:SelectionCriteria>
+                        <cbc:CriterionTypeCode listName="selection-criterion">tp-abil</cbc:CriterionTypeCode>
+                        <cbc:Name languageID="SPA">Solvencia técnica</cbc:Name>
+                        <cbc:Description languageID="SPA">I.- En el caso de no presentar oferta conjunta: Se entenderá que el licitador acredita una solvencia técnica suficiente para participar en esta licitación si cumple uno cualquiera de los siguientes requisitos: 
+a) Haber explotado en el año 2022 un mínimo de 2 cruceros turísticos con una eslora superior a 325 m., ya sea como propietario o como gestor a través de su fletamento. 
+b) Haber explotado, ya sea como propietario o como gestor a través de su fletamento, una flota de buques con un GT acumulado que supere los 250.000 GT. 
+A los efectos de lo previsto en los apartados a) y b) anteriores, podrán ser considerados también los buques que en el año 2022 y 2023 se encuentren en construcción para el licitador. 
+c) Haber operado en un único puerto en cualquiera de los años 2018-2022, a través de sus buques crucero, ya sea como propietario o como gestor a través de su fletamento, un volumen de pasaje mínimo de 125.000 pasajeros. 
+Se admite la integración de la solvencia conforme a lo previsto en el Pliego de Bases.
+II.- En el caso de presentar oferta conjunta: Se entenderá que los licitadores que formulan una oferta conjunta acreditan una solvencia técnica suficiente para participar en esta licitación si, además de ser cada uno de ellos una empresa naviera, cumplen, de forma conjunta, uno cualquiera de los siguientes requisitos: 
+a) Haber explotado en el año 2022 un mínimo de 2 cruceros turísticos con una eslora superior a 325 m., ya sea como propietarios o como gestores a través de su fletamento; 
+b) Haber explotado en el año 2022, ya sea como propietarios o como gestores a través de su fletamento, una flota de buques con un GT acumulado que supere los 250.000 GT. 
+A los efectos de lo previsto en los apartados a) y b) anteriores, podrán ser considerados también los buques titularidad de los licitadores, que formulen oferta conjunta, que en el año 2022 y 2023 se encuentren en construcción. 
+c) Haber operado en un único puerto, que podrá ser distinto para cada uno de los licitadores que formulen una oferta conjunta, en cualquiera de los años 2018-2022, a través de sus buques crucero, ya sea como propietarios o como gestores a través de su fletamento, un volumen de pasaje mínimo de 125.000 pasajeros. 
+Se admite la integración de la solvencia conforme a lo previsto en el Pliego de Bases.</cbc:Description>
+                     </efac:SelectionCriteria>
+                     <efac:SelectionCriteria>
+                        <cbc:CriterionTypeCode listName="selection-criterion">ef-stand</cbc:CriterionTypeCode>
+                        <cbc:Name languageID="SPA">Solvencia económica</cbc:Name>
+                        <cbc:Description languageID="SPA">I.- En el caso de no presentar oferta conjunta: Se entenderá que el licitador acredita una solvencia económico-financiera suficiente para participar en esta licitación si dispone de un patrimonio neto superior a CINCUENTA MILLONES DE EUROS (50.000.000,00 €). Se entiende por patrimonio neto, a efectos de las personas jurídicas, la definición establecida en el Real Decreto 1514/2007, de 16 de noviembre, por el que se aprueba el Plan General de Contabilidad. Se admite la integración de la solvencia conforme a lo previsto en el Pliego de Bases. 
+II.- En el caso de presentar oferta conjunta: Como mínimo uno de los licitadores deberá cumplir, por sí solo, el requisito de solvencia económica exigida (disponer de un patrimonio neto superior a CINCUENTA MILLONES DE EUROS (50.000.000.-€). Se admite la integración de la solvencia conforme a lo previsto en el Pliego de Bases.</cbc:Description>
+                     </efac:SelectionCriteria>
+                     <efac:SelectionCriteria>
+                        <cbc:CriterionTypeCode listName="selection-criterion">other</cbc:CriterionTypeCode>
+                        <cbc:Name languageID="SPA">Requisito de competencia</cbc:Name>
+                        <cbc:Description languageID="SPA">El licitador, o alguna de las empresas de su grupo empresarial, no podrá ser titular o tener una participación que le permita influir de manera efectiva en la gestión o control de otra sociedad titular de una concesión que tenga por objeto otra terminal de pasajeros en régimen de crucero en el puerto de Barcelona, bien sea directa o indirectamente.</cbc:Description>
+                     </efac:SelectionCriteria>
+                  </efext:EformsExtension>
+               </ext:ExtensionContent>
+            </ext:UBLExtension>
+         </ext:UBLExtensions>
+         <cbc:VariantConstraintCode listName="permission">not-allowed</cbc:VariantConstraintCode>
+         <cbc:FundingProgramCode listName="eu-funded">no-eu-funds</cbc:FundingProgramCode>
+         <cbc:RecurringProcurementIndicator>false</cbc:RecurringProcurementIndicator>
+         <cac:RequiredFinancialGuarantee>
+            <cbc:GuaranteeTypeCode listName="tender-guarantee-required">true</cbc:GuaranteeTypeCode>
+            <cbc:Description languageID="SPA">Provisional: Deberá constituirse una garantía provisional según lo dispuesto en el Pliego de Bases, en la forma establecida en el Anexo nº 3 del Pliego de Bases y por una cuantía de UN MILLÓN DE EUROS (1.000.000.-€). 
+Definitiva: Deberán constituirse una garantía definitiva o de construcción y una garantía de explotación según lo previsto en el Pliego de Bases.</cbc:Description>
+         </cac:RequiredFinancialGuarantee>
+         <cac:CallForTendersDocumentReference>
+            <cbc:ID>_DEFAULT_VALUE_CHANGE_ME_</cbc:ID>
+            <cbc:DocumentType>non-restricted-document</cbc:DocumentType>
+            <cbc:LanguageID>SPA</cbc:LanguageID>
+            <cbc:DocumentStatusCode listName="document-status">official</cbc:DocumentStatusCode>
+            <cac:Attachment>
+               <cac:ExternalReference>
+                  <cbc:URI>https://seu.portdebarcelona.gob.es/es/web/seuelectronica/tauler-d-anuncis</cbc:URI>
+               </cac:ExternalReference>
+            </cac:Attachment>
+         </cac:CallForTendersDocumentReference>
+         <cac:TendererQualificationRequest>
+            <cbc:CompanyLegalFormCode listName="required">true</cbc:CompanyLegalFormCode>
+            <cbc:CompanyLegalForm languageID="SPA">Podrá presentarse proposición de forma conjunta por dos o más sociedades interesadas en concurrir al otorgamiento de la concesión de forma convenida. Así, se entiende por oferta conjunta aquella que sea suscrita conjuntamente por más de una sociedad: a) Mediante la presentación de una única solicitud formulada por las sociedades interesadas en la que se solicite la obtención de una concesión en régimen de cotitularidad. b) Mediante la presentación de una única solicitud formulada por diversas sociedades que deseen concurrir integradas en unión temporal, para lo cual deberán presentar el correspondiente compromiso de que, caso de resultar adjudicatarias, constituirán una Unión Temporal de Empresas, si la unión de empresas no se ha constituido previamente.</cbc:CompanyLegalForm>
+         </cac:TendererQualificationRequest>
+         <cac:ContractExecutionRequirement>
+            <cbc:ExecutionRequirementCode listName="reserved-execution">no</cbc:ExecutionRequirementCode>
+         </cac:ContractExecutionRequirement>
+         <cac:AwardingTerms>
+            <cac:AwardingCriterion>
+               <cac:SubordinateAwardingCriterion>
+                  <cbc:AwardingCriterionTypeCode listName="award-criterion-type">price</cbc:AwardingCriterionTypeCode>
+                  <cbc:Description languageID="SPA">Plazo de la concesión (sin tener en cuenta posibles prórrogas): 10 puntos</cbc:Description>
+               </cac:SubordinateAwardingCriterion>
+               <cac:SubordinateAwardingCriterion>
+                  <cbc:AwardingCriterionTypeCode listName="award-criterion-type">price</cbc:AwardingCriterionTypeCode>
+                  <cbc:Description languageID="SPA">Mejora de la tasa de actividad en términos porcentuales: 10 puntos</cbc:Description>
+               </cac:SubordinateAwardingCriterion>
+               <cac:SubordinateAwardingCriterion>
+                  <cbc:AwardingCriterionTypeCode listName="award-criterion-type">price</cbc:AwardingCriterionTypeCode>
+                  <cbc:Description languageID="SPA">Número de pasajeros con origen / destino Barcelona: 15 puntos</cbc:Description>
+               </cac:SubordinateAwardingCriterion>
+               <cac:SubordinateAwardingCriterion>
+                  <cbc:AwardingCriterionTypeCode listName="award-criterion-type">price</cbc:AwardingCriterionTypeCode>
+                  <cbc:Description languageID="SPA">Suma del GT de las escalas de cruceros anuales previstas: 15 puntos</cbc:Description>
+               </cac:SubordinateAwardingCriterion>
+               <cac:SubordinateAwardingCriterion>
+                  <cbc:AwardingCriterionTypeCode listName="award-criterion-type">quality</cbc:AwardingCriterionTypeCode>
+                  <cbc:Description languageID="SPA">Sostenibilidad: 15 puntos desglosados en: a) Terminal sostenible y autosuficiente: 7 puntos b) Sostenibilidad del área intermodal: 8 puntos</cbc:Description>
+               </cac:SubordinateAwardingCriterion>
+               <cac:SubordinateAwardingCriterion>
+                  <cbc:AwardingCriterionTypeCode listName="award-criterion-type">quality</cbc:AwardingCriterionTypeCode>
+                  <cbc:Description languageID="SPA">Calidad del programa de explotación y proyecto técnico: 20 puntos, desglosado en: a) Configuración de las operativas de embarque y desembarque en la estación marítima: 6 puntos b) Configuración de la estación marítima, pasarela, zona de maniobra y equipos de manipulación: 4 puntos c) Configuración del área intermodal: 10 puntos</cbc:Description>
+               </cac:SubordinateAwardingCriterion>
+               <cac:SubordinateAwardingCriterion>
+                  <cbc:AwardingCriterionTypeCode listName="award-criterion-type">quality</cbc:AwardingCriterionTypeCode>
+                  <cbc:Description languageID="SPA">Responsabilidad social corporativa. Sostenibilidad social: 5 puntos, desglosados en: a) Movilidad sostenible trabajadores: 3 puntos desglosados en: a.1) Número de plazas de estacionamiento equipadas con cargadores para vehículos eléctricos, que superen el mínimo del 10% de plazas requeridas redondeado al alza, con un valor mínimo de 2 plazas, para el personal que trabaje en la terminal: 1 punto a.2) Proporcionar la opción de uso de transporte colectivo para los empleados de la terminal (directo y subcontratados): 2 puntos b) Uso de energía verde: 2 puntos.</cbc:Description>
+               </cac:SubordinateAwardingCriterion>
+               <cac:SubordinateAwardingCriterion>
+                  <cbc:AwardingCriterionTypeCode listName="award-criterion-type">quality</cbc:AwardingCriterionTypeCode>
+                  <cbc:Description languageID="SPA">Movilidad: 10 puntos</cbc:Description>
+               </cac:SubordinateAwardingCriterion>
+            </cac:AwardingCriterion>
+         </cac:AwardingTerms>
+         <cac:AdditionalInformationParty>
+            <cac:PartyIdentification>
+               <cbc:ID>ORG-0001</cbc:ID>
+            </cac:PartyIdentification>
+         </cac:AdditionalInformationParty>
+         <cac:AppealTerms>
+            <cac:AppealReceiverParty>
+               <cac:PartyIdentification>
+                  <cbc:ID>ORG-0001</cbc:ID>
+               </cac:PartyIdentification>
+            </cac:AppealReceiverParty>
+         </cac:AppealTerms>
+         <cac:Language>
+            <cbc:ID>SPA</cbc:ID>
+         </cac:Language>
+         <cac:Language>
+            <cbc:ID>CAT</cbc:ID>
+         </cac:Language>
+      </cac:TenderingTerms>
+      <cac:TenderingProcess>
+         <cbc:SubmissionMethodCode listName="esubmission">not-allowed</cbc:SubmissionMethodCode>
+      </cac:TenderingProcess>
+      <cac:ProcurementProject>
+         <cbc:ID>Exp. 086/2023-SGSJC</cbc:ID>
+         <cbc:Name languageID="SPA">Estación marítima de cruceros de uso particular, Terminal "G"</cbc:Name>
+         <cbc:Description languageID="SPA">Concesión administrativa de dominio público, destinada a la construcción y explotación de una terminal marítima de pasajeros en régimen de crucero turístico dedicada a uso particular, estación marítima "G", en el muelle Adosado del puerto de Barcelona.</cbc:Description>
+         <cbc:ProcurementTypeCode listName="contract-nature">services</cbc:ProcurementTypeCode>
+         <cbc:Note languageID="SPA">El plazo de la concesión, sin consideración de posibles prórrogas, será de alguno de los siguientes valores: 30 años, 32 años o 35 años.</cbc:Note>
+         <cac:RequestedTenderTotal>
+            <cbc:EstimatedOverallContractAmount currencyID="EUR">50000000</cbc:EstimatedOverallContractAmount>
+         </cac:RequestedTenderTotal>
+         <cac:MainCommodityClassification>
+            <cbc:ItemClassificationCode listName="cpv">63721200</cbc:ItemClassificationCode>
+         </cac:MainCommodityClassification>
+         <cac:RealizedLocation>
+            <cac:Address>
+               <cbc:StreetName>Muelle Adosado</cbc:StreetName>
+               <cbc:CityName>Barcelona</cbc:CityName>
+               <cbc:PostalZone>08039</cbc:PostalZone>
+               <cbc:CountrySubentityCode listName="nuts">ES511</cbc:CountrySubentityCode>
+               <cac:Country>
+                  <cbc:IdentificationCode listName="country">ESP</cbc:IdentificationCode>
+               </cac:Country>
+            </cac:Address>
+         </cac:RealizedLocation>
+      </cac:ProcurementProject>
+   </cac:ProcurementProjectLot>
+</urn:ContractNotice>

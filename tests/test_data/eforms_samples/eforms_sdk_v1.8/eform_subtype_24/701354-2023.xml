@@ -1,0 +1,273 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><ContractNotice xmlns="urn:oasis:names:specification:ubl:schema:xsd:ContractNotice-2" xmlns:cac="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2" xmlns:cbc="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2" xmlns:efac="http://data.europa.eu/p27/eforms-ubl-extension-aggregate-components/1" xmlns:efbc="http://data.europa.eu/p27/eforms-ubl-extension-basic-components/1" xmlns:efext="http://data.europa.eu/p27/eforms-ubl-extensions/1" xmlns:ext="urn:oasis:names:specification:ubl:schema:xsd:CommonExtensionComponents-2">
+  <ext:UBLExtensions>
+    <ext:UBLExtension>
+      <ext:ExtensionContent>
+        <efext:EformsExtension>
+          <efac:NoticeSubType>
+            <cbc:SubTypeCode listName="notice-subtype">24</cbc:SubTypeCode>
+          </efac:NoticeSubType>
+          <efac:Organizations>
+            <efac:Organization>
+              <efac:Company>
+                <cac:PartyIdentification>
+                  <cbc:ID schemeName="organization">ORG-0001</cbc:ID>
+                </cac:PartyIdentification>
+                <cac:PartyName>
+                  <cbc:Name languageID="SWE">Umeå Energi Elnät AB</cbc:Name>
+                </cac:PartyName>
+                <cac:PostalAddress>
+                  <cbc:StreetName>Storgatan 34</cbc:StreetName>
+                  <cbc:CityName>Umeå</cbc:CityName>
+                  <cbc:PostalZone>90325</cbc:PostalZone>
+                  <cbc:CountrySubentityCode listName="nuts">SE321</cbc:CountrySubentityCode>
+                  <cac:Country>
+                    <cbc:IdentificationCode listName="country">SWE</cbc:IdentificationCode>
+                  </cac:Country>
+                </cac:PostalAddress>
+                <cac:PartyLegalEntity>
+                  <cbc:CompanyID>556086-8225</cbc:CompanyID>
+                </cac:PartyLegalEntity>
+                <cac:Contact>
+                  <cbc:Telephone>090163800</cbc:Telephone>
+                  <cbc:ElectronicMail>brevlada@umeaenergi.se</cbc:ElectronicMail>
+                </cac:Contact>
+              </efac:Company>
+            </efac:Organization>
+            <efac:Organization>
+              <efac:Company>
+                <cbc:WebsiteURI>https://www.e-avrop.com</cbc:WebsiteURI>
+                <cac:PartyIdentification>
+                  <cbc:ID schemeName="organization">ORG-0002</cbc:ID>
+                </cac:PartyIdentification>
+                <cac:PartyName>
+                  <cbc:Name languageID="SWE">Antirio AB</cbc:Name>
+                </cac:PartyName>
+                <cac:PostalAddress>
+                  <cbc:StreetName>GÅRDSVÄGEN 18</cbc:StreetName>
+                  <cbc:CityName>Solna</cbc:CityName>
+                  <cbc:PostalZone>169 70</cbc:PostalZone>
+                  <cbc:CountrySubentityCode listName="nuts">SE110</cbc:CountrySubentityCode>
+                  <cac:Country>
+                    <cbc:IdentificationCode listName="country">SWE</cbc:IdentificationCode>
+                  </cac:Country>
+                </cac:PostalAddress>
+                <cac:PartyLegalEntity>
+                  <cbc:CompanyID>556533-8133</cbc:CompanyID>
+                </cac:PartyLegalEntity>
+                <cac:Contact>
+                  <cbc:Telephone>08-501 190 00</cbc:Telephone>
+                  <cbc:ElectronicMail>support@e-avrop.com</cbc:ElectronicMail>
+                </cac:Contact>
+              </efac:Company>
+            </efac:Organization>
+            <efac:Organization>
+              <efac:Company>
+                <cbc:WebsiteURI>https://www.domstol.se/forvaltningsratten-i-umea/</cbc:WebsiteURI>
+                <cac:PartyIdentification>
+                  <cbc:ID schemeName="organization">ORG-0003</cbc:ID>
+                </cac:PartyIdentification>
+                <cac:PartyName>
+                  <cbc:Name languageID="SWE">Förvaltningsrätten i Umeå</cbc:Name>
+                </cac:PartyName>
+                <cac:PostalAddress>
+                  <cbc:StreetName>Box 193</cbc:StreetName>
+                  <cbc:CityName>Umeå</cbc:CityName>
+                  <cbc:PostalZone>901 05</cbc:PostalZone>
+                  <cbc:CountrySubentityCode listName="nuts">SE331</cbc:CountrySubentityCode>
+                  <cac:Country>
+                    <cbc:IdentificationCode listName="country">SWE</cbc:IdentificationCode>
+                  </cac:Country>
+                </cac:PostalAddress>
+                <cac:PartyLegalEntity>
+                  <cbc:CompanyID>202100-2742</cbc:CompanyID>
+                </cac:PartyLegalEntity>
+                <cac:Contact>
+                  <cbc:Telephone>+46 90-17 74 00</cbc:Telephone>
+                  <cbc:ElectronicMail>forvaltningsratteniumea@dom.se</cbc:ElectronicMail>
+                </cac:Contact>
+              </efac:Company>
+            </efac:Organization>
+          </efac:Organizations>
+        <efac:Publication><efbc:NoticePublicationID schemeName="ojs-notice-id">00701354-2023</efbc:NoticePublicationID><efbc:GazetteID schemeName="ojs-id">222/2023</efbc:GazetteID><efbc:PublicationDate>2023-11-17Z</efbc:PublicationDate></efac:Publication></efext:EformsExtension>
+      </ext:ExtensionContent>
+    </ext:UBLExtension>
+  </ext:UBLExtensions>
+  <cbc:UBLVersionID>2.3</cbc:UBLVersionID>
+  <cbc:CustomizationID>eforms-sdk-1.8</cbc:CustomizationID>
+  <cbc:ID schemeName="notice-id">334a7641-2f81-487a-aac6-7586378f66d6</cbc:ID>
+  <cbc:ContractFolderID>b578f9d0-633c-4209-88cd-bd8aee4ee615</cbc:ContractFolderID>
+  <cbc:IssueDate>2023-11-16+01:00</cbc:IssueDate>
+  <cbc:IssueTime>09:12:40+01:00</cbc:IssueTime>
+  <cbc:VersionID>01</cbc:VersionID>
+  <cbc:RegulatoryDomain>32014L0025</cbc:RegulatoryDomain>
+  <cbc:NoticeTypeCode listName="competition">cn-desg</cbc:NoticeTypeCode>
+  <cbc:NoticeLanguageCode listName="language">SWE</cbc:NoticeLanguageCode>
+  <cac:ContractingParty>
+    <cac:ContractingPartyType>
+      <cbc:PartyTypeCode listName="buyer-legal-type">pub-undert-la</cbc:PartyTypeCode>
+    </cac:ContractingPartyType>
+    <cac:ContractingActivity>
+      <cbc:ActivityTypeCode listName="entity-activity">electricity</cbc:ActivityTypeCode>
+    </cac:ContractingActivity>
+    <cac:Party>
+      <cac:PartyIdentification>
+        <cbc:ID schemeName="organization">ORG-0001</cbc:ID>
+      </cac:PartyIdentification>
+      <cac:ServiceProviderParty>
+        <cbc:ServiceTypeCode listName="organisation-role">ted-esen</cbc:ServiceTypeCode>
+        <cac:Party>
+          <cac:PartyIdentification>
+            <cbc:ID schemeName="organization">ORG-0002</cbc:ID>
+          </cac:PartyIdentification>
+        </cac:Party>
+      </cac:ServiceProviderParty>
+    </cac:Party>
+  </cac:ContractingParty>
+  <cac:TenderingTerms>
+    <cac:TendererQualificationRequest>
+      <cac:SpecificTendererRequirement>
+        <cbc:TendererRequirementTypeCode listName="exclusion-ground">crime-org</cbc:TendererRequirementTypeCode>
+        <cbc:Description languageID="SWE">Har leverantören själv eller en person som är medlem i dess förvaltnings-, lednings- eller tillsynsorgan eller som har befogenhet att företräda, fatta beslut i eller kontrollera dessa, fällts för deltagande i någon kriminell organisation genom en lagakraftvunnen dom som meddelades för högst fem år sedan eller i vilken en tidsfrist fastställts som fortfarande gäller?</cbc:Description>
+      </cac:SpecificTendererRequirement>
+      <cac:SpecificTendererRequirement>
+        <cbc:TendererRequirementTypeCode listName="exclusion-ground">corruption</cbc:TendererRequirementTypeCode>
+        <cbc:Description languageID="SWE">Har leverantören själv eller en person som är medlem i dess förvaltnings-, lednings- eller tillsynsorgan eller som har befogenhet att företräda, fatta beslut i eller kontrollera dessa, fällts för korruption genom en lagakraftvunnen dom som meddelades för högst fem år sedan eller i vilken en tidsfrist fastställts som fortfarande gäller?</cbc:Description>
+      </cac:SpecificTendererRequirement>
+      <cac:SpecificTendererRequirement>
+        <cbc:TendererRequirementTypeCode listName="exclusion-ground">fraud</cbc:TendererRequirementTypeCode>
+        <cbc:Description languageID="SWE">Har leverantören själv eller en person som är medlem i dess förvaltnings-, lednings- eller tillsynsorgan eller som har befogenhet att företräda, fatta beslut i eller kontrollera dessa, fällts för bedrägeri genom en lagakraftvunnen dom som meddelades för högst fem år sedan eller i vilken en tidsfrist fastställts som fortfarande gäller?</cbc:Description>
+      </cac:SpecificTendererRequirement>
+      <cac:SpecificTendererRequirement>
+        <cbc:TendererRequirementTypeCode listName="exclusion-ground">terr-offence</cbc:TendererRequirementTypeCode>
+        <cbc:Description languageID="SWE">Har leverantören själv eller en person som är medlem i dess förvaltnings-, lednings- eller tillsynsorgan eller som har befogenhet att företräda, fatta beslut i eller kontrollera dessa, fällts för terrorbrott eller brott med anknytning till terroristverksamhet genom en lagakraftvunnen dom som meddelades för högst fem år sedan eller i vilken en tidsfrist fastställts som fortfarande gäller?</cbc:Description>
+      </cac:SpecificTendererRequirement>
+      <cac:SpecificTendererRequirement>
+        <cbc:TendererRequirementTypeCode listName="exclusion-ground">finan-laund</cbc:TendererRequirementTypeCode>
+        <cbc:Description languageID="SWE">Har leverantören själv eller en person som är medlem i dess förvaltnings-, lednings- eller tillsynsorgan eller som har befogenhet att företräda, fatta beslut i eller kontrollera dessa, fällts för penningtvätt eller finansiering av terrorism genom en lagakraftvunnen dom som meddelades för högst fem år sedan eller i vilken en tidsfrist fastställts som fortfarande gäller?</cbc:Description>
+      </cac:SpecificTendererRequirement>
+      <cac:SpecificTendererRequirement>
+        <cbc:TendererRequirementTypeCode listName="exclusion-ground">human-traffic</cbc:TendererRequirementTypeCode>
+        <cbc:Description languageID="SWE">Har leverantören själv eller en person som är medlem i dess förvaltnings-, lednings- eller tillsynsorgan eller som har befogenhet att företräda, fatta beslut i eller kontrollera dessa, fällts för barnarbete eller andra former av människohandel genom en lagakraftvunnen dom som meddelades för högst fem år sedan eller i vilken en tidsfrist fastställts som fortfarande gäller?</cbc:Description>
+      </cac:SpecificTendererRequirement>
+      <cac:SpecificTendererRequirement>
+        <cbc:TendererRequirementTypeCode listName="exclusion-ground">tax-pay</cbc:TendererRequirementTypeCode>
+        <cbc:Description languageID="SWE">Har leverantören åsidosatt sina skyldigheter i fråga om betalning av skatter, i det land där denne är etablerad eller i den upphandlande myndighetens eller enhetens medlemsstat om det är ett annat land än etableringslandet?</cbc:Description>
+      </cac:SpecificTendererRequirement>
+      <cac:SpecificTendererRequirement>
+        <cbc:TendererRequirementTypeCode listName="exclusion-ground">socsec-pay</cbc:TendererRequirementTypeCode>
+        <cbc:Description languageID="SWE">Har leverantören åsidosatt sina skyldigheter i fråga om betalning av sociala avgifter, i det land där denne är etablerad eller i den upphandlande myndighetens eller enhetens medlemsstat om det är ett annat land än etableringslandet?</cbc:Description>
+      </cac:SpecificTendererRequirement>
+    </cac:TendererQualificationRequest>
+    <cac:LotDistribution>
+      <cbc:MaximumLotsSubmittedNumeric>1</cbc:MaximumLotsSubmittedNumeric>
+    </cac:LotDistribution>
+  </cac:TenderingTerms>
+  <cac:TenderingProcess>
+    <cbc:ProcedureCode listName="procurement-procedure-type">open</cbc:ProcedureCode>
+  </cac:TenderingProcess>
+  <cac:ProcurementProject>
+    <cbc:Name languageID="SWE">Powertransformers: 1x145/46 kV 40 MVA, 2x145/11,5 kV 40 MVA</cbc:Name>
+    <cbc:Description languageID="SWE">The contract includes construction, manufacture, delivery and installation of 3 pieces, 1x145/46 kV 40 MVA, 2x145/11,5 kV 40 MVA.
+The power transformers are to be delivered and installed at a new substation in Sävar</cbc:Description>
+    <cbc:ProcurementTypeCode listName="contract-nature">supplies</cbc:ProcurementTypeCode>
+    <cac:MainCommodityClassification>
+      <cbc:ItemClassificationCode listName="cpv">31170000</cbc:ItemClassificationCode>
+    </cac:MainCommodityClassification>
+    <cac:RealizedLocation>
+      <cac:Address>
+        <cbc:CountrySubentityCode listName="nuts">SE331</cbc:CountrySubentityCode>
+        <cac:Country>
+          <cbc:IdentificationCode listName="country">SWE</cbc:IdentificationCode>
+        </cac:Country>
+      </cac:Address>
+    </cac:RealizedLocation>
+  </cac:ProcurementProject>
+  <cac:ProcurementProjectLot>
+    <cbc:ID schemeName="Lot">LOT-0001</cbc:ID>
+    <cac:TenderingTerms>
+      <ext:UBLExtensions>
+        <ext:UBLExtension>
+          <ext:ExtensionContent>
+            <efext:EformsExtension>
+              <efac:SelectionCriteria>
+                <cbc:CriterionTypeCode listName="selection-criterion">tp-abil</cbc:CriterionTypeCode>
+                <cbc:Name languageID="SWE">Se ska krav e-avrop</cbc:Name>
+                <cbc:CalculationExpressionCode listName="usage">used</cbc:CalculationExpressionCode>
+                <efbc:SecondStageIndicator>false</efbc:SecondStageIndicator>
+              </efac:SelectionCriteria>
+            </efext:EformsExtension>
+          </ext:ExtensionContent>
+        </ext:UBLExtension>
+      </ext:UBLExtensions>
+      <cbc:FundingProgramCode listName="eu-funded">no-eu-funds</cbc:FundingProgramCode>
+      <cac:CallForTendersDocumentReference>
+        <cbc:ID>1</cbc:ID>
+        <cbc:DocumentType>non-restricted-document</cbc:DocumentType>
+        <cac:Attachment>
+          <cac:ExternalReference>
+            <cbc:URI>https://www.e-avrop.com/umeaenergi/e-Upphandling/NoticeLink.aspx?id=90427</cbc:URI>
+          </cac:ExternalReference>
+        </cac:Attachment>
+      </cac:CallForTendersDocumentReference>
+      <cac:AwardingTerms>
+        <cbc:FollowupContractIndicator>false</cbc:FollowupContractIndicator>
+        <cbc:BindingOnBuyerIndicator>false</cbc:BindingOnBuyerIndicator>
+        <cac:AwardingCriterion>
+          <cac:SubordinateAwardingCriterion>
+            <cbc:AwardingCriterionTypeCode listName="award-criterion-type">price</cbc:AwardingCriterionTypeCode>
+          </cac:SubordinateAwardingCriterion>
+        </cac:AwardingCriterion>
+      </cac:AwardingTerms>
+      <cac:AdditionalInformationParty>
+        <cac:PartyIdentification>
+          <cbc:ID schemeName="organization">ORG-0001</cbc:ID>
+        </cac:PartyIdentification>
+      </cac:AdditionalInformationParty>
+      <cac:AppealTerms>
+        <cac:AppealReceiverParty>
+          <cac:PartyIdentification>
+            <cbc:ID schemeName="organization">ORG-0003</cbc:ID>
+          </cac:PartyIdentification>
+        </cac:AppealReceiverParty>
+      </cac:AppealTerms>
+      <cac:Language>
+        <cbc:ID>SWE</cbc:ID>
+      </cac:Language>
+      <cac:Language>
+        <cbc:ID>ENG</cbc:ID>
+      </cac:Language>
+    </cac:TenderingTerms>
+    <cac:TenderingProcess>
+      <cbc:SubmissionMethodCode listName="esubmission">allowed</cbc:SubmissionMethodCode>
+      <cac:TenderSubmissionDeadlinePeriod>
+        <cbc:EndDate>2024-01-16+01:00</cbc:EndDate>
+        <cbc:EndTime>00:00:00+01:00</cbc:EndTime>
+      </cac:TenderSubmissionDeadlinePeriod>
+    </cac:TenderingProcess>
+    <cac:ProcurementProject>
+      <cbc:ID>urn:eavrop:mdn:ProcurementProject:91431:Lot:1</cbc:ID>
+      <cbc:Name languageID="SWE">Powertransformers: 1x145/46 kV 40 MVA, 2x145/11,5 kV 40 MVA</cbc:Name>
+      <cbc:Description languageID="SWE">The contract includes construction, manufacture, delivery and installation of 3 pieces, 1x145/46 kV 40 MVA, 2x145/11,5 kV 40 MVA.
+The power transformers are to be delivered and installed at a new substation in Sävar</cbc:Description>
+      <cbc:ProcurementTypeCode listName="contract-nature">supplies</cbc:ProcurementTypeCode>
+      <cac:ProcurementAdditionalType>
+        <cbc:ProcurementTypeCode listName="gpp-criteria">none</cbc:ProcurementTypeCode>
+      </cac:ProcurementAdditionalType>
+      <cac:MainCommodityClassification>
+        <cbc:ItemClassificationCode listName="cpv">31170000</cbc:ItemClassificationCode>
+      </cac:MainCommodityClassification>
+      <cac:AdditionalCommodityClassification>
+        <cbc:ItemClassificationCode listName="cpv">31174000</cbc:ItemClassificationCode>
+      </cac:AdditionalCommodityClassification>
+      <cac:AdditionalCommodityClassification>
+        <cbc:ItemClassificationCode listName="cpv">45232221</cbc:ItemClassificationCode>
+      </cac:AdditionalCommodityClassification>
+      <cac:AdditionalCommodityClassification>
+        <cbc:ItemClassificationCode listName="cpv">45317200</cbc:ItemClassificationCode>
+      </cac:AdditionalCommodityClassification>
+      <cac:AdditionalCommodityClassification>
+        <cbc:ItemClassificationCode listName="cpv">51111300</cbc:ItemClassificationCode>
+      </cac:AdditionalCommodityClassification>
+    </cac:ProcurementProject>
+  </cac:ProcurementProjectLot>
+</ContractNotice>

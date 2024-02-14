@@ -4,10 +4,11 @@ from ted_sws.notice_fetcher.services.notice_fetcher import NoticeFetcher
 
 
 def test_notice_fetcher_by_identifier(notice_repository, ted_document_search):
-    document_id = "067623-2022"
+    document_id = "67623-2022"
     NoticeFetcher(notice_repository=notice_repository, ted_api_adapter=ted_document_search).fetch_notice_by_id(
         document_id=document_id)
     notice = notice_repository.get(reference=document_id)
+    assert notice is not None
     assert isinstance(notice, Notice)
     assert notice
     assert notice.original_metadata
@@ -18,7 +19,7 @@ def test_notice_fetcher_by_identifier(notice_repository, ted_document_search):
 
 
 def test_notice_fetcher_by_search_query(notice_repository, ted_document_search):
-    query = {"q": "ND=[67623-2022]"}
+    query = {"query": "ND=67623-2022"}
 
     NoticeFetcher(notice_repository=notice_repository, ted_api_adapter=ted_document_search).fetch_notices_by_query(
         query=query)

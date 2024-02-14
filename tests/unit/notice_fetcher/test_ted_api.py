@@ -10,7 +10,7 @@ def test_ted_api():
     notice_by_id = fake_ted.get_by_id(document_id="67623-2023")
     notice_by_date = fake_ted.get_by_range_date(start_date=date(2022, 2, 3), end_date=date(2022, 2, 3))
     notice_by_date_wildcard = fake_ted.get_by_wildcard_date(wildcard_date="20220203*")
-    notice_by_query = fake_ted.get_by_query(query={"q": "ND=[67623-2023]"})
+    notice_by_query = fake_ted.get_by_query(query={"query": "ND=[67623-2023]"})
 
     assert xml_text in notice_by_id["content"]
     assert isinstance(notice_by_id, dict)

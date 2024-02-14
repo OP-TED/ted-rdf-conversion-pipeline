@@ -68,7 +68,10 @@ class NoticeFetcher(NoticeFetcherABC):
         :param notice_data:
         :return:
         """
-        xml_manifestation = XMLManifestation(object_data=notice_data["content"])
+        try:
+            xml_manifestation = XMLManifestation(object_data=notice_data["content"])
+        except Exception as e:
+            raise Exception(str(e), notice_data)
         del notice_data["content"]
         ted_id = notice_data["ND"]
         original_metadata = TEDMetadata(**notice_data)

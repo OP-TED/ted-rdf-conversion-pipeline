@@ -148,7 +148,7 @@ class EformsXPathRegistry(XPathRegistryABC):
 
     @property
     def xpath_title(self):
-        return ".//cac:ProcurementProject/cbc:Name"
+        return "./cac:ProcurementProject/cbc:Name"
 
     @property
     def xpath_title_country(self):
@@ -176,7 +176,7 @@ class EformsXPathRegistry(XPathRegistryABC):
 
     @property
     def xpath_type_of_contract(self):
-        return ".//cac:ProcurementProject/cbc:ProcurementTypeCode[@listName='contract-nature']"
+        return "./cac:ProcurementProject/cbc:ProcurementTypeCode[@listName='contract-nature']"
 
     @property
     def xpath_type_of_procedure(self):
@@ -185,6 +185,10 @@ class EformsXPathRegistry(XPathRegistryABC):
     @property
     def xpath_place_of_performance(self):
         return ".//cac:ProcurementProject/cac:RealizedLocation/cac:Address/cbc:CountrySubentityCode[@listName='nuts']"
+
+    @property
+    def xpath_place_of_performance_elements(self):
+        return ".//efac:Organizations/efac:Organization/efac:Company/cac:PostalAddress/cbc:CountrySubentityCode[@listName='nuts']"
 
     @property
     def xpath_common_procurement_elements(self):

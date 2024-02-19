@@ -4,8 +4,26 @@ from ted_sws.data_sampler.services.notice_selectors import get_notice_ids_by_for
 from ted_sws.data_sampler.services.notice_xml_indexer import index_notice, index_notice_xslt, index_notice_by_id, \
     get_unique_xpaths_from_notice_repository, get_unique_notice_id_from_notice_repository, \
     get_minimal_set_of_notices_for_coverage_xpaths, get_minimal_set_of_xpaths_for_coverage_notices, \
-    get_unique_notices_id_covered_by_xpaths, get_unique_xpaths_covered_by_notices, get_most_representative_notices
+    get_unique_notices_id_covered_by_xpaths, get_unique_xpaths_covered_by_notices, get_most_representative_notices, \
+    index_eforms_notice
 
+
+def test_index_eforms_notice(eform_notice_622690):
+    assert eform_notice_622690.xml_metadata is None
+    indexed_notice = index_eforms_notice(eform_notice_622690)
+    assert indexed_notice is not None
+    assert indexed_notice.xml_metadata is not None
+    assert indexed_notice.xml_metadata.unique_xpaths is not None
+    assert len(indexed_notice.xml_metadata.unique_xpaths) == 218
+    all_xpaths_as_str = "\n".join(indexed_notice.xml_metadata.unique_xpaths)
+    assert "@listName=esubmission" in all_xpaths_as_str
+    assert "@listName=einvoicing" in all_xpaths_as_str
+    assert "@listName=eu-funded" in all_xpaths_as_str
+    assert "@listName=cpv" not in all_xpaths_as_str
+    assert "@listName=country" not in all_xpaths_as_str
+    assert "@listName=nuts" not in all_xpaths_as_str
+    assert "@schemeName=organization" in all_xpaths_as_str
+    assert "@unitCode=DAY" in all_xpaths_as_str
 
 def test_index_notice(notice_2016):
     result_notice = index_notice(notice=notice_2016)

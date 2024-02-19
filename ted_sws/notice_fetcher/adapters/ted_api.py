@@ -7,7 +7,7 @@ from typing import List, Generator
 import requests
 
 from ted_sws import config
-from ted_sws.event_manager.services.log import log_warning, log_error
+from ted_sws.event_manager.services.log import log_error
 from ted_sws.notice_fetcher.adapters.ted_api_abc import TedAPIAdapterABC, RequestAPI
 
 DOCUMENTS_PER_PAGE = 100

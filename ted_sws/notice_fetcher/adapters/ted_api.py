@@ -7,7 +7,7 @@ from typing import List, Generator
 import requests
 
 from ted_sws import config
-from ted_sws.event_manager.services.log import log_warning
+from ted_sws.event_manager.services.log import log_error
 from ted_sws.notice_fetcher.adapters.ted_api_abc import TedAPIAdapterABC, RequestAPI
 
 DOCUMENTS_PER_PAGE = 100
@@ -103,18 +103,11 @@ class TedAPIAdapter(TedAPIAdapterABC):
         :return:str '
         """
         xml_links = document_content[LINKS_TO_CONTENT_KEY][XML_CONTENT_KEY]
-        language_key = MULTIPLE_LANGUAGE_CONTENT_KEY
-        if language_key not in xml_links.keys():
-            if ENGLISH_LANGUAGE_CONTENT_KEY in xml_links.keys():
-                language_key = ENGLISH_LANGUAGE_CONTENT_KEY
-            else:
-                language_key = xml_links.keys()[0]
-
-            log_warning(
-                f"Language key {MULTIPLE_LANGUAGE_CONTENT_KEY} not found in {document_content[DOCUMENT_NOTICE_ID_KEY]},"
-                f" and will be used language key {language_key}!")
-
-        xml_document_content_link = xml_links[language_key]
+        if MULTIPLE_LANGUAGE_CONTENT_KEY not in xml_links.keys():
+            exception_message = f"Language key {MULTIPLE_LANGUAGE_CONTENT_KEY} not found in {document_content[DOCUMENT_NOTICE_ID_KEY]}"
+            log_error(exception_message)
+            raise Exception(exception_message)
+        xml_document_content_link = xml_links[MULTIPLE_LANGUAGE_CONTENT_KEY]
         response = requests.get(xml_document_content_link)
         try_again_request_count = 0
         while response.status_code == HTTPStatus.TOO_MANY_REQUESTS:

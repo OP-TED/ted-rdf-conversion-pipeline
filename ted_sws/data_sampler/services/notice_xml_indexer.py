@@ -1,6 +1,9 @@
 import pathlib
+import re
 import tempfile
-from typing import List
+import xml.etree.ElementTree as XMLElementTree
+from io import StringIO
+from typing import List, Set, Generator, Optional
 
 from pymongo import MongoClient
 
@@ -10,11 +13,12 @@ from ted_sws.core.model.notice import Notice
 from ted_sws.data_manager.adapters.notice_repository import NoticeRepository
 from ted_sws.mapping_suite_processor.adapters.conceptual_mapping_reader import ConceptualMappingReader
 from ted_sws.resources import XSLT_FILES_PATH
-import xml.etree.ElementTree as XMLElementTree
-import re
 
 UNIQUE_XPATHS_XSLT_FILE_PATH = "get_unique_xpaths.xsl"
 XSLT_PREFIX_RESULT = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>"
+
+INCLUDE_VALUES_BY_ATTRIBUTES_NAMES = {"schemeName", "unitCode", "listName"}
+EXCLUDE_ATTRIBUTES_VALUES = {"nuts", "country", "cpv"}
 
 
 def index_notice_by_id(notice_id: str, mongodb_client: MongoClient):
@@ -58,8 +62,54 @@ def index_notice_xslt(notice: Notice, xslt_transformer=None) -> Notice:
     return notice
 
 
-def index_notice(notice: Notice, base_xpath="") -> Notice:
+def get_all_xpath_generator(xml_content: str,
+                            remove_namespaces: bool = True,
+                            include_values_by_attribute_names: Optional[Set[str]] = None,
+                            exclude_attribute_values: Optional[Set[str]] = None
+                            ) -> Generator[str, None, None]:
+    """
+        Generate all XPaths based on the given XML content
+    :param xml_content:
+    :param remove_namespaces:
+    :param include_values_by_attribute_names:
+    :param exclude_attribute_values:
+    return: generator of all XPaths based on the given XML content
+    """
+    xml_file = StringIO(xml_content)
+    path = []
+    it = XMLElementTree.iterparse(xml_file, events=('start', 'end'))
+    for evt, el in it:
+        if evt == 'start':
+            if remove_namespaces:
+                ns_tag = re.split('[{}]', el.tag, 2)[1:]
+                path.append(ns_tag[1] if len(ns_tag) > 1 else el.tag)
+            else:
+                path.append(el.tag)
+            xpath = "/" + '/'.join(path)
+            for attribute_key, attribute_value in el.attrib.items():
+                if (attribute_key in include_values_by_attribute_names) and (
+                        attribute_value not in exclude_attribute_values):
+                    yield f"{xpath}@{attribute_key}={attribute_value}"
+                else:
+                    yield f"{xpath}@{attribute_key}"
+            yield xpath
+        else:
+            path.pop()
 
+
+def index_eforms_notice(notice: Notice) -> Notice:
+    xml_content = notice.xml_manifestation.object_data
+    unique_xpaths = list(set(get_all_xpath_generator(xml_content=xml_content, remove_namespaces=True,
+                                                     include_values_by_attribute_names=INCLUDE_VALUES_BY_ATTRIBUTES_NAMES,
+                                                     exclude_attribute_values=EXCLUDE_ATTRIBUTES_VALUES
+                                                     )))
+    xml_metadata = XMLMetadata()
+    xml_metadata.unique_xpaths = unique_xpaths
+    notice.set_xml_metadata(xml_metadata=xml_metadata)
+    return notice
+
+
+def index_notice(notice: Notice, base_xpath="") -> Notice:
     # To be removed later if will not be used
     # def _notice_namespaces(xml_file) -> dict:
     #     _namespaces = dict([node for _, node in XMLElementTree.iterparse(xml_file, events=['start-ns'])])
@@ -229,7 +279,8 @@ def get_unique_xpaths_covered_by_notices(notice_ids: List[str], mongodb_client: 
     """
     notice_repository = NoticeRepository(mongodb_client=mongodb_client)
     results = notice_repository.xml_metadata_repository.collection.aggregate([{"$match": {"ted_id": {"$in": notice_ids},
-                                                                                          "metadata_type": {"$eq":"xml"}
+                                                                                          "metadata_type": {
+                                                                                              "$eq": "xml"}
                                                                                           }
                                                                                }], allowDiskUse=True)
     unique_xpaths = set()

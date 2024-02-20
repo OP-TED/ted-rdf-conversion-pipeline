@@ -276,16 +276,19 @@ class EformsNoticeMetadataExtractor(NoticeMetadataExtractorABC):
 
     @property
     def title(self):
-        title_country = LanguageTaggedString(text=extract_text_from_element(
-            element=self.manifestation_root.find(self.xpath_registry.xpath_title_country, namespaces=self.namespaces)),language='')
-        title_text = LanguageTaggedString(
-            text=extract_text_from_element(element=self.manifestation_root.find(
-                self.xpath_registry.xpath_title,
-                namespaces=self.namespaces)),
-            language=extract_attribute_from_element(element=self.manifestation_root.find(
-                self.xpath_registry.xpath_title,
-                namespaces=self.namespaces), attrib_key="languageID"))
-        return [CompositeTitle(title=title_text, title_country=title_country)]
+        title_translations = []
+        title_elements = self.manifestation_root.findall(
+            self.xpath_registry.xpath_title,
+            namespaces=self.namespaces)
+        for title in title_elements:
+            language = title.find(".").attrib["languageID"]
+            title_country = LanguageTaggedString(text=language, language=language)
+            title_text = LanguageTaggedString(
+                text=extract_text_from_element(element=title),
+                language=language)
+            title_translations.append(
+                CompositeTitle(title=title_text, title_country=title_country))
+        return title_translations
 
     @property
     def publication_date(self):
@@ -324,9 +327,21 @@ class EformsNoticeMetadataExtractor(NoticeMetadataExtractorABC):
 
     @property
     def place_of_performance(self):
-        extracted_nuts_code = extract_text_from_element(
-            element=self.manifestation_root.find(self.xpath_registry.xpath_place_of_performance, namespaces=self.namespaces))
-        return [EncodedValue(value=extracted_nuts_code,code=extracted_nuts_code)]
+        extracted_project_nuts_code = extract_text_from_element(
+            element=self.manifestation_root.find(self.xpath_registry.xpath_place_of_performance,
+                                                 namespaces=self.namespaces))
+        place_of_performance_organisation_elements = self.manifestation_root.findall(
+            self.xpath_registry.xpath_place_of_performance_elements, namespaces=self.namespaces)
+        nuts_code_from_organisations = [EncodedValue(code=extract_text_from_element(element=element),
+                                                     value=extract_text_from_element(element=element)) for element in
+                                        place_of_performance_organisation_elements]
+
+        if extracted_project_nuts_code:
+            extracted_project_nuts_encoded = EncodedValue(value=extracted_project_nuts_code,
+                                                          code=extracted_project_nuts_code)
+            nuts_code_from_organisations.append(extracted_project_nuts_encoded)
+
+        return nuts_code_from_organisations
 
     @property
     def common_procurement(self):

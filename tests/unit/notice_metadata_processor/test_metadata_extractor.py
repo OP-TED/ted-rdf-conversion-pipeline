@@ -1,4 +1,5 @@
 import xml.etree.ElementTree as ET
+from importlib.resources import path
 
 from ted_sws.core.model.manifestation import XMLManifestation
 from ted_sws.notice_metadata_processor.adapters.notice_metadata_extractor import EformsNoticeMetadataExtractor, \
@@ -117,7 +118,7 @@ def test_metadata_eform_extractor(eform_notice_622690):
     assert extracted_metadata_dict["extracted_form_number"] == None
 
 
-def _test_metadata_extractor_for_all_eforms_variations(eforms_xml_notice_paths):
+def test_metadata_extractor_for_all_eforms_variations(eforms_xml_notice_paths):
     for xml_notice_path in eforms_xml_notice_paths:
         notice_id = xml_notice_path.name
         eforms_subtype = xml_notice_path.parent.name

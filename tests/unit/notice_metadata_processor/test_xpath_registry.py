@@ -11,5 +11,5 @@ def test_default_xpath_registry():
 def test_eforms_xpath_registry():
     xpath_registry = EformsXPathRegistry()
     assert isinstance(xpath_registry.xpath_notice_type, str)
-    assert xpath_registry.xpath_notice_subtype == ".//ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:NoticeSubType/cbc:SubTypeCode[@listName='notice-subtype']"
+    assert xpath_registry.xpath_notice_subtype_first == ".//ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:NoticeSubType/cbc:SubTypeCode[@listName='notice-subtype']"
     assert xpath_registry.xpath_notice_type == ".//cbc:NoticeTypeCode"

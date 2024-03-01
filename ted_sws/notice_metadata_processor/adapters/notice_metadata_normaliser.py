@@ -284,7 +284,11 @@ class EformsNoticeMetadataNormaliser(NoticeMetadataNormaliserABC):
          Get the values for form type, notice type and legal basis from the eForm mapping files
         """
         ef_map: pd.DataFrame = mapping_registry.ef_notice_df
-        filtered_df = ef_map.query(f"{E_FORMS_SUBTYPE_KEY}=='{extracted_notice_subtype}'").to_dict(orient='records')[0]
+        try:
+            filtered_df = ef_map.query(f"{E_FORMS_SUBTYPE_KEY}=='{extracted_notice_subtype}'").to_dict(orient='records')[0]
+        except:
+            raise Exception(
+                'No eform subtype was extracted from the notice content. Please check that the field exists in the XML content')
         try:
             form_type = filtered_df[FORM_TYPE_KEY]
             notice_type = filtered_df[E_FORM_NOTICE_TYPE_COLUMN]

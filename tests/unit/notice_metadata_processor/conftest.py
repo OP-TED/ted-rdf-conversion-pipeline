@@ -17,6 +17,11 @@ def file_system_repository_path():
 
 
 @pytest.fixture
+def notice_normalisation_test_data_path():
+    return TEST_DATA_PATH / "notice_normalisation"
+
+
+@pytest.fixture
 def eforms_xml_notice_paths() -> List[pathlib.Path]:
     eforms_xml_notices_path = TEST_DATA_PATH / "eforms_samples"
     return list(eforms_xml_notices_path.glob("**/*.xml"))

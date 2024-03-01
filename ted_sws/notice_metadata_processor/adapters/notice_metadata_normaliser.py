@@ -288,7 +288,7 @@ class EformsNoticeMetadataNormaliser(NoticeMetadataNormaliserABC):
             filtered_df = ef_map.query(f"{E_FORMS_SUBTYPE_KEY}=='{extracted_notice_subtype}'").to_dict(orient='records')[0]
         except:
             raise Exception(
-                'No eform subtype was extracted from the notice content. Please check that the field exists in the XML content')
+                f'No mapping available for {extracted_notice_subtype} notice subtype. Please check that the field exists in the XML content if the notice subtype is not specified in this message')
         try:
             form_type = filtered_df[FORM_TYPE_KEY]
             notice_type = filtered_df[E_FORM_NOTICE_TYPE_COLUMN]

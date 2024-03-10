@@ -2,9 +2,8 @@ from datetime import date
 
 import pytest
 
-from ted_sws.notice_fetcher.adapters.ted_api import TedAPIAdapter
 from ted_sws.notice_fetcher.services.notice_fetcher import NoticeFetcher
-from tests.fakes.fake_ted_api import FakeTedApiAdapter, FakeRequestAPI
+from tests.fakes.fake_ted_api import FakeTedApiAdapter
 
 
 @pytest.fixture
@@ -40,4 +39,4 @@ def fetch_query(fetch_wildcard_date):
 @pytest.fixture
 def notice_fetcher(notice_repository, ted_api_end_point):
     return NoticeFetcher(notice_repository=notice_repository,
-                         ted_api_adapter=TedAPIAdapter(FakeRequestAPI()))
+                         ted_api_adapter=FakeTedApiAdapter())

@@ -101,9 +101,7 @@ def get_ojs_number_by_date(search_date: date, custom_header: Optional[dict] = No
     if search_date_str in date_to_ojs_map.keys():
         return int(date_to_ojs_map[search_date_str])
     else:
-        raise Exception(f"Can't get OJS number, for search date: {search_date_str}!"
-                        f"\nResponse code: {response.status_code}"
-                        f"\nReason: {response.text}")
+        raise Exception(f"Can't get OJS number, for search date: {search_date_str}!")
 
 
 def get_notice_contents_by_date(search_date: date,

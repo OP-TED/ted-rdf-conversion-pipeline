@@ -363,8 +363,10 @@ class EformsNoticeMetadataExtractor(NoticeMetadataExtractorABC):
     @property
     def extracted_notice_subtype(self):
         return extract_text_from_element(
-            element=self.manifestation_root.find(self.xpath_registry.xpath_notice_subtype, namespaces=self.namespaces))
-
+            element=self.manifestation_root.find(self.xpath_registry.xpath_notice_subtype_first,
+                                                 namespaces=self.namespaces)) or extract_text_from_element(
+            element=self.manifestation_root.find(self.xpath_registry.xpath_notice_subtype_second,
+                                                 namespaces=self.namespaces))
     @property
     def extracted_eform_type(self):
         return extract_attribute_from_element(

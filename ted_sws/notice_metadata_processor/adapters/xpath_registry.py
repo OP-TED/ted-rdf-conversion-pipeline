@@ -203,8 +203,12 @@ class EformsXPathRegistry(XPathRegistryABC):
         return ".//cbc:RegulatoryDomain"
 
     @property
-    def xpath_notice_subtype(self):
+    def xpath_notice_subtype_first(self):
         return ".//ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:NoticeSubType/cbc:SubTypeCode[@listName='notice-subtype']"
+
+    @property
+    def xpath_notice_subtype_second(self):
+        return ".//ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:NoticeSubType/cbc:SubTypeCode"
 
     @property
     def xpath_form_type(self):

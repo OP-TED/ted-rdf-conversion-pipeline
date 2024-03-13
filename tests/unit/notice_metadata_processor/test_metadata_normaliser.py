@@ -1,5 +1,6 @@
 import pytest
 
+from ted_sws.core.model.manifestation import XMLManifestation
 from ted_sws.core.model.metadata import NormalisedMetadata
 from ted_sws.core.model.notice import NoticeStatus
 from ted_sws.notice_metadata_processor.adapters.notice_metadata_extractor import \
@@ -11,7 +12,8 @@ from ted_sws.notice_metadata_processor.model.metadata import ExtractedMetadata
 from ted_sws.notice_metadata_processor.services.metadata_constraints import filter_df_by_variables
 from ted_sws.notice_metadata_processor.services.metadata_normalizer import normalise_notice, normalise_notice_by_id, \
     check_if_xml_manifestation_is_eform, find_metadata_extractor_based_on_xml_manifestation, \
-    find_metadata_normaliser_based_on_xml_manifestation, extract_notice_metadata, normalise_notice_metadata
+    find_metadata_normaliser_based_on_xml_manifestation, extract_notice_metadata, normalise_notice_metadata, \
+    extract_and_normalise_notice_metadata
 from ted_sws.resources.mapping_files_registry import MappingFilesRegistry
 
 
@@ -217,3 +219,19 @@ def test_get_form_type_notice_type_and_legal_basis():
     assert form_type == 'competition'
     assert notice_type == 'cn-social'
     assert legal_basis == '32014L0024'
+
+
+def test_normalising_notice_out_of_index(notice_normalisation_test_data_path):
+    notice_xml_path = notice_normalisation_test_data_path / "2023-OJS153-00486429.xml"
+    notice_content = notice_xml_path.read_text(encoding="utf-8")
+    normalised_notice_metadata = extract_and_normalise_notice_metadata(
+        xml_manifestation=XMLManifestation(object_data=notice_content))
+    assert normalised_notice_metadata.eforms_subtype == "16"
+    assert normalised_notice_metadata.notice_publication_number == "00486429-2023"
+
+    broken_notice_xml_path = notice_normalisation_test_data_path / "no_eform_subtype_notice.xml"
+    broke_notice_content = broken_notice_xml_path.read_text(encoding="utf-8")
+
+    with pytest.raises(Exception):
+        extract_and_normalise_notice_metadata(
+            xml_manifestation=XMLManifestation(object_data=broke_notice_content))

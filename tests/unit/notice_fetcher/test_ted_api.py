@@ -1,11 +1,10 @@
 from datetime import date
 
-from ted_sws.notice_fetcher.adapters.ted_api import TedAPIAdapter
-from tests.fakes.fake_ted_api import FakeRequestAPI
+from tests.fakes.fake_ted_api import FakeTedApiAdapter
 
 
 def test_ted_api():
-    fake_ted = TedAPIAdapter(request_api=FakeRequestAPI())
+    fake_ted = FakeTedApiAdapter()
     xml_text = "<NOTICE_DATA>"
     notice_by_id = fake_ted.get_by_id(document_id="67623-2023")
     notice_by_date = fake_ted.get_by_range_date(start_date=date(2022, 2, 3), end_date=date(2022, 2, 3))

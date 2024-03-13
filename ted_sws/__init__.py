@@ -169,6 +169,14 @@ class TedAPIConfig:
     def TED_API_URL(self, config_value: str) -> str:
         return config_value
 
+    @env_property()
+    def TED_API_OJS_REGISTER_ENDPOINT(self, config_value: str) -> str:
+        return config_value
+
+    @env_property()
+    def TED_API_DAILY_BULK_ENDPOINT(self, config_value: str) -> str:
+        return config_value
+
 
 class FusekiConfig:
     @env_property()

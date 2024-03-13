@@ -1,13 +1,20 @@
+import io
 import json
+import pathlib
+import tarfile
 import time
-from datetime import date
+from collections import defaultdict
+from datetime import date, datetime
 from http import HTTPStatus
-from typing import List, Generator
+from io import BytesIO
+from typing import List, Generator, Callable, Optional, Set
 
+import pandas as pd
 import requests
+from requests import Response
 
 from ted_sws import config
-from ted_sws.event_manager.services.log import log_error
+from ted_sws.event_manager.services.log import log_warning
 from ted_sws.notice_fetcher.adapters.ted_api_abc import TedAPIAdapterABC, RequestAPI
 
 DOCUMENTS_PER_PAGE = 100
@@ -28,7 +35,99 @@ LINKS_TO_CONTENT_KEY = "links"
 XML_CONTENT_KEY = "xml"
 MULTIPLE_LANGUAGE_CONTENT_KEY = "MUL"
 ENGLISH_LANGUAGE_CONTENT_KEY = "ENG"
+META_PUBLICATION_DATE_KEY = "PD"
+META_PUBLICATION_DATE_FORMATS = ["%Y-%m-%d%z", "%Y-%m-%dT%H:%M:%S%z"]
 DOCUMENT_NOTICE_ID_KEY = "ND"
+MAX_RETRIES = 5
+DEFAULT_BACKOFF_FACTOR = 1
+TED_API_OJS_REGISTER_ENDPOINT_TEMPLATE = "{endpoint}{year}"
+TED_API_DAILY_BULK_ENDPOINT_TEMPLATE = "{endpoint}{year}{ojs_number:05}"
+PUBLICATION_DATE_COLUMN = "Publication date "
+OJS_NUMBER_COLUMN = "OJS"
+OJS_REGISTER_FORMAT_DATE = "%d/%m/%Y"
+CUSTOM_HEADER = {'User-Agent': 'TED-SWS-Pipeline-Fetcher'}
+
+
+def execute_request_with_retries(request_lambda: Callable,
+                                 max_retries: int = MAX_RETRIES,
+                                 backoff_factor: float = DEFAULT_BACKOFF_FACTOR) -> Response:
+    response = request_lambda()
+    requests_counter = 0
+    while response.status_code != HTTPStatus.OK:
+        if requests_counter >= max_retries:
+            log_warning(f"Max retries exceeded, retried {max_retries} times!")
+            return response
+        requests_counter += 1
+        time_to_sleep = backoff_factor * requests_counter
+        log_warning(f"Request returned status code {response.status_code}, retrying in {time_to_sleep} seconds!")
+        time.sleep(time_to_sleep)
+        response = request_lambda()
+    return response
+
+
+def convert_publication_date_to_utc_date(publication_date: str) -> date:
+    publication_date.replace("Z", "+00:00")
+    for date_format in META_PUBLICATION_DATE_FORMATS:
+        try:
+            result_date = datetime.strptime(publication_date, date_format)
+            return result_date
+        except:
+            continue
+    raise Exception(f"Could not parse publication date! Publication date: {publication_date}")
+
+
+def preprocess_notice_id(notice_id: str) -> str:
+    return notice_id.strip().replace("_", "-").lstrip("0")
+
+
+def get_configured_custom_headers(custom_header: Optional[dict] = None) -> dict:
+    headers = requests.utils.default_headers()
+    if custom_header:
+        headers.update(custom_header)
+    return headers
+
+
+def get_ojs_number_by_date(search_date: date, custom_header: Optional[dict] = None) -> Optional[int]:
+    headers = get_configured_custom_headers(custom_header)
+    request_url = TED_API_OJS_REGISTER_ENDPOINT_TEMPLATE.format(endpoint=config.TED_API_OJS_REGISTER_ENDPOINT,
+                                                                year=search_date.year)
+    response = execute_request_with_retries(lambda: requests.get(request_url, headers=headers))
+    if response.status_code != HTTPStatus.OK:
+        raise Exception(f"Can't get OJS number, status code: {response.status_code}, message: {response.text}")
+    ojs_register_df = pd.read_csv(BytesIO(response.content))
+    date_to_ojs_map = dict(zip(ojs_register_df[PUBLICATION_DATE_COLUMN].str.strip(),
+                               ojs_register_df[OJS_NUMBER_COLUMN].astype(str).str.strip()))
+    search_date_str = search_date.strftime(OJS_REGISTER_FORMAT_DATE)
+    if search_date_str in date_to_ojs_map.keys():
+        return int(date_to_ojs_map[search_date_str])
+    else:
+        raise Exception(f"Can't get OJS number, for search date: {search_date_str}!")
+
+
+def get_notice_contents_by_date(search_date: date,
+                                custom_header: Optional[dict] = None,
+                                filter_notice_ids: Optional[Set[str]] = None) -> Generator:
+    ojs_number = get_ojs_number_by_date(search_date=search_date, custom_header=custom_header)
+    request_url = TED_API_DAILY_BULK_ENDPOINT_TEMPLATE.format(endpoint=config.TED_API_DAILY_BULK_ENDPOINT,
+                                                              year=search_date.year, ojs_number=ojs_number)
+    headers = get_configured_custom_headers(custom_header=custom_header)
+    response = execute_request_with_retries(lambda: requests.get(request_url, headers=headers))
+    if response.status_code != 200:
+        raise Exception(
+            f"Can't load notices content for date {search_date}, status code {response.status_code}, message {response.text}")
+    with tarfile.open(fileobj=io.BytesIO(response.content), mode='r:gz') as tar_file:
+        for member in tar_file.getmembers():
+            try:
+                notice_id = pathlib.Path(member.name).stem
+                notice_id = preprocess_notice_id(notice_id)
+                if filter_notice_ids:
+                    if notice_id not in filter_notice_ids:
+                        continue
+                file = tar_file.extractfile(member=member)
+                xml_content = file.read()
+                yield notice_id, xml_content.decode('utf-8')
+            except Exception as e:
+                raise Exception(f"Notice bulk for date {search_date} is invalid!")
 
 
 class TedRequestAPI(RequestAPI):
@@ -41,14 +140,7 @@ class TedRequestAPI(RequestAPI):
             :return: dict
         """
 
-        response = requests.post(api_url, json=api_query)
-        try_again_request_count = 0
-        while response.status_code == HTTPStatus.TOO_MANY_REQUESTS:
-            try_again_request_count += 1
-            time.sleep(try_again_request_count * 0.1)
-            response = requests.post(api_url, json=api_query)
-            if try_again_request_count > 5:
-                break
+        response = execute_request_with_retries(request_lambda=lambda: requests.post(api_url, json=api_query))
         if response.ok:
             response_content = json.loads(response.text)
             return response_content
@@ -69,7 +161,7 @@ class TedAPIAdapter(TedAPIAdapterABC):
         """
 
         self.request_api = request_api
-        self.ted_api_url = ted_api_url if ted_api_url else config.TED_API_URL
+        self.ted_api_url = ted_api_url or config.TED_API_URL
 
     def get_by_wildcard_date(self, wildcard_date: str) -> List[dict]:
         """
@@ -96,31 +188,6 @@ class TedAPIAdapter(TedAPIAdapterABC):
 
         return self.get_by_query(query=query)
 
-    def _retrieve_document_content(self, document_content: dict) -> str:
-        """
-        Method to retrieve a document content from the TedApi API
-        :param document_content:
-        :return:str '
-        """
-        xml_links = document_content[LINKS_TO_CONTENT_KEY][XML_CONTENT_KEY]
-        if MULTIPLE_LANGUAGE_CONTENT_KEY not in xml_links.keys():
-            exception_message = f"Language key {MULTIPLE_LANGUAGE_CONTENT_KEY} not found in {document_content[DOCUMENT_NOTICE_ID_KEY]}"
-            log_error(exception_message)
-            raise Exception(exception_message)
-        xml_document_content_link = xml_links[MULTIPLE_LANGUAGE_CONTENT_KEY]
-        response = requests.get(xml_document_content_link)
-        try_again_request_count = 0
-        while response.status_code == HTTPStatus.TOO_MANY_REQUESTS:
-            try_again_request_count += 1
-            time.sleep(try_again_request_count * 0.1)
-            response = requests.get(xml_document_content_link)
-            if try_again_request_count > 5:
-                break
-        if response.ok:
-            return response.text
-        else:
-            raise Exception(f"The notice content can't be loaded!: {response}, {response.content}")
-
     def get_generator_by_query(self, query: dict, result_fields: dict = None, load_content: bool = True) -> Generator[
         dict, None, None]:
         """
@@ -135,24 +202,32 @@ class TedAPIAdapter(TedAPIAdapterABC):
         response_body = self.request_api(api_url=self.ted_api_url, api_query=query)
         documents_number = response_body[TOTAL_DOCUMENTS_NUMBER]
         result_pages = 1 + int(documents_number) // DOCUMENTS_PER_PAGE
-        documents_content = response_body[RESPONSE_RESULTS]
+        documents_meta = response_body[RESPONSE_RESULTS]
         if result_pages > 1:
             for page_number in range(2, result_pages + 1):
                 query[RESULT_PAGE_NUMBER] = page_number
                 response_body = self.request_api(api_url=self.ted_api_url, api_query=query)
-                documents_content += response_body[RESPONSE_RESULTS]
+                documents_meta += response_body[RESPONSE_RESULTS]
 
-            for document_content in documents_content:
-                if load_content:
-                    document_content[DOCUMENT_CONTENT] = self._retrieve_document_content(document_content)
-                    del document_content[LINKS_TO_CONTENT_KEY]
-                yield document_content
+        if load_content:
+            notices_groups_by_publication_date = defaultdict(dict)
+            for document_meta in documents_meta:
+                del document_meta[LINKS_TO_CONTENT_KEY]
+                publication_date = convert_publication_date_to_utc_date(document_meta[META_PUBLICATION_DATE_KEY])
+                notice_id = preprocess_notice_id(document_meta[DOCUMENT_NOTICE_ID_KEY])
+                notices_groups_by_publication_date[publication_date][notice_id] = document_meta
+
+            for publication_date, notices_meta in notices_groups_by_publication_date.items():
+                filter_notice_ids = set(notices_meta.keys())
+                notice_contents = get_notice_contents_by_date(search_date=publication_date, custom_header=CUSTOM_HEADER,
+                                                              filter_notice_ids=filter_notice_ids)
+                for notice_id, xml_content in notice_contents:
+                    result_document_meta = notices_meta[notice_id]
+                    result_document_meta[DOCUMENT_CONTENT] = xml_content
+                    yield result_document_meta
         else:
-            for document_content in documents_content:
-                if load_content:
-                    document_content[DOCUMENT_CONTENT] = self._retrieve_document_content(document_content)
-                    del document_content[LINKS_TO_CONTENT_KEY]
-                yield document_content
+            for document_meta in documents_meta:
+                yield document_meta
 
     def get_by_query(self, query: dict, result_fields: dict = None, load_content: bool = True) -> List[dict]:
         """
@@ -172,5 +247,4 @@ class TedAPIAdapter(TedAPIAdapterABC):
         """
 
         query = {"query": f"ND={document_id}"}
-
         return self.get_by_query(query=query)[0]

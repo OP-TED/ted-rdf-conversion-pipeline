@@ -22,7 +22,7 @@ from ted_sws.notice_metadata_processor.adapters.notice_metadata_normaliser impor
 
 from tests import TEST_DATA_PATH
 from tests.fakes.fake_repository import FakeNoticeRepository
-from tests.fakes.fake_ted_api import FakeRequestAPI
+from tests.fakes.fake_ted_api import FakeRequestAPI, FakeTedApiAdapter
 
 enable_gridfs_integration()
 
@@ -39,7 +39,7 @@ def notice_repository():
 
 @pytest.fixture
 def ted_document_search():
-    return TedAPIAdapter(request_api=FakeRequestAPI())
+    return FakeTedApiAdapter()
 
 
 @pytest.fixture

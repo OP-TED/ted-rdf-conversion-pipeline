@@ -10,7 +10,7 @@ where
 
     ?conceptURI skos:notation ?code .
 
-   filter (datatype(?code)=euvoc:TED_SCHEMA)
+   filter (datatype(?code) in (euvoc:ISO_3166_1_ALPHA_3, euvoc:TED_SCHEMA))
 
   }
 }

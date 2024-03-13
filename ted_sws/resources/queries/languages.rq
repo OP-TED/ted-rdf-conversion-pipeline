@@ -2,7 +2,7 @@ PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
 PREFIX euvoc: <http://publications.europa.eu/ontology/euvoc#>
 
 
-select ?code ?conceptURI
+select distinct ?code ?conceptURI
 where
 {
  graph <http://publications.europa.eu/resource/authority/language>
@@ -10,7 +10,9 @@ where
 
     ?conceptURI skos:notation ?code .
 
-   filter (datatype(?code)=euvoc:TED_SCHEMA)
+   filter (datatype(?code) in (euvoc:XML_LNG, euvoc:TED_SCHEMA))
+#   bind(datatype(?code) as ?datatype)
+
 
   }
 }

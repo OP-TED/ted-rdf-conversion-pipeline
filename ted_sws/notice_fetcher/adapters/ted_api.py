@@ -2,12 +2,13 @@ import json
 import time
 from datetime import date
 from http import HTTPStatus
-from typing import List, Generator
+from typing import List, Generator, Callable, Optional
 
 import requests
+from requests import Response
 
 from ted_sws import config
-from ted_sws.event_manager.services.log import log_error
+from ted_sws.event_manager.services.log import log_error, log_warning
 from ted_sws.notice_fetcher.adapters.ted_api_abc import TedAPIAdapterABC, RequestAPI
 
 DOCUMENTS_PER_PAGE = 100
@@ -30,6 +31,34 @@ MULTIPLE_LANGUAGE_CONTENT_KEY = "MUL"
 ENGLISH_LANGUAGE_CONTENT_KEY = "ENG"
 DOCUMENT_NOTICE_ID_KEY = "ND"
 
+CUSTOM_HEADER = {'User-Agent': 'TED-SWS-Pipeline-Fetcher'}
+MAX_RETRIES = 5
+DEFAULT_BACKOFF_FACTOR = 1
+
+
+def execute_request_with_retries(request_lambda: Callable,
+                                 max_retries: int = MAX_RETRIES,
+                                 backoff_factor: float = DEFAULT_BACKOFF_FACTOR) -> Response:
+    response = request_lambda()
+    requests_counter = 0
+    while response.status_code != HTTPStatus.OK:
+        if requests_counter >= max_retries:
+            log_warning(f"Max retries exceeded, retried {max_retries} times!")
+            return response
+        requests_counter += 1
+        time_to_sleep = backoff_factor * requests_counter
+        log_warning(f"Request returned status code {response.status_code}, retrying in {time_to_sleep} seconds!")
+        time.sleep(time_to_sleep)
+        response = request_lambda()
+    return response
+
+
+def get_configured_custom_headers(custom_header: Optional[dict] = None) -> dict:
+    headers = requests.utils.default_headers()
+    if custom_header:
+        headers.update(custom_header)
+    return headers
+
 
 class TedRequestAPI(RequestAPI):
 
@@ -40,15 +69,9 @@ class TedRequestAPI(RequestAPI):
             :param api_query:
             :return: dict
         """
-
-        response = requests.post(api_url, json=api_query)
-        try_again_request_count = 0
-        while response.status_code == HTTPStatus.TOO_MANY_REQUESTS:
-            try_again_request_count += 1
-            time.sleep(try_again_request_count * 0.1)
-            response = requests.post(api_url, json=api_query)
-            if try_again_request_count > 5:
-                break
+        headers = get_configured_custom_headers(CUSTOM_HEADER)
+        response = execute_request_with_retries(
+            request_lambda=lambda: requests.post(api_url, json=api_query, headers=headers))
         if response.ok:
             response_content = json.loads(response.text)
             return response_content
@@ -108,14 +131,9 @@ class TedAPIAdapter(TedAPIAdapterABC):
             log_error(exception_message)
             raise Exception(exception_message)
         xml_document_content_link = xml_links[MULTIPLE_LANGUAGE_CONTENT_KEY]
-        response = requests.get(xml_document_content_link)
-        try_again_request_count = 0
-        while response.status_code == HTTPStatus.TOO_MANY_REQUESTS:
-            try_again_request_count += 1
-            time.sleep(try_again_request_count * 0.1)
-            response = requests.get(xml_document_content_link)
-            if try_again_request_count > 5:
-                break
+        headers = get_configured_custom_headers(CUSTOM_HEADER)
+        response = execute_request_with_retries(
+            request_lambda=lambda: requests.get(xml_document_content_link, headers=headers))
         if response.ok:
             return response.text
         else:
@@ -142,17 +160,11 @@ class TedAPIAdapter(TedAPIAdapterABC):
                 response_body = self.request_api(api_url=self.ted_api_url, api_query=query)
                 documents_content += response_body[RESPONSE_RESULTS]
 
-            for document_content in documents_content:
-                if load_content:
-                    document_content[DOCUMENT_CONTENT] = self._retrieve_document_content(document_content)
-                    del document_content[LINKS_TO_CONTENT_KEY]
-                yield document_content
-        else:
-            for document_content in documents_content:
-                if load_content:
-                    document_content[DOCUMENT_CONTENT] = self._retrieve_document_content(document_content)
-                    del document_content[LINKS_TO_CONTENT_KEY]
-                yield document_content
+        for document_content in documents_content:
+            if load_content:
+                document_content[DOCUMENT_CONTENT] = self._retrieve_document_content(document_content)
+                del document_content[LINKS_TO_CONTENT_KEY]
+            yield document_content
 
     def get_by_query(self, query: dict, result_fields: dict = None, load_content: bool = True) -> List[dict]:
         """

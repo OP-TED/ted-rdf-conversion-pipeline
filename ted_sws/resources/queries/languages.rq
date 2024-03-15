@@ -1,18 +1,13 @@
 PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
 PREFIX euvoc: <http://publications.europa.eu/ontology/euvoc#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 
-
-select distinct ?code ?conceptURI
-where
+SELECT DISTINCT ?code ?conceptURI
+WHERE
 {
- graph <http://publications.europa.eu/resource/authority/language>
- {
-
+  GRAPH <http://publications.europa.eu/resource/authority/language>
+  {
     ?conceptURI skos:notation ?code .
-
-   filter (datatype(?code) in (euvoc:XML_LNG, euvoc:TED_SCHEMA))
-#   bind(datatype(?code) as ?datatype)
-
-
+    FILTER (datatype(?code) IN (rdf:resource="http://publications.europa.eu/resource/authority/notation-type/ISO_639_3", euvoc:TED_SCHEMA))
   }
 }

@@ -2,6 +2,7 @@ FROM docker.io/apache/airflow:2.5.1-python3.8
 
 # quick sudo
 USER root
+RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys A8D3785C
 RUN apt-get update && apt-get install make && apt-get install build-essential git -y && apt-get install -y wget && apt-get install -y unzip
 RUN apt install -y default-jre
 

@@ -5,6 +5,7 @@
   "mapping_version": "3.0.0-alpha.1",
   "ontology_version": "4.0.0",
   "mapping_type": "eforms",
+  "mapping_suite_hash_digest": "1740b31999a492bbe80122f766f8d4c1dd7a3f720b95337a88a10cf673ceb223",
   "metadata_constraints": {
     "constraints": {
       "eforms_subtype": [

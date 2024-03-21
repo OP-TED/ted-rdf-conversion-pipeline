@@ -343,6 +343,8 @@ class MappingSuiteRepositoryInFileSystem(MappingSuiteRepositoryABC):
         package_path = self.repository_path / mapping_suite_identifier
         if package_path.is_dir():
             package_metadata = self._read_package_metadata(package_path)
+            package_metadata["version"] = package_metadata[
+                "version"] if "version" in package_metadata else package_metadata["mapping_version"]
             package_metadata["identifier"] = package_metadata[
                 "identifier"] if "identifier" in package_metadata else mapping_suite_identifier
             package_metadata["transformation_rule_set"] = self._read_transformation_rule_set(package_path)

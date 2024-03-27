@@ -374,7 +374,7 @@ class MappingSuiteRepositoryInFileSystem(MappingSuiteRepositoryABC):
                                          shacl_test_suites=self._read_shacl_test_suites(package_path),
                                          sparql_test_suites=self._read_sparql_test_suites(package_path),
                                          transformation_test_data=self._read_test_data_package(package_path),
-                                         conceptual_mapping=self._read_conceptual_mapping(package_path) if not MS_MAPPING_TYPE_KEY in package_metadata else []) #TODO remove conceptual_mapping value assignment when conceptual mapping reader is removed
+                                         conceptual_mapping=self._read_conceptual_mapping(package_path)) #TODO remove conceptual_mapping value assignment when conceptual mapping reader is removed
             return mapping_suite
         return None
 

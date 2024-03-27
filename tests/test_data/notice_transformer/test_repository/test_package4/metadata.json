@@ -1,6 +1,7 @@
 {
   "identifier": "package_EF16",
   "title": "Package EF16 v1.2",
+  "created_at": "2022-03-20T19:46:14.069518",
   "description": "This is the conceptual mapping for bla bla bla",
   "mapping_version": "3.0.0-alpha.1",
   "ontology_version": "4.0.0",

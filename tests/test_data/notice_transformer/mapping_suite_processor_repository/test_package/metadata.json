@@ -3,6 +3,7 @@
   "created_at": "2022-03-20T19:46:14.069518",
   "identifier": "test_package",
   "version": "0.1",
+    "mapping_suite_hash_digest": "1740b31999a492bbe80122f766f8d4c1dd7a3f720b95337a88a10cf673ceb223",
   "ontology_version": "3.0.0.alpha",
   "metadata_constraints": {
     "constraints": {

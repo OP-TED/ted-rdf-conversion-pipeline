@@ -43,12 +43,12 @@ def is_version_in_range(notice_metadata: NormalisedMetadata, mapping_suite: Mapp
         # we need to extract only the version i.e 1.7 or 1.7.9
         eforms_sdk_version = notice_xsd_version.rsplit('-', 1)[1]
         constraint_version_range = [format_version_with_zero_patch(version) for version in
-                                    constraints[EFORMS_SDK_VERSIONS_KEY]]
+                                    constraints.eforms_sdk_versions]
         return format_version_with_zero_patch(eforms_sdk_version) in constraint_version_range
     elif mapping_suite.mapping_type == MappingSuiteType.STANDARD_FORMS and notice_metadata.notice_source == NoticeSource.STANDARD_FORM:
         notice_xsd_version = notice_metadata.xsd_version
-        constraint_min_xsd_version = constraints[MIN_XSD_VERSION_KEY][0]
-        constraint_max_xsd_version = constraints[MAX_XSD_VERSION_KEY][0]
+        constraint_min_xsd_version = constraints.min_xsd_version[0]
+        constraint_max_xsd_version = constraints.max_xsd_version[0]
         return constraint_min_xsd_version <= notice_xsd_version <= constraint_max_xsd_version
 
     return False
@@ -63,17 +63,15 @@ def check_package(mapping_suite: MappingSuite, notice_metadata: NormalisedMetada
     """
 
     constraints = mapping_suite.metadata_constraints.constraints
-
     eform_subtype = notice_metadata.eforms_subtype
     notice_publication_date = datetime.datetime.fromisoformat(notice_metadata.publication_date)
     in_version_range = is_version_in_range(notice_metadata=notice_metadata, mapping_suite=mapping_suite)
-
     in_date_range = is_date_in_range(publication_date=notice_publication_date,
-                                     constraint_start_date_value=constraints[START_DATE_KEY],
-                                     constraint_end_date_value=constraints[END_DATE_KEY])
+                                     constraint_start_date_value=constraints.start_date,
+                                     constraint_end_date_value=constraints.end_date)
     eform_subtype_constraint_values = [str(eforms_subtype_value) for eforms_subtype_value in
-                                       constraints[E_FORMS_SUBTYPE_KEY]]
-    covered_eform_type = eform_subtype in eform_subtype_constraint_values
+                                       constraints.eforms_subtype]
+    covered_eform_type = str(eform_subtype) in eform_subtype_constraint_values
 
     return in_date_range and in_version_range and covered_eform_type
 

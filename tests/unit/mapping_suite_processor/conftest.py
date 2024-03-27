@@ -3,7 +3,7 @@ import pymongo
 import pytest
 
 from ted_sws.core.model.transform import MetadataConstraints, FileResource, TransformationRuleSet, SHACLTestSuite, \
-    SPARQLTestSuite, MappingSuite, TransformationTestData
+    SPARQLTestSuite, MappingSuite, TransformationTestData, MetadataConstraintsStandardForm
 from tests import TEST_DATA_PATH
 
 
@@ -57,7 +57,7 @@ def fake_mapping_suite():
             FileResource(file_name=rml_mapping_rule_file.name, file_content=rml_mapping_rule_file.open().read(),
                          original_name=rml_mapping_rule_file.name))
 
-    metadata_constrains = MetadataConstraints(constraints=dict())
+    metadata_constrains = MetadataConstraints(constraints=MetadataConstraintsStandardForm(eforms_subtype=[29],min_xsd_version=["R2.0.9.S01.E01"]))
     file_name = "fake_file.txt"
     empty_file_resource = FileResource(file_name=file_name, file_content="fake content", original_name=file_name)
 

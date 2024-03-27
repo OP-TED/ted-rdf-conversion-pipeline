@@ -9,7 +9,8 @@ from pymongo import MongoClient
 
 from ted_sws import config
 from ted_sws.core.model.transform import MappingSuite, FileResource, TransformationRuleSet, SHACLTestSuite, \
-    SPARQLTestSuite, MetadataConstraints, TransformationTestData, ConceptualMapping
+    SPARQLTestSuite, MetadataConstraints, TransformationTestData, ConceptualMapping, MappingSuiteType, \
+    MetadataConstraintsStandardForm, MetadataConstraintsEform
 from ted_sws.data_manager.adapters import inject_date_string_fields, remove_date_string_fields
 from ted_sws.data_manager.adapters.repository_abc import MappingSuiteRepositoryABC
 from ted_sws.mapping_suite_processor.adapters.conceptual_mapping_reader import ConceptualMappingReader
@@ -25,8 +26,17 @@ MS_TEST_DATA_FOLDER_NAME = "test_data"
 MS_CONCEPTUAL_MAPPING_FILE_NAME = "conceptual_mappings.xlsx"
 MS_OUTPUT_FOLDER_NAME = "output"
 MS_TEST_SUITE_REPORT = "test_suite_report"
-MS_CREATED_AT = "created_at"
+MS_CREATED_AT_KEY = "created_at"
 MONGODB_COLLECTION_ID = "_id"
+MS_METADATA_IDENTIFIER_KEY = 'identifier'
+MS_STANDARD_METADATA_VERSION_KEY = 'version'
+MS_EFORMS_METADATA_VERSION_KEY = 'mapping_version'
+MS_METADATA_CONSTRAINTS_KEY = 'metadata_constraints'
+MS_CONSTRAINTS_KEY = 'constraints'
+MS_TITLE_KEY = 'title'
+MS_HASH_DIGEST_KEY = 'mapping_suite_hash_digest'
+MS_MAPPING_TYPE_KEY = 'mapping_type'
+MS_ONTOLOGY_VERSION_KEY = 'ontology_version'
 
 
 class MappingSuiteRepositoryMongoDB(MappingSuiteRepositoryABC):
@@ -55,8 +65,8 @@ class MappingSuiteRepositoryMongoDB(MappingSuiteRepositoryABC):
         """
         mapping_suite_dict = mapping_suite.dict()
         mapping_suite_dict[MONGODB_COLLECTION_ID] = mapping_suite.get_mongodb_id()
-        mapping_suite_dict[MS_CREATED_AT] = datetime.fromisoformat(mapping_suite_dict[MS_CREATED_AT])
-        inject_date_string_fields(data=mapping_suite_dict, date_field_name=MS_CREATED_AT)
+        mapping_suite_dict[MS_CREATED_AT_KEY] = datetime.fromisoformat(mapping_suite_dict[MS_CREATED_AT_KEY])
+        inject_date_string_fields(data=mapping_suite_dict, date_field_name=MS_CREATED_AT_KEY)
         return mapping_suite_dict
 
     def _create_mapping_suite_from_dict(self, mapping_suite_dict: dict) -> Optional[MappingSuite]:
@@ -67,8 +77,8 @@ class MappingSuiteRepositoryMongoDB(MappingSuiteRepositoryABC):
         """
         if mapping_suite_dict:
             mapping_suite_dict.pop(MONGODB_COLLECTION_ID, None)
-            mapping_suite_dict[MS_CREATED_AT] = mapping_suite_dict[MS_CREATED_AT].isoformat()
-            remove_date_string_fields(data=mapping_suite_dict, date_field_name=MS_CREATED_AT)
+            mapping_suite_dict[MS_CREATED_AT_KEY] = mapping_suite_dict[MS_CREATED_AT_KEY].isoformat()
+            remove_date_string_fields(data=mapping_suite_dict, date_field_name=MS_CREATED_AT_KEY)
             return MappingSuite(**mapping_suite_dict)
         return None
 
@@ -134,7 +144,6 @@ class MappingSuiteRepositoryInFileSystem(MappingSuiteRepositoryABC):
         package_metadata_path = package_path / MS_METADATA_FILE_NAME
         package_metadata_content = package_metadata_path.read_text(encoding="utf-8")
         package_metadata = json.loads(package_metadata_content)
-        package_metadata['metadata_constraints'] = MetadataConstraints(**package_metadata['metadata_constraints'])
         return package_metadata
 
     def _read_transformation_rule_set(self, package_path: pathlib.Path) -> TransformationRuleSet:
@@ -343,16 +352,30 @@ class MappingSuiteRepositoryInFileSystem(MappingSuiteRepositoryABC):
         package_path = self.repository_path / mapping_suite_identifier
         if package_path.is_dir():
             package_metadata = self._read_package_metadata(package_path)
-            package_metadata["version"] = package_metadata[
-                "version"] if "version" in package_metadata else package_metadata["mapping_version"]
-            package_metadata["identifier"] = package_metadata[
-                "identifier"] if "identifier" in package_metadata else mapping_suite_identifier
-            package_metadata["transformation_rule_set"] = self._read_transformation_rule_set(package_path)
-            package_metadata["shacl_test_suites"] = self._read_shacl_test_suites(package_path)
-            package_metadata["sparql_test_suites"] = self._read_sparql_test_suites(package_path)
-            package_metadata["transformation_test_data"] = self._read_test_data_package(package_path)
-            package_metadata["conceptual_mapping"] = self._read_conceptual_mapping(package_path)
-            return MappingSuite(**package_metadata)
+            if MS_MAPPING_TYPE_KEY in package_metadata and package_metadata[
+                MS_MAPPING_TYPE_KEY] == MappingSuiteType.ELECTRONIC_FORMS:
+                package_metadata[MS_METADATA_CONSTRAINTS_KEY] = MetadataConstraints(constraints=MetadataConstraintsEform(
+                    **package_metadata[MS_METADATA_CONSTRAINTS_KEY][MS_CONSTRAINTS_KEY]))
+            else:
+                package_metadata[MS_METADATA_CONSTRAINTS_KEY] = MetadataConstraints(constraints=MetadataConstraintsStandardForm(
+                    **package_metadata[MS_METADATA_CONSTRAINTS_KEY][MS_CONSTRAINTS_KEY]))
+            mapping_suite = MappingSuite(metadata_constraints=package_metadata[MS_METADATA_CONSTRAINTS_KEY],
+                                         created_at=package_metadata[MS_CREATED_AT_KEY],
+                                         title=package_metadata[MS_TITLE_KEY],
+                                         ontology_version=package_metadata[MS_ONTOLOGY_VERSION_KEY],
+                                         mapping_suite_hash_digest=package_metadata[MS_HASH_DIGEST_KEY],
+                                         mapping_type=package_metadata[MS_MAPPING_TYPE_KEY] if MS_MAPPING_TYPE_KEY in package_metadata else MappingSuiteType.STANDARD_FORMS,
+                                         version=package_metadata[
+                                             MS_STANDARD_METADATA_VERSION_KEY] if MS_STANDARD_METADATA_VERSION_KEY in package_metadata else \
+                                             package_metadata[MS_EFORMS_METADATA_VERSION_KEY],
+                                         identifier=package_metadata[
+                                             MS_METADATA_IDENTIFIER_KEY] if MS_METADATA_IDENTIFIER_KEY in package_metadata else mapping_suite_identifier,
+                                         transformation_rule_set=self._read_transformation_rule_set(package_path),
+                                         shacl_test_suites=self._read_shacl_test_suites(package_path),
+                                         sparql_test_suites=self._read_sparql_test_suites(package_path),
+                                         transformation_test_data=self._read_test_data_package(package_path),
+                                         conceptual_mapping=self._read_conceptual_mapping(package_path) if not MS_MAPPING_TYPE_KEY in package_metadata else []) #TODO remove conceptual_mapping value assignment when conceptual mapping reader is removed
+            return mapping_suite
         return None
 
     @classmethod

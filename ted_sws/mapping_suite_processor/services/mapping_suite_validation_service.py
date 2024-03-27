@@ -2,12 +2,10 @@ import json
 import pathlib
 from typing import Optional
 
-from ted_sws.data_manager.adapters.mapping_suite_repository import MS_METADATA_FILE_NAME
+from ted_sws.data_manager.adapters.mapping_suite_repository import MS_METADATA_FILE_NAME, \
+    MS_STANDARD_METADATA_VERSION_KEY, MS_METADATA_IDENTIFIER_KEY, \
+    MS_EFORMS_METADATA_VERSION_KEY
 from ted_sws.mapping_suite_processor.adapters.mapping_suite_structure_checker import MappingSuiteStructureValidator
-
-MAPPING_SUITE_METADATA_IDENTIFIER_KEY = 'identifier'
-STANDARD_MAPPING_SUITE_METADATA_VERSION_KEY = 'version'
-EFORMS_MAPPING_SUITE_METADATA_VERSION_KEY = 'mapping_version'
 
 
 def get_mapping_suite_id_from_file_system(mapping_suite_path: pathlib.Path) -> Optional[str]:
@@ -20,10 +18,10 @@ def get_mapping_suite_id_from_file_system(mapping_suite_path: pathlib.Path) -> O
 
     if mapping_suite_metadata_path.exists() and mapping_suite_metadata_path.is_file():
         mapping_suite_metadata = json.loads(mapping_suite_metadata_path.read_text(encoding="utf-8"))
-        identifier_value = mapping_suite_metadata[MAPPING_SUITE_METADATA_IDENTIFIER_KEY]
+        identifier_value = mapping_suite_metadata[MS_METADATA_IDENTIFIER_KEY]
         version_value = mapping_suite_metadata[
-            STANDARD_MAPPING_SUITE_METADATA_VERSION_KEY] if STANDARD_MAPPING_SUITE_METADATA_VERSION_KEY in mapping_suite_metadata else \
-        mapping_suite_metadata[EFORMS_MAPPING_SUITE_METADATA_VERSION_KEY]
+            MS_STANDARD_METADATA_VERSION_KEY] if MS_STANDARD_METADATA_VERSION_KEY in mapping_suite_metadata else \
+        mapping_suite_metadata[MS_EFORMS_METADATA_VERSION_KEY]
         return f"{identifier_value}_v{version_value}"
     return None
 

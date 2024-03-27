@@ -9,7 +9,7 @@
 import abc
 from datetime import datetime
 from enum import Enum
-from typing import List, Optional
+from typing import List, Optional, Union
 
 from ted_sws.core.model import PropertyBaseModel
 
@@ -36,11 +36,33 @@ class NoticeFileResource(FileResource):
     notice_id: str
 
 
+
+class MetadataConstraintsStandardForm(MappingSuiteComponent):
+    """
+    Metadata constraints structure for Standard forms
+    """
+    eforms_subtype: List[str]
+    start_date: Optional[List[str]]
+    end_date: Optional[List[str]]
+    min_xsd_version: List[str]
+    max_xsd_version: Optional[List[str]]
+
+
+class MetadataConstraintsEform(MappingSuiteComponent):
+    """
+    Metadata constraints structure for eForms
+    """
+    eforms_subtype: List[str]
+    start_date: Optional[List[str]]
+    end_date: Optional[List[str]]
+    eforms_sdk_versions: List[str]
+
+
 class MetadataConstraints(MappingSuiteComponent):
     """
-
+         Metadata constraints
     """
-    constraints: dict
+    constraints: Union[MetadataConstraintsStandardForm, MetadataConstraintsEform]
 
 
 class TransformationRuleSet(MappingSuiteComponent):

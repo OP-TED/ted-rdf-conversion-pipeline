@@ -2,7 +2,7 @@ from datetime import date
 import pytest
 from ted_sws.core.model.supra_notice import DailySupraNotice
 from ted_sws.core.model.transform import MetadataConstraints, FileResource, TransformationRuleSet, SHACLTestSuite, \
-    SPARQLTestSuite, MappingSuite, TransformationTestData
+    SPARQLTestSuite, MappingSuite, TransformationTestData, MetadataConstraintsStandardForm
 from tests import TEST_DATA_PATH
 
 
@@ -27,7 +27,7 @@ def epo_mapping_suite_package_name():
 
 @pytest.fixture
 def fake_mapping_suite():
-    metadata_constrains = MetadataConstraints(constraints=dict())
+    metadata_constrains = MetadataConstraints(constraints=MetadataConstraintsStandardForm(eforms_subtype=[29],min_xsd_version=["R2.0.9.S01.E01"]))
     file_name = "fake_file.txt"
     empty_file_resource = FileResource(file_name=file_name, file_content="fake content", original_name=file_name)
     transformation_rule_set = TransformationRuleSet(resources=[empty_file_resource],

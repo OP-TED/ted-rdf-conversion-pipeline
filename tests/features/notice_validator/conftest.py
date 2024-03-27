@@ -3,7 +3,7 @@ import pytest
 from ted_sws.core.model.manifestation import RDFManifestation
 from ted_sws.core.model.notice import NoticeStatus
 from ted_sws.core.model.transform import FileResource, SPARQLTestSuite, MetadataConstraints, TransformationRuleSet, \
-    SHACLTestSuite, TransformationTestData, MappingSuite
+    SHACLTestSuite, TransformationTestData, MappingSuite, MetadataConstraintsStandardForm
 from tests import TEST_DATA_PATH
 
 

@@ -3,7 +3,7 @@ import pytest
 from ted_sws.core.model.manifestation import RDFManifestation
 from ted_sws.core.model.notice import NoticeStatus
 from ted_sws.core.model.transform import FileResource, SPARQLTestSuite, MetadataConstraints, TransformationRuleSet, \
-    SHACLTestSuite, TransformationTestData, MappingSuite
+    SHACLTestSuite, TransformationTestData, MappingSuite, MetadataConstraintsStandardForm
 from tests import TEST_DATA_PATH
 
 
@@ -189,7 +189,7 @@ def sparql_test_suite_with_invalid_query(invalid_sparql_file):
 
 @pytest.fixture
 def dummy_mapping_suite(sparql_test_suite, shacl_test_suite):
-    metadata_constrains = MetadataConstraints(constraints=dict())
+    metadata_constrains = MetadataConstraints(constraints=MetadataConstraintsStandardForm(eforms_subtype=[29],min_xsd_version=["R2.0.9.S01.E01"]))
     file_name = "fake_title.txt"
     empty_file_resource = FileResource(file_name=file_name, file_content="no content here", original_name=file_name)
     transformation_rule_set = TransformationRuleSet(resources=[empty_file_resource],

@@ -15,7 +15,7 @@ COPY requirements.txt /opt/airflow
 # working in the /opt/airflow
 WORKDIR /opt/airflow
 RUN mkdir -p ./.rmlmapper ./dags ./ted_sws ./temp
-RUN wget -c https://github.com/RMLio/rmlmapper-java/releases/download/v6.1.3/rmlmapper-6.1.3-r367-all.jar -O ./.rmlmapper/rmlmapper.jar
+RUN wget -c https://github.com/RMLio/rmlmapper-java/releases/download/v6.2.2/rmlmapper-6.2.2-r371-all.jar -O ./.rmlmapper/rmlmapper.jar
 
 
 RUN wget -c https://kumisystems.dl.sourceforge.net/project/saxon/Saxon-HE/10/Java/SaxonHE10-6J.zip -P .saxon/

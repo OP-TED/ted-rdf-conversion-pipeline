@@ -5,7 +5,6 @@ import json
 import mongomock
 import pymongo
 import pytest
-from click.testing import CliRunner
 from mongomock.gridfs import enable_gridfs_integration
 
 from ted_sws.core.model.manifestation import XMLManifestation, RDFManifestation
@@ -251,11 +250,6 @@ def mongodb_client():
     for database_name in mongo_client.list_database_names():
         mongo_client.drop_database(database_name)
     return mongo_client
-
-
-@pytest.fixture
-def cli_runner():
-    return CliRunner()
 
 
 @pytest.fixture

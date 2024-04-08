@@ -3,7 +3,7 @@ import xml.etree.ElementTree as ET
 from typing import List, Set, Dict
 
 from jinja2 import Environment, PackageLoader
-from saxonche import PySaxonProcessor, PySaxonApiError
+from saxonche import PySaxonProcessor, PySaxonApiError, PyXPathProcessor
 
 from ted_sws.core.model.manifestation import XPATHCoverageValidationReport, XPATHCoverageValidationAssertion, \
     XPATHCoverageValidationResult
@@ -51,8 +51,9 @@ class CoverageRunner:
             mapping_suite_identifier=self.mapping_suite_id)
 
         xpaths: List[str] = []
+        xp = self.init_xp_processor(notice)
         for xpath in self.get_all_conceptual_xpaths():
-            if self.check_xpath_expression_with_xml(notice.xml_manifestation.object_data, xpath):
+            if self.check_xpath_expression(xpath, xp):
                 xpaths.append(xpath)
         notice_xpaths: XPathDict = {notice.ted_id: xpaths}
         self.validate_xpath_coverage_report(report, notice_xpaths, xpaths)
@@ -77,19 +78,25 @@ class CoverageRunner:
         return namespaces
 
     @classmethod
-    def check_xpath_expression_with_xml(cls, xml_content, xpath_expression) -> bool:
+    def init_xp_processor(cls, notice: Notice) -> PyXPathProcessor:
+        xml_content = notice.xml_manifestation.object_data
         namespaces = cls.extract_namespaces(xml_content)
-        with PySaxonProcessor(license=False) as proc:
-            xp = proc.new_xpath_processor()
-            for prefix, ns_uri in namespaces.items():
-                xp.declare_namespace(prefix, ns_uri)
-            document = proc.parse_xml(xml_text=xml_content)
-            xp.set_context(xdm_item=document)
-            try:
-                item = xp.evaluate_single(xpath_expression)
-                return True if item else False
-            except PySaxonApiError:
-                return False
+        proc = PySaxonProcessor(license=False)
+        xp = proc.new_xpath_processor()
+        for prefix, ns_uri in namespaces.items():
+            xp.declare_namespace(prefix, ns_uri)
+        document = proc.parse_xml(xml_text=xml_content)
+        xp.set_context(xdm_item=document)
+
+        return xp
+
+    @classmethod
+    def check_xpath_expression(cls, xpath_expression: str, xp: PyXPathProcessor) -> bool:
+        try:
+            item = xp.evaluate_single(xpath_expression)
+            return True if item else False
+        except PySaxonApiError:
+            return False
 
     def xpath_assertions(
             self, notice_xpaths: XPathDict, xpaths_list: List[str]
@@ -130,10 +137,9 @@ class CoverageRunner:
         for report_notice in notices:
             notice = report_notice.notice
             xpaths: List[str] = []
+            xp = self.init_xp_processor(report_notice.notice)
             for xpath in self.get_all_conceptual_xpaths():
-                if self.check_xpath_expression_with_xml(
-                        report_notice.notice.xml_manifestation.object_data, xpath
-                ):
+                if self.check_xpath_expression(xpath, xp):
                     xpaths.append(xpath)
 
             notice_xpaths[notice.ted_id] = xpaths

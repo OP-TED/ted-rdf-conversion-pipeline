@@ -52,7 +52,7 @@ class CoverageRunner:
 
         xpaths: List[str] = []
         for xpath in self.get_all_conceptual_xpaths():
-            if self.check_xpath_expression_with_xml(notice.xml_manifestation.object_data.encode("utf-8"), xpath):
+            if self.check_xpath_expression_with_xml(notice.xml_manifestation.object_data, xpath):
                 xpaths.append(xpath)
         notice_xpaths: XPathDict = {notice.ted_id: xpaths}
         self.validate_xpath_coverage_report(report, notice_xpaths, xpaths)
@@ -132,7 +132,7 @@ class CoverageRunner:
             xpaths: List[str] = []
             for xpath in self.get_all_conceptual_xpaths():
                 if self.check_xpath_expression_with_xml(
-                        report_notice.notice.xml_manifestation.object_data.encode("utf-8"), xpath
+                        report_notice.notice.xml_manifestation.object_data, xpath
                 ):
                     xpaths.append(xpath)
 

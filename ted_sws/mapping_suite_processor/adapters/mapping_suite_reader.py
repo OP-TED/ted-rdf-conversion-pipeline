@@ -62,7 +62,7 @@ class MappingSuiteReader:
         processed_xpaths = set()
 
         for test_suite in mapping_suite.sparql_test_suites:
-            if test_suite != CONCEPTUAL_MAPPINGS_ASSERTIONS:
+            if test_suite.identifier != CONCEPTUAL_MAPPINGS_ASSERTIONS:
                 continue
 
             for sparql_test in test_suite.sparql_tests:

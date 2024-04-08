@@ -18,6 +18,7 @@ def test_xpath_coverage_runner(fake_notice_F03, fake_mapping_suite_F03_id, fake_
     assert "mapping_suite_identifier" in json_report
     assert "validation_result" in json_report
     assert "xpath_assertions" in json_report["validation_result"]
+    assert "xpath_covered" in json_report["validation_result"]
 
     assert xpath_coverage_html_report(report)
 

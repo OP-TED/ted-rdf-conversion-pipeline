@@ -10,7 +10,6 @@ from ted_sws.core.model.manifestation import XPATHCoverageValidationReport, XPAT
 from ted_sws.core.model.notice import Notice
 from ted_sws.core.model.transform import MappingXPATH, MappingSuite
 from ted_sws.core.model.validation_report import ReportNotice
-from ted_sws.data_sampler.services.notice_xml_indexer import index_notice
 from ted_sws.mapping_suite_processor.adapters.mapping_suite_reader import MappingSuiteReader
 from ted_sws.notice_transformer.services.notice_transformer import transform_report_notices
 from ted_sws.notice_validator.resources.templates import TEMPLATE_METADATA_KEY
@@ -33,12 +32,6 @@ class CoverageRunner:
         self.mapping_suite = mapping_suite
         self.mapping_suite_id = mapping_suite.get_mongodb_id()
         self.init_xpath_data(mapping_suite=mapping_suite)
-
-    @classmethod
-    def notice_xpaths(cls, notice: Notice) -> List[str]:
-        if not notice.xml_metadata or not notice.xml_metadata.unique_xpaths:
-            notice = index_notice(notice)
-        return notice.xml_metadata.unique_xpaths
 
     def init_xpath_data(self, mapping_suite: MappingSuite):
         for cm_xpath in MappingSuiteReader.read_mapping_suite_xpaths(mapping_suite):

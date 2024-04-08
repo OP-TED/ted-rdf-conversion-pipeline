@@ -3,8 +3,7 @@ from pathlib import Path
 from typing import Dict, List, Tuple
 
 from ted_sws.core.model.transform import MappingXPATH, MappingSuite
-from ted_sws.data_manager.adapters.mapping_suite_repository import MS_METADATA_FILE_NAME, MS_VALIDATE_FOLDER_NAME, \
-    MS_SPARQL_FOLDER_NAME
+from ted_sws.data_manager.adapters.mapping_suite_repository import MS_METADATA_FILE_NAME
 
 # This set of constants refers to fields in the Conceptual Mapping file
 VERSION_FIELD = 'Mapping Version'
@@ -15,6 +14,8 @@ SPARQL_QUERY_METADATA_TITLE = "title"
 SPARQL_QUERY_METADATA_DESCRIPTION = "description"
 SPARQL_QUERY_METADATA_XPATH = "xpath"
 
+FILE_NAME_KEY = "File name"
+REF_INTEGRATION_TESTS_KEY = "Reference to Integration Tests (O)"
 
 class MappingSuiteReader:
     """

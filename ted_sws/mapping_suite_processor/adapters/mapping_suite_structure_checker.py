@@ -146,6 +146,7 @@ class MappingSuiteStructureValidator:
         metadata = mapping_suite_read_metadata(mapping_suite_path=self.mapping_suite_path)
 
         version = metadata.get(VERSION_KEY)
+
         mapping_suite_versioned_hash = MappingSuiteHasher(self.mapping_suite_path).hash_mapping_suite(
             with_version=version)
 

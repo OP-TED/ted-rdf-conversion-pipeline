@@ -88,16 +88,6 @@
     {%  if template_metadata.grouping %}
         <li><b>Grouping:</b> {{ template_metadata.grouping }}</li>
     {%  endif %}
-    <li>
-        <div><hr></div>
-        <h4>Overall coverage</h4>
-        <h3>{{ "%.2f"|format((validation_result.coverage|float * 100)) }}%</h3>
-        <p>(Number of Conceptual XPATHs found in notices) / (Total number of unique XPATHs in provided notices)</p>
-    <li><div><hr></div>
-        <h4>Conceptual coverage</h4>
-        <h3>{{ "%.2f"|format((validation_result.conceptual_coverage|float * 100)) }}%</h3>
-        <p>(Number of Conceptual XPATHs found in notices) / (Total number of unique Conceptual XPATHs)</p>
-    </li>
     {%  set nr_notices = notices|length %}
     <li><div><hr></div>
         {% if nr_notices > 1 %}
@@ -150,78 +140,7 @@
     </tbody>
 </table>
 {% endif %}
-{% if validation_result.xpath_covered|length > 0 %}
-<hr>
-<h2>XPATHs covered in the "Rules" of Conceptual Mapping</h2>
-<table class="display summary" data-order='[[0, "asc"]]'>
-    <thead>
-    <tr>
-        <th>XPATH</th>
-    </tr>
-    </thead>
-    <tbody>
-    {% for xpath in validation_result.xpath_covered %}
-    <tr>
-        <td class="break-word">{{ xpath }}</td>
-    </tr>
-    {% endfor %}
-    </tbody>
-</table>
-{% endif %}
-{% if validation_result.remarked_xpaths|length > 0 %}
-    <hr>
-    <h2>XPATHs covered in the "Mapping Remarks" of Conceptual Mapping</h2>
-    <table class="display summary" data-order='[[0, "asc"]]'>
-        <thead>
-        <tr>
-            <th>XPATH</th>
-        </tr>
-        </thead>
-        <tbody>
-        {% for xpath in validation_result.remarked_xpaths %}
-            <tr>
-                <td class="break-word">{{ xpath }}</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-{% endif %}
-{% if validation_result.xpath_not_covered|length > 0 %}
-<hr>
-<h2>XPATHs not covered by Conceptual Mapping</h2>
-<table class="display summary" data-order='[[0, "asc"]]'>
-    <thead>
-    <tr>
-        <th>XPATH</th>
-    </tr>
-    </thead>
-    <tbody>
-    {% for xpath in validation_result.xpath_not_covered %}
-    <tr>
-        <td class="break-word">{{ xpath }}</td>
-    </tr>
-    {% endfor %}
-    </tbody>
-</table>
-{% endif %}
-{% if validation_result.xpath_extra|length > 0 %}
-<hr>
-<h2>Extra XPATHs in Conceptual Mapping</h2>
-<table class="display summary" data-order='[[0, "asc"]]'>
-    <thead>
-    <tr>
-        <th>XPATH</th>
-    </tr>
-    </thead>
-    <tbody>
-    {% for xpath in validation_result.xpath_extra %}
-    <tr>
-        <td class="break-word">{{ xpath }}</td>
-    </tr>
-    {% endfor %}
-    </tbody>
-</table>
-{% endif %}
+
 <hr>
 </body>
 </html>

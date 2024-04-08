@@ -11,7 +11,6 @@ from ted_sws.core.adapters.xml_preprocessor import XMLPreprocessor
 from ted_sws.core.model.metadata import XMLMetadata
 from ted_sws.core.model.notice import Notice
 from ted_sws.data_manager.adapters.notice_repository import NoticeRepository
-from ted_sws.mapping_suite_processor.adapters.conceptual_mapping_reader import ConceptualMappingReader
 from ted_sws.resources import XSLT_FILES_PATH
 
 UNIQUE_XPATHS_XSLT_FILE_PATH = "get_unique_xpaths.xsl"
@@ -109,20 +108,9 @@ def index_eforms_notice(notice: Notice) -> Notice:
     return notice
 
 
-def index_notice(notice: Notice, base_xpath="") -> Notice:
-    # To be removed later if will not be used
-    # def _notice_namespaces(xml_file) -> dict:
-    #     _namespaces = dict([node for _, node in XMLElementTree.iterparse(xml_file, events=['start-ns'])])
-    #     return {v: k for k, v in _namespaces.items()}
-
+def index_notice(notice: Notice) -> Notice:
     def _ns_tag(ns_tag):
         tag = ns_tag[1]
-        # Use just the tag, ignoring the namespace
-        # ns = ns_tag[0]
-        # if ns:
-        #     ns_alias = namespaces[ns]
-        #     if ns_alias:
-        #         return ns_alias + ":" + tag
         return tag
 
     def _xpath_generator(xml_file):
@@ -135,20 +123,17 @@ def index_notice(notice: Notice, base_xpath="") -> Notice:
 
                 xpath = "/" + '/'.join(path)
 
-                if xpath.startswith(ConceptualMappingReader.base_xpath_as_prefix(base_xpath)):
-                    attributes = list(el.attrib.keys())
-                    if len(attributes) > 0:
-                        for attr in attributes:
-                            yield xpath + "/@" + attr
-                    yield xpath
+                attributes = list(el.attrib.keys())
+                if len(attributes) > 0:
+                    for attr in attributes:
+                        yield xpath + "/@" + attr
+                yield xpath
             else:
                 path.pop()
 
     with tempfile.NamedTemporaryFile() as fp:
         fp.write(notice.xml_manifestation.object_data.encode("utf-8"))
 
-        # Not used for the moment (to be removed in the future if feature is not wanted back)
-        # namespaces = _notice_namespaces(fp.name)
         xpaths = list(set(_xpath_generator(fp.name)))
         xml_metadata = XMLMetadata()
         xml_metadata.unique_xpaths = xpaths

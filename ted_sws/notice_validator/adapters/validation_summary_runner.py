@@ -171,7 +171,6 @@ class XMLManifestationValidationSummaryRunner(ManifestationValidationSummaryRunn
             if xpath_coverage_validation:
                 notice_validation_result = xpath_coverage_validation.validation_result
                 validation_result.xpath_covered += len(notice_validation_result.xpath_covered)
-                validation_result.xpath_not_covered += len(notice_validation_result.xpath_not_covered)
 
         return report
 

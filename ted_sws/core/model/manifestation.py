@@ -65,7 +65,6 @@ class ValidationManifestation(Manifestation):
 
 class XPATHCoverageSummaryResult(PropertyBaseModel):
     xpath_covered: Optional[int] = 0
-    xpath_not_covered: Optional[int] = 0
 
 
 class XPATHCoverageSummaryReport(PropertyBaseModel):
@@ -154,11 +153,6 @@ class XPATHCoverageValidationResultBase(PropertyBaseModel):
     """
     xpath_assertions: Optional[List[XPATHCoverageValidationAssertion]] = []
     xpath_covered: Optional[List[str]] = []
-    xpath_not_covered: Optional[List[str]] = []
-    xpath_extra: Optional[List[str]] = []
-    remarked_xpaths: Optional[List[str]] = []
-    coverage: Optional[float]
-    conceptual_coverage: Optional[float]
 
 
 class XPATHCoverageValidationResult(XPATHCoverageValidationResultBase):

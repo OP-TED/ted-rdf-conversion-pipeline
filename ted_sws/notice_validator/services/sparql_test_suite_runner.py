@@ -1,6 +1,6 @@
 import re
 from pathlib import Path
-from typing import Tuple, List
+from typing import List
 
 from jinja2 import Environment, PackageLoader
 
@@ -12,7 +12,8 @@ from ted_sws.core.model.validation_report import SPARQLValidationSummaryReport, 
     ReportNotice
 from ted_sws.core.model.validation_report_data import ReportPackageNoticeData
 from ted_sws.data_manager.adapters.repository_abc import NoticeRepositoryABC, MappingSuiteRepositoryABC
-from ted_sws.mapping_suite_processor.services.conceptual_mapping_generate_sparql_queries import SPARQL_XPATH_SEPARATOR
+from ted_sws.mapping_suite_processor.adapters.mapping_suite_reader import MappingSuiteReader, \
+    SPARQL_QUERY_METADATA_TITLE, SPARQL_QUERY_METADATA_DESCRIPTION, SPARQL_QUERY_METADATA_XPATH
 from ted_sws.notice_transformer.adapters.notice_transformer import NoticeTransformer
 from ted_sws.notice_validator.adapters.sparql_runner import SPARQLRunner
 from ted_sws.notice_validator.resources.templates import TEMPLATE_METADATA_KEY
@@ -22,12 +23,11 @@ TEMPLATES = Environment(loader=PackageLoader("ted_sws.notice_validator.resources
 SPARQL_TEST_SUITE_EXECUTION_HTML_REPORT_TEMPLATE = "sparql_query_results_report.jinja2"
 SPARQL_SUMMARY_HTML_REPORT_TEMPLATE = "sparql_summary_report.jinja2"
 
-QUERY_METADATA_TITLE = "title"
-QUERY_METADATA_DESCRIPTION = "description"
-QUERY_METADATA_XPATH = "xpath"
 DEFAULT_QUERY_TITLE = "untitled query"
 DEFAULT_QUERY_DESCRIPTION = "un-described query"
 DEFAULT_QUERY_XPATH = []
+
+SPARQL_XPATH_SEPARATOR = " ;; "
 
 
 class SPARQLTestSuiteRunner:
@@ -54,14 +54,14 @@ class SPARQLTestSuiteRunner:
         :param file_resource:
         :return:
         """
-        metadata = extract_metadata_from_sparql_query(file_resource.file_content)
-        title = metadata[QUERY_METADATA_TITLE] \
-            if QUERY_METADATA_TITLE in metadata else DEFAULT_QUERY_TITLE
-        description = metadata[QUERY_METADATA_DESCRIPTION] \
-            if QUERY_METADATA_DESCRIPTION in metadata else DEFAULT_QUERY_DESCRIPTION
-        xpath = metadata[QUERY_METADATA_XPATH].split(
+        metadata = MappingSuiteReader.extract_metadata_from_sparql_query(file_resource.file_content)
+        title = metadata[SPARQL_QUERY_METADATA_TITLE] \
+            if SPARQL_QUERY_METADATA_TITLE in metadata else DEFAULT_QUERY_TITLE
+        description = metadata[SPARQL_QUERY_METADATA_DESCRIPTION] \
+            if SPARQL_QUERY_METADATA_DESCRIPTION in metadata else DEFAULT_QUERY_DESCRIPTION
+        xpath = metadata[SPARQL_QUERY_METADATA_XPATH].split(
             SPARQL_XPATH_SEPARATOR
-        ) if QUERY_METADATA_XPATH in metadata and metadata[QUERY_METADATA_XPATH] else DEFAULT_QUERY_XPATH
+        ) if SPARQL_QUERY_METADATA_XPATH in metadata and metadata[SPARQL_QUERY_METADATA_XPATH] else DEFAULT_QUERY_XPATH
         query = cls._sanitize_query(file_resource.file_content)
         return SPARQLQuery(title=title, description=description, xpath=xpath, query=query)
 
@@ -349,19 +349,3 @@ def validate_notice_by_id_with_sparql_suite(notice_id: str, mapping_suite_identi
         raise ValueError(f'Mapping suite package, with {mapping_suite_identifier} id, was not found')
     validate_notice_with_sparql_suite(notice=notice, mapping_suite_package=mapping_suite_package, with_html=with_html)
     notice_repository.update(notice=notice)
-
-
-def extract_metadata_from_sparql_query(content) -> dict:
-    """
-        Extracts a dictionary of metadata from a SPARQL query
-    """
-
-    def _process_line(line) -> Tuple[str, str]:
-        if ":" in line:
-            key_part, value_part = line.split(":", 1)
-            key_part = key_part.replace("#", "").strip()
-            value_part = value_part.strip()
-            return key_part, value_part
-
-    content_lines_with_comments = filter(lambda x: x.strip().startswith("#"), content.splitlines())
-    return dict([_process_line(line) for line in content_lines_with_comments])

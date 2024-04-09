@@ -32,7 +32,7 @@ services:
       PYTHONPATH: /opt/airflow/
       LIMES_ALIGNMENT_PATH: /opt/airflow/.limes/limes.jar
       RML_MAPPER_PATH: /opt/airflow/.rmlmapper/rmlmapper.jar
-      XML_PROCESSOR_PATH: /opt/airflow/.saxon/saxon-he-10.6.jar
+      XML_PROCESSOR_PATH: /opt/airflow/.saxon/saxon-he-10.9.jar
       AIRFLOW_UID: ${AIRFLOW_UID}
     image: ${AIRFLOW_IMAGE_URI}
     logging:
@@ -77,7 +77,7 @@ services:
       PYTHONPATH: /opt/airflow/
       LIMES_ALIGNMENT_PATH: /opt/airflow/.limes/limes.jar
       RML_MAPPER_PATH: /opt/airflow/.rmlmapper/rmlmapper.jar
-      XML_PROCESSOR_PATH: /opt/airflow/.saxon/saxon-he-10.6.jar
+      XML_PROCESSOR_PATH: /opt/airflow/.saxon/saxon-he-10.9.jar
     healthcheck:
       test: ["CMD-SHELL", 'airflow jobs check --job-type SchedulerJob --hostname "$${HOSTNAME}"']
       interval: 10s
@@ -125,7 +125,7 @@ services:
       PYTHONPATH: /opt/airflow/
       LIMES_ALIGNMENT_PATH: /opt/airflow/.limes/limes.jar
       RML_MAPPER_PATH: /opt/airflow/.rmlmapper/rmlmapper.jar
-      XML_PROCESSOR_PATH: /opt/airflow/.saxon/saxon-he-10.6.jar
+      XML_PROCESSOR_PATH: /opt/airflow/.saxon/saxon-he-10.9.jar
     image: ${AIRFLOW_IMAGE_URI}
     logging:
       driver: awslogs
@@ -168,7 +168,7 @@ services:
       PYTHONPATH: /opt/airflow/
       LIMES_ALIGNMENT_PATH: /opt/airflow/.limes/limes.jar
       RML_MAPPER_PATH: /opt/airflow/.rmlmapper/rmlmapper.jar
-      XML_PROCESSOR_PATH: /opt/airflow/.saxon/saxon-he-10.6.jar
+      XML_PROCESSOR_PATH: /opt/airflow/.saxon/saxon-he-10.9.jar
     image: ${AIRFLOW_IMAGE_URI}
     logging:
       driver: awslogs
@@ -215,7 +215,7 @@ services:
       PYTHONPATH: /opt/airflow/
       LIMES_ALIGNMENT_PATH: /opt/airflow/.limes/limes.jar
       RML_MAPPER_PATH: /opt/airflow/.rmlmapper/rmlmapper.jar
-      XML_PROCESSOR_PATH: /opt/airflow/.saxon/saxon-he-10.6.jar
+      XML_PROCESSOR_PATH: /opt/airflow/.saxon/saxon-he-10.9.jar
     image: ${AIRFLOW_IMAGE_URI}
     labels:
       ecs-local.task-definition-input.type: remote

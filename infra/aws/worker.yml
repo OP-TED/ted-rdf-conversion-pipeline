@@ -28,7 +28,7 @@ services:
       PYTHONPATH: /opt/airflow/
       LIMES_ALIGNMENT_PATH: /opt/airflow/.limes/limes.jar
       RML_MAPPER_PATH: /opt/airflow/.rmlmapper/rmlmapper.jar
-      XML_PROCESSOR_PATH: /opt/airflow/.saxon/saxon-he-10.6.jar
+      XML_PROCESSOR_PATH: /opt/airflow/.saxon/saxon-he-10.9.jar
     image: ${AIRFLOW_IMAGE_URI}
 #    hostname: "worker1"
     ports:

@@ -18,7 +18,7 @@ RUN mkdir -p ./.rmlmapper ./dags ./ted_sws ./temp
 RUN wget -c https://github.com/RMLio/rmlmapper-java/releases/download/v6.2.2/rmlmapper-6.2.2-r371-all.jar -O ./.rmlmapper/rmlmapper.jar
 
 
-RUN wget -c https://kumisystems.dl.sourceforge.net/project/saxon/Saxon-HE/10/Java/SaxonHE10-9J.zip -P .saxon/
+RUN wget -c https://github.com/Saxonica/Saxon-HE/releases/download/SaxonHE10-9/SaxonHE10-9J.zip -P .saxon/
 RUN cd .saxon && unzip SaxonHE10-9J.zip && rm -rf SaxonHE10-9J.zip
 
 RUN mkdir -p ./.limes

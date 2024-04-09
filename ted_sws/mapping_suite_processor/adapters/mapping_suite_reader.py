@@ -62,19 +62,16 @@ class MappingSuiteReader:
         processed_xpaths = set()
 
         for test_suite in mapping_suite.sparql_test_suites:
-            if test_suite.identifier != CONCEPTUAL_MAPPINGS_ASSERTIONS:
-                continue
-
             for sparql_test in test_suite.sparql_tests:
                 metadata = cls.extract_metadata_from_sparql_query(sparql_test.file_content)
-                xpath = metadata[SPARQL_QUERY_METADATA_XPATH]
-                if xpath not in processed_xpaths:
-                    cm_xpath: MappingXPATH = MappingXPATH(
-                        xpath=xpath,
-                        form_field=metadata[SPARQL_QUERY_METADATA_TITLE]
-                    )
-                    xpaths.append(cm_xpath)
-                    processed_xpaths.add(xpath)
-            break
+                if SPARQL_QUERY_METADATA_XPATH in metadata:
+                    xpath = metadata[SPARQL_QUERY_METADATA_XPATH]
+                    if xpath not in processed_xpaths:
+                        cm_xpath: MappingXPATH = MappingXPATH(
+                            xpath=xpath,
+                            form_field=metadata[SPARQL_QUERY_METADATA_TITLE]
+                        )
+                        xpaths.append(cm_xpath)
+                        processed_xpaths.add(xpath)
 
         return xpaths

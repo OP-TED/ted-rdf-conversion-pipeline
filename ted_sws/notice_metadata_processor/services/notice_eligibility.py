@@ -1,5 +1,5 @@
 import datetime
-from typing import Tuple, List, Optional
+from typing import Tuple
 
 import semantic_version
 
@@ -7,8 +7,6 @@ from ted_sws.core.model.metadata import NormalisedMetadata, NoticeSource
 from ted_sws.core.model.notice import Notice
 from ted_sws.core.model.transform import MappingSuite, MappingSuiteType
 from ted_sws.data_manager.adapters.repository_abc import MappingSuiteRepositoryABC, NoticeRepositoryABC
-from ted_sws.mapping_suite_processor.services.conceptual_mapping_generate_metadata import START_DATE_KEY, END_DATE_KEY, \
-    MIN_XSD_VERSION_KEY, MAX_XSD_VERSION_KEY, E_FORMS_SUBTYPE_KEY, EFORMS_SDK_VERSIONS_KEY
 
 
 def format_version_with_zero_patch(version_string: str) -> semantic_version.Version:

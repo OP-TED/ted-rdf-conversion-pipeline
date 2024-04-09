@@ -9,11 +9,10 @@ from pymongo import MongoClient
 
 from ted_sws import config
 from ted_sws.core.model.transform import MappingSuite, FileResource, TransformationRuleSet, SHACLTestSuite, \
-    SPARQLTestSuite, MetadataConstraints, TransformationTestData, ConceptualMapping, MappingSuiteType, \
+    SPARQLTestSuite, MetadataConstraints, TransformationTestData, MappingSuiteType, \
     MetadataConstraintsStandardForm, MetadataConstraintsEform
 from ted_sws.data_manager.adapters import inject_date_string_fields, remove_date_string_fields
 from ted_sws.data_manager.adapters.repository_abc import MappingSuiteRepositoryABC
-from ted_sws.mapping_suite_processor.adapters.conceptual_mapping_reader import ConceptualMappingReader
 
 MS_METADATA_FILE_NAME = "metadata.json"
 MS_TRANSFORM_FOLDER_NAME = "transformation"
@@ -184,11 +183,6 @@ class MappingSuiteRepositoryInFileSystem(MappingSuiteRepositoryABC):
                                 sparql_tests=self._read_file_resources(path=sparql_test_suite_path))
                 for sparql_test_suite_path in sparql_test_suite_paths]
 
-    @classmethod
-    def _read_conceptual_mapping(cls, package_path: pathlib.Path) -> ConceptualMapping:
-        return ConceptualMappingReader.mapping_suite_read_conceptual_mapping(
-            package_path / MS_TRANSFORM_FOLDER_NAME / MS_CONCEPTUAL_MAPPING_FILE_NAME)
-
     def _write_package_metadata(self, mapping_suite: MappingSuite):
         """
             This method creates the metadata of a package based on the metadata in the mapping_suite.
@@ -354,27 +348,31 @@ class MappingSuiteRepositoryInFileSystem(MappingSuiteRepositoryABC):
             package_metadata = self._read_package_metadata(package_path)
             if MS_MAPPING_TYPE_KEY in package_metadata and package_metadata[
                 MS_MAPPING_TYPE_KEY] == MappingSuiteType.ELECTRONIC_FORMS:
-                package_metadata[MS_METADATA_CONSTRAINTS_KEY] = MetadataConstraints(constraints=MetadataConstraintsEform(
-                    **package_metadata[MS_METADATA_CONSTRAINTS_KEY][MS_CONSTRAINTS_KEY]))
+                package_metadata[MS_METADATA_CONSTRAINTS_KEY] = MetadataConstraints(
+                    constraints=MetadataConstraintsEform(
+                        **package_metadata[MS_METADATA_CONSTRAINTS_KEY][MS_CONSTRAINTS_KEY]))
             else:
-                package_metadata[MS_METADATA_CONSTRAINTS_KEY] = MetadataConstraints(constraints=MetadataConstraintsStandardForm(
-                    **package_metadata[MS_METADATA_CONSTRAINTS_KEY][MS_CONSTRAINTS_KEY]))
-            mapping_suite = MappingSuite(metadata_constraints=package_metadata[MS_METADATA_CONSTRAINTS_KEY],
-                                         created_at=package_metadata[MS_CREATED_AT_KEY],
-                                         title=package_metadata[MS_TITLE_KEY],
-                                         ontology_version=package_metadata[MS_ONTOLOGY_VERSION_KEY],
-                                         mapping_suite_hash_digest=package_metadata[MS_HASH_DIGEST_KEY],
-                                         mapping_type=package_metadata[MS_MAPPING_TYPE_KEY] if MS_MAPPING_TYPE_KEY in package_metadata else MappingSuiteType.STANDARD_FORMS,
-                                         version=package_metadata[
-                                             MS_STANDARD_METADATA_VERSION_KEY] if MS_STANDARD_METADATA_VERSION_KEY in package_metadata else \
-                                             package_metadata[MS_EFORMS_METADATA_VERSION_KEY],
-                                         identifier=package_metadata[
-                                             MS_METADATA_IDENTIFIER_KEY] if MS_METADATA_IDENTIFIER_KEY in package_metadata else mapping_suite_identifier,
-                                         transformation_rule_set=self._read_transformation_rule_set(package_path),
-                                         shacl_test_suites=self._read_shacl_test_suites(package_path),
-                                         sparql_test_suites=self._read_sparql_test_suites(package_path),
-                                         transformation_test_data=self._read_test_data_package(package_path),
-                                         conceptual_mapping=self._read_conceptual_mapping(package_path)) #TODO remove conceptual_mapping value assignment when conceptual mapping reader is removed
+                package_metadata[MS_METADATA_CONSTRAINTS_KEY] = MetadataConstraints(
+                    constraints=MetadataConstraintsStandardForm(
+                        **package_metadata[MS_METADATA_CONSTRAINTS_KEY][MS_CONSTRAINTS_KEY]))
+            mapping_suite = MappingSuite(
+                metadata_constraints=package_metadata[MS_METADATA_CONSTRAINTS_KEY],
+                created_at=package_metadata[MS_CREATED_AT_KEY],
+                title=package_metadata[MS_TITLE_KEY],
+                ontology_version=package_metadata[MS_ONTOLOGY_VERSION_KEY],
+                mapping_suite_hash_digest=package_metadata[MS_HASH_DIGEST_KEY],
+                mapping_type=package_metadata[
+                    MS_MAPPING_TYPE_KEY] if MS_MAPPING_TYPE_KEY in package_metadata else MappingSuiteType.STANDARD_FORMS,
+                version=package_metadata[
+                    MS_STANDARD_METADATA_VERSION_KEY] if MS_STANDARD_METADATA_VERSION_KEY in package_metadata else \
+                    package_metadata[MS_EFORMS_METADATA_VERSION_KEY],
+                identifier=package_metadata[
+                    MS_METADATA_IDENTIFIER_KEY] if MS_METADATA_IDENTIFIER_KEY in package_metadata else mapping_suite_identifier,
+                transformation_rule_set=self._read_transformation_rule_set(package_path),
+                shacl_test_suites=self._read_shacl_test_suites(package_path),
+                sparql_test_suites=self._read_sparql_test_suites(package_path),
+                transformation_test_data=self._read_test_data_package(package_path)
+            )
             return mapping_suite
         return None
 

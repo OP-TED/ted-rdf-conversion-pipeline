@@ -9,9 +9,8 @@ from ted_sws.data_manager.adapters.mapping_suite_repository import MS_TRANSFORM_
 from ted_sws.event_manager.model.event_message import EventMessage, EventMessageLogSettings
 from ted_sws.event_manager.services.logger_from_context import get_console_logger
 from ted_sws.mapping_suite_processor.adapters.mapping_suite_hasher import MappingSuiteHasher
-from ted_sws.mapping_suite_processor.services.conceptual_mapping_generate_metadata import VERSION_FIELD, \
+from ted_sws.mapping_suite_processor.services.mapping_suite_reader import mapping_suite_read_metadata, \
     MAPPING_SUITE_HASH, VERSION_KEY
-from ted_sws.mapping_suite_processor.services.conceptual_mapping_reader import mapping_suite_read_metadata
 
 SHACL_KEYWORD = "shacl"
 SPARQL_KEYWORD = "sparql"
@@ -127,48 +126,11 @@ class MappingSuiteStructureValidator:
 
         return success
 
-    def check_metadata_consistency(self, package_metadata_path=None) -> bool:
-
-        """
-            Read the conceptual mapping XSLX and the metadata.json and compare the contents,
-            in particular paying attention to the mapping suite version and the ontology version.
-        """
-        self.logger.info(
-            event_message=EventMessage(
-                message="Read the conceptual mapping XSLX and the metadata.json and compare the contents."),
-            settings=self.log_settings)
-        success = True
-
-        conceptual_mappings_document = mapping_suite_read_metadata(
-            conceptual_mappings_file_path=self.mapping_suite_path / MS_TRANSFORM_FOLDER_NAME / MS_CONCEPTUAL_MAPPING_FILE_NAME)
-        conceptual_mappings_version = [val for val in conceptual_mappings_document.values()][4][0]
-        conceptual_mappings_epo_version = [val for val in conceptual_mappings_document.values()][5][0]
-
-        if package_metadata_path is None:
-            package_metadata_path = self.mapping_suite_path / MS_METADATA_FILE_NAME
-        package_metadata_content = package_metadata_path.read_text(encoding="utf-8")
-        package_metadata = json.loads(package_metadata_content)
-        package_metadata['metadata_constraints'] = MetadataConstraints(**package_metadata['metadata_constraints'])
-        metadata_version = [val for val in package_metadata.values()][3]
-        metadata_epo_version = [val for val in package_metadata.values()][4]
-
-        if not (
-                conceptual_mappings_version >= metadata_version
-                and conceptual_mappings_epo_version >= metadata_epo_version
-        ):
-            event_message = EventMessage(
-                message=f'Not the same value between metadata.json [version {metadata_version}, epo_version {metadata_epo_version}] and conceptual_mapping_file [version {conceptual_mappings_version}, epo_version {conceptual_mappings_epo_version}]')
-            self.logger.error(event_message=event_message, settings=self.log_settings)
-            success = False
-
-        return success
-
     def check_for_changes_by_version(self) -> bool:
         """
             This function check whether the mapping suite is well versioned and no changes detected.
 
             We want to ensure that:
-             - the version in the metadata.json is the same as the version in the conceptual mappings
              - the version in always incremented
              - the changes in the mapping suite are detected by comparison to the hash in the metadata.json
              - the hash is bound to a version of the mapping suite written in the conceptual mappings
@@ -181,23 +143,22 @@ class MappingSuiteStructureValidator:
             settings=self.log_settings)
         success = True
 
-        conceptual_mapping_metadata = mapping_suite_read_metadata(
-            conceptual_mappings_file_path=self.mapping_suite_path / MS_TRANSFORM_FOLDER_NAME / MS_CONCEPTUAL_MAPPING_FILE_NAME)
+        metadata = mapping_suite_read_metadata(mapping_suite_path=self.mapping_suite_path)
 
-        metadata_json = json.loads((self.mapping_suite_path / MS_METADATA_FILE_NAME).read_text())
+        version = metadata.get(VERSION_KEY)
 
-        version_in_cm = conceptual_mapping_metadata[VERSION_FIELD][0]
         mapping_suite_versioned_hash = MappingSuiteHasher(self.mapping_suite_path).hash_mapping_suite(
-            with_version=version_in_cm)
+            with_version=version)
 
-        if mapping_suite_versioned_hash != metadata_json.get(MAPPING_SUITE_HASH):
-            self.logger.error(event_message=EventMessage(
-                message=f'The Mapping Suite hash digest ({mapping_suite_versioned_hash}) and the Version from the '
-                        f'Conceptual Mappings ({version_in_cm}) '
-                        f'does not correspond to the ones in the metadata.json file '
-                        f'({metadata_json.get(MAPPING_SUITE_HASH)}, {metadata_json.get(VERSION_KEY)}). '
-                        f'Consider increasing the version and regenerating the metadata.json'),
-                settings=self.log_settings)
+        if mapping_suite_versioned_hash != metadata.get(MAPPING_SUITE_HASH):
+            self.logger.error(
+                event_message=EventMessage(
+                    message=f'The Mapping Suite hash digest ({mapping_suite_versioned_hash}) '
+                            f'does not correspond to the one in the metadata.json file '
+                            f'({metadata.get(MAPPING_SUITE_HASH)}.'
+                ),
+                settings=self.log_settings
+            )
             success = False
 
         return success
@@ -206,12 +167,10 @@ class MappingSuiteStructureValidator:
         validate_core_structure: bool = self.validate_core_structure()
         validate_expanded_structure: bool = self.validate_expanded_structure()
         validate_output_structure: bool = self.validate_output_structure()
-        check_metadata_consistency: bool = self.check_metadata_consistency()
         check_for_changes_by_version: bool = self.check_for_changes_by_version()
 
         return \
-            validate_core_structure \
-            and validate_expanded_structure \
-            and validate_output_structure \
-            and check_metadata_consistency \
-            and check_for_changes_by_version
+                validate_core_structure \
+                and validate_expanded_structure \
+                and validate_output_structure \
+                and check_for_changes_by_version

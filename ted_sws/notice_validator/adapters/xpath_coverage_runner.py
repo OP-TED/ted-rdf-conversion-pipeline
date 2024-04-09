@@ -1,15 +1,16 @@
+import io
+import xml.etree.ElementTree as ET
 from typing import List, Set, Dict
 
-import numpy as np
 from jinja2 import Environment, PackageLoader
+from saxonche import PySaxonProcessor, PySaxonApiError, PyXPathProcessor
 
 from ted_sws.core.model.manifestation import XPATHCoverageValidationReport, XPATHCoverageValidationAssertion, \
     XPATHCoverageValidationResult
 from ted_sws.core.model.notice import Notice
-from ted_sws.core.model.transform import ConceptualMapping, ConceptualMappingXPATH, MappingSuite
+from ted_sws.core.model.transform import MappingXPATH, MappingSuite
 from ted_sws.core.model.validation_report import ReportNotice
-from ted_sws.data_sampler.services.notice_xml_indexer import index_notice
-from ted_sws.mapping_suite_processor.adapters.conceptual_mapping_reader import ConceptualMappingReader
+from ted_sws.mapping_suite_processor.adapters.mapping_suite_reader import MappingSuiteReader
 from ted_sws.notice_transformer.services.notice_transformer import transform_report_notices
 from ted_sws.notice_validator.resources.templates import TEMPLATE_METADATA_KEY
 
@@ -24,45 +25,31 @@ class CoverageRunner:
     mapping_suite: MappingSuite
     mapping_suite_id: str
     conceptual_xpaths: Set[str] = set()
-    conceptual_remarked_xpaths: Set[str] = set()
-    conceptual_xpath_data: Dict[str, ConceptualMappingXPATH] = {}
-    base_xpath: str
+    conceptual_xpath_data: Dict[str, MappingXPATH] = {}
 
     def __init__(self, mapping_suite: MappingSuite):
         """"""
         self.mapping_suite = mapping_suite
         self.mapping_suite_id = mapping_suite.get_mongodb_id()
-        conceptual_mapping: ConceptualMapping = mapping_suite.conceptual_mapping
-        self.init_xpath_data(conceptual_mapping=conceptual_mapping)
+        self.init_xpath_data(mapping_suite=mapping_suite)
 
-    @classmethod
-    def notice_xpaths(cls, notice: Notice) -> List[str]:
-        if not notice.xml_metadata or not notice.xml_metadata.unique_xpaths:
-            notice = index_notice(notice)
-        return notice.xml_metadata.unique_xpaths
-
-    def init_xpath_data(self, conceptual_mapping: ConceptualMapping):
-        for cm_xpath in conceptual_mapping.mapping_remarks:
-            for xpath in cm_xpath.field_xpath:
-                self.conceptual_remarked_xpaths.add(xpath)
-                self.conceptual_xpath_data[xpath] = ConceptualMappingXPATH(
-                    xpath=xpath,
-                    form_field=f"{cm_xpath.standard_form_field_id} - {cm_xpath.standard_form_field_name}"
-                )
-        for cm_xpath in conceptual_mapping.xpaths:
+    def init_xpath_data(self, mapping_suite: MappingSuite):
+        for cm_xpath in MappingSuiteReader.read_mapping_suite_xpaths(mapping_suite):
             self.conceptual_xpaths.add(cm_xpath.xpath)
             self.conceptual_xpath_data[cm_xpath.xpath] = cm_xpath
-        self.base_xpath = conceptual_mapping.metadata.base_xpath
 
     def xpath_coverage_validation_report(self, notice: Notice) -> XPATHCoverageValidationReport:
         report: XPATHCoverageValidationReport = XPATHCoverageValidationReport(
             object_data="XPATHCoverageValidationReport",
             mapping_suite_identifier=self.mapping_suite_id)
 
-        xpaths: List[str] = self.notice_xpaths(notice=notice)
-        based_xpaths = self.based_xpaths(xpaths, self.base_xpath)
-        notice_xpaths: XPathDict = {notice.ted_id: based_xpaths}
-        self.validate_xpath_coverage_report(report, notice_xpaths, based_xpaths)
+        xpaths: List[str] = []
+        xp = self.init_xp_processor(notice)
+        for xpath in self.get_all_conceptual_xpaths():
+            if self.check_xpath_expression(xpath, xp):
+                xpaths.append(xpath)
+        notice_xpaths: XPathDict = {notice.ted_id: xpaths}
+        self.validate_xpath_coverage_report(report, notice_xpaths, xpaths)
 
         return report
 
@@ -72,16 +59,47 @@ class CoverageRunner:
         return notice_hit
 
     def get_all_conceptual_xpaths(self) -> Set[str]:
-        return self.conceptual_remarked_xpaths | self.conceptual_xpaths
+        return self.conceptual_xpaths
 
-    def xpath_assertions(self, notice_xpaths: XPathDict,
-                         xpaths_list: List[str]) -> List[XPATHCoverageValidationAssertion]:
+    @classmethod
+    def extract_namespaces(cls, xml_content):
+        xml_file = io.StringIO(xml_content)
+        namespaces = dict()
+        for event, elem in ET.iterparse(xml_file, events=('start-ns',)):
+            ns, url = elem
+            namespaces[ns] = url
+        return namespaces
+
+    @classmethod
+    def init_xp_processor(cls, notice: Notice) -> PyXPathProcessor:
+        xml_content = notice.xml_manifestation.object_data
+        namespaces = cls.extract_namespaces(xml_content)
+        proc = PySaxonProcessor(license=False)
+        xp = proc.new_xpath_processor()
+        for prefix, ns_uri in namespaces.items():
+            xp.declare_namespace(prefix, ns_uri)
+        document = proc.parse_xml(xml_text=xml_content)
+        xp.set_context(xdm_item=document)
+
+        return xp
+
+    @classmethod
+    def check_xpath_expression(cls, xpath_expression: str, xp: PyXPathProcessor) -> bool:
+        try:
+            item = xp.evaluate_single(xpath_expression)
+            return True if item else False
+        except PySaxonApiError:
+            return False
+
+    def xpath_assertions(
+            self, notice_xpaths: XPathDict, xpaths_list: List[str]
+    ) -> List[XPATHCoverageValidationAssertion]:
         xpath_assertions = []
         for xpath in self.get_all_conceptual_xpaths():
             xpath_assertion = XPATHCoverageValidationAssertion()
             xpath_data = self.conceptual_xpath_data[xpath]
             form_field = xpath_data.form_field
-            xpath_assertion.form_field = form_field if form_field is not np.nan else ''
+            xpath_assertion.form_field = form_field if form_field else ''
             xpath_assertion.xpath = xpath
             xpath_assertion.count = xpaths_list.count(xpath)
             xpath_assertion.notice_hit = self.find_notice_by_xpath(notice_xpaths, xpath)
@@ -89,40 +107,20 @@ class CoverageRunner:
             xpath_assertions.append(xpath_assertion)
         return sorted(xpath_assertions, key=lambda x: x.form_field)
 
-    def validate_xpath_coverage_report(self, report: XPATHCoverageValidationReport, notice_xpaths: XPathDict,
-                                       xpaths_list: List[str]):
+    def validate_xpath_coverage_report(
+            self, report: XPATHCoverageValidationReport, notice_xpaths: XPathDict, xpaths_list: List[str]
+    ):
         unique_notice_xpaths: Set[str] = set(xpaths_list)
 
         validation_result: XPATHCoverageValidationResult = XPATHCoverageValidationResult()
         validation_result.xpath_assertions = self.xpath_assertions(notice_xpaths, xpaths_list)
         validation_result.xpath_covered = sorted(list(self.conceptual_xpaths & unique_notice_xpaths))
-        all_conceptual_xpaths = self.get_all_conceptual_xpaths()
-        validation_result.xpath_not_covered = sorted(list(unique_notice_xpaths - all_conceptual_xpaths))
-        validation_result.xpath_extra = sorted(list(all_conceptual_xpaths - unique_notice_xpaths))
-        validation_result.remarked_xpaths = sorted(list(self.conceptual_remarked_xpaths))
-        unique_notice_xpaths_len = len(unique_notice_xpaths)
-        xpath_covered_len = len(validation_result.xpath_covered)
-        conceptual_xpaths_len = len(self.conceptual_xpaths)
-        if unique_notice_xpaths_len:
-            validation_result.coverage = xpath_covered_len / unique_notice_xpaths_len
-        if conceptual_xpaths_len:
-            validation_result.conceptual_coverage = xpath_covered_len / conceptual_xpaths_len
 
         report.validation_result = validation_result
 
-    @classmethod
-    def based_xpaths(cls, xpaths: List[str], base_xpath: str) -> List[str]:
-        """
-        :param xpaths:
-        :param base_xpath:
-        :return:
-        """
-        base_xpath = ConceptualMappingReader.base_xpath_as_prefix(base_xpath)
-        return list(filter(lambda xpath: xpath.startswith(base_xpath), xpaths))
-
-    def xpath_coverage_validation_summary_report(self,
-                                                 notices: List[ReportNotice]
-                                                 ) -> XPATHCoverageValidationReport:
+    def xpath_coverage_validation_summary_report(
+            self, notices: List[ReportNotice]
+    ) -> XPATHCoverageValidationReport:
         report: XPATHCoverageValidationReport = XPATHCoverageValidationReport(
             object_data="XPATHCoverageValidationReport",
             mapping_suite_identifier=self.mapping_suite_id)
@@ -131,9 +129,13 @@ class CoverageRunner:
         xpaths_list: List[str] = []
         for report_notice in notices:
             notice = report_notice.notice
-            xpaths: List[str] = self.notice_xpaths(notice=notice)
+            xpaths: List[str] = []
+            xp = self.init_xp_processor(report_notice.notice)
+            for xpath in self.get_all_conceptual_xpaths():
+                if self.check_xpath_expression(xpath, xp):
+                    xpaths.append(xpath)
 
-            notice_xpaths[notice.ted_id] = self.based_xpaths(xpaths, self.base_xpath)
+            notice_xpaths[notice.ted_id] = xpaths
             xpaths_list += notice_xpaths[notice.ted_id]
 
         self.validate_xpath_coverage_report(report, notice_xpaths, xpaths_list)

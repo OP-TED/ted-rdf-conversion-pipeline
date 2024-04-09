@@ -144,4 +144,4 @@ def publication_work_oj_identifier(notice_id, notice_metadata):
 
 def filled_ojs_issue_number(ojs_issue_number: str) -> str:
     # just return the number without any preceding 0 (leaved the formula as it is in case of revert)
-    return ojs_issue_number.zfill(0)
+    return ojs_issue_number.split('/')[0].zfill(0)

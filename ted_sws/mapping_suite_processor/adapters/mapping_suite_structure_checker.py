@@ -5,12 +5,13 @@ from typing import List, Union
 from ted_sws.core.model.transform import MetadataConstraints
 from ted_sws.data_manager.adapters.mapping_suite_repository import MS_TRANSFORM_FOLDER_NAME, MS_TEST_DATA_FOLDER_NAME, \
     MS_CONCEPTUAL_MAPPING_FILE_NAME, MS_RESOURCES_FOLDER_NAME, MS_MAPPINGS_FOLDER_NAME, MS_METADATA_FILE_NAME, \
-    MS_VALIDATE_FOLDER_NAME, MS_SPARQL_FOLDER_NAME, MS_SHACL_FOLDER_NAME, MS_OUTPUT_FOLDER_NAME, MS_TEST_SUITE_REPORT
+    MS_VALIDATE_FOLDER_NAME, MS_SPARQL_FOLDER_NAME, MS_SHACL_FOLDER_NAME, MS_OUTPUT_FOLDER_NAME, MS_TEST_SUITE_REPORT, \
+    MS_STANDARD_METADATA_VERSION_KEY, MS_EFORMS_METADATA_VERSION_KEY
 from ted_sws.event_manager.model.event_message import EventMessage, EventMessageLogSettings
 from ted_sws.event_manager.services.logger_from_context import get_console_logger
 from ted_sws.mapping_suite_processor.adapters.mapping_suite_hasher import MappingSuiteHasher
 from ted_sws.mapping_suite_processor.services.mapping_suite_reader import mapping_suite_read_metadata, \
-    MAPPING_SUITE_HASH, VERSION_KEY
+    MAPPING_SUITE_HASH
 
 SHACL_KEYWORD = "shacl"
 SPARQL_KEYWORD = "sparql"
@@ -145,7 +146,9 @@ class MappingSuiteStructureValidator:
 
         metadata = mapping_suite_read_metadata(mapping_suite_path=self.mapping_suite_path)
 
-        version = metadata.get(VERSION_KEY)
+        version = metadata[
+            MS_STANDARD_METADATA_VERSION_KEY] if MS_STANDARD_METADATA_VERSION_KEY in metadata else \
+        metadata[MS_EFORMS_METADATA_VERSION_KEY]
 
         mapping_suite_versioned_hash = MappingSuiteHasher(self.mapping_suite_path).hash_mapping_suite(
             with_version=version)

@@ -8,6 +8,14 @@ from ted_sws import config
 MAPPINGS_DIR_NAME = "mappings"
 
 
+def get_repo_name_from_repo_url(repository_url: str) -> str:
+    """
+    This method will extract the name of the repository from a repository URL
+    """
+    url_path = pathlib.PurePosixPath(repository_url)
+    return url_path.stem
+
+
 class MappingSuitePackageDownloaderABC(abc.ABC):
     """
         This class is intended to download mapping_suite_package from external resources.
@@ -35,7 +43,7 @@ class GitHubMappingSuitePackageDownloader(MappingSuitePackageDownloaderABC):
         """
         self.github_repository_url = github_repository_url
         self.branch_or_tag_name = branch_or_tag_name
-        self.repository_name = config.GITHUB_TED_SWS_ARTEFACTS_REPOSITORY_NAME
+        self.repository_name = get_repo_name_from_repo_url(repository_url=github_repository_url)
 
     def download(self, output_mapping_suite_package_path: pathlib.Path) -> str:
         """

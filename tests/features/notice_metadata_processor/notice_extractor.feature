@@ -24,8 +24,8 @@ Feature: Notice extractor
       | deadline_for_submission   |
       | type_of_contract          |
       | type_of_procedure         |
-#      | extracted_notice_type     |
-#      | form_number               |
+      | extracted_notice_type     |
+      | extracted_form_number     |
       | regulation                |
       | type_of_bid               |
       | award_criteria            |
@@ -33,7 +33,6 @@ Feature: Notice extractor
       | place_of_performance      |
       | internet_address          |
       | legal_basis_directive     |
-#      | xml_schema                |
-#      | xml_schema_version        |
+      | xml_schema_version        |
 
 

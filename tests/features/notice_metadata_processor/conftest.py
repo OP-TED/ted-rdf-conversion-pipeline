@@ -34,6 +34,12 @@ def normalised_notice(notice_2020):
     normalise_notice(notice=notice)
     return notice
 
+@pytest.fixture
+def normalised_eForm_notice(indexed_eform_notice_622690):
+    notice = indexed_eform_notice_622690.copy()
+    normalise_notice(notice=notice)
+    return notice
+
 
 @pytest.fixture
 def mapping_suite_repository_with_mapping_suite(notice_eligibility_repository_path):

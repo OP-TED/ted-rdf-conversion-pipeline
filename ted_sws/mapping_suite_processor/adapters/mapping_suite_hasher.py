@@ -7,12 +7,15 @@
 
 """ """
 import hashlib
+import json
 import pathlib
 import re
 from typing import Tuple, List, Union
 
+from ted_sws.core.model.transform import MappingSuiteType
 from ted_sws.data_manager.adapters.mapping_suite_repository import MS_TRANSFORM_FOLDER_NAME, \
-    MS_CONCEPTUAL_MAPPING_FILE_NAME, MS_MAPPINGS_FOLDER_NAME, MS_RESOURCES_FOLDER_NAME
+    MS_MAPPINGS_FOLDER_NAME, MS_RESOURCES_FOLDER_NAME, MS_CONCEPTUAL_MAPPING_FILE_NAME, MS_MAPPING_TYPE_KEY
+from ted_sws.mapping_suite_processor.model.mapping_suite_metadata import EFormsPackageMetadataBase
 
 
 class MappingSuiteHasher:
@@ -20,8 +23,19 @@ class MappingSuiteHasher:
 
     """
 
-    def __init__(self, mapping_suite_path: Union[pathlib.Path, str]):
-        self.mapping_suite_path = pathlib.Path(mapping_suite_path)
+    def __init__(self, mapping_suite_path: pathlib.Path, mapping_suite_metadata: dict = None):
+        self.mapping_suite_path = mapping_suite_path
+        self.mapping_suite_metadata = mapping_suite_metadata
+
+        if self.is_for_eforms():
+            self.mapping_suite_metadata = EFormsPackageMetadataBase(**mapping_suite_metadata).dict()
+
+    def is_for_eforms(self):
+        return (
+                self.mapping_suite_metadata and
+                MS_MAPPING_TYPE_KEY in self.mapping_suite_metadata and
+                self.mapping_suite_metadata.get(MS_MAPPING_TYPE_KEY) == MappingSuiteType.ELECTRONIC_FORMS
+        )
 
     def hash_critical_mapping_files(self) -> List[Tuple[str, str]]:
         """
@@ -43,17 +57,19 @@ class MappingSuiteHasher:
             relative_path = str(file_path).replace(str(self.mapping_suite_path), "")
             return relative_path, hashed_line
 
-        files_to_hash = [
+        files_to_hash = [] if self.is_for_eforms() else [
             self.mapping_suite_path / MS_TRANSFORM_FOLDER_NAME / MS_CONCEPTUAL_MAPPING_FILE_NAME,
         ]
 
-        mapping_files = filter(lambda item: item.is_file(),
-                               (self.mapping_suite_path / MS_TRANSFORM_FOLDER_NAME /
-                                MS_MAPPINGS_FOLDER_NAME).iterdir())
+        mapping_files = filter(
+            lambda item: item.is_file(),
+            (self.mapping_suite_path / MS_TRANSFORM_FOLDER_NAME / MS_MAPPINGS_FOLDER_NAME).iterdir()
+        )
 
-        mapping_resource_files = filter(lambda item: item.is_file(),
-                                        (self.mapping_suite_path / MS_TRANSFORM_FOLDER_NAME /
-                                         MS_RESOURCES_FOLDER_NAME).iterdir())
+        mapping_resource_files = filter(
+            lambda item: item.is_file(),
+            (self.mapping_suite_path / MS_TRANSFORM_FOLDER_NAME / MS_RESOURCES_FOLDER_NAME).iterdir()
+        )
 
         files_to_hash += mapping_files
         files_to_hash += mapping_resource_files
@@ -61,6 +77,11 @@ class MappingSuiteHasher:
         result = [_hash_a_file(item) for item in files_to_hash]
         result.sort(key=lambda x: x[0])
         return result
+
+    def hash_mapping_metadata(self) -> str:
+        return hashlib.sha256(
+            json.dumps(self.mapping_suite_metadata).encode('utf-8')
+        ).hexdigest()
 
     def hash_mapping_suite(self, with_version: str = "") -> str:
         """
@@ -74,6 +95,11 @@ class MappingSuiteHasher:
         """
         list_of_hashes = self.hash_critical_mapping_files()
         signatures = [signature[1] for signature in list_of_hashes]
+
+        if self.is_for_eforms():
+            signatures.append(self.hash_mapping_metadata())
+
         if with_version:
             signatures += with_version
+
         return hashlib.sha256(str.encode(",".join(signatures))).hexdigest()

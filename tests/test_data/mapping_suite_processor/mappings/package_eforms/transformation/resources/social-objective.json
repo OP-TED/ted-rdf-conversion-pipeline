@@ -1,0 +1,95 @@
+{
+  "head": {
+    "link": [],
+    "vars": [
+      "code",
+      "conceptURI"
+    ]
+  },
+  "results": {
+    "distinct": false,
+    "ordered": true,
+    "bindings": [
+      {
+        "code": {
+          "type": "literal",
+          "value": "OP_DATPRO"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://publications.europa.eu/resource/authority/social-objective/OP_DATPRO"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "other"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://publications.europa.eu/resource/authority/social-objective/other"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "acc-all"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://publications.europa.eu/resource/authority/social-objective/acc-all"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "et-eq"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://publications.europa.eu/resource/authority/social-objective/et-eq"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "gen-eq"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://publications.europa.eu/resource/authority/social-objective/gen-eq"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "hum-right"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://publications.europa.eu/resource/authority/social-objective/hum-right"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "opp"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://publications.europa.eu/resource/authority/social-objective/opp"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "work-cond"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://publications.europa.eu/resource/authority/social-objective/work-cond"
+        }
+      }
+    ]
+  }
+}

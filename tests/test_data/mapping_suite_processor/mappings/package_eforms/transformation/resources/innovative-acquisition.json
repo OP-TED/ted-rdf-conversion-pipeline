@@ -1,0 +1,105 @@
+{
+  "head": {
+    "link": [],
+    "vars": [
+      "code",
+      "conceptURI"
+    ]
+  },
+  "results": {
+    "distinct": false,
+    "ordered": true,
+    "bindings": [
+      {
+        "code": {
+          "type": "literal",
+          "value": "OP_DATPRO"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://publications.europa.eu/resource/authority/innovative-acquisition/OP_DATPRO"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "buy-eff"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://publications.europa.eu/resource/authority/innovative-acquisition/buy-eff"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "fp-requ"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://publications.europa.eu/resource/authority/innovative-acquisition/fp-requ"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "mar-nov"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://publications.europa.eu/resource/authority/innovative-acquisition/mar-nov"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "org-nov"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://publications.europa.eu/resource/authority/innovative-acquisition/org-nov"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "other"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://publications.europa.eu/resource/authority/innovative-acquisition/other"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "rd-act"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://publications.europa.eu/resource/authority/innovative-acquisition/rd-act"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "proc-innov"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://publications.europa.eu/resource/authority/innovative-acquisition/proc-innov"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "prod-innov"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://publications.europa.eu/resource/authority/innovative-acquisition/prod-innov"
+        }
+      }
+    ]
+  }
+}

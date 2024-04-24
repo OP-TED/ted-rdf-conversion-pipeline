@@ -1,0 +1,385 @@
+{
+  "head": {
+    "link": [],
+    "vars": [
+      "code",
+      "conceptURI"
+    ]
+  },
+  "results": {
+    "distinct": false,
+    "ordered": true,
+    "bindings": [
+      {
+        "code": {
+          "type": "literal",
+          "value": "OP_DATPRO"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://publications.europa.eu/resource/authority/timeperiod/OP_DATPRO"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "TUE"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://publications.europa.eu/resource/authority/timeperiod/TUE"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "MAR"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://publications.europa.eu/resource/authority/timeperiod/MAR"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "MIN"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://publications.europa.eu/resource/authority/timeperiod/MIN"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "SEP"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://publications.europa.eu/resource/authority/timeperiod/SEP"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "SUN"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://publications.europa.eu/resource/authority/timeperiod/SUN"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "APR"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://publications.europa.eu/resource/authority/timeperiod/APR"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "AUG"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://publications.europa.eu/resource/authority/timeperiod/AUG"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "DAY"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://publications.europa.eu/resource/authority/timeperiod/DAY"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "DEC"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://publications.europa.eu/resource/authority/timeperiod/DEC"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "JUL"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://publications.europa.eu/resource/authority/timeperiod/JUL"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "JUN"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://publications.europa.eu/resource/authority/timeperiod/JUN"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "MON"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://publications.europa.eu/resource/authority/timeperiod/MON"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "NOV"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://publications.europa.eu/resource/authority/timeperiod/NOV"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "SAT"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://publications.europa.eu/resource/authority/timeperiod/SAT"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "SEC"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://publications.europa.eu/resource/authority/timeperiod/SEC"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "THU"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://publications.europa.eu/resource/authority/timeperiod/THU"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "WED"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://publications.europa.eu/resource/authority/timeperiod/WED"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "JAN"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://publications.europa.eu/resource/authority/timeperiod/JAN"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "UNKNOWN"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://publications.europa.eu/resource/authority/timeperiod/UNKNOWN"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "AUTUMN"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://publications.europa.eu/resource/authority/timeperiod/AUTUMN"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "FEB"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://publications.europa.eu/resource/authority/timeperiod/FEB"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "FRI"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://publications.europa.eu/resource/authority/timeperiod/FRI"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "HOUR"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://publications.europa.eu/resource/authority/timeperiod/HOUR"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "MAY"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://publications.europa.eu/resource/authority/timeperiod/MAY"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "MONTH"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://publications.europa.eu/resource/authority/timeperiod/MONTH"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "OCT"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://publications.europa.eu/resource/authority/timeperiod/OCT"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "QUARTER"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://publications.europa.eu/resource/authority/timeperiod/QUARTER"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "SPRING"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://publications.europa.eu/resource/authority/timeperiod/SPRING"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "SUMMER"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://publications.europa.eu/resource/authority/timeperiod/SUMMER"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "WEEK"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://publications.europa.eu/resource/authority/timeperiod/WEEK"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "WINTER"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://publications.europa.eu/resource/authority/timeperiod/WINTER"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "YEAR"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://publications.europa.eu/resource/authority/timeperiod/YEAR"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "YEAR_HALF"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://publications.europa.eu/resource/authority/timeperiod/YEAR_HALF"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "CALENDAR_DAY"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://publications.europa.eu/resource/authority/timeperiod/CALENDAR_DAY"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "WORKING_DAY"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://publications.europa.eu/resource/authority/timeperiod/WORKING_DAY"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "UNLIMITED"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://publications.europa.eu/resource/authority/timeperiod/UNLIMITED"
+        }
+      }
+    ]
+  }
+}

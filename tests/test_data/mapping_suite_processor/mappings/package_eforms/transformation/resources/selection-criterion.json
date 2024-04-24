@@ -1,0 +1,65 @@
+{
+  "head": {
+    "link": [],
+    "vars": [
+      "code",
+      "conceptURI"
+    ]
+  },
+  "results": {
+    "distinct": false,
+    "ordered": true,
+    "bindings": [
+      {
+        "code": {
+          "type": "literal",
+          "value": "OP_DATPRO"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://publications.europa.eu/resource/authority/selection-criterion/OP_DATPRO"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "other"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://publications.europa.eu/resource/authority/selection-criterion/other"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "ef-stand"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://publications.europa.eu/resource/authority/selection-criterion/ef-stand"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "sui-act"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://publications.europa.eu/resource/authority/selection-criterion/sui-act"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "tp-abil"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://publications.europa.eu/resource/authority/selection-criterion/tp-abil"
+        }
+      }
+    ]
+  }
+}

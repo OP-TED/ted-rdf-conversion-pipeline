@@ -31,6 +31,8 @@ MS_METADATA_IDENTIFIER_KEY = 'identifier'
 MS_STANDARD_METADATA_VERSION_KEY = 'version'
 MS_EFORMS_METADATA_VERSION_KEY = 'mapping_version'
 MS_METADATA_CONSTRAINTS_KEY = 'metadata_constraints'
+MS_METADATA_CONSTRAINTS_START_DATE_KEY = 'start_date'
+MS_METADATA_CONSTRAINTS_END_DATE_KEY = 'end_date'
 MS_CONSTRAINTS_KEY = 'constraints'
 MS_TITLE_KEY = 'title'
 MS_HASH_DIGEST_KEY = 'mapping_suite_hash_digest'
@@ -134,6 +136,26 @@ class MappingSuiteRepositoryInFileSystem(MappingSuiteRepositoryABC):
         self.repository_path = repository_path
         self.repository_path.mkdir(parents=True, exist_ok=True)
 
+    def _preprocess_package_metadata(self, package_metadata: dict):
+        """
+            This method is adjusting the metadata structure to be fully compatible.
+        :param package_metadata:
+        :return:
+        """
+        if MS_METADATA_CONSTRAINTS_KEY in package_metadata:
+            metadata_constraints = package_metadata[MS_METADATA_CONSTRAINTS_KEY]
+            if MS_CONSTRAINTS_KEY in metadata_constraints:
+                constraints = metadata_constraints[MS_CONSTRAINTS_KEY]
+                if MS_METADATA_CONSTRAINTS_START_DATE_KEY in constraints:
+                    start_date_value = constraints[MS_METADATA_CONSTRAINTS_START_DATE_KEY]
+                    if start_date_value and not isinstance(start_date_value, list):
+                        package_metadata[MS_METADATA_CONSTRAINTS_KEY][MS_CONSTRAINTS_KEY][
+                            MS_METADATA_CONSTRAINTS_START_DATE_KEY] = [start_date_value]
+                    end_date_value = constraints[MS_METADATA_CONSTRAINTS_END_DATE_KEY]
+                    if end_date_value and not isinstance(end_date_value, list):
+                        package_metadata[MS_METADATA_CONSTRAINTS_KEY][MS_CONSTRAINTS_KEY][
+                            MS_METADATA_CONSTRAINTS_END_DATE_KEY] = [end_date_value]
+
     def _read_package_metadata(self, package_path: pathlib.Path) -> dict:
         """
             This method allows reading the metadata of a packet.
@@ -143,6 +165,7 @@ class MappingSuiteRepositoryInFileSystem(MappingSuiteRepositoryABC):
         package_metadata_path = package_path / MS_METADATA_FILE_NAME
         package_metadata_content = package_metadata_path.read_text(encoding="utf-8")
         package_metadata = json.loads(package_metadata_content)
+        self._preprocess_package_metadata(package_metadata)
         return package_metadata
 
     def _read_transformation_rule_set(self, package_path: pathlib.Path) -> TransformationRuleSet:
@@ -346,8 +369,8 @@ class MappingSuiteRepositoryInFileSystem(MappingSuiteRepositoryABC):
         package_path = self.repository_path / mapping_suite_identifier
         if package_path.is_dir():
             package_metadata = self._read_package_metadata(package_path)
-            if MS_MAPPING_TYPE_KEY in package_metadata and package_metadata[
-                MS_MAPPING_TYPE_KEY] == MappingSuiteType.ELECTRONIC_FORMS:
+            if (MS_MAPPING_TYPE_KEY in package_metadata and
+                    package_metadata[MS_MAPPING_TYPE_KEY] == MappingSuiteType.ELECTRONIC_FORMS):
                 package_metadata[MS_METADATA_CONSTRAINTS_KEY] = MetadataConstraints(
                     constraints=MetadataConstraintsEform(
                         **package_metadata[MS_METADATA_CONSTRAINTS_KEY][MS_CONSTRAINTS_KEY]))
@@ -363,9 +386,7 @@ class MappingSuiteRepositoryInFileSystem(MappingSuiteRepositoryABC):
                 mapping_suite_hash_digest=package_metadata[MS_HASH_DIGEST_KEY],
                 mapping_type=package_metadata[
                     MS_MAPPING_TYPE_KEY] if MS_MAPPING_TYPE_KEY in package_metadata else MappingSuiteType.STANDARD_FORMS,
-                version=package_metadata[
-                    MS_STANDARD_METADATA_VERSION_KEY] if MS_STANDARD_METADATA_VERSION_KEY in package_metadata else \
-                    package_metadata[MS_EFORMS_METADATA_VERSION_KEY],
+                version=mapping_suite_read_version_from_metadata(package_metadata),
                 identifier=package_metadata[
                     MS_METADATA_IDENTIFIER_KEY] if MS_METADATA_IDENTIFIER_KEY in package_metadata else mapping_suite_identifier,
                 transformation_rule_set=self._read_transformation_rule_set(package_path),
@@ -421,3 +442,9 @@ class MappingSuiteRepositoryInFileSystem(MappingSuiteRepositoryABC):
         :return:
         """
         shutil.rmtree(self.repository_path)
+
+
+def mapping_suite_read_version_from_metadata(metadata: dict) -> str:
+    version_key = MS_EFORMS_METADATA_VERSION_KEY if MS_MAPPING_TYPE_KEY in metadata and metadata[
+        MS_MAPPING_TYPE_KEY] == MappingSuiteType.ELECTRONIC_FORMS else MS_STANDARD_METADATA_VERSION_KEY
+    return metadata.get(version_key)

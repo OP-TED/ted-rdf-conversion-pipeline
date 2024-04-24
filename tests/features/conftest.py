@@ -49,6 +49,16 @@ def f03_notice_2020(notice_repository, ted_api_end_point):
     notice.set_xml_metadata(xml_metadata=XMLMetadata(unique_xpaths=["FAKE_INDEX_XPATHS"]))
     return notice
 
+@pytest.fixture
+def eForm_notice_2023(notice_repository, ted_api_end_point):
+    notice_search_query = {"query": "ND=17554-2024"}
+    NoticeFetcher(notice_repository=notice_repository,
+                  ted_api_adapter=TedAPIAdapter(request_api=TedRequestAPI(),
+                                                ted_api_url=ted_api_end_point)).fetch_notices_by_query(
+        query=notice_search_query)
+    notice = notice_repository.get(reference="17554-2024")
+    notice.set_xml_metadata(xml_metadata=XMLMetadata(unique_xpaths=["FAKE_INDEX_XPATHS"]))
+    return notice
 
 @pytest.fixture
 def f18_notice_2022(notice_repository, ted_api_end_point):

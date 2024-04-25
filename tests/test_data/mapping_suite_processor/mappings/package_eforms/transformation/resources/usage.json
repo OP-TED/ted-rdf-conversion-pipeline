@@ -1,0 +1,55 @@
+{
+  "head": {
+    "link": [],
+    "vars": [
+      "code",
+      "conceptURI"
+    ]
+  },
+  "results": {
+    "distinct": false,
+    "ordered": true,
+    "bindings": [
+      {
+        "code": {
+          "type": "literal",
+          "value": "OP_DATPRO"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://publications.europa.eu/resource/authority/usage/OP_DATPRO"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "n-used"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://publications.europa.eu/resource/authority/usage/n-used"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "nyk"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://publications.europa.eu/resource/authority/usage/nyk"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "used"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://publications.europa.eu/resource/authority/usage/used"
+        }
+      }
+    ]
+  }
+}

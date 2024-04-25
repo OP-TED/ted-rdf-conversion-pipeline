@@ -1,0 +1,65 @@
+{
+  "head": {
+    "link": [],
+    "vars": [
+      "code",
+      "conceptURI"
+    ]
+  },
+  "results": {
+    "distinct": false,
+    "ordered": true,
+    "bindings": [
+      {
+        "code": {
+          "type": "literal",
+          "value": "OP_DATPRO"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://publications.europa.eu/resource/authority/requirement-stage/OP_DATPRO"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "nyk"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://publications.europa.eu/resource/authority/requirement-stage/nyk"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "not-requ"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://publications.europa.eu/resource/authority/requirement-stage/not-requ"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "par-requ"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://publications.europa.eu/resource/authority/requirement-stage/par-requ"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "t-requ"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://publications.europa.eu/resource/authority/requirement-stage/t-requ"
+        }
+      }
+    ]
+  }
+}

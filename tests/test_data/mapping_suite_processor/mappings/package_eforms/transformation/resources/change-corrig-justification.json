@@ -1,0 +1,95 @@
+{
+  "head": {
+    "link": [],
+    "vars": [
+      "code",
+      "conceptURI"
+    ]
+  },
+  "results": {
+    "distinct": false,
+    "ordered": true,
+    "bindings": [
+      {
+        "code": {
+          "type": "literal",
+          "value": "OP_DATPRO"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://publications.europa.eu/resource/authority/change-corrig-justification/OP_DATPRO"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "cancel"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://publications.europa.eu/resource/authority/change-corrig-justification/cancel"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "cancel-intent"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://publications.europa.eu/resource/authority/change-corrig-justification/cancel-intent"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "cor-buy"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://publications.europa.eu/resource/authority/change-corrig-justification/cor-buy"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "cor-esen"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://publications.europa.eu/resource/authority/change-corrig-justification/cor-esen"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "cor-pub"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://publications.europa.eu/resource/authority/change-corrig-justification/cor-pub"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "info-release"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://publications.europa.eu/resource/authority/change-corrig-justification/info-release"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "update-add"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://publications.europa.eu/resource/authority/change-corrig-justification/update-add"
+        }
+      }
+    ]
+  }
+}

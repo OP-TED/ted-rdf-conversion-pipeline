@@ -18,7 +18,7 @@
         "X1",
         "T1"
       ],
-      "start_date": null,
+      "start_date": "2005-04-23T21:00:00.000",
       "end_date": null,
       "eforms_sdk_versions": [
         "1.3",

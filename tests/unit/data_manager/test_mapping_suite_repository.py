@@ -50,6 +50,8 @@ def test_epo_mapping_suite_repository_in_file_system(file_system_repository_with
     assert result_mapping_suite.mapping_type == "eforms"
     assert result_mapping_suite.metadata_constraints
     constraints = result_mapping_suite.metadata_constraints.constraints
+    assert isinstance(constraints.start_date, list)
+    assert constraints.end_date is None
     assert constraints.eforms_subtype
     assert constraints.eforms_sdk_versions
 

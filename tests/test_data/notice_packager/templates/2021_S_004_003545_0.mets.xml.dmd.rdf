@@ -22,6 +22,8 @@
         <cdm:procurement_public_number_edition rdf:datatype="http://www.w3.org/2001/XMLSchema#positiveInteger">2021004</cdm:procurement_public_number_edition>
         
         <cdm:work_title xml:lang="en">Construction work</cdm:work_title>
+
+        <cdm:work_title xml:lang="ro">Lucrari de constructie</cdm:work_title>
         
         <cdm:datetime_transmission rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2023-03-09T18:28:54.806241</cdm:datetime_transmission>
         

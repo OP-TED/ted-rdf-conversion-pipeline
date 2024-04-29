@@ -70,10 +70,9 @@ class MetadataTransformer:
         metadata.work.resource_type = PROCUREMENT_NOTICE
         metadata.work.date_document = publication_date
         metadata.work.uri = publication_notice_uri(metadata.notice.id, notice_metadata)
-        # TODO: If no title found in english get a random one
-        title_search = [title.text for title in notice_metadata.title if title.language == LANGUAGE.upper()]
-        if len(title_search) > 0:
-            metadata.work.title = {LANGUAGE: title_search[0]}
+        metadata.work.title = {}
+        if notice_metadata.title:
+            metadata.work.title = {title[1]: title[0] for title in notice_metadata.title}
         metadata.work.dataset_version = _date.strftime('%Y%m%d') + '-' + _revision
         metadata.work.procurement_public_issued_by_country = notice_metadata.country_of_buyer
         # metadata.work.procurement_public_url_etendering = notice_metadata.uri_list

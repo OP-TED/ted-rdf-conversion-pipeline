@@ -39,7 +39,8 @@
     "dataset_published_by_agent": "EURUN",
     "datetime_transmission": "2023-03-09T18:28:54.806241",
     "title": {
-      "en": "Construction work"
+      "en": "Construction work",
+      "ro": "Lucrari de constructie"
     },
     "date_creation": "2023-03-09",
     "concept_type_dataset": "TEST_DATA",

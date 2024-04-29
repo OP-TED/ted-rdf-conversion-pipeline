@@ -10,6 +10,7 @@ The TED-RDF Conversion Pipeline, is part of the TED Semantic Web Services (TED-S
 | Phase 1 | The first phase places high priority on the deployment into the OP AWS Cloud environment.| August 2022 | xref:attachment$/FATs/2022-08-29-report/index.html[2022-08-29 report] | 29 August 2022 | link:https://github.com/OP-TED/ted-rdf-conversion-pipeline/releases/tag/0.0.9-beta[0.0.9-beta]
 | Phase 2 | Provided that the deployment in the acceptance environment is successful, the delivery of Phase 2 aims to provide the first production version of the TED SWS system. | Nov 2022 | xref:attachment$/FATs/2022-11-22-TED-SWS-FAT-complete.html[2022-11-22 report] | 20 Nov 2022 | https://github.com/OP-TED/ted-rdf-conversion-pipeline/releases/tag/1.0.0-beta[1.0.0-beta]
 | Phase 3 | This phase delivers the documentation and components and improvements that could not be covered in the previous phases. | Feb 2023 | xref:attachment$/FATs/2023-02-20-TED-SWS-FAT-complete.html[2023-02-20 report] | 21 Feb 2023 | https://github.com/OP-TED/ted-rdf-conversion-pipeline/releases/tag/1.1.0-beta[1.1.0-beta]
+| Phase 4 | This phase delivers the documentation and pipeline enhancements for eForms . | May 2024 | xref:attachment$/FATs/2024-05-01-TED-SWS-FAT-complete.html[2024-05-01 report] | 01 May 2024 | https://github.com/OP-TED/ted-rdf-conversion-pipeline/releases/tag/2.0.0[2.0.0]
 |===
 
 

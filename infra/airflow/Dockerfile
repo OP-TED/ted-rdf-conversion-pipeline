@@ -14,7 +14,12 @@ COPY requirements.txt /opt/airflow
 
 # working in the /opt/airflow
 WORKDIR /opt/airflow
-RUN mkdir -p ./.rmlmapper ./dags ./ted_sws ./temp
+RUN mkdir -p ./.rmlmapper ./dags ./ted_sws
+
+COPY ted_sws /opt/airflow/ted_sws
+
+COPY dags /opt/airflow/dags
+
 RUN wget -c https://github.com/RMLio/rmlmapper-java/releases/download/v6.2.2/rmlmapper-6.2.2-r371-all.jar -O ./.rmlmapper/rmlmapper.jar
 
 

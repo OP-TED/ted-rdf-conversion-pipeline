@@ -2,9 +2,15 @@ FROM docker.io/apache/airflow:2.5.1-python3.8
 
 # quick sudo
 USER root
-RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys A8D3785C
-RUN apt-get update && apt-get install make && apt-get install build-essential git -y && apt-get install -y wget && apt-get install -y unzip
-RUN apt install -y default-jre
+
+RUN apt-get update && apt-get install -y \
+    build-essential=12.9 \
+    default-jre=2:1.11-72 \
+    git=1:2.30.2-1+deb11u2 \
+    make=4.3-4.1 \
+    wget=1.21-1+deb11u1 \
+    unzip=6.0-26+deb11u1 \
+    && rm -rf /var/lib/apt/lists/*
 
 # back to normal user
 USER airflow
@@ -14,20 +20,7 @@ COPY requirements.txt /opt/airflow
 
 # working in the /opt/airflow
 WORKDIR /opt/airflow
-RUN mkdir -p ./.rmlmapper ./dags ./ted_sws
-
-COPY ted_sws /opt/airflow/ted_sws
-
-COPY dags /opt/airflow/dags
-
-RUN wget -c https://github.com/RMLio/rmlmapper-java/releases/download/v6.2.2/rmlmapper-6.2.2-r371-all.jar -O ./.rmlmapper/rmlmapper.jar
-
-
-RUN wget -c https://github.com/Saxonica/Saxon-HE/releases/download/SaxonHE10-9/SaxonHE10-9J.zip -P .saxon/
-RUN cd .saxon && unzip SaxonHE10-9J.zip && rm -rf SaxonHE10-9J.zip
-
-RUN mkdir -p ./.limes
-RUN wget -c https://github.com/dice-group/LIMES/releases/download/1.7.9/limes.jar -P ./.limes
+RUN mkdir -p ./dags ./ted_sws
 
 
 RUN pip install --upgrade pip

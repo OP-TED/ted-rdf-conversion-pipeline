@@ -119,3 +119,4 @@ package.json
 *.ser
 .DS_Store
 .scannerwork/*
+/infra/alpine/libraries/

@@ -95,6 +95,7 @@ create-env-airflow:
 	@ cp requirements.txt ./infra/airflow/
 	@ cp -r ted_sws ./infra/airflow/
 	@ cp -r dags ./infra/airflow/
+	@ cp -r libraries ./infra/airflow/
 
 
 build-airflow: guard-ENVIRONMENT create-env-airflow build-externals

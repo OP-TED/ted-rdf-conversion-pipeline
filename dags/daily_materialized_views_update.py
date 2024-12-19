@@ -8,7 +8,7 @@ from ted_sws.data_manager.services.create_batch_collection_materialised_view imp
 from ted_sws.data_manager.services.create_notice_collection_materialised_view import \
     create_notice_collection_materialised_view, create_notice_kpi_collection
 
-DAG_NAME = "daily_materialized_views_update"
+DAILY_MATERIALISED_VIEWS_DAG_NAME = "daily_materialized_views_update"
 
 
 @dag(default_args=DEFAULT_DAG_ARGUMENTS,

@@ -36,6 +36,7 @@ PROJECT_PATH = pathlib.Path(__file__).parent.resolve()
 SPARQL_PREFIXES_PATH = PROJECT_PATH / "resources" / "prefixes" / "prefixes.json"
 
 DAG_FETCH_DEFAULT_TIMETABLE = "0 1 * * *"
+DAG_MATERIALIZED_VIEW_UPDATE_DEFAULT_TIMETABLE = "0 6 * * *"
 
 class MongoDBConfig:
 
@@ -270,6 +271,9 @@ class DagSchedulingConfig:
     def SCHEDULE_DAG_FETCH(self, config_value: str) -> str:
         return config_value
 
+    @env_property(config_resolver_class=AirflowAndEnvConfigResolver, default_value=DAG_MATERIALIZED_VIEW_UPDATE_DEFAULT_TIMETABLE)
+    def SCHEDULE_DAG_MATERIALIZED_VIEW_UPDATE(self, config_value: str) -> str:
+        return config_value
 
 class TedConfigResolver(MongoDBConfig, RMLMapperConfig, XMLProcessorConfig, ELKConfig, LoggingConfig,
                         GitHubArtefacts, API, AllegroConfig, TedAPIConfig, SFTPConfig, FusekiConfig,

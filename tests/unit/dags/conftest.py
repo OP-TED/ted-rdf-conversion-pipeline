@@ -7,6 +7,7 @@ from airflow.timetables.trigger import CronTriggerTimetable
 from airflow.utils import db
 from psutil.tests import pytest
 
+from dags.daily_materialized_views_update import DAILY_MATERIALISED_VIEWS_DAG_NAME
 from dags.fetch_notices_by_date import FETCHER_DAG_NAME
 from tests import TESTS_PATH
 
@@ -35,6 +36,10 @@ def dag_bag():
 @pytest.fixture
 def fetcher_dag_id():
     return FETCHER_DAG_NAME
+
+@pytest.fixture
+def daily_materialised_views_dag_id():
+    return DAILY_MATERIALISED_VIEWS_DAG_NAME
 
 
 @pytest.fixture

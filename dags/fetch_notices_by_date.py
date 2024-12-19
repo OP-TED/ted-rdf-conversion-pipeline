@@ -10,7 +10,7 @@ from dags import DEFAULT_DAG_ARGUMENTS
 from dags.dags_utils import get_dag_param, push_dag_downstream, pull_dag_upstream
 from dags.operators.DagBatchPipelineOperator import NOTICE_IDS_KEY, TriggerNoticeBatchPipelineOperator
 from dags.pipelines.notice_fetcher_pipelines import notice_fetcher_by_date_pipeline
-from ted_sws import config
+from ted_sws import config, DAG_DEFAULT_TIMEZONE
 from ted_sws.event_manager.adapters.event_log_decorator import event_log
 from ted_sws.event_manager.model.event_message import TechnicalEventMessage, EventMessageMetadata, \
     EventMessageProcessType
@@ -26,15 +26,13 @@ CHECK_IF_TRIGGER_COMPLETE_WORKFLOW_TASK_ID = "check_if_trigger_complete_workflow
 FINISH_FETCH_BY_DATE_TASK_ID = "finish_fetch_by_date"
 VALIDATE_FETCHED_NOTICES_TASK_ID = "validate_fetched_notices"
 
-DAG_FETCH_DEFAULT_TIMEZONE = "UTC"
-
 
 @dag(default_args=DEFAULT_DAG_ARGUMENTS,
      dag_id=FETCHER_DAG_NAME,
      catchup=False,
      timetable=CronTriggerTimetable(
          cron=config.SCHEDULE_DAG_FETCH,
-         timezone=DAG_FETCH_DEFAULT_TIMEZONE),
+         timezone=DAG_DEFAULT_TIMEZONE),
      tags=['selector', 'daily-fetch'])
 def fetch_notices_by_date():
     @task

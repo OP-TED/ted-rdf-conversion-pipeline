@@ -37,6 +37,7 @@ SPARQL_PREFIXES_PATH = PROJECT_PATH / "resources" / "prefixes" / "prefixes.json"
 
 DAG_FETCH_DEFAULT_TIMETABLE = "0 1 * * *"
 DAG_MATERIALIZED_VIEW_UPDATE_DEFAULT_TIMETABLE = "0 6 * * *"
+DAG_DEFAULT_TIMEZONE = "UTC"
 
 class MongoDBConfig:
 

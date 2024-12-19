@@ -1,8 +1,9 @@
 from airflow.decorators import dag, task
+from airflow.timetables.trigger import CronTriggerTimetable
 from pymongo import MongoClient
 
 from dags import DEFAULT_DAG_ARGUMENTS
-from ted_sws import config
+from ted_sws import config, DAG_DEFAULT_TIMEZONE
 from ted_sws.data_manager.services.create_batch_collection_materialised_view import \
     create_batch_collection_materialised_view
 from ted_sws.data_manager.services.create_notice_collection_materialised_view import \
@@ -12,8 +13,11 @@ DAILY_MATERIALISED_VIEWS_DAG_NAME = "daily_materialized_views_update"
 
 
 @dag(default_args=DEFAULT_DAG_ARGUMENTS,
+     dag_id=DAILY_MATERIALISED_VIEWS_DAG_NAME,
      catchup=False,
-     schedule_interval="0 6 * * *",
+     timetable=CronTriggerTimetable(
+         cron=config.SCHEDULE_DAG_MATERIALIZED_VIEW_UPDATE,
+         timezone=DAG_DEFAULT_TIMEZONE),
      tags=['mongodb', 'daily-views-update'])
 def daily_materialized_views_update():
     @task

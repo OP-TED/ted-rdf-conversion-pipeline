@@ -98,3 +98,8 @@ def invalid_rdf_files_path():
 @pytest.fixture
 def notice_id():
     return "196390_2018"
+
+
+@pytest.fixture
+def work_id_predicate():
+    return "http://publications.europa.eu/ontology/cdm#work_id"

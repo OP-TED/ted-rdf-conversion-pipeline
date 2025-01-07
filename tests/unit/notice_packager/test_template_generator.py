@@ -9,8 +9,10 @@
 import re
 
 import pytest
+from rdflib import Graph, Literal, XSD
 
 from ted_sws.notice_packager.adapters.template_generator import TemplateGenerator
+from ted_sws.notice_packager.model.metadata import PackagerMetadata
 from tests import TEST_DATA_PATH
 
 
@@ -57,3 +59,40 @@ def test_mets2action_mets_xml_generator_with_wrong_action(template_sample_metada
     template_sample_metadata.mets.type = "wrong_action"
     with pytest.raises(ValueError):
         TemplateGenerator.mets2action_mets_xml_generator(template_sample_metadata)
+
+
+def test_mets_dmd_rdf_has_work_id_after_generation(template_sample_metadata: PackagerMetadata,
+                                                   work_id_predicate: str):
+    mets_dmd_rdf: str = TemplateGenerator.mets_xml_dmd_rdf_generator(template_sample_metadata)
+    mets_graph: Graph = Graph().parse(data=mets_dmd_rdf, format="xml")
+
+    work_id_predicate_exists: bool = mets_graph.query(
+        f""" ASK WHERE {{ ?subject <{work_id_predicate}> ?object . }} """).askAnswer
+
+    assert work_id_predicate_exists
+
+def test_mets_dmd_rdf_has_work_id_as_string_after_generation(template_sample_metadata: PackagerMetadata,
+                                                   work_id_predicate: str):
+    mets_dmd_rdf: str = TemplateGenerator.mets_xml_dmd_rdf_generator(template_sample_metadata)
+    mets_graph: Graph = Graph().parse(data=mets_dmd_rdf, format="xml")
+    string_datatype = XSD.string
+
+    work_id_predicate_exists: bool = mets_graph.query(
+        f""" ASK WHERE {{ ?subject <{work_id_predicate}> ?object . FILTER(datatype(?object) = <{string_datatype}>) }} """).askAnswer
+
+    assert work_id_predicate_exists
+
+def test_mets_dmd_rdf_has_correct_work_id_value_after_generation(template_sample_metadata: PackagerMetadata,
+                                                                 work_id_predicate: str):
+    mets_dmd_rdf: str = TemplateGenerator.mets_xml_dmd_rdf_generator(template_sample_metadata)
+    mets_graph: Graph = Graph().parse(data=mets_dmd_rdf, format="xml")
+
+    assert template_sample_metadata.work.uri
+    work_id_value_literal = Literal(template_sample_metadata.work.uri, datatype=XSD.string)
+
+    work_id_is_same: bool = mets_graph.query(
+        f""" ASK WHERE {{ ?subject <{work_id_predicate}> {work_id_value_literal.n3()} . }} """).askAnswer
+
+    assert work_id_is_same
+
+

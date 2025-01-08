@@ -12,6 +12,7 @@
     <cdm:work rdf:about="&resource;ted/2021_S_004_003545">
         
         <rdf:type rdf:resource="http://publications.europa.eu/ontology/cdm#procurement_public"/>
+        <cdm:work_id rdf:datatype="http://www.w3.org/2001/XMLSchema#string">http://data.europa.eu/a4g/resource/2021/003545_2021</cdm:work_id>
         <cdm:work_id_document rdf:datatype="http://www.w3.org/2001/XMLSchema#string">ted:2021_S_004_003545</cdm:work_id_document>
         <cdm:work_id_document rdf:datatype="http://www.w3.org/2001/XMLSchema#string">oj:JOS_2021_004_R_003545</cdm:work_id_document>
         <cdm:work_has_resource-type rdf:resource="http://publications.europa.eu/resource/authority/resource-type/PROCUREMENT_NOTICE"/>

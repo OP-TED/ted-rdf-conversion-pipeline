@@ -233,7 +233,7 @@ class DefaultNoticeMetadataNormaliser(NoticeMetadataNormaliserABC):
                     ]),
                     language=title.title.language) for title in extracted_metadata.title
             ],
-            NOTICE_NUMBER_KEY: extracted_metadata.notice_publication_number,
+            NOTICE_NUMBER_KEY: extracted_metadata.notice_publication_number.strip(),
             PUBLICATION_DATE_KEY: self.iso_date_format(extracted_metadata.publication_date),
             OJS_NUMBER_KEY: extracted_metadata.ojs_issue_number,
             OJS_TYPE_KEY: extracted_metadata.ojs_type if extracted_metadata.ojs_type else "S",
@@ -324,7 +324,7 @@ class EformsNoticeMetadataNormaliser(NoticeMetadataNormaliserABC):
                     ]),
                     language=title.title.language) for title in extracted_metadata.title
             ],
-            NOTICE_NUMBER_KEY: extracted_metadata.notice_publication_number,
+            NOTICE_NUMBER_KEY: extracted_metadata.notice_publication_number.strip(),
             PUBLICATION_DATE_KEY: self.iso_date_format(extracted_metadata.publication_date),
             OJS_NUMBER_KEY: extracted_metadata.ojs_issue_number,
             OJS_TYPE_KEY: extracted_metadata.ojs_type if extracted_metadata.ojs_type else "S",

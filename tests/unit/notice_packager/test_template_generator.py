@@ -7,10 +7,13 @@
 
 """ """
 import re
+from xml.etree import ElementTree
+from xml.etree.ElementTree import ParseError
 
 import pytest
 
 from ted_sws.notice_packager.adapters.template_generator import TemplateGenerator
+from ted_sws.notice_packager.model.metadata import PackagerMetadata
 from tests import TEST_DATA_PATH
 
 
@@ -57,3 +60,15 @@ def test_mets2action_mets_xml_generator_with_wrong_action(template_sample_metada
     template_sample_metadata.mets.type = "wrong_action"
     with pytest.raises(ValueError):
         TemplateGenerator.mets2action_mets_xml_generator(template_sample_metadata)
+
+
+def test_mets_dmd_rdf_has_html_safe_sequences_after_generation(sample_metadata_with_wrong_title: PackagerMetadata,
+                                                               sample_mets_xml_dmd_rdf_with_wrong_title_str: str):
+    # Ensure parser raises error on not well-formed xml (HTML sequences or elements)
+    with pytest.raises(ParseError):
+        ElementTree.fromstring(sample_mets_xml_dmd_rdf_with_wrong_title_str)
+
+    mets_dmd_rdf: str = TemplateGenerator.mets_xml_dmd_rdf_generator(sample_metadata_with_wrong_title)
+
+    # Parse to check if xml is well-formed (HTML-safe sequences or elements)
+    ElementTree.fromstring(mets_dmd_rdf)

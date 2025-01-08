@@ -31,6 +31,21 @@ def template_sample_metadata_json() -> Dict:
 
 
 @pytest.fixture
+def sample_metadata_with_wrong_title_json() -> Dict:
+    return json.load((TEST_DATA_PATH / "notice_packager" / "wrong_title" / "metadata_with_wrong_title.json").open())
+
+
+@pytest.fixture
+def sample_mets_xml_dmd_rdf_with_wrong_title_str() -> str:
+    return (TEST_DATA_PATH / "notice_packager" / "wrong_title" / "mets_with_wrong_title.mets.xml.dmd.rdf").read_text()
+
+
+@pytest.fixture
+def sample_metadata_with_wrong_title(sample_metadata_with_wrong_title_json) -> PackagerMetadata:
+    return PackagerMetadata(**sample_metadata_with_wrong_title_json)
+
+
+@pytest.fixture
 def template_sample_metadata(template_sample_metadata_json) -> PackagerMetadata:
     return PackagerMetadata(**template_sample_metadata_json)
 
@@ -54,6 +69,7 @@ def template_sample_expression(template_sample_metadata) -> ExpressionMetadata:
 def template_sample_manifestation(template_sample_metadata) -> ManifestationMetadata:
     return template_sample_metadata.manifestation
 
+
 # template_metadata END
 
 
@@ -66,6 +82,7 @@ def notice_sample_metadata(notice_2018) -> NormalisedMetadata:
             xml_manifestation=notice_2018.xml_manifestation).extract_metadata())
 
     return normalised_metadata
+
 
 # notice_metadata END
 

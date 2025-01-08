@@ -2,7 +2,7 @@ import pytest
 
 from ted_sws.core.model.manifestation import XMLManifestation
 from ted_sws.core.model.metadata import NormalisedMetadata
-from ted_sws.core.model.notice import NoticeStatus
+from ted_sws.core.model.notice import NoticeStatus, Notice
 from ted_sws.notice_metadata_processor.adapters.notice_metadata_extractor import \
     DefaultNoticeMetadataExtractor, EformsNoticeMetadataExtractor
 from ted_sws.notice_metadata_processor.adapters.notice_metadata_normaliser import \
@@ -235,3 +235,15 @@ def test_normalising_notice_out_of_index(notice_normalisation_test_data_path):
     with pytest.raises(Exception):
         extract_and_normalise_notice_metadata(
             xml_manifestation=XMLManifestation(object_data=broke_notice_content))
+
+
+def test_normalising_notice_with_spaces_in_notice_id(sample_indexed_ef_notice_with_spaces_in_publication_number: Notice,
+                                                     sample_indexed_sf_notice_with_spaces_in_publication_number: Notice
+                                                     ):
+    normalised_ef_notice: Notice = normalise_notice(sample_indexed_ef_notice_with_spaces_in_publication_number)
+
+    assert normalised_ef_notice.normalised_metadata.notice_publication_number.strip() == normalised_ef_notice.normalised_metadata.notice_publication_number
+
+    normalised_sf_notice: Notice = normalise_notice(sample_indexed_sf_notice_with_spaces_in_publication_number)
+
+    assert normalised_sf_notice.normalised_metadata.notice_publication_number.strip() == normalised_sf_notice.normalised_metadata.notice_publication_number

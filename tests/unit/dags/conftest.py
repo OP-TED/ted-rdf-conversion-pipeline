@@ -1,44 +1,30 @@
-import logging
-import os
-
-from airflow.exceptions import AirflowTimetableInvalid
-from airflow.models import DagBag
+import pytest
+from airflow.models import DagBag, Variable
 from airflow.timetables.trigger import CronTriggerTimetable
-from airflow.utils import db
-from psutil.tests import pytest
 
 from dags.daily_materialized_views_update import DAILY_MATERIALISED_VIEWS_DAG_NAME
 from dags.fetch_notices_by_date import FETCHER_DAG_NAME
-from tests import TESTS_PATH
-
-AIRFLOW_DAG_FOLDER = TESTS_PATH.parent.resolve() / "dags"
-
-
-@pytest.fixture()
-def dag_bag():
-    os.environ["AIRFLOW_HOME"] = str(AIRFLOW_DAG_FOLDER)
-    os.environ["AIRFLOW__CORE__LOAD_EXAMPLES"] = "False"
-    # Initialising the Airflow DB so that it works properly with the new AIRFLOW_HOME
-    logging.disable(logging.CRITICAL)
-    db.resetdb()
-    db.initdb()
-    logging.disable(logging.NOTSET)
-    dag_bag = DagBag(dag_folder=AIRFLOW_DAG_FOLDER, include_examples=False,
-                     read_dags_from_db=False)
-    return dag_bag
-
-
-# @pytest.fixture
-# def dag_bag():
-#     return DagBag(dag_folder=AIRFLOW_DAG_FOLDER, include_examples=False, read_dags_from_db=False)
+from tests import AIRFLOW_DAG_FOLDER
 
 
 @pytest.fixture
-def fetcher_dag_id():
+def dag_bag(dag_materialised_view_update_schedule_variable_name, dag_fetch_schedule_variable_name) -> DagBag:
+    Variable.delete(key=dag_materialised_view_update_schedule_variable_name)
+    Variable.delete(key=dag_fetch_schedule_variable_name)
+    return DagBag(
+        dag_folder=AIRFLOW_DAG_FOLDER,
+        include_examples=False,
+        read_dags_from_db=False,
+        collect_dags=True)
+
+
+@pytest.fixture
+def fetcher_dag_name() -> str:
     return FETCHER_DAG_NAME
 
+
 @pytest.fixture
-def daily_materialised_views_dag_id():
+def daily_materialised_views_dag_id() -> str:
     return DAILY_MATERIALISED_VIEWS_DAG_NAME
 
 
@@ -49,7 +35,7 @@ def example_cron_table() -> str:
 
 @pytest.fixture
 def example_wrong_cron_table() -> str:
-    return "1234"
+    return "wrong_cron"
 
 
 @pytest.fixture
@@ -58,9 +44,8 @@ def example_dag_cron_table(example_cron_table) -> CronTriggerTimetable:
 
 
 @pytest.fixture
-def airflow_timetable_import_error_name() -> str:
-    return AirflowTimetableInvalid.__name__
-
+def airflow_timetable_import_error_message() -> str:
+    return "FormatException"
 
 
 @pytest.fixture

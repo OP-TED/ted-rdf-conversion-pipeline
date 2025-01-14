@@ -51,6 +51,9 @@ jobs:
           env_vars: OS,PYTHON
           name: codecov-umbrella
           fail_ci_if_error: true
+      - name: Set working directory fir SonarCloud
+        run: mkdir -p $GITHUB_WORKSPACE/.scannerwork && chmod -R 777 $GITHUB_WORKSPACE/.scannerwork
+
       - name: SonarCloud Scan
         uses: SonarSource/sonarqube-scan-action@v4.1.0
         env:

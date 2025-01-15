@@ -21,7 +21,7 @@
         <cdm:procurement_public_number_document_in_official-journal rdf:datatype="http://www.w3.org/2001/XMLSchema#string">{{ notice.public_number_document }}</cdm:procurement_public_number_document_in_official-journal>
         <cdm:procurement_public_number_edition rdf:datatype="http://www.w3.org/2001/XMLSchema#positiveInteger">{{ notice.public_number_edition }}</cdm:procurement_public_number_edition>
         {% for lang in work.title %}
-        <cdm:work_title xml:lang="{{ lang }}">{{ work.title[lang] | e }}</cdm:work_title>
+        <cdm:work_title xml:lang="{{ lang }}">{{ work.title[lang] }}</cdm:work_title>
         {% endfor %}
         <cdm:datetime_transmission rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">{{ work.datetime_transmission }}</cdm:datetime_transmission>
         {# <cdm:procurement_public_issued_by_country>{{ work.procurement_public_issued_by_country }}</cdm:procurement_public_issued_by_country>
@@ -44,7 +44,7 @@
         <rdf:type rdf:resource="http://publications.europa.eu/ontology/cdm#expression_procurement_public"/>
         <cdm:expression_belongs_to_work rdf:resource="&resource;ted/{{ work.identifier }}"/>
         {% for lang in expression.title %}
-        <cdm:expression_title xml:lang="{{ lang }}">{{ expression.title[lang] | e }}</cdm:expression_title>
+        <cdm:expression_title xml:lang="{{ lang }}">{{ expression.title[lang] }}</cdm:expression_title>
         {% endfor %}
         <cdm:expression_uses_language rdf:resource="&cellar-authority;language/{{ expression.uses_language }}"/>
         <cdm:expression_procurement_public_authority-type_name rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Other</cdm:expression_procurement_public_authority-type_name>

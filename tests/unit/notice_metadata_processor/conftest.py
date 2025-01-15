@@ -31,30 +31,36 @@ def eforms_xml_notice_paths() -> List[pathlib.Path]:
 
 
 @pytest.fixture
-def sample_ef_notice_with_spaces_in_publication_number_path() -> pathlib.Path:
-    return TEST_DATA_PATH / "notice_normalisation" / "spaces_in_publication_number" / "ef_notice_with_spaces_in_publication_number.xml"
+def sample_ef_html_unsafe_notice_path() -> pathlib.Path:
+    return TEST_DATA_PATH / "notice_normalisation" / "ef_html_unsafe_notice.xml"
 
 
 @pytest.fixture
-def sample_indexed_ef_notice_with_spaces_in_publication_number(
-        sample_ef_notice_with_spaces_in_publication_number_path: pathlib.Path) -> Notice:
-    notice: Notice = Notice(ted_id=sample_ef_notice_with_spaces_in_publication_number_path.name)
+def sample_indexed_ef_html_unsafe_notice(
+        sample_ef_html_unsafe_notice_path: pathlib.Path) -> Notice:
+    notice: Notice = Notice(ted_id=sample_ef_html_unsafe_notice_path.name)
     notice.set_xml_manifestation(
-        XMLManifestation(object_data=sample_ef_notice_with_spaces_in_publication_number_path.read_text()))
+        XMLManifestation(object_data=sample_ef_html_unsafe_notice_path.read_text()))
 
     return index_notice(notice)
 
 
 @pytest.fixture
-def sample_sf_notice_with_spaces_in_publication_number_path() -> pathlib.Path:
-    return TEST_DATA_PATH / "notice_normalisation" / "spaces_in_publication_number" / "sf_notice_with_spaces_in_publication_number.xml"
+def sample_sf_html_unsafe_notice_path() -> pathlib.Path:
+    return TEST_DATA_PATH / "notice_normalisation" / "sf_html_unsafe_notice.xml"
 
 
 @pytest.fixture
-def sample_indexed_sf_notice_with_spaces_in_publication_number(
-        sample_sf_notice_with_spaces_in_publication_number_path: pathlib.Path) -> Notice:
-    notice: Notice = Notice(ted_id=sample_sf_notice_with_spaces_in_publication_number_path.name)
+def sample_indexed_sf_html_unsafe_notice(
+        sample_sf_html_unsafe_notice_path: pathlib.Path) -> Notice:
+    notice: Notice = Notice(ted_id=sample_sf_html_unsafe_notice_path.name)
     notice.set_xml_manifestation(
-        XMLManifestation(object_data=sample_sf_notice_with_spaces_in_publication_number_path.read_text()))
+        XMLManifestation(object_data=sample_sf_html_unsafe_notice_path.read_text()))
 
     return index_notice(notice)
+
+
+@pytest.fixture
+def html_incompatible_str() -> str:
+    """Provides a test string containing HTML incompatible characters."""
+    return "Construction work & planning <br />"

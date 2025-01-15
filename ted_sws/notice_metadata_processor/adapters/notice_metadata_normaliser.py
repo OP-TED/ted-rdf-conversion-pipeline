@@ -3,6 +3,7 @@ from datetime import datetime
 from typing import Dict, Tuple, List
 import re
 import pandas as pd
+import html
 
 from ted_sws.core.model.metadata import NormalisedMetadata, LanguageTaggedString, NoticeSource
 from ted_sws.notice_metadata_processor.model.metadata import ExtractedMetadata
@@ -41,6 +42,10 @@ NOTICE_SOURCE_KEY = "notice_source"
 ENGLISH_LANGUAGE_TAG = "EN"
 mapping_registry = MappingFilesRegistry()
 
+
+def get_html_compatible_string(input_string: LanguageTaggedString) -> LanguageTaggedString:
+    """Convert string to HTML compatible format using HTML encoding."""
+    return LanguageTaggedString(text=html.escape(input_string.text), language=input_string.language)
 
 def get_map_list_value_by_code(mapping: Dict, listing: List):
     result = []
@@ -223,15 +228,15 @@ class DefaultNoticeMetadataNormaliser(NoticeMetadataNormaliserABC):
         extracted_metadata = extracted_metadata
 
         metadata = {
-            TITLE_KEY: [title.title for title in extracted_metadata.title],
+            TITLE_KEY: [get_html_compatible_string(title.title) for title in extracted_metadata.title],
             LONG_TITLE_KEY: [
-                LanguageTaggedString(text=JOIN_SEP.join(
+                get_html_compatible_string(LanguageTaggedString(text=JOIN_SEP.join(
                     [
                         title.title_country.text,
                         title.title_city.text,
                         title.title.text
                     ]),
-                    language=title.title.language) for title in extracted_metadata.title
+                    language=title.title.language)) for title in extracted_metadata.title
             ],
             NOTICE_NUMBER_KEY: extracted_metadata.notice_publication_number.strip(),
             PUBLICATION_DATE_KEY: self.iso_date_format(extracted_metadata.publication_date),
@@ -315,14 +320,14 @@ class EformsNoticeMetadataNormaliser(NoticeMetadataNormaliserABC):
         form_type, notice_type, legal_basis = self.get_form_type_notice_type_and_legal_basis(
             extracted_notice_subtype=extracted_metadata.extracted_notice_subtype)
         metadata = {
-            TITLE_KEY: [title.title for title in extracted_metadata.title],
+            TITLE_KEY: [get_html_compatible_string(title.title) for title in extracted_metadata.title],
             LONG_TITLE_KEY: [
-                LanguageTaggedString(text=JOIN_SEP.join(
+                get_html_compatible_string(LanguageTaggedString(text=JOIN_SEP.join(
                     [
                         title.title_country.text,
                         title.title.text
                     ]),
-                    language=title.title.language) for title in extracted_metadata.title
+                    language=title.title.language)) for title in extracted_metadata.title
             ],
             NOTICE_NUMBER_KEY: extracted_metadata.notice_publication_number.strip(),
             PUBLICATION_DATE_KEY: self.iso_date_format(extracted_metadata.publication_date),

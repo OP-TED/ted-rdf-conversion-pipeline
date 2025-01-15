@@ -63,6 +63,7 @@ def test_mets2action_mets_xml_generator_with_wrong_action(template_sample_metada
 
 def test_mets_dmd_rdf_has_work_id_after_generation(template_sample_metadata: PackagerMetadata,
                                                    work_id_predicate: str):
+    """Test that generated METS DMD RDF contains a work_id predicate."""
     mets_dmd_rdf: str = TemplateGenerator.mets_xml_dmd_rdf_generator(template_sample_metadata)
     mets_graph: Graph = Graph().parse(data=mets_dmd_rdf, format="xml")
 
@@ -71,8 +72,10 @@ def test_mets_dmd_rdf_has_work_id_after_generation(template_sample_metadata: Pac
 
     assert work_id_predicate_exists
 
+
 def test_mets_dmd_rdf_has_work_id_as_string_after_generation(template_sample_metadata: PackagerMetadata,
-                                                   work_id_predicate: str):
+                                                             work_id_predicate: str):
+    """Test that work_id in METS DMD RDF is of type xsd:string."""
     mets_dmd_rdf: str = TemplateGenerator.mets_xml_dmd_rdf_generator(template_sample_metadata)
     mets_graph: Graph = Graph().parse(data=mets_dmd_rdf, format="xml")
     string_datatype = XSD.string
@@ -82,8 +85,10 @@ def test_mets_dmd_rdf_has_work_id_as_string_after_generation(template_sample_met
 
     assert work_id_predicate_exists
 
+
 def test_mets_dmd_rdf_has_correct_work_id_value_after_generation(template_sample_metadata: PackagerMetadata,
                                                                  work_id_predicate: str):
+    """Test that work_id value in METS DMD RDF matches the metadata work URI."""
     mets_dmd_rdf: str = TemplateGenerator.mets_xml_dmd_rdf_generator(template_sample_metadata)
     mets_graph: Graph = Graph().parse(data=mets_dmd_rdf, format="xml")
 
@@ -94,5 +99,3 @@ def test_mets_dmd_rdf_has_correct_work_id_value_after_generation(template_sample
         f""" ASK WHERE {{ ?subject <{work_id_predicate}> {work_id_value_literal.n3()} . }} """).askAnswer
 
     assert work_id_is_same
-
-

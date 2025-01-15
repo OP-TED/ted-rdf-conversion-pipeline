@@ -102,4 +102,5 @@ def notice_id():
 
 @pytest.fixture
 def work_id_predicate():
+    """Returns the URI predicate for the CDM work identifier."""
     return "http://publications.europa.eu/ontology/cdm#work_id"

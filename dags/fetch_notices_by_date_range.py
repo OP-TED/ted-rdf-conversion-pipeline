@@ -9,7 +9,7 @@ from airflow.operators.trigger_dagrun import TriggerDagRunOperator
 from dags import DEFAULT_DAG_ARGUMENTS
 from dags.dags_utils import get_dag_param
 from dags.fetch_notices_by_date import WILD_CARD_DAG_KEY, TRIGGER_COMPLETE_WORKFLOW_DAG_KEY, \
-    DAG_NAME as FETCH_NOTICES_BY_DATE_DAG_NAME
+    FETCHER_DAG_NAME as FETCH_NOTICES_BY_DATE_DAG_NAME
 from ted_sws.event_manager.adapters.event_log_decorator import event_log
 from ted_sws.event_manager.model.event_message import TechnicalEventMessage, EventMessageMetadata, \
     EventMessageProcessType

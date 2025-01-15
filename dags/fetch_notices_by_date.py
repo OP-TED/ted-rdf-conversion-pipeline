@@ -3,19 +3,20 @@ from datetime import timedelta
 from airflow.decorators import dag, task
 from airflow.operators.dummy import DummyOperator
 from airflow.operators.python import BranchPythonOperator, PythonOperator
-from airflow.utils.trigger_rule import TriggerRule
 from airflow.timetables.trigger import CronTriggerTimetable
+from airflow.utils.trigger_rule import TriggerRule
 
 from dags import DEFAULT_DAG_ARGUMENTS
 from dags.dags_utils import get_dag_param, push_dag_downstream, pull_dag_upstream
 from dags.operators.DagBatchPipelineOperator import NOTICE_IDS_KEY, TriggerNoticeBatchPipelineOperator
 from dags.pipelines.notice_fetcher_pipelines import notice_fetcher_by_date_pipeline
+from ted_sws import config, DAG_DEFAULT_TIMEZONE
 from ted_sws.event_manager.adapters.event_log_decorator import event_log
 from ted_sws.event_manager.model.event_message import TechnicalEventMessage, EventMessageMetadata, \
     EventMessageProcessType
 from ted_sws.event_manager.services.log import log_error
 
-DAG_NAME = "fetch_notices_by_date"
+FETCHER_DAG_NAME = "fetch_notices_by_date"
 BATCH_SIZE = 2000
 WILD_CARD_DAG_KEY = "wild_card"
 TRIGGER_COMPLETE_WORKFLOW_DAG_KEY = "trigger_complete_workflow"
@@ -27,15 +28,18 @@ VALIDATE_FETCHED_NOTICES_TASK_ID = "validate_fetched_notices"
 
 
 @dag(default_args=DEFAULT_DAG_ARGUMENTS,
+     dag_id=FETCHER_DAG_NAME,
      catchup=False,
-     timetable=CronTriggerTimetable('0 1 * * *', timezone='UTC'),
+     timetable=CronTriggerTimetable(
+         cron=config.SCHEDULE_DAG_FETCH,
+         timezone=DAG_DEFAULT_TIMEZONE),
      tags=['selector', 'daily-fetch'])
 def fetch_notices_by_date():
     @task
     @event_log(TechnicalEventMessage(
         message="fetch_notice_from_ted",
         metadata=EventMessageMetadata(
-            process_type=EventMessageProcessType.DAG, process_name=DAG_NAME
+            process_type=EventMessageProcessType.DAG, process_name=FETCHER_DAG_NAME
         ))
     )
     def fetch_by_date_notice_from_ted():

@@ -19,6 +19,8 @@ TESTS_PATH = pathlib.Path(__file__).parent.resolve()
 
 TEST_DATA_PATH = TESTS_PATH / 'test_data'
 
+AIRFLOW_DAG_FOLDER = TESTS_PATH.parent.resolve() / "dags"
+
 
 class temporary_copy(object):
     """

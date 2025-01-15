@@ -51,11 +51,16 @@ jobs:
           env_vars: OS,PYTHON
           name: codecov-umbrella
           fail_ci_if_error: true
+      - name: Set working directory fir SonarCloud
+        run: mkdir -p $GITHUB_WORKSPACE/.scannerwork && chmod -R 777 $GITHUB_WORKSPACE/.scannerwork && pwd && ls -a
+
       - name: SonarCloud Scan
-        uses: SonarSource/sonarcloud-github-action@master
+        uses: SonarSource/sonarqube-scan-action@v4.1.0
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        with:
+          args: -Dsonar.working.directory=$GITHUB_WORKSPACE/.scannerwork
 #      - name: Clean Mongo DB
 #        run: make clean-mongo-db
 #      - name: Upload coverage to Codecov

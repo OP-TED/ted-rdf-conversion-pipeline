@@ -1,13 +1,17 @@
+import pathlib
+from xml.etree import ElementTree
+from xml.etree.ElementTree import ParseError
+
 import pytest
 
 from ted_sws.core.model.manifestation import XMLManifestation
-from ted_sws.core.model.metadata import NormalisedMetadata
-from ted_sws.core.model.notice import NoticeStatus
+from ted_sws.core.model.metadata import NormalisedMetadata, LanguageTaggedString
+from ted_sws.core.model.notice import NoticeStatus, Notice
 from ted_sws.notice_metadata_processor.adapters.notice_metadata_extractor import \
     DefaultNoticeMetadataExtractor, EformsNoticeMetadataExtractor
 from ted_sws.notice_metadata_processor.adapters.notice_metadata_normaliser import \
     DefaultNoticeMetadataNormaliser, get_map_value, FORM_NUMBER_KEY, LEGAL_BASIS_KEY, SF_NOTICE_TYPE_KEY, \
-    DOCUMENT_CODE_KEY, EformsNoticeMetadataNormaliser
+    DOCUMENT_CODE_KEY, EformsNoticeMetadataNormaliser, get_html_compatible_string
 from ted_sws.notice_metadata_processor.model.metadata import ExtractedMetadata
 from ted_sws.notice_metadata_processor.services.metadata_constraints import filter_df_by_variables
 from ted_sws.notice_metadata_processor.services.metadata_normalizer import normalise_notice, normalise_notice_by_id, \
@@ -16,6 +20,8 @@ from ted_sws.notice_metadata_processor.services.metadata_normalizer import norma
     extract_and_normalise_notice_metadata
 from ted_sws.resources.mapping_files_registry import MappingFilesRegistry
 
+def html_str(content: str) -> str:
+    return f"""<?xml version="1.0" encoding="UTF-8"?> <body>{content}</body>"""
 
 def test_metadata_normaliser_by_notice(indexed_notice):
     notice = normalise_notice(indexed_notice)
@@ -235,3 +241,38 @@ def test_normalising_notice_out_of_index(notice_normalisation_test_data_path):
     with pytest.raises(Exception):
         extract_and_normalise_notice_metadata(
             xml_manifestation=XMLManifestation(object_data=broke_notice_content))
+
+
+def test_normalising_notice_with_spaces_in_notice_id(sample_indexed_ef_html_unsafe_notice: Notice,
+                                                     sample_indexed_sf_html_unsafe_notice: Notice
+                                                     ):
+    normalised_ef_notice: Notice = normalise_notice(sample_indexed_ef_html_unsafe_notice)
+
+    assert normalised_ef_notice.normalised_metadata.notice_publication_number.strip() == normalised_ef_notice.normalised_metadata.notice_publication_number
+
+    normalised_sf_notice: Notice = normalise_notice(sample_indexed_sf_html_unsafe_notice)
+
+    assert normalised_sf_notice.normalised_metadata.notice_publication_number.strip() == normalised_sf_notice.normalised_metadata.notice_publication_number
+
+
+def test_get_html_compatible_string(html_incompatible_str: str):
+    with pytest.raises(ParseError):
+        ElementTree.fromstring(html_incompatible_str)
+
+    compatible_str: LanguageTaggedString = get_html_compatible_string(LanguageTaggedString(text=html_incompatible_str))
+
+
+    # Parse to check if str is well-formed (HTML-safe sequences or elements)
+    ElementTree.fromstring(html_str(compatible_str.text))
+
+
+def test_normalising_notice_with_html_incompatible_title(sample_indexed_ef_html_unsafe_notice: Notice,
+                                                     sample_indexed_sf_html_unsafe_notice: Notice):
+
+    normalised_ef_notice: Notice = normalise_notice(sample_indexed_ef_html_unsafe_notice)
+
+    [ElementTree.fromstring(html_str(title.text)) for title in normalised_ef_notice.normalised_metadata.title  ]
+
+    normalised_sf_notice: Notice = normalise_notice(sample_indexed_sf_html_unsafe_notice)
+
+    [ElementTree.fromstring(html_str(title.text)) for title in normalised_sf_notice.normalised_metadata.title]

@@ -42,6 +42,8 @@ def create_notice_collection_materialised_view(mongo_client: MongoClient):
                 "publication_date_str_ym": "$normalised_metadata.publication_date_str_ym",
                 "publication_date_str_ymd": "$normalised_metadata.publication_date_str_ymd",
                 "deduplication_report": "$rdf_manifestation.deduplication_report",
+                "notice_source": "$normalised_metadata.notice_source",
+                "eform_sdk_version": "$normalised_metadata.eform_sdk_version",
             }
         },
         {

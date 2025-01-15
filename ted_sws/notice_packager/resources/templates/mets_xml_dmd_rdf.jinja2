@@ -12,6 +12,7 @@
     <cdm:work rdf:about="&resource;ted/{{ work.identifier }}">
         {# <rdf:type rdf:resource="http://publications.europa.eu/ontology/cdm#work"/> #}
         <rdf:type rdf:resource="http://publications.europa.eu/ontology/cdm#procurement_public"/>
+        <cdm:work_id rdf:datatype="http://www.w3.org/2001/XMLSchema#string">{{ work.uri }}</cdm:work_id>
         <cdm:work_id_document rdf:datatype="http://www.w3.org/2001/XMLSchema#string">ted:{{ work.identifier }}</cdm:work_id_document>
         <cdm:work_id_document rdf:datatype="http://www.w3.org/2001/XMLSchema#string">oj:{{ work.oj_identifier }}</cdm:work_id_document>
         <cdm:work_has_resource-type rdf:resource="http://publications.europa.eu/resource/authority/resource-type/PROCUREMENT_NOTICE"/>

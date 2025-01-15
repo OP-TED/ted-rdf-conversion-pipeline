@@ -98,3 +98,9 @@ def invalid_rdf_files_path():
 @pytest.fixture
 def notice_id():
     return "196390_2018"
+
+
+@pytest.fixture
+def work_id_predicate():
+    """Returns the URI predicate for the CDM work identifier."""
+    return "http://publications.europa.eu/ontology/cdm#work_id"

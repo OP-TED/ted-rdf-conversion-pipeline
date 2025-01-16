@@ -1,4 +1,3 @@
-import pathlib
 from xml.etree import ElementTree
 from xml.etree.ElementTree import ParseError
 
@@ -20,8 +19,10 @@ from ted_sws.notice_metadata_processor.services.metadata_normalizer import norma
     extract_and_normalise_notice_metadata
 from ted_sws.resources.mapping_files_registry import MappingFilesRegistry
 
+
 def html_str(content: str) -> str:
     return f"""<?xml version="1.0" encoding="UTF-8"?> <body>{content}</body>"""
+
 
 def test_metadata_normaliser_by_notice(indexed_notice):
     notice = normalise_notice(indexed_notice)
@@ -261,17 +262,15 @@ def test_get_html_compatible_string(html_incompatible_str: str):
 
     compatible_str: LanguageTaggedString = get_html_compatible_string(LanguageTaggedString(text=html_incompatible_str))
 
-
     # Parse to check if str is well-formed (HTML-safe sequences or elements)
     ElementTree.fromstring(html_str(compatible_str.text))
 
 
 def test_normalising_notice_with_html_incompatible_title(sample_indexed_ef_html_unsafe_notice: Notice,
-                                                     sample_indexed_sf_html_unsafe_notice: Notice):
-
+                                                         sample_indexed_sf_html_unsafe_notice: Notice):
     normalised_ef_notice: Notice = normalise_notice(sample_indexed_ef_html_unsafe_notice)
 
-    [ElementTree.fromstring(html_str(title.text)) for title in normalised_ef_notice.normalised_metadata.title  ]
+    [ElementTree.fromstring(html_str(title.text)) for title in normalised_ef_notice.normalised_metadata.title]
 
     normalised_sf_notice: Notice = normalise_notice(sample_indexed_sf_html_unsafe_notice)
 

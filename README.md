@@ -15,23 +15,10 @@
 
 [![codecov](https://codecov.io/gh/OP-TED/ted-rdf-conversion-pipeline/branch/main/graph/badge.svg?token=DzceZJWLaL)](https://codecov.io/gh/OP-TED/ted-rdf-conversion-pipeline) 
 
-
-## Documentation
-
-This repository is part of the TED Semantic Web Services, aka TED-SWS System. If you would like to contribute to this project, or you are a simple user, please refer to the following project documentation pages:
-
-* [Project documentation ](https://docs.ted.europa.eu/rdf-conversion/index.html)
-* [GitHub pages with the enterprise architecture (in development)](https://docs.ted.europa.eu/rdf-conversion/_attachments/ted-sws-architecture/index.html)
-* [Enterprise architecture model file (in development)](https://drive.google.com/file/d/1YB2dPYe9E9bAR2peVraQaUANS-hXetms/view?usp=sharing)
-
-
 # Installation & Usage
 Two sets of installation instruction are foreseen: one for the software engineers and one for the semantic engineers.
 The software engineers need these instructions to deploy on a local or a single machine testing server.
 The semantic engineers need a set of CLI tools that help develop, validate and publish mapping suites.
-
-* [Demo & Testing installation instructions for software engineers](https://docs.ted.europa.eu/rdf-conversion/technical/demo_installation.html)
-* [Installation & Usage instructions for the Mapping Suite CLI toolchain](https://docs.ted.europa.eu/rdf-conversion/technical/mapping_suite_cli_toolchain.html)
 
 ## Contributing
 

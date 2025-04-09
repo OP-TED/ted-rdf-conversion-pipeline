@@ -18,7 +18,7 @@ services:
       - 'traefik.enable=false'
 
   mongo-express:
-    image: mongo-express
+    image: mongo-express:1.0.2
     container_name: mongo-express-${ENVIRONMENT}
     environment:
       - ME_CONFIG_MONGODB_SERVER=mongodb-${ENVIRONMENT}

@@ -37,7 +37,7 @@ def notice_fetcher_by_query_pipeline(query: str = None) -> List[str]:
     from ted_sws.event_manager.services.log import log_error
     notice_ids = None
     try:
-        ted_api_query = {"q": query}
+        ted_api_query = {"query": query}
         mongodb_client = MongoClient(config.MONGO_DB_AUTH_URL)
         notice_ids = NoticeFetcher(notice_repository=NoticeRepository(mongodb_client=mongodb_client),
                                    ted_api_adapter=TedAPIAdapter(

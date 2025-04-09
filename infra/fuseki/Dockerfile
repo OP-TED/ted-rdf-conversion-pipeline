@@ -1,12 +1,12 @@
-FROM docker.io/secoresearch/fuseki:4.5.0
+FROM docker.io/secoresearch/fuseki:5.3.0
 
 USER root
-RUN apt-get update; \
-    apt-get install -y --no-install-recommends procps
+RUN apk update && \
+    apk add --no-cache procps
 
 
 # Create a non-root user and group
-RUN groupadd -r fuseki && useradd -r -g fuseki fuseki
+RUN addgroup -S fuseki && adduser -S fuseki -G fuseki
 
 # Ensure the /fuseki-base and /fuseki-data directories exist and set permissions
 RUN mkdir -p /fuseki-base /fuseki-data/databases /tmp && \

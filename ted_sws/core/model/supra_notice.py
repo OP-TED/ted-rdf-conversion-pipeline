@@ -33,8 +33,8 @@ class SupraNoticeValidationReport(Manifestation):
     """
         Result of checking whether all the notices published in TED are present in the internal database.
     """
-    missing_notice_ids: Optional[List[str]]
-    not_published_notice_ids: Optional[List[str]]
+    missing_notice_ids: Optional[List[str]] = None
+    not_published_notice_ids: Optional[List[str]] = None
 
     def is_valid(self):
         if not self.missing_notice_ids and not self.not_published_notice_ids:
@@ -47,5 +47,5 @@ class DailySupraNotice(SupraNotice):
         This is an aggregate over the notices published in TED in a specific day.
     """
     ted_publication_date: date
-    validation_report: Optional[SupraNoticeValidationReport]
-    validation_summary: Optional[ValidationSummaryReport]
+    validation_report: Optional[SupraNoticeValidationReport] = None
+    validation_summary: Optional[ValidationSummaryReport] = None

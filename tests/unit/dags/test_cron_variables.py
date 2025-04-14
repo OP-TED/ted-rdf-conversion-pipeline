@@ -14,8 +14,12 @@ def test_valid_cron_expression(example_cron_table: str, example_dag_cron_table: 
 
 def test_invalid_cron_expression(example_wrong_cron_table: str):
     """Test that an invalid cron expression raises an error"""
+    timetable = CronTriggerTimetable(cron=example_wrong_cron_table, timezone="UTC")
     with pytest.raises(Exception):
-        CronTriggerTimetable(cron=example_wrong_cron_table, timezone="UTC")
+        timetable.next_dagrun_info(
+            last_automated_dagrun=None,
+            restriction=None,
+        )
 
 
 def test_schedule_variable_names(dag_fetch_schedule_variable_name: str,

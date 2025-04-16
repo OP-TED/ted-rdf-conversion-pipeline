@@ -5,11 +5,12 @@ USER root
 
 RUN apt-get update && apt-get install -y \
     build-essential=12.9 \
-    default-jre=2:1.11-72 \
-    git=1:2.30.2-1+deb11u2 \
+    default-jre=2:1.17-74 \
+    git=1:2.39.5-0+deb12u2 \
     make=4.3-4.1 \
-    wget=1.21-1+deb11u1 \
-    unzip=6.0-26+deb11u1 \
+    wget=1.21.3-1+deb12u1 \
+    unzip=6.0-28 \
+    gosu=1.14-1+b10 \
     && rm -rf /var/lib/apt/lists/*
 
 # back to normal user

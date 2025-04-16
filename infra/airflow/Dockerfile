@@ -1,4 +1,4 @@
-FROM docker.io/apache/airflow:2.5.1-python3.8
+FROM docker.io/apache/airflow:2.10.5-python3.10
 
 # quick sudo
 USER root
@@ -26,4 +26,4 @@ RUN mkdir -p ./dags ./ted_sws
 
 
 RUN pip install --upgrade pip
-RUN pip install --no-cache-dir -r requirements.txt --constraint "https://raw.githubusercontent.com/apache/airflow/constraints-2.5.1/constraints-no-providers-3.8.txt"
+RUN pip install --no-cache-dir -r requirements.txt --constraint "https://raw.githubusercontent.com/apache/airflow/constraints-2.10.5/constraints-no-providers-3.10.txt"

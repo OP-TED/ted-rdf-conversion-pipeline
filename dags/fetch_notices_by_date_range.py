@@ -1,10 +1,11 @@
-from datetime import datetime
+from datetime import datetime, date
 from typing import Any
 from dateutil import rrule
 
 from airflow.decorators import dag, task
 from airflow.operators.python import get_current_context
 from airflow.operators.trigger_dagrun import TriggerDagRunOperator
+from airflow.models import Param
 
 from dags import DEFAULT_DAG_ARGUMENTS
 from dags.dags_utils import get_dag_param
@@ -33,7 +34,33 @@ def generate_wildcards_foreach_day_in_range(start_date: str, end_date: str) -> l
                                   until=datetime.strptime(end_date, '%Y%m%d'))]
 
 
-@dag(default_args=DEFAULT_DAG_ARGUMENTS, schedule_interval=None, tags=['master'])
+@dag(default_args=DEFAULT_DAG_ARGUMENTS, schedule_interval=None, tags=['fetch'],
+     params={
+         START_DATE_KEY: Param(
+             default=f"{date.today()}",
+             type="string",
+             format="date",
+             title="Start Date",
+             description="""This field is required.
+               Start date of the date range to fetch notices from TED."""
+         ),
+         END_DATE_KEY: Param(
+             default=f"{date.today()}",
+             type="string",
+             format="date",
+             title="End Date",
+             description="""This field is required.
+               End date of the date range to fetch notices from TED."""
+         ),
+         TRIGGER_COMPLETE_WORKFLOW_DAG_KEY: Param(
+             default=False,
+             type="boolean",
+             title="Trigger Complete Workflow",
+             description="""This field is required.
+           If true, the complete workflow will be triggered, otherwise only the partial workflow will be triggered."""
+         )
+     }
+     )
 def fetch_notices_by_date_range():
     @task
     @event_log(TechnicalEventMessage(

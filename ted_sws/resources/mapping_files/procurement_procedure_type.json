@@ -109,6 +109,16 @@
           "type": "uri",
           "value": "http://publications.europa.eu/resource/authority/procurement-procedure-type/comp-tend"
         }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "exp-int-rail"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://publications.europa.eu/resource/authority/procurement-procedure-type/exp-int-rail"
+        }
       }
     ]
   }

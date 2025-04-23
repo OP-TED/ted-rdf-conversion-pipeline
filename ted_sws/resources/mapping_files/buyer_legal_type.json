@@ -23,6 +23,26 @@
       {
         "code": {
           "type": "literal",
+          "value": "cga"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://publications.europa.eu/resource/authority/buyer-legal-type/cga"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "la"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://publications.europa.eu/resource/authority/buyer-legal-type/la"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
           "value": "body-pl"
         },
         "conceptURI": {
@@ -63,16 +83,6 @@
       {
         "code": {
           "type": "literal",
-          "value": "cga"
-        },
-        "conceptURI": {
-          "type": "uri",
-          "value": "http://publications.europa.eu/resource/authority/buyer-legal-type/cga"
-        }
-      },
-      {
-        "code": {
-          "type": "literal",
           "value": "def-cont"
         },
         "conceptURI": {
@@ -98,16 +108,6 @@
         "conceptURI": {
           "type": "uri",
           "value": "http://publications.europa.eu/resource/authority/buyer-legal-type/int-org"
-        }
-      },
-      {
-        "code": {
-          "type": "literal",
-          "value": "la"
-        },
-        "conceptURI": {
-          "type": "uri",
-          "value": "http://publications.europa.eu/resource/authority/buyer-legal-type/la"
         }
       },
       {

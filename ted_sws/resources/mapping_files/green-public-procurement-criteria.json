@@ -1,0 +1,65 @@
+{
+  "head": {
+    "link": [],
+    "vars": [
+      "code",
+      "conceptURI"
+    ]
+  },
+  "results": {
+    "distinct": false,
+    "ordered": true,
+    "bindings": [
+      {
+        "code": {
+          "type": "literal",
+          "value": "OP_DATPRO"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://publications.europa.eu/resource/authority/gpp-criteria/OP_DATPRO"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "eu"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://publications.europa.eu/resource/authority/gpp-criteria/eu"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "other"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://publications.europa.eu/resource/authority/gpp-criteria/other"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "none"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://publications.europa.eu/resource/authority/gpp-criteria/none"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "national"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://publications.europa.eu/resource/authority/gpp-criteria/national"
+        }
+      }
+    ]
+  }
+}

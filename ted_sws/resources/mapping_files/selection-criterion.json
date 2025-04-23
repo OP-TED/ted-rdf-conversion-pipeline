@@ -1,0 +1,445 @@
+{
+  "head": {
+    "link": [],
+    "vars": [
+      "code",
+      "conceptURI"
+    ]
+  },
+  "results": {
+    "distinct": false,
+    "ordered": true,
+    "bindings": [
+      {
+        "code": {
+          "type": "literal",
+          "value": "OP_DATPRO"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://publications.europa.eu/resource/authority/selection-criterion/OP_DATPRO"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "other"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://publications.europa.eu/resource/authority/selection-criterion/other"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "ef-stand"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://publications.europa.eu/resource/authority/selection-criterion/ef-stand"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "sui-act"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://publications.europa.eu/resource/authority/selection-criterion/sui-act"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "tp-abil"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://publications.europa.eu/resource/authority/selection-criterion/tp-abil"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "slc-abil"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://publications.europa.eu/resource/authority/selection-criterion/slc-abil"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "slc-abil-facil-res"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://publications.europa.eu/resource/authority/selection-criterion/slc-abil-facil-res"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "slc-abil-facil-tools"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://publications.europa.eu/resource/authority/selection-criterion/slc-abil-facil-tools"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "slc-abil-mgmt-env"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://publications.europa.eu/resource/authority/selection-criterion/slc-abil-mgmt-env"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "slc-abil-mgmt-qual"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://publications.europa.eu/resource/authority/selection-criterion/slc-abil-mgmt-qual"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "slc-abil-mgmt-supply"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://publications.europa.eu/resource/authority/selection-criterion/slc-abil-mgmt-supply"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "slc-abil-qual-inst"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://publications.europa.eu/resource/authority/selection-criterion/slc-abil-qual-inst"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "slc-abil-qual-smp-w-autent"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://publications.europa.eu/resource/authority/selection-criterion/slc-abil-qual-smp-w-autent"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "slc-abil-qual-smp-wo-autent"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://publications.europa.eu/resource/authority/selection-criterion/slc-abil-qual-smp-wo-autent"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "slc-abil-ref-services"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://publications.europa.eu/resource/authority/selection-criterion/slc-abil-ref-services"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "slc-abil-ref-supply"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://publications.europa.eu/resource/authority/selection-criterion/slc-abil-ref-supply"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "slc-abil-ref-work"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://publications.europa.eu/resource/authority/selection-criterion/slc-abil-ref-work"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "slc-abil-staff-qual"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://publications.europa.eu/resource/authority/selection-criterion/slc-abil-staff-qual"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "slc-abil-staff-tech-ctrl"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://publications.europa.eu/resource/authority/selection-criterion/slc-abil-staff-tech-ctrl"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "slc-abil-staff-tech-work"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://publications.europa.eu/resource/authority/selection-criterion/slc-abil-staff-tech-work"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "slc-abil-staff-yrly-avg-mp"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://publications.europa.eu/resource/authority/selection-criterion/slc-abil-staff-yrly-avg-mp"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "slc-abil-staff-yrly-no-mgmt"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://publications.europa.eu/resource/authority/selection-criterion/slc-abil-staff-yrly-no-mgmt"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "slc-abil-subc"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://publications.europa.eu/resource/authority/selection-criterion/slc-abil-subc"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "slc-sche"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://publications.europa.eu/resource/authority/selection-criterion/slc-sche"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "slc-sche-env-cert-indep"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://publications.europa.eu/resource/authority/selection-criterion/slc-sche-env-cert-indep"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "slc-sche-qu-cert-indep"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://publications.europa.eu/resource/authority/selection-criterion/slc-sche-qu-cert-indep"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "slc-sec"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://publications.europa.eu/resource/authority/selection-criterion/slc-sec"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "slc-sec-inf"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://publications.europa.eu/resource/authority/selection-criterion/slc-sec-inf"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "slc-sec-proc"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://publications.europa.eu/resource/authority/selection-criterion/slc-sec-proc"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "slc-sec-supply"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://publications.europa.eu/resource/authority/selection-criterion/slc-sec-supply"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "slc-stand"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://publications.europa.eu/resource/authority/selection-criterion/slc-stand"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "slc-stand-ins"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://publications.europa.eu/resource/authority/selection-criterion/slc-stand-ins"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "slc-stand-other"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://publications.europa.eu/resource/authority/selection-criterion/slc-stand-other"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "slc-stand-ratio"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://publications.europa.eu/resource/authority/selection-criterion/slc-stand-ratio"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "slc-stand-to-avg"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://publications.europa.eu/resource/authority/selection-criterion/slc-stand-to-avg"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "slc-stand-to-gen"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://publications.europa.eu/resource/authority/selection-criterion/slc-stand-to-gen"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "slc-stand-to-spec"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://publications.europa.eu/resource/authority/selection-criterion/slc-stand-to-spec"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "slc-stand-to-spec-avg"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://publications.europa.eu/resource/authority/selection-criterion/slc-stand-to-spec-avg"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "slc-suit"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://publications.europa.eu/resource/authority/selection-criterion/slc-suit"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "slc-suit-auth-mbrshp"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://publications.europa.eu/resource/authority/selection-criterion/slc-suit-auth-mbrshp"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "slc-suit-reg-prof"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://publications.europa.eu/resource/authority/selection-criterion/slc-suit-reg-prof"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "slc-suit-reg-trade"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://publications.europa.eu/resource/authority/selection-criterion/slc-suit-reg-trade"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "slc-abil-check"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://publications.europa.eu/resource/authority/selection-criterion/slc-abil-check"
+        }
+      }
+    ]
+  }
+}

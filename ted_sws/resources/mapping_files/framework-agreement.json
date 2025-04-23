@@ -1,0 +1,65 @@
+{
+  "head": {
+    "link": [],
+    "vars": [
+      "code",
+      "conceptURI"
+    ]
+  },
+  "results": {
+    "distinct": false,
+    "ordered": true,
+    "bindings": [
+      {
+        "code": {
+          "type": "literal",
+          "value": "OP_DATPRO"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://publications.europa.eu/resource/authority/framework-agreement/OP_DATPRO"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "fa-mix"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://publications.europa.eu/resource/authority/framework-agreement/fa-mix"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "fa-w-rc"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://publications.europa.eu/resource/authority/framework-agreement/fa-w-rc"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "fa-wo-rc"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://publications.europa.eu/resource/authority/framework-agreement/fa-wo-rc"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "none"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://publications.europa.eu/resource/authority/framework-agreement/none"
+        }
+      }
+    ]
+  }
+}

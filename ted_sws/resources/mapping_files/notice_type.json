@@ -219,6 +219,26 @@
           "type": "uri",
           "value": "http://publications.europa.eu/resource/authority/notice-type/pin-tran"
         }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "compl"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://publications.europa.eu/resource/authority/notice-type/compl"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "pmc"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://publications.europa.eu/resource/authority/notice-type/pmc"
+        }
       }
     ]
   }

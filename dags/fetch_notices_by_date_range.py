@@ -21,20 +21,20 @@ START_DATE_KEY = "start_date"
 END_DATE_KEY = "end_date"
 
 
-def generate_wildcards_foreach_day_in_range(start_date: str, end_date: str) -> list:
+def generate_list_of_dates_from_date_range(start_date: str, end_date: str) -> list:
     """
         Given a date range returns all daily dates in that range
     :param start_date:
     :param end_date:
     :return:
     """
-    return [dt.strftime('%Y%m%d*')
+    return [dt
             for dt in rrule.rrule(rrule.DAILY,
-                                  dtstart=datetime.strptime(start_date, '%Y%m%d'),
-                                  until=datetime.strptime(end_date, '%Y%m%d'))]
+                                  dtstart=datetime.strptime(start_date, '%Y-%m-%d'),
+                                  until=datetime.strptime(end_date, '%Y-%m-%d'))]
 
 
-@dag(default_args=DEFAULT_DAG_ARGUMENTS, schedule_interval=None, tags=['fetch'],
+@dag(default_args=DEFAULT_DAG_ARGUMENTS, schedule_interval=None, tags=['master'],
      params={
          START_DATE_KEY: Param(
              default=f"{date.today()}",
@@ -74,12 +74,12 @@ def fetch_notices_by_date_range():
         start_date = get_dag_param(key=START_DATE_KEY, raise_error=True)
         end_date = get_dag_param(key=END_DATE_KEY, raise_error=True)
         trigger_complete_workflow = get_dag_param(key=TRIGGER_COMPLETE_WORKFLOW_DAG_KEY, default_value=False)
-        date_wildcards = generate_wildcards_foreach_day_in_range(start_date, end_date)
-        for date_wildcard in date_wildcards:
+        fetch_dates = generate_list_of_dates_from_date_range(start_date, end_date)
+        for fetch_date in fetch_dates:
             TriggerDagRunOperator(
-                task_id=f'trigger_notice_fetch_by_date_workflow_dag_{date_wildcard[:-1]}',
+                task_id=f'trigger_notice_fetch_by_date_workflow_dag_{fetch_date.strftime("%Y_%m_%d")}',
                 trigger_dag_id=FETCH_NOTICES_BY_DATE_DAG_NAME,
-                conf={WILD_CARD_DAG_KEY: date_wildcard,
+                conf={WILD_CARD_DAG_KEY: fetch_date.strftime('%Y-%m-%d'),
                       TRIGGER_COMPLETE_WORKFLOW_DAG_KEY: trigger_complete_workflow,
                       }
             ).execute(context=context)

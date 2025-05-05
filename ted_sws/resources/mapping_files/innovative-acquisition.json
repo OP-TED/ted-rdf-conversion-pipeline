@@ -23,6 +23,16 @@
       {
         "code": {
           "type": "literal",
+          "value": "other"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://publications.europa.eu/resource/authority/innovative-acquisition/other"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
           "value": "buy-eff"
         },
         "conceptURI": {
@@ -58,16 +68,6 @@
         "conceptURI": {
           "type": "uri",
           "value": "http://publications.europa.eu/resource/authority/innovative-acquisition/org-nov"
-        }
-      },
-      {
-        "code": {
-          "type": "literal",
-          "value": "other"
-        },
-        "conceptURI": {
-          "type": "uri",
-          "value": "http://publications.europa.eu/resource/authority/innovative-acquisition/other"
         }
       },
       {

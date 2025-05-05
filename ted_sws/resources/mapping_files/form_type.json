@@ -13,16 +13,6 @@
       {
         "code": {
           "type": "literal",
-          "value": "planning"
-        },
-        "conceptURI": {
-          "type": "uri",
-          "value": "http://publications.europa.eu/resource/authority/form-type/planning"
-        }
-      },
-      {
-        "code": {
-          "type": "literal",
           "value": "OP_DATPRO"
         },
         "conceptURI": {
@@ -33,11 +23,31 @@
       {
         "code": {
           "type": "literal",
+          "value": "bri"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://publications.europa.eu/resource/authority/form-type/bri"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
           "value": "change"
         },
         "conceptURI": {
           "type": "uri",
           "value": "http://publications.europa.eu/resource/authority/form-type/change"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "consultation"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://publications.europa.eu/resource/authority/form-type/consultation"
         }
       },
       {
@@ -83,11 +93,11 @@
       {
         "code": {
           "type": "literal",
-          "value": "bri"
+          "value": "planning"
         },
         "conceptURI": {
           "type": "uri",
-          "value": "http://publications.europa.eu/resource/authority/form-type/bri"
+          "value": "http://publications.europa.eu/resource/authority/form-type/planning"
         }
       },
       {
@@ -98,16 +108,6 @@
         "conceptURI": {
           "type": "uri",
           "value": "http://publications.europa.eu/resource/authority/form-type/completion"
-        }
-      },
-      {
-        "code": {
-          "type": "literal",
-          "value": "consultation"
-        },
-        "conceptURI": {
-          "type": "uri",
-          "value": "http://publications.europa.eu/resource/authority/form-type/consultation"
         }
       }
     ]

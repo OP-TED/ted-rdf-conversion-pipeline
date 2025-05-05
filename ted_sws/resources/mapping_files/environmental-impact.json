@@ -23,6 +23,16 @@
       {
         "code": {
           "type": "literal",
+          "value": "other"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://publications.europa.eu/resource/authority/environmental-impact/other"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
           "value": "emas-com"
         },
         "conceptURI": {
@@ -58,16 +68,6 @@
         "conceptURI": {
           "type": "uri",
           "value": "http://publications.europa.eu/resource/authority/environmental-impact/iso-14024-com"
-        }
-      },
-      {
-        "code": {
-          "type": "literal",
-          "value": "other"
-        },
-        "conceptURI": {
-          "type": "uri",
-          "value": "http://publications.europa.eu/resource/authority/environmental-impact/other"
         }
       },
       {

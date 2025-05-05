@@ -13,81 +13,11 @@
       {
         "code": {
           "type": "literal",
-          "value": "OP_DATPRO"
+          "value": "31985R2137"
         },
         "conceptURI": {
           "type": "uri",
-          "value": "http://publications.europa.eu/resource/authority/legal-basis/OP_DATPRO"
-        }
-      },
-      {
-        "code": {
-          "type": "literal",
-          "value": "other"
-        },
-        "conceptURI": {
-          "type": "uri",
-          "value": "http://publications.europa.eu/resource/authority/legal-basis/other"
-        }
-      },
-      {
-        "code": {
-          "type": "literal",
-          "value": "32004L0017"
-        },
-        "conceptURI": {
-          "type": "uri",
-          "value": "http://publications.europa.eu/resource/authority/legal-basis/32004L0017"
-        }
-      },
-      {
-        "code": {
-          "type": "literal",
-          "value": "32018R1046"
-        },
-        "conceptURI": {
-          "type": "uri",
-          "value": "http://publications.europa.eu/resource/authority/legal-basis/32018R1046"
-        }
-      },
-      {
-        "code": {
-          "type": "literal",
-          "value": "32012R0966"
-        },
-        "conceptURI": {
-          "type": "uri",
-          "value": "http://publications.europa.eu/resource/authority/legal-basis/32012R0966"
-        }
-      },
-      {
-        "code": {
-          "type": "literal",
-          "value": "32004L0018"
-        },
-        "conceptURI": {
-          "type": "uri",
-          "value": "http://publications.europa.eu/resource/authority/legal-basis/32004L0018"
-        }
-      },
-      {
-        "code": {
-          "type": "literal",
-          "value": "32014L0024"
-        },
-        "conceptURI": {
-          "type": "uri",
-          "value": "http://publications.europa.eu/resource/authority/legal-basis/32014L0024"
-        }
-      },
-      {
-        "code": {
-          "type": "literal",
-          "value": "32014L0025"
-        },
-        "conceptURI": {
-          "type": "uri",
-          "value": "http://publications.europa.eu/resource/authority/legal-basis/32014L0025"
+          "value": "http://publications.europa.eu/resource/authority/legal-basis/31985R2137"
         }
       },
       {
@@ -98,106 +28,6 @@
         "conceptURI": {
           "type": "uri",
           "value": "http://publications.europa.eu/resource/authority/legal-basis/31992L0013"
-        }
-      },
-      {
-        "code": {
-          "type": "literal",
-          "value": "31994D0800"
-        },
-        "conceptURI": {
-          "type": "uri",
-          "value": "http://publications.europa.eu/resource/authority/legal-basis/31994D0800"
-        }
-      },
-      {
-        "code": {
-          "type": "literal",
-          "value": "32002D0309"
-        },
-        "conceptURI": {
-          "type": "uri",
-          "value": "http://publications.europa.eu/resource/authority/legal-basis/32002D0309"
-        }
-      },
-      {
-        "code": {
-          "type": "literal",
-          "value": "32003R1435"
-        },
-        "conceptURI": {
-          "type": "uri",
-          "value": "http://publications.europa.eu/resource/authority/legal-basis/32003R1435"
-        }
-      },
-      {
-        "code": {
-          "type": "literal",
-          "value": "32007R0718"
-        },
-        "conceptURI": {
-          "type": "uri",
-          "value": "http://publications.europa.eu/resource/authority/legal-basis/32007R0718"
-        }
-      },
-      {
-        "code": {
-          "type": "literal",
-          "value": "32008R1008"
-        },
-        "conceptURI": {
-          "type": "uri",
-          "value": "http://publications.europa.eu/resource/authority/legal-basis/32008R1008"
-        }
-      },
-      {
-        "code": {
-          "type": "literal",
-          "value": "32012R1268"
-        },
-        "conceptURI": {
-          "type": "uri",
-          "value": "http://publications.europa.eu/resource/authority/legal-basis/32012R1268"
-        }
-      },
-      {
-        "code": {
-          "type": "literal",
-          "value": "32013L0016"
-        },
-        "conceptURI": {
-          "type": "uri",
-          "value": "http://publications.europa.eu/resource/authority/legal-basis/32013L0016"
-        }
-      },
-      {
-        "code": {
-          "type": "literal",
-          "value": "32014L0023"
-        },
-        "conceptURI": {
-          "type": "uri",
-          "value": "http://publications.europa.eu/resource/authority/legal-basis/32014L0023"
-        }
-      },
-      {
-        "code": {
-          "type": "literal",
-          "value": "32015R0323"
-        },
-        "conceptURI": {
-          "type": "uri",
-          "value": "http://publications.europa.eu/resource/authority/legal-basis/32015R0323"
-        }
-      },
-      {
-        "code": {
-          "type": "literal",
-          "value": "31985R2137"
-        },
-        "conceptURI": {
-          "type": "uri",
-          "value": "http://publications.europa.eu/resource/authority/legal-basis/31985R2137"
         }
       },
       {
@@ -233,6 +63,36 @@
       {
         "code": {
           "type": "literal",
+          "value": "32004L0017"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://publications.europa.eu/resource/authority/legal-basis/32004L0017"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "32004L0018"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://publications.europa.eu/resource/authority/legal-basis/32004L0018"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "32007D0005_01"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://publications.europa.eu/resource/authority/legal-basis/32007D0005_01"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
           "value": "32007L0066"
         },
         "conceptURI": {
@@ -253,11 +113,41 @@
       {
         "code": {
           "type": "literal",
+          "value": "32008R1008"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://publications.europa.eu/resource/authority/legal-basis/32008R1008"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
           "value": "32009L0081"
         },
         "conceptURI": {
           "type": "uri",
           "value": "http://publications.europa.eu/resource/authority/legal-basis/32009L0081"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "32012R0966"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://publications.europa.eu/resource/authority/legal-basis/32012R0966"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "32012R1268"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://publications.europa.eu/resource/authority/legal-basis/32012R1268"
         }
       },
       {
@@ -283,21 +173,21 @@
       {
         "code": {
           "type": "literal",
-          "value": "32005D0015"
+          "value": "32014L0024"
         },
         "conceptURI": {
           "type": "uri",
-          "value": "http://publications.europa.eu/resource/authority/legal-basis/32005D0015"
+          "value": "http://publications.europa.eu/resource/authority/legal-basis/32014L0024"
         }
       },
       {
         "code": {
           "type": "literal",
-          "value": "32007D0005_01"
+          "value": "32014L0025"
         },
         "conceptURI": {
           "type": "uri",
-          "value": "http://publications.europa.eu/resource/authority/legal-basis/32007D0005_01"
+          "value": "http://publications.europa.eu/resource/authority/legal-basis/32014L0025"
         }
       },
       {
@@ -308,6 +198,116 @@
         "conceptURI": {
           "type": "uri",
           "value": "http://publications.europa.eu/resource/authority/legal-basis/32016D0002"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "32018R1046"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://publications.europa.eu/resource/authority/legal-basis/32018R1046"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "31994D0800"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://publications.europa.eu/resource/authority/legal-basis/31994D0800"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "32003R1435"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://publications.europa.eu/resource/authority/legal-basis/32003R1435"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "32005D0015"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://publications.europa.eu/resource/authority/legal-basis/32005D0015"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "32007R0718"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://publications.europa.eu/resource/authority/legal-basis/32007R0718"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "32014L0023"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://publications.europa.eu/resource/authority/legal-basis/32014L0023"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "32015R0323"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://publications.europa.eu/resource/authority/legal-basis/32015R0323"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "other"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://publications.europa.eu/resource/authority/legal-basis/other"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "32002D0309"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://publications.europa.eu/resource/authority/legal-basis/32002D0309"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "32013L0016"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://publications.europa.eu/resource/authority/legal-basis/32013L0016"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "OP_DATPRO"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://publications.europa.eu/resource/authority/legal-basis/OP_DATPRO"
         }
       },
       {

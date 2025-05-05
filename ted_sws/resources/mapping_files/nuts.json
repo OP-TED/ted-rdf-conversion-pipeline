@@ -22093,26 +22093,6 @@
       {
         "code": {
           "type": "literal",
-          "value": "DE422"
-        },
-        "conceptURI": {
-          "type": "uri",
-          "value": "http://data.europa.eu/nuts/code/DE422"
-        }
-      },
-      {
-        "code": {
-          "type": "literal",
-          "value": "DE427"
-        },
-        "conceptURI": {
-          "type": "uri",
-          "value": "http://data.europa.eu/nuts/code/DE427"
-        }
-      },
-      {
-        "code": {
-          "type": "literal",
           "value": "AT111"
         },
         "conceptURI": {
@@ -22133,131 +22113,161 @@
       {
         "code": {
           "type": "literal",
-          "value": "IT517"
+          "value": "IT12"
         },
         "conceptURI": {
           "type": "uri",
-          "value": "http://data.europa.eu/nuts/code/IT517"
+          "value": "http://data.europa.eu/nuts/code/IT12"
         }
       },
       {
         "code": {
           "type": "literal",
-          "value": "ITE17"
+          "value": "IT120"
         },
         "conceptURI": {
           "type": "uri",
-          "value": "http://data.europa.eu/nuts/code/ITE17"
+          "value": "http://data.europa.eu/nuts/code/IT120"
         }
       },
       {
         "code": {
           "type": "literal",
-          "value": "IT52"
+          "value": "IT72"
         },
         "conceptURI": {
           "type": "uri",
-          "value": "http://data.europa.eu/nuts/code/IT52"
+          "value": "http://data.europa.eu/nuts/code/IT72"
         }
       },
       {
         "code": {
           "type": "literal",
-          "value": "ITE13"
+          "value": "DE42A"
         },
         "conceptURI": {
           "type": "uri",
-          "value": "http://data.europa.eu/nuts/code/ITE13"
+          "value": "http://data.europa.eu/nuts/code/DE42A"
         }
       },
       {
         "code": {
           "type": "literal",
-          "value": "DED1"
+          "value": "IT605"
         },
         "conceptURI": {
           "type": "uri",
-          "value": "http://data.europa.eu/nuts/code/DED1"
+          "value": "http://data.europa.eu/nuts/code/IT605"
         }
       },
       {
         "code": {
           "type": "literal",
-          "value": "IT602"
+          "value": "ITE45"
         },
         "conceptURI": {
           "type": "uri",
-          "value": "http://data.europa.eu/nuts/code/IT602"
+          "value": "http://data.europa.eu/nuts/code/ITE45"
         }
       },
       {
         "code": {
           "type": "literal",
-          "value": "DED25"
+          "value": "DK00D"
         },
         "conceptURI": {
           "type": "uri",
-          "value": "http://data.europa.eu/nuts/code/DED25"
+          "value": "http://data.europa.eu/nuts/code/DK00D"
         }
       },
       {
         "code": {
           "type": "literal",
-          "value": "IT711"
+          "value": "ITB04"
         },
         "conceptURI": {
           "type": "uri",
-          "value": "http://data.europa.eu/nuts/code/IT711"
+          "value": "http://data.europa.eu/nuts/code/ITB04"
         }
       },
       {
         "code": {
           "type": "literal",
-          "value": "IT532"
+          "value": "ITD56"
         },
         "conceptURI": {
           "type": "uri",
-          "value": "http://data.europa.eu/nuts/code/IT532"
+          "value": "http://data.europa.eu/nuts/code/ITD56"
         }
       },
       {
         "code": {
           "type": "literal",
-          "value": "DEE33"
+          "value": "ITD59"
         },
         "conceptURI": {
           "type": "uri",
-          "value": "http://data.europa.eu/nuts/code/DEE33"
+          "value": "http://data.europa.eu/nuts/code/ITD59"
         }
       },
       {
         "code": {
           "type": "literal",
-          "value": "ITB"
+          "value": "ITG24"
         },
         "conceptURI": {
           "type": "uri",
-          "value": "http://data.europa.eu/nuts/code/ITB"
+          "value": "http://data.europa.eu/nuts/code/ITG24"
         }
       },
       {
         "code": {
           "type": "literal",
-          "value": "ITA01"
+          "value": "IT322"
         },
         "conceptURI": {
           "type": "uri",
-          "value": "http://data.europa.eu/nuts/code/ITA01"
+          "value": "http://data.europa.eu/nuts/code/IT322"
         }
       },
       {
         "code": {
           "type": "literal",
-          "value": "IT20B"
+          "value": "IT514"
         },
         "conceptURI": {
           "type": "uri",
-          "value": "http://data.europa.eu/nuts/code/IT20B"
+          "value": "http://data.europa.eu/nuts/code/IT514"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "ITA07"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://data.europa.eu/nuts/code/ITA07"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "ITE33"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://data.europa.eu/nuts/code/ITE33"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "DEE1"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://data.europa.eu/nuts/code/DEE1"
         }
       },
       {
@@ -22273,131 +22283,101 @@
       {
         "code": {
           "type": "literal",
-          "value": "DED11"
+          "value": "ITE41"
         },
         "conceptURI": {
           "type": "uri",
-          "value": "http://data.europa.eu/nuts/code/DED11"
+          "value": "http://data.europa.eu/nuts/code/ITE41"
         }
       },
       {
         "code": {
           "type": "literal",
-          "value": "IT404"
+          "value": "ITE21"
         },
         "conceptURI": {
           "type": "uri",
-          "value": "http://data.europa.eu/nuts/code/IT404"
+          "value": "http://data.europa.eu/nuts/code/ITE21"
         }
       },
       {
         "code": {
           "type": "literal",
-          "value": "IT324"
+          "value": "IT405"
         },
         "conceptURI": {
           "type": "uri",
-          "value": "http://data.europa.eu/nuts/code/IT324"
+          "value": "http://data.europa.eu/nuts/code/IT405"
         }
       },
       {
         "code": {
           "type": "literal",
-          "value": "DE418"
+          "value": "IT202"
         },
         "conceptURI": {
           "type": "uri",
-          "value": "http://data.europa.eu/nuts/code/DE418"
+          "value": "http://data.europa.eu/nuts/code/IT202"
         }
       },
       {
         "code": {
           "type": "literal",
-          "value": "IT204"
+          "value": "IT32"
         },
         "conceptURI": {
           "type": "uri",
-          "value": "http://data.europa.eu/nuts/code/IT204"
+          "value": "http://data.europa.eu/nuts/code/IT32"
         }
       },
       {
         "code": {
           "type": "literal",
-          "value": "IT801"
+          "value": "IT116"
         },
         "conceptURI": {
           "type": "uri",
-          "value": "http://data.europa.eu/nuts/code/IT801"
+          "value": "http://data.europa.eu/nuts/code/IT116"
         }
       },
       {
         "code": {
           "type": "literal",
-          "value": "IT921"
+          "value": "ITD43"
         },
         "conceptURI": {
           "type": "uri",
-          "value": "http://data.europa.eu/nuts/code/IT921"
+          "value": "http://data.europa.eu/nuts/code/ITD43"
         }
       },
       {
         "code": {
           "type": "literal",
-          "value": "DED19"
+          "value": "IT721"
         },
         "conceptURI": {
           "type": "uri",
-          "value": "http://data.europa.eu/nuts/code/DED19"
+          "value": "http://data.europa.eu/nuts/code/IT721"
         }
       },
       {
         "code": {
           "type": "literal",
-          "value": "DK00C"
+          "value": "IT913"
         },
         "conceptURI": {
           "type": "uri",
-          "value": "http://data.europa.eu/nuts/code/DK00C"
+          "value": "http://data.europa.eu/nuts/code/IT913"
         }
       },
       {
         "code": {
           "type": "literal",
-          "value": "PT12A"
+          "value": "ITB"
         },
         "conceptURI": {
           "type": "uri",
-          "value": "http://data.europa.eu/nuts/code/PT12A"
-        }
-      },
-      {
-        "code": {
-          "type": "literal",
-          "value": "IT118"
-        },
-        "conceptURI": {
-          "type": "uri",
-          "value": "http://data.europa.eu/nuts/code/IT118"
-        }
-      },
-      {
-        "code": {
-          "type": "literal",
-          "value": "DE416"
-        },
-        "conceptURI": {
-          "type": "uri",
-          "value": "http://data.europa.eu/nuts/code/DE416"
-        }
-      },
-      {
-        "code": {
-          "type": "literal",
-          "value": "ITD5"
-        },
-        "conceptURI": {
-          "type": "uri",
-          "value": "http://data.europa.eu/nuts/code/ITD5"
+          "value": "http://data.europa.eu/nuts/code/ITB"
         }
       },
       {
@@ -22413,191 +22393,131 @@
       {
         "code": {
           "type": "literal",
-          "value": "IT13"
+          "value": "IT521"
         },
         "conceptURI": {
           "type": "uri",
-          "value": "http://data.europa.eu/nuts/code/IT13"
+          "value": "http://data.europa.eu/nuts/code/IT521"
         }
       },
       {
         "code": {
           "type": "literal",
-          "value": "ITD34"
+          "value": "ITD1"
         },
         "conceptURI": {
           "type": "uri",
-          "value": "http://data.europa.eu/nuts/code/ITD34"
+          "value": "http://data.europa.eu/nuts/code/ITD1"
         }
       },
       {
         "code": {
           "type": "literal",
-          "value": "IT311"
+          "value": "DK003"
         },
         "conceptURI": {
           "type": "uri",
-          "value": "http://data.europa.eu/nuts/code/IT311"
+          "value": "http://data.europa.eu/nuts/code/DK003"
         }
       },
       {
         "code": {
           "type": "literal",
-          "value": "IT113"
+          "value": "IT201"
         },
         "conceptURI": {
           "type": "uri",
-          "value": "http://data.europa.eu/nuts/code/IT113"
+          "value": "http://data.europa.eu/nuts/code/IT201"
         }
       },
       {
         "code": {
           "type": "literal",
-          "value": "IT31"
+          "value": "IT407"
         },
         "conceptURI": {
           "type": "uri",
-          "value": "http://data.europa.eu/nuts/code/IT31"
+          "value": "http://data.europa.eu/nuts/code/IT407"
         }
       },
       {
         "code": {
           "type": "literal",
-          "value": "IT321"
+          "value": "IT207"
         },
         "conceptURI": {
           "type": "uri",
-          "value": "http://data.europa.eu/nuts/code/IT321"
+          "value": "http://data.europa.eu/nuts/code/IT207"
         }
       },
       {
         "code": {
           "type": "literal",
-          "value": "ITD31"
+          "value": "ITE44"
         },
         "conceptURI": {
           "type": "uri",
-          "value": "http://data.europa.eu/nuts/code/ITD31"
+          "value": "http://data.europa.eu/nuts/code/ITE44"
         }
       },
       {
         "code": {
           "type": "literal",
-          "value": "IT333"
+          "value": "IT931"
         },
         "conceptURI": {
           "type": "uri",
-          "value": "http://data.europa.eu/nuts/code/IT333"
+          "value": "http://data.europa.eu/nuts/code/IT931"
         }
       },
       {
         "code": {
           "type": "literal",
-          "value": "DE415"
+          "value": "IT323"
         },
         "conceptURI": {
           "type": "uri",
-          "value": "http://data.europa.eu/nuts/code/DE415"
+          "value": "http://data.europa.eu/nuts/code/IT323"
         }
       },
       {
         "code": {
           "type": "literal",
-          "value": "PT135"
+          "value": "ITE18"
         },
         "conceptURI": {
           "type": "uri",
-          "value": "http://data.europa.eu/nuts/code/PT135"
+          "value": "http://data.europa.eu/nuts/code/ITE18"
         }
       },
       {
         "code": {
           "type": "literal",
-          "value": "NO094"
+          "value": "IT805"
         },
         "conceptURI": {
           "type": "uri",
-          "value": "http://data.europa.eu/nuts/code/NO094"
+          "value": "http://data.europa.eu/nuts/code/IT805"
         }
       },
       {
         "code": {
           "type": "literal",
-          "value": "ITE31"
+          "value": "DED1A"
         },
         "conceptURI": {
           "type": "uri",
-          "value": "http://data.europa.eu/nuts/code/ITE31"
+          "value": "http://data.europa.eu/nuts/code/DED1A"
         }
       },
       {
         "code": {
           "type": "literal",
-          "value": "IT531"
+          "value": "DK00E"
         },
         "conceptURI": {
           "type": "uri",
-          "value": "http://data.europa.eu/nuts/code/IT531"
-        }
-      },
-      {
-        "code": {
-          "type": "literal",
-          "value": "DK009"
-        },
-        "conceptURI": {
-          "type": "uri",
-          "value": "http://data.europa.eu/nuts/code/DK009"
-        }
-      },
-      {
-        "code": {
-          "type": "literal",
-          "value": "GR411"
-        },
-        "conceptURI": {
-          "type": "uri",
-          "value": "http://data.europa.eu/nuts/code/GR411"
-        }
-      },
-      {
-        "code": {
-          "type": "literal",
-          "value": "DED27"
-        },
-        "conceptURI": {
-          "type": "uri",
-          "value": "http://data.europa.eu/nuts/code/DED27"
-        }
-      },
-      {
-        "code": {
-          "type": "literal",
-          "value": "IT804"
-        },
-        "conceptURI": {
-          "type": "uri",
-          "value": "http://data.europa.eu/nuts/code/IT804"
-        }
-      },
-      {
-        "code": {
-          "type": "literal",
-          "value": "DK00A"
-        },
-        "conceptURI": {
-          "type": "uri",
-          "value": "http://data.europa.eu/nuts/code/DK00A"
-        }
-      },
-      {
-        "code": {
-          "type": "literal",
-          "value": "DED36"
-        },
-        "conceptURI": {
-          "type": "uri",
-          "value": "http://data.europa.eu/nuts/code/DED36"
+          "value": "http://data.europa.eu/nuts/code/DK00E"
         }
       },
       {
@@ -22633,101 +22553,91 @@
       {
         "code": {
           "type": "literal",
-          "value": "IT522"
+          "value": "IT51"
         },
         "conceptURI": {
           "type": "uri",
-          "value": "http://data.europa.eu/nuts/code/IT522"
+          "value": "http://data.europa.eu/nuts/code/IT51"
         }
       },
       {
         "code": {
           "type": "literal",
-          "value": "IT325"
+          "value": "DEE21"
         },
         "conceptURI": {
           "type": "uri",
-          "value": "http://data.europa.eu/nuts/code/IT325"
+          "value": "http://data.europa.eu/nuts/code/DEE21"
         }
       },
       {
         "code": {
           "type": "literal",
-          "value": "ITE41"
+          "value": "DEA25"
         },
         "conceptURI": {
           "type": "uri",
-          "value": "http://data.europa.eu/nuts/code/ITE41"
+          "value": "http://data.europa.eu/nuts/code/DEA25"
         }
       },
       {
         "code": {
           "type": "literal",
-          "value": "IT405"
+          "value": "ITE34"
         },
         "conceptURI": {
           "type": "uri",
-          "value": "http://data.europa.eu/nuts/code/IT405"
+          "value": "http://data.europa.eu/nuts/code/ITE34"
         }
       },
       {
         "code": {
           "type": "literal",
-          "value": "IT201"
+          "value": "IT52"
         },
         "conceptURI": {
           "type": "uri",
-          "value": "http://data.europa.eu/nuts/code/IT201"
+          "value": "http://data.europa.eu/nuts/code/IT52"
         }
       },
       {
         "code": {
           "type": "literal",
-          "value": "IT332"
+          "value": "IT513"
         },
         "conceptURI": {
           "type": "uri",
-          "value": "http://data.europa.eu/nuts/code/IT332"
+          "value": "http://data.europa.eu/nuts/code/IT513"
         }
       },
       {
         "code": {
           "type": "literal",
-          "value": "IT117"
+          "value": "ITD42"
         },
         "conceptURI": {
           "type": "uri",
-          "value": "http://data.europa.eu/nuts/code/IT117"
+          "value": "http://data.europa.eu/nuts/code/ITD42"
         }
       },
       {
         "code": {
           "type": "literal",
-          "value": "IT33"
+          "value": "IT20A"
         },
         "conceptURI": {
           "type": "uri",
-          "value": "http://data.europa.eu/nuts/code/IT33"
+          "value": "http://data.europa.eu/nuts/code/IT20A"
         }
       },
       {
         "code": {
           "type": "literal",
-          "value": "ITD33"
+          "value": "ITC45"
         },
         "conceptURI": {
           "type": "uri",
-          "value": "http://data.europa.eu/nuts/code/ITD33"
-        }
-      },
-      {
-        "code": {
-          "type": "literal",
-          "value": "IT208"
-        },
-        "conceptURI": {
-          "type": "uri",
-          "value": "http://data.europa.eu/nuts/code/IT208"
+          "value": "http://data.europa.eu/nuts/code/ITC45"
         }
       },
       {
@@ -22743,61 +22653,151 @@
       {
         "code": {
           "type": "literal",
-          "value": "DEE36"
+          "value": "ITD53"
         },
         "conceptURI": {
           "type": "uri",
-          "value": "http://data.europa.eu/nuts/code/DEE36"
+          "value": "http://data.europa.eu/nuts/code/ITD53"
         }
       },
       {
         "code": {
           "type": "literal",
-          "value": "ITD56"
+          "value": "ITE22"
         },
         "conceptURI": {
           "type": "uri",
-          "value": "http://data.europa.eu/nuts/code/ITD56"
+          "value": "http://data.europa.eu/nuts/code/ITE22"
         }
       },
       {
         "code": {
           "type": "literal",
-          "value": "ITD58"
+          "value": "ITD3"
         },
         "conceptURI": {
           "type": "uri",
-          "value": "http://data.europa.eu/nuts/code/ITD58"
+          "value": "http://data.europa.eu/nuts/code/ITD3"
         }
       },
       {
         "code": {
           "type": "literal",
-          "value": "ITD59"
+          "value": "ITD52"
         },
         "conceptURI": {
           "type": "uri",
-          "value": "http://data.europa.eu/nuts/code/ITD59"
+          "value": "http://data.europa.eu/nuts/code/ITD52"
         }
       },
       {
         "code": {
           "type": "literal",
-          "value": "IT205"
+          "value": "DEE26"
         },
         "conceptURI": {
           "type": "uri",
-          "value": "http://data.europa.eu/nuts/code/IT205"
+          "value": "http://data.europa.eu/nuts/code/DEE26"
         }
       },
       {
         "code": {
           "type": "literal",
-          "value": "DEE3"
+          "value": "IT921"
         },
         "conceptURI": {
           "type": "uri",
-          "value": "http://data.europa.eu/nuts/code/DEE3"
+          "value": "http://data.europa.eu/nuts/code/IT921"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "IT409"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://data.europa.eu/nuts/code/IT409"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "IT533"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://data.europa.eu/nuts/code/IT533"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "IT922"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://data.europa.eu/nuts/code/IT922"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "DEE3A"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://data.europa.eu/nuts/code/DEE3A"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "IT714"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://data.europa.eu/nuts/code/IT714"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "DED3"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://data.europa.eu/nuts/code/DED3"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "DEE24"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://data.europa.eu/nuts/code/DEE24"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "DED16"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://data.europa.eu/nuts/code/DED16"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "DED35"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://data.europa.eu/nuts/code/DED35"
         }
       },
       {
@@ -22833,211 +22833,21 @@
       {
         "code": {
           "type": "literal",
-          "value": "ITE21"
+          "value": "IT118"
         },
         "conceptURI": {
           "type": "uri",
-          "value": "http://data.europa.eu/nuts/code/ITE21"
+          "value": "http://data.europa.eu/nuts/code/IT118"
         }
       },
       {
         "code": {
           "type": "literal",
-          "value": "IT32"
+          "value": "IT325"
         },
         "conceptURI": {
           "type": "uri",
-          "value": "http://data.europa.eu/nuts/code/IT32"
-        }
-      },
-      {
-        "code": {
-          "type": "literal",
-          "value": "IT604"
-        },
-        "conceptURI": {
-          "type": "uri",
-          "value": "http://data.europa.eu/nuts/code/IT604"
-        }
-      },
-      {
-        "code": {
-          "type": "literal",
-          "value": "ITD2"
-        },
-        "conceptURI": {
-          "type": "uri",
-          "value": "http://data.europa.eu/nuts/code/ITD2"
-        }
-      },
-      {
-        "code": {
-          "type": "literal",
-          "value": "IT511"
-        },
-        "conceptURI": {
-          "type": "uri",
-          "value": "http://data.europa.eu/nuts/code/IT511"
-        }
-      },
-      {
-        "code": {
-          "type": "literal",
-          "value": "DE924"
-        },
-        "conceptURI": {
-          "type": "uri",
-          "value": "http://data.europa.eu/nuts/code/DE924"
-        }
-      },
-      {
-        "code": {
-          "type": "literal",
-          "value": "IT331"
-        },
-        "conceptURI": {
-          "type": "uri",
-          "value": "http://data.europa.eu/nuts/code/IT331"
-        }
-      },
-      {
-        "code": {
-          "type": "literal",
-          "value": "ITE15"
-        },
-        "conceptURI": {
-          "type": "uri",
-          "value": "http://data.europa.eu/nuts/code/ITE15"
-        }
-      },
-      {
-        "code": {
-          "type": "literal",
-          "value": "IT202"
-        },
-        "conceptURI": {
-          "type": "uri",
-          "value": "http://data.europa.eu/nuts/code/IT202"
-        }
-      },
-      {
-        "code": {
-          "type": "literal",
-          "value": "IT111"
-        },
-        "conceptURI": {
-          "type": "uri",
-          "value": "http://data.europa.eu/nuts/code/IT111"
-        }
-      },
-      {
-        "code": {
-          "type": "literal",
-          "value": "ITD51"
-        },
-        "conceptURI": {
-          "type": "uri",
-          "value": "http://data.europa.eu/nuts/code/ITD51"
-        }
-      },
-      {
-        "code": {
-          "type": "literal",
-          "value": "IT408"
-        },
-        "conceptURI": {
-          "type": "uri",
-          "value": "http://data.europa.eu/nuts/code/IT408"
-        }
-      },
-      {
-        "code": {
-          "type": "literal",
-          "value": "ITD43"
-        },
-        "conceptURI": {
-          "type": "uri",
-          "value": "http://data.europa.eu/nuts/code/ITD43"
-        }
-      },
-      {
-        "code": {
-          "type": "literal",
-          "value": "IT115"
-        },
-        "conceptURI": {
-          "type": "uri",
-          "value": "http://data.europa.eu/nuts/code/IT115"
-        }
-      },
-      {
-        "code": {
-          "type": "literal",
-          "value": "IT326"
-        },
-        "conceptURI": {
-          "type": "uri",
-          "value": "http://data.europa.eu/nuts/code/IT326"
-        }
-      },
-      {
-        "code": {
-          "type": "literal",
-          "value": "ITD36"
-        },
-        "conceptURI": {
-          "type": "uri",
-          "value": "http://data.europa.eu/nuts/code/ITD36"
-        }
-      },
-      {
-        "code": {
-          "type": "literal",
-          "value": "ES701"
-        },
-        "conceptURI": {
-          "type": "uri",
-          "value": "http://data.europa.eu/nuts/code/ES701"
-        }
-      },
-      {
-        "code": {
-          "type": "literal",
-          "value": "ITB02"
-        },
-        "conceptURI": {
-          "type": "uri",
-          "value": "http://data.europa.eu/nuts/code/ITB02"
-        }
-      },
-      {
-        "code": {
-          "type": "literal",
-          "value": "PT133"
-        },
-        "conceptURI": {
-          "type": "uri",
-          "value": "http://data.europa.eu/nuts/code/PT133"
-        }
-      },
-      {
-        "code": {
-          "type": "literal",
-          "value": "IT91"
-        },
-        "conceptURI": {
-          "type": "uri",
-          "value": "http://data.europa.eu/nuts/code/IT91"
-        }
-      },
-      {
-        "code": {
-          "type": "literal",
-          "value": "IT6"
-        },
-        "conceptURI": {
-          "type": "uri",
-          "value": "http://data.europa.eu/nuts/code/IT6"
+          "value": "http://data.europa.eu/nuts/code/IT325"
         }
       },
       {
@@ -23053,271 +22863,11 @@
       {
         "code": {
           "type": "literal",
-          "value": "IT521"
+          "value": "IT404"
         },
         "conceptURI": {
           "type": "uri",
-          "value": "http://data.europa.eu/nuts/code/IT521"
-        }
-      },
-      {
-        "code": {
-          "type": "literal",
-          "value": "ITD1"
-        },
-        "conceptURI": {
-          "type": "uri",
-          "value": "http://data.europa.eu/nuts/code/ITD1"
-        }
-      },
-      {
-        "code": {
-          "type": "literal",
-          "value": "IT134"
-        },
-        "conceptURI": {
-          "type": "uri",
-          "value": "http://data.europa.eu/nuts/code/IT134"
-        }
-      },
-      {
-        "code": {
-          "type": "literal",
-          "value": "IT203"
-        },
-        "conceptURI": {
-          "type": "uri",
-          "value": "http://data.europa.eu/nuts/code/IT203"
-        }
-      },
-      {
-        "code": {
-          "type": "literal",
-          "value": "IT93"
-        },
-        "conceptURI": {
-          "type": "uri",
-          "value": "http://data.europa.eu/nuts/code/IT93"
-        }
-      },
-      {
-        "code": {
-          "type": "literal",
-          "value": "IT209"
-        },
-        "conceptURI": {
-          "type": "uri",
-          "value": "http://data.europa.eu/nuts/code/IT209"
-        }
-      },
-      {
-        "code": {
-          "type": "literal",
-          "value": "DED32"
-        },
-        "conceptURI": {
-          "type": "uri",
-          "value": "http://data.europa.eu/nuts/code/DED32"
-        }
-      },
-      {
-        "code": {
-          "type": "literal",
-          "value": "IT932"
-        },
-        "conceptURI": {
-          "type": "uri",
-          "value": "http://data.europa.eu/nuts/code/IT932"
-        }
-      },
-      {
-        "code": {
-          "type": "literal",
-          "value": "IT322"
-        },
-        "conceptURI": {
-          "type": "uri",
-          "value": "http://data.europa.eu/nuts/code/IT322"
-        }
-      },
-      {
-        "code": {
-          "type": "literal",
-          "value": "IT514"
-        },
-        "conceptURI": {
-          "type": "uri",
-          "value": "http://data.europa.eu/nuts/code/IT514"
-        }
-      },
-      {
-        "code": {
-          "type": "literal",
-          "value": "IT533"
-        },
-        "conceptURI": {
-          "type": "uri",
-          "value": "http://data.europa.eu/nuts/code/IT533"
-        }
-      },
-      {
-        "code": {
-          "type": "literal",
-          "value": "DEE3A"
-        },
-        "conceptURI": {
-          "type": "uri",
-          "value": "http://data.europa.eu/nuts/code/DEE3A"
-        }
-      },
-      {
-        "code": {
-          "type": "literal",
-          "value": "DK004"
-        },
-        "conceptURI": {
-          "type": "uri",
-          "value": "http://data.europa.eu/nuts/code/DK004"
-        }
-      },
-      {
-        "code": {
-          "type": "literal",
-          "value": "DED3"
-        },
-        "conceptURI": {
-          "type": "uri",
-          "value": "http://data.europa.eu/nuts/code/DED3"
-        }
-      },
-      {
-        "code": {
-          "type": "literal",
-          "value": "DEE23"
-        },
-        "conceptURI": {
-          "type": "uri",
-          "value": "http://data.europa.eu/nuts/code/DEE23"
-        }
-      },
-      {
-        "code": {
-          "type": "literal",
-          "value": "DEE24"
-        },
-        "conceptURI": {
-          "type": "uri",
-          "value": "http://data.europa.eu/nuts/code/DEE24"
-        }
-      },
-      {
-        "code": {
-          "type": "literal",
-          "value": "DEE12"
-        },
-        "conceptURI": {
-          "type": "uri",
-          "value": "http://data.europa.eu/nuts/code/DEE12"
-        }
-      },
-      {
-        "code": {
-          "type": "literal",
-          "value": "DK00B"
-        },
-        "conceptURI": {
-          "type": "uri",
-          "value": "http://data.europa.eu/nuts/code/DK00B"
-        }
-      },
-      {
-        "code": {
-          "type": "literal",
-          "value": "DE423"
-        },
-        "conceptURI": {
-          "type": "uri",
-          "value": "http://data.europa.eu/nuts/code/DE423"
-        }
-      },
-      {
-        "code": {
-          "type": "literal",
-          "value": "IT4"
-        },
-        "conceptURI": {
-          "type": "uri",
-          "value": "http://data.europa.eu/nuts/code/IT4"
-        }
-      },
-      {
-        "code": {
-          "type": "literal",
-          "value": "IT312"
-        },
-        "conceptURI": {
-          "type": "uri",
-          "value": "http://data.europa.eu/nuts/code/IT312"
-        }
-      },
-      {
-        "code": {
-          "type": "literal",
-          "value": "ITE1A"
-        },
-        "conceptURI": {
-          "type": "uri",
-          "value": "http://data.europa.eu/nuts/code/ITE1A"
-        }
-      },
-      {
-        "code": {
-          "type": "literal",
-          "value": "IT515"
-        },
-        "conceptURI": {
-          "type": "uri",
-          "value": "http://data.europa.eu/nuts/code/IT515"
-        }
-      },
-      {
-        "code": {
-          "type": "literal",
-          "value": "IT402"
-        },
-        "conceptURI": {
-          "type": "uri",
-          "value": "http://data.europa.eu/nuts/code/IT402"
-        }
-      },
-      {
-        "code": {
-          "type": "literal",
-          "value": "IT116"
-        },
-        "conceptURI": {
-          "type": "uri",
-          "value": "http://data.europa.eu/nuts/code/IT116"
-        }
-      },
-      {
-        "code": {
-          "type": "literal",
-          "value": "DEE11"
-        },
-        "conceptURI": {
-          "type": "uri",
-          "value": "http://data.europa.eu/nuts/code/DEE11"
-        }
-      },
-      {
-        "code": {
-          "type": "literal",
-          "value": "IT401"
-        },
-        "conceptURI": {
-          "type": "uri",
-          "value": "http://data.europa.eu/nuts/code/IT401"
+          "value": "http://data.europa.eu/nuts/code/IT404"
         }
       },
       {
@@ -23333,31 +22883,81 @@
       {
         "code": {
           "type": "literal",
-          "value": "ITE44"
+          "value": "IT602"
         },
         "conceptURI": {
           "type": "uri",
-          "value": "http://data.europa.eu/nuts/code/ITE44"
+          "value": "http://data.europa.eu/nuts/code/IT602"
         }
       },
       {
         "code": {
           "type": "literal",
-          "value": "ITE19"
+          "value": "IT131"
         },
         "conceptURI": {
           "type": "uri",
-          "value": "http://data.europa.eu/nuts/code/ITE19"
+          "value": "http://data.europa.eu/nuts/code/IT131"
         }
       },
       {
         "code": {
           "type": "literal",
-          "value": "ITA08"
+          "value": "DE415"
         },
         "conceptURI": {
           "type": "uri",
-          "value": "http://data.europa.eu/nuts/code/ITA08"
+          "value": "http://data.europa.eu/nuts/code/DE415"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "DED24"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://data.europa.eu/nuts/code/DED24"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "IT511"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://data.europa.eu/nuts/code/IT511"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "ES702"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://data.europa.eu/nuts/code/ES702"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "DEE3B"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://data.europa.eu/nuts/code/DEE3B"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "IT722"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://data.europa.eu/nuts/code/IT722"
         }
       },
       {
@@ -23373,21 +22973,141 @@
       {
         "code": {
           "type": "literal",
-          "value": "DK00D"
+          "value": "DEE32"
         },
         "conceptURI": {
           "type": "uri",
-          "value": "http://data.europa.eu/nuts/code/DK00D"
+          "value": "http://data.europa.eu/nuts/code/DEE32"
         }
       },
       {
         "code": {
           "type": "literal",
-          "value": "PT125"
+          "value": "DE42"
         },
         "conceptURI": {
           "type": "uri",
-          "value": "http://data.europa.eu/nuts/code/PT125"
+          "value": "http://data.europa.eu/nuts/code/DE42"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "IT331"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://data.europa.eu/nuts/code/IT331"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "ITE1A"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://data.europa.eu/nuts/code/ITE1A"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "DED1"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://data.europa.eu/nuts/code/DED1"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "ITD2"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://data.europa.eu/nuts/code/ITD2"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "ITE42"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://data.europa.eu/nuts/code/ITE42"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "IT408"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://data.europa.eu/nuts/code/IT408"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "IT204"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://data.europa.eu/nuts/code/IT204"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "ITD32"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://data.europa.eu/nuts/code/ITD32"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "DK008"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://data.europa.eu/nuts/code/DK008"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "DEE35"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://data.europa.eu/nuts/code/DEE35"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "IT209"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://data.europa.eu/nuts/code/IT209"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "IT801"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://data.europa.eu/nuts/code/IT801"
         }
       },
       {
@@ -23403,6 +23123,256 @@
       {
         "code": {
           "type": "literal",
+          "value": "DK004"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://data.europa.eu/nuts/code/DK004"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "PT127"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://data.europa.eu/nuts/code/PT127"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "DK00A"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://data.europa.eu/nuts/code/DK00A"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "DED15"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://data.europa.eu/nuts/code/DED15"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "ITE17"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://data.europa.eu/nuts/code/ITE17"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "IT2"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://data.europa.eu/nuts/code/IT2"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "ITD10"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://data.europa.eu/nuts/code/ITD10"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "IT401"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://data.europa.eu/nuts/code/IT401"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "DE414"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://data.europa.eu/nuts/code/DE414"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "ES701"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://data.europa.eu/nuts/code/ES701"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "NO094"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://data.europa.eu/nuts/code/NO094"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "ITE31"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://data.europa.eu/nuts/code/ITE31"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "IT932"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://data.europa.eu/nuts/code/IT932"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "ITF41"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://data.europa.eu/nuts/code/ITF41"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "DED17"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://data.europa.eu/nuts/code/DED17"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "PT133"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://data.europa.eu/nuts/code/PT133"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "DK005"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://data.europa.eu/nuts/code/DK005"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "NL331"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://data.europa.eu/nuts/code/NL331"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "DE423"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://data.europa.eu/nuts/code/DE423"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "IT91"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://data.europa.eu/nuts/code/IT91"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "DEE16"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://data.europa.eu/nuts/code/DEE16"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "DED13"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://data.europa.eu/nuts/code/DED13"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "DK007"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://data.europa.eu/nuts/code/DK007"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "ITD58"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://data.europa.eu/nuts/code/ITD58"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "ITF42"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://data.europa.eu/nuts/code/ITF42"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
           "value": "DED1B"
         },
         "conceptURI": {
@@ -23413,151 +23383,151 @@
       {
         "code": {
           "type": "literal",
+          "value": "DEE13"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://data.europa.eu/nuts/code/DEE13"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "IT324"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://data.europa.eu/nuts/code/IT324"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "ITD34"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://data.europa.eu/nuts/code/ITD34"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "IT311"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://data.europa.eu/nuts/code/IT311"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "IT111"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://data.europa.eu/nuts/code/IT111"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "IT406"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://data.europa.eu/nuts/code/IT406"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "DED12"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://data.europa.eu/nuts/code/DED12"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "ITD51"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://data.europa.eu/nuts/code/ITD51"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "PT135"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://data.europa.eu/nuts/code/PT135"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "PT134"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://data.europa.eu/nuts/code/PT134"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "DEE36"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://data.europa.eu/nuts/code/DEE36"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "DED23"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://data.europa.eu/nuts/code/DED23"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "DEE23"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://data.europa.eu/nuts/code/DEE23"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "DED36"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://data.europa.eu/nuts/code/DED36"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
           "value": "DED14"
         },
         "conceptURI": {
           "type": "uri",
           "value": "http://data.europa.eu/nuts/code/DED14"
-        }
-      },
-      {
-        "code": {
-          "type": "literal",
-          "value": "IT51"
-        },
-        "conceptURI": {
-          "type": "uri",
-          "value": "http://data.europa.eu/nuts/code/IT51"
-        }
-      },
-      {
-        "code": {
-          "type": "literal",
-          "value": "ITE1"
-        },
-        "conceptURI": {
-          "type": "uri",
-          "value": "http://data.europa.eu/nuts/code/ITE1"
-        }
-      },
-      {
-        "code": {
-          "type": "literal",
-          "value": "ITE34"
-        },
-        "conceptURI": {
-          "type": "uri",
-          "value": "http://data.europa.eu/nuts/code/ITE34"
-        }
-      },
-      {
-        "code": {
-          "type": "literal",
-          "value": "IT513"
-        },
-        "conceptURI": {
-          "type": "uri",
-          "value": "http://data.europa.eu/nuts/code/IT513"
-        }
-      },
-      {
-        "code": {
-          "type": "literal",
-          "value": "ITD42"
-        },
-        "conceptURI": {
-          "type": "uri",
-          "value": "http://data.europa.eu/nuts/code/ITD42"
-        }
-      },
-      {
-        "code": {
-          "type": "literal",
-          "value": "IT132"
-        },
-        "conceptURI": {
-          "type": "uri",
-          "value": "http://data.europa.eu/nuts/code/IT132"
-        }
-      },
-      {
-        "code": {
-          "type": "literal",
-          "value": "ITA09"
-        },
-        "conceptURI": {
-          "type": "uri",
-          "value": "http://data.europa.eu/nuts/code/ITA09"
-        }
-      },
-      {
-        "code": {
-          "type": "literal",
-          "value": "IT518"
-        },
-        "conceptURI": {
-          "type": "uri",
-          "value": "http://data.europa.eu/nuts/code/IT518"
-        }
-      },
-      {
-        "code": {
-          "type": "literal",
-          "value": "IT512"
-        },
-        "conceptURI": {
-          "type": "uri",
-          "value": "http://data.europa.eu/nuts/code/IT512"
-        }
-      },
-      {
-        "code": {
-          "type": "literal",
-          "value": "ITE12"
-        },
-        "conceptURI": {
-          "type": "uri",
-          "value": "http://data.europa.eu/nuts/code/ITE12"
-        }
-      },
-      {
-        "code": {
-          "type": "literal",
-          "value": "IT114"
-        },
-        "conceptURI": {
-          "type": "uri",
-          "value": "http://data.europa.eu/nuts/code/IT114"
-        }
-      },
-      {
-        "code": {
-          "type": "literal",
-          "value": "DED1A"
-        },
-        "conceptURI": {
-          "type": "uri",
-          "value": "http://data.europa.eu/nuts/code/DED1A"
-        }
-      },
-      {
-        "code": {
-          "type": "literal",
-          "value": "IT911"
-        },
-        "conceptURI": {
-          "type": "uri",
-          "value": "http://data.europa.eu/nuts/code/IT911"
-        }
-      },
-      {
-        "code": {
-          "type": "literal",
-          "value": "NL335"
-        },
-        "conceptURI": {
-          "type": "uri",
-          "value": "http://data.europa.eu/nuts/code/NL335"
         }
       },
       {
@@ -26753,331 +26723,31 @@
       {
         "code": {
           "type": "literal",
-          "value": "DED31"
+          "value": "DK001"
         },
         "conceptURI": {
           "type": "uri",
-          "value": "http://data.europa.eu/nuts/code/DED31"
+          "value": "http://data.europa.eu/nuts/code/DK001"
         }
       },
       {
         "code": {
           "type": "literal",
-          "value": "IT120"
+          "value": "IT13"
         },
         "conceptURI": {
           "type": "uri",
-          "value": "http://data.europa.eu/nuts/code/IT120"
+          "value": "http://data.europa.eu/nuts/code/IT13"
         }
       },
       {
         "code": {
           "type": "literal",
-          "value": "IT406"
+          "value": "DE411"
         },
         "conceptURI": {
           "type": "uri",
-          "value": "http://data.europa.eu/nuts/code/IT406"
-        }
-      },
-      {
-        "code": {
-          "type": "literal",
-          "value": "DED12"
-        },
-        "conceptURI": {
-          "type": "uri",
-          "value": "http://data.europa.eu/nuts/code/DED12"
-        }
-      },
-      {
-        "code": {
-          "type": "literal",
-          "value": "DE412"
-        },
-        "conceptURI": {
-          "type": "uri",
-          "value": "http://data.europa.eu/nuts/code/DE412"
-        }
-      },
-      {
-        "code": {
-          "type": "literal",
-          "value": "DE428"
-        },
-        "conceptURI": {
-          "type": "uri",
-          "value": "http://data.europa.eu/nuts/code/DE428"
-        }
-      },
-      {
-        "code": {
-          "type": "literal",
-          "value": "DEE34"
-        },
-        "conceptURI": {
-          "type": "uri",
-          "value": "http://data.europa.eu/nuts/code/DEE34"
-        }
-      },
-      {
-        "code": {
-          "type": "literal",
-          "value": "ITE"
-        },
-        "conceptURI": {
-          "type": "uri",
-          "value": "http://data.europa.eu/nuts/code/ITE"
-        }
-      },
-      {
-        "code": {
-          "type": "literal",
-          "value": "PT127"
-        },
-        "conceptURI": {
-          "type": "uri",
-          "value": "http://data.europa.eu/nuts/code/PT127"
-        }
-      },
-      {
-        "code": {
-          "type": "literal",
-          "value": "DED15"
-        },
-        "conceptURI": {
-          "type": "uri",
-          "value": "http://data.europa.eu/nuts/code/DED15"
-        }
-      },
-      {
-        "code": {
-          "type": "literal",
-          "value": "DEE13"
-        },
-        "conceptURI": {
-          "type": "uri",
-          "value": "http://data.europa.eu/nuts/code/DEE13"
-        }
-      },
-      {
-        "code": {
-          "type": "literal",
-          "value": "PT124"
-        },
-        "conceptURI": {
-          "type": "uri",
-          "value": "http://data.europa.eu/nuts/code/PT124"
-        }
-      },
-      {
-        "code": {
-          "type": "literal",
-          "value": "BE333"
-        },
-        "conceptURI": {
-          "type": "uri",
-          "value": "http://data.europa.eu/nuts/code/BE333"
-        }
-      },
-      {
-        "code": {
-          "type": "literal",
-          "value": "ITE4"
-        },
-        "conceptURI": {
-          "type": "uri",
-          "value": "http://data.europa.eu/nuts/code/ITE4"
-        }
-      },
-      {
-        "code": {
-          "type": "literal",
-          "value": "IT2"
-        },
-        "conceptURI": {
-          "type": "uri",
-          "value": "http://data.europa.eu/nuts/code/IT2"
-        }
-      },
-      {
-        "code": {
-          "type": "literal",
-          "value": "IT51A"
-        },
-        "conceptURI": {
-          "type": "uri",
-          "value": "http://data.europa.eu/nuts/code/IT51A"
-        }
-      },
-      {
-        "code": {
-          "type": "literal",
-          "value": "DE421"
-        },
-        "conceptURI": {
-          "type": "uri",
-          "value": "http://data.europa.eu/nuts/code/DE421"
-        }
-      },
-      {
-        "code": {
-          "type": "literal",
-          "value": "IT407"
-        },
-        "conceptURI": {
-          "type": "uri",
-          "value": "http://data.europa.eu/nuts/code/IT407"
-        }
-      },
-      {
-        "code": {
-          "type": "literal",
-          "value": "ITD4"
-        },
-        "conceptURI": {
-          "type": "uri",
-          "value": "http://data.europa.eu/nuts/code/ITD4"
-        }
-      },
-      {
-        "code": {
-          "type": "literal",
-          "value": "DEE37"
-        },
-        "conceptURI": {
-          "type": "uri",
-          "value": "http://data.europa.eu/nuts/code/DEE37"
-        }
-      },
-      {
-        "code": {
-          "type": "literal",
-          "value": "IT131"
-        },
-        "conceptURI": {
-          "type": "uri",
-          "value": "http://data.europa.eu/nuts/code/IT131"
-        }
-      },
-      {
-        "code": {
-          "type": "literal",
-          "value": "IT805"
-        },
-        "conceptURI": {
-          "type": "uri",
-          "value": "http://data.europa.eu/nuts/code/IT805"
-        }
-      },
-      {
-        "code": {
-          "type": "literal",
-          "value": "ITA04"
-        },
-        "conceptURI": {
-          "type": "uri",
-          "value": "http://data.europa.eu/nuts/code/ITA04"
-        }
-      },
-      {
-        "code": {
-          "type": "literal",
-          "value": "DK002"
-        },
-        "conceptURI": {
-          "type": "uri",
-          "value": "http://data.europa.eu/nuts/code/DK002"
-        }
-      },
-      {
-        "code": {
-          "type": "literal",
-          "value": "DK008"
-        },
-        "conceptURI": {
-          "type": "uri",
-          "value": "http://data.europa.eu/nuts/code/DK008"
-        }
-      },
-      {
-        "code": {
-          "type": "literal",
-          "value": "DEE3B"
-        },
-        "conceptURI": {
-          "type": "uri",
-          "value": "http://data.europa.eu/nuts/code/DEE3B"
-        }
-      },
-      {
-        "code": {
-          "type": "literal",
-          "value": "PT134"
-        },
-        "conceptURI": {
-          "type": "uri",
-          "value": "http://data.europa.eu/nuts/code/PT134"
-        }
-      },
-      {
-        "code": {
-          "type": "literal",
-          "value": "ITD"
-        },
-        "conceptURI": {
-          "type": "uri",
-          "value": "http://data.europa.eu/nuts/code/ITD"
-        }
-      },
-      {
-        "code": {
-          "type": "literal",
-          "value": "IT327"
-        },
-        "conceptURI": {
-          "type": "uri",
-          "value": "http://data.europa.eu/nuts/code/IT327"
-        }
-      },
-      {
-        "code": {
-          "type": "literal",
-          "value": "ITG24"
-        },
-        "conceptURI": {
-          "type": "uri",
-          "value": "http://data.europa.eu/nuts/code/ITG24"
-        }
-      },
-      {
-        "code": {
-          "type": "literal",
-          "value": "ITE32"
-        },
-        "conceptURI": {
-          "type": "uri",
-          "value": "http://data.europa.eu/nuts/code/ITE32"
-        }
-      },
-      {
-        "code": {
-          "type": "literal",
-          "value": "SE071"
-        },
-        "conceptURI": {
-          "type": "uri",
-          "value": "http://data.europa.eu/nuts/code/SE071"
-        }
-      },
-      {
-        "code": {
-          "type": "literal",
-          "value": "ITD54"
-        },
-        "conceptURI": {
-          "type": "uri",
-          "value": "http://data.europa.eu/nuts/code/ITD54"
+          "value": "http://data.europa.eu/nuts/code/DE411"
         }
       },
       {
@@ -27093,131 +26763,311 @@
       {
         "code": {
           "type": "literal",
-          "value": "DE429"
+          "value": "IT402"
         },
         "conceptURI": {
           "type": "uri",
-          "value": "http://data.europa.eu/nuts/code/DE429"
+          "value": "http://data.europa.eu/nuts/code/IT402"
         }
       },
       {
         "code": {
           "type": "literal",
-          "value": "IT206"
+          "value": "DEE11"
         },
         "conceptURI": {
           "type": "uri",
-          "value": "http://data.europa.eu/nuts/code/IT206"
+          "value": "http://data.europa.eu/nuts/code/DEE11"
         }
       },
       {
         "code": {
           "type": "literal",
-          "value": "ITD44"
+          "value": "IT603"
         },
         "conceptURI": {
           "type": "uri",
-          "value": "http://data.europa.eu/nuts/code/ITD44"
+          "value": "http://data.europa.eu/nuts/code/IT603"
         }
       },
       {
         "code": {
           "type": "literal",
-          "value": "IT935"
+          "value": "IT711"
         },
         "conceptURI": {
           "type": "uri",
-          "value": "http://data.europa.eu/nuts/code/IT935"
+          "value": "http://data.europa.eu/nuts/code/IT711"
         }
       },
       {
         "code": {
           "type": "literal",
-          "value": "ITE42"
+          "value": "GR411"
         },
         "conceptURI": {
           "type": "uri",
-          "value": "http://data.europa.eu/nuts/code/ITE42"
+          "value": "http://data.europa.eu/nuts/code/GR411"
         }
       },
       {
         "code": {
           "type": "literal",
-          "value": "ITE18"
+          "value": "ITA03"
         },
         "conceptURI": {
           "type": "uri",
-          "value": "http://data.europa.eu/nuts/code/ITE18"
+          "value": "http://data.europa.eu/nuts/code/ITA03"
         }
       },
       {
         "code": {
           "type": "literal",
-          "value": "DE414"
+          "value": "IT516"
         },
         "conceptURI": {
           "type": "uri",
-          "value": "http://data.europa.eu/nuts/code/DE414"
+          "value": "http://data.europa.eu/nuts/code/IT516"
         }
       },
       {
         "code": {
           "type": "literal",
-          "value": "DE42A"
+          "value": "ITE16"
         },
         "conceptURI": {
           "type": "uri",
-          "value": "http://data.europa.eu/nuts/code/DE42A"
+          "value": "http://data.europa.eu/nuts/code/ITE16"
         }
       },
       {
         "code": {
           "type": "literal",
-          "value": "ITA02"
+          "value": "DED27"
         },
         "conceptURI": {
           "type": "uri",
-          "value": "http://data.europa.eu/nuts/code/ITA02"
+          "value": "http://data.europa.eu/nuts/code/DED27"
         }
       },
       {
         "code": {
           "type": "literal",
-          "value": "DK00F"
+          "value": "DED1C"
         },
         "conceptURI": {
           "type": "uri",
-          "value": "http://data.europa.eu/nuts/code/DK00F"
+          "value": "http://data.europa.eu/nuts/code/DED1C"
         }
       },
       {
         "code": {
           "type": "literal",
-          "value": "DK006"
+          "value": "DED22"
         },
         "conceptURI": {
           "type": "uri",
-          "value": "http://data.europa.eu/nuts/code/DK006"
+          "value": "http://data.europa.eu/nuts/code/DED22"
         }
       },
       {
         "code": {
           "type": "literal",
-          "value": "ITB03"
+          "value": "DEE2"
         },
         "conceptURI": {
           "type": "uri",
-          "value": "http://data.europa.eu/nuts/code/ITB03"
+          "value": "http://data.europa.eu/nuts/code/DEE2"
         }
       },
       {
         "code": {
           "type": "literal",
-          "value": "DK005"
+          "value": "ITG23"
         },
         "conceptURI": {
           "type": "uri",
-          "value": "http://data.europa.eu/nuts/code/DK005"
+          "value": "http://data.europa.eu/nuts/code/ITG23"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "DK00B"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://data.europa.eu/nuts/code/DK00B"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "SE071"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://data.europa.eu/nuts/code/SE071"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "IT522"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://data.europa.eu/nuts/code/IT522"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "IT534"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://data.europa.eu/nuts/code/IT534"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "IT604"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://data.europa.eu/nuts/code/IT604"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "IT117"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://data.europa.eu/nuts/code/IT117"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "DE418"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://data.europa.eu/nuts/code/DE418"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "ITA09"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://data.europa.eu/nuts/code/ITA09"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "ITE19"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://data.europa.eu/nuts/code/ITE19"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "IT203"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://data.europa.eu/nuts/code/IT203"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "DEE37"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://data.europa.eu/nuts/code/DEE37"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "ITE43"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://data.europa.eu/nuts/code/ITE43"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "DE413"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://data.europa.eu/nuts/code/DE413"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "PT141"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://data.europa.eu/nuts/code/PT141"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "ITB02"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://data.europa.eu/nuts/code/ITB02"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "DEE15"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://data.europa.eu/nuts/code/DEE15"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "DEE25"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://data.europa.eu/nuts/code/DEE25"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "DED26"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://data.europa.eu/nuts/code/DED26"
         }
       },
       {
@@ -27233,131 +27083,171 @@
       {
         "code": {
           "type": "literal",
-          "value": "IT519"
+          "value": "DE427"
         },
         "conceptURI": {
           "type": "uri",
-          "value": "http://data.europa.eu/nuts/code/IT519"
+          "value": "http://data.europa.eu/nuts/code/DE427"
         }
       },
       {
         "code": {
           "type": "literal",
-          "value": "DK001"
+          "value": "IT4"
         },
         "conceptURI": {
           "type": "uri",
-          "value": "http://data.europa.eu/nuts/code/DK001"
+          "value": "http://data.europa.eu/nuts/code/IT4"
         }
       },
       {
         "code": {
           "type": "literal",
-          "value": "ITE11"
+          "value": "DEA21"
         },
         "conceptURI": {
           "type": "uri",
-          "value": "http://data.europa.eu/nuts/code/ITE11"
+          "value": "http://data.europa.eu/nuts/code/DEA21"
         }
       },
       {
         "code": {
           "type": "literal",
-          "value": "IT71"
+          "value": "ITE15"
         },
         "conceptURI": {
           "type": "uri",
-          "value": "http://data.europa.eu/nuts/code/IT71"
+          "value": "http://data.europa.eu/nuts/code/ITE15"
         }
       },
       {
         "code": {
           "type": "literal",
-          "value": "ITE45"
+          "value": "IT321"
         },
         "conceptURI": {
           "type": "uri",
-          "value": "http://data.europa.eu/nuts/code/ITE45"
+          "value": "http://data.europa.eu/nuts/code/IT321"
         }
       },
       {
         "code": {
           "type": "literal",
-          "value": "IT722"
+          "value": "ITD31"
         },
         "conceptURI": {
           "type": "uri",
-          "value": "http://data.europa.eu/nuts/code/IT722"
+          "value": "http://data.europa.eu/nuts/code/ITD31"
         }
       },
       {
         "code": {
           "type": "literal",
-          "value": "IT915"
+          "value": "IT334"
         },
         "conceptURI": {
           "type": "uri",
-          "value": "http://data.europa.eu/nuts/code/IT915"
+          "value": "http://data.europa.eu/nuts/code/IT334"
         }
       },
       {
         "code": {
           "type": "literal",
-          "value": "ITA06"
+          "value": "ITD33"
         },
         "conceptURI": {
           "type": "uri",
-          "value": "http://data.europa.eu/nuts/code/ITA06"
+          "value": "http://data.europa.eu/nuts/code/ITD33"
         }
       },
       {
         "code": {
           "type": "literal",
-          "value": "ITD3"
+          "value": "DE417"
         },
         "conceptURI": {
           "type": "uri",
-          "value": "http://data.europa.eu/nuts/code/ITD3"
+          "value": "http://data.europa.eu/nuts/code/DE417"
         }
       },
       {
         "code": {
           "type": "literal",
-          "value": "ITD52"
+          "value": "ITB01"
         },
         "conceptURI": {
           "type": "uri",
-          "value": "http://data.europa.eu/nuts/code/ITD52"
+          "value": "http://data.europa.eu/nuts/code/ITB01"
         }
       },
       {
         "code": {
           "type": "literal",
-          "value": "DEE39"
+          "value": "IT532"
         },
         "conceptURI": {
           "type": "uri",
-          "value": "http://data.europa.eu/nuts/code/DEE39"
+          "value": "http://data.europa.eu/nuts/code/IT532"
         }
       },
       {
         "code": {
           "type": "literal",
-          "value": "PT123"
+          "value": "ITE32"
         },
         "conceptURI": {
           "type": "uri",
-          "value": "http://data.europa.eu/nuts/code/PT123"
+          "value": "http://data.europa.eu/nuts/code/ITE32"
         }
       },
       {
         "code": {
           "type": "literal",
-          "value": "ITG23"
+          "value": "DED19"
         },
         "conceptURI": {
           "type": "uri",
-          "value": "http://data.europa.eu/nuts/code/ITG23"
+          "value": "http://data.europa.eu/nuts/code/DED19"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "PT122"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://data.europa.eu/nuts/code/PT122"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "DEE12"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://data.europa.eu/nuts/code/DEE12"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "DEE38"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://data.europa.eu/nuts/code/DEE38"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "DE41"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://data.europa.eu/nuts/code/DE41"
         }
       },
       {
@@ -28273,576 +28163,6 @@
       {
         "code": {
           "type": "literal",
-          "value": "DEE21"
-        },
-        "conceptURI": {
-          "type": "uri",
-          "value": "http://data.europa.eu/nuts/code/DEE21"
-        }
-      },
-      {
-        "code": {
-          "type": "literal",
-          "value": "ITD57"
-        },
-        "conceptURI": {
-          "type": "uri",
-          "value": "http://data.europa.eu/nuts/code/ITD57"
-        }
-      },
-      {
-        "code": {
-          "type": "literal",
-          "value": "IT334"
-        },
-        "conceptURI": {
-          "type": "uri",
-          "value": "http://data.europa.eu/nuts/code/IT334"
-        }
-      },
-      {
-        "code": {
-          "type": "literal",
-          "value": "IT112"
-        },
-        "conceptURI": {
-          "type": "uri",
-          "value": "http://data.europa.eu/nuts/code/IT112"
-        }
-      },
-      {
-        "code": {
-          "type": "literal",
-          "value": "IT72"
-        },
-        "conceptURI": {
-          "type": "uri",
-          "value": "http://data.europa.eu/nuts/code/IT72"
-        }
-      },
-      {
-        "code": {
-          "type": "literal",
-          "value": "ITA05"
-        },
-        "conceptURI": {
-          "type": "uri",
-          "value": "http://data.europa.eu/nuts/code/ITA05"
-        }
-      },
-      {
-        "code": {
-          "type": "literal",
-          "value": "DEE35"
-        },
-        "conceptURI": {
-          "type": "uri",
-          "value": "http://data.europa.eu/nuts/code/DEE35"
-        }
-      },
-      {
-        "code": {
-          "type": "literal",
-          "value": "DEE32"
-        },
-        "conceptURI": {
-          "type": "uri",
-          "value": "http://data.europa.eu/nuts/code/DEE32"
-        }
-      },
-      {
-        "code": {
-          "type": "literal",
-          "value": "DED17"
-        },
-        "conceptURI": {
-          "type": "uri",
-          "value": "http://data.europa.eu/nuts/code/DED17"
-        }
-      },
-      {
-        "code": {
-          "type": "literal",
-          "value": "IT721"
-        },
-        "conceptURI": {
-          "type": "uri",
-          "value": "http://data.europa.eu/nuts/code/IT721"
-        }
-      },
-      {
-        "code": {
-          "type": "literal",
-          "value": "IT913"
-        },
-        "conceptURI": {
-          "type": "uri",
-          "value": "http://data.europa.eu/nuts/code/IT913"
-        }
-      },
-      {
-        "code": {
-          "type": "literal",
-          "value": "DEE25"
-        },
-        "conceptURI": {
-          "type": "uri",
-          "value": "http://data.europa.eu/nuts/code/DEE25"
-        }
-      },
-      {
-        "code": {
-          "type": "literal",
-          "value": "DE42"
-        },
-        "conceptURI": {
-          "type": "uri",
-          "value": "http://data.europa.eu/nuts/code/DE42"
-        }
-      },
-      {
-        "code": {
-          "type": "literal",
-          "value": "DEE2"
-        },
-        "conceptURI": {
-          "type": "uri",
-          "value": "http://data.europa.eu/nuts/code/DEE2"
-        }
-      },
-      {
-        "code": {
-          "type": "literal",
-          "value": "DED16"
-        },
-        "conceptURI": {
-          "type": "uri",
-          "value": "http://data.europa.eu/nuts/code/DED16"
-        }
-      },
-      {
-        "code": {
-          "type": "literal",
-          "value": "DEE14"
-        },
-        "conceptURI": {
-          "type": "uri",
-          "value": "http://data.europa.eu/nuts/code/DEE14"
-        }
-      },
-      {
-        "code": {
-          "type": "literal",
-          "value": "DE425"
-        },
-        "conceptURI": {
-          "type": "uri",
-          "value": "http://data.europa.eu/nuts/code/DE425"
-        }
-      },
-      {
-        "code": {
-          "type": "literal",
-          "value": "IT534"
-        },
-        "conceptURI": {
-          "type": "uri",
-          "value": "http://data.europa.eu/nuts/code/IT534"
-        }
-      },
-      {
-        "code": {
-          "type": "literal",
-          "value": "IT11"
-        },
-        "conceptURI": {
-          "type": "uri",
-          "value": "http://data.europa.eu/nuts/code/IT11"
-        }
-      },
-      {
-        "code": {
-          "type": "literal",
-          "value": "ITE2"
-        },
-        "conceptURI": {
-          "type": "uri",
-          "value": "http://data.europa.eu/nuts/code/ITE2"
-        }
-      },
-      {
-        "code": {
-          "type": "literal",
-          "value": "ITD10"
-        },
-        "conceptURI": {
-          "type": "uri",
-          "value": "http://data.europa.eu/nuts/code/ITD10"
-        }
-      },
-      {
-        "code": {
-          "type": "literal",
-          "value": "ITE43"
-        },
-        "conceptURI": {
-          "type": "uri",
-          "value": "http://data.europa.eu/nuts/code/ITE43"
-        }
-      },
-      {
-        "code": {
-          "type": "literal",
-          "value": "DE413"
-        },
-        "conceptURI": {
-          "type": "uri",
-          "value": "http://data.europa.eu/nuts/code/DE413"
-        }
-      },
-      {
-        "code": {
-          "type": "literal",
-          "value": "DED13"
-        },
-        "conceptURI": {
-          "type": "uri",
-          "value": "http://data.europa.eu/nuts/code/DED13"
-        }
-      },
-      {
-        "code": {
-          "type": "literal",
-          "value": "ITB01"
-        },
-        "conceptURI": {
-          "type": "uri",
-          "value": "http://data.europa.eu/nuts/code/ITB01"
-        }
-      },
-      {
-        "code": {
-          "type": "literal",
-          "value": "ITD53"
-        },
-        "conceptURI": {
-          "type": "uri",
-          "value": "http://data.europa.eu/nuts/code/ITD53"
-        }
-      },
-      {
-        "code": {
-          "type": "literal",
-          "value": "DK00E"
-        },
-        "conceptURI": {
-          "type": "uri",
-          "value": "http://data.europa.eu/nuts/code/DK00E"
-        }
-      },
-      {
-        "code": {
-          "type": "literal",
-          "value": "ITE22"
-        },
-        "conceptURI": {
-          "type": "uri",
-          "value": "http://data.europa.eu/nuts/code/ITE22"
-        }
-      },
-      {
-        "code": {
-          "type": "literal",
-          "value": "ITA03"
-        },
-        "conceptURI": {
-          "type": "uri",
-          "value": "http://data.europa.eu/nuts/code/ITA03"
-        }
-      },
-      {
-        "code": {
-          "type": "literal",
-          "value": "IT516"
-        },
-        "conceptURI": {
-          "type": "uri",
-          "value": "http://data.europa.eu/nuts/code/IT516"
-        }
-      },
-      {
-        "code": {
-          "type": "literal",
-          "value": "ITE16"
-        },
-        "conceptURI": {
-          "type": "uri",
-          "value": "http://data.europa.eu/nuts/code/ITE16"
-        }
-      },
-      {
-        "code": {
-          "type": "literal",
-          "value": "DED33"
-        },
-        "conceptURI": {
-          "type": "uri",
-          "value": "http://data.europa.eu/nuts/code/DED33"
-        }
-      },
-      {
-        "code": {
-          "type": "literal",
-          "value": "PT141"
-        },
-        "conceptURI": {
-          "type": "uri",
-          "value": "http://data.europa.eu/nuts/code/PT141"
-        }
-      },
-      {
-        "code": {
-          "type": "literal",
-          "value": "IT934"
-        },
-        "conceptURI": {
-          "type": "uri",
-          "value": "http://data.europa.eu/nuts/code/IT934"
-        }
-      },
-      {
-        "code": {
-          "type": "literal",
-          "value": "DED2B"
-        },
-        "conceptURI": {
-          "type": "uri",
-          "value": "http://data.europa.eu/nuts/code/DED2B"
-        }
-      },
-      {
-        "code": {
-          "type": "literal",
-          "value": "IT922"
-        },
-        "conceptURI": {
-          "type": "uri",
-          "value": "http://data.europa.eu/nuts/code/IT922"
-        }
-      },
-      {
-        "code": {
-          "type": "literal",
-          "value": "DED1C"
-        },
-        "conceptURI": {
-          "type": "uri",
-          "value": "http://data.europa.eu/nuts/code/DED1C"
-        }
-      },
-      {
-        "code": {
-          "type": "literal",
-          "value": "DED18"
-        },
-        "conceptURI": {
-          "type": "uri",
-          "value": "http://data.europa.eu/nuts/code/DED18"
-        }
-      },
-      {
-        "code": {
-          "type": "literal",
-          "value": "PT129"
-        },
-        "conceptURI": {
-          "type": "uri",
-          "value": "http://data.europa.eu/nuts/code/PT129"
-        }
-      },
-      {
-        "code": {
-          "type": "literal",
-          "value": "PT143"
-        },
-        "conceptURI": {
-          "type": "uri",
-          "value": "http://data.europa.eu/nuts/code/PT143"
-        }
-      },
-      {
-        "code": {
-          "type": "literal",
-          "value": "DEA21"
-        },
-        "conceptURI": {
-          "type": "uri",
-          "value": "http://data.europa.eu/nuts/code/DEA21"
-        }
-      },
-      {
-        "code": {
-          "type": "literal",
-          "value": "IT207"
-        },
-        "conceptURI": {
-          "type": "uri",
-          "value": "http://data.europa.eu/nuts/code/IT207"
-        }
-      },
-      {
-        "code": {
-          "type": "literal",
-          "value": "IT20A"
-        },
-        "conceptURI": {
-          "type": "uri",
-          "value": "http://data.europa.eu/nuts/code/IT20A"
-        }
-      },
-      {
-        "code": {
-          "type": "literal",
-          "value": "IT323"
-        },
-        "conceptURI": {
-          "type": "uri",
-          "value": "http://data.europa.eu/nuts/code/IT323"
-        }
-      },
-      {
-        "code": {
-          "type": "literal",
-          "value": "DED24"
-        },
-        "conceptURI": {
-          "type": "uri",
-          "value": "http://data.europa.eu/nuts/code/DED24"
-        }
-      },
-      {
-        "code": {
-          "type": "literal",
-          "value": "DE417"
-        },
-        "conceptURI": {
-          "type": "uri",
-          "value": "http://data.europa.eu/nuts/code/DE417"
-        }
-      },
-      {
-        "code": {
-          "type": "literal",
-          "value": "IT605"
-        },
-        "conceptURI": {
-          "type": "uri",
-          "value": "http://data.europa.eu/nuts/code/IT605"
-        }
-      },
-      {
-        "code": {
-          "type": "literal",
-          "value": "ITD32"
-        },
-        "conceptURI": {
-          "type": "uri",
-          "value": "http://data.europa.eu/nuts/code/ITD32"
-        }
-      },
-      {
-        "code": {
-          "type": "literal",
-          "value": "PT144"
-        },
-        "conceptURI": {
-          "type": "uri",
-          "value": "http://data.europa.eu/nuts/code/PT144"
-        }
-      },
-      {
-        "code": {
-          "type": "literal",
-          "value": "PT142"
-        },
-        "conceptURI": {
-          "type": "uri",
-          "value": "http://data.europa.eu/nuts/code/PT142"
-        }
-      },
-      {
-        "code": {
-          "type": "literal",
-          "value": "DK007"
-        },
-        "conceptURI": {
-          "type": "uri",
-          "value": "http://data.europa.eu/nuts/code/DK007"
-        }
-      },
-      {
-        "code": {
-          "type": "literal",
-          "value": "IT914"
-        },
-        "conceptURI": {
-          "type": "uri",
-          "value": "http://data.europa.eu/nuts/code/IT914"
-        }
-      },
-      {
-        "code": {
-          "type": "literal",
-          "value": "ITB04"
-        },
-        "conceptURI": {
-          "type": "uri",
-          "value": "http://data.europa.eu/nuts/code/ITB04"
-        }
-      },
-      {
-        "code": {
-          "type": "literal",
-          "value": "ITF42"
-        },
-        "conceptURI": {
-          "type": "uri",
-          "value": "http://data.europa.eu/nuts/code/ITF42"
-        }
-      },
-      {
-        "code": {
-          "type": "literal",
-          "value": "IT912"
-        },
-        "conceptURI": {
-          "type": "uri",
-          "value": "http://data.europa.eu/nuts/code/IT912"
-        }
-      },
-      {
-        "code": {
-          "type": "literal",
-          "value": "ITF41"
-        },
-        "conceptURI": {
-          "type": "uri",
-          "value": "http://data.europa.eu/nuts/code/ITF41"
-        }
-      },
-      {
-        "code": {
-          "type": "literal",
-          "value": "PT132"
-        },
-        "conceptURI": {
-          "type": "uri",
-          "value": "http://data.europa.eu/nuts/code/PT132"
-        }
-      },
-      {
-        "code": {
-          "type": "literal",
           "value": "IT53"
         },
         "conceptURI": {
@@ -28853,71 +28173,21 @@
       {
         "code": {
           "type": "literal",
-          "value": "DK003"
+          "value": "IT6"
         },
         "conceptURI": {
           "type": "uri",
-          "value": "http://data.europa.eu/nuts/code/DK003"
+          "value": "http://data.europa.eu/nuts/code/IT6"
         }
       },
       {
         "code": {
           "type": "literal",
-          "value": "IT933"
+          "value": "IT517"
         },
         "conceptURI": {
           "type": "uri",
-          "value": "http://data.europa.eu/nuts/code/IT933"
-        }
-      },
-      {
-        "code": {
-          "type": "literal",
-          "value": "DE301"
-        },
-        "conceptURI": {
-          "type": "uri",
-          "value": "http://data.europa.eu/nuts/code/DE301"
-        }
-      },
-      {
-        "code": {
-          "type": "literal",
-          "value": "DED34"
-        },
-        "conceptURI": {
-          "type": "uri",
-          "value": "http://data.europa.eu/nuts/code/DED34"
-        }
-      },
-      {
-        "code": {
-          "type": "literal",
-          "value": "DED28"
-        },
-        "conceptURI": {
-          "type": "uri",
-          "value": "http://data.europa.eu/nuts/code/DED28"
-        }
-      },
-      {
-        "code": {
-          "type": "literal",
-          "value": "GR"
-        },
-        "conceptURI": {
-          "type": "uri",
-          "value": "http://data.europa.eu/nuts/code/GR"
-        }
-      },
-      {
-        "code": {
-          "type": "literal",
-          "value": "DE411"
-        },
-        "conceptURI": {
-          "type": "uri",
-          "value": "http://data.europa.eu/nuts/code/DE411"
+          "value": "http://data.europa.eu/nuts/code/IT517"
         }
       },
       {
@@ -28933,6 +28203,36 @@
       {
         "code": {
           "type": "literal",
+          "value": "IT11"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://data.europa.eu/nuts/code/IT11"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "ITE13"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://data.europa.eu/nuts/code/ITE13"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "IT206"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://data.europa.eu/nuts/code/IT206"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
           "value": "DE302"
         },
         "conceptURI": {
@@ -28943,201 +28243,41 @@
       {
         "code": {
           "type": "literal",
-          "value": "IT931"
+          "value": "ITA02"
         },
         "conceptURI": {
           "type": "uri",
-          "value": "http://data.europa.eu/nuts/code/IT931"
+          "value": "http://data.europa.eu/nuts/code/ITA02"
         }
       },
       {
         "code": {
           "type": "literal",
-          "value": "IT8"
+          "value": "IT71"
         },
         "conceptURI": {
           "type": "uri",
-          "value": "http://data.europa.eu/nuts/code/IT8"
+          "value": "http://data.europa.eu/nuts/code/IT71"
         }
       },
       {
         "code": {
           "type": "literal",
-          "value": "IT603"
+          "value": "IT93"
         },
         "conceptURI": {
           "type": "uri",
-          "value": "http://data.europa.eu/nuts/code/IT603"
+          "value": "http://data.europa.eu/nuts/code/IT93"
         }
       },
       {
         "code": {
           "type": "literal",
-          "value": "ITC45"
+          "value": "DK002"
         },
         "conceptURI": {
           "type": "uri",
-          "value": "http://data.europa.eu/nuts/code/ITC45"
-        }
-      },
-      {
-        "code": {
-          "type": "literal",
-          "value": "DEE26"
-        },
-        "conceptURI": {
-          "type": "uri",
-          "value": "http://data.europa.eu/nuts/code/DEE26"
-        }
-      },
-      {
-        "code": {
-          "type": "literal",
-          "value": "IT409"
-        },
-        "conceptURI": {
-          "type": "uri",
-          "value": "http://data.europa.eu/nuts/code/IT409"
-        }
-      },
-      {
-        "code": {
-          "type": "literal",
-          "value": "ITA07"
-        },
-        "conceptURI": {
-          "type": "uri",
-          "value": "http://data.europa.eu/nuts/code/ITA07"
-        }
-      },
-      {
-        "code": {
-          "type": "literal",
-          "value": "ITE33"
-        },
-        "conceptURI": {
-          "type": "uri",
-          "value": "http://data.europa.eu/nuts/code/ITE33"
-        }
-      },
-      {
-        "code": {
-          "type": "literal",
-          "value": "ITG22"
-        },
-        "conceptURI": {
-          "type": "uri",
-          "value": "http://data.europa.eu/nuts/code/ITG22"
-        }
-      },
-      {
-        "code": {
-          "type": "literal",
-          "value": "IT714"
-        },
-        "conceptURI": {
-          "type": "uri",
-          "value": "http://data.europa.eu/nuts/code/IT714"
-        }
-      },
-      {
-        "code": {
-          "type": "literal",
-          "value": "DED22"
-        },
-        "conceptURI": {
-          "type": "uri",
-          "value": "http://data.europa.eu/nuts/code/DED22"
-        }
-      },
-      {
-        "code": {
-          "type": "literal",
-          "value": "DED26"
-        },
-        "conceptURI": {
-          "type": "uri",
-          "value": "http://data.europa.eu/nuts/code/DED26"
-        }
-      },
-      {
-        "code": {
-          "type": "literal",
-          "value": "DEA25"
-        },
-        "conceptURI": {
-          "type": "uri",
-          "value": "http://data.europa.eu/nuts/code/DEA25"
-        }
-      },
-      {
-        "code": {
-          "type": "literal",
-          "value": "ITD55"
-        },
-        "conceptURI": {
-          "type": "uri",
-          "value": "http://data.europa.eu/nuts/code/ITD55"
-        }
-      },
-      {
-        "code": {
-          "type": "literal",
-          "value": "IT12"
-        },
-        "conceptURI": {
-          "type": "uri",
-          "value": "http://data.europa.eu/nuts/code/IT12"
-        }
-      },
-      {
-        "code": {
-          "type": "literal",
-          "value": "DEE16"
-        },
-        "conceptURI": {
-          "type": "uri",
-          "value": "http://data.europa.eu/nuts/code/DEE16"
-        }
-      },
-      {
-        "code": {
-          "type": "literal",
-          "value": "IT133"
-        },
-        "conceptURI": {
-          "type": "uri",
-          "value": "http://data.europa.eu/nuts/code/IT133"
-        }
-      },
-      {
-        "code": {
-          "type": "literal",
-          "value": "ES702"
-        },
-        "conceptURI": {
-          "type": "uri",
-          "value": "http://data.europa.eu/nuts/code/ES702"
-        }
-      },
-      {
-        "code": {
-          "type": "literal",
-          "value": "DED2A"
-        },
-        "conceptURI": {
-          "type": "uri",
-          "value": "http://data.europa.eu/nuts/code/DED2A"
-        }
-      },
-      {
-        "code": {
-          "type": "literal",
-          "value": "IT713"
-        },
-        "conceptURI": {
-          "type": "uri",
-          "value": "http://data.europa.eu/nuts/code/IT713"
+          "value": "http://data.europa.eu/nuts/code/DK002"
         }
       },
       {
@@ -29153,11 +28293,261 @@
       {
         "code": {
           "type": "literal",
-          "value": "DED29"
+          "value": "ITE"
         },
         "conceptURI": {
           "type": "uri",
-          "value": "http://data.europa.eu/nuts/code/DED29"
+          "value": "http://data.europa.eu/nuts/code/ITE"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "PT132"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://data.europa.eu/nuts/code/PT132"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "ITA01"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://data.europa.eu/nuts/code/ITA01"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "DED18"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://data.europa.eu/nuts/code/DED18"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "PT123"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://data.europa.eu/nuts/code/PT123"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "DE429"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://data.europa.eu/nuts/code/DE429"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "DE421"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://data.europa.eu/nuts/code/DE421"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "IT133"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://data.europa.eu/nuts/code/IT133"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "PT144"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://data.europa.eu/nuts/code/PT144"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "PT125"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://data.europa.eu/nuts/code/PT125"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "DED33"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://data.europa.eu/nuts/code/DED33"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "DE924"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://data.europa.eu/nuts/code/DE924"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "ITB03"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://data.europa.eu/nuts/code/ITB03"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "DEE14"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://data.europa.eu/nuts/code/DEE14"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "PT143"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://data.europa.eu/nuts/code/PT143"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "BE333"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://data.europa.eu/nuts/code/BE333"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "GR"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://data.europa.eu/nuts/code/GR"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "DE425"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://data.europa.eu/nuts/code/DE425"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "IT519"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://data.europa.eu/nuts/code/IT519"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "ITD55"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://data.europa.eu/nuts/code/ITD55"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "IT515"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://data.europa.eu/nuts/code/IT515"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "IT132"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://data.europa.eu/nuts/code/IT132"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "IT326"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://data.europa.eu/nuts/code/IT326"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "DED2A"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://data.europa.eu/nuts/code/DED2A"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "PT142"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://data.europa.eu/nuts/code/PT142"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "DK009"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://data.europa.eu/nuts/code/DK009"
         }
       },
       {
@@ -29168,6 +28558,16 @@
         "conceptURI": {
           "type": "uri",
           "value": "http://data.europa.eu/nuts/code/DEE22"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "ITA06"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://data.europa.eu/nuts/code/ITA06"
         }
       },
       {
@@ -29213,61 +28613,641 @@
       {
         "code": {
           "type": "literal",
-          "value": "DED23"
+          "value": "DE416"
         },
         "conceptURI": {
           "type": "uri",
-          "value": "http://data.europa.eu/nuts/code/DED23"
+          "value": "http://data.europa.eu/nuts/code/DE416"
         }
       },
       {
         "code": {
           "type": "literal",
-          "value": "PT122"
+          "value": "ITE1"
         },
         "conceptURI": {
           "type": "uri",
-          "value": "http://data.europa.eu/nuts/code/PT122"
+          "value": "http://data.europa.eu/nuts/code/ITE1"
         }
       },
       {
         "code": {
           "type": "literal",
-          "value": "DEE38"
+          "value": "IT33"
         },
         "conceptURI": {
           "type": "uri",
-          "value": "http://data.europa.eu/nuts/code/DEE38"
+          "value": "http://data.europa.eu/nuts/code/IT33"
         }
       },
       {
         "code": {
           "type": "literal",
-          "value": "DEE15"
+          "value": "ITD57"
         },
         "conceptURI": {
           "type": "uri",
-          "value": "http://data.europa.eu/nuts/code/DEE15"
+          "value": "http://data.europa.eu/nuts/code/ITD57"
         }
       },
       {
         "code": {
           "type": "literal",
-          "value": "DED35"
+          "value": "IT8"
         },
         "conceptURI": {
           "type": "uri",
-          "value": "http://data.europa.eu/nuts/code/DED35"
+          "value": "http://data.europa.eu/nuts/code/IT8"
         }
       },
       {
         "code": {
           "type": "literal",
-          "value": "DE41"
+          "value": "IT512"
         },
         "conceptURI": {
           "type": "uri",
-          "value": "http://data.europa.eu/nuts/code/DE41"
+          "value": "http://data.europa.eu/nuts/code/IT512"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "ITE12"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://data.europa.eu/nuts/code/ITE12"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "DE412"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://data.europa.eu/nuts/code/DE412"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "IT114"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://data.europa.eu/nuts/code/IT114"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "ITA04"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://data.europa.eu/nuts/code/ITA04"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "DK00F"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://data.europa.eu/nuts/code/DK00F"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "IT713"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://data.europa.eu/nuts/code/IT713"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "DED34"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://data.europa.eu/nuts/code/DED34"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "ITD"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://data.europa.eu/nuts/code/ITD"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "DE422"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://data.europa.eu/nuts/code/DE422"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "ITD5"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://data.europa.eu/nuts/code/ITD5"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "ITD54"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://data.europa.eu/nuts/code/ITD54"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "IT51A"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://data.europa.eu/nuts/code/IT51A"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "DED31"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://data.europa.eu/nuts/code/DED31"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "ITE4"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://data.europa.eu/nuts/code/ITE4"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "IT312"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://data.europa.eu/nuts/code/IT312"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "IT332"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://data.europa.eu/nuts/code/IT332"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "IT518"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://data.europa.eu/nuts/code/IT518"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "DE301"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://data.europa.eu/nuts/code/DE301"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "IT208"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://data.europa.eu/nuts/code/IT208"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "IT531"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://data.europa.eu/nuts/code/IT531"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "IT915"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://data.europa.eu/nuts/code/IT915"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "DED32"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://data.europa.eu/nuts/code/DED32"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "IT911"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://data.europa.eu/nuts/code/IT911"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "DEE3"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://data.europa.eu/nuts/code/DEE3"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "IT804"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://data.europa.eu/nuts/code/IT804"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "DED28"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://data.europa.eu/nuts/code/DED28"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "DED11"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://data.europa.eu/nuts/code/DED11"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "ITE2"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://data.europa.eu/nuts/code/ITE2"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "IT134"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://data.europa.eu/nuts/code/IT134"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "IT933"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://data.europa.eu/nuts/code/IT933"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "IT935"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://data.europa.eu/nuts/code/IT935"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "ITD4"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://data.europa.eu/nuts/code/ITD4"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "IT333"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://data.europa.eu/nuts/code/IT333"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "ITE11"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://data.europa.eu/nuts/code/ITE11"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "IT115"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://data.europa.eu/nuts/code/IT115"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "ITD36"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://data.europa.eu/nuts/code/ITD36"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "ITA08"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://data.europa.eu/nuts/code/ITA08"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "DED29"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://data.europa.eu/nuts/code/DED29"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "DK006"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://data.europa.eu/nuts/code/DK006"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "DEE34"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://data.europa.eu/nuts/code/DEE34"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "IT934"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://data.europa.eu/nuts/code/IT934"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "IT912"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://data.europa.eu/nuts/code/IT912"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "DED2B"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://data.europa.eu/nuts/code/DED2B"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "IT205"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://data.europa.eu/nuts/code/IT205"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "ITG22"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://data.europa.eu/nuts/code/ITG22"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "DEE39"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://data.europa.eu/nuts/code/DEE39"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "IT113"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://data.europa.eu/nuts/code/IT113"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "IT31"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://data.europa.eu/nuts/code/IT31"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "ITD44"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://data.europa.eu/nuts/code/ITD44"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "IT112"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://data.europa.eu/nuts/code/IT112"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "DE428"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://data.europa.eu/nuts/code/DE428"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "DED25"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://data.europa.eu/nuts/code/DED25"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "ITA05"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://data.europa.eu/nuts/code/ITA05"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "IT914"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://data.europa.eu/nuts/code/IT914"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "IT327"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://data.europa.eu/nuts/code/IT327"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "DEE33"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://data.europa.eu/nuts/code/DEE33"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "DK00C"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://data.europa.eu/nuts/code/DK00C"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "IT20B"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://data.europa.eu/nuts/code/IT20B"
         }
       },
       {
@@ -31043,11 +31023,31 @@
       {
         "code": {
           "type": "literal",
-          "value": "DEE1"
+          "value": "PT129"
         },
         "conceptURI": {
           "type": "uri",
-          "value": "http://data.europa.eu/nuts/code/DEE1"
+          "value": "http://data.europa.eu/nuts/code/PT129"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "PT12A"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://data.europa.eu/nuts/code/PT12A"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "PT124"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://data.europa.eu/nuts/code/PT124"
         }
       },
       {
@@ -31743,11 +31743,11 @@
       {
         "code": {
           "type": "literal",
-          "value": "NL331"
+          "value": "NL335"
         },
         "conceptURI": {
           "type": "uri",
-          "value": "http://data.europa.eu/nuts/code/NL331"
+          "value": "http://data.europa.eu/nuts/code/NL335"
         }
       },
       {

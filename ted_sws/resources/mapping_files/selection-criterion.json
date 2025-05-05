@@ -23,21 +23,21 @@
       {
         "code": {
           "type": "literal",
-          "value": "other"
-        },
-        "conceptURI": {
-          "type": "uri",
-          "value": "http://publications.europa.eu/resource/authority/selection-criterion/other"
-        }
-      },
-      {
-        "code": {
-          "type": "literal",
           "value": "ef-stand"
         },
         "conceptURI": {
           "type": "uri",
           "value": "http://publications.europa.eu/resource/authority/selection-criterion/ef-stand"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "other"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://publications.europa.eu/resource/authority/selection-criterion/other"
         }
       },
       {
@@ -58,6 +58,16 @@
         "conceptURI": {
           "type": "uri",
           "value": "http://publications.europa.eu/resource/authority/selection-criterion/tp-abil"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "slc-sec-supply"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://publications.europa.eu/resource/authority/selection-criterion/slc-sec-supply"
         }
       },
       {
@@ -298,16 +308,6 @@
         "conceptURI": {
           "type": "uri",
           "value": "http://publications.europa.eu/resource/authority/selection-criterion/slc-sec-proc"
-        }
-      },
-      {
-        "code": {
-          "type": "literal",
-          "value": "slc-sec-supply"
-        },
-        "conceptURI": {
-          "type": "uri",
-          "value": "http://publications.europa.eu/resource/authority/selection-criterion/slc-sec-supply"
         }
       },
       {

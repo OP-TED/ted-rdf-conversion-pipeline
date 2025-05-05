@@ -33,11 +33,11 @@
       {
         "code": {
           "type": "literal",
-          "value": "other"
+          "value": "national"
         },
         "conceptURI": {
           "type": "uri",
-          "value": "http://publications.europa.eu/resource/authority/gpp-criteria/other"
+          "value": "http://publications.europa.eu/resource/authority/gpp-criteria/national"
         }
       },
       {
@@ -53,11 +53,11 @@
       {
         "code": {
           "type": "literal",
-          "value": "national"
+          "value": "other"
         },
         "conceptURI": {
           "type": "uri",
-          "value": "http://publications.europa.eu/resource/authority/gpp-criteria/national"
+          "value": "http://publications.europa.eu/resource/authority/gpp-criteria/other"
         }
       }
     ]

@@ -10,7 +10,7 @@ from datetime import datetime
 from enum import Enum
 from typing import List, Union, Optional, Dict
 
-from pydantic import Field
+from pydantic import Field, ConfigDict
 
 from ted_sws.core.model import PropertyBaseModel
 from ted_sws.core.model.validation_report_data import ReportNoticeData
@@ -44,11 +44,10 @@ class Manifestation(PropertyBaseModel):
         A manifestation that embodies a FRBR Work/Expression.
     """
 
-    class Config:
-        validate_assignment = True
-        orm_mode = True
+    model_config = ConfigDict(validate_assignment=True,
+                              from_attributes=True)
 
-    object_data: str = Field(..., allow_mutation=True)
+    object_data: str = Field(..., frozen=False)
 
     def __str__(self):
         STR_LEN = 150  # constant
@@ -68,7 +67,7 @@ class XPATHCoverageSummaryResult(PropertyBaseModel):
 
 
 class XPATHCoverageSummaryReport(PropertyBaseModel):
-    mapping_suite_identifier: Optional[str]
+    mapping_suite_identifier: Optional[str] = None
     validation_result: Optional[XPATHCoverageSummaryResult] = XPATHCoverageSummaryResult()
 
 
@@ -85,8 +84,8 @@ class SPARQLSummaryCountReport(PropertyBaseModel):
 
 
 class SPARQLSummaryResult(PropertyBaseModel):
-    test_suite_identifier: Optional[str]
-    mapping_suite_identifier: Optional[str]
+    test_suite_identifier: Optional[str] = None
+    mapping_suite_identifier: Optional[str] = None
     aggregate: Optional[SPARQLSummaryCountReport] = SPARQLSummaryCountReport()
 
 
@@ -106,8 +105,8 @@ class SHACLSummaryResultSeverityReport(PropertyBaseModel):
 
 
 class SHACLSummaryResult(PropertyBaseModel):
-    test_suite_identifier: Optional[str]
-    mapping_suite_identifier: Optional[str]
+    test_suite_identifier: Optional[str] = None
+    mapping_suite_identifier: Optional[str] = None
     result_severity: Optional[SHACLSummaryResultSeverityReport] = SHACLSummaryResultSeverityReport()
 
 
@@ -140,11 +139,11 @@ class XPATHCoverageValidationAssertion(PropertyBaseModel):
     """
 
     """
-    form_field: Optional[str]
-    xpath: Optional[str]
-    count: Optional[int]
-    notice_hit: Optional[Dict[str, int]]
-    query_result: Optional[bool]
+    form_field: Optional[str] = None
+    xpath: Optional[str] = None
+    count: Optional[int] = None
+    notice_hit: Optional[Dict[str, int]] = None
+    query_result: Optional[bool] = None
 
 
 class XPATHCoverageValidationResultBase(PropertyBaseModel):
@@ -159,7 +158,7 @@ class XPATHCoverageValidationResult(XPATHCoverageValidationResultBase):
     """
     XPATHCoverageValidationResult for Notice
     """
-    notices: Optional[List[ReportNoticeData]]
+    notices: Optional[List[ReportNoticeData]] = None
 
 
 class XPATHCoverageValidationReport(XMLValidationManifestation):
@@ -167,14 +166,14 @@ class XPATHCoverageValidationReport(XMLValidationManifestation):
     This is the model structure for Notice(s) XPATHs Coverage Report
     """
 
-    validation_result: Optional[XPATHCoverageValidationResult]
+    validation_result: Optional[XPATHCoverageValidationResult] = None
 
 
 class XMLManifestation(Manifestation):
     """
         Original XML Notice manifestation as published on the TED website.
     """
-    xpath_coverage_validation: XPATHCoverageValidationReport = None
+    xpath_coverage_validation: Optional[XPATHCoverageValidationReport] = None
 
     def add_validation(self, validation: Union[XPATHCoverageValidationReport]):
         if type(validation) == XPATHCoverageValidationReport:
@@ -200,15 +199,15 @@ class RDFValidationManifestation(ValidationManifestation):
 
     """
     mapping_suite_identifier: str
-    test_suite_identifier: Optional[str]
+    test_suite_identifier: Optional[str] = None
 
 
 class SPARQLQuery(PropertyBaseModel):
     """
     Stores SPARQL query details
     """
-    title: Optional[str]
-    description: Optional[str]
+    title: Optional[str] = None
+    description: Optional[str] = None
     xpath: Optional[List[str]] = []
     query: str
 
@@ -218,16 +217,15 @@ class SPARQLQueryResult(PropertyBaseModel):
     Stores SPARQL query execution result
     """
     query: SPARQLQuery
-    result: Optional[SPARQLQueryRefinedResultType]
-    query_result: Optional[str]
+    result: Optional[SPARQLQueryRefinedResultType] = None
+    query_result: Optional[str] = None
     fields_covered: Optional[bool] = True
     missing_fields: Optional[List[str]] = []
-    error: Optional[str]
-    message: Optional[str]
-    identifier: Optional[str]
+    error: Optional[str] = None
+    message: Optional[str] = None
+    identifier: Optional[str] = None
 
-    class Config:
-        use_enum_values = True
+    model_config = ConfigDict(use_enum_values=True)
 
 
 class SPARQLTestSuiteValidationReport(RDFValidationManifestation):
@@ -242,10 +240,10 @@ class QueriedSHACLShapeValidationResult(PropertyBaseModel):
     Queried SHACL Validation Report which contains the following variables
     ?focusNode ?message ?resultPath ?resultSeverity ?sourceConstraintComponent ?sourceShape ?value
     """
-    conforms: Optional[str]
-    results_dict: Optional[dict]
-    error: Optional[str]
-    identifier: Optional[str]
+    conforms: Optional[str] = None
+    results_dict: Optional[dict] = None
+    error: Optional[str] = None
+    identifier: Optional[str] = None
 
 
 class SHACLTestSuiteValidationReport(RDFValidationManifestation):
@@ -256,7 +254,7 @@ class SHACLTestSuiteValidationReport(RDFValidationManifestation):
 
 
 class EntityDeduplicationReport(Manifestation):
-    object_data: Optional[str]
+    object_data: Optional[str] = None
     number_of_duplicates: int
     number_of_cets: int
     uries: List[str]
@@ -266,10 +264,10 @@ class RDFManifestation(Manifestation):
     """
         Transformed manifestation in RDF format
     """
-    mapping_suite_id = "unknown_mapping_suite_id"
+    mapping_suite_id: str = "unknown_mapping_suite_id"
     shacl_validations: List[SHACLTestSuiteValidationReport] = []
     sparql_validations: List[SPARQLTestSuiteValidationReport] = []
-    deduplication_report: Optional[EntityDeduplicationReport]
+    deduplication_report: Optional[EntityDeduplicationReport] = None
 
     def validation_exists(self, validation, validations):
         """

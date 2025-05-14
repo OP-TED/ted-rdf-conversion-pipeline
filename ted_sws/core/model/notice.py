@@ -19,7 +19,7 @@ from enum import IntEnum
 from functools import total_ordering
 from typing import Optional, List, Union
 
-from pydantic import Field
+from pydantic import Field, computed_field, ConfigDict
 
 from ted_sws.core.model import PropertyBaseModel
 from ted_sws.core.model.lazy_object import LazyObjectABC, LazyObjectFieldsLoaderABC
@@ -120,16 +120,15 @@ class WorkExpression(PropertyBaseModel, abc.ABC):
             See: https://www.cosmicpython.com/book/chapter_11_external_events.html
     """
 
-    class Config:
-        underscore_attrs_are_private = True
-        validate_assignment = True
-        orm_mode = True
+    model_config = ConfigDict(validate_assignment=True,
+                              from_attributes=True)
 
     created_at: str = datetime.now().replace(microsecond=0).isoformat()
     version_number: int = 0
 
+    @computed_field
     @property
-    def status(self):
+    def status(self) -> NoticeStatus:
         return self._status
 
     @abc.abstractmethod
@@ -183,7 +182,7 @@ class Notice(LazyWorkExpression):
 
     """
     _status: NoticeStatus = NoticeStatus.RAW
-    ted_id: str = Field(..., allow_mutation=False)
+    ted_id: str = Field(..., frozen=True)
     _original_metadata: Optional[TEDMetadata] = None
     _xml_manifestation: Optional[XMLManifestation] = None
     _normalised_metadata: Optional[NormalisedMetadata] = None
@@ -192,14 +191,16 @@ class Notice(LazyWorkExpression):
     _rdf_manifestation: Optional[RDFManifestation] = None
     _mets_manifestation: Optional[METSManifestation] = None
     _xml_metadata: Optional[XMLMetadata] = None
-    validation_summary: Optional[ValidationSummaryReport]
+    validation_summary: Optional[ValidationSummaryReport] = None
 
+    @computed_field
     @property
     def original_metadata(self) -> Optional[TEDMetadata]:
         if self._original_metadata is None:
             self.load_lazy_field(property_field=Notice.original_metadata)
         return self._original_metadata
 
+    @computed_field
     @property
     def xml_manifestation(self) -> XMLManifestation:
         if self._xml_manifestation is None:
@@ -212,36 +213,42 @@ class Notice(LazyWorkExpression):
     def set_xml_manifestation(self, xml_manifestation: XMLManifestation):
         self._xml_manifestation = xml_manifestation
 
+    @computed_field
     @property
     def xml_metadata(self) -> XMLMetadata:
         if self._xml_metadata is None:
             self.load_lazy_field(property_field=Notice.xml_metadata)
         return self._xml_metadata
 
+    @computed_field
     @property
     def preprocessed_xml_manifestation(self) -> XMLManifestation:
         if self._preprocessed_xml_manifestation is None:
             self.load_lazy_field(property_field=Notice.preprocessed_xml_manifestation)
         return self._preprocessed_xml_manifestation
 
+    @computed_field
     @property
     def distilled_rdf_manifestation(self) -> RDFManifestation:
         if self._distilled_rdf_manifestation is None:
             self.load_lazy_field(property_field=Notice.distilled_rdf_manifestation)
         return self._distilled_rdf_manifestation
 
+    @computed_field
     @property
     def normalised_metadata(self) -> NormalisedMetadata:
         if self._normalised_metadata is None:
             self.load_lazy_field(property_field=Notice.normalised_metadata)
         return self._normalised_metadata
 
+    @computed_field
     @property
     def rdf_manifestation(self) -> RDFManifestation:
         if self._rdf_manifestation is None:
             self.load_lazy_field(property_field=Notice.rdf_manifestation)
         return self._rdf_manifestation
 
+    @computed_field
     @property
     def mets_manifestation(self) -> METSManifestation:
         if self._mets_manifestation is None:

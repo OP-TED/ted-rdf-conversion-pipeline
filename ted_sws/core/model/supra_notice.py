@@ -10,6 +10,8 @@ import abc
 from datetime import datetime, date
 from typing import List, Optional
 
+from pydantic import ConfigDict
+
 from ted_sws.core.model import PropertyBaseModel
 from ted_sws.core.model.manifestation import Manifestation, ValidationSummaryReport
 
@@ -19,10 +21,8 @@ class SupraNotice(PropertyBaseModel, abc.ABC):
         This is an arbitrary aggregate over a list of notices.
     """
 
-    class Config:
-        underscore_attrs_are_private = True
-        validate_assignment = True
-        orm_mode = True
+    model_config = ConfigDict(validate_assignment=True,
+                              from_attributes=True)
 
     created_at: datetime = datetime.now().replace(microsecond=0)
 
@@ -33,8 +33,8 @@ class SupraNoticeValidationReport(Manifestation):
     """
         Result of checking whether all the notices published in TED are present in the internal database.
     """
-    missing_notice_ids: Optional[List[str]]
-    not_published_notice_ids: Optional[List[str]]
+    missing_notice_ids: Optional[List[str]] = None
+    not_published_notice_ids: Optional[List[str]] = None
 
     def is_valid(self):
         if not self.missing_notice_ids and not self.not_published_notice_ids:
@@ -47,5 +47,5 @@ class DailySupraNotice(SupraNotice):
         This is an aggregate over the notices published in TED in a specific day.
     """
     ted_publication_date: date
-    validation_report: Optional[SupraNoticeValidationReport]
-    validation_summary: Optional[ValidationSummaryReport]
+    validation_report: Optional[SupraNoticeValidationReport] = None
+    validation_summary: Optional[ValidationSummaryReport] = None

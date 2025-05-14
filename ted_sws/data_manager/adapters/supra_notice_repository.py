@@ -35,7 +35,7 @@ class DailySupraNoticeRepository(DailySupraNoticeRepositoryABC):
         :param daily_supra_notice:
         :return:
         """
-        daily_supra_notice_dict = daily_supra_notice.dict()
+        daily_supra_notice_dict = daily_supra_notice.model_dump()
         daily_supra_notice_dict[DAILY_SUPRA_NOTICE_TED_PUBLICATION_DATE] = datetime.combine(
             daily_supra_notice_dict[DAILY_SUPRA_NOTICE_TED_PUBLICATION_DATE], time())
         daily_supra_notice_dict[DAILY_SUPRA_NOTICE_ID] = daily_supra_notice_dict[
@@ -57,7 +57,7 @@ class DailySupraNoticeRepository(DailySupraNoticeRepositoryABC):
             remove_date_string_fields(data=daily_supra_notice_dict,
                                       date_field_name=DAILY_SUPRA_NOTICE_TED_PUBLICATION_DATE)
             remove_date_string_fields(data=daily_supra_notice_dict, date_field_name=DAILY_SUPRA_NOTICE_CREATED_AT)
-            daily_supra_notice = DailySupraNotice.parse_obj(daily_supra_notice_dict)
+            daily_supra_notice = DailySupraNotice.model_validate(daily_supra_notice_dict)
             return daily_supra_notice
         return None
 

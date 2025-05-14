@@ -7,10 +7,9 @@
 
 """ """
 from enum import Enum
-from typing import List, Optional, Union
+from typing import List, Optional, Union, NamedTuple
 
-from pydantic import Field, validator
-from pydantic.annotated_types import NamedTuple
+from pydantic import Field, validator, field_validator
 
 from ted_sws.core.model import PropertyBaseModel
 
@@ -20,8 +19,6 @@ class Metadata(PropertyBaseModel):
         Unified interface for metadata
     """
 
-    class Config:
-        underscore_attrs_are_private = True
 
 
 class XMLMetadata(Metadata):
@@ -77,24 +74,24 @@ class NormalisedMetadata(Metadata):
     publication_date: str
     ojs_issue_number: str
     ojs_type: str
-    city_of_buyer: Optional[List[LanguageTaggedString]]
-    name_of_buyer: Optional[List[LanguageTaggedString]]
-    original_language: Optional[str]
-    country_of_buyer: Optional[str]
-    eu_institution: Optional[bool]
-    document_sent_date: Optional[str]
-    deadline_for_submission: Optional[str]
+    city_of_buyer: Optional[List[LanguageTaggedString]] = None
+    name_of_buyer: Optional[List[LanguageTaggedString]] = None
+    original_language: Optional[str] = None
+    country_of_buyer: Optional[str] = None
+    eu_institution: Optional[bool] = None
+    document_sent_date: Optional[str] = None
+    deadline_for_submission: Optional[str] = None
     notice_type: str
     form_type: str
-    place_of_performance: Optional[List[str]]
-    extracted_legal_basis_directive: Optional[str]
+    place_of_performance: Optional[List[str]] = None
+    extracted_legal_basis_directive: Optional[str] = None
     legal_basis_directive: str
     form_number: str
     eforms_subtype: str
-    xsd_version: Optional[str]
+    xsd_version: Optional[str] = None
     published_in_cellar_counter: int = Field(default=0)
     notice_source: Optional[NoticeSource] = NoticeSource.STANDARD_FORM
-    eform_sdk_version: Optional[str]
+    eform_sdk_version: Optional[str] = None
 
 
 class NormalisedMetadataView(Metadata):
@@ -104,24 +101,24 @@ class NormalisedMetadataView(Metadata):
     publication_date: str
     ojs_issue_number: str
     ojs_type: str
-    city_of_buyer: Optional[str]
-    name_of_buyer: Optional[str]
-    original_language: Optional[str]
-    country_of_buyer: Optional[str]
-    eu_institution: Optional[bool]
-    document_sent_date: Optional[str]
-    deadline_for_submission: Optional[str]
+    city_of_buyer: Optional[str] = None
+    name_of_buyer: Optional[str] = None
+    original_language: Optional[str] = None
+    country_of_buyer: Optional[str] = None
+    eu_institution: Optional[bool] = None
+    document_sent_date: Optional[str] = None
+    deadline_for_submission: Optional[str] = None
     notice_type: str
     form_type: str
-    place_of_performance: Optional[List[str]]
-    extracted_legal_basis_directive: Optional[str]
+    place_of_performance: Optional[List[str]] = None
+    extracted_legal_basis_directive: Optional[str] = None
     legal_basis_directive: str
     form_number: str
     eforms_subtype: str
-    xsd_version: Optional[str]
+    xsd_version: Optional[str] = None
     published_in_cellar_counter: int = Field(default=0)
     notice_source: Optional[NoticeSource] = NoticeSource.STANDARD_FORM
-    eform_sdk_version: Optional[str]
+    eform_sdk_version: Optional[str] = None
 
 
 class TEDMetadata(Metadata):
@@ -135,3 +132,8 @@ class TEDMetadata(Metadata):
     # ------------------------------------------------------------------
     RN: Optional[Union[List[str], str]] = None
     # ------------------------------------------------------------------
+    @field_validator("RN", mode="before")
+    def coerce_rn(cls, value):
+        if isinstance(value, list):
+            return [str(item) for item in value]
+        return value

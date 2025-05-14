@@ -22,7 +22,7 @@ def notices_batch_distillation_pipeline(notice_ids: List[str], mongodb_client: M
     for notice_id in notice_ids:
         notice = notice_repository.get(reference=notice_id)
         notice.set_distilled_rdf_manifestation(
-            distilled_rdf_manifestation=notice.rdf_manifestation.copy())
+            distilled_rdf_manifestation=notice.rdf_manifestation.model_copy())
         notices.append(notice)
     for cet_uri in CET_URIS:
         deduplicate_entities_by_cet_uri(notices=notices, cet_uri=cet_uri)

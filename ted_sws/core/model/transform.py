@@ -11,12 +11,13 @@ from datetime import datetime
 from enum import Enum
 from typing import List, Optional, Union
 
+from pydantic import field_validator, ConfigDict
+
 from ted_sws.core.model import PropertyBaseModel
 
 
 class MappingSuiteComponent(PropertyBaseModel, abc.ABC):
-    class Config:
-        validate_assignment = True
+    model_config = ConfigDict(validate_assignment=True)
 
 
 class FileResource(MappingSuiteComponent):
@@ -25,7 +26,7 @@ class FileResource(MappingSuiteComponent):
     """
     file_name: str
     file_content: str
-    original_name: Optional[str]
+    original_name: Optional[str] = None
     parents: Optional[List[str]] = []
 
 
@@ -42,19 +43,24 @@ class MetadataConstraintsStandardForm(MappingSuiteComponent):
     Metadata constraints structure for Standard forms
     """
     eforms_subtype: List[str]
-    start_date: Optional[List[str]]
-    end_date: Optional[List[str]]
+    start_date: Optional[List[str]] = None
+    end_date: Optional[List[str]] = None
     min_xsd_version: List[str]
-    max_xsd_version: Optional[List[str]]
+    max_xsd_version: Optional[List[str]] = None
 
+    @field_validator("eforms_subtype", mode="before")
+    def coerce_eforms_subtype(cls, value):
+        if isinstance(value, list):
+            return [str(item) for item in value]
+        return value
 
 class MetadataConstraintsEform(MappingSuiteComponent):
     """
     Metadata constraints structure for eForms
     """
     eforms_subtype: List[str]
-    start_date: Optional[List[str]]
-    end_date: Optional[List[str]]
+    start_date: Optional[List[str]] = None
+    end_date: Optional[List[str]] = None
     eforms_sdk_versions: List[str]
 
 
@@ -98,7 +104,7 @@ class TransformationTestData(MappingSuiteComponent):
 
 class MappingXPATH(MappingSuiteComponent):
     xpath: str
-    form_field: Optional[str]
+    form_field: Optional[str] = None
 
 
 class MappingSuiteType(str, Enum):

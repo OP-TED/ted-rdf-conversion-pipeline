@@ -1,10 +1,5 @@
 #!/usr/bin/python3
 
-# metadata.py
-# Date:  22/02/2022
-# Author: Kolea PLESCO
-# Email: kalean.bl@gmail.com
-
 """
 This model contains the metadata mapping/manipulation class to be used by Notice-Packager/Template-Generator
 """
@@ -12,7 +7,7 @@ This model contains the metadata mapping/manipulation class to be used by Notice
 import datetime
 from typing import List, Dict, Optional
 
-from pydantic import validator
+from pydantic import field_validator
 
 from ted_sws.core.model.metadata import Metadata
 
@@ -65,9 +60,9 @@ class NoticeMetadata(Metadata):
     """
     General notice metadata
     """
-    id: Optional[str]
-    public_number_document: Optional[str]
-    public_number_edition: Optional[str]
+    id: Optional[str] = None
+    public_number_document: Optional[str] = None
+    public_number_edition: Optional[str] = None
 
 
 class MetsMetadata(Metadata):
@@ -80,22 +75,22 @@ class MetsMetadata(Metadata):
     type: str = METS_TYPE_CREATE
     profile: str = METS_PROFILE
     createdate: str = datetime.datetime.now().isoformat()
-    document_id: Optional[str]
-    dmd_id: Optional[str]
+    document_id: Optional[str] = None
+    dmd_id: Optional[str] = None
     dmd_mdtype: str = METS_DMD_MDTYPE
     dmd_othermdtype: str = METS_DMD_OTHERMDTYPE
-    dmd_href: Optional[str]
-    tmd_id: Optional[str]
-    tmd_href: Optional[str]
+    dmd_href: Optional[str] = None
+    tmd_id: Optional[str] = None
+    tmd_href: Optional[str] = None
     tmd_mdtype: str = METS_TMD_MDTYPE
     tmd_othermdtype: str = METS_TMD_OTHERMDTYPE
-    file_id: Optional[str]
-    notice_file_href: Optional[str]
+    file_id: Optional[str] = None
+    notice_file_href: Optional[str] = None
     notice_file_mimetype: Optional[str] = METS_NOTICE_FILE_MIMETYPE
-    notice_file_checksum: Optional[str]
+    notice_file_checksum: Optional[str] = None
     notice_file_checksum_type: Optional[str] = METS_NOTICE_FILE_CHECKSUM_TYPE
 
-    @validator('type')
+    @field_validator('type')
     def validate_notice_action_type(cls, action_type):
         validate_mets_type(action_type)
         return action_type
@@ -107,10 +102,10 @@ class WorkMetadata(Metadata):
         and the rest is a bunch of constants OR generated values (e.g. date, URI, ...)
     """
 
-    identifier: Optional[str]
-    oj_identifier: Optional[str]
-    cdm_rdf_type: Optional[str]
-    resource_type: Optional[str]
+    identifier: Optional[str] = None
+    oj_identifier: Optional[str] = None
+    cdm_rdf_type: Optional[str] = None
+    resource_type: Optional[str] = None
     uri: Optional[str] = None
     do_not_index: str = WORK_DO_NOT_INDEX
     date_document: str = datetime.datetime.now().strftime('%Y-%m-%d')
@@ -123,18 +118,18 @@ class WorkMetadata(Metadata):
     dataset_version: Optional[str] = None
     dataset_keyword: List[str] = DATASET_KEYWORD
     dataset_has_frequency_publication_frequency: str = PUBLICATION_FREQUENCY
-    procurement_public_issued_by_country: Optional[str]
-    procurement_public_url_etendering: Optional[List[str]]
+    procurement_public_issued_by_country: Optional[str] = None
+    procurement_public_url_etendering: Optional[List[str]] = None
 
 
 class ExpressionMetadata(Metadata):
-    identifier: Optional[str]
+    identifier: Optional[str] = None
     title: Optional[Dict[str, str]] = None
     uses_language: str = USES_LANGUAGE
 
 
 class ManifestationMetadata(Metadata):
-    identifier: Optional[str]
+    identifier: Optional[str] = None
     type: str = MANIFESTATION_TYPE
     date_publication: str = datetime.datetime.now().strftime('%Y-%m-%d')
     distribution_has_status_distribution_status: str = DISTRIBUTION_STATUS

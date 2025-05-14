@@ -1,4 +1,5 @@
 import abc
+from enum import Enum
 
 from pymongo import MongoClient, ASCENDING, DESCENDING
 
@@ -84,7 +85,7 @@ class EventLoggingRepository(EventLoggingRepositoryABC):
         :return: The event message dict
         """
 
-        event_message_dict = event_message.dict()
+        event_message_dict = event_message.model_dump()
         for event_date_field_name in LOGGING_DATE_FIELD_NAMES:
             inject_date_string_fields(data=event_message_dict, date_field_name=event_date_field_name,
                                       date_string_fields_suffix_map=LOGGING_DATE_STRING_FIELDS_SUFFIX_MAP
@@ -114,7 +115,17 @@ class EventLoggingRepository(EventLoggingRepositoryABC):
         :param event_message: The event message to be added
         :return:
         """
-        record = self.prepare_record(event_message)
+        record = event_message.model_dump(mode="python")
+        # Convert all Enum fields recursively
+        record = convert_enums_to_values(record)
+
+        for event_date_field_name in LOGGING_DATE_FIELD_NAMES:
+            inject_date_string_fields(
+                data=record,
+                date_field_name=event_date_field_name,
+                date_string_fields_suffix_map=LOGGING_DATE_STRING_FIELDS_SUFFIX_MAP,
+            )
+
         result = self.collection.insert_one(record)
         return result.inserted_id
 
@@ -171,3 +182,29 @@ class MappingSuiteEventRepository(EventLoggingRepository):
         :param collection_name: The collection name
         """
         super().__init__(mongodb_client, database_name, collection_name)
+
+
+def convert_enums_to_values(obj):
+    """
+    Recursively convert all Enum instances within a data structure to their corresponding values.
+
+    This function walks through nested dictionaries and lists, replacing any instances of
+    Python `Enum` objects with their `.value`. This is useful for preparing data to be
+    serialised into formats like JSON or inserted into databases such as MongoDB, which do not
+    support serialising Enum instances directly.
+
+    Args:
+        obj (Any): The object to convert. Can be a dict, list, Enum, or any other type.
+
+    Returns:
+        Any: A copy of the object with all Enums replaced by their raw values.
+              The structure and other data types remain unchanged.
+    """
+    if isinstance(obj, dict):
+        return {k: convert_enums_to_values(v) for k, v in obj.items()}
+    elif isinstance(obj, list):
+        return [convert_enums_to_values(item) for item in obj]
+    elif isinstance(obj, Enum):
+        return obj.value
+    else:
+        return obj

@@ -1,6 +1,6 @@
 from typing import Optional
 
-from pydantic import BaseModel
+from pydantic import BaseModel, ConfigDict
 
 from ted_sws.core.model.transform import MappingSuiteType, MetadataConstraints
 
@@ -15,5 +15,4 @@ class EFormsPackageMetadataBase(BaseModel):
     mapping_type: Optional[MappingSuiteType] = MappingSuiteType.ELECTRONIC_FORMS
     metadata_constraints: MetadataConstraints
 
-    class Config:
-        use_enum_values = True
+    model_config = ConfigDict(use_enum_values=True)

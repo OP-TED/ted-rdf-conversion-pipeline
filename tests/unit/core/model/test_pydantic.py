@@ -18,7 +18,7 @@ class Metadata(BaseModel):
 
 class User(BaseModel):
     id: int
-    name = 'John Doe'
+    name: str = 'John Doe'
     signup_ts: Optional[datetime] = None
     friends: List[int] = []
 
@@ -29,8 +29,8 @@ class Foo(BaseModel):
 
 
 class Bar(BaseModel):
-    apple = 'x'
-    banana = 'y'
+    apple: str = 'x'
+    banana: str = 'y'
 
 
 class Spam(BaseModel):
@@ -52,7 +52,7 @@ def test_pydantic_1():
 
     user = User(**external_data)
 
-    uu = User.construct(external_data_1)
+    uu = User.model_construct(external_data_1)
 
 
 def test_pydantic_2():

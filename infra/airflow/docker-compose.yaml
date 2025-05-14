@@ -60,6 +60,7 @@ x-airflow-common:
     AIRFLOW__CORE__DAGS_ARE_PAUSED_AT_CREATION: 'true'
     AIRFLOW__CORE__ENABLE_XCOM_PICKLING: "true"
     AIRFLOW__CORE__LOAD_EXAMPLES: 'false'
+#    AIRFLOW__WEBSERVER__SHOW_TRIGGER_FORM_IF_NO_PARAMS: 'true'
     AIRFLOW__API__AUTH_BACKEND: 'airflow.api.auth.backend.basic_auth'
     _PIP_ADDITIONAL_REQUIREMENTS: ${_PIP_ADDITIONAL_REQUIREMENTS:-}
     VAULT_TOKEN: ${VAULT_TOKEN}
@@ -90,7 +91,7 @@ x-airflow-common:
 
 services:
   postgres:
-    image: postgres:13
+    image: postgres:14.4-alpine
     container_name: postgres-airflow-${ENVIRONMENT}
     environment:
       POSTGRES_USER: ${AIRFLOW_POSTGRES_USER}

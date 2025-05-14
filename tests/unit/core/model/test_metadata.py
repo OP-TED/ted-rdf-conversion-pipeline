@@ -14,7 +14,7 @@ from ted_sws.core.model.metadata import TEDMetadata
 def test_metadata():
     metadata = TEDMetadata(**{"ND": "number", "No_key": "Value"})
     assert metadata.ND == "number"
-    assert "No_key" not in metadata.dict().keys()
+    assert "No_key" not in metadata.model_dump().keys()
 
 
 def test_dict_comparison():

@@ -19,8 +19,6 @@ class Metadata(PropertyBaseModel):
         Unified interface for metadata
     """
 
-    class Config:
-        underscore_attrs_are_private = True
 
 
 class XMLMetadata(Metadata):

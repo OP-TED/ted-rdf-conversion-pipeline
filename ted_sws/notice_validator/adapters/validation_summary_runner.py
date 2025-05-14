@@ -218,7 +218,7 @@ class ValidationSummaryRunner:
 
     @classmethod
     def json_report(cls, report) -> dict:
-        return report.dict()
+        return report.model_dump()
 
     @classmethod
     def html_report(cls, report, metadata: dict = None) -> str:

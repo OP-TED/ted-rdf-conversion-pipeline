@@ -52,7 +52,7 @@ def test_pydantic_1():
 
     user = User(**external_data)
 
-    uu = User.construct(external_data_1)
+    uu = User.model_construct(external_data_1)
 
 
 def test_pydantic_2():

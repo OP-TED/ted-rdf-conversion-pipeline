@@ -19,7 +19,7 @@ from enum import IntEnum
 from functools import total_ordering
 from typing import Optional, List, Union
 
-from pydantic import Field, computed_field
+from pydantic import Field, computed_field, ConfigDict
 
 from ted_sws.core.model import PropertyBaseModel
 from ted_sws.core.model.lazy_object import LazyObjectABC, LazyObjectFieldsLoaderABC
@@ -120,10 +120,8 @@ class WorkExpression(PropertyBaseModel, abc.ABC):
             See: https://www.cosmicpython.com/book/chapter_11_external_events.html
     """
 
-    class Config:
-        underscore_attrs_are_private = True
-        validate_assignment = True
-        orm_mode = True
+    model_config = ConfigDict(validate_assignment=True,
+                              from_attributes=True)
 
     created_at: str = datetime.now().replace(microsecond=0).isoformat()
     version_number: int = 0
@@ -184,7 +182,7 @@ class Notice(LazyWorkExpression):
 
     """
     _status: NoticeStatus = NoticeStatus.RAW
-    ted_id: str = Field(..., allow_mutation=False)
+    ted_id: str = Field(..., frozen=True)
     _original_metadata: Optional[TEDMetadata] = None
     _xml_manifestation: Optional[XMLManifestation] = None
     _normalised_metadata: Optional[NormalisedMetadata] = None

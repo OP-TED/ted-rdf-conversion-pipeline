@@ -10,7 +10,7 @@ from datetime import datetime
 from enum import Enum
 from typing import List, Union, Optional, Dict
 
-from pydantic import Field
+from pydantic import Field, ConfigDict
 
 from ted_sws.core.model import PropertyBaseModel
 from ted_sws.core.model.validation_report_data import ReportNoticeData
@@ -44,11 +44,10 @@ class Manifestation(PropertyBaseModel):
         A manifestation that embodies a FRBR Work/Expression.
     """
 
-    class Config:
-        validate_assignment = True
-        orm_mode = True
+    model_config = ConfigDict(validate_assignment=True,
+                              from_attributes=True)
 
-    object_data: str = Field(..., allow_mutation=True)
+    object_data: str = Field(..., frozen=False)
 
     def __str__(self):
         STR_LEN = 150  # constant
@@ -226,8 +225,7 @@ class SPARQLQueryResult(PropertyBaseModel):
     message: Optional[str] = None
     identifier: Optional[str] = None
 
-    class Config:
-        use_enum_values = True
+    model_config = ConfigDict(use_enum_values=True)
 
 
 class SPARQLTestSuiteValidationReport(RDFValidationManifestation):

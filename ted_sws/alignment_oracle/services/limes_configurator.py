@@ -28,7 +28,7 @@ def generate_xml_config_from_limes_config(limes_config_params: LimesConfigParams
     :param limes_config_params:
     :return:
     """
-    return TEMPLATES.get_template(LIMES_CONFIG_TEMPLATE).render(limes_config_params.dict())
+    return TEMPLATES.get_template(LIMES_CONFIG_TEMPLATE).render(limes_config_params.model_dump())
 
 
 def generate_default_limes_config_params(source_sparql_endpoint: str,

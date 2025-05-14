@@ -28,7 +28,7 @@ class MappingSuiteHasher:
         self.mapping_suite_metadata = mapping_suite_metadata
 
         if self.is_for_eforms():
-            self.mapping_suite_metadata = EFormsPackageMetadataBase(**mapping_suite_metadata).dict()
+            self.mapping_suite_metadata = EFormsPackageMetadataBase(**mapping_suite_metadata).model_dump()
 
     def is_for_eforms(self):
         return (

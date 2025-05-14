@@ -30,6 +30,6 @@ def step_impl(xml_manifestation):
 @then(parsers.parse("extracted {metadata} is possibly available"))
 def step_impl(extracted_metadata, notice_identifier, metadata):
     assert isinstance(extracted_metadata, ExtractedMetadata)
-    assert extracted_metadata.dict().keys() == ExtractedMetadata.__fields__.keys()
-    assert "0"+notice_identifier == extracted_metadata.dict()["notice_publication_number"]
-    assert metadata in extracted_metadata.dict()
+    assert extracted_metadata.model_dump().keys() == ExtractedMetadata.model_fields.keys()
+    assert "0"+notice_identifier == extracted_metadata.model_dump()["notice_publication_number"]
+    assert metadata in extracted_metadata.model_dump()

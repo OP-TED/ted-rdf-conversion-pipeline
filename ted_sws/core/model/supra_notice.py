@@ -10,6 +10,8 @@ import abc
 from datetime import datetime, date
 from typing import List, Optional
 
+from pydantic import ConfigDict
+
 from ted_sws.core.model import PropertyBaseModel
 from ted_sws.core.model.manifestation import Manifestation, ValidationSummaryReport
 
@@ -19,10 +21,8 @@ class SupraNotice(PropertyBaseModel, abc.ABC):
         This is an arbitrary aggregate over a list of notices.
     """
 
-    class Config:
-        underscore_attrs_are_private = True
-        validate_assignment = True
-        orm_mode = True
+    model_config = ConfigDict(validate_assignment=True,
+                              from_attributes=True)
 
     created_at: datetime = datetime.now().replace(microsecond=0)
 

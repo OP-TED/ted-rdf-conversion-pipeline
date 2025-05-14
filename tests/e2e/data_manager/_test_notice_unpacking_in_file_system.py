@@ -24,7 +24,7 @@ def unpack_notice(notice: Notice, unpack_path: pathlib.Path):
     write_in_file(notice.distilled_rdf_manifestation.object_data, "distilled_rdf_manifestation.ttl")
     write_in_file(notice.xml_manifestation.object_data, "xml_manifestation.xml")
     write_in_file(notice.validation_summary.object_data, "validation_summary.html")
-    write_in_file(json.dumps(notice.xml_metadata.dict()), "xml_metadata.json")
+    write_in_file(json.dumps(notice.xml_metadata.model_dump()), "xml_metadata.json")
     mets_package_file_name = "mets_manifestation.zip"
     unpack_mets_package_dir_name = "mets_manifestation"
     write_in_file(base64.b64decode(notice.mets_manifestation.object_data.encode(encoding="utf-8")),
@@ -34,13 +34,13 @@ def unpack_notice(notice: Notice, unpack_path: pathlib.Path):
         zip_ref.extractall(unpack_path / unpack_mets_package_dir_name)
     for shacl_validation in notice.rdf_manifestation.shacl_validations:
         write_in_file(shacl_validation.object_data, "shacl_validation.html")
-        shacl_validation_json = json.dumps(shacl_validation.validation_results.dict())
+        shacl_validation_json = json.dumps(shacl_validation.validation_results.model_dump())
         write_in_file(shacl_validation_json, "shacl_validation.json")
 
     for sparql_validation in notice.rdf_manifestation.sparql_validations:
         write_in_file(sparql_validation.object_data, "sparql_validation.html")
         sparql_validation_json = json.dumps(
-            [validation_result.dict() for validation_result in sparql_validation.validation_results])
+            [validation_result.model_dump() for validation_result in sparql_validation.validation_results])
         write_in_file(sparql_validation_json, "sparql_validation.json")
 
 

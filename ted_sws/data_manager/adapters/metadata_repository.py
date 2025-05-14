@@ -37,7 +37,7 @@ class BaseMetadataRepository(MetadataRepositoryABC, abc.ABC):
         :return:
         """
         if metadata is not None:
-            metadata_dict = metadata.dict()
+            metadata_dict = metadata.model_dump()
             metadata_dict[AGGREGATE_REFERENCE_ID] = reference
             metadata_dict[METADATA_TYPE_ID] = self._metadata_type
             reference = self._build_reference(base_reference=reference)

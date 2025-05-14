@@ -1,11 +1,11 @@
 import abc
+from enum import Enum
 
 from pymongo import MongoClient, ASCENDING, DESCENDING
 
 from ted_sws import config
 from ted_sws.data_manager.adapters import inject_date_string_fields
 from ted_sws.event_manager.model.event_message import EventMessage
-from enum import Enum
 
 """
 This module contains the event logging repository adapters.
@@ -85,7 +85,7 @@ class EventLoggingRepository(EventLoggingRepositoryABC):
         :return: The event message dict
         """
 
-        event_message_dict = event_message.dict()
+        event_message_dict = event_message.model_dump()
         for event_date_field_name in LOGGING_DATE_FIELD_NAMES:
             inject_date_string_fields(data=event_message_dict, date_field_name=event_date_field_name,
                                       date_string_fields_suffix_map=LOGGING_DATE_STRING_FIELDS_SUFFIX_MAP
@@ -116,7 +116,6 @@ class EventLoggingRepository(EventLoggingRepositoryABC):
         :return:
         """
         record = event_message.model_dump(mode="python")
-
         # Convert all Enum fields recursively
         record = convert_enums_to_values(record)
 
@@ -185,10 +184,6 @@ class MappingSuiteEventRepository(EventLoggingRepository):
         super().__init__(mongodb_client, database_name, collection_name)
 
 
-
-
-
-
 def convert_enums_to_values(obj):
     """
     Recursively convert all Enum instances within a data structure to their corresponding values.
@@ -204,14 +199,6 @@ def convert_enums_to_values(obj):
     Returns:
         Any: A copy of the object with all Enums replaced by their raw values.
               The structure and other data types remain unchanged.
-
-    Example:
-      class Color(Enum):
-        ...     RED = "red"
-        ...     BLUE = "blue"
-         data = {"favourite": Color.RED, "others": [Color.BLUE, "green"]}
-         convert_enums_to_values(data)
-        {'favourite': 'red', 'others': ['blue', 'green']}
     """
     if isinstance(obj, dict):
         return {k: convert_enums_to_values(v) for k, v in obj.items()}

@@ -1,8 +1,8 @@
-from datetime import datetime
+from datetime import datetime, timezone
 from enum import Enum
 from typing import Optional, Union, Dict, Any
 
-from pydantic import Field
+from pydantic import Field, ConfigDict
 
 from ted_sws.core.model import PropertyBaseModel, BaseModel
 from ted_sws.event_manager.adapters.log import SeverityLevelType
@@ -31,8 +31,7 @@ class EventMessageMetadata(BaseModel):
     process_id: Optional[str] = None
     process_context: Optional[Dict[str, Any]] = None
 
-    class Config:
-        use_enum_values = True
+    model_config = ConfigDict(use_enum_values=True)
 
 
 class EventMessage(PropertyBaseModel):
@@ -40,21 +39,20 @@ class EventMessage(PropertyBaseModel):
     This is the event message model.
     """
     message: Optional[str] = None
-    created_at: datetime = Field(default_factory=datetime.utcnow)
+    created_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
     year: Optional[int] = None
     month: Optional[int] = None
     day: Optional[int] = None
     severity_level: Optional[SeverityLevelType] = None
     caller_name: Optional[str] = None
-    started_at: datetime = Field(default_factory=datetime.utcnow)
-    ended_at: datetime = Field(default_factory=datetime.utcnow)
+    started_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
+    ended_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
     duration: Optional[float] = None
     metadata: Optional[EventMessageMetadata] = None
     kwargs: Optional[DictType] = None
 
-    class Config:
-        arbitrary_types_allowed = True
-        use_enum_values = True
+    model_config = ConfigDict(arbitrary_types_allowed=True,
+                              use_enum_values=True)
 
     def __init__(self, **data):
         """
@@ -71,7 +69,7 @@ class EventMessage(PropertyBaseModel):
 
         :return: None
         """
-        self.created_at = datetime.utcnow()
+        self.created_at = datetime.now(timezone.utc)
         self.year = self.created_at.year
         self.month = self.created_at.month
         self.day = self.created_at.day
@@ -83,7 +81,7 @@ class EventMessage(PropertyBaseModel):
 
         :return: None
         """
-        self.started_at = datetime.utcnow()
+        self.started_at = datetime.now(timezone.utc)
 
     def end_record(self):
         """
@@ -92,7 +90,7 @@ class EventMessage(PropertyBaseModel):
 
         :return: None
         """
-        self.ended_at = datetime.utcnow()
+        self.ended_at = datetime.now(timezone.utc)
         self.duration = (self.ended_at - self.started_at).total_seconds()
 
 

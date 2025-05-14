@@ -1,10 +1,5 @@
 #!/usr/bin/python3
 
-# metadata.py
-# Date:  22/02/2022
-# Author: Kolea PLESCO
-# Email: kalean.bl@gmail.com
-
 """
 This model contains the metadata mapping/manipulation class to be used by Notice-Packager/Template-Generator
 """
@@ -12,7 +7,7 @@ This model contains the metadata mapping/manipulation class to be used by Notice
 import datetime
 from typing import List, Dict, Optional
 
-from pydantic import validator
+from pydantic import field_validator
 
 from ted_sws.core.model.metadata import Metadata
 
@@ -95,7 +90,7 @@ class MetsMetadata(Metadata):
     notice_file_checksum: Optional[str] = None
     notice_file_checksum_type: Optional[str] = METS_NOTICE_FILE_CHECKSUM_TYPE
 
-    @validator('type')
+    @field_validator('type')
     def validate_notice_action_type(cls, action_type):
         validate_mets_type(action_type)
         return action_type

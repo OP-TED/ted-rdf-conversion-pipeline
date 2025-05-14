@@ -11,14 +11,13 @@ from datetime import datetime
 from enum import Enum
 from typing import List, Optional, Union
 
-from pydantic import field_validator
+from pydantic import field_validator, ConfigDict
 
 from ted_sws.core.model import PropertyBaseModel
 
 
 class MappingSuiteComponent(PropertyBaseModel, abc.ABC):
-    class Config:
-        validate_assignment = True
+    model_config = ConfigDict(validate_assignment=True)
 
 
 class FileResource(MappingSuiteComponent):

@@ -1,8 +1,7 @@
 from airflow.decorators import dag, task
 
-from dags import DEFAULT_DAG_ARGUMENTS
+from dags import DEFAULT_DAG_ARGUMENTS, NOTICE_PACKAGE_PIPELINE_TASK_ID
 from dags.dags_utils import push_dag_downstream, get_dag_param
-from dags.notice_processing_pipeline import NOTICE_PACKAGE_PIPELINE_TASK_ID
 from dags.operators.DagBatchPipelineOperator import NOTICE_IDS_KEY, TriggerNoticeBatchPipelineOperator
 from dags.pipelines.notice_selectors_pipelines import notice_ids_selector_by_status
 from ted_sws.core.model.notice import NoticeStatus

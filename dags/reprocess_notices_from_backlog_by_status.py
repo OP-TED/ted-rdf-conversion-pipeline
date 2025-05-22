@@ -24,13 +24,15 @@ NOTICE_STATUSES_DAG_PARAM = "notice_statuses"
     schedule_interval=None,
     tags=['selector', 're-transform'],
     params={
-        START_DATE_DAG_PARAM: Param(default="", type="string", description="Start date (YYYY-MM-DD)"),
-        END_DATE_DAG_PARAM: Param(default="", type="string", description="End date (YYYY-MM-DD)"),
+
         NOTICE_STATUSES_DAG_PARAM: Param(
             type="array",
             title="Notice Statuses",
             description="Required. List of notice statuses to reprocess. Example: [\"NORMALISED_METADATA\", \"DISTILLED\"]"
-        )}
+        ),
+        START_DATE_DAG_PARAM: Param(default="", type="string", description="Start date (YYYY-MM-DD)"),
+        END_DATE_DAG_PARAM: Param(default="", type="string", description="End date (YYYY-MM-DD)")
+    }
     )
 def reprocess_notices_from_backlog_by_status():
     @task
@@ -42,8 +44,8 @@ def reprocess_notices_from_backlog_by_status():
         ))
     )
     def select_notices_for_re_transform():
-        start_date = get_dag_param(key=START_DATE_DAG_PARAM)
-        end_date = get_dag_param(key=END_DATE_DAG_PARAM)
+        start_date = get_dag_param(key=START_DATE_DAG_PARAM, default_value="")
+        end_date = get_dag_param(key=END_DATE_DAG_PARAM,default_value="")
         statuses_param = get_dag_param(key=NOTICE_STATUSES_DAG_PARAM)
 
         notice_statuses = [NoticeStatus[status_str] for status_str in statuses_param]

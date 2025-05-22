@@ -30,8 +30,8 @@ NOTICE_STATUSES_DAG_PARAM = "notice_statuses"
             title="Notice Statuses",
             description="Required. List of notice statuses to reprocess. Example: [\"NORMALISED_METADATA\", \"DISTILLED\"]"
         ),
-        START_DATE_DAG_PARAM: Param(default="", type="string", description="Start date (YYYY-MM-DD)"),
-        END_DATE_DAG_PARAM: Param(default="", type="string", description="End date (YYYY-MM-DD)")
+        START_DATE_DAG_PARAM: Param(default="", type=["null", "string"], format="date", description="Start date (YYYY-MM-DD)"),
+        END_DATE_DAG_PARAM: Param(default="", type=["null", "string"], format="date", description="End date (YYYY-MM-DD)")
     }
     )
 def reprocess_notices_from_backlog_by_status():

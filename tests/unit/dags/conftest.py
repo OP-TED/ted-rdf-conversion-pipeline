@@ -9,7 +9,7 @@ from dags.daily_materialized_views_update import DAILY_MATERIALISED_VIEWS_DAG_NA
 from dags.fetch_notices_by_date import FETCHER_DAG_NAME
 from tests import AIRFLOW_DAG_FOLDER
 
-@pytest.fixture(scope="session", autouse=True)
+@pytest.fixture(scope="module", autouse=True)
 def setup_airflow():
     # Setup
     temp_db_file = tempfile.NamedTemporaryFile(mode="w+", suffix=".db")

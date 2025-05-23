@@ -1,8 +1,8 @@
 import pytest
 from airflow.timetables.trigger import CronTriggerTimetable
 
-from dags.daily_materialized_views_update import DAILY_MATERIALISED_VIEWS_DAG_NAME
-from dags.fetch_notices_by_date import FETCHER_DAG_NAME
+from dags.daily_materialized_views_update import DAG_ID as DAILY_MATERIALISED_VIEWS_DAG_NAME
+from dags.fetch_notices_by_date import DAG_ID as FETCHER_DAG_NAME
 
 
 # @pytest.fixture

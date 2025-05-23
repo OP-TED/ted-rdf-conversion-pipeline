@@ -11,7 +11,8 @@ from ted_sws.event_manager.adapters.event_log_decorator import event_log
 from ted_sws.event_manager.model.event_message import TechnicalEventMessage, EventMessageMetadata, \
     EventMessageProcessType
 
-DAG_NAME = "fetch_notices_by_query"
+DAG_ID = "fetch_notices_by_query"
+DAG_NAME = "Fetch notices by query"
 BATCH_SIZE = 2000
 QUERY_DAG_KEY = "query"
 TRIGGER_COMPLETE_WORKFLOW_DAG_KEY = "trigger_complete_workflow"
@@ -23,6 +24,8 @@ FINISH_FETCH_BY_DATE_TASK_ID = "finish_fetch_by_query"
 
 @dag(default_args=DEFAULT_DAG_ARGUMENTS,
      schedule_interval=None,
+     dag_display_name=DAG_NAME,
+     dag_id=DAG_ID,
      tags=['fetch'],
      params={
          QUERY_DAG_KEY: Param(
@@ -46,7 +49,7 @@ def fetch_notices_by_query():
     @event_log(TechnicalEventMessage(
         message="fetch_by_query_notice_from_ted",
         metadata=EventMessageMetadata(
-            process_type=EventMessageProcessType.DAG, process_name=DAG_NAME
+            process_type=EventMessageProcessType.DAG, process_name=DAG_ID
         ))
     )
     def fetch_by_query_notice_from_ted():

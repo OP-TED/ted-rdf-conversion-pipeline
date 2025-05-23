@@ -9,7 +9,7 @@ from ted_sws.event_manager.adapters.event_log_decorator import event_log
 from ted_sws.event_manager.model.event_message import TechnicalEventMessage, EventMessageMetadata, EventMessageProcessType
 
 DAG_ID = "reprocess_notices_by_id_from_backlog"
-DAG_NAME = "Reprocess Notices From Backlog By ID"
+DAG_NAME = "Reprocess notices from backlog by ID"
 
 NOTICE_IDS_DAG_PARAM = "notice_ids"
 TRIGGER_NOTICE_PROCESS_WORKFLOW_TASK_ID = "trigger_notice_process_workflow"
@@ -24,7 +24,7 @@ TRIGGER_NOTICE_PROCESS_WORKFLOW_TASK_ID = "trigger_notice_process_workflow"
         NOTICE_IDS_DAG_PARAM: Param(
             type="array",
             title="Notice IDs",
-            description="Required. List of TED Notice IDs to reprocess. Each value should be entered on a new line. Example: [\"123456-2022\", \"456789-2023\"]"
+            description="Required. List of TED Notice IDs to reprocess. Each value should be entered on a new line. Example: [\"123456-2022\", \"456789-2023\"]. Every ID value should be entered on a newline"
         )
     },
     description=DAG_NAME

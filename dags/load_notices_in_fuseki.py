@@ -13,10 +13,13 @@ from ted_sws.notice_publisher_triple_store.services.load_transformed_notice_into
 FUSEKI_DATASET_NAME_DAG_PARAM_KEY = "fuseki_dataset_name"
 NOTICE_STATUS_DAG_PARAM_KEY = "notice_status"
 DEFAULT_FUSEKI_DATASET_NAME = "mdr_dataset"
-
+DAG_ID = "load_notices_in_fuseki"
+DAG_NAME = "Load notices in Fuseki"
 
 @dag(default_args=DEFAULT_DAG_ARGUMENTS,
      schedule_interval=None,
+     dag_display_name=DAG_NAME,
+     dag_id=DAG_ID,
      tags=['load', 'notices', 'fuseki'])
 def load_notices_in_fuseki():
     @task

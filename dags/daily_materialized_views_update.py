@@ -9,11 +9,13 @@ from ted_sws.data_manager.services.create_batch_collection_materialised_view imp
 from ted_sws.data_manager.services.create_notice_collection_materialised_view import \
     create_notice_collection_materialised_view, create_notice_kpi_collection
 
-DAILY_MATERIALISED_VIEWS_DAG_NAME = "daily_materialized_views_update"
+DAG_ID = "daily_materialized_views_update"
+DAG_NAME = "Materialized views update"
 
 
 @dag(default_args=DEFAULT_DAG_ARGUMENTS,
-     dag_id=DAILY_MATERIALISED_VIEWS_DAG_NAME,
+     dag_id=DAG_ID,
+     dag_display_name=DAG_NAME,
      catchup=False,
      timetable=CronTriggerTimetable(
          cron=config.SCHEDULE_DAG_MATERIALIZED_VIEW_UPDATE,

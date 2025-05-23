@@ -12,9 +12,10 @@ ENV_FILE := .env
 
 PROJECT_PATH = $(shell pwd)
 AIRFLOW_INFRA_FOLDER ?= ${PROJECT_PATH}/.airflow
-RML_MAPPER_PATH = ${PROJECT_PATH}/.rmlmapper/rmlmapper.jar
-XML_PROCESSOR_PATH = ${PROJECT_PATH}/.saxon/saxon-he-10.9.jar
-LIMES_ALIGNMENT_PATH = $(PROJECT_PATH)/.limes/limes.jar
+LIBRARIES_PATH = ${PROJECT_PATH}/libraries
+RML_MAPPER_PATH = ${LIBRARIES_PATH}/.rmlmapper/rmlmapper.jar
+XML_PROCESSOR_PATH = ${LIBRARIES_PATH}/.saxon/saxon-he-10.9.jar
+LIMES_ALIGNMENT_PATH = $(LIBRARIES_PATH)/.limes/limes.jar
 HOSTNAME = $(shell hostname)
 CAROOT = $(shell pwd)/infra/traefik/certs
 

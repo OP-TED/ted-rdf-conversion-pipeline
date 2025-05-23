@@ -215,16 +215,17 @@ stop-metabase:
 
 init-rml-mapper:
 	@ echo -e "RMLMapper folder initialisation!"
-	@ mkdir -p ./.rmlmapper
+	@ mkdir -p ./libraries/.rmlmapper
 	@ wget -c https://github.com/RMLio/rmlmapper-java/releases/download/v6.2.2/rmlmapper-6.2.2-r371-all.jar -O ./libraries/.rmlmapper/rmlmapper.jar
 
 init-limes:
 	@ echo -e "Limes folder initialisation!"
-	@ mkdir -p ./.limes
+	@ mkdir -p ./libraries/.limes
 	@ wget -c https://github.com/dice-group/LIMES/releases/download/1.7.9/limes.jar -P ./libraries/.limes/
 
 init-saxon:
 	@ echo -e "$(BUILD_PRINT)Saxon folder initialization $(END_BUILD_PRINT)"
+	@ mkdir -p ./libraries/.saxon
 	@ wget -c https://github.com/Saxonica/Saxon-HE/releases/download/SaxonHE10-9/SaxonHE10-9J.zip -P ./libraries/.saxon/
 	@ cd ./libraries/.saxon/ && unzip SaxonHE10-9J.zip && rm -rf SaxonHE10-9J.zip
 

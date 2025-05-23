@@ -27,10 +27,13 @@ GITHUB_REPOSITORY_URL_DAG_PARAM_KEY = "github_repository_url"
 FINISH_LOADING_MAPPING_SUITE_TASK_ID = "finish_loading_mapping_suite"
 TRIGGER_DOCUMENT_PROC_PIPELINE_TASK_ID = "trigger_document_proc_pipeline"
 CHECK_IF_LOAD_TEST_DATA_TASK_ID = "check_if_load_test_data"
-
+DAG_ID = "load_mapping_suite_in_database"
+DAG_NAME = "Load mapping suite"
 
 @dag(default_args=DEFAULT_DAG_ARGUMENTS,
      schedule_interval=None,
+     dag_id=DAG_ID,
+     dag_display_name=DAG_NAME,
      tags=['fetch', 'mapping-suite', 'github'],
      params={
          GITHUB_REPOSITORY_URL_DAG_PARAM_KEY: Param(

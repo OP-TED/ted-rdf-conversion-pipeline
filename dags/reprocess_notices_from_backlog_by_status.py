@@ -11,7 +11,7 @@ from ted_sws.event_manager.adapters.event_log_decorator import event_log
 from ted_sws.event_manager.model.event_message import TechnicalEventMessage, EventMessageMetadata, EventMessageProcessType
 
 DAG_ID = "reprocess_notices_from_backlog_by_status"
-DAG_NAME = "Reprocess Notices From Backlog By Status"
+DAG_NAME = "Reprocess notices from backlog by status"
 
 TRIGGER_NOTICE_PROCESS_WORKFLOW_TASK_ID = "trigger_notice_process_workflow"
 START_DATE_DAG_PARAM = "start_date"
@@ -21,6 +21,7 @@ NOTICE_STATUSES_DAG_PARAM = "notice_statuses"
 @dag(
     default_args=DEFAULT_DAG_ARGUMENTS,
     dag_id=DAG_ID,
+    dag_display_name=DAG_NAME,
     schedule_interval=None,
     tags=['selector', 're-transform'],
     params={

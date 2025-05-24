@@ -9,14 +9,14 @@ from dags.daily_materialized_views_update import DAILY_MATERIALISED_VIEWS_DAG_NA
 from dags.fetch_notices_by_date import FETCHER_DAG_NAME
 from tests import AIRFLOW_DAG_FOLDER
 
-@pytest.fixture(scope="session", autouse=True)
+@pytest.fixture(scope="function", autouse=True)
 def setup_airflow():
     # Setup
     temp_db_file = tempfile.NamedTemporaryFile(mode="w+", suffix=".db")
     os.environ["AIRFLOW__CORE__SQL_ALCHEMY_CONN"] = f"sqlite:///{temp_db_file.name}"
     os.environ["AIRFLOW__CORE__LOAD_EXAMPLES"] = "False"
     os.environ["AIRFLOW__CORE__UNIT_TEST_MODE"] = "True"
-    initdb(use_migration_files=False)
+    initdb()
 
     # Run tests
     yield

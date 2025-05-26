@@ -5,7 +5,7 @@ from airflow.operators.python import get_current_context, BranchPythonOperator
 from airflow.utils.trigger_rule import TriggerRule
 from pymongo import MongoClient
 
-from dags import DEFAULT_DAG_ARGUMENTS
+from dags import DEFAULT_DAG_ARGUMENTS, BATCH_SIZE
 from dags.dags_utils import push_dag_downstream, pull_dag_upstream, get_dag_param
 from dags.operators.DagBatchPipelineOperator import NOTICE_IDS_KEY, TriggerNoticeBatchPipelineOperator
 from ted_sws import config
@@ -111,7 +111,8 @@ def load_mapping_suite_in_database():
     finish_step = EmptyOperator(task_id=FINISH_LOADING_MAPPING_SUITE_TASK_ID,
                                 trigger_rule=TriggerRule.NONE_FAILED_MIN_ONE_SUCCESS)
 
-    trigger_document_proc_pipeline = TriggerNoticeBatchPipelineOperator(task_id=TRIGGER_DOCUMENT_PROC_PIPELINE_TASK_ID)
+    trigger_document_proc_pipeline = TriggerNoticeBatchPipelineOperator(task_id=TRIGGER_DOCUMENT_PROC_PIPELINE_TASK_ID,
+                                                                        batch_size=BATCH_SIZE)
     fetch_mapping_suite_package_from_github_into_mongodb() >> branch_task
     trigger_document_proc_pipeline >> finish_step
     branch_task >> [trigger_document_proc_pipeline, finish_step]

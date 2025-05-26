@@ -1,14 +1,16 @@
 from typing import Any, Protocol, List
 from uuid import uuid4
+
+from airflow.exceptions import AirflowSkipException
 from airflow.models import BaseOperator
 from airflow.operators.trigger_dagrun import TriggerDagRunOperator
 from pymongo import MongoClient
 
 from dags.dags_utils import pull_dag_upstream, push_dag_downstream, get_dag_param, smart_xcom_pull, \
     smart_xcom_push
-from ted_sws.core.service.batch_processing import chunks
-from dags.pipelines.pipeline_protocols import NoticePipelineCallable
+from dags.pipelines.pipeline_protocols import NoticePipelineCallable, NoticePipelineOutput
 from ted_sws import config
+from ted_sws.core.service.batch_processing import chunks
 from ted_sws.data_manager.adapters.notice_repository import NoticeRepository
 from ted_sws.event_manager.model.event_message import EventMessage, NoticeEventMessage
 from ted_sws.event_manager.services.log import log_notice_error
@@ -26,7 +28,7 @@ MAX_BATCH_SIZE = 5000
 
 class BatchPipelineCallable(Protocol):
 
-    def __call__(self, notice_ids: List[str], mongodb_client: MongoClient) -> List[str]:
+    def __call__(self, notice_ids: List[str], mongodb_client: MongoClient) -> List[NoticePipelineOutput]:
         """
         :param notice_ids:
         :param mongodb_client:
@@ -57,11 +59,14 @@ class NoticeBatchPipelineOperator(BaseOperator):
         """
         logger = get_logger()
         notice_ids = smart_xcom_pull(key=NOTICE_IDS_KEY)
-        if not notice_ids:
+        if notice_ids is None:
             raise Exception(f"XCOM key [{NOTICE_IDS_KEY}] is not present in context!")
+        if len(notice_ids) == 0:
+            smart_xcom_push(key=NOTICE_IDS_KEY, value=[])
+            raise AirflowSkipException("No notices to process!")
         mongodb_client = MongoClient(config.MONGO_DB_AUTH_URL)
         notice_repository = NoticeRepository(mongodb_client=mongodb_client)
-        processed_notice_ids = []
+        processed_notices_pipeline_output: List[NoticePipelineOutput] = []
         pipeline_name = DEFAULT_PIPELINE_NAME_FOR_LOGS
         if self.notice_pipeline_callable:
             pipeline_name = self.notice_pipeline_callable.__name__
@@ -76,7 +81,7 @@ class NoticeBatchPipelineOperator(BaseOperator):
         handle_event_message_metadata_dag_context(batch_event_message, context)
         batch_event_message.start_record()
         if self.batch_pipeline_callable is not None:
-            processed_notice_ids.extend(
+            processed_notices_pipeline_output.extend(
                 self.batch_pipeline_callable(notice_ids=notice_ids, mongodb_client=mongodb_client))
         elif self.notice_pipeline_callable is not None:
             for notice_id in notice_ids:
@@ -89,7 +94,7 @@ class NoticeBatchPipelineOperator(BaseOperator):
                     if result_notice_pipeline.store_result:
                         notice_repository.update(notice=result_notice_pipeline.notice)
                     if result_notice_pipeline.processed:
-                        processed_notice_ids.append(notice_id)
+                        processed_notices_pipeline_output.append(result_notice_pipeline)
                     notice_event.end_record()
                     if notice.normalised_metadata:
                         notice_event.notice_form_number = notice.normalised_metadata.form_number
@@ -102,12 +107,12 @@ class NoticeBatchPipelineOperator(BaseOperator):
                                      notice_form_number=notice_normalised_metadata.form_number if notice_normalised_metadata else None,
                                      notice_status=notice.status if notice else None,
                                      notice_eforms_subtype=notice_normalised_metadata.eforms_subtype if notice_normalised_metadata else None)
+                    raise e
 
         batch_event_message.end_record()
         logger.info(event_message=batch_event_message)
-        if not processed_notice_ids:
-            raise Exception(f"No notice has been processed!")
-        smart_xcom_push(key=NOTICE_IDS_KEY, value=processed_notice_ids)
+        smart_xcom_push(key=NOTICE_IDS_KEY, value=[notice_pipeline_output.notice.ted_id for notice_pipeline_output in
+                                                   processed_notices_pipeline_output])
 
 
 class TriggerNoticeBatchPipelineOperator(BaseOperator):

@@ -7,7 +7,7 @@ from airflow.operators.python import BranchPythonOperator, PythonOperator
 from airflow.timetables.trigger import CronTriggerTimetable
 from airflow.utils.trigger_rule import TriggerRule
 
-from dags import DEFAULT_DAG_ARGUMENTS
+from dags import DEFAULT_DAG_ARGUMENTS, BATCH_SIZE
 from dags.dags_utils import get_dag_param, push_dag_downstream, pull_dag_upstream
 from dags.operators.DagBatchPipelineOperator import NOTICE_IDS_KEY, TriggerNoticeBatchPipelineOperator
 from dags.pipelines.notice_fetcher_pipelines import notice_fetcher_by_date_pipeline
@@ -18,7 +18,6 @@ from ted_sws.event_manager.model.event_message import TechnicalEventMessage, Eve
 from ted_sws.event_manager.services.log import log_error
 
 FETCHER_DAG_NAME = "fetch_notices_by_date"
-BATCH_SIZE = 2000
 WILD_CARD_DAG_KEY = "wild_card"
 TRIGGER_COMPLETE_WORKFLOW_DAG_KEY = "trigger_complete_workflow"
 TRIGGER_PARTIAL_WORKFLOW_TASK_ID = "trigger_partial_notice_proc_workflow"

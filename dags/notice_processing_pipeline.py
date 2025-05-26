@@ -1,6 +1,7 @@
 from typing import List
 
 from airflow.decorators import dag
+from airflow.exceptions import AirflowSkipException
 from airflow.operators.python import BranchPythonOperator, PythonOperator
 from airflow.utils.trigger_rule import TriggerRule
 
@@ -61,37 +62,36 @@ def notice_processing_pipeline():
         return branch_selector(NOTICE_PUBLISH_PIPELINE_TASK_ID)
 
     def _stop_processing():
-        notice_ids = smart_xcom_pull(key=NOTICE_IDS_KEY)
-        if not notice_ids:
-            raise Exception(f"No notice has been processed!")
+        pass
 
     start_processing = BranchPythonOperator(
         task_id=BRANCH_SELECTOR_TASK_ID,
         python_callable=_start_processing,
+        trigger_rule=TriggerRule.ALWAYS
     )
 
     selector_branch_before_transformation = BranchPythonOperator(
         task_id=SELECTOR_BRANCH_BEFORE_TRANSFORMATION_TASK_ID,
         python_callable=_selector_branch_before_transformation,
-        trigger_rule=TriggerRule.NONE_FAILED_MIN_ONE_SUCCESS,
+        trigger_rule=TriggerRule.ALL_SUCCESS,
     )
 
     selector_branch_before_validation = BranchPythonOperator(
         task_id=SELECTOR_BRANCH_BEFORE_VALIDATION_TASK_ID,
         python_callable=_selector_branch_before_validation,
-        trigger_rule=TriggerRule.NONE_FAILED_MIN_ONE_SUCCESS,
+        trigger_rule=TriggerRule.ALL_SUCCESS,
     )
 
     selector_branch_before_package = BranchPythonOperator(
         task_id=SELECTOR_BRANCH_BEFORE_PACKAGE_TASK_ID,
         python_callable=_selector_branch_before_package,
-        trigger_rule=TriggerRule.NONE_FAILED_MIN_ONE_SUCCESS,
+        trigger_rule=TriggerRule.ALL_SUCCESS,
     )
 
     selector_branch_before_publish = BranchPythonOperator(
         task_id=SELECTOR_BRANCH_BEFORE_PUBLISH_TASK_ID,
         python_callable=_selector_branch_before_publish,
-        trigger_rule=TriggerRule.NONE_FAILED_MIN_ONE_SUCCESS,
+        trigger_rule=TriggerRule.ALL_SUCCESS,
     )
 
     stop_processing = PythonOperator(
@@ -103,27 +103,27 @@ def notice_processing_pipeline():
 
     notice_normalisation_step = NoticeBatchPipelineOperator(notice_pipeline_callable=notice_normalisation_pipeline,
                                                             task_id=NOTICE_NORMALISATION_PIPELINE_TASK_ID,
-                                                            trigger_rule=TriggerRule.NONE_FAILED_MIN_ONE_SUCCESS)
+                                                            trigger_rule=TriggerRule.ALL_SUCCESS)
 
     notice_transformation_step = NoticeBatchPipelineOperator(notice_pipeline_callable=notice_transformation_pipeline,
                                                              task_id=NOTICE_TRANSFORMATION_PIPELINE_TASK_ID,
-                                                             trigger_rule=TriggerRule.NONE_FAILED_MIN_ONE_SUCCESS)
+                                                             trigger_rule=TriggerRule.ALL_SUCCESS)
 
     notice_distillation_step = NoticeBatchPipelineOperator(batch_pipeline_callable=notices_batch_distillation_pipeline,
                                                            task_id=NOTICE_DISTILLATION_PIPELINE_TASK_ID,
-                                                           trigger_rule=TriggerRule.NONE_FAILED_MIN_ONE_SUCCESS
+                                                           trigger_rule=TriggerRule.ALL_SUCCESS
                                                            )
 
     notice_validation_step = NoticeBatchPipelineOperator(notice_pipeline_callable=notice_validation_pipeline,
                                                          task_id=NOTICE_VALIDATION_PIPELINE_TASK_ID,
-                                                         trigger_rule=TriggerRule.NONE_FAILED_MIN_ONE_SUCCESS)
+                                                         trigger_rule=TriggerRule.ALL_SUCCESS)
     notice_package_step = NoticeBatchPipelineOperator(notice_pipeline_callable=notice_package_pipeline,
                                                       task_id=NOTICE_PACKAGE_PIPELINE_TASK_ID,
-                                                      trigger_rule=TriggerRule.NONE_FAILED_MIN_ONE_SUCCESS)
+                                                      trigger_rule=TriggerRule.ALL_SUCCESS)
 
     notice_publish_step = NoticeBatchPipelineOperator(notice_pipeline_callable=notice_publish_pipeline,
                                                       task_id=NOTICE_PUBLISH_PIPELINE_TASK_ID,
-                                                      trigger_rule=TriggerRule.NONE_FAILED_MIN_ONE_SUCCESS)
+                                                      trigger_rule=TriggerRule.ALL_SUCCESS)
 
     start_processing >> [notice_normalisation_step, selector_branch_before_transformation,
                          selector_branch_before_validation,

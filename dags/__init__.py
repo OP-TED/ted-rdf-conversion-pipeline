@@ -16,6 +16,8 @@ DEFAULT_DAG_ARGUMENTS = {
     "execution_timeout": timedelta(days=10),
 }
 
+BATCH_SIZE = 2000
+
 NOTICE_NORMALISATION_PIPELINE_TASK_ID = "notice_normalisation_pipeline"
 NOTICE_TRANSFORMATION_PIPELINE_TASK_ID = "notice_transformation_pipeline"
 NOTICE_DISTILLATION_PIPELINE_TASK_ID = "notice_distillation_pipeline"

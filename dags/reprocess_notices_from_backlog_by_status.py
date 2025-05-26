@@ -18,6 +18,7 @@ START_DATE_DAG_PARAM = "start_date"
 END_DATE_DAG_PARAM = "end_date"
 NOTICE_STATUSES_DAG_PARAM = "notice_statuses"
 
+
 @dag(
     default_args=DEFAULT_DAG_ARGUMENTS,
     dag_id=DAG_ID,
@@ -29,7 +30,8 @@ NOTICE_STATUSES_DAG_PARAM = "notice_statuses"
         NOTICE_STATUSES_DAG_PARAM: Param(
             type="array",
             title="Notice Statuses",
-            description="Required. List of notice statuses to reprocess. Example: [\"NORMALISED_METADATA\", \"DISTILLED\"]. Every status value should be entered on a newline"
+            description="Required. Select one or more notice statuses to reprocess.",
+            examples=[status.name for status in NoticeStatus]
         ),
         START_DATE_DAG_PARAM: Param(default="", type=["null", "string"], format="date", description="Start publication date (YYYY-MM-DD)"),
         END_DATE_DAG_PARAM: Param(default="", type=["null", "string"], format="date", description="End publication date (YYYY-MM-DD)")

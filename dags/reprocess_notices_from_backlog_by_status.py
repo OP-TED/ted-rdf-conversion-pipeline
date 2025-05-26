@@ -28,6 +28,7 @@ NOTICE_STATUSES_DAG_PARAM = "notice_statuses"
     params={
 
         NOTICE_STATUSES_DAG_PARAM: Param(
+            default=[],
             type="array",
             title="Notice Statuses",
             description="Required. Select one or more notice statuses to reprocess.",

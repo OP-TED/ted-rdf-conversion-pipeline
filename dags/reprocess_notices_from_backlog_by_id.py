@@ -4,7 +4,7 @@ from airflow.models import Param
 from dags import DEFAULT_DAG_ARGUMENTS
 from dags.dags_utils import push_dag_downstream, get_dag_param
 from dags.operators.DagBatchPipelineOperator import NOTICE_IDS_KEY, TriggerNoticeBatchPipelineOperator
-from dags.notice_processing_pipeline import NOTICE_TRANSFORMATION_PIPELINE_TASK_ID
+from dags.notice_processing_pipeline import NOTICE_NORMALISATION_PIPELINE_TASK_ID
 from ted_sws.event_manager.adapters.event_log_decorator import event_log
 from ted_sws.event_manager.model.event_message import TechnicalEventMessage, EventMessageMetadata, EventMessageProcessType
 
@@ -48,7 +48,7 @@ def reprocess_notices_by_id_from_backlog():
 
     trigger_notice_process_workflow = TriggerNoticeBatchPipelineOperator(
         task_id=TRIGGER_NOTICE_PROCESS_WORKFLOW_TASK_ID,
-        start_with_step_name=NOTICE_TRANSFORMATION_PIPELINE_TASK_ID
+        start_with_step_name=NOTICE_NORMALISATION_PIPELINE_TASK_ID
     )
 
     select_notice_ids() >> trigger_notice_process_workflow

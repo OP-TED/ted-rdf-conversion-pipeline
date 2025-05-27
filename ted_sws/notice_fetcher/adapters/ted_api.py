@@ -72,11 +72,10 @@ class TedRequestAPI(RequestAPI):
         headers = get_configured_custom_headers(CUSTOM_HEADER)
         response = execute_request_with_retries(
             request_lambda=lambda: requests.post(api_url, json=api_query, headers=headers))
-        if response.ok:
-            response_content = json.loads(response.text)
-            return response_content
-        else:
-            raise Exception(f"The TED-API call failed with: {response}")
+        response.raise_for_status()
+        response_content = json.loads(response.text)
+        return response_content
+
 
 
 class TedAPIAdapter(TedAPIAdapterABC):

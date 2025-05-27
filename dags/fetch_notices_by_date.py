@@ -18,7 +18,7 @@ from ted_sws.event_manager.model.event_message import TechnicalEventMessage, Eve
 from ted_sws.event_manager.services.log import log_error
 
 DAG_ID = "fetch_notices_by_date"
-DAG_NAME = "Fetch notices by date"
+FETCHER_DAG_NAME = "Fetch notices by date"
 BATCH_SIZE = 2000
 WILD_CARD_DAG_KEY = "wild_card"
 TRIGGER_COMPLETE_WORKFLOW_DAG_KEY = "trigger_complete_workflow"
@@ -31,7 +31,7 @@ VALIDATE_FETCHED_NOTICES_TASK_ID = "validate_fetched_notices"
 
 @dag(default_args=DEFAULT_DAG_ARGUMENTS,
      dag_id=DAG_ID,
-     dag_display_name=DAG_NAME,
+     dag_display_name=FETCHER_DAG_NAME,
      catchup=False,
      schedule=CronTriggerTimetable(
          cron=config.SCHEDULE_DAG_FETCH,

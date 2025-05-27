@@ -17,7 +17,8 @@ from ted_sws.event_manager.model.event_message import TechnicalEventMessage, Eve
     EventMessageProcessType
 from ted_sws.event_manager.services.log import log_error
 
-FETCHER_DAG_NAME = "fetch_notices_by_date"
+DAG_ID = "fetch_notices_by_date"
+DAG_NAME = "Fetch notices by date"
 BATCH_SIZE = 2000
 WILD_CARD_DAG_KEY = "wild_card"
 TRIGGER_COMPLETE_WORKFLOW_DAG_KEY = "trigger_complete_workflow"
@@ -29,7 +30,8 @@ VALIDATE_FETCHED_NOTICES_TASK_ID = "validate_fetched_notices"
 
 
 @dag(default_args=DEFAULT_DAG_ARGUMENTS,
-     dag_id=FETCHER_DAG_NAME,
+     dag_id=DAG_ID,
+     dag_display_name=DAG_NAME,
      catchup=False,
      schedule=CronTriggerTimetable(
          cron=config.SCHEDULE_DAG_FETCH,
@@ -58,7 +60,7 @@ def fetch_notices_by_date():
     @event_log(TechnicalEventMessage(
         message="fetch_notice_from_ted",
         metadata=EventMessageMetadata(
-            process_type=EventMessageProcessType.DAG, process_name=FETCHER_DAG_NAME
+            process_type=EventMessageProcessType.DAG, process_name=DAG_ID
         ))
     )
     def fetch_by_date_notice_from_ted():

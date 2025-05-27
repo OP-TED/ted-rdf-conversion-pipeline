@@ -10,10 +10,12 @@ from ted_sws.data_manager.services.create_notice_collection_materialised_view im
 
 DAILY_MATERIALISED_VIEWS_DAG_NAME = "daily_materialized_views_update"
 DAILY_MATERIALISED_VIEWS_MAX_ACTIVE_RUNS: int = 1
+DAG_NAME = "Materialized views update"
 
 
 @dag(default_args=DEFAULT_DAG_ARGUMENTS,
      dag_id=DAILY_MATERIALISED_VIEWS_DAG_NAME,
+     dag_display_name=DAG_NAME,
      catchup=False,
      schedule=NOTICES_COLLECTION_DATASET,
      max_active_runs=DAILY_MATERIALISED_VIEWS_MAX_ACTIVE_RUNS,

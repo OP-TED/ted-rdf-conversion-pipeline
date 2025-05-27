@@ -10,12 +10,13 @@ from airflow.models import Param
 from dags import DEFAULT_DAG_ARGUMENTS
 from dags.dags_utils import get_dag_param
 from dags.fetch_notices_by_date import WILD_CARD_DAG_KEY, TRIGGER_COMPLETE_WORKFLOW_DAG_KEY, \
-    FETCHER_DAG_NAME as FETCH_NOTICES_BY_DATE_DAG_NAME
+    DAG_ID as FETCH_NOTICES_BY_DATE_DAG_NAME
 from ted_sws.event_manager.adapters.event_log_decorator import event_log
 from ted_sws.event_manager.model.event_message import TechnicalEventMessage, EventMessageMetadata, \
     EventMessageProcessType
 
-DAG_NAME = "fetch_notices_by_date_range"
+DAG_ID = "fetch_notices_by_date_range"
+DAG_NAME = "Fetch notices by date range"
 
 START_DATE_KEY = "start_date"
 END_DATE_KEY = "end_date"
@@ -34,7 +35,8 @@ def generate_list_of_dates_from_date_range(start_date: str, end_date: str) -> li
                                   until=datetime.strptime(end_date, '%Y-%m-%d'))]
 
 
-@dag(default_args=DEFAULT_DAG_ARGUMENTS, schedule_interval=None, tags=['master'],
+@dag(default_args=DEFAULT_DAG_ARGUMENTS, schedule_interval=None, dag_id=DAG_ID, dag_display_name=DAG_NAME,
+     tags=['master'],
      params={
          START_DATE_KEY: Param(
              default=f"{date.today()}",
@@ -66,7 +68,7 @@ def fetch_notices_by_date_range():
     @event_log(TechnicalEventMessage(
         message="trigger_fetch_notices_workers_for_date_range",
         metadata=EventMessageMetadata(
-            process_type=EventMessageProcessType.DAG, process_name=DAG_NAME
+            process_type=EventMessageProcessType.DAG, process_name=DAG_ID
         ))
     )
     def trigger_notice_by_date_for_each_date_in_range():

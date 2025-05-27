@@ -7,11 +7,14 @@ from ted_sws.core.model.notice import NoticeStatus
 from ted_sws.notice_validator.services.check_availability_of_notice_in_cellar import \
     validate_notices_availability_in_cellar
 
-DAG_NAME = "daily_check_notices_availability_in_cellar"
+DAG_ID = "daily_check_notices_availability_in_cellar"
+DAG_NAME = "Daily check notices availability in Cellar"
 
 
 @dag(default_args=DEFAULT_DAG_ARGUMENTS,
      catchup=False,
+     dag_display_name=DAG_NAME,
+     dag_id=DAG_ID,
      schedule_interval="0 0 * * *",
      tags=['daily', 'validation'])
 def daily_check_notices_availability_in_cellar():

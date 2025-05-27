@@ -18,7 +18,7 @@ from dags.pipelines.notice_processor_pipelines import notice_normalisation_pipel
     notice_validation_pipeline, notice_package_pipeline, notice_publish_pipeline
 
 DAG_NAME = "notice_processing_pipeline"
-
+DAG_ID = "notice_processing_pipeline"
 
 def branch_selector(result_branch: str, xcom_forward_keys: List[str] = [NOTICE_IDS_KEY]) -> str:
     start_with_step_name = get_dag_param(key=START_WITH_STEP_NAME_KEY,
@@ -32,6 +32,8 @@ def branch_selector(result_branch: str, xcom_forward_keys: List[str] = [NOTICE_I
 
 @dag(default_args=DEFAULT_DAG_ARGUMENTS,
      schedule_interval=None,
+     dag_display_name=DAG_NAME,
+     dag_id=DAG_ID,
      max_active_runs=256,
      max_active_tasks=256,
      tags=['worker', 'pipeline'])

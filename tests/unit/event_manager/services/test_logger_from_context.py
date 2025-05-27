@@ -56,7 +56,7 @@ def test_get_dag_run_id_from_dag_context(fake_dag_context):
 
 
 def test_handle_event_message_metadata_dag_context(fake_dag_context):
-    process_name = "DAG_NAME"
+    process_name = "FETCHER_DAG_NAME"
     process_id = "DAG_RUN_ID"
 
     metadata = handle_event_message_metadata_dag_context(ps_name=process_name, ps_id=process_id, ps_context={})
@@ -70,7 +70,7 @@ def test_handle_event_message_metadata_dag_context(fake_dag_context):
 
 
 def test_handle_event_message_metadata_context():
-    process_name = "DAG_NAME"
+    process_name = "FETCHER_DAG_NAME"
     process_id = "DAG_RUN_ID"
     process_type = EventMessageProcessType.CLI
 

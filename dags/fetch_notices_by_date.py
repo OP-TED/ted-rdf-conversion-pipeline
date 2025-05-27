@@ -36,6 +36,7 @@ VALIDATE_FETCHED_NOTICES_TASK_ID = "validate_fetched_notices"
      schedule=CronTriggerTimetable(
          cron=config.SCHEDULE_DAG_FETCH,
          timezone=DAG_DEFAULT_TIMEZONE),
+     start_date=datetime.today(),
      tags=['selector', 'daily-fetch'],
      params={
          WILD_CARD_DAG_KEY: Param(

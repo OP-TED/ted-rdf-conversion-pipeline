@@ -21,7 +21,6 @@ from dags.pipelines.notice_processor_pipelines import notice_normalisation_pipel
 DAG_NAME = "notice_processing_pipeline"
 DAG_ID = "notice_processing_pipeline"
 
-
 def branch_selector(result_branch: str, xcom_forward_keys: List[str] = [NOTICE_IDS_KEY]) -> str:
     start_with_step_name = get_dag_param(key=START_WITH_STEP_NAME_KEY,
                                          default_value=NOTICE_NORMALISATION_PIPELINE_TASK_ID)

@@ -12,9 +12,10 @@ ENV_FILE := .env
 
 PROJECT_PATH = $(shell pwd)
 AIRFLOW_INFRA_FOLDER ?= ${PROJECT_PATH}/.airflow
-RML_MAPPER_PATH = ${PROJECT_PATH}/.rmlmapper/rmlmapper.jar
-XML_PROCESSOR_PATH = ${PROJECT_PATH}/.saxon/saxon-he-10.9.jar
-LIMES_ALIGNMENT_PATH = $(PROJECT_PATH)/.limes/limes.jar
+LIBRARIES_PATH = ${PROJECT_PATH}/libraries
+RML_MAPPER_PATH = ${LIBRARIES_PATH}/.rmlmapper/rmlmapper.jar
+XML_PROCESSOR_PATH = ${LIBRARIES_PATH}/.saxon/saxon-he-10.9.jar
+LIMES_ALIGNMENT_PATH = $(LIBRARIES_PATH)/.limes/limes.jar
 HOSTNAME = $(shell hostname)
 CAROOT = $(shell pwd)/infra/traefik/certs
 
@@ -215,18 +216,19 @@ stop-metabase:
 
 init-rml-mapper:
 	@ echo -e "RMLMapper folder initialisation!"
-	@ mkdir -p ./.rmlmapper
-	@ wget -c https://github.com/RMLio/rmlmapper-java/releases/download/v6.2.2/rmlmapper-6.2.2-r371-all.jar -O ./.rmlmapper/rmlmapper.jar
+	@ mkdir -p ./libraries/.rmlmapper
+	@ wget -c https://github.com/RMLio/rmlmapper-java/releases/download/v6.2.2/rmlmapper-6.2.2-r371-all.jar -O ./libraries/.rmlmapper/rmlmapper.jar
 
 init-limes:
 	@ echo -e "Limes folder initialisation!"
-	@ mkdir -p ./.limes
-	@ wget -c https://github.com/dice-group/LIMES/releases/download/1.7.9/limes.jar -P ./.limes
+	@ mkdir -p ./libraries/.limes
+	@ wget -c https://github.com/dice-group/LIMES/releases/download/1.7.9/limes.jar -P ./libraries/.limes/
 
 init-saxon:
 	@ echo -e "$(BUILD_PRINT)Saxon folder initialization $(END_BUILD_PRINT)"
-	@ wget -c https://github.com/Saxonica/Saxon-HE/releases/download/SaxonHE10-9/SaxonHE10-9J.zip -P .saxon/
-	@ cd .saxon && unzip SaxonHE10-9J.zip && rm -rf SaxonHE10-9J.zip
+	@ mkdir -p ./libraries/.saxon
+	@ wget -c https://github.com/Saxonica/Saxon-HE/releases/download/SaxonHE10-9/SaxonHE10-9J.zip -P ./libraries/.saxon/
+	@ cd ./libraries/.saxon/ && unzip SaxonHE10-9J.zip && rm -rf SaxonHE10-9J.zip
 
 start-project-services: | start-airflow start-mongo init-rml-mapper init-limes start-allegro-graph start-metabase
 stop-project-services: | stop-airflow stop-mongo stop-allegro-graph stop-metabase

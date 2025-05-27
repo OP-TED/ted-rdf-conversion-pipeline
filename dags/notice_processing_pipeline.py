@@ -1,10 +1,15 @@
 from typing import List
 
-from airflow.operators.python import BranchPythonOperator, PythonOperator
 from airflow.decorators import dag
+from airflow.operators.python import BranchPythonOperator, PythonOperator
 from airflow.utils.trigger_rule import TriggerRule
 
-from dags import DEFAULT_DAG_ARGUMENTS
+from dags import DEFAULT_DAG_ARGUMENTS, NOTICE_NORMALISATION_PIPELINE_TASK_ID, STOP_PROCESSING_TASK_ID, \
+    BRANCH_SELECTOR_MAP, NOTICE_TRANSFORMATION_PIPELINE_TASK_ID, NOTICE_VALIDATION_PIPELINE_TASK_ID, \
+    NOTICE_PACKAGE_PIPELINE_TASK_ID, NOTICE_PUBLISH_PIPELINE_TASK_ID, BRANCH_SELECTOR_TASK_ID, \
+    SELECTOR_BRANCH_BEFORE_TRANSFORMATION_TASK_ID, SELECTOR_BRANCH_BEFORE_VALIDATION_TASK_ID, \
+    SELECTOR_BRANCH_BEFORE_PACKAGE_TASK_ID, SELECTOR_BRANCH_BEFORE_PUBLISH_TASK_ID, \
+    NOTICE_DISTILLATION_PIPELINE_TASK_ID, NOTICES_COLLECTION_DATASET
 from dags.dags_utils import get_dag_param, smart_xcom_push, smart_xcom_forward, smart_xcom_pull
 from dags.operators.DagBatchPipelineOperator import NoticeBatchPipelineOperator, NOTICE_IDS_KEY, \
     EXECUTE_ONLY_ONE_STEP_KEY, START_WITH_STEP_NAME_KEY
@@ -12,28 +17,8 @@ from dags.pipelines.notice_batch_processor_pipelines import notices_batch_distil
 from dags.pipelines.notice_processor_pipelines import notice_normalisation_pipeline, notice_transformation_pipeline, \
     notice_validation_pipeline, notice_package_pipeline, notice_publish_pipeline
 
-NOTICE_NORMALISATION_PIPELINE_TASK_ID = "notice_normalisation_pipeline"
-NOTICE_TRANSFORMATION_PIPELINE_TASK_ID = "notice_transformation_pipeline"
-NOTICE_DISTILLATION_PIPELINE_TASK_ID = "notice_distillation_pipeline"
-NOTICE_VALIDATION_PIPELINE_TASK_ID = "notice_validation_pipeline"
-NOTICE_PACKAGE_PIPELINE_TASK_ID = "notice_package_pipeline"
-NOTICE_PUBLISH_PIPELINE_TASK_ID = "notice_publish_pipeline"
-STOP_PROCESSING_TASK_ID = "stop_processing"
-BRANCH_SELECTOR_TASK_ID = 'branch_selector'
-SELECTOR_BRANCH_BEFORE_TRANSFORMATION_TASK_ID = "switch_to_transformation"
-SELECTOR_BRANCH_BEFORE_VALIDATION_TASK_ID = "switch_to_validation"
-SELECTOR_BRANCH_BEFORE_PACKAGE_TASK_ID = "switch_to_package"
-SELECTOR_BRANCH_BEFORE_PUBLISH_TASK_ID = "switch_to_publish"
+DAG_NAME = "notice_processing_pipeline"
 DAG_ID = "notice_processing_pipeline"
-DAG_NAME = "Notice processing pipeline"
-
-BRANCH_SELECTOR_MAP = {NOTICE_NORMALISATION_PIPELINE_TASK_ID: NOTICE_NORMALISATION_PIPELINE_TASK_ID,
-                       NOTICE_TRANSFORMATION_PIPELINE_TASK_ID: SELECTOR_BRANCH_BEFORE_TRANSFORMATION_TASK_ID,
-                       NOTICE_VALIDATION_PIPELINE_TASK_ID: SELECTOR_BRANCH_BEFORE_VALIDATION_TASK_ID,
-                       NOTICE_PACKAGE_PIPELINE_TASK_ID: SELECTOR_BRANCH_BEFORE_PACKAGE_TASK_ID,
-                       NOTICE_PUBLISH_PIPELINE_TASK_ID: SELECTOR_BRANCH_BEFORE_PUBLISH_TASK_ID
-                       }
-
 
 def branch_selector(result_branch: str, xcom_forward_keys: List[str] = [NOTICE_IDS_KEY]) -> str:
     start_with_step_name = get_dag_param(key=START_WITH_STEP_NAME_KEY,
@@ -114,7 +99,8 @@ def notice_processing_pipeline():
     stop_processing = PythonOperator(
         task_id=STOP_PROCESSING_TASK_ID,
         trigger_rule=TriggerRule.NONE_FAILED_MIN_ONE_SUCCESS,
-        python_callable=_stop_processing
+        python_callable=_stop_processing,
+        outlets=NOTICES_COLLECTION_DATASET
     )
 
     notice_normalisation_step = NoticeBatchPipelineOperator(notice_pipeline_callable=notice_normalisation_pipeline,

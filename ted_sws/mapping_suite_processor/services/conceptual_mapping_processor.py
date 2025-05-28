@@ -12,6 +12,7 @@ from ted_sws.data_manager.adapters.mapping_suite_repository import MappingSuiteR
 from ted_sws.data_manager.adapters.notice_repository import NoticeRepository
 from ted_sws.event_manager.services.log import log_mapping_suite_info, log_mapping_suite_error
 from ted_sws.mapping_suite_processor.adapters.github_package_downloader import GitHubMappingSuitePackageDownloader
+from ted_sws.mapping_suite_processor.services import MappingSuiteProcessorServiceError
 from ted_sws.mapping_suite_processor.services.mapping_suite_digest_service import \
     update_digest_api_address_for_mapping_suite
 from ted_sws.mapping_suite_processor.services.mapping_suite_validation_service import validate_mapping_suite, \
@@ -98,9 +99,11 @@ def mapping_suite_processor_from_github_expand_and_load_package_in_mongo_db(mong
             validation_result = validate_mapping_suite(mapping_suite_path=mapping_suite_package_path)
             mapping_suite_id = get_mapping_suite_id_from_file_system(mapping_suite_path=mapping_suite_package_path)
             if mapping_suite_id is None:
+                error_msg = "Invalid mapping suite metadata, can't read mapping suite identifier!"
                 log_mapping_suite_error(
-                    message="Invalid mapping suite metadata, can't read mapping suite identifier!",
+                    message=error_msg,
                     mapping_suite_id=MAPPING_SUITE_UNKNOWN_ID)
+                raise MappingSuiteProcessorServiceError(error_msg)
             elif validation_result:
                 log_mapping_suite_info(
                     message=f"Mapping suite with id={mapping_suite_id} is valid for loading in MongoDB!",
@@ -115,8 +118,10 @@ def mapping_suite_processor_from_github_expand_and_load_package_in_mongo_db(mong
                     message=f"Mapping suite with id={mapping_suite_id} loaded with success in MongoDB!",
                     mapping_suite_id=mapping_suite_id)
             else:
+                error_msg = f"Mapping suite with id={mapping_suite_id} is invalid for loading in MongoDB!"
                 log_mapping_suite_error(
-                    message=f"Mapping suite with id={mapping_suite_id} is invalid for loading in MongoDB!",
+                    message=error_msg,
                     mapping_suite_id=mapping_suite_id)
+                raise MappingSuiteProcessorServiceError(error_msg)
 
     return result_notice_ids

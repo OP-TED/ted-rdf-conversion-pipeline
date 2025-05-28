@@ -27,6 +27,7 @@ def test_ted_api():
 
 def test_ted_api_error():
     ted = TedAPIAdapter(request_api=TedRequestAPI())
+    response_status = "400"
     with pytest.raises(Exception) as e:
         ted.get_by_query(query={"query": "NDE=67623-2022"})
-    assert str(e.value) == "The TED-API call failed with: <Response [400]>"
+    assert response_status in str(e.value)

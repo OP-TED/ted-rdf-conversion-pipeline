@@ -1,0 +1,2 @@
+class MappingSuiteProcessorServiceError(Exception):
+    pass

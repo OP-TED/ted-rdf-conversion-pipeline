@@ -2,12 +2,16 @@ PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
 PREFIX euvoc: <http://publications.europa.eu/ontology/euvoc#>
 PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 
+# This query is to be used for the Standard Forms mappings.
+# The altnernative language.rq (without plural _s_) is meant
+# for the eForms mappings.
+
 SELECT DISTINCT ?code ?conceptURI
 WHERE
 {
-  GRAPH <http://publications.europa.eu/resource/authority/language>
-  {
-    ?conceptURI skos:notation ?code .
-    FILTER (datatype(?code) IN (rdf:resource="http://publications.europa.eu/resource/authority/notation-type/ISO_639_3", euvoc:TED_SCHEMA))
-  }
+    GRAPH <http://publications.europa.eu/resource/authority/language>
+    {
+        ?conceptURI skos:notation ?code .
+        FILTER (datatype(?code) IN (rdf:resource="http://publications.europa.eu/resource/authority/notation-type/ISO_639_3", euvoc:TED_SCHEMA))
+    }
 }

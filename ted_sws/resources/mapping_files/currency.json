@@ -2863,6 +2863,16 @@
       {
         "code": {
           "type": "literal",
+          "value": "SLE"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://publications.europa.eu/resource/authority/currency/SLE"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
           "value": "XBT"
         },
         "conceptURI": {
@@ -2878,6 +2888,26 @@
         "conceptURI": {
           "type": "uri",
           "value": "http://publications.europa.eu/resource/authority/currency/VED"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "ARY"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://publications.europa.eu/resource/authority/currency/ARY"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "ZWG"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://publications.europa.eu/resource/authority/currency/ZWG"
         }
       }
     ]

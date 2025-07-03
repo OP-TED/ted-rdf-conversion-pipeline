@@ -1,0 +1,34 @@
+PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+PREFIX euvoc: <http://publications.europa.eu/ontology/euvoc#>
+PREFIX at: <http://publications.europa.eu/ontology/authority/>
+
+# This query is to be used for the eForms mappings, in two variants:
+# - JSON, for values that do not require transformation
+# - CSV, for values that require transformation using functions in RML
+#
+# Note: Not to be confused with the language.rq query, which is for Standard Forms.
+#
+# TODO: All these queries should be refactored to have a deterministic order of results.
+
+SELECT DISTINCT ?conceptURI ?code_xml ?code_ted ?op_code
+WHERE
+{
+    GRAPH <http://publications.europa.eu/resource/authority/language>
+    {
+        ?conceptURI at:op-code ?code1 .
+
+        OPTIONAL {
+            ?conceptURI skos:notation ?code2
+            FILTER (datatype(?code2) IN (euvoc:XML_LNG))
+        }
+
+        OPTIONAL {
+            ?conceptURI skos:notation ?code3
+            FILTER (datatype(?code3) IN (euvoc:TED_SCHEMA))
+        }
+
+        BIND(str(?code1) AS ?op_code)
+        BIND(str(?code2) AS ?code_xml)
+        BIND(str(?code3) AS ?code_ted)
+    }
+}

@@ -1,18 +1,12 @@
 #!/usr/bin/python3
 
-# __init__.py
-# Date:  03/02/2022
-# Author: Eugeniu Costetchi
-# Email: costezki.eugen@gmail.com
-
-""" """
-
 __version__ = "0.0.1"
 
+import base64
 import json
 import os
 import pathlib
-import base64
+
 import dotenv
 
 from ted_sws.core.adapters.config_resolver import EnvConfigResolver, AirflowAndEnvConfigResolver, env_property
@@ -38,6 +32,7 @@ SPARQL_PREFIXES_PATH = PROJECT_PATH / "resources" / "prefixes" / "prefixes.json"
 DAG_FETCH_DEFAULT_TIMETABLE = "0 1 * * *"
 DAG_MATERIALIZED_VIEW_UPDATE_DEFAULT_TIMETABLE = "0 6 * * *"
 DAG_DEFAULT_TIMEZONE = "UTC"
+
 
 class MongoDBConfig:
 
@@ -147,7 +142,6 @@ class GitHubArtefacts:
     @env_property()
     def GITHUB_TED_SWS_ARTEFACTS_URL(self, config_value: str) -> str:
         return config_value
-
 
 
 class API:
@@ -272,13 +266,24 @@ class DagSchedulingConfig:
     def SCHEDULE_DAG_FETCH(self, config_value: str) -> str:
         return config_value
 
-    @env_property(config_resolver_class=AirflowAndEnvConfigResolver, default_value=DAG_MATERIALIZED_VIEW_UPDATE_DEFAULT_TIMETABLE)
+    @env_property(config_resolver_class=AirflowAndEnvConfigResolver,
+                  default_value=DAG_MATERIALIZED_VIEW_UPDATE_DEFAULT_TIMETABLE)
     def SCHEDULE_DAG_MATERIALIZED_VIEW_UPDATE(self, config_value: str) -> str:
         return config_value
 
+
+class NoticeProcessingDagConfig:
+
+    @env_property(config_resolver_class=AirflowAndEnvConfigResolver,
+                  default_value='["PUBLISHED", "INELIGIBLE_FOR_TRANSFORMATION"]')
+    def NOTICE_SUCCESS_STATUSES(self, config_value: str) -> str:
+        return config_value
+
+
 class TedConfigResolver(MongoDBConfig, RMLMapperConfig, XMLProcessorConfig, ELKConfig, LoggingConfig,
                         GitHubArtefacts, API, AllegroConfig, TedAPIConfig, SFTPConfig, FusekiConfig,
-                        SPARQLConfig, LimesAlignmentConfig, S3PublishConfig, DagSchedulingConfig):
+                        SPARQLConfig, LimesAlignmentConfig, S3PublishConfig, DagSchedulingConfig,
+                        NoticeProcessingDagConfig):
     """
         This class resolve the secrets of the ted-sws project.
     """

@@ -2,6 +2,11 @@ from datetime import datetime, timedelta
 
 from airflow import Dataset
 
+class TEDSWSPipelineDAGException(Exception):
+    """
+
+    """
+
 DEFAULT_DAG_ARGUMENTS = {
     "owner": "airflow",
     "depends_on_past": False,

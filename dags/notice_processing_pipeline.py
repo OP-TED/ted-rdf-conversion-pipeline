@@ -1,7 +1,6 @@
 from typing import List
 
 from airflow.decorators import dag
-from airflow.exceptions import AirflowSkipException
 from airflow.operators.python import BranchPythonOperator, PythonOperator
 from airflow.utils.trigger_rule import TriggerRule
 
@@ -11,15 +10,18 @@ from dags import DEFAULT_DAG_ARGUMENTS, NOTICE_NORMALISATION_PIPELINE_TASK_ID, S
     SELECTOR_BRANCH_BEFORE_TRANSFORMATION_TASK_ID, SELECTOR_BRANCH_BEFORE_VALIDATION_TASK_ID, \
     SELECTOR_BRANCH_BEFORE_PACKAGE_TASK_ID, SELECTOR_BRANCH_BEFORE_PUBLISH_TASK_ID, \
     NOTICE_DISTILLATION_PIPELINE_TASK_ID, NOTICES_COLLECTION_DATASET
-from dags.dags_utils import get_dag_param, smart_xcom_push, smart_xcom_forward, smart_xcom_pull
+from dags.dags_utils import get_dag_param, smart_xcom_push, smart_xcom_forward, validate_notice_statuses_json_variable
 from dags.operators.DagBatchPipelineOperator import NoticeBatchPipelineOperator, NOTICE_IDS_KEY, \
     EXECUTE_ONLY_ONE_STEP_KEY, START_WITH_STEP_NAME_KEY
 from dags.pipelines.notice_batch_processor_pipelines import notices_batch_distillation_pipeline
 from dags.pipelines.notice_processor_pipelines import notice_normalisation_pipeline, notice_transformation_pipeline, \
     notice_validation_pipeline, notice_package_pipeline, notice_publish_pipeline
+from ted_sws import config
+from ted_sws.core.model.notice import NoticeStatus
 
 DAG_NAME = "notice_processing_pipeline"
 DAG_ID = "notice_processing_pipeline"
+
 
 def branch_selector(result_branch: str, xcom_forward_keys: List[str] = [NOTICE_IDS_KEY]) -> str:
     start_with_step_name = get_dag_param(key=START_WITH_STEP_NAME_KEY,
@@ -29,6 +31,9 @@ def branch_selector(result_branch: str, xcom_forward_keys: List[str] = [NOTICE_I
     for xcom_forward_key in xcom_forward_keys:
         smart_xcom_forward(key=xcom_forward_key, destination_task_id=result_branch)
     return result_branch
+
+
+NOTICE_SUCCESS_STATUSES: List[NoticeStatus] = validate_notice_statuses_json_variable(config.NOTICE_SUCCESS_STATUSES)
 
 
 @dag(default_args=DEFAULT_DAG_ARGUMENTS,

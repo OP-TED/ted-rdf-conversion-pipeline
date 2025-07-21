@@ -1,6 +1,10 @@
-from typing import Any
+import json
+from typing import Any, List
 
 from airflow.operators.python import get_current_context
+
+from dags import TEDSWSPipelineDAGException
+from ted_sws.core.model.notice import NoticeStatus
 
 TASK_INSTANCE = "ti"
 
@@ -78,3 +82,25 @@ def get_dag_param(key: str, raise_error: bool = False, default_value: Any = None
     if raise_error:
         raise Exception(f"Config key [{key}] is not present in dag context")
     return default_value
+
+
+def validate_notice_statuses_json_variable(variable: str) -> List[NoticeStatus]:
+    error_message: str = 'Use json valid structure.\nExample: ["PUBLISHED", "INELIGIBLE_FOR_TRANSFORMATION"]'
+    try:
+        notice_statuses_list = json.loads(variable)
+    except json.JSONDecodeError as e:
+        raise TEDSWSPipelineDAGException(f"{e}\n{error_message}")
+
+    if not isinstance(notice_statuses_list, list):
+        raise TEDSWSPipelineDAGException(f"The variable must be a JSON-encoded list of strings.\n{error_message}")
+
+    validated_statuses = []
+    for item in notice_statuses_list:
+        if not isinstance(item, str):
+            raise TEDSWSPipelineDAGException(f"Expected string values in list, got {type(item).__name__}: {item}.\n{error_message}")
+        try:
+            validated_statuses.append(NoticeStatus[item])
+        except KeyError:
+            raise TEDSWSPipelineDAGException(f"Invalid notice status name: '{item}'\n{error_message}")
+
+    return validated_statuses

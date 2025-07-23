@@ -1,7 +1,7 @@
-from typing import Any, Protocol, List
+from typing import Any, Protocol, List, Dict
 from uuid import uuid4
 
-from airflow.exceptions import AirflowSkipException
+from airflow.exceptions import AirflowSkipException, AirflowFailException
 from airflow.models import BaseOperator
 from airflow.operators.trigger_dagrun import TriggerDagRunOperator
 from pymongo import MongoClient
@@ -10,6 +10,7 @@ from dags.dags_utils import pull_dag_upstream, push_dag_downstream, get_dag_para
     smart_xcom_push
 from dags.pipelines.pipeline_protocols import NoticePipelineCallable, NoticePipelineOutput
 from ted_sws import config
+from ted_sws.core.model.notice import NoticeStatus
 from ted_sws.core.service.batch_processing import chunks
 from ted_sws.data_manager.adapters.notice_repository import NoticeRepository
 from ted_sws.event_manager.model.event_message import EventMessage, NoticeEventMessage
@@ -17,6 +18,7 @@ from ted_sws.event_manager.services.log import log_notice_error
 from ted_sws.event_manager.services.logger_from_context import get_logger, handle_event_message_metadata_dag_context
 
 NOTICE_IDS_KEY = "notice_ids"
+NOTICES_WITH_STATUS_KEY = "notices_with_status"
 START_WITH_STEP_NAME_KEY = "start_with_step_name"
 EXECUTE_ONLY_ONE_STEP_KEY = "execute_only_one_step"
 DEFAULT_NUMBER_OF_CELERY_WORKERS = 144  # TODO: revise this config
@@ -47,10 +49,12 @@ class NoticeBatchPipelineOperator(BaseOperator):
     def __init__(self, *args,
                  notice_pipeline_callable: NoticePipelineCallable = None,
                  batch_pipeline_callable: BatchPipelineCallable = None,
+                 notice_success_statuses: List[NoticeStatus] = None,
                  **kwargs) -> None:
         super().__init__(*args, **kwargs)
         self.notice_pipeline_callable = notice_pipeline_callable
         self.batch_pipeline_callable = batch_pipeline_callable
+        self.notice_success_statuses = notice_success_statuses
 
     def execute(self, context: Any):
         """
@@ -59,6 +63,11 @@ class NoticeBatchPipelineOperator(BaseOperator):
         """
         logger = get_logger()
         notice_ids = smart_xcom_pull(key=NOTICE_IDS_KEY)
+
+        notices_status: Dict[str, NoticeStatus] = smart_xcom_pull(key=NOTICES_WITH_STATUS_KEY)
+        if notices_status is None:
+            notices_status = {}
+
         if notice_ids is None:
             raise Exception(f"XCOM key [{NOTICE_IDS_KEY}] is not present in context!")
         if len(notice_ids) == 0:
@@ -93,8 +102,8 @@ class NoticeBatchPipelineOperator(BaseOperator):
                     result_notice_pipeline = self.notice_pipeline_callable(notice, mongodb_client)
                     if result_notice_pipeline.store_result:
                         notice_repository.update(notice=result_notice_pipeline.notice)
-                    if result_notice_pipeline.processed:
-                        processed_notices_pipeline_output.append(result_notice_pipeline)
+                    processed_notices_pipeline_output.append(result_notice_pipeline)
+                    notices_status[notice_id] = notice.status
                     notice_event.end_record()
                     if notice.normalised_metadata:
                         notice_event.notice_form_number = notice.normalised_metadata.form_number
@@ -111,8 +120,14 @@ class NoticeBatchPipelineOperator(BaseOperator):
 
         batch_event_message.end_record()
         logger.info(event_message=batch_event_message)
-        smart_xcom_push(key=NOTICE_IDS_KEY, value=[notice_pipeline_output.notice.ted_id for notice_pipeline_output in
-                                                   processed_notices_pipeline_output])
+        notices_to_push: List[str] = [notice_pipeline_output.notice.ted_id for notice_pipeline_output in
+                                      processed_notices_pipeline_output if
+                                      notice_pipeline_output.processed]
+        smart_xcom_push(key=NOTICE_IDS_KEY, value=notices_to_push)
+        smart_xcom_push(key=NOTICES_WITH_STATUS_KEY, value=notices_status)
+        if any([not notice_pipeline_output.processed for notice_pipeline_output in processed_notices_pipeline_output if
+                notice_pipeline_output.notice.status not in self.notice_success_statuses]):
+            raise AirflowFailException("There are notices failed during this task. Please check logs.")
 
 
 class TriggerNoticeBatchPipelineOperator(BaseOperator):

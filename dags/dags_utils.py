@@ -1,5 +1,4 @@
-import json
-from typing import Any, List
+from typing import Any, List, Dict
 
 from airflow.operators.python import get_current_context
 
@@ -84,23 +83,55 @@ def get_dag_param(key: str, raise_error: bool = False, default_value: Any = None
     return default_value
 
 
-def validate_notice_statuses_json_variable(variable: str) -> List[NoticeStatus]:
-    error_message: str = 'Use json valid structure.\nExample: ["PUBLISHED", "INELIGIBLE_FOR_TRANSFORMATION"]'
-    try:
-        notice_statuses_list = json.loads(variable)
-    except json.JSONDecodeError as e:
-        raise TEDSWSPipelineDAGException(f"{e}\n{error_message}")
+def parse_notice_statuses_from_string(variable: str) -> List[NoticeStatus]:
+    """
+    Parses and validates a string containing newline-separated notice statuses, converting them to NoticeStatus enum values.
 
-    if not isinstance(notice_statuses_list, list):
-        raise TEDSWSPipelineDAGException(f"The variable must be a JSON-encoded list of strings.\n{error_message}")
+    :param variable: A string with notice status names separated by newlines
+    :return: A list of NoticeStatus enum values
+    :raises TEDSWSPipelineDAGException: If the string contains invalid notice status names
+
+    Example input: "PUBLISHED\nINELIGIBLE_FOR_TRANSFORMATION"
+    """
+
+    error_message: str = 'Use newline-separated notice status names.\nExample: "PUBLISHED\\nINELIGIBLE_FOR_TRANSFORMATION"'
+
+    if not isinstance(variable, str):
+        raise TEDSWSPipelineDAGException(f"Expected string input, got {type(variable).__name__}.\n{error_message}")
+
+    # Split by newlines and clean up each line
+    notice_statuses_list = [line.strip() for line in variable.split('\n') if line.strip()]
+
+    if not notice_statuses_list:
+        raise TEDSWSPipelineDAGException(f"No valid notice status names found in input.\n{error_message}")
 
     validated_statuses = []
     for item in notice_statuses_list:
-        if not isinstance(item, str):
-            raise TEDSWSPipelineDAGException(f"Expected string values in list, got {type(item).__name__}: {item}.\n{error_message}")
         try:
             validated_statuses.append(NoticeStatus[item])
         except KeyError:
             raise TEDSWSPipelineDAGException(f"Invalid notice status name: '{item}'\n{error_message}")
 
     return validated_statuses
+
+
+def has_notices_with_failure_status(notices_status: Dict[str, NoticeStatus], success_statuses: List[NoticeStatus]) -> bool:
+    """
+    Check if any notices have a status that is not in the list of success statuses.
+
+    This function determines if there are any notices with statuses that are considered failures
+    by comparing the set of actual notice statuses against the provided set of success statuses.
+
+    Args:
+        notices_status (Dict[str, NoticeStatus]): A dictionary mapping notice identifiers to their status
+        success_statuses (List[NoticeStatus]): A list of statuses that are considered successful
+
+    Returns:
+        bool: True if any notice has a status that is not in the success_statuses list,
+              False if all notices have statuses that are in the success_statuses list
+
+    Example:
+        If success_statuses = [NoticeStatus.PUBLISHED, NoticeStatus.INELIGIBLE_FOR_TRANSFORMATION],
+        and a notice has NoticeStatus.RAW, the function will return True.
+    """
+    return len(set(notices_status.values()) - set(success_statuses)) > 0

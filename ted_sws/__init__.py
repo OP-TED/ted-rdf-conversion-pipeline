@@ -275,7 +275,7 @@ class DagSchedulingConfig:
 class NoticeProcessingDagConfig:
 
     @env_property(config_resolver_class=AirflowAndEnvConfigResolver,
-                  default_value='["PUBLISHED", "INELIGIBLE_FOR_TRANSFORMATION"]')
+                  default_value='PUBLISHED\nINELIGIBLE_FOR_TRANSFORMATION')
     def NOTICE_SUCCESS_STATUSES(self, config_value: str) -> str:
         return config_value
 

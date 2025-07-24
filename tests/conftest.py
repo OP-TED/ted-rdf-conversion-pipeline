@@ -1,10 +1,15 @@
 import base64
 import datetime
 import json
+import os
+import tempfile
+from typing import Generator
 
 import mongomock
 import pymongo
 import pytest
+from airflow.models import DagBag, Variable
+from airflow.utils.db import resetdb, initdb
 from mongomock.gridfs import enable_gridfs_integration
 
 from ted_sws.core.model.manifestation import XMLManifestation, RDFManifestation
@@ -18,12 +23,36 @@ from ted_sws.notice_metadata_processor.adapters.notice_metadata_normaliser impor
     BUYER_COUNTRY_KEY, EU_INSTITUTION_KEY, SENT_DATE_KEY, DEADLINE_DATE_KEY, NOTICE_TYPE_KEY, FORM_TYPE_KEY, \
     PLACE_OF_PERFORMANCE_KEY, EXTRACTED_LEGAL_BASIS_KEY, FORM_NUMBER_KEY, LEGAL_BASIS_DIRECTIVE_KEY, \
     E_FORMS_SUBTYPE_KEY, XSD_VERSION_KEY, EFORM_SDK_VERSION_KEY, NOTICE_SOURCE_KEY
-
-from tests import TEST_DATA_PATH
+from tests import TEST_DATA_PATH, AIRFLOW_DAG_FOLDER
 from tests.fakes.fake_repository import FakeNoticeRepository
 from tests.fakes.fake_ted_api import FakeRequestAPI
 
 enable_gridfs_integration()
+
+
+@pytest.fixture(scope="session", autouse=True)
+def setup_airflow_for_all_tests() -> Generator[None, None, None]:
+    temp_db_file = tempfile.NamedTemporaryFile(mode="w+", suffix=".db")
+    os.environ["AIRFLOW__CORE__SQL_ALCHEMY_CONN"] = f"sqlite:///{temp_db_file.name}"
+    os.environ["AIRFLOW__CORE__LOAD_EXAMPLES"] = "False"
+    os.environ["AIRFLOW__CORE__UNIT_TEST_MODE"] = "True"
+    resetdb()
+    initdb()
+    yield
+    if os.path.exists(temp_db_file.name):
+        temp_db_file.close()
+
+
+@pytest.fixture
+def dag_bag(dag_materialised_view_update_schedule_variable_name: str,
+            dag_fetch_schedule_variable_name: str) -> DagBag:
+    Variable.delete(key=dag_materialised_view_update_schedule_variable_name)
+    Variable.delete(key=dag_fetch_schedule_variable_name)
+    return DagBag(
+        dag_folder=AIRFLOW_DAG_FOLDER,
+        include_examples=False,  # Same as: os.environ["AIRFLOW__CORE__LOAD_EXAMPLES"] = "False"
+        read_dags_from_db=False,
+        collect_dags=True)
 
 
 @pytest.fixture

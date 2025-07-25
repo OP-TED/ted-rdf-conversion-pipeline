@@ -33,7 +33,7 @@ def test_notice_processor_pipelines(fake_mongodb_client):
     notice_repository.update(notice=notice)
     result_list = notices_batch_distillation_pipeline(notice_ids=[notice_id], mongodb_client=fake_mongodb_client)
     assert len(result_list) == 1
-    notice_id = result_list[0]
+    notice_id = result_list[0].notice.ted_id
     notice = notice_repository.get(reference=notice_id)
     pipelines = [notice_validation_pipeline, notice_package_pipeline, notice_publish_pipeline]
     notice_states = [NoticeStatus.DISTILLED, NoticeStatus.VALIDATED, NoticeStatus.PACKAGED, NoticeStatus.PUBLISHED]

@@ -1,13 +1,17 @@
 from typing import List
+
 from pymongo import MongoClient
 
+from dags.pipelines.pipeline_protocols import NoticePipelineOutput
 from ted_sws.master_data_registry.services.entity_deduplication import deduplicate_procedure_entities
 
 CET_URIS = ["http://www.w3.org/ns/org#Organization"]
 PROCEDURE_CET_URI = "http://data.europa.eu/a4g/ontology#Procedure"
 
 
-def notices_batch_distillation_pipeline(notice_ids: List[str], mongodb_client: MongoClient) -> List[str]:
+def notices_batch_distillation_pipeline(notice_ids: List[str],
+                                        mongodb_client: MongoClient
+                                        ) -> List[NoticePipelineOutput]:
     """
 
     :param notice_ids:
@@ -29,4 +33,4 @@ def notices_batch_distillation_pipeline(notice_ids: List[str], mongodb_client: M
     deduplicate_procedure_entities(notices=notices, procedure_cet_uri=PROCEDURE_CET_URI, mongodb_client=mongodb_client)
     for notice in notices:
         notice_repository.update(notice=notice)
-    return notice_ids
+    return [NoticePipelineOutput(notice=notice) for notice in notices]

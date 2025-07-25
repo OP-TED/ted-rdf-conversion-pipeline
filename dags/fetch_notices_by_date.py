@@ -7,7 +7,7 @@ from airflow.operators.python import BranchPythonOperator, PythonOperator
 from airflow.timetables.trigger import CronTriggerTimetable
 from airflow.utils.trigger_rule import TriggerRule
 
-from dags import DEFAULT_DAG_ARGUMENTS
+from dags import DEFAULT_DAG_ARGUMENTS, BATCH_SIZE
 from dags.dags_utils import get_dag_param, push_dag_downstream, pull_dag_upstream
 from dags.operators.DagBatchPipelineOperator import NOTICE_IDS_KEY, TriggerNoticeBatchPipelineOperator
 from dags.pipelines.notice_fetcher_pipelines import notice_fetcher_by_date_pipeline
@@ -36,6 +36,7 @@ VALIDATE_FETCHED_NOTICES_TASK_ID = "validate_fetched_notices"
      schedule=CronTriggerTimetable(
          cron=config.SCHEDULE_DAG_FETCH,
          timezone=DAG_DEFAULT_TIMEZONE),
+     start_date=datetime.today(),
      tags=['selector', 'daily-fetch'],
      params={
          WILD_CARD_DAG_KEY: Param(

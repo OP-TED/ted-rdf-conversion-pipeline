@@ -2,6 +2,11 @@ from datetime import datetime, timedelta
 
 from airflow import Dataset
 
+class TEDSWSPipelineDAGException(Exception):
+    """
+
+    """
+
 DEFAULT_DAG_ARGUMENTS = {
     "owner": "airflow",
     "depends_on_past": False,
@@ -15,6 +20,8 @@ DEFAULT_DAG_ARGUMENTS = {
     "concurrency": 15,
     "execution_timeout": timedelta(days=10),
 }
+
+BATCH_SIZE = 2000
 
 NOTICE_NORMALISATION_PIPELINE_TASK_ID = "notice_normalisation_pipeline"
 NOTICE_TRANSFORMATION_PIPELINE_TASK_ID = "notice_transformation_pipeline"

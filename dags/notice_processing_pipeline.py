@@ -21,7 +21,7 @@ from dags.pipelines.notice_processor_pipelines import notice_normalisation_pipel
 from ted_sws import config
 from ted_sws.core.model.notice import NoticeStatus
 
-DAG_NAME = "notice_processing_pipeline"
+DAG_NAME = "Notice processing pipeline"
 DAG_ID = "notice_processing_pipeline"
 
 

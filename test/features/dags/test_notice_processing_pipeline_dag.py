@@ -197,13 +197,13 @@ def step_stop_processing_checks(notice_batch, success_statuses):
     """Mock stop processing task execution"""
     mock_context = FakeDAGContext()
 
-    with patch('dags.notice_processing_pipeline.smart_xcom_pull') as mock_xcom_pull:
+    with patch('src.dags.notice_processing_pipeline.smart_xcom_pull') as mock_xcom_pull:
         mock_xcom_pull.side_effect = lambda key: {
             NOTICES_WITH_STATUS_KEY: notice_batch["statuses"],
             NOTICE_IDS_KEY: notice_batch["ids"]
         }.get(key)
 
-        with patch('dags.notice_processing_pipeline.NOTICE_SUCCESS_STATUSES', success_statuses):
+        with patch('src.dags.notice_processing_pipeline.NOTICE_SUCCESS_STATUSES', success_statuses):
             try:
                 # Import the actual function from the module
                 from src.dags.notice_processing_pipeline import notice_processing_pipeline

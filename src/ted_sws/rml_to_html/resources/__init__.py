@@ -4,7 +4,7 @@ except ImportError:
     # Try backported to PY<37 `importlib_resources`.
     import importlib_resources as pkg_resources
 
-import ted_sws.rml_to_html.resources.queries
+import src.ted_sws.rml_to_html.resources.queries
 
 
 def get_sparql_query(query_file_name: str) -> str:

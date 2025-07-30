@@ -1,0 +1,173 @@
+from typing import Any, Protocol, List, Dict
+from uuid import uuid4
+
+from airflow.exceptions import AirflowSkipException, AirflowFailException
+from airflow.models import BaseOperator
+from airflow.operators.trigger_dagrun import TriggerDagRunOperator
+from pymongo import MongoClient
+
+from src.dags.dags_utils import pull_dag_upstream, push_dag_downstream, get_dag_param, smart_xcom_pull, \
+    smart_xcom_push
+from src.dags.pipelines.pipeline_protocols import NoticePipelineCallable, NoticePipelineOutput
+from src.ted_sws import config
+from src.ted_sws.core.model.notice import NoticeStatus
+from src.ted_sws.core.service.batch_processing import chunks
+from src.ted_sws.data_manager.adapters.notice_repository import NoticeRepository
+from src.ted_sws.event_manager.model.event_message import EventMessage, NoticeEventMessage
+from src.ted_sws.event_manager.services.log import log_notice_error
+from src.ted_sws.event_manager.services.logger_from_context import get_logger, handle_event_message_metadata_dag_context
+
+NOTICE_IDS_KEY = "notice_ids"
+NOTICES_WITH_STATUS_KEY = "notices_with_status"
+START_WITH_STEP_NAME_KEY = "start_with_step_name"
+EXECUTE_ONLY_ONE_STEP_KEY = "execute_only_one_step"
+DEFAULT_NUMBER_OF_CELERY_WORKERS = 144  # TODO: revise this config
+NOTICE_PROCESSING_PIPELINE_DAG_NAME = "notice_processing_pipeline"
+DEFAULT_START_WITH_TASK_ID = "notice_normalisation_pipeline"
+DEFAULT_PIPELINE_NAME_FOR_LOGS = "unknown_pipeline_name"
+MAX_BATCH_SIZE = 5000
+
+
+class BatchPipelineCallable(Protocol):
+
+    def __call__(self, notice_ids: List[str], mongodb_client: MongoClient) -> List[NoticePipelineOutput]:
+        """
+        :param notice_ids:
+        :param mongodb_client:
+        :return: List of notice_ids what was processed.
+        """
+
+
+class NoticeBatchPipelineOperator(BaseOperator):
+    """
+
+    """
+
+    ui_color = '#e7cff6'
+    ui_fgcolor = '#000000'
+
+    def __init__(self, *args,
+                 notice_pipeline_callable: NoticePipelineCallable = None,
+                 batch_pipeline_callable: BatchPipelineCallable = None,
+                 notice_success_statuses: List[NoticeStatus] = None,
+                 **kwargs) -> None:
+        super().__init__(*args, **kwargs)
+        self.notice_pipeline_callable = notice_pipeline_callable
+        self.batch_pipeline_callable = batch_pipeline_callable
+        self.notice_success_statuses = notice_success_statuses
+
+    def execute(self, context: Any):
+        """
+            This method can execute the notice_pipeline_callable for each notice_id in the notice_ids batch or
+            can execute the batch_pipeline_callable for whole notice_ids batch at once.
+        """
+        logger = get_logger()
+        notice_ids = smart_xcom_pull(key=NOTICE_IDS_KEY)
+
+        notices_status: Dict[str, NoticeStatus] = smart_xcom_pull(key=NOTICES_WITH_STATUS_KEY)
+        if notices_status is None:
+            notices_status = {}
+
+        if notice_ids is None:
+            raise Exception(f"XCOM key [{NOTICE_IDS_KEY}] is not present in context!")
+        if len(notice_ids) == 0:
+            smart_xcom_push(key=NOTICE_IDS_KEY, value=[])
+            raise AirflowSkipException("No notices to process!")
+        mongodb_client = MongoClient(config.MONGO_DB_AUTH_URL)
+        notice_repository = NoticeRepository(mongodb_client=mongodb_client)
+        processed_notices_pipeline_output: List[NoticePipelineOutput] = []
+        pipeline_name = DEFAULT_PIPELINE_NAME_FOR_LOGS
+        if self.notice_pipeline_callable:
+            pipeline_name = self.notice_pipeline_callable.__name__
+        elif self.batch_pipeline_callable:
+            pipeline_name = self.batch_pipeline_callable.__name__
+        number_of_notices = len(notice_ids)
+        batch_event_message = EventMessage(
+            message=f"Batch processing for pipeline = [{pipeline_name}] with {number_of_notices} notices.",
+            kwargs={"pipeline_name": pipeline_name,
+                    "number_of_notices": number_of_notices}
+        )
+        handle_event_message_metadata_dag_context(batch_event_message, context)
+        batch_event_message.start_record()
+        if self.batch_pipeline_callable is not None:
+            processed_notices_pipeline_output.extend(
+                self.batch_pipeline_callable(notice_ids=notice_ids, mongodb_client=mongodb_client))
+        elif self.notice_pipeline_callable is not None:
+            for notice_id in notice_ids:
+                notice = None
+                try:
+                    notice_event = NoticeEventMessage(notice_id=notice_id, domain_action=pipeline_name)
+                    notice_event.start_record()
+                    notice = notice_repository.get(reference=notice_id)
+                    result_notice_pipeline = self.notice_pipeline_callable(notice, mongodb_client)
+                    if result_notice_pipeline.store_result:
+                        notice_repository.update(notice=result_notice_pipeline.notice)
+                    processed_notices_pipeline_output.append(result_notice_pipeline)
+                    notices_status[notice_id] = notice.status
+                    notice_event.end_record()
+                    if notice.normalised_metadata:
+                        notice_event.notice_form_number = notice.normalised_metadata.form_number
+                        notice_event.notice_eforms_subtype = notice.normalised_metadata.eforms_subtype
+                        notice_event.notice_status = str(notice.status)
+                    logger.info(event_message=notice_event)
+                except Exception as e:
+                    notice_normalised_metadata = notice.normalised_metadata if notice else None
+                    log_notice_error(message=str(e), notice_id=notice_id, domain_action=pipeline_name,
+                                     notice_form_number=notice_normalised_metadata.form_number if notice_normalised_metadata else None,
+                                     notice_status=notice.status if notice else None,
+                                     notice_eforms_subtype=notice_normalised_metadata.eforms_subtype if notice_normalised_metadata else None)
+                    raise e
+
+        batch_event_message.end_record()
+        logger.info(event_message=batch_event_message)
+        notices_to_push: List[str] = [notice_pipeline_output.notice.ted_id for notice_pipeline_output in
+                                      processed_notices_pipeline_output if
+                                      notice_pipeline_output.processed]
+        smart_xcom_push(key=NOTICE_IDS_KEY, value=notices_to_push)
+        smart_xcom_push(key=NOTICES_WITH_STATUS_KEY, value=notices_status)
+        if any([not notice_pipeline_output.processed for notice_pipeline_output in processed_notices_pipeline_output if
+                notice_pipeline_output.notice.status not in self.notice_success_statuses]):
+            raise AirflowFailException("There are notices failed during this task. Please check logs.")
+
+
+class TriggerNoticeBatchPipelineOperator(BaseOperator):
+    ui_color = ' #1bd5ff'
+    ui_fgcolor = '#000000'
+
+    def __init__(
+            self,
+            *args,
+            start_with_step_name: str = None,
+            batch_size: int = None,
+            execute_only_one_step: bool = None,
+            push_result: bool = False,
+            **kwargs) -> None:
+        super().__init__(*args, **kwargs)
+        self.start_with_step_name = start_with_step_name if start_with_step_name else DEFAULT_START_WITH_TASK_ID
+        self.execute_only_one_step = execute_only_one_step
+        self.push_result = push_result
+        self.batch_size = batch_size
+
+    def execute(self, context: Any):
+        if self.execute_only_one_step is None:
+            self.execute_only_one_step = get_dag_param(key=EXECUTE_ONLY_ONE_STEP_KEY, default_value=False)
+        notice_ids = pull_dag_upstream(key=NOTICE_IDS_KEY)
+        if notice_ids:
+            if self.batch_size is None:
+                computed_batch_size = 1 + len(notice_ids) // DEFAULT_NUMBER_OF_CELERY_WORKERS
+                batch_size = computed_batch_size if computed_batch_size < MAX_BATCH_SIZE else MAX_BATCH_SIZE
+            else:
+                batch_size = self.batch_size
+            for notice_batch in chunks(notice_ids, chunk_size=batch_size):
+                TriggerDagRunOperator(
+                    task_id=f'trigger_worker_dag_{uuid4().hex}',
+                    trigger_dag_id=NOTICE_PROCESSING_PIPELINE_DAG_NAME,
+                    conf={
+                        NOTICE_IDS_KEY: list(notice_batch),
+                        START_WITH_STEP_NAME_KEY: self.start_with_step_name,
+                        EXECUTE_ONLY_ONE_STEP_KEY: self.execute_only_one_step
+                    }
+                ).execute(context=context)
+
+        if self.push_result:
+            push_dag_downstream(key=NOTICE_IDS_KEY, value=notice_ids)

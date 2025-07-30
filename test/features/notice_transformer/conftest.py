@@ -1,0 +1,81 @@
+from pathlib import Path
+
+import mongomock
+import pymongo
+import pytest
+
+from src.ted_sws import config
+from src.ted_sws.core.model.notice import Notice, NoticeStatus
+from src.ted_sws.core.model.transform import MappingSuite
+from src.ted_sws.data_manager.adapters.mapping_suite_repository import MappingSuiteRepositoryMongoDB, \
+    MappingSuiteRepositoryInFileSystem
+from src.ted_sws.data_manager.adapters.notice_repository import NoticeRepository
+from src.ted_sws.notice_metadata_processor.services.metadata_normalizer import normalise_notice
+from src.ted_sws.notice_transformer.adapters.rml_mapper import RMLMapper, SerializationFormat
+from test import TEST_DATA_PATH
+from test.fakes.fake_rml_mapper import FakeRMLMapper
+
+
+@pytest.fixture
+def fake_repository_path() -> Path:
+    return TEST_DATA_PATH / "notice_transformer" / "test_repository"
+
+
+@pytest.fixture
+def mapping_suite_id() -> str:
+    return "test_package"
+
+
+@pytest.fixture
+def mapping_suite_repository(fake_repository_path):
+    return MappingSuiteRepositoryInFileSystem(repository_path=fake_repository_path)
+
+
+@pytest.fixture
+def mapping_suite(mapping_suite_repository, mapping_suite_id) -> MappingSuite:
+    return mapping_suite_repository.get(reference=mapping_suite_id)
+
+
+@pytest.fixture
+def eform_mapping_suite(mapping_suite_repository, mapping_suite_id) -> MappingSuite:
+    return mapping_suite_repository.get(reference="test_package4")
+
+
+@pytest.fixture(scope="function")
+@mongomock.patch(servers=(('server.example.com', 27017),))
+def mongodb_client():
+    mongo_client = pymongo.MongoClient('server.example.com')
+    for database_name in mongo_client.list_database_names():
+        mongo_client.drop_database(database_name)
+    return mongo_client
+
+
+@pytest.fixture(scope="function")
+def notice_repository(mongodb_client, transformation_eligible_notice):
+    notice_repository = NoticeRepository(mongodb_client=mongodb_client)
+    notice_repository.add(notice=transformation_eligible_notice)
+    return notice_repository
+
+
+@pytest.fixture
+def rml_mapper():
+    rml_mapper = FakeRMLMapper()
+    rml_mapper.set_serialization_format(SerializationFormat.TURTLE)
+    return rml_mapper
+
+
+@pytest.fixture(scope="function")
+def transformation_eligible_notice(publicly_available_notice) -> Notice:
+    notice = publicly_available_notice
+    notice.update_status_to(NoticeStatus.ELIGIBLE_FOR_TRANSFORMATION)
+    notice.update_status_to(NoticeStatus.PREPROCESSED_FOR_TRANSFORMATION)
+    return notice
+
+
+@pytest.fixture(scope="function")
+def eform_transformation_eligible_notice(indexed_eform_notice_622690) -> Notice:
+    notice = indexed_eform_notice_622690.copy()
+    normalise_notice(notice=notice)
+    notice.update_status_to(NoticeStatus.ELIGIBLE_FOR_TRANSFORMATION)
+    notice.update_status_to(NoticeStatus.PREPROCESSED_FOR_TRANSFORMATION)
+    return notice

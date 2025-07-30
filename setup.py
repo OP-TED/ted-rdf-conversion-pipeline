@@ -40,9 +40,9 @@ def open_local(paths, mode="r", encoding="utf8"):
 with open_local(["README.md"], encoding="utf-8") as readme:
     long_description = readme.read()
 
-version = find_version("ted_sws/__init__.py")
+version = find_version("src/ted_sws/__init__.py")
 
-packages = find_packages(exclude=("examples*", "tests*", "dags*", "notebooks*", "infra*", "docs*"))
+packages = find_packages(exclude=("examples*", "test*", "dags*", "notebooks*", "infra*", "docs*"))
 
 setup(
     name="ted_sws",
@@ -52,7 +52,7 @@ setup(
     author_email="eugen@meaningfy.ws",
     maintainer="Meaningfy Team",
     maintainer_email="ted-sws@meaningfy.ws",
-    url="https://github.com/OP-TED/ted-rdf-conversion-pipeline",
+    url="https://github.com/meaningfy-ws/ted-rdf-conversion-pipeline",
     license="Apache License 2.0",
     platforms=["any"],
     python_requires=">=3.7",

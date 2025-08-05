@@ -95,7 +95,8 @@ create-env-airflow:
 	@ ln -s -f -n ${PROJECT_PATH}/src ${AIRFLOW_INFRA_FOLDER}/src
 	@ chmod 777 ${AIRFLOW_INFRA_FOLDER}/logs ${AIRFLOW_INFRA_FOLDER}/plugins ${AIRFLOW_INFRA_FOLDER}/.env
 	@ cp requirements.txt $(INFRA_FOLDER_PATH)/airflow/
-	@ cp -r src $(INFRA_FOLDER_PATH)/airflow/
+	@ mkdir -p $(INFRA_FOLDER_PATH)/airflow/src
+	@ cp -r src/ted_sws src/dags $(INFRA_FOLDER_PATH)/airflow/src
 	@ cp -r libraries $(INFRA_FOLDER_PATH)/airflow/
 
 

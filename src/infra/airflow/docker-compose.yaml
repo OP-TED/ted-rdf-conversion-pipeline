@@ -48,7 +48,7 @@ x-airflow-common:
   #build: .
   image: meaningfy/airflow:latest
   env_file:
-    - ../../.env
+    - ../../../.env
   environment:
     &airflow-common-env
     IS_PRIME_ENV: 'true'

@@ -12,12 +12,14 @@ ENV_FILE := .env
 
 PROJECT_PATH = $(shell pwd)
 AIRFLOW_INFRA_FOLDER ?= ${PROJECT_PATH}/.airflow
+SRC_PATH := $(PROJECT_PATH)/src
+INFRA_FOLDER_PATH := $(SRC_PATH)/infra
 LIBRARIES_PATH = ${PROJECT_PATH}/libraries
 RML_MAPPER_PATH = ${LIBRARIES_PATH}/.rmlmapper/rmlmapper.jar
 XML_PROCESSOR_PATH = ${LIBRARIES_PATH}/.saxon/saxon-he-10.9.jar
 LIMES_ALIGNMENT_PATH = $(LIBRARIES_PATH)/.limes/limes.jar
 HOSTNAME = $(shell hostname)
-CAROOT = $(shell pwd)/infra/traefik/certs
+CAROOT = $(shell pwd)/src/infra/traefik/certs
 
 #-----------------------------------------------------------------------------
 # Dev commands
@@ -65,19 +67,19 @@ build-externals:
 #-----------------------------------------------------------------------------
 start-traefik: build-externals
 	@ echo -e "$(BUILD_PRINT)Starting the Traefik services $(END_BUILD_PRINT)"
-	@ docker-compose -p common --file ./infra/traefik/docker-compose.yml --env-file ${ENV_FILE} up -d
+	@ docker-compose -p common --file $(INFRA_FOLDER_PATH)/traefik/docker-compose.yml --env-file ${ENV_FILE} up -d
 
 stop-traefik:
 	@ echo -e "$(BUILD_PRINT)Stopping the Traefik services $(END_BUILD_PRINT)"
-	@ docker-compose -p common --file ./infra/traefik/docker-compose.yml --env-file ${ENV_FILE} down
+	@ docker-compose -p common --file $(INFRA_FOLDER_PATH)/traefik/docker-compose.yml --env-file ${ENV_FILE} down
 
 start-portainer: build-externals
 	@ echo -e "$(BUILD_PRINT)Starting the Portainer services $(END_BUILD_PRINT)"
-	@ docker-compose -p common --file ./infra/portainer/docker-compose.yml --env-file ${ENV_FILE} up -d
+	@ docker-compose -p common --file $(INFRA_FOLDER_PATH)/portainer/docker-compose.yml --env-file ${ENV_FILE} up -d
 
 stop-portainer:
 	@ echo -e "$(BUILD_PRINT)Stopping the Portainer services $(END_BUILD_PRINT)"
-	@ docker-compose -p common --file ./infra/portainer/docker-compose.yml --env-file ${ENV_FILE} down
+	@ docker-compose -p common --file $(INFRA_FOLDER_PATH)/portainer/docker-compose.yml --env-file ${ENV_FILE} down
 
 start-server-services: | start-traefik start-portainer
 stop-server-services: | stop-traefik stop-portainer
@@ -90,19 +92,18 @@ create-env-airflow:
 	@ echo -e "$(BUILD_PRINT) ${AIRFLOW_INFRA_FOLDER} ${ENVIRONMENT} $(END_BUILD_PRINT)"
 	@ mkdir -p ${AIRFLOW_INFRA_FOLDER}/logs ${AIRFLOW_INFRA_FOLDER}/plugins
 	@ ln -s -f ${PROJECT_PATH}/.env ${AIRFLOW_INFRA_FOLDER}/.env
-	@ ln -s -f -n ${PROJECT_PATH}/dags ${AIRFLOW_INFRA_FOLDER}/dags
-	@ ln -s -f -n ${PROJECT_PATH}/ted_sws ${AIRFLOW_INFRA_FOLDER}/ted_sws
+	@ ln -s -f -n ${PROJECT_PATH}/src ${AIRFLOW_INFRA_FOLDER}/src
 	@ chmod 777 ${AIRFLOW_INFRA_FOLDER}/logs ${AIRFLOW_INFRA_FOLDER}/plugins ${AIRFLOW_INFRA_FOLDER}/.env
-	@ cp requirements.txt ./infra/airflow/
-	@ cp -r ted_sws ./infra/airflow/
-	@ cp -r dags ./infra/airflow/
-	@ cp -r libraries ./infra/airflow/
+	@ cp requirements.txt $(INFRA_FOLDER_PATH)/airflow/
+	@ mkdir -p $(INFRA_FOLDER_PATH)/airflow/src
+	@ cp -r src/ted_sws src/dags $(INFRA_FOLDER_PATH)/airflow/src
+	@ cp -r libraries $(INFRA_FOLDER_PATH)/airflow/
 
 
 build-airflow: guard-ENVIRONMENT create-env-airflow build-externals
 	@ echo -e "$(BUILD_PRINT) Build Airflow services $(END_BUILD_PRINT)"
-	@ docker build -t meaningfy/airflow ./infra/airflow/
-	@ docker-compose -p ${ENVIRONMENT} --file ./infra/airflow/docker-compose.yaml --env-file ${ENV_FILE} up -d --force-recreate
+	@ docker build -t meaningfy/airflow $(INFRA_FOLDER_PATH)/airflow/
+	@ docker-compose -p ${ENVIRONMENT} --file $(INFRA_FOLDER_PATH)/airflow/docker-compose.yaml --env-file ${ENV_FILE} up -d --force-recreate
 
 #--------------------------------------AIRFLOW_CLUSTER----BEGIN----TARGETS----------------------------------------------
 
@@ -111,108 +112,107 @@ create-env-airflow-cluster:
 	@ echo -e "$(BUILD_PRINT) ${AIRFLOW_INFRA_FOLDER} ${ENVIRONMENT} $(END_BUILD_PRINT)"
 	@ mkdir -p ${AIRFLOW_INFRA_FOLDER}/logs ${AIRFLOW_INFRA_FOLDER}/plugins
 	@ ln -s -f ${PROJECT_PATH}/.env ${AIRFLOW_INFRA_FOLDER}/.env
-	@ ln -s -f -n ${PROJECT_PATH}/dags ${AIRFLOW_INFRA_FOLDER}/dags
-	@ ln -s -f -n ${PROJECT_PATH}/ted_sws ${AIRFLOW_INFRA_FOLDER}/ted_sws
+	@ ln -s -f -n ${PROJECT_PATH}/src ${AIRFLOW_INFRA_FOLDER}/src
 	@ chmod 777 ${AIRFLOW_INFRA_FOLDER}/logs ${AIRFLOW_INFRA_FOLDER}/plugins ${AIRFLOW_INFRA_FOLDER}/.env
-	@ cp requirements.txt ./infra/airflow-cluster/
+	@ cp requirements.txt $(INFRA_FOLDER_PATH)/airflow-cluster/
 
 build-airflow-cluster: guard-ENVIRONMENT create-env-airflow-cluster build-externals
 	@ echo -e "$(BUILD_PRINT) Build Airflow Common Image $(END_BUILD_PRINT)"
-	@ docker build -t meaningfy/airflow ./infra/airflow-cluster/
+	@ docker build -t meaningfy/airflow $(INFRA_FOLDER_PATH)/airflow-cluster/
 
 start-airflow-master: build-externals
 	@ echo -e "$(BUILD_PRINT)Starting Airflow Master $(END_BUILD_PRINT)"
-	@ docker-compose -p ${ENVIRONMENT} --file ./infra/airflow-cluster/docker-compose.yaml --env-file ${ENV_FILE} up -d --force-recreate
+	@ docker-compose -p ${ENVIRONMENT} --file $(INFRA_FOLDER_PATH)/airflow-cluster/docker-compose.yaml --env-file ${ENV_FILE} up -d --force-recreate
 
 start-airflow-worker: build-externals
 	@ echo -e "$(BUILD_PRINT)Starting Airflow Worker $(END_BUILD_PRINT)"
-	@ docker-compose -p ${ENVIRONMENT} --file ./infra/airflow-cluster/docker-compose-worker.yaml --env-file ${ENV_FILE} up -d
+	@ docker-compose -p ${ENVIRONMENT} --file $(INFRA_FOLDER_PATH)/airflow-cluster/docker-compose-worker.yaml --env-file ${ENV_FILE} up -d
 
 stop-airflow-master:
 	@ echo -e "$(BUILD_PRINT)Stopping Airflow Master $(END_BUILD_PRINT)"
-	@ docker-compose -p ${ENVIRONMENT} --file ./infra/airflow-cluster/docker-compose.yaml --env-file ${ENV_FILE} down
+	@ docker-compose -p ${ENVIRONMENT} --file $(INFRA_FOLDER_PATH)/airflow-cluster/docker-compose.yaml --env-file ${ENV_FILE} down
 
 stop-airflow-worker:
 	@ echo -e "$(BUILD_PRINT)Stopping Airflow Worker $(END_BUILD_PRINT)"
-	@ docker-compose -p ${ENVIRONMENT} --file ./infra/airflow-cluster/docker-compose-worker.yaml --env-file ${ENV_FILE} down
+	@ docker-compose -p ${ENVIRONMENT} --file $(INFRA_FOLDER_PATH)/airflow-cluster/docker-compose-worker.yaml --env-file ${ENV_FILE} down
 
 
 #---------------------------------------AIRFLOW_CLUSTER----END----TARGETS-----------------------------------------------
 
 start-airflow: build-externals
 	@ echo -e "$(BUILD_PRINT)Starting Airflow services $(END_BUILD_PRINT)"
-	@ docker-compose -p ${ENVIRONMENT} --file ./infra/airflow/docker-compose.yaml --env-file ${ENV_FILE} up -d
+	@ docker-compose -p ${ENVIRONMENT} --file $(INFRA_FOLDER_PATH)/airflow/docker-compose.yaml --env-file ${ENV_FILE} up -d
 
 stop-airflow:
 	@ echo -e "$(BUILD_PRINT)Stopping Airflow services $(END_BUILD_PRINT)"
-	@ docker-compose -p ${ENVIRONMENT} --file ./infra/airflow/docker-compose.yaml --env-file ${ENV_FILE} down
+	@ docker-compose -p ${ENVIRONMENT} --file $(INFRA_FOLDER_PATH)/airflow/docker-compose.yaml --env-file ${ENV_FILE} down
 
 #	------------------------
 start-allegro-graph: build-externals
 	@ echo -e "$(BUILD_PRINT)Starting Allegro-Graph services $(END_BUILD_PRINT)"
-	@ docker-compose -p ${ENVIRONMENT} --file ./infra/allegro-graph/docker-compose.yml --env-file ${ENV_FILE} up -d
+	@ docker-compose -p ${ENVIRONMENT} --file $(INFRA_FOLDER_PATH)/allegro-graph/docker-compose.yml --env-file ${ENV_FILE} up -d
 
 stop-allegro-graph:
 	@ echo -e "$(BUILD_PRINT)Stopping Allegro-Graph services $(END_BUILD_PRINT)"
-	@ docker-compose -p ${ENVIRONMENT} --file ./infra/allegro-graph/docker-compose.yml --env-file ${ENV_FILE} down
+	@ docker-compose -p ${ENVIRONMENT} --file $(INFRA_FOLDER_PATH)/allegro-graph/docker-compose.yml --env-file ${ENV_FILE} down
 
 #	------------------------
 start-fuseki: build-externals
 	@ echo -e "$(BUILD_PRINT)Starting Fuseki services $(END_BUILD_PRINT)"
-	@ docker-compose -p ${ENVIRONMENT} --file ./infra/fuseki/docker-compose.yml --env-file ${ENV_FILE} up -d
+	@ docker-compose -p ${ENVIRONMENT} --file $(INFRA_FOLDER_PATH)/fuseki/docker-compose.yml --env-file ${ENV_FILE} up -d
 
 stop-fuseki:
 	@ echo -e "$(BUILD_PRINT)Stopping Fuseki services $(END_BUILD_PRINT)"
-	@ docker-compose -p ${ENVIRONMENT} --file ./infra/fuseki/docker-compose.yml --env-file ${ENV_FILE} down
+	@ docker-compose -p ${ENVIRONMENT} --file $(INFRA_FOLDER_PATH)/fuseki/docker-compose.yml --env-file ${ENV_FILE} down
 
 #	------------------------
 start-sftp: build-externals
 	@ echo -e "$(BUILD_PRINT)Starting SFTP services $(END_BUILD_PRINT)"
-	@ docker-compose -p ${ENVIRONMENT} --file ./infra/sftp/docker-compose.yml --env-file ${ENV_FILE} up -d
+	@ docker-compose -p ${ENVIRONMENT} --file $(INFRA_FOLDER_PATH)/sftp/docker-compose.yml --env-file ${ENV_FILE} up -d
 
 stop-sftp:
 	@ echo -e "$(BUILD_PRINT)Stopping SFTP services $(END_BUILD_PRINT)"
-	@ docker-compose -p ${ENVIRONMENT} --file ./infra/sftp/docker-compose.yml --env-file ${ENV_FILE} down
+	@ docker-compose -p ${ENVIRONMENT} --file $(INFRA_FOLDER_PATH)/sftp/docker-compose.yml --env-file ${ENV_FILE} down
 
 #	------------------------
 build-elasticsearch: build-externals
 	@ echo -e "$(BUILD_PRINT) Build Elasticsearch services $(END_BUILD_PRINT)"
-	@ docker-compose -p ${ENVIRONMENT} --file ./infra/elasticsearch/docker-compose.yml --env-file ${ENV_FILE} build --no-cache --force-rm
-	@ docker-compose -p ${ENVIRONMENT} --file ./infra/elasticsearch/docker-compose.yml --env-file ${ENV_FILE} up -d --force-recreate
+	@ docker-compose -p ${ENVIRONMENT} --file $(INFRA_FOLDER_PATH)/elasticsearch/docker-compose.yml --env-file ${ENV_FILE} build --no-cache --force-rm
+	@ docker-compose -p ${ENVIRONMENT} --file $(INFRA_FOLDER_PATH)/elasticsearch/docker-compose.yml --env-file ${ENV_FILE} up -d --force-recreate
 
 start-elasticsearch: build-externals
 	@ echo -e "$(BUILD_PRINT)Starting the Elasticsearch services $(END_BUILD_PRINT)"
-	@ docker-compose -p ${ENVIRONMENT} --file ./infra/elasticsearch/docker-compose.yml --env-file ${ENV_FILE} up -d
+	@ docker-compose -p ${ENVIRONMENT} --file $(INFRA_FOLDER_PATH)/elasticsearch/docker-compose.yml --env-file ${ENV_FILE} up -d
 
 stop-elasticsearch:
 	@ echo -e "$(BUILD_PRINT)Stopping the Elasticsearch services $(END_BUILD_PRINT)"
-	@ docker-compose -p ${ENVIRONMENT} --file ./infra/elasticsearch/docker-compose.yml --env-file ${ENV_FILE} down
+	@ docker-compose -p ${ENVIRONMENT} --file $(INFRA_FOLDER_PATH)/elasticsearch/docker-compose.yml --env-file ${ENV_FILE} down
 
 
 start-minio: build-externals
 	@ echo -e "$(BUILD_PRINT)Starting the Minio services $(END_BUILD_PRINT)"
-	@ docker-compose -p ${ENVIRONMENT} --file ./infra/minio/docker-compose.yml --env-file ${ENV_FILE} up -d
+	@ docker-compose -p ${ENVIRONMENT} --file $(INFRA_FOLDER_PATH)/minio/docker-compose.yml --env-file ${ENV_FILE} up -d
 
 stop-minio:
 	@ echo -e "$(BUILD_PRINT)Stopping the Minio services $(END_BUILD_PRINT)"
-	@ docker-compose -p ${ENVIRONMENT} --file ./infra/minio/docker-compose.yml --env-file ${ENV_FILE} down
+	@ docker-compose -p ${ENVIRONMENT} --file $(INFRA_FOLDER_PATH)/minio/docker-compose.yml --env-file ${ENV_FILE} down
 
 
 start-mongo: build-externals
 	@ echo -e "$(BUILD_PRINT)Starting the Mongo services $(END_BUILD_PRINT)"
-	@ docker-compose -p ${ENVIRONMENT} --file ./infra/mongo/docker-compose.yml --env-file ${ENV_FILE} up -d
+	@ docker-compose -p ${ENVIRONMENT} --file $(INFRA_FOLDER_PATH)/mongo/docker-compose.yml --env-file ${ENV_FILE} up -d
 
 stop-mongo:
 	@ echo -e "$(BUILD_PRINT)Stopping the Mongo services $(END_BUILD_PRINT)"
-	@ docker-compose -p ${ENVIRONMENT} --file ./infra/mongo/docker-compose.yml --env-file ${ENV_FILE} down
+	@ docker-compose -p ${ENVIRONMENT} --file $(INFRA_FOLDER_PATH)/mongo/docker-compose.yml --env-file ${ENV_FILE} down
 
 start-metabase: build-externals
 	@ echo -e "$(BUILD_PRINT)Starting the Metabase services $(END_BUILD_PRINT)"
-	@ docker-compose -p metabase-${ENVIRONMENT} --file ./infra/metabase/docker-compose.yml --env-file ${ENV_FILE} up -d
+	@ docker-compose -p metabase-${ENVIRONMENT} --file $(INFRA_FOLDER_PATH)/metabase/docker-compose.yml --env-file ${ENV_FILE} up -d
 
 stop-metabase:
 	@ echo -e "$(BUILD_PRINT)Stopping the Metabase services $(END_BUILD_PRINT)"
-	@ docker-compose -p metabase-${ENVIRONMENT} --file ./infra/metabase/docker-compose.yml --env-file ${ENV_FILE} down
+	@ docker-compose -p metabase-${ENVIRONMENT} --file $(INFRA_FOLDER_PATH)/metabase/docker-compose.yml --env-file ${ENV_FILE} down
 
 init-rml-mapper:
 	@ echo -e "RMLMapper folder initialisation!"
@@ -363,22 +363,22 @@ start-all-apis: start-digest_service-api
 stop-all-apis: stop-digest_service-api
 
 create-env-digest-api:
-	@ cp requirements.txt ./infra/digest_api/digest_service/project_requirements.txt
-	@ cp -r ted_sws ./infra/digest_api/
+	@ cp requirements.txt $(INFRA_FOLDER_PATH)/digest_api/digest_service/project_requirements.txt
+	@ cp -r ted_sws $(INFRA_FOLDER_PATH)/digest_api/
 
 build-digest_service-api: create-env-digest-api
 	@ echo -e "$(BUILD_PRINT) Build digest_service API service $(END_BUILD_PRINT)"
-	@ docker-compose -p common --file infra/digest_api/docker-compose.yml --env-file ${ENV_FILE} build --no-cache --force-rm
-	@ rm -rf ./infra/digest_api/ted_sws || true
-	@ docker-compose -p common --file infra/digest_api/docker-compose.yml --env-file ${ENV_FILE} up -d --force-recreate
+	@ docker-compose -p common --file $(INFRA_FOLDER_PATH)/digest_api/docker-compose.yml --env-file ${ENV_FILE} build --no-cache --force-rm
+	@ rm -rf $(INFRA_FOLDER_PATH)/digest_api/ted_sws || true
+	@ docker-compose -p common --file $(INFRA_FOLDER_PATH)/digest_api/docker-compose.yml --env-file ${ENV_FILE} up -d --force-recreate
 
 start-digest_service-api:
 	@ echo -e "$(BUILD_PRINT)Starting digest_service API service $(END_BUILD_PRINT)"
-	@ docker-compose -p common --file infra/digest_api/docker-compose.yml --env-file ${ENV_FILE} up -d
+	@ docker-compose -p common --file $(INFRA_FOLDER_PATH)/digest_api/docker-compose.yml --env-file ${ENV_FILE} up -d
 
 stop-digest_service-api:
 	@ echo -e "$(BUILD_PRINT)Stopping digest_service API service $(END_BUILD_PRINT)"
-	@ docker-compose -p common --file infra/digest_api/docker-compose.yml --env-file ${ENV_FILE} down
+	@ docker-compose -p common --file $(INFRA_FOLDER_PATH)/digest_api/docker-compose.yml --env-file ${ENV_FILE} down
 
 
 dump-mongodb:
@@ -412,12 +412,12 @@ install-mkcert:
 	@ sudo apt install ca-certificates
 
 traefik-certs:
-	@ cd infra/traefik && mkdir -p certs && cd certs && sudo rm -rf *
+	@ cd $(INFRA_FOLDER_PATH)/traefik && mkdir -p certs && cd certs && sudo rm -rf *
 	@ CAROOT=${CAROOT} mkcert -install
 	@ echo -e "Generating 'minio' certificates ..." && echo ${CAROOT}
 	@ sudo echo $(mkcert -CAROOT)
-	@ cd infra/traefik/certs && mkcert minio.${SUBDOMAIN}${DOMAIN}
-	@ cd infra/traefik/certs && cat minio.${SUBDOMAIN}${DOMAIN}.pem > minio.${SUBDOMAIN}${DOMAIN}-fullchain.pem
-	@ cd infra/traefik/certs && cat ${CAROOT}/rootCA.pem >> minio.${SUBDOMAIN}${DOMAIN}-fullchain.pem
+	@ cd $(INFRA_FOLDER_PATH)/traefik/certs && mkcert minio.${SUBDOMAIN}${DOMAIN}
+	@ cd $(INFRA_FOLDER_PATH)/traefik/certs && cat minio.${SUBDOMAIN}${DOMAIN}.pem > minio.${SUBDOMAIN}${DOMAIN}-fullchain.pem
+	@ cd $(INFRA_FOLDER_PATH)/traefik/certs && cat ${CAROOT}/rootCA.pem >> minio.${SUBDOMAIN}${DOMAIN}-fullchain.pem
 	@ sudo rm -rf /usr/share/ca-certificates/minio.${SUBDOMAIN}${DOMAIN}*
-	@ sudo cp infra/traefik/certs/minio.${SUBDOMAIN}${DOMAIN}* /usr/share/ca-certificates
+	@ sudo cp $(INFRA_FOLDER_PATH)/traefik/certs/minio.${SUBDOMAIN}${DOMAIN}* /usr/share/ca-certificates

@@ -1,0 +1,535 @@
+{
+  "head": {
+    "link": [],
+    "vars": [
+      "code",
+      "conceptURI"
+    ]
+  },
+  "results": {
+    "distinct": false,
+    "ordered": true,
+    "bindings": [
+      {
+        "code": {
+          "type": "literal",
+          "value": "AMP"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://publications.europa.eu/resource/authority/measurement-unit/AMP"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "BIT"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://publications.europa.eu/resource/authority/measurement-unit/BIT"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "CMK"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://publications.europa.eu/resource/authority/measurement-unit/CMK"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "GTE"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://publications.europa.eu/resource/authority/measurement-unit/GTE"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "HAR"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://publications.europa.eu/resource/authority/measurement-unit/HAR"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "HTZ"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://publications.europa.eu/resource/authority/measurement-unit/HTZ"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "KEL"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://publications.europa.eu/resource/authority/measurement-unit/KEL"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "KGM"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://publications.europa.eu/resource/authority/measurement-unit/KGM"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "LTR"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://publications.europa.eu/resource/authority/measurement-unit/LTR"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "MGM"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://publications.europa.eu/resource/authority/measurement-unit/MGM"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "MIN"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://publications.europa.eu/resource/authority/measurement-unit/MIN"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "MTS"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://publications.europa.eu/resource/authority/measurement-unit/MTS"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "OP_DATPRO"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://publications.europa.eu/resource/authority/measurement-unit/OP_DATPRO"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "PAL"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://publications.europa.eu/resource/authority/measurement-unit/PAL"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "SEC"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://publications.europa.eu/resource/authority/measurement-unit/SEC"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "TKM"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://publications.europa.eu/resource/authority/measurement-unit/TKM"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "WTT"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://publications.europa.eu/resource/authority/measurement-unit/WTT"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "2N"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://publications.europa.eu/resource/authority/measurement-unit/2N"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "BAR"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://publications.europa.eu/resource/authority/measurement-unit/BAR"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "BQL"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://publications.europa.eu/resource/authority/measurement-unit/BQL"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "C34"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://publications.europa.eu/resource/authority/measurement-unit/C34"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "C45"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://publications.europa.eu/resource/authority/measurement-unit/C45"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "CDL"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://publications.europa.eu/resource/authority/measurement-unit/CDL"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "CEL"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://publications.europa.eu/resource/authority/measurement-unit/CEL"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "CMT"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://publications.europa.eu/resource/authority/measurement-unit/CMT"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "D30"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://publications.europa.eu/resource/authority/measurement-unit/D30"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "GRM"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://publications.europa.eu/resource/authority/measurement-unit/GRM"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "HLT"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://publications.europa.eu/resource/authority/measurement-unit/HLT"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "HUR"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://publications.europa.eu/resource/authority/measurement-unit/HUR"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "JOU"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://publications.europa.eu/resource/authority/measurement-unit/JOU"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "KMK"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://publications.europa.eu/resource/authority/measurement-unit/KMK"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "KWH"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://publications.europa.eu/resource/authority/measurement-unit/KWH"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "MAW"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://publications.europa.eu/resource/authority/measurement-unit/MAW"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "MLT"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://publications.europa.eu/resource/authority/measurement-unit/MLT"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "MTK"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://publications.europa.eu/resource/authority/measurement-unit/MTK"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "MTR"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://publications.europa.eu/resource/authority/measurement-unit/MTR"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "TNE"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://publications.europa.eu/resource/authority/measurement-unit/TNE"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "TOE"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://publications.europa.eu/resource/authority/measurement-unit/TOE"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "VLT"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://publications.europa.eu/resource/authority/measurement-unit/VLT"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "CMQ"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://publications.europa.eu/resource/authority/measurement-unit/CMQ"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "GWH"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://publications.europa.eu/resource/authority/measurement-unit/GWH"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "KMH"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://publications.europa.eu/resource/authority/measurement-unit/KMH"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "KTM"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://publications.europa.eu/resource/authority/measurement-unit/KTM"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "KWT"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://publications.europa.eu/resource/authority/measurement-unit/KWT"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "MMT"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://publications.europa.eu/resource/authority/measurement-unit/MMT"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "NEW"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://publications.europa.eu/resource/authority/measurement-unit/NEW"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "3C"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://publications.europa.eu/resource/authority/measurement-unit/3C"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "E34"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://publications.europa.eu/resource/authority/measurement-unit/E34"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "AD"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://publications.europa.eu/resource/authority/measurement-unit/AD"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "LH"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://publications.europa.eu/resource/authority/measurement-unit/LH"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "MC"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://publications.europa.eu/resource/authority/measurement-unit/MC"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "H87"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://publications.europa.eu/resource/authority/measurement-unit/H87"
+        }
+      }
+    ]
+  }
+}

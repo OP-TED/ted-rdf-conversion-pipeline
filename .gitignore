@@ -120,5 +120,5 @@ package.json
 .DS_Store
 .scannerwork/*
 /infra/alpine/libraries/
-/infra/airflow
 /libraries
+/.idea/

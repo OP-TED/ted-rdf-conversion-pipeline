@@ -82,9 +82,9 @@ execution duration) and will inject the event_logger into dag_context KEYWORD pa
 ====
 [source]
 ----
-from ted_sws.event_manager.adapters.event_log_decorator import event_log
-from ted_sws.event_manager.model.event_message import TechnicalEventMessage, NoticeEventMessage
-from ted_sws.event_manager.services.logger_from_context import get_logger_from_dag_context, handle_event_message_metadata_dag_context
+from src.ted_sws.event_manager.adapters.event_log_decorator import event_log
+from src.ted_sws.event_manager.model.event_message import TechnicalEventMessage, NoticeEventMessage
+from src.ted_sws.event_manager.services.logger_from_context import get_logger_from_dag_context, handle_event_message_metadata_dag_context
 
 @event_log(TechnicalEventMessage(title="LOG_MESSAGE_ABOUT_HOST_FUNCTION"))
 def host_function(**dag_context)
@@ -120,9 +120,9 @@ def host_function(**dag_context)
 
 [source]
 ----
-from ted_sws.event_manager.adapters.event_handler_config import EventHandlerConfig
-from ted_sws.event_manager.adapters.event_logger import EventLogger
-from ted_sws.event_manager.adapters.log import ConfigHandlerType
+from src.ted_sws.event_manager.adapters.event_handler_config import EventHandlerConfig
+from src.ted_sws.event_manager.adapters.event_logger import EventLogger
+from src.ted_sws.event_manager.adapters.log import ConfigHandlerType
 
 # Initialize a generic event_logger to be used anywhere:
 event_logger = EventLogger(EventHandlerConfig(config_handlers=ConfigHandlerType.ConsoleHandler.value))
@@ -136,7 +136,7 @@ All configuration options are described in source code.
 '''
 ==== Useful Logging services:
 ====
-from ted_sws.event_manager.services.logger_from_context
+from src.ted_sws.event_manager.services.logger_from_context
 ====
 [source]
 ----
@@ -173,7 +173,7 @@ def get_logger_from_dag_context(dag_context: dict) -> EventLogger:
     """
 ----
 ====
-from ted_sws.event_manager.services.log
+from src.ted_sws.event_manager.services.log
 ====
 [source]
 ----
@@ -349,7 +349,7 @@ def log_cli_brief_error(message: str, name: str = None):
 
 ===== Logging decorators:
 ====
-from ted_sws.event_manager.adapters.event_log_decorator
+from src.ted_sws.event_manager.adapters.event_log_decorator
 ====
 [source]
 ----

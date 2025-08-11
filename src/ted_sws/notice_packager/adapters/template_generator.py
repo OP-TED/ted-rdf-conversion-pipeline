@@ -1,0 +1,41 @@
+#!/usr/bin/python3
+
+# template_generator.py
+# Date:  11/02/2022
+# Author: Kolea PLESCO
+# Email: kalean.bl@gmail.com
+
+"""
+This module provides template generators for all needed package templates.
+"""
+
+from jinja2 import Environment, PackageLoader
+
+from src.ted_sws.notice_packager.model.metadata import PackagerMetadata, validate_mets_type
+
+TEMPLATES = Environment(loader=PackageLoader("src.ted_sws.notice_packager.resources", "templates"))
+
+
+class TemplateGenerator:
+    @classmethod
+    def __generate_template(cls, template, data: PackagerMetadata = None) -> str:
+        template_render = TEMPLATES.get_template(template).render(data.model_dump())
+        return template_render
+
+    @classmethod
+    def mets_xml_dmd_rdf_generator(cls, data: PackagerMetadata = None) -> str:
+        template = 'mets_xml_dmd_rdf.jinja2'
+        return cls.__generate_template(template, data)
+
+    @classmethod
+    def tmd_rdf_generator(cls, data: PackagerMetadata = None) -> str:
+        template = 'tmd_rdf.jinja2'
+        return cls.__generate_template(template, data)
+
+    @classmethod
+    def mets2action_mets_xml_generator(cls, data: PackagerMetadata = None) -> str:
+        action = data.mets.type
+        validate_mets_type(action)
+
+        template = 'mets2action_mets_xml.jinja2'
+        return cls.__generate_template(template, data)

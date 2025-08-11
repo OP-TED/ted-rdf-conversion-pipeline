@@ -400,8 +400,9 @@ restore-mongodb:
 install-allure:
 	@ echo -e "Start install Allure commandline."
 	@ sudo apt -y install npm
-	@ sudo npm install -g allure-commandline
-	@ sudo pip install allure-combine
+	@ sudo npm install allure-commandline@2.9.0
+	#TODO: to be added in pyproject
+	@ pip install allure-combine==1.0.11
 
 install-mkcert:
 	@ mkdir -p .ssl && cd .ssl && rm -rf *

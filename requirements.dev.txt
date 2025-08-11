@@ -8,5 +8,6 @@ tox>=4.25.0
 tox-pytest-summary>=0.1.2
 mongomock>=4.3.0
 uvicorn[standard]>=0.34.0
-allure-pytest-bdd>=2.14.0
+allure-pytest-bdd==2.13.5
+allure-python-commons==2.13.5
 pycurl>=7.45.6

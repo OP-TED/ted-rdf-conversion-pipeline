@@ -72,6 +72,7 @@ class NoticeBatchPipelineOperator(BaseOperator):
             raise Exception(f"XCOM key [{NOTICE_IDS_KEY}] is not present in context!")
         if len(notice_ids) == 0:
             smart_xcom_push(key=NOTICE_IDS_KEY, value=[])
+            smart_xcom_push(key=NOTICES_WITH_STATUS_KEY, value=notices_status)
             raise AirflowSkipException("No notices to process!")
         mongodb_client = MongoClient(config.MONGO_DB_AUTH_URL)
         notice_repository = NoticeRepository(mongodb_client=mongodb_client)

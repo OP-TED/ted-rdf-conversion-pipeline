@@ -82,7 +82,7 @@ def notice_processing_pipeline():
                 raise AirflowException(
                     "There are notices that are not processed with success. Please check failed tasks.")
         else:
-            raise AirflowException("There is no notices with success status. Please check failed tasks.")
+            raise AirflowException("There are no notices with success status. Please check failed tasks.")
 
     start_processing = BranchPythonOperator(
         task_id=BRANCH_SELECTOR_TASK_ID,

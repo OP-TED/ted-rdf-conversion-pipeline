@@ -87,31 +87,31 @@ def notice_processing_pipeline():
     start_processing = BranchPythonOperator(
         task_id=BRANCH_SELECTOR_TASK_ID,
         python_callable=_start_processing,
-        trigger_rule=TriggerRule.NONE_SKIPPED
+        trigger_rule=TriggerRule.ALL_DONE
     )
 
     selector_branch_before_transformation = BranchPythonOperator(
         task_id=SELECTOR_BRANCH_BEFORE_TRANSFORMATION_TASK_ID,
         python_callable=_selector_branch_before_transformation,
-        trigger_rule=TriggerRule.NONE_SKIPPED,
+        trigger_rule=TriggerRule.ALL_DONE,
     )
 
     selector_branch_before_validation = BranchPythonOperator(
         task_id=SELECTOR_BRANCH_BEFORE_VALIDATION_TASK_ID,
         python_callable=_selector_branch_before_validation,
-        trigger_rule=TriggerRule.NONE_SKIPPED,
+        trigger_rule=TriggerRule.ALL_DONE,
     )
 
     selector_branch_before_package = BranchPythonOperator(
         task_id=SELECTOR_BRANCH_BEFORE_PACKAGE_TASK_ID,
         python_callable=_selector_branch_before_package,
-        trigger_rule=TriggerRule.NONE_SKIPPED,
+        trigger_rule=TriggerRule.ALL_DONE,
     )
 
     selector_branch_before_publish = BranchPythonOperator(
         task_id=SELECTOR_BRANCH_BEFORE_PUBLISH_TASK_ID,
         python_callable=_selector_branch_before_publish,
-        trigger_rule=TriggerRule.NONE_SKIPPED,
+        trigger_rule=TriggerRule.ALL_DONE,
     )
 
     stop_processing = PythonOperator(
@@ -123,32 +123,32 @@ def notice_processing_pipeline():
 
     notice_normalisation_step = NoticeBatchPipelineOperator(notice_pipeline_callable=notice_normalisation_pipeline,
                                                             task_id=NOTICE_NORMALISATION_PIPELINE_TASK_ID,
-                                                            trigger_rule=TriggerRule.NONE_SKIPPED,
+                                                            trigger_rule=TriggerRule.ALL_DONE,
                                                             notice_success_statuses=NOTICE_SUCCESS_STATUSES)
 
     notice_transformation_step = NoticeBatchPipelineOperator(notice_pipeline_callable=notice_transformation_pipeline,
                                                              task_id=NOTICE_TRANSFORMATION_PIPELINE_TASK_ID,
-                                                             trigger_rule=TriggerRule.NONE_SKIPPED,
+                                                             trigger_rule=TriggerRule.ALL_DONE,
                                                              notice_success_statuses=NOTICE_SUCCESS_STATUSES)
 
     notice_distillation_step = NoticeBatchPipelineOperator(batch_pipeline_callable=notices_batch_distillation_pipeline,
                                                            task_id=NOTICE_DISTILLATION_PIPELINE_TASK_ID,
-                                                           trigger_rule=TriggerRule.NONE_SKIPPED,
+                                                           trigger_rule=TriggerRule.ALL_DONE,
                                                            notice_success_statuses=NOTICE_SUCCESS_STATUSES)
 
     notice_validation_step = NoticeBatchPipelineOperator(notice_pipeline_callable=notice_validation_pipeline,
                                                          task_id=NOTICE_VALIDATION_PIPELINE_TASK_ID,
-                                                         trigger_rule=TriggerRule.NONE_SKIPPED,
+                                                         trigger_rule=TriggerRule.ALL_DONE,
                                                          notice_success_statuses=NOTICE_SUCCESS_STATUSES)
 
     notice_package_step = NoticeBatchPipelineOperator(notice_pipeline_callable=notice_package_pipeline,
                                                       task_id=NOTICE_PACKAGE_PIPELINE_TASK_ID,
-                                                      trigger_rule=TriggerRule.NONE_SKIPPED,
+                                                      trigger_rule=TriggerRule.ALL_DONE,
                                                       notice_success_statuses=NOTICE_SUCCESS_STATUSES)
 
     notice_publish_step = NoticeBatchPipelineOperator(batch_pipeline_callable=publish_notices_in_batch,
                                                       task_id=NOTICE_PUBLISH_PIPELINE_TASK_ID,
-                                                      trigger_rule=TriggerRule.NONE_SKIPPED,
+                                                      trigger_rule=TriggerRule.ALL_DONE,
                                                       notice_success_statuses=NOTICE_SUCCESS_STATUSES)
 
     start_processing >> [notice_normalisation_step, selector_branch_before_transformation,

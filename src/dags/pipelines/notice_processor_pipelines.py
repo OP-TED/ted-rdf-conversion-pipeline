@@ -3,6 +3,7 @@ from src.dags.pipelines.pipeline_protocols import NoticePipelineOutput
 from src.ted_sws.core.model.notice import Notice, NoticeStatus
 from src.ted_sws.event_manager.services.log import log_notice_error
 from src.ted_sws.notice_packager.model.metadata import METS_TYPE_UPDATE
+from src.ted_sws.notice_publisher.adapters.sftp_publisher_abc import SFTPPublisherABC
 from src.ted_sws.notice_validator.services.entity_deduplication_validation import \
     generate_rdf_manifestation_entity_deduplication_report
 
@@ -102,7 +103,9 @@ def notice_package_pipeline(notice: Notice, mongodb_client: MongoClient = None) 
     return NoticePipelineOutput(notice=packaged_notice)
 
 
-def notice_publish_pipeline(notice: Notice, mongodb_client: MongoClient = None) -> NoticePipelineOutput:
+def notice_publish_pipeline(notice: Notice,
+                            mongodb_client: MongoClient = None,
+                            publisher: SFTPPublisherABC = None) -> NoticePipelineOutput:
     """
 
     """
@@ -120,7 +123,7 @@ def notice_publish_pipeline(notice: Notice, mongodb_client: MongoClient = None) 
                              notice_form_number=notice.normalised_metadata.form_number,
                              notice_eforms_subtype=notice.normalised_metadata.eforms_subtype)
     notice.set_is_eligible_for_publishing(eligibility=True)
-    result = publish_notice(notice=notice)
+    result = publish_notice(notice=notice, publisher=publisher)
     if result:
         return NoticePipelineOutput(notice=notice)
     else:

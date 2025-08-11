@@ -69,9 +69,9 @@ x-airflow-common:
     ENVIRONMENT: ${ENVIRONMENT}
     PYTHONPATH: /opt/airflow/
     AIRFLOW_HOME: /opt/airflow
-    RML_MAPPER_PATH: /opt/airflow/.rmlmapper/rmlmapper.jar
-    XML_PROCESSOR_PATH: /opt/airflow/.saxon/saxon-he-10.9.jar
-    LIMES_ALIGNMENT_PATH: /opt/airflow/.limes/limes.jar
+    RML_MAPPER_PATH: /home/airflow/.rmlmapper/rmlmapper.jar
+    XML_PROCESSOR_PATH: /home/airflow/.saxon/saxon-he-10.9.jar
+    LIMES_ALIGNMENT_PATH: /home/airflow/.limes/limes.jar
     DAG_LOGGER_CONFIG_HANDLERS: ${DAG_LOGGER_CONFIG_HANDLERS}
   volumes:
 #    - ./config/airflow.cfg:/opt/airflow/airflow.cfg

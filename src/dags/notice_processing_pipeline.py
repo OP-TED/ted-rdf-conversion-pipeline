@@ -15,9 +15,10 @@ from src.dags.dags_utils import get_dag_param, smart_xcom_push, smart_xcom_forwa
     smart_xcom_pull
 from src.dags.operators.DagBatchPipelineOperator import NoticeBatchPipelineOperator, NOTICE_IDS_KEY, \
     EXECUTE_ONLY_ONE_STEP_KEY, START_WITH_STEP_NAME_KEY, NOTICES_WITH_STATUS_KEY
-from src.dags.pipelines.notice_batch_processor_pipelines import notices_batch_distillation_pipeline
+from src.dags.pipelines.notice_batch_processor_pipelines import notices_batch_distillation_pipeline, \
+    publish_notices_in_batch
 from src.dags.pipelines.notice_processor_pipelines import notice_normalisation_pipeline, notice_transformation_pipeline, \
-    notice_validation_pipeline, notice_package_pipeline, notice_publish_pipeline
+    notice_validation_pipeline, notice_package_pipeline
 from src.ted_sws import config
 from src.ted_sws.core.model.notice import NoticeStatus
 
@@ -145,7 +146,7 @@ def notice_processing_pipeline():
                                                       trigger_rule=TriggerRule.NONE_SKIPPED,
                                                       notice_success_statuses=NOTICE_SUCCESS_STATUSES)
 
-    notice_publish_step = NoticeBatchPipelineOperator(notice_pipeline_callable=notice_publish_pipeline,
+    notice_publish_step = NoticeBatchPipelineOperator(batch_pipeline_callable=publish_notices_in_batch,
                                                       task_id=NOTICE_PUBLISH_PIPELINE_TASK_ID,
                                                       trigger_rule=TriggerRule.NONE_SKIPPED,
                                                       notice_success_statuses=NOTICE_SUCCESS_STATUSES)

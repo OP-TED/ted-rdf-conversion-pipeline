@@ -25,6 +25,7 @@ from src.ted_sws.notice_metadata_processor.adapters.notice_metadata_normaliser i
 from test import TEST_DATA_PATH, AIRFLOW_DAG_FOLDER
 from test.fakes.fake_repository import FakeNoticeRepository
 from test.fakes.fake_ted_api import FakeRequestAPI
+from test.mocks.mock_sftp_publisher import MockSFTPPublisherWithLimitedConnections
 
 enable_gridfs_integration()
 
@@ -333,3 +334,7 @@ def eform_notice_622690():
 def indexed_eform_notice_622690(eform_notice_622690):
     eform_notice_622690.set_xml_metadata(XMLMetadata(unique_xpaths=["FAKE_INDEX_XPATHS"]))
     return eform_notice_622690
+
+@pytest.fixture
+def mock_sftp_publisher() -> MockSFTPPublisherWithLimitedConnections:
+    return MockSFTPPublisherWithLimitedConnections()

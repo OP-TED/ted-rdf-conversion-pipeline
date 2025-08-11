@@ -30,7 +30,7 @@ MAX_BATCH_SIZE = 5000
 
 class BatchPipelineCallable(Protocol):
 
-    def __call__(self, notice_ids: List[str], mongodb_client: MongoClient) -> List[NoticePipelineOutput]:
+    def __call__(self, notice_ids: List[str], mongodb_client: MongoClient, **kwargs) -> List[NoticePipelineOutput]:
         """
         :param notice_ids:
         :param mongodb_client:
@@ -92,6 +92,8 @@ class NoticeBatchPipelineOperator(BaseOperator):
         if self.batch_pipeline_callable is not None:
             processed_notices_pipeline_output.extend(
                 self.batch_pipeline_callable(notice_ids=notice_ids, mongodb_client=mongodb_client))
+            for processed_result in processed_notices_pipeline_output:
+                notices_status[processed_result.notice.ted_id] = processed_result.notice.status
         elif self.notice_pipeline_callable is not None:
             for notice_id in notice_ids:
                 notice = None

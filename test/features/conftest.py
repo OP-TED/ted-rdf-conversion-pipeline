@@ -1,3 +1,5 @@
+import base64
+
 import mongomock
 import pymongo
 import pytest
@@ -111,4 +113,20 @@ def publicly_available_notice(fetched_notice_data, normalised_metadata_dict) -> 
     notice._normalised_metadata = NormalisedMetadata(**normalised_metadata_dict)
     notice._preprocessed_xml_manifestation = xml_manifestation
     notice._status = NoticeStatus.PUBLICLY_AVAILABLE
+    return notice
+
+
+@pytest.fixture
+def mets_package_published_name():
+    return "test_package.zip"
+
+
+@pytest.fixture(scope="function")
+def publish_eligible_notice(publicly_available_notice, mets_package_published_name) -> Notice:
+    notice = publicly_available_notice
+    notice.update_status_to(NoticeStatus.ELIGIBLE_FOR_PUBLISHING)
+    notice._mets_manifestation = METSManifestation(
+        object_data=base64.b64encode("METS manifestation content".encode("utf-8")),
+        package_name=mets_package_published_name
+    )
     return notice

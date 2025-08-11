@@ -122,3 +122,4 @@ package.json
 /infra/alpine/libraries/
 /libraries
 /.idea/
+test/reports/*

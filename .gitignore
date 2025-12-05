@@ -121,6 +121,7 @@ src/infra/digest_api/digest_service/project_requirements.txt
 .scannerwork/*
 src/infra/alpine/libraries/
 /libraries
-/.idea/
+/.idea
+.idea
 test/reports/*
 src/infra/airflow/src

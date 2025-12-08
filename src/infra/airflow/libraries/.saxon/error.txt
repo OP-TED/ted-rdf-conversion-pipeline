@@ -1,0 +1,39 @@
+Traceback (most recent call last):
+  File "/Users/alexandrosvassiliades/PycharmProjects/dropxcell-agentic/src/affinity_agent/affinity_agent.py", line 190, in analyze_affinity
+    rosetta_stability = self._analyze_complex_stability(
+        docking_result.complex_pdb_path,
+        antibody_pdb=antibody_structure.pdb_path,
+        antigen_pdb=inputs.antigen_pdb
+    )
+  File "/Users/alexandrosvassiliades/PycharmProjects/dropxcell-agentic/src/affinity_agent/affinity_agent.py", line 476, in _analyze_complex_stability
+    return analyze_complex_with_stability_tools(
+        complex_pdb=complex_pdb,
+        work_dir=self.work_dir
+    )
+  File "/Users/alexandrosvassiliades/PycharmProjects/dropxcell-agentic/src/affinity_agent/stability.py", line 436, in analyze_complex_with_stability_tools
+    stability = analyzer.analyze_complex_stability(complex_pdb)
+  File "/Users/alexandrosvassiliades/PycharmProjects/dropxcell-agentic/src/affinity_agent/stability.py", line 107, in analyze_complex_stability
+    raise RuntimeError("DSSP is required but not available. Install dssp binary or mkdssp")
+RuntimeError: DSSP is required but not available. Install dssp binary or mkdssp
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/alexandrosvassiliades/PycharmProjects/dropxcell-agentic/src/affinity_agent/run_affinity_agent.py", line 165, in <module>
+    asyncio.run(main())
+    ~~~~~~~~~~~^^^^^^^^
+  File "/Users/alexandrosvassiliades/miniconda3/lib/python3.13/asyncio/runners.py", line 195, in run
+    return runner.run(main)
+           ~~~~~~~~~~^^^^^^
+  File "/Users/alexandrosvassiliades/miniconda3/lib/python3.13/asyncio/runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^
+  File "/Users/alexandrosvassiliades/miniconda3/lib/python3.13/asyncio/base_events.py", line 725, in run_until_complete
+    return future.result()
+           ~~~~~~~~~~~~~^^
+  File "/Users/alexandrosvassiliades/PycharmProjects/dropxcell-agentic/src/affinity_agent/run_affinity_agent.py", line 39, in main
+    results = await analyzer.analyze_affinity(inputs)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/alexandrosvassiliades/PycharmProjects/dropxcell-agentic/src/affinity_agent/affinity_agent.py", line 219, in analyze_affinity
+    raise RuntimeError(f"Affinity analysis pipeline failed: {str(e)}")
+RuntimeError: Affinity analysis pipeline failed: DSSP is required but not available. Install dssp binary or mkdssp

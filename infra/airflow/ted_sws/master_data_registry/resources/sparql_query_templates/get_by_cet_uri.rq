@@ -1,0 +1,4 @@
+SELECT DISTINCT ?s
+{
+  ?s a <$uri> .
+}

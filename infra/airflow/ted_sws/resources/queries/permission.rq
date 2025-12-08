@@ -1,0 +1,10 @@
+PREFIX dc: <http://purl.org/dc/elements/1.1/>
+
+select ?code ?conceptURI
+where
+{
+ graph <http://publications.europa.eu/resource/authority/permission>
+ {
+    ?conceptURI dc:identifier ?code .
+  }
+}

@@ -1,0 +1,11 @@
+construct {
+  ?s ?p ?o .
+  ?o ?op ?oo .
+}
+where {
+  values ?s {<$uri>}
+  ?s ?p ?o .
+  optional{
+  ?o ?op ?oo .
+  }
+}

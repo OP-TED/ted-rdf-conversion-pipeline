@@ -21,11 +21,16 @@ def notices_batch_distillation_pipeline(notice_ids: List[str],
     """
     from src.ted_sws.data_manager.adapters.notice_repository import NoticeRepository
     from src.ted_sws.master_data_registry.services.entity_deduplication import deduplicate_entities_by_cet_uri
+    from src.ted_sws.core.model.notice import NoticeStatus
 
     notices = []
     notice_repository = NoticeRepository(mongodb_client=mongodb_client)
     for notice_id in notice_ids:
         notice = notice_repository.get(reference=notice_id)
+        # Ensure notice is in TRANSFORMED state before setting distilled RDF manifestation
+        # The state machine requires: PREPROCESSED_FOR_TRANSFORMATION -> TRANSFORMED -> DISTILLED
+        if notice.status < NoticeStatus.TRANSFORMED and notice.rdf_manifestation:
+            notice.update_status_to(NoticeStatus.TRANSFORMED)
         notice.set_distilled_rdf_manifestation(
             distilled_rdf_manifestation=notice.rdf_manifestation.model_copy())
         notices.append(notice)

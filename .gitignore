@@ -126,3 +126,4 @@ src/infra/alpine/libraries/
 test/reports/*
 src/infra/airflow/src
 src/infra/airflow/libraries
+test/test_data/mssdk

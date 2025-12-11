@@ -5,7 +5,7 @@ Integration test script for MongoDB save/load functionality.
 This script tests saving and loading a MappingSuite and config to/from MongoDB.
 
 Usage:
-    python test/features/mssdk/mongodb_config_loader.py [suite_path] [config_path]
+    python test/features/mssdk/mongodb_config_saver.py [suite_path] [config_path]
     
 Environment variables:
     MONGODB_URI: MongoDB connection URI (optional, falls back to default)

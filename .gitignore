@@ -125,3 +125,4 @@ src/infra/alpine/libraries/
 .idea
 test/reports/*
 src/infra/airflow/src
+src/infra/airflow/libraries

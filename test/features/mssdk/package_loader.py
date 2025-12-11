@@ -5,13 +5,10 @@ Load mapping packages from unzipped folders using MSSDK.
 Supports:
 - Loading a single package from a folder
 - Loading all packages from a folder (v2 or v3)
-- Converting packages: v2→v3, v2→v3→v3L, v3→v3L
 """
 import argparse
 import logging
-import subprocess
 import sys
-import tempfile
 from pathlib import Path
 from typing import Optional, Union, Tuple, List
 

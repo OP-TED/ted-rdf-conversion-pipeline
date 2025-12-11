@@ -13,6 +13,12 @@ sys.path.insert(0, str(project_root))
 from pymongo import MongoClient
 from pymongo.errors import DuplicateKeyError, DocumentTooLarge, OperationFailure
 
+# MSSDK imports - package loaders
+from mapping_suite_sdk.mapping_package_v1.adapters.mp_v1_loader import MappingPackageV1Loader
+from mapping_suite_sdk.mapping_package_v2.adapters.mp_v2_loader import MappingPackageV2Loader
+from mapping_suite_sdk.mapping_package_v3.adapters.mp_v3_package_loader import MappingPackageV3Loader
+from mapping_suite_sdk.mapping_package_v3.adapters.mp_v3L_package_loader import MappingPackageV3LightweightLoader
+
 # MSSDK imports - package savers
 from mapping_suite_sdk.mapping_package_v1.adapters.mp_v1_package_saver import MappingPackageV1Saver
 from mapping_suite_sdk.mapping_package_v2.adapters.mp_v2_package_saver import MappingPackageV2Saver
@@ -40,6 +46,7 @@ from mapping_suite_sdk.mapping_package_v3.services.load_mapping_package_v3_light
 
 # MSSDK imports - core
 from mapping_suite_sdk.core.adapters.repository import MongoDBRepository
+from mapping_suite_sdk.core.adapters.extractor import ArchiveExtractor
 
 # Configuration constants
 DEFAULT_MONGODB_URI = "mongodb://127.0.0.1:27017/"
@@ -130,20 +137,80 @@ def create_mongodb_client(mongodb_uri: Optional[str] = None) -> MongoClient:
         raise ValueError(f"Failed to connect to MongoDB: {error}") from error
 
 
-def _try_save_with_saver(
+def load_package_from_archive(
+    archive_path: Path,
+    package_version: Optional[str] = None
+) -> Tuple[PackageType, str]:
+    """
+    Load a mapping package from archive by trying version loaders.
+    
+    Args:
+        archive_path: Path to package archive file.
+        package_version: Optional package version ('v1', 'v2', 'v3', 'v3L'). If None, tries all.
+        
+    Returns:
+        Tuple of (loaded package, detected version name).
+        
+    Raises:
+        ValueError: If package cannot be loaded with any version.
+    """
+    extractor = ArchiveExtractor()
+    
+    with extractor.extract_temporary(archive_path) as temp_folder:
+        # Resolve package root (handle nested folder structure)
+        package_root = temp_folder
+        nested_root = temp_folder / temp_folder.name
+        if nested_root.exists() and nested_root.is_dir():
+            if (nested_root / "metadata.jsonld").exists():
+                package_root = nested_root
+            elif (nested_root / "metadata.json").exists():
+                package_root = nested_root
+        
+        # Define loaders in priority order
+        loaders = [
+            (MappingPackageV3Loader(), "v3"),
+            (MappingPackageV3LightweightLoader(), "v3L"),
+            (MappingPackageV2Loader(), "v2"),
+            (MappingPackageV1Loader(), "v1"),
+        ]
+        
+        # Filter to specific version if provided
+        if package_version:
+            loaders = [(loader, v) for loader, v in loaders if v == package_version]
+            if not loaders:
+                raise ValueError(f"Invalid package version: {package_version}. Must be one of: v1, v2, v3, v3L")
+        
+        # Try each loader until one succeeds
+        last_error = None
+        for loader, version_name in loaders:
+            try:
+                loaded_package = loader.load(package_root)
+                logger.info(f"Package loaded successfully as {version_name}")
+                return loaded_package, version_name
+            except Exception as error:
+                last_error = error
+                logger.debug(f"{version_name} loader failed: {type(error).__name__}: {error}")
+        
+        # All loaders failed
+        if last_error:
+            raise ValueError(f"Failed to load package with any version. Last error: {last_error}") from last_error
+        raise ValueError("Failed to load package: no loaders attempted")
+
+
+def _save_package_with_saver(
     saver: SaverType,
-    package_path: Path,
+    package: PackageType,
     mongo_client: MongoClient,
     database_name: str,
     collection_name: str,
     version_name: str
 ) -> PackageType:
     """
-    Attempt to save package using a specific saver.
+    Save package to MongoDB using a specific saver.
     
     Args:
         saver: Package saver instance to use.
-        package_path: Path to package archive.
+        package: Loaded package instance to save.
         mongo_client: MongoDB client instance.
         database_name: MongoDB database name.
         collection_name: MongoDB collection name.
@@ -156,93 +223,68 @@ def _try_save_with_saver(
         Exception: Any exception from the saver is propagated.
     """
     logger.debug(f"Attempting to save as {version_name}...")
-    saved_package = saver.save_from_archive(
-        mapping_package_archive_path=package_path,
+    
+    # Delete existing document if it exists (to avoid duplicate key error)
+    collection = mongo_client[database_name][collection_name]
+    existing_doc = collection.find_one({"_id": package.id})
+    if existing_doc:
+        collection.delete_one({"_id": package.id})
+        logger.info(f"Deleted existing package with ID: {package.id}")
+    
+    saved_package = saver.save(
+        mapping_package=package,
         mongo_client=mongo_client,
         database_name=database_name,
         collection_name=collection_name
     )
-    logger.info(f"Package saved successfully as {version_name}")
+    logger.info(f"Package saved successfully as {version_name} with ID: {saved_package.id}")
     return saved_package
 
 
 def save_package_to_mongodb(
-    package_path: Path,
+    package: PackageType,
     mongo_client: MongoClient,
     database_name: str,
     collection_name: str,
-    package_version: Optional[str] = None
+    version_name: str
 ) -> PackageType:
     """
-    Load package from archive and save to MongoDB.
-    
-    If package_version is specified, uses only that version. Otherwise tries all versions.
+    Save loaded package to MongoDB using appropriate saver.
     
     Args:
-        package_path: Path to package archive file.
+        package: Loaded package instance to save.
         mongo_client: MongoDB client instance.
         database_name: MongoDB database name.
         collection_name: MongoDB collection name.
-        package_version: Optional package version ('v1', 'v2', 'v3', 'v3L'). If None, tries all.
+        version_name: Package version name ('v1', 'v2', 'v3', 'v3L').
         
     Returns:
-        Saved package instance (v1, v2, v3, or v3L).
+        Saved package instance.
         
     Raises:
+        ValueError: If package type is unsupported.
         Exception: Any exception from the saver is propagated.
     """
-    version_map = {
-        'v1': (MappingPackageV1Saver(), 'v1'),
-        'v2': (MappingPackageV2Saver(), 'v2'),
-        'v3': (MappingPackageV3Saver(), 'v3'),
-        'v3L': (MappingPackageV3LightweightSaver(), 'v3L'),
-    }
+    # Select appropriate saver based on package type
+    if isinstance(package, MappingPackageV3Lightweight):
+        saver = MappingPackageV3LightweightSaver()
+    elif isinstance(package, MappingPackageV3):
+        saver = MappingPackageV3Saver()
+    elif isinstance(package, MappingPackageV2):
+        saver = MappingPackageV2Saver()
+    elif isinstance(package, MappingPackageV1):
+        saver = MappingPackageV1Saver()
+    else:
+        raise ValueError(f"Unsupported package type: {type(package)}")
     
-    if package_version:
-        if package_version not in version_map:
-            raise ValueError(f"Invalid package version: {package_version}. Must be one of: {list(version_map.keys())}")
-        saver, version_name = version_map[package_version]
-        saved_package = _try_save_with_saver(
-            saver=saver,
-            package_path=package_path,
-            mongo_client=mongo_client,
-            database_name=database_name,
-            collection_name=collection_name,
-            version_name=version_name
-        )
-        logger.info(f"Package saved with ID: {saved_package.id}")
-        return saved_package
-    
-    # Try all versions if no version specified
-    savers: list[Tuple[SaverType, str]] = [
-        (MappingPackageV3Saver(), "v3"),
-        (MappingPackageV3LightweightSaver(), "v3L"),
-        (MappingPackageV2Saver(), "v2"),
-        (MappingPackageV1Saver(), "v1"),
-    ]
-    
-    errors: list[Tuple[str, Exception]] = []
-    for saver, version_name in savers:
-        try:
-            saved_package = _try_save_with_saver(
-                saver=saver,
-                package_path=package_path,
-                mongo_client=mongo_client,
-                database_name=database_name,
-                collection_name=collection_name,
-                version_name=version_name
-            )
-            logger.info(f"Package saved with ID: {saved_package.id}")
-            return saved_package
-        except Exception as error:
-            errors.append((version_name, error))
-            logger.info(f"{version_name} failed: {type(error).__name__}: {error}")
-    
-    # All versions failed - raise the last error directly (preserves exception chain)
-    if errors:
-        _, last_error = errors[-1]
-        raise last_error
-    raise ValueError("Failed to load package with any version (v3, v3L, v2, v1)")
+    return _save_package_with_saver(
+        saver=saver,
+        package=package,
+        mongo_client=mongo_client,
+        database_name=database_name,
+        collection_name=collection_name,
+        version_name=version_name
+    )
 
 
 def _create_repository_for_package(
@@ -376,7 +418,7 @@ def load_and_save_package(
     package_version: Optional[str] = None
 ) -> PackageType:
     """
-    Orchestrate the complete flow: validate, connect, save, load, and verify.
+    Orchestrate the complete flow: validate, load from archive, save, load from MongoDB, and verify.
     
     Args:
         package_path: Path to package archive file.
@@ -390,27 +432,36 @@ def load_and_save_package(
     """
     validate_package_file_exists(package_path)
     
-    # Save package
-    mongo_client = create_mongodb_client(mongodb_uri)
-    saved_package = save_package_to_mongodb(
-        package_path=package_path,
-        mongo_client=mongo_client,
-        database_name=database_name,
-        collection_name=collection_name,
+    # Load package from archive
+    loaded_package, detected_version = load_package_from_archive(
+        archive_path=package_path,
         package_version=package_version
     )
     
-    # Create a fresh client for loading (in case save_from_archive closed the original)
+    # Save package to MongoDB
+    save_mongo_client = create_mongodb_client(mongodb_uri)
+    try:
+        saved_package = save_package_to_mongodb(
+            package=loaded_package,
+            mongo_client=save_mongo_client,
+            database_name=database_name,
+            collection_name=collection_name,
+            version_name=detected_version
+        )
+    finally:
+        save_mongo_client.close()
+    
+    # Create a fresh client for loading (in case save closed the original)
     load_mongo_client = create_mongodb_client(mongodb_uri)
     try:
-        loaded_package = load_package_from_mongodb(
+        loaded_from_mongo = load_package_from_mongodb(
             package_id=saved_package.id,
             saved_package=saved_package,
             mongo_client=load_mongo_client,
             database_name=database_name,
             collection_name=collection_name
         )
-        verify_package_integrity(saved_package, loaded_package)
+        verify_package_integrity(saved_package, loaded_from_mongo)
     finally:
         load_mongo_client.close()
     

@@ -1,11 +1,11 @@
 from datetime import datetime, timedelta
 
-from airflow import Dataset
 
 class TEDSWSPipelineDAGException(Exception):
     """
 
     """
+
 
 DEFAULT_DAG_ARGUMENTS = {
     "owner": "airflow",
@@ -22,6 +22,8 @@ DEFAULT_DAG_ARGUMENTS = {
 }
 
 BATCH_SIZE = 2000
+
+DAILY_MATERIALISED_VIEWS_DAG_NAME = "daily_materialized_views_update"
 
 NOTICE_NORMALISATION_PIPELINE_TASK_ID = "notice_normalisation_pipeline"
 NOTICE_TRANSFORMATION_PIPELINE_TASK_ID = "notice_transformation_pipeline"
@@ -42,7 +44,3 @@ BRANCH_SELECTOR_MAP = {NOTICE_NORMALISATION_PIPELINE_TASK_ID: NOTICE_NORMALISATI
                        NOTICE_PACKAGE_PIPELINE_TASK_ID: SELECTOR_BRANCH_BEFORE_PACKAGE_TASK_ID,
                        NOTICE_PUBLISH_PIPELINE_TASK_ID: SELECTOR_BRANCH_BEFORE_PUBLISH_TASK_ID
                        }
-
-# This is a formal name, not an actual connection string.
-NOTICES_COLLECTION_DATASET: Dataset = Dataset("db://aggregates_db/notices_collection")
-MATERIALISED_VIEW_DATASET: Dataset = Dataset("db://aggregates_db/notices_collection_materialised_view")

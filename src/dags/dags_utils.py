@@ -1,4 +1,4 @@
-from typing import Any, List, Dict
+from typing import Any, List, Dict, Optional
 
 from airflow.operators.python import get_current_context
 
@@ -115,7 +115,8 @@ def parse_notice_statuses_from_string(variable: str) -> List[NoticeStatus]:
     return validated_statuses
 
 
-def has_notices_with_failure_status(notices_status: Dict[str, NoticeStatus], success_statuses: List[NoticeStatus]) -> bool:
+def has_notices_with_failure_status(notices_status: Dict[str, NoticeStatus],
+                                    success_statuses: List[NoticeStatus]) -> bool:
     """
     Check if any notices have a status that is not in the list of success statuses.
 
@@ -135,3 +136,72 @@ def has_notices_with_failure_status(notices_status: Dict[str, NoticeStatus], suc
         and a notice has NoticeStatus.RAW, the function will return True.
     """
     return len(set(notices_status.values()) - set(success_statuses)) > 0
+
+
+def is_last_active_dag_run(session,
+                           dagrun_model,
+                           dag_id: str,
+                           running_state: str = "running",
+                           queued_state: str = "queued") -> bool:
+    """
+    Check if the given DAG is on its last active run in the system, defined as:
+      - number of running DagRuns for dag_id is == 1
+      - number of queued DagRuns for dag_id is == 0
+
+    This function is intentionally generic — the caller provides the SQLAlchemy session
+    and the DagRun model (to avoid importing Airflow internals here), along with the
+    target dag_id and optional state names.
+
+    Args:
+        session: SQLAlchemy session to use for queries.
+        dagrun_model: Airflow DagRun model class (e.g., airflow.models.DagRun).
+        dag_id: The DAG ID to check.
+        running_state: The value representing a running state. Default: "running".
+        queued_state: The value representing a queued state. Default: "queued".
+
+    Returns:
+        bool: True if it's the last active run (<=1 running and 0 queued), False otherwise.
+    """
+    running_count = session.query(dagrun_model).filter(
+        dagrun_model.dag_id == dag_id, dagrun_model.state == running_state
+    ).count()
+    queued_count = session.query(dagrun_model).filter(
+        dagrun_model.dag_id == dag_id, dagrun_model.state == queued_state
+    ).count()
+    return running_count == 1 and queued_count == 0
+
+
+def trigger_dag(
+        dag_id: str,
+        conf: Optional[Dict[str, Any]] = None,
+        run_id: Optional[str] = None,
+        execution_date: Optional[str] = None,
+        replace_microseconds: bool = True,
+):
+    """
+    Trigger a DAG run using Airflow's local API client.
+
+    Args:
+        dag_id: ID of the DAG to trigger.
+        conf: Optional configuration dict for the DAG run.
+        run_id: Optional custom run_id.
+        execution_date: Optional execution date (ISO format string). If omitted, Airflow sets now().
+        replace_microseconds: Whether to strip microseconds from execution_date when provided.
+
+    Returns:
+        The response returned by the Airflow client (may vary by version).
+
+    Raises:
+        Any exception raised by the Airflow client will propagate to the caller.
+    """
+
+    from airflow.api.client.local_client import Client
+
+    client = Client(api_base_url=None, auth=None)
+    return client.trigger_dag(
+        dag_id=dag_id,
+        conf=conf,
+        run_id=run_id,
+        execution_date=execution_date,
+        replace_microseconds=replace_microseconds,
+    )

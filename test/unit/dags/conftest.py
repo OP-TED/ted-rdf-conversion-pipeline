@@ -49,3 +49,8 @@ def dag_materialised_view_update_schedule_variable_name() -> str:
     According to MM of meeting with OP from 2024.12.28
     """
     return "SCHEDULE_DAG_MATERIALIZED_VIEW_UPDATE"
+
+
+@pytest.fixture
+def fixture_dummy_dag_name() -> str:
+    return "dummy_dag_name"

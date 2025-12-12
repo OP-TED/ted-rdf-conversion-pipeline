@@ -19,7 +19,6 @@ from src.ted_sws.event_manager.services.log import log_error
 
 DAG_ID = "fetch_notices_by_date"
 FETCHER_DAG_NAME = "Fetch notices by date"
-BATCH_SIZE = 2000
 WILD_CARD_DAG_KEY = "wild_card"
 TRIGGER_COMPLETE_WORKFLOW_DAG_KEY = "trigger_complete_workflow"
 TRIGGER_PARTIAL_WORKFLOW_TASK_ID = "trigger_partial_notice_proc_workflow"

@@ -2,11 +2,9 @@
 """
 Load mapping packages from unzipped folders using MSSDK.
 
-Supports:
-- Loading a single package from a folder
-- Loading all packages from a folder (v2 or v3)
+Runs all test scenarios automatically:
+- Single and batch loading for v1, v2, v3, v3L packages
 """
-import argparse
 import logging
 import sys
 from pathlib import Path
@@ -183,51 +181,128 @@ def load_all_packages_from_folder(
     return loaded_packages
 
 
-def parse_arguments() -> argparse.Namespace:
-    """Parse command-line arguments."""
-    parser = argparse.ArgumentParser(
-        description="Load mapping packages from unzipped folders using MSSDK"
-    )
-    parser.add_argument(
-        'folder_path',
-        type=Path,
-        help='Path to package folder or directory containing packages'
-    )
-    parser.add_argument(
-        '--all',
-        action='store_true',
-        help='Load all packages from folder (instead of single package)'
-    )
-    parser.add_argument(
-        '--version',
-        type=str,
-        default=None,
-        choices=['v1', 'v2', 'v3', 'v3L'],
-        help='Package version to use (v1, v2, v3, v3L). If not specified, tries all versions sequentially.'
-    )
-    return parser.parse_args()
+def run_test_scenario(
+    description: str,
+    folder_path: Path,
+    package_version: Optional[str],
+    load_all: bool = False
+) -> None:
+    """
+    Run a single test scenario.
+    
+    Args:
+        description: Human-readable description of the test scenario.
+        folder_path: Path to package folder or directory.
+        package_version: Package version ('v1', 'v2', 'v3', 'v3L').
+        load_all: If True, load all packages from folder; if False, load single package.
+    """
+    logger.info(f"\n{'='*80}")
+    logger.info(f"Test Scenario: {description}")
+    logger.info(f"Path: {folder_path}")
+    logger.info(f"Version: {package_version}")
+    logger.info(f"Mode: {'Load all packages' if load_all else 'Load single package'}")
+    logger.info(f"{'='*80}")
+    
+    if not folder_path.exists():
+        logger.warning(f"  SKIPPED: Path does not exist: {folder_path}")
+        return
+    
+    try:
+        if load_all:
+            loaded_packages = load_all_packages_from_folder(
+                root_path=folder_path,
+                package_version=package_version
+            )
+            logger.info(f"  ✓ Successfully loaded {len(loaded_packages)} packages:")
+            for package, version, pkg_folder_path in loaded_packages:
+                logger.info(f"    - {package.id} ({version}) from {pkg_folder_path}")
+        else:
+            package, version = load_package_from_folder(
+                folder_path=folder_path,
+                package_version=package_version
+            )
+            logger.info(f"  ✓ Successfully loaded package: {package.id} ({version}) from {folder_path}")
+    except Exception as error:
+        logger.error(f"  ✗ FAILED: {type(error).__name__}: {error}")
 
 
 def main() -> None:
-    """Main entry point for the script."""
-    args = parse_arguments()
+    """Main entry point - runs all test scenarios automatically."""
+    # Base path for test data
+    test_data_root = project_root / "test" / "test_data" / "mssdk"
     
-    if args.all:
-        # Load all packages from folder
-        loaded_packages = load_all_packages_from_folder(
-            root_path=args.folder_path,
-            package_version=args.version
+    # Define all test scenarios
+    test_scenarios = [
+        # V2 Tests
+        {
+            "description": "Load single v2 package",
+            "folder_path": test_data_root / "mapping_package_v2" / "package_eforms_29_v1.9_changed",
+            "version": "v2",
+            "load_all": False
+        },
+        {
+            "description": "Load all v2 packages",
+            "folder_path": test_data_root / "mapping_package_v2",
+            "version": "v2",
+            "load_all": True
+        },
+        # V3 Tests
+        {
+            "description": "Load single v3 package",
+            "folder_path": test_data_root / "mapping_package_v3" / "package_eforms_sdk1.13_epo4.0_changed",
+            "version": "v3",
+            "load_all": False
+        },
+        {
+            "description": "Load all v3 packages",
+            "folder_path": test_data_root / "mapping_package_v3",
+            "version": "v3",
+            "load_all": True
+        },
+        # V1 Tests
+        {
+            "description": "Load single v1 package",
+            "folder_path": test_data_root / "mapping_package_v1" / "package_F22_changed",
+            "version": "v1",
+            "load_all": False
+        },
+        {
+            "description": "Load all v1 packages",
+            "folder_path": test_data_root / "mapping_package_v1",
+            "version": "v1",
+            "load_all": True
+        },
+        # V3L Tests
+        {
+            "description": "Load single v3L package",
+            "folder_path": test_data_root / "mapping_package_v3L" / "package_eforms_sdk1.13_epo4.0_changed",
+            "version": "v3L",
+            "load_all": False
+        },
+        {
+            "description": "Load all v3L packages",
+            "folder_path": test_data_root / "mapping_package_v3L",
+            "version": "v3L",
+            "load_all": True
+        },
+    ]
+    
+    logger.info("="*80)
+    logger.info("Starting Package Loader Test Suite")
+    logger.info("="*80)
+    
+    # Run all test scenarios
+    for scenario in test_scenarios:
+        run_test_scenario(
+            description=scenario["description"],
+            folder_path=scenario["folder_path"],
+            package_version=scenario["version"],
+            load_all=scenario["load_all"]
         )
-        logger.info(f"Successfully loaded {len(loaded_packages)} packages:")
-        for package, version, folder_path in loaded_packages:
-            logger.info(f"  - {package.id} ({version}) from {folder_path}")
-    else:
-        # Load single package from folder
-        package, version = load_package_from_folder(
-            folder_path=args.folder_path,
-            package_version=args.version
-        )
-        logger.info(f"Successfully loaded package: {package.id} ({version}) from {args.folder_path}")
+    
+    logger.info("\n" + "="*80)
+    logger.info("Test Suite Completed")
+    logger.info("="*80)
 
 
 if __name__ == "__main__":

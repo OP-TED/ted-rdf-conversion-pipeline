@@ -2,15 +2,9 @@
 """
 Load mapping packages from unzipped folders and save to MongoDB.
 
-Combines functionality from:
-- package_loader.py: Loads packages from folders
-- mongodb_package_saver.py: Saves packages to MongoDB
-
-Supports:
-- Loading and saving a single package from a folder
-- Loading and saving all packages from a folder
+Runs all test scenarios automatically:
+- Single and batch loading/saving for v2, v3, v3L packages
 """
-import argparse
 import logging
 import os
 import sys
@@ -359,82 +353,142 @@ def get_collection_name() -> str:
     return os.getenv('MONGODB_COLLECTION', DEFAULT_COLLECTION_NAME)
 
 
-def parse_arguments() -> argparse.Namespace:
-    """Parse command-line arguments."""
-    parser = argparse.ArgumentParser(
-        description="Load mapping packages from folders and save to MongoDB"
-    )
-    parser.add_argument(
-        'folder_path',
-        type=Path,
-        help='Path to package folder or directory containing packages'
-    )
-    parser.add_argument(
-        '--all',
-        action='store_true',
-        help='Load and save all packages from folder (instead of single package)'
-    )
-    parser.add_argument(
-        '--version',
-        type=str,
-        default=None,
-        choices=['v1', 'v2', 'v3', 'v3L'],
-        help='Package version to use (v1, v2, v3, v3L). If not specified, tries all versions sequentially.'
-    )
-    parser.add_argument(
-        '--mongodb-uri',
-        type=str,
-        default=None,
-        help=f'MongoDB connection URI (overrides MONGODB_URI env var, default: {DEFAULT_MONGODB_URI})'
-    )
-    parser.add_argument(
-        '--database',
-        type=str,
-        default=None,
-        help=f'Database name (default: {DEFAULT_DATABASE_NAME} or MONGODB_DATABASE env var)'
-    )
-    parser.add_argument(
-        '--collection',
-        type=str,
-        default=None,
-        help=f'Collection name (default: {DEFAULT_COLLECTION_NAME} or MONGODB_COLLECTION env var)'
-    )
-    return parser.parse_args()
+def run_test_scenario(
+    description: str,
+    folder_path: Path,
+    package_version: Optional[str],
+    load_all: bool,
+    mongodb_uri: str,
+    database_name: str,
+    collection_name: str
+) -> None:
+    """
+    Run a single test scenario.
+    
+    Args:
+        description: Human-readable description of the test scenario.
+        folder_path: Path to package folder or directory.
+        package_version: Package version ('v1', 'v2', 'v3', 'v3L').
+        load_all: If True, load all packages from folder; if False, load single package.
+        mongodb_uri: MongoDB connection URI.
+        database_name: MongoDB database name.
+        collection_name: MongoDB collection name.
+    """
+    logger.info(f"\n{'='*80}")
+    logger.info(f"Test Scenario: {description}")
+    logger.info(f"Path: {folder_path}")
+    logger.info(f"Version: {package_version}")
+    logger.info(f"Mode: {'Load and save all packages' if load_all else 'Load and save single package'}")
+    logger.info(f"MongoDB: {database_name}.{collection_name}")
+    logger.info(f"{'='*80}")
+    
+    if not folder_path.exists():
+        logger.warning(f"  SKIPPED: Path does not exist: {folder_path}")
+        return
+    
+    try:
+        if load_all:
+            saved_packages = load_and_save_all_packages(
+                root_path=folder_path,
+                mongodb_uri=mongodb_uri,
+                database_name=database_name,
+                collection_name=collection_name,
+                package_version=package_version
+            )
+            logger.info(f"  ✓ Successfully loaded and saved {len(saved_packages)} packages:")
+            for saved_package, pkg_folder_path in saved_packages:
+                logger.info(f"    - {saved_package.id} from {pkg_folder_path}")
+        else:
+            saved_package = load_and_save_single_package(
+                folder_path=folder_path,
+                mongodb_uri=mongodb_uri,
+                database_name=database_name,
+                collection_name=collection_name,
+                package_version=package_version
+            )
+            logger.info(
+                f"  ✓ Successfully loaded and saved package: {saved_package.id} "
+                f"from {folder_path} to MongoDB ({database_name}.{collection_name})"
+            )
+    except Exception as error:
+        logger.error(f"  ✗ FAILED: {type(error).__name__}: {error}")
 
 
 def main() -> None:
-    """Main entry point for the script."""
-    args = parse_arguments()
+    """Main entry point - runs all test scenarios automatically."""
+    # Base path for test data
+    test_data_root = project_root / "test" / "test_data" / "mssdk"
     
-    mongodb_uri = args.mongodb_uri or get_mongodb_uri()
-    database_name = args.database or get_database_name()
-    collection_name = args.collection or get_collection_name()
+    # MongoDB configuration
+    mongodb_uri = get_mongodb_uri()
+    database_name = get_database_name()
+    collection_name = get_collection_name()
     
-    if args.all:
-        # Load and save all packages from folder
-        saved_packages = load_and_save_all_packages(
-            root_path=args.folder_path,
+    # Define all test scenarios
+    test_scenarios = [
+        # V2 Tests
+        {
+            "description": "Load and save single v2 package",
+            "folder_path": test_data_root / "mapping_package_v2" / "package_eforms_29_v1.9_changed",
+            "version": "v2",
+            "load_all": False
+        },
+        {
+            "description": "Load and save all v2 packages",
+            "folder_path": test_data_root / "mapping_package_v2",
+            "version": "v2",
+            "load_all": True
+        },
+        # V3 Tests
+        {
+            "description": "Load and save single v3 package",
+            "folder_path": test_data_root / "mapping_package_v3" / "package_eforms_sdk1.13_epo4.0_changed",
+            "version": "v3",
+            "load_all": False
+        },
+        {
+            "description": "Load and save all v3 packages",
+            "folder_path": test_data_root / "mapping_package_v3",
+            "version": "v3",
+            "load_all": True
+        },
+        # V3L Tests
+        {
+            "description": "Load and save single v3L package",
+            "folder_path": test_data_root / "mapping_package_v3L" / "package_eforms_sdk1.13_epo4.0_changed",
+            "version": "v3L",
+            "load_all": False
+        },
+        {
+            "description": "Load and save all v3L packages",
+            "folder_path": test_data_root / "mapping_package_v3L",
+            "version": "v3L",
+            "load_all": True
+        },
+    ]
+    
+    logger.info("="*80)
+    logger.info("Starting Package Load and Save Test Suite")
+    logger.info(f"MongoDB URI: {mongodb_uri}")
+    logger.info(f"Database: {database_name}")
+    logger.info(f"Collection: {collection_name}")
+    logger.info("="*80)
+    
+    # Run all test scenarios
+    for scenario in test_scenarios:
+        run_test_scenario(
+            description=scenario["description"],
+            folder_path=scenario["folder_path"],
+            package_version=scenario["version"],
+            load_all=scenario["load_all"],
             mongodb_uri=mongodb_uri,
             database_name=database_name,
-            collection_name=collection_name,
-            package_version=args.version
+            collection_name=collection_name
         )
-        logger.info(f"Successfully loaded and saved {len(saved_packages)} packages:")
-        for saved_package, folder_path in saved_packages:
-            logger.info(f"  - {saved_package.id} from {folder_path}")
-    else:
-        # Load and save single package from folder
-        saved_package = load_and_save_single_package(
-            folder_path=args.folder_path,
-            mongodb_uri=mongodb_uri,
-            database_name=database_name,
-            collection_name=collection_name,
-            package_version=args.version
-        )
-        logger.info(
-            f"Successfully loaded and saved package: {saved_package.id} "
-            f"from {args.folder_path} to MongoDB ({database_name}.{collection_name})"
-        )
+    
+    logger.info("\n" + "="*80)
+    logger.info("Test Suite Completed")
+    logger.info("="*80)
 
 
 if __name__ == "__main__":

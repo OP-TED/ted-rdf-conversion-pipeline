@@ -1,8 +1,18 @@
 #!/usr/bin/env python3
+"""
+Load mapping packages from ZIP archives and save to MongoDB.
+
+Runs all test scenarios automatically:
+- Loading and saving packages from ZIP files
+- Converting packages (v2→v3, v3→v3L) and saving to MongoDB
+"""
 import argparse
 import logging
 import os
+import shutil
+import subprocess
 import sys
+import zipfile
 from pathlib import Path
 from typing import Optional, Union, Tuple, Type
 
@@ -159,12 +169,33 @@ def load_package_from_archive(
     with extractor.extract_temporary(archive_path) as temp_folder:
         # Resolve package root (handle nested folder structure)
         package_root = temp_folder
-        nested_root = temp_folder / temp_folder.name
-        if nested_root.exists() and nested_root.is_dir():
-            if (nested_root / "metadata.jsonld").exists():
-                package_root = nested_root
-            elif (nested_root / "metadata.json").exists():
-                package_root = nested_root
+        
+        # Check if temp_folder itself is the package
+        if (temp_folder / "metadata.jsonld").exists() or (temp_folder / "metadata.json").exists():
+            package_root = temp_folder
+        else:
+            # Search for package root in nested folders (handle single and double nesting)
+            # Try common nested patterns
+            possible_roots = [
+                temp_folder / temp_folder.name,
+                temp_folder / temp_folder.name / temp_folder.name,
+            ]
+            
+            # Also search all subdirectories for metadata files
+            for item in temp_folder.iterdir():
+                if item.is_dir():
+                    possible_roots.append(item)
+                    # Check for double nesting
+                    for subitem in item.iterdir():
+                        if subitem.is_dir():
+                            possible_roots.append(subitem)
+            
+            # Find the first directory that contains metadata
+            for possible_root in possible_roots:
+                if possible_root.exists() and possible_root.is_dir():
+                    if (possible_root / "metadata.jsonld").exists() or (possible_root / "metadata.json").exists():
+                        package_root = possible_root
+                        break
         
         # Define loaders in priority order
         loaders = [
@@ -478,6 +509,260 @@ def get_collection_name() -> str:
     return os.getenv('MONGODB_COLLECTION', DEFAULT_COLLECTION_NAME)
 
 
+def run_mssdk_convert(
+    from_version: str,
+    to_version: str,
+    package_path: Path
+) -> None:
+    """
+    Run mssdk convert command to convert a package.
+    
+    Args:
+        from_version: Source package version ('v2' or 'v3').
+        to_version: Target package version ('v3' or 'v3L').
+        package_path: Path to the package folder to convert.
+        
+    Raises:
+        subprocess.CalledProcessError: If the convert command fails.
+    """
+    if not package_path.exists():
+        raise FileNotFoundError(f"Package path does not exist: {package_path}")
+    
+    if not package_path.is_dir():
+        raise NotADirectoryError(f"Package path is not a directory: {package_path}")
+    
+    # Build the mssdk convert command
+    # Note: We use the venv's mssdk command directly
+    venv_bin = project_root / ".venv" / "bin"
+    mssdk_cmd = venv_bin / "mssdk"
+    
+    if not mssdk_cmd.exists():
+        # Fallback: try to find mssdk in PATH
+        mssdk_cmd = "mssdk"
+    
+    cmd = [
+        str(mssdk_cmd),
+        "convert",
+        "--to-version", to_version,
+        "--from-version", from_version,
+        "from-package",
+        str(package_path)
+    ]
+    
+    logger.info(f"Running conversion: {' '.join(cmd)}")
+    
+    result = subprocess.run(
+        cmd,
+        cwd=str(project_root),
+        capture_output=True,
+        text=True,
+        check=True
+    )
+    
+    if result.stdout:
+        logger.debug(f"Conversion output: {result.stdout}")
+    if result.stderr:
+        logger.debug(f"Conversion stderr: {result.stderr}")
+    
+    logger.info(f"Successfully converted package from {from_version} to {to_version}")
+
+
+def create_zip_from_folder(folder_path: Path, zip_path: Path) -> None:
+    """
+    Create a ZIP file from a folder.
+    
+    Args:
+        folder_path: Path to the folder to zip.
+        zip_path: Path where the ZIP file should be created.
+    """
+    logger.info(f"Creating ZIP file from folder: {folder_path} -> {zip_path}")
+    
+    with zipfile.ZipFile(zip_path, 'w', zipfile.ZIP_DEFLATED) as zipf:
+        for root, dirs, files in os.walk(folder_path):
+            for file in files:
+                file_path = Path(root) / file
+                # Create archive name relative to folder_path
+                arcname = file_path.relative_to(folder_path)
+                zipf.write(file_path, arcname)
+    
+    logger.info(f"Successfully created ZIP file: {zip_path}")
+
+
+def find_or_create_converted_package_zip(
+    original_package_path: Path,
+    target_version: str
+) -> Path:
+    """
+    Find the converted package ZIP file, or create it from the converted folder.
+    
+    The mssdk convert command converts the package in place or creates a new folder.
+    If it's a folder, we create a ZIP from it.
+    
+    Args:
+        original_package_path: Path to the original package folder.
+        target_version: Target version ('v3' or 'v3L').
+        
+    Returns:
+        Path to the converted package ZIP file.
+        
+    Raises:
+        FileNotFoundError: If the converted package (ZIP or folder) cannot be found.
+    """
+    package_name = original_package_path.name
+    package_dir = original_package_path.parent
+    zip_path = package_dir / f"{package_name}.zip"
+    
+    # First, check if the original folder was converted in place
+    # The convert command modifies the folder in place
+    if original_package_path.exists() and original_package_path.is_dir():
+        # Check if it's actually a package folder (has metadata)
+        # For v3L, it should have metadata.jsonld; for v3, it should have metadata.jsonld
+        has_metadata = (original_package_path / "metadata.jsonld").exists() or (original_package_path / "metadata.json").exists()
+        if has_metadata:
+            logger.info(f"Found converted package folder (in place): {original_package_path}")
+            # Create ZIP from the converted folder (overwrite existing ZIP if any)
+            create_zip_from_folder(original_package_path, zip_path)
+            return zip_path
+    
+    # Check if there's a folder with the same name in the parent directory
+    converted_folder = package_dir / package_name
+    if converted_folder.exists() and converted_folder.is_dir():
+        # Check if it's actually a package folder (has metadata)
+        if (converted_folder / "metadata.jsonld").exists() or (converted_folder / "metadata.json").exists():
+            logger.info(f"Found converted package folder: {converted_folder}")
+            # Create ZIP from the folder
+            create_zip_from_folder(converted_folder, zip_path)
+            return zip_path
+    
+    # Also check if there's a folder with a different name (e.g., with version suffix)
+    for item in package_dir.iterdir():
+        if item.is_dir() and package_name in item.name:
+            # Check if it's a package folder
+            if (item / "metadata.jsonld").exists() or (item / "metadata.json").exists():
+                logger.info(f"Found converted package folder: {item}")
+                # Create ZIP from the folder
+                create_zip_from_folder(item, zip_path)
+                return zip_path
+    
+    raise FileNotFoundError(
+        f"Could not find converted package (ZIP or folder) for {original_package_path}. "
+        f"Expected ZIP: {zip_path} or folder: {original_package_path}"
+    )
+
+
+def convert_and_save_package(
+    package_path: Path,
+    from_version: str,
+    to_version: str,
+    mongodb_uri: str,
+    database_name: str,
+    collection_name: str
+) -> PackageType:
+    """
+    Convert a package and save the converted package to MongoDB.
+    
+    Args:
+        package_path: Path to the package folder to convert.
+        from_version: Source package version ('v2' or 'v3').
+        to_version: Target package version ('v3' or 'v3L').
+        mongodb_uri: MongoDB connection URI.
+        database_name: MongoDB database name.
+        collection_name: MongoDB collection name.
+        
+    Returns:
+        Saved package instance.
+    """
+    # Run conversion
+    run_mssdk_convert(
+        from_version=from_version,
+        to_version=to_version,
+        package_path=package_path
+    )
+    
+    # Find or create the converted package ZIP
+    converted_zip = find_or_create_converted_package_zip(package_path, to_version)
+    
+    # Load and save the converted package
+    saved_package = load_and_save_package(
+        package_path=converted_zip,
+        mongodb_uri=mongodb_uri,
+        database_name=database_name,
+        collection_name=collection_name,
+        package_version=to_version
+    )
+    
+    return saved_package
+
+
+def run_test_scenario(
+    description: str,
+    package_path: Path,
+    package_version: Optional[str],
+    mongodb_uri: str,
+    database_name: str,
+    collection_name: str,
+    is_conversion: bool = False,
+    from_version: Optional[str] = None,
+    to_version: Optional[str] = None
+) -> None:
+    """
+    Run a single test scenario.
+    
+    Args:
+        description: Human-readable description of the test scenario.
+        package_path: Path to package archive file or folder.
+        package_version: Package version ('v1', 'v2', 'v3', 'v3L').
+        mongodb_uri: MongoDB connection URI.
+        database_name: MongoDB database name.
+        collection_name: MongoDB collection name.
+        is_conversion: If True, this is a conversion scenario.
+        from_version: Source version for conversion (if is_conversion is True).
+        to_version: Target version for conversion (if is_conversion is True).
+    """
+    logger.info(f"\n{'='*80}")
+    logger.info(f"Test Scenario: {description}")
+    logger.info(f"Path: {package_path}")
+    if is_conversion:
+        logger.info(f"Conversion: {from_version} → {to_version}")
+    else:
+        logger.info(f"Version: {package_version}")
+    logger.info(f"MongoDB: {database_name}.{collection_name}")
+    logger.info(f"{'='*80}")
+    
+    if not package_path.exists():
+        logger.warning(f"  SKIPPED: Path does not exist: {package_path}")
+        return
+    
+    try:
+        if is_conversion:
+            saved_package = convert_and_save_package(
+                package_path=package_path,
+                from_version=from_version,
+                to_version=to_version,
+                mongodb_uri=mongodb_uri,
+                database_name=database_name,
+                collection_name=collection_name
+            )
+            logger.info(
+                f"  ✓ Successfully converted and saved package: {saved_package.id} "
+                f"({from_version} → {to_version}) to MongoDB ({database_name}.{collection_name})"
+            )
+        else:
+            saved_package = load_and_save_package(
+                package_path=package_path,
+                mongodb_uri=mongodb_uri,
+                database_name=database_name,
+                collection_name=collection_name,
+                package_version=package_version
+            )
+            logger.info(
+                f"  ✓ Successfully loaded and saved package: {saved_package.id} "
+                f"to MongoDB ({database_name}.{collection_name})"
+            )
+    except Exception as error:
+        logger.error(f"  ✗ FAILED: {type(error).__name__}: {error}")
+
+
 def parse_arguments() -> argparse.Namespace:
     """
     Parse command-line arguments.
@@ -526,29 +811,81 @@ def main() -> None:
     """
     Main entry point for the script.
     
+    If no arguments are provided, runs all test scenarios automatically.
+    Otherwise, runs with the provided arguments.
+    
     Raises:
         All exceptions propagate and cause script to fail.
     """
     args = parse_arguments()
     
-    if args.package_path is None:
-        raise ValueError("Package path is required. Provide as argument.")
-    
     mongodb_uri = args.mongodb_uri or get_mongodb_uri()
     database_name = args.database or get_database_name()
     collection_name = args.collection or get_collection_name()
     
-    saved_package = load_and_save_package(
-        package_path=args.package_path,
-        mongodb_uri=mongodb_uri,
-        database_name=database_name,
-        collection_name=collection_name,
-        package_version=args.version
-    )
-    logger.info(
-        f"Test completed successfully. Package ID: {saved_package.id}, "
-        f"Database: {database_name}, Collection: {collection_name}"
-    )
+    # If no package path provided, run all test scenarios
+    if args.package_path is None:
+        # Base path for test data
+        test_data_root = project_root / "test" / "test_data" / "mssdk"
+        
+        # Define all test scenarios
+        test_scenarios = [
+            # Conversion scenarios
+            {
+                "description": "Convert v2 → v3 and save to MongoDB",
+                "package_path": test_data_root / "mapping_package_v2" / "package_eforms_29_v1.9_changed",
+                "package_version": None,
+                "is_conversion": True,
+                "from_version": "v2",
+                "to_version": "v3"
+            },
+            {
+                "description": "Convert v3 → v3L and save to MongoDB",
+                "package_path": test_data_root / "mapping_package_v3" / "package_eforms_sdk1.13_epo4.0_changed",
+                "package_version": None,
+                "is_conversion": True,
+                "from_version": "v3",
+                "to_version": "v3L"
+            },
+        ]
+        
+        logger.info("="*80)
+        logger.info("Starting Package Conversion and Save Test Suite")
+        logger.info(f"MongoDB URI: {mongodb_uri}")
+        logger.info(f"Database: {database_name}")
+        logger.info(f"Collection: {collection_name}")
+        logger.info("="*80)
+        
+        # Run all test scenarios
+        for scenario in test_scenarios:
+            run_test_scenario(
+                description=scenario["description"],
+                package_path=scenario["package_path"],
+                package_version=scenario["package_version"],
+                mongodb_uri=mongodb_uri,
+                database_name=database_name,
+                collection_name=collection_name,
+                is_conversion=scenario["is_conversion"],
+                from_version=scenario.get("from_version"),
+                to_version=scenario.get("to_version")
+            )
+        
+        logger.info("\n" + "="*80)
+        logger.info("Test Suite Completed")
+        logger.info("="*80)
+    else:
+        # Run with provided arguments
+        saved_package = load_and_save_package(
+            package_path=args.package_path,
+            mongodb_uri=mongodb_uri,
+            database_name=database_name,
+            collection_name=collection_name,
+            package_version=args.version
+        )
+        logger.info(
+            f"Test completed successfully. Package ID: {saved_package.id}, "
+            f"Database: {database_name}, Collection: {collection_name}"
+        )
 
 
 if __name__ == "__main__":

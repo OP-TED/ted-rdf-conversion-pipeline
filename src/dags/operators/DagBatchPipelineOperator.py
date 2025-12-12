@@ -6,6 +6,7 @@ from airflow.models import BaseOperator
 from airflow.operators.trigger_dagrun import TriggerDagRunOperator
 from pymongo import MongoClient
 
+from src.dags import RUN_MATERIALISED_VIEW_DAG_PARAM
 from src.dags.dags_utils import pull_dag_upstream, push_dag_downstream, get_dag_param, smart_xcom_pull, \
     smart_xcom_push
 from src.dags.pipelines.pipeline_protocols import NoticePipelineCallable, NoticePipelineOutput
@@ -168,7 +169,9 @@ class TriggerNoticeBatchPipelineOperator(BaseOperator):
                     conf={
                         NOTICE_IDS_KEY: list(notice_batch),
                         START_WITH_STEP_NAME_KEY: self.start_with_step_name,
-                        EXECUTE_ONLY_ONE_STEP_KEY: self.execute_only_one_step
+                        EXECUTE_ONLY_ONE_STEP_KEY: self.execute_only_one_step,
+                        RUN_MATERIALISED_VIEW_DAG_PARAM: get_dag_param(key=RUN_MATERIALISED_VIEW_DAG_PARAM,
+                                                                       default_value=False)
                     }
                 ).execute(context=context)
 

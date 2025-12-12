@@ -12,7 +12,7 @@ from src.dags import DEFAULT_DAG_ARGUMENTS, NOTICE_NORMALISATION_PIPELINE_TASK_I
     NOTICE_PACKAGE_PIPELINE_TASK_ID, NOTICE_PUBLISH_PIPELINE_TASK_ID, BRANCH_SELECTOR_TASK_ID, \
     SELECTOR_BRANCH_BEFORE_TRANSFORMATION_TASK_ID, SELECTOR_BRANCH_BEFORE_VALIDATION_TASK_ID, \
     SELECTOR_BRANCH_BEFORE_PACKAGE_TASK_ID, SELECTOR_BRANCH_BEFORE_PUBLISH_TASK_ID, \
-    NOTICE_DISTILLATION_PIPELINE_TASK_ID, DAILY_MATERIALISED_VIEWS_DAG_NAME
+    NOTICE_DISTILLATION_PIPELINE_TASK_ID, DAILY_MATERIALISED_VIEWS_DAG_NAME, RUN_MATERIALISED_VIEW_DAG_PARAM
 from src.dags.dags_utils import get_dag_param, smart_xcom_push, smart_xcom_forward, parse_notice_statuses_from_string, \
     smart_xcom_pull, is_last_active_dag_run, trigger_dag
 from src.dags.operators.DagBatchPipelineOperator import NoticeBatchPipelineOperator, NOTICE_IDS_KEY, \
@@ -79,8 +79,8 @@ def notice_processing_pipeline():
 
     @provide_session
     def _stop_processing(session=None, **kwargs):
-
-        if is_last_active_dag_run(session=session, dagrun_model=DagRun, dag_id=DAG_ID):
+        run_mv = get_dag_param(key=RUN_MATERIALISED_VIEW_DAG_PARAM, default_value=False)
+        if run_mv and is_last_active_dag_run(session=session, dagrun_model=DagRun, dag_id=DAG_ID):
             trigger_dag(dag_id=DAILY_MATERIALISED_VIEWS_DAG_NAME)
 
         notice_ids_with_statuses: Dict[str, NoticeStatus] = smart_xcom_pull(key=NOTICES_WITH_STATUS_KEY)

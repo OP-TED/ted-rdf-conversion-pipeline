@@ -1,13 +1,13 @@
 from datetime import datetime, date
 from typing import Any
-from dateutil import rrule
 
 from airflow.decorators import dag, task
+from airflow.models import Param
 from airflow.operators.python import get_current_context
 from airflow.operators.trigger_dagrun import TriggerDagRunOperator
-from airflow.models import Param
+from dateutil import rrule
 
-from src.dags import DEFAULT_DAG_ARGUMENTS
+from src.dags import DEFAULT_DAG_ARGUMENTS, RUN_MATERIALISED_VIEW_DAG_PARAM, RUN_MATERIALISED_VIEW_DAG_PARAM_DESCRIPTION
 from src.dags.dags_utils import get_dag_param
 from src.dags.fetch_notices_by_date import WILD_CARD_DAG_KEY, TRIGGER_COMPLETE_WORKFLOW_DAG_KEY, \
     DAG_ID as FETCH_NOTICES_BY_DATE_DAG_NAME
@@ -60,7 +60,13 @@ def generate_list_of_dates_from_date_range(start_date: str, end_date: str) -> li
              title="Trigger Complete Workflow",
              description="""This field is required.
            If true, the complete workflow will be triggered, otherwise only the partial workflow will be triggered."""
-         )
+         ),
+         RUN_MATERIALISED_VIEW_DAG_PARAM: Param(
+             default=False,
+             type="boolean",
+             title="Run Materialised View",
+             description=RUN_MATERIALISED_VIEW_DAG_PARAM_DESCRIPTION
+         ),
      }
      )
 def fetch_notices_by_date_range():
@@ -77,12 +83,14 @@ def fetch_notices_by_date_range():
         end_date = get_dag_param(key=END_DATE_KEY, raise_error=True)
         trigger_complete_workflow = get_dag_param(key=TRIGGER_COMPLETE_WORKFLOW_DAG_KEY, default_value=False)
         fetch_dates = generate_list_of_dates_from_date_range(start_date, end_date)
+        run_mv = get_dag_param(key=RUN_MATERIALISED_VIEW_DAG_PARAM, default_value=False)
         for fetch_date in fetch_dates:
             TriggerDagRunOperator(
                 task_id=f'trigger_notice_fetch_by_date_workflow_dag_{fetch_date.strftime("%Y_%m_%d")}',
                 trigger_dag_id=FETCH_NOTICES_BY_DATE_DAG_NAME,
                 conf={WILD_CARD_DAG_KEY: fetch_date.strftime('%Y-%m-%d'),
                       TRIGGER_COMPLETE_WORKFLOW_DAG_KEY: trigger_complete_workflow,
+                      RUN_MATERIALISED_VIEW_DAG_PARAM: run_mv,
                       }
             ).execute(context=context)
 

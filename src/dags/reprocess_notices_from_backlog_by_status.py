@@ -1,7 +1,8 @@
 from airflow.decorators import dag, task
 from airflow.models import Param
 
-from src.dags import DEFAULT_DAG_ARGUMENTS, NOTICE_NORMALISATION_PIPELINE_TASK_ID
+from src.dags import DEFAULT_DAG_ARGUMENTS, NOTICE_NORMALISATION_PIPELINE_TASK_ID, RUN_MATERIALISED_VIEW_DAG_PARAM, \
+    RUN_MATERIALISED_VIEW_DAG_PARAM_DESCRIPTION
 from src.dags.dags_utils import push_dag_downstream, get_dag_param
 from src.dags.operators.DagBatchPipelineOperator import NOTICE_IDS_KEY, TriggerNoticeBatchPipelineOperator
 from src.dags.pipelines.notice_selectors_pipelines import notice_ids_selector_by_status
@@ -34,7 +35,13 @@ NOTICE_STATUSES_DAG_PARAM = "notice_statuses"
             examples=[status.name for status in NoticeStatus]
         ),
         START_DATE_DAG_PARAM: Param(default="", type=["null", "string"], format="date", description="Start publication date (YYYY-MM-DD)"),
-        END_DATE_DAG_PARAM: Param(default="", type=["null", "string"], format="date", description="End publication date (YYYY-MM-DD)")
+        END_DATE_DAG_PARAM: Param(default="", type=["null", "string"], format="date", description="End publication date (YYYY-MM-DD)"),
+        RUN_MATERIALISED_VIEW_DAG_PARAM: Param(
+            default=False,
+            type="boolean",
+            title="Run Materialised View",
+            description=RUN_MATERIALISED_VIEW_DAG_PARAM_DESCRIPTION
+        )
     }
     )
 def reprocess_notices_from_backlog_by_status():

@@ -7,7 +7,8 @@ from airflow.operators.python import BranchPythonOperator, PythonOperator
 from airflow.timetables.trigger import CronTriggerTimetable
 from airflow.utils.trigger_rule import TriggerRule
 
-from src.dags import DEFAULT_DAG_ARGUMENTS, BATCH_SIZE
+from src.dags import DEFAULT_DAG_ARGUMENTS, BATCH_SIZE, RUN_MATERIALISED_VIEW_DAG_PARAM, \
+    RUN_MATERIALISED_VIEW_DAG_PARAM_DESCRIPTION
 from src.dags.dags_utils import get_dag_param, push_dag_downstream, pull_dag_upstream
 from src.dags.operators.DagBatchPipelineOperator import NOTICE_IDS_KEY, TriggerNoticeBatchPipelineOperator
 from src.dags.pipelines.notice_fetcher_pipelines import notice_fetcher_by_date_pipeline
@@ -52,7 +53,13 @@ VALIDATE_FETCHED_NOTICES_TASK_ID = "validate_fetched_notices"
              title="Trigger Complete Workflow",
              description="""This field is required.
                               If true, the complete workflow will be triggered, otherwise only the partial workflow will be triggered."""
-         )
+         ),
+         RUN_MATERIALISED_VIEW_DAG_PARAM: Param(
+             default=False,
+             type="boolean",
+             title="Run Materialised View",
+             description=RUN_MATERIALISED_VIEW_DAG_PARAM_DESCRIPTION
+         ),
      }
      )
 def fetch_notices_by_date():
@@ -87,7 +94,8 @@ def fetch_notices_by_date():
         :return:
         """
         from src.ted_sws import config
-        from src.ted_sws.supra_notice_manager.services.supra_notice_validator import validate_and_update_daily_supra_notice
+        from src.ted_sws.supra_notice_manager.services.supra_notice_validator import \
+            validate_and_update_daily_supra_notice
         from datetime import datetime
         from pymongo import MongoClient
         default_date = (datetime.now() - timedelta(days=1)).strftime("%Y-%m-%d")

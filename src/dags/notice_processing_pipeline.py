@@ -12,7 +12,8 @@ from src.dags import DEFAULT_DAG_ARGUMENTS, NOTICE_NORMALISATION_PIPELINE_TASK_I
     NOTICE_PACKAGE_PIPELINE_TASK_ID, NOTICE_PUBLISH_PIPELINE_TASK_ID, BRANCH_SELECTOR_TASK_ID, \
     SELECTOR_BRANCH_BEFORE_TRANSFORMATION_TASK_ID, SELECTOR_BRANCH_BEFORE_VALIDATION_TASK_ID, \
     SELECTOR_BRANCH_BEFORE_PACKAGE_TASK_ID, SELECTOR_BRANCH_BEFORE_PUBLISH_TASK_ID, \
-    NOTICE_DISTILLATION_PIPELINE_TASK_ID, DAILY_MATERIALISED_VIEWS_DAG_NAME, RUN_MATERIALISED_VIEW_DAG_PARAM
+    NOTICE_DISTILLATION_PIPELINE_TASK_ID, DAILY_MATERIALISED_VIEWS_DAG_NAME, RUN_MATERIALISED_VIEW_DAG_PARAM, \
+    NOTICE_PROCESSING_PIPELINE_DAG_MAX_ACTIVE_RUNS, NOTICE_PROCESSING_PIPELINE_DAG_MAX_ACTIVE_TASKS
 from src.dags.dags_utils import get_dag_param, smart_xcom_push, smart_xcom_forward, parse_notice_statuses_from_string, \
     smart_xcom_pull, is_last_active_dag_run, trigger_dag
 from src.dags.operators.DagBatchPipelineOperator import NoticeBatchPipelineOperator, NOTICE_IDS_KEY, \
@@ -49,8 +50,8 @@ NOTICE_SUCCESS_STATUSES: List[NoticeStatus] = parse_notice_statuses_from_string(
      schedule_interval=None,
      dag_display_name=DAG_NAME,
      dag_id=DAG_ID,
-     max_active_runs=256,
-     max_active_tasks=256,
+     max_active_runs=NOTICE_PROCESSING_PIPELINE_DAG_MAX_ACTIVE_RUNS,
+     max_active_tasks=NOTICE_PROCESSING_PIPELINE_DAG_MAX_ACTIVE_TASKS,
      tags=['worker', 'pipeline'])
 def notice_processing_pipeline():
     """

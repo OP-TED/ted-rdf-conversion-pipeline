@@ -54,7 +54,7 @@ VALIDATE_FETCHED_NOTICES_TASK_ID = "validate_fetched_notices"
                               If true, the complete workflow will be triggered, otherwise only the partial workflow will be triggered."""
          ),
          RUN_MATERIALISED_VIEW_DAG_PARAM: Param(
-             default=False,
+             default=True,
              type="boolean",
              title="Run Materialised View",
              description=RUN_MATERIALISED_VIEW_DAG_PARAM_DESCRIPTION

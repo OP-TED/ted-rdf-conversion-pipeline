@@ -1,26 +1,18 @@
 #!/usr/bin/env python3
 """
-Integration test script for MongoDB save/load functionality.
-
 This script tests saving and loading a MappingSuite and config to/from MongoDB.
-Also includes package conversion tests (v2→v3→v3L).
-
-Runs all test scenarios automatically when called without arguments.
 """
 
 import argparse
 import json
 import logging
 import os
-import shutil
-import subprocess
 import sys
-import zipfile
 from pathlib import Path
-from typing import Optional, Tuple, Union
+from typing import Optional
 
 # Add project root to Python path for imports
-project_root = Path(__file__).parent.parent.parent.parent
+project_root = Path(__file__).parent.parent.parent
 sys.path.insert(0, str(project_root))
 
 from pymongo import MongoClient
@@ -34,22 +26,7 @@ from mapping_suite_sdk.mapping_suite.services.load_mapping_suite import (
 )
 from mapping_suite_sdk.mapping_suite.services.save_mapping_suite import save_mapping_suite_to_mongo_db
 
-# Package-related imports for conversion tests
-from mapping_suite_sdk.mapping_package_v1.adapters.mp_v1_loader import MappingPackageV1Loader
-from mapping_suite_sdk.mapping_package_v2.adapters.mp_v2_loader import MappingPackageV2Loader
-from mapping_suite_sdk.mapping_package_v3.adapters.mp_v3_package_loader import MappingPackageV3Loader
-from mapping_suite_sdk.mapping_package_v3.adapters.mp_v3L_package_loader import MappingPackageV3LightweightLoader
-from mapping_suite_sdk.mapping_package_v1.adapters.mp_v1_package_saver import MappingPackageV1Saver
-from mapping_suite_sdk.mapping_package_v2.adapters.mp_v2_package_saver import MappingPackageV2Saver
-from mapping_suite_sdk.mapping_package_v3.adapters.mp_v3_package_saver import MappingPackageV3Saver
-from mapping_suite_sdk.mapping_package_v3.adapters.mp_v3L_package_saver import MappingPackageV3LightweightSaver
-from mapping_suite_sdk.mapping_package_v1.models import MappingPackageV1
-from mapping_suite_sdk.mapping_package_v2.models import MappingPackageV2
-from mapping_suite_sdk.mapping_package_v3.models import MappingPackageV3, MappingPackageV3Lightweight
-from mapping_suite_sdk.core.adapters.extractor import ArchiveExtractor
-
-# Package type alias
-PackageType = Union[MappingPackageV1, MappingPackageV2, MappingPackageV3, MappingPackageV3Lightweight]
+# This file only handles mapping suite and config operations, not packages
 
 # Configuration constants
 DEFAULT_MONGODB_URI = "mongodb://127.0.0.1:27017/"
@@ -140,6 +117,7 @@ def load_mapping_suite(suite_path: Path) -> MappingSuite:
         Loaded MappingSuite instance.
     """
     validate_path_exists(suite_path, "suite")
+    print("heyyyyyyyyyy", suite_path)
     suite = load_mapping_suite_from_folder(suite_path)
     logger.info(f"Loaded mapping suite: {suite.id}")
     logger.info(f"  Description: {suite.mapping_suite_config.mapping_suite_metadata.mapping_suite_description}")
@@ -363,6 +341,7 @@ def save_and_load_suite_and_config(
         # Save suite to MongoDB
         save_mongo_client = create_mongodb_client(mongodb_uri)
         try:
+            print("suite_path_ale", suite_path)
             suite = load_mapping_suite(suite_path)
             saved_suite = save_suite_to_mongodb(
                 suite=suite,
@@ -391,6 +370,7 @@ def save_and_load_suite_and_config(
     if config_path:
         mongo_client = create_mongodb_client(mongodb_uri)
         try:
+            print("config_path:::::::", config_path)
             config = load_config(config_path)
             config_id = config.get("mapping_suite_config", {}).get(
                 "mapping_suite_metadata", {}
@@ -438,278 +418,7 @@ def get_config_collection_name() -> str:
     return os.getenv('MONGODB_CONFIG_COLLECTION', DEFAULT_CONFIG_COLLECTION_NAME)
 
 
-# Package conversion constants (reusing from mongodb_package_saver.py)
-DEFAULT_PACKAGE_DATABASE_NAME = "mapping_package_test"
-DEFAULT_PACKAGE_COLLECTION_NAME = "mapping_package"
-
-
-def run_mssdk_convert(
-    from_version: str,
-    to_version: str,
-    package_path: Path
-) -> None:
-    """Run mssdk convert command to convert a package."""
-    if not package_path.exists():
-        raise FileNotFoundError(f"Package path does not exist: {package_path}")
-    
-    if not package_path.is_dir():
-        raise NotADirectoryError(f"Package path is not a directory: {package_path}")
-    
-    venv_bin = project_root / ".venv" / "bin"
-    mssdk_cmd = venv_bin / "mssdk"
-    
-    if not mssdk_cmd.exists():
-        mssdk_cmd = "mssdk"
-    
-    cmd = [
-        str(mssdk_cmd),
-        "convert",
-        "--to-version", to_version,
-        "--from-version", from_version,
-        "from-package",
-        str(package_path)
-    ]
-    
-    logger.info(f"Running conversion: {' '.join(cmd)}")
-    
-    result = subprocess.run(
-        cmd,
-        cwd=str(project_root),
-        capture_output=True,
-        text=True,
-        check=True
-    )
-    
-    if result.stdout:
-        logger.debug(f"Conversion output: {result.stdout}")
-    if result.stderr:
-        logger.debug(f"Conversion stderr: {result.stderr}")
-    
-    logger.info(f"Successfully converted package from {from_version} to {to_version}")
-
-
-def create_zip_from_folder(folder_path: Path, zip_path: Path) -> None:
-    """Create a ZIP file from a folder."""
-    logger.info(f"Creating ZIP file from folder: {folder_path} -> {zip_path}")
-    
-    with zipfile.ZipFile(zip_path, 'w', zipfile.ZIP_DEFLATED) as zipf:
-        for root, dirs, files in os.walk(folder_path):
-            for file in files:
-                file_path = Path(root) / file
-                arcname = file_path.relative_to(folder_path)
-                zipf.write(file_path, arcname)
-    
-    logger.info(f"Successfully created ZIP file: {zip_path}")
-
-
-def find_or_create_converted_package_zip(
-    original_package_path: Path,
-    target_version: str
-) -> Path:
-    """Find the converted package ZIP file, or create it from the converted folder."""
-    package_name = original_package_path.name
-    package_dir = original_package_path.parent
-    zip_path = package_dir / f"{package_name}.zip"
-    
-    # Check if the original folder was converted in place
-    if original_package_path.exists() and original_package_path.is_dir():
-        has_metadata = (original_package_path / "metadata.jsonld").exists() or (original_package_path / "metadata.json").exists()
-        if has_metadata:
-            logger.info(f"Found converted package folder (in place): {original_package_path}")
-            create_zip_from_folder(original_package_path, zip_path)
-            return zip_path
-    
-    # Check if ZIP already exists
-    if zip_path.exists():
-        logger.info(f"Found converted package ZIP: {zip_path}")
-        return zip_path
-    
-    raise FileNotFoundError(
-        f"Could not find converted package (ZIP or folder) for {original_package_path}. "
-        f"Expected ZIP: {zip_path} or folder: {original_package_path}"
-    )
-
-
-def load_package_from_archive(
-    archive_path: Path,
-    package_version: Optional[str] = None
-) -> Tuple[PackageType, str]:
-    """Load a mapping package from archive by trying version loaders."""
-    extractor = ArchiveExtractor()
-    
-    with extractor.extract_temporary(archive_path) as temp_folder:
-        package_root = temp_folder
-        
-        # Check for nested folder structure
-        if (temp_folder / "metadata.jsonld").exists() or (temp_folder / "metadata.json").exists():
-            package_root = temp_folder
-        else:
-            possible_roots = [
-                temp_folder / temp_folder.name,
-                temp_folder / temp_folder.name / temp_folder.name,
-            ]
-            for item in temp_folder.iterdir():
-                if item.is_dir():
-                    possible_roots.append(item)
-                    for subitem in item.iterdir():
-                        if subitem.is_dir():
-                            possible_roots.append(subitem)
-            
-            for possible_root in possible_roots:
-                if possible_root.exists() and possible_root.is_dir():
-                    if (possible_root / "metadata.jsonld").exists() or (possible_root / "metadata.json").exists():
-                        package_root = possible_root
-                        break
-        
-        loaders = [
-            (MappingPackageV3Loader(), "v3"),
-            (MappingPackageV3LightweightLoader(), "v3L"),
-            (MappingPackageV2Loader(), "v2"),
-            (MappingPackageV1Loader(), "v1"),
-        ]
-        
-        if package_version:
-            loaders = [(loader, v) for loader, v in loaders if v == package_version]
-            if not loaders:
-                raise ValueError(f"Invalid package version: {package_version}. Must be one of: v1, v2, v3, v3L")
-        
-        last_error = None
-        for loader, version_name in loaders:
-            try:
-                loaded_package = loader.load(package_root)
-                logger.info(f"Package loaded successfully as {version_name}")
-                return loaded_package, version_name
-            except Exception as error:
-                last_error = error
-                logger.debug(f"{version_name} loader failed: {type(error).__name__}: {error}")
-        
-        if last_error:
-            raise ValueError(f"Failed to load package with any version. Last error: {last_error}") from last_error
-        raise ValueError("Failed to load package: no loaders attempted")
-
-
-def save_package_to_mongodb(
-    package: PackageType,
-    mongo_client: MongoClient,
-    database_name: str,
-    collection_name: str,
-    version_name: str
-) -> PackageType:
-    """Save loaded package to MongoDB using appropriate saver."""
-    if isinstance(package, MappingPackageV3Lightweight):
-        saver = MappingPackageV3LightweightSaver()
-    elif isinstance(package, MappingPackageV3):
-        saver = MappingPackageV3Saver()
-    elif isinstance(package, MappingPackageV2):
-        saver = MappingPackageV2Saver()
-    elif isinstance(package, MappingPackageV1):
-        saver = MappingPackageV1Saver()
-    else:
-        raise ValueError(f"Unsupported package type: {type(package)}")
-    
-    collection = mongo_client[database_name][collection_name]
-    existing_doc = collection.find_one({"_id": package.id})
-    if existing_doc:
-        collection.delete_one({"_id": package.id})
-        logger.info(f"Deleted existing package with ID: {package.id}")
-    
-    saved_package = saver.save(
-        mapping_package=package,
-        mongo_client=mongo_client,
-        database_name=database_name,
-        collection_name=collection_name
-    )
-    logger.info(f"Package saved successfully as {version_name} with ID: {saved_package.id}")
-    return saved_package
-
-
-def convert_v2_to_v3_to_v3l_and_save(
-    package_path: Path,
-    mongodb_uri: str,
-    database_name: str,
-    collection_name: str
-) -> PackageType:
-    """
-    Convert v2 → v3 → v3L and save the final package to MongoDB.
-    
-    Args:
-        package_path: Path to the v2 package folder.
-        mongodb_uri: MongoDB connection URI.
-        database_name: MongoDB database name.
-        collection_name: MongoDB collection name.
-        
-    Returns:
-        Saved package instance.
-    """
-    # Step 1: Convert v2 → v3
-    logger.info("Step 1: Converting v2 → v3")
-    run_mssdk_convert(
-        from_version="v2",
-        to_version="v3",
-        package_path=package_path
-    )
-    
-    # Step 2: Convert v3 → v3L (on the same folder, now v3)
-    logger.info("Step 2: Converting v3 → v3L")
-    run_mssdk_convert(
-        from_version="v3",
-        to_version="v3L",
-        package_path=package_path
-    )
-    
-    # Step 3: Find or create ZIP from converted folder
-    logger.info("Step 3: Creating ZIP from converted folder")
-    converted_zip = find_or_create_converted_package_zip(package_path, "v3L")
-    
-    # Step 4: Load and save to MongoDB
-    logger.info("Step 4: Loading and saving to MongoDB")
-    loaded_package, detected_version = load_package_from_archive(converted_zip, "v3L")
-    
-    mongo_client = create_mongodb_client(mongodb_uri)
-    try:
-        saved_package = save_package_to_mongodb(
-            package=loaded_package,
-            mongo_client=mongo_client,
-            database_name=database_name,
-            collection_name=collection_name,
-            version_name=detected_version
-        )
-        return saved_package
-    finally:
-        mongo_client.close()
-
-
-def run_conversion_test_scenario(
-    description: str,
-    package_path: Path,
-    mongodb_uri: str,
-    database_name: str,
-    collection_name: str
-) -> None:
-    """Run a conversion test scenario."""
-    logger.info(f"\n{'='*80}")
-    logger.info(f"Test Scenario: {description}")
-    logger.info(f"Path: {package_path}")
-    logger.info(f"MongoDB: {database_name}.{collection_name}")
-    logger.info(f"{'='*80}")
-    
-    if not package_path.exists():
-        logger.warning(f"  SKIPPED: Path does not exist: {package_path}")
-        return
-    
-    try:
-        saved_package = convert_v2_to_v3_to_v3l_and_save(
-            package_path=package_path,
-            mongodb_uri=mongodb_uri,
-            database_name=database_name,
-            collection_name=collection_name
-        )
-        logger.info(
-            f"  ✓ Successfully converted (v2 → v3 → v3L) and saved package: {saved_package.id} "
-            f"to MongoDB ({database_name}.{collection_name})"
-        )
-    except Exception as error:
-        logger.error(f"  ✗ FAILED: {type(error).__name__}: {error}")
+# Package-related functionality has been moved to mongodb_package_saver.py
 
 
 def parse_arguments() -> argparse.Namespace:
@@ -784,32 +493,55 @@ def main() -> None:
     suite_collection_name = args.suite_collection or get_suite_collection_name()
     config_collection_name = args.config_collection or get_config_collection_name()
     
-    # If no path provided, run all test scenarios
+    # If no path provided, use hardcoded test paths
     if args.path is None and args.suite is None and args.config is None:
         # Base path for test data
         test_data_root = project_root / "test" / "test_data" / "mssdk"
         
-        # Package conversion test scenario
-        package_database_name = os.getenv('MONGODB_PACKAGE_DATABASE', DEFAULT_PACKAGE_DATABASE_NAME)
-        package_collection_name = os.getenv('MONGODB_PACKAGE_COLLECTION', DEFAULT_PACKAGE_COLLECTION_NAME)
+        # Hardcoded test paths
+        suite_path = test_data_root / "dummy_mapping_suite" / "config"
+        config_path = suite_path / "mapping_suite_config.json"
         
         logger.info("="*80)
-        logger.info("Starting MongoDB Config and Package Conversion Test Suite")
+        logger.info("Starting MongoDB Config and Suite Test Suite")
         logger.info(f"MongoDB URI: {mongodb_uri}")
+        logger.info(f"Database: {database_name}")
+        logger.info(f"Suite Collection: {suite_collection_name}")
+        logger.info(f"Config Collection: {config_collection_name}")
         logger.info("="*80)
         
-        # Conversion test: v2 → v3 → v3L
-        conversion_test_scenario = {
-            "description": "Convert v2 → v3 → v3L and save to MongoDB",
-            "package_path": test_data_root / "mapping_package_v2_2" / "package_eforms_29_v1.9_changed",
-        }
+        # Check which paths exist and log
+        final_suite_path = suite_path if suite_path.exists() else None
+        final_config_path = config_path if config_path.exists() else None
         
-        run_conversion_test_scenario(
-            description=conversion_test_scenario["description"],
-            package_path=conversion_test_scenario["package_path"],
+        if final_suite_path:
+            logger.info(f"Using suite path: {suite_path}")
+        else:
+            logger.warning(f"Suite path does not exist, skipping: {suite_path}")
+        
+        if final_config_path:
+            logger.info(f"Using config path: {config_path}")
+        else:
+            logger.warning(f"Config path does not exist, skipping: {config_path}")
+        
+        # Ensure at least one path exists before proceeding
+        if not final_suite_path and not final_config_path:
+            logger.error("Neither suite path nor config path exists. Cannot run test.")
+            raise ValueError(
+                f"Test paths do not exist:\n"
+                f"  Suite: {suite_path}\n"
+                f"  Config: {config_path}"
+            )
+        print("suite_path", final_suite_path)
+        print("final_config_path", final_config_path)
+        # Run test with hardcoded paths
+        save_and_load_suite_and_config(
+            suite_path=final_suite_path,
+            config_path=final_config_path,
             mongodb_uri=mongodb_uri,
-            database_name=package_database_name,
-            collection_name=package_collection_name
+            database_name=database_name,
+            suite_collection_name=suite_collection_name,
+            config_collection_name=config_collection_name
         )
         
         logger.info("\n" + "="*80)

@@ -1,8 +1,6 @@
 #!/usr/bin/env python3
 """
 Load mapping packages from unzipped folders and save to MongoDB.
-
-Runs all test scenarios automatically:
 - Single and batch loading/saving for v2, v3, v3L packages
 """
 import logging
@@ -12,28 +10,44 @@ from pathlib import Path
 from typing import Optional, Union, Tuple, List
 
 # Add project root to Python path for imports
-project_root = Path(__file__).parent.parent.parent.parent
+project_root = Path(__file__).parent.parent.parent
 sys.path.insert(0, str(project_root))
 
 from pymongo import MongoClient
 from pymongo.errors import OperationFailure
 
-# MSSDK imports - package loaders
-from mapping_suite_sdk.mapping_package_v1.adapters.mp_v1_loader import MappingPackageV1Loader
-from mapping_suite_sdk.mapping_package_v2.adapters.mp_v2_loader import MappingPackageV2Loader
-from mapping_suite_sdk.mapping_package_v3.adapters.mp_v3_package_loader import MappingPackageV3Loader
-from mapping_suite_sdk.mapping_package_v3.adapters.mp_v3L_package_loader import MappingPackageV3LightweightLoader
-
-# MSSDK imports - package savers
-from mapping_suite_sdk.mapping_package_v1.adapters.mp_v1_package_saver import MappingPackageV1Saver
-from mapping_suite_sdk.mapping_package_v2.adapters.mp_v2_package_saver import MappingPackageV2Saver
-from mapping_suite_sdk.mapping_package_v3.adapters.mp_v3_package_saver import MappingPackageV3Saver
-from mapping_suite_sdk.mapping_package_v3.adapters.mp_v3L_package_saver import MappingPackageV3LightweightSaver
-
-# MSSDK imports - models
+# Use MSSDK services directly
+from mapping_suite_sdk.mapping_package_v1.services.load_mapping_package_v1 import (
+    load_mapping_package_v1_from_folder
+)
+from mapping_suite_sdk.mapping_package_v2.services.load_mapping_package_v2 import (
+    load_mapping_package_v2_from_folder
+)
+from mapping_suite_sdk.mapping_package_v3.services.load_mapping_package_v3 import (
+    load_mapping_package_v3_from_folder
+)
+from mapping_suite_sdk.mapping_package_v3.services.load_mapping_package_v3_lightweight import (
+    load_mapping_package_v3_lightweight_from_folder
+)
+from mapping_suite_sdk.mapping_package_v1.services.save_mapping_package_v1 import (
+    save_mapping_package_v1_to_mongo_db
+)
+from mapping_suite_sdk.mapping_package_v2.services.save_mapping_package_v2 import (
+    save_mapping_package_v2_to_mongo_db
+)
+from mapping_suite_sdk.mapping_package_v3.services.save_mapping_package_v3 import (
+    save_mapping_package_v3_to_mongo_db
+)
+from mapping_suite_sdk.mapping_package_v3.services.save_mapping_package_v3_lightweight import (
+    save_mapping_package_v3_lightweight_to_mongo_db
+)
 from mapping_suite_sdk.mapping_package_v1.models import MappingPackageV1
 from mapping_suite_sdk.mapping_package_v2.models import MappingPackageV2
 from mapping_suite_sdk.mapping_package_v3.models import MappingPackageV3, MappingPackageV3Lightweight
+
+# Type aliases
+from typing import Union
+PackageType = Union[MappingPackageV1, MappingPackageV2, MappingPackageV3, MappingPackageV3Lightweight]
 
 # Configuration constants
 DEFAULT_MONGODB_URI = "mongodb://127.0.0.1:27017/"
@@ -47,16 +61,6 @@ logging.basicConfig(
     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
 )
 logger = logging.getLogger(__name__)
-
-# Type aliases
-PackageType = Union[MappingPackageV1, MappingPackageV2, MappingPackageV3, MappingPackageV3Lightweight]
-SaverType = Union[
-    MappingPackageV1Saver,
-    MappingPackageV2Saver,
-    MappingPackageV3Saver,
-    MappingPackageV3LightweightSaver
-]
-
 
 def is_package_folder(folder_path: Path) -> bool:
     """Check if a folder contains a mapping package (has metadata.json or metadata.jsonld)."""
@@ -93,7 +97,7 @@ def load_package_from_folder(
     package_version: Optional[str] = None
 ) -> Tuple[PackageType, str]:
     """
-    Load a mapping package from a folder by trying version loaders.
+    Load a mapping package from a folder using MSSDK services.
     
     Args:
         folder_path: Path to package folder.
@@ -111,12 +115,12 @@ def load_package_from_folder(
     if not is_package_folder(folder_path):
         raise ValueError(f"Folder does not appear to be a package folder (no metadata.json/jsonld): {folder_path}")
     
-    # Define loaders in priority order
+    # Define loaders in priority order (newest first)
     loaders = [
-        (MappingPackageV3Loader(), "v3"),
-        (MappingPackageV3LightweightLoader(), "v3L"),
-        (MappingPackageV2Loader(), "v2"),
-        (MappingPackageV1Loader(), "v1"),
+        (load_mapping_package_v3_from_folder, "v3"),
+        (load_mapping_package_v3_lightweight_from_folder, "v3L"),
+        (load_mapping_package_v2_from_folder, "v2"),
+        (load_mapping_package_v1_from_folder, "v1"),
     ]
     
     # Filter to specific version if provided
@@ -129,7 +133,7 @@ def load_package_from_folder(
     last_error = None
     for loader, version_name in loaders:
         try:
-            loaded_package = loader.load(folder_path)
+            loaded_package = loader(folder_path)
             logger.info(f"Package loaded successfully as {version_name} from: {folder_path}")
             return loaded_package, version_name
         except Exception as error:
@@ -140,6 +144,69 @@ def load_package_from_folder(
     if last_error:
         raise ValueError(f"Failed to load package with any version. Last error: {last_error}") from last_error
     raise ValueError("Failed to load package: no loaders attempted")
+
+
+def save_package_to_mongodb(
+    package: PackageType,
+    mongo_client: MongoClient,
+    database_name: str,
+    collection_name: str,
+    version_name: str
+) -> PackageType:
+    """
+    Save loaded package to MongoDB using MSSDK services.
+    
+    Args:
+        package: Loaded package instance to save.
+        mongo_client: MongoDB client instance.
+        database_name: MongoDB database name.
+        collection_name: MongoDB collection name.
+        version_name: Package version name ('v1', 'v2', 'v3', 'v3L').
+        
+    Returns:
+        Saved package instance.
+    """
+    # Delete existing document if it exists (to avoid duplicate key error)
+    collection = mongo_client[database_name][collection_name]
+    existing_doc = collection.find_one({"_id": package.id})
+    if existing_doc:
+        collection.delete_one({"_id": package.id})
+        logger.info(f"Deleted existing package with ID: {package.id}")
+    
+    # Select appropriate service based on package type
+    if isinstance(package, MappingPackageV3Lightweight):
+        saved_package = save_mapping_package_v3_lightweight_to_mongo_db(
+            mapping_package=package,
+            mongo_client=mongo_client,
+            database_name=database_name,
+            collection_name=collection_name
+        )
+    elif isinstance(package, MappingPackageV3):
+        saved_package = save_mapping_package_v3_to_mongo_db(
+            mapping_package=package,
+            mongo_client=mongo_client,
+            database_name=database_name,
+            collection_name=collection_name
+        )
+    elif isinstance(package, MappingPackageV2):
+        saved_package = save_mapping_package_v2_to_mongo_db(
+            mapping_package=package,
+            mongo_client=mongo_client,
+            database_name=database_name,
+            collection_name=collection_name
+        )
+    elif isinstance(package, MappingPackageV1):
+        saved_package = save_mapping_package_v1_to_mongo_db(
+            mapping_package=package,
+            mongo_client=mongo_client,
+            database_name=database_name,
+            collection_name=collection_name
+        )
+    else:
+        raise ValueError(f"Unsupported package type: {type(package)}")
+    
+    logger.info(f"Package saved successfully as {version_name} with ID: {saved_package.id}")
+    return saved_package
 
 
 def get_mongodb_uri() -> str:
@@ -172,74 +239,7 @@ def create_mongodb_client(mongodb_uri: Optional[str] = None) -> MongoClient:
         raise ValueError(f"Failed to connect to MongoDB: {error}") from error
 
 
-def _save_package_with_saver(
-    saver: SaverType,
-    package: PackageType,
-    mongo_client: MongoClient,
-    database_name: str,
-    collection_name: str,
-    version_name: str
-) -> PackageType:
-    """Save package to MongoDB using a specific saver."""
-    logger.debug(f"Attempting to save as {version_name}...")
-    
-    # Delete existing document if it exists (to avoid duplicate key error)
-    collection = mongo_client[database_name][collection_name]
-    existing_doc = collection.find_one({"_id": package.id})
-    if existing_doc:
-        collection.delete_one({"_id": package.id})
-        logger.info(f"Deleted existing package with ID: {package.id}")
-    
-    saved_package = saver.save(
-        mapping_package=package,
-        mongo_client=mongo_client,
-        database_name=database_name,
-        collection_name=collection_name
-    )
-    logger.info(f"Package saved successfully as {version_name} with ID: {saved_package.id}")
-    return saved_package
-
-
-def save_package_to_mongodb(
-    package: PackageType,
-    mongo_client: MongoClient,
-    database_name: str,
-    collection_name: str,
-    version_name: str
-) -> PackageType:
-    """
-    Save loaded package to MongoDB using appropriate saver.
-    
-    Args:
-        package: Loaded package instance to save.
-        mongo_client: MongoDB client instance.
-        database_name: MongoDB database name.
-        collection_name: MongoDB collection name.
-        version_name: Package version name ('v1', 'v2', 'v3', 'v3L').
-        
-    Returns:
-        Saved package instance.
-    """
-    # Select appropriate saver based on package type
-    if isinstance(package, MappingPackageV3Lightweight):
-        saver = MappingPackageV3LightweightSaver()
-    elif isinstance(package, MappingPackageV3):
-        saver = MappingPackageV3Saver()
-    elif isinstance(package, MappingPackageV2):
-        saver = MappingPackageV2Saver()
-    elif isinstance(package, MappingPackageV1):
-        saver = MappingPackageV1Saver()
-    else:
-        raise ValueError(f"Unsupported package type: {type(package)}")
-    
-    return _save_package_with_saver(
-        saver=saver,
-        package=package,
-        mongo_client=mongo_client,
-        database_name=database_name,
-        collection_name=collection_name,
-        version_name=version_name
-    )
+# save_package_to_mongodb is imported from our adapter
 
 
 def load_and_save_single_package(
@@ -315,7 +315,7 @@ def load_and_save_all_packages(
                 # Load package from folder
                 loaded_package, detected_version = load_package_from_folder(folder_path, package_version)
                 
-                # Save to MongoDB
+                # Save to MongoDB (using MSSDK services)
                 saved_package = save_package_to_mongodb(
                     package=loaded_package,
                     mongo_client=mongo_client,

@@ -1,62 +1,62 @@
 #!/usr/bin/env python3
 """
 Load mapping packages from ZIP archives and save to MongoDB.
-
-Runs all test scenarios automatically:
 - Loading and saving packages from ZIP files
-- Converting packages (v2→v3, v3→v3L) and saving to MongoDB
+- Converting packages (v2→v3, v3→v3L, v2→v3→v3L) and saving to MongoDB
 """
 import argparse
 import logging
 import os
-import shutil
 import subprocess
 import sys
 import zipfile
 from pathlib import Path
-from typing import Optional, Union, Tuple, Type
+from typing import Optional, Tuple, Union
 
 # Add project root to Python path for imports
-project_root = Path(__file__).parent.parent.parent.parent
+project_root = Path(__file__).parent.parent.parent
 sys.path.insert(0, str(project_root))
 
 from pymongo import MongoClient
-from pymongo.errors import DuplicateKeyError, DocumentTooLarge, OperationFailure
+from pymongo.errors import OperationFailure
 
-# MSSDK imports - package loaders
-from mapping_suite_sdk.mapping_package_v1.adapters.mp_v1_loader import MappingPackageV1Loader
-from mapping_suite_sdk.mapping_package_v2.adapters.mp_v2_loader import MappingPackageV2Loader
-from mapping_suite_sdk.mapping_package_v3.adapters.mp_v3_package_loader import MappingPackageV3Loader
-from mapping_suite_sdk.mapping_package_v3.adapters.mp_v3L_package_loader import MappingPackageV3LightweightLoader
-
-# MSSDK imports - package savers
-from mapping_suite_sdk.mapping_package_v1.adapters.mp_v1_package_saver import MappingPackageV1Saver
-from mapping_suite_sdk.mapping_package_v2.adapters.mp_v2_package_saver import MappingPackageV2Saver
-from mapping_suite_sdk.mapping_package_v3.adapters.mp_v3_package_saver import MappingPackageV3Saver
-from mapping_suite_sdk.mapping_package_v3.adapters.mp_v3L_package_saver import MappingPackageV3LightweightSaver
-
-# MSSDK imports - models
-from mapping_suite_sdk.mapping_package_v1.models import MappingPackageV1
-from mapping_suite_sdk.mapping_package_v2.models import MappingPackageV2
-from mapping_suite_sdk.mapping_package_v3.models import MappingPackageV3, MappingPackageV3Lightweight
-
-# MSSDK imports - services
+# Use MSSDK services directly
 from mapping_suite_sdk.mapping_package_v1.services.load_mapping_package_v1 import (
+    load_mapping_package_v1_from_archive,
     load_mapping_package_v1_from_mongo_db
 )
 from mapping_suite_sdk.mapping_package_v2.services.load_mapping_package_v2 import (
+    load_mapping_package_v2_from_archive,
     load_mapping_package_v2_from_mongo_db
 )
 from mapping_suite_sdk.mapping_package_v3.services.load_mapping_package_v3 import (
-    load_mapping_package_v2_from_mongo_db as load_mapping_package_v3_from_mongo_db
+    load_mapping_package_v3_from_archive,
+    load_mapping_package_v3_from_mongo_db
 )
 from mapping_suite_sdk.mapping_package_v3.services.load_mapping_package_v3_lightweight import (
-    load_mapping_package_v2_from_mongo_db as load_mapping_package_v3L_from_mongo_db
+    load_mapping_package_v3_lightweight_from_archive,
+    load_mapping_package_v3_lightweight_from_mongo_db
 )
-
-# MSSDK imports - core
+from mapping_suite_sdk.mapping_package_v1.services.save_mapping_package_v1 import (
+    save_mapping_package_v1_to_mongo_db
+)
+from mapping_suite_sdk.mapping_package_v2.services.save_mapping_package_v2 import (
+    save_mapping_package_v2_to_mongo_db
+)
+from mapping_suite_sdk.mapping_package_v3.services.save_mapping_package_v3 import (
+    save_mapping_package_v3_to_mongo_db
+)
+from mapping_suite_sdk.mapping_package_v3.services.save_mapping_package_v3_lightweight import (
+    save_mapping_package_v3_lightweight_to_mongo_db
+)
+from mapping_suite_sdk.mapping_package_v1.models import MappingPackageV1
+from mapping_suite_sdk.mapping_package_v2.models import MappingPackageV2
+from mapping_suite_sdk.mapping_package_v3.models import MappingPackageV3, MappingPackageV3Lightweight
 from mapping_suite_sdk.core.adapters.repository import MongoDBRepository
-from mapping_suite_sdk.core.adapters.extractor import ArchiveExtractor
+
+# Type aliases
+from typing import Union
+PackageType = Union[MappingPackageV1, MappingPackageV2, MappingPackageV3, MappingPackageV3Lightweight]
 
 # Configuration constants
 DEFAULT_MONGODB_URI = "mongodb://127.0.0.1:27017/"
@@ -75,14 +75,112 @@ logger = logging.getLogger(__name__)
 # Enable debug logging for MSSDK
 logging.getLogger('mapping_suite_sdk').setLevel(logging.DEBUG)
 
-# Type aliases
-PackageType = Union[MappingPackageV1, MappingPackageV2, MappingPackageV3, MappingPackageV3Lightweight]
-SaverType = Union[
-    MappingPackageV1Saver,
-    MappingPackageV2Saver,
-    MappingPackageV3Saver,
-    MappingPackageV3LightweightSaver
-]
+def load_package_from_archive(
+    archive_path: Path,
+    package_version: Optional[str] = None
+) -> Tuple[PackageType, str]:
+    """
+    Load a mapping package from archive using MSSDK services.
+    
+    Args:
+        archive_path: Path to package archive file.
+        package_version: Optional package version ('v1', 'v2', 'v3', 'v3L'). If None, tries all.
+        
+    Returns:
+        Tuple of (loaded package, detected version name).
+    """
+    # Define loaders in priority order (newest first)
+    loaders = [
+        (load_mapping_package_v3_from_archive, "v3"),
+        (load_mapping_package_v3_lightweight_from_archive, "v3L"),
+        (load_mapping_package_v2_from_archive, "v2"),
+        (load_mapping_package_v1_from_archive, "v1"),
+    ]
+    
+    # Filter to specific version if provided
+    if package_version:
+        loaders = [(loader, v) for loader, v in loaders if v == package_version]
+        if not loaders:
+            raise ValueError(f"Invalid package version: {package_version}. Must be one of: v1, v2, v3, v3L")
+    
+    # Try each loader until one succeeds
+    last_error = None
+    for loader, version_name in loaders:
+        try:
+            loaded_package = loader(archive_path)
+            logger.info(f"Package loaded successfully as {version_name}")
+            return loaded_package, version_name
+        except Exception as error:
+            last_error = error
+            logger.debug(f"{version_name} loader failed: {type(error).__name__}: {error}")
+    
+    # All loaders failed
+    if last_error:
+        raise ValueError(f"Failed to load package with any version. Last error: {last_error}") from last_error
+    raise ValueError("Failed to load package: no loaders attempted")
+
+
+def save_package_to_mongodb(
+    package: PackageType,
+    mongo_client: MongoClient,
+    database_name: str,
+    collection_name: str,
+    version_name: str
+) -> PackageType:
+    """
+    Save loaded package to MongoDB using MSSDK services.
+    
+    Args:
+        package: Loaded package instance to save.
+        mongo_client: MongoDB client instance.
+        database_name: MongoDB database name.
+        collection_name: MongoDB collection name.
+        version_name: Package version name ('v1', 'v2', 'v3', 'v3L').
+        
+    Returns:
+        Saved package instance.
+    """
+    # Delete existing document if it exists (to avoid duplicate key error)
+    collection = mongo_client[database_name][collection_name]
+    existing_doc = collection.find_one({"_id": package.id})
+    if existing_doc:
+        collection.delete_one({"_id": package.id})
+        logger.info(f"Deleted existing package with ID: {package.id}")
+    
+    # Select appropriate service based on package type
+    if isinstance(package, MappingPackageV3Lightweight):
+        saved_package = save_mapping_package_v3_lightweight_to_mongo_db(
+            mapping_package=package,
+            mongo_client=mongo_client,
+            database_name=database_name,
+            collection_name=collection_name
+        )
+    elif isinstance(package, MappingPackageV3):
+        saved_package = save_mapping_package_v3_to_mongo_db(
+            mapping_package=package,
+            mongo_client=mongo_client,
+            database_name=database_name,
+            collection_name=collection_name
+        )
+    elif isinstance(package, MappingPackageV2):
+        saved_package = save_mapping_package_v2_to_mongo_db(
+            mapping_package=package,
+            mongo_client=mongo_client,
+            database_name=database_name,
+            collection_name=collection_name
+        )
+    elif isinstance(package, MappingPackageV1):
+        saved_package = save_mapping_package_v1_to_mongo_db(
+            mapping_package=package,
+            mongo_client=mongo_client,
+            database_name=database_name,
+            collection_name=collection_name
+        )
+    else:
+        raise ValueError(f"Unsupported package type: {type(package)}")
+    
+    logger.info(f"Package saved successfully as {version_name} with ID: {saved_package.id}")
+    return saved_package
 
 
 def validate_package_file_exists(package_path: Path) -> None:
@@ -147,195 +245,22 @@ def create_mongodb_client(mongodb_uri: Optional[str] = None) -> MongoClient:
         raise ValueError(f"Failed to connect to MongoDB: {error}") from error
 
 
-def load_package_from_archive(
-    archive_path: Path,
-    package_version: Optional[str] = None
-) -> Tuple[PackageType, str]:
-    """
-    Load a mapping package from archive by trying version loaders.
-    
-    Args:
-        archive_path: Path to package archive file.
-        package_version: Optional package version ('v1', 'v2', 'v3', 'v3L'). If None, tries all.
-        
-    Returns:
-        Tuple of (loaded package, detected version name).
-        
-    Raises:
-        ValueError: If package cannot be loaded with any version.
-    """
-    extractor = ArchiveExtractor()
-    
-    with extractor.extract_temporary(archive_path) as temp_folder:
-        # Resolve package root (handle nested folder structure)
-        package_root = temp_folder
-        
-        # Check if temp_folder itself is the package
-        if (temp_folder / "metadata.jsonld").exists() or (temp_folder / "metadata.json").exists():
-            package_root = temp_folder
-        else:
-            # Search for package root in nested folders (handle single and double nesting)
-            # Try common nested patterns
-            possible_roots = [
-                temp_folder / temp_folder.name,
-                temp_folder / temp_folder.name / temp_folder.name,
-            ]
-            
-            # Also search all subdirectories for metadata files
-            for item in temp_folder.iterdir():
-                if item.is_dir():
-                    possible_roots.append(item)
-                    # Check for double nesting
-                    for subitem in item.iterdir():
-                        if subitem.is_dir():
-                            possible_roots.append(subitem)
-            
-            # Find the first directory that contains metadata
-            for possible_root in possible_roots:
-                if possible_root.exists() and possible_root.is_dir():
-                    if (possible_root / "metadata.jsonld").exists() or (possible_root / "metadata.json").exists():
-                        package_root = possible_root
-                        break
-        
-        # Define loaders in priority order
-        loaders = [
-            (MappingPackageV3Loader(), "v3"),
-            (MappingPackageV3LightweightLoader(), "v3L"),
-            (MappingPackageV2Loader(), "v2"),
-            (MappingPackageV1Loader(), "v1"),
-        ]
-        
-        # Filter to specific version if provided
-        if package_version:
-            loaders = [(loader, v) for loader, v in loaders if v == package_version]
-            if not loaders:
-                raise ValueError(f"Invalid package version: {package_version}. Must be one of: v1, v2, v3, v3L")
-        
-        # Try each loader until one succeeds
-        last_error = None
-        for loader, version_name in loaders:
-            try:
-                loaded_package = loader.load(package_root)
-                logger.info(f"Package loaded successfully as {version_name}")
-                return loaded_package, version_name
-            except Exception as error:
-                last_error = error
-                logger.debug(f"{version_name} loader failed: {type(error).__name__}: {error}")
-        
-        # All loaders failed
-        if last_error:
-            raise ValueError(f"Failed to load package with any version. Last error: {last_error}") from last_error
-        raise ValueError("Failed to load package: no loaders attempted")
+# load_package_from_archive defined above using MSSDK services
 
 
-def _save_package_with_saver(
-    saver: SaverType,
-    package: PackageType,
-    mongo_client: MongoClient,
-    database_name: str,
-    collection_name: str,
-    version_name: str
-) -> PackageType:
-    """
-    Save package to MongoDB using a specific saver.
-    
-    Args:
-        saver: Package saver instance to use.
-        package: Loaded package instance to save.
-        mongo_client: MongoDB client instance.
-        database_name: MongoDB database name.
-        collection_name: MongoDB collection name.
-        version_name: Human-readable version name for logging.
-        
-    Returns:
-        Saved package instance if successful.
-        
-    Raises:
-        Exception: Any exception from the saver is propagated.
-    """
-    logger.debug(f"Attempting to save as {version_name}...")
-    
-    # Delete existing document if it exists (to avoid duplicate key error)
-    collection = mongo_client[database_name][collection_name]
-    existing_doc = collection.find_one({"_id": package.id})
-    if existing_doc:
-        collection.delete_one({"_id": package.id})
-        logger.info(f"Deleted existing package with ID: {package.id}")
-    
-    saved_package = saver.save(
-        mapping_package=package,
-        mongo_client=mongo_client,
-        database_name=database_name,
-        collection_name=collection_name
-    )
-    logger.info(f"Package saved successfully as {version_name} with ID: {saved_package.id}")
-    return saved_package
+# save_package_to_mongodb defined above using MSSDK services
 
 
-def save_package_to_mongodb(
-    package: PackageType,
-    mongo_client: MongoClient,
-    database_name: str,
-    collection_name: str,
-    version_name: str
-) -> PackageType:
-    """
-    Save loaded package to MongoDB using appropriate saver.
-    
-    Args:
-        package: Loaded package instance to save.
-        mongo_client: MongoDB client instance.
-        database_name: MongoDB database name.
-        collection_name: MongoDB collection name.
-        version_name: Package version name ('v1', 'v2', 'v3', 'v3L').
-        
-    Returns:
-        Saved package instance.
-        
-    Raises:
-        ValueError: If package type is unsupported.
-        Exception: Any exception from the saver is propagated.
-    """
-    # Select appropriate saver based on package type
-    if isinstance(package, MappingPackageV3Lightweight):
-        saver = MappingPackageV3LightweightSaver()
-    elif isinstance(package, MappingPackageV3):
-        saver = MappingPackageV3Saver()
-    elif isinstance(package, MappingPackageV2):
-        saver = MappingPackageV2Saver()
-    elif isinstance(package, MappingPackageV1):
-        saver = MappingPackageV1Saver()
-    else:
-        raise ValueError(f"Unsupported package type: {type(package)}")
-    
-    return _save_package_with_saver(
-        saver=saver,
-        package=package,
-        mongo_client=mongo_client,
-        database_name=database_name,
-        collection_name=collection_name,
-        version_name=version_name
-    )
-
-
+# Note: Loading from MongoDB is not yet implemented in our adapters.
+# This functionality can be added later if needed for tests.
+# For now, we'll keep a simplified version that just verifies the package was saved.
 def _create_repository_for_package(
     package: PackageType,
     mongo_client: MongoClient,
     database_name: str,
     collection_name: str
 ) -> MongoDBRepository:
-    """
-    Create appropriate MongoDB repository based on package type.
-    
-    Args:
-        package: Package instance to determine repository type.
-        mongo_client: MongoDB client instance.
-        database_name: MongoDB database name.
-        collection_name: MongoDB collection name.
-        
-    Returns:
-        MongoDBRepository instance configured for the package type.
-    """
+    """Create appropriate MongoDB repository based on package type."""
     if isinstance(package, MappingPackageV3Lightweight):
         return MongoDBRepository[MappingPackageV3Lightweight](
             model_class=MappingPackageV3Lightweight,
@@ -366,32 +291,6 @@ def _create_repository_for_package(
         )
 
 
-def _load_package_by_type(
-    package_id: str,
-    package: PackageType,
-    repository: MongoDBRepository
-) -> PackageType:
-    """
-    Load package from MongoDB using appropriate loader function.
-    
-    Args:
-        package_id: Package identifier.
-        package: Package instance to determine loader type.
-        repository: MongoDB repository instance.
-        
-    Returns:
-        Loaded package instance.
-    """
-    if isinstance(package, MappingPackageV3Lightweight):
-        return load_mapping_package_v3L_from_mongo_db(package_id, repository)
-    elif isinstance(package, MappingPackageV3):
-        return load_mapping_package_v3_from_mongo_db(package_id, repository)
-    elif isinstance(package, MappingPackageV2):
-        return load_mapping_package_v2_from_mongo_db(package_id, repository)
-    else:  # V1
-        return load_mapping_package_v1_from_mongo_db(package_id, repository)
-
-
 def load_package_from_mongodb(
     package_id: str,
     saved_package: PackageType,
@@ -400,7 +299,7 @@ def load_package_from_mongodb(
     collection_name: str
 ) -> PackageType:
     """
-    Load package from MongoDB by ID using appropriate loader.
+    Load package from MongoDB using MSSDK services.
     
     Args:
         package_id: Package identifier.
@@ -411,12 +310,18 @@ def load_package_from_mongodb(
         
     Returns:
         Loaded package instance.
-        
-    Raises:
-        ValueError: If package cannot be loaded or ID mismatch occurs.
     """
     repository = _create_repository_for_package(saved_package, mongo_client, database_name, collection_name)
-    loaded_package = _load_package_by_type(package_id, saved_package, repository)
+    
+    # Select appropriate loader based on package type
+    if isinstance(saved_package, MappingPackageV3Lightweight):
+        loaded_package = load_mapping_package_v3_lightweight_from_mongo_db(package_id, repository)
+    elif isinstance(saved_package, MappingPackageV3):
+        loaded_package = load_mapping_package_v3_from_mongo_db(package_id, repository)
+    elif isinstance(saved_package, MappingPackageV2):
+        loaded_package = load_mapping_package_v2_from_mongo_db(package_id, repository)
+    else:  # V1
+        loaded_package = load_mapping_package_v1_from_mongo_db(package_id, repository)
     
     if loaded_package is None:
         raise ValueError(f"Package with ID {package_id} not found in MongoDB after saving.")
@@ -523,6 +428,8 @@ def run_mssdk_convert(
         package_path: Path to the package folder to convert.
         
     Raises:
+        FileNotFoundError: If package path does not exist.
+        NotADirectoryError: If package path is not a directory.
         subprocess.CalledProcessError: If the convert command fails.
     """
     if not package_path.exists():
@@ -532,7 +439,6 @@ def run_mssdk_convert(
         raise NotADirectoryError(f"Package path is not a directory: {package_path}")
     
     # Build the mssdk convert command
-    # Note: We use the venv's mssdk command directly
     venv_bin = project_root / ".venv" / "bin"
     mssdk_cmd = venv_bin / "mssdk"
     
@@ -568,20 +474,13 @@ def run_mssdk_convert(
 
 
 def create_zip_from_folder(folder_path: Path, zip_path: Path) -> None:
-    """
-    Create a ZIP file from a folder.
-    
-    Args:
-        folder_path: Path to the folder to zip.
-        zip_path: Path where the ZIP file should be created.
-    """
+    """Create a ZIP file from a folder."""
     logger.info(f"Creating ZIP file from folder: {folder_path} -> {zip_path}")
     
     with zipfile.ZipFile(zip_path, 'w', zipfile.ZIP_DEFLATED) as zipf:
         for root, dirs, files in os.walk(folder_path):
             for file in files:
                 file_path = Path(root) / file
-                # Create archive name relative to folder_path
                 arcname = file_path.relative_to(folder_path)
                 zipf.write(file_path, arcname)
     
@@ -592,57 +491,26 @@ def find_or_create_converted_package_zip(
     original_package_path: Path,
     target_version: str
 ) -> Path:
-    """
-    Find the converted package ZIP file, or create it from the converted folder.
-    
-    The mssdk convert command converts the package in place or creates a new folder.
-    If it's a folder, we create a ZIP from it.
-    
-    Args:
-        original_package_path: Path to the original package folder.
-        target_version: Target version ('v3' or 'v3L').
-        
-    Returns:
-        Path to the converted package ZIP file.
-        
-    Raises:
-        FileNotFoundError: If the converted package (ZIP or folder) cannot be found.
-    """
+    """Find the converted package ZIP file, or create it from the converted folder."""
     package_name = original_package_path.name
     package_dir = original_package_path.parent
     zip_path = package_dir / f"{package_name}.zip"
     
-    # First, check if the original folder was converted in place
-    # The convert command modifies the folder in place
+    # Check if the original folder was converted in place
     if original_package_path.exists() and original_package_path.is_dir():
-        # Check if it's actually a package folder (has metadata)
-        # For v3L, it should have metadata.jsonld; for v3, it should have metadata.jsonld
-        has_metadata = (original_package_path / "metadata.jsonld").exists() or (original_package_path / "metadata.json").exists()
+        has_metadata = (
+            (original_package_path / "metadata.jsonld").exists() or
+            (original_package_path / "metadata.json").exists()
+        )
         if has_metadata:
             logger.info(f"Found converted package folder (in place): {original_package_path}")
-            # Create ZIP from the converted folder (overwrite existing ZIP if any)
             create_zip_from_folder(original_package_path, zip_path)
             return zip_path
     
-    # Check if there's a folder with the same name in the parent directory
-    converted_folder = package_dir / package_name
-    if converted_folder.exists() and converted_folder.is_dir():
-        # Check if it's actually a package folder (has metadata)
-        if (converted_folder / "metadata.jsonld").exists() or (converted_folder / "metadata.json").exists():
-            logger.info(f"Found converted package folder: {converted_folder}")
-            # Create ZIP from the folder
-            create_zip_from_folder(converted_folder, zip_path)
-            return zip_path
-    
-    # Also check if there's a folder with a different name (e.g., with version suffix)
-    for item in package_dir.iterdir():
-        if item.is_dir() and package_name in item.name:
-            # Check if it's a package folder
-            if (item / "metadata.jsonld").exists() or (item / "metadata.json").exists():
-                logger.info(f"Found converted package folder: {item}")
-                # Create ZIP from the folder
-                create_zip_from_folder(item, zip_path)
-                return zip_path
+    # Check if ZIP already exists
+    if zip_path.exists():
+        logger.info(f"Found converted package ZIP: {zip_path}")
+        return zip_path
     
     raise FileNotFoundError(
         f"Could not find converted package (ZIP or folder) for {original_package_path}. "
@@ -656,7 +524,8 @@ def convert_and_save_package(
     to_version: str,
     mongodb_uri: str,
     database_name: str,
-    collection_name: str
+    collection_name: str,
+    is_multi_step: bool = False
 ) -> PackageType:
     """
     Convert a package and save the converted package to MongoDB.
@@ -668,19 +537,39 @@ def convert_and_save_package(
         mongodb_uri: MongoDB connection URI.
         database_name: MongoDB database name.
         collection_name: MongoDB collection name.
+        is_multi_step: If True, performs multi-step conversion (e.g., v2 → v3 → v3L).
         
     Returns:
         Saved package instance.
     """
-    # Run conversion
-    run_mssdk_convert(
-        from_version=from_version,
-        to_version=to_version,
-        package_path=package_path
-    )
-    
-    # Find or create the converted package ZIP
-    converted_zip = find_or_create_converted_package_zip(package_path, to_version)
+    if is_multi_step and from_version == "v2" and to_version == "v3L":
+        # Multi-step conversion: v2 → v3 → v3L
+        logger.info("Step 1: Converting v2 → v3")
+        run_mssdk_convert(
+            from_version="v2",
+            to_version="v3",
+            package_path=package_path
+        )
+        
+        logger.info("Step 2: Converting v3 → v3L")
+        run_mssdk_convert(
+            from_version="v3",
+            to_version="v3L",
+            package_path=package_path
+        )
+        
+        # Find or create the converted package ZIP
+        converted_zip = find_or_create_converted_package_zip(package_path, "v3L")
+    else:
+        # Single-step conversion
+        run_mssdk_convert(
+            from_version=from_version,
+            to_version=to_version,
+            package_path=package_path
+        )
+        
+        # Find or create the converted package ZIP
+        converted_zip = find_or_create_converted_package_zip(package_path, to_version)
     
     # Load and save the converted package
     saved_package = load_and_save_package(
@@ -703,7 +592,8 @@ def run_test_scenario(
     collection_name: str,
     is_conversion: bool = False,
     from_version: Optional[str] = None,
-    to_version: Optional[str] = None
+    to_version: Optional[str] = None,
+    is_multi_step: bool = False
 ) -> None:
     """
     Run a single test scenario.
@@ -741,7 +631,8 @@ def run_test_scenario(
                 to_version=to_version,
                 mongodb_uri=mongodb_uri,
                 database_name=database_name,
-                collection_name=collection_name
+                collection_name=collection_name,
+                is_multi_step=is_multi_step
             )
             logger.info(
                 f"  ✓ Successfully converted and saved package: {saved_package.id} "
@@ -847,6 +738,15 @@ def main() -> None:
                 "from_version": "v3",
                 "to_version": "v3L"
             },
+            {
+                "description": "Convert v2 → v3 → v3L and save to MongoDB",
+                "package_path": test_data_root / "mapping_package_v2_2" / "package_eforms_29_v1.9_changed",
+                "package_version": None,
+                "is_conversion": True,
+                "from_version": "v2",
+                "to_version": "v3L",
+                "is_multi_step": True
+            }
         ]
         
         logger.info("="*80)
@@ -867,7 +767,8 @@ def main() -> None:
                 collection_name=collection_name,
                 is_conversion=scenario["is_conversion"],
                 from_version=scenario.get("from_version"),
-                to_version=scenario.get("to_version")
+                to_version=scenario.get("to_version"),
+                is_multi_step=scenario.get("is_multi_step", False)
             )
         
         logger.info("\n" + "="*80)

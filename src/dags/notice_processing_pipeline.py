@@ -141,7 +141,7 @@ def notice_processing_pipeline():
 
     notice_distillation_step = NoticeBatchPipelineOperator(batch_pipeline_callable=notices_batch_distillation_pipeline,
                                                            task_id=NOTICE_DISTILLATION_PIPELINE_TASK_ID,
-                                                           trigger_rule=TriggerRule.ALL_SUCCESS,
+                                                           trigger_rule=TriggerRule.ALL_DONE,
                                                            notice_success_statuses=NOTICE_SUCCESS_STATUSES)
 
     notice_validation_step = NoticeBatchPipelineOperator(notice_pipeline_callable=notice_validation_pipeline,

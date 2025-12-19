@@ -5,7 +5,7 @@ from typing import Optional
 from src.ted_sws.data_manager.adapters.mapping_suite_repository import MS_METADATA_FILE_NAME, \
     MS_STANDARD_METADATA_VERSION_KEY, MS_METADATA_IDENTIFIER_KEY, \
     MS_EFORMS_METADATA_VERSION_KEY
-from src.ted_sws.mapping_suite_processor.adapters.mapping_suite_structure_checker import MappingSuiteStructureValidator
+from src.ted_sws.mapping_suite_processor.adapters.mapping_suite_structure_checker import MappingPackageStructureValidator
 
 
 def get_mapping_suite_id_from_file_system(mapping_suite_path: pathlib.Path) -> Optional[str]:
@@ -32,6 +32,6 @@ def validate_mapping_suite(mapping_suite_path: pathlib.Path) -> bool:
     :param mapping_suite_path:
     :return:
     """
-    mapping_suite_validator = MappingSuiteStructureValidator(mapping_suite_path)
+    mapping_suite_validator = MappingPackageStructureValidator(mapping_suite_path)
 
     return mapping_suite_validator.is_valid()

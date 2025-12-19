@@ -1,4 +1,4 @@
-from src.ted_sws.data_manager.adapters.mapping_suite_repository import MappingSuiteRepositoryMongoDB
+from src.ted_sws.data_manager.adapters.mapping_suite_repository import MappingPackageRepositoryMongoDB
 from src.ted_sws.mapping_suite_processor.services.conceptual_mapping_processor import \
     mapping_suite_processor_from_github_expand_and_load_package_in_mongo_db
 
@@ -14,6 +14,6 @@ def test_mapping_suite_processor_from_github_expand_and_load_package_in_mongo_db
         mongodb_client=fake_mongodb_client,
         load_test_data=True
     )
-    mapping_suite_repository = MappingSuiteRepositoryMongoDB(mongodb_client=fake_mongodb_client)
+    mapping_suite_repository = MappingPackageRepositoryMongoDB(mongodb_client=fake_mongodb_client)
     mapping_suite = mapping_suite_repository.get(reference=MAPPING_SUITE_PACKAGE_ID)
     assert mapping_suite

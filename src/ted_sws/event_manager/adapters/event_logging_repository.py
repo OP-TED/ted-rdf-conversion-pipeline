@@ -166,7 +166,7 @@ class NoticeEventRepository(EventLoggingRepository):
         super().__init__(mongodb_client, database_name, collection_name)
 
 
-class MappingSuiteEventRepository(EventLoggingRepository):
+class MappingPackageEventRepository(EventLoggingRepository):
     """
     This is the mapping suite events' repository class.
     """

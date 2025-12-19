@@ -1,6 +1,6 @@
 from src.ted_sws.core.model.validation_report import ReportNotice
-from src.ted_sws.data_manager.adapters.mapping_suite_repository import MappingSuiteRepositoryInFileSystem, \
-    MappingSuiteRepositoryMongoDB
+from src.ted_sws.data_manager.adapters.mapping_suite_repository import MappingPackageRepositoryInFileSystem, \
+    MappingPackageRepositoryMongoDB
 from src.ted_sws.mapping_suite_processor.services.conceptual_mapping_processor import \
     mapping_suite_processor_load_package_in_mongo_db
 from src.ted_sws.notice_validator.services.xpath_coverage_runner import validate_xpath_coverage_notices, \
@@ -10,7 +10,7 @@ from src.ted_sws.notice_validator.services.xpath_coverage_runner import validate
 def test_xpath_coverage_runner(fake_notice_F03, fake_mapping_suite_F03_id, fake_mapping_suite_F03_id_with_version,
                                mongodb_client, fake_repository_path, fake_mapping_suite_F03_path):
     report_notices = [ReportNotice(notice=fake_notice_F03)]
-    mapping_suite_repository = MappingSuiteRepositoryInFileSystem(repository_path=fake_repository_path)
+    mapping_suite_repository = MappingPackageRepositoryInFileSystem(repository_path=fake_repository_path)
     mapping_suite = mapping_suite_repository.get(reference=fake_mapping_suite_F03_id)
     report = validate_xpath_coverage_notices(report_notices, mapping_suite)
     json_report = xpath_coverage_json_report(report)
@@ -24,7 +24,7 @@ def test_xpath_coverage_runner(fake_notice_F03, fake_mapping_suite_F03_id, fake_
 
     mapping_suite_processor_load_package_in_mongo_db(mapping_suite_package_path=fake_mapping_suite_F03_path,
                                                      mongodb_client=mongodb_client)
-    mapping_suite_repository = MappingSuiteRepositoryMongoDB(mongodb_client=mongodb_client)
+    mapping_suite_repository = MappingPackageRepositoryMongoDB(mongodb_client=mongodb_client)
     mapping_suite = mapping_suite_repository.get(reference=fake_mapping_suite_F03_id_with_version)
     assert mapping_suite
 
@@ -34,7 +34,7 @@ def test_xpath_coverage_runner(fake_notice_F03, fake_mapping_suite_F03_id, fake_
 
 
 def test_validate_xpath_coverage_notice(fake_mapping_suite_F03_id, fake_repository_path, fake_notice_F03):
-    mapping_suite_repository_fs = MappingSuiteRepositoryInFileSystem(repository_path=fake_repository_path)
+    mapping_suite_repository_fs = MappingPackageRepositoryInFileSystem(repository_path=fake_repository_path)
     mapping_suite = mapping_suite_repository_fs.get(fake_mapping_suite_F03_id)
 
     validate_xpath_coverage_notice(

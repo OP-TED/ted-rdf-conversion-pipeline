@@ -11,8 +11,8 @@ from src.ted_sws.core.model.transform import SPARQLTestSuite, MappingPackage, Fi
 from src.ted_sws.core.model.validation_report import SPARQLValidationSummaryReport, SPARQLValidationSummaryQueryResult, \
     ReportNotice
 from src.ted_sws.core.model.validation_report_data import ReportPackageNoticeData
-from src.ted_sws.data_manager.adapters.repository_abc import NoticeRepositoryABC, MappingSuiteRepositoryABC
-from src.ted_sws.mapping_suite_processor.adapters.mapping_suite_reader import MappingSuiteReader, \
+from src.ted_sws.data_manager.adapters.repository_abc import NoticeRepositoryABC, MappingPackageRepositoryABC
+from src.ted_sws.mapping_suite_processor.adapters.mapping_suite_reader import MappingPackageReader, \
     SPARQL_QUERY_METADATA_TITLE, SPARQL_QUERY_METADATA_DESCRIPTION, SPARQL_QUERY_METADATA_XPATH
 from src.ted_sws.notice_transformer.adapters.notice_transformer import NoticeTransformer
 from src.ted_sws.notice_validator.adapters.sparql_runner import SPARQLRunner
@@ -54,7 +54,7 @@ class SPARQLTestSuiteRunner:
         :param file_resource:
         :return:
         """
-        metadata = MappingSuiteReader.extract_metadata_from_sparql_query(file_resource.file_content)
+        metadata = MappingPackageReader.extract_metadata_from_sparql_query(file_resource.file_content)
         title = metadata[SPARQL_QUERY_METADATA_TITLE] \
             if SPARQL_QUERY_METADATA_TITLE in metadata else DEFAULT_QUERY_TITLE
         description = metadata[SPARQL_QUERY_METADATA_DESCRIPTION] \
@@ -329,7 +329,7 @@ def validate_notice_with_sparql_suite(notice: Notice, mapping_suite_package: Map
 
 def validate_notice_by_id_with_sparql_suite(notice_id: str, mapping_suite_identifier: str,
                                             notice_repository: NoticeRepositoryABC,
-                                            mapping_suite_repository: MappingSuiteRepositoryABC,
+                                            mapping_suite_repository: MappingPackageRepositoryABC,
                                             with_html: bool = False):
     """
     Validates a notice by id with a sparql test suites

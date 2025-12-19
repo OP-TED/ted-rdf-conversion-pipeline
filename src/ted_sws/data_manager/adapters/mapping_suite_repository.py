@@ -9,10 +9,10 @@ from pymongo import MongoClient
 
 from src.ted_sws import config
 from src.ted_sws.core.model.transform import MappingPackage, FileResource, TransformationRuleSet, SHACLTestSuite, \
-    SPARQLTestSuite, MetadataConstraints, TransformationTestData, MappingSuiteType, \
+    SPARQLTestSuite, MetadataConstraints, TransformationTestData, MappingPackageType, \
     MetadataConstraintsStandardForm, MetadataConstraintsEform
 from src.ted_sws.data_manager.adapters import inject_date_string_fields, remove_date_string_fields
-from src.ted_sws.data_manager.adapters.repository_abc import MappingSuiteRepositoryABC
+from src.ted_sws.data_manager.adapters.repository_abc import MappingPackageRepositoryABC
 
 MS_METADATA_FILE_NAME = "metadata.json"
 MS_TRANSFORM_FOLDER_NAME = "transformation"
@@ -40,7 +40,7 @@ MS_MAPPING_TYPE_KEY = 'mapping_type'
 MS_ONTOLOGY_VERSION_KEY = 'ontology_version'
 
 
-class MappingSuiteRepositoryMongoDB(MappingSuiteRepositoryABC):
+class MappingPackageRepositoryMongoDB(MappingPackageRepositoryABC):
     """
        This repository is intended for storing MappingSuite objects in MongoDB.
     """
@@ -123,7 +123,7 @@ class MappingSuiteRepositoryMongoDB(MappingSuiteRepositoryABC):
             yield self._create_mapping_suite_from_dict(mapping_suite_dict=result_dict)
 
 
-class MappingSuiteRepositoryInFileSystem(MappingSuiteRepositoryABC):
+class MappingPackageRepositoryInFileSystem(MappingPackageRepositoryABC):
     """
            This repository is intended for storing MappingSuite objects in FileSystem.
     """
@@ -370,7 +370,7 @@ class MappingSuiteRepositoryInFileSystem(MappingSuiteRepositoryABC):
         if package_path.is_dir():
             package_metadata = self._read_package_metadata(package_path)
             if (MS_MAPPING_TYPE_KEY in package_metadata and
-                    package_metadata[MS_MAPPING_TYPE_KEY] == MappingSuiteType.ELECTRONIC_FORMS):
+                    package_metadata[MS_MAPPING_TYPE_KEY] == MappingPackageType.ELECTRONIC_FORMS):
                 package_metadata[MS_METADATA_CONSTRAINTS_KEY] = MetadataConstraints(
                     constraints=MetadataConstraintsEform(
                         **package_metadata[MS_METADATA_CONSTRAINTS_KEY][MS_CONSTRAINTS_KEY]))
@@ -385,7 +385,7 @@ class MappingSuiteRepositoryInFileSystem(MappingSuiteRepositoryABC):
                 ontology_version=package_metadata[MS_ONTOLOGY_VERSION_KEY],
                 mapping_suite_hash_digest=package_metadata[MS_HASH_DIGEST_KEY],
                 mapping_type=package_metadata[
-                    MS_MAPPING_TYPE_KEY] if MS_MAPPING_TYPE_KEY in package_metadata else MappingSuiteType.STANDARD_FORMS,
+                    MS_MAPPING_TYPE_KEY] if MS_MAPPING_TYPE_KEY in package_metadata else MappingPackageType.STANDARD_FORMS,
                 version=mapping_suite_read_version_from_metadata(package_metadata),
                 identifier=package_metadata[
                     MS_METADATA_IDENTIFIER_KEY] if MS_METADATA_IDENTIFIER_KEY in package_metadata else mapping_suite_identifier,
@@ -446,5 +446,5 @@ class MappingSuiteRepositoryInFileSystem(MappingSuiteRepositoryABC):
 
 def mapping_suite_read_version_from_metadata(metadata: dict) -> str:
     version_key = MS_EFORMS_METADATA_VERSION_KEY if MS_MAPPING_TYPE_KEY in metadata and metadata[
-        MS_MAPPING_TYPE_KEY] == MappingSuiteType.ELECTRONIC_FORMS else MS_STANDARD_METADATA_VERSION_KEY
+        MS_MAPPING_TYPE_KEY] == MappingPackageType.ELECTRONIC_FORMS else MS_STANDARD_METADATA_VERSION_KEY
     return metadata.get(version_key)

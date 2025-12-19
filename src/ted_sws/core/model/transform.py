@@ -107,7 +107,7 @@ class MappingXPATH(MappingPackageComponent):
     form_field: Optional[str] = None
 
 
-class MappingSuiteType(str, Enum):
+class MappingPackageType(str, Enum):
     STANDARD_FORMS = "standard_forms"
     ELECTRONIC_FORMS = "eforms"
 
@@ -126,7 +126,7 @@ class MappingPackage(MappingPackageComponent):
     ontology_version: str = "0.0.1"
     git_latest_commit_hash: str = "no_hash"
     mapping_suite_hash_digest: str = "no_hash"
-    mapping_type: Optional[MappingSuiteType] = MappingSuiteType.STANDARD_FORMS
+    mapping_type: Optional[MappingPackageType] = MappingPackageType.STANDARD_FORMS
     metadata_constraints: MetadataConstraints
     transformation_rule_set: TransformationRuleSet
     shacl_test_suites: List[SHACLTestSuite]

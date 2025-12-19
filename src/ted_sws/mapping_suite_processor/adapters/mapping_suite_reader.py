@@ -17,7 +17,7 @@ SPARQL_QUERY_METADATA_XPATH = "xpath"
 FILE_NAME_KEY = "File name"
 REF_INTEGRATION_TESTS_KEY = "Reference to Integration Tests (O)"
 
-class MappingSuiteReader:
+class MappingPackageReader:
     """
     This adapter can be used to read different MappingSuite data
     """

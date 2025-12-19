@@ -129,7 +129,7 @@ class NoticeRepositoryABC(RepositoryABC):
         """
 
 
-class MappingSuiteRepositoryABC(RepositoryABC):
+class MappingPackageRepositoryABC(RepositoryABC):
     """
        This repository is intended for storing MappingSuite objects.
     """

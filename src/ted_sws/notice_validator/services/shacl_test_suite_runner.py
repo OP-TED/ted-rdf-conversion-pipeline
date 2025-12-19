@@ -10,7 +10,7 @@ from src.ted_sws.core.model.transform import MappingPackage, SHACLTestSuite
 from src.ted_sws.core.model.validation_report import ReportNotice, SHACLValidationSummaryReport, \
     SHACLValidationSummaryResult, SHACLSummaryQuery
 from src.ted_sws.core.model.validation_report_data import ReportPackageNoticeData
-from src.ted_sws.data_manager.adapters.repository_abc import NoticeRepositoryABC, MappingSuiteRepositoryABC
+from src.ted_sws.data_manager.adapters.repository_abc import NoticeRepositoryABC, MappingPackageRepositoryABC
 from src.ted_sws.notice_transformer.adapters.notice_transformer import NoticeTransformer
 from src.ted_sws.notice_validator.adapters.shacl_runner import SHACLRunner
 from src.ted_sws.notice_validator.resources.templates import TEMPLATE_METADATA_KEY
@@ -209,7 +209,7 @@ def validate_notice_with_shacl_suite(notice: Notice, mapping_suite_package: Mapp
 
 def validate_notice_by_id_with_shacl_suite(notice_id: str, mapping_suite_identifier: str,
                                            notice_repository: NoticeRepositoryABC,
-                                           mapping_suite_repository: MappingSuiteRepositoryABC,
+                                           mapping_suite_repository: MappingPackageRepositoryABC,
                                            with_html: bool = False):
     """
     Validates a notice by id with a shacl test suites

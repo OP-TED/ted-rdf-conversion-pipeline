@@ -7,10 +7,10 @@ from pathlib import Path
 from pymongo import MongoClient
 
 from src.ted_sws.event_manager.adapters.event_logging_repository import EventLoggingRepository, TechnicalEventRepository, \
-    NoticeEventRepository, MappingSuiteEventRepository
+    NoticeEventRepository, MappingPackageEventRepository
 from src.ted_sws.event_manager.adapters.log import ConfigHandlerType
 from src.ted_sws.event_manager.model.event_message import EventMessage, SeverityLevelType, TechnicalEventMessage, \
-    NoticeEventMessage, MappingSuiteEventMessage, EventMessageLogSettings
+    NoticeEventMessage, MappingPackageEventMessage, EventMessageLogSettings
 
 DEFAULT_LOGGER_LOG_FORMAT = "[%(asctime)s] - %(name)s - %(levelname)s - %(message)s"
 DEFAULT_LOGGER_LOG_DATE_FORMAT = "%Y-%m-%d %H:%M:%S"
@@ -238,8 +238,8 @@ class EventWriterToMongoDBHandler(EventHandler):
             return TechnicalEventRepository(mongodb_client=self.mongodb_client)
         elif isinstance(event_message, NoticeEventMessage):
             return NoticeEventRepository(mongodb_client=self.mongodb_client)
-        elif isinstance(event_message, MappingSuiteEventMessage):
-            return MappingSuiteEventRepository(mongodb_client=self.mongodb_client)
+        elif isinstance(event_message, MappingPackageEventMessage):
+            return MappingPackageEventRepository(mongodb_client=self.mongodb_client)
         return EventLoggingRepository(mongodb_client=self.mongodb_client)
 
     def log(self, severity_level: SeverityLevelType, event_message: EventMessage,

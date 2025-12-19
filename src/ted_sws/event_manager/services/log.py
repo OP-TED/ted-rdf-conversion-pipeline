@@ -1,5 +1,5 @@
 from src.ted_sws.event_manager.model.event_message import EventMessage, TechnicalEventMessage, NoticeEventMessage, \
-    MappingSuiteEventMessage
+    MappingPackageEventMessage
 from src.ted_sws.event_manager.adapters.event_logger import EventMessageLogSettings
 from src.ted_sws.event_manager.services.logger_from_context import get_logger, get_cli_logger
 
@@ -145,7 +145,7 @@ def log_mapping_suite_info(message: str, mapping_suite_id: str = None, name: str
     :return:
     """
     get_logger(name=name).info(
-        event_message=MappingSuiteEventMessage(message=message, mapping_suite_id=mapping_suite_id))
+        event_message=MappingPackageEventMessage(message=message, mapping_suite_id=mapping_suite_id))
 
 
 def log_mapping_suite_error(message: str, mapping_suite_id: str = None, name: str = None):
@@ -157,7 +157,7 @@ def log_mapping_suite_error(message: str, mapping_suite_id: str = None, name: st
     :return:
     """
     get_logger(name=name).error(
-        event_message=MappingSuiteEventMessage(message=message, mapping_suite_id=mapping_suite_id))
+        event_message=MappingPackageEventMessage(message=message, mapping_suite_id=mapping_suite_id))
 
 
 def log_mapping_suite_debug(message: str, mapping_suite_id: str = None, name: str = None):
@@ -169,7 +169,7 @@ def log_mapping_suite_debug(message: str, mapping_suite_id: str = None, name: st
     :return:
     """
     get_logger(name=name).debug(
-        event_message=MappingSuiteEventMessage(message=message, mapping_suite_id=mapping_suite_id))
+        event_message=MappingPackageEventMessage(message=message, mapping_suite_id=mapping_suite_id))
 
 
 def log_mapping_suite_warning(message: str, mapping_suite_id: str = None, name: str = None):
@@ -181,7 +181,7 @@ def log_mapping_suite_warning(message: str, mapping_suite_id: str = None, name: 
     :return:
     """
     get_logger(name=name).warning(
-        event_message=MappingSuiteEventMessage(message=message, mapping_suite_id=mapping_suite_id))
+        event_message=MappingPackageEventMessage(message=message, mapping_suite_id=mapping_suite_id))
 
 
 def log_cli_brief_notice_info(message: str, name: str = None):

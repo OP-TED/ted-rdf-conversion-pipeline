@@ -4,8 +4,8 @@ from src.ted_sws.core.model.manifestation import RDFManifestation, RDFValidation
     SPARQLQueryResult, SPARQLQueryRefinedResultType
 from src.ted_sws.core.model.notice import NoticeStatus
 from src.ted_sws.core.model.validation_report import ReportNotice, SPARQLValidationSummaryReport
-from src.ted_sws.data_manager.adapters.mapping_suite_repository import MappingSuiteRepositoryInFileSystem
-from src.ted_sws.mapping_suite_processor.adapters.mapping_suite_reader import MappingSuiteReader
+from src.ted_sws.data_manager.adapters.mapping_suite_repository import MappingPackageRepositoryInFileSystem
+from src.ted_sws.mapping_suite_processor.adapters.mapping_suite_reader import MappingPackageReader
 from src.ted_sws.notice_validator.services.sparql_test_suite_runner import SPARQLTestSuiteRunner, SPARQLReportBuilder, \
     validate_notice_with_sparql_suite, validate_notice_by_id_with_sparql_suite, \
     generate_sparql_validation_summary_report
@@ -116,7 +116,7 @@ def test_validate_notice_with_sparql_suite(notice_with_distilled_status, dummy_m
 def test_validate_notice_by_id_with_sparql_suite(notice_with_distilled_status, rdf_file_content, notice_repository,
                                                  path_to_file_system_repository):
     notice = notice_with_distilled_status
-    mapping_suite_repository = MappingSuiteRepositoryInFileSystem(repository_path=path_to_file_system_repository)
+    mapping_suite_repository = MappingPackageRepositoryInFileSystem(repository_path=path_to_file_system_repository)
     notice_repository.add(notice)
 
     validate_notice_by_id_with_sparql_suite(notice_id="408313-2020",
@@ -145,18 +145,18 @@ def test_validate_notice_by_id_with_sparql_suite(notice_with_distilled_status, r
 
 def test_get_metadata_from_freaking_sparql_queries(query_content, query_content_without_description,
                                                    query_content_with_xpath):
-    metadata = MappingSuiteReader.extract_metadata_from_sparql_query(query_content)
+    metadata = MappingPackageReader.extract_metadata_from_sparql_query(query_content)
     assert metadata["title"]
     assert metadata["description"]
     assert "SELECT" not in metadata
 
-    metadata = MappingSuiteReader.extract_metadata_from_sparql_query(query_content_with_xpath)
+    metadata = MappingPackageReader.extract_metadata_from_sparql_query(query_content_with_xpath)
     assert metadata["title"]
     assert metadata["description"]
     assert metadata["xpath"]
     assert "PREFIX" not in metadata
 
-    metadata = MappingSuiteReader.extract_metadata_from_sparql_query(query_content_without_description)
+    metadata = MappingPackageReader.extract_metadata_from_sparql_query(query_content_without_description)
     assert metadata["title"]
     assert "description" not in metadata
 

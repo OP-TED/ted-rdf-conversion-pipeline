@@ -4,7 +4,7 @@ from collections import Counter
 
 import pytest
 from src.ted_sws.core.model.notice import NoticeStatus
-from src.ted_sws.data_manager.adapters.mapping_suite_repository import MappingSuiteRepositoryMongoDB
+from src.ted_sws.data_manager.adapters.mapping_suite_repository import MappingPackageRepositoryMongoDB
 from src.ted_sws.notice_transformer.services.notice_transformer import transform_notice, \
     transform_test_data, transform_notice_by_id
 
@@ -20,7 +20,7 @@ def test_notice_transformer_by_id_function(fake_rml_mapper, mongodb_client, fake
     notice_2018._status = NoticeStatus.PREPROCESSED_FOR_TRANSFORMATION
     notice_repository.add(notice=notice_2018)
     notice_id = notice_2018.ted_id
-    mapping_suite_repository = MappingSuiteRepositoryMongoDB(mongodb_client=mongodb_client)
+    mapping_suite_repository = MappingPackageRepositoryMongoDB(mongodb_client=mongodb_client)
     mapping_suite_repository.add(mapping_suite=fake_mapping_suite)
     mapping_suite_id = fake_mapping_suite.get_mongodb_id()
     transform_notice_by_id(notice_id, mapping_suite_id, notice_repository, mapping_suite_repository,
@@ -34,7 +34,7 @@ def test_notice_transformer_by_id_function_with_invalid_ids(fake_rml_mapper, mon
                                                             notice_repository, aggregates_database_name):
     notice_2018._status = NoticeStatus.PREPROCESSED_FOR_TRANSFORMATION
     notice_id = notice_2018.ted_id
-    mapping_suite_repository = MappingSuiteRepositoryMongoDB(mongodb_client=mongodb_client)
+    mapping_suite_repository = MappingPackageRepositoryMongoDB(mongodb_client=mongodb_client)
     with pytest.raises(Exception):
         transform_notice_by_id(notice_id, fake_mapping_suite.identifier, notice_repository, mapping_suite_repository,
                                fake_rml_mapper)

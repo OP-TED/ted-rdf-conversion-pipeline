@@ -1,13 +1,13 @@
 import pathlib
 
 from src.ted_sws import config
-from src.ted_sws.mapping_suite_processor.adapters.github_package_downloader import GitHubMappingSuitePackageDownloader, \
+from src.ted_sws.mapping_suite_processor.adapters.github_package_downloader import GitHubMappingPackageDownloader, \
     get_repo_name_from_repo_url
 from test.e2e.mapping_suite_processor import MAPPING_SUITE_PACKAGE_NAME
 
 
 def test_github_mapping_suite_package_downloader(tmpdir):
-    mapping_suite_package_downloader = GitHubMappingSuitePackageDownloader(
+    mapping_suite_package_downloader = GitHubMappingPackageDownloader(
         github_repository_url=config.GITHUB_TED_SWS_ARTEFACTS_URL, branch_or_tag_name="main")
     tmp_dir_path = pathlib.Path(tmpdir)
     mapping_suite_package_downloader.download(output_mapping_suite_package_path=tmp_dir_path)

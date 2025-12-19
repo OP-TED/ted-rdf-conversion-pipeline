@@ -7,12 +7,12 @@ from pymongo import MongoClient
 from src.ted_sws import config
 from src.ted_sws.core.model.manifestation import XMLManifestation
 from src.ted_sws.core.model.notice import Notice
-from src.ted_sws.data_manager.adapters.mapping_suite_repository import MappingSuiteRepositoryInFileSystem, \
-    MappingSuiteRepositoryMongoDB
+from src.ted_sws.data_manager.adapters.mapping_suite_repository import MappingPackageRepositoryInFileSystem, \
+    MappingPackageRepositoryMongoDB
 from src.ted_sws.data_manager.adapters.notice_repository import NoticeRepository
 from src.ted_sws.event_manager.services.log import log_mapping_suite_info, log_mapping_suite_error
-from src.ted_sws.mapping_suite_processor.adapters.github_package_downloader import GitHubMappingSuitePackageDownloader
-from src.ted_sws.mapping_suite_processor.services import MappingSuiteProcessorServiceError
+from src.ted_sws.mapping_suite_processor.adapters.github_package_downloader import GitHubMappingPackageDownloader
+from src.ted_sws.mapping_suite_processor.services import MappingPackageProcessorServiceError
 from src.ted_sws.mapping_suite_processor.services.mapping_suite_digest_service import \
     update_digest_api_address_for_mapping_suite
 from src.ted_sws.mapping_suite_processor.services.mapping_suite_validation_service import validate_mapping_suite, \
@@ -46,7 +46,7 @@ def mapping_suite_processor_load_package_in_mongo_db(mapping_suite_package_path:
 
     mapping_suite_repository_path = mapping_suite_package_path.parent
     mapping_suite_package_name = mapping_suite_package_path.name
-    mapping_suite_repository_in_file_system = MappingSuiteRepositoryInFileSystem(
+    mapping_suite_repository_in_file_system = MappingPackageRepositoryInFileSystem(
         repository_path=mapping_suite_repository_path)
     mapping_suite_in_memory = mapping_suite_repository_in_file_system.get(reference=mapping_suite_package_name)
 
@@ -64,7 +64,7 @@ def mapping_suite_processor_load_package_in_mongo_db(mapping_suite_package_path:
             notice.set_xml_manifestation(XMLManifestation(object_data=test_data.file_content))
             notice_repository.add(notice=notice)
             result_notice_ids.append(notice_id)
-    mapping_suite_repository_mongo_db = MappingSuiteRepositoryMongoDB(mongodb_client=mongodb_client)
+    mapping_suite_repository_mongo_db = MappingPackageRepositoryMongoDB(mongodb_client=mongodb_client)
     mapping_suite_repository_mongo_db.add(mapping_suite=mapping_suite_in_memory)
     return result_notice_ids
 
@@ -86,7 +86,7 @@ def mapping_suite_processor_from_github_expand_and_load_package_in_mongo_db(mong
     """
     branch_or_tag_name = branch_or_tag_name if branch_or_tag_name else DEFAULT_BRANCH_NAME
     github_repository_url = github_repository_url if github_repository_url else config.GITHUB_TED_SWS_ARTEFACTS_URL
-    mapping_suite_package_downloader = GitHubMappingSuitePackageDownloader(
+    mapping_suite_package_downloader = GitHubMappingPackageDownloader(
         github_repository_url=github_repository_url, branch_or_tag_name=branch_or_tag_name)
     with tempfile.TemporaryDirectory() as tmp_dir:
         tmp_dir_path = pathlib.Path(tmp_dir)
@@ -103,7 +103,7 @@ def mapping_suite_processor_from_github_expand_and_load_package_in_mongo_db(mong
                 log_mapping_suite_error(
                     message=error_msg,
                     mapping_suite_id=MAPPING_SUITE_UNKNOWN_ID)
-                raise MappingSuiteProcessorServiceError(error_msg)
+                raise MappingPackageProcessorServiceError(error_msg)
             elif validation_result:
                 log_mapping_suite_info(
                     message=f"Mapping suite with id={mapping_suite_id} is valid for loading in MongoDB!",
@@ -122,6 +122,6 @@ def mapping_suite_processor_from_github_expand_and_load_package_in_mongo_db(mong
                 log_mapping_suite_error(
                     message=error_msg,
                     mapping_suite_id=mapping_suite_id)
-                raise MappingSuiteProcessorServiceError(error_msg)
+                raise MappingPackageProcessorServiceError(error_msg)
 
     return result_notice_ids

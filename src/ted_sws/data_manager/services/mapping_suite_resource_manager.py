@@ -6,7 +6,7 @@ from src.ted_sws.core.model.manifestation import XMLManifestation
 from src.ted_sws.core.model.notice import Notice
 from src.ted_sws.core.model.transform import FileResource, MappingPackage
 from src.ted_sws.core.model.validation_report import ReportNotice, ReportNoticeMetadata
-from src.ted_sws.data_manager.adapters.mapping_suite_repository import MappingSuiteRepositoryInFileSystem
+from src.ted_sws.data_manager.adapters.mapping_suite_repository import MappingPackageRepositoryInFileSystem
 
 
 def file_resource_output_path(file_resource: FileResource, output_path: Path = '') -> Path:
@@ -31,7 +31,7 @@ def mapping_suite_skipped_notice(notice_id: str, notice_ids: List[str]) -> bool:
 
 
 def mapping_suite_notice_path_by_group_depth(path: Path, group_depth: int = 0) -> Path:
-    return MappingSuiteRepositoryInFileSystem.mapping_suite_notice_path_by_group_depth(path, group_depth=group_depth)
+    return MappingPackageRepositoryInFileSystem.mapping_suite_notice_path_by_group_depth(path, group_depth=group_depth)
 
 
 def mapping_suite_notices_grouped_by_path(mapping_suite: MappingPackage = None, with_content=True,
@@ -70,7 +70,7 @@ def mapping_suite_files_grouped_by_path(file_resources: List[FileResource], grou
 
 def read_flat_file_resources(path: pathlib.Path, file_resources=None, extension=None, with_content=True) -> \
         List[FileResource]:
-    return MappingSuiteRepositoryInFileSystem.read_flat_file_resources(
+    return MappingPackageRepositoryInFileSystem.read_flat_file_resources(
         path=path,
         file_resources=file_resources,
         extension=extension,

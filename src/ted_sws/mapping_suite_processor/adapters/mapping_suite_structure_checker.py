@@ -7,7 +7,7 @@ from src.ted_sws.data_manager.adapters.mapping_suite_repository import MS_TRANSF
     mapping_suite_read_version_from_metadata
 from src.ted_sws.event_manager.model.event_message import EventMessage, EventMessageLogSettings
 from src.ted_sws.event_manager.services.logger_from_context import get_console_logger
-from src.ted_sws.mapping_suite_processor.adapters.mapping_suite_hasher import MappingSuiteHasher
+from src.ted_sws.mapping_suite_processor.adapters.mapping_suite_hasher import MappingPackageHasher
 from src.ted_sws.mapping_suite_processor.services.mapping_suite_reader import mapping_suite_read_metadata, \
     MAPPING_SUITE_HASH
 
@@ -18,12 +18,12 @@ XPATH_KEYWORD = "xpath"
 REPORTS_KEYWORDS = [SHACL_KEYWORD, SPARQL_KEYWORD, XPATH_KEYWORD]
 
 
-class MappingSuiteStructureValidator:
+class MappingPackageStructureValidator:
     reports_min_count: int = 3
 
     def __init__(self, mapping_suite_path: Union[pathlib.Path, str]):
         self.mapping_suite_path = pathlib.Path(mapping_suite_path)
-        self.logger = get_console_logger(name="MappingSuiteStructureValidator")
+        self.logger = get_console_logger(name="MappingPackageStructureValidator")
         self.log_settings = EventMessageLogSettings(briefly=True)
 
     def assert_path(self, assertion_path_list: List[pathlib.Path]) -> bool:
@@ -145,7 +145,7 @@ class MappingSuiteStructureValidator:
         mapping_suite_metadata = mapping_suite_read_metadata(mapping_suite_path=self.mapping_suite_path)
         version = mapping_suite_read_version_from_metadata(mapping_suite_metadata)
 
-        mapping_suite_versioned_hash = MappingSuiteHasher(
+        mapping_suite_versioned_hash = MappingPackageHasher(
             mapping_suite_path=self.mapping_suite_path,
             mapping_suite_metadata=mapping_suite_metadata
         ).hash_mapping_suite(with_version=version)

@@ -17,7 +17,7 @@ from src.dags.operators.DagBatchPipelineOperator import NOTICE_IDS_KEY, TriggerN
 from src.ted_sws import config
 from src.ted_sws.event_manager.adapters.event_log_decorator import event_log
 from src.ted_sws.event_manager.adapters.event_logger import EventLogger
-from src.ted_sws.event_manager.model.event_message import MappingSuiteEventMessage
+from src.ted_sws.event_manager.model.event_message import MappingPackageEventMessage
 from src.ted_sws.event_manager.services.logger_from_context import get_logger_from_dag_context, \
     handle_event_message_metadata_dag_context
 from src.ted_sws.mapping_suite_processor.services.conceptual_mapping_processor import \
@@ -87,7 +87,7 @@ def load_mapping_suite_in_database():
         :return:
         """
         event_logger: EventLogger = get_logger_from_dag_context(context_args)
-        event_message = MappingSuiteEventMessage()
+        event_message = MappingPackageEventMessage()
         event_message.start_record()
         context = get_current_context()
 

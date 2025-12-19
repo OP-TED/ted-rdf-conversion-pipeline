@@ -7,8 +7,8 @@ import pytest
 from src.ted_sws import config
 from src.ted_sws.core.model.notice import Notice, NoticeStatus
 from src.ted_sws.core.model.transform import MappingPackage
-from src.ted_sws.data_manager.adapters.mapping_suite_repository import MappingSuiteRepositoryMongoDB, \
-    MappingSuiteRepositoryInFileSystem
+from src.ted_sws.data_manager.adapters.mapping_suite_repository import MappingPackageRepositoryMongoDB, \
+    MappingPackageRepositoryInFileSystem
 from src.ted_sws.data_manager.adapters.notice_repository import NoticeRepository
 from src.ted_sws.notice_metadata_processor.services.metadata_normalizer import normalise_notice
 from src.ted_sws.notice_transformer.adapters.rml_mapper import RMLMapper, SerializationFormat
@@ -28,7 +28,7 @@ def mapping_suite_id() -> str:
 
 @pytest.fixture
 def mapping_suite_repository(fake_repository_path):
-    return MappingSuiteRepositoryInFileSystem(repository_path=fake_repository_path)
+    return MappingPackageRepositoryInFileSystem(repository_path=fake_repository_path)
 
 
 @pytest.fixture

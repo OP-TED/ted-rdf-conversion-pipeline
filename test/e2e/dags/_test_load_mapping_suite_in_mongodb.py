@@ -1,7 +1,7 @@
 from src.dags.load_mapping_suite_in_database import \
     FETCH_MAPPING_SUITE_PACKAGE_FROM_GITHUB_INTO_MONGODB, MAPPING_SUITE_PACKAGE_NAME_DAG_PARAM_KEY
 from src.ted_sws import config
-from src.ted_sws.data_manager.adapters.mapping_suite_repository import MappingSuiteRepositoryMongoDB
+from src.ted_sws.data_manager.adapters.mapping_suite_repository import MappingPackageRepositoryMongoDB
 from test.e2e.dags import run_task
 
 
@@ -14,7 +14,7 @@ def test_loading_mapping_suite_in_mongodb(dag_bag, mongodb_client, mapping_suite
     assert dag.has_task(FETCH_MAPPING_SUITE_PACKAGE_FROM_GITHUB_INTO_MONGODB)
     fetch_step = dag.get_task(FETCH_MAPPING_SUITE_PACKAGE_FROM_GITHUB_INTO_MONGODB)
     assert fetch_step
-    mapping_suite_repository = MappingSuiteRepositoryMongoDB(mongodb_client=mongodb_client)
+    mapping_suite_repository = MappingPackageRepositoryMongoDB(mongodb_client=mongodb_client)
     mapping_suite = mapping_suite_repository.get(reference=mapping_suite_id_with_version)
     assert mapping_suite is None
     task_instance = run_task(dag=dag, task=fetch_step,

@@ -1,8 +1,8 @@
 from pathlib import Path
 from typing import Dict
 
-from src.ted_sws.core.model.transform import MappingSuiteType
-from src.ted_sws.mapping_suite_processor.adapters.mapping_suite_reader import MappingSuiteReader
+from src.ted_sws.core.model.transform import MappingPackageType
+from src.ted_sws.mapping_suite_processor.adapters.mapping_suite_reader import MappingPackageReader
 
 STANDARD_FORM_VERSION_KEY = "version"
 EFORM_VERSION_KEY = "mapping_version"
@@ -11,4 +11,4 @@ MAPPING_SUITE_HASH = "mapping_suite_hash_digest"
 
 
 def mapping_suite_read_metadata(mapping_suite_path: Path) -> Dict:
-    return MappingSuiteReader.mapping_suite_read_metadata(mapping_suite_path)
+    return MappingPackageReader.mapping_suite_read_metadata(mapping_suite_path)

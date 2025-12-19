@@ -10,7 +10,7 @@ from src.ted_sws.core.model.manifestation import XPATHCoverageValidationReport, 
 from src.ted_sws.core.model.notice import Notice
 from src.ted_sws.core.model.transform import MappingXPATH, MappingPackage
 from src.ted_sws.core.model.validation_report import ReportNotice
-from src.ted_sws.mapping_suite_processor.adapters.mapping_suite_reader import MappingSuiteReader
+from src.ted_sws.mapping_suite_processor.adapters.mapping_suite_reader import MappingPackageReader
 from src.ted_sws.notice_transformer.services.notice_transformer import transform_report_notices
 from src.ted_sws.notice_validator.resources.templates import TEMPLATE_METADATA_KEY
 
@@ -34,7 +34,7 @@ class CoverageRunner:
         self.init_xpath_data(mapping_suite=mapping_suite)
 
     def init_xpath_data(self, mapping_suite: MappingPackage):
-        for cm_xpath in MappingSuiteReader.read_mapping_suite_xpaths(mapping_suite):
+        for cm_xpath in MappingPackageReader.read_mapping_suite_xpaths(mapping_suite):
             self.conceptual_xpaths.add(cm_xpath.xpath)
             self.conceptual_xpath_data[cm_xpath.xpath] = cm_xpath
 

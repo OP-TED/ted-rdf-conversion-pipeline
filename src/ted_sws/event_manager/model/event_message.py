@@ -112,7 +112,7 @@ class NoticeEventMessage(EventMessage):
     notice_status: Optional[str] = None
 
 
-class MappingSuiteEventMessage(EventMessage):
+class MappingPackageEventMessage(EventMessage):
     """
     This is the mapping suite event message model.
     """

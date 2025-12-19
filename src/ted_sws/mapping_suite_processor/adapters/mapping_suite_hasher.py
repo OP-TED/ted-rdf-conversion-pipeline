@@ -12,13 +12,13 @@ import pathlib
 import re
 from typing import Tuple, List, Union
 
-from src.ted_sws.core.model.transform import MappingSuiteType
+from src.ted_sws.core.model.transform import MappingPackageType
 from src.ted_sws.data_manager.adapters.mapping_suite_repository import MS_TRANSFORM_FOLDER_NAME, \
     MS_MAPPINGS_FOLDER_NAME, MS_RESOURCES_FOLDER_NAME, MS_CONCEPTUAL_MAPPING_FILE_NAME, MS_MAPPING_TYPE_KEY
 from src.ted_sws.mapping_suite_processor.model.mapping_suite_metadata import EFormsPackageMetadataBase
 
 
-class MappingSuiteHasher:
+class MappingPackageHasher:
     """
 
     """
@@ -34,7 +34,7 @@ class MappingSuiteHasher:
         return (
                 self.mapping_suite_metadata and
                 MS_MAPPING_TYPE_KEY in self.mapping_suite_metadata and
-                self.mapping_suite_metadata.get(MS_MAPPING_TYPE_KEY) == MappingSuiteType.ELECTRONIC_FORMS
+                self.mapping_suite_metadata.get(MS_MAPPING_TYPE_KEY) == MappingPackageType.ELECTRONIC_FORMS
         )
 
     def hash_critical_mapping_files(self) -> List[Tuple[str, str]]:

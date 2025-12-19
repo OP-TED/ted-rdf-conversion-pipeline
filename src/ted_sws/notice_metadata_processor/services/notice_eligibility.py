@@ -5,8 +5,8 @@ import semantic_version
 
 from src.ted_sws.core.model.metadata import NormalisedMetadata, NoticeSource
 from src.ted_sws.core.model.notice import Notice
-from src.ted_sws.core.model.transform import MappingPackage, MappingSuiteType
-from src.ted_sws.data_manager.adapters.repository_abc import MappingSuiteRepositoryABC, NoticeRepositoryABC
+from src.ted_sws.core.model.transform import MappingPackage, MappingPackageType
+from src.ted_sws.data_manager.adapters.repository_abc import MappingPackageRepositoryABC, NoticeRepositoryABC
 
 
 def format_version_with_zero_patch(version_string: str) -> semantic_version.Version:
@@ -35,7 +35,7 @@ def is_date_in_range(publication_date, constraint_start_date_value, constraint_e
 
 def is_version_in_range(notice_metadata: NormalisedMetadata, mapping_suite: MappingPackage) -> bool:
     constraints = mapping_suite.metadata_constraints.constraints
-    if mapping_suite.mapping_type == MappingSuiteType.ELECTRONIC_FORMS and notice_metadata.notice_source == NoticeSource.ELECTRONIC_FORM:
+    if mapping_suite.mapping_type == MappingPackageType.ELECTRONIC_FORMS and notice_metadata.notice_source == NoticeSource.ELECTRONIC_FORM:
         notice_xsd_version = notice_metadata.eform_sdk_version
         # eform sdk version value in metadata example: eforms-sdk-1.7 or  eforms-sdk-1.7.9
         # we need to extract only the version i.e 1.7 or 1.7.9
@@ -43,7 +43,7 @@ def is_version_in_range(notice_metadata: NormalisedMetadata, mapping_suite: Mapp
         constraint_version_range = [format_version_with_zero_patch(version) for version in
                                     constraints.eforms_sdk_versions]
         return format_version_with_zero_patch(eforms_sdk_version) in constraint_version_range
-    elif mapping_suite.mapping_type == MappingSuiteType.STANDARD_FORMS and notice_metadata.notice_source == NoticeSource.STANDARD_FORM:
+    elif mapping_suite.mapping_type == MappingPackageType.STANDARD_FORMS and notice_metadata.notice_source == NoticeSource.STANDARD_FORM:
         notice_xsd_version = notice_metadata.xsd_version
         constraint_min_xsd_version = constraints.min_xsd_version[0]
         constraint_max_xsd_version = constraints.max_xsd_version[0]
@@ -74,7 +74,7 @@ def check_package(mapping_suite: MappingPackage, notice_metadata: NormalisedMeta
     return in_date_range and in_version_range and covered_eform_type
 
 
-def notice_eligibility_checker(notice: Notice, mapping_suite_repository: MappingSuiteRepositoryABC) -> Tuple:
+def notice_eligibility_checker(notice: Notice, mapping_suite_repository: MappingPackageRepositoryABC) -> Tuple:
     """
     Check if notice is eligible for transformation
     :param notice:
@@ -102,7 +102,7 @@ def notice_eligibility_checker(notice: Notice, mapping_suite_repository: Mapping
 
 
 def notice_eligibility_checker_by_id(notice_id: str, notice_repository: NoticeRepositoryABC,
-                                     mapping_suite_repository: MappingSuiteRepositoryABC) -> Tuple:
+                                     mapping_suite_repository: MappingPackageRepositoryABC) -> Tuple:
     """
     Check if notice in eligible for transformation by giving a notice id
     :param notice_id:

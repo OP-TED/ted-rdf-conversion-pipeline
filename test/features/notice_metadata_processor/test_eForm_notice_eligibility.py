@@ -8,7 +8,7 @@ from pytest_bdd import (
 )
 
 from src.ted_sws.core.model.notice import Notice, NoticeStatus
-from src.ted_sws.data_manager.adapters.repository_abc import MappingSuiteRepositoryABC
+from src.ted_sws.data_manager.adapters.repository_abc import MappingPackageRepositoryABC
 from src.ted_sws.notice_metadata_processor.services.notice_eligibility import notice_eligibility_checker
 
 
@@ -31,7 +31,7 @@ def a_mapping_suite_for_f03_is_available_in_mapping_suite_repository(clean_mappi
 def a_mapping_suite_repository(clean_mapping_suite_repository):
     """a mapping suite repository."""
     assert clean_mapping_suite_repository
-    assert isinstance(clean_mapping_suite_repository, MappingSuiteRepositoryABC)
+    assert isinstance(clean_mapping_suite_repository, MappingPackageRepositoryABC)
 
 
 @given('a notice')

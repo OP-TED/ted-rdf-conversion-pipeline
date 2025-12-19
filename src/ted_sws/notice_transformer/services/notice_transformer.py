@@ -7,8 +7,8 @@ from src.ted_sws.core.model.notice import Notice, NoticeStatus
 from src.ted_sws.core.model.transform import MappingPackage, FileResource
 from src.ted_sws.core.model.validation_report import ReportNotice
 from src.ted_sws.core.model.validation_report_data import ReportNoticeData
-from src.ted_sws.data_manager.adapters.mapping_suite_repository import MappingSuiteRepositoryInFileSystem
-from src.ted_sws.data_manager.adapters.repository_abc import NoticeRepositoryABC, MappingSuiteRepositoryABC
+from src.ted_sws.data_manager.adapters.mapping_suite_repository import MappingPackageRepositoryInFileSystem
+from src.ted_sws.data_manager.adapters.repository_abc import NoticeRepositoryABC, MappingPackageRepositoryABC
 from src.ted_sws.data_manager.services.mapping_suite_resource_manager import file_resource_output_path, \
     mapping_suite_skipped_notice
 from src.ted_sws.event_manager.adapters.event_logger import EventLogger, EventMessageLogSettings
@@ -32,7 +32,7 @@ def transform_notice(notice: Notice, mapping_suite: MappingPackage, rml_mapper: 
     """
     with tempfile.TemporaryDirectory() as temp_dir:
         package_path = Path(temp_dir) / mapping_suite.identifier
-        mapping_suite_repository = MappingSuiteRepositoryInFileSystem(repository_path=package_path.parent)
+        mapping_suite_repository = MappingPackageRepositoryInFileSystem(repository_path=package_path.parent)
         mapping_suite_repository.add(mapping_suite=mapping_suite)
         data_source_path = package_path / DATA_SOURCE_PACKAGE
         data_source_path.mkdir(parents=True, exist_ok=True)
@@ -47,7 +47,7 @@ def transform_notice(notice: Notice, mapping_suite: MappingPackage, rml_mapper: 
 
 
 def transform_notice_by_id(notice_id: str, mapping_suite_id: str, notice_repository: NoticeRepositoryABC,
-                           mapping_suite_repository: MappingSuiteRepositoryABC, rml_mapper: RMLMapperABC):
+                           mapping_suite_repository: MappingPackageRepositoryABC, rml_mapper: RMLMapperABC):
     """
         This function allows the XML content of a Notice to be transformed into RDF,
          using the mapping rules in mapping_suite and the rml_mapper mapping adapter.

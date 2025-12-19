@@ -4,7 +4,7 @@ from string import Template
 from jinja2 import Environment, PackageLoader
 
 from src.ted_sws.core.model.transform import FileResource
-from src.ted_sws.data_manager.adapters.repository_abc import MappingSuiteRepositoryABC
+from src.ted_sws.data_manager.adapters.repository_abc import MappingPackageRepositoryABC
 from src.ted_sws.notice_validator.adapters.sparql_runner import SPARQLRunner
 from src.ted_sws.rml_to_html.resources.query_registry import QueryRegistry
 
@@ -64,7 +64,7 @@ def _join_file_resources(files: [FileResource] = None) -> str:
     return '\n\n'.join(map(lambda file: file.file_content, files))
 
 
-def rml_files_to_html_report(mapping_suite_identifier: str, mapping_suite_repository: MappingSuiteRepositoryABC):
+def rml_files_to_html_report(mapping_suite_identifier: str, mapping_suite_repository: MappingPackageRepositoryABC):
     """
     Creating an html report from loaded rml files
     :param mapping_suite_identifier:

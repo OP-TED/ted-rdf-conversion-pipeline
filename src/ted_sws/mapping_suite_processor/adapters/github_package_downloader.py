@@ -16,7 +16,7 @@ def get_repo_name_from_repo_url(repository_url: str) -> str:
     return url_path.stem
 
 
-class MappingSuitePackageDownloaderABC(abc.ABC):
+class MappingPackageDownloaderABC(abc.ABC):
     """
         This class is intended to download mapping_suite_package from external resources.
     """
@@ -30,7 +30,7 @@ class MappingSuitePackageDownloaderABC(abc.ABC):
         """
 
 
-class GitHubMappingSuitePackageDownloader(MappingSuitePackageDownloaderABC):
+class GitHubMappingPackageDownloader(MappingPackageDownloaderABC):
     """
         This class downloads mapping_suite_package from GitHub.
     """

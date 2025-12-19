@@ -1,6 +1,6 @@
 import pytest
 
-from src.ted_sws.data_manager.adapters.mapping_suite_repository import MappingSuiteRepositoryInFileSystem
+from src.ted_sws.data_manager.adapters.mapping_suite_repository import MappingPackageRepositoryInFileSystem
 from src.ted_sws.notice_validator.adapters.sparql_runner import SPARQLRunner
 from src.ted_sws.rml_to_html.resources.query_registry import QueryRegistry
 from src.ted_sws.rml_to_html.services.rml_to_html import rml_files_to_html_report, query_uri_substitution, get_query_results
@@ -24,7 +24,7 @@ def test_get_query_results(rml_file):
 
 
 def test_rml_files_to_html_report(file_system_repository_path):
-    mapping_suite_repository = MappingSuiteRepositoryInFileSystem(repository_path=file_system_repository_path)
+    mapping_suite_repository = MappingPackageRepositoryInFileSystem(repository_path=file_system_repository_path)
     html_report = rml_files_to_html_report(mapping_suite_identifier="test_package",
                                            mapping_suite_repository=mapping_suite_repository)
 

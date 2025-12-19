@@ -9,7 +9,7 @@ from pytest_bdd import (
 
 from src.ted_sws.core.model.notice import NoticeStatus, Notice
 from src.ted_sws.core.model.transform import MappingPackage
-from src.ted_sws.data_manager.adapters.repository_abc import NoticeRepositoryABC, MappingSuiteRepositoryABC
+from src.ted_sws.data_manager.adapters.repository_abc import NoticeRepositoryABC, MappingPackageRepositoryABC
 from src.ted_sws.notice_transformer.adapters.rml_mapper import RMLMapperABC
 from src.ted_sws.notice_transformer.services.notice_transformer import transform_notice, transform_notice_by_id
 
@@ -42,7 +42,7 @@ def a_mapping_suite_package_id(mapping_suite_id):
 def a_mapping_suite_repository(mapping_suite_repository):
     """a mapping suite repository."""
     assert mapping_suite_repository
-    assert isinstance(mapping_suite_repository, MappingSuiteRepositoryABC)
+    assert isinstance(mapping_suite_repository, MappingPackageRepositoryABC)
 
 
 @given('a notice', target_fixture="eligible_for_transformation_notice")

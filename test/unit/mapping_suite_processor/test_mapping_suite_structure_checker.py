@@ -8,7 +8,7 @@ from src.ted_sws.data_manager.adapters.mapping_suite_repository import MS_TRANSF
     MS_OUTPUT_FOLDER_NAME, MS_RESOURCES_FOLDER_NAME, MS_TEST_DATA_FOLDER_NAME, \
     MS_CONCEPTUAL_MAPPING_FILE_NAME, MS_TEST_SUITE_REPORT, MS_MAPPINGS_FOLDER_NAME
 from src.ted_sws.mapping_suite_processor.adapters.mapping_suite_structure_checker import \
-    MS_METADATA_FILE_NAME, MappingSuiteStructureValidator
+    MS_METADATA_FILE_NAME, MappingPackageStructureValidator
 
 KEY_VERSION = "Mapping Version"
 KEY_EPO = "EPO version"
@@ -17,7 +17,7 @@ KEY_EPO = "EPO version"
 def test_validate_core_structure(caplog, package_folder_path_for_validator):
     with tempfile.TemporaryDirectory() as temp_folder:
         shutil.copytree(package_folder_path_for_validator, temp_folder, dirs_exist_ok=True)
-        mapping_suite_validator = MappingSuiteStructureValidator(temp_folder)
+        mapping_suite_validator = MappingPackageStructureValidator(temp_folder)
 
         assert mapping_suite_validator.validate_core_structure()
 
@@ -34,7 +34,7 @@ def test_validate_core_structure(caplog, package_folder_path_for_validator):
 def test_validate_expanded_structure(caplog, package_folder_path_for_validator):
     with tempfile.TemporaryDirectory() as temp_folder:
         shutil.copytree(package_folder_path_for_validator, temp_folder, dirs_exist_ok=True)
-        mapping_suite_validator = MappingSuiteStructureValidator(temp_folder)
+        mapping_suite_validator = MappingPackageStructureValidator(temp_folder)
         assert mapping_suite_validator.validate_expanded_structure()
 
         metadata_path = (pathlib.Path(temp_folder) / MS_METADATA_FILE_NAME)
@@ -49,7 +49,7 @@ def test_validate_expanded_structure(caplog, package_folder_path_for_validator):
 def test_validate_output_structure(caplog, package_folder_path_for_validator):
     with tempfile.TemporaryDirectory() as temp_folder:
         shutil.copytree(package_folder_path_for_validator, temp_folder, dirs_exist_ok=True)
-        mapping_suite_validator = MappingSuiteStructureValidator(temp_folder)
+        mapping_suite_validator = MappingPackageStructureValidator(temp_folder)
         assert mapping_suite_validator.validate_output_structure()
 
         dirpath = (pathlib.Path(temp_folder) / MS_OUTPUT_FOLDER_NAME)
@@ -79,6 +79,6 @@ def test_check_for_changes_by_version(caplog, package_folder_path_for_validator)
         with open(Path(temp_folder) / MS_TRANSFORM_FOLDER_NAME / MS_MAPPINGS_FOLDER_NAME / "new_file.txt",
                   "w+") as new_file:
             new_file.write("TEXT")
-        mapping_suite_validator = MappingSuiteStructureValidator(temp_folder)
+        mapping_suite_validator = MappingPackageStructureValidator(temp_folder)
         assert not mapping_suite_validator.check_for_changes_by_version()
         assert "does not correspond" in caplog.text

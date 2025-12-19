@@ -10,7 +10,7 @@ from pytest_bdd import (
 from src.ted_sws.core.model.manifestation import SHACLTestSuiteValidationReport, \
     SPARQLTestSuiteValidationReport
 from src.ted_sws.core.model.notice import Notice, NoticeStatus
-from src.ted_sws.core.model.transform import MappingSuite
+from src.ted_sws.core.model.transform import MappingPackage
 from src.ted_sws.notice_validator.services.shacl_test_suite_runner import validate_notice_with_shacl_suite
 from src.ted_sws.notice_validator.services.sparql_test_suite_runner import validate_notice_with_sparql_suite
 
@@ -29,7 +29,7 @@ def test_sparql_validation():
 def a_mapping_suite_package(mapping_suite):
     """a mapping suite package."""
     assert mapping_suite
-    assert isinstance(mapping_suite, MappingSuite)
+    assert isinstance(mapping_suite, MappingPackage)
 
 
 @given('a notice')

@@ -4,7 +4,7 @@ from typing import List
 
 from src.ted_sws.core.model.manifestation import RDFManifestation, XMLManifestation
 from src.ted_sws.core.model.notice import Notice, NoticeStatus
-from src.ted_sws.core.model.transform import MappingSuite, FileResource
+from src.ted_sws.core.model.transform import MappingPackage, FileResource
 from src.ted_sws.core.model.validation_report import ReportNotice
 from src.ted_sws.core.model.validation_report_data import ReportNoticeData
 from src.ted_sws.data_manager.adapters.mapping_suite_repository import MappingSuiteRepositoryInFileSystem
@@ -21,7 +21,7 @@ from src.ted_sws.notice_transformer.services import DEFAULT_TRANSFORMATION_FILE_
 DATA_SOURCE_PACKAGE = "data"
 
 
-def transform_notice(notice: Notice, mapping_suite: MappingSuite, rml_mapper: RMLMapperABC) -> Notice:
+def transform_notice(notice: Notice, mapping_suite: MappingPackage, rml_mapper: RMLMapperABC) -> Notice:
     """
         This function allows the XML content of a Notice to be transformed into RDF,
          using the mapping rules in mapping_suite and the rml_mapper mapping adapter.
@@ -70,7 +70,7 @@ def transform_notice_by_id(notice_id: str, mapping_suite_id: str, notice_reposit
     notice_repository.update(notice=result_notice)
 
 
-def transform_test_data(mapping_suite: MappingSuite, rml_mapper: RMLMapperABC, output_path: Path,
+def transform_test_data(mapping_suite: MappingPackage, rml_mapper: RMLMapperABC, output_path: Path,
                         notice_ids: List[str] = None, logger: EventLogger = None):
     """
         This function converts each file in the test data and writes the result to a file in output_path.

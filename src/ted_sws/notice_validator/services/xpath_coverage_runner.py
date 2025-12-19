@@ -2,7 +2,7 @@ from typing import List
 
 from src.ted_sws.core.model.manifestation import XPATHCoverageValidationReport
 from src.ted_sws.core.model.notice import Notice
-from src.ted_sws.core.model.transform import MappingSuite
+from src.ted_sws.core.model.transform import MappingPackage
 from src.ted_sws.core.model.validation_report import ReportNotice
 from src.ted_sws.notice_validator.adapters.xpath_coverage_runner import CoverageRunner
 
@@ -17,7 +17,7 @@ def xpath_coverage_html_report(report: XPATHCoverageValidationReport, metadata: 
     return CoverageRunner.html_report(report, metadata=metadata)
 
 
-def validate_xpath_coverage_notice(notice: Notice, mapping_suite: MappingSuite) -> Notice:
+def validate_xpath_coverage_notice(notice: Notice, mapping_suite: MappingPackage) -> Notice:
     """
 
     :param notice:
@@ -32,7 +32,7 @@ def validate_xpath_coverage_notice(notice: Notice, mapping_suite: MappingSuite) 
 
 
 def validate_xpath_coverage_notices(notices: List[ReportNotice],
-                                    mapping_suite: MappingSuite) -> XPATHCoverageValidationReport:
+                                    mapping_suite: MappingPackage) -> XPATHCoverageValidationReport:
     """
 
     :param notices:

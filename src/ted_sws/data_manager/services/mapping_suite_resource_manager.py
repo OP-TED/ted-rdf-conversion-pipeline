@@ -4,7 +4,7 @@ from typing import List, Dict
 
 from src.ted_sws.core.model.manifestation import XMLManifestation
 from src.ted_sws.core.model.notice import Notice
-from src.ted_sws.core.model.transform import FileResource, MappingSuite
+from src.ted_sws.core.model.transform import FileResource, MappingPackage
 from src.ted_sws.core.model.validation_report import ReportNotice, ReportNoticeMetadata
 from src.ted_sws.data_manager.adapters.mapping_suite_repository import MappingSuiteRepositoryInFileSystem
 
@@ -34,7 +34,7 @@ def mapping_suite_notice_path_by_group_depth(path: Path, group_depth: int = 0) -
     return MappingSuiteRepositoryInFileSystem.mapping_suite_notice_path_by_group_depth(path, group_depth=group_depth)
 
 
-def mapping_suite_notices_grouped_by_path(mapping_suite: MappingSuite = None, with_content=True,
+def mapping_suite_notices_grouped_by_path(mapping_suite: MappingPackage = None, with_content=True,
                                           file_resources: List[FileResource] = None, group_depth: int = 0,
                                           notice_ids: List[str] = None) -> Dict[Path, List[ReportNotice]]:
     grouped_notices: Dict[Path, List[ReportNotice]] = {}

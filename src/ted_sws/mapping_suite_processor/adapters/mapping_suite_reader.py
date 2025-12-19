@@ -2,7 +2,7 @@ import json
 from pathlib import Path
 from typing import Dict, List, Tuple
 
-from src.ted_sws.core.model.transform import MappingXPATH, MappingSuite
+from src.ted_sws.core.model.transform import MappingXPATH, MappingPackage
 from src.ted_sws.data_manager.adapters.mapping_suite_repository import MS_METADATA_FILE_NAME
 
 # This set of constants refers to fields in the Conceptual Mapping file
@@ -51,7 +51,7 @@ class MappingSuiteReader:
         return dict([_process_line(line) for line in content_lines_with_comments])
 
     @classmethod
-    def read_mapping_suite_xpaths(cls, mapping_suite: MappingSuite) -> List[MappingXPATH]:
+    def read_mapping_suite_xpaths(cls, mapping_suite: MappingPackage) -> List[MappingXPATH]:
         """
 
         :param mapping_suite:

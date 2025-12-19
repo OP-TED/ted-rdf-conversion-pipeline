@@ -3,7 +3,7 @@ import pytest
 from src.ted_sws.core.model.manifestation import RDFManifestation
 from src.ted_sws.core.model.notice import NoticeStatus
 from src.ted_sws.core.model.transform import FileResource, SPARQLTestSuite, MetadataConstraints, TransformationRuleSet, \
-    SHACLTestSuite, TransformationTestData, MappingSuite, MetadataConstraintsStandardForm
+    SHACLTestSuite, TransformationTestData, MappingPackage, MetadataConstraintsStandardForm
 from test import TEST_DATA_PATH
 
 
@@ -198,12 +198,12 @@ def mapping_suite(sparql_test_suite, shacl_test_suite):
     shacl_test_suite = shacl_test_suite
     sparql_test_suite = sparql_test_suite
     transformation_test_data = TransformationTestData(test_data=[empty_file_resource])
-    return MappingSuite(metadata_constraints=metadata_constrains,
-                        transformation_rule_set=transformation_rule_set,
-                        shacl_test_suites=[shacl_test_suite],
-                        sparql_test_suites=[sparql_test_suite],
-                        transformation_test_data=transformation_test_data
-                        )
+    return MappingPackage(metadata_constraints=metadata_constrains,
+                          transformation_rule_set=transformation_rule_set,
+                          shacl_test_suites=[shacl_test_suite],
+                          sparql_test_suites=[sparql_test_suite],
+                          transformation_test_data=transformation_test_data
+                          )
 
 
 @pytest.fixture

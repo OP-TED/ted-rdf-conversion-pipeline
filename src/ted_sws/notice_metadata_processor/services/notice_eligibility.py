@@ -5,7 +5,7 @@ import semantic_version
 
 from src.ted_sws.core.model.metadata import NormalisedMetadata, NoticeSource
 from src.ted_sws.core.model.notice import Notice
-from src.ted_sws.core.model.transform import MappingSuite, MappingSuiteType
+from src.ted_sws.core.model.transform import MappingPackage, MappingSuiteType
 from src.ted_sws.data_manager.adapters.repository_abc import MappingSuiteRepositoryABC, NoticeRepositoryABC
 
 
@@ -33,7 +33,7 @@ def is_date_in_range(publication_date, constraint_start_date_value, constraint_e
     return start_date <= publication_date <= end_date
 
 
-def is_version_in_range(notice_metadata: NormalisedMetadata, mapping_suite: MappingSuite) -> bool:
+def is_version_in_range(notice_metadata: NormalisedMetadata, mapping_suite: MappingPackage) -> bool:
     constraints = mapping_suite.metadata_constraints.constraints
     if mapping_suite.mapping_type == MappingSuiteType.ELECTRONIC_FORMS and notice_metadata.notice_source == NoticeSource.ELECTRONIC_FORM:
         notice_xsd_version = notice_metadata.eform_sdk_version
@@ -52,7 +52,7 @@ def is_version_in_range(notice_metadata: NormalisedMetadata, mapping_suite: Mapp
     return False
 
 
-def check_package(mapping_suite: MappingSuite, notice_metadata: NormalisedMetadata):
+def check_package(mapping_suite: MappingPackage, notice_metadata: NormalisedMetadata):
     """
     Check if mapping suite is valid for notice
     :param notice_metadata:

@@ -1,12 +1,12 @@
-from src.ted_sws.core.model.transform import MappingSuite
+from src.ted_sws.core.model.transform import MappingPackage
 from urllib.parse import urlparse
 from src.ted_sws import config
 
 
-def update_digest_api_address_for_mapping_suite(mapping_suite: MappingSuite,
+def update_digest_api_address_for_mapping_suite(mapping_suite: MappingPackage,
                                                 current_digest_api_address: str = None,
                                                 new_digest_api_address: str = None,
-                                                ) -> MappingSuite:
+                                                ) -> MappingPackage:
     """
     Replace the digest API address
 

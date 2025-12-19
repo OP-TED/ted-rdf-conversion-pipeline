@@ -6,7 +6,7 @@ from jinja2 import Environment, PackageLoader
 from src.ted_sws.core.model.manifestation import RDFManifestation, SHACLTestSuiteValidationReport, \
     QueriedSHACLShapeValidationResult
 from src.ted_sws.core.model.notice import Notice
-from src.ted_sws.core.model.transform import MappingSuite, SHACLTestSuite
+from src.ted_sws.core.model.transform import MappingPackage, SHACLTestSuite
 from src.ted_sws.core.model.validation_report import ReportNotice, SHACLValidationSummaryReport, \
     SHACLValidationSummaryResult, SHACLSummaryQuery
 from src.ted_sws.core.model.validation_report_data import ReportPackageNoticeData
@@ -29,7 +29,7 @@ class SHACLTestSuiteRunner:
     """
 
     def __init__(self, rdf_manifestation: RDFManifestation, shacl_test_suite: SHACLTestSuite,
-                 mapping_suite: MappingSuite):
+                 mapping_suite: MappingPackage):
         self.rdf_manifestation = rdf_manifestation
         self.shacl_test_suite = shacl_test_suite
         self.mapping_suite = mapping_suite
@@ -82,7 +82,7 @@ def generate_shacl_report(shacl_test_suite_execution: SHACLTestSuiteValidationRe
     return shacl_test_suite_execution
 
 
-def generate_shacl_validation_summary_report(report_notices: List[ReportNotice], mapping_suite_package: MappingSuite,
+def generate_shacl_validation_summary_report(report_notices: List[ReportNotice], mapping_suite_package: MappingPackage,
                                              execute_full_validation: bool = True,
                                              with_html: bool = False,
                                              report: SHACLValidationSummaryReport = None,
@@ -173,7 +173,7 @@ def generate_shacl_validation_summary_report(report_notices: List[ReportNotice],
     return report
 
 
-def validate_notice_with_shacl_suite(notice: Notice, mapping_suite_package: MappingSuite,
+def validate_notice_with_shacl_suite(notice: Notice, mapping_suite_package: MappingPackage,
                                      execute_full_validation: bool = True, with_html: bool = False) -> Notice:
     """
     Validates a notice with a shacl test suites

@@ -6,7 +6,7 @@ import pytest
 
 from src.ted_sws import config
 from src.ted_sws.core.model.notice import Notice, NoticeStatus
-from src.ted_sws.core.model.transform import MappingSuite
+from src.ted_sws.core.model.transform import MappingPackage
 from src.ted_sws.data_manager.adapters.mapping_suite_repository import MappingSuiteRepositoryMongoDB, \
     MappingSuiteRepositoryInFileSystem
 from src.ted_sws.data_manager.adapters.notice_repository import NoticeRepository
@@ -32,12 +32,12 @@ def mapping_suite_repository(fake_repository_path):
 
 
 @pytest.fixture
-def mapping_suite(mapping_suite_repository, mapping_suite_id) -> MappingSuite:
+def mapping_suite(mapping_suite_repository, mapping_suite_id) -> MappingPackage:
     return mapping_suite_repository.get(reference=mapping_suite_id)
 
 
 @pytest.fixture
-def eform_mapping_suite(mapping_suite_repository, mapping_suite_id) -> MappingSuite:
+def eform_mapping_suite(mapping_suite_repository, mapping_suite_id) -> MappingPackage:
     return mapping_suite_repository.get(reference="test_package4")
 
 

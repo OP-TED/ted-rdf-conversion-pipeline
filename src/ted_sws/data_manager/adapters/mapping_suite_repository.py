@@ -8,7 +8,7 @@ from typing import Iterator, List, Optional
 from pymongo import MongoClient
 
 from src.ted_sws import config
-from src.ted_sws.core.model.transform import MappingSuite, FileResource, TransformationRuleSet, SHACLTestSuite, \
+from src.ted_sws.core.model.transform import MappingPackage, FileResource, TransformationRuleSet, SHACLTestSuite, \
     SPARQLTestSuite, MetadataConstraints, TransformationTestData, MappingSuiteType, \
     MetadataConstraintsStandardForm, MetadataConstraintsEform
 from src.ted_sws.data_manager.adapters import inject_date_string_fields, remove_date_string_fields
@@ -58,7 +58,7 @@ class MappingSuiteRepositoryMongoDB(MappingSuiteRepositoryABC):
         notice_db = mongodb_client[self._database_name]
         self.collection = notice_db[self._collection_name]
 
-    def _create_dict_from_mapping_suite(self, mapping_suite: MappingSuite) -> dict:
+    def _create_dict_from_mapping_suite(self, mapping_suite: MappingPackage) -> dict:
         """
             This method create a dict from mapping suite object.
         :param mapping_suite:
@@ -70,7 +70,7 @@ class MappingSuiteRepositoryMongoDB(MappingSuiteRepositoryABC):
         inject_date_string_fields(data=mapping_suite_dict, date_field_name=MS_CREATED_AT_KEY)
         return mapping_suite_dict
 
-    def _create_mapping_suite_from_dict(self, mapping_suite_dict: dict) -> Optional[MappingSuite]:
+    def _create_mapping_suite_from_dict(self, mapping_suite_dict: dict) -> Optional[MappingPackage]:
         """
             This method create a mapping suite object from a dictionary.
         :param mapping_suite_dict:
@@ -80,10 +80,10 @@ class MappingSuiteRepositoryMongoDB(MappingSuiteRepositoryABC):
             mapping_suite_dict.pop(MONGODB_COLLECTION_ID, None)
             mapping_suite_dict[MS_CREATED_AT_KEY] = mapping_suite_dict[MS_CREATED_AT_KEY].isoformat()
             remove_date_string_fields(data=mapping_suite_dict, date_field_name=MS_CREATED_AT_KEY)
-            return MappingSuite(**mapping_suite_dict)
+            return MappingPackage(**mapping_suite_dict)
         return None
 
-    def add(self, mapping_suite: MappingSuite):
+    def add(self, mapping_suite: MappingPackage):
         """
             This method allows you to add MappingSuite objects to the repository.
         :param mapping_suite:
@@ -95,7 +95,7 @@ class MappingSuiteRepositoryMongoDB(MappingSuiteRepositoryABC):
         if mapping_suite_exist is None:
             self.collection.insert_one(mapping_suite_dict)
 
-    def update(self, mapping_suite: MappingSuite):
+    def update(self, mapping_suite: MappingPackage):
         """
             This method allows you to update MappingSuite objects to the repository
         :param mapping_suite:
@@ -105,7 +105,7 @@ class MappingSuiteRepositoryMongoDB(MappingSuiteRepositoryABC):
         self.collection.update_one({MONGODB_COLLECTION_ID: mapping_suite_dict[MONGODB_COLLECTION_ID]},
                                    {"$set": mapping_suite_dict})
 
-    def get(self, reference) -> MappingSuite:
+    def get(self, reference) -> MappingPackage:
         """
             This method allows a MappingSuite to be obtained based on an identification reference.
         :param reference:
@@ -114,7 +114,7 @@ class MappingSuiteRepositoryMongoDB(MappingSuiteRepositoryABC):
         result_dict = self.collection.find_one({MONGODB_COLLECTION_ID: reference})
         return self._create_mapping_suite_from_dict(mapping_suite_dict=result_dict)
 
-    def list(self) -> Iterator[MappingSuite]:
+    def list(self) -> Iterator[MappingPackage]:
         """
             This method allows all records to be retrieved from the repository.
         :return: list of MappingSuites
@@ -206,7 +206,7 @@ class MappingSuiteRepositoryInFileSystem(MappingSuiteRepositoryABC):
                                 sparql_tests=self._read_file_resources(path=sparql_test_suite_path))
                 for sparql_test_suite_path in sparql_test_suite_paths]
 
-    def _write_package_metadata(self, mapping_suite: MappingSuite):
+    def _write_package_metadata(self, mapping_suite: MappingPackage):
         """
             This method creates the metadata of a package based on the metadata in the mapping_suite.
         :param mapping_suite:
@@ -279,7 +279,7 @@ class MappingSuiteRepositoryInFileSystem(MappingSuiteRepositoryABC):
                              original_name=file.name)
                 for file in files]
 
-    def _write_package_transform_rules(self, mapping_suite: MappingSuite):
+    def _write_package_transform_rules(self, mapping_suite: MappingPackage):
         """
             This method creates the transformation rules within the package.
         :param mapping_suite:
@@ -298,7 +298,7 @@ class MappingSuiteRepositoryInFileSystem(MappingSuiteRepositoryABC):
                                    path=resources_path
                                    )
 
-    def _write_package_validation_rules(self, mapping_suite: MappingSuite):
+    def _write_package_validation_rules(self, mapping_suite: MappingPackage):
         """
             This method creates the validation rules within the package.
         :param mapping_suite:
@@ -326,7 +326,7 @@ class MappingSuiteRepositoryInFileSystem(MappingSuiteRepositoryABC):
                                        path=sparql_test_suite_path
                                        )
 
-    def _write_test_data_package(self, mapping_suite: MappingSuite):
+    def _write_test_data_package(self, mapping_suite: MappingPackage):
         """
             This method writes the test data to a dedicated folder in the package.
         :param mapping_suite:
@@ -349,7 +349,7 @@ class MappingSuiteRepositoryInFileSystem(MappingSuiteRepositoryABC):
         test_data = self.read_flat_file_resources(path=test_data_path)
         return TransformationTestData(test_data=test_data)
 
-    def _write_mapping_suite_package(self, mapping_suite: MappingSuite):
+    def _write_mapping_suite_package(self, mapping_suite: MappingPackage):
         """
             This method creates a package based on data from mapping_suite.
         :param mapping_suite:
@@ -360,7 +360,7 @@ class MappingSuiteRepositoryInFileSystem(MappingSuiteRepositoryABC):
         self._write_package_validation_rules(mapping_suite=mapping_suite)
         self._write_test_data_package(mapping_suite=mapping_suite)
 
-    def _read_mapping_suite_package(self, mapping_suite_identifier: str) -> Optional[MappingSuite]:
+    def _read_mapping_suite_package(self, mapping_suite_identifier: str) -> Optional[MappingPackage]:
         """
             This method reads a package and initializes a MappingSuite object.
         :param mapping_suite_identifier:
@@ -378,7 +378,7 @@ class MappingSuiteRepositoryInFileSystem(MappingSuiteRepositoryABC):
                 package_metadata[MS_METADATA_CONSTRAINTS_KEY] = MetadataConstraints(
                     constraints=MetadataConstraintsStandardForm(
                         **package_metadata[MS_METADATA_CONSTRAINTS_KEY][MS_CONSTRAINTS_KEY]))
-            mapping_suite = MappingSuite(
+            mapping_suite = MappingPackage(
                 metadata_constraints=package_metadata[MS_METADATA_CONSTRAINTS_KEY],
                 created_at=package_metadata[MS_CREATED_AT_KEY],
                 title=package_metadata[MS_TITLE_KEY],
@@ -401,7 +401,7 @@ class MappingSuiteRepositoryInFileSystem(MappingSuiteRepositoryABC):
     def mapping_suite_notice_path_by_group_depth(cls, path: pathlib.Path, group_depth: int = 0) -> pathlib.Path:
         return pathlib.Path(*path.parts[:(-group_depth if group_depth else None)]) if path else None
 
-    def add(self, mapping_suite: MappingSuite):
+    def add(self, mapping_suite: MappingPackage):
         """
             This method allows you to add MappingSuite objects to the repository.
         :param mapping_suite:
@@ -409,7 +409,7 @@ class MappingSuiteRepositoryInFileSystem(MappingSuiteRepositoryABC):
         """
         self._write_mapping_suite_package(mapping_suite=mapping_suite)
 
-    def update(self, mapping_suite: MappingSuite):
+    def update(self, mapping_suite: MappingPackage):
         """
             This method allows you to update MappingSuite objects to the repository
         :param mapping_suite:
@@ -419,7 +419,7 @@ class MappingSuiteRepositoryInFileSystem(MappingSuiteRepositoryABC):
         if package_path.is_dir():
             self._write_mapping_suite_package(mapping_suite=mapping_suite)
 
-    def get(self, reference) -> MappingSuite:
+    def get(self, reference) -> MappingPackage:
         """
             This method allows a MappingSuite to be obtained based on an identification reference.
         :param reference:
@@ -427,7 +427,7 @@ class MappingSuiteRepositoryInFileSystem(MappingSuiteRepositoryABC):
         """
         return self._read_mapping_suite_package(mapping_suite_identifier=reference)
 
-    def list(self) -> Iterator[MappingSuite]:
+    def list(self) -> Iterator[MappingPackage]:
         """
             This method allows all records to be retrieved from the repository.
         :return: list of MappingSuites

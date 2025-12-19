@@ -8,7 +8,7 @@ from pytest_bdd import (
 )
 
 from src.ted_sws.core.model.notice import NoticeStatus, Notice
-from src.ted_sws.core.model.transform import MappingSuite
+from src.ted_sws.core.model.transform import MappingPackage
 from src.ted_sws.notice_transformer.adapters.rml_mapper import RMLMapperABC
 from src.ted_sws.notice_transformer.services.notice_transformer import transform_notice
 
@@ -22,7 +22,7 @@ def test_transform_a_ted_notice():
 def a_mapping_suite_package(eform_mapping_suite):
     """a mapping suite package."""
     assert eform_mapping_suite
-    assert isinstance(eform_mapping_suite, MappingSuite)
+    assert isinstance(eform_mapping_suite, MappingPackage)
 
 
 @given('a eForm notice', target_fixture="eligible_for_transformation_eForm_notice")

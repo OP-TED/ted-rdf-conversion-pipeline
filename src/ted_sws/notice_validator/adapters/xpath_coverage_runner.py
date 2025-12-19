@@ -8,7 +8,7 @@ from saxonche import PySaxonProcessor, PySaxonApiError, PyXPathProcessor
 from src.ted_sws.core.model.manifestation import XPATHCoverageValidationReport, XPATHCoverageValidationAssertion, \
     XPATHCoverageValidationResult
 from src.ted_sws.core.model.notice import Notice
-from src.ted_sws.core.model.transform import MappingXPATH, MappingSuite
+from src.ted_sws.core.model.transform import MappingXPATH, MappingPackage
 from src.ted_sws.core.model.validation_report import ReportNotice
 from src.ted_sws.mapping_suite_processor.adapters.mapping_suite_reader import MappingSuiteReader
 from src.ted_sws.notice_transformer.services.notice_transformer import transform_report_notices
@@ -22,18 +22,18 @@ XPathDict = Dict[str, List[str]]
 
 class CoverageRunner:
     """"""
-    mapping_suite: MappingSuite
+    mapping_suite: MappingPackage
     mapping_suite_id: str
     conceptual_xpaths: Set[str] = set()
     conceptual_xpath_data: Dict[str, MappingXPATH] = {}
 
-    def __init__(self, mapping_suite: MappingSuite):
+    def __init__(self, mapping_suite: MappingPackage):
         """"""
         self.mapping_suite = mapping_suite
         self.mapping_suite_id = mapping_suite.get_mongodb_id()
         self.init_xpath_data(mapping_suite=mapping_suite)
 
-    def init_xpath_data(self, mapping_suite: MappingSuite):
+    def init_xpath_data(self, mapping_suite: MappingPackage):
         for cm_xpath in MappingSuiteReader.read_mapping_suite_xpaths(mapping_suite):
             self.conceptual_xpaths.add(cm_xpath.xpath)
             self.conceptual_xpath_data[cm_xpath.xpath] = cm_xpath

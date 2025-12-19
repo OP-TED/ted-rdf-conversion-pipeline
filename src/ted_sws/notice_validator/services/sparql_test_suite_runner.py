@@ -7,7 +7,7 @@ from jinja2 import Environment, PackageLoader
 from src.ted_sws.core.model.manifestation import RDFManifestation, SPARQLQueryResult, \
     SPARQLTestSuiteValidationReport, SPARQLQuery, XMLManifestation, SPARQLQueryRefinedResultType
 from src.ted_sws.core.model.notice import Notice
-from src.ted_sws.core.model.transform import SPARQLTestSuite, MappingSuite, FileResource
+from src.ted_sws.core.model.transform import SPARQLTestSuite, MappingPackage, FileResource
 from src.ted_sws.core.model.validation_report import SPARQLValidationSummaryReport, SPARQLValidationSummaryQueryResult, \
     ReportNotice
 from src.ted_sws.core.model.validation_report_data import ReportPackageNoticeData
@@ -36,7 +36,7 @@ class SPARQLTestSuiteRunner:
     """
 
     def __init__(self, rdf_manifestation: RDFManifestation, sparql_test_suite: SPARQLTestSuite,
-                 mapping_suite: MappingSuite, xml_manifestation: XMLManifestation = None):
+                 mapping_suite: MappingPackage, xml_manifestation: XMLManifestation = None):
         self.rdf_manifestation = rdf_manifestation
         self.xml_manifestation = xml_manifestation
         self.sparql_test_suite = sparql_test_suite
@@ -163,7 +163,7 @@ class SPARQLReportBuilder:
 
 def process_sparql_validation_summary_report_data_with_notice(
         notice: Notice,
-        mapping_suite_package: MappingSuite,
+        mapping_suite_package: MappingPackage,
         report_notice_path: Path,
         report: SPARQLValidationSummaryReport
 ):
@@ -256,7 +256,7 @@ def finalize_sparql_validation_summary_report(report: SPARQLValidationSummaryRep
 
 
 def generate_sparql_validation_summary_report(report_notices: List[ReportNotice],
-                                              mapping_suite_package: MappingSuite,
+                                              mapping_suite_package: MappingPackage,
                                               execute_full_validation: bool = True,
                                               with_html: bool = False,
                                               report: SPARQLValidationSummaryReport = None,
@@ -291,7 +291,7 @@ def generate_sparql_validation_summary_report(report_notices: List[ReportNotice]
     return report
 
 
-def validate_notice_with_sparql_suite(notice: Notice, mapping_suite_package: MappingSuite,
+def validate_notice_with_sparql_suite(notice: Notice, mapping_suite_package: MappingPackage,
                                       execute_full_validation: bool = True, with_html: bool = False) -> Notice:
     """
     Validates a notice with a sparql test suites

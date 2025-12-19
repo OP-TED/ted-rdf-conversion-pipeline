@@ -1,7 +1,8 @@
 from airflow.decorators import dag, task
 from airflow.models import Param
 
-from src.dags import DEFAULT_DAG_ARGUMENTS, NOTICE_NORMALISATION_PIPELINE_TASK_ID
+from src.dags import DEFAULT_DAG_ARGUMENTS, NOTICE_NORMALISATION_PIPELINE_TASK_ID, RUN_MATERIALISED_VIEW_DAG_PARAM, \
+    RUN_MATERIALISED_VIEW_DAG_PARAM_DESCRIPTION
 from src.dags.dags_utils import push_dag_downstream, get_dag_param
 from src.dags.operators.DagBatchPipelineOperator import NOTICE_IDS_KEY, TriggerNoticeBatchPipelineOperator
 from src.ted_sws.event_manager.adapters.event_log_decorator import event_log
@@ -24,7 +25,13 @@ TRIGGER_NOTICE_PROCESS_WORKFLOW_TASK_ID = "trigger_notice_process_workflow"
             type="array",
             title="Notice IDs",
             description="Required. List of TED Notice IDs to reprocess. Each value should be entered on a new line. Example: [\"123456-2022\", \"456789-2023\"]. Every ID value should be entered on a newline"
-        )
+        ),
+        RUN_MATERIALISED_VIEW_DAG_PARAM: Param(
+            default=False,
+            type="boolean",
+            title="Run Materialised View",
+            description=RUN_MATERIALISED_VIEW_DAG_PARAM_DESCRIPTION
+        ),
     },
     description=DAG_NAME
 )

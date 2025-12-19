@@ -1,9 +1,10 @@
 from airflow.decorators import dag, task
-from airflow.operators.empty import EmptyOperator
 from airflow.models import Param
+from airflow.operators.empty import EmptyOperator
 from airflow.operators.python import BranchPythonOperator
 from airflow.utils.trigger_rule import TriggerRule
-from src.dags import DEFAULT_DAG_ARGUMENTS
+
+from src.dags import DEFAULT_DAG_ARGUMENTS, RUN_MATERIALISED_VIEW_DAG_PARAM, RUN_MATERIALISED_VIEW_DAG_PARAM_DESCRIPTION
 from src.dags.dags_utils import get_dag_param, push_dag_downstream, pull_dag_upstream
 from src.dags.operators.DagBatchPipelineOperator import NOTICE_IDS_KEY, TriggerNoticeBatchPipelineOperator
 from src.dags.pipelines.notice_fetcher_pipelines import notice_fetcher_by_query_pipeline
@@ -40,8 +41,14 @@ FINISH_FETCH_BY_DATE_TASK_ID = "finish_fetch_by_query"
              type="boolean",
              title="Trigger Complete Workflow",
              description="""This field is required.
-                     If true, the complete workflow will be triggered, otherwise only the partial workflow will be triggered."""
-         )
+                    If true, the complete workflow will be triggered, otherwise only the partial workflow will be triggered."""
+         ),
+         RUN_MATERIALISED_VIEW_DAG_PARAM: Param(
+             default=False,
+             type="boolean",
+             title="Run Materialised View",
+             description=RUN_MATERIALISED_VIEW_DAG_PARAM_DESCRIPTION
+         ),
      }
      )
 def fetch_notices_by_query():

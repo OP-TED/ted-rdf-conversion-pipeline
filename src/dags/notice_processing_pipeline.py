@@ -2,7 +2,9 @@ from typing import List, Any, Dict
 
 from airflow.decorators import dag
 from airflow.exceptions import AirflowException
+from airflow.models import DagRun
 from airflow.operators.python import BranchPythonOperator, PythonOperator
+from airflow.utils.session import provide_session
 from airflow.utils.trigger_rule import TriggerRule
 
 from src.dags import DEFAULT_DAG_ARGUMENTS, NOTICE_NORMALISATION_PIPELINE_TASK_ID, STOP_PROCESSING_TASK_ID, \
@@ -10,9 +12,10 @@ from src.dags import DEFAULT_DAG_ARGUMENTS, NOTICE_NORMALISATION_PIPELINE_TASK_I
     NOTICE_PACKAGE_PIPELINE_TASK_ID, NOTICE_PUBLISH_PIPELINE_TASK_ID, BRANCH_SELECTOR_TASK_ID, \
     SELECTOR_BRANCH_BEFORE_TRANSFORMATION_TASK_ID, SELECTOR_BRANCH_BEFORE_VALIDATION_TASK_ID, \
     SELECTOR_BRANCH_BEFORE_PACKAGE_TASK_ID, SELECTOR_BRANCH_BEFORE_PUBLISH_TASK_ID, \
-    NOTICE_DISTILLATION_PIPELINE_TASK_ID, NOTICES_COLLECTION_DATASET
+    NOTICE_DISTILLATION_PIPELINE_TASK_ID, DAILY_MATERIALISED_VIEWS_DAG_NAME, RUN_MATERIALISED_VIEW_DAG_PARAM, \
+    NOTICE_PROCESSING_PIPELINE_DAG_MAX_ACTIVE_RUNS, NOTICE_PROCESSING_PIPELINE_DAG_MAX_ACTIVE_TASKS
 from src.dags.dags_utils import get_dag_param, smart_xcom_push, smart_xcom_forward, parse_notice_statuses_from_string, \
-    smart_xcom_pull
+    smart_xcom_pull, is_last_active_dag_run, trigger_dag
 from src.dags.operators.DagBatchPipelineOperator import NoticeBatchPipelineOperator, NOTICE_IDS_KEY, \
     EXECUTE_ONLY_ONE_STEP_KEY, START_WITH_STEP_NAME_KEY, NOTICES_WITH_STATUS_KEY
 from src.dags.pipelines.notice_batch_processor_pipelines import notices_batch_distillation_pipeline, \
@@ -47,8 +50,8 @@ NOTICE_SUCCESS_STATUSES: List[NoticeStatus] = parse_notice_statuses_from_string(
      schedule_interval=None,
      dag_display_name=DAG_NAME,
      dag_id=DAG_ID,
-     max_active_runs=256,
-     max_active_tasks=256,
+     max_active_runs=NOTICE_PROCESSING_PIPELINE_DAG_MAX_ACTIVE_RUNS,
+     max_active_tasks=NOTICE_PROCESSING_PIPELINE_DAG_MAX_ACTIVE_TASKS,
      tags=['worker', 'pipeline'])
 def notice_processing_pipeline():
     """
@@ -75,7 +78,12 @@ def notice_processing_pipeline():
     def _selector_branch_before_publish():
         return branch_selector(NOTICE_PUBLISH_PIPELINE_TASK_ID)
 
-    def _stop_processing():
+    @provide_session
+    def _stop_processing(session=None, **kwargs):
+        run_mv = get_dag_param(key=RUN_MATERIALISED_VIEW_DAG_PARAM, default_value=False)
+        if run_mv and is_last_active_dag_run(session=session, dagrun_model=DagRun, dag_id=DAG_ID):
+            trigger_dag(dag_id=DAILY_MATERIALISED_VIEWS_DAG_NAME)
+
         notice_ids_with_statuses: Dict[str, NoticeStatus] = smart_xcom_pull(key=NOTICES_WITH_STATUS_KEY)
         if notice_ids_with_statuses is not None and NOTICE_SUCCESS_STATUSES is not None:
             if len(set(notice_ids_with_statuses.values()) - set(NOTICE_SUCCESS_STATUSES)) > 0:
@@ -118,7 +126,7 @@ def notice_processing_pipeline():
         task_id=STOP_PROCESSING_TASK_ID,
         trigger_rule=TriggerRule.ALL_DONE,
         python_callable=_stop_processing,
-        outlets=NOTICES_COLLECTION_DATASET
+        provide_context=True,
     )
 
     notice_normalisation_step = NoticeBatchPipelineOperator(notice_pipeline_callable=notice_normalisation_pipeline,

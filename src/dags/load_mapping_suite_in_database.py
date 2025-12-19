@@ -1,12 +1,18 @@
 from airflow.decorators import dag, task
 from airflow.models import Param
-from airflow.operators.empty import EmptyOperator
+from airflow.operators.python import PythonOperator
 from airflow.operators.python import get_current_context, BranchPythonOperator
 from airflow.utils.trigger_rule import TriggerRule
 from pymongo import MongoClient
 
-from src.dags import DEFAULT_DAG_ARGUMENTS, BATCH_SIZE
-from src.dags.dags_utils import push_dag_downstream, pull_dag_upstream, get_dag_param
+from src.dags import (
+    DEFAULT_DAG_ARGUMENTS,
+    BATCH_SIZE,
+    RUN_MATERIALISED_VIEW_DAG_PARAM,
+    RUN_MATERIALISED_VIEW_DAG_PARAM_DESCRIPTION,
+    DAILY_MATERIALISED_VIEWS_DAG_NAME,
+)
+from src.dags.dags_utils import push_dag_downstream, pull_dag_upstream, get_dag_param, trigger_dag
 from src.dags.operators.DagBatchPipelineOperator import NOTICE_IDS_KEY, TriggerNoticeBatchPipelineOperator
 from src.ted_sws import config
 from src.ted_sws.event_manager.adapters.event_log_decorator import event_log
@@ -29,6 +35,7 @@ TRIGGER_DOCUMENT_PROC_PIPELINE_TASK_ID = "trigger_document_proc_pipeline"
 CHECK_IF_LOAD_TEST_DATA_TASK_ID = "check_if_load_test_data"
 DAG_ID = "load_mapping_suite_in_database"
 DAG_NAME = "Load mapping suite"
+
 
 @dag(default_args=DEFAULT_DAG_ARGUMENTS,
      schedule_interval=None,
@@ -62,7 +69,13 @@ DAG_NAME = "Load mapping suite"
              type="boolean",
              title="Load test data",
              description="""This field is used to load test data."""
-         )
+         ),
+         RUN_MATERIALISED_VIEW_DAG_PARAM: Param(
+             default=False,
+             type="boolean",
+             title="Run Materialised View",
+             description=RUN_MATERIALISED_VIEW_DAG_PARAM_DESCRIPTION,
+         ),
      }
      )
 def load_mapping_suite_in_database():
@@ -107,15 +120,25 @@ def load_mapping_suite_in_database():
             return [TRIGGER_DOCUMENT_PROC_PIPELINE_TASK_ID]
         return [FINISH_LOADING_MAPPING_SUITE_TASK_ID]
 
+    def _trigger_mv_if_enabled():
+        run_mv = get_dag_param(key=RUN_MATERIALISED_VIEW_DAG_PARAM, default_value=False)
+        if run_mv:
+            trigger_dag(dag_id=DAILY_MATERIALISED_VIEWS_DAG_NAME)
+
     branch_task = BranchPythonOperator(
         task_id=CHECK_IF_LOAD_TEST_DATA_TASK_ID,
         python_callable=_branch_selector,
     )
-    finish_step = EmptyOperator(task_id=FINISH_LOADING_MAPPING_SUITE_TASK_ID,
-                                trigger_rule=TriggerRule.NONE_FAILED_MIN_ONE_SUCCESS)
+
+    finish_step = PythonOperator(
+        task_id=FINISH_LOADING_MAPPING_SUITE_TASK_ID,
+        trigger_rule=TriggerRule.NONE_FAILED_MIN_ONE_SUCCESS,
+        python_callable=_trigger_mv_if_enabled,
+    )
 
     trigger_document_proc_pipeline = TriggerNoticeBatchPipelineOperator(task_id=TRIGGER_DOCUMENT_PROC_PIPELINE_TASK_ID,
                                                                         batch_size=BATCH_SIZE)
+
     fetch_mapping_suite_package_from_github_into_mongodb() >> branch_task
     trigger_document_proc_pipeline >> finish_step
     branch_task >> [trigger_document_proc_pipeline, finish_step]

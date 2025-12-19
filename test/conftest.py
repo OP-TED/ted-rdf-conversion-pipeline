@@ -11,6 +11,7 @@ import pytest
 from airflow.models import DagBag, Variable
 from airflow.utils.db import resetdb, initdb
 from mongomock.gridfs import enable_gridfs_integration
+
 from src.ted_sws.core.model.manifestation import XMLManifestation, RDFManifestation
 from src.ted_sws.core.model.metadata import TEDMetadata, LanguageTaggedString, NormalisedMetadata, XMLMetadata
 from src.ted_sws.core.model.notice import Notice, NoticeStatus
@@ -334,6 +335,7 @@ def eform_notice_622690():
 def indexed_eform_notice_622690(eform_notice_622690):
     eform_notice_622690.set_xml_metadata(XMLMetadata(unique_xpaths=["FAKE_INDEX_XPATHS"]))
     return eform_notice_622690
+
 
 @pytest.fixture
 def mock_sftp_publisher() -> MockSFTPPublisherWithLimitedConnections:

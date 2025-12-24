@@ -73,7 +73,7 @@ def rml_files_to_html_report(mapping_suite_identifier: str, mapping_suite_reposi
     """
     mapping_suite_package = mapping_suite_repository.get(reference=mapping_suite_identifier)
     if mapping_suite_package is None:
-        raise ValueError(f'Mapping suite package, with {mapping_suite_identifier} id, was not found')
+        raise ValueError(f'Mapping package package, with {mapping_suite_identifier} id, was not found')
     rml_files = [FileResource(
         file_name="joined_rml_files",
         file_content=_join_file_resources(mapping_suite_package.transformation_rule_set.rml_mapping_rules)

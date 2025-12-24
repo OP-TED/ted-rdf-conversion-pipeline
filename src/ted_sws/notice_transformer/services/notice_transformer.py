@@ -64,7 +64,7 @@ def transform_notice_by_id(notice_id: str, mapping_suite_id: str, notice_reposit
         raise ValueError(f'Notice, with {notice_id} id, was not found')
 
     if mapping_suite is None:
-        raise ValueError(f'Mapping suite, with {mapping_suite_id} id, was not found')
+        raise ValueError(f'Mapping package, with {mapping_suite_id} id, was not found')
 
     result_notice = transform_notice(notice=notice, mapping_suite=mapping_suite, rml_mapper=rml_mapper)
     notice_repository.update(notice=result_notice)

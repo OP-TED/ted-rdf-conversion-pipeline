@@ -34,7 +34,7 @@ FINISH_LOADING_MAPPING_SUITE_TASK_ID = "finish_loading_mapping_suite"
 TRIGGER_DOCUMENT_PROC_PIPELINE_TASK_ID = "trigger_document_proc_pipeline"
 CHECK_IF_LOAD_TEST_DATA_TASK_ID = "check_if_load_test_data"
 DAG_ID = "load_mapping_suite_in_database"
-DAG_NAME = "Load mapping suite"
+DAG_NAME = "Load mapping package"
 
 
 @dag(default_args=DEFAULT_DAG_ARGUMENTS,
@@ -48,21 +48,21 @@ DAG_NAME = "Load mapping suite"
              type=["null", "string"],
              title="Github repository url",
              description="""This is optional field.
-               Github repository url to fetch mapping suite package from."""
+               Github repository url to fetch mapping package package from."""
          ),
          BRANCH_OR_TAG_NAME_DAG_PARAM_KEY: Param(
              default=None,
              type=["null", "string"],
              title="Branch or tag name",
              description="""This is optional field.
-               Branch or tag name to fetch mapping suite package from."""
+               Branch or tag name to fetch mapping package package from."""
          ),
          MAPPING_SUITE_PACKAGE_NAME_DAG_PARAM_KEY: Param(
              default=None,
              type=["null", "string"],
-             title="Mapping suite package name",
+             title="Mapping package name",
              description="""This is optional field.
-               Mapping suite package name to fetch from github repository."""
+               Mapping package name to fetch from github repository."""
          ),
          LOAD_TEST_DATA_DAG_PARAM_KEY: Param(
              default=False,

@@ -12,7 +12,7 @@ def test_mapping_suite_repository_mongodb(mongodb_client, fake_mapping_suite,
     assert result_mapping_suite
     assert result_mapping_suite.identifier == fake_mapping_suite.identifier
     result_mapping_suite.title = "updated_title"
-    mapping_suite_repository.update(mapping_suite=result_mapping_suite)
+    mapping_suite_repository.update(mapping_package=result_mapping_suite)
     result_mapping_suite = mapping_suite_repository.get(reference=fake_mapping_suite_identifier_with_version)
     assert result_mapping_suite.shacl_test_suites[0].identifier == "fake_shacl_test_suite"
     assert result_mapping_suite.title == "updated_title"
@@ -31,7 +31,7 @@ def test_mapping_suite_repository_mongodb_update_invalid_id(mongodb_client, fake
     assert result_mapping_suite.identifier == fake_mapping_suite.identifier
     result_mapping_suite.identifier = "updated_id"
     result_mapping_suite.title = "updated_title"
-    mapping_suite_repository.update(mapping_suite=result_mapping_suite)
+    mapping_suite_repository.update(mapping_package=result_mapping_suite)
     result_mapping_suite = mapping_suite_repository.get(reference=result_mapping_suite.identifier)
     assert result_mapping_suite is None
     mongodb_client.drop_database(aggregates_database_name)

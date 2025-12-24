@@ -226,6 +226,6 @@ def validate_notice_by_id_with_shacl_suite(notice_id: str, mapping_suite_identif
 
     mapping_suite_package = mapping_suite_repository.get(reference=mapping_suite_identifier)
     if mapping_suite_package is None:
-        raise ValueError(f'Mapping suite package, with {mapping_suite_identifier} id, was not found')
+        raise ValueError(f'Mapping package package, with {mapping_suite_identifier} id, was not found')
     validate_notice_with_shacl_suite(notice=notice, mapping_suite_package=mapping_suite_package, with_html=with_html)
     notice_repository.update(notice=notice)

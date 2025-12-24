@@ -46,7 +46,7 @@ def notice_transformation_pipeline(notice: Notice, mongodb_client: MongoClient) 
                         f"form_number=[{notice.normalised_metadata.form_number}],"
                         f" eform_subtype=[{notice.normalised_metadata.eforms_subtype}], "
                         f"xsd_version=[{notice.normalised_metadata.xsd_version}], "
-                        f"eform_sdk_version=[{notice.normalised_metadata.eform_sdk_version}]. Check mapping suites!",
+                        f"eform_sdk_version=[{notice.normalised_metadata.eform_sdk_version}]. Check mapping packages!",
                 notice_id=notice.ted_id, domain_action=notice_transformation_pipeline.__name__,
                 notice_status=str(notice.status),
                 notice_form_number=notice.normalised_metadata.form_number,

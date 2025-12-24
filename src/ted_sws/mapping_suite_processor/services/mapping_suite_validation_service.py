@@ -28,7 +28,7 @@ def get_mapping_suite_id_from_file_system(mapping_suite_path: pathlib.Path) -> O
 
 def validate_mapping_suite(mapping_suite_path: pathlib.Path) -> bool:
     """
-        This function validate mapping suite structure in file system.
+        This function validate mapping package structure in file system.
     :param mapping_suite_path:
     :return:
     """

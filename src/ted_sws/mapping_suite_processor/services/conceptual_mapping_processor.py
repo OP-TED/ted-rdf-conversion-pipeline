@@ -36,7 +36,7 @@ def mapping_suite_processor_load_package_in_mongo_db(mapping_suite_package_path:
                                                      git_last_commit_hash: str = None
                                                      ) -> List[str]:
     """
-        This feature allows you to upload a mapping suite package to MongoDB.
+        This feature allows you to upload a mapping package package to MongoDB.
     :param mapping_suite_package_path:
     :param mongodb_client:
     :param load_test_data:
@@ -99,14 +99,14 @@ def mapping_suite_processor_from_github_expand_and_load_package_in_mongo_db(mong
             validation_result = validate_mapping_suite(mapping_suite_path=mapping_suite_package_path)
             mapping_suite_id = get_mapping_suite_id_from_file_system(mapping_suite_path=mapping_suite_package_path)
             if mapping_suite_id is None:
-                error_msg = "Invalid mapping suite metadata, can't read mapping suite identifier!"
+                error_msg = "Invalid mapping package metadata, can't read mapping package identifier!"
                 log_mapping_suite_error(
                     message=error_msg,
                     mapping_suite_id=MAPPING_SUITE_UNKNOWN_ID)
                 raise MappingPackageProcessorServiceError(error_msg)
             elif validation_result:
                 log_mapping_suite_info(
-                    message=f"Mapping suite with id={mapping_suite_id} is valid for loading in MongoDB!",
+                    message=f"Mapping package with id={mapping_suite_id} is valid for loading in MongoDB!",
                     mapping_suite_id=mapping_suite_id)
                 result_notice_ids.extend(mapping_suite_processor_load_package_in_mongo_db(
                     mapping_suite_package_path=mapping_suite_package_path,
@@ -115,10 +115,10 @@ def mapping_suite_processor_from_github_expand_and_load_package_in_mongo_db(mong
                     git_last_commit_hash=git_last_commit_hash
                 ))
                 log_mapping_suite_info(
-                    message=f"Mapping suite with id={mapping_suite_id} loaded with success in MongoDB!",
+                    message=f"Mapping package with id={mapping_suite_id} loaded with success in MongoDB!",
                     mapping_suite_id=mapping_suite_id)
             else:
-                error_msg = f"Mapping suite with id={mapping_suite_id} is invalid for loading in MongoDB!"
+                error_msg = f"Mapping package with id={mapping_suite_id} is invalid for loading in MongoDB!"
                 log_mapping_suite_error(
                     message=error_msg,
                     mapping_suite_id=mapping_suite_id)

@@ -20,7 +20,7 @@ def load_mapping_suite_output_into_fuseki_triple_store(package_folder_path,
                                                        triple_store_password: str = None,
                                                        ):
     """
-    Method to create a repository in the Fuseki triple store and load all ttl files from the output folder of a mapping suite
+    Method to create a repository in the Fuseki triple store and load all ttl files from the output folder of a mapping package
     package. Name of the repository will be auto-generated from the folder name.
     :param package_folder_path:
     :param triple_store_host:
@@ -39,7 +39,7 @@ def load_mapping_suite_output_into_triple_store(package_folder_path,
                                                 triple_store: TripleStoreABC
                                                 ):
     """
-    Method to create a repository in the triple store and load all ttl files from the output folder of a mapping suite
+    Method to create a repository in the triple store and load all ttl files from the output folder of a mapping package
     package. Name of the repository will be auto-generated from the folder name.
     :param package_folder_path:
     :param triple_store:

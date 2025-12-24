@@ -22,7 +22,7 @@ def format_version_with_zero_patch(version_string: str) -> semantic_version.Vers
 def is_date_in_range(publication_date, constraint_start_date_value, constraint_end_date_value) -> bool:
     """
     This will return True or False if publication_date is in range looking at the start and end date constraints in the
-    metadata of a mapping suite
+    metadata of a mapping package
     """
     if not constraint_start_date_value and not constraint_end_date_value:
         return True
@@ -54,7 +54,7 @@ def is_version_in_range(notice_metadata: NormalisedMetadata, mapping_suite: Mapp
 
 def check_package(mapping_suite: MappingPackage, notice_metadata: NormalisedMetadata):
     """
-    Check if mapping suite is valid for notice
+    Check if mapping package is valid for notice
     :param notice_metadata:
     :param mapping_suite:
     :return:

@@ -85,13 +85,13 @@ class MappingPackageHasher:
 
     def hash_mapping_suite(self, with_version: str = "") -> str:
         """
-            Returns a hash of the mapping suite.
-            Only the critical resources are hashed in the mapping suite.
+            Returns a hash of the mapping package.
+            Only the critical resources are hashed in the mapping package.
             The decision which resources are "critical" is implemented
             in self.hash_critical_mapping_files() function.
 
             If "with_version" parameter is used, then it computed the mapping
-            suite hash, including the mapping suite version.
+            suite hash, including the mapping package version.
         """
         list_of_hashes = self.hash_critical_mapping_files()
         signatures = [signature[1] for signature in list_of_hashes]

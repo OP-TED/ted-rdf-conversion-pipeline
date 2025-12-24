@@ -60,7 +60,7 @@ class MappingPackageRepositoryMongoDB(MappingPackageRepositoryABC):
 
     def _create_dict_from_mapping_suite(self, mapping_suite: MappingPackage) -> dict:
         """
-            This method create a dict from mapping suite object.
+            This method create a dict from mapping package object.
         :param mapping_suite:
         :return:
         """
@@ -72,7 +72,7 @@ class MappingPackageRepositoryMongoDB(MappingPackageRepositoryABC):
 
     def _create_mapping_suite_from_dict(self, mapping_suite_dict: dict) -> Optional[MappingPackage]:
         """
-            This method create a mapping suite object from a dictionary.
+            This method create a mapping package object from a dictionary.
         :param mapping_suite_dict:
         :return:
         """
@@ -95,13 +95,13 @@ class MappingPackageRepositoryMongoDB(MappingPackageRepositoryABC):
         if mapping_suite_exist is None:
             self.collection.insert_one(mapping_suite_dict)
 
-    def update(self, mapping_suite: MappingPackage):
+    def update(self, mapping_package: MappingPackage):
         """
             This method allows you to update MappingSuite objects to the repository
-        :param mapping_suite:
+        :param mapping_package:
         :return:
         """
-        mapping_suite_dict = self._create_dict_from_mapping_suite(mapping_suite=mapping_suite)
+        mapping_suite_dict = self._create_dict_from_mapping_suite(mapping_suite=mapping_package)
         self.collection.update_one({MONGODB_COLLECTION_ID: mapping_suite_dict[MONGODB_COLLECTION_ID]},
                                    {"$set": mapping_suite_dict})
 

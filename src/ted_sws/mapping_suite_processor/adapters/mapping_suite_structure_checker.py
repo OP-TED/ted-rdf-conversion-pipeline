@@ -56,11 +56,11 @@ class MappingPackageStructureValidator:
 
     def validate_core_structure(self) -> bool:
         """
-            Check whether the core mapping suite structure is in place.
+            Check whether the core mapping package structure is in place.
         """
         self.logger.info(
             event_message=EventMessage(
-                message="Check whether the core mapping suite structure is in place."),
+                message="Check whether the core mapping package structure is in place."),
             settings=self.log_settings)
         mandatory_paths_l1 = [
             self.mapping_suite_path / MS_TRANSFORM_FOLDER_NAME,
@@ -73,11 +73,11 @@ class MappingPackageStructureValidator:
 
     def validate_expanded_structure(self) -> bool:
         """
-            Check if the expanded mapping suite structure is in place
+            Check if the expanded mapping package structure is in place
         """
         self.logger.info(
             event_message=EventMessage(
-                message="Check if the expanded mapping suite structure is in place."),
+                message="Check if the expanded mapping package structure is in place."),
             settings=self.log_settings)
 
         mandatory_paths_l2 = [
@@ -90,12 +90,12 @@ class MappingPackageStructureValidator:
 
     def validate_output_structure(self) -> bool:
         """
-            Check if the transformed and validated mapping suite structure is in place.
+            Check if the transformed and validated mapping package structure is in place.
         """
 
         self.logger.info(
             event_message=EventMessage(
-                message="Check if the transformed and validated mapping suite structure is in place."),
+                message="Check if the transformed and validated mapping package structure is in place."),
             settings=self.log_settings)
 
         success = True
@@ -127,18 +127,18 @@ class MappingPackageStructureValidator:
 
     def check_for_changes_by_version(self) -> bool:
         """
-            This function check whether the mapping suite is well versioned and no changes detected.
+            This function check whether the mapping package is well versioned and no changes detected.
 
             We want to ensure that:
              - the version in always incremented
-             - the changes in the mapping suite are detected by comparison to the hash in the metadata.json
-             - the hash is bound to a version of the mapping suite written in the conceptual mappings
+             - the changes in the mapping package are detected by comparison to the hash in the metadata.json
+             - the hash is bound to a version of the mapping package written in the conceptual mappings
              - the version-bound-hash and the version are written in the metadata.json and are the same
              to the version in the conceptual mappings
         """
         self.logger.info(
             event_message=EventMessage(
-                message="Check whether the mapping suite is well versioned and no changes detected."),
+                message="Check whether the mapping package is well versioned and no changes detected."),
             settings=self.log_settings)
         success = True
 
@@ -153,7 +153,7 @@ class MappingPackageStructureValidator:
         if mapping_suite_versioned_hash != mapping_suite_metadata.get(MAPPING_SUITE_HASH):
             self.logger.error(
                 event_message=EventMessage(
-                    message=f'The Mapping Suite hash digest ({mapping_suite_versioned_hash}) '
+                    message=f'The Mapping Package hash digest ({mapping_suite_versioned_hash}) '
                             f'does not correspond to the one in the metadata.json file '
                             f'({mapping_suite_metadata.get(MAPPING_SUITE_HASH)}.'
                 ),

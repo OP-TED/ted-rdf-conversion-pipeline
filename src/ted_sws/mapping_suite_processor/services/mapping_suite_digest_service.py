@@ -10,11 +10,11 @@ def update_digest_api_address_for_mapping_suite(mapping_suite: MappingPackage,
     """
     Replace the digest API address
 
-    Given a mapping suite (loaded into memory)
+    Given a mapping package (loaded into memory)
     AND the current digest API address
     AND the new digest API address
     When the replace operation is invoked
-    Then the RML rules in the mapping suite no longer contain references to the CURRENT API address but to the NEW one.
+    Then the RML rules in the mapping package no longer contain references to the CURRENT API address but to the NEW one.
 
     :param mapping_suite:
     :param current_digest_api_address:

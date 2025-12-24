@@ -114,7 +114,7 @@ class NoticeEventMessage(EventMessage):
 
 class MappingPackageEventMessage(EventMessage):
     """
-    This is the mapping suite event message model.
+    This is the mapping package event message model.
     """
     mapping_suite_id: Optional[str] = None
 

@@ -8,7 +8,7 @@ from src.ted_sws.mapping_suite_processor import CONCEPTUAL_MAPPINGS_RESOURCES_SH
 from src.ted_sws.mapping_suite_processor.adapters.mapping_suite_reader import FILE_NAME_KEY, REF_INTEGRATION_TESTS_KEY
 
 
-def mapping_suite_processor_inject_resources(conceptual_mappings_file_path: pathlib.Path,
+def mapping_package_processor_inject_resources(conceptual_mappings_file_path: pathlib.Path,
                                              resources_folder_path: pathlib.Path,
                                              output_resources_folder_path: pathlib.Path
                                              ):
@@ -30,7 +30,7 @@ def mapping_suite_processor_inject_resources(conceptual_mappings_file_path: path
         shutil.copy(src_resource_file_path, dest_resource_file_path)
 
 
-def mapping_suite_processor_inject_rml_modules(conceptual_mappings_file_path: pathlib.Path,
+def mapping_package_processor_inject_rml_modules(conceptual_mappings_file_path: pathlib.Path,
                                                rml_modules_folder_path: pathlib.Path,
                                                output_rml_modules_folder_path: pathlib.Path
                                                ):
@@ -50,7 +50,7 @@ def mapping_suite_processor_inject_rml_modules(conceptual_mappings_file_path: pa
         shutil.copy(src_rml_module_file_path, dest_rml_module_file_path)
 
 
-def mapping_suite_processor_inject_shacl_shape(shacl_shape_file_path: pathlib.Path,
+def mapping_package_processor_inject_shacl_shape(shacl_shape_file_path: pathlib.Path,
                                                output_shacl_shape_folder_path: pathlib.Path):
     """
         This function copies a shacl_shape file to the desired directory.
@@ -62,7 +62,7 @@ def mapping_suite_processor_inject_shacl_shape(shacl_shape_file_path: pathlib.Pa
     shutil.copy(shacl_shape_file_path, dest_shacl_shape_file_path)
 
 
-def mapping_suite_processor_inject_shacl_shapes(shacl_shape_folder_path: pathlib.Path,
+def mapping_package_processor_inject_shacl_shapes(shacl_shape_folder_path: pathlib.Path,
                                                 output_shacl_shape_folder_path: pathlib.Path):
     """
         This function copies shacl_shape files folder to the desired directory.
@@ -73,7 +73,7 @@ def mapping_suite_processor_inject_shacl_shapes(shacl_shape_folder_path: pathlib
     shutil.copytree(shacl_shape_folder_path, output_shacl_shape_folder_path, dirs_exist_ok=True)
 
 
-def mapping_suite_processor_inject_sparql_queries(sparql_queries_folder_path: pathlib.Path,
+def mapping_package_processor_inject_sparql_queries(sparql_queries_folder_path: pathlib.Path,
                                                   output_sparql_queries_folder_path: pathlib.Path
                                                   ):
     """
@@ -85,7 +85,7 @@ def mapping_suite_processor_inject_sparql_queries(sparql_queries_folder_path: pa
     shutil.copytree(sparql_queries_folder_path, output_sparql_queries_folder_path, dirs_exist_ok=True)
 
 
-def mapping_suite_processor_inject_integration_sparql_queries(
+def mapping_package_processor_inject_integration_sparql_queries(
         conceptual_mappings_file_path: pathlib.Path,
         sparql_queries_folder_path: pathlib.Path,
         output_sparql_queries_folder_path: pathlib.Path

@@ -7,8 +7,8 @@ from src.ted_sws.mapping_suite_processor.adapters.mapping_suite_reader import Ma
 STANDARD_FORM_VERSION_KEY = "version"
 EFORM_VERSION_KEY = "mapping_version"
 MAPPING_TYPE_KEY = "mapping_type"
-MAPPING_SUITE_HASH = "mapping_suite_hash_digest"
+MAPPING_PACKAGE_HASH = "mapping_suite_hash_digest"
 
 
-def mapping_suite_read_metadata(mapping_suite_path: Path) -> Dict:
-    return MappingPackageReader.mapping_suite_read_metadata(mapping_suite_path)
+def mapping_package_read_metadata(mapping_package_path: Path) -> Dict:
+    return MappingPackageReader.mapping_package_read_metadata(mapping_package_path)

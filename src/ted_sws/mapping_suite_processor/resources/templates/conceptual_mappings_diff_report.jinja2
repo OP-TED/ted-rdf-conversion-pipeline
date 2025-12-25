@@ -1,9 +1,9 @@
-{% set mapping_suite1 = metadata['mapping_suite_ids'][0] or metadata['mapping_suite_ids'][1] %}
-{% set mapping_suite2 = metadata['mapping_suite_ids'][1] or metadata['mapping_suite_ids'][0] %}
+{% set mapping_package1 = metadata['mapping_package_ids'][0] or metadata['mapping_package_ids'][1] %}
+{% set mapping_package2 = metadata['mapping_package_ids'][1] or metadata['mapping_package_ids'][0] %}
 
-{% set ms1_parts = mapping_suite1.split("_") %}
+{% set ms1_parts = mapping_package1.split("_") %}
 {% set ms1_acronym = ms1_parts[ms1_parts|length - 1] if ms1_parts else "" %}
-{% set ms2_parts = mapping_suite2.split("_") %}
+{% set ms2_parts = mapping_package2.split("_") %}
 {% set ms2_acronym = ms2_parts[ms2_parts|length - 1] if ms2_parts else "" %}
 
 {% set ms_acronyms_title = ms1_acronym + ("-" + ms2_acronym if ms2_acronym else "") %}
@@ -99,8 +99,8 @@
             </tr>
             <tr>
                 <th>Mapping Package</th>
-                <td>{{ mapping_suite1 }}</td>
-                <td>{{ mapping_suite2 }}</td>
+                <td>{{ mapping_package1 }}</td>
+                <td>{{ mapping_package2 }}</td>
             </tr>
             {% set file1 = metadata['files'][0] or metadata['defaults']['conceptual_mapping'] %}
             {% set file2 = metadata['files'][1] or metadata['defaults']['conceptual_mapping'] %}
@@ -156,7 +156,7 @@
                                     {% if CONTEXT_KEY in field0_value %}
                                         <hr>
                                         <small class="context">
-                                            <b>{{ mapping_suite2 }}:</b><br>
+                                            <b>{{ mapping_package2 }}:</b><br>
                                             {{ field0_value[CONTEXT_KEY] | join(' - ') }}
                                         </small>
                                     {% endif %}

@@ -136,52 +136,52 @@ def log_notice_warning(message: str, notice_id: str = None, name: str = None):
     get_logger(name=name).warning(event_message=NoticeEventMessage(message=message, notice_id=notice_id))
 
 
-def log_mapping_suite_info(message: str, mapping_suite_id: str = None, name: str = None):
+def log_mapping_package_info(message: str, mapping_package_id: str = None, name: str = None):
     """
-    Logs INFO MappingSuiteEventMessage, using global (DAG) logger or a custom named one
+    Logs INFO MappingPackageEventMessage, using global (DAG) logger or a custom named one
     :param message:
-    :param mapping_suite_id:
+    :param mapping_package_id:
     :param name: Logger name (None to use the global logger)
     :return:
     """
     get_logger(name=name).info(
-        event_message=MappingPackageEventMessage(message=message, mapping_suite_id=mapping_suite_id))
+        event_message=MappingPackageEventMessage(message=message, mapping_package_id=mapping_package_id))
 
 
-def log_mapping_suite_error(message: str, mapping_suite_id: str = None, name: str = None):
+def log_mapping_package_error(message: str, mapping_package_id: str = None, name: str = None):
     """
-    Logs ERROR MappingSuiteEventMessage, using global (DAG) logger or a custom named one
+    Logs ERROR MappingPackageEventMessage, using global (DAG) logger or a custom named one
     :param message:
-    :param mapping_suite_id:
+    :param mapping_package_id:
     :param name: Logger name (None to use the global logger)
     :return:
     """
     get_logger(name=name).error(
-        event_message=MappingPackageEventMessage(message=message, mapping_suite_id=mapping_suite_id))
+        event_message=MappingPackageEventMessage(message=message, mapping_package_id=mapping_package_id))
 
 
-def log_mapping_suite_debug(message: str, mapping_suite_id: str = None, name: str = None):
+def log_mapping_package_debug(message: str, mapping_package_id: str = None, name: str = None):
     """
-    Logs DEBUG MappingSuiteEventMessage, using global (DAG) logger or a custom named one
+    Logs DEBUG MappingPackageEventMessage, using global (DAG) logger or a custom named one
     :param message:
-    :param mapping_suite_id:
+    :param mapping_package_id:
     :param name: Logger name (None to use the global logger)
     :return:
     """
     get_logger(name=name).debug(
-        event_message=MappingPackageEventMessage(message=message, mapping_suite_id=mapping_suite_id))
+        event_message=MappingPackageEventMessage(message=message, mapping_package_id=mapping_package_id))
 
 
-def log_mapping_suite_warning(message: str, mapping_suite_id: str = None, name: str = None):
+def log_mapping_package_warning(message: str, mapping_package_id: str = None, name: str = None):
     """
-    Logs WARNING MappingSuiteEventMessage, using global (DAG) logger or a custom named one
+    Logs WARNING MappingPackageEventMessage, using global (DAG) logger or a custom named one
     :param message:
-    :param mapping_suite_id:
+    :param mapping_package_id:
     :param name: Logger name (None to use the global logger)
     :return:
     """
     get_logger(name=name).warning(
-        event_message=MappingPackageEventMessage(message=message, mapping_suite_id=mapping_suite_id))
+        event_message=MappingPackageEventMessage(message=message, mapping_package_id=mapping_package_id))
 
 
 def log_cli_brief_notice_info(message: str, name: str = None):

@@ -21,19 +21,19 @@ from src.ted_sws.event_manager.model.event_message import MappingPackageEventMes
 from src.ted_sws.event_manager.services.logger_from_context import get_logger_from_dag_context, \
     handle_event_message_metadata_dag_context
 from src.ted_sws.mapping_suite_processor.services.conceptual_mapping_processor import \
-    mapping_suite_processor_from_github_expand_and_load_package_in_mongo_db
+    mapping_package_processor_from_github_expand_and_load_package_in_mongo_db
 
-FETCH_MAPPING_SUITE_PACKAGE_FROM_GITHUB_INTO_MONGODB = "fetch_mapping_suite_package_from_github_into_mongodb"
+FETCH_MAPPING_PACKAGE_FROM_GITHUB_INTO_MONGODB = "fetch_mapping_package_from_github_into_mongodb"
 
-MAPPING_SUITE_PACKAGE_NAME_DAG_PARAM_KEY = 'mapping_suite_package_name'
+MAPPING_PACKAGE_NAME_DAG_PARAM_KEY = 'mapping_package_name'
 LOAD_TEST_DATA_DAG_PARAM_KEY = 'load_test_data'
 BRANCH_OR_TAG_NAME_DAG_PARAM_KEY = "branch_or_tag_name"
 GITHUB_REPOSITORY_URL_DAG_PARAM_KEY = "github_repository_url"
 
-FINISH_LOADING_MAPPING_SUITE_TASK_ID = "finish_loading_mapping_suite"
+FINISH_LOADING_MAPPING_PACKAGE_TASK_ID = "finish_loading_mapping_package"
 TRIGGER_DOCUMENT_PROC_PIPELINE_TASK_ID = "trigger_document_proc_pipeline"
 CHECK_IF_LOAD_TEST_DATA_TASK_ID = "check_if_load_test_data"
-DAG_ID = "load_mapping_suite_in_database"
+DAG_ID = "load_mapping_package_in_database"
 DAG_NAME = "Load mapping package"
 
 
@@ -57,7 +57,7 @@ DAG_NAME = "Load mapping package"
              description="""This is optional field.
                Branch or tag name to fetch mapping package package from."""
          ),
-         MAPPING_SUITE_PACKAGE_NAME_DAG_PARAM_KEY: Param(
+         MAPPING_PACKAGE_NAME_DAG_PARAM_KEY: Param(
              default=None,
              type=["null", "string"],
              title="Mapping package name",
@@ -78,10 +78,10 @@ DAG_NAME = "Load mapping package"
          ),
      }
      )
-def load_mapping_suite_in_database():
+def load_mapping_package_in_database():
     @task
     @event_log(is_loggable=False)
-    def fetch_mapping_suite_package_from_github_into_mongodb(**context_args):
+    def fetch_mapping_package_from_github_into_mongodb(**context_args):
         """
 
         :return:
@@ -92,14 +92,14 @@ def load_mapping_suite_in_database():
         context = get_current_context()
 
         load_test_data = get_dag_param(key=LOAD_TEST_DATA_DAG_PARAM_KEY, default_value=False)
-        mapping_suite_package_name = get_dag_param(key=MAPPING_SUITE_PACKAGE_NAME_DAG_PARAM_KEY)
+        mapping_package_name = get_dag_param(key=MAPPING_PACKAGE_NAME_DAG_PARAM_KEY)
         branch_or_tag_name = get_dag_param(key=BRANCH_OR_TAG_NAME_DAG_PARAM_KEY)
         github_repository_url = get_dag_param(key=GITHUB_REPOSITORY_URL_DAG_PARAM_KEY)
 
         mongodb_client = MongoClient(config.MONGO_DB_AUTH_URL)
-        notice_ids = mapping_suite_processor_from_github_expand_and_load_package_in_mongo_db(
+        notice_ids = mapping_package_processor_from_github_expand_and_load_package_in_mongo_db(
             mongodb_client=mongodb_client,
-            mapping_suite_package_name=mapping_suite_package_name,
+            mapping_package_name=mapping_package_name,
             load_test_data=load_test_data,
             branch_or_tag_name=branch_or_tag_name,
             github_repository_url=github_repository_url
@@ -108,8 +108,8 @@ def load_mapping_suite_in_database():
         if load_test_data:
             push_dag_downstream(key=NOTICE_IDS_KEY, value=notice_ids)
         handle_event_message_metadata_dag_context(event_message, context)
-        if mapping_suite_package_name:
-            event_message.mapping_suite_id = mapping_suite_package_name
+        if mapping_package_name:
+            event_message.mapping_package_id = mapping_package_name
         event_message.end_record()
         event_logger.info(event_message)
 
@@ -118,7 +118,7 @@ def load_mapping_suite_in_database():
         if load_test_data:
             push_dag_downstream(key=NOTICE_IDS_KEY, value=pull_dag_upstream(key=NOTICE_IDS_KEY))
             return [TRIGGER_DOCUMENT_PROC_PIPELINE_TASK_ID]
-        return [FINISH_LOADING_MAPPING_SUITE_TASK_ID]
+        return [FINISH_LOADING_MAPPING_PACKAGE_TASK_ID]
 
     def _trigger_mv_if_enabled():
         run_mv = get_dag_param(key=RUN_MATERIALISED_VIEW_DAG_PARAM, default_value=False)
@@ -131,7 +131,7 @@ def load_mapping_suite_in_database():
     )
 
     finish_step = PythonOperator(
-        task_id=FINISH_LOADING_MAPPING_SUITE_TASK_ID,
+        task_id=FINISH_LOADING_MAPPING_PACKAGE_TASK_ID,
         trigger_rule=TriggerRule.NONE_FAILED_MIN_ONE_SUCCESS,
         python_callable=_trigger_mv_if_enabled,
     )
@@ -139,9 +139,9 @@ def load_mapping_suite_in_database():
     trigger_document_proc_pipeline = TriggerNoticeBatchPipelineOperator(task_id=TRIGGER_DOCUMENT_PROC_PIPELINE_TASK_ID,
                                                                         batch_size=BATCH_SIZE)
 
-    fetch_mapping_suite_package_from_github_into_mongodb() >> branch_task
+    fetch_mapping_package_from_github_into_mongodb() >> branch_task
     trigger_document_proc_pipeline >> finish_step
     branch_task >> [trigger_document_proc_pipeline, finish_step]
 
 
-dag = load_mapping_suite_in_database()
+dag = load_mapping_package_in_database()

@@ -112,10 +112,10 @@
             <th>Date created</th>
             <td>{{ created }}</td>
         </tr>
-        {% if mapping_suite_ids %}
+        {% if mapping_package_ids %}
         <tr>
             <th>Mapping Packages</th>
-            <td>{{ mapping_suite_ids|join("<br>") }}</td>
+            <td>{{ mapping_package_ids|join("<br>") }}</td>
         </tr>
         {% endif %}
         {% if test_suite_ids %}
@@ -199,9 +199,9 @@
                             <ol>
                                 {% for notice in _aggregate.notices %}
                                     <li>
-                                        <a href="file://{{ template_metadata.output_path }}/mappings/{{ notice.mapping_suite_identifier }}/output/{{ notice.path }}/test_suite_report" target="_blank">{{ notice.notice_id }}</a>
-                                        in <a href="file://{{ template_metadata.output_path }}/mappings/{{ notice.mapping_suite_identifier }}/output" target="_blank"><b>{{ notice.mapping_suite_identifier }}</b></a>
-                                        at <a href="file://{{ template_metadata.output_path }}/mappings/{{ notice.mapping_suite_identifier }}/output/{{ notice.path }}" target="_blank"><b>{{ notice.path }}</b></a>
+                                        <a href="file://{{ template_metadata.output_path }}/mappings/{{ notice.mapping_package_identifier }}/output/{{ notice.path }}/test_suite_report" target="_blank">{{ notice.notice_id }}</a>
+                                        in <a href="file://{{ template_metadata.output_path }}/mappings/{{ notice.mapping_package_identifier }}/output" target="_blank"><b>{{ notice.mapping_package_identifier }}</b></a>
+                                        at <a href="file://{{ template_metadata.output_path }}/mappings/{{ notice.mapping_package_identifier }}/output/{{ notice.path }}" target="_blank"><b>{{ notice.path }}</b></a>
                                     </li>
                                 {% endfor %}
                             </ol>

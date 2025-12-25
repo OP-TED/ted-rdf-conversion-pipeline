@@ -170,7 +170,7 @@ class MappingPackageEventRepository(EventLoggingRepository):
     """
     This is the mapping package events' repository class.
     """
-    _collection_name = "mapping_suite_events"
+    _collection_name = "mapping_package_events"
 
     def __init__(self, mongodb_client: MongoClient, database_name: str = None,
                  collection_name: str = _collection_name):

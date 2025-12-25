@@ -15,14 +15,14 @@ from src.ted_sws.notice_validator.resources.templates import TEMPLATE_METADATA_K
 TEMPLATES = Environment(loader=PackageLoader("src.ted_sws.notice_validator.resources", "templates"))
 VALIDATION_SUMMARY_REPORT_TEMPLATE = "validation_summary_report.jinja2"
 
-MAPPING_SUITE_IDENTIFIER = "mapping_suite_identifier"
+MAPPING_PACKAGE_IDENTIFIER = "mapping_package_identifier"
 TEST_SUITE_IDENTIFIER = "test_suite_identifier"
 
 
 def find_validation_results(results: List, result: dict):
     found_results = list(filter(
-        lambda record: record.mapping_suite_identifier == result[
-            MAPPING_SUITE_IDENTIFIER] and record.test_suite_identifier == result[TEST_SUITE_IDENTIFIER],
+        lambda record: record.mapping_package_identifier == result[
+            MAPPING_PACKAGE_IDENTIFIER] and record.test_suite_identifier == result[TEST_SUITE_IDENTIFIER],
         results
     ))
     return found_results
@@ -39,10 +39,10 @@ class RDFManifestationValidationSummaryRunner(ManifestationValidationSummaryRunn
     @classmethod
     def sparql_summary_result(cls, sparql_report: SPARQLTestSuiteValidationReport,
                               result_counts: List[SPARQLSummaryResult]) -> (bool, SPARQLSummaryResult):
-        mapping_suite_id = sparql_report.mapping_suite_identifier
+        mapping_package_id = sparql_report.mapping_package_identifier
         test_suite_id = sparql_report.test_suite_identifier
 
-        found_results = find_validation_results(result_counts, {MAPPING_SUITE_IDENTIFIER: mapping_suite_id,
+        found_results = find_validation_results(result_counts, {MAPPING_PACKAGE_IDENTIFIER: mapping_package_id,
                                                                 TEST_SUITE_IDENTIFIER: test_suite_id})
         is_found: bool = found_results and len(found_results) > 0
         result_validation: SPARQLSummaryResult
@@ -50,7 +50,7 @@ class RDFManifestationValidationSummaryRunner(ManifestationValidationSummaryRunn
             result_validation = found_results[0]
         else:
             result_validation = SPARQLSummaryResult()
-            result_validation.mapping_suite_identifier = sparql_report.mapping_suite_identifier
+            result_validation.mapping_package_identifier = sparql_report.mapping_package_identifier
             result_validation.test_suite_identifier = sparql_report.test_suite_identifier
         return not is_found, result_validation
 
@@ -93,9 +93,9 @@ class RDFManifestationValidationSummaryRunner(ManifestationValidationSummaryRunn
     @classmethod
     def shacl_summary_result(cls, shacl_report: SHACLTestSuiteValidationReport,
                              result_counts: List[SHACLSummaryResult]) -> (bool, SHACLSummaryResult):
-        mapping_suite_id = shacl_report.mapping_suite_identifier
+        mapping_package_id = shacl_report.mapping_package_identifier
         test_suite_id = shacl_report.test_suite_identifier
-        found_results = find_validation_results(result_counts, {MAPPING_SUITE_IDENTIFIER: mapping_suite_id,
+        found_results = find_validation_results(result_counts, {MAPPING_PACKAGE_IDENTIFIER: mapping_package_id,
                                                                 TEST_SUITE_IDENTIFIER: test_suite_id})
         is_found: bool = found_results and len(found_results) > 0
         result_validation: SHACLSummaryResult
@@ -103,7 +103,7 @@ class RDFManifestationValidationSummaryRunner(ManifestationValidationSummaryRunn
             result_validation = found_results[0]
         else:
             result_validation = SHACLSummaryResult()
-            result_validation.mapping_suite_identifier = shacl_report.mapping_suite_identifier
+            result_validation.mapping_package_identifier = shacl_report.mapping_package_identifier
             result_validation.test_suite_identifier = shacl_report.test_suite_identifier
         return not is_found, result_validation
 
@@ -162,8 +162,8 @@ class XMLManifestationValidationSummaryRunner(ManifestationValidationSummaryRunn
         if len(notices) > 0:
             xml_manifestation = notices[0].xml_manifestation
             if xml_manifestation.xpath_coverage_validation:
-                mapping_suite_identifier = xml_manifestation.xpath_coverage_validation.mapping_suite_identifier
-                xpath_coverage_summary.mapping_suite_identifier = mapping_suite_identifier
+                mapping_package_identifier = xml_manifestation.xpath_coverage_validation.mapping_package_identifier
+                xpath_coverage_summary.mapping_package_identifier = mapping_package_identifier
 
         validation_result: XPATHCoverageSummaryResult = report.xpath_coverage_summary.validation_result
         for notice in notices:

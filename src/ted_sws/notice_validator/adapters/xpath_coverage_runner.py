@@ -22,26 +22,26 @@ XPathDict = Dict[str, List[str]]
 
 class CoverageRunner:
     """"""
-    mapping_suite: MappingPackage
-    mapping_suite_id: str
+    mapping_package: MappingPackage
+    mapping_package_id: str
     conceptual_xpaths: Set[str] = set()
     conceptual_xpath_data: Dict[str, MappingXPATH] = {}
 
-    def __init__(self, mapping_suite: MappingPackage):
+    def __init__(self, mapping_package: MappingPackage):
         """"""
-        self.mapping_suite = mapping_suite
-        self.mapping_suite_id = mapping_suite.get_mongodb_id()
-        self.init_xpath_data(mapping_suite=mapping_suite)
+        self.mapping_package = mapping_package
+        self.mapping_package_id = mapping_package.get_mongodb_id()
+        self.init_xpath_data(mapping_package=mapping_package)
 
-    def init_xpath_data(self, mapping_suite: MappingPackage):
-        for cm_xpath in MappingPackageReader.read_mapping_suite_xpaths(mapping_suite):
+    def init_xpath_data(self, mapping_package: MappingPackage):
+        for cm_xpath in MappingPackageReader.read_mapping_package_xpaths(mapping_package):
             self.conceptual_xpaths.add(cm_xpath.xpath)
             self.conceptual_xpath_data[cm_xpath.xpath] = cm_xpath
 
     def xpath_coverage_validation_report(self, notice: Notice) -> XPATHCoverageValidationReport:
         report: XPATHCoverageValidationReport = XPATHCoverageValidationReport(
             object_data="XPATHCoverageValidationReport",
-            mapping_suite_identifier=self.mapping_suite_id)
+            mapping_package_identifier=self.mapping_package_id)
 
         xpaths: List[str] = []
         xp = self.init_xp_processor(notice)
@@ -123,7 +123,7 @@ class CoverageRunner:
     ) -> XPATHCoverageValidationReport:
         report: XPATHCoverageValidationReport = XPATHCoverageValidationReport(
             object_data="XPATHCoverageValidationReport",
-            mapping_suite_identifier=self.mapping_suite_id)
+            mapping_package_identifier=self.mapping_package_id)
 
         notice_xpaths: XPathDict = {}
         xpaths_list: List[str] = []

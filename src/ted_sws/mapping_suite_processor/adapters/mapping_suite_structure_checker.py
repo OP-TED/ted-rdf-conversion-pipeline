@@ -4,12 +4,12 @@ from typing import List, Union
 from src.ted_sws.data_manager.adapters.mapping_suite_repository import MS_TRANSFORM_FOLDER_NAME, MS_TEST_DATA_FOLDER_NAME, \
     MS_CONCEPTUAL_MAPPING_FILE_NAME, MS_RESOURCES_FOLDER_NAME, MS_MAPPINGS_FOLDER_NAME, MS_METADATA_FILE_NAME, \
     MS_VALIDATE_FOLDER_NAME, MS_SPARQL_FOLDER_NAME, MS_SHACL_FOLDER_NAME, MS_OUTPUT_FOLDER_NAME, MS_TEST_SUITE_REPORT, \
-    mapping_suite_read_version_from_metadata
+    mapping_package_read_version_from_metadata
 from src.ted_sws.event_manager.model.event_message import EventMessage, EventMessageLogSettings
 from src.ted_sws.event_manager.services.logger_from_context import get_console_logger
 from src.ted_sws.mapping_suite_processor.adapters.mapping_suite_hasher import MappingPackageHasher
-from src.ted_sws.mapping_suite_processor.services.mapping_suite_reader import mapping_suite_read_metadata, \
-    MAPPING_SUITE_HASH
+from src.ted_sws.mapping_suite_processor.services.mapping_suite_reader import mapping_package_read_metadata, \
+    MAPPING_PACKAGE_HASH
 
 SHACL_KEYWORD = "shacl"
 SPARQL_KEYWORD = "sparql"
@@ -21,8 +21,8 @@ REPORTS_KEYWORDS = [SHACL_KEYWORD, SPARQL_KEYWORD, XPATH_KEYWORD]
 class MappingPackageStructureValidator:
     reports_min_count: int = 3
 
-    def __init__(self, mapping_suite_path: Union[pathlib.Path, str]):
-        self.mapping_suite_path = pathlib.Path(mapping_suite_path)
+    def __init__(self, mapping_package_path: Union[pathlib.Path, str]):
+        self.mapping_package_path = pathlib.Path(mapping_package_path)
         self.logger = get_console_logger(name="MappingPackageStructureValidator")
         self.log_settings = EventMessageLogSettings(briefly=True)
 
@@ -63,11 +63,11 @@ class MappingPackageStructureValidator:
                 message="Check whether the core mapping package structure is in place."),
             settings=self.log_settings)
         mandatory_paths_l1 = [
-            self.mapping_suite_path / MS_TRANSFORM_FOLDER_NAME,
-            self.mapping_suite_path / MS_TRANSFORM_FOLDER_NAME / MS_MAPPINGS_FOLDER_NAME,
-            self.mapping_suite_path / MS_TRANSFORM_FOLDER_NAME / MS_RESOURCES_FOLDER_NAME,
-            self.mapping_suite_path / MS_TRANSFORM_FOLDER_NAME / MS_CONCEPTUAL_MAPPING_FILE_NAME,
-            self.mapping_suite_path / MS_TEST_DATA_FOLDER_NAME
+            self.mapping_package_path / MS_TRANSFORM_FOLDER_NAME,
+            self.mapping_package_path / MS_TRANSFORM_FOLDER_NAME / MS_MAPPINGS_FOLDER_NAME,
+            self.mapping_package_path / MS_TRANSFORM_FOLDER_NAME / MS_RESOURCES_FOLDER_NAME,
+            self.mapping_package_path / MS_TRANSFORM_FOLDER_NAME / MS_CONCEPTUAL_MAPPING_FILE_NAME,
+            self.mapping_package_path / MS_TEST_DATA_FOLDER_NAME
         ]
         return self.assert_path(mandatory_paths_l1)
 
@@ -81,10 +81,10 @@ class MappingPackageStructureValidator:
             settings=self.log_settings)
 
         mandatory_paths_l2 = [
-            self.mapping_suite_path / MS_METADATA_FILE_NAME,
-            self.mapping_suite_path / MS_VALIDATE_FOLDER_NAME,
-            self.mapping_suite_path / MS_VALIDATE_FOLDER_NAME / MS_SPARQL_FOLDER_NAME,
-            self.mapping_suite_path / MS_VALIDATE_FOLDER_NAME / MS_SHACL_FOLDER_NAME,
+            self.mapping_package_path / MS_METADATA_FILE_NAME,
+            self.mapping_package_path / MS_VALIDATE_FOLDER_NAME,
+            self.mapping_package_path / MS_VALIDATE_FOLDER_NAME / MS_SPARQL_FOLDER_NAME,
+            self.mapping_package_path / MS_VALIDATE_FOLDER_NAME / MS_SHACL_FOLDER_NAME,
         ]
         return self.assert_path(mandatory_paths_l2)
 
@@ -101,12 +101,12 @@ class MappingPackageStructureValidator:
         success = True
 
         mandatory_paths_l3 = [
-            self.mapping_suite_path / MS_OUTPUT_FOLDER_NAME,
+            self.mapping_package_path / MS_OUTPUT_FOLDER_NAME,
         ]
 
         success = success and self.assert_path(mandatory_paths_l3)
         if success:
-            output_path = self.mapping_suite_path / MS_OUTPUT_FOLDER_NAME
+            output_path = self.mapping_package_path / MS_OUTPUT_FOLDER_NAME
             notices_rdf_files_paths = [path for path in output_path.rglob("*.ttl") if path.is_file()]
             for notice_rdf_path in notices_rdf_files_paths:
                 notice_path = notice_rdf_path.parent
@@ -142,20 +142,20 @@ class MappingPackageStructureValidator:
             settings=self.log_settings)
         success = True
 
-        mapping_suite_metadata = mapping_suite_read_metadata(mapping_suite_path=self.mapping_suite_path)
-        version = mapping_suite_read_version_from_metadata(mapping_suite_metadata)
+        mapping_package_metadata = mapping_package_read_metadata(mapping_package_path=self.mapping_package_path)
+        version = mapping_package_read_version_from_metadata(mapping_package_metadata)
 
-        mapping_suite_versioned_hash = MappingPackageHasher(
-            mapping_suite_path=self.mapping_suite_path,
-            mapping_suite_metadata=mapping_suite_metadata
-        ).hash_mapping_suite(with_version=version)
+        mapping_package_versioned_hash = MappingPackageHasher(
+            mapping_package_path=self.mapping_package_path,
+            mapping_package_metadata=mapping_package_metadata
+        ).hash_mapping_package(with_version=version)
 
-        if mapping_suite_versioned_hash != mapping_suite_metadata.get(MAPPING_SUITE_HASH):
+        if mapping_package_versioned_hash != mapping_package_metadata.get(MAPPING_PACKAGE_HASH):
             self.logger.error(
                 event_message=EventMessage(
-                    message=f'The Mapping Package hash digest ({mapping_suite_versioned_hash}) '
+                    message=f'The Mapping Package hash digest ({mapping_package_versioned_hash}) '
                             f'does not correspond to the one in the metadata.json file '
-                            f'({mapping_suite_metadata.get(MAPPING_SUITE_HASH)}.'
+                            f'({mapping_package_metadata.get(MAPPING_PACKAGE_HASH)}).'
                 ),
                 settings=self.log_settings
             )

@@ -64,19 +64,19 @@ def _join_file_resources(files: [FileResource] = None) -> str:
     return '\n\n'.join(map(lambda file: file.file_content, files))
 
 
-def rml_files_to_html_report(mapping_suite_identifier: str, mapping_suite_repository: MappingPackageRepositoryABC):
+def rml_files_to_html_report(mapping_package_identifier: str, mapping_package_repository: MappingPackageRepositoryABC):
     """
     Creating an html report from loaded rml files
-    :param mapping_suite_identifier:
-    :param mapping_suite_repository:
+    :param mapping_package_identifier:
+    :param mapping_package_repository:
     :return:
     """
-    mapping_suite_package = mapping_suite_repository.get(reference=mapping_suite_identifier)
-    if mapping_suite_package is None:
-        raise ValueError(f'Mapping package package, with {mapping_suite_identifier} id, was not found')
+    mapping_package = mapping_package_repository.get(reference=mapping_package_identifier)
+    if mapping_package is None:
+        raise ValueError(f'Mapping package package, with {mapping_package_identifier} id, was not found')
     rml_files = [FileResource(
         file_name="joined_rml_files",
-        file_content=_join_file_resources(mapping_suite_package.transformation_rule_set.rml_mapping_rules)
+        file_content=_join_file_resources(mapping_package.transformation_rule_set.rml_mapping_rules)
     )]
     query_registry = QueryRegistry()
     sparql_runner = SPARQLRunner(files=rml_files)

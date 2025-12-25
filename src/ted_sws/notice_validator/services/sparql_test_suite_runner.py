@@ -36,11 +36,11 @@ class SPARQLTestSuiteRunner:
     """
 
     def __init__(self, rdf_manifestation: RDFManifestation, sparql_test_suite: SPARQLTestSuite,
-                 mapping_suite: MappingPackage, xml_manifestation: XMLManifestation = None):
+                 mapping_package: MappingPackage, xml_manifestation: XMLManifestation = None):
         self.rdf_manifestation = rdf_manifestation
         self.xml_manifestation = xml_manifestation
         self.sparql_test_suite = sparql_test_suite
-        self.mapping_suite = mapping_suite
+        self.mapping_package = mapping_package
 
     @classmethod
     def _sanitize_query(cls, query: str) -> str:
@@ -113,7 +113,7 @@ class SPARQLTestSuiteRunner:
         """
         sparql_runner = SPARQLRunner(self.rdf_manifestation.object_data)
         test_suite_executions = SPARQLTestSuiteValidationReport(
-            mapping_suite_identifier=self.mapping_suite.get_mongodb_id(),
+            mapping_package_identifier=self.mapping_package.get_mongodb_id(),
             test_suite_identifier=self.sparql_test_suite.identifier,
             validation_results=[],
             object_data="SPARQLTestSuiteExecution")
@@ -163,15 +163,15 @@ class SPARQLReportBuilder:
 
 def process_sparql_validation_summary_report_data_with_notice(
         notice: Notice,
-        mapping_suite_package: MappingPackage,
+        mapping_package: MappingPackage,
         report_notice_path: Path,
         report: SPARQLValidationSummaryReport
 ):
     for sparql_validation in notice.rdf_manifestation.sparql_validations:
         test_suite_id = sparql_validation.test_suite_identifier
         report.test_suite_ids.append(test_suite_id)
-        mapping_suite_versioned_id = sparql_validation.mapping_suite_identifier
-        report.mapping_suite_ids.append(mapping_suite_versioned_id)
+        mapping_package_versioned_id = sparql_validation.mapping_package_identifier
+        report.mapping_package_ids.append(mapping_package_versioned_id)
         validation: SPARQLQueryResult
         for validation in sparql_validation.validation_results:
             validation_query_result: SPARQLValidationSummaryQueryResult
@@ -192,8 +192,8 @@ def process_sparql_validation_summary_report_data_with_notice(
             notice_data: ReportPackageNoticeData = ReportPackageNoticeData(
                 notice_id=notice.ted_id,
                 path=str(report_notice_path),
-                mapping_suite_versioned_id=mapping_suite_versioned_id,
-                mapping_suite_identifier=mapping_suite_package.identifier
+                mapping_package_versioned_id=mapping_package_versioned_id,
+                mapping_package_identifier=mapping_package.identifier
             )
             if validation.result == SPARQLQueryRefinedResultType.VALID.value:
                 validation_query_result.aggregate.valid.count += 1
@@ -246,7 +246,7 @@ def init_sparql_validation_summary_report(
 def finalize_sparql_validation_summary_report(report: SPARQLValidationSummaryReport, metadata: dict = None,
                                               with_html: bool = False):
     report.test_suite_ids = list(set(report.test_suite_ids))
-    report.mapping_suite_ids = list(set(report.mapping_suite_ids))
+    report.mapping_package_ids = list(set(report.mapping_package_ids))
 
     if with_html:
         add_sparql_validation_summary_html_report(
@@ -256,7 +256,7 @@ def finalize_sparql_validation_summary_report(report: SPARQLValidationSummaryRep
 
 
 def generate_sparql_validation_summary_report(report_notices: List[ReportNotice],
-                                              mapping_suite_package: MappingPackage,
+                                              mapping_package: MappingPackage,
                                               execute_full_validation: bool = True,
                                               with_html: bool = False,
                                               report: SPARQLValidationSummaryReport = None,
@@ -270,14 +270,14 @@ def generate_sparql_validation_summary_report(report_notices: List[ReportNotice]
         notice = report_notice.notice
         validate_notice_with_sparql_suite(
             notice=notice,
-            mapping_suite_package=mapping_suite_package,
+            mapping_package=mapping_package,
             execute_full_validation=execute_full_validation,
             with_html=False
         )
 
         process_sparql_validation_summary_report_data_with_notice(
             notice=notice,
-            mapping_suite_package=mapping_suite_package,
+            mapping_package=mapping_package,
             report_notice_path=report_notice.metadata.path,
             report=report
         )
@@ -291,13 +291,13 @@ def generate_sparql_validation_summary_report(report_notices: List[ReportNotice]
     return report
 
 
-def validate_notice_with_sparql_suite(notice: Notice, mapping_suite_package: MappingPackage,
+def validate_notice_with_sparql_suite(notice: Notice, mapping_package: MappingPackage,
                                       execute_full_validation: bool = True, with_html: bool = False) -> Notice:
     """
     Validates a notice with a sparql test suites
     :param with_html: generate HTML report
     :param notice:
-    :param mapping_suite_package:
+    :param mapping_package:
     :param execute_full_validation:
     :return:
     """
@@ -305,12 +305,12 @@ def validate_notice_with_sparql_suite(notice: Notice, mapping_suite_package: Map
     def sparql_validation(notice_item: Notice, rdf_manifestation: RDFManifestation) \
             -> List[SPARQLTestSuiteValidationReport]:
         reports = []
-        sparql_test_suites = mapping_suite_package.sparql_test_suites
+        sparql_test_suites = mapping_package.sparql_test_suites
         for sparql_test_suite in sparql_test_suites:
             test_suite_execution = SPARQLTestSuiteRunner(rdf_manifestation=rdf_manifestation,
                                                          xml_manifestation=notice_item.xml_manifestation,
                                                          sparql_test_suite=sparql_test_suite,
-                                                         mapping_suite=mapping_suite_package
+                                                         mapping_package=mapping_package
                                                          ).execute_test_suite()
             report_builder = SPARQLReportBuilder(sparql_test_suite_execution=test_suite_execution,
                                                  notice_ids=[notice_item.ted_id], with_html=with_html)
@@ -327,25 +327,25 @@ def validate_notice_with_sparql_suite(notice: Notice, mapping_suite_package: Map
     return notice
 
 
-def validate_notice_by_id_with_sparql_suite(notice_id: str, mapping_suite_identifier: str,
+def validate_notice_by_id_with_sparql_suite(notice_id: str, mapping_package_identifier: str,
                                             notice_repository: NoticeRepositoryABC,
-                                            mapping_suite_repository: MappingPackageRepositoryABC,
+                                            mapping_package_repository: MappingPackageRepositoryABC,
                                             with_html: bool = False):
     """
     Validates a notice by id with a sparql test suites
     :param with_html: generate HTML report
     :param notice_id:
-    :param mapping_suite_identifier:
+    :param mapping_package_identifier:
     :param notice_repository:
-    :param mapping_suite_repository:
+    :param mapping_package_repository:
     :return:
     """
     notice = notice_repository.get(reference=notice_id)
     if notice is None:
         raise ValueError(f'Notice, with {notice_id} id, was not found')
 
-    mapping_suite_package = mapping_suite_repository.get(reference=mapping_suite_identifier)
-    if mapping_suite_package is None:
-        raise ValueError(f'Mapping package package, with {mapping_suite_identifier} id, was not found')
-    validate_notice_with_sparql_suite(notice=notice, mapping_suite_package=mapping_suite_package, with_html=with_html)
+    mapping_package = mapping_package_repository.get(reference=mapping_package_identifier)
+    if mapping_package is None:
+        raise ValueError(f'Mapping package package, with {mapping_package_identifier} id, was not found')
+    validate_notice_with_sparql_suite(notice=notice, mapping_package=mapping_package, with_html=with_html)
     notice_repository.update(notice=notice)

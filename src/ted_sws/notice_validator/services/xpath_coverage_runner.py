@@ -17,14 +17,14 @@ def xpath_coverage_html_report(report: XPATHCoverageValidationReport, metadata: 
     return CoverageRunner.html_report(report, metadata=metadata)
 
 
-def validate_xpath_coverage_notice(notice: Notice, mapping_suite: MappingPackage) -> Notice:
+def validate_xpath_coverage_notice(notice: Notice, mapping_package: MappingPackage) -> Notice:
     """
 
     :param notice:
-    :param mapping_suite:
+    :param mapping_package:
     :return:
     """
-    coverage_runner = CoverageRunner(mapping_suite)
+    coverage_runner = CoverageRunner(mapping_package)
     report: XPATHCoverageValidationReport = coverage_runner.xpath_coverage_validation_report(notice=notice)
     notice.set_xml_validation(xml_validation=report)
 
@@ -32,14 +32,14 @@ def validate_xpath_coverage_notice(notice: Notice, mapping_suite: MappingPackage
 
 
 def validate_xpath_coverage_notices(notices: List[ReportNotice],
-                                    mapping_suite: MappingPackage) -> XPATHCoverageValidationReport:
+                                    mapping_package: MappingPackage) -> XPATHCoverageValidationReport:
     """
 
     :param notices:
-    :param mapping_suite:
+    :param mapping_package:
     :return:`
     """
-    coverage_runner = CoverageRunner(mapping_suite)
+    coverage_runner = CoverageRunner(mapping_package)
     report: XPATHCoverageValidationReport = coverage_runner.xpath_coverage_validation_summary_report(notices=notices)
 
     return report

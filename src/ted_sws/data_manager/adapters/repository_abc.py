@@ -131,38 +131,38 @@ class NoticeRepositoryABC(RepositoryABC):
 
 class MappingPackageRepositoryABC(RepositoryABC):
     """
-       This repository is intended for storing MappingSuite objects.
+       This repository is intended for storing MappingPackage objects.
     """
 
     @abc.abstractmethod
-    def add(self, mapping_suite: MappingPackage):
+    def add(self, mapping_package: MappingPackage):
         """
-            This method allows you to add MappingSuite objects to the repository.
-        :param mapping_suite:
+            This method allows you to add MappingPackage objects to the repository.
+        :param mapping_package:
         :return:
         """
 
     @abc.abstractmethod
-    def update(self, mapping_suite: MappingPackage):
+    def update(self, mapping_package: MappingPackage):
         """
-            This method allows you to update MappingSuite objects to the repository
-        :param mapping_suite:
+            This method allows you to update MappingPackage objects to the repository
+        :param mapping_package:
         :return:
         """
 
     @abc.abstractmethod
     def get(self, reference) -> MappingPackage:
         """
-            This method allows a MappingSuite to be obtained based on an identification reference.
+            This method allows a MappingPackage to be obtained based on an identification reference.
         :param reference:
-        :return: MappingSuite
+        :return: MappingPackage
         """
 
     @abc.abstractmethod
     def list(self) -> Iterator[MappingPackage]:
         """
             This method allows all records to be retrieved from the repository.
-        :return: list of MappingSuites
+        :return: list of MappingPackages
         """
 
 

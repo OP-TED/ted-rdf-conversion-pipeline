@@ -10,7 +10,7 @@ from datetime import datetime
 from enum import Enum
 from typing import List, Union, Optional, Dict
 
-from pydantic import Field, ConfigDict
+from pydantic import Field, ConfigDict, model_validator
 
 from src.ted_sws.core.model import PropertyBaseModel
 from src.ted_sws.core.model.validation_report_data import ReportNoticeData
@@ -67,7 +67,7 @@ class XPATHCoverageSummaryResult(PropertyBaseModel):
 
 
 class XPATHCoverageSummaryReport(PropertyBaseModel):
-    mapping_suite_identifier: Optional[str] = None
+    mapping_package_identifier: Optional[str] = None
     validation_result: Optional[XPATHCoverageSummaryResult] = XPATHCoverageSummaryResult()
 
 
@@ -85,7 +85,7 @@ class SPARQLSummaryCountReport(PropertyBaseModel):
 
 class SPARQLSummaryResult(PropertyBaseModel):
     test_suite_identifier: Optional[str] = None
-    mapping_suite_identifier: Optional[str] = None
+    mapping_package_identifier: Optional[str] = None
     aggregate: Optional[SPARQLSummaryCountReport] = SPARQLSummaryCountReport()
 
 
@@ -106,7 +106,7 @@ class SHACLSummaryResultSeverityReport(PropertyBaseModel):
 
 class SHACLSummaryResult(PropertyBaseModel):
     test_suite_identifier: Optional[str] = None
-    mapping_suite_identifier: Optional[str] = None
+    mapping_package_identifier: Optional[str] = None
     result_severity: Optional[SHACLSummaryResultSeverityReport] = SHACLSummaryResultSeverityReport()
 
 
@@ -132,7 +132,7 @@ class XMLValidationManifestation(ValidationManifestation):
     """
 
     """
-    mapping_suite_identifier: str
+    mapping_package_identifier: str
 
 
 class XPATHCoverageValidationAssertion(PropertyBaseModel):
@@ -198,7 +198,7 @@ class RDFValidationManifestation(ValidationManifestation):
         The RDF validation report
 
     """
-    mapping_suite_identifier: str
+    mapping_package_identifier: str
     test_suite_identifier: Optional[str] = None
 
 
@@ -248,7 +248,7 @@ class QueriedSHACLShapeValidationResult(PropertyBaseModel):
 
 class SHACLTestSuiteValidationReport(RDFValidationManifestation):
     """
-    This is validation report for a SHACL test suite that contains json and html representation
+    This is validation report for a SHACL test package that contains json and html representation
     """
     validation_results: Union[QueriedSHACLShapeValidationResult, str]
 
@@ -264,7 +264,7 @@ class RDFManifestation(Manifestation):
     """
         Transformed manifestation in RDF format
     """
-    mapping_suite_id: str = "unknown_mapping_suite_id"
+    mapping_package_id: str = "unknown_mapping_package_id"
     shacl_validations: List[SHACLTestSuiteValidationReport] = []
     sparql_validations: List[SPARQLTestSuiteValidationReport] = []
     deduplication_report: Optional[EntityDeduplicationReport] = None
@@ -277,7 +277,7 @@ class RDFManifestation(Manifestation):
         :return:
         """
         return next(filter(
-            (lambda record: record.mapping_suite_identifier == validation.mapping_suite_identifier and
+            (lambda record: record.mapping_package_identifier == validation.mapping_package_identifier and
                             record.test_suite_identifier == validation.test_suite_identifier),
             validations
         ), None)

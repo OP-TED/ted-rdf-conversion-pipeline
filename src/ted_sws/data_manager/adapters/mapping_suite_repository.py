@@ -42,10 +42,10 @@ MS_ONTOLOGY_VERSION_KEY = 'ontology_version'
 
 class MappingPackageRepositoryMongoDB(MappingPackageRepositoryABC):
     """
-       This repository is intended for storing MappingSuite objects in MongoDB.
+       This repository is intended for storing MappingPackage objects in MongoDB.
     """
 
-    _collection_name = "mapping_suite_collection"
+    _collection_name = "mapping_package_collection"
 
     def __init__(self, mongodb_client: MongoClient, database_name: str = None):
         """
@@ -58,74 +58,74 @@ class MappingPackageRepositoryMongoDB(MappingPackageRepositoryABC):
         notice_db = mongodb_client[self._database_name]
         self.collection = notice_db[self._collection_name]
 
-    def _create_dict_from_mapping_suite(self, mapping_suite: MappingPackage) -> dict:
+    def _create_dict_from_mapping_package(self, mapping_package: MappingPackage) -> dict:
         """
             This method create a dict from mapping package object.
-        :param mapping_suite:
-        :return:
-        """
-        mapping_suite_dict = mapping_suite.model_dump()
-        mapping_suite_dict[MONGODB_COLLECTION_ID] = mapping_suite.get_mongodb_id()
-        mapping_suite_dict[MS_CREATED_AT_KEY] = datetime.fromisoformat(mapping_suite_dict[MS_CREATED_AT_KEY])
-        inject_date_string_fields(data=mapping_suite_dict, date_field_name=MS_CREATED_AT_KEY)
-        return mapping_suite_dict
-
-    def _create_mapping_suite_from_dict(self, mapping_suite_dict: dict) -> Optional[MappingPackage]:
-        """
-            This method create a mapping package object from a dictionary.
-        :param mapping_suite_dict:
-        :return:
-        """
-        if mapping_suite_dict:
-            mapping_suite_dict.pop(MONGODB_COLLECTION_ID, None)
-            mapping_suite_dict[MS_CREATED_AT_KEY] = mapping_suite_dict[MS_CREATED_AT_KEY].isoformat()
-            remove_date_string_fields(data=mapping_suite_dict, date_field_name=MS_CREATED_AT_KEY)
-            return MappingPackage(**mapping_suite_dict)
-        return None
-
-    def add(self, mapping_suite: MappingPackage):
-        """
-            This method allows you to add MappingSuite objects to the repository.
-        :param mapping_suite:
-        :return:
-        """
-        mapping_suite_dict = self._create_dict_from_mapping_suite(mapping_suite=mapping_suite)
-        mapping_suite_exist = self.collection.find_one(
-            {MONGODB_COLLECTION_ID: mapping_suite_dict[MONGODB_COLLECTION_ID]})
-        if mapping_suite_exist is None:
-            self.collection.insert_one(mapping_suite_dict)
-
-    def update(self, mapping_package: MappingPackage):
-        """
-            This method allows you to update MappingSuite objects to the repository
         :param mapping_package:
         :return:
         """
-        mapping_suite_dict = self._create_dict_from_mapping_suite(mapping_suite=mapping_package)
-        self.collection.update_one({MONGODB_COLLECTION_ID: mapping_suite_dict[MONGODB_COLLECTION_ID]},
-                                   {"$set": mapping_suite_dict})
+        mapping_package_dict = mapping_package.model_dump()
+        mapping_package_dict[MONGODB_COLLECTION_ID] = mapping_package.get_mongodb_id()
+        mapping_package_dict[MS_CREATED_AT_KEY] = datetime.fromisoformat(mapping_package_dict[MS_CREATED_AT_KEY])
+        inject_date_string_fields(data=mapping_package_dict, date_field_name=MS_CREATED_AT_KEY)
+        return mapping_package_dict
+
+    def _create_mapping_package_from_dict(self, mapping_package_dict: dict) -> Optional[MappingPackage]:
+        """
+            This method create a mapping package object from a dictionary.
+        :param mapping_package_dict:
+        :return:
+        """
+        if mapping_package_dict:
+            mapping_package_dict.pop(MONGODB_COLLECTION_ID, None)
+            mapping_package_dict[MS_CREATED_AT_KEY] = mapping_package_dict[MS_CREATED_AT_KEY].isoformat()
+            remove_date_string_fields(data=mapping_package_dict, date_field_name=MS_CREATED_AT_KEY)
+            return MappingPackage(**mapping_package_dict)
+        return None
+
+    def add(self, mapping_package: MappingPackage):
+        """
+            This method allows you to add MappingPackage objects to the repository.
+        :param mapping_package:
+        :return:
+        """
+        mapping_package_dict = self._create_dict_from_mapping_package(mapping_package=mapping_package)
+        mapping_package_exist = self.collection.find_one(
+            {MONGODB_COLLECTION_ID: mapping_package_dict[MONGODB_COLLECTION_ID]})
+        if mapping_package_exist is None:
+            self.collection.insert_one(mapping_package_dict)
+
+    def update(self, mapping_package: MappingPackage):
+        """
+            This method allows you to update MappingPackage objects to the repository
+        :param mapping_package:
+        :return:
+        """
+        mapping_package_dict = self._create_dict_from_mapping_package(mapping_package=mapping_package)
+        self.collection.update_one({MONGODB_COLLECTION_ID: mapping_package_dict[MONGODB_COLLECTION_ID]},
+                                   {"$set": mapping_package_dict})
 
     def get(self, reference) -> MappingPackage:
         """
-            This method allows a MappingSuite to be obtained based on an identification reference.
+            This method allows a MappingPackage to be obtained based on an identification reference.
         :param reference:
-        :return: MappingSuite
+        :return: MappingPackage
         """
         result_dict = self.collection.find_one({MONGODB_COLLECTION_ID: reference})
-        return self._create_mapping_suite_from_dict(mapping_suite_dict=result_dict)
+        return self._create_mapping_package_from_dict(mapping_package_dict=result_dict)
 
     def list(self) -> Iterator[MappingPackage]:
         """
             This method allows all records to be retrieved from the repository.
-        :return: list of MappingSuites
+        :return: list of MappingPackages
         """
         for result_dict in self.collection.find():
-            yield self._create_mapping_suite_from_dict(mapping_suite_dict=result_dict)
+            yield self._create_mapping_package_from_dict(mapping_package_dict=result_dict)
 
 
 class MappingPackageRepositoryInFileSystem(MappingPackageRepositoryABC):
     """
-           This repository is intended for storing MappingSuite objects in FileSystem.
+           This repository is intended for storing MappingPackage objects in FileSystem.
     """
 
     def __init__(self, repository_path: pathlib.Path):
@@ -206,16 +206,16 @@ class MappingPackageRepositoryInFileSystem(MappingPackageRepositoryABC):
                                 sparql_tests=self._read_file_resources(path=sparql_test_suite_path))
                 for sparql_test_suite_path in sparql_test_suite_paths]
 
-    def _write_package_metadata(self, mapping_suite: MappingPackage):
+    def _write_package_metadata(self, mapping_package: MappingPackage):
         """
-            This method creates the metadata of a package based on the metadata in the mapping_suite.
-        :param mapping_suite:
+            This method creates the metadata of a package based on the metadata in the mapping_package.
+        :param mapping_package:
         :return:
         """
-        package_path = self.repository_path / mapping_suite.identifier
+        package_path = self.repository_path / mapping_package.identifier
         package_path.mkdir(parents=True, exist_ok=True)
         metadata_path = package_path / MS_METADATA_FILE_NAME
-        package_metadata = mapping_suite.model_dump()
+        package_metadata = mapping_package.model_dump()
         [package_metadata.pop(key, None) for key in
          ["transformation_rule_set", "shacl_test_suites", "sparql_test_suites"]]
         with metadata_path.open("w", encoding="utf-8") as f:
@@ -279,38 +279,38 @@ class MappingPackageRepositoryInFileSystem(MappingPackageRepositoryABC):
                              original_name=file.name)
                 for file in files]
 
-    def _write_package_transform_rules(self, mapping_suite: MappingPackage):
+    def _write_package_transform_rules(self, mapping_package: MappingPackage):
         """
             This method creates the transformation rules within the package.
-        :param mapping_suite:
+        :param mapping_package:
         :return:
         """
-        package_path = self.repository_path / mapping_suite.identifier
+        package_path = self.repository_path / mapping_package.identifier
         transform_path = package_path / MS_TRANSFORM_FOLDER_NAME
         mappings_path = transform_path / MS_MAPPINGS_FOLDER_NAME
         resources_path = transform_path / MS_RESOURCES_FOLDER_NAME
         mappings_path.mkdir(parents=True, exist_ok=True)
         resources_path.mkdir(parents=True, exist_ok=True)
-        self._write_file_resources(file_resources=mapping_suite.transformation_rule_set.rml_mapping_rules,
+        self._write_file_resources(file_resources=mapping_package.transformation_rule_set.rml_mapping_rules,
                                    path=mappings_path
                                    )
-        self._write_file_resources(file_resources=mapping_suite.transformation_rule_set.resources,
+        self._write_file_resources(file_resources=mapping_package.transformation_rule_set.resources,
                                    path=resources_path
                                    )
 
-    def _write_package_validation_rules(self, mapping_suite: MappingPackage):
+    def _write_package_validation_rules(self, mapping_package: MappingPackage):
         """
             This method creates the validation rules within the package.
-        :param mapping_suite:
+        :param mapping_package:
         :return:
         """
-        package_path = self.repository_path / mapping_suite.identifier
+        package_path = self.repository_path / mapping_package.identifier
         validate_path = package_path / MS_VALIDATE_FOLDER_NAME
         sparql_path = validate_path / MS_SPARQL_FOLDER_NAME
         shacl_path = validate_path / MS_SHACL_FOLDER_NAME
         sparql_path.mkdir(parents=True, exist_ok=True)
         shacl_path.mkdir(parents=True, exist_ok=True)
-        shacl_test_suites = mapping_suite.shacl_test_suites
+        shacl_test_suites = mapping_package.shacl_test_suites
         for shacl_test_suite in shacl_test_suites:
             shacl_test_suite_path = shacl_path / shacl_test_suite.identifier
             shacl_test_suite_path.mkdir(parents=True, exist_ok=True)
@@ -318,7 +318,7 @@ class MappingPackageRepositoryInFileSystem(MappingPackageRepositoryABC):
                                        path=shacl_test_suite_path
                                        )
 
-        sparql_test_suites = mapping_suite.sparql_test_suites
+        sparql_test_suites = mapping_package.sparql_test_suites
         for sparql_test_suite in sparql_test_suites:
             sparql_test_suite_path = sparql_path / sparql_test_suite.identifier
             sparql_test_suite_path.mkdir(parents=True, exist_ok=True)
@@ -326,16 +326,16 @@ class MappingPackageRepositoryInFileSystem(MappingPackageRepositoryABC):
                                        path=sparql_test_suite_path
                                        )
 
-    def _write_test_data_package(self, mapping_suite: MappingPackage):
+    def _write_test_data_package(self, mapping_package: MappingPackage):
         """
             This method writes the test data to a dedicated folder in the package.
-        :param mapping_suite:
+        :param mapping_package:
         :return:
         """
-        package_path = self.repository_path / mapping_suite.identifier
+        package_path = self.repository_path / mapping_package.identifier
         test_data_path = package_path / MS_TEST_DATA_FOLDER_NAME
         test_data_path.mkdir(parents=True, exist_ok=True)
-        self._write_file_resources(file_resources=mapping_suite.transformation_test_data.test_data,
+        self._write_file_resources(file_resources=mapping_package.transformation_test_data.test_data,
                                    path=test_data_path
                                    )
 
@@ -349,24 +349,24 @@ class MappingPackageRepositoryInFileSystem(MappingPackageRepositoryABC):
         test_data = self.read_flat_file_resources(path=test_data_path)
         return TransformationTestData(test_data=test_data)
 
-    def _write_mapping_suite_package(self, mapping_suite: MappingPackage):
+    def _write_mapping_package(self, mapping_package: MappingPackage):
         """
-            This method creates a package based on data from mapping_suite.
-        :param mapping_suite:
+            This method creates a package based on data from mapping_package.
+        :param mapping_package:
         :return:
         """
-        self._write_package_metadata(mapping_suite=mapping_suite)
-        self._write_package_transform_rules(mapping_suite=mapping_suite)
-        self._write_package_validation_rules(mapping_suite=mapping_suite)
-        self._write_test_data_package(mapping_suite=mapping_suite)
+        self._write_package_metadata(mapping_package=mapping_package)
+        self._write_package_transform_rules(mapping_package=mapping_package)
+        self._write_package_validation_rules(mapping_package=mapping_package)
+        self._write_test_data_package(mapping_package=mapping_package)
 
-    def _read_mapping_suite_package(self, mapping_suite_identifier: str) -> Optional[MappingPackage]:
+    def _read_mapping_package(self, mapping_package_identifier: str) -> Optional[MappingPackage]:
         """
-            This method reads a package and initializes a MappingSuite object.
-        :param mapping_suite_identifier:
+            This method reads a package and initializes a MappingPackage object.
+        :param mapping_package_identifier:
         :return:
         """
-        package_path = self.repository_path / mapping_suite_identifier
+        package_path = self.repository_path / mapping_package_identifier
         if package_path.is_dir():
             package_metadata = self._read_package_metadata(package_path)
             if (MS_MAPPING_TYPE_KEY in package_metadata and
@@ -378,7 +378,7 @@ class MappingPackageRepositoryInFileSystem(MappingPackageRepositoryABC):
                 package_metadata[MS_METADATA_CONSTRAINTS_KEY] = MetadataConstraints(
                     constraints=MetadataConstraintsStandardForm(
                         **package_metadata[MS_METADATA_CONSTRAINTS_KEY][MS_CONSTRAINTS_KEY]))
-            mapping_suite = MappingPackage(
+            mapping_package = MappingPackage(
                 metadata_constraints=package_metadata[MS_METADATA_CONSTRAINTS_KEY],
                 created_at=package_metadata[MS_CREATED_AT_KEY],
                 title=package_metadata[MS_TITLE_KEY],
@@ -386,51 +386,51 @@ class MappingPackageRepositoryInFileSystem(MappingPackageRepositoryABC):
                 mapping_suite_hash_digest=package_metadata[MS_HASH_DIGEST_KEY],
                 mapping_type=package_metadata[
                     MS_MAPPING_TYPE_KEY] if MS_MAPPING_TYPE_KEY in package_metadata else MappingPackageType.STANDARD_FORMS,
-                version=mapping_suite_read_version_from_metadata(package_metadata),
+                version=mapping_package_read_version_from_metadata(package_metadata),
                 identifier=package_metadata[
-                    MS_METADATA_IDENTIFIER_KEY] if MS_METADATA_IDENTIFIER_KEY in package_metadata else mapping_suite_identifier,
+                    MS_METADATA_IDENTIFIER_KEY] if MS_METADATA_IDENTIFIER_KEY in package_metadata else mapping_package_identifier,
                 transformation_rule_set=self._read_transformation_rule_set(package_path),
                 shacl_test_suites=self._read_shacl_test_suites(package_path),
                 sparql_test_suites=self._read_sparql_test_suites(package_path),
                 transformation_test_data=self._read_test_data_package(package_path)
             )
-            return mapping_suite
+            return mapping_package
         return None
 
     @classmethod
-    def mapping_suite_notice_path_by_group_depth(cls, path: pathlib.Path, group_depth: int = 0) -> pathlib.Path:
+    def mapping_package_notice_path_by_group_depth(cls, path: pathlib.Path, group_depth: int = 0) -> pathlib.Path:
         return pathlib.Path(*path.parts[:(-group_depth if group_depth else None)]) if path else None
 
-    def add(self, mapping_suite: MappingPackage):
+    def add(self, mapping_package: MappingPackage):
         """
-            This method allows you to add MappingSuite objects to the repository.
-        :param mapping_suite:
+            This method allows you to add MappingPackage objects to the repository.
+        :param mapping_package:
         :return:
         """
-        self._write_mapping_suite_package(mapping_suite=mapping_suite)
+        self._write_mapping_package(mapping_package=mapping_package)
 
-    def update(self, mapping_suite: MappingPackage):
+    def update(self, mapping_package: MappingPackage):
         """
-            This method allows you to update MappingSuite objects to the repository
-        :param mapping_suite:
+            This method allows you to update MappingPackage objects to the repository
+        :param mapping_package:
         :return:
         """
-        package_path = self.repository_path / mapping_suite.identifier
+        package_path = self.repository_path / mapping_package.identifier
         if package_path.is_dir():
-            self._write_mapping_suite_package(mapping_suite=mapping_suite)
+            self._write_mapping_package(mapping_package=mapping_package)
 
     def get(self, reference) -> MappingPackage:
         """
-            This method allows a MappingSuite to be obtained based on an identification reference.
+            This method allows a MappingPackage to be obtained based on an identification reference.
         :param reference:
-        :return: MappingSuite
+        :return: MappingPackage
         """
-        return self._read_mapping_suite_package(mapping_suite_identifier=reference)
+        return self._read_mapping_package(mapping_package_identifier=reference)
 
     def list(self) -> Iterator[MappingPackage]:
         """
             This method allows all records to be retrieved from the repository.
-        :return: list of MappingSuites
+        :return: list of MappingPackages
         """
         package_paths = [x for x in self.repository_path.iterdir() if x.is_dir()]
         for package_path in package_paths:
@@ -444,7 +444,7 @@ class MappingPackageRepositoryInFileSystem(MappingPackageRepositoryABC):
         shutil.rmtree(self.repository_path)
 
 
-def mapping_suite_read_version_from_metadata(metadata: dict) -> str:
+def mapping_package_read_version_from_metadata(metadata: dict) -> str:
     version_key = MS_EFORMS_METADATA_VERSION_KEY if MS_MAPPING_TYPE_KEY in metadata and metadata[
         MS_MAPPING_TYPE_KEY] == MappingPackageType.ELECTRONIC_FORMS else MS_STANDARD_METADATA_VERSION_KEY
     return metadata.get(version_key)

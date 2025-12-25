@@ -116,7 +116,7 @@ class MappingPackageEventMessage(EventMessage):
     """
     This is the mapping package event message model.
     """
-    mapping_suite_id: Optional[str] = None
+    mapping_package_id: Optional[str] = None
 
 
 class EventMessageLogSettings(PropertyBaseModel):

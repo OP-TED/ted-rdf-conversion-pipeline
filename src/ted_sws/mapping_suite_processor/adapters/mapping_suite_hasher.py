@@ -23,18 +23,18 @@ class MappingPackageHasher:
 
     """
 
-    def __init__(self, mapping_suite_path: pathlib.Path, mapping_suite_metadata: dict = None):
-        self.mapping_suite_path = mapping_suite_path
-        self.mapping_suite_metadata = mapping_suite_metadata
+    def __init__(self, mapping_package_path: pathlib.Path, mapping_package_metadata: dict = None):
+        self.mapping_package_path = mapping_package_path
+        self.mapping_package_metadata = mapping_package_metadata
 
         if self.is_for_eforms():
-            self.mapping_suite_metadata = EFormsPackageMetadataBase(**mapping_suite_metadata).model_dump()
+            self.mapping_package_metadata = EFormsPackageMetadataBase(**mapping_package_metadata).model_dump()
 
     def is_for_eforms(self):
         return (
-                self.mapping_suite_metadata and
-                MS_MAPPING_TYPE_KEY in self.mapping_suite_metadata and
-                self.mapping_suite_metadata.get(MS_MAPPING_TYPE_KEY) == MappingPackageType.ELECTRONIC_FORMS
+                self.mapping_package_metadata and
+                MS_MAPPING_TYPE_KEY in self.mapping_package_metadata and
+                self.mapping_package_metadata.get(MS_MAPPING_TYPE_KEY) == MappingPackageType.ELECTRONIC_FORMS
         )
 
     def hash_critical_mapping_files(self) -> List[Tuple[str, str]]:
@@ -54,21 +54,21 @@ class MappingPackageHasher:
             new_line_pattern = re.compile(b'\r\n|\r|\n')
             file_content = re.sub(new_line_pattern, b'', file_path.read_bytes())
             hashed_line = hashlib.sha256(file_content).hexdigest()
-            relative_path = str(file_path).replace(str(self.mapping_suite_path), "")
+            relative_path = str(file_path).replace(str(self.mapping_package_path), "")
             return relative_path, hashed_line
 
         files_to_hash = [] if self.is_for_eforms() else [
-            self.mapping_suite_path / MS_TRANSFORM_FOLDER_NAME / MS_CONCEPTUAL_MAPPING_FILE_NAME,
+            self.mapping_package_path / MS_TRANSFORM_FOLDER_NAME / MS_CONCEPTUAL_MAPPING_FILE_NAME,
         ]
 
         mapping_files = filter(
             lambda item: item.is_file(),
-            (self.mapping_suite_path / MS_TRANSFORM_FOLDER_NAME / MS_MAPPINGS_FOLDER_NAME).iterdir()
+            (self.mapping_package_path / MS_TRANSFORM_FOLDER_NAME / MS_MAPPINGS_FOLDER_NAME).iterdir()
         )
 
         mapping_resource_files = filter(
             lambda item: item.is_file(),
-            (self.mapping_suite_path / MS_TRANSFORM_FOLDER_NAME / MS_RESOURCES_FOLDER_NAME).iterdir()
+            (self.mapping_package_path / MS_TRANSFORM_FOLDER_NAME / MS_RESOURCES_FOLDER_NAME).iterdir()
         )
 
         files_to_hash += mapping_files
@@ -80,10 +80,10 @@ class MappingPackageHasher:
 
     def hash_mapping_metadata(self) -> str:
         return hashlib.sha256(
-            json.dumps(self.mapping_suite_metadata).encode('utf-8')
+            json.dumps(self.mapping_package_metadata).encode('utf-8')
         ).hexdigest()
 
-    def hash_mapping_suite(self, with_version: str = "") -> str:
+    def hash_mapping_package(self, with_version: str = "") -> str:
         """
             Returns a hash of the mapping package.
             Only the critical resources are hashed in the mapping package.

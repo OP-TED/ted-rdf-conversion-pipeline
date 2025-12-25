@@ -53,7 +53,7 @@ class SPARQLValidationSummaryQueryResult(PropertyBaseModel):
 
 class SPARQLValidationSummaryReport(ValidationManifestation):
     notices: Optional[List[ReportNoticeData]] = []
-    mapping_suite_ids: Optional[List[str]] = []
+    mapping_package_ids: Optional[List[str]] = []
     test_suite_ids: Optional[List[str]] = []
     validation_results: Optional[List[SPARQLValidationSummaryQueryResult]] = []
 
@@ -80,6 +80,6 @@ class SHACLValidationSummaryResult(PropertyBaseModel):
 
 class SHACLValidationSummaryReport(ValidationManifestation):
     notices: Optional[List[ReportNoticeData]] = []
-    mapping_suite_ids: Optional[List[str]] = []
+    mapping_package_ids: Optional[List[str]] = []
     test_suite_ids: Optional[List[str]] = []
     validation_results: Optional[List[SHACLValidationSummaryResult]] = []

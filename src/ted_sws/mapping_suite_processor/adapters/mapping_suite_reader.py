@@ -19,17 +19,17 @@ REF_INTEGRATION_TESTS_KEY = "Reference to Integration Tests (O)"
 
 class MappingPackageReader:
     """
-    This adapter can be used to read different MappingSuite data
+    This adapter can be used to read different MappingPackage data
     """
 
     @classmethod
-    def mapping_suite_read_metadata(cls, mapping_suite_path: Path) -> Dict:
+    def mapping_package_read_metadata(cls, mapping_package_path: Path) -> Dict:
         """
         This feature allows you to read the conceptual mapping metadata.
-        :param mapping_suite_path:
+        :param mapping_package_path:
         :return:
         """
-        with open(mapping_suite_path / MS_METADATA_FILE_NAME) as metadata_file:
+        with open(mapping_package_path / MS_METADATA_FILE_NAME) as metadata_file:
             metadata = json.load(metadata_file)
 
         return metadata
@@ -51,17 +51,17 @@ class MappingPackageReader:
         return dict([_process_line(line) for line in content_lines_with_comments])
 
     @classmethod
-    def read_mapping_suite_xpaths(cls, mapping_suite: MappingPackage) -> List[MappingXPATH]:
+    def read_mapping_package_xpaths(cls, mapping_package: MappingPackage) -> List[MappingXPATH]:
         """
 
-        :param mapping_suite:
+        :param mapping_package:
         :return:
         """
 
         xpaths = []
         processed_xpaths = set()
 
-        for test_suite in mapping_suite.sparql_test_suites:
+        for test_suite in mapping_package.sparql_test_suites:
             for sparql_test in test_suite.sparql_tests:
                 metadata = cls.extract_metadata_from_sparql_query(sparql_test.file_content)
                 if SPARQL_QUERY_METADATA_XPATH in metadata:

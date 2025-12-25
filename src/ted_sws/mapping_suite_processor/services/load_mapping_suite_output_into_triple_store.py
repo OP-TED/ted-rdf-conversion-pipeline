@@ -14,7 +14,7 @@ def repository_exists(triple_store: TripleStoreABC, repository_name) -> bool:
     return repository_name in triple_store.list_repositories()
 
 
-def load_mapping_suite_output_into_fuseki_triple_store(package_folder_path,
+def load_mapping_package_output_into_fuseki_triple_store(package_folder_path,
                                                        triple_store_host: str = None,
                                                        triple_store_user: str = None,
                                                        triple_store_password: str = None,
@@ -32,10 +32,10 @@ def load_mapping_suite_output_into_fuseki_triple_store(package_folder_path,
     triple_store = FusekiAdapter(host=triple_store_host or config.FUSEKI_ADMIN_HOST,
                                  password=triple_store_password or config.FUSEKI_ADMIN_PASSWORD,
                                  user=triple_store_user or config.FUSEKI_ADMIN_USER)
-    load_mapping_suite_output_into_triple_store(package_folder_path, triple_store)
+    load_mapping_package_output_into_triple_store(package_folder_path, triple_store)
 
 
-def load_mapping_suite_output_into_triple_store(package_folder_path,
+def load_mapping_package_output_into_triple_store(package_folder_path,
                                                 triple_store: TripleStoreABC
                                                 ):
     """

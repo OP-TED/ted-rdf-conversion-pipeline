@@ -18,21 +18,21 @@ def get_repo_name_from_repo_url(repository_url: str) -> str:
 
 class MappingPackageDownloaderABC(abc.ABC):
     """
-        This class is intended to download mapping_suite_package from external resources.
+        This class is intended to download mapping_package from external resources.
     """
 
     @abc.abstractmethod
-    def download(self, output_mapping_suite_package_path: pathlib.Path):
+    def download(self, output_mapping_package_path: pathlib.Path):
         """
-            This method downloads a mapping_suite_package and loads it at the output_mapping_suite_package_path provided.
-        :param output_mapping_suite_package_path:
+            This method downloads a mapping_package and loads it at the output_mapping_package_path provided.
+        :param output_mapping_package_path:
         :return:
         """
 
 
 class GitHubMappingPackageDownloader(MappingPackageDownloaderABC):
     """
-        This class downloads mapping_suite_package from GitHub.
+        This class downloads mapping_package from GitHub.
     """
 
     def __init__(self, github_repository_url: str, branch_or_tag_name: str):
@@ -45,10 +45,10 @@ class GitHubMappingPackageDownloader(MappingPackageDownloaderABC):
         self.branch_or_tag_name = branch_or_tag_name
         self.repository_name = get_repo_name_from_repo_url(repository_url=github_repository_url)
 
-    def download(self, output_mapping_suite_package_path: pathlib.Path) -> str:
+    def download(self, output_mapping_package_path: pathlib.Path) -> str:
         """
-            This method downloads a mapping_suite_package and loads it at the output_mapping_suite_package_path provided.
-        :param output_mapping_suite_package_path:
+            This method downloads a mapping_package and loads it at the output_mapping_package_path provided.
+        :param output_mapping_package_path:
         :return:
         """
 
@@ -73,6 +73,6 @@ class GitHubMappingPackageDownloader(MappingPackageDownloaderABC):
                            stderr=subprocess.STDOUT)
             git_last_commit_hash = get_git_head_hash(
                 git_repository_path=temp_dir_path / self.repository_name)
-            downloaded_tmp_mapping_suite_path = temp_dir_path / self.repository_name / MAPPINGS_DIR_NAME
-            shutil.copytree(downloaded_tmp_mapping_suite_path, output_mapping_suite_package_path, dirs_exist_ok=True)
+            downloaded_tmp_mapping_package_path = temp_dir_path / self.repository_name / MAPPINGS_DIR_NAME
+            shutil.copytree(downloaded_tmp_mapping_package_path, output_mapping_package_path, dirs_exist_ok=True)
         return git_last_commit_hash

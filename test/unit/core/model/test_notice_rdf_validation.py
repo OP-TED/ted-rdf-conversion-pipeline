@@ -15,7 +15,7 @@ from src.ted_sws.core.model.manifestation import SHACLTestSuiteValidationReport,
 def test_set_notice_rdf_validation(publicly_available_notice, indexed_notice):
     shacl_validation = SHACLTestSuiteValidationReport(object_data="this is a shacl validation report",
                                                       test_suite_identifier="shacl_test_suite_id",
-                                                      mapping_suite_identifier="mapping_suite_id",
+                                                      mapping_package_identifier="mapping_package_id",
                                                       validation_results=QueriedSHACLShapeValidationResult())
 
     publicly_available_notice.set_rdf_validation(rdf_validation=shacl_validation)
@@ -33,7 +33,7 @@ def test_set_notice_rdf_validation(publicly_available_notice, indexed_notice):
 def test_set_notice_distilled_rdf_validation(publicly_available_notice, indexed_notice):
     shacl_validation = SHACLTestSuiteValidationReport(object_data="this is a shacl validation report",
                                                       test_suite_identifier="shacl_test_suite_id",
-                                                      mapping_suite_identifier="mapping_suite_id",
+                                                      mapping_package_identifier="mapping_package_id",
                                                       validation_results=QueriedSHACLShapeValidationResult())
 
     publicly_available_notice.set_distilled_rdf_validation(rdf_validation=shacl_validation)

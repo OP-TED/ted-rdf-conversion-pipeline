@@ -5,7 +5,7 @@ import pytest
 # import logging
 from src.ted_sws.data_manager.adapters.notice_repository import NoticeRepository
 from src.ted_sws.mapping_suite_processor.services.conceptual_mapping_processor import \
-    mapping_suite_processor_from_github_expand_and_load_package_in_mongo_db
+    mapping_package_processor_from_github_expand_and_load_package_in_mongo_db
 from test import TESTS_PATH
 
 AIRFLOW_DAG_FOLDER = TESTS_PATH.parent.resolve() / "dags"
@@ -40,7 +40,7 @@ def mapping_suite_id_with_version():
 
 @pytest.fixture
 def notice_repository(mongodb_client, mapping_suite_id):
-    mapping_suite_processor_from_github_expand_and_load_package_in_mongo_db(
+    mapping_package_processor_from_github_expand_and_load_package_in_mongo_db(
         mapping_suite_package_name=mapping_suite_id,
         mongodb_client=mongodb_client,
         load_test_data=True

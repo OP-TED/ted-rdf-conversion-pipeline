@@ -378,7 +378,7 @@ def fake_notice_F03(fake_notice_F03_content, fake_notice_id):
 def fake_xml_manifestation_with_coverage_for_sparql_runner() -> XMLManifestation:
     xml_manifestation = XMLManifestation(object_data="")
     xpath_coverage_validation = {
-        "mapping_suite_identifier": 'package_F03',
+        "mapping_package_identifier": 'package_F03',
         "xpath_covered": [
             '/TED_EXPORT/FORM_SECTION/F03_2014/LEGAL_BASIS/@VALUE',
             '/TED_EXPORT/FORM_SECTION/F03_2014/OBJECT_CONTRACT/VAL_TOTAL/@CURRENCY'
@@ -391,7 +391,7 @@ def fake_xml_manifestation_with_coverage_for_sparql_runner() -> XMLManifestation
     }
     xml_manifestation.xpath_coverage_validation = XPATHCoverageValidationReport(
         object_data="",
-        mapping_suite_identifier="package_F03"
+        mapping_package_identifier="package_F03"
     )
     xml_manifestation.xpath_coverage_validation.validation_result = XPATHCoverageValidationResult(
         **xpath_coverage_validation)
@@ -403,7 +403,7 @@ def fake_xml_manifestation_with_coverage_for_sparql_runner() -> XMLManifestation
 def fake_validation_notice():
     xml_manifestation = XMLManifestation(object_data="")
     xpath_coverage_validation = {
-        "mapping_suite_identifier": 'package_F03',
+        "mapping_package_identifier": 'package_F03',
         "xpath_covered": [
             '/TED_EXPORT/FORM_SECTION/F03_2014/LEGAL_BASIS/@VALUE',
             '/TED_EXPORT/FORM_SECTION/F03_2014/OBJECT_CONTRACT/VAL_TOTAL/@CURRENCY'
@@ -416,7 +416,7 @@ def fake_validation_notice():
     }
     xml_manifestation.xpath_coverage_validation = XPATHCoverageValidationReport(
         object_data="",
-        mapping_suite_identifier="package_F03"
+        mapping_package_identifier="package_F03"
     )
     xml_manifestation.xpath_coverage_validation.validation_result = XPATHCoverageValidationResult(
         **xpath_coverage_validation)
@@ -425,7 +425,7 @@ def fake_validation_notice():
     sparql_validations = [SPARQLTestSuiteValidationReport(**{
         "object_data": '62f037e2a5458a3a6776138c',
         "created": '2022-08-07T20:49:15.500870',
-        "mapping_suite_identifier": 'package_F03',
+        "mapping_package_identifier": 'package_F03',
         "test_suite_identifier": 'cm_assertions',
         "fields_covered": False,
         "validation_results": [
@@ -510,7 +510,7 @@ def fake_validation_notice():
     }), SPARQLTestSuiteValidationReport(**{
         "object_data": '62f037e2a5458a3a6776138c',
         "created": '2022-08-07T20:49:15.500870',
-        "mapping_suite_identifier": 'package_F03',
+        "mapping_package_identifier": 'package_F03',
         "test_suite_identifier": 'cm_assertions',
         "fields_covered": True,
         "validation_results": [
@@ -541,7 +541,7 @@ def fake_validation_notice():
     shacl_validations = [SHACLTestSuiteValidationReport(**{
         "object_data": '62f037e2a5458a3a6776138a',
         "created": '2022-08-07T20:49:15.500870',
-        "mapping_suite_identifier": 'package_F03',
+        "mapping_package_identifier": 'package_F03',
         "test_suite_identifier": 'epo',
         "validation_results": {
             "conforms": 'False',
@@ -605,7 +605,7 @@ def fake_validation_notice():
     }), SHACLTestSuiteValidationReport(**{
         "object_data": '62f037e2a5458a3a6776138a1',
         "created": '2022-08-07T20:49:15.500870',
-        "mapping_suite_identifier": 'package_F03',
+        "mapping_package_identifier": 'package_F03',
         "test_suite_identifier": 'epo',
         "validation_results": {
             "conforms": 'True',

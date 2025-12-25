@@ -1,7 +1,7 @@
 from src.ted_sws.data_manager.adapters.mapping_suite_repository import MappingPackageRepositoryInFileSystem, \
     MappingPackageRepositoryMongoDB
 from src.ted_sws.mapping_suite_processor.services.conceptual_mapping_processor import \
-    mapping_suite_processor_load_package_in_mongo_db
+    mapping_package_processor_load_package_in_mongo_db
 from test import temporary_copy
 
 
@@ -9,7 +9,7 @@ def test_mapping_suite_processor_upload_in_mongodb(file_system_repository_path, 
                                                    test_package_identifier_with_version, aggregates_database_name):
     with temporary_copy(file_system_repository_path) as tmp_mapping_suite_package_path:
         mapping_suite_package_path = tmp_mapping_suite_package_path / "test_package"
-        mapping_suite_processor_load_package_in_mongo_db(mapping_suite_package_path=mapping_suite_package_path,
+        mapping_package_processor_load_package_in_mongo_db(mapping_package_path=mapping_suite_package_path,
                                                          mongodb_client=mongodb_client)
         mapping_suite_repository = MappingPackageRepositoryInFileSystem(
             repository_path=tmp_mapping_suite_package_path)

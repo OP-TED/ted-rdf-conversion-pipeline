@@ -7,7 +7,7 @@ from src.ted_sws.data_manager.adapters.mapping_suite_repository import MappingPa
 def test_mapping_suite_repository_mongodb(mongodb_client, fake_mapping_suite,
                                           fake_mapping_suite_identifier_with_version, aggregates_database_name):
     mapping_suite_repository = MappingPackageRepositoryMongoDB(mongodb_client=mongodb_client)
-    mapping_suite_repository.add(mapping_suite=fake_mapping_suite)
+    mapping_suite_repository.add(mapping_package=fake_mapping_suite)
     result_mapping_suite = mapping_suite_repository.get(reference=fake_mapping_suite_identifier_with_version)
     assert result_mapping_suite
     assert result_mapping_suite.identifier == fake_mapping_suite.identifier
@@ -25,7 +25,7 @@ def test_mapping_suite_repository_mongodb_update_invalid_id(mongodb_client, fake
                                                             fake_mapping_suite_identifier_with_version,
                                                             aggregates_database_name):
     mapping_suite_repository = MappingPackageRepositoryMongoDB(mongodb_client=mongodb_client)
-    mapping_suite_repository.add(mapping_suite=fake_mapping_suite)
+    mapping_suite_repository.add(mapping_package=fake_mapping_suite)
     result_mapping_suite = mapping_suite_repository.get(reference=fake_mapping_suite_identifier_with_version)
     assert result_mapping_suite
     assert result_mapping_suite.identifier == fake_mapping_suite.identifier
@@ -58,18 +58,18 @@ def test_epo_mapping_suite_repository_in_file_system(file_system_repository_with
 def test_mapping_suite_repository_in_file_system(file_system_repository_path, fake_mapping_suite):
     mapping_suite_repository = MappingPackageRepositoryInFileSystem(repository_path=file_system_repository_path)
     mapping_suite_repository.clear_repository()
-    mapping_suite_repository.add(mapping_suite=fake_mapping_suite)
+    mapping_suite_repository.add(mapping_package=fake_mapping_suite)
     result_mapping_suite = mapping_suite_repository.get(reference=fake_mapping_suite.identifier)
     assert result_mapping_suite
     assert result_mapping_suite.identifier == fake_mapping_suite.identifier
     result_mapping_suite.title = "updated_title"
-    mapping_suite_repository.update(mapping_suite=result_mapping_suite)
+    mapping_suite_repository.update(mapping_package=result_mapping_suite)
     result_mapping_suite = mapping_suite_repository.get(reference=fake_mapping_suite.identifier)
     assert result_mapping_suite.title == "updated_title"
     result_mapping_suites = list(mapping_suite_repository.list())
     assert len(result_mapping_suites) == 1
     result_mapping_suite.identifier = "new_id"
-    mapping_suite_repository.add(mapping_suite=result_mapping_suite)
+    mapping_suite_repository.add(mapping_package=result_mapping_suite)
     result_mapping_suites = list(mapping_suite_repository.list())
     assert len(result_mapping_suites) == 2
     mapping_suite_repository.clear_repository()
@@ -82,9 +82,9 @@ def test_inter_transactions_mapping_suite_repositories(mongodb_client, file_syst
     mapping_suite_repository_file_system = MappingPackageRepositoryInFileSystem(
         repository_path=file_system_repository_path)
     mapping_suite_repository_file_system.clear_repository()
-    mapping_suite_repository_mongodb.add(mapping_suite=fake_mapping_suite)
+    mapping_suite_repository_mongodb.add(mapping_package=fake_mapping_suite)
     result_mapping_suite = mapping_suite_repository_mongodb.get(reference=fake_mapping_suite_identifier_with_version)
-    mapping_suite_repository_file_system.add(mapping_suite=result_mapping_suite)
+    mapping_suite_repository_file_system.add(mapping_package=result_mapping_suite)
     result_mapping_suite = mapping_suite_repository_file_system.get(reference=fake_mapping_suite.identifier)
     assert DeepDiff(result_mapping_suite.model_dump(), fake_mapping_suite.model_dump()) == {}
     mapping_suite_repository_file_system.clear_repository()

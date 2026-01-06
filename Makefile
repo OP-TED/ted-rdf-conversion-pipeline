@@ -230,6 +230,22 @@ init-saxon:
 	@ wget -c https://github.com/Saxonica/Saxon-HE/releases/download/SaxonHE10-9/SaxonHE10-9J.zip -P ./libraries/.saxon/
 	@ cd ./libraries/.saxon/ && unzip SaxonHE10-9J.zip && rm -rf SaxonHE10-9J.zip
 
+init-rml-mapper-curl:
+	@echo "RMLMapper folder initialisation!"
+	@mkdir -p ./libraries/.rmlmapper
+	@curl -L -o ./libraries/.rmlmapper/rmlmapper.jar https://github.com/RMLio/rmlmapper-java/releases/download/v6.2.2/rmlmapper-6.2.2-r371-all.jar
+
+init-limes-curl:
+	@echo "Limes folder initialisation!"
+	@mkdir -p ./libraries/.limes
+	@curl -L -o ./libraries/.limes/limes.jar https://github.com/dice-group/LIMES/releases/download/1.7.9/limes.jar
+
+init-saxon-curl:
+	@echo "$(BUILD_PRINT)Saxon folder initialization $(END_BUILD_PRINT)"
+	@mkdir -p ./libraries/.saxon
+	@curl -L -o ./libraries/.saxon/SaxonHE10-9J.zip https://github.com/Saxonica/Saxon-HE/releases/download/SaxonHE10-9/SaxonHE10-9J.zip
+	@cd ./libraries/.saxon && unzip -o SaxonHE10-9J.zip && rm -f SaxonHE10-9J.zip
+
 start-project-services: | start-airflow start-mongo init-rml-mapper init-limes start-allegro-graph start-metabase
 stop-project-services: | stop-airflow stop-mongo stop-allegro-graph stop-metabase
 

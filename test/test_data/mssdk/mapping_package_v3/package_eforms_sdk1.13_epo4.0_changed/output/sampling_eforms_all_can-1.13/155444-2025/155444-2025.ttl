@@ -1,0 +1,847 @@
+@prefix adms: <http://www.w3.org/ns/adms#> .
+@prefix cccev: <http://data.europa.eu/m8g/> .
+@prefix dct: <http://purl.org/dc/terms/> .
+@prefix epd: <http://data.europa.eu/a4g/resource/> .
+@prefix epo: <http://data.europa.eu/a4g/ontology#> .
+@prefix fnml: <http://semweb.mmlab.be/ns/fnml#> .
+@prefix fno: <https://w3id.org/function/ontology#> .
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+@prefix idlab-fn: <http://example.com/idlab/function/> .
+@prefix locn: <http://www.w3.org/ns/locn#> .
+@prefix org: <http://www.w3.org/ns/org#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix person: <http://www.w3.org/ns/person#> .
+@prefix ql: <http://semweb.mmlab.be/ns/ql#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix rml: <http://semweb.mmlab.be/ns/rml#> .
+@prefix rr: <http://www.w3.org/ns/r2rml#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix tedm: <http://data.europa.eu/a4g/mapping/sf-rml/> .
+@prefix time: <http://www.w3.org/2006/time#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+epd:id_001613-2025_Notice a epo:Notice;
+  adms:identifier epd:id_001613-2025_PreviousNoticeIdentifier_NxUKtqWBTuHnHd2EGHeAgD .
+
+epd:id_001613-2025_PreviousNoticeIdentifier_NxUKtqWBTuHnHd2EGHeAgD a adms:Identifier;
+  epo:hasScheme "ojs-notice-id";
+  skos:notation "001613-2025" .
+
+epd:id_16f9bbaf-0b36-49cf-9caa-dab4be55609e_AccessTerm_eGdkoq4LkbGrncyCWFKjRt a epo:AccessTerm;
+  epo:definesProcurementProcedureInformationProvider epd:id_16f9bbaf-0b36-49cf-9caa-dab4be55609e_ProcurementProcedureInformationProvider_iLSVBfZjy4iHRp6Jka4ttD .
+
+epd:id_16f9bbaf-0b36-49cf-9caa-dab4be55609e_AuctionTerms_h8hgikxAY3BGCvpBi6x4FY a
+    epo:EAuctionTechnique;
+  epo:hasUsage <http://publications.europa.eu/resource/authority/usage/n-used> .
+
+epd:id_16f9bbaf-0b36-49cf-9caa-dab4be55609e_AwardCriterion_2TVkCGpkhsXciitXsZZWPd
+  a epo:AwardCriterion;
+  epo:hasAwardCriterionType <http://publications.europa.eu/resource/authority/award-criterion-type/price>;
+  epo:hasWeightValueType <http://publications.europa.eu/resource/authority/number-weight/poi-exa>;
+  cccev:weight 2.0;
+  dct:description "1.12.Berendezések, bútorok, kellékek, dekoráció vonatkozásában kiadott táblázat szerint képzett összehasonlító ár (nettó, HUF)"@hu .
+
+epd:id_16f9bbaf-0b36-49cf-9caa-dab4be55609e_AwardCriterion_2kQVTQdiuG7gSzVhgTYcK2
+  a epo:AwardCriterion;
+  epo:hasAwardCriterionType <http://publications.europa.eu/resource/authority/award-criterion-type/price>;
+  epo:hasWeightValueType <http://publications.europa.eu/resource/authority/number-weight/poi-exa>;
+  cccev:weight 5.0;
+  dct:description "1.6.Film- és rádióreklám gyártása vonatkozásában kiadott táblázat szerint képzett összehasonlító ár (nettó, HUF)"@hu .
+
+epd:id_16f9bbaf-0b36-49cf-9caa-dab4be55609e_AwardCriterion_Csm9nkR4Eg4WbaAbV3nwaU
+  a epo:AwardCriterion;
+  epo:hasAwardCriterionType <http://publications.europa.eu/resource/authority/award-criterion-type/quality>;
+  epo:hasWeightValueType <http://publications.europa.eu/resource/authority/number-weight/poi-exa>;
+  cccev:weight 2.0;
+  dct:description "3. Az M.2./c) szakember speciális szakmai tapasztalata: nemzetközi kiállítás szervezésben és lebonyolításában szerzett szakmai tapasztalat (kiállítások száma db) (minimum 0 - maximum 3 db)"@hu .
+
+epd:id_16f9bbaf-0b36-49cf-9caa-dab4be55609e_AwardCriterion_DAYJVQCP8u4gFe8oEGrKVT
+  a epo:AwardCriterion;
+  epo:hasAwardCriterionType <http://publications.europa.eu/resource/authority/award-criterion-type/price>;
+  epo:hasWeightValueType <http://publications.europa.eu/resource/authority/number-weight/poi-exa>;
+  cccev:weight 6.0;
+  dct:description "1.2.Kreatív koncepcióalkotás, szövegírás és grafikai tervezés vonatkozásában kiadott táblázat szerint képzett összehasonlító ár (nettó, HUF)"@hu .
+
+epd:id_16f9bbaf-0b36-49cf-9caa-dab4be55609e_AwardCriterion_DrGg76w9jMWc2W2fKYGM3H
+  a epo:AwardCriterion;
+  epo:hasAwardCriterionType <http://publications.europa.eu/resource/authority/award-criterion-type/price>;
+  epo:hasWeightValueType <http://publications.europa.eu/resource/authority/number-weight/poi-exa>;
+  cccev:weight 6.0;
+  dct:description "1.5.Nyomdai szolgáltatások vonatkozásában kiadott táblázat szerint képzett összehasonlító ár (nettó, HUF)"@hu .
+
+epd:id_16f9bbaf-0b36-49cf-9caa-dab4be55609e_AwardCriterion_FvBWBHtAeUuh5kMzPqMNyi
+  a epo:AwardCriterion;
+  epo:hasAwardCriterionType <http://publications.europa.eu/resource/authority/award-criterion-type/price>;
+  epo:hasWeightValueType <http://publications.europa.eu/resource/authority/number-weight/poi-exa>;
+  cccev:weight 3.0;
+  dct:description "1.10.Utazás, szállítás, egyéb logisztikai szolgáltatások vonatkozásában kiadott táblázat szerint képzett összehasonlító ár (nettó, HUF)"@hu .
+
+epd:id_16f9bbaf-0b36-49cf-9caa-dab4be55609e_AwardCriterion_HK4KESuqXcxoTizMuEp7DA
+  a epo:AwardCriterion;
+  epo:hasAwardCriterionType <http://publications.europa.eu/resource/authority/award-criterion-type/price>;
+  epo:hasWeightValueType <http://publications.europa.eu/resource/authority/number-weight/poi-exa>;
+  cccev:weight 70.0;
+  dct:description "1.Teljes nettó ajánlati ár"@hu .
+
+epd:id_16f9bbaf-0b36-49cf-9caa-dab4be55609e_AwardCriterion_HSvXVgSfYXF4icyPjg2bMM
+  a epo:AwardCriterion;
+  epo:hasAwardCriterionType <http://publications.europa.eu/resource/authority/award-criterion-type/price>;
+  epo:hasWeightValueType <http://publications.europa.eu/resource/authority/number-weight/poi-exa>;
+  cccev:weight 4.0;
+  dct:description "1.4.Reklámajándékok és ruházat gyártása vonatkozásában kiadott táblázat szerint képzett összehasonlító ár (nettó, HUF)"@hu .
+
+epd:id_16f9bbaf-0b36-49cf-9caa-dab4be55609e_AwardCriterion_HydPnaeo9CgCqU8UUXj2eV
+  a epo:AwardCriterion;
+  epo:hasAwardCriterionType <http://publications.europa.eu/resource/authority/award-criterion-type/quality>;
+  epo:hasWeightValueType <http://publications.europa.eu/resource/authority/number-weight/poi-exa>;
+  cccev:weight 2.0;
+  dct:description "6. Az M.2./f) szakember speciális szakmai tapasztalata: nemzetközi influencer marketing kampányban szerzett szakmai tapasztalat (kampányok száma db) (minimum 0 - maximum 3 db)"@hu .
+
+epd:id_16f9bbaf-0b36-49cf-9caa-dab4be55609e_AwardCriterion_K3keQNNvzN9NkBRuK5wNtu
+  a epo:AwardCriterion;
+  epo:hasAwardCriterionType <http://publications.europa.eu/resource/authority/award-criterion-type/quality>;
+  epo:hasWeightValueType <http://publications.europa.eu/resource/authority/number-weight/poi-exa>;
+  cccev:weight 2.0;
+  dct:description "9. Az M.2./a-f) alkalmassági feltételnél előírt szakembereken felül bemutatott, rendezvényszervezésben legalább 36 hónap szakmai tapasztalattal rendelkező szakemberek száma (fő) (minimum 0 - maximum 3 fő)"@hu .
+
+epd:id_16f9bbaf-0b36-49cf-9caa-dab4be55609e_AwardCriterion_KMvAjMTUw4cC5hYGwXoxnr
+  a epo:AwardCriterion;
+  epo:hasAwardCriterionType <http://publications.europa.eu/resource/authority/award-criterion-type/price>;
+  epo:hasWeightValueType <http://publications.europa.eu/resource/authority/number-weight/poi-exa>;
+  cccev:weight 6.0;
+  dct:description "1.9.Online ügynökségi feladatok vonatkozásában kiadott táblázat szerint képzett összehasonlító ár (nettó, HUF)"@hu .
+
+epd:id_16f9bbaf-0b36-49cf-9caa-dab4be55609e_AwardCriterion_LvNzRQC44PgTLGRGqD2wu6
+  a epo:AwardCriterion;
+  epo:hasAwardCriterionType <http://publications.europa.eu/resource/authority/award-criterion-type/price>;
+  epo:hasWeightValueType <http://publications.europa.eu/resource/authority/number-weight/poi-exa>;
+  cccev:weight 5.0;
+  dct:description "1.16. Szállás vonatkozásában kiadott táblázat szerint képzett összehasonlító ár (nettó, HUF)"@hu .
+
+epd:id_16f9bbaf-0b36-49cf-9caa-dab4be55609e_AwardCriterion_M3ABHWyJDyj8yxDZZ2sJeg
+  a epo:AwardCriterion;
+  epo:hasAwardCriterionType <http://publications.europa.eu/resource/authority/award-criterion-type/quality>;
+  epo:hasWeightValueType <http://publications.europa.eu/resource/authority/number-weight/poi-exa>;
+  cccev:weight 2.0;
+  dct:description "1. Az M.2./a) szakember speciális szakmai tapasztalata: nemzetközi kampány lebonyolításában szerzett szakmai tapasztalat (kampányok száma db) (minimum 0 - maximum 3 db)"@hu .
+
+epd:id_16f9bbaf-0b36-49cf-9caa-dab4be55609e_AwardCriterion_TKHUjyB7JH6X8AwjJtdtTH
+  a epo:AwardCriterion;
+  epo:hasAwardCriterionType <http://publications.europa.eu/resource/authority/award-criterion-type/quality>;
+  epo:hasWeightValueType <http://publications.europa.eu/resource/authority/number-weight/poi-exa>;
+  cccev:weight 2.0;
+  dct:description "11. Ajánlattevő által a teljesítésbe bevonni kívánt 1998. évi XXVI. tv. szerinti fogyatékos munkavállalók alkalmazása (fő) (minimum 0 fő - maximum 3 fő)"@hu .
+
+epd:id_16f9bbaf-0b36-49cf-9caa-dab4be55609e_AwardCriterion_VpE8RGvjLNuyKgVF97wWiu
+  a epo:AwardCriterion;
+  epo:hasAwardCriterionType <http://publications.europa.eu/resource/authority/award-criterion-type/price>;
+  epo:hasWeightValueType <http://publications.europa.eu/resource/authority/number-weight/poi-exa>;
+  cccev:weight 6.0;
+  dct:description "1.7.Fotózás, videófelvétel készítés - rendezvénydokumentálás vonatkozásában kiadott táblázat szerint képzett összehasonlító ár (nettó, HUF)"@hu .
+
+epd:id_16f9bbaf-0b36-49cf-9caa-dab4be55609e_AwardCriterion_WTDtacM8hL8xrptkTAM5g8
+  a epo:AwardCriterion;
+  epo:hasAwardCriterionType <http://publications.europa.eu/resource/authority/award-criterion-type/price>;
+  epo:hasWeightValueType <http://publications.europa.eu/resource/authority/number-weight/poi-exa>;
+  cccev:weight 4.0;
+  dct:description "1.17. Ügyviteli díjak vonatkozásában kiadott táblázat szerint képzett összehasonlító mérték (%)"@hu .
+
+epd:id_16f9bbaf-0b36-49cf-9caa-dab4be55609e_AwardCriterion_Waq5f8fNQ3UjHvmSnL9VDr
+  a epo:AwardCriterion;
+  epo:hasAwardCriterionType <http://publications.europa.eu/resource/authority/award-criterion-type/price>;
+  epo:hasWeightValueType <http://publications.europa.eu/resource/authority/number-weight/poi-exa>;
+  cccev:weight 3.0;
+  dct:description "1.14.Kiegészítő programelemek, előadók vonatkozásában kiadott táblázat szerint képzett összehasonlító ár (nettó, HUF)"@hu .
+
+epd:id_16f9bbaf-0b36-49cf-9caa-dab4be55609e_AwardCriterion_Y6iaTUeQDukaqhJjdTfKhV
+  a epo:AwardCriterion;
+  epo:hasAwardCriterionType <http://publications.europa.eu/resource/authority/award-criterion-type/quality>;
+  epo:hasWeightValueType <http://publications.europa.eu/resource/authority/number-weight/poi-exa>;
+  cccev:weight 2.0;
+  dct:description "2. Az M.2./b) szakember speciális szakmai tapasztalata: nemzetközi kampány grafikai tervezésében szerzett szakmai tapasztalat (kampányok száma db) (minimum 0 - maximum 3 db)"@hu .
+
+epd:id_16f9bbaf-0b36-49cf-9caa-dab4be55609e_AwardCriterion_bFsqFvymbR6KAKdvvinHi8
+  a epo:AwardCriterion;
+  epo:hasAwardCriterionType <http://publications.europa.eu/resource/authority/award-criterion-type/quality>;
+  epo:hasWeightValueType <http://publications.europa.eu/resource/authority/number-weight/poi-exa>;
+  cccev:weight 2.0;
+  dct:description "8. Az M.2./a-f) alkalmassági feltételnél előírt szakembereken felül bemutatott, közösségi média tartalommenedzsmentjében legalább 36 hónap szakmai tapasztalattal rendelkező szakemberek száma (fő) (minimum 0 - maximum 3 fő)"@hu .
+
+epd:id_16f9bbaf-0b36-49cf-9caa-dab4be55609e_AwardCriterion_bH6NxoqF5eTerTMdPpcVzY
+  a epo:AwardCriterion;
+  epo:hasAwardCriterionType <http://publications.europa.eu/resource/authority/award-criterion-type/price>;
+  epo:hasWeightValueType <http://publications.europa.eu/resource/authority/number-weight/poi-exa>;
+  cccev:weight 5.0;
+  dct:description "1.1. Stratégiai tervezés és tanácsadás vonatkozásában kiadott táblázat szerint képzett összehasonlító ár (nettó, HUF)"@hu .
+
+epd:id_16f9bbaf-0b36-49cf-9caa-dab4be55609e_AwardCriterion_c22oKP8xcTyVsoboEtpka5
+  a epo:AwardCriterion;
+  epo:hasAwardCriterionType <http://publications.europa.eu/resource/authority/award-criterion-type/price>;
+  epo:hasWeightValueType <http://publications.europa.eu/resource/authority/number-weight/poi-exa>;
+  cccev:weight 2.0;
+  dct:description "1.15.Rendezvényszervezés - Szakemberek óradíjai, egyéb szolgáltatások vonatkozásában kiadott táblázat szerint képzett összehasonlító ár (nettó, HUF)"@hu .
+
+epd:id_16f9bbaf-0b36-49cf-9caa-dab4be55609e_AwardCriterion_citYdYnFcgJWJma3EcrqLw
+  a epo:AwardCriterion;
+  epo:hasAwardCriterionType <http://publications.europa.eu/resource/authority/award-criterion-type/price>;
+  epo:hasWeightValueType <http://publications.europa.eu/resource/authority/number-weight/poi-exa>;
+  cccev:weight 2.0;
+  dct:description "1.13.Catering vonatkozásában kiadott táblázat szerint képzett összehasonlító ár (nettó, HUF)"@hu .
+
+epd:id_16f9bbaf-0b36-49cf-9caa-dab4be55609e_AwardCriterion_gSTW3nUZ76fkBWJ3DiDKeg
+  a epo:AwardCriterion;
+  epo:hasAwardCriterionType <http://publications.europa.eu/resource/authority/award-criterion-type/quality>;
+  epo:hasWeightValueType <http://publications.europa.eu/resource/authority/number-weight/poi-exa>;
+  cccev:weight 2.0;
+  dct:description "10. Teljesítésben részt vevő fiatal (25. életévét be nem töltött, 25 év alatti fiatalok szja. kedvezményére jogosult magánszemély) munkavállalók foglalkoztatása (fő) (minimum 0 fő- maximum 3 fő)"@hu .
+
+epd:id_16f9bbaf-0b36-49cf-9caa-dab4be55609e_AwardCriterion_hpdbaoHf3oftfV5fV55DVV
+  a epo:AwardCriterion;
+  epo:hasAwardCriterionType <http://publications.europa.eu/resource/authority/award-criterion-type/price>;
+  epo:hasWeightValueType <http://publications.europa.eu/resource/authority/number-weight/poi-exa>;
+  cccev:weight 5.0;
+  dct:description "1.8.PR-ügynökségi feladatok vonatkozásában kiadott táblázat szerint képzett összehasonlító ár (nettó, HUF)"@hu .
+
+epd:id_16f9bbaf-0b36-49cf-9caa-dab4be55609e_AwardCriterion_j7LopzZW8oJfATHrz3jQpz
+  a epo:AwardCriterion;
+  epo:hasAwardCriterionType <http://publications.europa.eu/resource/authority/award-criterion-type/quality>;
+  epo:hasWeightValueType <http://publications.europa.eu/resource/authority/number-weight/poi-exa>;
+  cccev:weight 2.0;
+  dct:description "4. Az M.2./d) szakember speciális szakmai tapasztalata: nemzetközi kampány közösségi média tartalommenedzsmentjében szerzett szakmai tapasztalat (kampányok száma db) (minimum 0 - maximum 3 db)"@hu .
+
+epd:id_16f9bbaf-0b36-49cf-9caa-dab4be55609e_AwardCriterion_j7ZxgWwVqgDhgfqQiy58bL
+  a epo:AwardCriterion;
+  epo:hasAwardCriterionType <http://publications.europa.eu/resource/authority/award-criterion-type/price>;
+  epo:hasWeightValueType <http://publications.europa.eu/resource/authority/number-weight/poi-exa>;
+  cccev:weight 4.0;
+  dct:description "1.3.Marketing és dekorációs elemek gyártása vonatkozásában kiadott táblázat szerint képzett összehasonlító ár (nettó, HUF)"@hu .
+
+epd:id_16f9bbaf-0b36-49cf-9caa-dab4be55609e_AwardCriterion_kxEgZecxnZPL6PKHcY8936
+  a epo:AwardCriterion;
+  epo:hasAwardCriterionType <http://publications.europa.eu/resource/authority/award-criterion-type/quality>;
+  epo:hasWeightValueType <http://publications.europa.eu/resource/authority/number-weight/poi-exa>;
+  cccev:weight 1.0;
+  dct:description "5. Az M.2./e) szakember speciális szakmai tapasztalata: nemzetközi kampány PR kommunikációjában szerzett szakmai tapasztalat (kampányok száma db) (minimum 0 - maximum 3 db)"@hu .
+
+epd:id_16f9bbaf-0b36-49cf-9caa-dab4be55609e_AwardCriterion_mWPUqFXB2JrsgzEJ48hMa7
+  a epo:AwardCriterion;
+  epo:hasAwardCriterionType <http://publications.europa.eu/resource/authority/award-criterion-type/quality>;
+  epo:hasWeightValueType <http://publications.europa.eu/resource/authority/number-weight/poi-exa>;
+  cccev:weight 1.0;
+  dct:description "7. Az M.2./a-f) alkalmassági feltételnél előírt szakembereken felül bemutatott, legalább 36 hónap kiadványszerkesztői szakmai tapasztalattal rendelkező szakemberek száma (fő) (minimum 0 - maximum 3 fő)"@hu .
+
+epd:id_16f9bbaf-0b36-49cf-9caa-dab4be55609e_AwardCriterion_mjnRbXaHaNTDRN3Gib92Le
+  a epo:AwardCriterion;
+  epo:hasAwardCriterionType <http://publications.europa.eu/resource/authority/award-criterion-type/price>;
+  epo:hasWeightValueType <http://publications.europa.eu/resource/authority/number-weight/poi-exa>;
+  cccev:weight 2.0;
+  dct:description "1.11.Rendezvénytechnika vonatkozásában kiadott táblázat szerint képzett összehasonlító ár (nettó, HUF)"@hu .
+
+epd:id_16f9bbaf-0b36-49cf-9caa-dab4be55609e_AwardDecision_o5CkX6ohweRSpSvh5Brzfk a
+    epo:AwardDecision;
+  epo:comprisesAwardOutcome epd:id_16f9bbaf-0b36-49cf-9caa-dab4be55609e_LotAwardOutcome_RES-0001;
+  epo:hasAwardDecisionDate "2025-01-29+01:00"^^xsd:date .
+
+epd:id_16f9bbaf-0b36-49cf-9caa-dab4be55609e_BeneficialOwnerTechnicalIdentifier_BXhK5QPUdH6Cdcb2Cj8MV2
+  a adms:Identifier;
+  epo:hasScheme "ubo";
+  skos:notation "UBO-0006" .
+
+epd:id_16f9bbaf-0b36-49cf-9caa-dab4be55609e_Buyer_iLSVBfZjy4iHRp6Jka4ttD a epo:Buyer;
+  epo:playedBy epd:id_16f9bbaf-0b36-49cf-9caa-dab4be55609e_Organization_ORG-0010 .
+
+epd:id_16f9bbaf-0b36-49cf-9caa-dab4be55609e_CompanyAddress_5oamSpC3ikwoRMLn49RxG2
+  a locn:Address;
+  epo:hasCountryCode <http://publications.europa.eu/resource/authority/country/HUN>;
+  epo:hasNutsCode <http://data.europa.eu/nuts/code/HU110>;
+  locn:fullAddress "Ferenciek Tere 2. I. em., Budapest, 1053, HUN";
+  locn:postCode "1053";
+  locn:postName "Budapest" .
+
+epd:id_16f9bbaf-0b36-49cf-9caa-dab4be55609e_CompanyAddress_5w4jTR6gfdXBvGkZDdofo7
+  a locn:Address;
+  epo:hasCountryCode <http://publications.europa.eu/resource/authority/country/HUN>;
+  epo:hasNutsCode <http://data.europa.eu/nuts/code/HU110>;
+  locn:fullAddress "Sas Utca 20-22., Budapest, 1051, HUN";
+  locn:postCode "1051";
+  locn:postName "Budapest" .
+
+epd:id_16f9bbaf-0b36-49cf-9caa-dab4be55609e_CompanyAddress_PWqQf3UzWb4VpZjpAfV2R3
+  a locn:Address;
+  epo:hasCountryCode <http://publications.europa.eu/resource/authority/country/HUN>;
+  epo:hasNutsCode <http://data.europa.eu/nuts/code/HU110>;
+  locn:fullAddress "Riadó utca 5., Budapest, 1026, HUN";
+  locn:postCode "1026";
+  locn:postName "Budapest" .
+
+epd:id_16f9bbaf-0b36-49cf-9caa-dab4be55609e_CompanyAddress_QLSEm2DyTzM8ssuHGXE6Hw
+  a locn:Address;
+  epo:hasCountryCode <http://publications.europa.eu/resource/authority/country/HUN>;
+  epo:hasNutsCode <http://data.europa.eu/nuts/code/HU110>;
+  locn:fullAddress "Felső Zöldmáli Út 72., Budapest, 1025, HUN";
+  locn:postCode "1025";
+  locn:postName "Budapest" .
+
+epd:id_16f9bbaf-0b36-49cf-9caa-dab4be55609e_CompanyAddress_Ru6ZF7VecxyPwFsqDRJu85
+  a locn:Address;
+  epo:hasCountryCode <http://publications.europa.eu/resource/authority/country/HUN>;
+  epo:hasNutsCode <http://data.europa.eu/nuts/code/HU110>;
+  locn:fullAddress "Ferenciek Tere 2. 1. emelet, Budapest, 1053, HUN";
+  locn:postCode "1053";
+  locn:postName "Budapest" .
+
+epd:id_16f9bbaf-0b36-49cf-9caa-dab4be55609e_CompanyAddress_XSr6vAeEq7ruMbW45bvsTp
+  a locn:Address;
+  epo:hasCountryCode <http://publications.europa.eu/resource/authority/country/HUN>;
+  epo:hasNutsCode <http://data.europa.eu/nuts/code/HU110>;
+  locn:fullAddress "Ferenciek Tere 2. 1. em., Budapest, 1053, HUN";
+  locn:postCode "1053";
+  locn:postName "Budapest" .
+
+epd:id_16f9bbaf-0b36-49cf-9caa-dab4be55609e_CompanyAddress_amxyHzzWSDM5hALBwwbWuJ
+  a locn:Address;
+  epo:hasCountryCode <http://publications.europa.eu/resource/authority/country/HUN>;
+  epo:hasNutsCode <http://data.europa.eu/nuts/code/HU110>;
+  locn:fullAddress "Felső Zöldmáli Út 72., Budapest, 1025, HUN";
+  locn:postCode "1025";
+  locn:postName "Budapest" .
+
+epd:id_16f9bbaf-0b36-49cf-9caa-dab4be55609e_CompanyAddress_dsV3J5EGaewAFo9YuPgodC
+  a locn:Address;
+  epo:hasCountryCode <http://publications.europa.eu/resource/authority/country/HUN>;
+  epo:hasNutsCode <http://data.europa.eu/nuts/code/HU110>;
+  locn:fullAddress "Dombóvári Út 25., Budapest, 1117, HUN";
+  locn:postCode "1117";
+  locn:postName "Budapest" .
+
+epd:id_16f9bbaf-0b36-49cf-9caa-dab4be55609e_CompanyAddress_kazHeCPckN7TddQSoqJzxV
+  a locn:Address;
+  epo:hasCountryCode <http://publications.europa.eu/resource/authority/country/HUN>;
+  epo:hasNutsCode <http://data.europa.eu/nuts/code/HU110>;
+  locn:fullAddress "Riadó u. 5, Budapest, 1026, HUN";
+  locn:postCode "1026";
+  locn:postName "Budapest" .
+
+epd:id_16f9bbaf-0b36-49cf-9caa-dab4be55609e_CompanyContactPoint_2eGnrypHYVpTNxKbtnAVq2
+  a cccev:ContactPoint;
+  cccev:email "botosi@artificialgroup.com";
+  cccev:telephone "+36 306463875" .
+
+epd:id_16f9bbaf-0b36-49cf-9caa-dab4be55609e_CompanyContactPoint_6r33Cv99oV38zobB7Hepex
+  a cccev:ContactPoint;
+  epo:hasContactName "Közbeszerzési és Beszerzési Főosztály";
+  epo:hasFax "+36 17950833";
+  epo:hasInternetAddress "https://nkoh.kormany.hu/"^^xsd:anyURI;
+  cccev:email "eljaras@nkoh.gov.hu";
+  cccev:telephone "+36 17955957" .
+
+epd:id_16f9bbaf-0b36-49cf-9caa-dab4be55609e_CompanyContactPoint_Kt8Anvwo3sjQE2zRaTPDMm
+  a cccev:ContactPoint;
+  epo:hasInternetAddress "https://www.artificialgroup.com"^^xsd:anyURI;
+  cccev:email "botosi@artificialgroup.com";
+  cccev:telephone "+36 306463875" .
+
+epd:id_16f9bbaf-0b36-49cf-9caa-dab4be55609e_CompanyContactPoint_NcbPXevKMmMoUV4ixLLM8J
+  a cccev:ContactPoint;
+  epo:hasInternetAddress "https://www.mediator.hu"^^xsd:anyURI;
+  cccev:email "a.stefanics@mediator.hu";
+  cccev:telephone "+36 202863393" .
+
+epd:id_16f9bbaf-0b36-49cf-9caa-dab4be55609e_CompanyContactPoint_NsQgV4dy8XNKVeR2M8tt3c
+  a cccev:ContactPoint;
+  epo:hasInternetAddress "https://www.lounge.hu"^^xsd:anyURI;
+  cccev:email "kozbeszerzes@lounge.hu";
+  cccev:telephone "+36 301763071" .
+
+epd:id_16f9bbaf-0b36-49cf-9caa-dab4be55609e_CompanyContactPoint_RVyNteJCXPVfgCRsomYU8e
+  a cccev:ContactPoint;
+  epo:hasFax "+36 18828593";
+  epo:hasInternetAddress "https://kozbeszerzes.hu"^^xsd:anyURI;
+  cccev:email "dontobizottsag@kt.hu";
+  cccev:telephone "+36 18828592" .
+
+epd:id_16f9bbaf-0b36-49cf-9caa-dab4be55609e_CompanyContactPoint_SKFLyoFfRmoPfFxaxBTeM9
+  a cccev:ContactPoint;
+  epo:hasInternetAddress "https://kozbeszerzes.hu"^^xsd:anyURI;
+  cccev:email "hirdetmeny@kt.hu";
+  cccev:telephone "+36 18828635" .
+
+epd:id_16f9bbaf-0b36-49cf-9caa-dab4be55609e_CompanyContactPoint_boyhsCP9AduPpEce9s56fZ
+  a cccev:ContactPoint;
+  cccev:email "kozbeszerzes@newland.hu";
+  cccev:telephone "+36 301763071" .
+
+epd:id_16f9bbaf-0b36-49cf-9caa-dab4be55609e_CompanyContactPoint_exXX5w4R9epdXpscc9vte8
+  a cccev:ContactPoint;
+  cccev:email "botosi@artificialgroup.com";
+  cccev:telephone "+36 306463875" .
+
+epd:id_16f9bbaf-0b36-49cf-9caa-dab4be55609e_ContractDuration_4TghaR9Riayv2Hb6XHyc6D
+  a epo:SpecificDuration;
+  time:numericDuration 12.0;
+  time:unitType time:unitMonth .
+
+epd:id_16f9bbaf-0b36-49cf-9caa-dab4be55609e_ContractLocation_5zVCW3b2MSxAnzMuZRbDZB
+  a dct:Location .
+
+epd:id_16f9bbaf-0b36-49cf-9caa-dab4be55609e_ContractTerm_jucn4erQJnXcty2wPoNNzB a
+    epo:ContractTerm;
+  epo:definesContractDuration epd:id_16f9bbaf-0b36-49cf-9caa-dab4be55609e_ContractDuration_4TghaR9Riayv2Hb6XHyc6D;
+  epo:definesSpecificPlaceOfPerformance epd:id_16f9bbaf-0b36-49cf-9caa-dab4be55609e_ContractLocation_5zVCW3b2MSxAnzMuZRbDZB;
+  epo:hasBroadPlaceOfPerformance <http://publications.europa.eu/resource/authority/other-place-service/anyw>;
+  epo:hasContractNatureType <http://publications.europa.eu/resource/authority/contract-nature/services>;
+  epo:hasMaximumNumberOfRenewals 2;
+  epo:hasPlaceOfPerformanceAdditionalInformation "NUTS-kód: HU Magyarország A teljesítés fő helyszíne: Magyarország közigazgatási területe, illetve Egyesült Királyság, Spanyolország, Németország, Olaszország, Franciaország, Ausztria, Lengyelország, Csehország, Románia, Szlovákia, Hollandia, Izrael, Kína, Amerikai Egyesült Államok, Kanada Egyéb tervezett potenciális régiók/célországok lehetnek: • Dánia, Norvégia, Finnország, Svédország, Törökország • Svájc, Írország • India • Öböl-menti országok: (főként EAE és Katar)"@hu;
+  epo:hasRenewalDescription "A keretmegállapodás időtartama legfeljebb kettő alkalommal, alkalmanként legfeljebb 12 hónappal megújítható."@hu .
+
+epd:id_16f9bbaf-0b36-49cf-9caa-dab4be55609e_DynamicPurchaseSystemTechnicalUsage_Q4h2gSzyXb646JqueyB5tR
+  a epo:DynamicPurchaseSystemTechnique;
+  epo:hasDPSScope <http://publications.europa.eu/resource/authority/dps-usage/none> .
+
+epd:id_16f9bbaf-0b36-49cf-9caa-dab4be55609e_FrameworkAgreementMaximumMonetaryValue_buhfT7xy3UtLfxfwv8HbfT
+  a epo:MonetaryValue;
+  epo:hasAmountValue 16000000000.0;
+  epo:hasCurrency <http://publications.europa.eu/resource/authority/currency/HUF> .
+
+epd:id_16f9bbaf-0b36-49cf-9caa-dab4be55609e_FrameworkAgreementTerm_Q4h2gSzyXb646JqueyB5tR
+  a epo:FrameworkAgreementTerm;
+  epo:hasFrameworkAgreementType <http://publications.europa.eu/resource/authority/framework-agreement/fa-wo-rc> .
+
+epd:id_16f9bbaf-0b36-49cf-9caa-dab4be55609e_GreenProcurement_JjoLqo82mjXWZziw3JBn45
+  a epo:GreenProcurement;
+  epo:usesCleanVehicleDirective false .
+
+epd:id_16f9bbaf-0b36-49cf-9caa-dab4be55609e_Identifier_ORG-0002 a adms:Identifier;
+  epo:hasScheme "organization";
+  skos:notation "ORG-0002" .
+
+epd:id_16f9bbaf-0b36-49cf-9caa-dab4be55609e_Identifier_ORG-0003 a adms:Identifier;
+  epo:hasScheme "organization";
+  skos:notation "ORG-0003" .
+
+epd:id_16f9bbaf-0b36-49cf-9caa-dab4be55609e_Identifier_ORG-0004 a adms:Identifier;
+  epo:hasScheme "organization";
+  skos:notation "ORG-0004" .
+
+epd:id_16f9bbaf-0b36-49cf-9caa-dab4be55609e_Identifier_ORG-0005 a adms:Identifier;
+  epo:hasScheme "organization";
+  skos:notation "ORG-0005" .
+
+epd:id_16f9bbaf-0b36-49cf-9caa-dab4be55609e_Identifier_ORG-0006 a adms:Identifier;
+  epo:hasScheme "organization";
+  skos:notation "ORG-0006" .
+
+epd:id_16f9bbaf-0b36-49cf-9caa-dab4be55609e_Identifier_ORG-0007 a adms:Identifier;
+  epo:hasScheme "organization";
+  skos:notation "ORG-0007" .
+
+epd:id_16f9bbaf-0b36-49cf-9caa-dab4be55609e_Identifier_ORG-0008 a adms:Identifier;
+  epo:hasScheme "organization";
+  skos:notation "ORG-0008" .
+
+epd:id_16f9bbaf-0b36-49cf-9caa-dab4be55609e_Identifier_ORG-0009 a adms:Identifier;
+  epo:hasScheme "organization";
+  skos:notation "ORG-0009" .
+
+epd:id_16f9bbaf-0b36-49cf-9caa-dab4be55609e_Identifier_ORG-0010 a adms:Identifier;
+  epo:hasScheme "organization";
+  skos:notation "ORG-0010" .
+
+epd:id_16f9bbaf-0b36-49cf-9caa-dab4be55609e_LotAwardOutcome_RES-0001 a epo:LotAwardOutcome;
+  epo:comprisesTenderAwardOutcome epd:id_16f9bbaf-0b36-49cf-9caa-dab4be55609e_TenderAwardOutcome_TEN-9125,
+    epd:id_16f9bbaf-0b36-49cf-9caa-dab4be55609e_TenderAwardOutcome_TEN-9149, epd:id_16f9bbaf-0b36-49cf-9caa-dab4be55609e_TenderAwardOutcome_TEN-9165;
+  epo:concernsLot epd:id_16f9bbaf-0b36-49cf-9caa-dab4be55609e_Lot_LOT-0001;
+  epo:hasAwardStatus <http://publications.europa.eu/resource/authority/winner-selection-status/selec-w>;
+  epo:hasFrameworkAgreementMaximumValue epd:id_16f9bbaf-0b36-49cf-9caa-dab4be55609e_FrameworkAgreementMaximumMonetaryValue_buhfT7xy3UtLfxfwv8HbfT;
+  rdfs:seeAlso epd:id_16f9bbaf-0b36-49cf-9caa-dab4be55609e_ReviewRequestSummary_FmfbzZdeEatT3nzZdqXd3D .
+
+epd:id_16f9bbaf-0b36-49cf-9caa-dab4be55609e_LotIdentifier_jucn4erQJnXcty2wPoNNzB a
+    adms:Identifier;
+  epo:hasScheme "Lot";
+  skos:notation "LOT-0001" .
+
+epd:id_16f9bbaf-0b36-49cf-9caa-dab4be55609e_LotInternalIdentifier_4mnqZ7PF3sxbwYtmUHUyS6
+  a adms:Identifier;
+  epo:hasScheme "InternalID";
+  skos:notation "EKR002266992024/1" .
+
+epd:id_16f9bbaf-0b36-49cf-9caa-dab4be55609e_LotPurpose_4mnqZ7PF3sxbwYtmUHUyS6 a epo:Purpose;
+  epo:hasAdditionalClassification <http://data.europa.eu/cpv/cpv/79416000>, <http://data.europa.eu/cpv/cpv/79821000>,
+    <http://data.europa.eu/cpv/cpv/79822500>, <http://data.europa.eu/cpv/cpv/79952000>,
+    <http://data.europa.eu/cpv/cpv/92111200>;
+  epo:hasMainClassification <http://data.europa.eu/cpv/cpv/79000000> .
+
+epd:id_16f9bbaf-0b36-49cf-9caa-dab4be55609e_Lot_LOT-0001 a epo:Lot;
+  epo:foreseesContractSpecificTerm epd:id_16f9bbaf-0b36-49cf-9caa-dab4be55609e_ContractTerm_jucn4erQJnXcty2wPoNNzB;
+  epo:fulfillsStrategicProcurement epd:id_16f9bbaf-0b36-49cf-9caa-dab4be55609e_GreenProcurement_JjoLqo82mjXWZziw3JBn45,
+    epd:id_16f9bbaf-0b36-49cf-9caa-dab4be55609e_SocialProcurement_FbxiobiJYxNCgQAMtdKfL3,
+    epd:id_16f9bbaf-0b36-49cf-9caa-dab4be55609e_SocialProcurement_ZxZ96itnghU3vVzhCPCB7Y;
+  epo:hasInternalIdentifier epd:id_16f9bbaf-0b36-49cf-9caa-dab4be55609e_LotInternalIdentifier_4mnqZ7PF3sxbwYtmUHUyS6;
+  epo:hasPurpose epd:id_16f9bbaf-0b36-49cf-9caa-dab4be55609e_LotPurpose_4mnqZ7PF3sxbwYtmUHUyS6;
+  epo:isCoveredByGPA true;
+  epo:isSubjectToLotSpecificTerm epd:id_16f9bbaf-0b36-49cf-9caa-dab4be55609e_AccessTerm_eGdkoq4LkbGrncyCWFKjRt,
+    epd:id_16f9bbaf-0b36-49cf-9caa-dab4be55609e_FrameworkAgreementTerm_Q4h2gSzyXb646JqueyB5tR,
+    epd:id_16f9bbaf-0b36-49cf-9caa-dab4be55609e_ReviewTerm_QmkiZENjGqABvzebdMdK43, epd:id_16f9bbaf-0b36-49cf-9caa-dab4be55609e_ReviewTerm_diKpJmaujx254zQoutkWj5;
+  epo:isUsingEUFunds false;
+  epo:specifiesProcurementCriterion epd:id_16f9bbaf-0b36-49cf-9caa-dab4be55609e_AwardCriterion_2TVkCGpkhsXciitXsZZWPd,
+    epd:id_16f9bbaf-0b36-49cf-9caa-dab4be55609e_AwardCriterion_2kQVTQdiuG7gSzVhgTYcK2,
+    epd:id_16f9bbaf-0b36-49cf-9caa-dab4be55609e_AwardCriterion_Csm9nkR4Eg4WbaAbV3nwaU,
+    epd:id_16f9bbaf-0b36-49cf-9caa-dab4be55609e_AwardCriterion_DAYJVQCP8u4gFe8oEGrKVT,
+    epd:id_16f9bbaf-0b36-49cf-9caa-dab4be55609e_AwardCriterion_DrGg76w9jMWc2W2fKYGM3H,
+    epd:id_16f9bbaf-0b36-49cf-9caa-dab4be55609e_AwardCriterion_FvBWBHtAeUuh5kMzPqMNyi,
+    epd:id_16f9bbaf-0b36-49cf-9caa-dab4be55609e_AwardCriterion_HK4KESuqXcxoTizMuEp7DA,
+    epd:id_16f9bbaf-0b36-49cf-9caa-dab4be55609e_AwardCriterion_HSvXVgSfYXF4icyPjg2bMM,
+    epd:id_16f9bbaf-0b36-49cf-9caa-dab4be55609e_AwardCriterion_HydPnaeo9CgCqU8UUXj2eV,
+    epd:id_16f9bbaf-0b36-49cf-9caa-dab4be55609e_AwardCriterion_K3keQNNvzN9NkBRuK5wNtu,
+    epd:id_16f9bbaf-0b36-49cf-9caa-dab4be55609e_AwardCriterion_KMvAjMTUw4cC5hYGwXoxnr,
+    epd:id_16f9bbaf-0b36-49cf-9caa-dab4be55609e_AwardCriterion_LvNzRQC44PgTLGRGqD2wu6,
+    epd:id_16f9bbaf-0b36-49cf-9caa-dab4be55609e_AwardCriterion_M3ABHWyJDyj8yxDZZ2sJeg,
+    epd:id_16f9bbaf-0b36-49cf-9caa-dab4be55609e_AwardCriterion_TKHUjyB7JH6X8AwjJtdtTH,
+    epd:id_16f9bbaf-0b36-49cf-9caa-dab4be55609e_AwardCriterion_VpE8RGvjLNuyKgVF97wWiu,
+    epd:id_16f9bbaf-0b36-49cf-9caa-dab4be55609e_AwardCriterion_WTDtacM8hL8xrptkTAM5g8,
+    epd:id_16f9bbaf-0b36-49cf-9caa-dab4be55609e_AwardCriterion_Waq5f8fNQ3UjHvmSnL9VDr,
+    epd:id_16f9bbaf-0b36-49cf-9caa-dab4be55609e_AwardCriterion_Y6iaTUeQDukaqhJjdTfKhV,
+    epd:id_16f9bbaf-0b36-49cf-9caa-dab4be55609e_AwardCriterion_bFsqFvymbR6KAKdvvinHi8,
+    epd:id_16f9bbaf-0b36-49cf-9caa-dab4be55609e_AwardCriterion_bH6NxoqF5eTerTMdPpcVzY,
+    epd:id_16f9bbaf-0b36-49cf-9caa-dab4be55609e_AwardCriterion_c22oKP8xcTyVsoboEtpka5,
+    epd:id_16f9bbaf-0b36-49cf-9caa-dab4be55609e_AwardCriterion_citYdYnFcgJWJma3EcrqLw,
+    epd:id_16f9bbaf-0b36-49cf-9caa-dab4be55609e_AwardCriterion_gSTW3nUZ76fkBWJ3DiDKeg,
+    epd:id_16f9bbaf-0b36-49cf-9caa-dab4be55609e_AwardCriterion_hpdbaoHf3oftfV5fV55DVV,
+    epd:id_16f9bbaf-0b36-49cf-9caa-dab4be55609e_AwardCriterion_j7LopzZW8oJfATHrz3jQpz,
+    epd:id_16f9bbaf-0b36-49cf-9caa-dab4be55609e_AwardCriterion_j7ZxgWwVqgDhgfqQiy58bL,
+    epd:id_16f9bbaf-0b36-49cf-9caa-dab4be55609e_AwardCriterion_kxEgZecxnZPL6PKHcY8936,
+    epd:id_16f9bbaf-0b36-49cf-9caa-dab4be55609e_AwardCriterion_mWPUqFXB2JrsgzEJ48hMa7,
+    epd:id_16f9bbaf-0b36-49cf-9caa-dab4be55609e_AwardCriterion_mjnRbXaHaNTDRN3Gib92Le;
+  epo:usesTechnique epd:id_16f9bbaf-0b36-49cf-9caa-dab4be55609e_AuctionTerms_h8hgikxAY3BGCvpBi6x4FY,
+    epd:id_16f9bbaf-0b36-49cf-9caa-dab4be55609e_DynamicPurchaseSystemTechnicalUsage_Q4h2gSzyXb646JqueyB5tR;
+  dct:description "„Keretmegállapodás a Visit Hungary Nemzeti Turisztikai Szervezet Nonprofit Zrt. és a Kisfaludy2030 Turisztikai Fejlesztő Nonprofit Zrt. részére komplex kommunikációs ügynökségi és rendezvényszervezési feladatok ellátására” A keretmegállapodás alapján megkötendő, a konkrét beszerzésre vonatkozó egyedi szerződések műszaki tartalma, értéke és mennyisége előre nem meghatározható, az a mindenkori tényleges beszerzési igény felmerülésétől függ. Ennek megfelelően a konkrét feladatokra vonatkozó egyedi szerződések tartalma, értéke, üteme, valamint az egy időben teljesítendő egyedi szerződések nagyságrendje előzetesen sem meghatározható. Az elvégzendő tevékenységek köre jellemzően, de nem kizárólagosan kiterjed a következő feladatok ellátására: stratégiai tervezési és tanácsadási, kreatív és grafikai tervezési, gyártási, online kommunikációs, PR ügynökségi, online ügynökségi valamint rendezvényszervezési tevékenységhez kapcsolódó egyéb szolgáltatások összességére vagy ezek bármelyikére vagy ezek bármelyikének kombinációjára. A kommunikáció legfontosabb külföldi célpiacai körében a Megrendelők várhatóan legalább 8 országban tervezik a megjelenéseiket a műszaki leírásban előírtak figyelembevételével, de a szerződés során további célpiacok is felmerülhetnek. Továbbá a külföldi kampányok esetén legalább 8 országban felmerül külföldi reklámügynökségekkel való szakmai együttműködés (kreatív koncepciók lokális adaptációja) kialakítása és az ezzel kapcsolatos feladatok ellátása is (kapcsolattartás, adminisztrációs feladatok, ellenőrzés stb.). Nyertes ajánlattevő feladata különösen, de nem kizárólagosan: Megrendelők turisztikai marketingkommunikációs tevékenységük keretében külföldi és belföldi kampánysorozatok (tervezetten külföldön 4 db, belföldön 5 db kampány), turisztikai vonzatú rendezvények megvalósítását, továbbá hazai és nemzetközi értékesítési feladatok ellátását tervezik. A nemzetközi turisztikai reklámkampányok tervezetten kampányonként legalább 4 különböző országban, és országonként a következő médiakategóriák közül legalább 3 médiakategóriában valósul meg. Médiakategóriák: nyomtatott sajtó, televízió, rádió, közterület, mozi, online média, közösségi média felületeken megjelentetve. 1. Stratégiai tervezés és tanácsadás: hosszú távú vagy ad hoc kommunikációs stratégia, illetve kommunikációs cselekvési terv készítése. 2. Kreatív koncepcióalkotás, szövegírás, grafikai tervezés: a Megrendelők kommunikációs tevékenységéhez/ hazai, illetve nemzetközi kampányaihoz kapcsolódó kreatívügynökségi feladatok ellátása, tervezetten a kreatív koncepciók és az egyes médiaeszközökre, marketingeszközökre alkalmazott konkrét kreatívok kidolgozása, valamint az ezekkel összefüggő szövegírói, grafikai tervezési és projektmenedzsment (ügyfél-kapcsolattartási) feladatok ellátása. Kampányonként min. 3 különböző koncepció megtervezése és bemutatása. 3. Gyártási feladatok: Megrendelők nemzetközi és hazai kommunikációs kampányaihoz kapcsolódóan tervezetten: dekorációs és marketingeszközök, reklámajándékok, nyomdai termékek kivitelezése, rádióreklám-gyártást, film- és videó-gyártást, valamint fotózási feladatok ellátása. Ezen belül: - Legalább 6 db, egyenként legalább 4 különböző nyelven, és tervezetten összesen minimum 100.000 példányban turisztikai kiadvány elkészítése. - Tervezetten 6 db egyenként 30-90 sec hosszúságú, élőszereplős, televízióban megjelenő reklámfilm gyártása. 4. PR-ügynökségi szolgáltatások: a Megrendelők szervezete és környezete közötti kommunikációs kapcsolatok elemzése, kommunikációs programok szervezése, tervezése és kivitelezése, illetve azok értékelése. 5. Online ügynökségi feladatok: a kidolgozott kommunikációs stratégiához illeszkedő belföldi és nemzetközi online kommunikációs és social media stratégia tervezés. Ezen belül: - a turisztikai közösségimédia-oldalak magyar és idegen nyelvű tartalommenedzsmentje folyamatos feltöltéssel (heti legalább két bejegyzés tervezése és előállítása) legalább 9 különböző nyelven rajongói szám növeléséhez, - tervezetten 3 db, egyenként minimum 4 országban nemzetközi influencer marketing kampány lebonyolítása kampányonként tervezetten legalább 12 influencer bevonásával, 6. Utazási és szállítási szolgáltatások: feladata a teljesítés során felmerülő összes szállítás intézése, ideértve a gyártáshoz és rendezvényszervezéshez kapcsolódó szállítási és utaztatási feladatok ellátását az átadás-átvétel dokumentálásával. A repülőjegyekkel, egyéb járművel történő utaztatással, belépőjegyekkel, utasbiztosítással és vízumügyintézéssel kapcsolatos feladatok. 7.Rendezvényszervezés: a felmerülő rendezvényszervezési és kiállítás-szervezési feladatok ellátása belföldön és külföldön egyaránt. Ezen belül: - évente 5-10 db tervezetten egyenként cca. 20-150 fő részvételével (amelyből legalább 1 db eléri a 150 főt) megvalósított belföldi tanulmányút külföldi csoport részére, - évente legalább 3 darab nemzetközi kiállításon, egyenként cca. 60-250 négyzetméteres (amelyből legalább 1 db eléri a 200 négyzetmétert) komplex kiállítási stand tervezése, gyártása és üzemeltetése, - online rendezvények, képzések, oktatások szervezése és lebonyolítása A további részleteket a műszaki leírás és az árazótábla tartalmazza. Ajánlatkérő tájékoztatja ajánlattevőket, hogy a közbeszerzés tárgyának egyértelmű és közérthető meghatározása szükségessé teszi meghatározott gyártmányú, eredetű, típusú dologra, eljárásra, tevékenységre, szabadalomra vagy védjegyre való hivatkozást, így a megnevezés csak a tárgy jellegének egyértelmű meghatározása érdekében történt, és a megnevezés mellett Ajánlatkérő a „vagy azzal egyenértékű” kifejezést is érti."@hu;
+  dct:title "Ügynökségi és rendezvényszerv. feladatok TKM"@hu;
+  adms:identifier epd:id_16f9bbaf-0b36-49cf-9caa-dab4be55609e_LotIdentifier_jucn4erQJnXcty2wPoNNzB .
+
+epd:id_16f9bbaf-0b36-49cf-9caa-dab4be55609e_MaximumFrameworkAgreementAwardedMonetaryValueLot_JryEpNBTCzNfzKbsxaXwjt
+  a epo:MonetaryValue;
+  epo:hasAmountValue 16000000000.0;
+  epo:hasCurrency <http://publications.europa.eu/resource/authority/currency/HUF> .
+
+epd:id_16f9bbaf-0b36-49cf-9caa-dab4be55609e_Notice a epo:Notice, epo:Notice29, epo:ResultNotice;
+  epo:announcesAwardDecision epd:id_16f9bbaf-0b36-49cf-9caa-dab4be55609e_AwardDecision_o5CkX6ohweRSpSvh5Brzfk;
+  epo:announcesNoticeAwardInformation epd:id_16f9bbaf-0b36-49cf-9caa-dab4be55609e_NoticeAwardInformation_JryEpNBTCzNfzKbsxaXwjt;
+  epo:announcesRole epd:id_16f9bbaf-0b36-49cf-9caa-dab4be55609e_Tenderer_TPA-0001, epd:id_16f9bbaf-0b36-49cf-9caa-dab4be55609e_Tenderer_TPA-0002,
+    epd:id_16f9bbaf-0b36-49cf-9caa-dab4be55609e_Tenderer_TPA-0003;
+  epo:hasESenderDispatchDate "2025-03-07T10:54:48+01:00"^^xsd:dateTime;
+  epo:hasFormType <http://publications.europa.eu/resource/authority/form-type/result>;
+  epo:hasNoticePublicationNumber "00155444-2025";
+  epo:hasNoticeType <http://publications.europa.eu/resource/authority/notice-type/can-standard>;
+  epo:hasOJSIssueNumber "48/2025";
+  epo:hasOfficialLanguage <http://publications.europa.eu/resource/authority/language/HUN>;
+  epo:hasPublicationDate "2025-03-10+01:00"^^xsd:date;
+  epo:hasVersion "02";
+  epo:refersToLot epd:id_16f9bbaf-0b36-49cf-9caa-dab4be55609e_Lot_LOT-0001;
+  epo:refersToPrevious epd:id_001613-2025_Notice, epd:id_721448-2024_Notice;
+  epo:refersToProcedure epd:id_16f9bbaf-0b36-49cf-9caa-dab4be55609e_Procedure_6dcsBnuV4FTNoRpTZHckqN;
+  epo:refersToRole epd:id_16f9bbaf-0b36-49cf-9caa-dab4be55609e_Buyer_iLSVBfZjy4iHRp6Jka4ttD,
+    epd:id_16f9bbaf-0b36-49cf-9caa-dab4be55609e_ProcurementProcedureInformationProvider_iLSVBfZjy4iHRp6Jka4ttD,
+    epd:id_16f9bbaf-0b36-49cf-9caa-dab4be55609e_ProcurementServiceProvider_AxEoDZth6eN89p7o8GWdBS,
+    epd:id_16f9bbaf-0b36-49cf-9caa-dab4be55609e_ReviewProcedureInformationProvider_Vy64yERj6Fjzdbdi8yhfHE,
+    epd:id_16f9bbaf-0b36-49cf-9caa-dab4be55609e_Reviewer_HaEv2nhsYWgNmx2FoRrNgG;
+  adms:identifier epd:id_16f9bbaf-0b36-49cf-9caa-dab4be55609e_NoticeIdentifier_aHt4iskyRUJYALjw7mSMu2 .
+
+epd:id_16f9bbaf-0b36-49cf-9caa-dab4be55609e_NoticeAwardInformation_JryEpNBTCzNfzKbsxaXwjt
+  a epo:NoticeAwardInformation;
+  epo:hasMaximumFrameworkAgreementAwardedValue epd:id_16f9bbaf-0b36-49cf-9caa-dab4be55609e_MaximumFrameworkAgreementAwardedMonetaryValueLot_JryEpNBTCzNfzKbsxaXwjt .
+
+epd:id_16f9bbaf-0b36-49cf-9caa-dab4be55609e_NoticeIdentifier_aHt4iskyRUJYALjw7mSMu2
+  a adms:Identifier;
+  epo:hasScheme "notice-id";
+  skos:notation "16f9bbaf-0b36-49cf-9caa-dab4be55609e" .
+
+epd:id_16f9bbaf-0b36-49cf-9caa-dab4be55609e_OrganisationGroup_ECUZjDvaPMUJHS4Tp5KyYK
+  a epo:OrganisationGroup;
+  epo:hasMember epd:id_16f9bbaf-0b36-49cf-9caa-dab4be55609e_Organization_ORG-0004, epd:id_16f9bbaf-0b36-49cf-9caa-dab4be55609e_Organization_ORG-0005;
+  epo:leadBy epd:id_16f9bbaf-0b36-49cf-9caa-dab4be55609e_Organization_ORG-0004 .
+
+epd:id_16f9bbaf-0b36-49cf-9caa-dab4be55609e_OrganisationGroup_MuqicHLC3JKTSnWxHJ8FS8
+  a epo:OrganisationGroup;
+  epo:hasMember epd:id_16f9bbaf-0b36-49cf-9caa-dab4be55609e_Organization_ORG-0007, epd:id_16f9bbaf-0b36-49cf-9caa-dab4be55609e_Organization_ORG-0008,
+    epd:id_16f9bbaf-0b36-49cf-9caa-dab4be55609e_Organization_ORG-0009;
+  epo:leadBy epd:id_16f9bbaf-0b36-49cf-9caa-dab4be55609e_Organization_ORG-0007 .
+
+epd:id_16f9bbaf-0b36-49cf-9caa-dab4be55609e_OrganisationIdentifier_4NU5AxJwe7aGai3Cgq8HpC
+  a adms:Identifier;
+  skos:notation "15827186241" .
+
+epd:id_16f9bbaf-0b36-49cf-9caa-dab4be55609e_OrganisationIdentifier_BatdGXtE4W6JswZaRbzXbY
+  a adms:Identifier;
+  skos:notation "EKRSZ_40664534_2" .
+
+epd:id_16f9bbaf-0b36-49cf-9caa-dab4be55609e_OrganisationIdentifier_FmMq7XVAcXtG3EmwPCPxb6
+  a adms:Identifier;
+  skos:notation "EKRSZ_40664534" .
+
+epd:id_16f9bbaf-0b36-49cf-9caa-dab4be55609e_OrganisationIdentifier_TiVUHwGQDsX9opwP5GzxJN
+  a adms:Identifier;
+  skos:notation "13622215244" .
+
+epd:id_16f9bbaf-0b36-49cf-9caa-dab4be55609e_OrganisationIdentifier_f6UHyxGr4DCJEdQFhCy5Eh
+  a adms:Identifier;
+  skos:notation "24257880241" .
+
+epd:id_16f9bbaf-0b36-49cf-9caa-dab4be55609e_OrganisationIdentifier_ie4FtvDJM4E5xwrsdTY9cn
+  a adms:Identifier;
+  skos:notation "25474954241" .
+
+epd:id_16f9bbaf-0b36-49cf-9caa-dab4be55609e_OrganisationIdentifier_kBS6hfuKcfLdhcriXMzYSR
+  a adms:Identifier;
+  skos:notation "24670827244" .
+
+epd:id_16f9bbaf-0b36-49cf-9caa-dab4be55609e_OrganisationIdentifier_n9YzuN82p7GUZfitU2RSTE
+  a adms:Identifier;
+  skos:notation "22715544244" .
+
+epd:id_16f9bbaf-0b36-49cf-9caa-dab4be55609e_OrganisationIdentifier_o3DmeDpoFTnKShZ62aR55v
+  a adms:Identifier;
+  skos:notation "13868974241" .
+
+epd:id_16f9bbaf-0b36-49cf-9caa-dab4be55609e_Organization_ORG-0002 a org:Organization;
+  epo:hasLegalIdentifier epd:id_16f9bbaf-0b36-49cf-9caa-dab4be55609e_OrganisationIdentifier_BatdGXtE4W6JswZaRbzXbY;
+  epo:hasLegalName "Közbeszerzési Hatóság Közbeszerzési Döntőbizottság"@hu;
+  epo:hasPrimaryContactPoint epd:id_16f9bbaf-0b36-49cf-9caa-dab4be55609e_CompanyContactPoint_RVyNteJCXPVfgCRsomYU8e;
+  cccev:registeredAddress epd:id_16f9bbaf-0b36-49cf-9caa-dab4be55609e_CompanyAddress_kazHeCPckN7TddQSoqJzxV;
+  adms:identifier epd:id_16f9bbaf-0b36-49cf-9caa-dab4be55609e_Identifier_ORG-0002 .
+
+epd:id_16f9bbaf-0b36-49cf-9caa-dab4be55609e_Organization_ORG-0003 a org:Organization;
+  epo:hasLegalIdentifier epd:id_16f9bbaf-0b36-49cf-9caa-dab4be55609e_OrganisationIdentifier_FmMq7XVAcXtG3EmwPCPxb6;
+  epo:hasLegalName "Közbeszerzési Hatóság"@hu;
+  epo:hasPrimaryContactPoint epd:id_16f9bbaf-0b36-49cf-9caa-dab4be55609e_CompanyContactPoint_SKFLyoFfRmoPfFxaxBTeM9;
+  cccev:registeredAddress epd:id_16f9bbaf-0b36-49cf-9caa-dab4be55609e_CompanyAddress_PWqQf3UzWb4VpZjpAfV2R3;
+  adms:identifier epd:id_16f9bbaf-0b36-49cf-9caa-dab4be55609e_Identifier_ORG-0003 .
+
+epd:id_16f9bbaf-0b36-49cf-9caa-dab4be55609e_Organization_ORG-0004 a org:Organization;
+  epo:hasLegalIdentifier epd:id_16f9bbaf-0b36-49cf-9caa-dab4be55609e_OrganisationIdentifier_kBS6hfuKcfLdhcriXMzYSR;
+  epo:hasLegalName "New Land Media Reklám, Szolgáltató és Kereskedelmi Korlátolt Felelősségű Társaság"@hu;
+  epo:hasPrimaryContactPoint epd:id_16f9bbaf-0b36-49cf-9caa-dab4be55609e_CompanyContactPoint_boyhsCP9AduPpEce9s56fZ;
+  cccev:registeredAddress epd:id_16f9bbaf-0b36-49cf-9caa-dab4be55609e_CompanyAddress_QLSEm2DyTzM8ssuHGXE6Hw;
+  adms:identifier epd:id_16f9bbaf-0b36-49cf-9caa-dab4be55609e_Identifier_ORG-0004 .
+
+epd:id_16f9bbaf-0b36-49cf-9caa-dab4be55609e_Organization_ORG-0005 a org:Organization;
+  epo:hasLegalIdentifier epd:id_16f9bbaf-0b36-49cf-9caa-dab4be55609e_OrganisationIdentifier_n9YzuN82p7GUZfitU2RSTE;
+  epo:hasLegalName "LOUNGE DESIGN Szolgáltató Korlátolt Felelősségű Társaság"@hu;
+  epo:hasPrimaryContactPoint epd:id_16f9bbaf-0b36-49cf-9caa-dab4be55609e_CompanyContactPoint_NsQgV4dy8XNKVeR2M8tt3c;
+  cccev:registeredAddress epd:id_16f9bbaf-0b36-49cf-9caa-dab4be55609e_CompanyAddress_amxyHzzWSDM5hALBwwbWuJ;
+  adms:identifier epd:id_16f9bbaf-0b36-49cf-9caa-dab4be55609e_Identifier_ORG-0005 .
+
+epd:id_16f9bbaf-0b36-49cf-9caa-dab4be55609e_Organization_ORG-0006 a epo:Business,
+    org:Organization;
+  epo:hasBeneficialOwner epd:id_16f9bbaf-0b36-49cf-9caa-dab4be55609e_Person_UBO-0006;
+  epo:hasBusinessSize <http://publications.europa.eu/resource/authority/economic-operator-size/medium>;
+  epo:hasLegalIdentifier epd:id_16f9bbaf-0b36-49cf-9caa-dab4be55609e_OrganisationIdentifier_TiVUHwGQDsX9opwP5GzxJN;
+  epo:hasLegalName "MEDIATOR GROUP Reklámügynökség Korlátolt Felelősségű Társaság"@hu;
+  epo:hasPrimaryContactPoint epd:id_16f9bbaf-0b36-49cf-9caa-dab4be55609e_CompanyContactPoint_NcbPXevKMmMoUV4ixLLM8J;
+  epo:isListedCompany false;
+  cccev:registeredAddress epd:id_16f9bbaf-0b36-49cf-9caa-dab4be55609e_CompanyAddress_dsV3J5EGaewAFo9YuPgodC;
+  adms:identifier epd:id_16f9bbaf-0b36-49cf-9caa-dab4be55609e_Identifier_ORG-0006 .
+
+epd:id_16f9bbaf-0b36-49cf-9caa-dab4be55609e_Organization_ORG-0007 a org:Organization;
+  epo:hasLegalIdentifier epd:id_16f9bbaf-0b36-49cf-9caa-dab4be55609e_OrganisationIdentifier_o3DmeDpoFTnKShZ62aR55v;
+  epo:hasLegalName "Artificial Group Korlátolt Felelősségű Társaság"@hu;
+  epo:hasPrimaryContactPoint epd:id_16f9bbaf-0b36-49cf-9caa-dab4be55609e_CompanyContactPoint_Kt8Anvwo3sjQE2zRaTPDMm;
+  cccev:registeredAddress epd:id_16f9bbaf-0b36-49cf-9caa-dab4be55609e_CompanyAddress_Ru6ZF7VecxyPwFsqDRJu85;
+  adms:identifier epd:id_16f9bbaf-0b36-49cf-9caa-dab4be55609e_Identifier_ORG-0007 .
+
+epd:id_16f9bbaf-0b36-49cf-9caa-dab4be55609e_Organization_ORG-0008 a org:Organization;
+  epo:hasLegalIdentifier epd:id_16f9bbaf-0b36-49cf-9caa-dab4be55609e_OrganisationIdentifier_f6UHyxGr4DCJEdQFhCy5Eh;
+  epo:hasLegalName "Artificial Craft Korlátolt Felelősségű Társaság"@hu;
+  epo:hasPrimaryContactPoint epd:id_16f9bbaf-0b36-49cf-9caa-dab4be55609e_CompanyContactPoint_exXX5w4R9epdXpscc9vte8;
+  cccev:registeredAddress epd:id_16f9bbaf-0b36-49cf-9caa-dab4be55609e_CompanyAddress_5oamSpC3ikwoRMLn49RxG2;
+  adms:identifier epd:id_16f9bbaf-0b36-49cf-9caa-dab4be55609e_Identifier_ORG-0008 .
+
+epd:id_16f9bbaf-0b36-49cf-9caa-dab4be55609e_Organization_ORG-0009 a org:Organization;
+  epo:hasLegalIdentifier epd:id_16f9bbaf-0b36-49cf-9caa-dab4be55609e_OrganisationIdentifier_ie4FtvDJM4E5xwrsdTY9cn;
+  epo:hasLegalName "Artificial Creative Korlátolt Felelősségű Társaság"@hu;
+  epo:hasPrimaryContactPoint epd:id_16f9bbaf-0b36-49cf-9caa-dab4be55609e_CompanyContactPoint_2eGnrypHYVpTNxKbtnAVq2;
+  cccev:registeredAddress epd:id_16f9bbaf-0b36-49cf-9caa-dab4be55609e_CompanyAddress_XSr6vAeEq7ruMbW45bvsTp;
+  adms:identifier epd:id_16f9bbaf-0b36-49cf-9caa-dab4be55609e_Identifier_ORG-0009 .
+
+epd:id_16f9bbaf-0b36-49cf-9caa-dab4be55609e_Organization_ORG-0010 a org:Organization;
+  epo:hasBuyerLegalType <http://publications.europa.eu/resource/authority/buyer-legal-type/cga>;
+  epo:hasLegalIdentifier epd:id_16f9bbaf-0b36-49cf-9caa-dab4be55609e_OrganisationIdentifier_4NU5AxJwe7aGai3Cgq8HpC;
+  epo:hasLegalName "Nemzeti Kommunikációs Hivatal"@hu;
+  epo:hasMainActivity <http://publications.europa.eu/resource/authority/main-activity/gen-pub>;
+  epo:hasPrimaryContactPoint epd:id_16f9bbaf-0b36-49cf-9caa-dab4be55609e_CompanyContactPoint_6r33Cv99oV38zobB7Hepex;
+  cccev:registeredAddress epd:id_16f9bbaf-0b36-49cf-9caa-dab4be55609e_CompanyAddress_5w4jTR6gfdXBvGkZDdofo7;
+  adms:identifier epd:id_16f9bbaf-0b36-49cf-9caa-dab4be55609e_Identifier_ORG-0010 .
+
+epd:id_16f9bbaf-0b36-49cf-9caa-dab4be55609e_Person_UBO-0006 a person:Person;
+  epo:hasNationality <http://publications.europa.eu/resource/authority/country/HUN>;
+  adms:identifier epd:id_16f9bbaf-0b36-49cf-9caa-dab4be55609e_BeneficialOwnerTechnicalIdentifier_BXhK5QPUdH6Cdcb2Cj8MV2 .
+
+epd:id_16f9bbaf-0b36-49cf-9caa-dab4be55609e_ProcedureIdentifier_6dcsBnuV4FTNoRpTZHckqN
+  a adms:Identifier;
+  skos:notation "0afdad65-aff5-43cd-bd1c-04db3fdfc0ef" .
+
+epd:id_16f9bbaf-0b36-49cf-9caa-dab4be55609e_ProcedureIdentifier_Hu2nD8nFQkA5CPSQ43KMRD
+  a adms:Identifier;
+  epo:hasScheme "InternalID";
+  skos:notation "EKR002266992024" .
+
+epd:id_16f9bbaf-0b36-49cf-9caa-dab4be55609e_ProcedurePurpose_Hu2nD8nFQkA5CPSQ43KMRD
+  a epo:Purpose;
+  epo:hasMainClassification <http://data.europa.eu/cpv/cpv/79000000> .
+
+epd:id_16f9bbaf-0b36-49cf-9caa-dab4be55609e_Procedure_6dcsBnuV4FTNoRpTZHckqN a epo:Procedure;
+  epo:foreseesContractSpecificTerm epd:id_16f9bbaf-0b36-49cf-9caa-dab4be55609e_ProcurementProjectContractTerm_BAFiQAm5eaBz7sDFPbYXor,
+    epd:id_16f9bbaf-0b36-49cf-9caa-dab4be55609e_ProcurementProjectContractTerm_Hu2nD8nFQkA5CPSQ43KMRD;
+  epo:hasAdditionalInformation "A BT-720 mezőben a keretmegállapodás maximális értéke került feltüntetésre."@hu;
+  epo:hasInternalIdentifier epd:id_16f9bbaf-0b36-49cf-9caa-dab4be55609e_ProcedureIdentifier_Hu2nD8nFQkA5CPSQ43KMRD;
+  epo:hasLegalBasis <http://publications.europa.eu/resource/authority/legal-basis/32014L0024>;
+  epo:hasMainFeature "A Kbt. 76. § (2) bekezdés c) pontja, azaz „a legjobb ár-érték arányt megjelenítő olyan szempontok, amelyek között az ár vagy költség is szerepel\" alapján értékeli az ajánlatokat, az eljárást megindító felhívásban foglaltak szerint."@hu;
+  epo:hasProcedureType <http://publications.europa.eu/resource/authority/procurement-procedure-type/open>;
+  epo:hasProcurementScopeDividedIntoLot epd:id_16f9bbaf-0b36-49cf-9caa-dab4be55609e_Lot_LOT-0001;
+  epo:hasPurpose epd:id_16f9bbaf-0b36-49cf-9caa-dab4be55609e_ProcedurePurpose_Hu2nD8nFQkA5CPSQ43KMRD;
+  epo:isAccelerated false;
+  dct:description "„Keretmegállapodás a Visit Hungary Nemzeti Turisztikai Szervezet Nonprofit Zrt. és a Kisfaludy2030 Turisztikai Fejlesztő Nonprofit Zrt. részére komplex kommunikációs ügynökségi és rendezvényszervezési feladatok ellátására”"@hu;
+  dct:title "Ügynökségi és rendezvényszerv. feladatok TKM"@hu;
+  adms:identifier epd:id_16f9bbaf-0b36-49cf-9caa-dab4be55609e_ProcedureIdentifier_6dcsBnuV4FTNoRpTZHckqN .
+
+epd:id_16f9bbaf-0b36-49cf-9caa-dab4be55609e_ProcurementProcedureInformationProvider_iLSVBfZjy4iHRp6Jka4ttD
+  a epo:ProcurementProcedureInformationProvider;
+  epo:contextualisedBy epd:id_16f9bbaf-0b36-49cf-9caa-dab4be55609e_Lot_LOT-0001;
+  epo:playedBy epd:id_16f9bbaf-0b36-49cf-9caa-dab4be55609e_Organization_ORG-0010 .
+
+epd:id_16f9bbaf-0b36-49cf-9caa-dab4be55609e_ProcurementProjectContractTerm_BAFiQAm5eaBz7sDFPbYXor
+  a epo:ContractTerm;
+  epo:hasBroadPlaceOfPerformance <http://publications.europa.eu/resource/authority/other-place-service/anyw>;
+  epo:hasPlaceOfPerformanceAdditionalInformation "NUTS-kód: HU Magyarország A teljesítés fő helyszíne: Magyarország közigazgatási területe, illetve Egyesült Királyság, Spanyolország, Németország, Olaszország, Franciaország, Ausztria, Lengyelország, Csehország, Románia, Szlovákia, Hollandia, Izrael, Kína, Amerikai Egyesült Államok, Kanada Egyéb tervezett potenciális régiók/célországok lehetnek: • Dánia, Norvégia, Finnország, Svédország, Törökország • Svájc, Írország • India • Öböl-menti országok: (főként EAE és Katar)"@hu .
+
+epd:id_16f9bbaf-0b36-49cf-9caa-dab4be55609e_ProcurementProjectContractTerm_Hu2nD8nFQkA5CPSQ43KMRD
+  a epo:ContractTerm;
+  epo:hasContractNatureType <http://publications.europa.eu/resource/authority/contract-nature/services> .
+
+epd:id_16f9bbaf-0b36-49cf-9caa-dab4be55609e_ProcurementServiceProvider_AxEoDZth6eN89p7o8GWdBS
+  a epo:ProcurementServiceProvider;
+  epo:actsOnBehalfOf epd:id_16f9bbaf-0b36-49cf-9caa-dab4be55609e_Buyer_iLSVBfZjy4iHRp6Jka4ttD;
+  epo:playedBy epd:id_16f9bbaf-0b36-49cf-9caa-dab4be55609e_Organization_ORG-0003;
+  dct:description "ted-esen" .
+
+epd:id_16f9bbaf-0b36-49cf-9caa-dab4be55609e_ReviewProcedureInformationProvider_Vy64yERj6Fjzdbdi8yhfHE
+  a epo:ReviewProcedureInformationProvider;
+  epo:contextualisedBy epd:id_16f9bbaf-0b36-49cf-9caa-dab4be55609e_Lot_LOT-0001;
+  epo:playedBy epd:id_16f9bbaf-0b36-49cf-9caa-dab4be55609e_Organization_ORG-0002 .
+
+epd:id_16f9bbaf-0b36-49cf-9caa-dab4be55609e_ReviewRequestSummary_FmfbzZdeEatT3nzZdqXd3D
+  a epo:ReviewRequestSummary;
+  epo:concernsReviewSummaryForLot epd:id_16f9bbaf-0b36-49cf-9caa-dab4be55609e_Lot_LOT-0001;
+  epo:hasTotalNumberOfComplainants 0 .
+
+epd:id_16f9bbaf-0b36-49cf-9caa-dab4be55609e_ReviewTerm_QmkiZENjGqABvzebdMdK43 a epo:ReviewTerm;
+  epo:definesReviewProcedureInformationProvider epd:id_16f9bbaf-0b36-49cf-9caa-dab4be55609e_ReviewProcedureInformationProvider_Vy64yERj6Fjzdbdi8yhfHE;
+  epo:definesReviewer epd:id_16f9bbaf-0b36-49cf-9caa-dab4be55609e_Reviewer_HaEv2nhsYWgNmx2FoRrNgG .
+
+epd:id_16f9bbaf-0b36-49cf-9caa-dab4be55609e_ReviewTerm_diKpJmaujx254zQoutkWj5 a epo:ReviewTerm;
+  epo:hasReviewDeadlineInformation "A Kbt. 148. § -ában meghatározottak szerint."@hu .
+
+epd:id_16f9bbaf-0b36-49cf-9caa-dab4be55609e_Reviewer_HaEv2nhsYWgNmx2FoRrNgG a epo:Reviewer;
+  epo:contextualisedBy epd:id_16f9bbaf-0b36-49cf-9caa-dab4be55609e_Lot_LOT-0001;
+  epo:playedBy epd:id_16f9bbaf-0b36-49cf-9caa-dab4be55609e_Organization_ORG-0002 .
+
+epd:id_16f9bbaf-0b36-49cf-9caa-dab4be55609e_SettledContractIdentifier_VPU8QnEnvpxVBA2qwYNzjZ
+  a adms:Identifier;
+  skos:notation "1" .
+
+epd:id_16f9bbaf-0b36-49cf-9caa-dab4be55609e_SettledContract_CON-0001 a epo:Contract,
+    epo:PurchaseContract;
+  epo:hasAccessURL "https://ekr.gov.hu/ekr-szerzodestar/hu/szerzodesLista?eljarasAzon=EKR002266992024"^^xsd:anyURI;
+  epo:hasContractConclusionDate "2025-02-11+01:00"^^xsd:date;
+  epo:hasLotReference epd:id_16f9bbaf-0b36-49cf-9caa-dab4be55609e_Lot_LOT-0001;
+  epo:includesTender epd:id_16f9bbaf-0b36-49cf-9caa-dab4be55609e_Tender_TEN-9149;
+  adms:identifier epd:id_16f9bbaf-0b36-49cf-9caa-dab4be55609e_SettledContractIdentifier_VPU8QnEnvpxVBA2qwYNzjZ .
+
+epd:id_16f9bbaf-0b36-49cf-9caa-dab4be55609e_SocialProcurement_FbxiobiJYxNCgQAMtdKfL3
+  a epo:SocialProcurement;
+  epo:fulfillsRequirement <http://publications.europa.eu/resource/authority/social-objective/other> .
+
+epd:id_16f9bbaf-0b36-49cf-9caa-dab4be55609e_SocialProcurement_ZxZ96itnghU3vVzhCPCB7Y
+  a epo:SocialProcurement;
+  epo:fulfillsRequirement <http://publications.europa.eu/resource/authority/social-objective/opp> .
+
+epd:id_16f9bbaf-0b36-49cf-9caa-dab4be55609e_SubmissionStatisticalInformation_FmfbzZdeEatT3nzZdqXd3D
+  a epo:SubmissionStatisticalInformation;
+  epo:hasAbnormallyLowTenders 0;
+  epo:hasEEAReceivedTenders 0;
+  epo:hasElectronicTenders 3;
+  epo:hasInadmissibleTenders 1;
+  epo:hasMediumTenderPerLots 1;
+  epo:hasNonEEAReceivedTenders 0;
+  epo:hasReceivedMicroTenders 0;
+  epo:hasReceivedParticipationRequests 0;
+  epo:hasReceivedSmallTenders 1;
+  epo:hasReceivedTenders 3;
+  epo:hasSMEReceivedTenders 2;
+  epo:hasUnverifiedTenders 1;
+  epo:summarisesInformationForAwardOutcome epd:id_16f9bbaf-0b36-49cf-9caa-dab4be55609e_LotAwardOutcome_RES-0001 .
+
+epd:id_16f9bbaf-0b36-49cf-9caa-dab4be55609e_TenderAwardOutcome_TEN-9125 a epo:TenderAwardOutcome;
+  epo:concernsTender epd:id_16f9bbaf-0b36-49cf-9caa-dab4be55609e_Tender_TEN-9125 .
+
+epd:id_16f9bbaf-0b36-49cf-9caa-dab4be55609e_TenderAwardOutcome_TEN-9149 a epo:TenderAwardOutcome;
+  epo:concernsTender epd:id_16f9bbaf-0b36-49cf-9caa-dab4be55609e_Tender_TEN-9149;
+  epo:hasAwardRank 1 .
+
+epd:id_16f9bbaf-0b36-49cf-9caa-dab4be55609e_TenderAwardOutcome_TEN-9165 a epo:TenderAwardOutcome;
+  epo:concernsTender epd:id_16f9bbaf-0b36-49cf-9caa-dab4be55609e_Tender_TEN-9165 .
+
+epd:id_16f9bbaf-0b36-49cf-9caa-dab4be55609e_TenderIdentifier_8tLJD9wyvjSHWYvDWGiX5D
+  a adms:Identifier;
+  skos:notation "EKR002266992024/9125" .
+
+epd:id_16f9bbaf-0b36-49cf-9caa-dab4be55609e_TenderIdentifier_econsLsjPJro8aUo9zUip8
+  a adms:Identifier;
+  skos:notation "EKR002266992024/9165" .
+
+epd:id_16f9bbaf-0b36-49cf-9caa-dab4be55609e_TenderIdentifier_nNq2rC7wBesmhA5baJ8mCt
+  a adms:Identifier;
+  skos:notation "EKR002266992024/9149" .
+
+epd:id_16f9bbaf-0b36-49cf-9caa-dab4be55609e_TenderMonetaryValue_nNq2rC7wBesmhA5baJ8mCt
+  a epo:MonetaryValue;
+  epo:hasAmountValue 16000000000.0;
+  epo:hasCurrency <http://publications.europa.eu/resource/authority/currency/HUF> .
+
+epd:id_16f9bbaf-0b36-49cf-9caa-dab4be55609e_Tender_TEN-9125 a epo:Tender;
+  epo:hasSubcontracting <http://publications.europa.eu/resource/authority/applicability/no>;
+  epo:isSubmitedBy epd:id_16f9bbaf-0b36-49cf-9caa-dab4be55609e_Tenderer_TPA-0001;
+  epo:isSubmittedForLot epd:id_16f9bbaf-0b36-49cf-9caa-dab4be55609e_Lot_LOT-0001;
+  epo:isVariant false;
+  adms:identifier epd:id_16f9bbaf-0b36-49cf-9caa-dab4be55609e_TenderIdentifier_8tLJD9wyvjSHWYvDWGiX5D .
+
+epd:id_16f9bbaf-0b36-49cf-9caa-dab4be55609e_Tender_TEN-9149 a epo:Tender;
+  epo:hasFinancialOfferValue epd:id_16f9bbaf-0b36-49cf-9caa-dab4be55609e_TenderMonetaryValue_nNq2rC7wBesmhA5baJ8mCt;
+  epo:hasSubcontracting <http://publications.europa.eu/resource/authority/applicability/not-known>;
+  epo:isSubmitedBy epd:id_16f9bbaf-0b36-49cf-9caa-dab4be55609e_Tenderer_TPA-0002;
+  epo:isSubmittedForLot epd:id_16f9bbaf-0b36-49cf-9caa-dab4be55609e_Lot_LOT-0001;
+  epo:isVariant false;
+  adms:identifier epd:id_16f9bbaf-0b36-49cf-9caa-dab4be55609e_TenderIdentifier_nNq2rC7wBesmhA5baJ8mCt .
+
+epd:id_16f9bbaf-0b36-49cf-9caa-dab4be55609e_Tender_TEN-9165 a epo:Tender;
+  epo:hasSubcontracting <http://publications.europa.eu/resource/authority/applicability/no>;
+  epo:isSubmitedBy epd:id_16f9bbaf-0b36-49cf-9caa-dab4be55609e_Tenderer_TPA-0003;
+  epo:isSubmittedForLot epd:id_16f9bbaf-0b36-49cf-9caa-dab4be55609e_Lot_LOT-0001;
+  epo:isVariant false;
+  adms:identifier epd:id_16f9bbaf-0b36-49cf-9caa-dab4be55609e_TenderIdentifier_econsLsjPJro8aUo9zUip8 .
+
+epd:id_16f9bbaf-0b36-49cf-9caa-dab4be55609e_Tenderer_TPA-0001 a epo:Tenderer;
+  epo:playedBy epd:id_16f9bbaf-0b36-49cf-9caa-dab4be55609e_OrganisationGroup_ECUZjDvaPMUJHS4Tp5KyYK .
+
+epd:id_16f9bbaf-0b36-49cf-9caa-dab4be55609e_Tenderer_TPA-0002 a epo:Tenderer;
+  epo:playedBy epd:id_16f9bbaf-0b36-49cf-9caa-dab4be55609e_Organization_ORG-0006 .
+
+epd:id_16f9bbaf-0b36-49cf-9caa-dab4be55609e_Tenderer_TPA-0003 a epo:Tenderer;
+  epo:playedBy epd:id_16f9bbaf-0b36-49cf-9caa-dab4be55609e_OrganisationGroup_MuqicHLC3JKTSnWxHJ8FS8 .
+
+epd:id_721448-2024_Notice a epo:PlanningNotice;
+  adms:identifier epd:id_721448-2024_PlanningNoticeIdentifier_3phmRYJg8CwNTDH75NLe6Y .
+
+epd:id_721448-2024_PlanningNoticeIdentifier_3phmRYJg8CwNTDH75NLe6Y a adms:Identifier;
+  epo:hasScheme "ojs-notice-id";
+  skos:notation "721448-2024" .

@@ -1,17 +1,6 @@
 #!/usr/bin/env python3
 """
-Integration test script for MongoDB save/load functionality.
-
 This script tests saving and loading a MappingSuite and config to/from MongoDB.
-
-Usage:
-    python test/features/mssdk/mongodb_config_loader.py [suite_path] [config_path]
-    
-Environment variables:
-    MONGODB_URI: MongoDB connection URI (optional, falls back to default)
-    MONGODB_DATABASE: Database name (default: mapping_suite_test)
-    MONGODB_COLLECTION: Collection name (default: mapping_suites)
-    MONGODB_CONFIG_COLLECTION: Config collection name (default: mapping_suite_configs)
 """
 
 import argparse
@@ -23,7 +12,7 @@ from pathlib import Path
 from typing import Optional
 
 # Add project root to Python path for imports
-project_root = Path(__file__).parent.parent.parent.parent
+project_root = Path(__file__).parent.parent.parent
 sys.path.insert(0, str(project_root))
 
 from pymongo import MongoClient
@@ -36,6 +25,8 @@ from mapping_suite_sdk.mapping_suite.services.load_mapping_suite import (
     load_mapping_suite_from_mongo_db
 )
 from mapping_suite_sdk.mapping_suite.services.save_mapping_suite import save_mapping_suite_to_mongo_db
+
+# This file only handles mapping suite and config operations, not packages
 
 # Configuration constants
 DEFAULT_MONGODB_URI = "mongodb://127.0.0.1:27017/"
@@ -126,6 +117,7 @@ def load_mapping_suite(suite_path: Path) -> MappingSuite:
         Loaded MappingSuite instance.
     """
     validate_path_exists(suite_path, "suite")
+    print("heyyyyyyyyyy", suite_path)
     suite = load_mapping_suite_from_folder(suite_path)
     logger.info(f"Loaded mapping suite: {suite.id}")
     logger.info(f"  Description: {suite.mapping_suite_config.mapping_suite_metadata.mapping_suite_description}")
@@ -349,6 +341,7 @@ def save_and_load_suite_and_config(
         # Save suite to MongoDB
         save_mongo_client = create_mongodb_client(mongodb_uri)
         try:
+            print("suite_path_ale", suite_path)
             suite = load_mapping_suite(suite_path)
             saved_suite = save_suite_to_mongodb(
                 suite=suite,
@@ -377,6 +370,7 @@ def save_and_load_suite_and_config(
     if config_path:
         mongo_client = create_mongodb_client(mongodb_uri)
         try:
+            print("config_path:::::::", config_path)
             config = load_config(config_path)
             config_id = config.get("mapping_suite_config", {}).get(
                 "mapping_suite_metadata", {}
@@ -422,6 +416,9 @@ def get_suite_collection_name() -> str:
 def get_config_collection_name() -> str:
     """Get config collection name from environment variable or default."""
     return os.getenv('MONGODB_CONFIG_COLLECTION', DEFAULT_CONFIG_COLLECTION_NAME)
+
+
+# Package-related functionality has been moved to mongodb_package_saver.py
 
 
 def parse_arguments() -> argparse.Namespace:
@@ -483,46 +480,104 @@ def main() -> None:
     """
     Main entry point for the script.
     
+    If no arguments are provided, runs all test scenarios automatically.
+    Otherwise, runs with the provided arguments.
+    
     Raises:
         All exceptions propagate and cause script to fail.
     """
     args = parse_arguments()
-    
-    # Determine suite_path and config_path from arguments
-    suite_path = None
-    config_path = None
-    
-    if args.path:
-        # Check if path is a file (config) or directory (suite)
-        if args.path.is_file():
-            config_path = args.path
-            suite_path = args.suite
-        elif args.path.is_dir():
-            suite_path = args.path
-            config_path = args.config
-        else:
-            raise ValueError(f"Path does not exist: {args.path}")
-    else:
-        # Use explicit flags if provided
-        suite_path = args.suite
-        config_path = args.config
-    
-    if not suite_path and not config_path:
-        raise ValueError("At least one of suite path or config path must be provided")
     
     mongodb_uri = args.mongodb_uri or get_mongodb_uri()
     database_name = args.database or get_database_name()
     suite_collection_name = args.suite_collection or get_suite_collection_name()
     config_collection_name = args.config_collection or get_config_collection_name()
     
-    save_and_load_suite_and_config(
-        suite_path=suite_path,
-        config_path=config_path,
-        mongodb_uri=mongodb_uri,
-        database_name=database_name,
-        suite_collection_name=suite_collection_name,
-        config_collection_name=config_collection_name
-    )
+    # If no path provided, use hardcoded test paths
+    if args.path is None and args.suite is None and args.config is None:
+        # Base path for test data
+        test_data_root = project_root / "test" / "test_data" / "mssdk"
+        
+        # Hardcoded test paths
+        suite_path = test_data_root / "dummy_mapping_suite" / "config"
+        config_path = suite_path / "mapping_suite_config.json"
+        
+        logger.info("="*80)
+        logger.info("Starting MongoDB Config and Suite Test Suite")
+        logger.info(f"MongoDB URI: {mongodb_uri}")
+        logger.info(f"Database: {database_name}")
+        logger.info(f"Suite Collection: {suite_collection_name}")
+        logger.info(f"Config Collection: {config_collection_name}")
+        logger.info("="*80)
+        
+        # Check which paths exist and log
+        final_suite_path = suite_path if suite_path.exists() else None
+        final_config_path = config_path if config_path.exists() else None
+        
+        if final_suite_path:
+            logger.info(f"Using suite path: {suite_path}")
+        else:
+            logger.warning(f"Suite path does not exist, skipping: {suite_path}")
+        
+        if final_config_path:
+            logger.info(f"Using config path: {config_path}")
+        else:
+            logger.warning(f"Config path does not exist, skipping: {config_path}")
+        
+        # Ensure at least one path exists before proceeding
+        if not final_suite_path and not final_config_path:
+            logger.error("Neither suite path nor config path exists. Cannot run test.")
+            raise ValueError(
+                f"Test paths do not exist:\n"
+                f"  Suite: {suite_path}\n"
+                f"  Config: {config_path}"
+            )
+        print("suite_path", final_suite_path)
+        print("final_config_path", final_config_path)
+        # Run test with hardcoded paths
+        save_and_load_suite_and_config(
+            suite_path=final_suite_path,
+            config_path=final_config_path,
+            mongodb_uri=mongodb_uri,
+            database_name=database_name,
+            suite_collection_name=suite_collection_name,
+            config_collection_name=config_collection_name
+        )
+        
+        logger.info("\n" + "="*80)
+        logger.info("Test Suite Completed")
+        logger.info("="*80)
+    else:
+        # Run with provided arguments
+        suite_path = None
+        config_path = None
+        
+        if args.path:
+            # Check if path is a file (config) or directory (suite)
+            if args.path.is_file():
+                config_path = args.path
+                suite_path = args.suite
+            elif args.path.is_dir():
+                suite_path = args.path
+                config_path = args.config
+            else:
+                raise ValueError(f"Path does not exist: {args.path}")
+        else:
+            # Use explicit flags if provided
+            suite_path = args.suite
+            config_path = args.config
+        
+        if not suite_path and not config_path:
+            raise ValueError("At least one of suite path or config path must be provided")
+        
+        save_and_load_suite_and_config(
+            suite_path=suite_path,
+            config_path=config_path,
+            mongodb_uri=mongodb_uri,
+            database_name=database_name,
+            suite_collection_name=suite_collection_name,
+            config_collection_name=config_collection_name
+        )
 
 
 if __name__ == "__main__":

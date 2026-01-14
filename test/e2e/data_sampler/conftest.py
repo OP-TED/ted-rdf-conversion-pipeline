@@ -24,7 +24,7 @@ def mongodb_client():
 def notice_repository_with_indexed_notices(mongodb_client) -> NoticeRepository:
 
     mapping_package_processor_from_github_expand_and_load_package_in_mongo_db(
-        mapping_suite_package_name="package_F03_test",
+        mapping_package_name="package_F03_test",
         mongodb_client=mongodb_client,
         load_test_data=True
     )

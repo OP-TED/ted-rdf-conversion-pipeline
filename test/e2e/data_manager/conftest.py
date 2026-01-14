@@ -189,7 +189,7 @@ def sparql_test_suite_with_invalid_query(invalid_sparql_file):
 
 
 @pytest.fixture
-def dummy_mapping_suite(sparql_test_suite, shacl_test_suite):
+def dummy_mapping_package(sparql_test_suite, shacl_test_suite):
     metadata_constrains = MetadataConstraints(constraints=MetadataConstraintsStandardForm(eforms_subtype=[29],min_xsd_version=["R2.0.9.S01.E01"]))
     file_name = "fake_title.txt"
     empty_file_resource = FileResource(file_name=file_name, file_content="no content here", original_name=file_name)
@@ -199,13 +199,13 @@ def dummy_mapping_suite(sparql_test_suite, shacl_test_suite):
     shacl_test_suite = shacl_test_suite
     sparql_test_suite = sparql_test_suite
     transformation_test_data = TransformationTestData(test_data=[empty_file_resource])
-    mapping_suite = MappingPackage(metadata_constraints=metadata_constrains,
+    mapping_package = MappingPackage(metadata_constraints=metadata_constrains,
                                    transformation_rule_set=transformation_rule_set,
                                    shacl_test_suites=[shacl_test_suite],
                                    sparql_test_suites=[sparql_test_suite],
                                    transformation_test_data=transformation_test_data
                                    )
-    return mapping_suite
+    return mapping_package
 
 
 @pytest.fixture

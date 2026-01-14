@@ -34,9 +34,9 @@ def test_technical_event_repository(logs_database_name, technical_event_message,
     assert_event_repository(technical_event_repository, technical_event_message, logs_database_name)
 
 
-def test_mapping_suite_event_repository(logs_database_name, mapping_suite_event_message,
-                                        mapping_suite_event_repository):
-    assert_event_repository(mapping_suite_event_repository, mapping_suite_event_message, logs_database_name)
+def test_mapping_package_event_repository(logs_database_name, mapping_package_event_message,
+                                        mapping_package_event_repository):
+    assert_event_repository(mapping_package_event_repository, mapping_package_event_message, logs_database_name)
 
 
 def test_event_logging_repository_wo_collection(mongodb_client, logs_database_name):

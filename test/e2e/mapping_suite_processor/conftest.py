@@ -91,6 +91,6 @@ def mime_type():
 
 
 @pytest.fixture
-def github_mapping_suite_id():
+def github_mapping_package_id():
     return "package_F03"
 

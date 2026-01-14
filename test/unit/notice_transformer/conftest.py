@@ -9,12 +9,12 @@ from test import TEST_DATA_PATH
 
 
 @pytest.fixture
-def fake_not_mapping_suite_id() -> str:
+def fake_not_mapping_package_id() -> str:
     return "test_not_package"
 
 
 @pytest.fixture
-def fake_failed_mapping_suite_id() -> str:
+def fake_failed_mapping_package_id() -> str:
     return "test_failed_package"
 
 
@@ -29,15 +29,15 @@ def fake_repository_path() -> Path:
 
 
 @pytest.fixture
-def fake_mapping_suite_id() -> str:
+def fake_mapping_package_id() -> str:
     return "test_package"
 
 
 @pytest.fixture
-def fake_mapping_suite(fake_repository_path, fake_mapping_suite_id) -> MappingPackage:
+def fake_mapping_package(fake_repository_path, fake_mapping_package_id) -> MappingPackage:
     repository_path = fake_repository_path
-    mapping_suite_repository = MappingPackageRepositoryInFileSystem(repository_path=repository_path)
-    return mapping_suite_repository.get(reference=fake_mapping_suite_id)
+    mapping_package_repository = MappingPackageRepositoryInFileSystem(repository_path=repository_path)
+    return mapping_package_repository.get(reference=fake_mapping_package_id)
 
 
 @pytest.fixture

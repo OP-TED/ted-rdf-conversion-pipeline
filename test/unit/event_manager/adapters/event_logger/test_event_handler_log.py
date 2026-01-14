@@ -38,8 +38,8 @@ def test_null_handler_log(null_handler, severity_level_info, event_message):
 
 
 def test_mongodb_handler_log(mongodb_handler, logs_database_name, severity_level_error, event_message,
-                             notice_event_message, mapping_suite_event_message, technical_event_message,
-                             event_logging_repository, notice_event_repository, mapping_suite_event_repository,
+                             notice_event_message, mapping_package_event_message, technical_event_message,
+                             event_logging_repository, notice_event_repository, mapping_package_event_repository,
                              technical_event_repository):
     log: dict
 
@@ -53,10 +53,10 @@ def test_mongodb_handler_log(mongodb_handler, logs_database_name, severity_level
     log = notice_event_repository.collection.find_one()
     assert log['message'] == notice_event_message.message
 
-    result = mongodb_handler.log(severity_level_error, mapping_suite_event_message)
+    result = mongodb_handler.log(severity_level_error, mapping_package_event_message)
     assert result
-    log = mapping_suite_event_repository.collection.find_one()
-    assert log['message'] == mapping_suite_event_message.message
+    log = mapping_package_event_repository.collection.find_one()
+    assert log['message'] == mapping_package_event_message.message
 
     result = mongodb_handler.log(severity_level_error, technical_event_message)
     assert result

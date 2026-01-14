@@ -53,20 +53,20 @@ def test_log_notice_warning(notice_id):
     log_notice_warning("TEST_NOTICE_WARNING_MESSAGE", notice_id=notice_id)
 
 
-def test_log_mapping_package_info(mapping_suite_id):
-    log_mapping_package_info("TEST_MAPPING_PACKAGE_INFO_MESSAGE", mapping_package_id=mapping_suite_id)
+def test_log_mapping_package_info(mapping_package_id):
+    log_mapping_package_info("TEST_MAPPING_PACKAGE_INFO_MESSAGE", mapping_package_id=mapping_package_id)
 
 
-def test_log_mapping_package_error(mapping_suite_id):
-    log_mapping_package_error("TEST_MAPPING_PACKAGE_ERROR_MESSAGE", mapping_package_id=mapping_suite_id)
+def test_log_mapping_package_error(mapping_package_id):
+    log_mapping_package_error("TEST_MAPPING_PACKAGE_ERROR_MESSAGE", mapping_package_id=mapping_package_id)
 
 
-def test_log_mapping_package_debug(mapping_suite_id):
-    log_mapping_package_debug("TEST_MAPPING_PACKAGE_DEBUG_MESSAGE", mapping_package_id=mapping_suite_id)
+def test_log_mapping_package_debug(mapping_package_id):
+    log_mapping_package_debug("TEST_MAPPING_PACKAGE_DEBUG_MESSAGE", mapping_package_id=mapping_package_id)
 
 
-def test_log_mapping_package_warning(mapping_suite_id):
-    log_mapping_package_warning("TEST_MAPPING_PACKAGE_WARNING_MESSAGE", mapping_package_id=mapping_suite_id)
+def test_log_mapping_package_warning(mapping_package_id):
+    log_mapping_package_warning("TEST_MAPPING_PACKAGE_WARNING_MESSAGE", mapping_package_id=mapping_package_id)
 
 
 def test_log_cli_brief_notice_info():

@@ -255,7 +255,7 @@ def sparql_test_suite_with_select_query(sparql_file_select):
 
 
 @pytest.fixture
-def dummy_mapping_suite(sparql_test_suite, shacl_test_suite):
+def dummy_mapping_package(sparql_test_suite, shacl_test_suite):
     metadata_constrains = MetadataConstraints(constraints=MetadataConstraintsStandardForm(eforms_subtype=["29"],min_xsd_version=["R2.0.9.S01.E01"]))
     file_name = "fake_title.txt"
     empty_file_resource = FileResource(file_name=file_name, file_content="no content here", original_name=file_name)
@@ -265,13 +265,13 @@ def dummy_mapping_suite(sparql_test_suite, shacl_test_suite):
     shacl_test_suite = shacl_test_suite
     sparql_test_suite = sparql_test_suite
     transformation_test_data = TransformationTestData(test_data=[empty_file_resource])
-    mapping_suite = MappingPackage(metadata_constraints=metadata_constrains,
+    mapping_package = MappingPackage(metadata_constraints=metadata_constrains,
                                    transformation_rule_set=transformation_rule_set,
                                    shacl_test_suites=[shacl_test_suite],
                                    sparql_test_suites=[sparql_test_suite],
                                    transformation_test_data=transformation_test_data
                                    )
-    return mapping_suite
+    return mapping_package
 
 
 @pytest.fixture
@@ -304,7 +304,7 @@ def fake_validation_repository_path():
 
 
 @pytest.fixture
-def fake_validation_mapping_suite_id() -> str:
+def fake_validation_mapping_package_id() -> str:
     return "validation_package"
 
 
@@ -314,27 +314,27 @@ def fake_validation_notice_id() -> str:
 
 
 @pytest.fixture
-def fake_mapping_suite_id() -> str:
+def fake_mapping_package_id() -> str:
     return "test_package"
 
 
 @pytest.fixture
-def fake_sparql_mapping_suite_id() -> str:
+def fake_sparql_mapping_package_id() -> str:
     return "test_sparql_package"
 
 
 @pytest.fixture
-def fake_mapping_suite_F03_id() -> str:
+def fake_mapping_package_F03_id() -> str:
     return "test_package_F03"
 
 
 @pytest.fixture
-def fake_mapping_suite_F03_id_with_version() -> str:
+def fake_mapping_package_F03_id_with_version() -> str:
     return "test_package_F03_v0.0.1"
 
 
 @pytest.fixture
-def invalid_mapping_suite_id() -> str:
+def invalid_mapping_package_id() -> str:
     return "test_invalid_package"
 
 
@@ -344,18 +344,18 @@ def fake_notice_id() -> str:
 
 
 @pytest.fixture
-def fake_mapping_suite_F03_path(fake_repository_path, fake_mapping_suite_F03_id) -> Path:
-    return fake_repository_path / fake_mapping_suite_F03_id
+def fake_mapping_package_F03_path(fake_repository_path, fake_mapping_package_F03_id) -> Path:
+    return fake_repository_path / fake_mapping_package_F03_id
 
 
 @pytest.fixture
-def fake_conceptual_mappings_F03_path(fake_repository_path, fake_mapping_suite_F03_id) -> str:
-    return str(fake_repository_path / fake_mapping_suite_F03_id / "transformation" / "conceptual_mappings.xlsx")
+def fake_conceptual_mappings_F03_path(fake_repository_path, fake_mapping_package_F03_id) -> str:
+    return str(fake_repository_path / fake_mapping_package_F03_id / "transformation" / "conceptual_mappings.xlsx")
 
 
 @pytest.fixture
-def fake_notice_F03_content(fake_repository_path, fake_mapping_suite_F03_id):
-    with open(fake_repository_path / fake_mapping_suite_F03_id / "test_data" / "1" / "notice.xml") as f:
+def fake_notice_F03_content(fake_repository_path, fake_mapping_package_F03_id):
+    with open(fake_repository_path / fake_mapping_package_F03_id / "test_data" / "1" / "notice.xml") as f:
         notice_content = f.read()
     return notice_content
 

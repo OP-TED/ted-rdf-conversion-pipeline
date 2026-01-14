@@ -26,32 +26,32 @@ def invalid_repository_path() -> str:
 
 
 @pytest.fixture
-def mapping_suite_id():
+def mapping_package_id():
     return "package_F03_demo"
 
 
 @pytest.fixture
-def package_folder_path_for_validator(mapping_suite_id):
-    return TEST_DATA_PATH / mapping_suite_id
+def package_folder_path_for_validator(mapping_package_id):
+    return TEST_DATA_PATH / mapping_package_id
 
 
 @pytest.fixture
-def conceptual_mappings_file_path(mapping_suite_id):
-    return TEST_DATA_PATH / mapping_suite_id / "transformation" / "conceptual_mappings.xlsx"
+def conceptual_mappings_file_path(mapping_package_id):
+    return TEST_DATA_PATH / mapping_package_id / "transformation" / "conceptual_mappings.xlsx"
 
 
 @pytest.fixture
-def mapping_suite(mapping_suite_id):
-    return TEST_DATA_PATH / mapping_suite_id
+def mapping_package(mapping_package_id):
+    return TEST_DATA_PATH / mapping_package_id
 
 
 @pytest.fixture
-def eforms_mapping_suite():
+def eforms_mapping_package():
     return TEST_DATA_PATH / "mapping_suite_processor" / "mappings" / "package_eforms"
 
 
 @pytest.fixture
-def fake_mapping_suite():
+def fake_mapping_package():
     rml_modules_path = TEST_DATA_PATH / "mapping_suite_processor" / "rml_modules"
     rml_mapping_rule_files = rml_modules_path.glob("*")
     rml_mapping_rule_file_resources = []
@@ -73,10 +73,10 @@ def fake_mapping_suite():
                                         sparql_tests=[empty_file_resource]
                                         )
     transformation_test_data = TransformationTestData(test_data=[empty_file_resource])
-    mapping_suite = MappingPackage(metadata_constraints=metadata_constrains,
+    mapping_package = MappingPackage(metadata_constraints=metadata_constrains,
                                    transformation_rule_set=transformation_rule_set,
                                    shacl_test_suites=[shacl_test_suite],
                                    sparql_test_suites=[sparql_test_suite],
                                    transformation_test_data=transformation_test_data
                                    )
-    return mapping_suite
+    return mapping_package

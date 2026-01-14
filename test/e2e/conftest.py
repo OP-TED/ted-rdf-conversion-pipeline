@@ -36,7 +36,7 @@ def path_ttl_file():
 
 
 @pytest.fixture
-def fake_mapping_suite_id() -> str:
+def fake_mapping_package_id() -> str:
     return "test_package"
 
 
@@ -61,7 +61,7 @@ def fake_mongodb_client():
 
 
 @pytest.fixture
-def invalid_mapping_suite_id() -> str:
+def invalid_mapping_package_id() -> str:
     return "test_invalid_package"
 
 

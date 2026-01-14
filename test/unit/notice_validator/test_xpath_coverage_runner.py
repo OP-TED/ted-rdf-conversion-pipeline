@@ -7,12 +7,12 @@ from src.ted_sws.notice_validator.services.xpath_coverage_runner import validate
     xpath_coverage_json_report, xpath_coverage_html_report, validate_xpath_coverage_notice
 
 
-def test_xpath_coverage_runner(fake_notice_F03, fake_mapping_suite_F03_id, fake_mapping_suite_F03_id_with_version,
-                               mongodb_client, fake_repository_path, fake_mapping_suite_F03_path):
+def test_xpath_coverage_runner(fake_notice_F03, fake_mapping_package_F03_id, fake_mapping_package_F03_id_with_version,
+                               mongodb_client, fake_repository_path, fake_mapping_package_F03_path):
     report_notices = [ReportNotice(notice=fake_notice_F03)]
-    mapping_suite_repository = MappingPackageRepositoryInFileSystem(repository_path=fake_repository_path)
-    mapping_suite = mapping_suite_repository.get(reference=fake_mapping_suite_F03_id)
-    report = validate_xpath_coverage_notices(report_notices, mapping_suite)
+    mapping_package_repository = MappingPackageRepositoryInFileSystem(repository_path=fake_repository_path)
+    mapping_package = mapping_package_repository.get(reference=fake_mapping_package_F03_id)
+    report = validate_xpath_coverage_notices(report_notices, mapping_package)
     json_report = xpath_coverage_json_report(report)
     assert isinstance(json_report, dict)
     assert "mapping_package_identifier" in json_report
@@ -22,21 +22,21 @@ def test_xpath_coverage_runner(fake_notice_F03, fake_mapping_suite_F03_id, fake_
 
     assert xpath_coverage_html_report(report)
 
-    mapping_package_processor_load_package_in_mongo_db(mapping_package_path=fake_mapping_suite_F03_path,
+    mapping_package_processor_load_package_in_mongo_db(mapping_package_path=fake_mapping_package_F03_path,
                                                      mongodb_client=mongodb_client)
-    mapping_suite_repository = MappingPackageRepositoryMongoDB(mongodb_client=mongodb_client)
-    mapping_suite = mapping_suite_repository.get(reference=fake_mapping_suite_F03_id_with_version)
-    assert mapping_suite
+    mapping_package_repository = MappingPackageRepositoryMongoDB(mongodb_client=mongodb_client)
+    mapping_package = mapping_package_repository.get(reference=fake_mapping_package_F03_id_with_version)
+    assert mapping_package
 
-    report = validate_xpath_coverage_notices(report_notices, mapping_suite)
+    report = validate_xpath_coverage_notices(report_notices, mapping_package)
     json_report = xpath_coverage_json_report(report)
     assert isinstance(json_report, dict)
 
 
-def test_validate_xpath_coverage_notice(fake_mapping_suite_F03_id, fake_repository_path, fake_notice_F03):
-    mapping_suite_repository_fs = MappingPackageRepositoryInFileSystem(repository_path=fake_repository_path)
-    mapping_suite = mapping_suite_repository_fs.get(fake_mapping_suite_F03_id)
+def test_validate_xpath_coverage_notice(fake_mapping_package_F03_id, fake_repository_path, fake_notice_F03):
+    mapping_package_repository_fs = MappingPackageRepositoryInFileSystem(repository_path=fake_repository_path)
+    mapping_package = mapping_package_repository_fs.get(fake_mapping_package_F03_id)
 
     validate_xpath_coverage_notice(
         notice=fake_notice_F03,
-        mapping_package=mapping_suite)
+        mapping_package=mapping_package)

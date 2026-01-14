@@ -14,5 +14,5 @@ def notice_id() -> str:
 
 
 @pytest.fixture
-def mapping_suite_id() -> str:
-    return "MAPPING_SUITE_ID"
+def mapping_package_id() -> str:
+    return "MAPPING_PACKAGE_ID"

@@ -62,14 +62,14 @@ def the_notice_status_is_distilled(notice_with_distilled_status):
 @when('the notice shacl validation is executed', target_fixture="shacl_validated_notice")
 def the_notice_shacl_validation_is_executed(notice_with_distilled_status, mapping_package):
     """the notice shacl validation is executed."""
-    validate_notice_with_shacl_suite(notice=notice_with_distilled_status, mapping_package_package=mapping_package)
+    validate_notice_with_shacl_suite(notice=notice_with_distilled_status, mapping_package=mapping_package)
     return notice_with_distilled_status
 
 
 @when('the notice sparql validation is executed', target_fixture="sparql_validated_notice")
 def the_notice_sparql_validation_is_executed(notice_with_distilled_status, mapping_package):
     """the notice sparql validation is executed."""
-    validate_notice_with_sparql_suite(notice=notice_with_distilled_status, mapping_package_package=mapping_package)
+    validate_notice_with_sparql_suite(notice=notice_with_distilled_status, mapping_package=mapping_package)
     return notice_with_distilled_status
 
 

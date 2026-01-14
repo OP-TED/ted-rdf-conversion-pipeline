@@ -24,9 +24,9 @@ def test_get_query_results(rml_file):
 
 
 def test_rml_files_to_html_report(file_system_repository_path):
-    mapping_suite_repository = MappingPackageRepositoryInFileSystem(repository_path=file_system_repository_path)
-    html_report = rml_files_to_html_report(mapping_suite_identifier="test_package",
-                                           mapping_suite_repository=mapping_suite_repository)
+    mapping_package_repository = MappingPackageRepositoryInFileSystem(repository_path=file_system_repository_path)
+    html_report = rml_files_to_html_report(mapping_package_identifier="test_package",
+                                           mapping_package_repository=mapping_package_repository)
 
     assert isinstance(html_report, str)
     assert "Logical Source" in html_report
@@ -34,5 +34,5 @@ def test_rml_files_to_html_report(file_system_repository_path):
     assert "Predicate object maps" in html_report
 
     with pytest.raises(ValueError):
-        rml_files_to_html_report(mapping_suite_identifier="no_package",
-                                 mapping_suite_repository=mapping_suite_repository)
+        rml_files_to_html_report(mapping_package_identifier="no_package",
+                                 mapping_package_repository=mapping_package_repository)

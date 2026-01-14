@@ -29,9 +29,9 @@ def notice_event_message() -> NoticeEventMessage:
 
 
 @pytest.fixture
-def mapping_suite_event_message() -> MappingPackageEventMessage:
+def mapping_package_event_message() -> MappingPackageEventMessage:
     message = MappingPackageEventMessage()
-    message.message = "TEST_MAPPING_SUITE_EVENT_MESSAGE"
+    message.message = "TEST_MAPPING_PACKAGE_EVENT_MESSAGE"
     return message
 
 
@@ -142,7 +142,7 @@ def technical_event_repository(mongodb_client, logs_database_name) -> TechnicalE
 
 
 @pytest.fixture
-def mapping_suite_event_repository(mongodb_client, logs_database_name) -> MappingPackageEventRepository:
+def mapping_package_event_repository(mongodb_client, logs_database_name) -> MappingPackageEventRepository:
     repo = MappingPackageEventRepository(mongodb_client, logs_database_name)
     return repo
 

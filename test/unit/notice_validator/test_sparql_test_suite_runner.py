@@ -11,13 +11,13 @@ from src.ted_sws.notice_validator.services.sparql_test_suite_runner import SPARQ
     generate_sparql_validation_summary_report
 
 
-def test_sparql_query_test_suite_runner(rdf_file_content, sparql_test_suite, dummy_mapping_suite, sparql_file_one,
+def test_sparql_query_test_suite_runner(rdf_file_content, sparql_test_suite, dummy_mapping_package, sparql_file_one,
                                         fake_xml_manifestation_with_coverage_for_sparql_runner):
     rdf_manifestation = RDFManifestation(object_data=rdf_file_content)
     sparql_runner = SPARQLTestSuiteRunner(rdf_manifestation=rdf_manifestation,
                                           xml_manifestation=fake_xml_manifestation_with_coverage_for_sparql_runner,
                                           sparql_test_suite=sparql_test_suite,
-                                          mapping_package=dummy_mapping_suite)
+                                          mapping_package=dummy_mapping_package)
 
     list_of_file_resources = sparql_test_suite.sparql_tests
     for file in list_of_file_resources:
@@ -46,43 +46,43 @@ def test_sparql_query_test_suite_runner(rdf_file_content, sparql_test_suite, dum
     assert test_suite_executions[0].result == SPARQLQueryRefinedResultType.INVALID.value
 
 
-def test_sparql_query_test_suite_runner_error(sparql_test_suite_with_invalid_query, dummy_mapping_suite,
+def test_sparql_query_test_suite_runner_error(sparql_test_suite_with_invalid_query, dummy_mapping_package,
                                               rdf_file_content):
     sparql_runner = SPARQLTestSuiteRunner(rdf_manifestation=RDFManifestation(object_data=rdf_file_content),
                                           sparql_test_suite=sparql_test_suite_with_invalid_query,
-                                          mapping_package=dummy_mapping_suite).execute_test_suite()
+                                          mapping_package=dummy_mapping_package).execute_test_suite()
 
     assert sparql_runner.validation_results[0].error
     assert isinstance(sparql_runner.validation_results[0].error, str)
     assert "Expected" in sparql_runner.validation_results[0].error
 
 
-def test_sparql_query_test_suite_runner_false(sparql_test_suite_with_false_query, dummy_mapping_suite,
+def test_sparql_query_test_suite_runner_false(sparql_test_suite_with_false_query, dummy_mapping_package,
                                               rdf_file_content, fake_xml_manifestation_with_coverage_for_sparql_runner):
     sparql_runner = SPARQLTestSuiteRunner(rdf_manifestation=RDFManifestation(object_data=rdf_file_content),
                                           xml_manifestation=fake_xml_manifestation_with_coverage_for_sparql_runner,
                                           sparql_test_suite=sparql_test_suite_with_false_query,
-                                          mapping_package=dummy_mapping_suite).execute_test_suite()
+                                          mapping_package=dummy_mapping_package).execute_test_suite()
 
     assert sparql_runner.validation_results[0].result == SPARQLQueryRefinedResultType.UNVERIFIABLE.value
     assert sparql_runner.validation_results[0].query_result == 'False'
 
 
-def test_sparql_query_test_suite_runner_select(sparql_test_suite_with_false_query, dummy_mapping_suite,
+def test_sparql_query_test_suite_runner_select(sparql_test_suite_with_false_query, dummy_mapping_package,
                                                rdf_file_content, sparql_test_suite_with_select_query,
                                                fake_xml_manifestation_with_coverage_for_sparql_runner):
     sparql_runner = SPARQLTestSuiteRunner(rdf_manifestation=RDFManifestation(object_data=rdf_file_content),
                                           xml_manifestation=fake_xml_manifestation_with_coverage_for_sparql_runner,
                                           sparql_test_suite=sparql_test_suite_with_select_query,
-                                          mapping_package=dummy_mapping_suite).execute_test_suite()
+                                          mapping_package=dummy_mapping_package).execute_test_suite()
 
     assert isinstance(sparql_runner.validation_results[0].query_result, bytes)
 
 
-def test_sparql_report_builder(rdf_file_content, sparql_test_suite, dummy_mapping_suite):
+def test_sparql_report_builder(rdf_file_content, sparql_test_suite, dummy_mapping_package):
     rdf_manifestation = RDFManifestation(object_data=rdf_file_content)
     sparql_runner = SPARQLTestSuiteRunner(rdf_manifestation=rdf_manifestation, sparql_test_suite=sparql_test_suite,
-                                          mapping_package=dummy_mapping_suite)
+                                          mapping_package=dummy_mapping_package)
     report_builder = SPARQLReportBuilder(sparql_test_suite_execution=sparql_runner.execute_test_suite(), with_html=True)
     report = report_builder.generate_report()
 
@@ -93,11 +93,11 @@ def test_sparql_report_builder(rdf_file_content, sparql_test_suite, dummy_mappin
     assert report.test_suite_identifier == "sparql_test_package"
 
 
-def test_validate_notice_with_sparql_suite(notice_with_distilled_status, dummy_mapping_suite, rdf_file_content):
+def test_validate_notice_with_sparql_suite(notice_with_distilled_status, dummy_mapping_package, rdf_file_content):
     notice = notice_with_distilled_status
     assert notice.rdf_manifestation
     assert notice.distilled_rdf_manifestation
-    validate_notice_with_sparql_suite(notice=notice, mapping_package=dummy_mapping_suite)
+    validate_notice_with_sparql_suite(notice=notice, mapping_package=dummy_mapping_package)
     rdf_validation = notice.get_rdf_validation()
     distilled_rdf_validation = notice.get_distilled_rdf_validation()
     assert notice.status == NoticeStatus.DISTILLED
@@ -116,11 +116,11 @@ def test_validate_notice_with_sparql_suite(notice_with_distilled_status, dummy_m
 def test_validate_notice_by_id_with_sparql_suite(notice_with_distilled_status, rdf_file_content, notice_repository,
                                                  path_to_file_system_repository):
     notice = notice_with_distilled_status
-    mapping_suite_repository = MappingPackageRepositoryInFileSystem(repository_path=path_to_file_system_repository)
+    mapping_package_repository = MappingPackageRepositoryInFileSystem(repository_path=path_to_file_system_repository)
     notice_repository.add(notice)
 
     validate_notice_by_id_with_sparql_suite(notice_id="408313-2020",
-                                            mapping_package_repository=mapping_suite_repository,
+                                            mapping_package_repository=mapping_package_repository,
                                             notice_repository=notice_repository,
                                             mapping_package_identifier="test_package")
 
@@ -132,13 +132,13 @@ def test_validate_notice_by_id_with_sparql_suite(notice_with_distilled_status, r
 
     with pytest.raises(ValueError):
         validate_notice_by_id_with_sparql_suite(notice_id="408313-202085569",
-                                               mapping_package_repository=mapping_suite_repository,
+                                               mapping_package_repository=mapping_package_repository,
                                                notice_repository=notice_repository,
                                                mapping_package_identifier="test_package")
 
     with pytest.raises(ValueError):
         validate_notice_by_id_with_sparql_suite(notice_id="408313-2020",
-                                               mapping_package_repository=mapping_suite_repository,
+                                               mapping_package_repository=mapping_package_repository,
                                                notice_repository=notice_repository,
                                                mapping_package_identifier="no_package_here")
 
@@ -162,7 +162,7 @@ def test_get_metadata_from_freaking_sparql_queries(query_content, query_content_
 
 
 def test_generate_sparql_validation_summary_report(notice_with_distilled_status, fake_validation_notice,
-                                                   dummy_mapping_suite, rdf_file_content):
+                                                   dummy_mapping_package, rdf_file_content):
     notice = notice_with_distilled_status
     assert notice.rdf_manifestation
     assert notice.distilled_rdf_manifestation
@@ -170,7 +170,7 @@ def test_generate_sparql_validation_summary_report(notice_with_distilled_status,
     report_notice: ReportNotice = ReportNotice(notice=notice)
     report: SPARQLValidationSummaryReport = generate_sparql_validation_summary_report(
         report_notices=[report_notice],
-        mapping_package=dummy_mapping_suite,
+        mapping_package=dummy_mapping_package,
         with_html=True
     )
     assert report.object_data

@@ -17,21 +17,21 @@ def test_notice_eligibility_checking_positive():
     """Notice eligibility checking positive."""
 
 
-@given('a mapping suite for eforms subtype 16 and sdk version 1.7 is available in mapping suite repository', target_fixture="mapping_suite_repository")
-def a_mapping_suite_for_f03_is_available_in_mapping_suite_repository(clean_mapping_suite_repository,
-                                                                     mapping_suite_repository_with_mapping_suite):
+@given('a mapping suite for eforms subtype 16 and sdk version 1.7 is available in mapping suite repository', target_fixture="mapping_package_repository")
+def a_mapping_package_for_f03_is_available_in_mapping_package_repository(clean_mapping_package_repository,
+                                                                     mapping_package_repository_with_mapping_package):
     """a mapping suite for eforms subtype 16 and sdk version 1.7 is available in mapping suite repository."""
-    for mapping_suite in mapping_suite_repository_with_mapping_suite.list():
-        clean_mapping_suite_repository.add(mapping_suite=mapping_suite)
-    return clean_mapping_suite_repository
+    for mapping_package in mapping_package_repository_with_mapping_package.list():
+        clean_mapping_package_repository.add(mapping_package=mapping_package)
+    return clean_mapping_package_repository
 
 
 
 @given('a mapping suite repository')
-def a_mapping_suite_repository(clean_mapping_suite_repository):
+def a_mapping_package_repository(clean_mapping_package_repository):
     """a mapping suite repository."""
-    assert clean_mapping_suite_repository
-    assert isinstance(clean_mapping_suite_repository, MappingPackageRepositoryABC)
+    assert clean_mapping_package_repository
+    assert isinstance(clean_mapping_package_repository, MappingPackageRepositoryABC)
 
 
 @given('a notice')
@@ -55,9 +55,9 @@ def the_notice_status_is_normalised(normalised_eForm_notice):
 
 
 @when('the notice eligibility checking is executed', target_fixture="checked_notice")
-def the_notice_eligibility_checking_is_executed(normalised_eForm_notice, mapping_suite_repository):
+def the_notice_eligibility_checking_is_executed(normalised_eForm_notice, mapping_package_repository):
     """the notice eligibility checking is executed."""
-    notice_eligibility_checker(notice=normalised_eForm_notice, mapping_suite_repository=mapping_suite_repository)
+    notice_eligibility_checker(notice=normalised_eForm_notice, mapping_package_repository=mapping_package_repository)
     return normalised_eForm_notice
 
 

@@ -22,23 +22,23 @@ def fake_repository_path() -> Path:
 
 
 @pytest.fixture
-def mapping_suite_id() -> str:
+def mapping_package_id() -> str:
     return "test_package"
 
 
 @pytest.fixture
-def mapping_suite_repository(fake_repository_path):
+def mapping_package_repository(fake_repository_path):
     return MappingPackageRepositoryInFileSystem(repository_path=fake_repository_path)
 
 
 @pytest.fixture
-def mapping_suite(mapping_suite_repository, mapping_suite_id) -> MappingPackage:
-    return mapping_suite_repository.get(reference=mapping_suite_id)
+def mapping_package(mapping_package_repository, mapping_package_id) -> MappingPackage:
+    return mapping_package_repository.get(reference=mapping_package_id)
 
 
 @pytest.fixture
-def eform_mapping_suite(mapping_suite_repository, mapping_suite_id) -> MappingPackage:
-    return mapping_suite_repository.get(reference="test_package4")
+def eform_mapping_package(mapping_package_repository, mapping_package_id) -> MappingPackage:
+    return mapping_package_repository.get(reference="test_package4")
 
 
 @pytest.fixture(scope="function")

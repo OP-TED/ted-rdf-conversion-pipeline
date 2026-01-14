@@ -47,15 +47,15 @@ def normalised_eForm_notice(indexed_eform_notice_622690):
 
 
 @pytest.fixture
-def mapping_suite_repository_with_mapping_suite(notice_eligibility_repository_path):
-    mapping_suite_repository = MappingPackageRepositoryInFileSystem(repository_path=notice_eligibility_repository_path)
-    return mapping_suite_repository
+def mapping_package_repository_with_mapping_package(notice_eligibility_repository_path):
+    mapping_package_repository = MappingPackageRepositoryInFileSystem(repository_path=notice_eligibility_repository_path)
+    return mapping_package_repository
 
 
 @pytest.fixture
-def clean_mapping_suite_repository(mongodb_client):
-    mapping_suite_repository = MappingPackageRepositoryMongoDB(mongodb_client=mongodb_client)
-    return mapping_suite_repository
+def clean_mapping_package_repository(mongodb_client):
+    mapping_package_repository = MappingPackageRepositoryMongoDB(mongodb_client=mongodb_client)
+    return mapping_package_repository
 
 
 @pytest.fixture

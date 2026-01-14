@@ -25,24 +25,24 @@ def test_transform_a_ted_notice_by_id():
 
 
 @given('a mapping suite package')
-def a_mapping_suite_package(mapping_suite):
+def a_mapping_package(mapping_package):
     """a mapping suite package."""
-    assert mapping_suite
-    assert isinstance(mapping_suite, MappingPackage)
+    assert mapping_package
+    assert isinstance(mapping_package, MappingPackage)
 
 
 @given('a mapping suite package id')
-def a_mapping_suite_package_id(mapping_suite_id):
+def a_mapping_package_id(mapping_package_id):
     """a mapping suite package id."""
-    assert mapping_suite_id
-    assert type(mapping_suite_id) == str
+    assert mapping_package_id
+    assert type(mapping_package_id) == str
 
 
 @given('a mapping suite repository')
-def a_mapping_suite_repository(mapping_suite_repository):
+def a_mapping_package_repository(mapping_package_repository):
     """a mapping suite repository."""
-    assert mapping_suite_repository
-    assert isinstance(mapping_suite_repository, MappingPackageRepositoryABC)
+    assert mapping_package_repository
+    assert isinstance(mapping_package_repository, MappingPackageRepositoryABC)
 
 
 @given('a notice', target_fixture="eligible_for_transformation_notice")
@@ -77,7 +77,7 @@ def a_rml_mapper(rml_mapper):
 
 
 @given('given mapping suite is eligible for notice transformation')
-def given_mapping_suite_is_eligible_for_notice_transformation():
+def given_mapping_package_is_eligible_for_notice_transformation():
     """given mapping suite is eligible for notice transformation."""
 
 
@@ -89,19 +89,19 @@ def given_notice_is_eligible_for_transformation(eligible_for_transformation_noti
 
 
 @when('the notice transformation is executed', target_fixture="transformed_notice")
-def the_notice_transformation_is_executed(eligible_for_transformation_notice, mapping_suite, rml_mapper):
+def the_notice_transformation_is_executed(eligible_for_transformation_notice, mapping_package, rml_mapper):
     """the notice transformation is executed."""
-    transformed_notice = transform_notice(notice=eligible_for_transformation_notice, mapping_suite=mapping_suite,
+    transformed_notice = transform_notice(notice=eligible_for_transformation_notice, mapping_package=mapping_package,
                                           rml_mapper=rml_mapper)
     return transformed_notice
 
 
 @when('the notice transformation by id is executed', target_fixture="notice_repository_with_transformed_notice")
-def the_notice_transformation_by_id_is_executed(notice_id, mapping_suite_id, notice_repository,
-                                                mapping_suite_repository, rml_mapper):
+def the_notice_transformation_by_id_is_executed(notice_id, mapping_package_id, notice_repository,
+                                                mapping_package_repository, rml_mapper):
     """the notice transformation is executed."""
-    transform_notice_by_id(notice_id=notice_id, mapping_suite_id=mapping_suite_id, notice_repository=notice_repository,
-                           mapping_suite_repository=mapping_suite_repository, rml_mapper=rml_mapper)
+    transform_notice_by_id(notice_id=notice_id, mapping_package_id=mapping_package_id, notice_repository=notice_repository,
+                           mapping_package_repository=mapping_package_repository, rml_mapper=rml_mapper)
     return notice_repository
 
 

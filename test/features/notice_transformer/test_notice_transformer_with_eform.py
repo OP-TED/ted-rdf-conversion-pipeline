@@ -19,10 +19,10 @@ def test_transform_a_ted_notice():
 
 
 @given('a mapping suite package')
-def a_mapping_suite_package(eform_mapping_suite):
+def a_mapping_package(eform_mapping_package):
     """a mapping suite package."""
-    assert eform_mapping_suite
-    assert isinstance(eform_mapping_suite, MappingPackage)
+    assert eform_mapping_package
+    assert isinstance(eform_mapping_package, MappingPackage)
 
 
 @given('a eForm notice', target_fixture="eligible_for_transformation_eForm_notice")
@@ -41,7 +41,7 @@ def a_rml_mapper(rml_mapper):
 
 
 @given('given mapping suite is eligible for notice transformation')
-def given_mapping_suite_is_eligible_for_notice_transformation():
+def given_mapping_package_is_eligible_for_notice_transformation():
     """given mapping suite is eligible for notice transformation."""
 
 
@@ -53,9 +53,9 @@ def given_notice_is_eligible_for_transformation(eligible_for_transformation_eFor
 
 
 @when('the notice transformation is executed', target_fixture="transformed_notice")
-def the_notice_transformation_is_executed(eligible_for_transformation_eForm_notice, mapping_suite, rml_mapper):
+def the_notice_transformation_is_executed(eligible_for_transformation_eForm_notice, mapping_package, rml_mapper):
     """the notice transformation is executed."""
-    transformed_notice = transform_notice(notice=eligible_for_transformation_eForm_notice, mapping_suite=mapping_suite,
+    transformed_notice = transform_notice(notice=eligible_for_transformation_eForm_notice, mapping_package=mapping_package,
                                           rml_mapper=rml_mapper)
     return transformed_notice
 

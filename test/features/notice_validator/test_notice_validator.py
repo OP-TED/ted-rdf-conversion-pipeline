@@ -26,10 +26,10 @@ def test_sparql_validation():
 
 
 @given('a mapping suite package')
-def a_mapping_suite_package(mapping_suite):
+def a_mapping_package(mapping_package):
     """a mapping suite package."""
-    assert mapping_suite
-    assert isinstance(mapping_suite, MappingPackage)
+    assert mapping_package
+    assert isinstance(mapping_package, MappingPackage)
 
 
 @given('a notice')
@@ -40,17 +40,17 @@ def a_notice(notice_with_distilled_status):
 
 
 @given('at least one SHACL test suite is available')
-def at_least_one_shacl_test_suite_is_available(mapping_suite):
+def at_least_one_shacl_test_suite_is_available(mapping_package):
     """at least one SHACL test suite is available."""
-    assert mapping_suite.shacl_test_suites
-    assert len(mapping_suite.shacl_test_suites)
+    assert mapping_package.shacl_test_suites
+    assert len(mapping_package.shacl_test_suites)
 
 
 @given('at least one SPARQL test suite is available')
-def at_least_one_sparql_test_suite_is_available(mapping_suite):
+def at_least_one_sparql_test_suite_is_available(mapping_package):
     """at least one SPARQL test suite is available."""
-    assert mapping_suite.sparql_test_suites
-    assert len(mapping_suite.sparql_test_suites)
+    assert mapping_package.sparql_test_suites
+    assert len(mapping_package.sparql_test_suites)
 
 
 @given('the notice status is DISTILLED')
@@ -60,16 +60,16 @@ def the_notice_status_is_distilled(notice_with_distilled_status):
 
 
 @when('the notice shacl validation is executed', target_fixture="shacl_validated_notice")
-def the_notice_shacl_validation_is_executed(notice_with_distilled_status, mapping_suite):
+def the_notice_shacl_validation_is_executed(notice_with_distilled_status, mapping_package):
     """the notice shacl validation is executed."""
-    validate_notice_with_shacl_suite(notice=notice_with_distilled_status, mapping_suite_package=mapping_suite)
+    validate_notice_with_shacl_suite(notice=notice_with_distilled_status, mapping_package_package=mapping_package)
     return notice_with_distilled_status
 
 
 @when('the notice sparql validation is executed', target_fixture="sparql_validated_notice")
-def the_notice_sparql_validation_is_executed(notice_with_distilled_status, mapping_suite):
+def the_notice_sparql_validation_is_executed(notice_with_distilled_status, mapping_package):
     """the notice sparql validation is executed."""
-    validate_notice_with_sparql_suite(notice=notice_with_distilled_status, mapping_suite_package=mapping_suite)
+    validate_notice_with_sparql_suite(notice=notice_with_distilled_status, mapping_package_package=mapping_package)
     return notice_with_distilled_status
 
 

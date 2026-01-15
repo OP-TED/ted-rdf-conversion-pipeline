@@ -104,7 +104,7 @@
     "xpath_coverage_validation": {
       "object_data": "XPATHCoverageValidationReport",
       "created": "2022-11-16T03:53:01.338361",
-      "mapping_suite_identifier": "package_F03_test_v2.3.0",
+      "mapping_package_identifier": "package_F03_test_v2.3.0",
       "validation_result": {
         "notice_id": [
           "632521-2022"
@@ -1881,7 +1881,7 @@
     ],
     "xml_manifestation": {
       "xpath_coverage_summary": {
-        "mapping_suite_identifier": "package_F03_test_v2.3.0",
+        "mapping_package_identifier": "package_F03_test_v2.3.0",
         "validation_result": {
           "xpath_covered": 73,
           "xpath_not_covered": 44
@@ -1915,7 +1915,7 @@
         "validation_results": [
           {
             "test_suite_identifier": "cm_assertions",
-            "mapping_suite_identifier": "package_F03_test",
+            "mapping_package_identifier": "package_F03_test",
             "aggregate": {
               "valid": 22,
               "unverifiable": 93,
@@ -1937,7 +1937,7 @@
         "validation_results": [
           {
             "test_suite_identifier": "epo",
-            "mapping_suite_identifier": "package_F03_test",
+            "mapping_package_identifier": "package_F03_test",
             "result_severity": {
               "aggregate": {
                 "info": 0,
@@ -1963,7 +1963,7 @@
       {
         "object_data": "SHACLTestSuiteExecution",
         "created": "2022-11-16T03:53:01.338361",
-        "mapping_suite_identifier": "package_F03_test",
+        "mapping_package_identifier": "package_F03_test",
         "test_suite_identifier": "epo",
         "validation_results": {
           "conforms": "False",
@@ -2867,7 +2867,7 @@
       {
         "object_data": "SPARQLTestSuiteExecution",
         "created": "2022-11-16T03:53:01.338361",
-        "mapping_suite_identifier": "package_F03_test",
+        "mapping_package_identifier": "package_F03_test",
         "test_suite_identifier": "cm_assertions",
         "validation_results": [
           {
@@ -6415,7 +6415,7 @@
       {
         "object_data": "SHACLTestSuiteExecution",
         "created": "2022-11-16T03:53:01.338361",
-        "mapping_suite_identifier": "package_F03_test",
+        "mapping_package_identifier": "package_F03_test",
         "test_suite_identifier": "epo",
         "validation_results": {
           "conforms": "False",
@@ -7319,7 +7319,7 @@
       {
         "object_data": "SPARQLTestSuiteExecution",
         "created": "2022-11-16T03:53:01.338361",
-        "mapping_suite_identifier": "package_F03_test",
+        "mapping_package_identifier": "package_F03_test",
         "test_suite_identifier": "cm_assertions",
         "validation_results": [
           {

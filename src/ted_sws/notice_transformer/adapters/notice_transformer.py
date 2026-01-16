@@ -3,7 +3,7 @@ from typing import List
 from src.ted_sws.core.model.notice import Notice
 from src.ted_sws.core.model.validation_report import ReportNotice
 from src.ted_sws.core.model.validation_report_data import ReportNoticeData
-from src.ted_sws.data_manager.adapters.mapping_suite_repository import MappingPackageRepositoryInFileSystem
+from src.ted_sws.data_manager.adapters.mapping_package_repository import MappingPackageRepositoryInFileSystem
 
 
 class NoticeTransformer:

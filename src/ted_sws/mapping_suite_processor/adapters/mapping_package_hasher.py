@@ -13,9 +13,9 @@ import re
 from typing import Tuple, List, Union
 
 from src.ted_sws.core.model.transform import MappingPackageType
-from src.ted_sws.data_manager.adapters.mapping_suite_repository import MS_TRANSFORM_FOLDER_NAME, \
+from src.ted_sws.data_manager.adapters.mapping_package_repository import MS_TRANSFORM_FOLDER_NAME, \
     MS_MAPPINGS_FOLDER_NAME, MS_RESOURCES_FOLDER_NAME, MS_CONCEPTUAL_MAPPING_FILE_NAME, MS_MAPPING_TYPE_KEY
-from src.ted_sws.mapping_suite_processor.model.mapping_suite_metadata import EFormsPackageMetadataBase
+from src.ted_sws.mapping_suite_processor.model.mapping_package_metadata import EFormsPackageMetadataBase
 
 
 class MappingPackageHasher:

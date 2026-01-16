@@ -4,7 +4,7 @@ from collections import Counter
 
 import pytest
 from src.ted_sws.core.model.notice import NoticeStatus
-from src.ted_sws.data_manager.adapters.mapping_suite_repository import MappingPackageRepositoryMongoDB
+from src.ted_sws.data_manager.adapters.mapping_package_repository import MappingPackageRepositoryMongoDB
 from src.ted_sws.notice_transformer.services.notice_transformer import transform_notice, \
     transform_test_data, transform_notice_by_id
 

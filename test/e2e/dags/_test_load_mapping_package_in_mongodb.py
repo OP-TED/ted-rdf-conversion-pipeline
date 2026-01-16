@@ -1,7 +1,7 @@
-from src.dags.load_mapping_suite_in_database import \
+from src.dags.load_mapping_package_in_database import \
     FETCH_MAPPING_PACKAGE_FROM_GITHUB_INTO_MONGODB, MAPPING_PACKAGE_NAME_DAG_PARAM_KEY
 from src.ted_sws import config
-from src.ted_sws.data_manager.adapters.mapping_suite_repository import MappingPackageRepositoryMongoDB
+from src.ted_sws.data_manager.adapters.mapping_package_repository import MappingPackageRepositoryMongoDB
 from test.e2e.dags import run_task
 
 

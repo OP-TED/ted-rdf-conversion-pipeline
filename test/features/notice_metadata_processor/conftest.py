@@ -4,7 +4,7 @@ import pytest
 from src.ted_sws import config
 from src.ted_sws.core.model.manifestation import XMLManifestation
 from src.ted_sws.core.model.notice import Notice
-from src.ted_sws.data_manager.adapters.mapping_suite_repository import MappingPackageRepositoryInFileSystem, \
+from src.ted_sws.data_manager.adapters.mapping_package_repository import MappingPackageRepositoryInFileSystem, \
     MappingPackageRepositoryMongoDB
 from src.ted_sws.data_sampler.services.notice_xml_indexer import index_notice
 from src.ted_sws.notice_metadata_processor.services.metadata_normalizer import normalise_notice

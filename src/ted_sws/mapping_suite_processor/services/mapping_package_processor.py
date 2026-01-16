@@ -7,15 +7,15 @@ from pymongo import MongoClient
 from src.ted_sws import config
 from src.ted_sws.core.model.manifestation import XMLManifestation
 from src.ted_sws.core.model.notice import Notice
-from src.ted_sws.data_manager.adapters.mapping_suite_repository import MappingPackageRepositoryInFileSystem, \
+from src.ted_sws.data_manager.adapters.mapping_package_repository import MappingPackageRepositoryInFileSystem, \
     MappingPackageRepositoryMongoDB
 from src.ted_sws.data_manager.adapters.notice_repository import NoticeRepository
 from src.ted_sws.event_manager.services.log import log_mapping_package_info, log_mapping_package_error
 from src.ted_sws.mapping_suite_processor.adapters.github_package_downloader import GitHubMappingPackageDownloader
 from src.ted_sws.mapping_suite_processor.services import MappingPackageProcessorServiceError
-from src.ted_sws.mapping_suite_processor.services.mapping_suite_digest_service import \
+from src.ted_sws.mapping_suite_processor.services.mapping_package_digest_service import \
     update_digest_api_address_for_mapping_package
-from src.ted_sws.mapping_suite_processor.services.mapping_suite_validation_service import validate_mapping_package, \
+from src.ted_sws.mapping_suite_processor.services.mapping_package_validation_service import validate_mapping_package, \
     get_mapping_package_id_from_file_system
 
 SHACL_SHAPE_INJECTION_FOLDER = "ap_data_shape"

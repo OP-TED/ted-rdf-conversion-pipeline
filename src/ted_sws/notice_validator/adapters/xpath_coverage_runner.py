@@ -10,7 +10,7 @@ from src.ted_sws.core.model.manifestation import XPATHCoverageValidationReport, 
 from src.ted_sws.core.model.notice import Notice
 from src.ted_sws.core.model.transform import MappingXPATH, MappingPackage
 from src.ted_sws.core.model.validation_report import ReportNotice
-from src.ted_sws.mapping_suite_processor.adapters.mapping_suite_reader import MappingPackageReader
+from src.ted_sws.mapping_suite_processor.adapters.mapping_package_reader import MappingPackageReader
 from src.ted_sws.notice_transformer.services.notice_transformer import transform_report_notices
 from src.ted_sws.notice_validator.resources.templates import TEMPLATE_METADATA_KEY
 

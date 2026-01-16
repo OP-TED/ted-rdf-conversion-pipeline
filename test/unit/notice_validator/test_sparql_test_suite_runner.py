@@ -4,8 +4,8 @@ from src.ted_sws.core.model.manifestation import RDFManifestation, RDFValidation
     SPARQLQueryResult, SPARQLQueryRefinedResultType
 from src.ted_sws.core.model.notice import NoticeStatus
 from src.ted_sws.core.model.validation_report import ReportNotice, SPARQLValidationSummaryReport
-from src.ted_sws.data_manager.adapters.mapping_suite_repository import MappingPackageRepositoryInFileSystem
-from src.ted_sws.mapping_suite_processor.adapters.mapping_suite_reader import MappingPackageReader
+from src.ted_sws.data_manager.adapters.mapping_package_repository import MappingPackageRepositoryInFileSystem
+from src.ted_sws.mapping_suite_processor.adapters.mapping_package_reader import MappingPackageReader
 from src.ted_sws.notice_validator.services.sparql_test_suite_runner import SPARQLTestSuiteRunner, SPARQLReportBuilder, \
     validate_notice_with_sparql_suite, validate_notice_by_id_with_sparql_suite, \
     generate_sparql_validation_summary_report

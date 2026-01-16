@@ -6,7 +6,7 @@ from src.ted_sws.core.model.manifestation import XMLManifestation
 from src.ted_sws.core.model.notice import Notice
 from src.ted_sws.core.model.transform import FileResource, MappingPackage
 from src.ted_sws.core.model.validation_report import ReportNotice, ReportNoticeMetadata
-from src.ted_sws.data_manager.adapters.mapping_suite_repository import MappingPackageRepositoryInFileSystem
+from src.ted_sws.data_manager.adapters.mapping_package_repository import MappingPackageRepositoryInFileSystem
 
 
 def file_resource_output_path(file_resource: FileResource, output_path: Path = '') -> Path:

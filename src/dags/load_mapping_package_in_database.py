@@ -20,7 +20,7 @@ from src.ted_sws.event_manager.adapters.event_logger import EventLogger
 from src.ted_sws.event_manager.model.event_message import MappingPackageEventMessage
 from src.ted_sws.event_manager.services.logger_from_context import get_logger_from_dag_context, \
     handle_event_message_metadata_dag_context
-from src.ted_sws.mapping_suite_processor.services.conceptual_mapping_processor import \
+from src.ted_sws.mapping_suite_processor.services.mapping_package_processor import \
     mapping_package_processor_from_github_expand_and_load_package_in_mongo_db
 
 FETCH_MAPPING_PACKAGE_FROM_GITHUB_INTO_MONGODB = "fetch_mapping_package_from_github_into_mongodb"

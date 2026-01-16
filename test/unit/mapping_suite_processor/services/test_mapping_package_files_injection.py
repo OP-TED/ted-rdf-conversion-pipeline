@@ -3,9 +3,9 @@ import shutil
 import tempfile
 from pathlib import Path
 
-from src.ted_sws.data_manager.adapters.mapping_suite_repository import MS_TRANSFORM_FOLDER_NAME, \
+from src.ted_sws.data_manager.adapters.mapping_package_repository import MS_TRANSFORM_FOLDER_NAME, \
     MS_CONCEPTUAL_MAPPING_FILE_NAME
-from src.ted_sws.mapping_suite_processor.services.conceptual_mapping_files_injection import \
+from src.ted_sws.mapping_suite_processor.services.mapping_package_files_injection import \
     mapping_package_processor_inject_resources, mapping_package_processor_inject_shacl_shapes, \
     mapping_package_processor_inject_shacl_shape, mapping_package_processor_inject_sparql_queries, \
     mapping_package_processor_inject_rml_modules, mapping_package_processor_inject_integration_sparql_queries

@@ -4,7 +4,7 @@ from pymongo import MongoClient
 from src.ted_sws import config
 from src.ted_sws.data_manager.adapters.notice_repository import NoticeRepository
 from src.ted_sws.data_sampler.services.notice_xml_indexer import index_notice
-from src.ted_sws.mapping_suite_processor.services.conceptual_mapping_processor import \
+from src.ted_sws.mapping_suite_processor.services.mapping_package_processor import \
     mapping_package_processor_from_github_expand_and_load_package_in_mongo_db
 from src.ted_sws.notice_metadata_processor.services.metadata_normalizer import normalise_notice
 

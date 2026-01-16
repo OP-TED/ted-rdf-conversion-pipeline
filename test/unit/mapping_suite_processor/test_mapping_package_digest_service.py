@@ -1,4 +1,4 @@
-from src.ted_sws.mapping_suite_processor.services.mapping_suite_digest_service import \
+from src.ted_sws.mapping_suite_processor.services.mapping_package_digest_service import \
     update_digest_api_address_for_mapping_package
 
 

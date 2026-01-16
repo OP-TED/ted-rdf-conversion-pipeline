@@ -1,6 +1,6 @@
 from pathlib import Path
 
-from src.ted_sws.data_manager.services.mapping_suite_resource_manager import mapping_package_notices_grouped_by_path, \
+from src.ted_sws.data_manager.services.mapping_package_resource_manager import mapping_package_notices_grouped_by_path, \
     mapping_package_files_grouped_by_path, read_flat_file_resources
 
 

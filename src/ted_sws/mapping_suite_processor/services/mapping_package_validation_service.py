@@ -2,10 +2,10 @@ import json
 import pathlib
 from typing import Optional
 
-from src.ted_sws.data_manager.adapters.mapping_suite_repository import MS_METADATA_FILE_NAME, \
+from src.ted_sws.data_manager.adapters.mapping_package_repository import MS_METADATA_FILE_NAME, \
     MS_STANDARD_METADATA_VERSION_KEY, MS_METADATA_IDENTIFIER_KEY, \
     MS_EFORMS_METADATA_VERSION_KEY
-from src.ted_sws.mapping_suite_processor.adapters.mapping_suite_structure_checker import MappingPackageStructureValidator
+from src.ted_sws.mapping_suite_processor.adapters.mapping_package_structure_checker import MappingPackageStructureValidator
 
 
 def get_mapping_package_id_from_file_system(mapping_package_path: pathlib.Path) -> Optional[str]:

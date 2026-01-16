@@ -1,7 +1,7 @@
 from src.ted_sws.core.model.validation_report import ReportNotice
-from src.ted_sws.data_manager.adapters.mapping_suite_repository import MappingPackageRepositoryInFileSystem, \
+from src.ted_sws.data_manager.adapters.mapping_package_repository import MappingPackageRepositoryInFileSystem, \
     MappingPackageRepositoryMongoDB
-from src.ted_sws.mapping_suite_processor.services.conceptual_mapping_processor import \
+from src.ted_sws.mapping_suite_processor.services.mapping_package_processor import \
     mapping_package_processor_load_package_in_mongo_db
 from src.ted_sws.notice_validator.services.xpath_coverage_runner import validate_xpath_coverage_notices, \
     xpath_coverage_json_report, xpath_coverage_html_report, validate_xpath_coverage_notice

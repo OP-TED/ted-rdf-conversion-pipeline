@@ -12,7 +12,7 @@ from src.ted_sws.core.model.validation_report import SPARQLValidationSummaryRepo
     ReportNotice
 from src.ted_sws.core.model.validation_report_data import ReportPackageNoticeData
 from src.ted_sws.data_manager.adapters.repository_abc import NoticeRepositoryABC, MappingPackageRepositoryABC
-from src.ted_sws.mapping_suite_processor.adapters.mapping_suite_reader import MappingPackageReader, \
+from src.ted_sws.mapping_suite_processor.adapters.mapping_package_reader import MappingPackageReader, \
     SPARQL_QUERY_METADATA_TITLE, SPARQL_QUERY_METADATA_DESCRIPTION, SPARQL_QUERY_METADATA_XPATH
 from src.ted_sws.notice_transformer.adapters.notice_transformer import NoticeTransformer
 from src.ted_sws.notice_validator.adapters.sparql_runner import SPARQLRunner

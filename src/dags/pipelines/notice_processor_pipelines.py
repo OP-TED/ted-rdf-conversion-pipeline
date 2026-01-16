@@ -35,7 +35,7 @@ def notice_transformation_pipeline(notice: Notice, mongodb_client: MongoClient) 
     from src.ted_sws.notice_metadata_processor.services.notice_eligibility import notice_eligibility_checker
     from src.ted_sws.notice_transformer.services.notice_transformer import transform_notice
     from src.ted_sws.notice_transformer.adapters.rml_mapper import RMLMapper
-    from src.ted_sws.data_manager.adapters.mapping_suite_repository import MappingPackageRepositoryMongoDB
+    from src.ted_sws.data_manager.adapters.mapping_package_repository import MappingPackageRepositoryMongoDB
     try:
         notice.update_status_to(new_status=NoticeStatus.NORMALISED_METADATA)
         mapping_package_repository = MappingPackageRepositoryMongoDB(mongodb_client=mongodb_client)
@@ -78,7 +78,7 @@ def notice_validation_pipeline(notice: Notice, mongodb_client: MongoClient) -> N
     from src.ted_sws.notice_validator.services.sparql_test_suite_runner import validate_notice_with_sparql_suite
     from src.ted_sws.notice_validator.services.validation_summary_runner import validation_summary_report_notice
     from src.ted_sws.notice_validator.services.xpath_coverage_runner import validate_xpath_coverage_notice
-    from src.ted_sws.data_manager.adapters.mapping_suite_repository import MappingPackageRepositoryMongoDB
+    from src.ted_sws.data_manager.adapters.mapping_package_repository import MappingPackageRepositoryMongoDB
     from src.ted_sws.event_manager.services.log import log_notice_info
     try:
         notice.update_status_to(new_status=NoticeStatus.DISTILLED)

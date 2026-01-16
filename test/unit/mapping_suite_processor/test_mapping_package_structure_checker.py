@@ -4,10 +4,10 @@ import shutil
 import tempfile
 from pathlib import Path
 
-from src.ted_sws.data_manager.adapters.mapping_suite_repository import MS_TRANSFORM_FOLDER_NAME, \
+from src.ted_sws.data_manager.adapters.mapping_package_repository import MS_TRANSFORM_FOLDER_NAME, \
     MS_OUTPUT_FOLDER_NAME, MS_RESOURCES_FOLDER_NAME, MS_TEST_DATA_FOLDER_NAME, \
     MS_CONCEPTUAL_MAPPING_FILE_NAME, MS_TEST_SUITE_REPORT, MS_MAPPINGS_FOLDER_NAME
-from src.ted_sws.mapping_suite_processor.adapters.mapping_suite_structure_checker import \
+from src.ted_sws.mapping_suite_processor.adapters.mapping_package_structure_checker import \
     MS_METADATA_FILE_NAME, MappingPackageStructureValidator
 
 KEY_VERSION = "Mapping Version"

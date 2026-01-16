@@ -3,7 +3,7 @@ from src.dags.pipelines.notice_processor_pipelines import notice_normalisation_p
     notice_validation_pipeline, notice_package_pipeline, notice_publish_pipeline
 from src.ted_sws.core.model.notice import NoticeStatus
 from src.ted_sws.data_manager.adapters.notice_repository import NoticeRepository
-from src.ted_sws.mapping_suite_processor.services.conceptual_mapping_processor import \
+from src.ted_sws.mapping_suite_processor.services.mapping_package_processor import \
     mapping_package_processor_from_github_expand_and_load_package_in_mongo_db
 
 MAPPING_PACKAGE_NAME = "package_F03_test"

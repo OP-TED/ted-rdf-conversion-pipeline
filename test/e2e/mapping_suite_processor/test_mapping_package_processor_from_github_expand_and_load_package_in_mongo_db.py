@@ -1,5 +1,5 @@
-from src.ted_sws.data_manager.adapters.mapping_suite_repository import MappingPackageRepositoryMongoDB
-from src.ted_sws.mapping_suite_processor.services.conceptual_mapping_processor import \
+from src.ted_sws.data_manager.adapters.mapping_package_repository import MappingPackageRepositoryMongoDB
+from src.ted_sws.mapping_suite_processor.services.mapping_package_processor import \
     mapping_package_processor_from_github_expand_and_load_package_in_mongo_db
 
 MAPPING_PACKAGE_NAME = "package_F03_test"

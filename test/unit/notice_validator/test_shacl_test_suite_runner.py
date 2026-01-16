@@ -4,7 +4,7 @@ from src.ted_sws.core.model.manifestation import RDFManifestation, RDFValidation
     SHACLTestSuiteValidationReport
 from src.ted_sws.core.model.notice import NoticeStatus
 from src.ted_sws.core.model.validation_report import ReportNotice, SHACLValidationSummaryReport
-from src.ted_sws.data_manager.adapters.mapping_suite_repository import MappingPackageRepositoryInFileSystem
+from src.ted_sws.data_manager.adapters.mapping_package_repository import MappingPackageRepositoryInFileSystem
 from src.ted_sws.notice_validator.services.shacl_test_suite_runner import SHACLTestSuiteRunner, \
     validate_notice_with_shacl_suite, validate_notice_by_id_with_shacl_suite, generate_shacl_report, \
     generate_shacl_validation_summary_report

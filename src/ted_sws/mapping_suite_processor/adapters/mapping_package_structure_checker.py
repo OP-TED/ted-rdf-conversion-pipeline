@@ -1,14 +1,14 @@
 import pathlib
 from typing import List, Union
 
-from src.ted_sws.data_manager.adapters.mapping_suite_repository import MS_TRANSFORM_FOLDER_NAME, MS_TEST_DATA_FOLDER_NAME, \
+from src.ted_sws.data_manager.adapters.mapping_package_repository import MS_TRANSFORM_FOLDER_NAME, MS_TEST_DATA_FOLDER_NAME, \
     MS_CONCEPTUAL_MAPPING_FILE_NAME, MS_RESOURCES_FOLDER_NAME, MS_MAPPINGS_FOLDER_NAME, MS_METADATA_FILE_NAME, \
     MS_VALIDATE_FOLDER_NAME, MS_SPARQL_FOLDER_NAME, MS_SHACL_FOLDER_NAME, MS_OUTPUT_FOLDER_NAME, MS_TEST_SUITE_REPORT, \
     mapping_package_read_version_from_metadata
 from src.ted_sws.event_manager.model.event_message import EventMessage, EventMessageLogSettings
 from src.ted_sws.event_manager.services.logger_from_context import get_console_logger
-from src.ted_sws.mapping_suite_processor.adapters.mapping_suite_hasher import MappingPackageHasher
-from src.ted_sws.mapping_suite_processor.services.mapping_suite_reader import mapping_package_read_metadata, \
+from src.ted_sws.mapping_suite_processor.adapters.mapping_package_hasher import MappingPackageHasher
+from src.ted_sws.mapping_suite_processor.services.mapping_package_reader import mapping_package_read_metadata, \
     MAPPING_PACKAGE_HASH
 
 SHACL_KEYWORD = "shacl"

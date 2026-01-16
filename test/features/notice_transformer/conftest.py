@@ -7,7 +7,7 @@ import pytest
 from src.ted_sws import config
 from src.ted_sws.core.model.notice import Notice, NoticeStatus
 from src.ted_sws.core.model.transform import MappingPackage
-from src.ted_sws.data_manager.adapters.mapping_suite_repository import MappingPackageRepositoryMongoDB, \
+from src.ted_sws.data_manager.adapters.mapping_package_repository import MappingPackageRepositoryMongoDB, \
     MappingPackageRepositoryInFileSystem
 from src.ted_sws.data_manager.adapters.notice_repository import NoticeRepository
 from src.ted_sws.notice_metadata_processor.services.metadata_normalizer import normalise_notice

@@ -4,7 +4,7 @@ import mongomock
 import pymongo
 import pytest
 from src.ted_sws.core.model.transform import MappingPackage
-from src.ted_sws.data_manager.adapters.mapping_suite_repository import MappingPackageRepositoryInFileSystem
+from src.ted_sws.data_manager.adapters.mapping_package_repository import MappingPackageRepositoryInFileSystem
 from test import TEST_DATA_PATH
 
 

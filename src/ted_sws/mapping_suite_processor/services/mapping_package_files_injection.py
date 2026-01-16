@@ -5,7 +5,7 @@ import pandas as pd
 
 from src.ted_sws.mapping_suite_processor import CONCEPTUAL_MAPPINGS_RESOURCES_SHEET_NAME, \
     CONCEPTUAL_MAPPINGS_RML_MODULES_SHEET_NAME, CONCEPTUAL_MAPPINGS_RULES_SHEET_NAME
-from src.ted_sws.mapping_suite_processor.adapters.mapping_suite_reader import FILE_NAME_KEY, REF_INTEGRATION_TESTS_KEY
+from src.ted_sws.mapping_suite_processor.adapters.mapping_package_reader import FILE_NAME_KEY, REF_INTEGRATION_TESTS_KEY
 
 
 def mapping_package_processor_inject_resources(conceptual_mappings_file_path: pathlib.Path,

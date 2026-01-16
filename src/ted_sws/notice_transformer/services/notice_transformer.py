@@ -7,9 +7,9 @@ from src.ted_sws.core.model.notice import Notice, NoticeStatus
 from src.ted_sws.core.model.transform import MappingPackage, FileResource
 from src.ted_sws.core.model.validation_report import ReportNotice
 from src.ted_sws.core.model.validation_report_data import ReportNoticeData
-from src.ted_sws.data_manager.adapters.mapping_suite_repository import MappingPackageRepositoryInFileSystem
+from src.ted_sws.data_manager.adapters.mapping_package_repository import MappingPackageRepositoryInFileSystem
 from src.ted_sws.data_manager.adapters.repository_abc import NoticeRepositoryABC, MappingPackageRepositoryABC
-from src.ted_sws.data_manager.services.mapping_suite_resource_manager import file_resource_output_path, \
+from src.ted_sws.data_manager.services.mapping_package_resource_manager import file_resource_output_path, \
     mapping_package_skipped_notice
 from src.ted_sws.event_manager.adapters.event_logger import EventLogger, EventMessageLogSettings
 from src.ted_sws.event_manager.model.event_message import NoticeEventMessage

@@ -1,6 +1,6 @@
 from deepdiff import DeepDiff
 
-from src.ted_sws.data_manager.adapters.mapping_suite_repository import MappingPackageRepositoryMongoDB, \
+from src.ted_sws.data_manager.adapters.mapping_package_repository import MappingPackageRepositoryMongoDB, \
     MappingPackageRepositoryInFileSystem
 
 

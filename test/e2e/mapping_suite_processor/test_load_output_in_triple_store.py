@@ -1,4 +1,4 @@
-from src.ted_sws.mapping_suite_processor.services.load_mapping_suite_output_into_triple_store import \
+from src.ted_sws.mapping_suite_processor.services.load_mapping_package_output_into_triple_store import \
     load_mapping_package_output_into_fuseki_triple_store, repository_exists
 
 

@@ -2,7 +2,7 @@ from datetime import datetime
 
 import semantic_version
 from src.ted_sws.core.model.notice import NoticeStatus
-from src.ted_sws.data_manager.adapters.mapping_suite_repository import MappingPackageRepositoryInFileSystem
+from src.ted_sws.data_manager.adapters.mapping_package_repository import MappingPackageRepositoryInFileSystem
 from src.ted_sws.notice_metadata_processor.services.metadata_normalizer import normalise_notice
 from src.ted_sws.notice_metadata_processor.services.notice_eligibility import check_package, \
     notice_eligibility_checker, notice_eligibility_checker_by_id, format_version_with_zero_patch, is_date_in_range

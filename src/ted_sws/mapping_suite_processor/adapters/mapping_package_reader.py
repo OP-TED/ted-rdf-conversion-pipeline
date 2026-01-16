@@ -3,7 +3,7 @@ from pathlib import Path
 from typing import Dict, List, Tuple
 
 from src.ted_sws.core.model.transform import MappingXPATH, MappingPackage
-from src.ted_sws.data_manager.adapters.mapping_suite_repository import MS_METADATA_FILE_NAME
+from src.ted_sws.data_manager.adapters.mapping_package_repository import MS_METADATA_FILE_NAME
 
 # This set of constants refers to fields in the Conceptual Mapping file
 VERSION_FIELD = 'Mapping Version'

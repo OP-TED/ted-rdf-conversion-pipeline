@@ -1,6 +1,6 @@
 import pytest
 
-from src.ted_sws.data_manager.adapters.mapping_suite_repository import MappingPackageRepositoryInFileSystem
+from src.ted_sws.data_manager.adapters.mapping_package_repository import MappingPackageRepositoryInFileSystem
 from src.ted_sws.notice_validator.adapters.sparql_runner import SPARQLRunner
 from src.ted_sws.rml_to_html.resources.query_registry import QueryRegistry
 from src.ted_sws.rml_to_html.services.rml_to_html import rml_files_to_html_report, query_uri_substitution, get_query_results

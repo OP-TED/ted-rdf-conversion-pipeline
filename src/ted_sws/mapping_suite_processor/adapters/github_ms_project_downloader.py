@@ -3,9 +3,13 @@ import pathlib
 import shutil
 import subprocess
 import tempfile
+from typing import ClassVar
 from src.ted_sws import config
 
+# TODO: get from env or config
 MAPPINGS_DIR_NAME = "mappings"
+MS_CONFIG_DIR_NAME = "config"
+MS_CONFIG_FILE_NAME = "mapping_suite_config.json"
 
 
 def get_repo_name_from_repo_url(repository_url: str) -> str:
@@ -16,23 +20,26 @@ def get_repo_name_from_repo_url(repository_url: str) -> str:
     return url_path.stem
 
 
-class MappingPackageDownloaderABC(abc.ABC):
+class MappingSuiteDownloaderABC(abc.ABC):
     """
-        This class is intended to download mapping_package from external resources.
+    This class is intended to download a mapping suite (project) from an external resources.
     """
+    MAPPINGS_DIR_NAME: ClassVar[str] = "mappings"
+    MS_CONFIG_DIR_NAME: ClassVar[str] = "config"
+    MS_CONFIG_FILE_NAME: ClassVar[str] = "mapping_suite_config.json"
 
     @abc.abstractmethod
-    def download(self, output_mapping_package_path: pathlib.Path):
+    def download(self, output_project_path: pathlib.Path):
         """
-            This method downloads a mapping_package and loads it at the output_mapping_package_path provided.
-        :param output_mapping_package_path:
+        This method downloads a mapping suite and places it at the output_project_path provided.
+        :param output_project_path:
         :return:
         """
 
 
-class GitHubMappingPackageDownloader(MappingPackageDownloaderABC):
+class GitHubMappingSuiteDownloader(MappingSuiteDownloaderABC):
     """
-        This class downloads mapping_package from GitHub.
+    This class downloads a mapping suite (project) from GitHub.
     """
 
     def __init__(self, github_repository_url: str, branch_or_tag_name: str):
@@ -44,11 +51,13 @@ class GitHubMappingPackageDownloader(MappingPackageDownloaderABC):
         self.github_repository_url = github_repository_url
         self.branch_or_tag_name = branch_or_tag_name
         self.repository_name = get_repo_name_from_repo_url(repository_url=github_repository_url)
+        self.mappings_dir_name = MAPPINGS_DIR_NAME
+        self.config_dir_name = MS_CONFIG_DIR_NAME
 
-    def download(self, output_mapping_package_path: pathlib.Path) -> str:
+    def download(self, output_project_path: pathlib.Path) -> str:
         """
-            This method downloads a mapping_package and loads it at the output_mapping_package_path provided.
-        :param output_mapping_package_path:
+        This method downloads a mapping suite and places it at the output_project_path provided.
+        :param output_project_path:
         :return:
         """
 
@@ -73,6 +82,6 @@ class GitHubMappingPackageDownloader(MappingPackageDownloaderABC):
                            stderr=subprocess.STDOUT)
             git_last_commit_hash = get_git_head_hash(
                 git_repository_path=temp_dir_path / self.repository_name)
-            downloaded_tmp_mapping_package_path = temp_dir_path / self.repository_name / MAPPINGS_DIR_NAME
-            shutil.copytree(downloaded_tmp_mapping_package_path, output_mapping_package_path, dirs_exist_ok=True)
+            downloaded_tmp_project_path = temp_dir_path / self.repository_name
+            shutil.copytree(downloaded_tmp_project_path, output_project_path, dirs_exist_ok=True)
         return git_last_commit_hash

@@ -1,17 +1,17 @@
 import pathlib
 
 from src.ted_sws import config
-from src.ted_sws.mapping_suite_processor.adapters.github_package_downloader import GitHubMappingPackageDownloader, \
+from src.ted_sws.mapping_suite_processor.adapters.github_ms_project_downloader import GitHubMappingSuiteDownloader, \
     get_repo_name_from_repo_url
 from test.e2e.mapping_suite_processor import MAPPING_PACKAGE_NAME
 
 
-def test_github_mapping_package_downloader(tmpdir):
-    mapping_package_downloader = GitHubMappingPackageDownloader(
+def test_github_mapping_suite_downloader(tmpdir):
+    mapping_suite_downloader = GitHubMappingSuiteDownloader(
         github_repository_url=config.GITHUB_TED_SWS_ARTEFACTS_URL, branch_or_tag_name="main")
     tmp_dir_path = pathlib.Path(tmpdir)
-    mapping_package_downloader.download(output_mapping_package_path=tmp_dir_path)
-    mapping_package_path = tmp_dir_path / MAPPING_PACKAGE_NAME
+    mapping_suite_downloader.download(output_project_path=tmp_dir_path)
+    mapping_package_path = tmp_dir_path / mapping_suite_downloader.MAPPINGS_DIR_NAME / MAPPING_PACKAGE_NAME
     assert mapping_package_path.is_dir()
 
 

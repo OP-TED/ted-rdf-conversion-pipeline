@@ -1,0 +1,290 @@
+{
+  "mapping_suite_config": {
+    "mapping_suite_metadata": {
+      "mapping_suite_identifier": "eForms",
+      "mapping_suite_description": "Mapping suite configuration for European eForms procurement notices"
+    },
+    "metadata_config": {
+      "document_type_probing": {
+        "must_exist": [
+          {
+            "formal_expression": ".//efext:EformsExtension",
+            "formal_expression_type": "xpath",
+            "extraction_method": "element",
+            "attribute_name": null
+          },
+          {
+            "formal_expression": ".//cbc:CustomizationID[contains(text(), 'eForms')]",
+            "formal_expression_type": "xpath",
+            "extraction_method": "text",
+            "attribute_name": null
+          }
+        ],
+        "must_not_exist": [
+          {
+            "formal_expression": ".//sf:StandardForms",
+            "formal_expression_type": "xpath",
+            "extraction_method": "element",
+            "attribute_name": null
+          },
+          {
+            "formal_expression": ".//ext:UBLExtension/ext:ExtensionContent[not(.//efext:EformsExtension)]",
+            "formal_expression_type": "xpath",
+            "extraction_method": "element",
+            "attribute_name": null
+          }
+        ]
+      },
+      "metadata_properties": [
+        {
+          "property": "title",
+          "property_description": "Short title of the notice",
+          "property_extractors": [
+            {
+              "formal_expression": ".//cac:ProcurementProject/cbc:Name",
+              "formal_expression_type": "xpath",
+              "extraction_method": "text",
+              "attribute_name": null
+            },
+            {
+              "formal_expression": ".//efac:NoticeContract/cbc:Title",
+              "formal_expression_type": "xpath",
+              "extraction_method": "text",
+              "attribute_name": null
+            }
+          ]
+        },
+        {
+          "property": "long_title",
+          "property_description": "Extended title with additional context",
+          "property_extractors": [
+            {
+              "formal_expression": ".//cac:ProcurementProject/cbc:Description",
+              "formal_expression_type": "xpath",
+              "extraction_method": "text",
+              "attribute_name": null
+            }
+          ]
+        },
+        {
+          "property": "notice_publication_number",
+          "property_description": "Official notice publication number",
+          "property_extractors": [
+            {
+              "formal_expression": ".//cbc:ID",
+              "formal_expression_type": "xpath",
+              "extraction_method": "text",
+              "attribute_name": null
+            }
+          ]
+        },
+        {
+          "property": "publication_date",
+          "property_description": "Date when the notice was first published",
+          "property_extractors": [
+            {
+              "formal_expression": ".//cbc:IssueDate",
+              "formal_expression_type": "xpath",
+              "extraction_method": "text",
+              "attribute_name": null
+            }
+          ]
+        },
+        {
+          "property": "original_language",
+          "property_description": "Language code of the original document",
+          "property_extractors": [
+            {
+              "formal_expression": ".//ext:UBLExtensions/ext:UBLExtension/ext:ExtensionContent/efext:EformsExtension/efac:Notice/@language",
+              "formal_expression_type": "xpath",
+              "extraction_method": "attribute",
+              "attribute_name": "language"
+            }
+          ]
+        },
+        {
+          "property": "notice_type",
+          "property_description": "Type classification of the notice (e.g., contract notice, result notice)",
+          "property_extractors": [
+            {
+              "formal_expression": ".//efac:NoticeType/cbc:NoticeTypeCode/@listName",
+              "formal_expression_type": "xpath",
+              "extraction_method": "attribute",
+              "attribute_name": "listName"
+            },
+            {
+              "formal_expression": ".//efac:NoticeType/cbc:NoticeTypeCode",
+              "formal_expression_type": "xpath",
+              "extraction_method": "text",
+              "attribute_name": null
+            }
+          ]
+        },
+        {
+          "property": "eforms_subtype",
+          "property_description": "eForms-specific subtype code",
+          "property_extractors": [
+            {
+              "formal_expression": ".//efac:NoticeSubType/cbc:SubTypeCode[@listName='notice-subtype']",
+              "formal_expression_type": "xpath",
+              "extraction_method": "text",
+              "attribute_name": null
+            },
+            {
+              "formal_expression": ".//efac:NoticeSubType/cbc:SubTypeCode",
+              "formal_expression_type": "xpath",
+              "extraction_method": "text",
+              "attribute_name": null
+            }
+          ]
+        },
+        {
+          "property": "form_type",
+          "property_description": "Type of procurement form (e.g., open, restricted, negotiated)",
+          "property_extractors": [
+            {
+              "formal_expression": ".//cac:ProcurementProject/cbc:ProcurementTypeCode",
+              "formal_expression_type": "xpath",
+              "extraction_method": "text",
+              "attribute_name": null
+            }
+          ]
+        },
+        {
+          "property": "country_of_buyer",
+          "property_description": "Country where the contracting authority is located",
+          "property_extractors": [
+            {
+              "formal_expression": ".//cac:ContractingParty/cac:Party/cac:PartyLocation/cac:Address/cbc:CountryIdentificationCode",
+              "formal_expression_type": "xpath",
+              "extraction_method": "text",
+              "attribute_name": null
+            }
+          ]
+        },
+        {
+          "property": "name_of_buyer",
+          "property_description": "Official name of the contracting authority",
+          "property_extractors": [
+            {
+              "formal_expression": ".//cac:ContractingParty/cac:Party/cac:PartyName/cbc:Name",
+              "formal_expression_type": "xpath",
+              "extraction_method": "text",
+              "attribute_name": null
+            }
+          ]
+        },
+        {
+          "property": "place_of_performance",
+          "property_description": "Geographic location where services/goods will be performed",
+          "property_extractors": [
+            {
+              "formal_expression": ".//cac:ProcurementProject/cac:PlannedPeriod/cac:FrameworkAgreement/cac:PlannedPeriod/cac:FrameworkAgreement/cbc:City",
+              "formal_expression_type": "xpath",
+              "extraction_method": "text",
+              "attribute_name": null
+            }
+          ]
+        },
+        {
+          "property": "deadline_for_submission",
+          "property_description": "Deadline for tender or application submission",
+          "property_extractors": [
+            {
+              "formal_expression": ".//cac:TenderingProcess/cbc:TenderSubmissionDeadlineDateTime",
+              "formal_expression_type": "xpath",
+              "extraction_method": "text",
+              "attribute_name": null
+            }
+          ]
+        },
+        {
+          "property": "xsd_version",
+          "property_description": "Version of the XSD schema used in document",
+          "property_extractors": [
+            {
+              "formal_expression": "//*/attribute::schemaVersion",
+              "formal_expression_type": "xpath",
+              "extraction_method": "attribute",
+              "attribute_name": "schemaVersion"
+            },
+            {
+              "formal_expression": ".//cbc:SchemaVersionIdentifier",
+              "formal_expression_type": "xpath",
+              "extraction_method": "text",
+              "attribute_name": null
+            }
+          ]
+        },
+        {
+          "property": "eform_sdk_version",
+          "property_description": "Version of the eForms SDK used to generate the document",
+          "property_extractors": [
+            {
+              "formal_expression": ".//efext:EformsExtension/@sdk-version",
+              "formal_expression_type": "xpath",
+              "extraction_method": "attribute",
+              "attribute_name": "sdk-version"
+            }
+          ]
+        },
+        {
+          "property": "document_sent_date",
+          "property_description": "Date when the document was sent/transmitted",
+          "property_extractors": [
+            {
+              "formal_expression": ".//cbc:SendingDateTime",
+              "formal_expression_type": "xpath",
+              "extraction_method": "text",
+              "attribute_name": null
+            }
+          ]
+        },
+        {
+          "property": "legal_basis_directive",
+          "property_description": "EU Directive that forms the legal basis for this procurement",
+          "property_extractors": [
+            {
+              "formal_expression": ".//cac:ProcurementLegislationDocumentReference/cbc:DocumentType",
+              "formal_expression_type": "xpath",
+              "extraction_method": "text",
+              "attribute_name": null
+            }
+          ]
+        }
+      ]
+    },
+    "eligibility_constraint_config": {
+      "eligibility_mapping": [
+        {
+          "property": "eforms_subtype",
+          "constraint_property": "document_type_list",
+          "matching_method": "in_list",
+          "description": "Maps eForms subtype to document type constraint for package selection"
+        },
+        {
+          "property": "country_of_buyer",
+          "constraint_property": "country_scope",
+          "matching_method": "in_list",
+          "description": "Selects packages applicable to specific countries"
+        },
+        {
+          "property": "xsd_version",
+          "constraint_property": "schema_version_range",
+          "matching_method": "range",
+          "description": "Ensures compatibility with specific XSD schema versions"
+        }
+      ]
+    }
+  },
+  "resources_collection": {
+    "resource_files": [
+      "code_lists/notice_subtypes.json",
+      "code_lists/procurement_types.json",
+      "code_lists/countries.json",
+      "normalization/eforms_normalisation_rules.csv",
+      "value_mappings/directive_mapping.json",
+      "value_mappings/language_codes.json"
+    ]
+  }
+}

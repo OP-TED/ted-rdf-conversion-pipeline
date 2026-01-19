@@ -57,8 +57,8 @@ class TestMappingSuiteRepositoryMongoDB:
             mock_read_many.assert_called_once()
             assert result == suites
     
-    def test_delete_suite(self, repository):
-        """Test delete() removes a suite by ID."""
-        with patch.object(repository, 'delete') as mock_delete:
+    def test_delete_suite_calls_super(self, repository):
+        """Test delete() calls super().delete with the suite_id."""
+        with patch.object(repository.__class__.__bases__[0], 'delete') as mock_super_delete:
             repository.delete("test_suite_123")
-            mock_delete.assert_called_once_with("test_suite_123")
+            mock_super_delete.assert_called_once_with("test_suite_123")

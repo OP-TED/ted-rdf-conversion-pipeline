@@ -1,5 +1,5 @@
 import shutil
-from unittest.mock import MagicMock, patch
+from unittest.mock import Mock, patch
 
 from src.ted_sws.data_manager.adapters.mapping_package_repository import MappingPackageRepositoryInFileSystem, \
     MappingPackageRepositoryMongoDB
@@ -29,7 +29,7 @@ def test_mapping_package_processor_upload_in_mongodb(file_system_repository_path
 def test_load_mapping_suite_config_from_github_to_mongo_db(mongodb_client, aggregates_database_name):
     test_suite_path = TEST_DATA_PATH / "mapping_suite_processor" / "mapping_project_eforms"
 
-    mock_downloader = MagicMock()
+    mock_downloader = Mock()
     mock_downloader.MAPPINGS_DIR_NAME = "mappings"
     mock_downloader.MS_CONFIG_DIR_NAME = "config"
     mock_downloader.MS_CONFIG_FILE_NAME = "mapping_suite_config.json"
@@ -73,7 +73,7 @@ def test_load_mapping_suite_config_from_github_to_mongo_db(mongodb_client, aggre
 
 
 def test_load_mapping_suite_config_directory_missing_file(mongodb_client, aggregates_database_name):
-    mock_downloader = MagicMock()
+    mock_downloader = Mock()
     mock_downloader.MAPPINGS_DIR_NAME = "mappings"
     mock_downloader.MS_CONFIG_DIR_NAME = "config"
     mock_downloader.MS_CONFIG_FILE_NAME = "mapping_suite_config.json"

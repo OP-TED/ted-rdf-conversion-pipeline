@@ -38,13 +38,24 @@ jobs:
 
       - name: Install Vault
         run: |
-          wget -O- https://apt.releases.hashicorp.com/gpg | sudo gpg --dearmor -o /usr/share/keyrings/hashicorp-archive-keyring.gpg
-          echo "deb [signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] https://apt.releases.hashicorp.com $(lsb_release -cs) main" | sudo tee /etc/apt/sources.list.d/hashicorp.list
-          sudo apt-get update && sudo apt-get install -y vault
+          if ! command -v vault &> /dev/null; then
+            wget -O- https://apt.releases.hashicorp.com/gpg | sudo gpg --dearmor -o /usr/share/keyrings/hashicorp-archive-keyring.gpg
+            echo "deb [signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] https://apt.releases.hashicorp.com $(lsb_release -cs) main" | sudo tee /etc/apt/sources.list.d/hashicorp.list
+            sudo apt-get update && sudo apt-get install -y vault
+          else
+            echo "Vault already installed: $(vault --version)"
+          fi
 
-      - name: Install dependencies
+      - name: Install system dependencies
         run: |
-          sudo apt-get install -y libssl-dev libcurl4-openssl-dev
+          if ! dpkg -s libssl-dev &> /dev/null; then
+            sudo apt-get update && sudo apt-get install -y libssl-dev libcurl4-openssl-dev
+          else
+            echo "System dependencies already installed"
+          fi
+
+      - name: Install Python dependencies
+        run: |
           python -m pip install --upgrade setuptools pip wheel
           make install
           make install-dev

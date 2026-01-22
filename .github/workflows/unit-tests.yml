@@ -78,8 +78,10 @@ jobs:
           make init-limes
           make init-rml-mapper
 
+      # Using python -m tox instead of make targets to avoid conflict with
+      # outdated system tox on self-hosted runner (/home/lps/.local/bin/tox)
       - name: Run tests
-        run: ${{ github.event_name == 'pull_request' && 'make test-all' || 'make test' }}
+        run: ${{ github.event_name == 'pull_request' && 'python -m tox' || 'python -m tox -e unit' }}
 
       - name: SonarCloud Scan
         uses: SonarSource/sonarqube-scan-action@v6

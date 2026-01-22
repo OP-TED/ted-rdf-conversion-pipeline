@@ -4,7 +4,7 @@ on:
   push:
     branches: [feature/**, main, hotfix/**, release/**]
   pull_request:
-    branches: [main, release/*]
+    branches: [main, release/**]
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
@@ -16,9 +16,39 @@ env:
   ENVIRONMENT: staging
 
 jobs:
-  test:
-    name: Run Tests
-    runs-on: self-hosted
+  unit-tests:
+    name: Unit Tests
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python 3.10
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+
+      - name: Install dependencies
+        run: |
+          sudo apt-get update && sudo apt-get install -y libssl-dev libcurl4-openssl-dev
+          python -m pip install --upgrade setuptools pip wheel
+          make install
+          make install-dev
+
+      - name: Create env file
+        run: |
+          echo "VAULT_TOKEN=${{ secrets.VAULT_TOKEN }}" >> .env
+          echo "VAULT_ADDR=${{ secrets.VAULT_ADDR }}" >> .env
+
+      - name: Run unit tests
+        run: make test
+
+  full-tests:
+    name: Full Tests
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
 
     steps:
       - uses: actions/checkout@v4
@@ -38,24 +68,13 @@ jobs:
 
       - name: Install Vault
         run: |
-          if ! command -v vault &> /dev/null; then
-            wget -O- https://apt.releases.hashicorp.com/gpg | sudo gpg --dearmor -o /usr/share/keyrings/hashicorp-archive-keyring.gpg
-            echo "deb [signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] https://apt.releases.hashicorp.com $(lsb_release -cs) main" | sudo tee /etc/apt/sources.list.d/hashicorp.list
-            sudo apt-get update && sudo apt-get install -y vault
-          else
-            echo "Vault already installed: $(vault --version)"
-          fi
+          wget -O- https://apt.releases.hashicorp.com/gpg | sudo gpg --dearmor -o /usr/share/keyrings/hashicorp-archive-keyring.gpg
+          echo "deb [signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] https://apt.releases.hashicorp.com $(lsb_release -cs) main" | sudo tee /etc/apt/sources.list.d/hashicorp.list
+          sudo apt-get update && sudo apt-get install -y vault
 
-      - name: Install system dependencies
+      - name: Install dependencies
         run: |
-          if ! dpkg -s libssl-dev &> /dev/null; then
-            sudo apt-get update && sudo apt-get install -y libssl-dev libcurl4-openssl-dev
-          else
-            echo "System dependencies already installed"
-          fi
-
-      - name: Install Python dependencies
-        run: |
+          sudo apt-get install -y libssl-dev libcurl4-openssl-dev
           python -m pip install --upgrade setuptools pip wheel
           make install
           make install-dev
@@ -72,7 +91,7 @@ jobs:
       - name: Get RML mapper
         run: make init-rml-mapper
 
-      - name: Run tests
+      - name: Run full tests
         run: make test-all
 
       - name: SonarCloud Scan

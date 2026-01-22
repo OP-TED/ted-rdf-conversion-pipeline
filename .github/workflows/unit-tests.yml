@@ -16,39 +16,9 @@ env:
   ENVIRONMENT: staging
 
 jobs:
-  unit-tests:
-    name: Unit Tests
-    runs-on: ubuntu-latest
-
-    steps:
-      - uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-
-      - name: Set up Python 3.10
-        uses: actions/setup-python@v5
-        with:
-          python-version: '3.10'
-
-      - name: Install dependencies
-        run: |
-          sudo apt-get update && sudo apt-get install -y libssl-dev libcurl4-openssl-dev
-          python -m pip install --upgrade setuptools pip wheel
-          make install
-          make install-dev
-
-      - name: Create env file
-        run: |
-          echo "VAULT_TOKEN=${{ secrets.VAULT_TOKEN }}" >> .env
-          echo "VAULT_ADDR=${{ secrets.VAULT_ADDR }}" >> .env
-
-      - name: Run unit tests
-        run: make test
-
-  full-tests:
-    name: Full Tests
-    if: github.event_name == 'pull_request'
-    runs-on: ubuntu-latest
+  test:
+    name: ${{ github.event_name == 'pull_request' && 'Full Tests' || 'Unit Tests' }}
+    runs-on: ${{ github.event_name == 'pull_request' && 'self-hosted' || 'ubuntu-latest' }}
 
     steps:
       - uses: actions/checkout@v4
@@ -61,38 +31,55 @@ jobs:
           python-version: '3.10'
 
       - name: Set up Java
+        if: github.event_name == 'pull_request'
         uses: actions/setup-java@v4
         with:
           distribution: 'temurin'
           java-version: '11'
 
       - name: Install Vault
+        if: github.event_name == 'pull_request'
         run: |
-          wget -O- https://apt.releases.hashicorp.com/gpg | sudo gpg --dearmor -o /usr/share/keyrings/hashicorp-archive-keyring.gpg
-          echo "deb [signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] https://apt.releases.hashicorp.com $(lsb_release -cs) main" | sudo tee /etc/apt/sources.list.d/hashicorp.list
-          sudo apt-get update && sudo apt-get install -y vault
+          if ! command -v vault &> /dev/null; then
+            wget -O- https://apt.releases.hashicorp.com/gpg | sudo gpg --dearmor -o /usr/share/keyrings/hashicorp-archive-keyring.gpg
+            echo "deb [signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] https://apt.releases.hashicorp.com $(lsb_release -cs) main" | sudo tee /etc/apt/sources.list.d/hashicorp.list
+            sudo apt-get update && sudo apt-get install -y vault
+          else
+            echo "Vault already installed: $(vault --version)"
+          fi
 
-      - name: Install dependencies
+      - name: Install system dependencies
         run: |
-          sudo apt-get install -y libssl-dev libcurl4-openssl-dev
+          if ! dpkg -s libssl-dev &> /dev/null; then
+            sudo apt-get update && sudo apt-get install -y libssl-dev libcurl4-openssl-dev
+          else
+            echo "System dependencies already installed"
+          fi
+
+      - name: Install Python dependencies
+        run: |
           python -m pip install --upgrade setuptools pip wheel
           make install
           make install-dev
 
       - name: Create env file
-        run: make staging-dotenv-file
+        run: |
+          if [ "${{ github.event_name }}" == "pull_request" ]; then
+            make staging-dotenv-file
+          else
+            echo "VAULT_TOKEN=${{ secrets.VAULT_TOKEN }}" >> .env
+            echo "VAULT_ADDR=${{ secrets.VAULT_ADDR }}" >> .env
+          fi
 
-      - name: Get Saxon
-        run: make init-saxon
+      - name: Get Java tools (Saxon, Limes, RML mapper)
+        if: github.event_name == 'pull_request'
+        run: |
+          make init-saxon
+          make init-limes
+          make init-rml-mapper
 
-      - name: Get Limes
-        run: make init-limes
-
-      - name: Get RML mapper
-        run: make init-rml-mapper
-
-      - name: Run full tests
-        run: make test-all
+      - name: Run tests
+        run: ${{ github.event_name == 'pull_request' && 'make test-all' || 'make test' }}
 
       - name: SonarCloud Scan
         uses: SonarSource/sonarqube-scan-action@v4

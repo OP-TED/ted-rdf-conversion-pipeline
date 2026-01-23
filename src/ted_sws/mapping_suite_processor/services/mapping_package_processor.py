@@ -7,8 +7,7 @@ from pymongo import MongoClient
 from src.ted_sws import config
 from src.ted_sws.core.model.manifestation import XMLManifestation
 from src.ted_sws.core.model.notice import Notice
-from src.ted_sws.data_manager.adapters.mapping_package_repository import MappingPackageRepositoryInFileSystem, \
-    MappingPackageRepositoryMongoDB
+from src.ted_sws.data_manager.adapters.mapping_package_repository import MappingPackageRepositoryMongoDB
 from src.ted_sws.data_manager.adapters.mapping_suite_repository import MappingSuiteRepositoryMongoDB
 from src.ted_sws.data_manager.adapters.notice_repository import NoticeRepository
 from src.ted_sws.event_manager.services.log import log_mapping_package_info, log_mapping_package_error, \
@@ -17,11 +16,16 @@ from src.ted_sws.mapping_suite_processor.adapters.github_ms_project_downloader i
 from src.ted_sws.mapping_suite_processor.services import MappingPackageProcessorServiceError
 from src.ted_sws.mapping_suite_processor.services.mapping_package_digest_service import \
     update_digest_api_address_for_mapping_package
+# TODO: DEPRECATE/REMOVE once tests updated for MSSDK validation
 from src.ted_sws.mapping_suite_processor.services.mapping_package_validation_service import validate_mapping_package, \
     get_mapping_package_id_from_file_system
 
 from mapping_suite_sdk.mapping_suite.services.load_mapping_suite import load_mapping_suite_from_folder
+from mapping_suite_sdk.tools.services.convert_mapping_package import load_mapping_package_from_folder
+from mapping_suite_sdk.core.adapters.version_detector import detect_mapping_package_version
+from mapping_suite_sdk.mapping_package_v2.services.validate_mapping_package_v2 import validate_mapping_package_v2
 
+from src.ted_sws.core.model.transform import MappingPackage
 
 SHACL_SHAPE_INJECTION_FOLDER = "ap_data_shape"
 SHACL_SHAPE_RESOURCES_FOLDER = "shacl_shapes"
@@ -35,33 +39,38 @@ DEFAULT_BRANCH_NAME = "main"
 MAPPING_PACKAGE_UNKNOWN_ID = "unknown_mapping_package_id"
 
 
-def mapping_package_processor_load_package_in_mongo_db(mapping_package_path: pathlib.Path,
-                                                     mongodb_client: MongoClient,
-                                                     load_test_data: bool = False,
-                                                     git_last_commit_hash: str = None
-                                                     ) -> List[str]:
+def mapping_package_processor_load_package_in_mongo_db(
+    package: MappingPackage,
+    mongodb_client: MongoClient,
+    load_test_data: bool = False,
+    git_last_commit_hash: str = None
+) -> List[str]:
+    """Load a mapping package to MongoDB.
+    
+    Supports both legacy MappingPackage model and MSSDK models (V1, V2, V3, V3L).
+    
+    Args:
+        package: The mapping package (legacy or MSSDK model)
+        mongodb_client: MongoDB client instance
+        load_test_data: Whether to load test data as notices
+        git_last_commit_hash: Optional git commit hash to store
+        
+    Returns:
+        List of notice IDs that were loaded (if load_test_data=True)
     """
-        This feature allows you to upload a mapping package package to MongoDB.
-    :param mapping_package_path:
-    :param mongodb_client:
-    :param load_test_data:
-    :param git_last_commit_hash:
-    :return:
-    """
+    # Update digest
+    # FIXME refactor for MSSDK transformation rule set structure, currently BROKEN
+    update_digest_api_address_for_mapping_package(package)
 
-    mapping_package_repository_path = mapping_package_path.parent
-    mapping_package_name = mapping_package_path.name
-    mapping_package_repository_in_file_system = MappingPackageRepositoryInFileSystem(
-        repository_path=mapping_package_repository_path)
-    mapping_package_in_memory = mapping_package_repository_in_file_system.get(reference=mapping_package_name)
-
-    update_digest_api_address_for_mapping_package(mapping_package_in_memory)
-
+    # Update git hash if provided and field exists
     if git_last_commit_hash is not None:
-        mapping_package_in_memory.git_latest_commit_hash = git_last_commit_hash
+        package.git_latest_commit_hash = git_last_commit_hash
     result_notice_ids = []
+    
+    # Load test data if requested
+    # FIXME refactor for MSSDK's two-level test data structure, currently BROKEN
     if load_test_data:
-        tests_data = mapping_package_in_memory.transformation_test_data.test_data
+        tests_data = package.transformation_test_data.test_data
         notice_repository = NoticeRepository(mongodb_client=mongodb_client)
         for test_data in tests_data:
             notice_id = test_data.file_name.split(".")[0]
@@ -70,7 +79,8 @@ def mapping_package_processor_load_package_in_mongo_db(mapping_package_path: pat
             notice_repository.add(notice=notice)
             result_notice_ids.append(notice_id)
     mapping_package_repository_mongo_db = MappingPackageRepositoryMongoDB(mongodb_client=mongodb_client)
-    mapping_package_repository_mongo_db.add(mapping_package=mapping_package_in_memory)
+    # FIXME: will throw pymongo.errors.DuplicateKeyError if package with same id exists
+    mapping_package_repository_mongo_db.add(package)
     return result_notice_ids
 
 
@@ -130,32 +140,39 @@ def load_mapping_suite_and_packages_from_github_to_mongo_db(mongodb_client: Mong
             mappings_dir_path / mapping_package_name ] if mapping_package_name else list(mappings_dir_path.iterdir())
         result_notice_ids = []
         for mapping_package_path in mapping_package_paths:
-            validation_result = validate_mapping_package(mapping_package_path=mapping_package_path)
-            mapping_package_id = get_mapping_package_id_from_file_system(mapping_package_path=mapping_package_path)
-            if mapping_package_id is None:
-                error_msg = "Invalid mapping package metadata, can't read mapping package identifier!"
-                log_mapping_package_error(
-                    message=error_msg,
-                    mapping_package_id=MAPPING_PACKAGE_UNKNOWN_ID)
-                raise MappingPackageProcessorServiceError(error_msg)
-            elif validation_result:
+            detected_version = detect_mapping_package_version(mapping_package_path)
+            log_technical_info(
+                message=f"Mapping package version detected '{detected_version}'")
+            # TODO once MSSDK detection and conversion works, do conversion here based on detected version
+            mssdk_package = load_mapping_package_from_folder("v2", mapping_package_path)
+            log_technical_info(
+                message=f"Mapping package '{mssdk_package.id}' loaded from folder with success")            
+            validation_result = validate_mapping_package_v2(mssdk_package)
+            mapping_package = _convert_to_mapping_package(mssdk_package)
+            if validation_result:
                 log_mapping_package_info(
-                    message=f"Mapping package with id={mapping_package_id} is valid for loading in MongoDB!",
-                    mapping_package_id=mapping_package_id)
+                    message=f"Mapping package with id={mapping_package.id} is valid for loading in MongoDB!",
+                    mapping_package_id=mapping_package.id)
                 result_notice_ids.extend(mapping_package_processor_load_package_in_mongo_db(
-                    mapping_package_path=mapping_package_path,
+                    package=mapping_package,
                     mongodb_client=mongodb_client,
                     load_test_data=load_test_data,
                     git_last_commit_hash=git_last_commit_hash
                 ))
                 log_mapping_package_info(
-                    message=f"Mapping package with id={mapping_package_id} loaded with success in MongoDB!",
-                    mapping_package_id=mapping_package_id)
+                    message=f"Mapping package with id={mapping_package.id} loaded with success in MongoDB!",
+                    mapping_package_id=mapping_package.id)
             else:
-                error_msg = f"Mapping package with id={mapping_package_id} is invalid for loading in MongoDB!"
+                error_msg = f"Mapping package with id={mapping_package.id} is invalid for loading in MongoDB!"
                 log_mapping_package_error(
                     message=error_msg,
-                    mapping_package_id=mapping_package_id)
+                    mapping_package_id=mapping_package.id)
                 raise MappingPackageProcessorServiceError(error_msg)
 
     return result_notice_ids
+
+
+def _convert_to_mapping_package(mssdk_package) -> MappingPackage:
+    """Convert MSSDK package to extended MappingPackage."""
+    data = mssdk_package.model_dump(exclude={'test_results'})
+    return MappingPackage(**data)

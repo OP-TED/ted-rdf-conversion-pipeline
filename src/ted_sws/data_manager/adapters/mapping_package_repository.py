@@ -17,7 +17,6 @@ from src.ted_sws import config
 from src.ted_sws.core.model.transform import MappingPackage, FileResource, TransformationRuleSet, SHACLTestSuite, \
     SPARQLTestSuite, MetadataConstraints, TransformationTestData, MappingPackageType, \
     MetadataConstraintsStandardForm, MetadataConstraintsEform
-from src.ted_sws.data_manager.adapters import inject_date_string_fields, remove_date_string_fields
 from src.ted_sws.data_manager.adapters.repository_abc import MappingPackageRepositoryABC
 
 MS_METADATA_FILE_NAME = "metadata.json"

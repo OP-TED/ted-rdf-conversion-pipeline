@@ -117,3 +117,32 @@ jobs:
             exit 1
           fi
           docker ps --filter "name=airflow" --format "table {{.Names}}\t{{.Status}}"
+
+      # Phase 4: Remaining services
+      - name: Start MinIO
+        run: make start-minio
+
+      - name: Start AllegroGraph
+        run: make start-allegro-graph
+
+      - name: Start Digest API
+        run: make start-digest_service-api
+
+      - name: Start Metabase
+        run: make start-metabase
+
+      - name: Health check - All services
+        run: |
+          echo "Waiting for services to start..."
+          sleep 15
+          echo "Checking MinIO..."
+          docker ps | grep -q "minio-${ENVIRONMENT}" && echo "✓ MinIO is running" || echo "✗ MinIO is NOT running"
+          echo "Checking AllegroGraph..."
+          docker ps | grep -q "agraph-${ENVIRONMENT}" && echo "✓ AllegroGraph is running" || echo "✗ AllegroGraph is NOT running"
+          echo "Checking Digest API..."
+          docker ps | grep -q "digest_service" && echo "✓ Digest API is running" || echo "✗ Digest API is NOT running"
+          echo "Checking Metabase..."
+          docker ps | grep -q "metabase-${ENVIRONMENT}" && echo "✓ Metabase is running" || echo "✗ Metabase is NOT running"
+          echo ""
+          echo "=== All running containers ==="
+          docker ps --format "table {{.Names}}\t{{.Status}}"

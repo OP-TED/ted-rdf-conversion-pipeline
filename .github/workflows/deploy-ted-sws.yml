@@ -6,83 +6,33 @@ on:
     branches:
       - feature/OPS-16/tedsws-deployment-flow
 
-env:
-  VAULT_TOKEN: ${{ secrets.VAULT_TOKEN }}
-  VAULT_ADDR: ${{ secrets.VAULT_ADDR }}
-  ENVIRONMENT: staging
-
 jobs:
-  deploy:
-    name: Deploy TED-SWS Stack
+  infrastructure:
+    name: Deploy Infrastructure
+    uses: ./.github/workflows/deploy-infrastructure.yml
+    secrets:
+      VAULT_TOKEN: ${{ secrets.VAULT_TOKEN }}
+      VAULT_ADDR: ${{ secrets.VAULT_ADDR }}
+
+  pipeline:
+    name: Deploy Pipeline Code
+    needs: infrastructure
+    uses: ./.github/workflows/deploy-pipeline.yml
+    with:
+      restart_worker: true
+
+  health-check:
+    name: Health Check
+    needs: pipeline
     runs-on: tedsws-staging
 
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-        with:
-          clean: false
-
-      - name: Create environment file from Vault
-        run: make staging-dotenv-file
-
-      - name: Start Traefik
-        run: make start-traefik
-
-      - name: Start MongoDB
-        run: make start-mongo
-
-      - name: Start Fuseki
-        run: make start-fuseki
-
-      # Airflow
-      - name: Download libraries (if missing)
-        run: |
-          echo "Checking for required libraries..."
-          [ -f libraries/.rmlmapper/rmlmapper.jar ] || make init-rml-mapper-curl
-          [ -f libraries/.limes/limes.jar ] || make init-limes-curl
-          [ -f libraries/.saxon/saxon-he-10.9.jar ] || make init-saxon-curl
-          echo "Libraries ready:"
-          ls -la libraries/
-
-      - name: Sync to deployment directory
-        run: |
-          echo "Syncing files to /opt/tedsws..."
-          sudo mkdir -p /opt/tedsws
-          sudo chown -R $USER:$USER /opt/tedsws
-          mkdir -p /opt/tedsws/src
-          rsync -a --delete src/dags/ /opt/tedsws/src/dags/
-          rsync -a --delete src/ted_sws/ /opt/tedsws/src/ted_sws/
-          rsync -a --delete libraries/ /opt/tedsws/libraries/
-          cp .env /opt/tedsws/.env
-          mkdir -p /opt/tedsws/logs /opt/tedsws/plugins /opt/tedsws/tests
-          echo "Deployment directory contents:"
-          ls -la /opt/tedsws/
-          ls -la /opt/tedsws/src/
-
-      - name: Build and start Airflow
+      - name: Check all services
         env:
-          AIRFLOW_INFRA_FOLDER: /opt/tedsws
-        run: make build-airflow
-
-      # Remaining services
-      - name: Start MinIO
-        run: make start-minio
-
-      - name: Start AllegroGraph
-        run: make start-allegro-graph
-
-      # Digest API - disabled, needs Python 3.10+ and build tools fix
-      # - name: Start Digest API
-      #   run: make create-env-digest-api start-digest_service-api
-
-      - name: Start Metabase
-        run: make start-metabase
-
-      # Health checks
-      - name: Health check - All services
+          ENVIRONMENT: staging
         run: |
-          echo "Waiting for all services to stabilize..."
-          sleep 30
+          echo "Waiting for services to stabilize..."
+          sleep 10
 
           failed=0
 
@@ -101,7 +51,6 @@ jobs:
           docker ps | grep -q "airflow-worker" && echo "✓ Airflow worker" || { echo "✗ Airflow worker"; failed=1; }
 
           echo "=== Checking APIs ==="
-          # docker ps | grep -q "digest_service" && echo "✓ Digest API" || { echo "✗ Digest API"; failed=1; }
           docker ps | grep -q "metabase-${ENVIRONMENT}" && echo "✓ Metabase" || { echo "✗ Metabase"; failed=1; }
 
           echo ""

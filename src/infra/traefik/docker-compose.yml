@@ -2,8 +2,9 @@ version: "3.3"
 
 services:
   app:
-    image: traefik:v3.3
+    image: traefik:v3.6
     container_name: traefik
+    restart: unless-stopped
     ports:
       - "80:80" # <== http
       - "8080:8080" # <== :8080 is where the dashboard runs on
@@ -13,7 +14,6 @@ services:
     volumes:
       - ./letsencrypt:/letsencrypt # <== Volume for certs (TLS)
       - /var/run/docker.sock:/var/run/docker.sock # <== Volume for docker admin
-      - ./dynamic.yaml:/dynamic.yaml # <== Volume for dynamic conf file, **ref: line 27
 #      - ./certs:/etc/certs # <== Volume for certs (TLS)
     networks:
       - proxy-net
@@ -28,7 +28,6 @@ services:
       ## Provider Settings - https://docs.traefik.io/providers/docker/#provider-configuration ##
       - --providers.docker=true # <== Enabling docker as the provider for traefik
       - --providers.docker.exposedbydefault=false # <== Don't expose every container to traefik, only expose enabled ones
-      - --providers.file.filename=/dynamic.yaml # <== Referring to a dynamic configuration file
       - --providers.docker.network=proxy-net # <== Operate on the docker network named proxy-net
       ## Entrypoints Settings - https://docs.traefik.io/routing/entrypoints/#configuration ##
       - --entrypoints.web.address=:80 # <== Defining an entrypoint for port :80 named web
@@ -50,6 +49,7 @@ services:
       - "traefik.http.routers.api.service=api@internal"
       - "traefik.http.routers.api.middlewares=auth"
       - "traefik.http.middlewares.auth.basicauth.users=admin:$$apr1$$PTMvJPGu$$PrhB1Rbu8eCY2.ElsfJre0"
+      - "traefik.http.middlewares.redirect.redirectscheme.scheme=https"
 
 
 

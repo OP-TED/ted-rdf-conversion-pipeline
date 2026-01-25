@@ -4,6 +4,7 @@ services:
   minio:
     image: minio/minio:RELEASE.2021-06-17T00-10-46Z
     container_name: minio-${ENVIRONMENT}
+    restart: unless-stopped
     environment:
       - MINIO_ACCESS_KEY=${MINIO_ACCESS_KEY}
       - MINIO_SECRET_KEY=${MINIO_SECRET_KEY}
@@ -19,7 +20,7 @@ services:
       - "traefik.enable=true" # <== Enable traefik to proxy this container
       - "traefik.http.routers.${ENVIRONMENT}-minio.rule=Host(`minio.${SUBDOMAIN}${DOMAIN}`)" # <== Your Domain Name goes here for the http rule
       - "traefik.http.routers.${ENVIRONMENT}-minio.entrypoints=web" # <== Defining the entrypoint for http, **ref: line 30
-      - "traefik.http.routers.${ENVIRONMENT}-minio.middlewares=redirect@file" # <== This is a middleware to redirect to https
+      - "traefik.http.routers.${ENVIRONMENT}-minio.middlewares=redirect@docker" # <== This is a middleware to redirect to https
       - "traefik.http.routers.${ENVIRONMENT}-minio-secured.rule=Host(`minio.${SUBDOMAIN}${DOMAIN}`)" # <== Your Domain Name for the https rule
       - "traefik.http.routers.${ENVIRONMENT}-minio-secured.entrypoints=web-secured" # <== Defining entrypoint for https, **ref: line 31
       - "traefik.http.routers.${ENVIRONMENT}-minio-secured.tls=true"

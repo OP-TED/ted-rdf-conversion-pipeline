@@ -3,6 +3,7 @@ services:
   fuseki:
     container_name: fuseki-${ENVIRONMENT}
     image: secoresearch/fuseki:5.3.0
+    restart: unless-stopped
     environment:
       - ADMIN_PASSWORD=${FUSEKI_ADMIN_PASSWORD}
       - FUSEKI_DATASET_1=mydataset
@@ -17,7 +18,7 @@ services:
       - "traefik.enable=true" # <== Enable traefik to proxy this container
       - "traefik.http.routers.${ENVIRONMENT}-fuseki.rule=Host(`fuseki.${SUBDOMAIN}${DOMAIN}`)" # <== Your Domain Name goes here for the http rule
       - "traefik.http.routers.${ENVIRONMENT}-fuseki.entrypoints=web" # <== Defining the entrypoint for http, **ref: line 30
-      - "traefik.http.routers.${ENVIRONMENT}-fuseki.middlewares=redirect@file" # <== This is a middleware to redirect to https
+      - "traefik.http.routers.${ENVIRONMENT}-fuseki.middlewares=redirect@docker" # <== This is a middleware to redirect to https
       - "traefik.http.routers.${ENVIRONMENT}-fuseki-secured.rule=Host(`fuseki.${SUBDOMAIN}${DOMAIN}`)" # <== Your Domain Name for the https rule
       - "traefik.http.routers.${ENVIRONMENT}-fuseki-secured.entrypoints=web-secured" # <== Defining entrypoint for https, **ref: line 31
       - "traefik.http.routers.${ENVIRONMENT}-fuseki-secured.tls.certresolver=mytlschallenge" # <== Defining certsresolvers for https

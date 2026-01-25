@@ -5,7 +5,7 @@ services:
     container_name: api-digest_service-container
     build:
       context: .
-    env_file: ../../.env
+    env_file: ../../../.env
     networks:
       - proxy-net
     labels:

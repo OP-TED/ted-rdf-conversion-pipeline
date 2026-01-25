@@ -6,11 +6,11 @@ from jinja2 import Environment, PackageLoader
 from src.ted_sws.core.model.manifestation import RDFManifestation, SHACLTestSuiteValidationReport, \
     QueriedSHACLShapeValidationResult
 from src.ted_sws.core.model.notice import Notice
-from src.ted_sws.core.model.transform import MappingSuite, SHACLTestSuite
+from src.ted_sws.core.model.transform import MappingPackage, SHACLTestSuite
 from src.ted_sws.core.model.validation_report import ReportNotice, SHACLValidationSummaryReport, \
     SHACLValidationSummaryResult, SHACLSummaryQuery
 from src.ted_sws.core.model.validation_report_data import ReportPackageNoticeData
-from src.ted_sws.data_manager.adapters.repository_abc import NoticeRepositoryABC, MappingSuiteRepositoryABC
+from src.ted_sws.data_manager.adapters.repository_abc import NoticeRepositoryABC, MappingPackageRepositoryABC
 from src.ted_sws.notice_transformer.adapters.notice_transformer import NoticeTransformer
 from src.ted_sws.notice_validator.adapters.shacl_runner import SHACLRunner
 from src.ted_sws.notice_validator.resources.templates import TEMPLATE_METADATA_KEY
@@ -29,10 +29,10 @@ class SHACLTestSuiteRunner:
     """
 
     def __init__(self, rdf_manifestation: RDFManifestation, shacl_test_suite: SHACLTestSuite,
-                 mapping_suite: MappingSuite):
+                 mapping_package: MappingPackage):
         self.rdf_manifestation = rdf_manifestation
         self.shacl_test_suite = shacl_test_suite
-        self.mapping_suite = mapping_suite
+        self.mapping_package = mapping_package
 
     def execute_test_suite(self) -> SHACLTestSuiteValidationReport:
         """
@@ -59,7 +59,7 @@ class SHACLTestSuiteRunner:
         except Exception as e:
             shacl_shape_validation_result.error = str(e)[:100]
 
-        return SHACLTestSuiteValidationReport(mapping_suite_identifier=self.mapping_suite.get_mongodb_id(),
+        return SHACLTestSuiteValidationReport(mapping_package_identifier=self.mapping_package.get_mongodb_id(),
                                               test_suite_identifier=self.shacl_test_suite.identifier,
                                               validation_results=shacl_shape_validation_result,
                                               object_data="SHACLTestSuiteExecution")
@@ -82,7 +82,7 @@ def generate_shacl_report(shacl_test_suite_execution: SHACLTestSuiteValidationRe
     return shacl_test_suite_execution
 
 
-def generate_shacl_validation_summary_report(report_notices: List[ReportNotice], mapping_suite_package: MappingSuite,
+def generate_shacl_validation_summary_report(report_notices: List[ReportNotice], mapping_package: MappingPackage,
                                              execute_full_validation: bool = True,
                                              with_html: bool = False,
                                              report: SHACLValidationSummaryReport = None,
@@ -100,15 +100,15 @@ def generate_shacl_validation_summary_report(report_notices: List[ReportNotice],
         notice = report_notice.notice
         validate_notice_with_shacl_suite(
             notice=notice,
-            mapping_suite_package=mapping_suite_package,
+            mapping_package=mapping_package,
             execute_full_validation=execute_full_validation,
             with_html=False
         )
         for shacl_validation in notice.rdf_manifestation.shacl_validations:
             test_suite_id = shacl_validation.test_suite_identifier
             report.test_suite_ids.append(test_suite_id)
-            mapping_suite_versioned_id = shacl_validation.mapping_suite_identifier
-            report.mapping_suite_ids.append(mapping_suite_versioned_id)
+            mapping_package_versioned_id = shacl_validation.mapping_package_identifier
+            report.mapping_package_ids.append(mapping_package_versioned_id)
 
             validation: QueriedSHACLShapeValidationResult = shacl_validation.validation_results
             validation_query_result: SHACLValidationSummaryResult
@@ -138,8 +138,8 @@ def generate_shacl_validation_summary_report(report_notices: List[ReportNotice],
                 notice_data: ReportPackageNoticeData = ReportPackageNoticeData(
                     notice_id=notice.ted_id,
                     path=str(report_notice.metadata.path),
-                    mapping_suite_versioned_id=mapping_suite_versioned_id,
-                    mapping_suite_identifier=mapping_suite_package.identifier
+                    mapping_package_versioned_id=mapping_package_versioned_id,
+                    mapping_package_identifier=mapping_package.identifier
                 )
                 if not is_conforms_set and validation.conforms == 'True':
                     validation_query_result.conforms.count += 1
@@ -162,7 +162,7 @@ def generate_shacl_validation_summary_report(report_notices: List[ReportNotice],
                     report.validation_results.append(validation_query_result)
 
     report.test_suite_ids = list(set(report.test_suite_ids))
-    report.mapping_suite_ids = list(set(report.mapping_suite_ids))
+    report.mapping_package_ids = list(set(report.mapping_package_ids))
 
     if with_html:
         template_data: dict = report.model_dump()
@@ -173,13 +173,13 @@ def generate_shacl_validation_summary_report(report_notices: List[ReportNotice],
     return report
 
 
-def validate_notice_with_shacl_suite(notice: Notice, mapping_suite_package: MappingSuite,
+def validate_notice_with_shacl_suite(notice: Notice, mapping_package: MappingPackage,
                                      execute_full_validation: bool = True, with_html: bool = False) -> Notice:
     """
     Validates a notice with a shacl test suites
     :param with_html: generate HTML report
     :param notice:
-    :param mapping_suite_package:
+    :param mapping_package:
     :param execute_full_validation:
     :return:
     """
@@ -187,11 +187,11 @@ def validate_notice_with_shacl_suite(notice: Notice, mapping_suite_package: Mapp
     def shacl_validation(notice_item: Notice, rdf_manifestation: RDFManifestation) \
             -> List[SHACLTestSuiteValidationReport]:
         reports = []
-        shacl_test_suites = mapping_suite_package.shacl_test_suites
+        shacl_test_suites = mapping_package.shacl_test_suites
         for shacl_test_suite in shacl_test_suites:
             test_suite_execution = SHACLTestSuiteRunner(rdf_manifestation=rdf_manifestation,
                                                         shacl_test_suite=shacl_test_suite,
-                                                        mapping_suite=mapping_suite_package).execute_test_suite()
+                                                        mapping_package=mapping_package).execute_test_suite()
             reports.append(generate_shacl_report(shacl_test_suite_execution=test_suite_execution,
                                                  notice_ids=[notice_item.ted_id], with_html=with_html))
 
@@ -207,25 +207,25 @@ def validate_notice_with_shacl_suite(notice: Notice, mapping_suite_package: Mapp
     return notice
 
 
-def validate_notice_by_id_with_shacl_suite(notice_id: str, mapping_suite_identifier: str,
+def validate_notice_by_id_with_shacl_suite(notice_id: str, mapping_package_identifier: str,
                                            notice_repository: NoticeRepositoryABC,
-                                           mapping_suite_repository: MappingSuiteRepositoryABC,
+                                           mapping_package_repository: MappingPackageRepositoryABC,
                                            with_html: bool = False):
     """
     Validates a notice by id with a shacl test suites
     :param with_html: generate HTML report
     :param notice_id:
-    :param mapping_suite_identifier:
+    :param mapping_package_identifier:
     :param notice_repository:
-    :param mapping_suite_repository:
+    :param mapping_package_repository:
     :return:
     """
     notice = notice_repository.get(reference=notice_id)
     if notice is None:
         raise ValueError(f'Notice, with {notice_id} id, was not found')
 
-    mapping_suite_package = mapping_suite_repository.get(reference=mapping_suite_identifier)
-    if mapping_suite_package is None:
-        raise ValueError(f'Mapping suite package, with {mapping_suite_identifier} id, was not found')
-    validate_notice_with_shacl_suite(notice=notice, mapping_suite_package=mapping_suite_package, with_html=with_html)
+    mapping_package = mapping_package_repository.get(reference=mapping_package_identifier)
+    if mapping_package is None:
+        raise ValueError(f'Mapping package package, with {mapping_package_identifier} id, was not found')
+    validate_notice_with_shacl_suite(notice=notice, mapping_package=mapping_package, with_html=with_html)
     notice_repository.update(notice=notice)

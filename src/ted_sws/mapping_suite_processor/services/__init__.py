@@ -1,2 +1,2 @@
-class MappingSuiteProcessorServiceError(Exception):
+class MappingPackageProcessorServiceError(Exception):
     pass

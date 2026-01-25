@@ -3,13 +3,13 @@ from typing import List
 from src.ted_sws.core.model.notice import Notice
 from src.ted_sws.core.model.validation_report import ReportNotice
 from src.ted_sws.core.model.validation_report_data import ReportNoticeData
-from src.ted_sws.data_manager.adapters.mapping_suite_repository import MappingSuiteRepositoryInFileSystem
+from src.ted_sws.data_manager.adapters.mapping_package_repository import MappingPackageRepositoryInFileSystem
 
 
 class NoticeTransformer:
     @classmethod
     def transform_report_notice(cls, report_notice: ReportNotice, group_depth: int = 0) -> ReportNoticeData:
-        report_path = str(MappingSuiteRepositoryInFileSystem.mapping_suite_notice_path_by_group_depth(
+        report_path = str(MappingPackageRepositoryInFileSystem.mapping_package_notice_path_by_group_depth(
             report_notice.metadata.path,
             group_depth=group_depth)) if report_notice.metadata else None
         return ReportNoticeData(

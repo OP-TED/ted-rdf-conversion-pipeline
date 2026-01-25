@@ -27,13 +27,13 @@ def fake_repository_path():
 
 
 @pytest.fixture
-def fake_mapping_suite_F03_id() -> str:
+def fake_mapping_package_F03_id() -> str:
     return "test_package_F03"
 
 
 @pytest.fixture
-def fake_notice_F03_content(fake_repository_path, fake_mapping_suite_F03_id):
-    with open(fake_repository_path / fake_mapping_suite_F03_id / "test_data" / "1" / "notice.xml") as f:
+def fake_notice_F03_content(fake_repository_path, fake_mapping_package_F03_id):
+    with open(fake_repository_path / fake_mapping_package_F03_id / "test_data" / "1" / "notice.xml") as f:
         notice_content = f.read()
     return notice_content
 

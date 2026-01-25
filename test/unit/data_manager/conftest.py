@@ -3,7 +3,7 @@ from datetime import date
 import pytest
 from src.ted_sws.core.model.supra_notice import DailySupraNotice
 from src.ted_sws.core.model.transform import MetadataConstraints, FileResource, TransformationRuleSet, SHACLTestSuite, \
-    SPARQLTestSuite, MappingSuite, TransformationTestData, MetadataConstraintsStandardForm
+    SPARQLTestSuite, MappingPackage, TransformationTestData, MetadataConstraintsStandardForm
 from test import TEST_DATA_PATH
 
 
@@ -23,11 +23,11 @@ def file_system_repository_with_packages_path():
 
 
 @pytest.fixture
-def epo_mapping_suite_package_name():
+def epo_mapping_package_name():
     return "test_package4"
 
 @pytest.fixture
-def fake_mapping_suite():
+def fake_mapping_package():
     metadata_constrains = MetadataConstraints(constraints=MetadataConstraintsStandardForm(eforms_subtype=[29],min_xsd_version=["R2.0.9.S01.E01"]))
     file_name = "fake_file.txt"
     empty_file_resource = FileResource(file_name=file_name, file_content="fake content", original_name=file_name)
@@ -40,13 +40,13 @@ def fake_mapping_suite():
                                         sparql_tests=[empty_file_resource]
                                         )
     transformation_test_data = TransformationTestData(test_data=[empty_file_resource])
-    mapping_suite = MappingSuite(metadata_constraints=metadata_constrains,
-                                 transformation_rule_set=transformation_rule_set,
-                                 shacl_test_suites=[shacl_test_suite],
-                                 sparql_test_suites=[sparql_test_suite],
-                                 transformation_test_data=transformation_test_data
-                                 )
-    return mapping_suite
+    mapping_package = MappingPackage(metadata_constraints=metadata_constrains,
+                                   transformation_rule_set=transformation_rule_set,
+                                   shacl_test_suites=[shacl_test_suite],
+                                   sparql_test_suites=[sparql_test_suite],
+                                   transformation_test_data=transformation_test_data
+                                   )
+    return mapping_package
 
 
 @pytest.fixture
@@ -55,5 +55,5 @@ def daily_supra_notice():
 
 
 @pytest.fixture
-def fake_mapping_suite_identifier_with_version(fake_mapping_suite):
-    return fake_mapping_suite.get_mongodb_id()
+def fake_mapping_package_identifier_with_version(fake_mapping_package):
+    return fake_mapping_package.get_mongodb_id()

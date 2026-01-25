@@ -43,13 +43,13 @@ def test_notice_repository_grid_fs(notice_2016, mongodb_client):
     assert result_notice.rdf_manifestation.object_data == file_content
 
 
-def test_notice_repository_store_validation_reports_in_grid_fs(notice_with_distilled_status, dummy_mapping_suite,
+def test_notice_repository_store_validation_reports_in_grid_fs(notice_with_distilled_status, dummy_mapping_package,
                                                                rdf_file_content, mongodb_client):
     mongodb_client.drop_database(TEST_DATABASE_NAME)
     notice_repository = NoticeRepository(mongodb_client=mongodb_client, database_name=TEST_DATABASE_NAME)
     notice = notice_with_distilled_status
-    validate_notice_with_shacl_suite(notice=notice, mapping_suite_package=dummy_mapping_suite)
-    validate_notice_with_sparql_suite(notice=notice, mapping_suite_package=dummy_mapping_suite)
+    validate_notice_with_shacl_suite(notice=notice, mapping_package=dummy_mapping_package)
+    validate_notice_with_sparql_suite(notice=notice, mapping_package=dummy_mapping_package)
     notice_repository.add(notice)
     result_notice = notice_repository.get(reference=notice.ted_id)
     for validation_report, result_validation_report in zip(notice.rdf_manifestation.shacl_validations,

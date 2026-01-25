@@ -166,16 +166,16 @@ class NoticeEventRepository(EventLoggingRepository):
         super().__init__(mongodb_client, database_name, collection_name)
 
 
-class MappingSuiteEventRepository(EventLoggingRepository):
+class MappingPackageEventRepository(EventLoggingRepository):
     """
-    This is the mapping suite events' repository class.
+    This is the mapping package events' repository class.
     """
-    _collection_name = "mapping_suite_events"
+    _collection_name = "mapping_package_events"
 
     def __init__(self, mongodb_client: MongoClient, database_name: str = None,
                  collection_name: str = _collection_name):
         """
-        This is the constructor/initialization of mapping suite event logging repository.
+        This is the constructor/initialization of mapping package event logging repository.
 
         :param mongodb_client: The MongoDB client
         :param database_name: The database name

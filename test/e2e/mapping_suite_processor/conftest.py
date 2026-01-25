@@ -6,7 +6,7 @@ from test import TEST_DATA_PATH
 
 @pytest.fixture
 def file_system_repository_path():
-    return TEST_DATA_PATH / "notice_transformer" / "mapping_suite_processor_repository"
+    return TEST_DATA_PATH / "notice_transformer" / "mapping_package_processor_repository"
 
 
 @pytest.fixture
@@ -91,6 +91,6 @@ def mime_type():
 
 
 @pytest.fixture
-def github_mapping_suite_id():
+def github_mapping_package_id():
     return "package_F03"
 

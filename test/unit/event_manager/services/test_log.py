@@ -1,7 +1,7 @@
 from src.ted_sws.event_manager.services.log import log_debug, log_error, log_info, log_warning, log_technical_debug, \
     log_technical_error, log_technical_info, log_technical_warning, log_notice_warning, log_notice_error, \
-    log_notice_debug, log_notice_info, log_mapping_suite_debug, log_mapping_suite_info, log_mapping_suite_error, \
-    log_mapping_suite_warning, log_cli_brief_notice_info, log_cli_brief_notice_error, log_cli_brief_info, \
+    log_notice_debug, log_notice_info, log_mapping_package_debug, log_mapping_package_info, log_mapping_package_error, \
+    log_mapping_package_warning, log_cli_brief_notice_info, log_cli_brief_notice_error, log_cli_brief_info, \
     log_cli_brief_error
 
 
@@ -53,20 +53,20 @@ def test_log_notice_warning(notice_id):
     log_notice_warning("TEST_NOTICE_WARNING_MESSAGE", notice_id=notice_id)
 
 
-def test_log_mapping_suite_info(mapping_suite_id):
-    log_mapping_suite_info("TEST_MAPPING_SUITE_INFO_MESSAGE", mapping_suite_id=mapping_suite_id)
+def test_log_mapping_package_info(mapping_package_id):
+    log_mapping_package_info("TEST_MAPPING_PACKAGE_INFO_MESSAGE", mapping_package_id=mapping_package_id)
 
 
-def test_log_mapping_suite_error(mapping_suite_id):
-    log_mapping_suite_error("TEST_MAPPING_SUITE_ERROR_MESSAGE", mapping_suite_id=mapping_suite_id)
+def test_log_mapping_package_error(mapping_package_id):
+    log_mapping_package_error("TEST_MAPPING_PACKAGE_ERROR_MESSAGE", mapping_package_id=mapping_package_id)
 
 
-def test_log_mapping_suite_debug(mapping_suite_id):
-    log_mapping_suite_debug("TEST_MAPPING_SUITE_DEBUG_MESSAGE", mapping_suite_id=mapping_suite_id)
+def test_log_mapping_package_debug(mapping_package_id):
+    log_mapping_package_debug("TEST_MAPPING_PACKAGE_DEBUG_MESSAGE", mapping_package_id=mapping_package_id)
 
 
-def test_log_mapping_suite_warning(mapping_suite_id):
-    log_mapping_suite_warning("TEST_MAPPING_SUITE_WARNING_MESSAGE", mapping_suite_id=mapping_suite_id)
+def test_log_mapping_package_warning(mapping_package_id):
+    log_mapping_package_warning("TEST_MAPPING_PACKAGE_WARNING_MESSAGE", mapping_package_id=mapping_package_id)
 
 
 def test_log_cli_brief_notice_info():

@@ -15,7 +15,7 @@ from src.ted_sws.core.model.notice import NoticeStatus
 def test_set_notice_validation(publicly_available_notice):
     shacl_validation = SHACLTestSuiteValidationReport(object_data="this is a shacl validation report",
                                                       test_suite_identifier="shacl_test_suite_id",
-                                                      mapping_suite_identifier="mapping_suite_id",
+                                                      mapping_package_identifier="mapping_package_id",
                                                       validation_results=QueriedSHACLShapeValidationResult())
 
     publicly_available_notice.set_rdf_validation(rdf_validation=shacl_validation)
@@ -23,7 +23,7 @@ def test_set_notice_validation(publicly_available_notice):
 
     publicly_available_notice.set_xml_validation(XPATHCoverageValidationReport(
         object_data="",
-        mapping_suite_identifier=""
+        mapping_package_identifier=""
     ))
 
     publicly_available_notice.set_rdf_validation(rdf_validation=shacl_validation)
@@ -36,7 +36,7 @@ def test_set_notice_validation(publicly_available_notice):
 def test_set_notice_xml_validation(publicly_available_notice):
     xml_validation = XPATHCoverageValidationReport(
         object_data="",
-        mapping_suite_identifier=""
+        mapping_package_identifier=""
     )
 
     xml_manifestation = publicly_available_notice.xml_manifestation

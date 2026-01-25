@@ -1,7 +1,7 @@
 {
     "object_data": "XPATHCoverageValidationReport",
     "created": "2022-08-16T18:03:09.920701",
-    "mapping_suite_identifier": "package_F03",
+    "mapping_package_identifier": "package_F03",
     "validation_result": {
         "notice_id": [
             "292288-2021"

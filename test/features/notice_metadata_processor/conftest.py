@@ -4,8 +4,8 @@ import pytest
 from src.ted_sws import config
 from src.ted_sws.core.model.manifestation import XMLManifestation
 from src.ted_sws.core.model.notice import Notice
-from src.ted_sws.data_manager.adapters.mapping_suite_repository import MappingSuiteRepositoryInFileSystem, \
-    MappingSuiteRepositoryMongoDB
+from src.ted_sws.data_manager.adapters.mapping_package_repository import MappingPackageRepositoryInFileSystem, \
+    MappingPackageRepositoryMongoDB
 from src.ted_sws.data_sampler.services.notice_xml_indexer import index_notice
 from src.ted_sws.notice_metadata_processor.services.metadata_normalizer import normalise_notice
 from test import TEST_DATA_PATH
@@ -47,15 +47,15 @@ def normalised_eForm_notice(indexed_eform_notice_622690):
 
 
 @pytest.fixture
-def mapping_suite_repository_with_mapping_suite(notice_eligibility_repository_path):
-    mapping_suite_repository = MappingSuiteRepositoryInFileSystem(repository_path=notice_eligibility_repository_path)
-    return mapping_suite_repository
+def mapping_package_repository_with_mapping_package(notice_eligibility_repository_path):
+    mapping_package_repository = MappingPackageRepositoryInFileSystem(repository_path=notice_eligibility_repository_path)
+    return mapping_package_repository
 
 
 @pytest.fixture
-def clean_mapping_suite_repository(mongodb_client):
-    mapping_suite_repository = MappingSuiteRepositoryMongoDB(mongodb_client=mongodb_client)
-    return mapping_suite_repository
+def clean_mapping_package_repository(mongodb_client):
+    mapping_package_repository = MappingPackageRepositoryMongoDB(mongodb_client=mongodb_client)
+    return mapping_package_repository
 
 
 @pytest.fixture

@@ -7,10 +7,10 @@ from src.ted_sws.event_manager.adapters.event_handler import EventHandler, Event
 from src.ted_sws.event_manager.adapters.event_handler_config import ConsoleLoggerConfig
 from src.ted_sws.event_manager.adapters.event_logger import EventLogger
 from src.ted_sws.event_manager.adapters.event_logging_repository import EventLoggingRepository, NoticeEventRepository, \
-    TechnicalEventRepository, MappingSuiteEventRepository
+    TechnicalEventRepository, MappingPackageEventRepository
 from src.ted_sws.event_manager.adapters.log import ConfigHandlerType
 from src.ted_sws.event_manager.adapters.log import SeverityLevelType
-from src.ted_sws.event_manager.model.event_message import EventMessage, NoticeEventMessage, MappingSuiteEventMessage, \
+from src.ted_sws.event_manager.model.event_message import EventMessage, NoticeEventMessage, MappingPackageEventMessage, \
     TechnicalEventMessage, EventMessageLogSettings
 
 
@@ -29,9 +29,9 @@ def notice_event_message() -> NoticeEventMessage:
 
 
 @pytest.fixture
-def mapping_suite_event_message() -> MappingSuiteEventMessage:
-    message = MappingSuiteEventMessage()
-    message.message = "TEST_MAPPING_SUITE_EVENT_MESSAGE"
+def mapping_package_event_message() -> MappingPackageEventMessage:
+    message = MappingPackageEventMessage()
+    message.message = "TEST_MAPPING_PACKAGE_EVENT_MESSAGE"
     return message
 
 
@@ -142,8 +142,8 @@ def technical_event_repository(mongodb_client, logs_database_name) -> TechnicalE
 
 
 @pytest.fixture
-def mapping_suite_event_repository(mongodb_client, logs_database_name) -> MappingSuiteEventRepository:
-    repo = MappingSuiteEventRepository(mongodb_client, logs_database_name)
+def mapping_package_event_repository(mongodb_client, logs_database_name) -> MappingPackageEventRepository:
+    repo = MappingPackageEventRepository(mongodb_client, logs_database_name)
     return repo
 
 

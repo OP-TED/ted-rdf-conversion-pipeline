@@ -4,14 +4,14 @@ import pytest
 # from airflow.utils import db
 # import logging
 from src.ted_sws.data_manager.adapters.notice_repository import NoticeRepository
-from src.ted_sws.mapping_suite_processor.services.conceptual_mapping_processor import \
-    mapping_suite_processor_from_github_expand_and_load_package_in_mongo_db
+from src.ted_sws.mapping_suite_processor.services.mapping_package_processor import \
+    load_mapping_suite_and_packages_from_github_to_mongo_db
 from test import TESTS_PATH
 
 AIRFLOW_DAG_FOLDER = TESTS_PATH.parent.resolve() / "dags"
 
-MAPPING_SUITE_ID = "package_F03_test"
-MAPPING_SUITE_ID_WITH_VERSION = "package_F03_test_v2.3.0"
+MAPPING_PACKAGE_ID = "package_F03_test"
+MAPPING_PACKAGE_ID_WITH_VERSION = "package_F03_test_v2.3.0"
 
 #
 # @pytest.fixture(scope="session")
@@ -29,19 +29,19 @@ MAPPING_SUITE_ID_WITH_VERSION = "package_F03_test_v2.3.0"
 
 
 @pytest.fixture
-def mapping_suite_id():
-    return MAPPING_SUITE_ID
+def mapping_package_id():
+    return MAPPING_PACKAGE_ID
 
 
 @pytest.fixture
-def mapping_suite_id_with_version():
-    return MAPPING_SUITE_ID_WITH_VERSION
+def mapping_package_id_with_version():
+    return MAPPING_PACKAGE_ID_WITH_VERSION
 
 
 @pytest.fixture
-def notice_repository(mongodb_client, mapping_suite_id):
-    mapping_suite_processor_from_github_expand_and_load_package_in_mongo_db(
-        mapping_suite_package_name=mapping_suite_id,
+def notice_repository(mongodb_client, mapping_package_id):
+    load_mapping_suite_and_packages_from_github_to_mongo_db(
+        mapping_package_name=mapping_package_id,
         mongodb_client=mongodb_client,
         load_test_data=True
     )

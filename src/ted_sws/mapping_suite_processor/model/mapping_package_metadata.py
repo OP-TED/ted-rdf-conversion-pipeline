@@ -1,0 +1,18 @@
+from typing import Optional
+
+from pydantic import BaseModel, ConfigDict
+
+from src.ted_sws.core.model.transform import MappingPackageType, MetadataConstraints
+
+
+class EFormsPackageMetadataBase(BaseModel):
+    identifier: str
+    title: str
+    created_at: str
+    description: str
+    mapping_version: str
+    ontology_version: str
+    mapping_type: Optional[MappingPackageType] = MappingPackageType.ELECTRONIC_FORMS
+    metadata_constraints: MetadataConstraints
+
+    model_config = ConfigDict(use_enum_values=True)

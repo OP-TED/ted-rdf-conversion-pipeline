@@ -16,11 +16,11 @@ from pydantic import field_validator, ConfigDict
 from src.ted_sws.core.model import PropertyBaseModel
 
 
-class MappingSuiteComponent(PropertyBaseModel, abc.ABC):
+class MappingPackageComponent(PropertyBaseModel, abc.ABC):
     model_config = ConfigDict(validate_assignment=True)
 
 
-class FileResource(MappingSuiteComponent):
+class FileResource(MappingPackageComponent):
     """
 
     """
@@ -38,7 +38,7 @@ class NoticeFileResource(FileResource):
 
 
 
-class MetadataConstraintsStandardForm(MappingSuiteComponent):
+class MetadataConstraintsStandardForm(MappingPackageComponent):
     """
     Metadata constraints structure for Standard forms
     """
@@ -54,7 +54,7 @@ class MetadataConstraintsStandardForm(MappingSuiteComponent):
             return [str(item) for item in value]
         return value
 
-class MetadataConstraintsEform(MappingSuiteComponent):
+class MetadataConstraintsEform(MappingPackageComponent):
     """
     Metadata constraints structure for eForms
     """
@@ -64,14 +64,14 @@ class MetadataConstraintsEform(MappingSuiteComponent):
     eforms_sdk_versions: List[str]
 
 
-class MetadataConstraints(MappingSuiteComponent):
+class MetadataConstraints(MappingPackageComponent):
     """
          Metadata constraints
     """
     constraints: Union[MetadataConstraintsStandardForm, MetadataConstraintsEform]
 
 
-class TransformationRuleSet(MappingSuiteComponent):
+class TransformationRuleSet(MappingPackageComponent):
     """
 
     """
@@ -79,7 +79,7 @@ class TransformationRuleSet(MappingSuiteComponent):
     rml_mapping_rules: List[FileResource]
 
 
-class SHACLTestSuite(MappingSuiteComponent):
+class SHACLTestSuite(MappingPackageComponent):
     """
 
     """
@@ -87,7 +87,7 @@ class SHACLTestSuite(MappingSuiteComponent):
     shacl_tests: List[FileResource]
 
 
-class SPARQLTestSuite(MappingSuiteComponent):
+class SPARQLTestSuite(MappingPackageComponent):
     """
 
     """
@@ -95,19 +95,19 @@ class SPARQLTestSuite(MappingSuiteComponent):
     sparql_tests: List[FileResource]
 
 
-class TransformationTestData(MappingSuiteComponent):
+class TransformationTestData(MappingPackageComponent):
     """
 
     """
     test_data: List[FileResource]
 
 
-class MappingXPATH(MappingSuiteComponent):
+class MappingXPATH(MappingPackageComponent):
     xpath: str
     form_field: Optional[str] = None
 
 
-class MappingSuiteType(str, Enum):
+class MappingPackageType(str, Enum):
     STANDARD_FORMS = "standard_forms"
     ELECTRONIC_FORMS = "eforms"
 
@@ -115,7 +115,7 @@ class MappingSuiteType(str, Enum):
         return self.value
 
 
-class MappingSuite(MappingSuiteComponent):
+class MappingPackage(MappingPackageComponent):
     """
 
     """
@@ -126,7 +126,7 @@ class MappingSuite(MappingSuiteComponent):
     ontology_version: str = "0.0.1"
     git_latest_commit_hash: str = "no_hash"
     mapping_suite_hash_digest: str = "no_hash"
-    mapping_type: Optional[MappingSuiteType] = MappingSuiteType.STANDARD_FORMS
+    mapping_type: Optional[MappingPackageType] = MappingPackageType.STANDARD_FORMS
     metadata_constraints: MetadataConstraints
     transformation_rule_set: TransformationRuleSet
     shacl_test_suites: List[SHACLTestSuite]

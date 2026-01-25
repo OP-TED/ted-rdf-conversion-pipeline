@@ -4,8 +4,8 @@ from pymongo import MongoClient
 from src.ted_sws import config
 from src.ted_sws.data_manager.adapters.notice_repository import NoticeRepository
 from src.ted_sws.data_sampler.services.notice_xml_indexer import index_notice
-from src.ted_sws.mapping_suite_processor.services.conceptual_mapping_processor import \
-    mapping_suite_processor_from_github_expand_and_load_package_in_mongo_db
+from src.ted_sws.mapping_suite_processor.services.mapping_package_processor import \
+    load_mapping_suite_and_packages_from_github_to_mongo_db
 from src.ted_sws.notice_metadata_processor.services.metadata_normalizer import normalise_notice
 
 
@@ -23,8 +23,8 @@ def mongodb_client():
 @pytest.fixture
 def notice_repository_with_indexed_notices(mongodb_client) -> NoticeRepository:
 
-    mapping_suite_processor_from_github_expand_and_load_package_in_mongo_db(
-        mapping_suite_package_name="package_F03_test",
+    load_mapping_suite_and_packages_from_github_to_mongo_db(
+        mapping_package_name="package_F03_test",
         mongodb_client=mongodb_client,
         load_test_data=True
     )

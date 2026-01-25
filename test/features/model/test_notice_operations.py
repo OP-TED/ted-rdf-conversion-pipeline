@@ -216,7 +216,7 @@ def step_impl(transformation_eligible_notice, old_rdf_manifestation, rdf_manifes
 def step_impl():
     return RDFValidationManifestation(object_data="this is another validation report",
                                       test_suite_identifier="test_suite_id",
-                                      mapping_suite_identifier="mapping_suite_id"
+                                      mapping_package_identifier="mapping_package_id"
                                       )
 
 

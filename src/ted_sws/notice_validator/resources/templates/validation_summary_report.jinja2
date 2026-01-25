@@ -1,4 +1,4 @@
-{% set mapping_suite_identifier = xml_manifestation.xpath_coverage_summary.mapping_suite_identifier %}
+{% set mapping_package_identifier = xml_manifestation.xpath_coverage_summary.mapping_package_identifier %}
 
 <!DOCTYPE html>
 <html lang="en">
@@ -75,7 +75,7 @@
     <h2>Report details: </h2>
     <ul>
         <li>Date created: {{ created }}</li>
-        <li><b>Mapping suite identifier:</b> {{ mapping_suite_identifier }}</li>
+        <li><b>Mapping package identifier:</b> {{ mapping_package_identifier }}</li>
         {%  if template_metadata.grouping %}
             <li><b>Grouping:</b> {{ template_metadata.grouping }}</li>
         {%  endif %}
@@ -107,7 +107,7 @@
     <h3>XPATH Coverage Summary</h3>
     <h4>Report details: </h4>
     <ul>
-        <li>Mapping suite identifier: {{ xml_manifestation.xpath_coverage_summary.mapping_suite_identifier }}</li>
+        <li>Mapping package identifier: {{ xml_manifestation.xpath_coverage_summary.mapping_package_identifier }}</li>
         <li>XPATHs covered: {{ xml_manifestation.xpath_coverage_summary.validation_result.xpath_covered }}</li>
     </ul>
 
@@ -131,7 +131,7 @@
      {% set result_total = result.aggregate.valid + result.aggregate.unverifiable + result.aggregate.invalid + result.aggregate.warning + result.aggregate.error %}
          <p>---</p>
     <ul>
-        <li>Mapping suite identifier: {{ result.mapping_suite_identifier }}</li>
+        <li>Mapping package identifier: {{ result.mapping_package_identifier }}</li>
         <li>Test suite identifier: {{ result.test_suite_identifier }}</li>
     </ul>
     <h5>Results summary</h5>
@@ -193,7 +193,7 @@
     {% set result_total = result_severity.info + result_severity.warning + result_severity.violation %}
     <p>---</p>
     <ul>
-        <li>Mapping suite identifier: {{ result.mapping_suite_identifier }}</li>
+        <li>Mapping package identifier: {{ result.mapping_package_identifier }}</li>
         <li>Test suite identifier: {{ result.test_suite_identifier }}</li>
     </ul>
     <h5>Results summary</h5>
@@ -252,7 +252,7 @@
      {% set result_total = result.aggregate.valid + result.aggregate.unverifiable + result.aggregate.invalid + result.aggregate.warning + result.aggregate.error %}
          <p>---</p>
     <ul>
-        <li>Mapping suite identifier: {{ result.mapping_suite_identifier }}</li>
+        <li>Mapping package identifier: {{ result.mapping_package_identifier }}</li>
         <li>Test suite identifier: {{ result.test_suite_identifier }}</li>
     </ul>
     <h5>Results summary</h5>
@@ -314,7 +314,7 @@
     {% set result_total = result_severity.info + result_severity.warning + result_severity.violation %}
     <p>---</p>
     <ul>
-        <li>Mapping suite identifier: {{ result.mapping_suite_identifier }}</li>
+        <li>Mapping package identifier: {{ result.mapping_package_identifier }}</li>
         <li>Test suite identifier: {{ result.test_suite_identifier }}</li>
     </ul>
     <h5>Results summary</h5>

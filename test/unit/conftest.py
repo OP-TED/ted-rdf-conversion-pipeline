@@ -35,12 +35,12 @@ def package_folder_path_for_validator():
 
 
 @pytest.fixture
-def fake_mapping_suite_id() -> str:
+def fake_mapping_package_id() -> str:
     return "test_package_fake"
 
 
 @pytest.fixture
-def invalid_mapping_suite_id() -> str:
+def invalid_mapping_package_id() -> str:
     return "test_invalid_package"
 
 

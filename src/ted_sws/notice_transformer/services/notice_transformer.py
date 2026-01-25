@@ -4,13 +4,13 @@ from typing import List
 
 from src.ted_sws.core.model.manifestation import RDFManifestation, XMLManifestation
 from src.ted_sws.core.model.notice import Notice, NoticeStatus
-from src.ted_sws.core.model.transform import MappingSuite, FileResource
+from src.ted_sws.core.model.transform import MappingPackage, FileResource
 from src.ted_sws.core.model.validation_report import ReportNotice
 from src.ted_sws.core.model.validation_report_data import ReportNoticeData
-from src.ted_sws.data_manager.adapters.mapping_suite_repository import MappingSuiteRepositoryInFileSystem
-from src.ted_sws.data_manager.adapters.repository_abc import NoticeRepositoryABC, MappingSuiteRepositoryABC
-from src.ted_sws.data_manager.services.mapping_suite_resource_manager import file_resource_output_path, \
-    mapping_suite_skipped_notice
+from src.ted_sws.data_manager.adapters.mapping_package_repository import MappingPackageRepositoryInFileSystem
+from src.ted_sws.data_manager.adapters.repository_abc import NoticeRepositoryABC, MappingPackageRepositoryABC
+from src.ted_sws.data_manager.services.mapping_package_resource_manager import file_resource_output_path, \
+    mapping_package_skipped_notice
 from src.ted_sws.event_manager.adapters.event_logger import EventLogger, EventMessageLogSettings
 from src.ted_sws.event_manager.model.event_message import NoticeEventMessage
 from src.ted_sws.event_manager.services.logger_from_context import get_env_logger
@@ -21,19 +21,19 @@ from src.ted_sws.notice_transformer.services import DEFAULT_TRANSFORMATION_FILE_
 DATA_SOURCE_PACKAGE = "data"
 
 
-def transform_notice(notice: Notice, mapping_suite: MappingSuite, rml_mapper: RMLMapperABC) -> Notice:
+def transform_notice(notice: Notice, mapping_package: MappingPackage, rml_mapper: RMLMapperABC) -> Notice:
     """
         This function allows the XML content of a Notice to be transformed into RDF,
-         using the mapping rules in mapping_suite and the rml_mapper mapping adapter.
+         using the mapping rules in mapping_package and the rml_mapper mapping adapter.
     :param notice:
-    :param mapping_suite:
+    :param mapping_package:
     :param rml_mapper:
     :return:
     """
     with tempfile.TemporaryDirectory() as temp_dir:
-        package_path = Path(temp_dir) / mapping_suite.identifier
-        mapping_suite_repository = MappingSuiteRepositoryInFileSystem(repository_path=package_path.parent)
-        mapping_suite_repository.add(mapping_suite=mapping_suite)
+        package_path = Path(temp_dir) / mapping_package.identifier
+        mapping_package_repository = MappingPackageRepositoryInFileSystem(repository_path=package_path.parent)
+        mapping_package_repository.add(mapping_package=mapping_package)
         data_source_path = package_path / DATA_SOURCE_PACKAGE
         data_source_path.mkdir(parents=True, exist_ok=True)
         notice_path = data_source_path / "source.xml"
@@ -41,40 +41,40 @@ def transform_notice(notice: Notice, mapping_suite: MappingSuite, rml_mapper: RM
             file.write(notice.xml_manifestation.object_data)
         rdf_result = rml_mapper.execute(package_path=package_path)
         notice.set_rdf_manifestation(
-            rdf_manifestation=RDFManifestation(mapping_suite_id=mapping_suite.get_mongodb_id(),
+            rdf_manifestation=RDFManifestation(mapping_package_id=mapping_package.get_mongodb_id(),
                                                object_data=rdf_result))
     return notice
 
 
-def transform_notice_by_id(notice_id: str, mapping_suite_id: str, notice_repository: NoticeRepositoryABC,
-                           mapping_suite_repository: MappingSuiteRepositoryABC, rml_mapper: RMLMapperABC):
+def transform_notice_by_id(notice_id: str, mapping_package_id: str, notice_repository: NoticeRepositoryABC,
+                           mapping_package_repository: MappingPackageRepositoryABC, rml_mapper: RMLMapperABC):
     """
         This function allows the XML content of a Notice to be transformed into RDF,
-         using the mapping rules in mapping_suite and the rml_mapper mapping adapter.
+         using the mapping rules in mapping_package and the rml_mapper mapping adapter.
     :param notice_id:
-    :param mapping_suite_id:
+    :param mapping_package_id:
     :param notice_repository:
-    :param mapping_suite_repository:
+    :param mapping_package_repository:
     :param rml_mapper:
     :return:
     """
     notice = notice_repository.get(reference=notice_id)
-    mapping_suite = mapping_suite_repository.get(reference=mapping_suite_id)
+    mapping_package = mapping_package_repository.get(reference=mapping_package_id)
     if notice is None:
         raise ValueError(f'Notice, with {notice_id} id, was not found')
 
-    if mapping_suite is None:
-        raise ValueError(f'Mapping suite, with {mapping_suite_id} id, was not found')
+    if mapping_package is None:
+        raise ValueError(f'Mapping package, with {mapping_package_id} id, was not found')
 
-    result_notice = transform_notice(notice=notice, mapping_suite=mapping_suite, rml_mapper=rml_mapper)
+    result_notice = transform_notice(notice=notice, mapping_package=mapping_package, rml_mapper=rml_mapper)
     notice_repository.update(notice=result_notice)
 
 
-def transform_test_data(mapping_suite: MappingSuite, rml_mapper: RMLMapperABC, output_path: Path,
+def transform_test_data(mapping_package: MappingPackage, rml_mapper: RMLMapperABC, output_path: Path,
                         notice_ids: List[str] = None, logger: EventLogger = None):
     """
         This function converts each file in the test data and writes the result to a file in output_path.
-    :param mapping_suite:
+    :param mapping_package:
     :param rml_mapper:
     :param output_path:
     :param notice_ids:
@@ -82,7 +82,7 @@ def transform_test_data(mapping_suite: MappingSuite, rml_mapper: RMLMapperABC, o
     :return:
     """
     logger = get_env_logger(logger)
-    transformation_test_data = mapping_suite.transformation_test_data
+    transformation_test_data = mapping_package.transformation_test_data
     output_path.mkdir(parents=True, exist_ok=True)
     test_data = transformation_test_data.test_data
 
@@ -90,7 +90,7 @@ def transform_test_data(mapping_suite: MappingSuite, rml_mapper: RMLMapperABC, o
         filename = data.file_name
         notice_id = Path(filename).stem
 
-        if mapping_suite_skipped_notice(notice_id, notice_ids):
+        if mapping_package_skipped_notice(notice_id, notice_ids):
             continue
 
         if logger:
@@ -100,7 +100,7 @@ def transform_test_data(mapping_suite: MappingSuite, rml_mapper: RMLMapperABC, o
         notice = Notice(ted_id="tmp_notice")
         notice.set_xml_manifestation(XMLManifestation(object_data=data.file_content))
         notice._status = NoticeStatus.PREPROCESSED_FOR_TRANSFORMATION
-        notice_result = transform_notice(notice, mapping_suite, rml_mapper)
+        notice_result = transform_notice(notice, mapping_package, rml_mapper)
         file_resource: FileResource = FileResource(
             file_name=filename,
             file_content=notice_result.rdf_manifestation.object_data,

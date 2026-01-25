@@ -15,5 +15,5 @@ class ReportPackageNoticeData(ReportNoticeData):
     """
     Used for storing
     """
-    mapping_suite_versioned_id: Optional[str]
-    mapping_suite_identifier: Optional[str]
+    mapping_package_versioned_id: Optional[str]
+    mapping_package_identifier: Optional[str]

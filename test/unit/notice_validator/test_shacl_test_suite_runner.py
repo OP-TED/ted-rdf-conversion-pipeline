@@ -4,37 +4,37 @@ from src.ted_sws.core.model.manifestation import RDFManifestation, RDFValidation
     SHACLTestSuiteValidationReport
 from src.ted_sws.core.model.notice import NoticeStatus
 from src.ted_sws.core.model.validation_report import ReportNotice, SHACLValidationSummaryReport
-from src.ted_sws.data_manager.adapters.mapping_suite_repository import MappingSuiteRepositoryInFileSystem
+from src.ted_sws.data_manager.adapters.mapping_package_repository import MappingPackageRepositoryInFileSystem
 from src.ted_sws.notice_validator.services.shacl_test_suite_runner import SHACLTestSuiteRunner, \
     validate_notice_with_shacl_suite, validate_notice_by_id_with_shacl_suite, generate_shacl_report, \
     generate_shacl_validation_summary_report
 
 
-def test_sparql_query_test_suite_runner(rdf_file_content, shacl_test_suite, dummy_mapping_suite):
+def test_sparql_query_test_suite_runner(rdf_file_content, shacl_test_suite, dummy_mapping_package):
     rdf_manifestation = RDFManifestation(object_data=rdf_file_content)
     sparql_runner = SHACLTestSuiteRunner(rdf_manifestation=rdf_manifestation, shacl_test_suite=shacl_test_suite,
-                                         mapping_suite=dummy_mapping_suite)
+                                         mapping_package=dummy_mapping_package)
 
     test_suite_execution = sparql_runner.execute_test_suite()
     assert isinstance(test_suite_execution, SHACLTestSuiteValidationReport)
     assert isinstance(test_suite_execution.validation_results.results_dict, dict)
 
 
-def test_sparql_query_test_suite_runner_error(rdf_file_content, dummy_mapping_suite, bad_shacl_test_suite):
-    dummy_mapping_suite.shacl_test_suites = [bad_shacl_test_suite]
+def test_sparql_query_test_suite_runner_error(rdf_file_content, dummy_mapping_package, bad_shacl_test_suite):
+    dummy_mapping_package.shacl_test_suites = [bad_shacl_test_suite]
     rdf_manifestation = RDFManifestation(object_data=rdf_file_content)
     sparql_runner = SHACLTestSuiteRunner(rdf_manifestation=rdf_manifestation, shacl_test_suite=bad_shacl_test_suite,
-                                         mapping_suite=dummy_mapping_suite)
+                                         mapping_package=dummy_mapping_package)
 
     test_suite_execution = sparql_runner.execute_test_suite()
     assert isinstance(test_suite_execution, SHACLTestSuiteValidationReport)
     assert test_suite_execution.validation_results.error
 
 
-def test_shacl_report_builder(rdf_file_content, shacl_test_suite, dummy_mapping_suite):
+def test_shacl_report_builder(rdf_file_content, shacl_test_suite, dummy_mapping_package):
     rdf_manifestation = RDFManifestation(object_data=rdf_file_content)
     sparql_runner = SHACLTestSuiteRunner(rdf_manifestation=rdf_manifestation, shacl_test_suite=shacl_test_suite,
-                                         mapping_suite=dummy_mapping_suite)
+                                         mapping_package=dummy_mapping_package)
     report = generate_shacl_report(shacl_test_suite_execution=sparql_runner.execute_test_suite(), with_html=True)
     assert isinstance(report, RDFValidationManifestation)
     assert report.object_data
@@ -42,11 +42,11 @@ def test_shacl_report_builder(rdf_file_content, shacl_test_suite, dummy_mapping_
     assert report.test_suite_identifier == "shacl_test_package"
 
 
-def test_validate_notice_with_shacl_suite(notice_with_distilled_status, dummy_mapping_suite, rdf_file_content):
+def test_validate_notice_with_shacl_suite(notice_with_distilled_status, dummy_mapping_package, rdf_file_content):
     notice = notice_with_distilled_status
     assert notice.rdf_manifestation
     assert notice.distilled_rdf_manifestation
-    validate_notice_with_shacl_suite(notice=notice, mapping_suite_package=dummy_mapping_suite)
+    validate_notice_with_shacl_suite(notice=notice, mapping_package=dummy_mapping_package)
     rdf_validation = notice.get_rdf_validation()
     distilled_rdf_validation = notice.get_distilled_rdf_validation()
     assert notice.status == NoticeStatus.DISTILLED
@@ -65,14 +65,14 @@ def test_validate_notice_with_shacl_suite(notice_with_distilled_status, dummy_ma
 def test_validate_notice_by_id_with_shacl_suite(notice_with_distilled_status, rdf_file_content, notice_repository,
                                                 path_to_file_system_repository):
     notice = notice_with_distilled_status
-    mapping_suite_repository = MappingSuiteRepositoryInFileSystem(repository_path=path_to_file_system_repository)
+    mapping_package_repository = MappingPackageRepositoryInFileSystem(repository_path=path_to_file_system_repository)
     notice_repository.add(notice)
 
     assert len(notice.get_rdf_validation()) == 0
     validate_notice_by_id_with_shacl_suite(notice_id="408313-2020",
-                                           mapping_suite_repository=mapping_suite_repository,
+                                           mapping_package_repository=mapping_package_repository,
                                            notice_repository=notice_repository,
-                                           mapping_suite_identifier="test_package")
+                                           mapping_package_identifier="test_package")
 
     assert notice.status == NoticeStatus.DISTILLED
     assert isinstance(notice.get_rdf_validation(), list)
@@ -82,19 +82,19 @@ def test_validate_notice_by_id_with_shacl_suite(notice_with_distilled_status, rd
 
     with pytest.raises(ValueError):
         validate_notice_by_id_with_shacl_suite(notice_id="408313-202085569",
-                                               mapping_suite_repository=mapping_suite_repository,
+                                               mapping_package_repository=mapping_package_repository,
                                                notice_repository=notice_repository,
-                                               mapping_suite_identifier="test_package")
+                                               mapping_package_identifier="test_package")
 
     with pytest.raises(ValueError):
         validate_notice_by_id_with_shacl_suite(notice_id="408313-2020",
-                                               mapping_suite_repository=mapping_suite_repository,
+                                               mapping_package_repository=mapping_package_repository,
                                                notice_repository=notice_repository,
-                                               mapping_suite_identifier="no_package_here")
+                                               mapping_package_identifier="no_package_here")
 
 
 def test_generate_shacl_validation_summary_report(notice_with_distilled_status, fake_validation_notice,
-                                                  dummy_mapping_suite, rdf_file_content):
+                                                  dummy_mapping_package, rdf_file_content):
     notice = notice_with_distilled_status
     assert notice.rdf_manifestation
     assert notice.distilled_rdf_manifestation
@@ -102,7 +102,7 @@ def test_generate_shacl_validation_summary_report(notice_with_distilled_status, 
     report_notice: ReportNotice = ReportNotice(notice=notice)
     report: SHACLValidationSummaryReport = generate_shacl_validation_summary_report(
         report_notices=[report_notice],
-        mapping_suite_package=dummy_mapping_suite,
+        mapping_package=dummy_mapping_package,
         with_html=True
     )
     assert report.object_data

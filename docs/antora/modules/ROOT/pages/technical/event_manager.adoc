@@ -46,14 +46,14 @@ There are 4 types of Event Messages (_EventMessage_), used for specific events/p
 ====
 - _TechnicalEventMessage_ (for technical events/processes)
 - _NoticeEventMessage_ (for notice related events/processes)
-- _MappingSuiteEventMessage_ (for mapping suite related events/processes)
+- _MappingPackageEventMessage_ (for mapping suite related events/processes)
 - _EventMessage_ (for generic events/processes)
 ====
 Every _EventMessage_ type is logged (if MongoDBHandler is used) in separate collection:
 ====
 - _TechnicalEventMessage_ -> *technical_events*
 - _NoticeEventMessage_ -> *notice_events*
-- _MappingSuiteEventMessage_ -> *mapping_suite_events*
+- _MappingPackageEventMessage_ -> *mapping_suite_events*
 - _EventMessage_ -> *log_events*
 ====
 
@@ -279,7 +279,7 @@ def log_notice_warning(message: str, notice_id: str = None, name: str = None):
 
 def log_mapping_suite_info(message: str, mapping_suite_id: str = None, name: str = None):
     """
-    Logs INFO MappingSuiteEventMessage, using global (DAG) logger or a custom named one
+    Logs INFO MappingPackageEventMessage, using global (DAG) logger or a custom named one
     :param message:
     :param mapping_suite_id:
     :param name: Logger name (None to use the global logger)
@@ -288,7 +288,7 @@ def log_mapping_suite_info(message: str, mapping_suite_id: str = None, name: str
 
 def log_mapping_suite_error(message: str, mapping_suite_id: str = None, name: str = None):
     """
-    Logs ERROR MappingSuiteEventMessage, using global (DAG) logger or a custom named one
+    Logs ERROR MappingPackageEventMessage, using global (DAG) logger or a custom named one
     :param message:
     :param mapping_suite_id:
     :param name: Logger name (None to use the global logger)
@@ -297,7 +297,7 @@ def log_mapping_suite_error(message: str, mapping_suite_id: str = None, name: st
 
 def log_mapping_suite_debug(message: str, mapping_suite_id: str = None, name: str = None):
     """
-    Logs DEBUG MappingSuiteEventMessage, using global (DAG) logger or a custom named one
+    Logs DEBUG MappingPackageEventMessage, using global (DAG) logger or a custom named one
     :param message:
     :param mapping_suite_id:
     :param name: Logger name (None to use the global logger)
@@ -306,7 +306,7 @@ def log_mapping_suite_debug(message: str, mapping_suite_id: str = None, name: st
 
 def log_mapping_suite_warning(message: str, mapping_suite_id: str = None, name: str = None):
     """
-    Logs WARNING MappingSuiteEventMessage, using global (DAG) logger or a custom named one
+    Logs WARNING MappingPackageEventMessage, using global (DAG) logger or a custom named one
     :param message:
     :param mapping_suite_id:
     :param name: Logger name (None to use the global logger)

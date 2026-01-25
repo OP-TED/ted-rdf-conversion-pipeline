@@ -7,11 +7,11 @@
 {%  endif %}
 
 {% set ms_acronym = "" %}
-{% if mapping_suite_ids and mapping_suite_ids|length == 1 %}
-    {% set mapping_suite_identifier = mapping_suite_ids[0] %}
+{% if mapping_package_ids and mapping_package_ids|length == 1 %}
+    {% set mapping_package_identifier = mapping_package_ids[0] %}
 {% endif %}
-{% if mapping_suite_identifier %}
-    {% set ms_parts = mapping_suite_identifier.split("_") %}
+{% if mapping_package_identifier %}
+    {% set ms_parts = mapping_package_identifier.split("_") %}
     {% set ms_acronym = ms_parts[1] if ms_parts and ms_parts|length >= 2 else ms_parts[0] %}
 {% endif %}
 {% set report_meta_title = ms_acronym + ("/" + notice_in_title if notice_in_title else "") %}

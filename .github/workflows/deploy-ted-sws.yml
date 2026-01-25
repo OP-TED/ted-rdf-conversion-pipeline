@@ -77,7 +77,24 @@ jobs:
           echo "Libraries ready:"
           ls -la libraries/
 
+      - name: Sync to deployment directory
+        run: |
+          echo "Syncing files to /opt/tedsws..."
+          sudo mkdir -p /opt/tedsws
+          sudo chown -R $USER:$USER /opt/tedsws
+          mkdir -p /opt/tedsws/src
+          rsync -a --delete src/dags/ /opt/tedsws/src/dags/
+          rsync -a --delete src/ted_sws/ /opt/tedsws/src/ted_sws/
+          rsync -a --delete libraries/ /opt/tedsws/libraries/
+          cp .env /opt/tedsws/.env
+          mkdir -p /opt/tedsws/logs /opt/tedsws/plugins /opt/tedsws/tests
+          echo "Deployment directory contents:"
+          ls -la /opt/tedsws/
+          ls -la /opt/tedsws/src/
+
       - name: Build and start Airflow
+        env:
+          AIRFLOW_INFRA_FOLDER: /opt/tedsws
         run: make build-airflow
 
       - name: Health check - Airflow

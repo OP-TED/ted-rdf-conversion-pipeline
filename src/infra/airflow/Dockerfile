@@ -16,7 +16,7 @@ RUN apt-get update && apt-get install -y \
 # back to normal user
 USER airflow
 
-COPY libraries /home/airflow
+# Libraries are mounted at runtime (not baked in) to persist limes artifacts
 # requirements.txt shall be made availble from the **ted-sws** GitHub repository
 COPY requirements.txt /opt/airflow
 

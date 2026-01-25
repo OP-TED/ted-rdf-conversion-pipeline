@@ -5,25 +5,56 @@ on:
   push:
     branches:
       - feature/OPS-16/tedsws-deployment-flow
+    paths:
+      - 'src/infra/**'
+      - 'src/dags/**'
+      - 'src/ted_sws/**'
+      - 'requirements.txt'
+      - '.github/workflows/deploy-*.yml'
 
 jobs:
-  infrastructure:
-    name: Deploy Infrastructure
+  changes:
+    name: Detect Changes
+    runs-on: tedsws-staging
+    outputs:
+      stack: ${{ steps.filter.outputs.stack }}
+      pipeline: ${{ steps.filter.outputs.pipeline }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dorny/paths-filter@v3
+        id: filter
+        with:
+          filters: |
+            stack:
+              - 'src/infra/**'
+              - 'requirements.txt'
+              - '.github/workflows/deploy-infrastructure.yml'
+            pipeline:
+              - 'src/dags/**'
+              - 'src/ted_sws/**'
+              - '.github/workflows/deploy-pipeline.yml'
+
+  stack:
+    name: Deploy TED-SWS Stack
+    needs: changes
+    if: ${{ needs.changes.outputs.stack == 'true' || github.event_name == 'workflow_dispatch' }}
     uses: ./.github/workflows/deploy-infrastructure.yml
     secrets:
       VAULT_TOKEN: ${{ secrets.VAULT_TOKEN }}
       VAULT_ADDR: ${{ secrets.VAULT_ADDR }}
 
   pipeline:
-    name: Deploy Pipeline Code
-    needs: infrastructure
+    name: Deploy TED-SWS Pipeline
+    needs: [changes, stack]
+    if: ${{ always() && (needs.changes.outputs.pipeline == 'true' || github.event_name == 'workflow_dispatch') }}
     uses: ./.github/workflows/deploy-pipeline.yml
     with:
       restart_worker: true
 
   health-check:
     name: Health Check
-    needs: pipeline
+    needs: [stack, pipeline]
+    if: ${{ always() && (needs.stack.result == 'success' || needs.pipeline.result == 'success') }}
     runs-on: tedsws-staging
 
     steps:

@@ -62,7 +62,7 @@ jobs:
   health-check:
     name: Health Check
     needs: [stack, pipeline]
-    if: ${{ always() && (needs.stack.result == 'success' || needs.pipeline.result == 'success') }}
+    if: always()
     runs-on: tedsws-staging
     timeout-minutes: 5
 

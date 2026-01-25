@@ -12,6 +12,7 @@ env:
   VAULT_TOKEN: ${{ secrets.VAULT_TOKEN }}
   VAULT_ADDR: ${{ secrets.VAULT_ADDR }}
   ENVIRONMENT: staging
+  TRAEFIK_DATA_PATH: /opt/tedsws/traefik
 
 jobs:
   deploy:
@@ -26,6 +27,11 @@ jobs:
 
       - name: Create environment file from Vault
         run: make staging-dotenv-file
+
+      - name: Setup Traefik data directory
+        run: |
+          sudo mkdir -p ${TRAEFIK_DATA_PATH}/letsencrypt
+          sudo chown -R $USER:$USER ${TRAEFIK_DATA_PATH}
 
       - name: Start Traefik
         run: make start-traefik

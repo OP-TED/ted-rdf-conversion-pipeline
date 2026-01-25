@@ -12,7 +12,7 @@ services:
 #      - "5432:5432" # PostgreSQL port
 #      - "6379:6379" # Redis port
     volumes:
-      - ./letsencrypt:/letsencrypt # <== Volume for certs (TLS)
+      - ${TRAEFIK_DATA_PATH:-.}/letsencrypt:/letsencrypt # <== Volume for certs (TLS)
       - /var/run/docker.sock:/var/run/docker.sock # <== Volume for docker admin
 #      - ./certs:/etc/certs # <== Volume for certs (TLS)
     networks:

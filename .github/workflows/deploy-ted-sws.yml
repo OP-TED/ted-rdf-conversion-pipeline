@@ -28,46 +28,13 @@ jobs:
       - name: Start Traefik
         run: make start-traefik
 
-      - name: Health check - Traefik
-        run: |
-          echo "Waiting for Traefik to start..."
-          sleep 10
-          if docker ps | grep -q traefik; then
-            echo "✓ Traefik is running"
-            docker ps --filter "name=traefik" --format "table {{.Names}}\t{{.Status}}\t{{.Ports}}"
-          else
-            echo "✗ Traefik is NOT running"
-            docker logs traefik 2>&1 | tail -50 || true
-            exit 1
-          fi
-
       - name: Start MongoDB
         run: make start-mongo
 
       - name: Start Fuseki
         run: make start-fuseki
 
-      - name: Health check - Data stores
-        run: |
-          echo "Waiting for services to start..."
-          sleep 15
-          echo "Checking MongoDB..."
-          if docker ps | grep -q "mongodb-${ENVIRONMENT}"; then
-            echo "✓ MongoDB is running"
-          else
-            echo "✗ MongoDB is NOT running"
-            exit 1
-          fi
-          echo "Checking Fuseki..."
-          if docker ps | grep -q "fuseki-${ENVIRONMENT}"; then
-            echo "✓ Fuseki is running"
-          else
-            echo "✗ Fuseki is NOT running"
-            exit 1
-          fi
-          docker ps --format "table {{.Names}}\t{{.Status}}"
-
-      # Phase 3: Airflow
+      # Airflow
       - name: Download libraries (if missing)
         run: |
           echo "Checking for required libraries..."
@@ -97,28 +64,7 @@ jobs:
           AIRFLOW_INFRA_FOLDER: /opt/tedsws
         run: make build-airflow
 
-      - name: Health check - Airflow
-        run: |
-          echo "Waiting for Airflow services to start..."
-          sleep 30
-          echo "Checking Airflow webserver..."
-          if docker ps | grep -q "airflow-webserver"; then
-            echo "✓ Airflow webserver is running"
-          else
-            echo "✗ Airflow webserver is NOT running"
-            docker logs airflow-webserver 2>&1 | tail -50 || true
-            exit 1
-          fi
-          echo "Checking Airflow scheduler..."
-          if docker ps | grep -q "airflow-scheduler"; then
-            echo "✓ Airflow scheduler is running"
-          else
-            echo "✗ Airflow scheduler is NOT running"
-            exit 1
-          fi
-          docker ps --filter "name=airflow" --format "table {{.Names}}\t{{.Status}}"
-
-      # Phase 4: Remaining services
+      # Remaining services
       - name: Start MinIO
         run: make start-minio
 
@@ -131,18 +77,34 @@ jobs:
       - name: Start Metabase
         run: make start-metabase
 
+      # Health checks
       - name: Health check - All services
         run: |
-          echo "Waiting for services to start..."
-          sleep 15
-          echo "Checking MinIO..."
-          docker ps | grep -q "minio-${ENVIRONMENT}" && echo "✓ MinIO is running" || echo "✗ MinIO is NOT running"
-          echo "Checking AllegroGraph..."
-          docker ps | grep -q "agraph-${ENVIRONMENT}" && echo "✓ AllegroGraph is running" || echo "✗ AllegroGraph is NOT running"
-          echo "Checking Digest API..."
-          docker ps | grep -q "digest_service" && echo "✓ Digest API is running" || echo "✗ Digest API is NOT running"
-          echo "Checking Metabase..."
-          docker ps | grep -q "metabase-${ENVIRONMENT}" && echo "✓ Metabase is running" || echo "✗ Metabase is NOT running"
+          echo "Waiting for all services to stabilize..."
+          sleep 30
+
+          failed=0
+
+          echo "=== Checking Traefik ==="
+          docker ps | grep -q "traefik" && echo "✓ Traefik" || { echo "✗ Traefik"; failed=1; }
+
+          echo "=== Checking Data Stores ==="
+          docker ps | grep -q "mongodb-${ENVIRONMENT}" && echo "✓ MongoDB" || { echo "✗ MongoDB"; failed=1; }
+          docker ps | grep -q "fuseki-${ENVIRONMENT}" && echo "✓ Fuseki" || { echo "✗ Fuseki"; failed=1; }
+          docker ps | grep -q "minio-${ENVIRONMENT}" && echo "✓ MinIO" || { echo "✗ MinIO"; failed=1; }
+          docker ps | grep -q "agraph-${ENVIRONMENT}" && echo "✓ AllegroGraph" || { echo "✗ AllegroGraph"; failed=1; }
+
+          echo "=== Checking Airflow ==="
+          docker ps | grep -q "airflow-webserver" && echo "✓ Airflow webserver" || { echo "✗ Airflow webserver"; failed=1; }
+          docker ps | grep -q "airflow-scheduler" && echo "✓ Airflow scheduler" || { echo "✗ Airflow scheduler"; failed=1; }
+          docker ps | grep -q "airflow-worker" && echo "✓ Airflow worker" || { echo "✗ Airflow worker"; failed=1; }
+
+          echo "=== Checking APIs ==="
+          docker ps | grep -q "digest_service" && echo "✓ Digest API" || { echo "✗ Digest API"; failed=1; }
+          docker ps | grep -q "metabase-${ENVIRONMENT}" && echo "✓ Metabase" || { echo "✗ Metabase"; failed=1; }
+
           echo ""
-          echo "=== All running containers ==="
+          echo "=== All containers ==="
           docker ps --format "table {{.Names}}\t{{.Status}}"
+
+          exit $failed

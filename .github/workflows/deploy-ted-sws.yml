@@ -71,8 +71,9 @@ jobs:
       - name: Start AllegroGraph
         run: make start-allegro-graph
 
-      - name: Start Digest API
-        run: make create-env-digest-api start-digest_service-api
+      # Digest API - disabled, needs Python 3.10+ and build tools fix
+      # - name: Start Digest API
+      #   run: make create-env-digest-api start-digest_service-api
 
       - name: Start Metabase
         run: make start-metabase
@@ -100,7 +101,7 @@ jobs:
           docker ps | grep -q "airflow-worker" && echo "✓ Airflow worker" || { echo "✗ Airflow worker"; failed=1; }
 
           echo "=== Checking APIs ==="
-          docker ps | grep -q "digest_service" && echo "✓ Digest API" || { echo "✗ Digest API"; failed=1; }
+          # docker ps | grep -q "digest_service" && echo "✓ Digest API" || { echo "✗ Digest API"; failed=1; }
           docker ps | grep -q "metabase-${ENVIRONMENT}" && echo "✓ Metabase" || { echo "✗ Metabase"; failed=1; }
 
           echo ""

@@ -380,7 +380,7 @@ stop-all-apis: stop-digest_service-api
 
 create-env-digest-api:
 	@ cp requirements.txt $(INFRA_FOLDER_PATH)/digest_api/digest_service/project_requirements.txt
-	@ cp -r ted_sws $(INFRA_FOLDER_PATH)/digest_api/
+	@ cp -r $(SRC_PATH)/ted_sws $(INFRA_FOLDER_PATH)/digest_api/
 
 build-digest_service-api: create-env-digest-api
 	@ echo -e "$(BUILD_PRINT) Build digest_service API service $(END_BUILD_PRINT)"

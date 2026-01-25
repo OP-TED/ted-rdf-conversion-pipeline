@@ -9,14 +9,19 @@ from src.ted_sws.core.model.manifestation import XMLManifestation
 from src.ted_sws.core.model.notice import Notice
 from src.ted_sws.data_manager.adapters.mapping_package_repository import MappingPackageRepositoryInFileSystem, \
     MappingPackageRepositoryMongoDB
+from src.ted_sws.data_manager.adapters.mapping_suite_repository import MappingSuiteRepositoryMongoDB
 from src.ted_sws.data_manager.adapters.notice_repository import NoticeRepository
-from src.ted_sws.event_manager.services.log import log_mapping_package_info, log_mapping_package_error
-from src.ted_sws.mapping_suite_processor.adapters.github_package_downloader import GitHubMappingPackageDownloader
+from src.ted_sws.event_manager.services.log import log_mapping_package_info, log_mapping_package_error, \
+    log_technical_info, log_technical_warning
+from src.ted_sws.mapping_suite_processor.adapters.github_ms_project_downloader import GitHubMappingSuiteDownloader
 from src.ted_sws.mapping_suite_processor.services import MappingPackageProcessorServiceError
 from src.ted_sws.mapping_suite_processor.services.mapping_package_digest_service import \
     update_digest_api_address_for_mapping_package
 from src.ted_sws.mapping_suite_processor.services.mapping_package_validation_service import validate_mapping_package, \
     get_mapping_package_id_from_file_system
+
+from mapping_suite_sdk.mapping_suite.services.load_mapping_suite import load_mapping_suite_from_folder
+
 
 SHACL_SHAPE_INJECTION_FOLDER = "ap_data_shape"
 SHACL_SHAPE_RESOURCES_FOLDER = "shacl_shapes"
@@ -69,14 +74,14 @@ def mapping_package_processor_load_package_in_mongo_db(mapping_package_path: pat
     return result_notice_ids
 
 
-def mapping_package_processor_from_github_expand_and_load_package_in_mongo_db(mongodb_client: MongoClient,
-                                                                            mapping_package_name: str = None,
-                                                                            load_test_data: bool = False,
-                                                                            branch_or_tag_name: str = None,
-                                                                            github_repository_url: str = None
-                                                                            ) -> List[str]:
+def load_mapping_suite_and_packages_from_github_to_mongo_db(mongodb_client: MongoClient,
+                                                            mapping_package_name: str = None,
+                                                            load_test_data: bool = False,
+                                                            branch_or_tag_name: str = None,
+                                                            github_repository_url: str = None
+                                                            ) -> List[str]:
     """
-        This feature is intended to download a mapping_package from GitHub and process it for upload to MongoDB.
+    This feature is intended to download a mapping project from GitHub and process it for upload to MongoDB.
     :param github_repository_url:
     :param branch_or_tag_name:
     :param mapping_package_name:
@@ -86,14 +91,43 @@ def mapping_package_processor_from_github_expand_and_load_package_in_mongo_db(mo
     """
     branch_or_tag_name = branch_or_tag_name if branch_or_tag_name else DEFAULT_BRANCH_NAME
     github_repository_url = github_repository_url if github_repository_url else config.GITHUB_TED_SWS_ARTEFACTS_URL
-    mapping_package_downloader = GitHubMappingPackageDownloader(
+    log_technical_info(
+        message=f"Downloading mapping suite from GitHub repository '{github_repository_url}' on branch/tag '{branch_or_tag_name}'")
+    mapping_package_downloader = GitHubMappingSuiteDownloader(
         github_repository_url=github_repository_url, branch_or_tag_name=branch_or_tag_name)
+    mappings_dir_name = mapping_package_downloader.MAPPINGS_DIR_NAME
+    ms_config_dir_name = mapping_package_downloader.MS_CONFIG_DIR_NAME
+    ms_config_file_name = mapping_package_downloader.MS_CONFIG_FILE_NAME
+    log_technical_info(
+        message=f"Using mappings directory '{mappings_dir_name}', config directory '{ms_config_dir_name}' and config file '{ms_config_file_name}'")
+
     with tempfile.TemporaryDirectory() as tmp_dir:
         tmp_dir_path = pathlib.Path(tmp_dir)
-        git_last_commit_hash = mapping_package_downloader.download(output_mapping_package_path=tmp_dir_path)
+        mappings_dir_path = tmp_dir_path / mappings_dir_name
+        ms_config_dir_path = tmp_dir_path / ms_config_dir_name
+        ms_config_file_path = ms_config_dir_path / ms_config_file_name
+        git_last_commit_hash = mapping_package_downloader.download(output_project_path=tmp_dir_path)
 
+        # load project config if available
+        if ms_config_file_path.is_file():
+            log_technical_info(message=f"Mapping suite config found at '{ms_config_file_path}'")
+            mapping_suite = load_mapping_suite_from_folder(mapping_suite_folder_path=ms_config_dir_path)
+            log_technical_info(
+                message=f"Mapping suite config '{mapping_suite.id}' loaded from folder with success")
+            mapping_suite_repository = MappingSuiteRepositoryMongoDB(mongodb_client=mongodb_client)
+            mapping_suite_repository.add(mapping_suite)
+            log_technical_info(
+                message=f"Mapping suite config '{mapping_suite.id}' saved with success")
+        elif ms_config_dir_path.is_dir():
+            log_technical_warning(
+                message=f"Mapping suite config directory found at '{ms_config_dir_path}' but MISSING config file '{ms_config_file_name}'")
+        else:
+            log_technical_warning(
+                message=f"No mapping suite config found at '{ms_config_dir_path}'")
+
+        # continue loading mapping packages
         mapping_package_paths = [
-            tmp_dir_path / mapping_package_name] if mapping_package_name else list(tmp_dir_path.iterdir())
+            mappings_dir_path / mapping_package_name ] if mapping_package_name else list(mappings_dir_path.iterdir())
         result_notice_ids = []
         for mapping_package_path in mapping_package_paths:
             validation_result = validate_mapping_package(mapping_package_path=mapping_package_path)

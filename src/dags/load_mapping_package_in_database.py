@@ -21,7 +21,7 @@ from src.ted_sws.event_manager.model.event_message import MappingPackageEventMes
 from src.ted_sws.event_manager.services.logger_from_context import get_logger_from_dag_context, \
     handle_event_message_metadata_dag_context
 from src.ted_sws.mapping_suite_processor.services.mapping_package_processor import \
-    mapping_package_processor_from_github_expand_and_load_package_in_mongo_db
+    load_mapping_suite_and_packages_from_github_to_mongo_db
 
 FETCH_MAPPING_PACKAGE_FROM_GITHUB_INTO_MONGODB = "fetch_mapping_package_from_github_into_mongodb"
 
@@ -97,7 +97,7 @@ def load_mapping_package_in_database():
         github_repository_url = get_dag_param(key=GITHUB_REPOSITORY_URL_DAG_PARAM_KEY)
 
         mongodb_client = MongoClient(config.MONGO_DB_AUTH_URL)
-        notice_ids = mapping_package_processor_from_github_expand_and_load_package_in_mongo_db(
+        notice_ids = load_mapping_suite_and_packages_from_github_to_mongo_db(
             mongodb_client=mongodb_client,
             mapping_package_name=mapping_package_name,
             load_test_data=load_test_data,

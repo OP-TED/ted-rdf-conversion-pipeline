@@ -2,7 +2,7 @@ version: '3.8'
 
 services:
   agraph:
-    image: franzinc/agraph:latest
+    image: franzinc/agraph:v8.4.3
     container_name: agraph-${ENVIRONMENT}
     shm_size: '32gb'
     environment:

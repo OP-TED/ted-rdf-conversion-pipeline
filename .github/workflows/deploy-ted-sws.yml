@@ -40,3 +40,29 @@ jobs:
             docker logs traefik 2>&1 | tail -50 || true
             exit 1
           fi
+
+      - name: Start MongoDB
+        run: make start-mongo
+
+      - name: Start Fuseki
+        run: make start-fuseki
+
+      - name: Health check - Data stores
+        run: |
+          echo "Waiting for services to start..."
+          sleep 15
+          echo "Checking MongoDB..."
+          if docker ps | grep -q "mongodb-${ENVIRONMENT}"; then
+            echo "✓ MongoDB is running"
+          else
+            echo "✗ MongoDB is NOT running"
+            exit 1
+          fi
+          echo "Checking Fuseki..."
+          if docker ps | grep -q "fuseki-${ENVIRONMENT}"; then
+            echo "✓ Fuseki is running"
+          else
+            echo "✗ Fuseki is NOT running"
+            exit 1
+          fi
+          docker ps --format "table {{.Names}}\t{{.Status}}"

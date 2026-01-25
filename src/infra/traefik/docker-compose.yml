@@ -1,4 +1,3 @@
-# Test: verify paths-filter detects infra changes
 services:
   app:
     image: traefik:v3.6

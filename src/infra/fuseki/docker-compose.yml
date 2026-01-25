@@ -2,9 +2,7 @@ version: '3.8'
 services:
   fuseki:
     container_name: fuseki-${ENVIRONMENT}
-    build:
-      context: .
-      dockerfile: Dockerfile
+    image: secoresearch/fuseki:5.3.0
     environment:
       - ADMIN_PASSWORD=${FUSEKI_ADMIN_PASSWORD}
       - FUSEKI_DATASET_1=mydataset

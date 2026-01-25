@@ -14,7 +14,7 @@ env:
 jobs:
   deploy:
     name: Deploy TED-SWS Stack
-    runs-on: [self-hosted, tedsws-staging]
+    runs-on: tedsws-staging
 
     steps:
       - name: Checkout repository

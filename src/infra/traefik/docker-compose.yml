@@ -2,7 +2,7 @@ version: "3.3"
 
 services:
   app:
-    image: traefik:v2.5
+    image: traefik:v3.3
     container_name: traefik
     ports:
       - "80:80" # <== http

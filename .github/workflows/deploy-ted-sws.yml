@@ -66,3 +66,37 @@ jobs:
             exit 1
           fi
           docker ps --format "table {{.Names}}\t{{.Status}}"
+
+      # Phase 3: Airflow
+      - name: Download libraries (if missing)
+        run: |
+          echo "Checking for required libraries..."
+          [ -f libraries/.rmlmapper/rmlmapper.jar ] || make init-rml-mapper-curl
+          [ -f libraries/.limes/limes.jar ] || make init-limes-curl
+          [ -f libraries/.saxon/saxon-he-10.9.jar ] || make init-saxon-curl
+          echo "Libraries ready:"
+          ls -la libraries/
+
+      - name: Build and start Airflow
+        run: make build-airflow
+
+      - name: Health check - Airflow
+        run: |
+          echo "Waiting for Airflow services to start..."
+          sleep 30
+          echo "Checking Airflow webserver..."
+          if docker ps | grep -q "airflow-webserver"; then
+            echo "✓ Airflow webserver is running"
+          else
+            echo "✗ Airflow webserver is NOT running"
+            docker logs airflow-webserver 2>&1 | tail -50 || true
+            exit 1
+          fi
+          echo "Checking Airflow scheduler..."
+          if docker ps | grep -q "airflow-scheduler"; then
+            echo "✓ Airflow scheduler is running"
+          else
+            echo "✗ Airflow scheduler is NOT running"
+            exit 1
+          fi
+          docker ps --filter "name=airflow" --format "table {{.Names}}\t{{.Status}}"

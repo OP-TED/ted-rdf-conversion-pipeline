@@ -4,6 +4,10 @@ services:
     image: minio/minio:RELEASE.2021-06-17T00-10-46Z
     container_name: minio-${ENVIRONMENT}
     restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          memory: 256M
     environment:
       - MINIO_ACCESS_KEY=${MINIO_ACCESS_KEY}
       - MINIO_SECRET_KEY=${MINIO_SECRET_KEY}

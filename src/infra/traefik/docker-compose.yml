@@ -4,6 +4,10 @@ services:
     image: traefik:v3.6
     container_name: traefik
     restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          memory: 128M
     ports:
       - "80:80" # <== http
       - "8080:8080" # <== :8080 is where the dashboard runs on

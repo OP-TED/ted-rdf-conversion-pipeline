@@ -19,6 +19,10 @@ services:
   mongo-express:
     image: mongo-express:1.0.2
     container_name: mongo-express-${ENVIRONMENT}
+    deploy:
+      resources:
+        limits:
+          memory: 128M
     environment:
       - ME_CONFIG_MONGODB_SERVER=mongodb-${ENVIRONMENT}
       - ME_CONFIG_MONGODB_ENABLE_ADMIN=${ME_CONFIG_MONGODB_ENABLE_ADMIN}

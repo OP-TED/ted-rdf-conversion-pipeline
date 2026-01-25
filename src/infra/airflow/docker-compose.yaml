@@ -95,6 +95,10 @@ services:
   postgres:
     image: postgres:14.4-alpine
     container_name: postgres-airflow-${ENVIRONMENT}
+    deploy:
+      resources:
+        limits:
+          memory: 256M
     environment:
       POSTGRES_USER: ${AIRFLOW_POSTGRES_USER}
       POSTGRES_PASSWORD: ${AIRFLOW_POSTGRES_PASSWORD}

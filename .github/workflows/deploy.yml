@@ -11,7 +11,7 @@ on:
       - 'src/ted_sws/**'
       - 'requirements.txt'
       - 'Makefile'
-      - '.github/workflows/deploy-*.yml'
+      - '.github/workflows/deploy*.yml'
 
 concurrency:
   group: deploy-${{ github.ref }}

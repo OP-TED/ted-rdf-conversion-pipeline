@@ -67,7 +67,10 @@ jobs:
       - name: Build and start Airflow
         env:
           AIRFLOW_INFRA_FOLDER: /opt/tedsws
-        run: make build-airflow
+        run: |
+          make build-airflow
+          # Replace symlink with actual file (Makefile creates symlink to workspace)
+          cp -f .env /opt/tedsws/.env
 
       - name: Start MinIO
         run: make start-minio

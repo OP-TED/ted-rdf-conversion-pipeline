@@ -13,10 +13,15 @@ on:
       - 'Makefile'
       - '.github/workflows/deploy-*.yml'
 
+concurrency:
+  group: deploy-${{ github.ref }}
+  cancel-in-progress: false
+
 jobs:
   changes:
     name: Detect Changes
     runs-on: tedsws-staging
+    timeout-minutes: 5
     outputs:
       stack: ${{ steps.filter.outputs.stack }}
       pipeline: ${{ steps.filter.outputs.pipeline }}
@@ -58,6 +63,7 @@ jobs:
     needs: [stack, pipeline]
     if: ${{ always() && (needs.stack.result == 'success' || needs.pipeline.result == 'success') }}
     runs-on: tedsws-staging
+    timeout-minutes: 5
 
     steps:
       - name: Check all services

@@ -25,16 +25,20 @@ jobs:
         with:
           clean: false
 
-      - name: Create environment file from Vault
+      - name: Setup environment and directories
         run: |
+          # Create .env from Vault and fix paths
           make staging-dotenv-file
-          # Override AIRFLOW_INFRA_FOLDER from Vault with correct path
           sed -i 's|^AIRFLOW_INFRA_FOLDER=.*|AIRFLOW_INFRA_FOLDER=/opt/tedsws|' .env
 
-      - name: Setup Traefik data directory
-        run: |
-          sudo mkdir -p ${TRAEFIK_DATA_PATH}/letsencrypt
-          sudo chown -R $USER:$USER ${TRAEFIK_DATA_PATH}
+          # Setup deployment directory
+          sudo mkdir -p /opt/tedsws ${TRAEFIK_DATA_PATH}/letsencrypt
+          sudo chown -R $USER:$USER /opt/tedsws ${TRAEFIK_DATA_PATH}
+          mkdir -p /opt/tedsws/src /opt/tedsws/logs /opt/tedsws/plugins /opt/tedsws/tests
+
+          # Copy .env to deployment dir (keep in repo root for Makefile targets)
+          cp .env /opt/tedsws/.env
+          chmod 777 /opt/tedsws/logs /opt/tedsws/plugins /opt/tedsws/.env
 
       - name: Start Traefik
         run: make start-traefik
@@ -53,16 +57,7 @@ jobs:
           [ -f libraries/.saxon/saxon-he-10.9.jar ] || make init-saxon-curl
           echo "Libraries ready:"
           ls -la libraries/
-
-      - name: Setup deployment directory
-        run: |
-          echo "Setting up /opt/tedsws..."
-          sudo mkdir -p /opt/tedsws
-          sudo chown -R $USER:$USER /opt/tedsws
-          mkdir -p /opt/tedsws/src /opt/tedsws/logs /opt/tedsws/plugins /opt/tedsws/tests
           rsync -a --delete libraries/ /opt/tedsws/libraries/
-          cp .env /opt/tedsws/.env
-          chmod 777 /opt/tedsws/logs /opt/tedsws/plugins /opt/tedsws/.env
 
       - name: Build and start Airflow
         run: |

@@ -1,0 +1,51 @@
+name: Deploy TED-SWS Stack
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - feature/OPS-16/tedsws-deployment-flow
+
+env:
+  VAULT_TOKEN: ${{ secrets.VAULT_TOKEN }}
+  VAULT_ADDR: ${{ secrets.VAULT_ADDR }}
+  ENVIRONMENT: staging
+
+jobs:
+  deploy:
+    name: Deploy TED-SWS Stack
+    runs-on: [self-hosted, tedsws-staging]
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install prerequisites (make, jq, vault)
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y make jq
+          if ! command -v vault &> /dev/null; then
+            curl -fsSL https://apt.releases.hashicorp.com/gpg | sudo gpg --dearmor -o /usr/share/keyrings/hashicorp-archive-keyring.gpg
+            echo "deb [signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] https://apt.releases.hashicorp.com $(lsb_release -cs) main" | sudo tee /etc/apt/sources.list.d/hashicorp.list
+            sudo apt-get update
+            sudo apt-get install -y vault
+          fi
+
+      - name: Create environment file from Vault
+        run: make staging-dotenv-file
+
+      - name: Start Traefik
+        run: make start-traefik
+
+      - name: Health check - Traefik
+        run: |
+          echo "Waiting for Traefik to start..."
+          sleep 10
+          if docker ps | grep -q traefik; then
+            echo "✓ Traefik is running"
+            docker ps --filter "name=traefik" --format "table {{.Names}}\t{{.Status}}\t{{.Ports}}"
+          else
+            echo "✗ Traefik is NOT running"
+            docker logs traefik 2>&1 | tail -50 || true
+            exit 1
+          fi

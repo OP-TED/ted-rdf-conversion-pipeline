@@ -15,15 +15,11 @@ jobs:
   deploy:
     name: Deploy TED-SWS Stack
     runs-on: tedsws-staging
-    defaults:
-      run:
-        working-directory: /opt/tedsws
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
-          path: /opt/tedsws
           clean: false
 
       - name: Create environment file from Vault

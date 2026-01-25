@@ -10,6 +10,7 @@ on:
       - 'src/dags/**'
       - 'src/ted_sws/**'
       - 'requirements.txt'
+      - 'Makefile'
       - '.github/workflows/deploy-*.yml'
 
 jobs:
@@ -28,6 +29,7 @@ jobs:
             stack:
               - 'src/infra/**'
               - 'requirements.txt'
+              - 'Makefile'
               - '.github/workflows/deploy-infrastructure.yml'
             pipeline:
               - 'src/dags/**'
@@ -89,3 +91,13 @@ jobs:
           docker ps --format "table {{.Names}}\t{{.Status}}"
 
           exit $failed
+
+      - name: Cleanup old Docker resources
+        if: always()
+        run: |
+          echo "=== Cleaning up old Docker resources ==="
+          docker system prune -f --filter "until=24h"
+          echo ""
+          echo "=== Disk usage after cleanup ==="
+          df -h /
+          docker system df

@@ -22,8 +22,6 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-        with:
-          clean: false
 
       - name: Setup environment and directories
         run: |

@@ -126,7 +126,7 @@ jobs:
         run: make start-allegro-graph
 
       - name: Start Digest API
-        run: make start-digest_service-api
+        run: make create-env-digest-api start-digest_service-api
 
       - name: Start Metabase
         run: make start-metabase

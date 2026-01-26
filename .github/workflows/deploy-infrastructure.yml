@@ -29,6 +29,7 @@ jobs:
           # Create .env from Vault and fix paths
           make staging-dotenv-file
           sed -i 's|^AIRFLOW_INFRA_FOLDER=.*|AIRFLOW_INFRA_FOLDER=/opt/tedsws|' .env
+          sed -i 's|^SUBDOMAIN=.*|SUBDOMAIN=tedsws-staging.|' .env
 
           # Setup deployment directory
           sudo mkdir -p /opt/tedsws ${TRAEFIK_DATA_PATH}/letsencrypt

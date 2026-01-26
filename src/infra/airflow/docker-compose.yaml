@@ -79,7 +79,9 @@ x-airflow-common:
     - ${AIRFLOW_INFRA_FOLDER}/src:/opt/airflow/src
     - ${AIRFLOW_INFRA_FOLDER}/logs:/opt/airflow/logs
     - ${AIRFLOW_INFRA_FOLDER}/plugins:/opt/airflow/plugins
-    - ${AIRFLOW_INFRA_FOLDER}/libraries:/home/airflow
+    - ${AIRFLOW_INFRA_FOLDER}/libraries/.rmlmapper:/home/airflow/.rmlmapper
+    - ${AIRFLOW_INFRA_FOLDER}/libraries/.saxon:/home/airflow/.saxon
+    - ${AIRFLOW_INFRA_FOLDER}/libraries/.limes:/home/airflow/.limes
 #    - ${AIRFLOW_INFRA_FOLDER}/ted_sws:/opt/airflow/ted_sws
     - ${AIRFLOW_INFRA_FOLDER}/tests:/opt/airflow/tests
   user: "${AIRFLOW_UID:-50000}:0"

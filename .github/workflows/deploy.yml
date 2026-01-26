@@ -1,7 +1,6 @@
 name: Deploy TED-SWS Stack
 
 on:
-  workflow_dispatch:
   push:
     branches:
       - feature/OPS-16/tedsws-deployment-flow
@@ -45,7 +44,7 @@ jobs:
   stack:
     name: Deploy TED-SWS Stack
     needs: changes
-    if: ${{ needs.changes.outputs.stack == 'true' || github.event_name == 'workflow_dispatch' }}
+    if: ${{ needs.changes.outputs.stack == 'true' }}
     uses: ./.github/workflows/deploy-infrastructure.yml
     secrets:
       VAULT_TOKEN: ${{ secrets.VAULT_TOKEN }}
@@ -54,7 +53,7 @@ jobs:
   pipeline:
     name: Deploy TED-SWS Pipeline
     needs: [changes, stack]
-    if: ${{ always() && (needs.changes.outputs.pipeline == 'true' || github.event_name == 'workflow_dispatch') }}
+    if: ${{ always() && needs.changes.outputs.pipeline == 'true' }}
     uses: ./.github/workflows/deploy-pipeline.yml
     with:
       restart_worker: true

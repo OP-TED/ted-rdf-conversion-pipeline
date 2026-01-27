@@ -5,6 +5,19 @@ on:
     branches: [feature/**, main, hotfix/**, release/**]
   pull_request:
     branches: [develop, main, release/**]
+  workflow_call:
+    inputs:
+      full_tests:
+        description: 'Run full test suite (including integration tests)'
+        type: boolean
+        default: true
+    secrets:
+      VAULT_TOKEN:
+        required: true
+      VAULT_ADDR:
+        required: true
+      SONAR_TOKEN:
+        required: false
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
@@ -17,8 +30,8 @@ env:
 
 jobs:
   test:
-    name: ${{ github.event_name == 'pull_request' && 'Full Tests' || 'Unit Tests' }}
-    runs-on: ${{ github.event_name == 'pull_request' && 'self-hosted' || 'ubuntu-latest' }}
+    name: ${{ (github.event_name == 'pull_request' || inputs.full_tests) && 'Full Tests' || 'Unit Tests' }}
+    runs-on: ${{ (github.event_name == 'pull_request' || inputs.full_tests) && 'self-hosted' || 'ubuntu-latest' }}
 
     steps:
       - uses: actions/checkout@v4
@@ -31,14 +44,14 @@ jobs:
           python-version: '3.10'
 
       - name: Set up Java
-        if: github.event_name == 'pull_request'
+        if: github.event_name == 'pull_request' || inputs.full_tests
         uses: actions/setup-java@v4
         with:
           distribution: 'temurin'
           java-version: '11'
 
       - name: Install Vault
-        if: github.event_name == 'pull_request'
+        if: github.event_name == 'pull_request' || inputs.full_tests
         run: |
           if ! command -v vault &> /dev/null; then
             wget -O- https://apt.releases.hashicorp.com/gpg | sudo gpg --dearmor -o /usr/share/keyrings/hashicorp-archive-keyring.gpg
@@ -64,7 +77,7 @@ jobs:
 
       - name: Create env file
         run: |
-          if [ "${{ github.event_name }}" == "pull_request" ]; then
+          if [ "${{ github.event_name }}" == "pull_request" ] || [ "${{ inputs.full_tests }}" == "true" ]; then
             make staging-dotenv-file
           else
             echo "VAULT_TOKEN=${{ secrets.VAULT_TOKEN }}" >> .env
@@ -72,7 +85,7 @@ jobs:
           fi
 
       - name: Get Java tools (Saxon, Limes, RML mapper)
-        if: github.event_name == 'pull_request'
+        if: github.event_name == 'pull_request' || inputs.full_tests
         run: |
           make init-saxon
           make init-limes
@@ -81,7 +94,7 @@ jobs:
       # Using python -m tox instead of make targets to avoid conflict with
       # outdated system tox on self-hosted runner (/home/lps/.local/bin/tox)
       - name: Run tests
-        run: ${{ github.event_name == 'pull_request' && 'python -m tox' || 'python -m tox -e unit' }}
+        run: ${{ (github.event_name == 'pull_request' || inputs.full_tests) && 'python -m tox' || 'python -m tox -e unit' }}
 
       - name: SonarCloud Scan
         uses: SonarSource/sonarqube-scan-action@v6

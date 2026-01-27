@@ -50,10 +50,22 @@ jobs:
       VAULT_TOKEN: ${{ secrets.VAULT_TOKEN }}
       VAULT_ADDR: ${{ secrets.VAULT_ADDR }}
 
+  tests:
+    name: Run Tests
+    needs: changes
+    if: ${{ needs.changes.outputs.pipeline == 'true' }}
+    uses: ./.github/workflows/tests.yml
+    with:
+      full_tests: true
+    secrets:
+      VAULT_TOKEN: ${{ secrets.VAULT_TOKEN }}
+      VAULT_ADDR: ${{ secrets.VAULT_ADDR }}
+      SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+
   pipeline:
     name: Deploy TED-SWS Pipeline
-    needs: [changes, stack]
-    if: ${{ always() && needs.changes.outputs.pipeline == 'true' }}
+    needs: [changes, stack, tests]
+    if: ${{ always() && needs.changes.outputs.pipeline == 'true' && needs.tests.result == 'success' }}
     uses: ./.github/workflows/deploy-pipeline.yml
     with:
       restart_worker: true

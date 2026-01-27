@@ -79,6 +79,8 @@ jobs:
         run: |
           if [ "${{ github.event_name }}" == "pull_request" ] || [ "${{ inputs.full_tests }}" == "true" ]; then
             make staging-dotenv-file
+            # Replace Docker container hostname with localhost for tests running on host
+            sed -i 's|mongodb-staging:27017|localhost:27018|g' .env
           else
             echo "VAULT_TOKEN=${{ secrets.VAULT_TOKEN }}" >> .env
             echo "VAULT_ADDR=${{ secrets.VAULT_ADDR }}" >> .env

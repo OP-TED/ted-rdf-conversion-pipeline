@@ -3,7 +3,7 @@ name: Deploy TED-SWS Stack
 on:
   push:
     branches:
-      - feature/OPS-16/tedsws-deployment-flow
+      - develop
     paths:
       - 'src/infra/**'
       - 'src/dags/**'

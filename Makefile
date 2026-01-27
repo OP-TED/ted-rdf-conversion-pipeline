@@ -279,6 +279,7 @@ staging-dotenv-file: guard-VAULT_ADDR guard-VAULT_TOKEN vault-installed
 	@ echo AIRFLOW_WORKER_HOSTNAME=${HOSTNAME} >> .env
 	@ vault kv get -format="json" ted-staging/airflow | jq -r ".data.data | keys[] as \$$k | \"\(\$$k)=\(.[\$$k])\"" >> .env
 	@ vault kv get -format="json" ted-staging/mongo-db | jq -r ".data.data | keys[] as \$$k | \"\(\$$k)=\(.[\$$k])\"" >> .env
+	@ echo 'MONGO_DB_AUTH_URL=mongodb://$${MONGO_INITDB_ROOT_USERNAME}:$${MONGO_INITDB_ROOT_PASSWORD}@mongodb-staging:27017/' >> .env
 	@ vault kv get -format="json" ted-staging/metabase | jq -r ".data.data | keys[] as \$$k | \"\(\$$k)=\(.[\$$k])\"" >> .env
 	@ vault kv get -format="json" ted-staging/ted-sws | jq -r ".data.data | keys[] as \$$k | \"\(\$$k)=\(.[\$$k])\"" >> .env
 	@ vault kv get -format="json" ted-staging/agraph | jq -r ".data.data | keys[] as \$$k | \"\(\$$k)=\(.[\$$k])\"" >> .env

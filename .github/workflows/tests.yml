@@ -2,7 +2,7 @@ name: Tests
 
 on:
   push:
-    branches: [feature/**, main, hotfix/**, release/**]
+    branches: [feature/**, hotfix/**, release/**]
   pull_request:
     branches: [develop, main, release/**]
   workflow_call:
@@ -31,7 +31,7 @@ env:
 jobs:
   test:
     name: ${{ (github.event_name == 'pull_request' || inputs.full_tests) && 'Full Tests' || 'Unit Tests' }}
-    runs-on: ${{ (github.event_name == 'pull_request' || inputs.full_tests) && 'self-hosted' || 'ubuntu-latest' }}
+    runs-on: ${{ (github.event_name == 'pull_request' || inputs.full_tests) && 'tedsws-staging' || 'ubuntu-latest' }}
 
     steps:
       - uses: actions/checkout@v4
@@ -101,3 +101,13 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+
+      - name: Cleanup
+        if: always()
+        run: |
+          echo "=== Cleaning up test artifacts ==="
+          rm -rf .tox .pytest_cache __pycache__ .coverage coverage.xml
+          find . -type d -name "__pycache__" -exec rm -rf {} + 2>/dev/null || true
+          find . -type f -name "*.pyc" -delete 2>/dev/null || true
+          echo "=== Disk usage ==="
+          df -h /

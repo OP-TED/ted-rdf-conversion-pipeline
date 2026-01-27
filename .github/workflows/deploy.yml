@@ -53,8 +53,7 @@ jobs:
   tests:
     name: Run Tests
     needs: changes
-    # TODO: Re-enable when srv runner is back online: if: ${{ needs.changes.outputs.pipeline == 'true' }}
-    if: false
+    if: ${{ needs.changes.outputs.pipeline == 'true' }}
     uses: ./.github/workflows/tests.yml
     with:
       full_tests: true
@@ -66,8 +65,7 @@ jobs:
   pipeline:
     name: Deploy TED-SWS Pipeline
     needs: [changes, stack, tests]
-    # TODO: Restore '&& needs.tests.result == 'success'' when srv runner is back
-    if: ${{ always() && needs.changes.outputs.pipeline == 'true' && (needs.tests.result == 'success' || needs.tests.result == 'skipped') }}
+    if: ${{ always() && needs.changes.outputs.pipeline == 'true' && needs.tests.result == 'success' }}
     uses: ./.github/workflows/deploy-pipeline.yml
     with:
       restart_worker: true

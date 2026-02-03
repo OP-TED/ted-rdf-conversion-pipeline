@@ -18,6 +18,7 @@ services:
     networks:
       - minio
       - proxy-net
+      - common-ext
     labels:
       #### Labels define the behavior and rules of the traefik proxy for this container ####
       - "traefik.enable=true" # <== Enable traefik to proxy this container
@@ -43,3 +44,6 @@ networks:
   proxy-net:
     external:
       name: proxy-net
+  common-ext:
+    external:
+      name: common-ext-${ENVIRONMENT}

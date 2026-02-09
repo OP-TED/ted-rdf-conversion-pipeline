@@ -74,6 +74,13 @@ jobs:
       - name: Start SFTP
         run: make start-sftp
 
+      - name: Configure SFTP for internal networking
+        run: |
+          # Override SFTP port to 22 for internal Docker connections
+          # (Host uses SFTP_PUBLISH_HOST already set to sftp-staging in Makefile)
+          sed -i 's/^SFTP_PUBLISH_PORT=.*/SFTP_PUBLISH_PORT=22/' .env
+          cp .env /opt/tedsws/.env
+
       # Digest API - disabled, needs Python 3.10+ and build tools fix
       # - name: Start Digest API
       #   run: make create-env-digest-api start-digest_service-api

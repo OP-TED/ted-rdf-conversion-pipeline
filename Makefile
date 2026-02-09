@@ -288,6 +288,7 @@ staging-dotenv-file: guard-VAULT_ADDR guard-VAULT_TOKEN vault-installed
 	@ vault kv get -format="json" ted-staging/github | jq -r ".data.data | keys[] as \$$k | \"\(\$$k)=\(.[\$$k])\"" >> .env
 	@ vault kv get -format="json" ted-staging/minio | jq -r ".data.data | keys[] as \$$k | \"\(\$$k)=\(.[\$$k])\"" >> .env
 	@ echo 'S3_PUBLISH_HOST=minio-staging:9000' >> .env
+	@ echo 'SFTP_PUBLISH_HOST=sftp-staging' >> .env
 	@ echo "# Concurrency limits for staging (4-core, 15GB VM)" >> .env
 	@ echo AIRFLOW__CORE__PARALLELISM=8 >> .env
 	@ echo AIRFLOW__CORE__MAX_ACTIVE_TASKS_PER_DAG=4 >> .env

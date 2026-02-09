@@ -71,6 +71,9 @@ jobs:
       - name: Start MinIO
         run: make start-minio
 
+      - name: Start SFTP
+        run: make start-sftp
+
       # Digest API - disabled, needs Python 3.10+ and build tools fix
       # - name: Start Digest API
       #   run: make create-env-digest-api start-digest_service-api

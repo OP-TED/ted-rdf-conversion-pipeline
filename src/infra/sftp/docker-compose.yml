@@ -11,7 +11,7 @@ services:
       - SFTP_PORT=${SFTP_PUBLISH_PORT}
     command: ${SFTP_PUBLISH_USER}:${SFTP_PUBLISH_PASSWORD}:::upload
     ports:
-      - ${SFTP_PUBLISH_PORT:-2235}:22
+      - 2235:22  # External access on port 2235, internal on port 22
     networks:
       - sftp-net
       - proxy-net

@@ -108,10 +108,7 @@ jobs:
 
       - name: Get Java tools (Saxon, Limes, RML mapper)
         if: github.event_name == 'pull_request' || inputs.full_tests
-        run: |
-          make init-saxon
-          make init-limes
-          make init-rml-mapper
+        run: make init-libraries
 
       # Using python -m tox instead of make targets to avoid conflict with
       # outdated system tox on self-hosted runner (/home/lps/.local/bin/tox)

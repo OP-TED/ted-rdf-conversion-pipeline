@@ -67,14 +67,8 @@ services:
       - "traefik.http.services.metabase.loadbalancer.server.port=3000"
 
   sftp:
-    ports:
-      - "2235:22"
     volumes:
       - /opt/tedsws/sftp-data:/home
-    labels:
-      - "traefik.enable=true"
-      - "traefik.http.routers.sftp.rule=Host(`${SUBDOMAIN}sftp.${DOMAIN}`)"
-      - "traefik.http.routers.sftp.tls.certresolver=mytlschallenge"
 
   airflow-postgres:
     volumes:

@@ -126,3 +126,5 @@ src/infra/alpine/libraries/
 test/reports/*
 src/infra/airflow/src
 src/infra/airflow/libraries
+!src/infra/ted-sws-stack/.env.local
+!src/infra/ted-sws-stack/.env.common

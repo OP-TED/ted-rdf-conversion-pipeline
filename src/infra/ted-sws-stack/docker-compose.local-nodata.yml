@@ -1,0 +1,20 @@
+# =============================================================================
+# TED-SWS Stack - Local Development (Clean/Ephemeral)
+# Usage: docker compose -f docker-compose.yml -f docker-compose.local.yml -f docker-compose.local-nodata.yml up -d
+#
+# Use this when debugging "works on my machine" issues.
+# Data is NOT persisted - all state is lost on docker compose down.
+# =============================================================================
+
+services:
+  minio:
+    volumes: !reset []
+
+  mongodb:
+    volumes: !reset []
+
+  fuseki:
+    volumes: !reset []
+
+  airflow-postgres:
+    volumes: !reset []

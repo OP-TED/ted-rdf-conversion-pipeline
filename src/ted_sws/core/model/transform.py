@@ -16,7 +16,7 @@ from pydantic import field_validator, ConfigDict, Field
 from src.ted_sws.core.model import PropertyBaseModel
 
 from mapping_suite_sdk.mapping_package_v2.models import MappingPackageV2
-from mapping_suite_sdk.core.models.collection_asset import TestDataCollectionAsset, SAPRQLTestCollectionAsset, SHACLTestCollectionAsset, \
+from mapping_suite_sdk.core.models.collection_asset import TestDataCollectionAsset, SPARQLTestCollectionAsset, SHACLTestCollectionAsset, \
     TestResultCollectionAsset
 
 class MappingPackageComponent(PropertyBaseModel, abc.ABC):
@@ -141,7 +141,7 @@ class MappingPackage(MappingPackageComponent, MappingPackageV2):
         default_factory=list,
         description="Collections of test data for transformation"
     )
-    test_suites_sparql: List[SAPRQLTestCollectionAsset] = Field(
+    test_suites_sparql: List[SPARQLTestCollectionAsset] = Field(
         default_factory=list,
         description="Collections of SPARQL-based test suites"
     )

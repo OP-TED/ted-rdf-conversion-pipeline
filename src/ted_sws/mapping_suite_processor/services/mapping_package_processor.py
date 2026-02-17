@@ -111,7 +111,7 @@ def load_mapping_suite_and_packages_from_github_to_mongo_db(mongodb_client: Mong
         # load project config if available
         if ms_config_file_path.is_file():
             log_technical_info(message=f"Mapping suite config found at '{ms_config_file_path}'")
-            mapping_suite = load_mapping_suite_from_folder(mapping_suite_folder_path=ms_config_dir_path)
+            mapping_suite = load_mapping_suite_from_folder(mapping_suite_folder_path=tmp_dir_path)
             log_technical_info(
                 message=f"Mapping suite config '{mapping_suite.id}' loaded from folder with success")
             mapping_suite_repository = MappingSuiteRepositoryMongoDB(mongodb_client=mongodb_client)

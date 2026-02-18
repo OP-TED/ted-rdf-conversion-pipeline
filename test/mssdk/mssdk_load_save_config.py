@@ -499,8 +499,8 @@ def main() -> None:
         test_data_root = project_root / "test" / "test_data" / "mssdk"
         
         # Hardcoded test paths
-        suite_path = test_data_root / "dummy_mapping_suite" / "config"
-        config_path = suite_path / "mapping_suite_config.json"
+        suite_path = test_data_root / "dummy_mapping_suite"
+        config_path = suite_path / "config" / "mapping_suite_config.json"
         
         logger.info("="*80)
         logger.info("Starting MongoDB Config and Suite Test Suite")

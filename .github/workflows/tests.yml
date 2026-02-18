@@ -98,6 +98,9 @@ jobs:
         run: |
           if [ "${{ github.event_name }}" == "pull_request" ] || [ "${{ inputs.full_tests }}" == "true" ]; then
             make staging-dotenv-file
+            # Override Vault values for direct container access (no Traefik/proxy)
+            sed -i 's/^SFTP_PUBLISH_PORT=.*/SFTP_PUBLISH_PORT=22/' .env
+            sed -i 's/^S3_PUBLISH_SECURE=.*/S3_PUBLISH_SECURE=false/' .env
           else
             echo "VAULT_TOKEN=${{ secrets.VAULT_TOKEN }}" >> .env
             echo "VAULT_ADDR=${{ secrets.VAULT_ADDR }}" >> .env

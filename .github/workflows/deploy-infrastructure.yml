@@ -56,5 +56,6 @@ jobs:
           docker compose \
             -f ${STACK_PATH}/docker-compose.yml \
             -f ${STACK_PATH}/docker-compose.staging.yml \
+            --env-file ${STACK_PATH}/.env.common \
             --env-file ${STACK_PATH}/.env.staging \
             up -d --force-recreate

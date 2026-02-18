@@ -59,7 +59,34 @@ services:
       - "traefik.http.routers.fuseki.tls.certresolver=mytlschallenge"
       - "traefik.http.services.fuseki.loadbalancer.server.port=3030"
 
+  metabase-postgres:
+    image: postgres:14-alpine
+    container_name: metabase-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: metabase
+      POSTGRES_USER: metabase
+      POSTGRES_PASSWORD: ${METABASE_POSTGRES_PASSWORD}
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "metabase"]
+      interval: 5s
+      retries: 5
+    volumes:
+      - metabase-postgres-data:/var/lib/postgresql/data
+    networks:
+      - internal
+
   metabase:
+    environment:
+      MB_DB_TYPE: postgres
+      MB_DB_DBNAME: metabase
+      MB_DB_PORT: 5432
+      MB_DB_USER: metabase
+      MB_DB_PASS: ${METABASE_POSTGRES_PASSWORD}
+      MB_DB_HOST: metabase-postgres
+    depends_on:
+      metabase-postgres:
+        condition: service_healthy
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.metabase.rule=Host(`${SUBDOMAIN}metabase.${DOMAIN}`)"
@@ -140,3 +167,4 @@ volumes:
   fuseki-data:
   sftp-data:
   airflow-postgres-data:
+  metabase-postgres-data:

@@ -249,6 +249,49 @@ init-saxon-curl:
 start-project-services: | start-airflow start-mongo init-rml-mapper init-limes start-allegro-graph start-metabase
 stop-project-services: | stop-airflow stop-mongo stop-allegro-graph stop-metabase
 
+init-libraries:
+	@echo "$(BUILD_PRINT)Initializing libraries (downloads only if missing) $(END_BUILD_PRINT)"
+	@[ -f ./libraries/.rmlmapper/rmlmapper.jar ] || \
+		(mkdir -p ./libraries/.rmlmapper && \
+		 curl -L -o ./libraries/.rmlmapper/rmlmapper.jar \
+		 https://github.com/RMLio/rmlmapper-java/releases/download/v6.2.2/rmlmapper-6.2.2-r371-all.jar)
+	@[ -f ./libraries/.limes/limes.jar ] || \
+		(mkdir -p ./libraries/.limes && \
+		 curl -L -o ./libraries/.limes/limes.jar \
+		 https://github.com/dice-group/LIMES/releases/download/1.7.9/limes.jar)
+	@[ -f ./libraries/.saxon/saxon-he-10.9.jar ] || \
+		(mkdir -p ./libraries/.saxon && \
+		 curl -L -o ./libraries/.saxon/SaxonHE10-9J.zip \
+		 https://github.com/Saxonica/Saxon-HE/releases/download/SaxonHE10-9/SaxonHE10-9J.zip && \
+		 cd ./libraries/.saxon && unzip -o SaxonHE10-9J.zip && rm -f SaxonHE10-9J.zip)
+
+#-----------------------------------------------------------------------------
+# UNIFIED STACK (ted-sws-stack)
+#-----------------------------------------------------------------------------
+STACK_PATH = $(INFRA_FOLDER_PATH)/ted-sws-stack
+
+start-local-stack: init-libraries
+	@echo "$(BUILD_PRINT)Building Airflow image $(END_BUILD_PRINT)"
+	@docker build -t tedsws/airflow:local $(STACK_PATH)/airflow
+	@echo "$(BUILD_PRINT)Starting TED-SWS local stack $(END_BUILD_PRINT)"
+	@docker compose -f $(STACK_PATH)/docker-compose.yml -f $(STACK_PATH)/docker-compose.local.yml --env-file $(STACK_PATH)/.env.local up -d $(SERVICES)
+
+stop-local-stack:
+	@echo "$(BUILD_PRINT)Stopping TED-SWS local stack $(END_BUILD_PRINT)"
+	@docker compose -f $(STACK_PATH)/docker-compose.yml -f $(STACK_PATH)/docker-compose.local.yml --env-file $(STACK_PATH)/.env.local down
+
+cleanup-local-stack:
+	@echo "$(BUILD_PRINT)Cleaning up TED-SWS local stack $(END_BUILD_PRINT)"
+	@docker compose -f $(STACK_PATH)/docker-compose.yml -f $(STACK_PATH)/docker-compose.local.yml --env-file $(STACK_PATH)/.env.local down -v --rmi local --remove-orphans
+	@docker builder prune -f --filter label=com.docker.compose.project=ted-sws-stack
+	@docker rmi tedsws/airflow:local 2>/dev/null || true
+
+start-local-stack-nodata: init-libraries
+	@echo "$(BUILD_PRINT)Building Airflow image $(END_BUILD_PRINT)"
+	@docker build -t tedsws/airflow:local $(STACK_PATH)/airflow
+	@echo "$(BUILD_PRINT)Starting TED-SWS local stack (no persistent data) $(END_BUILD_PRINT)"
+	@docker compose -f $(STACK_PATH)/docker-compose.yml -f $(STACK_PATH)/docker-compose.local.yml -f $(STACK_PATH)/docker-compose.local-nodata.yml --env-file $(STACK_PATH)/.env.local up -d $(SERVICES)
+
 #-----------------------------------------------------------------------------
 # VAULT SERVICES
 #-----------------------------------------------------------------------------
@@ -265,7 +308,29 @@ vault-installed: #; @which vault1 > /dev/null
         echo -e "$(BUILD_PRINT)Vault is not installed, refer to https://www.vaultproject.io/downloads $(END_BUILD_PRINT)"; \
         exit 1; \
 	fi
-# Get secrets in dotenv format
+
+# Get secrets in dotenv format (unified stack - passwords only from Vault)
+# Non-secret app configs come from .env.common via env_file in compose overrides
+staging-unified-dotenv: guard-VAULT_ADDR guard-VAULT_TOKEN vault-installed
+	@ echo -e "$(BUILD_PRINT)Creating unified stack .env.staging from Vault $(END_BUILD_PRINT)"
+	@ VAULT_JSON=$$(vault kv get -format="json" ted-staging/ted-sws-deployment-secrets) && \
+	  MONGO_PW=$$(echo "$$VAULT_JSON" | jq -r '.data.data.MONGO_ROOT_PASSWORD') && \
+	  MINIO_PW=$$(echo "$$VAULT_JSON" | jq -r '.data.data.MINIO_ROOT_PASSWORD') && \
+	  { \
+	    echo "$$VAULT_JSON" | jq -r ".data.data | keys[] as \$$k | \"\(\$$k)=\(.[\$$k])\""; \
+	    echo "MONGO_DB_AUTH_URL=mongodb://admin:$$MONGO_PW@mongodb:27017/"; \
+	    echo "S3_PUBLISH_PASSWORD=$$MINIO_PW"; \
+	    echo "ENVIRONMENT=staging"; \
+	    echo "SUBDOMAIN=tedsws-staging."; \
+	    echo "DOMAIN=meaningfy.ws"; \
+	    echo "AIRFLOW_INFRA_FOLDER=/opt/tedsws"; \
+	    echo "AIRFLOW__CORE__PARALLELISM=8"; \
+	    echo "AIRFLOW__CORE__MAX_ACTIVE_TASKS_PER_DAG=4"; \
+	    echo "AIRFLOW__CORE__MAX_ACTIVE_RUNS_PER_DAG=4"; \
+	    echo "AIRFLOW__CELERY__WORKER_CONCURRENCY=4"; \
+	  } > $(STACK_PATH)/.env.staging
+
+# Get secrets in dotenv format (old - pulls everything from multiple Vault paths)
 staging-dotenv-file: guard-VAULT_ADDR guard-VAULT_TOKEN vault-installed
 	@ echo -e "$(BUILD_PRINT)Creating .env.staging file $(END_BUILD_PRINT)"
 	@ echo VAULT_ADDR=${VAULT_ADDR} > .env
@@ -282,39 +347,18 @@ staging-dotenv-file: guard-VAULT_ADDR guard-VAULT_TOKEN vault-installed
 	@ echo 'MONGO_DB_AUTH_URL=mongodb://$${MONGO_INITDB_ROOT_USERNAME}:$${MONGO_INITDB_ROOT_PASSWORD}@mongodb-staging:27017/' >> .env
 	@ vault kv get -format="json" ted-staging/metabase | jq -r ".data.data | keys[] as \$$k | \"\(\$$k)=\(.[\$$k])\"" >> .env
 	@ vault kv get -format="json" ted-staging/ted-sws | jq -r ".data.data | keys[] as \$$k | \"\(\$$k)=\(.[\$$k])\"" >> .env
-	@ vault kv get -format="json" ted-staging/agraph | jq -r ".data.data | keys[] as \$$k | \"\(\$$k)=\(.[\$$k])\"" >> .env
 	@ vault kv get -format="json" ted-staging/fuseki | jq -r ".data.data | keys[] as \$$k | \"\(\$$k)=\(.[\$$k])\"" >> .env
 	@ echo 'FUSEKI_ADMIN_HOST=http://fuseki-staging:3030' >> .env
 	@ vault kv get -format="json" ted-staging/github | jq -r ".data.data | keys[] as \$$k | \"\(\$$k)=\(.[\$$k])\"" >> .env
 	@ vault kv get -format="json" ted-staging/minio | jq -r ".data.data | keys[] as \$$k | \"\(\$$k)=\(.[\$$k])\"" >> .env
-	@ echo 'S3_PUBLISH_HOST=minio-staging:9000' >> .env
-	@ echo 'SFTP_PUBLISH_HOST=sftp-staging' >> .env
+	@ echo 'S3_PUBLISH_HOST=minio:9000' >> .env
+	@ echo 'SFTP_PUBLISH_HOST=sftp' >> .env
 	@ echo "# Concurrency limits for staging (4-core, 15GB VM)" >> .env
 	@ echo AIRFLOW__CORE__PARALLELISM=8 >> .env
 	@ echo AIRFLOW__CORE__MAX_ACTIVE_TASKS_PER_DAG=4 >> .env
 	@ echo AIRFLOW__CORE__MAX_ACTIVE_RUNS_PER_DAG=4 >> .env
 	@ echo AIRFLOW__CELERY__WORKER_CONCURRENCY=4 >> .env
 
-
-dev-dotenv-file: guard-VAULT_ADDR guard-VAULT_TOKEN vault-installed
-	@ echo -e "$(BUILD_PRINT)Create .env file $(END_BUILD_PRINT)"
-	@ echo VAULT_ADDR=${VAULT_ADDR} > .env
-	@ echo VAULT_TOKEN=${VAULT_TOKEN} >> .env
-	@ echo ENVIRONMENT=dev >> .env
-	@ echo SUBDOMAIN= >> .env
-	@ echo RML_MAPPER_PATH=${RML_MAPPER_PATH} >> .env
-	@ echo LIMES_ALIGNMENT_PATH=${LIMES_ALIGNMENT_PATH} >> .env
-	@ echo XML_PROCESSOR_PATH=${XML_PROCESSOR_PATH} >> .env
-	@ echo AIRFLOW_INFRA_FOLDER=${AIRFLOW_INFRA_FOLDER} >> .env
-	@ echo AIRFLOW_WORKER_HOSTNAME=${HOSTNAME} >> .env
-	@ vault kv get -format="json" ted-dev/airflow | jq -r ".data.data | keys[] as \$$k | \"\(\$$k)=\(.[\$$k])\"" >> .env
-	@ vault kv get -format="json" ted-dev/mongo-db | jq -r ".data.data | keys[] as \$$k | \"\(\$$k)=\(.[\$$k])\"" >> .env
-	@ vault kv get -format="json" ted-dev/metabase | jq -r ".data.data | keys[] as \$$k | \"\(\$$k)=\(.[\$$k])\"" >> .env
-	@ vault kv get -format="json" ted-dev/agraph | jq -r ".data.data | keys[] as \$$k | \"\(\$$k)=\(.[\$$k])\"" >> .env
-	@ vault kv get -format="json" ted-dev/fuseki | jq -r ".data.data | keys[] as \$$k | \"\(\$$k)=\(.[\$$k])\"" >> .env
-	@ vault kv get -format="json" ted-dev/ted-sws | jq -r ".data.data | keys[] as \$$k | \"\(\$$k)=\(.[\$$k])\"" >> .env
-	@ vault kv get -format="json" ted-dev/github | jq -r ".data.data | keys[] as \$$k | \"\(\$$k)=\(.[\$$k])\"" >> .env
-	@ vault kv get -format="json" ted-dev/minio | jq -r ".data.data | keys[] as \$$k | \"\(\$$k)=\(.[\$$k])\"" >> .env
 
 
 prod-dotenv-file: guard-VAULT_ADDR guard-VAULT_TOKEN vault-installed
@@ -332,7 +376,6 @@ prod-dotenv-file: guard-VAULT_ADDR guard-VAULT_TOKEN vault-installed
 	@ vault kv get -format="json" ted-prod/airflow | jq -r ".data.data | keys[] as \$$k | \"\(\$$k)=\(.[\$$k])\"" >> .env
 	@ vault kv get -format="json" ted-prod/mongo-db | jq -r ".data.data | keys[] as \$$k | \"\(\$$k)=\(.[\$$k])\"" >> .env
 	@ vault kv get -format="json" ted-prod/metabase | jq -r ".data.data | keys[] as \$$k | \"\(\$$k)=\(.[\$$k])\"" >> .env
-	@ vault kv get -format="json" ted-prod/agraph | jq -r ".data.data | keys[] as \$$k | \"\(\$$k)=\(.[\$$k])\"" >> .env
 	@ vault kv get -format="json" ted-prod/fuseki | jq -r ".data.data | keys[] as \$$k | \"\(\$$k)=\(.[\$$k])\"" >> .env
 	@ vault kv get -format="json" ted-prod/ted-sws | jq -r ".data.data | keys[] as \$$k | \"\(\$$k)=\(.[\$$k])\"" >> .env
 	@ vault kv get -format="json" ted-prod/github | jq -r ".data.data | keys[] as \$$k | \"\(\$$k)=\(.[\$$k])\"" >> .env

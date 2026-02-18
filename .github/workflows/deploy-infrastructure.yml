@@ -11,8 +11,8 @@ on:
 env:
   VAULT_TOKEN: ${{ secrets.VAULT_TOKEN }}
   VAULT_ADDR: ${{ secrets.VAULT_ADDR }}
-  ENVIRONMENT: staging
   TRAEFIK_DATA_PATH: /opt/tedsws/traefik
+  STACK_PATH: src/infra/ted-sws-stack
 
 jobs:
   deploy:
@@ -24,63 +24,38 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Setup environment and directories
+      - name: Setup environment
         run: |
-          # Create .env from Vault and fix paths
-          make staging-dotenv-file
-          sed -i 's|^AIRFLOW_INFRA_FOLDER=.*|AIRFLOW_INFRA_FOLDER=/opt/tedsws|' .env
-          sed -i 's|^SUBDOMAIN=.*|SUBDOMAIN=tedsws-staging.|' .env
+          # Create .env.staging from Vault (passwords only, everything else hardcoded)
+          make staging-unified-dotenv
 
-          # Override SFTP port to 22 for internal Docker connections
-          # (SFTP container will use default 2235:22 port mapping)
-          sed -i 's/^SFTP_PUBLISH_PORT=.*/SFTP_PUBLISH_PORT=22/' .env
+          # Runtime-specific values (not in Vault)
+          echo "AIRFLOW_UID=$(id -u)" >> ${STACK_PATH}/.env.staging
+          echo "AIRFLOW_IMAGE=tedsws/airflow:staging" >> ${STACK_PATH}/.env.staging
 
-          # Set AIRFLOW_UID to match current user so container can write to mounted volumes
-          echo "AIRFLOW_UID=$(id -u)" >> .env
-
-          # Setup deployment directory
+          # Setup deployment directory (source/config only — data uses named volumes)
           sudo mkdir -p /opt/tedsws ${TRAEFIK_DATA_PATH}/letsencrypt
-          sudo chown -R $USER:$USER /opt/tedsws ${TRAEFIK_DATA_PATH}
-          mkdir -p /opt/tedsws/src /opt/tedsws/logs /opt/tedsws/plugins /opt/tedsws/tests
+          sudo chown -R $USER:$USER /opt/tedsws
+          mkdir -p /opt/tedsws/src /opt/tedsws/logs /opt/tedsws/plugins /opt/tedsws/test
 
-          # Copy .env to deployment dir (keep in repo root for Makefile targets)
-          cp .env /opt/tedsws/.env
-          chmod 777 /opt/tedsws/logs /opt/tedsws/plugins /opt/tedsws/.env
+          # Copy source files
+          rsync -a --delete src/ /opt/tedsws/src/
 
-      - name: Start Traefik
-        run: make start-traefik
-
-      - name: Start MongoDB
-        run: make start-mongo
-
-      - name: Start Fuseki
-        run: make start-fuseki
-
-      - name: Download libraries (if missing)
+      - name: Download libraries
         run: |
-          echo "Checking for required libraries..."
-          [ -f libraries/.rmlmapper/rmlmapper.jar ] || make init-rml-mapper-curl
-          [ -f libraries/.limes/limes.jar ] || make init-limes-curl
-          [ -f libraries/.saxon/saxon-he-10.9.jar ] || make init-saxon-curl
-          echo "Libraries ready:"
-          ls -la libraries/
+          make init-libraries
           rsync -a --delete libraries/ /opt/tedsws/libraries/
 
-      - name: Build and start Airflow
+      - name: Build Airflow image
         run: |
-          cp requirements.txt src/infra/airflow/
-          docker build -t meaningfy/airflow src/infra/airflow/
-          docker-compose -p ${ENVIRONMENT} --file src/infra/airflow/docker-compose.yaml --env-file .env up -d --force-recreate
+          cp requirements.txt ${STACK_PATH}/airflow/
+          docker build -t tedsws/airflow:staging ${STACK_PATH}/airflow/
 
-      - name: Start MinIO
-        run: make start-minio
-
-      - name: Start SFTP
-        run: make start-sftp
-
-      # Digest API - disabled, needs Python 3.10+ and build tools fix
-      # - name: Start Digest API
-      #   run: make create-env-digest-api start-digest_service-api
-
-      - name: Start Metabase
-        run: make start-metabase
+      - name: Deploy stack
+        run: |
+          docker compose \
+            -f ${STACK_PATH}/docker-compose.yml \
+            -f ${STACK_PATH}/docker-compose.staging.yml \
+            --env-file ${STACK_PATH}/.env.common \
+            --env-file ${STACK_PATH}/.env.staging \
+            up -d --force-recreate

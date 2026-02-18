@@ -9,9 +9,6 @@ on:
         default: false
         type: boolean
 
-env:
-  ENVIRONMENT: staging
-
 jobs:
   deploy:
     name: Deploy DAGs and Code
@@ -33,7 +30,7 @@ jobs:
         if: ${{ inputs.restart_worker }}
         run: |
           echo "Restarting Airflow worker to pick up ted_sws changes..."
-          docker restart airflow-worker-staging
+          docker restart airflow-worker
           echo "Worker restarted."
 
       - name: Verify deployment

@@ -52,8 +52,8 @@ jobs:
 
   tests:
     name: Run Tests
-    needs: changes
-    if: ${{ needs.changes.outputs.pipeline == 'true' }}
+    needs: [changes, stack]
+    if: ${{ always() && needs.changes.outputs.pipeline == 'true' && (needs.stack.result == 'success' || needs.stack.result == 'skipped') }}
     uses: ./.github/workflows/tests.yml
     with:
       full_tests: true

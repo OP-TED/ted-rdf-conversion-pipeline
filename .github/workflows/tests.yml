@@ -75,12 +75,29 @@ jobs:
           make install
           make install-dev
 
+      - name: Resolve Docker container hostnames
+        if: github.event_name == 'pull_request' || inputs.full_tests
+        run: |
+          for container in mongodb-staging fuseki-staging minio-staging sftp-staging; do
+            ip=$(docker inspect -f '{{(index .NetworkSettings.Networks "common-ext-staging").IPAddress}}' "$container" 2>/dev/null)
+            if [ -n "$ip" ]; then
+              echo "$ip $container" | sudo tee -a /etc/hosts
+            else
+              echo "WARNING: Container $container not found or has no IP on common-ext-staging"
+            fi
+          done
+          echo "=== /etc/hosts entries ==="
+          grep -E "staging" /etc/hosts
+          echo "=== Connectivity check ==="
+          curl -sf --max-time 5 http://fuseki-staging:3030 > /dev/null && echo "OK: fuseki-staging:3030 reachable" || echo "FAIL: fuseki-staging:3030 not reachable"
+          curl -sf --max-time 5 http://minio-staging:9000 > /dev/null && echo "OK: minio-staging:9000 reachable" || echo "FAIL: minio-staging:9000 not reachable"
+          nc -z -w5 mongodb-staging 27017 && echo "OK: mongodb-staging:27017 reachable" || echo "FAIL: mongodb-staging:27017 not reachable"
+          nc -z -w5 sftp-staging 22 && echo "OK: sftp-staging:22 reachable" || echo "FAIL: sftp-staging:22 not reachable"
+
       - name: Create env file
         run: |
           if [ "${{ github.event_name }}" == "pull_request" ] || [ "${{ inputs.full_tests }}" == "true" ]; then
             make staging-dotenv-file
-            # Replace Docker container hostname with localhost for tests running on host
-            sed -i 's|mongodb-staging:27017|localhost:27018|g' .env
           else
             echo "VAULT_TOKEN=${{ secrets.VAULT_TOKEN }}" >> .env
             echo "VAULT_ADDR=${{ secrets.VAULT_ADDR }}" >> .env
@@ -111,5 +128,7 @@ jobs:
           rm -rf .tox .pytest_cache __pycache__ .coverage coverage.xml
           find . -type d -name "__pycache__" -exec rm -rf {} + 2>/dev/null || true
           find . -type f -name "*.pyc" -delete 2>/dev/null || true
+          # Remove Docker container host entries added during this run
+          sudo sed -i '/-staging$/d' /etc/hosts
           echo "=== Disk usage ==="
           df -h /

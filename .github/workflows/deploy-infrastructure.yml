@@ -33,9 +33,9 @@ jobs:
           echo "AIRFLOW_UID=$(id -u)" >> ${STACK_PATH}/.env.staging
           echo "AIRFLOW_IMAGE=tedsws/airflow:staging" >> ${STACK_PATH}/.env.staging
 
-          # Setup deployment directory
+          # Setup deployment directory (source/config only — data uses named volumes)
           sudo mkdir -p /opt/tedsws ${TRAEFIK_DATA_PATH}/letsencrypt
-          sudo chown -R $USER:$USER /opt/tedsws ${TRAEFIK_DATA_PATH}
+          sudo chown -R $USER:$USER /opt/tedsws
           mkdir -p /opt/tedsws/src /opt/tedsws/logs /opt/tedsws/plugins /opt/tedsws/test
 
           # Copy source files

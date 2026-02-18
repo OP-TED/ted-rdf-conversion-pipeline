@@ -33,7 +33,7 @@ services:
 
   minio:
     volumes:
-      - /opt/tedsws/minio-data:/data
+      - minio-data:/data
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.minio.rule=Host(`${SUBDOMAIN}minio.${DOMAIN}`)"
@@ -42,7 +42,7 @@ services:
 
   mongodb:
     volumes:
-      - /opt/tedsws/mongodb-data:/data/db
+      - mongodb-data:/data/db
 
   mongo-express:
     labels:
@@ -52,7 +52,7 @@ services:
 
   fuseki:
     volumes:
-      - /opt/tedsws/fuseki-data:/fuseki-base/databases
+      - fuseki-data:/fuseki-base/databases
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.fuseki.rule=Host(`${SUBDOMAIN}fuseki.${DOMAIN}`)"
@@ -68,11 +68,11 @@ services:
 
   sftp:
     volumes:
-      - /opt/tedsws/sftp-data:/home
+      - sftp-data:/home
 
   airflow-postgres:
     volumes:
-      - /opt/tedsws/airflow-postgres-data:/var/lib/postgresql/data
+      - airflow-postgres-data:/var/lib/postgresql/data
 
   airflow-init:
     volumes:
@@ -133,3 +133,10 @@ services:
     env_file:
       - .env.common
       - .env.staging
+
+volumes:
+  minio-data:
+  mongodb-data:
+  fuseki-data:
+  sftp-data:
+  airflow-postgres-data:

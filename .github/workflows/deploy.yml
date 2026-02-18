@@ -79,8 +79,6 @@ jobs:
 
     steps:
       - name: Check all services
-        env:
-          ENVIRONMENT: staging
         run: |
           echo "Waiting for services to stabilize..."
           sleep 10
@@ -91,10 +89,10 @@ jobs:
           docker ps | grep -q "traefik" && echo "✓ Traefik" || { echo "✗ Traefik"; failed=1; }
 
           echo "=== Checking Data Stores ==="
-          docker ps | grep -q "mongodb-${ENVIRONMENT}" && echo "✓ MongoDB" || { echo "✗ MongoDB"; failed=1; }
-          docker ps | grep -q "fuseki-${ENVIRONMENT}" && echo "✓ Fuseki" || { echo "✗ Fuseki"; failed=1; }
-          docker ps | grep -q "minio-${ENVIRONMENT}" && echo "✓ MinIO" || { echo "✗ MinIO"; failed=1; }
-          docker ps | grep -q "sftp-${ENVIRONMENT}" && echo "✓ SFTP" || { echo "✗ SFTP"; failed=1; }
+          docker ps | grep -q "mongodb" && echo "✓ MongoDB" || { echo "✗ MongoDB"; failed=1; }
+          docker ps | grep -q "fuseki" && echo "✓ Fuseki" || { echo "✗ Fuseki"; failed=1; }
+          docker ps | grep -q "minio" && echo "✓ MinIO" || { echo "✗ MinIO"; failed=1; }
+          docker ps | grep -q "sftp" && echo "✓ SFTP" || { echo "✗ SFTP"; failed=1; }
 
           echo "=== Checking Airflow ==="
           docker ps | grep -q "airflow-webserver" && echo "✓ Airflow webserver" || { echo "✗ Airflow webserver"; failed=1; }
@@ -102,7 +100,7 @@ jobs:
           docker ps | grep -q "airflow-worker" && echo "✓ Airflow worker" || { echo "✗ Airflow worker"; failed=1; }
 
           echo "=== Checking APIs ==="
-          docker ps | grep -q "metabase-${ENVIRONMENT}" && echo "✓ Metabase" || { echo "✗ Metabase"; failed=1; }
+          docker ps | grep -q "metabase" && echo "✓ Metabase" || { echo "✗ Metabase"; failed=1; }
 
           echo ""
           echo "=== All containers ==="

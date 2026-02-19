@@ -117,9 +117,9 @@ jobs:
         run: |
           set -a && source .env && set +a
           FAIL=0
-          curl -sf --max-time 5 "$TED_API_URL" -X POST -d '{}' > /dev/null && echo "OK: TED API ($TED_API_URL)" || { echo "FAIL: TED API ($TED_API_URL)"; FAIL=1; }
-          curl -sf --max-time 5 "$ALLEGRO_HOST" > /dev/null && echo "OK: AllegroGraph ($ALLEGRO_HOST)" || { echo "FAIL: AllegroGraph ($ALLEGRO_HOST)"; FAIL=1; }
-          curl -sf --max-time 5 "http://fuseki:3030/test_limes/query" > /dev/null && echo "OK: Fuseki test_limes" || { echo "FAIL: Fuseki test_limes dataset"; FAIL=1; }
+          curl -so /dev/null --max-time 5 "$TED_API_URL" && echo "OK: TED API ($TED_API_URL)" || { echo "FAIL: TED API ($TED_API_URL)"; FAIL=1; }
+          curl -so /dev/null --max-time 5 "$ALLEGRO_HOST" && echo "OK: AllegroGraph ($ALLEGRO_HOST)" || { echo "FAIL: AllegroGraph ($ALLEGRO_HOST)"; FAIL=1; }
+          curl -so /dev/null --max-time 5 "http://fuseki:3030/test_limes" && echo "OK: Fuseki test_limes" || { echo "FAIL: Fuseki test_limes dataset"; FAIL=1; }
           if [ "$FAIL" -eq 1 ]; then
             echo "::error::Required external endpoints are not reachable"
             exit 1

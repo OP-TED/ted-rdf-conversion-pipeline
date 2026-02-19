@@ -22,7 +22,7 @@ def test_notice_transformer_by_id_function(fake_rml_mapper, mongodb_client, fake
     notice_id = notice_2018.ted_id
     mapping_package_repository = MappingPackageRepositoryMongoDB(mongodb_client=mongodb_client)
     mapping_package_repository.add(mapping_package=fake_mapping_package)
-    mapping_package_id = fake_mapping_package.get_mongodb_id()
+    mapping_package_id = fake_mapping_package.identifier
     transform_notice_by_id(notice_id, mapping_package_id, notice_repository, mapping_package_repository,
                            fake_rml_mapper)
     result_notice = notice_repository.get(reference=notice_id)

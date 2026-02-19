@@ -344,11 +344,6 @@ def fake_notice_id() -> str:
 
 
 @pytest.fixture
-def fake_mapping_package_F03_path(fake_repository_path, fake_mapping_package_F03_id) -> Path:
-    return fake_repository_path / fake_mapping_package_F03_id
-
-
-@pytest.fixture
 def fake_conceptual_mappings_F03_path(fake_repository_path, fake_mapping_package_F03_id) -> str:
     return str(fake_repository_path / fake_mapping_package_F03_id / "transformation" / "conceptual_mappings.xlsx")
 

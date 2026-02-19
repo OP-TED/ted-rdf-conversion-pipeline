@@ -11,8 +11,8 @@ def file_system_repository_path():
 
 
 @pytest.fixture
-def test_package_identifier_with_version():
-    return "test_package_v0.1"
+def test_package_identifier():
+    return "test_package"
 
 
 @pytest.fixture

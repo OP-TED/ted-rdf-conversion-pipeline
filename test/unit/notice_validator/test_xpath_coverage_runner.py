@@ -7,8 +7,7 @@ from src.ted_sws.notice_validator.services.xpath_coverage_runner import validate
     xpath_coverage_json_report, xpath_coverage_html_report, validate_xpath_coverage_notice
 
 
-def test_xpath_coverage_runner(fake_notice_F03, fake_mapping_package_F03_id, fake_mapping_package_F03_id_with_version,
-                               mongodb_client, fake_repository_path, fake_mapping_package_F03_path):
+def test_xpath_coverage_runner(fake_notice_F03, fake_mapping_package_F03_id, mongodb_client, fake_repository_path):
     report_notices = [ReportNotice(notice=fake_notice_F03)]
     mapping_package_repository = MappingPackageRepositoryInFileSystem(repository_path=fake_repository_path)
     mapping_package = mapping_package_repository.get(reference=fake_mapping_package_F03_id)
@@ -22,10 +21,12 @@ def test_xpath_coverage_runner(fake_notice_F03, fake_mapping_package_F03_id, fak
 
     assert xpath_coverage_html_report(report)
 
-    mapping_package_processor_load_package_in_mongo_db(mapping_package_path=fake_mapping_package_F03_path,
+    mapping_package_repository = MappingPackageRepositoryInFileSystem(repository_path=fake_repository_path)
+    mapping_package = mapping_package_repository.get(reference=fake_mapping_package_F03_id)
+    mapping_package_processor_load_package_in_mongo_db(package=mapping_package,
                                                      mongodb_client=mongodb_client)
     mapping_package_repository = MappingPackageRepositoryMongoDB(mongodb_client=mongodb_client)
-    mapping_package = mapping_package_repository.get(reference=fake_mapping_package_F03_id_with_version)
+    mapping_package = mapping_package_repository.get(reference=fake_mapping_package_F03_id)
     assert mapping_package
 
     report = validate_xpath_coverage_notices(report_notices, mapping_package)

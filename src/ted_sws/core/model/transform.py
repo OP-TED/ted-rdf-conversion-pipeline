@@ -369,8 +369,3 @@ class MappingPackage(MappingPackageComponent, MappingPackageV2):
                 resources=resources,
                 rml_mapping_rules=rml_rules
             )
-
-    # TODO check this out and remove if not needed (see if any production package ID does not come with version)
-    def get_mongodb_id(self) -> str:
-        """Get MongoDB _id for this package."""
-        return f"{self.id}_v{self.version}"

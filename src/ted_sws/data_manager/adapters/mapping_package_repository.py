@@ -2,7 +2,6 @@ import json
 import os
 import pathlib
 import shutil
-from datetime import datetime
 from typing import Iterator, List, Optional
 
 from pymongo import MongoClient
@@ -64,7 +63,7 @@ class MappingPackageRepositoryMongoDB(MappingPackageRepositoryABC):
         self.database_name = database_name or config.MONGO_DB_AGGREGATES_DATABASE_NAME
         self.mongodb_client = mongodb_client
 
-        # Repositories for each MSSDK package type
+        # Repositories for each package type
         self._repo_v1 = MongoDBRepository(
             model_class=MappingPackageV1,
             mongo_client=mongodb_client,
@@ -89,6 +88,12 @@ class MappingPackageRepositoryMongoDB(MappingPackageRepositoryABC):
             database_name=self.database_name,
             collection_name=self._collection_name
         )
+        self._repo_legacy = MongoDBRepository(
+            model_class=MappingPackage,
+            mongo_client=mongodb_client,
+            database_name=self.database_name,
+            collection_name=self._collection_name
+        )
 
     def _get_repository(self, package: MappingPackage) -> MongoDBRepository:
         """Get the appropriate repository based on package type."""
@@ -100,27 +105,43 @@ class MappingPackageRepositoryMongoDB(MappingPackageRepositoryABC):
             return self._repo_v2
         elif isinstance(package, MappingPackageV1):
             return self._repo_v1
+        elif isinstance(package, MappingPackage):
+            return self._repo_legacy
         else:
             raise ValueError(f"Unsupported package type: {type(package).__name__}")
 
-    def add(self, package: MappingPackage) -> MappingPackage:
+    def get_repository_by_class(self, package_class):
+        if package_class == MappingPackageV1:
+            return self._repo_v1
+        elif package_class == MappingPackageV2:
+            return self._repo_v2
+        elif package_class == MappingPackageV3:
+            return self._repo_v3
+        elif package_class == MappingPackageV3Lightweight:
+            return self._repo_v3_lightweight
+        elif package_class == MappingPackage:
+            return self._repo_legacy
+        else:
+            raise ValueError(f"Unsupported package class: {package_class.__name__}")
+
+    def add(self, mapping_package: MappingPackage) -> MappingPackage:
         """Save a mapping package to MongoDB.
 
         Args:
-            package: The mapping package (legacy or MSSDK model)
+            mapping_package: The mapping package (legacy or MSSDK model)
 
         Returns:
             The saved package
         """
-        repo = self._get_repository(package)
-        return repo.create(package)
+        repo = self._get_repository(mapping_package)
+        return repo.create(mapping_package)
 
-    def get(self, reference: str, package_class: MappingPackage) -> MappingPackage:
+    def get(self, reference: str, package_class: type = MappingPackage) -> MappingPackage:
         """Retrieve a mapping package from MongoDB.
 
         Args:
             reference: The package identifier
-            package_class: The expected package model class (defaults to V2)
+            package_class: The expected package model class (defaults to MappingPackage)
 
         Returns:
             The retrieved package
@@ -128,30 +149,20 @@ class MappingPackageRepositoryMongoDB(MappingPackageRepositoryABC):
         Raises:
             ModelNotFoundError: If package not found
         """
-        if package_class == MappingPackageV1:
-            repo = self._repo_v1
-        elif package_class == MappingPackageV2:
-            repo = self._repo_v2
-        elif package_class == MappingPackageV3:
-            repo = self._repo_v3
-        elif package_class == MappingPackageV3Lightweight:
-            repo = self._repo_v3_lightweight
-        else:
-            raise ValueError(f"Unsupported package class: {package_class.__name__}")
-
+        repo = self.get_repository_by_class(package_class)
         return repo.read(reference)
 
-    def update(self, package: MappingPackage) -> MappingPackage:
+    def update(self, mapping_package: MappingPackage) -> MappingPackage:
         """Update a mapping package in MongoDB.
 
         Args:
-            package: The package to update
+            mapping_package: The package to update
 
         Returns:
             The updated package
         """
-        repo = self._get_repository(package)
-        return repo.update(package)
+        repo = self._get_repository(mapping_package)
+        return repo.update(mapping_package)
 
     def delete(self, reference: str) -> None:
         """Delete a mapping package from MongoDB.
@@ -165,7 +176,7 @@ class MappingPackageRepositoryMongoDB(MappingPackageRepositoryABC):
         if result.deleted_count < 1:
             raise ModelNotFoundError(f"Package with ID {reference} not found")
 
-    def list(self, package_class: MappingPackage) -> List[MappingPackage]:
+    def list(self, package_class: type = MappingPackage) -> List[MappingPackage]:
         """List mapping packages from MongoDB.
 
         Args:
@@ -174,17 +185,7 @@ class MappingPackageRepositoryMongoDB(MappingPackageRepositoryABC):
         Returns:
             List of packages
         """
-        if package_class == MappingPackageV1:
-            repo = self._repo_v1
-        elif package_class == MappingPackageV2:
-            repo = self._repo_v2
-        elif package_class == MappingPackageV3:
-            repo = self._repo_v3
-        elif package_class == MappingPackageV3Lightweight:
-            repo = self._repo_v3_lightweight
-        else:
-            raise ValueError(f"Unsupported package class: {package_class.__name__}")
-
+        repo = self.get_repository_by_class(package_class)
         return repo.read_many()
 
 
@@ -278,12 +279,25 @@ class MappingPackageRepositoryInFileSystem(MappingPackageRepositoryABC):
         :param mapping_package:
         :return:
         """
+        def convert_paths(obj):
+            if isinstance(obj, pathlib.Path):
+                return str(obj)
+            elif isinstance(obj, dict):
+                return {k: convert_paths(v) for k, v in obj.items()}
+            elif isinstance(obj, list):
+                return [convert_paths(i) for i in obj]
+            elif isinstance(obj, tuple):
+                return tuple(convert_paths(i) for i in obj)
+            else:
+                return obj
+
         package_path = self.repository_path / mapping_package.identifier
         package_path.mkdir(parents=True, exist_ok=True)
         metadata_path = package_path / MS_METADATA_FILE_NAME
         package_metadata = mapping_package.model_dump()
         [package_metadata.pop(key, None) for key in
          ["transformation_rule_set", "shacl_test_suites", "sparql_test_suites"]]
+        package_metadata = convert_paths(package_metadata)
         with metadata_path.open("w", encoding="utf-8") as f:
             f.write(json.dumps(package_metadata))
 

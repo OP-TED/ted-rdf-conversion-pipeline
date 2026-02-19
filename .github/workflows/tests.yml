@@ -89,7 +89,7 @@ jobs:
           echo "=== Connectivity check (Docker services) ==="
           FAIL=0
           curl -sf --max-time 5 http://fuseki:3030 > /dev/null && echo "OK: fuseki:3030" || { echo "FAIL: fuseki:3030"; FAIL=1; }
-          curl -sf --max-time 5 http://minio:9000 > /dev/null && echo "OK: minio:9000" || { echo "FAIL: minio:9000"; FAIL=1; }
+          nc -z -w5 minio 9000 && echo "OK: minio:9000" || { echo "FAIL: minio:9000"; FAIL=1; }
           nc -z -w5 mongodb 27017 && echo "OK: mongodb:27017" || { echo "FAIL: mongodb:27017"; FAIL=1; }
           nc -z -w5 sftp 22 && echo "OK: sftp:22" || { echo "FAIL: sftp:22"; FAIL=1; }
           if [ "$FAIL" -eq 1 ]; then

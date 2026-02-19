@@ -5,8 +5,8 @@
 
 x-versions:
   traefik: &traefik-version "traefik:v3.6"
-  minio: &minio-version "minio/minio:RELEASE.2024-11-07T00-52-20Z"
-  mongodb: &mongodb-version "mongo:7.0"
+  minio: &minio-version "minio/minio:RELEASE.2021-06-17T00-10-46Z"
+  mongodb: &mongodb-version "mongo:5.0.10"
   mongo-express: &mongo-express-version "mongo-express:1.0.2"
   fuseki: &fuseki-version "secoresearch/fuseki:5.3.0"
   metabase: &metabase-version "metabase/metabase:v0.58.5.1"

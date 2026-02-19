@@ -55,5 +55,5 @@ def daily_supra_notice():
 
 
 @pytest.fixture
-def fake_mapping_package_identifier_with_version(fake_mapping_package):
-    return fake_mapping_package.get_mongodb_id()
+def fake_mapping_package_identifier(fake_mapping_package):
+    return fake_mapping_package.identifier

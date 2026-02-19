@@ -41,7 +41,7 @@ def transform_notice(notice: Notice, mapping_package: MappingPackage, rml_mapper
             file.write(notice.xml_manifestation.object_data)
         rdf_result = rml_mapper.execute(package_path=package_path)
         notice.set_rdf_manifestation(
-            rdf_manifestation=RDFManifestation(mapping_package_id=mapping_package.get_mongodb_id(),
+            rdf_manifestation=RDFManifestation(mapping_package_id=mapping_package.identifier,
                                                object_data=rdf_result))
     return notice
 

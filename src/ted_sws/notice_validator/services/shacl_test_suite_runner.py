@@ -59,7 +59,7 @@ class SHACLTestSuiteRunner:
         except Exception as e:
             shacl_shape_validation_result.error = str(e)[:100]
 
-        return SHACLTestSuiteValidationReport(mapping_package_identifier=self.mapping_package.get_mongodb_id(),
+        return SHACLTestSuiteValidationReport(mapping_package_identifier=self.mapping_package.identifier,
                                               test_suite_identifier=self.shacl_test_suite.identifier,
                                               validation_results=shacl_shape_validation_result,
                                               object_data="SHACLTestSuiteExecution")

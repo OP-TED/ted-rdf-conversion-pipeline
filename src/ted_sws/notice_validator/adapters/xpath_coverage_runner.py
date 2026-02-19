@@ -30,7 +30,7 @@ class CoverageRunner:
     def __init__(self, mapping_package: MappingPackage):
         """"""
         self.mapping_package = mapping_package
-        self.mapping_package_id = mapping_package.get_mongodb_id()
+        self.mapping_package_id = mapping_package.identifier
         self.init_xpath_data(mapping_package=mapping_package)
 
     def init_xpath_data(self, mapping_package: MappingPackage):

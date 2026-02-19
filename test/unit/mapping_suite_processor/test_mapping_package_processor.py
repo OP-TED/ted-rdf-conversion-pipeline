@@ -10,17 +10,20 @@ from test import TEST_DATA_PATH, temporary_copy
 
 
 def test_mapping_package_processor_upload_in_mongodb(file_system_repository_path, mongodb_client,
-                                                   test_package_identifier_with_version, aggregates_database_name):
+                                                   test_package_identifier, aggregates_database_name):
     with temporary_copy(file_system_repository_path) as tmp_mapping_package_path:
         mapping_package_path = tmp_mapping_package_path / "test_package"
-        mapping_package_processor_load_package_in_mongo_db(mapping_package_path=mapping_package_path,
+        mapping_package_repository = MappingPackageRepositoryInFileSystem(
+            repository_path=tmp_mapping_package_path)
+        mapping_package = mapping_package_repository.get(reference=mapping_package_path.name)
+        mapping_package_processor_load_package_in_mongo_db(package=mapping_package,
                                                          mongodb_client=mongodb_client)
         mapping_package_repository = MappingPackageRepositoryInFileSystem(
             repository_path=tmp_mapping_package_path)
         mapping_package = mapping_package_repository.get(reference=mapping_package_path.name)
         assert mapping_package
         mapping_package_repository = MappingPackageRepositoryMongoDB(mongodb_client=mongodb_client)
-        mapping_package = mapping_package_repository.get(reference=test_package_identifier_with_version)
+        mapping_package = mapping_package_repository.get(reference=test_package_identifier)
         assert mapping_package
 
     mongodb_client.drop_database(aggregates_database_name)

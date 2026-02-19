@@ -5,19 +5,34 @@
 # Author: Eugeniu Costetchi
 # Email: costezki.eugen@gmail.com 
 
-""" """
 import abc
 from datetime import datetime
 from enum import Enum
+from pathlib import Path
 from typing import List, Optional, Union
 
-from pydantic import field_validator, ConfigDict, Field
+from pydantic import field_validator, ConfigDict, Field, model_validator
 
 from src.ted_sws.core.model import PropertyBaseModel
 
 from mapping_suite_sdk.mapping_package_v2.models import MappingPackageV2
-from mapping_suite_sdk.core.models.collection_asset import TestDataCollectionAsset, SPARQLTestCollectionAsset, SHACLTestCollectionAsset, \
-    TestResultCollectionAsset
+from mapping_suite_sdk.core.models.collection_asset import (
+    TestDataCollectionAsset,
+    SPARQLTestCollectionAsset,
+    SHACLTestCollectionAsset,
+    TestResultCollectionAsset,
+    TechnicalMappingCollectionAsset,
+    VocabularyMappingCollectionAsset,
+)
+from mapping_suite_sdk.core.models.file_asset import (
+    RMLMappingFileAsset,
+    VocabularyMappingFileAsset,
+)
+from mapping_suite_sdk.mapping_package_v2.models.mapping_package_v2_metadata import (
+    MappingPackageV2Metadata,
+    MappingPackageV2Constraints,
+    MappingPackageV2EligibilityConstraints,
+)
 
 class MappingPackageComponent(PropertyBaseModel, abc.ABC):
     model_config = ConfigDict(validate_assignment=True)
@@ -107,12 +122,27 @@ class MappingPackageType(str, Enum):
 class MappingPackage(MappingPackageComponent, MappingPackageV2):
     """
     Extended mapping package model that inherits from an MSSDK model.
-    
+
     Combines compatibility with MSSDK version 2 while adding legacy pipeline-specific fields.
-    
+
     IMPORTANT: Many legacy fields are optional with defaults to avoid conflicts with MSSDK models.
     """
-    
+
+    # Override MSSDK v2 required fields to make them optional (will be auto-populated)
+    # this is mostly a transitional solution for tests; packages are loaded and validated with pure MSSDK models first
+    technical_mapping_suite: Optional[TechnicalMappingCollectionAsset] = Field(
+        default=None,
+        description="RML mapping files containing the technical mapping rules/definitions"
+    )
+    vocabulary_mapping_suite: Optional[VocabularyMappingCollectionAsset] = Field(
+        default=None,
+        description="Vocabulary resources used by mapping rules in XML, JSON or CSV format"
+    )
+    metadata: Optional[MappingPackageV2Metadata] = Field(
+        default=None,
+        description="Package metadata containing general information"
+    )
+
     # Legacy pipeline-specific fields - MOSTLY OPTIONAL
     created_at: str = Field(
         default_factory=lambda: datetime.now().replace(microsecond=0).isoformat()
@@ -134,7 +164,7 @@ class MappingPackage(MappingPackageComponent, MappingPackageV2):
     # TODO fix to be forwarded to MSSDK, remove when implemented there
     # Override large/optional collection assets in MSSDK model
     test_results: Optional[TestResultCollectionAsset] = Field(
-        default=None, 
+        default=None,
         description="Collections of test transformation results (optional due to large storage requirements -- will cause MongoDB BSON error for 16MB limit)"
     )
     test_data_suites: List[TestDataCollectionAsset] = Field(
@@ -149,6 +179,196 @@ class MappingPackage(MappingPackageComponent, MappingPackageV2):
         default=None,
         description="Collections of SHACL-based validation test suites"
     )
+
+    @model_validator(mode='after')
+    def sync_legacy_and_mssdk_fields(self) -> 'MappingPackage':
+        """
+        Automatically synchronize between legacy pipeline fields and MSSDK v2 fields.
+
+        Populates MSSDK v2 required fields from legacy fields when missing,
+        or vice versa for backward compatibility.
+
+        This ensures the model works with both old code using legacy fields
+        and new code using MSSDK v2 structure.
+        """
+        # If MSSDK v2 fields are missing but legacy fields exist, populate from legacy
+        # FIXME: this is a transitional solution for code where the legacy file system package parsing is done
+        if self.metadata is None:
+            self._populate_mssdk_from_legacy()
+
+        # If legacy fields are defaults but MSSDK v2 fields exist, populate from MSSDK
+        elif self.identifier == "no_id" and self.metadata is not None:
+            self._populate_legacy_from_mssdk()
+
+        return self
+
+    def _populate_mssdk_from_legacy(self) -> None:
+        """Populate MSSDK v2 required fields from legacy pipeline fields."""
+        # technical_mapping_suite from transformation_rule_set
+        if self.technical_mapping_suite is None:
+            if self.transformation_rule_set and self.transformation_rule_set.rml_mapping_rules:
+                self.technical_mapping_suite = TechnicalMappingCollectionAsset(
+                    path=Path("transformation/mappings"),
+                    files=[
+                        RMLMappingFileAsset(
+                            path=Path(f"transformation/mappings/{rule.file_name}"),
+                            content=rule.file_content
+                        )
+                        for rule in self.transformation_rule_set.rml_mapping_rules
+                    ]
+                )
+            else:
+                # Provide minimal dummy data to satisfy MSSDK v2 requirements
+                self.technical_mapping_suite = TechnicalMappingCollectionAsset(
+                    path=Path("transformation/mappings"),
+                    files=[
+                        RMLMappingFileAsset(
+                            path=Path("transformation/mappings/mapping.rml.ttl"),
+                            content="# Placeholder RML mapping"
+                        )
+                    ]
+                )
+
+        # vocabulary_mapping_suite from transformation_rule_set.resources
+        if self.vocabulary_mapping_suite is None:
+            if self.transformation_rule_set and self.transformation_rule_set.resources:
+                self.vocabulary_mapping_suite = VocabularyMappingCollectionAsset(
+                    path=Path("resources"),
+                    files=[
+                        VocabularyMappingFileAsset(
+                            path=Path(f"resources/{res.file_name}"),
+                            content=res.file_content
+                        )
+                        for res in self.transformation_rule_set.resources
+                    ]
+                )
+            else:
+                # Provide minimal dummy data to satisfy MSSDK v2 requirements
+                self.vocabulary_mapping_suite = VocabularyMappingCollectionAsset(
+                    path=Path("resources"),
+                    files=[
+                        VocabularyMappingFileAsset(
+                            path=Path("resources/vocabulary.xml"),
+                            content="<dummy>vocabulary content</dummy>"
+                        )
+                    ]
+                )
+
+        # metadata from legacy fields
+        if self.metadata is None:
+            # Extract constraints for eligibility
+            if self.metadata_constraints:
+                constraints_data = self.metadata_constraints.constraints
+                if isinstance(constraints_data, MetadataConstraintsStandardForm):
+                    eligibility_constraints = MappingPackageV2EligibilityConstraints(
+                        constraints=MappingPackageV2Constraints(
+                            eforms_subtype=constraints_data.eforms_subtype,
+                            start_date=constraints_data.start_date,
+                            end_date=constraints_data.end_date,
+                            eforms_sdk_versions=constraints_data.min_xsd_version  # Map min_xsd to sdk_versions
+                        )
+                    )
+                else:  # MetadataConstraintsEform
+                    eligibility_constraints = MappingPackageV2EligibilityConstraints(
+                        constraints=MappingPackageV2Constraints(
+                            eforms_subtype=constraints_data.eforms_subtype,
+                            start_date=constraints_data.start_date,
+                            end_date=constraints_data.end_date,
+                            eforms_sdk_versions=constraints_data.eforms_sdk_versions
+                        )
+                    )
+            else:
+                # Default constraints
+                eligibility_constraints = MappingPackageV2EligibilityConstraints(
+                    constraints=MappingPackageV2Constraints(
+                        eforms_subtype=["0"],
+                        start_date=None,
+                        end_date=None,
+                        eforms_sdk_versions=["unknown"]
+                    )
+                )
+
+            self.metadata = MappingPackageV2Metadata(
+                path=Path("metadata.json"),
+                identifier=self.identifier if self.identifier != "no_id" else "unknown",
+                title=self.title if self.title != "no_title" else "Unknown Package",
+                issue_date=self.created_at,
+                description=f"Mapping package {self.identifier}",
+                mapping_version=self.version,
+                ontology_version=self.ontology_version,
+                type=str(self.mapping_type) if self.mapping_type else "standard_forms",
+                eligibility_constraints=eligibility_constraints,
+                signature=self.mapping_suite_hash_digest if self.mapping_suite_hash_digest else ""
+            )
+
+    def _populate_legacy_from_mssdk(self) -> None:
+        """Populate legacy pipeline fields from MSSDK v2 fields when needed."""
+        if self.metadata:
+            # Populate basic legacy fields from metadata
+            self.identifier = self.metadata.identifier
+            self.title = self.metadata.title
+            self.created_at = self.metadata.issue_date
+            self.version = self.metadata.mapping_version
+            self.ontology_version = self.metadata.ontology_version
+            self.mapping_suite_hash_digest = self.metadata.signature
+            self.mapping_type = (
+                MappingPackageType.ELECTRONIC_FORMS
+                if self.metadata.type == "eforms"
+                else MappingPackageType.STANDARD_FORMS
+            )
+
+            # Populate metadata_constraints from eligibility_constraints
+            constraints = self.metadata.eligibility_constraints.constraints
+            if self.metadata.type == "eforms":
+                self.metadata_constraints = MetadataConstraints(
+                    constraints=MetadataConstraintsEform(
+                        eforms_subtype=constraints.eforms_subtype,
+                        start_date=constraints.start_date,
+                        end_date=constraints.end_date,
+                        eforms_sdk_versions=constraints.eforms_sdk_versions
+                    )
+                )
+            else:
+                self.metadata_constraints = MetadataConstraints(
+                    constraints=MetadataConstraintsStandardForm(
+                        eforms_subtype=constraints.eforms_subtype,
+                        start_date=constraints.start_date,
+                        end_date=constraints.end_date,
+                        min_xsd_version=constraints.eforms_sdk_versions,
+                        max_xsd_version=None
+                    )
+                )
+
+        # Populate transformation_rule_set from MSSDK v2 suites
+        if not self.transformation_rule_set or not self.transformation_rule_set.rml_mapping_rules:
+            if self.technical_mapping_suite:
+                rml_rules = [
+                    FileResource(
+                        file_name=file.path.name,
+                        file_content=file.content,
+                        original_name=file.path.name
+                    )
+                    for file in self.technical_mapping_suite.files
+                ]
+            else:
+                rml_rules = []
+
+            if self.vocabulary_mapping_suite:
+                resources = [
+                    FileResource(
+                        file_name=file.path.name,
+                        file_content=file.content,
+                        original_name=file.path.name
+                    )
+                    for file in self.vocabulary_mapping_suite.files
+                ]
+            else:
+                resources = []
+
+            self.transformation_rule_set = TransformationRuleSet(
+                resources=resources,
+                rml_mapping_rules=rml_rules
+            )
 
     # TODO check this out and remove if not needed (see if any production package ID does not come with version)
     def get_mongodb_id(self) -> str:

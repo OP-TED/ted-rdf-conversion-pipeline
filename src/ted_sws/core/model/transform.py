@@ -296,8 +296,8 @@ class MappingPackage(MappingPackageComponent, MappingPackageV2):
 
             self.metadata = MappingPackageV2Metadata(
                 path=Path("metadata.json"),
-                identifier=self.identifier if self.identifier != "no_id" else "unknown",
-                title=self.title if self.title != "no_title" else "Unknown Package",
+                identifier=self.identifier if self.identifier else "unknown",
+                title=self.title if self.title else "Unknown Package",
                 issue_date=self.created_at,
                 description=f"Mapping package {self.identifier}",
                 mapping_version=self.version,
@@ -311,12 +311,12 @@ class MappingPackage(MappingPackageComponent, MappingPackageV2):
         """Populate legacy pipeline fields from MSSDK v2 fields when needed."""
         if self.metadata:
             # Populate basic legacy fields from metadata
-            self.identifier = self.metadata.identifier
-            self.title = self.metadata.title
-            self.created_at = self.metadata.issue_date
-            self.version = self.metadata.mapping_version
-            self.ontology_version = self.metadata.ontology_version
-            self.mapping_suite_hash_digest = self.metadata.signature
+            self.identifier = self.identifier if self.identifier else self.metadata.identifier
+            self.title = self.title if self.title else self.metadata.title
+            self.created_at = self.created_at if self.created_at else self.metadata.issue_date
+            self.version = self.version if self.version else self.metadata.mapping_version
+            self.ontology_version = self.ontology_version if self.ontology_version else self.metadata.ontology_version
+            self.mapping_suite_hash_digest = self.mapping_suite_hash_digest if self.mapping_suite_hash_digest else self.metadata.signature
             self.mapping_type = (
                 MappingPackageType.ELECTRONIC_FORMS
                 if self.metadata.type == "eforms"

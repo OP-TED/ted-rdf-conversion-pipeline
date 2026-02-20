@@ -285,15 +285,21 @@ class MappingPackageRepositoryInFileSystem(MappingPackageRepositoryABC):
         :param mapping_package:
         :return:
         """
-        def convert_paths(obj):
+        import base64
+
+        def convert_for_json(obj):
+            """Convert non-JSON-serializable objects (Path, bytes) to serializable form."""
             if isinstance(obj, pathlib.Path):
                 return str(obj)
+            elif isinstance(obj, bytes):
+                # Convert bytes to base64 string for JSON serialization
+                return base64.b64encode(obj).decode('utf-8')
             elif isinstance(obj, dict):
-                return {k: convert_paths(v) for k, v in obj.items()}
+                return {k: convert_for_json(v) for k, v in obj.items()}
             elif isinstance(obj, list):
-                return [convert_paths(i) for i in obj]
+                return [convert_for_json(i) for i in obj]
             elif isinstance(obj, tuple):
-                return tuple(convert_paths(i) for i in obj)
+                return tuple(convert_for_json(i) for i in obj)
             else:
                 return obj
 
@@ -301,9 +307,16 @@ class MappingPackageRepositoryInFileSystem(MappingPackageRepositoryABC):
         package_path.mkdir(parents=True, exist_ok=True)
         metadata_path = package_path / MS_METADATA_FILE_NAME
         package_metadata = mapping_package.model_dump()
-        [package_metadata.pop(key, None) for key in
-         ["transformation_rule_set", "shacl_test_suites", "sparql_test_suites"]]
-        package_metadata = convert_paths(package_metadata)
+        # Exclude legacy fields (written separately) and MSSDK collection asset fields (contain file content)
+        fields_to_exclude = [
+            "transformation_rule_set", "shacl_test_suites", "sparql_test_suites",  # Legacy fields
+            "technical_mapping_suite", "vocabulary_mapping_suite",  # MSSDK - written separately
+            "conceptual_mapping_asset",  # MSSDK - bytes content (xlsx)
+            "test_data_suites", "test_suites_sparql", "test_suites_shacl", "test_results",  # MSSDK test suites
+        ]
+        for key in fields_to_exclude:
+            package_metadata.pop(key, None)
+        package_metadata = convert_for_json(package_metadata)
         with metadata_path.open("w", encoding="utf-8") as f:
             f.write(json.dumps(package_metadata))
 
@@ -371,6 +384,8 @@ class MappingPackageRepositoryInFileSystem(MappingPackageRepositoryABC):
         :param mapping_package:
         :return:
         """
+        if mapping_package.transformation_rule_set is None:
+            return
         package_path = self.repository_path / mapping_package.identifier
         transform_path = package_path / MS_TRANSFORM_FOLDER_NAME
         mappings_path = transform_path / MS_MAPPINGS_FOLDER_NAME
@@ -418,6 +433,8 @@ class MappingPackageRepositoryInFileSystem(MappingPackageRepositoryABC):
         :param mapping_package:
         :return:
         """
+        if mapping_package.transformation_test_data is None:
+            return
         package_path = self.repository_path / mapping_package.identifier
         test_data_path = package_path / MS_TEST_DATA_FOLDER_NAME
         test_data_path.mkdir(parents=True, exist_ok=True)

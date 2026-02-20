@@ -4,6 +4,13 @@ from typing import List
 
 from pymongo import MongoClient
 
+# WORKAROUND: Disable __del__ in MSSDK's MongoDBRepository to prevent premature client closure  
+# The MSSDK MongoDBRepository closes the MongoClient in __del__, but it doesn't own the client.
+# When the repository is garbage collected, it closes the shared client unexpectedly.
+from mapping_suite_sdk.core.adapters.repository import MongoDBRepository as _MSSKDMongoDBRepository
+if hasattr(_MSSKDMongoDBRepository, '__del__'):
+    delattr(_MSSKDMongoDBRepository, '__del__')
+
 from src.ted_sws import config
 from src.ted_sws.core.model.manifestation import XMLManifestation
 from src.ted_sws.core.model.notice import Notice

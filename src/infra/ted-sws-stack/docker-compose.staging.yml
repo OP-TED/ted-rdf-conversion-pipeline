@@ -25,7 +25,7 @@ services:
       - "--certificatesresolvers.mytlschallenge.acme.storage=/letsencrypt/acme.json"
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.dashboard.rule=Host(`${SUBDOMAIN}monitor.${DOMAIN}`)"
+      - "traefik.http.routers.dashboard.rule=Host(`monitor.${SUBDOMAIN}${DOMAIN}`)"
       - "traefik.http.routers.dashboard.service=api@internal"
       - "traefik.http.routers.dashboard.tls.certresolver=mytlschallenge"
       - "traefik.http.routers.dashboard.middlewares=auth"
@@ -36,7 +36,7 @@ services:
       - minio-data:/data
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.minio.rule=Host(`${SUBDOMAIN}minio.${DOMAIN}`)"
+      - "traefik.http.routers.minio.rule=Host(`minio.${SUBDOMAIN}${DOMAIN}`)"
       - "traefik.http.routers.minio.tls.certresolver=mytlschallenge"
       - "traefik.http.services.minio.loadbalancer.server.port=9001"
 
@@ -47,7 +47,7 @@ services:
   mongo-express:
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.mongo-express.rule=Host(`${SUBDOMAIN}mongo.${DOMAIN}`)"
+      - "traefik.http.routers.mongo-express.rule=Host(`mongo.${SUBDOMAIN}${DOMAIN}`)"
       - "traefik.http.routers.mongo-express.tls.certresolver=mytlschallenge"
 
   fuseki:
@@ -56,7 +56,7 @@ services:
       - fuseki-config:/fuseki-base/configuration
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.fuseki.rule=Host(`${SUBDOMAIN}fuseki.${DOMAIN}`)"
+      - "traefik.http.routers.fuseki.rule=Host(`fuseki.${SUBDOMAIN}${DOMAIN}`)"
       - "traefik.http.routers.fuseki.tls.certresolver=mytlschallenge"
       - "traefik.http.services.fuseki.loadbalancer.server.port=3030"
 
@@ -90,7 +90,7 @@ services:
         condition: service_healthy
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.metabase.rule=Host(`${SUBDOMAIN}metabase.${DOMAIN}`)"
+      - "traefik.http.routers.metabase.rule=Host(`metabase.${SUBDOMAIN}${DOMAIN}`)"
       - "traefik.http.routers.metabase.tls.certresolver=mytlschallenge"
       - "traefik.http.services.metabase.loadbalancer.server.port=3000"
 
@@ -129,7 +129,7 @@ services:
       - .env.staging
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.airflow.rule=Host(`${SUBDOMAIN}airflow.${DOMAIN}`)"
+      - "traefik.http.routers.airflow.rule=Host(`airflow.${SUBDOMAIN}${DOMAIN}`)"
       - "traefik.http.routers.airflow.tls.certresolver=mytlschallenge"
       - "traefik.http.services.airflow.loadbalancer.server.port=8080"
 

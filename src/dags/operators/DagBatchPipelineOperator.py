@@ -4,9 +4,10 @@ from uuid import uuid4
 from airflow.exceptions import AirflowSkipException, AirflowFailException
 from airflow.models import BaseOperator
 from airflow.operators.trigger_dagrun import TriggerDagRunOperator
+from airflow.utils.types import DagRunType
 from pymongo import MongoClient
 
-from src.dags import RUN_MATERIALISED_VIEW_DAG_PARAM
+from src.dags import RUN_MATERIALISED_VIEW_DAG_PARAM, XCOM_SOURCE_RUN_TYPE_KEY
 from src.dags.dags_utils import pull_dag_upstream, push_dag_downstream, get_dag_param, smart_xcom_pull, \
     smart_xcom_push
 from src.dags.pipelines.pipeline_protocols import NoticePipelineCallable, NoticePipelineOutput
@@ -153,6 +154,7 @@ class TriggerNoticeBatchPipelineOperator(BaseOperator):
         self.batch_size = batch_size
 
     def execute(self, context: Any):
+        run_type: DagRunType = context['dag_run'].run_type
         if self.execute_only_one_step is None:
             self.execute_only_one_step = get_dag_param(key=EXECUTE_ONLY_ONE_STEP_KEY, default_value=False)
         notice_ids = pull_dag_upstream(key=NOTICE_IDS_KEY)
@@ -171,7 +173,8 @@ class TriggerNoticeBatchPipelineOperator(BaseOperator):
                         START_WITH_STEP_NAME_KEY: self.start_with_step_name,
                         EXECUTE_ONLY_ONE_STEP_KEY: self.execute_only_one_step,
                         RUN_MATERIALISED_VIEW_DAG_PARAM: get_dag_param(key=RUN_MATERIALISED_VIEW_DAG_PARAM,
-                                                                       default_value=False)
+                                                                       default_value=False),
+                        XCOM_SOURCE_RUN_TYPE_KEY: run_type,
                     }
                 ).execute(context=context)
 

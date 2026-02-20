@@ -6,6 +6,7 @@ from airflow.models import DagRun
 from airflow.operators.python import BranchPythonOperator, PythonOperator
 from airflow.utils.session import provide_session
 from airflow.utils.trigger_rule import TriggerRule
+from airflow.utils.types import DagRunType
 
 from src.dags import DEFAULT_DAG_ARGUMENTS, NOTICE_NORMALISATION_PIPELINE_TASK_ID, STOP_PROCESSING_TASK_ID, \
     BRANCH_SELECTOR_MAP, NOTICE_TRANSFORMATION_PIPELINE_TASK_ID, NOTICE_VALIDATION_PIPELINE_TASK_ID, \
@@ -13,7 +14,8 @@ from src.dags import DEFAULT_DAG_ARGUMENTS, NOTICE_NORMALISATION_PIPELINE_TASK_I
     SELECTOR_BRANCH_BEFORE_TRANSFORMATION_TASK_ID, SELECTOR_BRANCH_BEFORE_VALIDATION_TASK_ID, \
     SELECTOR_BRANCH_BEFORE_PACKAGE_TASK_ID, SELECTOR_BRANCH_BEFORE_PUBLISH_TASK_ID, \
     NOTICE_DISTILLATION_PIPELINE_TASK_ID, DAILY_MATERIALISED_VIEWS_DAG_NAME, RUN_MATERIALISED_VIEW_DAG_PARAM, \
-    NOTICE_PROCESSING_PIPELINE_DAG_MAX_ACTIVE_RUNS, NOTICE_PROCESSING_PIPELINE_DAG_MAX_ACTIVE_TASKS
+    NOTICE_PROCESSING_PIPELINE_DAG_MAX_ACTIVE_RUNS, NOTICE_PROCESSING_PIPELINE_DAG_MAX_ACTIVE_TASKS, \
+    XCOM_SOURCE_RUN_TYPE_KEY
 from src.dags.dags_utils import get_dag_param, smart_xcom_push, smart_xcom_forward, parse_notice_statuses_from_string, \
     smart_xcom_pull, is_last_active_dag_run, trigger_dag
 from src.dags.operators.DagBatchPipelineOperator import NoticeBatchPipelineOperator, NOTICE_IDS_KEY, \
@@ -81,6 +83,12 @@ def notice_processing_pipeline():
     @provide_session
     def _stop_processing(session=None, **kwargs):
         run_mv = get_dag_param(key=RUN_MATERIALISED_VIEW_DAG_PARAM, default_value=False)
+        source_run_type: DagRunType = get_dag_param(key=XCOM_SOURCE_RUN_TYPE_KEY, default_value=True)
+
+        # Allways run MV when was triggered by a scheduled DAG
+        if source_run_type == DagRunType.SCHEDULED:
+            run_mv = True
+
         if run_mv and is_last_active_dag_run(session=session, dagrun_model=DagRun, dag_id=DAG_ID):
             trigger_dag(dag_id=DAILY_MATERIALISED_VIEWS_DAG_NAME)
 

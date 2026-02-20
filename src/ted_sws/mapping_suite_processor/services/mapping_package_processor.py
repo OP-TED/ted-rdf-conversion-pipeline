@@ -66,7 +66,7 @@ def mapping_package_processor_load_package_in_mongo_db(
         List of notice IDs that were loaded (if load_test_data=True)
     """
     # Update digest
-    # FIXME refactor for MSSDK transformation rule set structure, currently BROKEN
+    # FIXME refactor for MSSDK transformation rule set structure
     update_digest_api_address_for_mapping_package(package)
 
     # Update git hash if provided and field exists
@@ -75,7 +75,7 @@ def mapping_package_processor_load_package_in_mongo_db(
     result_notice_ids = []
     
     # Load test data if requested
-    # FIXME refactor for MSSDK's two-level test data structure, currently BROKEN
+    # FIXME refactor for MSSDK's two-level test data structure
     if load_test_data:
         tests_data = package.transformation_test_data.test_data
         notice_repository = NoticeRepository(mongodb_client=mongodb_client)

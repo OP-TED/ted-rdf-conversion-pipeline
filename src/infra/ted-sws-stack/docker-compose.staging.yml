@@ -53,6 +53,7 @@ services:
   fuseki:
     volumes:
       - fuseki-data:/fuseki-base/databases
+      - fuseki-config:/fuseki-base/configuration
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.fuseki.rule=Host(`${SUBDOMAIN}fuseki.${DOMAIN}`)"
@@ -105,6 +106,8 @@ services:
     volumes:
       - /opt/tedsws/src:/opt/airflow/src
       - /opt/tedsws/test:/opt/airflow/test
+      - /opt/tedsws/logs:/opt/airflow/logs
+      - /opt/tedsws/plugins:/opt/airflow/plugins
       - /opt/tedsws/libraries/.rmlmapper:/home/airflow/.rmlmapper
       - /opt/tedsws/libraries/.saxon:/home/airflow/.saxon
       - /opt/tedsws/libraries/.limes:/home/airflow/.limes
@@ -116,6 +119,8 @@ services:
     volumes:
       - /opt/tedsws/src:/opt/airflow/src
       - /opt/tedsws/test:/opt/airflow/test
+      - /opt/tedsws/logs:/opt/airflow/logs
+      - /opt/tedsws/plugins:/opt/airflow/plugins
       - /opt/tedsws/libraries/.rmlmapper:/home/airflow/.rmlmapper
       - /opt/tedsws/libraries/.saxon:/home/airflow/.saxon
       - /opt/tedsws/libraries/.limes:/home/airflow/.limes
@@ -132,6 +137,8 @@ services:
     volumes:
       - /opt/tedsws/src:/opt/airflow/src
       - /opt/tedsws/test:/opt/airflow/test
+      - /opt/tedsws/logs:/opt/airflow/logs
+      - /opt/tedsws/plugins:/opt/airflow/plugins
       - /opt/tedsws/libraries/.rmlmapper:/home/airflow/.rmlmapper
       - /opt/tedsws/libraries/.saxon:/home/airflow/.saxon
       - /opt/tedsws/libraries/.limes:/home/airflow/.limes
@@ -143,6 +150,8 @@ services:
     volumes:
       - /opt/tedsws/src:/opt/airflow/src
       - /opt/tedsws/test:/opt/airflow/test
+      - /opt/tedsws/logs:/opt/airflow/logs
+      - /opt/tedsws/plugins:/opt/airflow/plugins
       - /opt/tedsws/libraries/.rmlmapper:/home/airflow/.rmlmapper
       - /opt/tedsws/libraries/.saxon:/home/airflow/.saxon
       - /opt/tedsws/libraries/.limes:/home/airflow/.limes
@@ -154,6 +163,8 @@ services:
     volumes:
       - /opt/tedsws/src:/opt/airflow/src
       - /opt/tedsws/test:/opt/airflow/test
+      - /opt/tedsws/logs:/opt/airflow/logs
+      - /opt/tedsws/plugins:/opt/airflow/plugins
       - /opt/tedsws/libraries/.rmlmapper:/home/airflow/.rmlmapper
       - /opt/tedsws/libraries/.saxon:/home/airflow/.saxon
       - /opt/tedsws/libraries/.limes:/home/airflow/.limes
@@ -165,6 +176,7 @@ volumes:
   minio-data:
   mongodb-data:
   fuseki-data:
+  fuseki-config:
   sftp-data:
   airflow-postgres-data:
   metabase-postgres-data:

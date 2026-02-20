@@ -101,8 +101,6 @@ def load_mapping_suite_and_packages_from_github_to_mongo_db(mongodb_client: Mong
     """
     branch_or_tag_name = branch_or_tag_name if branch_or_tag_name else DEFAULT_BRANCH_NAME
     github_repository_url = github_repository_url if github_repository_url else config.GITHUB_TED_SWS_ARTEFACTS_URL
-    log_technical_info(
-        message=f"Downloading mapping suite from GitHub repository '{github_repository_url}' on branch/tag '{branch_or_tag_name}'")
     mapping_package_downloader = GitHubMappingSuiteDownloader(
         github_repository_url=github_repository_url, branch_or_tag_name=branch_or_tag_name)
     mappings_dir_name = mapping_package_downloader.MAPPINGS_DIR_NAME
@@ -116,6 +114,8 @@ def load_mapping_suite_and_packages_from_github_to_mongo_db(mongodb_client: Mong
         mappings_dir_path = tmp_dir_path / mappings_dir_name
         ms_config_dir_path = tmp_dir_path / ms_config_dir_name
         ms_config_file_path = ms_config_dir_path / ms_config_file_name
+        log_technical_info(
+            message=f"Downloading mapping suite from GitHub repository '{github_repository_url}' on branch/tag '{branch_or_tag_name}'")
         git_last_commit_hash = mapping_package_downloader.download(output_project_path=tmp_dir_path)
 
         # load project config if available

@@ -7,6 +7,13 @@ from airflow.operators.trigger_dagrun import TriggerDagRunOperator
 from airflow.utils.types import DagRunType
 from pymongo import MongoClient
 
+# WORKAROUND: Disable __del__ in MSSDK's MongoDBRepository to prevent premature client closure
+# The MSSDK MongoDBRepository closes the MongoClient in __del__, but it doesn't own the client.
+# When the repository is garbage collected between loop iterations, it closes the shared client.
+from mapping_suite_sdk.core.adapters.repository import MongoDBRepository as _MSSKDMongoDBRepository
+if hasattr(_MSSKDMongoDBRepository, '__del__'):
+    delattr(_MSSKDMongoDBRepository, '__del__')
+
 from src.dags import RUN_MATERIALISED_VIEW_DAG_PARAM, XCOM_SOURCE_RUN_TYPE_KEY
 from src.dags.dags_utils import pull_dag_upstream, push_dag_downstream, get_dag_param, smart_xcom_pull, \
     smart_xcom_push

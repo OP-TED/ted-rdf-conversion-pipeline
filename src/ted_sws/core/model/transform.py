@@ -191,7 +191,12 @@ class MappingPackage(MappingPackageComponent, MappingPackageV2):
 
         This ensures the model works with both old code using legacy fields
         and new code using MSSDK v2 structure.
+        Prevents infinite recursion by using a private _sync_done flag.
         """
+        if getattr(self, "_sync_done", False):
+            return self
+        setattr(self, "_sync_done", True)
+
         # If MSSDK v2 fields are missing but legacy fields exist, populate from legacy
         # FIXME: this is a transitional solution for code where the legacy file system package parsing is done
         if self.metadata is None:

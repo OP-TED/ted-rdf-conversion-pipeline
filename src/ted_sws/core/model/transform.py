@@ -27,6 +27,7 @@ from mapping_suite_sdk.core.models.collection_asset import (
 from mapping_suite_sdk.core.models.file_asset import (
     RMLMappingFileAsset,
     VocabularyMappingFileAsset,
+    TestDataFileAsset,
 )
 from mapping_suite_sdk.mapping_package_v2.models.mapping_package_v2_metadata import (
     MappingPackageV2Metadata,
@@ -369,3 +370,23 @@ class MappingPackage(MappingPackageComponent, MappingPackageV2):
                 resources=resources,
                 rml_mapping_rules=rml_rules
             )
+            # Clear MSSDK v2 technical and vocabulary suites after populating
+            self.technical_mapping_suite = None
+            self.vocabulary_mapping_suite = None
+
+        # Populate transformation_test_data from test_data_suites
+        if (self.transformation_test_data is None or not getattr(self.transformation_test_data, 'test_data', None)) and self.test_data_suites:
+            all_files = []
+            for suite in self.test_data_suites:
+                all_files.extend([
+                    FileResource(
+                        file_name=file.path.name,
+                        file_content=file.content,
+                        original_name=file.path.name
+                    ) for file in suite.files if isinstance(file, TestDataFileAsset)
+                ])
+            self.transformation_test_data = TransformationTestData(
+                test_data=all_files
+            )
+            # Clear MSSDK v2 test_data_suites after populating
+            self.test_data_suites = []

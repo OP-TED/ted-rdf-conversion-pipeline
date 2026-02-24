@@ -21,9 +21,8 @@ from src.ted_sws.mapping_suite_processor.services.mapping_package_validation_ser
     get_mapping_package_id_from_file_system
 
 from mapping_suite_sdk.mapping_suite.services.load_mapping_suite import load_mapping_suite_from_folder
-from mapping_suite_sdk.tools.services.convert_mapping_package import load_mapping_package_from_folder
+from mapping_suite_sdk.tools.services.load_mapping_package import load_mapping_package
 from mapping_suite_sdk.core.adapters.version_detector import detect_mapping_package_version
-from mapping_suite_sdk.mapping_package_v2.services.validate_mapping_package_v2 import validate_mapping_package_v2
 
 from src.ted_sws.core.model.transform import MappingPackage
 
@@ -46,15 +45,15 @@ def mapping_package_processor_load_package_in_mongo_db(
     git_last_commit_hash: str = None
 ) -> List[str]:
     """Load a mapping package to MongoDB.
-    
+
     Supports both legacy MappingPackage model and MSSDK models (V1, V2, V3, V3L).
-    
+
     Args:
         package: The mapping package (legacy or MSSDK model)
         mongodb_client: MongoDB client instance
         load_test_data: Whether to load test data as notices
         git_last_commit_hash: Optional git commit hash to store
-        
+
     Returns:
         List of notice IDs that were loaded (if load_test_data=True)
     """
@@ -66,7 +65,7 @@ def mapping_package_processor_load_package_in_mongo_db(
     if git_last_commit_hash is not None:
         package.git_latest_commit_hash = git_last_commit_hash
     result_notice_ids = []
-    
+
     # Load test data if requested
     # FIXME refactor for MSSDK's two-level test data structure
     if load_test_data:
@@ -143,13 +142,18 @@ def load_mapping_suite_and_packages_from_github_to_mongo_db(mongodb_client: Mong
             detected_version = detect_mapping_package_version(mapping_package_path)
             log_technical_info(
                 message=f"Mapping package version detected '{detected_version}'")
-            # TODO once MSSDK detection and conversion works, do conversion here based on detected version
-            mssdk_package = load_mapping_package_from_folder("v2", mapping_package_path)
+            # convert if necessary while normalizing to v3(L), and validate (all under the hood)
+            mssdk_package = load_mapping_package(
+                include_test_data=load_test_data,
+                validate_package=True,
+                package_folder_path=mapping_package_path,
+            )
+            converted_version = 'v3' if load_test_data else 'v3L'  # MSSDK loads test data only for v3, not for v3L
             log_technical_info(
-                message=f"Mapping package '{mssdk_package.id}' loaded from folder with success")            
-            validation_result = validate_mapping_package_v2(mssdk_package)
+                message=f"Mapping package '{mssdk_package.id}' (format '{detected_version}' -> '{converted_version}') loaded from folder with success")
             mapping_package = _convert_to_mapping_package(mssdk_package)
-            if validation_result:
+            # FIXME: MSSDK validation is currently done during loading, so we have to catch exceptions from there
+            if mssdk_package:
                 log_mapping_package_info(
                     message=f"Mapping package with id={mapping_package.id} is valid for loading in MongoDB!",
                     mapping_package_id=mapping_package.id)

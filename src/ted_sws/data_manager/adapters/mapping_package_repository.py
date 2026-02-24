@@ -280,14 +280,18 @@ class MappingPackageRepositoryInFileSystem(MappingPackageRepositoryABC):
         :return:
         """
         import base64
+        from datetime import datetime
 
         def convert_for_json(obj):
-            """Convert non-JSON-serializable objects (Path, bytes) to serializable form."""
+            """Convert non-JSON-serializable objects (Path, bytes, datetime) to serializable form."""
             if isinstance(obj, pathlib.Path):
                 return str(obj)
             elif isinstance(obj, bytes):
                 # Convert bytes to base64 string for JSON serialization
                 return base64.b64encode(obj).decode('utf-8')
+            elif isinstance(obj, datetime):
+                # Convert datetime to ISO format string
+                return obj.isoformat()
             elif isinstance(obj, dict):
                 return {k: convert_for_json(v) for k, v in obj.items()}
             elif isinstance(obj, list):

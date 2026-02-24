@@ -14,8 +14,9 @@ from typing import List, Optional, Union
 from pydantic import field_validator, ConfigDict, Field, model_validator
 
 from src.ted_sws.core.model import PropertyBaseModel
+from src.ted_sws.event_manager.services.log import log_technical_warning
 
-from mapping_suite_sdk.mapping_package_v2.models import MappingPackageV2
+from mapping_suite_sdk.mapping_package_v3.models import MappingPackageV3
 from mapping_suite_sdk.core.models.collection_asset import (
     TestDataCollectionAsset,
     SPARQLTestCollectionAsset,
@@ -29,10 +30,13 @@ from mapping_suite_sdk.core.models.file_asset import (
     VocabularyMappingFileAsset,
     TestDataFileAsset,
 )
-from mapping_suite_sdk.mapping_package_v2.models.mapping_package_v2_metadata import (
-    MappingPackageV2Metadata,
-    MappingPackageV2Constraints,
-    MappingPackageV2EligibilityConstraints,
+from mapping_suite_sdk.mapping_package_v3.models.mapping_package_v3_metadata_jsonld import (
+    MappingPackageV3MetadataJSONLD,
+)
+from mapping_suite_sdk.mapping_package_v3.models.mapping_package_v3_metadata import (
+    ApplicabilityConstraints,
+    DateTimeInterval,
+    VersionRange,
 )
 
 class MappingPackageComponent(PropertyBaseModel, abc.ABC):
@@ -120,11 +124,11 @@ class MappingPackageType(str, Enum):
 
 
 # this will become a union- or composition-based class when more versions are added
-class MappingPackage(MappingPackageComponent, MappingPackageV2):
+class MappingPackage(MappingPackageComponent, MappingPackageV3):
     """
     Extended mapping package model that inherits from an MSSDK model.
 
-    Combines compatibility with MSSDK version 2 while adding legacy pipeline-specific fields.
+    Combines compatibility with MSSDK version 3 (Unified) while adding legacy pipeline-specific fields.
 
     IMPORTANT: Many legacy fields are optional with defaults to avoid conflicts with MSSDK models.
     """
@@ -139,9 +143,9 @@ class MappingPackage(MappingPackageComponent, MappingPackageV2):
         default=None,
         description="Vocabulary resources used by mapping rules in XML, JSON or CSV format"
     )
-    metadata: Optional[MappingPackageV2Metadata] = Field(
+    metadata: Optional[MappingPackageV3MetadataJSONLD] = Field(
         default=None,
-        description="Package metadata containing general information"
+        description="Package metadata containing general information (V3 unified format)"
     )
 
     # Legacy pipeline-specific fields - MOSTLY OPTIONAL
@@ -184,32 +188,32 @@ class MappingPackage(MappingPackageComponent, MappingPackageV2):
     @model_validator(mode='after')
     def sync_legacy_and_mssdk_fields(self) -> 'MappingPackage':
         """
-        Automatically synchronize between legacy pipeline fields and MSSDK v2 fields.
+        Automatically synchronize between legacy pipeline fields and MSSDK v3 fields.
 
-        Populates MSSDK v2 required fields from legacy fields when missing,
+        Populates MSSDK v3 required fields from legacy fields when missing,
         or vice versa for backward compatibility.
 
         This ensures the model works with both old code using legacy fields
-        and new code using MSSDK v2 structure.
+        and new code using MSSDK v3 structure.
         Prevents infinite recursion by using a private _sync_done flag.
         """
         if getattr(self, "_sync_done", False):
             return self
         setattr(self, "_sync_done", True)
 
-        # If MSSDK v2 fields are missing but legacy fields exist, populate from legacy
+        # If MSSDK v3 fields are missing but legacy fields exist, populate from legacy
         # FIXME: this is a transitional solution for code where the legacy file system package parsing is done
         if self.metadata is None:
             self._populate_mssdk_from_legacy()
 
-        # If legacy fields are defaults but MSSDK v2 fields exist, populate from MSSDK
+        # If legacy fields are defaults but MSSDK v3 fields exist, populate from MSSDK
         elif self.identifier == "no_id" and self.metadata is not None:
             self._populate_legacy_from_mssdk()
 
         return self
 
     def _populate_mssdk_from_legacy(self) -> None:
-        """Populate MSSDK v2 required fields from legacy pipeline fields."""
+        """Populate MSSDK v3 required fields from legacy pipeline fields."""
         # technical_mapping_suite from transformation_rule_set
         if self.technical_mapping_suite is None:
             if self.transformation_rule_set and self.transformation_rule_set.rml_mapping_rules:
@@ -224,7 +228,7 @@ class MappingPackage(MappingPackageComponent, MappingPackageV2):
                     ]
                 )
             else:
-                # Provide minimal dummy data to satisfy MSSDK v2 requirements
+                # Provide minimal dummy data to satisfy MSSDK v3 requirements
                 self.technical_mapping_suite = TechnicalMappingCollectionAsset(
                     path=Path("transformation/mappings"),
                     files=[
@@ -249,7 +253,7 @@ class MappingPackage(MappingPackageComponent, MappingPackageV2):
                     ]
                 )
             else:
-                # Provide minimal dummy data to satisfy MSSDK v2 requirements
+                # Provide minimal dummy data to satisfy MSSDK v3 requirements
                 self.vocabulary_mapping_suite = VocabularyMappingCollectionAsset(
                     path=Path("resources"),
                     files=[
@@ -260,97 +264,142 @@ class MappingPackage(MappingPackageComponent, MappingPackageV2):
                     ]
                 )
 
-        # metadata from legacy fields
+        # metadata from legacy fields (V3 format)
         if self.metadata is None:
-            # Extract constraints for eligibility
+            # Build applicability constraints for V3 format
+            applicability_constraints = None
             if self.metadata_constraints:
                 constraints_data = self.metadata_constraints.constraints
+                # Build document_time_interval from start_date/end_date if available
+                document_time_interval = None
+                if constraints_data.start_date or constraints_data.end_date:
+                    start_dt = None
+                    end_dt = None
+                    if constraints_data.start_date and constraints_data.start_date[0]:
+                        try:
+                            start_dt = datetime.fromisoformat(constraints_data.start_date[0])
+                        except (ValueError, IndexError):
+                            log_technical_warning(message=f"Ignoring invalid start_date value in metadata constraints (unable to parse  as ISO format): {constraints_data.start_date[0]}")
+                    if constraints_data.end_date and constraints_data.end_date[0]:
+                        try:
+                            end_dt = datetime.fromisoformat(constraints_data.end_date[0])
+                        except (ValueError, IndexError):
+                            log_technical_warning(message=f"Ignoring invalid end_date value in metadata constraints (unable to parse  as ISO format): {constraints_data.end_date[0]}")
+                    if start_dt or end_dt:
+                        document_time_interval = DateTimeInterval(start=start_dt, end=end_dt)
+
                 if isinstance(constraints_data, MetadataConstraintsStandardForm):
-                    eligibility_constraints = MappingPackageV2EligibilityConstraints(
-                        constraints=MappingPackageV2Constraints(
-                            eforms_subtype=constraints_data.eforms_subtype,
-                            start_date=constraints_data.start_date,
-                            end_date=constraints_data.end_date,
-                            eforms_sdk_versions=constraints_data.min_xsd_version  # Map min_xsd to sdk_versions
-                        )
+                    # Standard forms: use min_xsd_version as schema version list
+                    version_range = VersionRange(
+                        min=constraints_data.min_xsd_version[0] if constraints_data.min_xsd_version else None,
+                        max=constraints_data.max_xsd_version[0] if constraints_data.max_xsd_version else None
+                    )
+                    applicability_constraints = ApplicabilityConstraints(
+                        document_type_list=constraints_data.eforms_subtype,
+                        document_time_interval=document_time_interval,
+                        document_schema_version_list=constraints_data.min_xsd_version,
+                        document_version_range=version_range
                     )
                 else:  # MetadataConstraintsEform
-                    eligibility_constraints = MappingPackageV2EligibilityConstraints(
-                        constraints=MappingPackageV2Constraints(
-                            eforms_subtype=constraints_data.eforms_subtype,
-                            start_date=constraints_data.start_date,
-                            end_date=constraints_data.end_date,
-                            eforms_sdk_versions=constraints_data.eforms_sdk_versions
-                        )
+                    applicability_constraints = ApplicabilityConstraints(
+                        document_type_list=constraints_data.eforms_subtype,
+                        document_time_interval=document_time_interval,
+                        document_schema_version_list=constraints_data.eforms_sdk_versions,
+                        document_version_range=None
                     )
             else:
                 # Default constraints
-                eligibility_constraints = MappingPackageV2EligibilityConstraints(
-                    constraints=MappingPackageV2Constraints(
-                        eforms_subtype=["0"],
-                        start_date=None,
-                        end_date=None,
-                        eforms_sdk_versions=["unknown"]
-                    )
+                applicability_constraints = ApplicabilityConstraints(
+                    document_type_list=["0"],
+                    document_time_interval=None,
+                    document_schema_version_list=["unknown"],
+                    document_version_range=None
                 )
 
-            self.metadata = MappingPackageV2Metadata(
-                path=Path("metadata.json"),
-                identifier=self.identifier if self.identifier else "unknown",
-                title=self.title if self.title else "Unknown Package",
-                issue_date=self.created_at,
+            # Parse created_at string to datetime for V3 metadata
+            try:
+                created_at_dt = datetime.fromisoformat(self.created_at) if self.created_at else datetime.now()
+            except ValueError:
+                created_at_dt = datetime.now()
+
+            self.metadata = MappingPackageV3MetadataJSONLD(
+                path=Path("metadata.jsonld"),
+                context="context.jsonld",
+                id=self.identifier if self.identifier != "no_id" else "unknown",
+                title=self.title if self.title != "no_title" else "Unknown Package",
+                project_identifier=str(self.mapping_type) if self.mapping_type else "standard_forms",
+                created_at=created_at_dt,
                 description=f"Mapping package {self.identifier}",
                 mapping_version=self.version,
-                ontology_version=self.ontology_version,
-                type=str(self.mapping_type) if self.mapping_type else "standard_forms",
-                eligibility_constraints=eligibility_constraints,
-                signature=self.mapping_suite_hash_digest if self.mapping_suite_hash_digest else ""
+                model_version=self.ontology_version,
+                applicability_constraints=applicability_constraints,
+                mapping_suite_hash_digest=self.mapping_suite_hash_digest if self.mapping_suite_hash_digest else "",
+                input_mime_types=["application/xml"],
+                mssdk_version="3.0.0"
             )
 
     def _populate_legacy_from_mssdk(self) -> None:
-        """Populate legacy pipeline fields from MSSDK v2 fields when needed."""
+        """Populate legacy pipeline fields from MSSDK v3 fields when needed."""
         if self.metadata:
-            # Populate basic legacy fields from metadata
+            # Populate basic legacy fields from V3 metadata
             # Check against default values since they are truthy strings
             if self.identifier == "no_id":
-                self.identifier = self.metadata.identifier
+                self.identifier = self.metadata.id
             if self.title == "no_title":
                 self.title = self.metadata.title
             if not self.created_at:
-                self.created_at = self.metadata.issue_date
+                # V3 created_at is datetime, convert to ISO string
+                self.created_at = self.metadata.created_at.isoformat() if self.metadata.created_at else ""
             if self.version == "0.1.1":
                 self.version = self.metadata.mapping_version
             if self.ontology_version == "0.0.1":
-                self.ontology_version = self.metadata.ontology_version
+                self.ontology_version = self.metadata.model_version
             if not self.mapping_suite_hash_digest:
-                self.mapping_suite_hash_digest = self.metadata.signature
-            self.mapping_type = (
-                MappingPackageType.ELECTRONIC_FORMS
-                if self.metadata.type == "eforms"
-                else MappingPackageType.STANDARD_FORMS
-            )
-
-            # Populate metadata_constraints from eligibility_constraints
-            constraints = self.metadata.eligibility_constraints.constraints
-            if self.metadata.type == "eforms":
-                self.metadata_constraints = MetadataConstraints(
-                    constraints=MetadataConstraintsEform(
-                        eforms_subtype=constraints.eforms_subtype,
-                        start_date=constraints.start_date,
-                        end_date=constraints.end_date,
-                        eforms_sdk_versions=constraints.eforms_sdk_versions
-                    )
-                )
+                self.mapping_suite_hash_digest = self.metadata.mapping_suite_hash_digest
+            # Map project_identifier to mapping_type
+            if self.metadata.project_identifier == "eforms":
+                self.mapping_type = MappingPackageType.ELECTRONIC_FORMS
             else:
-                self.metadata_constraints = MetadataConstraints(
-                    constraints=MetadataConstraintsStandardForm(
-                        eforms_subtype=constraints.eforms_subtype,
-                        start_date=constraints.start_date,
-                        end_date=constraints.end_date,
-                        min_xsd_version=constraints.eforms_sdk_versions,
-                        max_xsd_version=None
+                self.mapping_type = MappingPackageType.STANDARD_FORMS
+
+            # Populate metadata_constraints from V3 applicability_constraints
+            if self.metadata.applicability_constraints:
+                constraints = self.metadata.applicability_constraints
+                # Extract start/end dates from document_time_interval
+                start_date = None
+                end_date = None
+                if constraints.document_time_interval:
+                    if constraints.document_time_interval.start:
+                        start_date = [constraints.document_time_interval.start.isoformat()]
+                    if constraints.document_time_interval.end:
+                        end_date = [constraints.document_time_interval.end.isoformat()]
+
+                # Populate constraints based on mapping type (project_identifier)
+                if self.metadata.project_identifier == "eforms":
+                    self.metadata_constraints = MetadataConstraints(
+                        constraints=MetadataConstraintsEform(
+                            eforms_subtype=constraints.document_type_list,
+                            start_date=start_date,
+                            end_date=end_date,
+                            eforms_sdk_versions=constraints.document_schema_version_list or ["0.1"]
+                        )
                     )
-                )
+                else:
+                    # Standard forms style
+                    min_xsd = constraints.document_schema_version_list or ["0.1"]
+                    max_xsd = None
+                    if constraints.document_version_range:
+                        if constraints.document_version_range.max:
+                            max_xsd = [constraints.document_version_range.max]
+                    self.metadata_constraints = MetadataConstraints(
+                        constraints=MetadataConstraintsStandardForm(
+                            eforms_subtype=constraints.document_type_list,
+                            start_date=start_date,
+                            end_date=end_date,
+                            min_xsd_version=min_xsd,
+                            max_xsd_version=max_xsd
+                        )
+                    )
 
         # Populate transformation_rule_set from MSSDK v2 suites
         if not self.transformation_rule_set or not self.transformation_rule_set.rml_mapping_rules:

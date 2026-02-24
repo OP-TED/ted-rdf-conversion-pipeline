@@ -40,7 +40,8 @@ def fake_mapping_package():
                                         sparql_tests=[empty_file_resource]
                                         )
     transformation_test_data = TransformationTestData(test_data=[empty_file_resource])
-    mapping_package = MappingPackage(metadata_constraints=metadata_constrains,
+    mapping_package = MappingPackage(identifier="fake_mapping_package_id",
+                                   metadata_constraints=metadata_constrains,
                                    transformation_rule_set=transformation_rule_set,
                                    shacl_test_suites=[shacl_test_suite],
                                    sparql_test_suites=[sparql_test_suite],

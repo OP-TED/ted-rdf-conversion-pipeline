@@ -7,12 +7,6 @@ from typing import Iterator, List, Optional
 from pymongo import MongoClient
 
 from mapping_suite_sdk.core.adapters.repository import MongoDBRepository, ModelNotFoundError
-
-# WORKAROUND: Disable __del__ in MSSDK's MongoDBRepository to prevent premature client closure
-# The MSSDK MongoDBRepository closes the MongoClient in __del__, but it doesn't own the client.
-# When the repository is garbage collected, it closes the shared client unexpectedly.
-if hasattr(MongoDBRepository, '__del__'):
-    delattr(MongoDBRepository, '__del__')
 from mapping_suite_sdk.mapping_package_v1.models import MappingPackageV1
 from mapping_suite_sdk.mapping_package_v2.models import MappingPackageV2
 from mapping_suite_sdk.mapping_package_v3.models import MappingPackageV3

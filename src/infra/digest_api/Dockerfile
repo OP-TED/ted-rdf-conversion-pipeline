@@ -1,13 +1,15 @@
-FROM docker.io/python:3.8-slim-buster
+FROM docker.io/python:3.10-slim-bookworm
 EXPOSE 8000
 
 WORKDIR /usr/src/api/id_manager
 COPY . /usr/src/api/id_manager/
 COPY digest_service /usr/src/api/id_manager
 
-RUN pip install --upgrade pip
-RUN pip install -r digest_service/requirements.txt
-RUN pip install -r digest_service/project_requirements.txt
+RUN apt-get update && apt-get install -y --no-install-recommends git && rm -rf /var/lib/apt/lists/*
+
+RUN pip install --upgrade pip && \
+    pip install --no-cache-dir -r digest_service/requirements.txt && \
+    pip install --no-cache-dir -r digest_service/project_requirements.txt
 
 # Create a non-root user and group
 RUN groupadd -r appuser && useradd -r -g appuser appuser

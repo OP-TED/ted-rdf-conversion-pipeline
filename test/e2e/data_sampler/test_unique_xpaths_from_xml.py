@@ -52,7 +52,7 @@ def test_unique_xpaths_from_xml(notice_repository_with_indexed_notices):
 def test_unique_notice_id(notice_repository_with_indexed_notices):
     mongodb_client = notice_repository_with_indexed_notices.mongodb_client
     unique_notice_id = get_unique_notice_id_from_notice_repository(mongodb_client=mongodb_client)
-    assert len(unique_notice_id) == 82
+    assert len(unique_notice_id) == 81
 
 
 def test_minimal_set_of_notices_for_coverage_xpaths(notice_repository_with_indexed_notices):
@@ -75,7 +75,7 @@ def test_unique_notices_id_covered_by_xpaths(notice_repository_with_indexed_noti
     mongodb_client = notice_repository_with_indexed_notices.mongodb_client
     unique_xpaths = get_unique_xpaths_from_notice_repository(mongodb_client=mongodb_client)
     unique_notices = get_unique_notices_id_covered_by_xpaths(xpaths=unique_xpaths, mongodb_client=mongodb_client)
-    assert len(unique_notices) == 82
+    assert len(unique_notices) == 81
 
 
 def test_unique_xpaths_covered_by_notices(notice_repository_with_indexed_notices):

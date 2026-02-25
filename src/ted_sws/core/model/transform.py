@@ -21,6 +21,7 @@ from mapping_suite_sdk.core.models.collection_asset import (
     TestDataCollectionAsset,
     SPARQLTestCollectionAsset,
     SHACLTestCollectionAsset,
+    SHACLShapesCollectionAsset,
     TestResultCollectionAsset,
     TechnicalMappingCollectionAsset,
     VocabularyMappingCollectionAsset,
@@ -29,6 +30,9 @@ from mapping_suite_sdk.core.models.file_asset import (
     RMLMappingFileAsset,
     VocabularyMappingFileAsset,
     TestDataFileAsset,
+    SPARQLQueryFileAsset,
+    SHACLShapesFileAsset,
+    SHACLShapesResultQueryFileAsset,
 )
 from mapping_suite_sdk.mapping_package_v3.models.mapping_package_v3_metadata_jsonld import (
     MappingPackageV3MetadataJSONLD,
@@ -338,6 +342,47 @@ class MappingPackage(MappingPackageComponent, MappingPackageV3):
                 mssdk_version="3.0.0"
             )
 
+        # Populate test_suites_sparql from legacy sparql_test_suites
+        if not self.test_suites_sparql and self.sparql_test_suites:
+            self.test_suites_sparql = [
+                SPARQLTestCollectionAsset(
+                    path=Path(f"validation/sparql/{suite.identifier}"),
+                    files=[
+                        SPARQLQueryFileAsset(
+                            path=Path(f"validation/sparql/{suite.identifier}/{test.file_name}"),
+                            content=test.file_content
+                        )
+                        for test in suite.sparql_tests
+                    ]
+                )
+                for suite in self.sparql_test_suites
+            ]
+
+        # Populate test_suites_shacl from legacy shacl_test_suites
+        if self.test_suites_shacl is None and self.shacl_test_suites:
+            shacl_collections = [
+                SHACLShapesCollectionAsset(
+                    path=Path(f"validation/shacl/{suite.identifier}"),
+                    files=[
+                        SHACLShapesFileAsset(
+                            path=Path(f"validation/shacl/{suite.identifier}/{test.file_name}"),
+                            content=test.file_content
+                        )
+                        for test in suite.shacl_tests
+                    ]
+                )
+                for suite in self.shacl_test_suites
+            ]
+            if shacl_collections:
+                self.test_suites_shacl = SHACLTestCollectionAsset(
+                    path=Path("validation/shacl"),
+                    shacl_collections=shacl_collections,
+                    shacl_result_query=SHACLShapesResultQueryFileAsset(
+                        path=Path("validation/shacl/shacl_result_query.rq"),
+                        content="# Placeholder SHACL result query"
+                    )
+                )
+
     def _populate_legacy_from_mssdk(self) -> None:
         """Populate legacy pipeline fields from MSSDK v3 fields when needed."""
         if self.metadata:
@@ -451,3 +496,41 @@ class MappingPackage(MappingPackageComponent, MappingPackageV3):
             )
             # Clear MSSDK v2 test_data_suites after populating
             self.test_data_suites = []
+
+        # Populate legacy sparql_test_suites from test_suites_sparql
+        if not self.sparql_test_suites and self.test_suites_sparql:
+            self.sparql_test_suites = [
+                SPARQLTestSuite(
+                    identifier=suite.path.name if suite.path else f"sparql_suite_{idx}",
+                    sparql_tests=[
+                        FileResource(
+                            file_name=file.path.name,
+                            file_content=file.content,
+                            original_name=file.path.name
+                        )
+                        for file in suite.files
+                    ]
+                )
+                for idx, suite in enumerate(self.test_suites_sparql)
+            ]
+            # Clear MSSDK test_suites_sparql after populating
+            self.test_suites_sparql = []
+
+        # Populate legacy shacl_test_suites from test_suites_shacl
+        if not self.shacl_test_suites and self.test_suites_shacl:
+            self.shacl_test_suites = [
+                SHACLTestSuite(
+                    identifier=collection.path.name if collection.path else f"shacl_suite_{idx}",
+                    shacl_tests=[
+                        FileResource(
+                            file_name=file.path.name,
+                            file_content=file.content,
+                            original_name=file.path.name
+                        )
+                        for file in collection.files
+                    ]
+                )
+                for idx, collection in enumerate(self.test_suites_shacl.shacl_collections)
+            ]
+            # Clear MSSDK test_suites_shacl after populating
+            self.test_suites_shacl = None

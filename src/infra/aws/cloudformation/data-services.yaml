@@ -1,0 +1,263 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Description: "TED-SWS — Data services stack."
+
+Parameters:
+  Environment:
+    Type: String
+    Default: sandbox
+    AllowedValues:
+      - sandbox
+      - staging
+      - production
+    Description: Deployment environment (appended to resource names)
+  SubnetId1:
+    Type: AWS::EC2::Subnet::Id
+    Description: First private subnet
+  SubnetId2:
+    Type: AWS::EC2::Subnet::Id
+    Description: Second private subnet
+  SecurityGroupId:
+    Type: AWS::EC2::SecurityGroup::Id
+    Description: Security group for database access
+  # RDS Airflow
+  AirflowDbInstanceClass:
+    Type: String
+    Default: db.t3.medium
+    Description: RDS instance class for Airflow PostgreSQL
+  AirflowDbAllocatedStorage:
+    Type: Number
+    Default: 20
+    Description: Allocated storage in GB for Airflow RDS
+  AirflowDbMasterUsername:
+    Type: String
+    Default: airflow
+    Description: Master username for Airflow RDS
+  AirflowDbMasterPassword:
+    Type: String
+    NoEcho: true
+    Description: Master password for Airflow RDS
+  # RDS Metabase
+  MetabaseDbInstanceClass:
+    Type: String
+    Default: db.t3.micro
+    Description: RDS instance class for Metabase PostgreSQL
+  MetabaseDbAllocatedStorage:
+    Type: Number
+    Default: 20
+    Description: Allocated storage in GB for Metabase RDS
+  MetabaseDbMasterUsername:
+    Type: String
+    Default: metabase
+    Description: Master username for Metabase RDS
+  MetabaseDbMasterPassword:
+    Type: String
+    NoEcho: true
+    Description: Master password for Metabase RDS
+  # DocumentDB
+  DocumentDbInstanceClass:
+    Type: String
+    Default: db.t3.medium
+    Description: DocumentDB instance class
+  DocumentDbMasterUsername:
+    Type: String
+    Default: root
+    Description: Master username for DocumentDB
+  DocumentDbMasterPassword:
+    Type: String
+    NoEcho: true
+    Description: Master password for DocumentDB
+  # ElastiCache
+  ElastiCacheNodeType:
+    Type: String
+    Default: cache.t3.small
+    Description: ElastiCache Redis node type
+
+Conditions:
+  IsSandbox: !Equals [!Ref Environment, sandbox]
+
+Resources:
+  # ---------------------------------------------------------------------------
+  # DB Subnet Group — shared by RDS and DocumentDB
+  # ---------------------------------------------------------------------------
+  DbSubnetGroup:
+    Type: AWS::RDS::DBSubnetGroup
+    Properties:
+      DBSubnetGroupDescription: !Sub "Subnet group for ted-sws-${Environment}"
+      DBSubnetGroupName: !Sub "ted-sws-${Environment}"
+      SubnetIds:
+        - !Ref SubnetId1
+        - !Ref SubnetId2
+
+  # ---------------------------------------------------------------------------
+  # ElastiCache Subnet Group
+  # ---------------------------------------------------------------------------
+  CacheSubnetGroup:
+    Type: AWS::ElastiCache::SubnetGroup
+    Properties:
+      CacheSubnetGroupName: !Sub "ted-sws-cache-${Environment}"
+      Description: !Sub "Cache subnet group for ted-sws-${Environment}"
+      SubnetIds:
+        - !Ref SubnetId1
+        - !Ref SubnetId2
+
+  # ---------------------------------------------------------------------------
+  # DocumentDB Parameter Group — TLS disabled (matches live)
+  # ---------------------------------------------------------------------------
+  DocumentDbParameterGroup:
+    Type: AWS::DocDB::DBClusterParameterGroup
+    Properties:
+      Description: !Sub "DocumentDB parameters for ted-sws-${Environment}"
+      Family: docdb4.0
+      Name: !Sub "ted-sws-${Environment}"
+      Parameters:
+        tls: disabled
+
+  # ---------------------------------------------------------------------------
+  # RDS — Airflow PostgreSQL
+  # ---------------------------------------------------------------------------
+  AirflowRds:
+    Type: AWS::RDS::DBInstance
+    DeletionPolicy: Retain
+    UpdateReplacePolicy: Retain
+    Properties:
+      DBInstanceIdentifier: !Sub "ted-sws-airflow-rds-${Environment}"
+      DBInstanceClass: !Ref AirflowDbInstanceClass
+      Engine: postgres
+      EngineVersion: "13"
+      DBName: airflow
+      MasterUsername: !Ref AirflowDbMasterUsername
+      MasterUserPassword: !Ref AirflowDbMasterPassword
+      AllocatedStorage: !Ref AirflowDbAllocatedStorage
+      StorageType: gp2
+      MultiAZ: false
+      PubliclyAccessible: false
+      StorageEncrypted: false
+      AutoMinorVersionUpgrade: false
+      BackupRetentionPeriod: 0
+      DeletionProtection: !If [IsSandbox, false, true]
+      DBSubnetGroupName: !Ref DbSubnetGroup
+      VPCSecurityGroups:
+        - !Ref SecurityGroupId
+      EnableCloudwatchLogsExports:
+        - postgresql
+      Tags:
+        - Key: Name
+          Value: !Sub "ted-sws-airflow-rds-${Environment}"
+        - Key: ec-scheduler
+          Value: ec-office-hours-rds
+
+  # ---------------------------------------------------------------------------
+  # RDS — Metabase PostgreSQL
+  # ---------------------------------------------------------------------------
+  MetabaseRds:
+    Type: AWS::RDS::DBInstance
+    DeletionPolicy: Retain
+    UpdateReplacePolicy: Retain
+    Properties:
+      DBInstanceIdentifier: !Sub "ted-sws-metabase-rds-${Environment}"
+      DBInstanceClass: !Ref MetabaseDbInstanceClass
+      Engine: postgres
+      EngineVersion: "13"
+      DBName: metabase
+      MasterUsername: !Ref MetabaseDbMasterUsername
+      MasterUserPassword: !Ref MetabaseDbMasterPassword
+      AllocatedStorage: !Ref MetabaseDbAllocatedStorage
+      StorageType: gp2
+      MultiAZ: false
+      PubliclyAccessible: false
+      StorageEncrypted: false
+      AutoMinorVersionUpgrade: true
+      BackupRetentionPeriod: 0
+      DeletionProtection: !If [IsSandbox, false, true]
+      DBSubnetGroupName: !Ref DbSubnetGroup
+      VPCSecurityGroups:
+        - !Ref SecurityGroupId
+      Tags:
+        - Key: Name
+          Value: !Sub "ted-sws-metabase-rds-${Environment}"
+        - Key: ec-scheduler
+          Value: ec-office-hours-rds
+
+  # ---------------------------------------------------------------------------
+  # DocumentDB Cluster
+  # ---------------------------------------------------------------------------
+  DocumentDbCluster:
+    Type: AWS::DocDB::DBCluster
+    DeletionPolicy: Retain
+    UpdateReplacePolicy: Retain
+    Properties:
+      DBClusterIdentifier: !Sub "ted-sws-documentdb-${Environment}"
+      EngineVersion: "4.0.0"
+      Port: 27017
+      MasterUsername: !Ref DocumentDbMasterUsername
+      MasterUserPassword: !Ref DocumentDbMasterPassword
+      StorageEncrypted: false
+      DeletionProtection: !If [IsSandbox, false, true]
+      BackupRetentionPeriod: 1
+      DBClusterParameterGroupName: !Ref DocumentDbParameterGroup
+      DBSubnetGroupName: !Ref DbSubnetGroup
+      VpcSecurityGroupIds:
+        - !Ref SecurityGroupId
+
+  # ---------------------------------------------------------------------------
+  # DocumentDB Instance
+  # ---------------------------------------------------------------------------
+  DocumentDbInstance:
+    Type: AWS::DocDB::DBInstance
+    Properties:
+      DBInstanceIdentifier: !Sub "ted-sws-documentdb-${Environment}"
+      DBClusterIdentifier: !Ref DocumentDbCluster
+      DBInstanceClass: !Ref DocumentDbInstanceClass
+      AutoMinorVersionUpgrade: true
+
+  # ---------------------------------------------------------------------------
+  # ElastiCache Redis — Replication Group (single-node)
+  # ---------------------------------------------------------------------------
+  RedisReplicationGroup:
+    Type: AWS::ElastiCache::ReplicationGroup
+    Properties:
+      ReplicationGroupId: !Sub "ted-rdf-pipeline-redis-${Environment}"
+      ReplicationGroupDescription: !Sub "Redis broker for ted-sws-${Environment}"
+      Engine: redis
+      EngineVersion: "6.2"
+      CacheNodeType: !Ref ElastiCacheNodeType
+      NumCacheClusters: 1
+      AutomaticFailoverEnabled: false
+      MultiAZEnabled: false
+      CacheSubnetGroupName: !Ref CacheSubnetGroup
+      SecurityGroupIds:
+        - !Ref SecurityGroupId
+      Port: 6379
+
+Outputs:
+  # Airflow RDS
+  AirflowRdsEndpoint:
+    Description: Airflow RDS endpoint
+    Value: !GetAtt AirflowRds.Endpoint.Address
+  AirflowRdsPort:
+    Description: Airflow RDS port
+    Value: !GetAtt AirflowRds.Endpoint.Port
+
+  # Metabase RDS
+  MetabaseRdsEndpoint:
+    Description: Metabase RDS endpoint
+    Value: !GetAtt MetabaseRds.Endpoint.Address
+  MetabaseRdsPort:
+    Description: Metabase RDS port
+    Value: !GetAtt MetabaseRds.Endpoint.Port
+
+  # DocumentDB
+  DocumentDbEndpoint:
+    Description: DocumentDB cluster endpoint
+    Value: !GetAtt DocumentDbCluster.Endpoint
+  DocumentDbPort:
+    Description: DocumentDB port
+    Value: !GetAtt DocumentDbCluster.Port
+
+  # ElastiCache Redis
+  RedisEndpoint:
+    Description: Redis primary endpoint
+    Value: !GetAtt RedisReplicationGroup.PrimaryEndPoint.Address
+  RedisPort:
+    Description: Redis port
+    Value: !GetAtt RedisReplicationGroup.PrimaryEndPoint.Port

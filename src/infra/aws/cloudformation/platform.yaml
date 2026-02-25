@@ -1,0 +1,309 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Description: "TED-SWS — Platform stack."
+
+Parameters:
+  VpcId:
+    Type: AWS::EC2::VPC::Id
+    Description: VPC for Cloud Map private DNS namespace
+  Environment:
+    Type: String
+    Default: sandbox
+    AllowedValues:
+      - sandbox
+      - staging
+      - production
+    Description: Deployment environment (appended to resource names)
+
+Resources:
+  # ---------------------------------------------------------------------------
+  # ECS Cluster
+  # ---------------------------------------------------------------------------
+  EcsCluster:
+    Type: AWS::ECS::Cluster
+    Properties:
+      ClusterName: !Sub "ted-sws-${Environment}"
+      CapacityProviders:
+        - FARGATE
+      DefaultCapacityProviderStrategy:
+        - CapacityProvider: FARGATE
+          Weight: 1
+
+  # ---------------------------------------------------------------------------
+  # Cloud Map — Private DNS Namespace
+  # ---------------------------------------------------------------------------
+  CloudMapNamespace:
+    Type: AWS::ServiceDiscovery::PrivateDnsNamespace
+    Properties:
+      Name: !Sub "ted-sws-${Environment}.local"
+      Vpc: !Ref VpcId
+
+  # ---------------------------------------------------------------------------
+  # S3 — Environment file bucket
+  # ---------------------------------------------------------------------------
+  # The installation manual instructs: "Create a .env file … Load the .env file
+  # into the container".  In ECS Fargate the native mechanism for this is the
+  # task-definition EnvironmentFiles property pointing to an S3 object.
+  # This bucket stores the .env file(s) for each service.
+  EnvFileBucket:
+    Type: AWS::S3::Bucket
+    DeletionPolicy: Delete
+    Properties:
+      BucketName: !Sub "ted-sws-env-${Environment}-${AWS::AccountId}"
+      BucketEncryption:
+        ServerSideEncryptionConfiguration:
+          - ServerSideEncryptionByDefault:
+              SSEAlgorithm: AES256
+      PublicAccessBlockConfiguration:
+        BlockPublicAcls: true
+        BlockPublicPolicy: true
+        IgnorePublicAcls: true
+        RestrictPublicBuckets: true
+      VersioningConfiguration:
+        Status: Enabled
+      Tags:
+        - Key: Environment
+          Value: !Ref Environment
+        - Key: Purpose
+          Value: ECS environment files
+
+  # ---------------------------------------------------------------------------
+  # ECR — Container image repositories
+  # ---------------------------------------------------------------------------
+  AirflowEcrRepo:
+    Type: AWS::ECR::Repository
+    DeletionPolicy: Retain
+    Properties:
+      RepositoryName: !Sub "ted-sws-${Environment}/airflow"
+      ImageTagMutability: MUTABLE
+      Tags:
+        - Key: Environment
+          Value: !Ref Environment
+
+  FusekiEcrRepo:
+    Type: AWS::ECR::Repository
+    DeletionPolicy: Retain
+    Properties:
+      RepositoryName: !Sub "ted-sws-${Environment}/fuseki"
+      ImageTagMutability: MUTABLE
+      Tags:
+        - Key: Environment
+          Value: !Ref Environment
+
+  MetabaseEcrRepo:
+    Type: AWS::ECR::Repository
+    DeletionPolicy: Retain
+    Properties:
+      RepositoryName: !Sub "ted-sws-${Environment}/metabase"
+      ImageTagMutability: MUTABLE
+      Tags:
+        - Key: Environment
+          Value: !Ref Environment
+
+  MongoExpressEcrRepo:
+    Type: AWS::ECR::Repository
+    DeletionPolicy: Retain
+    Properties:
+      RepositoryName: !Sub "ted-sws-${Environment}/mongo-express"
+      ImageTagMutability: MUTABLE
+      Tags:
+        - Key: Environment
+          Value: !Ref Environment
+
+  DigestApiEcrRepo:
+    Type: AWS::ECR::Repository
+    DeletionPolicy: Retain
+    Properties:
+      RepositoryName: !Sub "ted-sws-${Environment}/digest-api"
+      ImageTagMutability: MUTABLE
+      Tags:
+        - Key: Environment
+          Value: !Ref Environment
+
+  SftpEcrRepo:
+    Type: AWS::ECR::Repository
+    DeletionPolicy: Retain
+    Properties:
+      RepositoryName: !Sub "ted-sws-${Environment}/sftp"
+      ImageTagMutability: MUTABLE
+      Tags:
+        - Key: Environment
+          Value: !Ref Environment
+
+  BusyboxEcrRepo:
+    Type: AWS::ECR::Repository
+    DeletionPolicy: Retain
+    Properties:
+      RepositoryName: !Sub "ted-sws-${Environment}/busybox"
+      ImageTagMutability: MUTABLE
+      Tags:
+        - Key: Environment
+          Value: !Ref Environment
+
+  # ---------------------------------------------------------------------------
+  # CloudWatch Log Groups — one per service
+  # ---------------------------------------------------------------------------
+  AirflowLogGroup:
+    Type: AWS::Logs::LogGroup
+    Properties:
+      LogGroupName: !Sub "/ecs/ted-sws-${Environment}/airflow"
+      RetentionInDays: 30
+
+  WorkerLogGroup:
+    Type: AWS::Logs::LogGroup
+    Properties:
+      LogGroupName: !Sub "/ecs/ted-sws-${Environment}/worker"
+      RetentionInDays: 30
+
+  FusekiLogGroup:
+    Type: AWS::Logs::LogGroup
+    Properties:
+      LogGroupName: !Sub "/ecs/ted-sws-${Environment}/fuseki"
+      RetentionInDays: 30
+
+  MetabaseLogGroup:
+    Type: AWS::Logs::LogGroup
+    Properties:
+      LogGroupName: !Sub "/ecs/ted-sws-${Environment}/metabase"
+      RetentionInDays: 30
+
+  MongoExpressLogGroup:
+    Type: AWS::Logs::LogGroup
+    Properties:
+      LogGroupName: !Sub "/ecs/ted-sws-${Environment}/mongo-express"
+      RetentionInDays: 30
+
+  DigestApiLogGroup:
+    Type: AWS::Logs::LogGroup
+    Properties:
+      LogGroupName: !Sub "/ecs/ted-sws-${Environment}/digest-api"
+      RetentionInDays: 30
+
+  SftpLogGroup:
+    Type: AWS::Logs::LogGroup
+    Properties:
+      LogGroupName: !Sub "/ecs/ted-sws-${Environment}/sftp"
+      RetentionInDays: 30
+
+  # ---------------------------------------------------------------------------
+  # IAM — ECS Task Execution Role
+  # ---------------------------------------------------------------------------
+  EcsTaskExecutionRole:
+    Type: AWS::IAM::Role
+    Properties:
+      RoleName: !Sub "ted-sws-execution-role-${Environment}"
+      PermissionsBoundary: !Sub "arn:aws:iam::${AWS::AccountId}:policy/Team_Admin_Boundary"
+      AssumeRolePolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service: ecs-tasks.amazonaws.com
+            Action: sts:AssumeRole
+      ManagedPolicyArns:
+        - arn:aws:iam::aws:policy/service-role/AmazonECSTaskExecutionRolePolicy
+      Policies:
+        - PolicyName: S3EnvFileAccess
+          PolicyDocument:
+            Version: "2012-10-17"
+            Statement:
+              - Effect: Allow
+                Action:
+                  - s3:GetObject
+                Resource: !Sub "arn:aws:s3:::${EnvFileBucket}/*"
+              - Effect: Allow
+                Action:
+                  - s3:GetBucketLocation
+                Resource: !Sub "arn:aws:s3:::${EnvFileBucket}"
+        - PolicyName: CloudWatchLogs
+          PolicyDocument:
+            Version: "2012-10-17"
+            Statement:
+              - Effect: Allow
+                Action:
+                  - logs:CreateLogStream
+                  - logs:PutLogEvents
+                Resource: !Sub "arn:aws:logs:${AWS::Region}:${AWS::AccountId}:log-group:/ecs/ted-sws-${Environment}/*"
+
+  EcsTaskRole:
+    Type: AWS::IAM::Role
+    Properties:
+      RoleName: !Sub "ted-sws-task-role-${Environment}"
+      PermissionsBoundary: !Sub "arn:aws:iam::${AWS::AccountId}:policy/Team_Admin_Boundary"
+      AssumeRolePolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service: ecs-tasks.amazonaws.com
+            Action: sts:AssumeRole
+      Policies:
+        - PolicyName: EcsExecAccess
+          PolicyDocument:
+            Version: "2012-10-17"
+            Statement:
+              - Effect: Allow
+                Action:
+                  - ssmmessages:CreateControlChannel
+                  - ssmmessages:CreateDataChannel
+                  - ssmmessages:OpenControlChannel
+                  - ssmmessages:OpenDataChannel
+                Resource: "*"
+
+Outputs:
+  ClusterName:
+    Description: ECS cluster name
+    Value: !Ref EcsCluster
+  ClusterArn:
+    Description: ECS cluster ARN
+    Value: !GetAtt EcsCluster.Arn
+  CloudMapNamespaceId:
+    Description: Cloud Map namespace ID
+    Value: !Ref CloudMapNamespace
+  ExecutionRoleArn:
+    Description: ECS task execution role ARN
+    Value: !GetAtt EcsTaskExecutionRole.Arn
+  TaskRoleArn:
+    Description: ECS task role ARN (for ECS Exec)
+    Value: !GetAtt EcsTaskRole.Arn
+  EnvFileBucketName:
+    Description: S3 bucket name for .env files
+    Value: !Ref EnvFileBucket
+  EnvFileBucketArn:
+    Description: S3 bucket ARN for .env files
+    Value: !GetAtt EnvFileBucket.Arn
+  AirflowLogGroupName:
+    Value: !Ref AirflowLogGroup
+  WorkerLogGroupName:
+    Value: !Ref WorkerLogGroup
+  FusekiLogGroupName:
+    Value: !Ref FusekiLogGroup
+  MetabaseLogGroupName:
+    Value: !Ref MetabaseLogGroup
+  MongoExpressLogGroupName:
+    Value: !Ref MongoExpressLogGroup
+  DigestApiLogGroupName:
+    Value: !Ref DigestApiLogGroup
+  SftpLogGroupName:
+    Value: !Ref SftpLogGroup
+  # ECR Repository URIs (without tag)
+  AirflowEcrRepoUri:
+    Description: Airflow ECR repository URI
+    Value: !GetAtt AirflowEcrRepo.RepositoryUri
+  FusekiEcrRepoUri:
+    Description: Fuseki ECR repository URI
+    Value: !GetAtt FusekiEcrRepo.RepositoryUri
+  MetabaseEcrRepoUri:
+    Description: Metabase ECR repository URI
+    Value: !GetAtt MetabaseEcrRepo.RepositoryUri
+  MongoExpressEcrRepoUri:
+    Description: Mongo Express ECR repository URI
+    Value: !GetAtt MongoExpressEcrRepo.RepositoryUri
+  DigestApiEcrRepoUri:
+    Description: Digest API ECR repository URI
+    Value: !GetAtt DigestApiEcrRepo.RepositoryUri
+  SftpEcrRepoUri:
+    Description: SFTP ECR repository URI
+    Value: !GetAtt SftpEcrRepo.RepositoryUri
+  BusyboxEcrRepoUri:
+    Description: Busybox ECR repository URI
+    Value: !GetAtt BusyboxEcrRepo.RepositoryUri

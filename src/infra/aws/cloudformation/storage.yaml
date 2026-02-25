@@ -1,0 +1,154 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Description: "TED-SWS — Storage stack."
+
+Parameters:
+  SubnetId1:
+    Type: AWS::EC2::Subnet::Id
+    Description: First subnet for EFS mount targets
+  SubnetId2:
+    Type: AWS::EC2::Subnet::Id
+    Description: Second subnet for EFS mount targets
+  SecurityGroupId:
+    Type: AWS::EC2::SecurityGroup::Id
+    Description: Security group allowing NFS traffic (port 2049)
+  Environment:
+    Type: String
+    Default: sandbox
+    AllowedValues:
+      - sandbox
+      - staging
+      - production
+    Description: Deployment environment (appended to resource names)
+
+Resources:
+  # ---------------------------------------------------------------------------
+  # EFS Filesystems
+  # ---------------------------------------------------------------------------
+  AirflowLogsEfs:
+    Type: AWS::EFS::FileSystem
+    DeletionPolicy: Retain
+    UpdateReplacePolicy: Retain
+    Properties:
+      Encrypted: true
+      PerformanceMode: generalPurpose
+      ThroughputMode: bursting
+      FileSystemTags:
+        - Key: Name
+          Value: !Sub "ted-sws-airflow-logs-${Environment}"
+
+  AirflowTedSwsEfs:
+    Type: AWS::EFS::FileSystem
+    DeletionPolicy: Retain
+    UpdateReplacePolicy: Retain
+    Properties:
+      Encrypted: true
+      PerformanceMode: generalPurpose
+      ThroughputMode: elastic
+      FileSystemTags:
+        - Key: Name
+          Value: !Sub "ted-sws-airflow-ted-sws-${Environment}"
+
+  FusekiDataEfs:
+    Type: AWS::EFS::FileSystem
+    DeletionPolicy: Retain
+    UpdateReplacePolicy: Retain
+    Properties:
+      Encrypted: true
+      PerformanceMode: generalPurpose
+      ThroughputMode: bursting
+      FileSystemTags:
+        - Key: Name
+          Value: !Sub "ted-sws-fuseki-data-${Environment}"
+
+  SftpDataEfs:
+    Type: AWS::EFS::FileSystem
+    DeletionPolicy: Retain
+    UpdateReplacePolicy: Retain
+    Properties:
+      Encrypted: true
+      PerformanceMode: generalPurpose
+      ThroughputMode: bursting
+      FileSystemTags:
+        - Key: Name
+          Value: !Sub "ted-sws-sftp-data-${Environment}"
+
+  # ---------------------------------------------------------------------------
+  # Mount Targets — two per filesystem (one per subnet)
+  # ---------------------------------------------------------------------------
+  AirflowLogsMountTarget1:
+    Type: AWS::EFS::MountTarget
+    Properties:
+      FileSystemId: !Ref AirflowLogsEfs
+      SubnetId: !Ref SubnetId1
+      SecurityGroups:
+        - !Ref SecurityGroupId
+
+  AirflowLogsMountTarget2:
+    Type: AWS::EFS::MountTarget
+    Properties:
+      FileSystemId: !Ref AirflowLogsEfs
+      SubnetId: !Ref SubnetId2
+      SecurityGroups:
+        - !Ref SecurityGroupId
+
+  AirflowTedSwsMountTarget1:
+    Type: AWS::EFS::MountTarget
+    Properties:
+      FileSystemId: !Ref AirflowTedSwsEfs
+      SubnetId: !Ref SubnetId1
+      SecurityGroups:
+        - !Ref SecurityGroupId
+
+  AirflowTedSwsMountTarget2:
+    Type: AWS::EFS::MountTarget
+    Properties:
+      FileSystemId: !Ref AirflowTedSwsEfs
+      SubnetId: !Ref SubnetId2
+      SecurityGroups:
+        - !Ref SecurityGroupId
+
+  FusekiDataMountTarget1:
+    Type: AWS::EFS::MountTarget
+    Properties:
+      FileSystemId: !Ref FusekiDataEfs
+      SubnetId: !Ref SubnetId1
+      SecurityGroups:
+        - !Ref SecurityGroupId
+
+  FusekiDataMountTarget2:
+    Type: AWS::EFS::MountTarget
+    Properties:
+      FileSystemId: !Ref FusekiDataEfs
+      SubnetId: !Ref SubnetId2
+      SecurityGroups:
+        - !Ref SecurityGroupId
+
+  SftpDataMountTarget1:
+    Type: AWS::EFS::MountTarget
+    Properties:
+      FileSystemId: !Ref SftpDataEfs
+      SubnetId: !Ref SubnetId1
+      SecurityGroups:
+        - !Ref SecurityGroupId
+
+  SftpDataMountTarget2:
+    Type: AWS::EFS::MountTarget
+    Properties:
+      FileSystemId: !Ref SftpDataEfs
+      SubnetId: !Ref SubnetId2
+      SecurityGroups:
+        - !Ref SecurityGroupId
+
+Outputs:
+  AirflowLogsEfsId:
+    Description: Filesystem ID for airflow-logs
+    Value: !Ref AirflowLogsEfs
+  AirflowTedSwsEfsId:
+    Description: Filesystem ID for airflow-ted-sws
+    Value: !Ref AirflowTedSwsEfs
+  FusekiDataEfsId:
+    Description: Filesystem ID for fuseki-data
+    Value: !Ref FusekiDataEfs
+  SftpDataEfsId:
+    Description: Filesystem ID for sftp-data
+    Value: !Ref SftpDataEfs

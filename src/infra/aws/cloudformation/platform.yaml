@@ -27,6 +27,15 @@ Resources:
       DefaultCapacityProviderStrategy:
         - CapacityProvider: FARGATE
           Weight: 1
+      Tags:
+        - Key: Project
+          Value: ted-sws
+        - Key: Environment
+          Value: !Ref Environment
+        - Key: ManagedBy
+          Value: cloudformation
+        - Key: Owner
+          Value: Meaningfy DevOps
 
   # ---------------------------------------------------------------------------
   # Cloud Map — Private DNS Namespace
@@ -36,6 +45,15 @@ Resources:
     Properties:
       Name: !Sub "ted-sws-${Environment}.local"
       Vpc: !Ref VpcId
+      Tags:
+        - Key: Project
+          Value: ted-sws
+        - Key: Environment
+          Value: !Ref Environment
+        - Key: ManagedBy
+          Value: cloudformation
+        - Key: Owner
+          Value: Meaningfy DevOps
 
   # ---------------------------------------------------------------------------
   # S3 — Environment file bucket
@@ -65,6 +83,12 @@ Resources:
           Value: !Ref Environment
         - Key: Purpose
           Value: ECS environment files
+        - Key: Project
+          Value: ted-sws
+        - Key: ManagedBy
+          Value: cloudformation
+        - Key: Owner
+          Value: Meaningfy DevOps
 
   # ---------------------------------------------------------------------------
   # ECR — Container image repositories
@@ -78,6 +102,12 @@ Resources:
       Tags:
         - Key: Environment
           Value: !Ref Environment
+        - Key: Project
+          Value: ted-sws
+        - Key: ManagedBy
+          Value: cloudformation
+        - Key: Owner
+          Value: Meaningfy DevOps
 
   FusekiEcrRepo:
     Type: AWS::ECR::Repository
@@ -88,6 +118,12 @@ Resources:
       Tags:
         - Key: Environment
           Value: !Ref Environment
+        - Key: Project
+          Value: ted-sws
+        - Key: ManagedBy
+          Value: cloudformation
+        - Key: Owner
+          Value: Meaningfy DevOps
 
   MetabaseEcrRepo:
     Type: AWS::ECR::Repository
@@ -98,6 +134,12 @@ Resources:
       Tags:
         - Key: Environment
           Value: !Ref Environment
+        - Key: Project
+          Value: ted-sws
+        - Key: ManagedBy
+          Value: cloudformation
+        - Key: Owner
+          Value: Meaningfy DevOps
 
   MongoExpressEcrRepo:
     Type: AWS::ECR::Repository
@@ -108,6 +150,12 @@ Resources:
       Tags:
         - Key: Environment
           Value: !Ref Environment
+        - Key: Project
+          Value: ted-sws
+        - Key: ManagedBy
+          Value: cloudformation
+        - Key: Owner
+          Value: Meaningfy DevOps
 
   DigestApiEcrRepo:
     Type: AWS::ECR::Repository
@@ -118,6 +166,12 @@ Resources:
       Tags:
         - Key: Environment
           Value: !Ref Environment
+        - Key: Project
+          Value: ted-sws
+        - Key: ManagedBy
+          Value: cloudformation
+        - Key: Owner
+          Value: Meaningfy DevOps
 
   SftpEcrRepo:
     Type: AWS::ECR::Repository
@@ -128,6 +182,12 @@ Resources:
       Tags:
         - Key: Environment
           Value: !Ref Environment
+        - Key: Project
+          Value: ted-sws
+        - Key: ManagedBy
+          Value: cloudformation
+        - Key: Owner
+          Value: Meaningfy DevOps
 
   BusyboxEcrRepo:
     Type: AWS::ECR::Repository
@@ -138,6 +198,12 @@ Resources:
       Tags:
         - Key: Environment
           Value: !Ref Environment
+        - Key: Project
+          Value: ted-sws
+        - Key: ManagedBy
+          Value: cloudformation
+        - Key: Owner
+          Value: Meaningfy DevOps
 
   # ---------------------------------------------------------------------------
   # CloudWatch Log Groups — one per service
@@ -147,42 +213,105 @@ Resources:
     Properties:
       LogGroupName: !Sub "/ecs/ted-sws-${Environment}/airflow"
       RetentionInDays: 30
+      Tags:
+        - Key: Project
+          Value: ted-sws
+        - Key: Environment
+          Value: !Ref Environment
+        - Key: ManagedBy
+          Value: cloudformation
+        - Key: Owner
+          Value: Meaningfy DevOps
 
   WorkerLogGroup:
     Type: AWS::Logs::LogGroup
     Properties:
       LogGroupName: !Sub "/ecs/ted-sws-${Environment}/worker"
       RetentionInDays: 30
+      Tags:
+        - Key: Project
+          Value: ted-sws
+        - Key: Environment
+          Value: !Ref Environment
+        - Key: ManagedBy
+          Value: cloudformation
+        - Key: Owner
+          Value: Meaningfy DevOps
 
   FusekiLogGroup:
     Type: AWS::Logs::LogGroup
     Properties:
       LogGroupName: !Sub "/ecs/ted-sws-${Environment}/fuseki"
       RetentionInDays: 30
+      Tags:
+        - Key: Project
+          Value: ted-sws
+        - Key: Environment
+          Value: !Ref Environment
+        - Key: ManagedBy
+          Value: cloudformation
+        - Key: Owner
+          Value: Meaningfy DevOps
 
   MetabaseLogGroup:
     Type: AWS::Logs::LogGroup
     Properties:
       LogGroupName: !Sub "/ecs/ted-sws-${Environment}/metabase"
       RetentionInDays: 30
+      Tags:
+        - Key: Project
+          Value: ted-sws
+        - Key: Environment
+          Value: !Ref Environment
+        - Key: ManagedBy
+          Value: cloudformation
+        - Key: Owner
+          Value: Meaningfy DevOps
 
   MongoExpressLogGroup:
     Type: AWS::Logs::LogGroup
     Properties:
       LogGroupName: !Sub "/ecs/ted-sws-${Environment}/mongo-express"
       RetentionInDays: 30
+      Tags:
+        - Key: Project
+          Value: ted-sws
+        - Key: Environment
+          Value: !Ref Environment
+        - Key: ManagedBy
+          Value: cloudformation
+        - Key: Owner
+          Value: Meaningfy DevOps
 
   DigestApiLogGroup:
     Type: AWS::Logs::LogGroup
     Properties:
       LogGroupName: !Sub "/ecs/ted-sws-${Environment}/digest-api"
       RetentionInDays: 30
+      Tags:
+        - Key: Project
+          Value: ted-sws
+        - Key: Environment
+          Value: !Ref Environment
+        - Key: ManagedBy
+          Value: cloudformation
+        - Key: Owner
+          Value: Meaningfy DevOps
 
   SftpLogGroup:
     Type: AWS::Logs::LogGroup
     Properties:
       LogGroupName: !Sub "/ecs/ted-sws-${Environment}/sftp"
       RetentionInDays: 30
+      Tags:
+        - Key: Project
+          Value: ted-sws
+        - Key: Environment
+          Value: !Ref Environment
+        - Key: ManagedBy
+          Value: cloudformation
+        - Key: Owner
+          Value: Meaningfy DevOps
 
   # ---------------------------------------------------------------------------
   # IAM — ECS Task Execution Role
@@ -192,6 +321,15 @@ Resources:
     Properties:
       RoleName: !Sub "ted-sws-execution-role-${Environment}"
       PermissionsBoundary: !Sub "arn:aws:iam::${AWS::AccountId}:policy/Team_Admin_Boundary"
+      Tags:
+        - Key: Project
+          Value: ted-sws
+        - Key: Environment
+          Value: !Ref Environment
+        - Key: ManagedBy
+          Value: cloudformation
+        - Key: Owner
+          Value: Meaningfy DevOps
       AssumeRolePolicyDocument:
         Version: "2012-10-17"
         Statement:
@@ -229,6 +367,15 @@ Resources:
     Properties:
       RoleName: !Sub "ted-sws-task-role-${Environment}"
       PermissionsBoundary: !Sub "arn:aws:iam::${AWS::AccountId}:policy/Team_Admin_Boundary"
+      Tags:
+        - Key: Project
+          Value: ted-sws
+        - Key: Environment
+          Value: !Ref Environment
+        - Key: ManagedBy
+          Value: cloudformation
+        - Key: Owner
+          Value: Meaningfy DevOps
       AssumeRolePolicyDocument:
         Version: "2012-10-17"
         Statement:

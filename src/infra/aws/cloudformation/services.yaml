@@ -84,6 +84,15 @@ Resources:
         DnsRecords:
           - Type: A
             TTL: 60
+      Tags:
+        - Key: Project
+          Value: ted-sws
+        - Key: Environment
+          Value: !Ref Environment
+        - Key: ManagedBy
+          Value: cloudformation
+        - Key: Owner
+          Value: Meaningfy DevOps
 
   FusekiDiscoveryService:
     Type: AWS::ServiceDiscovery::Service
@@ -94,6 +103,15 @@ Resources:
         DnsRecords:
           - Type: A
             TTL: 60
+      Tags:
+        - Key: Project
+          Value: ted-sws
+        - Key: Environment
+          Value: !Ref Environment
+        - Key: ManagedBy
+          Value: cloudformation
+        - Key: Owner
+          Value: Meaningfy DevOps
 
   MetabaseDiscoveryService:
     Type: AWS::ServiceDiscovery::Service
@@ -104,6 +122,15 @@ Resources:
         DnsRecords:
           - Type: A
             TTL: 60
+      Tags:
+        - Key: Project
+          Value: ted-sws
+        - Key: Environment
+          Value: !Ref Environment
+        - Key: ManagedBy
+          Value: cloudformation
+        - Key: Owner
+          Value: Meaningfy DevOps
 
   MongoExpressDiscoveryService:
     Type: AWS::ServiceDiscovery::Service
@@ -114,6 +141,15 @@ Resources:
         DnsRecords:
           - Type: A
             TTL: 60
+      Tags:
+        - Key: Project
+          Value: ted-sws
+        - Key: Environment
+          Value: !Ref Environment
+        - Key: ManagedBy
+          Value: cloudformation
+        - Key: Owner
+          Value: Meaningfy DevOps
 
   DigestApiDiscoveryService:
     Type: AWS::ServiceDiscovery::Service
@@ -124,6 +160,15 @@ Resources:
         DnsRecords:
           - Type: A
             TTL: 60
+      Tags:
+        - Key: Project
+          Value: ted-sws
+        - Key: Environment
+          Value: !Ref Environment
+        - Key: ManagedBy
+          Value: cloudformation
+        - Key: Owner
+          Value: Meaningfy DevOps
 
   SftpDiscoveryService:
     Type: AWS::ServiceDiscovery::Service
@@ -134,6 +179,15 @@ Resources:
         DnsRecords:
           - Type: A
             TTL: 60
+      Tags:
+        - Key: Project
+          Value: ted-sws
+        - Key: Environment
+          Value: !Ref Environment
+        - Key: ManagedBy
+          Value: cloudformation
+        - Key: Owner
+          Value: Meaningfy DevOps
 
   # ===========================================================================
   # Task Definitions
@@ -161,6 +215,15 @@ Resources:
       TaskRoleArn: !Ref TaskRoleArn
       Cpu: "4096"
       Memory: "16384"
+      Tags:
+        - Key: Project
+          Value: ted-sws
+        - Key: Environment
+          Value: !Ref Environment
+        - Key: ManagedBy
+          Value: cloudformation
+        - Key: Owner
+          Value: Meaningfy DevOps
       Volumes:
         - Name: airflow-tmp
         - Name: airflow-opt
@@ -400,6 +463,15 @@ Resources:
       TaskRoleArn: !Ref TaskRoleArn
       Cpu: "4096"
       Memory: "8192"
+      Tags:
+        - Key: Project
+          Value: ted-sws
+        - Key: Environment
+          Value: !Ref Environment
+        - Key: ManagedBy
+          Value: cloudformation
+        - Key: Owner
+          Value: Meaningfy DevOps
       Volumes:
         - Name: airflow-tmp
         - Name: airflow-opt
@@ -515,6 +587,15 @@ Resources:
       TaskRoleArn: !Ref TaskRoleArn
       Cpu: "2048"
       Memory: "8192"
+      Tags:
+        - Key: Project
+          Value: ted-sws
+        - Key: Environment
+          Value: !Ref Environment
+        - Key: ManagedBy
+          Value: cloudformation
+        - Key: Owner
+          Value: Meaningfy DevOps
       Volumes:
         - Name: fuseki-tmp
         - Name: fuseki-data
@@ -589,6 +670,15 @@ Resources:
       TaskRoleArn: !Ref TaskRoleArn
       Cpu: "2048"
       Memory: "8192"
+      Tags:
+        - Key: Project
+          Value: ted-sws
+        - Key: Environment
+          Value: !Ref Environment
+        - Key: ManagedBy
+          Value: cloudformation
+        - Key: Owner
+          Value: Meaningfy DevOps
       Volumes:
         - Name: metabase-home
         - Name: metabase-tmp
@@ -666,6 +756,15 @@ Resources:
       TaskRoleArn: !Ref TaskRoleArn
       Cpu: "1024"
       Memory: "2048"
+      Tags:
+        - Key: Project
+          Value: ted-sws
+        - Key: Environment
+          Value: !Ref Environment
+        - Key: ManagedBy
+          Value: cloudformation
+        - Key: Owner
+          Value: Meaningfy DevOps
       ContainerDefinitions:
         - Name: mongo-express
           Image: !Ref MongoExpressImageUri
@@ -698,6 +797,15 @@ Resources:
       TaskRoleArn: !Ref TaskRoleArn
       Cpu: "2048"
       Memory: "4096"
+      Tags:
+        - Key: Project
+          Value: ted-sws
+        - Key: Environment
+          Value: !Ref Environment
+        - Key: ManagedBy
+          Value: cloudformation
+        - Key: Owner
+          Value: Meaningfy DevOps
       ContainerDefinitions:
         - Name: digest-api
           Image: !Ref DigestApiImageUri
@@ -729,6 +837,15 @@ Resources:
       TaskRoleArn: !Ref TaskRoleArn
       Cpu: "512"
       Memory: "1024"
+      Tags:
+        - Key: Project
+          Value: ted-sws
+        - Key: Environment
+          Value: !Ref Environment
+        - Key: ManagedBy
+          Value: cloudformation
+        - Key: Owner
+          Value: Meaningfy DevOps
       Volumes:
         - Name: sftp-data
           EFSVolumeConfiguration:
@@ -771,6 +888,16 @@ Resources:
       DesiredCount: 1
       LaunchType: FARGATE
       EnableExecuteCommand: true
+      PropagateTags: TASK_DEFINITION
+      Tags:
+        - Key: Project
+          Value: ted-sws
+        - Key: Environment
+          Value: !Ref Environment
+        - Key: ManagedBy
+          Value: cloudformation
+        - Key: Owner
+          Value: Meaningfy DevOps
       NetworkConfiguration:
         AwsvpcConfiguration:
           Subnets:
@@ -791,6 +918,16 @@ Resources:
       DesiredCount: 2
       LaunchType: FARGATE
       EnableExecuteCommand: true
+      PropagateTags: TASK_DEFINITION
+      Tags:
+        - Key: Project
+          Value: ted-sws
+        - Key: Environment
+          Value: !Ref Environment
+        - Key: ManagedBy
+          Value: cloudformation
+        - Key: Owner
+          Value: Meaningfy DevOps
       NetworkConfiguration:
         AwsvpcConfiguration:
           Subnets:
@@ -809,6 +946,16 @@ Resources:
       DesiredCount: 1
       LaunchType: FARGATE
       EnableExecuteCommand: true
+      PropagateTags: TASK_DEFINITION
+      Tags:
+        - Key: Project
+          Value: ted-sws
+        - Key: Environment
+          Value: !Ref Environment
+        - Key: ManagedBy
+          Value: cloudformation
+        - Key: Owner
+          Value: Meaningfy DevOps
       NetworkConfiguration:
         AwsvpcConfiguration:
           Subnets:
@@ -829,6 +976,16 @@ Resources:
       DesiredCount: 1
       LaunchType: FARGATE
       EnableExecuteCommand: true
+      PropagateTags: TASK_DEFINITION
+      Tags:
+        - Key: Project
+          Value: ted-sws
+        - Key: Environment
+          Value: !Ref Environment
+        - Key: ManagedBy
+          Value: cloudformation
+        - Key: Owner
+          Value: Meaningfy DevOps
       NetworkConfiguration:
         AwsvpcConfiguration:
           Subnets:
@@ -849,6 +1006,16 @@ Resources:
       DesiredCount: 1
       LaunchType: FARGATE
       EnableExecuteCommand: true
+      PropagateTags: TASK_DEFINITION
+      Tags:
+        - Key: Project
+          Value: ted-sws
+        - Key: Environment
+          Value: !Ref Environment
+        - Key: ManagedBy
+          Value: cloudformation
+        - Key: Owner
+          Value: Meaningfy DevOps
       NetworkConfiguration:
         AwsvpcConfiguration:
           Subnets:
@@ -869,6 +1036,16 @@ Resources:
       DesiredCount: 1
       LaunchType: FARGATE
       EnableExecuteCommand: true
+      PropagateTags: TASK_DEFINITION
+      Tags:
+        - Key: Project
+          Value: ted-sws
+        - Key: Environment
+          Value: !Ref Environment
+        - Key: ManagedBy
+          Value: cloudformation
+        - Key: Owner
+          Value: Meaningfy DevOps
       NetworkConfiguration:
         AwsvpcConfiguration:
           Subnets:
@@ -889,6 +1066,16 @@ Resources:
       DesiredCount: 1
       LaunchType: FARGATE
       EnableExecuteCommand: true
+      PropagateTags: TASK_DEFINITION
+      Tags:
+        - Key: Project
+          Value: ted-sws
+        - Key: Environment
+          Value: !Ref Environment
+        - Key: ManagedBy
+          Value: cloudformation
+        - Key: Owner
+          Value: Meaningfy DevOps
       NetworkConfiguration:
         AwsvpcConfiguration:
           Subnets:

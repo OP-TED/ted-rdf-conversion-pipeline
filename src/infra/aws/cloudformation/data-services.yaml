@@ -87,6 +87,15 @@ Resources:
       SubnetIds:
         - !Ref SubnetId1
         - !Ref SubnetId2
+      Tags:
+        - Key: Project
+          Value: ted-sws
+        - Key: Environment
+          Value: !Ref Environment
+        - Key: ManagedBy
+          Value: cloudformation
+        - Key: Owner
+          Value: Meaningfy DevOps
 
   # ---------------------------------------------------------------------------
   # ElastiCache Subnet Group
@@ -99,6 +108,15 @@ Resources:
       SubnetIds:
         - !Ref SubnetId1
         - !Ref SubnetId2
+      Tags:
+        - Key: Project
+          Value: ted-sws
+        - Key: Environment
+          Value: !Ref Environment
+        - Key: ManagedBy
+          Value: cloudformation
+        - Key: Owner
+          Value: Meaningfy DevOps
 
   # ---------------------------------------------------------------------------
   # DocumentDB Parameter Group — TLS disabled (matches live)
@@ -111,6 +129,15 @@ Resources:
       Name: !Sub "ted-sws-${Environment}"
       Parameters:
         tls: disabled
+      Tags:
+        - Key: Project
+          Value: ted-sws
+        - Key: Environment
+          Value: !Ref Environment
+        - Key: ManagedBy
+          Value: cloudformation
+        - Key: Owner
+          Value: Meaningfy DevOps
 
   # ---------------------------------------------------------------------------
   # RDS — Airflow PostgreSQL
@@ -145,6 +172,14 @@ Resources:
           Value: !Sub "ted-sws-airflow-rds-${Environment}"
         - Key: ec-scheduler
           Value: ec-office-hours-rds
+        - Key: Project
+          Value: ted-sws
+        - Key: Environment
+          Value: !Ref Environment
+        - Key: ManagedBy
+          Value: cloudformation
+        - Key: Owner
+          Value: Meaningfy DevOps
 
   # ---------------------------------------------------------------------------
   # RDS — Metabase PostgreSQL
@@ -177,6 +212,14 @@ Resources:
           Value: !Sub "ted-sws-metabase-rds-${Environment}"
         - Key: ec-scheduler
           Value: ec-office-hours-rds
+        - Key: Project
+          Value: ted-sws
+        - Key: Environment
+          Value: !Ref Environment
+        - Key: ManagedBy
+          Value: cloudformation
+        - Key: Owner
+          Value: Meaningfy DevOps
 
   # ---------------------------------------------------------------------------
   # DocumentDB Cluster
@@ -198,6 +241,15 @@ Resources:
       DBSubnetGroupName: !Ref DbSubnetGroup
       VpcSecurityGroupIds:
         - !Ref SecurityGroupId
+      Tags:
+        - Key: Project
+          Value: ted-sws
+        - Key: Environment
+          Value: !Ref Environment
+        - Key: ManagedBy
+          Value: cloudformation
+        - Key: Owner
+          Value: Meaningfy DevOps
 
   # ---------------------------------------------------------------------------
   # DocumentDB Instance
@@ -209,6 +261,15 @@ Resources:
       DBClusterIdentifier: !Ref DocumentDbCluster
       DBInstanceClass: !Ref DocumentDbInstanceClass
       AutoMinorVersionUpgrade: true
+      Tags:
+        - Key: Project
+          Value: ted-sws
+        - Key: Environment
+          Value: !Ref Environment
+        - Key: ManagedBy
+          Value: cloudformation
+        - Key: Owner
+          Value: Meaningfy DevOps
 
   # ---------------------------------------------------------------------------
   # ElastiCache Redis — Replication Group (single-node)
@@ -228,6 +289,15 @@ Resources:
       SecurityGroupIds:
         - !Ref SecurityGroupId
       Port: 6379
+      Tags:
+        - Key: Project
+          Value: ted-sws
+        - Key: Environment
+          Value: !Ref Environment
+        - Key: ManagedBy
+          Value: cloudformation
+        - Key: Owner
+          Value: Meaningfy DevOps
 
 Outputs:
   # Airflow RDS

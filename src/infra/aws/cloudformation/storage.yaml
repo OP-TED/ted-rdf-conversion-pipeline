@@ -35,6 +35,14 @@ Resources:
       FileSystemTags:
         - Key: Name
           Value: !Sub "ted-sws-airflow-logs-${Environment}"
+        - Key: Project
+          Value: ted-sws
+        - Key: Environment
+          Value: !Ref Environment
+        - Key: ManagedBy
+          Value: cloudformation
+        - Key: Owner
+          Value: Meaningfy DevOps
 
   AirflowTedSwsEfs:
     Type: AWS::EFS::FileSystem
@@ -47,6 +55,14 @@ Resources:
       FileSystemTags:
         - Key: Name
           Value: !Sub "ted-sws-airflow-ted-sws-${Environment}"
+        - Key: Project
+          Value: ted-sws
+        - Key: Environment
+          Value: !Ref Environment
+        - Key: ManagedBy
+          Value: cloudformation
+        - Key: Owner
+          Value: Meaningfy DevOps
 
   FusekiDataEfs:
     Type: AWS::EFS::FileSystem
@@ -59,6 +75,14 @@ Resources:
       FileSystemTags:
         - Key: Name
           Value: !Sub "ted-sws-fuseki-data-${Environment}"
+        - Key: Project
+          Value: ted-sws
+        - Key: Environment
+          Value: !Ref Environment
+        - Key: ManagedBy
+          Value: cloudformation
+        - Key: Owner
+          Value: Meaningfy DevOps
 
   SftpDataEfs:
     Type: AWS::EFS::FileSystem
@@ -71,6 +95,14 @@ Resources:
       FileSystemTags:
         - Key: Name
           Value: !Sub "ted-sws-sftp-data-${Environment}"
+        - Key: Project
+          Value: ted-sws
+        - Key: Environment
+          Value: !Ref Environment
+        - Key: ManagedBy
+          Value: cloudformation
+        - Key: Owner
+          Value: Meaningfy DevOps
 
   # ---------------------------------------------------------------------------
   # Mount Targets — two per filesystem (one per subnet)

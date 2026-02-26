@@ -76,7 +76,7 @@ class GitHubMappingSuiteDownloader(MappingSuiteDownloaderABC):
 
         with tempfile.TemporaryDirectory() as tmp_dir:
             temp_dir_path = pathlib.Path(tmp_dir)
-            bash_script = f"cd {temp_dir_path} && git clone --branch {self.branch_or_tag_name} {self.github_repository_url}"
+            bash_script = f"cd {temp_dir_path} && git clone --depth 1 --branch {self.branch_or_tag_name} {self.github_repository_url}"
             result = subprocess.run(bash_script, shell=True,
                                     capture_output=True, text=True)
             log_technical_info(

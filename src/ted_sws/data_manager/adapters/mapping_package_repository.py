@@ -7,10 +7,6 @@ from typing import Iterator, List, Optional
 from pymongo import MongoClient
 
 from mapping_suite_sdk.core.adapters.repository import MongoDBRepository, ModelNotFoundError
-from mapping_suite_sdk.mapping_package_v1.models import MappingPackageV1
-from mapping_suite_sdk.mapping_package_v2.models import MappingPackageV2
-from mapping_suite_sdk.mapping_package_v3.models import MappingPackageV3
-from mapping_suite_sdk.mapping_package_v3.models.mapping_package_v3_lightweight import MappingPackageV3Lightweight
 
 from src.ted_sws import config
 from src.ted_sws.core.model.transform import MappingPackage, FileResource, TransformationRuleSet, SHACLTestSuite, \
@@ -63,66 +59,21 @@ class MappingPackageRepositoryMongoDB(MappingPackageRepositoryABC):
         self.database_name = database_name or config.MONGO_DB_AGGREGATES_DATABASE_NAME
         self.mongodb_client = mongodb_client
 
-        # Repositories for each package type
-        self._repo_v1 = MongoDBRepository(
-            model_class=MappingPackageV1,
-            mongo_client=mongodb_client,
-            database_name=self.database_name,
-            collection_name=self._collection_name
-        )
-        self._repo_v2 = MongoDBRepository(
-            model_class=MappingPackageV2,
-            mongo_client=mongodb_client,
-            database_name=self.database_name,
-            collection_name=self._collection_name
-        )
-        self._repo_v3 = MongoDBRepository(
-            model_class=MappingPackageV3,
-            mongo_client=mongodb_client,
-            database_name=self.database_name,
-            collection_name=self._collection_name
-        )
-        self._repo_v3_lightweight = MongoDBRepository(
-            model_class=MappingPackageV3Lightweight,
-            mongo_client=mongodb_client,
-            database_name=self.database_name,
-            collection_name=self._collection_name
-        )
-        self._repo_legacy = MongoDBRepository(
-            model_class=MappingPackage,
-            mongo_client=mongodb_client,
-            database_name=self.database_name,
-            collection_name=self._collection_name
-        )
-
     def _get_repository(self, package: MappingPackage) -> MongoDBRepository:
-        """Get the appropriate repository based on package type."""
-        if isinstance(package, MappingPackageV3Lightweight):
-            return self._repo_v3_lightweight
-        elif isinstance(package, MappingPackageV3):
-            return self._repo_v3
-        elif isinstance(package, MappingPackageV2):
-            return self._repo_v2
-        elif isinstance(package, MappingPackageV1):
-            return self._repo_v1
-        elif isinstance(package, MappingPackage):
-            return self._repo_legacy
-        else:
-            raise ValueError(f"Unsupported package type: {type(package).__name__}")
+        return MongoDBRepository(
+            model_class=type(package),
+            mongo_client=self.mongodb_client,
+            database_name=self.database_name,
+            collection_name=self._collection_name
+        )
 
     def get_repository_by_class(self, package_class):
-        if package_class == MappingPackageV1:
-            return self._repo_v1
-        elif package_class == MappingPackageV2:
-            return self._repo_v2
-        elif package_class == MappingPackageV3:
-            return self._repo_v3
-        elif package_class == MappingPackageV3Lightweight:
-            return self._repo_v3_lightweight
-        elif package_class == MappingPackage:
-            return self._repo_legacy
-        else:
-            raise ValueError(f"Unsupported package class: {package_class.__name__}")
+        return MongoDBRepository(
+            model_class=package_class,
+            mongo_client=self.mongodb_client,
+            database_name=self.database_name,
+            collection_name=self._collection_name
+        )
 
     def add(self, mapping_package: MappingPackage) -> MappingPackage:
         """Save a mapping package to MongoDB.

@@ -16,9 +16,6 @@ from src.ted_sws.mapping_suite_processor.adapters.github_ms_project_downloader i
 from src.ted_sws.mapping_suite_processor.services import MappingPackageProcessorServiceError
 from src.ted_sws.mapping_suite_processor.services.mapping_package_digest_service import \
     update_digest_api_address_for_mapping_package
-# TODO: DEPRECATE/REMOVE once tests updated for MSSDK validation
-from src.ted_sws.mapping_suite_processor.services.mapping_package_validation_service import validate_mapping_package, \
-    get_mapping_package_id_from_file_system
 
 from mapping_suite_sdk.mapping_suite.services.load_mapping_suite import load_mapping_suite_from_folder
 from mapping_suite_sdk.tools.services.load_mapping_package import load_mapping_package

@@ -10,6 +10,9 @@ import pymongo
 import pytest
 from airflow.models import DagBag, Variable
 from airflow.utils.db import resetdb, initdb
+from mapping_suite_sdk.mapping_suite.models import MappingSuite
+
+from src.ted_sws.core.model.transform import MappingPackage
 from mongomock.gridfs import enable_gridfs_integration
 
 from src.ted_sws.core.model.manifestation import XMLManifestation, RDFManifestation
@@ -23,7 +26,7 @@ from src.ted_sws.notice_metadata_processor.adapters.notice_metadata_normaliser i
     BUYER_COUNTRY_KEY, EU_INSTITUTION_KEY, SENT_DATE_KEY, DEADLINE_DATE_KEY, NOTICE_TYPE_KEY, FORM_TYPE_KEY, \
     PLACE_OF_PERFORMANCE_KEY, EXTRACTED_LEGAL_BASIS_KEY, FORM_NUMBER_KEY, LEGAL_BASIS_DIRECTIVE_KEY, \
     E_FORMS_SUBTYPE_KEY, XSD_VERSION_KEY, EFORM_SDK_VERSION_KEY, NOTICE_SOURCE_KEY
-from test import TEST_DATA_PATH, AIRFLOW_DAG_FOLDER
+from test import TEST_DATA_PATH, AIRFLOW_DAG_FOLDER, TESTS_PATH
 from test.fakes.fake_repository import FakeNoticeRepository
 from test.fakes.fake_ted_api import FakeRequestAPI
 from test.mocks.mock_sftp_publisher import MockSFTPPublisherWithLimitedConnections
@@ -83,6 +86,7 @@ def raw_notice(ted_document_search, notice_repository, notice_id) -> Notice:
 @pytest.fixture
 def indexed_notice(raw_notice) -> Notice:
     raw_notice.set_xml_metadata(XMLMetadata(unique_xpaths=["FAKE_INDEX_XPATHS"]))
+    raw_notice.mapping_package_identifier = "test_package_eforms_sdk1.8"
     return raw_notice
 
 
@@ -135,6 +139,7 @@ def notice_2018():
     notice = Notice(ted_id=ted_id)
     notice.set_xml_manifestation(xml_manifestation)
     notice.set_original_metadata(original_metadata)
+    notice.mapping_package_identifier = "test_package_eforms_sdk1.8"
     return notice
 
 
@@ -294,6 +299,7 @@ def notice_2021():
     notice = Notice(ted_id=ted_id)
     notice.set_xml_manifestation(xml_manifestation)
     notice.set_original_metadata(original_metadata)
+    notice.mapping_package_identifier = "test_package_eforms_sdk1.8"
     return notice
 
 
@@ -328,6 +334,7 @@ def eform_notice_622690():
     notice = Notice(ted_id=ted_id)
     notice.set_xml_manifestation(xml_manifestation)
     notice.set_original_metadata(original_metadata)
+    notice.mapping_package_identifier = "test_package_eforms_sdk1.8"
     return notice
 
 
@@ -340,3 +347,21 @@ def indexed_eform_notice_622690(eform_notice_622690):
 @pytest.fixture
 def mock_sftp_publisher() -> MockSFTPPublisherWithLimitedConnections:
     return MockSFTPPublisherWithLimitedConnections()
+
+@pytest.fixture
+def mapping_suite():
+    file_path = TESTS_PATH / "resources" / "mapping_suite.json"
+    with open(file_path, "r", encoding="utf-8") as f:
+        data = f.read()
+
+    mapping_suite = MappingSuite.model_validate_json(data)
+    return mapping_suite
+
+@pytest.fixture
+def mapping_package():
+    file_path = TESTS_PATH / "resources" / "mapping_package.json"
+    with open(file_path, "r", encoding="utf-8") as f:
+        data = f.read()
+
+    mapping_package = MappingPackage.model_validate_json(data)
+    return mapping_package

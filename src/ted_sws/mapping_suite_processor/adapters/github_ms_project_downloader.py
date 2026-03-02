@@ -72,19 +72,16 @@ class GitHubMappingSuiteDownloader(MappingSuiteDownloaderABC):
                 shell=True,
                 stdout=subprocess.PIPE)
             git_head_hash = result.stdout.decode(encoding="utf-8")
-            return git_head_hash
+            return (git_head_hash or "").strip()
 
         with tempfile.TemporaryDirectory() as tmp_dir:
             temp_dir_path = pathlib.Path(tmp_dir)
             bash_script = f"cd {temp_dir_path} && git clone --depth 1 --branch {self.branch_or_tag_name} {self.github_repository_url}"
             result = subprocess.run(bash_script, shell=True,
                                     capture_output=True, text=True)
-            log_technical_info(
-                message=f"Downloaded stdout '{result.stdout}'")
-            log_technical_info(
-                message=f"Downloaded stderr '{result.stderr}'")
-            git_last_commit_hash = get_git_head_hash(
-                git_repository_path=temp_dir_path / self.repository_name)
+            log_technical_info(message=f"Downloaded stdout '{result.stdout}'")
+            log_technical_info(message=f"Downloaded stderr '{result.stderr}'")
+            git_last_commit_hash = get_git_head_hash(git_repository_path=temp_dir_path / self.repository_name)
             downloaded_tmp_project_path = temp_dir_path / self.repository_name
             shutil.copytree(downloaded_tmp_project_path, output_project_path, dirs_exist_ok=True)
 

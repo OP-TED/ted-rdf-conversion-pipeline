@@ -2,6 +2,7 @@ import pathlib
 import tempfile
 from typing import List
 
+from mapping_suite_sdk.mapping_suite.models import MappingSuite
 from pymongo import MongoClient
 
 from src.ted_sws import config
@@ -36,10 +37,11 @@ MAPPING_PACKAGE_UNKNOWN_ID = "unknown_mapping_package_id"
 
 
 def mapping_package_processor_load_package_in_mongo_db(
-    package: MappingPackage,
-    mongodb_client: MongoClient,
-    load_test_data: bool = False,
-    git_last_commit_hash: str = None
+        package: MappingPackage,
+        mongodb_client: MongoClient,
+        load_test_data: bool = False,
+        git_last_commit_hash: str = None,
+        mapping_suite: MappingSuite = None
 ) -> List[str]:
     """Load a mapping package to MongoDB.
 
@@ -50,6 +52,7 @@ def mapping_package_processor_load_package_in_mongo_db(
         mongodb_client: MongoDB client instance
         load_test_data: Whether to load test data as notices
         git_last_commit_hash: Optional git commit hash to store
+        mapping_suite: Optional mapping suite that the package belongs to
 
     Returns:
         List of notice IDs that were loaded (if load_test_data=True)
@@ -60,6 +63,9 @@ def mapping_package_processor_load_package_in_mongo_db(
     # Update git hash if provided and field exists
     if git_last_commit_hash is not None:
         package.git_latest_commit_hash = git_last_commit_hash
+
+    if mapping_suite:
+        package.mapping_suite_identifier = get_mapping_suite_identifier(mapping_suite)
     result_notice_ids = []
 
     # Load test data if requested
@@ -68,7 +74,7 @@ def mapping_package_processor_load_package_in_mongo_db(
         notice_repository = NoticeRepository(mongodb_client=mongodb_client)
         for test_data in tests_data:
             notice_id = test_data.file_name.split(".")[0]
-            notice = Notice(ted_id=notice_id)
+            notice = Notice(ted_id=notice_id, mapping_package_identifier=package.identifier)
             notice.set_xml_manifestation(XMLManifestation(object_data=test_data.file_content))
             notice_repository.add(notice=notice)
             result_notice_ids.append(notice_id)
@@ -113,6 +119,7 @@ def load_mapping_suite_and_packages_from_github_to_mongo_db(mongodb_client: Mong
         git_last_commit_hash = mapping_package_downloader.download(output_project_path=tmp_dir_path)
 
         # load project config if available
+        mapping_suite = None
         if ms_config_file_path.is_file():
             log_technical_info(message=f"Mapping suite config found at '{ms_config_file_path}'")
             mapping_suite = load_mapping_suite_from_folder(mapping_suite_folder_path=tmp_dir_path)
@@ -131,7 +138,7 @@ def load_mapping_suite_and_packages_from_github_to_mongo_db(mongodb_client: Mong
 
         # continue loading mapping packages
         mapping_package_paths = [
-            mappings_dir_path / mapping_package_name ] if mapping_package_name else list(mappings_dir_path.iterdir())
+            mappings_dir_path / mapping_package_name] if mapping_package_name else list(mappings_dir_path.iterdir())
         result_notice_ids = []
         for mapping_package_path in mapping_package_paths:
             detected_version = detect_mapping_package_version(mapping_package_path)
@@ -159,7 +166,8 @@ def load_mapping_suite_and_packages_from_github_to_mongo_db(mongodb_client: Mong
                     package=mapping_package,
                     mongodb_client=mongodb_client,
                     load_test_data=load_test_data,
-                    git_last_commit_hash=git_last_commit_hash
+                    git_last_commit_hash=git_last_commit_hash,
+                    mapping_suite=mapping_suite
                 ))
                 log_mapping_package_info(
                     message=f"Mapping package with id={mapping_package.id} loaded with success in MongoDB!",
@@ -178,3 +186,10 @@ def _convert_to_mapping_package(mssdk_package) -> MappingPackage:
     """Convert MSSDK package to extended MappingPackage."""
     data = mssdk_package.model_dump(exclude={'test_results'})
     return MappingPackage(**data)
+
+
+def get_mapping_suite_identifier(mapping_suite):
+    ms_config = getattr(mapping_suite, "mapping_suite_config", None)
+    metadata = getattr(ms_config, "mapping_suite_metadata", None) if ms_config else None
+    identifier = getattr(metadata, "mapping_suite_identifier", None) if metadata else None
+    return identifier

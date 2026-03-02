@@ -5,6 +5,8 @@ import pytest
 from src.ted_sws.core.model.manifestation import XMLManifestation
 from src.ted_sws.core.model.metadata import NormalisedMetadata, LanguageTaggedString
 from src.ted_sws.core.model.notice import NoticeStatus, Notice
+from src.ted_sws.data_manager.adapters.mapping_package_repository import MappingPackageRepositoryMongoDB
+from src.ted_sws.data_manager.adapters.mapping_suite_repository import MappingSuiteRepositoryMongoDB
 from src.ted_sws.notice_metadata_processor.adapters.notice_metadata_extractor import \
     DefaultNoticeMetadataExtractor, EformsNoticeMetadataExtractor
 from src.ted_sws.notice_metadata_processor.adapters.notice_metadata_normaliser import \
@@ -17,6 +19,7 @@ from src.ted_sws.notice_metadata_processor.services.metadata_normalizer import n
     find_metadata_normaliser_based_on_xml_manifestation, extract_notice_metadata, normalise_notice_metadata, \
     extract_and_normalise_notice_metadata
 from src.ted_sws.resources.mapping_files_registry import MappingFilesRegistry
+from test.unit.notice_metadata_processor import load_mapping_suite_and_package
 
 
 def html_str(content: str) -> str:
@@ -54,8 +57,8 @@ def test_metadata_normaliser(indexed_notice):
     assert notice.status == NoticeStatus.NORMALISED_METADATA
 
 
-def test_normalise_form_number(indexed_notice):
-    default_notice_normaliser = DefaultNoticeMetadataNormaliser()
+def test_normalise_form_number(indexed_notice, mongodb_client, load_mapping_suite_and_package):
+    default_notice_normaliser = DefaultNoticeMetadataNormaliser(notice=indexed_notice, mongodb_client=mongodb_client)
     assert default_notice_normaliser.normalise_form_number("FFFSA") == "FFFSA"
     assert default_notice_normaliser.normalise_form_number("F18") == "F18"
     assert default_notice_normaliser.normalise_form_number("F01") == "F01"
@@ -69,19 +72,20 @@ def test_normalise_form_number(indexed_notice):
     assert default_notice_normaliser.normalise_form_number("1F03FG") == "1F03FG"
 
 
-def test_normalise_legal_basis(indexed_notice):
-    default_notice_normaliser = DefaultNoticeMetadataNormaliser()
+def test_normalise_legal_basis(indexed_notice, mongodb_client, load_mapping_suite_and_package):
+    default_notice_normaliser = DefaultNoticeMetadataNormaliser(notice=indexed_notice, mongodb_client=mongodb_client)
     assert "32009L0081" == default_notice_normaliser.normalise_legal_basis_value(
         value="2009/81/EC")
 
 
-def test_get_map_value():
-    value = get_map_value(mapping=MappingFilesRegistry().countries, value="DE")
+def test_get_map_value(indexed_notice, mongodb_client, load_mapping_suite_and_package):
+    value = get_map_value(mapping=MappingFilesRegistry(notice=indexed_notice, mongodb_client=mongodb_client).countries,
+                          value="DE")
     assert value == "http://publications.europa.eu/resource/authority/country/DEU"
 
 
-def test_filter_df_by_variables():
-    df = MappingFilesRegistry().ef_notice_df
+def test_filter_df_by_variables(indexed_notice, mongodb_client, load_mapping_suite_and_package):
+    df = MappingFilesRegistry(notice=indexed_notice, mongodb_client=mongodb_client).ef_notice_df
     filtered_df = filter_df_by_variables(df=df, form_type="planning",
                                          eform_notice_type="pin-only")
 
@@ -89,13 +93,21 @@ def test_filter_df_by_variables():
     assert "32014L0024" in filtered_df["eform_legal_basis"].values
 
 
-def test_get_form_type_and_notice_type():
-    default_notice_metadata_normaliser = DefaultNoticeMetadataNormaliser()
+def test_get_form_type_and_notice_type(indexed_notice, mongodb_client, load_mapping_suite_and_package):
+    default_notice_metadata_normaliser = DefaultNoticeMetadataNormaliser(
+        notice=indexed_notice,
+        mongodb_client=mongodb_client
+    )
+    mapping_registry = MappingFilesRegistry(notice=indexed_notice, mongodb_client=mongodb_client)
     form_type, notice_type, legal_basis, eforms_subtype = default_notice_metadata_normaliser.get_form_type_and_notice_type(
-        ef_map=MappingFilesRegistry().ef_notice_df,
-        sf_map=MappingFilesRegistry().sf_notice_df,
-        form_number="F02", extracted_notice_type=None,
-        legal_basis="32014L0023", document_type_code="Y", filter_map=MappingFilesRegistry().filter_map_df)
+        ef_map=mapping_registry.ef_notice_df,
+        sf_map=mapping_registry.sf_notice_df,
+        form_number="F02",
+        extracted_notice_type=None,
+        legal_basis="32014L0024",
+        document_type_code="Y",
+        filter_map=mapping_registry.filter_map_df
+    )
 
     assert "competition" == form_type
     assert "cn-standard" == notice_type
@@ -103,13 +115,17 @@ def test_get_form_type_and_notice_type():
     assert "16" == eforms_subtype
 
 
-def test_get_form_type_and_notice_type_F07():
-    default_notice_metadata_normaliser = DefaultNoticeMetadataNormaliser()
+def test_get_form_type_and_notice_type_F07(indexed_notice, mongodb_client, load_mapping_suite_and_package):
+    default_notice_metadata_normaliser = DefaultNoticeMetadataNormaliser(
+        notice=indexed_notice,
+        mongodb_client=mongodb_client
+    )
+    mapping_registry = MappingFilesRegistry(notice=indexed_notice, mongodb_client=mongodb_client)
     form_type, notice_type, legal_basis, eforms_subtype = default_notice_metadata_normaliser.get_form_type_and_notice_type(
-        ef_map=MappingFilesRegistry().ef_notice_df,
-        sf_map=MappingFilesRegistry().sf_notice_df,
+        ef_map=mapping_registry.ef_notice_df,
+        sf_map=mapping_registry.sf_notice_df,
         form_number="F07", extracted_notice_type=None,
-        legal_basis="32014L0025", document_type_code="Y", filter_map=MappingFilesRegistry().filter_map_df)
+        legal_basis="32014L0025", document_type_code="Y", filter_map=mapping_registry.filter_map_df)
 
     assert "competition" == form_type
     assert "qu-sy" == notice_type
@@ -117,9 +133,13 @@ def test_get_form_type_and_notice_type_F07():
     assert "15.1" == eforms_subtype
 
 
-def test_get_filter_values(indexed_notice):
-    default_notice_metadata_normaliser = DefaultNoticeMetadataNormaliser()
-    filter_map = MappingFilesRegistry().filter_map_df
+def test_get_filter_values(indexed_notice, mongodb_client, load_mapping_suite_and_package):
+    default_notice_metadata_normaliser = DefaultNoticeMetadataNormaliser(
+        notice=indexed_notice,
+        mongodb_client=mongodb_client
+    )
+    mapping_registry = MappingFilesRegistry(notice=indexed_notice, mongodb_client=mongodb_client)
+    filter_map = mapping_registry.filter_map_df
     filter_variables_dict = default_notice_metadata_normaliser.get_filter_variables_values(form_number="F07",
                                                                                            filter_map=filter_map,
                                                                                            extracted_notice_type=None,
@@ -139,10 +159,14 @@ def test_get_filter_values(indexed_notice):
                                                                        legal_basis="legal")
 
 
-def test_normalising_process_on_failed_notice_in_dag(notice_2021):
+def test_normalising_process_on_failed_notice_in_dag(notice_2021, mongodb_client, load_mapping_suite_and_package):
     extracted_metadata = DefaultNoticeMetadataExtractor(xml_manifestation=notice_2021.xml_manifestation)
-    extracted_metadata_normaliser = DefaultNoticeMetadataNormaliser()
-    filter_map = MappingFilesRegistry().filter_map_df
+    extracted_metadata_normaliser = DefaultNoticeMetadataNormaliser(
+        notice=notice_2021,
+        mongodb_client=mongodb_client
+    )
+    mapping_registry = MappingFilesRegistry(notice=notice_2021, mongodb_client=mongodb_client)
+    filter_map = mapping_registry.filter_map_df
     filter_variables_dict = extracted_metadata_normaliser.get_filter_variables_values(
         form_number=extracted_metadata.extracted_form_number,
         filter_map=filter_map,
@@ -157,13 +181,13 @@ def test_normalising_process_on_failed_notice_in_dag(notice_2021):
     assert filter_variables_dict[DOCUMENT_CODE_KEY] is None
 
     form_type, notice_type, legal_basis, eforms_subtype = extracted_metadata_normaliser.get_form_type_and_notice_type(
-        ef_map=MappingFilesRegistry().ef_notice_df,
-        sf_map=MappingFilesRegistry().sf_notice_df,
+        ef_map=mapping_registry.ef_notice_df,
+        sf_map=mapping_registry.sf_notice_df,
         form_number=extracted_metadata.extracted_form_number,
         extracted_notice_type=extracted_metadata.extracted_notice_type,
         legal_basis=extracted_metadata.legal_basis_directive,
         document_type_code=extracted_metadata.extracted_document_type.code,
-        filter_map=MappingFilesRegistry().filter_map_df)
+        filter_map=mapping_registry.filter_map_df)
 
     assert form_type == "result"
     assert notice_type == "can-social"
@@ -189,13 +213,20 @@ def test_find_metadata_extractor_based_on_xml_manifestation(eform_notice_622690,
         DefaultNoticeMetadataExtractor)
 
 
-def test_find_metadata_normaliser_based_on_xml_manifestation(eform_notice_622690, notice_2018):
+def test_find_metadata_normaliser_based_on_xml_manifestation(eform_notice_622690, notice_2018, mongodb_client,
+                                                             load_mapping_suite_and_package):
     assert isinstance(
-        find_metadata_normaliser_based_on_xml_manifestation(xml_manifestation=eform_notice_622690.xml_manifestation),
-        EformsNoticeMetadataNormaliser)
+        find_metadata_normaliser_based_on_xml_manifestation(
+            notice=eform_notice_622690,
+            xml_manifestation=eform_notice_622690.xml_manifestation,
+            mongodb_client=mongodb_client
+        ), EformsNoticeMetadataNormaliser)
     assert isinstance(
-        find_metadata_normaliser_based_on_xml_manifestation(xml_manifestation=notice_2018.xml_manifestation),
-        DefaultNoticeMetadataNormaliser)
+        find_metadata_normaliser_based_on_xml_manifestation(
+            notice=notice_2018,
+            xml_manifestation=notice_2018.xml_manifestation,
+            mongodb_client=mongodb_client
+        ), DefaultNoticeMetadataNormaliser)
 
 
 def test_extract_notice_metadata(eform_notice_622690, notice_2018):
@@ -205,33 +236,50 @@ def test_extract_notice_metadata(eform_notice_622690, notice_2018):
         assert isinstance(extract_notice_metadata(metadata_extractor=extractor), ExtractedMetadata)
 
 
-def test_normalise_notice_metadata(eform_notice_622690, notice_2018):
+def test_normalise_notice_metadata(eform_notice_622690, notice_2018, mongodb_client, load_mapping_suite_and_package):
     extracted_metadata = extract_notice_metadata(
         metadata_extractor=EformsNoticeMetadataExtractor(xml_manifestation=eform_notice_622690.xml_manifestation))
-    assert isinstance(normalise_notice_metadata(extracted_metadata=extracted_metadata,
-                                                metadata_normaliser=EformsNoticeMetadataNormaliser()),
-                      NormalisedMetadata)
+    assert isinstance(normalise_notice_metadata(
+        extracted_metadata=extracted_metadata,
+        metadata_normaliser=EformsNoticeMetadataNormaliser(
+            notice=eform_notice_622690,
+            mongodb_client=mongodb_client
+        )
+    ), NormalisedMetadata)
 
     extracted_metadata = extract_notice_metadata(
         metadata_extractor=DefaultNoticeMetadataExtractor(xml_manifestation=notice_2018.xml_manifestation))
-    assert isinstance(normalise_notice_metadata(extracted_metadata=extracted_metadata,
-                                                metadata_normaliser=DefaultNoticeMetadataNormaliser()),
-                      NormalisedMetadata)
+    assert isinstance(normalise_notice_metadata(
+        extracted_metadata=extracted_metadata,
+        metadata_normaliser=DefaultNoticeMetadataNormaliser(
+            notice=notice_2018,
+            mongodb_client=mongodb_client
+        )
+    ), NormalisedMetadata)
 
 
-def test_get_form_type_notice_type_and_legal_basis():
-    form_type, notice_type, legal_basis = EformsNoticeMetadataNormaliser().get_form_type_notice_type_and_legal_basis(
+def test_get_form_type_notice_type_and_legal_basis(indexed_notice, mongodb_client, load_mapping_suite_and_package):
+    form_type, notice_type, legal_basis = EformsNoticeMetadataNormaliser(
+        notice=indexed_notice,
+        mongodb_client=mongodb_client
+    ).get_form_type_notice_type_and_legal_basis(
         extracted_notice_subtype='20')
     assert form_type == 'competition'
     assert notice_type == 'cn-social'
     assert legal_basis == '32014L0024'
 
 
-def test_normalising_notice_out_of_index(notice_normalisation_test_data_path):
+def test_normalising_notice_out_of_index(
+        indexed_notice, notice_normalisation_test_data_path, mongodb_client,
+        load_mapping_suite_and_package
+):
     notice_xml_path = notice_normalisation_test_data_path / "2023-OJS153-00486429.xml"
     notice_content = notice_xml_path.read_text(encoding="utf-8")
     normalised_notice_metadata = extract_and_normalise_notice_metadata(
-        xml_manifestation=XMLManifestation(object_data=notice_content))
+        notice=indexed_notice,
+        xml_manifestation=XMLManifestation(object_data=notice_content),
+        mongodb_client=mongodb_client
+    )
     assert normalised_notice_metadata.eforms_subtype == "16"
     assert normalised_notice_metadata.notice_publication_number == "00486429-2023"
 
@@ -240,17 +288,23 @@ def test_normalising_notice_out_of_index(notice_normalisation_test_data_path):
 
     with pytest.raises(Exception):
         extract_and_normalise_notice_metadata(
-            xml_manifestation=XMLManifestation(object_data=broke_notice_content))
+            notice=indexed_notice,
+            xml_manifestation=XMLManifestation(object_data=broke_notice_content),
+            mongodb_client=mongodb_client
+        )
 
 
-def test_normalising_notice_with_spaces_in_notice_id(sample_indexed_ef_html_unsafe_notice: Notice,
-                                                     sample_indexed_sf_html_unsafe_notice: Notice
-                                                     ):
-    normalised_ef_notice: Notice = normalise_notice(sample_indexed_ef_html_unsafe_notice)
+def test_normalising_notice_with_spaces_in_notice_id(
+        sample_indexed_ef_html_unsafe_notice: Notice,
+        sample_indexed_sf_html_unsafe_notice: Notice,
+        mongodb_client,
+        load_mapping_suite_and_package
+):
+    normalised_ef_notice: Notice = normalise_notice(sample_indexed_ef_html_unsafe_notice, mongodb_client=mongodb_client)
 
     assert normalised_ef_notice.normalised_metadata.notice_publication_number.strip() == normalised_ef_notice.normalised_metadata.notice_publication_number
 
-    normalised_sf_notice: Notice = normalise_notice(sample_indexed_sf_html_unsafe_notice)
+    normalised_sf_notice: Notice = normalise_notice(sample_indexed_sf_html_unsafe_notice, mongodb_client=mongodb_client)
 
     assert normalised_sf_notice.normalised_metadata.notice_publication_number.strip() == normalised_sf_notice.normalised_metadata.notice_publication_number
 
@@ -265,12 +319,16 @@ def test_get_html_compatible_string(html_incompatible_str: str):
     ElementTree.fromstring(html_str(compatible_str.text))
 
 
-def test_normalising_notice_with_html_incompatible_title(sample_indexed_ef_html_unsafe_notice: Notice,
-                                                         sample_indexed_sf_html_unsafe_notice: Notice):
-    normalised_ef_notice: Notice = normalise_notice(sample_indexed_ef_html_unsafe_notice)
+def test_normalising_notice_with_html_incompatible_title(
+        sample_indexed_ef_html_unsafe_notice: Notice,
+        sample_indexed_sf_html_unsafe_notice: Notice,
+        mongodb_client,
+        load_mapping_suite_and_package
+):
+    normalised_ef_notice: Notice = normalise_notice(sample_indexed_ef_html_unsafe_notice, mongodb_client=mongodb_client)
 
     [ElementTree.fromstring(html_str(title.text)) for title in normalised_ef_notice.normalised_metadata.title]
 
-    normalised_sf_notice: Notice = normalise_notice(sample_indexed_sf_html_unsafe_notice)
+    normalised_sf_notice: Notice = normalise_notice(sample_indexed_sf_html_unsafe_notice, mongodb_client=mongodb_client)
 
     [ElementTree.fromstring(html_str(title.text)) for title in normalised_sf_notice.normalised_metadata.title]

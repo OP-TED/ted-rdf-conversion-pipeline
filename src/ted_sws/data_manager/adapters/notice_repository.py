@@ -18,6 +18,7 @@ from src.ted_sws.data_manager.adapters.metadata_repository import NormalisedMeta
     XMLMetadataRepository
 from src.ted_sws.data_manager.adapters.repository_abc import NoticeRepositoryABC
 from src.ted_sws.notice_metadata_processor.services.metadata_normalizer import create_normalised_metadata_view
+from src.ted_sws.notice_validator.adapters.validation_summary_runner import MAPPING_PACKAGE_IDENTIFIER
 
 logger = logging.getLogger(__name__)
 
@@ -244,7 +245,8 @@ class NoticeRepository(NoticeRepositoryABC, LazyObjectFieldsLoaderABC):
         """
 
         notice_dict = notice.model_dump(include={NOTICE_TED_ID: True, NOTICE_STATUS: True,
-                                           NOTICE_CREATED_AT: True, VALIDATION_SUMMARY: True})
+                                           NOTICE_CREATED_AT: True, VALIDATION_SUMMARY: True,
+                                                 MAPPING_PACKAGE_IDENTIFIER: True})
         notice_dict[MONGODB_COLLECTION_ID] = notice_dict[NOTICE_TED_ID]
         notice_dict[NOTICE_STATUS] = str(notice_dict[NOTICE_STATUS])
         notice_dict[NOTICE_CREATED_AT] = datetime.fromisoformat(notice_dict[NOTICE_CREATED_AT])

@@ -161,6 +161,7 @@ class MappingPackage(MappingPackageComponent, MappingPackageV3):
     version: str = Field(default="0.1.1")
     ontology_version: str = Field(default="0.0.1")
     git_latest_commit_hash: str = Field(default="")
+    mapping_suite_identifier: str = Field(default="")
     mapping_suite_hash_digest: str = Field(default="")
     mapping_type: Optional[MappingPackageType] = Field( default=MappingPackageType.STANDARD_FORMS)
     metadata_constraints: Optional[MetadataConstraints] = Field(default=None)

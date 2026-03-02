@@ -192,6 +192,7 @@ class Notice(LazyWorkExpression):
     _mets_manifestation: Optional[METSManifestation] = None
     _xml_metadata: Optional[XMLMetadata] = None
     validation_summary: Optional[ValidationSummaryReport] = None
+    mapping_package_identifier: Optional[str] = None
 
     @computed_field
     @property

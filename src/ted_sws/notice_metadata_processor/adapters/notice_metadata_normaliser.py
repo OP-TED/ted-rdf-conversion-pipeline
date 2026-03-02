@@ -1,11 +1,15 @@
 import abc
+import html
+import re
 from datetime import datetime
 from typing import Dict, Tuple, List
-import re
+
 import pandas as pd
-import html
+from pymongo import MongoClient
 
 from src.ted_sws.core.model.metadata import NormalisedMetadata, LanguageTaggedString, NoticeSource
+from src.ted_sws.core.model.notice import Notice
+from src.ted_sws.event_manager.services.log import log_notice_info
 from src.ted_sws.notice_metadata_processor.model.metadata import ExtractedMetadata
 from src.ted_sws.notice_metadata_processor.services.metadata_constraints import filter_df_by_variables
 from src.ted_sws.resources.mapping_files_registry import MappingFilesRegistry
@@ -40,7 +44,6 @@ XSD_VERSION_KEY = "xsd_version"
 EFORM_SDK_VERSION_KEY = "eform_sdk_version"
 NOTICE_SOURCE_KEY = "notice_source"
 ENGLISH_LANGUAGE_TAG = "EN"
-mapping_registry = MappingFilesRegistry()
 
 
 def get_html_compatible_string(input_string: LanguageTaggedString) -> LanguageTaggedString:
@@ -86,6 +89,8 @@ class NoticeMetadataNormaliserABC(abc.ABC):
 
 
 class DefaultNoticeMetadataNormaliser(NoticeMetadataNormaliserABC):
+    def __init__(self, notice: Notice, mongodb_client: MongoClient = None):
+        self.mapping_registry = MappingFilesRegistry(notice=notice, mongodb_client=mongodb_client)
 
     @classmethod
     def normalise_legal_basis_value(cls, value: str) -> str:
@@ -207,15 +212,15 @@ class DefaultNoticeMetadataNormaliser(NoticeMetadataNormaliserABC):
             Generate the normalised metadata
         :return:
         """
-        countries_map = mapping_registry.countries
-        form_type_map = mapping_registry.form_type
-        languages_map = mapping_registry.languages
-        legal_basis_map = mapping_registry.legal_basis
-        notice_type_map = mapping_registry.notice_type
-        nuts_map = mapping_registry.nuts
-        standard_forms_map = mapping_registry.sf_notice_df
-        eforms_map = mapping_registry.ef_notice_df
-        filter_map = mapping_registry.filter_map_df
+        countries_map = self.mapping_registry.countries
+        form_type_map = self.mapping_registry.form_type
+        languages_map = self.mapping_registry.languages
+        legal_basis_map = self.mapping_registry.legal_basis
+        notice_type_map = self.mapping_registry.notice_type
+        nuts_map = self.mapping_registry.nuts
+        standard_forms_map = self.mapping_registry.sf_notice_df
+        eforms_map = self.mapping_registry.ef_notice_df
+        filter_map = self.mapping_registry.filter_map_df
         form_type, notice_type, legal_basis, eforms_subtype = self.get_form_type_and_notice_type(
             sf_map=standard_forms_map, ef_map=eforms_map, filter_map=filter_map,
             extracted_notice_type=extracted_metadata.extracted_notice_type,
@@ -273,6 +278,8 @@ class EformsNoticeMetadataNormaliser(NoticeMetadataNormaliserABC):
     """
      Metadata normaliser for eForms
     """
+    def __init__(self, notice: Notice, mongodb_client: MongoClient = None):
+        self.mapping_registry = MappingFilesRegistry(notice=notice, mongodb_client=mongodb_client)
 
     @classmethod
     def iso_date_format(cls, _date: str, with_none=False):
@@ -283,17 +290,17 @@ class EformsNoticeMetadataNormaliser(NoticeMetadataNormaliserABC):
             return datetime.fromisoformat(_date).isoformat()
         return None
 
-    @classmethod
-    def get_form_type_notice_type_and_legal_basis(cls, extracted_notice_subtype: str) -> Tuple:
+    def get_form_type_notice_type_and_legal_basis(self, extracted_notice_subtype: str) -> Tuple:
         """
          Get the values for form type, notice type and legal basis from the eForm mapping files
         """
-        ef_map: pd.DataFrame = mapping_registry.ef_notice_df
+        ef_map: pd.DataFrame = self.mapping_registry.ef_notice_df
         try:
             filtered_df = ef_map.query(f"{E_FORMS_SUBTYPE_KEY}=='{extracted_notice_subtype}'").to_dict(orient='records')[0]
         except:
             raise Exception(
                 f'No mapping available for {extracted_notice_subtype} notice subtype. Please check that the field exists in the XML content if the notice subtype is not specified in this message')
+
         try:
             form_type = filtered_df[FORM_TYPE_KEY]
             notice_type = filtered_df[E_FORM_NOTICE_TYPE_COLUMN]
@@ -312,11 +319,11 @@ class EformsNoticeMetadataNormaliser(NoticeMetadataNormaliserABC):
         :return:
         """
         extracted_metadata = extracted_metadata
-        form_type_map = mapping_registry.form_type
-        languages_map = mapping_registry.languages
-        legal_basis_map = mapping_registry.legal_basis
-        notice_type_map = mapping_registry.notice_type
-        nuts_map = mapping_registry.nuts
+        form_type_map = self.mapping_registry.form_type
+        languages_map = self.mapping_registry.languages
+        legal_basis_map = self.mapping_registry.legal_basis
+        notice_type_map = self.mapping_registry.notice_type
+        nuts_map = self.mapping_registry.nuts
         form_type, notice_type, legal_basis = self.get_form_type_notice_type_and_legal_basis(
             extracted_notice_subtype=extracted_metadata.extracted_notice_subtype)
         metadata = {
@@ -354,3 +361,4 @@ class EformsNoticeMetadataNormaliser(NoticeMetadataNormaliserABC):
         }
 
         return NormalisedMetadata(**metadata)
+

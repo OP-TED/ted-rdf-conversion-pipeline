@@ -36,12 +36,9 @@ def group_notice_ids_by_status(notice_ids: List[str], mongodb_client=None) -> Li
         status_str = notice_dict.get(NOTICE_STATUS)
 
         if status_str:
-            try:
-                status = NoticeStatus[status_str]
-                if status in NOTICE_STATUS_TO_PIPELINE_STEP:
-                    notices_by_status[status].append(ted_id)
-            except (KeyError, ValueError):
-                pass
+            status = NoticeStatus[status_str]
+            if status in NOTICE_STATUS_TO_PIPELINE_STEP:
+                notices_by_status[status].append(ted_id)
 
     batches = []
     for status, ids in notices_by_status.items():

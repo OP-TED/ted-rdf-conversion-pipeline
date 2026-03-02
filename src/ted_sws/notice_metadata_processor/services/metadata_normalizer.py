@@ -88,6 +88,7 @@ def extract_and_normalise_notice_metadata_from_notice(notice: Notice, mongodb_cl
 def normalise_notice(notice: Notice, mongodb_client: MongoClient = None) -> Notice:
     """
         Given a notice object, normalise metadata and return the updated object
+    :param mongodb_client:
     :param notice:
     :return:
     """

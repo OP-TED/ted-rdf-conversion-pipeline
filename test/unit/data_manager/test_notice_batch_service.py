@@ -1,5 +1,7 @@
 from unittest.mock import patch
 
+import pytest
+
 from src.ted_sws.core.model.notice import NoticeStatus
 from src.ted_sws.data_manager.adapters.notice_repository import NoticeRepository, NOTICE_TED_ID, NOTICE_STATUS
 from src.ted_sws.data_manager.services.notice_batch_service import (
@@ -75,9 +77,8 @@ def test_group_notice_ids_by_status_unknown_status_not_in_mapping(mongodb_client
         NOTICE_STATUS: "UNKNOWN_STATUS"
     })
 
-    result = group_notice_ids_by_status(["123456-2022"], mongodb_client=mongodb_client)
-
-    assert result == []
+    with pytest.raises(KeyError):
+        group_notice_ids_by_status(["123456-2022"], mongodb_client=mongodb_client)
 
 
 def test_group_notice_ids_by_status_notice_without_status(mongodb_client, aggregates_database_name):

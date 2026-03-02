@@ -16,16 +16,16 @@ RUN apt-get update && apt-get install -y \
 # back to normal user
 USER airflow
 
-# Libraries are mounted at runtime (not baked in) to persist limes artifacts
-# requirements.txt shall be made availble from the **ted-sws** GitHub repository
-COPY requirements.txt /opt/airflow
+# Bake tool JARs into the image at /home/airflow so that airflow-init-lib can copy them
+# at runtime into the airflow-opt ephemeral volume at /opt/airflow (per installation manual)
+COPY --chown=airflow:root libraries /home/airflow
 
-# working in the /opt/airflow
+# requirements.txt must be available from the ted-sws GitHub repository
+# Copy to /opt/airflow for pip install (pip runs at build time)
+COPY requirements.txt /opt/airflow/requirements.txt
+
 WORKDIR /opt/airflow
 
-#RUN mkdir -p ./dags ./ted_sws
-RUN mkdir -p ./src
-
-
-RUN pip install --upgrade pip
-RUN pip install --no-cache-dir -r requirements.txt --constraint "https://raw.githubusercontent.com/apache/airflow/constraints-2.10.5/constraints-no-providers-3.10.txt"
+RUN pip install --upgrade pip && \
+    pip install --no-cache-dir -r requirements.txt \
+      --constraint "https://raw.githubusercontent.com/apache/airflow/constraints-2.10.5/constraints-no-providers-3.10.txt"

@@ -118,7 +118,7 @@ def reprocess_notices_from_backlog_by_status():
     ).expand(
         start_with_step_name=batches.map(lambda batch: batch["start_with_step_name"]))
 
-    push_context >> trigger
+    trigger.set_upstream(push_context)
 
 
 dag = reprocess_notices_from_backlog_by_status()

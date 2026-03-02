@@ -2,17 +2,28 @@ from airflow.decorators import dag, task
 from airflow.models import Param
 
 from src.dags import DEFAULT_DAG_ARGUMENTS, NOTICE_NORMALISATION_PIPELINE_TASK_ID, RUN_MATERIALISED_VIEW_DAG_PARAM, \
-    RUN_MATERIALISED_VIEW_DAG_PARAM_DESCRIPTION
-from src.dags.dags_utils import push_dag_downstream, get_dag_param
-from src.dags.operators.DagBatchPipelineOperator import NOTICE_IDS_KEY, TriggerNoticeBatchPipelineOperator
+    RUN_MATERIALISED_VIEW_DAG_PARAM_DESCRIPTION, START_FROM_NORMALISATION_DAG_PARAM
+from src.dags.dags_utils import get_dag_param, push_dag_downstream
+from src.dags.operators.DagBatchPipelineOperator import NOTICE_IDS_KEY, TriggerNoticeBatchPipelineOperator, \
+    MAX_BATCH_SIZE
+from src.ted_sws.core.model.notice import NoticeStatus
+from src.ted_sws.data_manager.models.notice_batch import NoticeStatusBatch
+from src.ted_sws.data_manager.services.notice_batch_service import group_notice_ids_by_status
 from src.ted_sws.event_manager.adapters.event_log_decorator import event_log
-from src.ted_sws.event_manager.model.event_message import TechnicalEventMessage, EventMessageMetadata, EventMessageProcessType
+from src.ted_sws.event_manager.model.event_message import TechnicalEventMessage, EventMessageMetadata, \
+    EventMessageProcessType
 
 DAG_ID = "reprocess_notices_by_id_from_backlog"
 DAG_NAME = "Reprocess notices from backlog by ID"
 
 NOTICE_IDS_DAG_PARAM = "notice_ids"
 TRIGGER_NOTICE_PROCESS_WORKFLOW_TASK_ID = "trigger_notice_process_workflow"
+
+
+
+
+
+
 
 @dag(
     default_args=DEFAULT_DAG_ARGUMENTS,
@@ -32,6 +43,12 @@ TRIGGER_NOTICE_PROCESS_WORKFLOW_TASK_ID = "trigger_notice_process_workflow"
             title="Run Materialised View",
             description=RUN_MATERIALISED_VIEW_DAG_PARAM_DESCRIPTION
         ),
+        START_FROM_NORMALISATION_DAG_PARAM: Param(
+            default=False,
+            type="boolean",
+            title="Start from Normalisation",
+            description="If enabled, start reprocessing from normalisation. If disabled, automatically map each notice's current status to determine pipeline start step."
+        ),
     },
     description=DAG_NAME
 )
@@ -50,13 +67,39 @@ def reprocess_notices_by_id_from_backlog():
         if not notice_ids:
             raise Exception("No notice IDs provided.")
 
-        push_dag_downstream(key=NOTICE_IDS_KEY, value=notice_ids)
+        start_from_normalisation = get_dag_param(
+            key=START_FROM_NORMALISATION_DAG_PARAM,
+            default_value=False
+        )
 
-    trigger_notice_process_workflow = TriggerNoticeBatchPipelineOperator(
+        if start_from_normalisation:
+            batch = NoticeStatusBatch(
+                notice_ids=notice_ids,
+                start_with_step_name=NOTICE_NORMALISATION_PIPELINE_TASK_ID,
+                notice_status=NoticeStatus.RAW
+            )
+
+            return [batch.model_dump()]
+
+        notice_batches = group_notice_ids_by_status(notice_ids)
+
+        return [dto.model_dump() for dto in notice_batches]
+
+    @task
+    def push_notice_ids_for_batch(batch: dict):
+        push_dag_downstream(key=NOTICE_IDS_KEY, value=batch["notice_ids"])
+
+    batches = select_notice_ids()
+    push_context = push_notice_ids_for_batch.expand(batch=batches)
+
+    trigger = TriggerNoticeBatchPipelineOperator.partial(
         task_id=TRIGGER_NOTICE_PROCESS_WORKFLOW_TASK_ID,
-        start_with_step_name=NOTICE_NORMALISATION_PIPELINE_TASK_ID
+        batch_size=MAX_BATCH_SIZE,
+    ).expand(
+        start_with_step_name=batches.map(lambda batch: batch["start_with_step_name"])
     )
 
-    select_notice_ids() >> trigger_notice_process_workflow
+    push_context >> trigger
+
 
 dag = reprocess_notices_by_id_from_backlog()

@@ -45,9 +45,18 @@ TRIGGER_NOTICE_PROCESS_WORKFLOW_TASK_ID = "trigger_notice_process_workflow"
             description="If enabled, start reprocessing from normalisation. If disabled, automatically map each notice's current status to determine pipeline start step."
         ),
     },
-    description=DAG_NAME
+    description="Reprocess specific TED notices by their IDs, with option to start from normalisation or auto-map by current status"
 )
 def reprocess_notices_by_id_from_backlog():
+    """
+    DAG for reprocessing specific notices by their IDs.
+
+    This DAG allows users to reprocess a list of TED notice IDs. It supports two modes:
+    1. Start from normalisation: All notices start from the normalisation pipeline step
+    2. Auto-map by status: Each notice's current status is used to determine the appropriate
+       pipeline step (e.g., RAW notices start from normalisation, DISTILLED from validation)
+    """
+
     @task
     @event_log(TechnicalEventMessage(
         message="select_notices_for_reprocess_by_id",
@@ -57,6 +66,16 @@ def reprocess_notices_by_id_from_backlog():
         ))
     )
     def select_notice_ids():
+        """
+        Select and group notice IDs for reprocessing.
+
+        Logic:
+            1. Retrieve the list of notice IDs from DAG parameters
+            2. Check if start_from_normalisation is enabled:
+               - If True: Create a single batch with all notices starting from normalisation
+               - If False: Query each notice's current status and group them accordingly
+            3. Return list of NoticeStatusBatch objects for downstream processing
+        """
         notice_ids = get_dag_param(key=NOTICE_IDS_DAG_PARAM, raise_error=True)
 
         if not notice_ids:
@@ -64,6 +83,7 @@ def reprocess_notices_by_id_from_backlog():
 
         start_from_normalisation = get_dag_param(key=START_FROM_NORMALISATION_DAG_PARAM)
 
+        # Mode 1: Start all notices from normalisation
         if start_from_normalisation:
             batch = NoticeStatusBatch(
                 notice_ids=notice_ids,
@@ -73,17 +93,36 @@ def reprocess_notices_by_id_from_backlog():
 
             return [batch.model_dump()]
 
+        # Mode 2: Auto-map each notice's status to appropriate pipeline step
         notice_batches = group_notice_ids_by_status(notice_ids)
 
         return [dto.model_dump() for dto in notice_batches]
 
     @task
     def push_notice_ids_for_batch(batch: dict):
+        """
+        Push notice IDs to XCom for downstream batch processing.
+
+        Each batch contains a list of notice IDs that will be processed together
+        in the TriggerNoticeBatchPipelineOperator.
+        """
         push_dag_downstream(key=NOTICE_IDS_KEY, value=batch["notice_ids"])
 
+    # Dynamic task mapping: The number of batches determines the number of parallel tasks
+    # Each batch contains notices with the same status, so they can be processed together
     batches = select_notice_ids()
+
+    # Expand push_notice_ids_for_batch into multiple parallel tasks, one per batch
+    # This pushes each batch's notice IDs to XCom for the trigger task to consume
     push_context = push_notice_ids_for_batch.expand(batch=batches)
 
+    # Create trigger tasks that dynamically map the start_with_step_name for each batch
+    # Each batch may have a different pipeline step based on notice status:
+    #   - RAW -> normalisation
+    #   - DISTILLED -> validation
+    #   - PACKAGED -> publishing, etc.
+    # The .expand() with batches.map() creates one trigger task per batch with its
+    # corresponding start step
     trigger = TriggerNoticeBatchPipelineOperator.partial(
         task_id=TRIGGER_NOTICE_PROCESS_WORKFLOW_TASK_ID,
         batch_size=MAX_BATCH_SIZE,
@@ -91,6 +130,7 @@ def reprocess_notices_by_id_from_backlog():
         start_with_step_name=batches.map(lambda batch: batch["start_with_step_name"])
     )
 
+    # Ensure push tasks complete before trigger tasks start
     trigger.set_upstream(push_context)
 
 

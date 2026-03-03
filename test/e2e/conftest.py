@@ -4,6 +4,8 @@ import pytest
 from pymongo import MongoClient
 
 from src.ted_sws import config
+from src.ted_sws.data_manager.adapters.mapping_package_repository import MappingPackageRepositoryMongoDB
+from src.ted_sws.data_manager.adapters.mapping_suite_repository import MappingSuiteRepositoryMongoDB
 from src.ted_sws.data_manager.adapters.notice_repository import NoticeRepository
 from src.ted_sws.data_manager.adapters.triple_store import AllegroGraphTripleStore, FusekiAdapter
 
@@ -78,3 +80,11 @@ def path_to_file_system_repository():
 @pytest.fixture
 def fake_notice_repository(fake_mongodb_client):
     return NoticeRepository(mongodb_client=fake_mongodb_client)
+
+
+@pytest.fixture
+def load_mapping_suite_and_package(mongodb_client, mapping_suite, mapping_package):
+    mapping_suite_repository = MappingSuiteRepositoryMongoDB(mongodb_client=mongodb_client)
+    mapping_suite_repository.add(mapping_suite=mapping_suite)
+    mapping_package_repository = MappingPackageRepositoryMongoDB(mongodb_client=mongodb_client)
+    mapping_package_repository.add(mapping_package=mapping_package)

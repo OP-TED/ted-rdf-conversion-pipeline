@@ -2,11 +2,11 @@ from xml.etree import ElementTree
 from xml.etree.ElementTree import ParseError
 
 import pytest
+
 from src.ted_sws.core.model.manifestation import XMLManifestation
 from src.ted_sws.core.model.metadata import NormalisedMetadata, LanguageTaggedString
 from src.ted_sws.core.model.notice import NoticeStatus, Notice
-from src.ted_sws.data_manager.adapters.mapping_package_repository import MappingPackageRepositoryMongoDB
-from src.ted_sws.data_manager.adapters.mapping_suite_repository import MappingSuiteRepositoryMongoDB
+from src.ted_sws.data_manager.adapters.notice_repository import NoticeRepository
 from src.ted_sws.notice_metadata_processor.adapters.notice_metadata_extractor import \
     DefaultNoticeMetadataExtractor, EformsNoticeMetadataExtractor
 from src.ted_sws.notice_metadata_processor.adapters.notice_metadata_normaliser import \
@@ -26,17 +26,19 @@ def html_str(content: str) -> str:
     return f"""<?xml version="1.0" encoding="UTF-8"?> <body>{content}</body>"""
 
 
-def test_metadata_normaliser_by_notice(indexed_notice):
-    notice = normalise_notice(indexed_notice)
+def test_metadata_normaliser_by_notice(indexed_notice, mongodb_client, load_mapping_suite_and_package):
+    notice = normalise_notice(indexed_notice, mongodb_client=mongodb_client)
     assert notice.normalised_metadata
     assert notice.normalised_metadata.title
     assert isinstance(notice.normalised_metadata.eforms_subtype, str)
     assert notice.status == NoticeStatus.NORMALISED_METADATA
 
 
-def test_metadata_normaliser_by_notice_id(notice_id, notice_repository, notice_2020):
+def test_metadata_normaliser_by_notice_id(notice_id, notice_2020, mongodb_client, load_mapping_suite_and_package):
+    notice_repository = NoticeRepository(mongodb_client=mongodb_client)
     notice_repository.add(notice_2020)
-    notice = normalise_notice_by_id(notice_id=notice_2020.ted_id, notice_repository=notice_repository)
+    notice = normalise_notice_by_id(notice_id=notice_2020.ted_id, notice_repository=notice_repository,
+                                    mongodb_client=mongodb_client)
     assert notice.normalised_metadata
     assert notice.normalised_metadata.title
     assert notice.status == NoticeStatus.NORMALISED_METADATA
@@ -48,9 +50,9 @@ def test_metadata_normaliser_by_wrong_notice_id(notice_repository):
         normalise_notice_by_id(notice_id=notice_id, notice_repository=notice_repository)
 
 
-def test_metadata_normaliser(indexed_notice):
+def test_metadata_normaliser(indexed_notice, mongodb_client, load_mapping_suite_and_package):
     notice = indexed_notice
-    normalise_notice(notice=notice)
+    normalise_notice(notice=notice, mongodb_client=mongodb_client)
 
     assert notice.normalised_metadata
     assert notice.normalised_metadata.title
@@ -213,8 +215,9 @@ def test_find_metadata_extractor_based_on_xml_manifestation(eform_notice_622690,
         DefaultNoticeMetadataExtractor)
 
 
-def test_find_metadata_normaliser_based_on_xml_manifestation(eform_notice_622690, notice_2018, mongodb_client,
-                                                             load_mapping_suite_and_package):
+def test_find_metadata_normaliser_based_on_xml_manifestation(
+        eform_notice_622690, notice_2018, mongodb_client, load_mapping_suite_and_package
+):
     assert isinstance(
         find_metadata_normaliser_based_on_xml_manifestation(
             notice=eform_notice_622690,

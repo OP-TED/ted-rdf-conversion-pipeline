@@ -55,7 +55,7 @@ class MappingFilesRegistry:
         resource_content = resource['object'] if resource else None
 
         if self.extract_filename_ext(filename) == CSV_EXT:
-            return pd.DataFrame(resource_content).fillna("")
+            return pd.DataFrame(resource_content).apply(pd.to_numeric, errors="ignore").fillna("")
 
         return resource_content
 

@@ -21,7 +21,7 @@ def mongodb_client():
 
 
 @pytest.fixture
-def notice_repository_with_indexed_notices(mongodb_client) -> NoticeRepository:
+def notice_repository_with_indexed_notices(mongodb_client, load_mapping_suite_and_package) -> NoticeRepository:
 
     load_mapping_suite_and_packages_from_github_to_mongo_db(
         mapping_package_name="package_F03_test",
@@ -31,6 +31,6 @@ def notice_repository_with_indexed_notices(mongodb_client) -> NoticeRepository:
     notice_repository = NoticeRepository(mongodb_client=mongodb_client)
     for notice in notice_repository.list():
         indexed_notice = index_notice(notice=notice)
-        normalised_notice = normalise_notice(notice=indexed_notice)
+        normalised_notice = normalise_notice(notice=indexed_notice, mongodb_client=mongodb_client)
         notice_repository.update(notice=normalised_notice)
     return notice_repository

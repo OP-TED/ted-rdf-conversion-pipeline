@@ -156,6 +156,7 @@ def notice_2020():
     notice.set_xml_metadata(XMLMetadata(unique_xpaths=["FAKE_INDEX_XPATHS"]))
     notice.set_xml_manifestation(xml_manifestation)
     notice.set_original_metadata(original_metadata)
+    notice.mapping_package_identifier = "test_package_eforms_sdk1.8"
     return notice
 
 

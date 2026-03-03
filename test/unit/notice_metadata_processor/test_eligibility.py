@@ -6,37 +6,48 @@ from src.ted_sws.data_manager.adapters.mapping_package_repository import Mapping
 from src.ted_sws.notice_metadata_processor.services.metadata_normalizer import normalise_notice
 from src.ted_sws.notice_metadata_processor.services.notice_eligibility import check_package, \
     notice_eligibility_checker, notice_eligibility_checker_by_id, format_version_with_zero_patch, is_date_in_range
+from test.unit.notice_metadata_processor import load_mapping_suite_and_package
 
 
-def test_non_eligibility_by_notice(notice_eligibility_repository_path, indexed_notice):
-    mapping_package_repository = MappingPackageRepositoryInFileSystem(repository_path=notice_eligibility_repository_path)
-    normalise_notice(notice=indexed_notice)
+def test_non_eligibility_by_notice(notice_eligibility_repository_path, indexed_notice,
+                                   mongodb_client, load_mapping_suite_and_package):
+    mapping_package_repository = MappingPackageRepositoryInFileSystem(
+        repository_path=notice_eligibility_repository_path)
+    normalise_notice(notice=indexed_notice, mongodb_client=mongodb_client)
     notice_eligibility_checker(notice=indexed_notice, mapping_package_repository=mapping_package_repository)
     assert indexed_notice.status == NoticeStatus.INELIGIBLE_FOR_TRANSFORMATION
 
 
-def test_eforms_eligibility_by_notice(notice_eligibility_repository_path, indexed_eform_notice_622690):
-    mapping_package_repository = MappingPackageRepositoryInFileSystem(repository_path=notice_eligibility_repository_path)
-    normalise_notice(notice=indexed_eform_notice_622690)
-    notice_eligibility_checker(notice=indexed_eform_notice_622690, mapping_package_repository=mapping_package_repository)
+def test_eforms_eligibility_by_notice(notice_eligibility_repository_path, indexed_eform_notice_622690,
+                                      mongodb_client, load_mapping_suite_and_package):
+    mapping_package_repository = MappingPackageRepositoryInFileSystem(
+        repository_path=notice_eligibility_repository_path)
+    normalise_notice(notice=indexed_eform_notice_622690, mongodb_client=mongodb_client)
+    notice_eligibility_checker(notice=indexed_eform_notice_622690,
+                               mapping_package_repository=mapping_package_repository)
     assert indexed_eform_notice_622690.status == NoticeStatus.ELIGIBLE_FOR_TRANSFORMATION
 
 
-def test_eligibility_by_notice(notice_eligibility_repository_path, notice_2020):
-    mapping_package_repository = MappingPackageRepositoryInFileSystem(repository_path=notice_eligibility_repository_path)
-    normalise_notice(notice=notice_2020)
-    notice_checker = notice_eligibility_checker(notice=notice_2020, mapping_package_repository=mapping_package_repository)
+def test_eligibility_by_notice(notice_eligibility_repository_path, notice_2020,
+                               mongodb_client, load_mapping_suite_and_package):
+    mapping_package_repository = MappingPackageRepositoryInFileSystem(
+        repository_path=notice_eligibility_repository_path)
+    normalise_notice(notice=notice_2020, mongodb_client=mongodb_client)
+    notice_checker = notice_eligibility_checker(notice=notice_2020,
+                                                mapping_package_repository=mapping_package_repository)
     notice_id, mapping_package_identifier = notice_checker
     assert notice_id == "408313-2020"
     assert mapping_package_identifier == "test_package2"
     assert notice_2020.status == NoticeStatus.ELIGIBLE_FOR_TRANSFORMATION
 
 
-def test_eligibility_by_notice_id(notice_eligibility_repository_path, notice_2020, notice_repository):
-    normalise_notice(notice=notice_2020)
+def test_eligibility_by_notice_id(notice_eligibility_repository_path, notice_2020, notice_repository,
+                                  mongodb_client, load_mapping_suite_and_package):
+    normalise_notice(notice=notice_2020, mongodb_client=mongodb_client)
     notice_repository.add(notice_2020)
-    mapping_package_repository = MappingPackageRepositoryInFileSystem(repository_path=notice_eligibility_repository_path)
-    notice_checker =     notice_eligibility_checker_by_id(notice_id="408313-2020",
+    mapping_package_repository = MappingPackageRepositoryInFileSystem(
+        repository_path=notice_eligibility_repository_path)
+    notice_checker = notice_eligibility_checker_by_id(notice_id="408313-2020",
                                                       mapping_package_repository=mapping_package_repository,
                                                       notice_repository=notice_repository)
     notice_id, mapping_package_identifier = notice_checker
@@ -47,8 +58,9 @@ def test_eligibility_by_notice_id(notice_eligibility_repository_path, notice_202
 
 
 def test_check_mapping_package(notice_eligibility_repository_path, normalised_metadata_object,
-                             eform_normalised_metadata_object):
-    mapping_package_repository = MappingPackageRepositoryInFileSystem(repository_path=notice_eligibility_repository_path)
+                               eform_normalised_metadata_object):
+    mapping_package_repository = MappingPackageRepositoryInFileSystem(
+        repository_path=notice_eligibility_repository_path)
     is_valid = check_package(mapping_package=mapping_package_repository.get("test_package"),
                              notice_metadata=normalised_metadata_object)
 

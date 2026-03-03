@@ -97,7 +97,7 @@ def normalise_notice(notice: Notice, mongodb_client: MongoClient = None) -> Noti
     return notice
 
 
-def normalise_notice_by_id(notice_id: str, notice_repository: NoticeRepositoryABC) -> Notice:
+def normalise_notice_by_id(notice_id: str, notice_repository: NoticeRepositoryABC, mongodb_client: MongoClient = None) -> Notice:
     """
         Given a notice id, find the notice in the database, normalise its metadata, and store the updated state.
     :param notice_id:
@@ -108,7 +108,7 @@ def normalise_notice_by_id(notice_id: str, notice_repository: NoticeRepositoryAB
     if notice is None:
         raise ValueError('Notice, with "%s" notice_id, was not found' % notice_id)
 
-    return normalise_notice(notice)
+    return normalise_notice(notice, mongodb_client=mongodb_client)
 
 
 def create_normalised_metadata_view(normalised_metadata: NormalisedMetadata) -> Optional[NormalisedMetadataView]:

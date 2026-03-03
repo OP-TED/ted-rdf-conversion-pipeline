@@ -7,6 +7,8 @@ from src.dags import DEFAULT_DAG_ARGUMENTS, NOTICE_NORMALISATION_PIPELINE_TASK_I
 from src.dags.dags_utils import push_dag_downstream, get_dag_param
 from src.dags.operators.DagBatchPipelineOperator import NOTICE_IDS_KEY, TriggerNoticeBatchPipelineOperator, \
     MAX_BATCH_SIZE
+from src.dags.pipelines.notice_selectors_pipelines import notice_ids_selector_by_status
+from src.ted_sws.core.model.notice import NoticeStatus
 from src.ted_sws.data_manager.models.notice_batch import NoticeStatusBatch
 from src.ted_sws.data_manager.services.notice_batch_service import group_notice_ids_by_reprocess_status
 from src.ted_sws.event_manager.adapters.event_log_decorator import event_log
@@ -31,7 +33,7 @@ NOTICE_STATUSES_DAG_PARAM = "notice_statuses"
     params={
         NOTICE_STATUSES_DAG_PARAM: Param(
             default=[],
-            type=["array", "string"],
+            type=["string"],
             title="Notice Statuses",
             description="Required. Select one or more notice statuses to reprocess.",
             enum=REPROCESS_STATUS_LIST
@@ -69,16 +71,9 @@ def reprocess_notices_from_backlog_by_status():
         statuses_param = get_dag_param(key=NOTICE_STATUSES_DAG_PARAM)
         start_from_normalisation = get_dag_param(key=START_FROM_NORMALISATION_DAG_PARAM, default_value=False)
 
-        if type(statuses_param) == list:
-            reprocess_status = statuses_param[0] if statuses_param else ""
-        else:
-            reprocess_status = statuses_param
-
         if start_from_normalisation:
-            from src.dags.pipelines.notice_selectors_pipelines import notice_ids_selector_by_status
-            from src.ted_sws.core.model.notice import NoticeStatus
 
-            notice_statuses = REPROCESS_STATUS_DISPLAY_MAP.get(reprocess_status, [])
+            notice_statuses = REPROCESS_STATUS_DISPLAY_MAP.get(statuses_param, [])
 
             all_notice_ids = []
             for status in notice_statuses:
@@ -98,7 +93,7 @@ def reprocess_notices_from_backlog_by_status():
             return [batch.model_dump()]
 
         notice_batches = group_notice_ids_by_reprocess_status(
-            reprocess_status=reprocess_status,
+            reprocess_status=statuses_param,
             start_date=start_date if start_date else None,
             end_date=end_date if end_date else None
         )

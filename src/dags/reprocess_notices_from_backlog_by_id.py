@@ -20,11 +20,6 @@ NOTICE_IDS_DAG_PARAM = "notice_ids"
 TRIGGER_NOTICE_PROCESS_WORKFLOW_TASK_ID = "trigger_notice_process_workflow"
 
 
-
-
-
-
-
 @dag(
     default_args=DEFAULT_DAG_ARGUMENTS,
     dag_id=DAG_ID,
@@ -67,10 +62,7 @@ def reprocess_notices_by_id_from_backlog():
         if not notice_ids:
             raise Exception("No notice IDs provided.")
 
-        start_from_normalisation = get_dag_param(
-            key=START_FROM_NORMALISATION_DAG_PARAM,
-            default_value=False
-        )
+        start_from_normalisation = get_dag_param(key=START_FROM_NORMALISATION_DAG_PARAM)
 
         if start_from_normalisation:
             batch = NoticeStatusBatch(

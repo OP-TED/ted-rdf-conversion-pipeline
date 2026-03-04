@@ -8,7 +8,6 @@ import pandas as pd
 from pymongo import MongoClient
 
 from src.ted_sws.core.model.metadata import NormalisedMetadata, LanguageTaggedString, NoticeSource
-from src.ted_sws.core.model.notice import Notice
 from src.ted_sws.event_manager.services.log import log_notice_info
 from src.ted_sws.notice_metadata_processor.model.metadata import ExtractedMetadata
 from src.ted_sws.notice_metadata_processor.services.metadata_constraints import filter_df_by_variables
@@ -89,8 +88,8 @@ class NoticeMetadataNormaliserABC(abc.ABC):
 
 
 class DefaultNoticeMetadataNormaliser(NoticeMetadataNormaliserABC):
-    def __init__(self, notice: Notice, mongodb_client: MongoClient = None):
-        self.mapping_registry = MappingFilesRegistry(notice=notice, mongodb_client=mongodb_client)
+    def __init__(self, mongodb_client: MongoClient = None):
+        self.mapping_registry = MappingFilesRegistry(mongodb_client=mongodb_client)
 
     @classmethod
     def normalise_legal_basis_value(cls, value: str) -> str:
@@ -278,8 +277,8 @@ class EformsNoticeMetadataNormaliser(NoticeMetadataNormaliserABC):
     """
      Metadata normaliser for eForms
     """
-    def __init__(self, notice: Notice, mongodb_client: MongoClient = None):
-        self.mapping_registry = MappingFilesRegistry(notice=notice, mongodb_client=mongodb_client)
+    def __init__(self, mongodb_client: MongoClient = None):
+        self.mapping_registry = MappingFilesRegistry(mongodb_client=mongodb_client)
 
     @classmethod
     def iso_date_format(cls, _date: str, with_none=False):

@@ -59,8 +59,8 @@ def test_metadata_normaliser(indexed_notice, mongodb_client, load_mapping_suite_
     assert notice.status == NoticeStatus.NORMALISED_METADATA
 
 
-def test_normalise_form_number(indexed_notice, mongodb_client, load_mapping_suite_and_package):
-    default_notice_normaliser = DefaultNoticeMetadataNormaliser(notice=indexed_notice, mongodb_client=mongodb_client)
+def test_normalise_form_number(mongodb_client, load_mapping_suite_and_package):
+    default_notice_normaliser = DefaultNoticeMetadataNormaliser(mongodb_client=mongodb_client)
     assert default_notice_normaliser.normalise_form_number("FFFSA") == "FFFSA"
     assert default_notice_normaliser.normalise_form_number("F18") == "F18"
     assert default_notice_normaliser.normalise_form_number("F01") == "F01"
@@ -74,20 +74,20 @@ def test_normalise_form_number(indexed_notice, mongodb_client, load_mapping_suit
     assert default_notice_normaliser.normalise_form_number("1F03FG") == "1F03FG"
 
 
-def test_normalise_legal_basis(indexed_notice, mongodb_client, load_mapping_suite_and_package):
-    default_notice_normaliser = DefaultNoticeMetadataNormaliser(notice=indexed_notice, mongodb_client=mongodb_client)
+def test_normalise_legal_basis(mongodb_client, load_mapping_suite_and_package):
+    default_notice_normaliser = DefaultNoticeMetadataNormaliser(mongodb_client=mongodb_client)
     assert "32009L0081" == default_notice_normaliser.normalise_legal_basis_value(
         value="2009/81/EC")
 
 
-def test_get_map_value(indexed_notice, mongodb_client, load_mapping_suite_and_package):
-    value = get_map_value(mapping=MappingFilesRegistry(notice=indexed_notice, mongodb_client=mongodb_client).countries,
+def test_get_map_value(mongodb_client, load_mapping_suite_and_package):
+    value = get_map_value(mapping=MappingFilesRegistry(mongodb_client=mongodb_client).countries,
                           value="DE")
     assert value == "http://publications.europa.eu/resource/authority/country/DEU"
 
 
-def test_filter_df_by_variables(indexed_notice, mongodb_client, load_mapping_suite_and_package):
-    df = MappingFilesRegistry(notice=indexed_notice, mongodb_client=mongodb_client).ef_notice_df
+def test_filter_df_by_variables(mongodb_client, load_mapping_suite_and_package):
+    df = MappingFilesRegistry(mongodb_client=mongodb_client).ef_notice_df
     filtered_df = filter_df_by_variables(df=df, form_type="planning",
                                          eform_notice_type="pin-only")
 
@@ -95,12 +95,11 @@ def test_filter_df_by_variables(indexed_notice, mongodb_client, load_mapping_sui
     assert "32014L0024" in filtered_df["eform_legal_basis"].values
 
 
-def test_get_form_type_and_notice_type(indexed_notice, mongodb_client, load_mapping_suite_and_package):
+def test_get_form_type_and_notice_type(mongodb_client, load_mapping_suite_and_package):
     default_notice_metadata_normaliser = DefaultNoticeMetadataNormaliser(
-        notice=indexed_notice,
         mongodb_client=mongodb_client
     )
-    mapping_registry = MappingFilesRegistry(notice=indexed_notice, mongodb_client=mongodb_client)
+    mapping_registry = MappingFilesRegistry(mongodb_client=mongodb_client)
     form_type, notice_type, legal_basis, eforms_subtype = default_notice_metadata_normaliser.get_form_type_and_notice_type(
         ef_map=mapping_registry.ef_notice_df,
         sf_map=mapping_registry.sf_notice_df,
@@ -117,12 +116,11 @@ def test_get_form_type_and_notice_type(indexed_notice, mongodb_client, load_mapp
     assert "16" == eforms_subtype
 
 
-def test_get_form_type_and_notice_type_F07(indexed_notice, mongodb_client, load_mapping_suite_and_package):
+def test_get_form_type_and_notice_type_F07(mongodb_client, load_mapping_suite_and_package):
     default_notice_metadata_normaliser = DefaultNoticeMetadataNormaliser(
-        notice=indexed_notice,
         mongodb_client=mongodb_client
     )
-    mapping_registry = MappingFilesRegistry(notice=indexed_notice, mongodb_client=mongodb_client)
+    mapping_registry = MappingFilesRegistry(mongodb_client=mongodb_client)
     form_type, notice_type, legal_basis, eforms_subtype = default_notice_metadata_normaliser.get_form_type_and_notice_type(
         ef_map=mapping_registry.ef_notice_df,
         sf_map=mapping_registry.sf_notice_df,
@@ -135,12 +133,11 @@ def test_get_form_type_and_notice_type_F07(indexed_notice, mongodb_client, load_
     assert "15.1" == eforms_subtype
 
 
-def test_get_filter_values(indexed_notice, mongodb_client, load_mapping_suite_and_package):
+def test_get_filter_values(mongodb_client, load_mapping_suite_and_package):
     default_notice_metadata_normaliser = DefaultNoticeMetadataNormaliser(
-        notice=indexed_notice,
         mongodb_client=mongodb_client
     )
-    mapping_registry = MappingFilesRegistry(notice=indexed_notice, mongodb_client=mongodb_client)
+    mapping_registry = MappingFilesRegistry(mongodb_client=mongodb_client)
     filter_map = mapping_registry.filter_map_df
     filter_variables_dict = default_notice_metadata_normaliser.get_filter_variables_values(form_number="F07",
                                                                                            filter_map=filter_map,
@@ -164,10 +161,9 @@ def test_get_filter_values(indexed_notice, mongodb_client, load_mapping_suite_an
 def test_normalising_process_on_failed_notice_in_dag(notice_2021, mongodb_client, load_mapping_suite_and_package):
     extracted_metadata = DefaultNoticeMetadataExtractor(xml_manifestation=notice_2021.xml_manifestation)
     extracted_metadata_normaliser = DefaultNoticeMetadataNormaliser(
-        notice=notice_2021,
         mongodb_client=mongodb_client
     )
-    mapping_registry = MappingFilesRegistry(notice=notice_2021, mongodb_client=mongodb_client)
+    mapping_registry = MappingFilesRegistry(mongodb_client=mongodb_client)
     filter_map = mapping_registry.filter_map_df
     filter_variables_dict = extracted_metadata_normaliser.get_filter_variables_values(
         form_number=extracted_metadata.extracted_form_number,
@@ -220,13 +216,11 @@ def test_find_metadata_normaliser_based_on_xml_manifestation(
 ):
     assert isinstance(
         find_metadata_normaliser_based_on_xml_manifestation(
-            notice=eform_notice_622690,
             xml_manifestation=eform_notice_622690.xml_manifestation,
             mongodb_client=mongodb_client
         ), EformsNoticeMetadataNormaliser)
     assert isinstance(
         find_metadata_normaliser_based_on_xml_manifestation(
-            notice=notice_2018,
             xml_manifestation=notice_2018.xml_manifestation,
             mongodb_client=mongodb_client
         ), DefaultNoticeMetadataNormaliser)
@@ -245,7 +239,6 @@ def test_normalise_notice_metadata(eform_notice_622690, notice_2018, mongodb_cli
     assert isinstance(normalise_notice_metadata(
         extracted_metadata=extracted_metadata,
         metadata_normaliser=EformsNoticeMetadataNormaliser(
-            notice=eform_notice_622690,
             mongodb_client=mongodb_client
         )
     ), NormalisedMetadata)
@@ -255,15 +248,13 @@ def test_normalise_notice_metadata(eform_notice_622690, notice_2018, mongodb_cli
     assert isinstance(normalise_notice_metadata(
         extracted_metadata=extracted_metadata,
         metadata_normaliser=DefaultNoticeMetadataNormaliser(
-            notice=notice_2018,
             mongodb_client=mongodb_client
         )
     ), NormalisedMetadata)
 
 
-def test_get_form_type_notice_type_and_legal_basis(indexed_notice, mongodb_client, load_mapping_suite_and_package):
+def test_get_form_type_notice_type_and_legal_basis(mongodb_client, load_mapping_suite_and_package):
     form_type, notice_type, legal_basis = EformsNoticeMetadataNormaliser(
-        notice=indexed_notice,
         mongodb_client=mongodb_client
     ).get_form_type_notice_type_and_legal_basis(
         extracted_notice_subtype='20')
@@ -273,13 +264,12 @@ def test_get_form_type_notice_type_and_legal_basis(indexed_notice, mongodb_clien
 
 
 def test_normalising_notice_out_of_index(
-        indexed_notice, notice_normalisation_test_data_path, mongodb_client,
+        notice_normalisation_test_data_path, mongodb_client,
         load_mapping_suite_and_package
 ):
     notice_xml_path = notice_normalisation_test_data_path / "2023-OJS153-00486429.xml"
     notice_content = notice_xml_path.read_text(encoding="utf-8")
     normalised_notice_metadata = extract_and_normalise_notice_metadata(
-        notice=indexed_notice,
         xml_manifestation=XMLManifestation(object_data=notice_content),
         mongodb_client=mongodb_client
     )
@@ -291,7 +281,6 @@ def test_normalising_notice_out_of_index(
 
     with pytest.raises(Exception):
         extract_and_normalise_notice_metadata(
-            notice=indexed_notice,
             xml_manifestation=XMLManifestation(object_data=broke_notice_content),
             mongodb_client=mongodb_client
         )

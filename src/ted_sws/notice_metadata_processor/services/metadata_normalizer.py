@@ -34,7 +34,6 @@ def find_metadata_extractor_based_on_xml_manifestation(
 
 
 def find_metadata_normaliser_based_on_xml_manifestation(
-        notice: Notice,
         xml_manifestation: XMLManifestation,
         mongodb_client: MongoClient = None
 ) -> NoticeMetadataNormaliserABC:
@@ -42,9 +41,9 @@ def find_metadata_normaliser_based_on_xml_manifestation(
         Find the correct extractor based on the XML Manifestation
     """
     if check_if_xml_manifestation_is_eform(xml_manifestation):
-        return EformsNoticeMetadataNormaliser(notice=notice, mongodb_client=mongodb_client)
+        return EformsNoticeMetadataNormaliser(mongodb_client=mongodb_client)
     else:
-        return DefaultNoticeMetadataNormaliser(notice=notice, mongodb_client=mongodb_client)
+        return DefaultNoticeMetadataNormaliser(mongodb_client=mongodb_client)
 
 
 def extract_notice_metadata(metadata_extractor: NoticeMetadataExtractorABC) -> ExtractedMetadata:
@@ -62,14 +61,13 @@ def normalise_notice_metadata(extracted_metadata: ExtractedMetadata,
     return metadata_normaliser.normalise_metadata(extracted_metadata)
 
 
-def extract_and_normalise_notice_metadata(notice: Notice, xml_manifestation: XMLManifestation, mongodb_client: MongoClient = None) -> NormalisedMetadata:
+def extract_and_normalise_notice_metadata(xml_manifestation: XMLManifestation, mongodb_client: MongoClient = None) -> NormalisedMetadata:
     """
         Extract and normalise metadata using the correct extractor and normaliser type
     """
     metadata_extractor = find_metadata_extractor_based_on_xml_manifestation(xml_manifestation)
     extracted_metadata = extract_notice_metadata(metadata_extractor)
     metadata_normaliser = find_metadata_normaliser_based_on_xml_manifestation(
-        notice=notice,
         xml_manifestation=xml_manifestation,
         mongodb_client=mongodb_client
     )
@@ -82,7 +80,7 @@ def extract_and_normalise_notice_metadata_from_notice(notice: Notice, mongodb_cl
         Extract and normalise metadata using the correct extractor and normaliser type
     """
     xml_manifestation = notice.xml_manifestation
-    return extract_and_normalise_notice_metadata(notice=notice, xml_manifestation=xml_manifestation, mongodb_client=mongodb_client)
+    return extract_and_normalise_notice_metadata(xml_manifestation=xml_manifestation, mongodb_client=mongodb_client)
 
 
 def normalise_notice(notice: Notice, mongodb_client: MongoClient = None) -> Notice:

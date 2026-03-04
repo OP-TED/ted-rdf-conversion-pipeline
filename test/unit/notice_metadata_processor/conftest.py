@@ -40,7 +40,6 @@ def sample_indexed_ef_html_unsafe_notice(
     notice: Notice = Notice(ted_id=sample_ef_html_unsafe_notice_path.name)
     notice.set_xml_manifestation(
         XMLManifestation(object_data=sample_ef_html_unsafe_notice_path.read_text()))
-    notice.mapping_package_identifier = "test_package_eforms_sdk1.8"
     return index_notice(notice)
 
 
@@ -55,7 +54,6 @@ def sample_indexed_sf_html_unsafe_notice(
     notice: Notice = Notice(ted_id=sample_sf_html_unsafe_notice_path.name)
     notice.set_xml_manifestation(
         XMLManifestation(object_data=sample_sf_html_unsafe_notice_path.read_text()))
-    notice.mapping_package_identifier = "test_package_eforms_sdk1.8"
     return index_notice(notice)
 
 

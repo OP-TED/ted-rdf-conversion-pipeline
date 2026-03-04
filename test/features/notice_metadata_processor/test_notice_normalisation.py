@@ -42,15 +42,15 @@ def an_sf_notice_with_spaces_in_notice_id(sample_indexed_sf_html_unsafe_notice: 
 
 
 @when('the EF notice is normalised', target_fixture='normalised_ef_notice')
-def the_ef_notice_is_normalised(sample_indexed_ef_html_unsafe_notice: Notice) -> Notice:
+def the_ef_notice_is_normalised(sample_indexed_ef_html_unsafe_notice: Notice, mongodb_client) -> Notice:
     """Normalize EF notice."""
-    return normalise_notice(sample_indexed_ef_html_unsafe_notice)
+    return normalise_notice(sample_indexed_ef_html_unsafe_notice, mongodb_client=mongodb_client)
 
 
 @when('the SF notice is normalised', target_fixture='normalised_sf_notice')
-def the_sf_notice_is_normalised(sample_indexed_sf_html_unsafe_notice: Notice) -> Notice:
+def the_sf_notice_is_normalised(sample_indexed_sf_html_unsafe_notice: Notice, mongodb_client) -> Notice:
     """Normalize SF notice."""
-    return normalise_notice(sample_indexed_sf_html_unsafe_notice)
+    return normalise_notice(sample_indexed_sf_html_unsafe_notice, mongodb_client=mongodb_client)
 
 
 @then('the EF notice ID should not contain leading or trailing spaces')

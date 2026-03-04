@@ -139,7 +139,7 @@ def test_mongo_db_query_2():
     ])
 
 
-def test_create_matview_for_notices(fake_mongodb_client):
+def test_create_matview_for_notices(fake_mongodb_client, load_mapping_suite_and_package_fake, mapping_package):
     notice_id = "696661-2022"
     ted_api_query = {"query": f"ND={notice_id}"}
     mongodb_client = fake_mongodb_client
@@ -152,8 +152,9 @@ def test_create_matview_for_notices(fake_mongodb_client):
     notice_event.caller_name = "execute"
     notice_event.start_record()
     notice = notice_repository.get(reference=notice_id)
+    notice.mapping_package_identifier = mapping_package.id
     indexed_notice = index_notice(notice=notice)
-    normalised_notice = normalise_notice(notice=indexed_notice)
+    normalised_notice = normalise_notice(notice=indexed_notice, mongodb_client=mongodb_client)
     notice = normalised_notice
     notice_repository.update(notice=normalised_notice)
     notice_event.end_record()

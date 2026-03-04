@@ -15,8 +15,8 @@ def step_impl(f03_notice_2020):
 
 
 @when("the normalize process is executed")
-def step_impl(notice):
-    normalise_notice(notice=notice)
+def step_impl(notice, mongodb_client):
+    normalise_notice(notice=notice, mongodb_client=mongodb_client)
 
 
 @then(parsers.parse("a normalized notice {metadata} is {possibly} available"))

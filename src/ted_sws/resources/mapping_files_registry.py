@@ -4,8 +4,6 @@ import pandas as pd
 from pymongo import MongoClient
 
 from src.ted_sws import config
-from src.ted_sws.core.model.notice import Notice
-from src.ted_sws.data_manager.adapters.mapping_package_repository import MappingPackageRepositoryMongoDB
 from src.ted_sws.data_manager.adapters.mapping_suite_repository import MappingSuiteRepositoryMongoDB
 
 COUNTRIES_MAPPING_FILE = "country.json"
@@ -21,18 +19,31 @@ FILTER_MAPPING_FILE = "df_filter_map.csv"
 CSV_EXT = ".csv"
 
 
+class MappingSuiteConfigError(Exception):
+    """Raised when no MappingSuite is found in the database."""
+    pass
+
+
 class MappingFilesRegistry:
     """
-     Registry of mapping files. This will return the specific file content
+     Registry of mapping files. This will return the specific file content.
+
+     Resource files (country.json, languages.json, etc.) are global and identical
+     across all mapping packages, so we can load them from any available MappingSuite.
     """
 
-    def __init__(self, notice: Notice, mongodb_client: MongoClient = None):
+    def __init__(self, mongodb_client: MongoClient = None):
         if not mongodb_client:
             mongodb_client = MongoClient(config.MONGO_DB_AUTH_URL)
-        mapping_package_repository = MappingPackageRepositoryMongoDB(mongodb_client=mongodb_client)
-        mapping_package = mapping_package_repository.get(notice.mapping_package_identifier)
         mapping_suite_repository = MappingSuiteRepositoryMongoDB(mongodb_client=mongodb_client)
-        self.mapping_suite = mapping_suite_repository.get(mapping_package.mapping_suite_identifier)
+        # Get any available MappingSuite - resources are global/identical across all suites
+        all_suites = mapping_suite_repository.list()
+        if not all_suites:
+            raise MappingSuiteConfigError(
+                "No MappingSuite found in the database. Please ensure at least one "
+                "mapping suite is loaded before attempting to normalise notices."
+            )
+        self.mapping_suite = all_suites[0]
 
     @staticmethod
     def extract_filename_from_path(path: str) -> str:

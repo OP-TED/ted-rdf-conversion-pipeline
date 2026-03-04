@@ -86,7 +86,6 @@ def raw_notice(ted_document_search, notice_repository, notice_id) -> Notice:
 @pytest.fixture
 def indexed_notice(raw_notice) -> Notice:
     raw_notice.set_xml_metadata(XMLMetadata(unique_xpaths=["FAKE_INDEX_XPATHS"]))
-    raw_notice.mapping_package_identifier = "test_package_eforms_sdk1.8"
     return raw_notice
 
 
@@ -139,7 +138,6 @@ def notice_2018():
     notice = Notice(ted_id=ted_id)
     notice.set_xml_manifestation(xml_manifestation)
     notice.set_original_metadata(original_metadata)
-    notice.mapping_package_identifier = "test_package_eforms_sdk1.8"
     return notice
 
 
@@ -156,7 +154,6 @@ def notice_2020():
     notice.set_xml_metadata(XMLMetadata(unique_xpaths=["FAKE_INDEX_XPATHS"]))
     notice.set_xml_manifestation(xml_manifestation)
     notice.set_original_metadata(original_metadata)
-    notice.mapping_package_identifier = "test_package_eforms_sdk1.8"
     return notice
 
 
@@ -300,7 +297,6 @@ def notice_2021():
     notice = Notice(ted_id=ted_id)
     notice.set_xml_manifestation(xml_manifestation)
     notice.set_original_metadata(original_metadata)
-    notice.mapping_package_identifier = "test_package_eforms_sdk1.8"
     return notice
 
 
@@ -335,7 +331,6 @@ def eform_notice_622690():
     notice = Notice(ted_id=ted_id)
     notice.set_xml_manifestation(xml_manifestation)
     notice.set_original_metadata(original_metadata)
-    notice.mapping_package_identifier = "test_package_eforms_sdk1.8"
     return notice
 
 

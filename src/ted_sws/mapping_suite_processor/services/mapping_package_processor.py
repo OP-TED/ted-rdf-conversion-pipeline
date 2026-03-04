@@ -76,7 +76,7 @@ def mapping_package_processor_load_package_in_mongo_db(
         notice_repository = NoticeRepository(mongodb_client=mongodb_client)
         for test_data in tests_data:
             notice_id = test_data.file_name.split(".")[0]
-            notice = Notice(ted_id=notice_id, mapping_package_identifier=package.identifier)
+            notice = Notice(ted_id=notice_id)
             notice.set_xml_manifestation(XMLManifestation(object_data=test_data.file_content))
             notice_repository.add(notice=notice)
             result_notice_ids.append(notice_id)

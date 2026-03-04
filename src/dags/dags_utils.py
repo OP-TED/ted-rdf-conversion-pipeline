@@ -27,7 +27,8 @@ def pull_dag_upstream(key, task_ids=None):
     context = get_current_context()
     return select_first_non_none(
         context[TASK_INSTANCE].xcom_pull(key=str(key),
-                                         task_ids=task_ids if task_ids else context['task'].upstream_task_ids))
+                                         task_ids=task_ids if task_ids else context['task'].upstream_task_ids,
+                                         map_indexes=[context["ti"].map_index]))
 
 
 def push_dag_downstream(key, value):

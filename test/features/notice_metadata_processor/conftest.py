@@ -33,16 +33,18 @@ def notice_eligibility_repository_path():
 
 
 @pytest.fixture
-def normalised_notice(notice_2020):
+def normalised_notice(notice_2020, load_mapping_suite_and_package, mapping_package, mongodb_client):
     notice = notice_2020.copy()
-    normalise_notice(notice=notice)
+    notice.mapping_package_identifier = mapping_package.id
+    normalise_notice(notice=notice, mongodb_client=mongodb_client)
     return notice
 
 
 @pytest.fixture
-def normalised_eForm_notice(indexed_eform_notice_622690):
+def normalised_eForm_notice(indexed_eform_notice_622690, load_mapping_suite_and_package, mapping_package, mongodb_client):
     notice = indexed_eform_notice_622690.copy()
-    normalise_notice(notice=notice)
+    notice.mapping_package_identifier = mapping_package.id
+    normalise_notice(notice=notice, mongodb_client=mongodb_client)
     return notice
 
 
@@ -65,10 +67,13 @@ def sample_ef_html_unsafe_notice_path() -> pathlib.Path:
 
 @pytest.fixture
 def sample_indexed_ef_html_unsafe_notice(
-        sample_ef_html_unsafe_notice_path: pathlib.Path) -> Notice:
+        sample_ef_html_unsafe_notice_path: pathlib.Path,
+        load_mapping_suite_and_package,
+        mapping_package) -> Notice:
     notice: Notice = Notice(ted_id=sample_ef_html_unsafe_notice_path.name)
     notice.set_xml_manifestation(
         XMLManifestation(object_data=sample_ef_html_unsafe_notice_path.read_text()))
+    notice.mapping_package_identifier = mapping_package.id
 
     return index_notice(notice)
 
@@ -80,10 +85,13 @@ def sample_sf_html_unsafe_notice_path() -> pathlib.Path:
 
 @pytest.fixture
 def sample_indexed_sf_html_unsafe_notice(
-        sample_sf_html_unsafe_notice_path: pathlib.Path) -> Notice:
+        sample_sf_html_unsafe_notice_path: pathlib.Path,
+        load_mapping_suite_and_package,
+        mapping_package) -> Notice:
     notice: Notice = Notice(ted_id=sample_sf_html_unsafe_notice_path.name)
     notice.set_xml_manifestation(
         XMLManifestation(object_data=sample_sf_html_unsafe_notice_path.read_text()))
+    notice.mapping_package_identifier = mapping_package.id
 
     return index_notice(notice)
 

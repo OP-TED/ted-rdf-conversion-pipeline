@@ -10,6 +10,8 @@ from src.ted_sws.core.model.manifestation import METSManifestation, RDFManifesta
 from src.ted_sws.core.model.metadata import NormalisedMetadata, XMLMetadata
 from src.ted_sws.core.model.notice import NoticeStatus, Notice
 from src.ted_sws.data_manager.adapters.notice_repository import NoticeRepository
+from src.ted_sws.data_manager.adapters.mapping_package_repository import MappingPackageRepositoryMongoDB
+from src.ted_sws.data_manager.adapters.mapping_suite_repository import MappingSuiteRepositoryMongoDB
 from src.ted_sws.notice_fetcher.adapters.ted_api import TedAPIAdapter, TedRequestAPI
 from src.ted_sws.notice_fetcher.services.notice_fetcher import NoticeFetcher
 
@@ -41,7 +43,16 @@ def notice_repository(mongodb_client):
 
 
 @pytest.fixture
-def f03_notice_2020(notice_repository, ted_api_end_point):
+def load_mapping_suite_and_package(mongodb_client, mapping_suite, mapping_package):
+    """Load mapping suite and package into MongoDB for tests that need mapping resources."""
+    mapping_suite_repository = MappingSuiteRepositoryMongoDB(mongodb_client=mongodb_client)
+    mapping_suite_repository.add(mapping_suite=mapping_suite)
+    mapping_package_repository = MappingPackageRepositoryMongoDB(mongodb_client=mongodb_client)
+    mapping_package_repository.add(mapping_package=mapping_package)
+
+
+@pytest.fixture
+def f03_notice_2020(notice_repository, ted_api_end_point, load_mapping_suite_and_package, mapping_package):
     notice_search_query = {"query": "ND=408313-2020"}
     NoticeFetcher(notice_repository=notice_repository,
                   ted_api_adapter=TedAPIAdapter(request_api=TedRequestAPI(),
@@ -49,10 +60,11 @@ def f03_notice_2020(notice_repository, ted_api_end_point):
         query=notice_search_query)
     notice = notice_repository.get(reference="408313-2020")
     notice.set_xml_metadata(xml_metadata=XMLMetadata(unique_xpaths=["FAKE_INDEX_XPATHS"]))
+    notice.mapping_package_identifier = mapping_package.id
     return notice
 
 @pytest.fixture
-def eForm_notice_2023(notice_repository, ted_api_end_point):
+def eForm_notice_2023(notice_repository, ted_api_end_point, load_mapping_suite_and_package, mapping_package):
     notice_search_query = {"query": "ND=17554-2024"}
     NoticeFetcher(notice_repository=notice_repository,
                   ted_api_adapter=TedAPIAdapter(request_api=TedRequestAPI(),
@@ -60,10 +72,11 @@ def eForm_notice_2023(notice_repository, ted_api_end_point):
         query=notice_search_query)
     notice = notice_repository.get(reference="17554-2024")
     notice.set_xml_metadata(xml_metadata=XMLMetadata(unique_xpaths=["FAKE_INDEX_XPATHS"]))
+    notice.mapping_package_identifier = mapping_package.id
     return notice
 
 @pytest.fixture
-def f18_notice_2022(notice_repository, ted_api_end_point):
+def f18_notice_2022(notice_repository, ted_api_end_point, load_mapping_suite_and_package, mapping_package):
     notice_search_query = {"query": "ND=67623-2022"}
     NoticeFetcher(notice_repository=notice_repository,
                   ted_api_adapter=TedAPIAdapter(request_api=TedRequestAPI(),
@@ -71,6 +84,7 @@ def f18_notice_2022(notice_repository, ted_api_end_point):
         query=notice_search_query)
     notice = notice_repository.get(reference="67623-2022")
     notice.set_xml_metadata(xml_metadata=XMLMetadata(unique_xpaths=["FAKE_INDEX_XPATHS"]))
+    notice.mapping_package_identifier = mapping_package.id
     return notice
 
 

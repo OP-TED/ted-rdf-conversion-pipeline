@@ -88,3 +88,12 @@ def load_mapping_suite_and_package(mongodb_client, mapping_suite, mapping_packag
     mapping_suite_repository.add(mapping_suite=mapping_suite)
     mapping_package_repository = MappingPackageRepositoryMongoDB(mongodb_client=mongodb_client)
     mapping_package_repository.add(mapping_package=mapping_package)
+
+
+@pytest.fixture
+def load_mapping_suite_and_package_fake(fake_mongodb_client, mapping_suite, mapping_package):
+    """Load mapping suite and package into fake MongoDB (mongomock) for tests."""
+    mapping_suite_repository = MappingSuiteRepositoryMongoDB(mongodb_client=fake_mongodb_client)
+    mapping_suite_repository.add(mapping_suite=mapping_suite)
+    mapping_package_repository = MappingPackageRepositoryMongoDB(mongodb_client=fake_mongodb_client)
+    mapping_package_repository.add(mapping_package=mapping_package)

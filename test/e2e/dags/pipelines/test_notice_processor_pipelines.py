@@ -3,6 +3,7 @@ from src.dags.pipelines.notice_processor_pipelines import notice_normalisation_p
     notice_validation_pipeline, notice_package_pipeline, notice_publish_pipeline
 from src.ted_sws.core.model.notice import NoticeStatus
 from src.ted_sws.data_manager.adapters.notice_repository import NoticeRepository
+from src.ted_sws.data_manager.adapters.mapping_package_repository import MappingPackageRepositoryMongoDB
 from src.ted_sws.mapping_suite_processor.services.mapping_package_processor import \
     load_mapping_suite_and_packages_from_github_to_mongo_db
 
@@ -11,12 +12,20 @@ MAPPING_PACKAGE_ID = f"{MAPPING_PACKAGE_NAME}_v2.3.0"
 NOTICE_ID = "057215-2021"
 
 
-def test_notice_processor_pipelines(fake_mongodb_client):
+def test_notice_processor_pipelines(fake_mongodb_client, load_mapping_suite_and_package_fake, mapping_suite):
     load_mapping_suite_and_packages_from_github_to_mongo_db(
         mapping_package_name=MAPPING_PACKAGE_NAME,
         mongodb_client=fake_mongodb_client,
         load_test_data=True
     )
+
+    # Update GitHub-loaded packages to use the local mapping suite
+    mapping_package_repository = MappingPackageRepositoryMongoDB(mongodb_client=fake_mongodb_client)
+    for pkg in mapping_package_repository.list():
+        if not pkg.mapping_suite_identifier:
+            pkg.mapping_suite_identifier = mapping_suite.id
+            mapping_package_repository.update(pkg)
+
     notice_id = NOTICE_ID
     notice_repository = NoticeRepository(mongodb_client=fake_mongodb_client)
     notice = notice_repository.get(reference=notice_id)

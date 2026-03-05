@@ -95,6 +95,8 @@ services:
       - "traefik.http.services.metabase.loadbalancer.server.port=3000"
 
   sftp:
+    ports:
+      - "2235:22"
     volumes:
       - sftp-data:/home
 

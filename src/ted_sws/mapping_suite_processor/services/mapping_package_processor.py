@@ -138,13 +138,17 @@ def load_mapping_suite_and_packages_from_github_to_mongo_db(mongodb_client: Mong
         for mapping_package_path in mapping_package_paths:
             detected_version = detect_mapping_package_version(mapping_package_path)
             log_technical_info(
-                message=f"Mapping package version detected '{detected_version}'")
+                message=f"Mapping package at '{mapping_package_path}' version detected '{detected_version}'")
             # convert if necessary while normalizing to v3(L), and validate (all under the hood)
-            mssdk_package = load_mapping_package(
-                include_test_data=load_test_data,
-                validate_package=True,
-                package_folder_path=mapping_package_path,
-            )
+            try:
+                mssdk_package = load_mapping_package(
+                    include_test_data=load_test_data,
+                    validate_package=True,
+                    package_folder_path=mapping_package_path,
+                )
+            except Exception as e:
+                log_mapping_package_error(f"Error loading mapping package from path '{mapping_package_path}': {str(e)}")
+                continue
             converted_version = 'v3' if load_test_data else 'v3L'  # MSSDK loads test data only for v3, not for v3L
             log_technical_info(
                 message=f"Mapping package '{mssdk_package.id}' (format '{detected_version}' -> '{converted_version}') loaded from folder with success")

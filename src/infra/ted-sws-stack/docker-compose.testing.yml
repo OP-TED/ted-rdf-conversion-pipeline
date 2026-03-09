@@ -1,0 +1,175 @@
+# =============================================================================
+# TED-SWS Stack - Testing Environment (SRV)
+# Usage: docker compose -f docker-compose.yml -f docker-compose.testing.yml --env-file .env.testing up -d
+# =============================================================================
+
+x-airflow-build: &airflow-build
+  context: ./airflow
+  dockerfile: Dockerfile
+
+x-testing-volumes: &testing-volumes
+  - /home/lps/work/ted-rdf-conversion-pipeline/src:/opt/airflow/src
+  - /home/lps/work/ted-rdf-conversion-pipeline/test:/opt/airflow/test
+  - /home/lps/work/ted-rdf-conversion-pipeline/logs:/opt/airflow/logs
+  - /home/lps/work/ted-rdf-conversion-pipeline/plugins:/opt/airflow/plugins
+  - /home/lps/work/ted-rdf-conversion-pipeline/libraries/.rmlmapper:/home/airflow/.rmlmapper
+  - /home/lps/work/ted-rdf-conversion-pipeline/libraries/.saxon:/home/airflow/.saxon
+  - /home/lps/work/ted-rdf-conversion-pipeline/libraries/.limes:/home/airflow/.limes
+
+services:
+  traefik:
+    profiles:
+      - disabled
+    entrypoint: ["true"]
+
+  minio:
+    volumes:
+      - minio-data:/data
+    labels:
+      - "traefik.enable=true"
+      - "traefik.docker.network=proxy-net"
+      - "traefik.http.routers.testing-minio.entrypoints=web"
+      - "traefik.http.routers.testing-minio.rule=Host(`minio.${SUBDOMAIN}${DOMAIN}`)"
+      - "traefik.http.routers.testing-minio.middlewares=redirect@file"
+      - "traefik.http.routers.testing-minio-secured.entrypoints=web-secured"
+      - "traefik.http.routers.testing-minio-secured.rule=Host(`minio.${SUBDOMAIN}${DOMAIN}`)"
+      - "traefik.http.routers.testing-minio-secured.tls.certresolver=mytlschallenge"
+      - "traefik.http.services.testing-minio-secured.loadbalancer.server.port=9001"
+
+  mongodb:
+    volumes:
+      - mongodb-data:/data/db
+
+  mongo-express:
+    labels:
+      - "traefik.enable=true"
+      - "traefik.docker.network=proxy-net"
+      - "traefik.http.routers.testing-mongo-express.entrypoints=web"
+      - "traefik.http.routers.testing-mongo-express.rule=Host(`mongo.${SUBDOMAIN}${DOMAIN}`)"
+      - "traefik.http.routers.testing-mongo-express.middlewares=redirect@file"
+      - "traefik.http.routers.testing-mongo-express-secured.entrypoints=web-secured"
+      - "traefik.http.routers.testing-mongo-express-secured.rule=Host(`mongo.${SUBDOMAIN}${DOMAIN}`)"
+      - "traefik.http.routers.testing-mongo-express-secured.tls.certresolver=mytlschallenge"
+
+  fuseki:
+    volumes:
+      - fuseki-data:/fuseki-base/databases
+      - fuseki-config:/fuseki-base/configuration
+    labels:
+      - "traefik.enable=true"
+      - "traefik.docker.network=proxy-net"
+      - "traefik.http.routers.testing-fuseki.entrypoints=web"
+      - "traefik.http.routers.testing-fuseki.rule=Host(`fuseki.${SUBDOMAIN}${DOMAIN}`)"
+      - "traefik.http.routers.testing-fuseki.middlewares=redirect@file"
+      - "traefik.http.routers.testing-fuseki-secured.entrypoints=web-secured"
+      - "traefik.http.routers.testing-fuseki-secured.rule=Host(`fuseki.${SUBDOMAIN}${DOMAIN}`)"
+      - "traefik.http.routers.testing-fuseki-secured.tls.certresolver=mytlschallenge"
+      - "traefik.http.services.testing-fuseki-secured.loadbalancer.server.port=3030"
+
+  metabase-postgres:
+    image: postgres:14-alpine
+    container_name: metabase-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: metabase
+      POSTGRES_USER: metabase
+      POSTGRES_PASSWORD: ${METABASE_POSTGRES_PASSWORD}
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "metabase"]
+      interval: 5s
+      retries: 5
+    volumes:
+      - metabase-postgres-data:/var/lib/postgresql/data
+    networks:
+      - internal
+
+  metabase:
+    environment:
+      MB_DB_TYPE: postgres
+      MB_DB_DBNAME: metabase
+      MB_DB_PORT: 5432
+      MB_DB_USER: metabase
+      MB_DB_PASS: ${METABASE_POSTGRES_PASSWORD}
+      MB_DB_HOST: metabase-postgres
+    depends_on:
+      metabase-postgres:
+        condition: service_healthy
+    labels:
+      - "traefik.enable=true"
+      - "traefik.docker.network=proxy-net"
+      - "traefik.http.routers.testing-metabase.entrypoints=web"
+      - "traefik.http.routers.testing-metabase.rule=Host(`metabase.${SUBDOMAIN}${DOMAIN}`)"
+      - "traefik.http.routers.testing-metabase.middlewares=redirect@file"
+      - "traefik.http.routers.testing-metabase-secured.entrypoints=web-secured"
+      - "traefik.http.routers.testing-metabase-secured.rule=Host(`metabase.${SUBDOMAIN}${DOMAIN}`)"
+      - "traefik.http.routers.testing-metabase-secured.tls.certresolver=mytlschallenge"
+      - "traefik.http.services.testing-metabase-secured.loadbalancer.server.port=3000"
+
+  sftp:
+    ports:
+      - "2235:22"
+    volumes:
+      - sftp-data:/home
+
+  airflow-postgres:
+    volumes:
+      - airflow-postgres-data:/var/lib/postgresql/data
+
+  airflow-init:
+    build: *airflow-build
+    volumes: *testing-volumes
+    env_file:
+      - .env.common
+      - .env.testing
+
+  airflow-webserver:
+    build: *airflow-build
+    volumes: *testing-volumes
+    env_file:
+      - .env.common
+      - .env.testing
+    labels:
+      - "traefik.enable=true"
+      - "traefik.docker.network=proxy-net"
+      - "traefik.http.routers.testing-airflow.entrypoints=web"
+      - "traefik.http.routers.testing-airflow.rule=Host(`airflow.${SUBDOMAIN}${DOMAIN}`)"
+      - "traefik.http.routers.testing-airflow.middlewares=redirect@file"
+      - "traefik.http.routers.testing-airflow-secured.entrypoints=web-secured"
+      - "traefik.http.routers.testing-airflow-secured.rule=Host(`airflow.${SUBDOMAIN}${DOMAIN}`)"
+      - "traefik.http.routers.testing-airflow-secured.tls.certresolver=mytlschallenge"
+      - "traefik.http.services.testing-airflow-secured.loadbalancer.server.port=8080"
+
+  airflow-scheduler:
+    build: *airflow-build
+    volumes: *testing-volumes
+    env_file:
+      - .env.common
+      - .env.testing
+
+  airflow-worker:
+    build: *airflow-build
+    volumes: *testing-volumes
+    env_file:
+      - .env.common
+      - .env.testing
+
+  airflow-triggerer:
+    build: *airflow-build
+    volumes: *testing-volumes
+    env_file:
+      - .env.common
+      - .env.testing
+
+volumes:
+  minio-data:
+  mongodb-data:
+  fuseki-data:
+  fuseki-config:
+  sftp-data:
+  airflow-postgres-data:
+  metabase-postgres-data:
+
+networks:
+  proxy-net:
+    name: proxy-net
+    external: true

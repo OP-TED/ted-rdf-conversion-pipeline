@@ -129,3 +129,7 @@ src/infra/airflow/src
 src/infra/airflow/libraries
 !src/infra/ted-sws-stack/.env.local
 !src/infra/ted-sws-stack/.env.common
+
+# Airflow runtime directories (created manually on servers)
+/logs/
+/plugins/

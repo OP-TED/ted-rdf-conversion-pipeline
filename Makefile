@@ -324,10 +324,10 @@ staging-unified-dotenv: guard-VAULT_ADDR guard-VAULT_TOKEN vault-installed
 	    echo "SUBDOMAIN=tedsws-staging."; \
 	    echo "DOMAIN=meaningfy.ws"; \
 	    echo "AIRFLOW_INFRA_FOLDER=/opt/tedsws"; \
-	    echo "AIRFLOW__CORE__PARALLELISM=16"; \
-	    echo "AIRFLOW__CORE__MAX_ACTIVE_TASKS_PER_DAG=8"; \
-	    echo "AIRFLOW__CORE__MAX_ACTIVE_RUNS_PER_DAG=8"; \
-	    echo "AIRFLOW__CELERY__WORKER_CONCURRENCY=8"; \
+	    echo "AIRFLOW__CORE__PARALLELISM=32"; \
+	    echo "AIRFLOW__CORE__MAX_ACTIVE_TASKS_PER_DAG=16"; \
+	    echo "AIRFLOW__CORE__MAX_ACTIVE_RUNS_PER_DAG=16"; \
+	    echo "AIRFLOW__CELERY__WORKER_CONCURRENCY=16"; \
 	  } > $(STACK_PATH)/.env.staging
 
 # Get secrets in dotenv format (old - pulls everything from multiple Vault paths)

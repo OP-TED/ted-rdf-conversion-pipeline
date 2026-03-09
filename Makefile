@@ -292,6 +292,22 @@ start-local-stack-nodata: init-libraries
 	@echo "$(BUILD_PRINT)Starting TED-SWS local stack (no persistent data) $(END_BUILD_PRINT)"
 	@docker compose -f $(STACK_PATH)/docker-compose.yml -f $(STACK_PATH)/docker-compose.local.yml -f $(STACK_PATH)/docker-compose.local-nodata.yml --env-file $(STACK_PATH)/.env.local up -d $(SERVICES)
 
+start-staging-stack:
+	@echo "$(BUILD_PRINT)Starting TED-SWS staging stack $(END_BUILD_PRINT)"
+	@docker compose -f $(STACK_PATH)/docker-compose.yml -f $(STACK_PATH)/docker-compose.staging.yml --env-file $(STACK_PATH)/.env.staging up -d $(SERVICES)
+
+stop-staging-stack:
+	@echo "$(BUILD_PRINT)Stopping TED-SWS staging stack $(END_BUILD_PRINT)"
+	@docker compose -f $(STACK_PATH)/docker-compose.yml -f $(STACK_PATH)/docker-compose.staging.yml --env-file $(STACK_PATH)/.env.staging down
+
+start-testing-stack:
+	@echo "$(BUILD_PRINT)Starting TED-SWS testing stack (SRV) $(END_BUILD_PRINT)"
+	@docker compose -f $(STACK_PATH)/docker-compose.yml -f $(STACK_PATH)/docker-compose.testing.yml --env-file $(STACK_PATH)/.env.testing up -d $(SERVICES)
+
+stop-testing-stack:
+	@echo "$(BUILD_PRINT)Stopping TED-SWS testing stack (SRV) $(END_BUILD_PRINT)"
+	@docker compose -f $(STACK_PATH)/docker-compose.yml -f $(STACK_PATH)/docker-compose.testing.yml --env-file $(STACK_PATH)/.env.testing down
+
 #-----------------------------------------------------------------------------
 # VAULT SERVICES
 #-----------------------------------------------------------------------------
@@ -329,6 +345,26 @@ staging-unified-dotenv: guard-VAULT_ADDR guard-VAULT_TOKEN vault-installed
 	    echo "AIRFLOW__CORE__MAX_ACTIVE_RUNS_PER_DAG=16"; \
 	    echo "AIRFLOW__CELERY__WORKER_CONCURRENCY=16"; \
 	  } > $(STACK_PATH)/.env.staging
+
+# Get secrets in dotenv format (unified stack - testing/SRV environment)
+testing-unified-dotenv: guard-VAULT_ADDR guard-VAULT_TOKEN vault-installed
+	@ echo -e "$(BUILD_PRINT)Creating unified stack .env.testing from Vault $(END_BUILD_PRINT)"
+	@ VAULT_JSON=$$(vault kv get -format="json" ted-staging/ted-sws-deployment-secrets) && \
+	  MONGO_PW=$$(echo "$$VAULT_JSON" | jq -r '.data.data.MONGO_ROOT_PASSWORD') && \
+	  MINIO_PW=$$(echo "$$VAULT_JSON" | jq -r '.data.data.MINIO_ROOT_PASSWORD') && \
+	  { \
+	    echo "$$VAULT_JSON" | jq -r ".data.data | keys[] as \$$k | \"\(\$$k)=\(.[\$$k])\""; \
+	    echo "MONGO_DB_AUTH_URL=mongodb://admin:$$MONGO_PW@mongodb:27017/"; \
+	    echo "S3_PUBLISH_PASSWORD=$$MINIO_PW"; \
+	    echo "ENVIRONMENT=testing"; \
+	    echo "SUBDOMAIN=tedsws-testing."; \
+	    echo "DOMAIN=meaningfy.ws"; \
+	    echo "AIRFLOW_INFRA_FOLDER=/home/lps/work/ted-rdf-conversion-pipeline"; \
+	    echo "AIRFLOW__CORE__PARALLELISM=32"; \
+	    echo "AIRFLOW__CORE__MAX_ACTIVE_TASKS_PER_DAG=16"; \
+	    echo "AIRFLOW__CORE__MAX_ACTIVE_RUNS_PER_DAG=16"; \
+	    echo "AIRFLOW__CELERY__WORKER_CONCURRENCY=16"; \
+	  } > $(STACK_PATH)/.env.testing
 
 # Get secrets in dotenv format (old - pulls everything from multiple Vault paths)
 staging-dotenv-file: guard-VAULT_ADDR guard-VAULT_TOKEN vault-installed

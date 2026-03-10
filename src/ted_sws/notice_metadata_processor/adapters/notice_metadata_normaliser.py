@@ -5,10 +5,10 @@ from datetime import datetime
 from typing import Dict, Tuple, List
 
 import pandas as pd
+from mapping_suite_sdk.mapping_suite.models import MappingSuite
 from pymongo import MongoClient
 
 from src.ted_sws.core.model.metadata import NormalisedMetadata, LanguageTaggedString, NoticeSource
-from src.ted_sws.event_manager.services.log import log_notice_info
 from src.ted_sws.notice_metadata_processor.model.metadata import ExtractedMetadata
 from src.ted_sws.notice_metadata_processor.services.metadata_constraints import filter_df_by_variables
 from src.ted_sws.resources.mapping_files_registry import MappingFilesRegistry
@@ -49,6 +49,7 @@ def get_html_compatible_string(input_string: LanguageTaggedString) -> LanguageTa
     """Convert string to HTML compatible format using HTML encoding."""
     return LanguageTaggedString(text=html.escape(input_string.text), language=input_string.language)
 
+
 def get_map_list_value_by_code(mapping: Dict, listing: List):
     result = []
     for element in listing:
@@ -88,8 +89,8 @@ class NoticeMetadataNormaliserABC(abc.ABC):
 
 
 class DefaultNoticeMetadataNormaliser(NoticeMetadataNormaliserABC):
-    def __init__(self, mongodb_client: MongoClient = None):
-        self.mapping_registry = MappingFilesRegistry(mongodb_client=mongodb_client)
+    def __init__(self, mapping_suite: MappingSuite = None, mongodb_client: MongoClient = None):
+        self.mapping_registry = MappingFilesRegistry(mapping_suite=mapping_suite, mongodb_client=mongodb_client)
 
     @classmethod
     def normalise_legal_basis_value(cls, value: str) -> str:
@@ -277,8 +278,9 @@ class EformsNoticeMetadataNormaliser(NoticeMetadataNormaliserABC):
     """
      Metadata normaliser for eForms
     """
-    def __init__(self, mongodb_client: MongoClient = None):
-        self.mapping_registry = MappingFilesRegistry(mongodb_client=mongodb_client)
+
+    def __init__(self, mapping_suite: MappingSuite = None, mongodb_client: MongoClient = None):
+        self.mapping_registry = MappingFilesRegistry(mapping_suite=mapping_suite, mongodb_client=mongodb_client)
 
     @classmethod
     def iso_date_format(cls, _date: str, with_none=False):
@@ -295,7 +297,8 @@ class EformsNoticeMetadataNormaliser(NoticeMetadataNormaliserABC):
         """
         ef_map: pd.DataFrame = self.mapping_registry.ef_notice_df
         try:
-            filtered_df = ef_map.query(f"{E_FORMS_SUBTYPE_KEY}=='{extracted_notice_subtype}'").to_dict(orient='records')[0]
+            filtered_df = \
+            ef_map.query(f"{E_FORMS_SUBTYPE_KEY}=='{extracted_notice_subtype}'").to_dict(orient='records')[0]
         except:
             raise Exception(
                 f'No mapping available for {extracted_notice_subtype} notice subtype. Please check that the field exists in the XML content if the notice subtype is not specified in this message')
@@ -360,4 +363,3 @@ class EformsNoticeMetadataNormaliser(NoticeMetadataNormaliserABC):
         }
 
         return NormalisedMetadata(**metadata)
-

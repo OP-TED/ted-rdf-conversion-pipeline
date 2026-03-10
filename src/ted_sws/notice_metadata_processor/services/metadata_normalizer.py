@@ -13,6 +13,7 @@ from src.ted_sws.notice_metadata_processor.adapters.notice_metadata_normaliser i
     EformsNoticeMetadataNormaliser, DefaultNoticeMetadataNormaliser, ENGLISH_LANGUAGE_TAG, LONG_TITLE_KEY, TITLE_KEY, \
     BUYER_NAME_KEY, BUYER_CITY_KEY
 from src.ted_sws.notice_metadata_processor.model.metadata import ExtractedMetadata
+from src.ted_sws.notice_metadata_processor.services.notice_prober import NoticeProber
 
 
 def check_if_xml_manifestation_is_eform(xml_manifestation: XMLManifestation) -> bool:
@@ -40,10 +41,13 @@ def find_metadata_normaliser_based_on_xml_manifestation(
     """
         Find the correct extractor based on the XML Manifestation
     """
+    notice_prober = NoticeProber(xml_manifestation=xml_manifestation, mongodb_client=mongodb_client)
+    mapping_suite = notice_prober.get_mapping_suite()
+
     if check_if_xml_manifestation_is_eform(xml_manifestation):
-        return EformsNoticeMetadataNormaliser(mongodb_client=mongodb_client)
+        return EformsNoticeMetadataNormaliser(mapping_suite=mapping_suite, mongodb_client=mongodb_client)
     else:
-        return DefaultNoticeMetadataNormaliser(mongodb_client=mongodb_client)
+        return DefaultNoticeMetadataNormaliser(mapping_suite=mapping_suite, mongodb_client=mongodb_client)
 
 
 def extract_notice_metadata(metadata_extractor: NoticeMetadataExtractorABC) -> ExtractedMetadata:

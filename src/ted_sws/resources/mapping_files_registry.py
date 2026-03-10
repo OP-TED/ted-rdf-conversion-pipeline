@@ -1,6 +1,7 @@
 from pathlib import Path
 
 import pandas as pd
+from mapping_suite_sdk.mapping_suite.models import MappingSuite
 from pymongo import MongoClient
 
 from src.ted_sws import config
@@ -32,18 +33,20 @@ class MappingFilesRegistry:
      across all mapping packages, so we can load them from any available MappingSuite.
     """
 
-    def __init__(self, mongodb_client: MongoClient = None):
+    def __init__(self, mapping_suite: MappingSuite = None, mongodb_client: MongoClient = None):
         if not mongodb_client:
             mongodb_client = MongoClient(config.MONGO_DB_AUTH_URL)
-        mapping_suite_repository = MappingSuiteRepositoryMongoDB(mongodb_client=mongodb_client)
-        # Get any available MappingSuite - resources are global/identical across all suites
-        all_suites = mapping_suite_repository.list()
-        if not all_suites:
-            raise MappingSuiteConfigError(
-                "No MappingSuite found in the database. Please ensure at least one "
-                "mapping suite is loaded before attempting to normalise notices."
-            )
-        self.mapping_suite = all_suites[0]
+        self.mapping_suite = mapping_suite
+        if not mapping_suite:
+            mapping_suite_repository = MappingSuiteRepositoryMongoDB(mongodb_client=mongodb_client)
+            # Get any available MappingSuite - resources are global/identical across all suites
+            all_suites = mapping_suite_repository.list()
+            if not all_suites:
+                raise MappingSuiteConfigError(
+                    "No MappingSuite found in the database. Please ensure at least one "
+                    "mapping suite is loaded before attempting to normalise notices."
+                )
+            self.mapping_suite = all_suites[0]
 
     @staticmethod
     def extract_filename_from_path(path: str) -> str:

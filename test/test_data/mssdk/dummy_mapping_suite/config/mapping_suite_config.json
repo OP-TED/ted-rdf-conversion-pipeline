@@ -4,36 +4,18 @@
     "mapping_suite_description": "Mapping suite configuration for European eForms procurement notices"
   },
   "metadata_config": {
-    "document_type_probing": {
-      "must_exist": [
-        {
-          "formal_expression": ".//efext:EformsExtension",
-          "formal_expression_type": "xpath",
-          "extraction_method": "element",
-          "attribute_name": null
-        },
-        {
-          "formal_expression": ".//cbc:CustomizationID[contains(text(), 'eForms')]",
-          "formal_expression_type": "xpath",
-          "extraction_method": "text",
-          "attribute_name": null
-        }
-      ],
-      "must_not_exist": [
-        {
-          "formal_expression": ".//sf:StandardForms",
-          "formal_expression_type": "xpath",
-          "extraction_method": "element",
-          "attribute_name": null
-        },
-        {
-          "formal_expression": ".//ext:UBLExtension/ext:ExtensionContent[not(.//efext:EformsExtension)]",
-          "formal_expression_type": "xpath",
-          "extraction_method": "element",
-          "attribute_name": null
-        }
-      ]
-    },
+    "document_type_probing": [
+      {
+        "formal_expression": ".//cbc:CustomizationID",
+        "formal_expression_type": "xpath",
+        "probing_method": "must_exist"
+      },
+      {
+        "formal_expression": "./TED_EXPORT",
+        "formal_expression_type": "xpath",
+        "probing_method": "must_not_exist"
+      }
+    ],
     "metadata_properties": [
       {
         "property": "title",

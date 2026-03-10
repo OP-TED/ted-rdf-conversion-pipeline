@@ -18,7 +18,7 @@ def notice_normalisation_pipeline(notice: Notice, mongodb_client: MongoClient = 
     try:
         notice.update_status_to(new_status=NoticeStatus.RAW)
         indexed_notice = index_notice(notice=notice)
-        normalised_notice = normalise_notice(notice=indexed_notice)
+        normalised_notice = normalise_notice(notice=indexed_notice, mongodb_client=mongodb_client)
     except Exception as e:
         log_notice_error(message=str(e), notice_id=notice.ted_id, domain_action=notice_normalisation_pipeline.__name__)
         return NoticePipelineOutput(notice=notice, processed=False, store_result=False)

@@ -1,11 +1,14 @@
 import shutil
 from unittest.mock import Mock, patch
 
+import pytest
+
 from src.ted_sws.data_manager.adapters.mapping_package_repository import MappingPackageRepositoryInFileSystem, \
     MappingPackageRepositoryMongoDB
 from src.ted_sws.data_manager.adapters.mapping_suite_repository import MappingSuiteRepositoryMongoDB
 from src.ted_sws.mapping_suite_processor.services.mapping_package_processor import \
     load_mapping_suite_and_packages_from_github_to_mongo_db, mapping_package_processor_load_package_in_mongo_db
+from src.ted_sws.mapping_suite_processor.services import MappingPackageProcessorServiceError
 from test import TEST_DATA_PATH, temporary_copy
 
 
@@ -95,16 +98,13 @@ def test_load_mapping_suite_config_directory_missing_file(mongodb_client, aggreg
 
     with patch('src.ted_sws.mapping_suite_processor.services.mapping_package_processor.GitHubMappingSuiteDownloader',
                return_value=mock_downloader):
-        load_mapping_suite_and_packages_from_github_to_mongo_db(
-            mapping_package_name=None,
-            mongodb_client=mongodb_client,
-            load_test_data=False
-        )
+        with pytest.raises(MappingPackageProcessorServiceError) as exc_info:
+            load_mapping_suite_and_packages_from_github_to_mongo_db(
+                mapping_package_name=None,
+                mongodb_client=mongodb_client,
+                load_test_data=False
+            )
 
-    # Verify no suite was loaded
-    mapping_suite_repository = MappingSuiteRepositoryMongoDB(mongodb_client=mongodb_client)
-    suites = list(mapping_suite_repository.list())
-
-    assert len(suites) == 0, "No mapping suite should be loaded when config file is missing"
+    assert "MISSING config file" in str(exc_info.value)
 
     mongodb_client.drop_database(aggregates_database_name)

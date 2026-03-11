@@ -35,7 +35,8 @@ def notice_repository_with_indexed_notices(mongodb_client, load_mapping_suite_an
     load_mapping_suite_and_packages_from_github_to_mongo_db(
         mapping_package_name="package_F03_test",
         mongodb_client=mongodb_client,
-        load_test_data=True
+        load_test_data=True,
+        msconfig_branch="config"
     )
 
     # Update GitHub-loaded packages to use the local mapping suite

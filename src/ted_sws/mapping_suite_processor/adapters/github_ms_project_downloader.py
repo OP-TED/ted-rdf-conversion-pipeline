@@ -54,6 +54,25 @@ class GitHubMappingSuiteDownloader(MappingSuiteDownloaderABC):
         self.mappings_dir_name = MAPPINGS_DIR_NAME
         self.config_dir_name = MS_CONFIG_DIR_NAME
 
+    def download_config_from_branch(self, output_project_path: pathlib.Path, config_branch: str) -> None:
+        """
+        Downloads only the config directory from a specific branch and places it at output_project_path/config.
+        :param output_project_path: The destination path where the config directory will be placed
+        :param config_branch: The branch name to fetch the config from
+        :return: None
+        """
+        with tempfile.TemporaryDirectory() as tmp_dir:
+            temp_dir_path = pathlib.Path(tmp_dir)
+            bash_script = f"cd {temp_dir_path} && git clone --branch {config_branch} --depth 1 {self.github_repository_url}"
+            subprocess.run(bash_script, shell=True,
+                           stdout=subprocess.DEVNULL,
+                           stderr=subprocess.STDOUT)
+            downloaded_tmp_project_path = temp_dir_path / self.repository_name
+            source_config_path = downloaded_tmp_project_path / self.config_dir_name
+            dest_config_path = output_project_path / self.config_dir_name
+            if source_config_path.is_dir():
+                shutil.copytree(source_config_path, dest_config_path, dirs_exist_ok=True)
+
     def download(self, output_project_path: pathlib.Path) -> str:
         """
         This method downloads a mapping suite and places it at the output_project_path provided.

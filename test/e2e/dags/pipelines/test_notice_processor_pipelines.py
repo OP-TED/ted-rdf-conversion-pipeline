@@ -15,7 +15,8 @@ def test_notice_processor_pipelines(fake_mongodb_client):
     load_mapping_suite_and_packages_from_github_to_mongo_db(
         mapping_package_name=MAPPING_PACKAGE_NAME,
         mongodb_client=fake_mongodb_client,
-        load_test_data=True
+        load_test_data=True,
+        msconfig_branch="config"
     )
 
     notice_id = NOTICE_ID

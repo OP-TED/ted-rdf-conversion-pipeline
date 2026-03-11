@@ -29,6 +29,7 @@ MAPPING_PACKAGE_NAME_DAG_PARAM_KEY = 'mapping_package_name'
 LOAD_TEST_DATA_DAG_PARAM_KEY = 'load_test_data'
 BRANCH_OR_TAG_NAME_DAG_PARAM_KEY = "branch_or_tag_name"
 GITHUB_REPOSITORY_URL_DAG_PARAM_KEY = "github_repository_url"
+MSCONFIG_BRANCH_DAG_PARAM_KEY = "msconfig_branch"
 
 FINISH_LOADING_MAPPING_PACKAGE_TASK_ID = "finish_loading_mapping_package"
 TRIGGER_DOCUMENT_PROC_PIPELINE_TASK_ID = "trigger_document_proc_pipeline"
@@ -64,6 +65,14 @@ DAG_NAME = "Load mapping package"
              description="""This is optional field.
                Mapping package name to fetch from github repository."""
          ),
+         MSCONFIG_BRANCH_DAG_PARAM_KEY: Param(
+             default=None,
+             type=["null", "string"],
+             title="Mapping suite config branch",
+             description="""This is optional field.
+               Git branch to fetch the mapping suite config from.
+               If not specified, the config is loaded from the same branch as the packages."""
+         ),
          LOAD_TEST_DATA_DAG_PARAM_KEY: Param(
              default=False,
              type="boolean",
@@ -95,6 +104,7 @@ def load_mapping_package_in_database():
         mapping_package_name = get_dag_param(key=MAPPING_PACKAGE_NAME_DAG_PARAM_KEY)
         branch_or_tag_name = get_dag_param(key=BRANCH_OR_TAG_NAME_DAG_PARAM_KEY)
         github_repository_url = get_dag_param(key=GITHUB_REPOSITORY_URL_DAG_PARAM_KEY)
+        msconfig_branch = get_dag_param(key=MSCONFIG_BRANCH_DAG_PARAM_KEY)
 
         mongodb_client = MongoClient(config.MONGO_DB_AUTH_URL)
         notice_ids = load_mapping_suite_and_packages_from_github_to_mongo_db(
@@ -102,7 +112,8 @@ def load_mapping_package_in_database():
             mapping_package_name=mapping_package_name,
             load_test_data=load_test_data,
             branch_or_tag_name=branch_or_tag_name,
-            github_repository_url=github_repository_url
+            github_repository_url=github_repository_url,
+            msconfig_branch=msconfig_branch
         )
         notice_ids = list(set(notice_ids))
         if load_test_data:

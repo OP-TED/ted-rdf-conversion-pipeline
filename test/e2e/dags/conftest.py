@@ -43,6 +43,7 @@ def notice_repository(mongodb_client, mapping_package_id):
     load_mapping_suite_and_packages_from_github_to_mongo_db(
         mapping_package_name=mapping_package_id,
         mongodb_client=mongodb_client,
-        load_test_data=True
+        load_test_data=True,
+        msconfig_branch="config"
     )
     return NoticeRepository(mongodb_client=mongodb_client)

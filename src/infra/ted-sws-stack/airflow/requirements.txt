@@ -28,4 +28,4 @@ shortuuid==1.0.13
 pendulum==3.0.0
 saxonche==12.8.0
 elasticsearch-dbapi==0.2.11
-git+https://github.com/meaningfy-ws/mapping-suite-sdk.git@develop
+git+https://github.com/meaningfy-ws/mapping-suite-sdk.git@6912e51999fce515d0175e4e9c2b0c3b4cd6b551

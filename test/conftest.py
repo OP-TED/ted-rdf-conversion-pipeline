@@ -354,6 +354,15 @@ def mapping_suite():
     return mapping_suite
 
 @pytest.fixture
+def mapping_suite_sf():
+    file_path = TESTS_PATH / "resources" / "mapping_suite_sf.json"
+    with open(file_path, "r", encoding="utf-8") as f:
+        data = f.read()
+
+    mapping_suite = MappingSuite.model_validate_json(data)
+    return mapping_suite
+
+@pytest.fixture
 def mapping_package():
     file_path = TESTS_PATH / "resources" / "mapping_package.json"
     with open(file_path, "r", encoding="utf-8") as f:

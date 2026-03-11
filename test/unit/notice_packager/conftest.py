@@ -77,10 +77,8 @@ def template_sample_manifestation(template_sample_metadata) -> ManifestationMeta
 # notice_metadata START
 
 @pytest.fixture
-def notice_sample_metadata(notice_2018, mongodb_client, load_mapping_suite_and_package) -> NormalisedMetadata:
-    normalised_metadata = DefaultNoticeMetadataNormaliser(
-        mongodb_client=mongodb_client
-    ).normalise_metadata(
+def notice_sample_metadata(notice_2018, mapping_suite_sf) -> NormalisedMetadata:
+    normalised_metadata = DefaultNoticeMetadataNormaliser(mapping_suite_sf).normalise_metadata(
         extracted_metadata=DefaultNoticeMetadataExtractor(
             xml_manifestation=notice_2018.xml_manifestation
         ).extract_metadata()

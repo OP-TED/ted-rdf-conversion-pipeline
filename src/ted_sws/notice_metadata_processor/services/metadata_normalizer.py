@@ -7,6 +7,7 @@ from src.ted_sws.core.model.manifestation import XMLManifestation
 from src.ted_sws.core.model.metadata import NormalisedMetadata, NormalisedMetadataView
 from src.ted_sws.core.model.notice import Notice
 from src.ted_sws.data_manager.adapters.notice_repository import NoticeRepositoryABC
+from src.ted_sws.event_manager.services.log import log_notice_info
 from src.ted_sws.notice_metadata_processor.adapters.notice_metadata_extractor import NoticeMetadataExtractorABC, \
     EformsNoticeMetadataExtractor, DefaultNoticeMetadataExtractor
 from src.ted_sws.notice_metadata_processor.adapters.notice_metadata_normaliser import NoticeMetadataNormaliserABC, \
@@ -14,6 +15,7 @@ from src.ted_sws.notice_metadata_processor.adapters.notice_metadata_normaliser i
     BUYER_NAME_KEY, BUYER_CITY_KEY
 from src.ted_sws.notice_metadata_processor.model.metadata import ExtractedMetadata
 from src.ted_sws.notice_metadata_processor.services.notice_prober import NoticeProber
+from src.ted_sws.resources.mapping_files_registry import MappingSuiteConfigError
 
 
 def check_if_xml_manifestation_is_eform(xml_manifestation: XMLManifestation) -> bool:
@@ -44,10 +46,15 @@ def find_metadata_normaliser_based_on_xml_manifestation(
     notice_prober = NoticeProber(xml_manifestation=xml_manifestation, mongodb_client=mongodb_client)
     mapping_suite = notice_prober.get_mapping_suite()
 
-    if check_if_xml_manifestation_is_eform(xml_manifestation):
-        return EformsNoticeMetadataNormaliser(mapping_suite=mapping_suite, mongodb_client=mongodb_client)
+    if mapping_suite:
+        log_notice_info("Notice prober found the MappingSuite " + mapping_suite.id)
     else:
-        return DefaultNoticeMetadataNormaliser(mapping_suite=mapping_suite, mongodb_client=mongodb_client)
+        raise MappingSuiteConfigError("No suitable Mapping Suite found for metadata normaliser")
+
+    if check_if_xml_manifestation_is_eform(xml_manifestation):
+        return EformsNoticeMetadataNormaliser(mapping_suite=mapping_suite)
+    else:
+        return DefaultNoticeMetadataNormaliser(mapping_suite=mapping_suite)
 
 
 def extract_notice_metadata(metadata_extractor: NoticeMetadataExtractorABC) -> ExtractedMetadata:
@@ -83,6 +90,7 @@ def extract_and_normalise_notice_metadata_from_notice(notice: Notice, mongodb_cl
     """
         Extract and normalise metadata using the correct extractor and normaliser type
     """
+    log_notice_info("Extracting and normalising metadata of notice " + notice.ted_id)
     xml_manifestation = notice.xml_manifestation
     return extract_and_normalise_notice_metadata(xml_manifestation=xml_manifestation, mongodb_client=mongodb_client)
 
@@ -102,6 +110,7 @@ def normalise_notice(notice: Notice, mongodb_client: MongoClient = None) -> Noti
 def normalise_notice_by_id(notice_id: str, notice_repository: NoticeRepositoryABC, mongodb_client: MongoClient = None) -> Notice:
     """
         Given a notice id, find the notice in the database, normalise its metadata, and store the updated state.
+    :param mongodb_client:
     :param notice_id:
     :param notice_repository:
     :return:

@@ -33,20 +33,12 @@ class MappingFilesRegistry:
      across all mapping packages, so we can load them from any available MappingSuite.
     """
 
-    def __init__(self, mapping_suite: MappingSuite = None, mongodb_client: MongoClient = None):
-        if not mongodb_client:
-            mongodb_client = MongoClient(config.MONGO_DB_AUTH_URL)
-        self.mapping_suite = mapping_suite
+    def __init__(self, mapping_suite: MappingSuite):
         if not mapping_suite:
-            mapping_suite_repository = MappingSuiteRepositoryMongoDB(mongodb_client=mongodb_client)
-            # Get any available MappingSuite - resources are global/identical across all suites
-            all_suites = mapping_suite_repository.list()
-            if not all_suites:
-                raise MappingSuiteConfigError(
-                    "No MappingSuite found in the database. Please ensure at least one "
-                    "mapping suite is loaded before attempting to normalise notices."
-                )
-            self.mapping_suite = all_suites[0]
+            raise MappingSuiteConfigError(
+                "No MappingSuite provided for mapping files registry."
+            )
+        self.mapping_suite = mapping_suite
 
     @staticmethod
     def extract_filename_from_path(path: str) -> str:

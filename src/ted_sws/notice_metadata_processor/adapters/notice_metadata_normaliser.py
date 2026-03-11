@@ -6,7 +6,6 @@ from typing import Dict, Tuple, List
 
 import pandas as pd
 from mapping_suite_sdk.mapping_suite.models import MappingSuite
-from pymongo import MongoClient
 
 from src.ted_sws.core.model.metadata import NormalisedMetadata, LanguageTaggedString, NoticeSource
 from src.ted_sws.notice_metadata_processor.model.metadata import ExtractedMetadata
@@ -89,8 +88,8 @@ class NoticeMetadataNormaliserABC(abc.ABC):
 
 
 class DefaultNoticeMetadataNormaliser(NoticeMetadataNormaliserABC):
-    def __init__(self, mapping_suite: MappingSuite = None, mongodb_client: MongoClient = None):
-        self.mapping_registry = MappingFilesRegistry(mapping_suite=mapping_suite, mongodb_client=mongodb_client)
+    def __init__(self, mapping_suite: MappingSuite):
+        self.mapping_registry = MappingFilesRegistry(mapping_suite=mapping_suite)
 
     @classmethod
     def normalise_legal_basis_value(cls, value: str) -> str:
@@ -279,8 +278,8 @@ class EformsNoticeMetadataNormaliser(NoticeMetadataNormaliserABC):
      Metadata normaliser for eForms
     """
 
-    def __init__(self, mapping_suite: MappingSuite = None, mongodb_client: MongoClient = None):
-        self.mapping_registry = MappingFilesRegistry(mapping_suite=mapping_suite, mongodb_client=mongodb_client)
+    def __init__(self, mapping_suite: MappingSuite):
+        self.mapping_registry = MappingFilesRegistry(mapping_suite=mapping_suite)
 
     @classmethod
     def iso_date_format(cls, _date: str, with_none=False):

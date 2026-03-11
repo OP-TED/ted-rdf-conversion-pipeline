@@ -10,6 +10,7 @@ from saxonche import PySaxonProcessor
 from src.ted_sws import config
 from src.ted_sws.core.model.manifestation import XMLManifestation
 from src.ted_sws.data_manager.adapters.mapping_suite_repository import MappingSuiteRepositoryMongoDB
+from src.ted_sws.event_manager.services.log import log_notice_warning
 from src.ted_sws.resources.mapping_files_registry import MappingSuiteConfigError
 
 
@@ -28,7 +29,7 @@ class NoticeProber:
         mapping_suites: List[MappingSuite] = self.mapping_suite_repository.list()
         if not mapping_suites:
             raise MappingSuiteConfigError(
-                "No MappingSuite found in the database. Please ensure at least one "
+                "No MappingSuites found in the database. Please ensure at least one "
                 "mapping suite is loaded before attempting the notice probing."
             )
         return next((ms for ms in mapping_suites if self.probe_document(ms)), None)
@@ -94,10 +95,10 @@ class NoticeProber:
 
                 # Check if all prefixes in the XPath are declared
                 prefixes_in_xpath = self.extract_ns_prefixes_from_xpath(expression)
-                if not prefixes_in_xpath.issubset(set(namespaces.keys())):
-                    return False
-                # Evaluate XPath
-                result = xpath_proc.evaluate(expression)
+                prefixes_found_in_xpath = prefixes_in_xpath.issubset(set(namespaces.keys()))
+                if not prefixes_found_in_xpath:
+                    log_notice_warning("Probing XPATH prefixes not found in notice content")
+                result = xpath_proc.evaluate(expression) if prefixes_found_in_xpath else False
                 exists = bool(result and result.size > 0)
                 if method == self.PROBE_MUST_EXIST and not exists:
                     return False

@@ -59,8 +59,8 @@ def test_metadata_normaliser(indexed_notice, mongodb_client, load_mapping_suite_
     assert notice.status == NoticeStatus.NORMALISED_METADATA
 
 
-def test_normalise_form_number(mongodb_client, load_mapping_suite_and_package):
-    default_notice_normaliser = DefaultNoticeMetadataNormaliser(mongodb_client=mongodb_client)
+def test_normalise_form_number(mongodb_client, mapping_suite):
+    default_notice_normaliser = DefaultNoticeMetadataNormaliser(mapping_suite)
     assert default_notice_normaliser.normalise_form_number("FFFSA") == "FFFSA"
     assert default_notice_normaliser.normalise_form_number("F18") == "F18"
     assert default_notice_normaliser.normalise_form_number("F01") == "F01"
@@ -74,20 +74,20 @@ def test_normalise_form_number(mongodb_client, load_mapping_suite_and_package):
     assert default_notice_normaliser.normalise_form_number("1F03FG") == "1F03FG"
 
 
-def test_normalise_legal_basis(mongodb_client, load_mapping_suite_and_package):
-    default_notice_normaliser = DefaultNoticeMetadataNormaliser(mongodb_client=mongodb_client)
+def test_normalise_legal_basis(mongodb_client, mapping_suite):
+    default_notice_normaliser = DefaultNoticeMetadataNormaliser(mapping_suite)
     assert "32009L0081" == default_notice_normaliser.normalise_legal_basis_value(
         value="2009/81/EC")
 
 
-def test_get_map_value(mongodb_client, load_mapping_suite_and_package):
-    value = get_map_value(mapping=MappingFilesRegistry(mongodb_client=mongodb_client).countries,
+def test_get_map_value(mongodb_client, mapping_suite):
+    value = get_map_value(mapping=MappingFilesRegistry(mapping_suite).countries,
                           value="DE")
     assert value == "http://publications.europa.eu/resource/authority/country/DEU"
 
 
-def test_filter_df_by_variables(mongodb_client, load_mapping_suite_and_package):
-    df = MappingFilesRegistry(mongodb_client=mongodb_client).ef_notice_df
+def test_filter_df_by_variables(mongodb_client, mapping_suite):
+    df = MappingFilesRegistry(mapping_suite).ef_notice_df
     filtered_df = filter_df_by_variables(df=df, form_type="planning",
                                          eform_notice_type="pin-only")
 
@@ -95,11 +95,9 @@ def test_filter_df_by_variables(mongodb_client, load_mapping_suite_and_package):
     assert "32014L0024" in filtered_df["eform_legal_basis"].values
 
 
-def test_get_form_type_and_notice_type(mongodb_client, load_mapping_suite_and_package):
-    default_notice_metadata_normaliser = DefaultNoticeMetadataNormaliser(
-        mongodb_client=mongodb_client
-    )
-    mapping_registry = MappingFilesRegistry(mongodb_client=mongodb_client)
+def test_get_form_type_and_notice_type(mongodb_client, mapping_suite):
+    default_notice_metadata_normaliser = DefaultNoticeMetadataNormaliser(mapping_suite)
+    mapping_registry = MappingFilesRegistry(mapping_suite)
     form_type, notice_type, legal_basis, eforms_subtype = default_notice_metadata_normaliser.get_form_type_and_notice_type(
         ef_map=mapping_registry.ef_notice_df,
         sf_map=mapping_registry.sf_notice_df,
@@ -116,11 +114,9 @@ def test_get_form_type_and_notice_type(mongodb_client, load_mapping_suite_and_pa
     assert "16" == eforms_subtype
 
 
-def test_get_form_type_and_notice_type_F07(mongodb_client, load_mapping_suite_and_package):
-    default_notice_metadata_normaliser = DefaultNoticeMetadataNormaliser(
-        mongodb_client=mongodb_client
-    )
-    mapping_registry = MappingFilesRegistry(mongodb_client=mongodb_client)
+def test_get_form_type_and_notice_type_F07(mongodb_client, mapping_suite):
+    default_notice_metadata_normaliser = DefaultNoticeMetadataNormaliser(mapping_suite)
+    mapping_registry = MappingFilesRegistry(mapping_suite)
     form_type, notice_type, legal_basis, eforms_subtype = default_notice_metadata_normaliser.get_form_type_and_notice_type(
         ef_map=mapping_registry.ef_notice_df,
         sf_map=mapping_registry.sf_notice_df,
@@ -133,11 +129,9 @@ def test_get_form_type_and_notice_type_F07(mongodb_client, load_mapping_suite_an
     assert "15.1" == eforms_subtype
 
 
-def test_get_filter_values(mongodb_client, load_mapping_suite_and_package):
-    default_notice_metadata_normaliser = DefaultNoticeMetadataNormaliser(
-        mongodb_client=mongodb_client
-    )
-    mapping_registry = MappingFilesRegistry(mongodb_client=mongodb_client)
+def test_get_filter_values(mongodb_client, mapping_suite):
+    default_notice_metadata_normaliser = DefaultNoticeMetadataNormaliser(mapping_suite)
+    mapping_registry = MappingFilesRegistry(mapping_suite)
     filter_map = mapping_registry.filter_map_df
     filter_variables_dict = default_notice_metadata_normaliser.get_filter_variables_values(form_number="F07",
                                                                                            filter_map=filter_map,
@@ -158,12 +152,10 @@ def test_get_filter_values(mongodb_client, load_mapping_suite_and_package):
                                                                        legal_basis="legal")
 
 
-def test_normalising_process_on_failed_notice_in_dag(notice_2021, mongodb_client, load_mapping_suite_and_package):
+def test_normalising_process_on_failed_notice_in_dag(notice_2021, mongodb_client, mapping_suite):
     extracted_metadata = DefaultNoticeMetadataExtractor(xml_manifestation=notice_2021.xml_manifestation)
-    extracted_metadata_normaliser = DefaultNoticeMetadataNormaliser(
-        mongodb_client=mongodb_client
-    )
-    mapping_registry = MappingFilesRegistry(mongodb_client=mongodb_client)
+    extracted_metadata_normaliser = DefaultNoticeMetadataNormaliser(mapping_suite)
+    mapping_registry = MappingFilesRegistry(mapping_suite)
     filter_map = mapping_registry.filter_map_df
     filter_variables_dict = extracted_metadata_normaliser.get_filter_variables_values(
         form_number=extracted_metadata.extracted_form_number,
@@ -233,30 +225,25 @@ def test_extract_notice_metadata(eform_notice_622690, notice_2018):
         assert isinstance(extract_notice_metadata(metadata_extractor=extractor), ExtractedMetadata)
 
 
-def test_normalise_notice_metadata(eform_notice_622690, notice_2018, mongodb_client, load_mapping_suite_and_package):
+def test_normalise_notice_metadata(eform_notice_622690, notice_2018, mongodb_client, mapping_suite):
     extracted_metadata = extract_notice_metadata(
         metadata_extractor=EformsNoticeMetadataExtractor(xml_manifestation=eform_notice_622690.xml_manifestation))
     assert isinstance(normalise_notice_metadata(
         extracted_metadata=extracted_metadata,
-        metadata_normaliser=EformsNoticeMetadataNormaliser(
-            mongodb_client=mongodb_client
-        )
+        metadata_normaliser=EformsNoticeMetadataNormaliser(mapping_suite)
     ), NormalisedMetadata)
 
     extracted_metadata = extract_notice_metadata(
         metadata_extractor=DefaultNoticeMetadataExtractor(xml_manifestation=notice_2018.xml_manifestation))
     assert isinstance(normalise_notice_metadata(
         extracted_metadata=extracted_metadata,
-        metadata_normaliser=DefaultNoticeMetadataNormaliser(
-            mongodb_client=mongodb_client
-        )
+        metadata_normaliser=DefaultNoticeMetadataNormaliser(mapping_suite)
     ), NormalisedMetadata)
 
 
-def test_get_form_type_notice_type_and_legal_basis(mongodb_client, load_mapping_suite_and_package):
+def test_get_form_type_notice_type_and_legal_basis(mongodb_client, mapping_suite):
     form_type, notice_type, legal_basis = EformsNoticeMetadataNormaliser(
-        mongodb_client=mongodb_client
-    ).get_form_type_notice_type_and_legal_basis(
+        mapping_suite).get_form_type_notice_type_and_legal_basis(
         extracted_notice_subtype='20')
     assert form_type == 'competition'
     assert notice_type == 'cn-social'

@@ -99,9 +99,49 @@ services:
     restart: unless-stopped
     environment:
       ADMIN_PASSWORD: ${FUSEKI_ADMIN_PASSWORD}
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://localhost:3030/$/ping"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
     networks:
       - internal
       - proxy-net
+
+  fuseki-init:
+    image: curlimages/curl:8.12.1
+    container_name: fuseki-init
+    restart: "no"
+    depends_on:
+      fuseki:
+        condition: service_healthy
+    environment:
+      FUSEKI_ADMIN_PASSWORD: ${FUSEKI_ADMIN_PASSWORD}
+    volumes:
+      - ./fuseki/seed:/seed:ro
+    entrypoint: ["/bin/sh", "-c"]
+    command:
+      - |
+        DATASETS=$$(curl -sf -u "admin:$$FUSEKI_ADMIN_PASSWORD" "http://fuseki:3030/\$$/datasets")
+        for f in /seed/*.ttl; do
+          ds=$$(basename "$$f" .ttl)
+          if echo "$$DATASETS" | grep -q "\"/$${ds}\""; then
+            echo "Dataset $$ds already exists, skipping."
+          else
+            echo "Creating dataset $$ds..."
+            curl -sf -u "admin:$$FUSEKI_ADMIN_PASSWORD" -X POST \
+              "http://fuseki:3030/\$$/datasets" \
+              -d "dbName=$$ds&dbType=tdb2"
+            echo "Loading data into $$ds..."
+            curl -sf -u "admin:$$FUSEKI_ADMIN_PASSWORD" -X POST \
+              "http://fuseki:3030/$$ds/data" \
+              -H "Content-Type: text/turtle" \
+              --data-binary "@$$f" && echo "Loaded $$f into $$ds" || echo "FAIL: could not load $$f"
+          fi
+        done
+        echo "Fuseki init complete."
+    networks:
+      - internal
 
   metabase:
     image: *metabase-version

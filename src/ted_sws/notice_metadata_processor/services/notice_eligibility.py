@@ -89,11 +89,11 @@ def notice_eligibility_checker(notice: Notice, mapping_package_repository: Mappi
 
     if possible_mapping_packages:
         best_version = possible_mapping_packages[0].version
-        mapping_package_identifier_with_version = possible_mapping_packages[0].get_mongodb_id()
+        mapping_package_identifier_with_version = possible_mapping_packages[0].identifier
         for mapping_package in possible_mapping_packages[1:]:
             if semantic_version.Version(mapping_package.version) > semantic_version.Version(best_version):
                 best_version = mapping_package.version
-                mapping_package_identifier_with_version = mapping_package.get_mongodb_id()
+                mapping_package_identifier_with_version = mapping_package.identifier
 
         notice.set_is_eligible_for_transformation(eligibility=True)
         return notice.ted_id, mapping_package_identifier_with_version

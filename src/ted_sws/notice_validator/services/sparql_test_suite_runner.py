@@ -113,7 +113,7 @@ class SPARQLTestSuiteRunner:
         """
         sparql_runner = SPARQLRunner(self.rdf_manifestation.object_data)
         test_suite_executions = SPARQLTestSuiteValidationReport(
-            mapping_package_identifier=self.mapping_package.get_mongodb_id(),
+            mapping_package_identifier=self.mapping_package.identifier,
             test_suite_identifier=self.sparql_test_suite.identifier,
             validation_results=[],
             object_data="SPARQLTestSuiteExecution")

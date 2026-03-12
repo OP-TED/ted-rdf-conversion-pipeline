@@ -2,16 +2,16 @@ import json
 import os
 import pathlib
 import shutil
-from datetime import datetime
 from typing import Iterator, List, Optional
 
 from pymongo import MongoClient
+
+from mapping_suite_sdk.core.adapters.repository import MongoDBRepository, ModelNotFoundError
 
 from src.ted_sws import config
 from src.ted_sws.core.model.transform import MappingPackage, FileResource, TransformationRuleSet, SHACLTestSuite, \
     SPARQLTestSuite, MetadataConstraints, TransformationTestData, MappingPackageType, \
     MetadataConstraintsStandardForm, MetadataConstraintsEform
-from src.ted_sws.data_manager.adapters import inject_date_string_fields, remove_date_string_fields
 from src.ted_sws.data_manager.adapters.repository_abc import MappingPackageRepositoryABC
 
 MS_METADATA_FILE_NAME = "metadata.json"
@@ -41,88 +41,106 @@ MS_ONTOLOGY_VERSION_KEY = 'ontology_version'
 
 
 class MappingPackageRepositoryMongoDB(MappingPackageRepositoryABC):
-    """
-       This repository is intended for storing MappingPackage objects in MongoDB.
+    """This repository is intended for storing MappingPackage objects in MongoDB with MSSDK models.
+
+    Provides unified interface for CRUD operations on mapping packages
+    of different versions (V1, V2, V3, V3Lightweight).
     """
 
     _collection_name = "mapping_package_collection"
 
     def __init__(self, mongodb_client: MongoClient, database_name: str = None):
-        """
+        """Initialize the repository.
 
-        :param mongodb_client:
-        :param database_name:
+        Args:
+            mongodb_client: MongoDB client instance
+            database_name: Database name (defaults to config value)
         """
-        mongodb_client = mongodb_client
-        self._database_name = database_name or config.MONGO_DB_AGGREGATES_DATABASE_NAME
-        notice_db = mongodb_client[self._database_name]
-        self.collection = notice_db[self._collection_name]
+        self.database_name = database_name or config.MONGO_DB_AGGREGATES_DATABASE_NAME
+        self.mongodb_client = mongodb_client
 
-    def _create_dict_from_mapping_package(self, mapping_package: MappingPackage) -> dict:
-        """
-            This method create a dict from mapping package object.
-        :param mapping_package:
-        :return:
-        """
-        mapping_package_dict = mapping_package.model_dump()
-        mapping_package_dict[MONGODB_COLLECTION_ID] = mapping_package.get_mongodb_id()
-        mapping_package_dict[MS_CREATED_AT_KEY] = datetime.fromisoformat(mapping_package_dict[MS_CREATED_AT_KEY])
-        inject_date_string_fields(data=mapping_package_dict, date_field_name=MS_CREATED_AT_KEY)
-        return mapping_package_dict
+    def _get_repository(self, package: MappingPackage) -> MongoDBRepository:
+        return MongoDBRepository(
+            model_class=type(package),
+            mongo_client=self.mongodb_client,
+            database_name=self.database_name,
+            collection_name=self._collection_name
+        )
 
-    def _create_mapping_package_from_dict(self, mapping_package_dict: dict) -> Optional[MappingPackage]:
-        """
-            This method create a mapping package object from a dictionary.
-        :param mapping_package_dict:
-        :return:
-        """
-        if mapping_package_dict:
-            mapping_package_dict.pop(MONGODB_COLLECTION_ID, None)
-            mapping_package_dict[MS_CREATED_AT_KEY] = mapping_package_dict[MS_CREATED_AT_KEY].isoformat()
-            remove_date_string_fields(data=mapping_package_dict, date_field_name=MS_CREATED_AT_KEY)
-            return MappingPackage(**mapping_package_dict)
-        return None
+    def get_repository_by_class(self, package_class):
+        return MongoDBRepository(
+            model_class=package_class,
+            mongo_client=self.mongodb_client,
+            database_name=self.database_name,
+            collection_name=self._collection_name
+        )
 
-    def add(self, mapping_package: MappingPackage):
-        """
-            This method allows you to add MappingPackage objects to the repository.
-        :param mapping_package:
-        :return:
-        """
-        mapping_package_dict = self._create_dict_from_mapping_package(mapping_package=mapping_package)
-        mapping_package_exist = self.collection.find_one(
-            {MONGODB_COLLECTION_ID: mapping_package_dict[MONGODB_COLLECTION_ID]})
-        if mapping_package_exist is None:
-            self.collection.insert_one(mapping_package_dict)
+    def add(self, mapping_package: MappingPackage) -> MappingPackage:
+        """Save a mapping package to MongoDB.
 
-    def update(self, mapping_package: MappingPackage):
-        """
-            This method allows you to update MappingPackage objects to the repository
-        :param mapping_package:
-        :return:
-        """
-        mapping_package_dict = self._create_dict_from_mapping_package(mapping_package=mapping_package)
-        self.collection.update_one({MONGODB_COLLECTION_ID: mapping_package_dict[MONGODB_COLLECTION_ID]},
-                                   {"$set": mapping_package_dict})
+        Args:
+            mapping_package: The mapping package (legacy or MSSDK model)
 
-    def get(self, reference) -> MappingPackage:
+        Returns:
+            The saved package
         """
-            This method allows a MappingPackage to be obtained based on an identification reference.
-        :param reference:
-        :return: MappingPackage
-        """
-        result_dict = self.collection.find_one({MONGODB_COLLECTION_ID: reference})
-        return self._create_mapping_package_from_dict(mapping_package_dict=result_dict)
+        repo = self._get_repository(mapping_package)
+        return repo.create(mapping_package)
 
-    def list(self) -> Iterator[MappingPackage]:
+    def get(self, reference: str, package_class: type = MappingPackage) -> MappingPackage:
+        """Retrieve a mapping package from MongoDB.
+
+        Args:
+            reference: The package identifier
+            package_class: The expected package model class (defaults to MappingPackage)
+
+        Returns:
+            The retrieved package
+
+        Raises:
+            ModelNotFoundError: If package not found
         """
-            This method allows all records to be retrieved from the repository.
-        :return: list of MappingPackages
+        repo = self.get_repository_by_class(package_class)
+        return repo.read(reference)
+
+    def update(self, mapping_package: MappingPackage) -> MappingPackage:
+        """Update a mapping package in MongoDB.
+
+        Args:
+            mapping_package: The package to update
+
+        Returns:
+            The updated package
         """
-        for result_dict in self.collection.find():
-            yield self._create_mapping_package_from_dict(mapping_package_dict=result_dict)
+        repo = self._get_repository(mapping_package)
+        return repo.update(mapping_package)
+
+    def delete(self, reference: str) -> None:
+        """Delete a mapping package from MongoDB.
+
+        Args:
+            reference: The package identifier
+        """
+        db = self.mongodb_client[self.database_name]
+        collection = db[self._collection_name]
+        result = collection.delete_one({'_id': reference})
+        if result.deleted_count < 1:
+            raise ModelNotFoundError(f"Package with ID {reference} not found")
+
+    def list(self, package_class: type = MappingPackage) -> List[MappingPackage]:
+        """List mapping packages from MongoDB.
+
+        Args:
+            package_class: The package model class to retrieve (defaults to V2)
+
+        Returns:
+            List of packages
+        """
+        repo = self.get_repository_by_class(package_class)
+        return repo.read_many()
 
 
+# DEPRECATED - use MSSDK for reading and writing to FS, remove once all code especially tests are updated
 class MappingPackageRepositoryInFileSystem(MappingPackageRepositoryABC):
     """
            This repository is intended for storing MappingPackage objects in FileSystem.
@@ -212,12 +230,42 @@ class MappingPackageRepositoryInFileSystem(MappingPackageRepositoryABC):
         :param mapping_package:
         :return:
         """
+        import base64
+        from datetime import datetime
+
+        def convert_for_json(obj):
+            """Convert non-JSON-serializable objects (Path, bytes, datetime) to serializable form."""
+            if isinstance(obj, pathlib.Path):
+                return str(obj)
+            elif isinstance(obj, bytes):
+                # Convert bytes to base64 string for JSON serialization
+                return base64.b64encode(obj).decode('utf-8')
+            elif isinstance(obj, datetime):
+                # Convert datetime to ISO format string
+                return obj.isoformat()
+            elif isinstance(obj, dict):
+                return {k: convert_for_json(v) for k, v in obj.items()}
+            elif isinstance(obj, list):
+                return [convert_for_json(i) for i in obj]
+            elif isinstance(obj, tuple):
+                return tuple(convert_for_json(i) for i in obj)
+            else:
+                return obj
+
         package_path = self.repository_path / mapping_package.identifier
         package_path.mkdir(parents=True, exist_ok=True)
         metadata_path = package_path / MS_METADATA_FILE_NAME
         package_metadata = mapping_package.model_dump()
-        [package_metadata.pop(key, None) for key in
-         ["transformation_rule_set", "shacl_test_suites", "sparql_test_suites"]]
+        # Exclude legacy fields (written separately) and MSSDK collection asset fields (contain file content)
+        fields_to_exclude = [
+            "transformation_rule_set", "shacl_test_suites", "sparql_test_suites",  # Legacy fields
+            "technical_mapping_suite", "vocabulary_mapping_suite",  # MSSDK - written separately
+            "conceptual_mapping_asset",  # MSSDK - bytes content (xlsx)
+            "test_data_suites", "test_suites_sparql", "test_suites_shacl", "test_results",  # MSSDK test suites
+        ]
+        for key in fields_to_exclude:
+            package_metadata.pop(key, None)
+        package_metadata = convert_for_json(package_metadata)
         with metadata_path.open("w", encoding="utf-8") as f:
             f.write(json.dumps(package_metadata))
 
@@ -285,6 +333,8 @@ class MappingPackageRepositoryInFileSystem(MappingPackageRepositoryABC):
         :param mapping_package:
         :return:
         """
+        if mapping_package.transformation_rule_set is None:
+            return
         package_path = self.repository_path / mapping_package.identifier
         transform_path = package_path / MS_TRANSFORM_FOLDER_NAME
         mappings_path = transform_path / MS_MAPPINGS_FOLDER_NAME
@@ -332,6 +382,8 @@ class MappingPackageRepositoryInFileSystem(MappingPackageRepositoryABC):
         :param mapping_package:
         :return:
         """
+        if mapping_package.transformation_test_data is None:
+            return
         package_path = self.repository_path / mapping_package.identifier
         test_data_path = package_path / MS_TEST_DATA_FOLDER_NAME
         test_data_path.mkdir(parents=True, exist_ok=True)

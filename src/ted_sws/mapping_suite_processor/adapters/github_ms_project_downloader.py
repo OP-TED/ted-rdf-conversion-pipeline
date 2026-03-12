@@ -5,7 +5,7 @@ import subprocess
 import tempfile
 from typing import ClassVar
 from src.ted_sws import config
-
+from src.ted_sws.event_manager.services.log import log_technical_info
 # TODO: get from env or config
 MAPPINGS_DIR_NAME = "mappings"
 MS_CONFIG_DIR_NAME = "config"
@@ -76,12 +76,16 @@ class GitHubMappingSuiteDownloader(MappingSuiteDownloaderABC):
 
         with tempfile.TemporaryDirectory() as tmp_dir:
             temp_dir_path = pathlib.Path(tmp_dir)
-            bash_script = f"cd {temp_dir_path} && git clone --branch {self.branch_or_tag_name} {self.github_repository_url}"
-            subprocess.run(bash_script, shell=True,
-                           stdout=subprocess.DEVNULL,
-                           stderr=subprocess.STDOUT)
+            bash_script = f"cd {temp_dir_path} && git clone --depth 1 --branch {self.branch_or_tag_name} {self.github_repository_url}"
+            result = subprocess.run(bash_script, shell=True,
+                                    capture_output=True, text=True)
+            log_technical_info(
+                message=f"Downloaded stdout '{result.stdout}'")
+            log_technical_info(
+                message=f"Downloaded stderr '{result.stderr}'")
             git_last_commit_hash = get_git_head_hash(
                 git_repository_path=temp_dir_path / self.repository_name)
             downloaded_tmp_project_path = temp_dir_path / self.repository_name
             shutil.copytree(downloaded_tmp_project_path, output_project_path, dirs_exist_ok=True)
+
         return git_last_commit_hash

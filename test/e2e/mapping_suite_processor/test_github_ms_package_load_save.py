@@ -5,7 +5,7 @@ from src.ted_sws.mapping_suite_processor.services.mapping_package_processor impo
 MAPPING_PACKAGE_NAME = "package_F03_test"
 MAPPING_PACKAGE_METADATA_IDENTIFIER = "package_F03"
 MAPPING_PACKAGE_METADATA_VERSION = "6.8.1"
-MAPPING_PACKAGE_ID = f"{MAPPING_PACKAGE_METADATA_IDENTIFIER}_v{MAPPING_PACKAGE_METADATA_VERSION}"
+MAPPING_PACKAGE_ID = f"{MAPPING_PACKAGE_METADATA_IDENTIFIER}"
 
 
 def test_load_mapping_suite_and_packages_from_github_to_mongo_db(fake_mongodb_client):

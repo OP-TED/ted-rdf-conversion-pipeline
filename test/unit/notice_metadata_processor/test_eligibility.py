@@ -28,7 +28,7 @@ def test_eligibility_by_notice(notice_eligibility_repository_path, notice_2020):
     notice_checker = notice_eligibility_checker(notice=notice_2020, mapping_package_repository=mapping_package_repository)
     notice_id, mapping_package_identifier = notice_checker
     assert notice_id == "408313-2020"
-    assert mapping_package_identifier == "test_package2_v2.1.6"
+    assert mapping_package_identifier == "test_package2"
     assert notice_2020.status == NoticeStatus.ELIGIBLE_FOR_TRANSFORMATION
 
 
@@ -42,7 +42,7 @@ def test_eligibility_by_notice_id(notice_eligibility_repository_path, notice_202
     notice_id, mapping_package_identifier = notice_checker
 
     assert notice_id == "408313-2020"
-    assert mapping_package_identifier == "test_package2_v2.1.6"
+    assert mapping_package_identifier == "test_package2"
     assert notice_2020.status == NoticeStatus.ELIGIBLE_FOR_TRANSFORMATION
 
 

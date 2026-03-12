@@ -1,0 +1,395 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<ContractNotice xmlns="urn:oasis:names:specification:ubl:schema:xsd:ContractNotice-2"
+                xmlns:cac="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2"
+                xmlns:cbc="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2"
+                xmlns:efac="http://data.europa.eu/p27/eforms-ubl-extension-aggregate-components/1"
+                xmlns:efbc="http://data.europa.eu/p27/eforms-ubl-extension-basic-components/1"
+                xmlns:efext="http://data.europa.eu/p27/eforms-ubl-extensions/1"
+                xmlns:ext="urn:oasis:names:specification:ubl:schema:xsd:CommonExtensionComponents-2">
+    <ext:UBLExtensions>
+        <ext:UBLExtension>
+            <ext:ExtensionContent>
+                <efext:EformsExtension>
+                    <efac:NoticeSubType>
+                        <cbc:SubTypeCode>16</cbc:SubTypeCode>
+                    </efac:NoticeSubType>
+                    <efac:Organizations>
+                        <efac:Organization>
+                            <efbc:AcquiringCPBIndicator>false</efbc:AcquiringCPBIndicator>
+                            <efbc:AwardingCPBIndicator>false</efbc:AwardingCPBIndicator>
+                            <efac:Company>
+                                <cbc:WebsiteURI>https://www.mero-germany.de</cbc:WebsiteURI>
+                                <cac:PartyIdentification>
+                                    <cbc:ID schemeName="organization">ORG-0001</cbc:ID>
+                                </cac:PartyIdentification>
+                                <cac:PartyName>
+                                    <cbc:Name languageID="DEU">MERO Germany GmbH</cbc:Name>
+                                </cac:PartyName>
+                                <cac:PostalAddress>
+                                    <cbc:StreetName>MERO-Weg 1</cbc:StreetName>
+                                    <cbc:CityName>Vohburg</cbc:CityName>
+                                    <cbc:PostalZone>85088</cbc:PostalZone>
+                                    <cbc:CountrySubentityCode listName="nuts-lvl3">DE21J</cbc:CountrySubentityCode>
+                                    <cac:Country>
+                                        <cbc:IdentificationCode>DEU</cbc:IdentificationCode>
+                                    </cac:Country>
+                                </cac:PostalAddress>
+                                <cac:PartyLegalEntity>
+                                    <cbc:CompanyID>t08457929231</cbc:CompanyID>
+                                </cac:PartyLegalEntity>
+                                <cac:Contact>
+                                    <cbc:Telephone>0049-8457926231</cbc:Telephone>
+                                    <cbc:Telefax>0049-8457926220</cbc:Telefax>
+                                    <cbc:ElectronicMail>vergabe@mero-germany.de</cbc:ElectronicMail>
+                                </cac:Contact>
+                            </efac:Company>
+                        </efac:Organization>
+                        <efac:Organization>
+                            <efac:Company>
+                                <cac:PartyIdentification>
+                                    <cbc:ID schemeName="organization">ORG-0002</cbc:ID>
+                                </cac:PartyIdentification>
+                                <cac:PartyName>
+                                    <cbc:Name languageID="DEU">Regierung von Oberbayern - Vergabekammer Südbayern
+                                    </cbc:Name>
+                                </cac:PartyName>
+                                <cac:PostalAddress>
+                                    <cbc:StreetName>Maximilianstraße 39</cbc:StreetName>
+                                    <cbc:CityName>München</cbc:CityName>
+                                    <cbc:PostalZone>80538</cbc:PostalZone>
+                                    <cbc:CountrySubentityCode listName="nuts-lvl3">DE21J</cbc:CountrySubentityCode>
+                                    <cac:Country>
+                                        <cbc:IdentificationCode>DEU</cbc:IdentificationCode>
+                                    </cac:Country>
+                                </cac:PostalAddress>
+                                <cac:PartyLegalEntity>
+                                    <cbc:CompanyID>09-0318006-60</cbc:CompanyID>
+                                </cac:PartyLegalEntity>
+                                <cac:Contact>
+                                    <cbc:Name languageID="DEU">Überprüfungsstelle</cbc:Name>
+                                    <cbc:Telephone>+49 (0)89 2176-2411</cbc:Telephone>
+                                    <cbc:Telefax>+49 (0)89 2176-2847</cbc:Telefax>
+                                    <cbc:ElectronicMail>vergabekammer.suedbayern@reg-ob.bayern.de</cbc:ElectronicMail>
+                                </cac:Contact>
+                            </efac:Company>
+                        </efac:Organization>
+                        <efac:Organization>
+                            <efac:Company>
+                                <cac:PartyIdentification>
+                                    <cbc:ID schemeName="organization">ORG-0003</cbc:ID>
+                                </cac:PartyIdentification>
+                                <cac:PartyName>
+                                    <cbc:Name languageID="DEU">Datenservice Öffentlicher Einkauf (in Verantwortung des
+                                        Beschaffungsamts des BMI)
+                                    </cbc:Name>
+                                </cac:PartyName>
+                                <cac:PostalAddress>
+                                    <cbc:CityName>Bonn</cbc:CityName>
+                                    <cbc:PostalZone>53119</cbc:PostalZone>
+                                    <cbc:CountrySubentityCode listName="nuts">DEA22</cbc:CountrySubentityCode>
+                                    <cac:Country>
+                                        <cbc:IdentificationCode listName="country">DEU</cbc:IdentificationCode>
+                                    </cac:Country>
+                                </cac:PostalAddress>
+                                <cac:PartyLegalEntity>
+                                    <cbc:CompanyID schemeID="002">0204:994-DOEVD-83</cbc:CompanyID>
+                                </cac:PartyLegalEntity>
+                                <cac:Contact>
+                                    <cbc:Telephone>+49228996100</cbc:Telephone>
+                                    <cbc:ElectronicMail>noreply.esender_hub@bescha.bund.de</cbc:ElectronicMail>
+                                </cac:Contact>
+                            </efac:Company>
+                        </efac:Organization>
+                    </efac:Organizations>
+                    <efac:Publication>
+                        <efbc:NoticePublicationID schemeName="ojs-notice-id">     00474946-2024      </efbc:NoticePublicationID>
+                        <efbc:GazetteID schemeName="ojs-id">153/2024</efbc:GazetteID>
+                        <efbc:PublicationDate>2024-08-07+02:00</efbc:PublicationDate>
+                    </efac:Publication>
+                </efext:EformsExtension>
+            </ext:ExtensionContent>
+        </ext:UBLExtension>
+    </ext:UBLExtensions>
+    <cbc:UBLVersionID>2.3</cbc:UBLVersionID>
+    <cbc:CustomizationID>eforms-sdk-1.10</cbc:CustomizationID>
+    <cbc:ID schemeName="notice-id">c8f4c008-676c-4003-90d9-80788a8b6e83</cbc:ID>
+    <cbc:ContractFolderID>0f36a8d2-fce8-4210-8977-c2220c452839</cbc:ContractFolderID>
+    <cbc:IssueDate>2024-08-06+02:00</cbc:IssueDate>
+    <cbc:IssueTime>11:31:02+02:00</cbc:IssueTime>
+    <cbc:VersionID>01</cbc:VersionID>
+    <cbc:RequestedPublicationDate>2024-08-06+02:00</cbc:RequestedPublicationDate>
+    <cbc:RegulatoryDomain>32014L0024</cbc:RegulatoryDomain>
+    <cbc:NoticeTypeCode listName="competition">cn-standard</cbc:NoticeTypeCode>
+    <cbc:NoticeLanguageCode>DEU</cbc:NoticeLanguageCode>
+    <cac:ContractingParty>
+        <cac:ContractingPartyType>
+            <cbc:PartyTypeCode listName="buyer-legal-type">grp-p-aut</cbc:PartyTypeCode>
+        </cac:ContractingPartyType>
+        <cac:ContractingActivity>
+            <cbc:ActivityTypeCode listName="authority-activity">econ-aff</cbc:ActivityTypeCode>
+        </cac:ContractingActivity>
+        <cac:Party>
+            <cac:PartyIdentification>
+                <cbc:ID schemeName="organization">ORG-0001</cbc:ID>
+            </cac:PartyIdentification>
+            <cac:ServiceProviderParty>
+                <cbc:ServiceTypeCode listName="organisation-role">ted-esen</cbc:ServiceTypeCode>
+                <cac:Party>
+                    <cac:PartyIdentification>
+                        <cbc:ID schemeName="organization">ORG-0003</cbc:ID>
+                    </cac:PartyIdentification>
+                </cac:Party>
+            </cac:ServiceProviderParty>
+        </cac:Party>
+    </cac:ContractingParty>
+    <cac:TenderingTerms>
+        <cac:ProcurementLegislationDocumentReference>
+            <cbc:ID schemeName="ELI">vgv</cbc:ID>
+        </cac:ProcurementLegislationDocumentReference>
+        <cac:TendererQualificationRequest>
+            <cac:SpecificTendererRequirement>
+                <cbc:TendererRequirementTypeCode listName="exclusion-ground">nati-ground
+                </cbc:TendererRequirementTypeCode>
+                <cbc:Description languageID="DEU">Es gelten zusätzlich die gesetzlichen Ausschlussvoraussetzungen nach
+                    §§ 123 bis 126 GWB. Der Bieter hat anzugeben, ob Ausschlussgründe nach §§ 123,124 GWB vorliegen und
+                    ob er selbst bzw. ein nach Satzung oder Gesetz für den Bieter Vertretungsberechtigter in den letzten
+                    zwei Jahren• gem. § 21 Abs. 1 Satz 1 oder 2 Schwarzarbeitsbekämpfungsgesetz oder• gem. § 21 Abs. 1
+                    Arbeitnehmerentsendegesetz oder• gem. § 19 Abs. 1 Mindestlohngesetzmit einer Freiheitsstrafe von
+                    mehr als drei Monaten oder einer Geldstrafe von mehr als 90 Tagessätzen oder einer Geldbuße von mehr
+                    als 2.500 Euro belegt worden ist.
+                </cbc:Description>
+            </cac:SpecificTendererRequirement>
+        </cac:TendererQualificationRequest>
+    </cac:TenderingTerms>
+    <cac:TenderingProcess>
+        <ext:UBLExtensions>
+            <ext:UBLExtension>
+                <ext:ExtensionContent>
+                    <efext:EformsExtension>
+                        <efbc:ProcedureRelaunchIndicator>false</efbc:ProcedureRelaunchIndicator>
+                    </efext:EformsExtension>
+                </ext:ExtensionContent>
+            </ext:UBLExtension>
+        </ext:UBLExtensions>
+        <cbc:ProcedureCode listName="procurement-procedure-type">open</cbc:ProcedureCode>
+    </cac:TenderingProcess>
+    <cac:ProcurementProject>
+        <cbc:Name languageID="DEU">Inspektion der MERO-IKL-Pipeline von Vohburg bis Benesovice mittels intelligenten
+            Molchlaufs zur Messung von Rissen von August bis September 2025
+        </cbc:Name>
+        <cbc:Description languageID="DEU">Die MERO Germany GmbH betreibt den deutschen Leitungsast der MERO-IKL-Pipeline
+            vom Tanklager Vohburg bis zur deutsch-tschechischen Grenze und fungiert vorliegend als Auftraggeber für die
+            Inspektion des Pipelineabschnitts von Vohburg bis Benesovice durch den Auftragnehmer mittels intelligenten
+            Molchlaufs.Die konkreten Anforderungen an die Leistungen ergeben sich aus dem Vertrag über die Innenprüfung
+            der MERO-IKL-Pipeline sowie die diesen ergänzende Spezifikation für die Messungen von Rissen (Dok.-Nr.
+            DA-SP-121).
+        </cbc:Description>
+        <cbc:ProcurementTypeCode listName="contract-nature">services</cbc:ProcurementTypeCode>
+        <cbc:Note languageID="DEU">Der Bieter hat anzugeben inwieweit sein Unternehmen einen Bezug zu Russland hat.
+            Dafür ist die “Eigenerklärung Bezug Russland“ (FB 127/L127/III.127) auszufüllen und als Teil des Angebotes
+            abzugeben. Diese Erklärung ist auch für Unterauftragnehmer, Lieferanten oder Eignungsverleiher gem. den
+            Bedingungen der Erklärung abzugeben.
+        </cbc:Note>
+        <cac:MainCommodityClassification>
+            <cbc:ItemClassificationCode listName="cpv">76600000</cbc:ItemClassificationCode>
+        </cac:MainCommodityClassification>
+        <cac:RealizedLocation>
+            <cbc:Description languageID="DEU">Vohburg</cbc:Description>
+            <cac:Address>
+                <cbc:CityName>Vohburg</cbc:CityName>
+                <cbc:PostalZone>85088</cbc:PostalZone>
+                <cbc:CountrySubentityCode listName="nuts-lvl3">DE21J</cbc:CountrySubentityCode>
+                <cac:Country>
+                    <cbc:IdentificationCode>DEU</cbc:IdentificationCode>
+                </cac:Country>
+            </cac:Address>
+        </cac:RealizedLocation>
+    </cac:ProcurementProject>
+    <cac:ProcurementProjectLot>
+        <cbc:ID schemeName="Lot">LOT-0001</cbc:ID>
+        <cac:TenderingTerms>
+            <ext:UBLExtensions>
+                <ext:UBLExtension>
+                    <ext:ExtensionContent>
+                        <efext:EformsExtension>
+                            <efac:SelectionCriteria>
+                                <cbc:CriterionTypeCode listName="selection-criterion">sui-act</cbc:CriterionTypeCode>
+                                <cbc:Description languageID="DEU">
+                                    https://www.staatsanzeiger-eservices.de/aJs/EFormsBekEigenUrl?z_param=298782
+                                </cbc:Description>
+                            </efac:SelectionCriteria>
+                            <efac:SelectionCriteria>
+                                <cbc:CriterionTypeCode listName="selection-criterion">sui-act</cbc:CriterionTypeCode>
+                                <cbc:Description languageID="DEU">
+                                    https://www.staatsanzeiger-eservices.de/aJs/EFormsBekEigenUrl?z_param=298782
+                                </cbc:Description>
+                            </efac:SelectionCriteria>
+                            <efac:SelectionCriteria>
+                                <cbc:CriterionTypeCode listName="selection-criterion">ef-stand</cbc:CriterionTypeCode>
+                                <cbc:Description languageID="DEU">
+                                    https://www.staatsanzeiger-eservices.de/aJs/EFormsBekEigenUrl?z_param=298782
+                                </cbc:Description>
+                            </efac:SelectionCriteria>
+                            <efac:SelectionCriteria>
+                                <cbc:CriterionTypeCode listName="selection-criterion">other</cbc:CriterionTypeCode>
+                                <cbc:Description languageID="DEU">
+                                    https://www.staatsanzeiger-eservices.de/aJs/EFormsBekEigenUrl?z_param=298782
+                                </cbc:Description>
+                            </efac:SelectionCriteria>
+                            <efac:SelectionCriteria>
+                                <cbc:CriterionTypeCode listName="selection-criterion">ef-stand</cbc:CriterionTypeCode>
+                                <cbc:Description languageID="DEU">
+                                    https://www.staatsanzeiger-eservices.de/aJs/EFormsBekEigenUrl?z_param=298782
+                                </cbc:Description>
+                            </efac:SelectionCriteria>
+                            <efac:SelectionCriteria>
+                                <cbc:CriterionTypeCode listName="selection-criterion">tp-abil</cbc:CriterionTypeCode>
+                                <cbc:Description languageID="DEU">
+                                    https://www.staatsanzeiger-eservices.de/aJs/EFormsBekEigenUrl?z_param=298782
+                                </cbc:Description>
+                            </efac:SelectionCriteria>
+                            <efac:StrategicProcurement>
+                                <efbc:ApplicableLegalBasis listName="cvd-scope">false</efbc:ApplicableLegalBasis>
+                            </efac:StrategicProcurement>
+                        </efext:EformsExtension>
+                    </ext:ExtensionContent>
+                </ext:UBLExtension>
+            </ext:UBLExtensions>
+            <cbc:VariantConstraintCode listName="permission">not-allowed</cbc:VariantConstraintCode>
+            <cbc:FundingProgramCode listName="eu-funded">no-eu-funds</cbc:FundingProgramCode>
+            <cbc:RecurringProcurementIndicator>false</cbc:RecurringProcurementIndicator>
+            <cbc:MultipleTendersCode>not-allowed</cbc:MultipleTendersCode>
+            <cac:CallForTendersDocumentReference>
+                <ext:UBLExtensions>
+                    <ext:UBLExtension>
+                        <ext:ExtensionContent>
+                            <efext:EformsExtension>
+                                <efac:OfficialLanguages>
+                                    <cac:Language>
+                                        <cbc:ID schemeName="">DEU</cbc:ID>
+                                    </cac:Language>
+                                </efac:OfficialLanguages>
+                            </efext:EformsExtension>
+                        </ext:ExtensionContent>
+                    </ext:UBLExtension>
+                </ext:UBLExtensions>
+                <cbc:ID schemeName="">298782</cbc:ID>
+                <cbc:DocumentType>non-restricted-document</cbc:DocumentType>
+                <cac:Attachment>
+                    <cac:ExternalReference>
+                        <cbc:URI>https://www.staatsanzeiger-eservices.de/aJs/EFormsBekVuUrl?z_param=298782</cbc:URI>
+                    </cac:ExternalReference>
+                </cac:Attachment>
+            </cac:CallForTendersDocumentReference>
+            <cac:TendererQualificationRequest>
+                <cac:SpecificTendererRequirement>
+                    <cbc:TendererRequirementTypeCode listName="missing-info-submission">late-some
+                    </cbc:TendererRequirementTypeCode>
+                    <cbc:Description languageID="DEU">Eine Nachforderung von Unterlagen ist nur im Rahmen der rectlichen
+                        Vorgaben zulässig.
+                    </cbc:Description>
+                </cac:SpecificTendererRequirement>
+            </cac:TendererQualificationRequest>
+            <cac:ContractExecutionRequirement>
+                <cbc:ExecutionRequirementCode listName="reserved-execution">no</cbc:ExecutionRequirementCode>
+            </cac:ContractExecutionRequirement>
+            <cac:ContractExecutionRequirement>
+                <cbc:ExecutionRequirementCode listName="einvoicing">allowed</cbc:ExecutionRequirementCode>
+            </cac:ContractExecutionRequirement>
+            <cac:ContractExecutionRequirement>
+                <cbc:ExecutionRequirementCode listName="ecatalog-submission">not-allowed</cbc:ExecutionRequirementCode>
+            </cac:ContractExecutionRequirement>
+            <cac:AwardingTerms>
+                <cbc:NoFurtherNegotiationIndicator>true</cbc:NoFurtherNegotiationIndicator>
+            </cac:AwardingTerms>
+            <cac:TenderRecipientParty>
+                <cbc:EndpointID>https://www.staatsanzeiger-eservices.de/aJs/EFormsBekVuUrl?z_param=298782
+                </cbc:EndpointID>
+            </cac:TenderRecipientParty>
+            <cac:AppealTerms>
+                <cac:AppealReceiverParty>
+                    <cac:PartyIdentification>
+                        <cbc:ID schemeName="organization">ORG-0002</cbc:ID>
+                    </cac:PartyIdentification>
+                </cac:AppealReceiverParty>
+            </cac:AppealTerms>
+            <cac:Language>
+                <cbc:ID schemeName="Lot">DEU</cbc:ID>
+            </cac:Language>
+            <cac:PostAwardProcess>
+                <cbc:ElectronicOrderUsageIndicator>false</cbc:ElectronicOrderUsageIndicator>
+                <cbc:ElectronicPaymentUsageIndicator>true</cbc:ElectronicPaymentUsageIndicator>
+            </cac:PostAwardProcess>
+        </cac:TenderingTerms>
+        <cac:TenderingProcess>
+            <ext:UBLExtensions>
+                <ext:UBLExtension>
+                    <ext:ExtensionContent>
+                        <efext:EformsExtension>
+                            <efbc:ProcedureRelaunchIndicator>false</efbc:ProcedureRelaunchIndicator>
+                        </efext:EformsExtension>
+                    </ext:ExtensionContent>
+                </ext:UBLExtension>
+            </ext:UBLExtensions>
+            <cbc:SubmissionMethodCode listName="esubmission">allowed</cbc:SubmissionMethodCode>
+            <cbc:GovernmentAgreementConstraintIndicator>false</cbc:GovernmentAgreementConstraintIndicator>
+            <cac:TenderSubmissionDeadlinePeriod>
+                <cbc:EndDate>2024-09-06+01:00</cbc:EndDate>
+                <cbc:EndTime>11:00:00+01:00</cbc:EndTime>
+            </cac:TenderSubmissionDeadlinePeriod>
+            <cac:OpenTenderEvent>
+                <cbc:OccurrenceDate>2024-09-06+01:00</cbc:OccurrenceDate>
+                <cbc:OccurrenceTime>12:00:00+01:00</cbc:OccurrenceTime>
+            </cac:OpenTenderEvent>
+            <cac:AuctionTerms>
+                <cbc:AuctionConstraintIndicator>false</cbc:AuctionConstraintIndicator>
+            </cac:AuctionTerms>
+            <cac:ContractingSystem>
+                <cbc:ContractingSystemTypeCode listName="framework-agreement">none</cbc:ContractingSystemTypeCode>
+            </cac:ContractingSystem>
+            <cac:ContractingSystem>
+                <cbc:ContractingSystemTypeCode listName="dps-usage">none</cbc:ContractingSystemTypeCode>
+            </cac:ContractingSystem>
+        </cac:TenderingProcess>
+        <cac:ProcurementProject>
+            <cbc:ID schemeName="InternalID">2024/01</cbc:ID>
+            <cbc:Name languageID="DEU">Inspektion der MERO-IKL-Pipeline von Vohburg bis Benesovice mittels intelligenten
+                Molchlaufs zur Messung von Rissen von August bis September 2025
+            </cbc:Name>
+            <cbc:Description languageID="DEU">Die MERO Germany GmbH betreibt den deutschen Leitungsast der
+                MERO-IKL-Pipeline vom Tanklager Vohburg bis zur deutsch-tschechischen Grenze und fungiert vorliegend als
+                Auftraggeber für die Inspektion des Pipelineabschnitts von Vohburg bis Benesovice durch den
+                Auftragnehmer mittels intelligenten Molchlaufs.Die konkreten Anforderungen an die Leistungen ergeben
+                sich aus dem Vertrag über die Innenprüfung der MERO-IKL-Pipeline sowie die diesen ergänzende
+                Spezifikation für die Messungen von Rissen (Dok.-Nr. DA-SP-121).
+            </cbc:Description>
+            <cbc:ProcurementTypeCode listName="contract-nature">services</cbc:ProcurementTypeCode>
+            <cbc:SMESuitableIndicator>true</cbc:SMESuitableIndicator>
+            <cac:ProcurementAdditionalType>
+                <cbc:ProcurementTypeCode listName="environmental-impact">pollu-prev</cbc:ProcurementTypeCode>
+            </cac:ProcurementAdditionalType>
+            <cac:ProcurementAdditionalType>
+                <cbc:ProcurementTypeCode listName="social-objective">other</cbc:ProcurementTypeCode>
+            </cac:ProcurementAdditionalType>
+            <cac:ProcurementAdditionalType>
+                <cbc:ProcurementTypeCode listName="strategic-procurement">env-imp</cbc:ProcurementTypeCode>
+            </cac:ProcurementAdditionalType>
+            <cac:MainCommodityClassification>
+                <cbc:ItemClassificationCode listName="cpv">76600000</cbc:ItemClassificationCode>
+            </cac:MainCommodityClassification>
+            <cac:RealizedLocation>
+                <cbc:Description languageID="DEU">Vohburg an der Donau</cbc:Description>
+                <cac:Address>
+                    <cbc:CountrySubentityCode listName="nuts-lvl3">DE21J</cbc:CountrySubentityCode>
+                    <cac:Country>
+                        <cbc:IdentificationCode>DEU</cbc:IdentificationCode>
+                    </cac:Country>
+                </cac:Address>
+            </cac:RealizedLocation>
+            <cac:PlannedPeriod>
+                <cbc:StartDate>2025-08-01+01:00</cbc:StartDate>
+                <cbc:EndDate>2025-09-30+01:00</cbc:EndDate>
+            </cac:PlannedPeriod>
+        </cac:ProcurementProject>
+    </cac:ProcurementProjectLot>
+</ContractNotice>

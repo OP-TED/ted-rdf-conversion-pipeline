@@ -1,0 +1,275 @@
+# =============================================================================
+# TED-SWS Stack - Base Configuration
+# Always use with an override file (local, staging) and corresponding .env file
+# =============================================================================
+
+x-versions:
+  traefik: &traefik-version "traefik:v3.6"
+  minio: &minio-version "minio/minio:RELEASE.2021-06-17T00-10-46Z"
+  mongodb: &mongodb-version "mongo:5.0.10"
+  mongo-express: &mongo-express-version "mongo-express:1.0.2"
+  fuseki: &fuseki-version "secoresearch/fuseki:5.3.0"
+  metabase: &metabase-version "metabase/metabase:v0.58.5.1"
+  sftp: &sftp-version "atmoz/sftp:debian"
+  airflow: &airflow-version "${AIRFLOW_IMAGE:-tedsws/airflow:local}"
+  postgres: &postgres-version "postgres:14-alpine"
+  redis: &redis-version "redis:7-alpine"
+
+x-airflow-common: &airflow-common
+  image: *airflow-version
+  user: "${AIRFLOW_UID:-50000}:0"
+  environment:
+    AIRFLOW__CORE__EXECUTOR: CeleryExecutor
+    AIRFLOW__CELERY__BROKER_URL: redis://airflow-redis:6379/0
+    AIRFLOW__DATABASE__SQL_ALCHEMY_CONN: postgresql+psycopg2://airflow:${AIRFLOW_POSTGRES_PASSWORD}@airflow-postgres/airflow
+    AIRFLOW__CELERY__RESULT_BACKEND: db+postgresql://airflow:${AIRFLOW_POSTGRES_PASSWORD}@airflow-postgres/airflow
+    AIRFLOW__CORE__FERNET_KEY: ${AIRFLOW_FERNET_KEY:-}
+    AIRFLOW__WEBSERVER__SECRET_KEY: ${AIRFLOW_WEBSERVER_SECRET_KEY:-}
+    AIRFLOW__CORE__DAGS_FOLDER: /opt/airflow/src/dags
+    AIRFLOW__CORE__LOAD_EXAMPLES: "false"
+    AIRFLOW__API__AUTH_BACKENDS: airflow.api.auth.backend.basic_auth
+    PYTHONPATH: ${AIRFLOW_PYTHONPATH:-/opt/airflow}
+    DUMB_INIT_SETSID: "0"
+  networks:
+    - internal
+  depends_on:
+    airflow-redis:
+      condition: service_healthy
+    airflow-postgres:
+      condition: service_healthy
+
+services:
+  traefik:
+    image: *traefik-version
+    container_name: traefik
+    restart: unless-stopped
+    environment:
+      TRAEFIK_PROVIDERS_DOCKER: "true"
+      TRAEFIK_PROVIDERS_DOCKER_EXPOSEDBYDEFAULT: "false"
+      TRAEFIK_PROVIDERS_DOCKER_NETWORK: "tedsws-proxy-net"
+      TRAEFIK_ENTRYPOINTS_WEB_ADDRESS: ":80"
+      TRAEFIK_API_DASHBOARD: "true"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    networks:
+      - proxy-net
+
+  minio:
+    image: *minio-version
+    container_name: minio
+    restart: unless-stopped
+    command: server /data
+    environment:
+      MINIO_ROOT_USER: admin
+      MINIO_ROOT_PASSWORD: ${MINIO_ROOT_PASSWORD}
+    networks:
+      - proxy-net
+      - internal
+
+  mongodb:
+    image: *mongodb-version
+    container_name: mongodb
+    restart: unless-stopped
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_ROOT_PASSWORD}
+    networks:
+      - internal
+
+  mongo-express:
+    image: *mongo-express-version
+    container_name: mongo-express
+    restart: unless-stopped
+    environment:
+      ME_CONFIG_MONGODB_SERVER: mongodb
+      ME_CONFIG_MONGODB_ADMINUSERNAME: admin
+      ME_CONFIG_MONGODB_ADMINPASSWORD: ${MONGO_ROOT_PASSWORD}
+      ME_CONFIG_MONGODB_URL: mongodb://admin:${MONGO_ROOT_PASSWORD}@mongodb:27017/
+      ME_CONFIG_BASICAUTH_USERNAME: admin
+      ME_CONFIG_BASICAUTH_PASSWORD: ${MONGO_EXPRESS_PASSWORD}
+    depends_on:
+      - mongodb
+    networks:
+      - internal
+      - proxy-net
+
+  fuseki:
+    image: *fuseki-version
+    container_name: fuseki
+    restart: unless-stopped
+    environment:
+      ADMIN_PASSWORD: ${FUSEKI_ADMIN_PASSWORD}
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://localhost:3030/$/ping"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+    networks:
+      - internal
+      - proxy-net
+
+  fuseki-init:
+    image: curlimages/curl:8.12.1
+    container_name: fuseki-init
+    restart: "no"
+    depends_on:
+      fuseki:
+        condition: service_healthy
+    environment:
+      FUSEKI_ADMIN_PASSWORD: ${FUSEKI_ADMIN_PASSWORD}
+    volumes:
+      - ./fuseki/seed:/seed:ro
+    entrypoint: ["/bin/sh", "-c"]
+    command:
+      - |
+        DATASETS=$$(curl -sf -u "admin:$$FUSEKI_ADMIN_PASSWORD" "http://fuseki:3030/\$$/datasets")
+        for f in /seed/*.ttl; do
+          ds=$$(basename "$$f" .ttl)
+          if echo "$$DATASETS" | grep -q "\"/$${ds}\""; then
+            echo "Dataset $$ds already exists, skipping."
+          else
+            echo "Creating dataset $$ds..."
+            curl -sf -u "admin:$$FUSEKI_ADMIN_PASSWORD" -X POST \
+              "http://fuseki:3030/\$$/datasets" \
+              -d "dbName=$$ds&dbType=tdb2"
+            echo "Loading data into $$ds..."
+            curl -sf -u "admin:$$FUSEKI_ADMIN_PASSWORD" -X POST \
+              "http://fuseki:3030/$$ds/data" \
+              -H "Content-Type: text/turtle" \
+              --data-binary "@$$f" && echo "Loaded $$f into $$ds" || echo "FAIL: could not load $$f"
+          fi
+        done
+        echo "Fuseki init complete."
+    networks:
+      - internal
+
+  metabase:
+    image: *metabase-version
+    container_name: metabase
+    restart: unless-stopped
+    networks:
+      - internal
+      - proxy-net
+
+  sftp:
+    image: *sftp-version
+    container_name: sftp
+    restart: unless-stopped
+    command: ${SFTP_PUBLISH_USER:-sftpuser}:${SFTP_PUBLISH_PASSWORD}:::upload
+    environment:
+      SFTP_USER: ${SFTP_PUBLISH_USER:-sftpuser}
+      SFTP_PASSWORD: ${SFTP_PUBLISH_PASSWORD}
+      SFTP_PORT: ${SFTP_PUBLISH_PORT:-22}
+    networks:
+      - internal
+      - proxy-net
+
+  airflow-postgres:
+    image: *postgres-version
+    container_name: airflow-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: airflow
+      POSTGRES_PASSWORD: ${AIRFLOW_POSTGRES_PASSWORD}
+      POSTGRES_DB: airflow
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "airflow"]
+      interval: 5s
+      retries: 5
+    networks:
+      - internal
+
+  airflow-redis:
+    image: *redis-version
+    container_name: airflow-redis
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 30s
+      retries: 5
+    networks:
+      - internal
+
+  airflow-init:
+    <<: *airflow-common
+    container_name: airflow-init
+    entrypoint: /bin/bash
+    command:
+      - -c
+      - |
+        airflow db migrate
+        airflow users create \
+          --username admin \
+          --password ${AIRFLOW_ADMIN_PASSWORD} \
+          --firstname Admin \
+          --lastname User \
+          --role Admin \
+          --email admin@example.com || true
+    user: "0:0"
+    restart: "no"
+
+  airflow-webserver:
+    <<: *airflow-common
+    container_name: airflow-webserver
+    command: webserver
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "--fail", "http://localhost:8080/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+    networks:
+      - internal
+      - proxy-net
+    depends_on:
+      airflow-init:
+        condition: service_completed_successfully
+
+  airflow-scheduler:
+    <<: *airflow-common
+    container_name: airflow-scheduler
+    command: scheduler
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", 'airflow jobs check --job-type SchedulerJob --hostname "$${HOSTNAME}"']
+      interval: 30s
+      timeout: 10s
+      retries: 5
+    depends_on:
+      airflow-init:
+        condition: service_completed_successfully
+
+  airflow-worker:
+    <<: *airflow-common
+    container_name: airflow-worker
+    command: celery worker
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", 'celery --app airflow.executors.celery_executor.app inspect ping -d "celery@$${HOSTNAME}"']
+      interval: 30s
+      timeout: 10s
+      retries: 5
+    depends_on:
+      airflow-init:
+        condition: service_completed_successfully
+
+  airflow-triggerer:
+    <<: *airflow-common
+    container_name: airflow-triggerer
+    command: triggerer
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", 'airflow jobs check --job-type TriggererJob --hostname "$${HOSTNAME}"']
+      interval: 30s
+      timeout: 10s
+      retries: 5
+    depends_on:
+      airflow-init:
+        condition: service_completed_successfully
+
+networks:
+  proxy-net:
+    name: tedsws-proxy-net
+  internal:
+    name: tedsws-internal

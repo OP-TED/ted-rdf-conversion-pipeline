@@ -1,0 +1,43 @@
+name: Deploy Pipeline Code
+
+on:
+  workflow_call:
+    inputs:
+      restart_worker:
+        description: 'Restart Airflow worker (needed if ted_sws code changed)'
+        required: false
+        default: false
+        type: boolean
+
+jobs:
+  deploy:
+    name: Deploy DAGs and Code
+    runs-on: tedsws-staging
+    timeout-minutes: 10
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Sync code to deployment directory
+        run: |
+          echo "Syncing DAGs and ted_sws to /opt/tedsws..."
+          rsync -av --delete src/dags/ /opt/tedsws/src/dags/
+          rsync -av --delete src/ted_sws/ /opt/tedsws/src/ted_sws/
+          echo "Sync complete."
+
+      - name: Restart Airflow worker
+        if: ${{ inputs.restart_worker }}
+        run: |
+          echo "Restarting Airflow worker to pick up ted_sws changes..."
+          docker restart airflow-worker
+          echo "Worker restarted."
+
+      - name: Verify deployment
+        run: |
+          echo "=== Deployed files ==="
+          echo "DAGs:"
+          ls -la /opt/tedsws/src/dags/ | head -10
+          echo ""
+          echo "ted_sws modules:"
+          ls -la /opt/tedsws/src/ted_sws/ | head -10

@@ -1,0 +1,119 @@
+name: Deploy TED-SWS Stack
+
+on:
+  push:
+    branches:
+      - develop
+    paths:
+      - 'src/infra/**'
+      - 'src/dags/**'
+      - 'src/ted_sws/**'
+      - 'requirements.txt'
+      - 'Makefile'
+      - '.github/workflows/deploy*.yml'
+
+concurrency:
+  group: deploy-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  changes:
+    name: Detect Changes
+    runs-on: tedsws-staging
+    timeout-minutes: 5
+    outputs:
+      stack: ${{ steps.filter.outputs.stack }}
+      pipeline: ${{ steps.filter.outputs.pipeline }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dorny/paths-filter@v3
+        id: filter
+        with:
+          base: ${{ github.ref }}
+          filters: |
+            stack:
+              - 'src/infra/**'
+              - 'requirements.txt'
+              - 'Makefile'
+              - '.github/workflows/deploy-infrastructure.yml'
+            pipeline:
+              - 'src/dags/**'
+              - 'src/ted_sws/**'
+              - '.github/workflows/deploy-pipeline.yml'
+
+  stack:
+    name: Deploy TED-SWS Stack
+    needs: changes
+    if: ${{ needs.changes.outputs.stack == 'true' }}
+    uses: ./.github/workflows/deploy-infrastructure.yml
+    secrets:
+      VAULT_TOKEN: ${{ secrets.VAULT_TOKEN }}
+      VAULT_ADDR: ${{ secrets.VAULT_ADDR }}
+
+  tests:
+    name: Run Tests
+    needs: [changes, stack]
+    if: ${{ always() && needs.changes.outputs.pipeline == 'true' && (needs.stack.result == 'success' || needs.stack.result == 'skipped') }}
+    uses: ./.github/workflows/tests.yml
+    with:
+      full_tests: true
+    secrets:
+      VAULT_TOKEN: ${{ secrets.VAULT_TOKEN }}
+      VAULT_ADDR: ${{ secrets.VAULT_ADDR }}
+      SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+
+  pipeline:
+    name: Deploy TED-SWS Pipeline
+    needs: [changes, stack, tests]
+    if: ${{ always() && needs.changes.outputs.pipeline == 'true' && needs.tests.result == 'success' }}
+    uses: ./.github/workflows/deploy-pipeline.yml
+    with:
+      restart_worker: true
+
+  health-check:
+    name: Health Check
+    needs: [stack, pipeline]
+    if: always()
+    runs-on: tedsws-staging
+    timeout-minutes: 5
+
+    steps:
+      - name: Check all services
+        run: |
+          echo "Waiting for services to stabilize..."
+          sleep 10
+
+          failed=0
+
+          echo "=== Checking Traefik ==="
+          docker ps | grep -q "traefik" && echo "✓ Traefik" || { echo "✗ Traefik"; failed=1; }
+
+          echo "=== Checking Data Stores ==="
+          docker ps | grep -q "mongodb" && echo "✓ MongoDB" || { echo "✗ MongoDB"; failed=1; }
+          docker ps | grep -q "fuseki" && echo "✓ Fuseki" || { echo "✗ Fuseki"; failed=1; }
+          docker ps | grep -q "minio" && echo "✓ MinIO" || { echo "✗ MinIO"; failed=1; }
+          docker ps | grep -q "sftp" && echo "✓ SFTP" || { echo "✗ SFTP"; failed=1; }
+
+          echo "=== Checking Airflow ==="
+          docker ps | grep -q "airflow-webserver" && echo "✓ Airflow webserver" || { echo "✗ Airflow webserver"; failed=1; }
+          docker ps | grep -q "airflow-scheduler" && echo "✓ Airflow scheduler" || { echo "✗ Airflow scheduler"; failed=1; }
+          docker ps | grep -q "airflow-worker" && echo "✓ Airflow worker" || { echo "✗ Airflow worker"; failed=1; }
+
+          echo "=== Checking APIs ==="
+          docker ps | grep -q "metabase" && echo "✓ Metabase" || { echo "✗ Metabase"; failed=1; }
+
+          echo ""
+          echo "=== All containers ==="
+          docker ps --format "table {{.Names}}\t{{.Status}}"
+
+          exit $failed
+
+      - name: Cleanup old Docker resources
+        if: always()
+        run: |
+          echo "=== Cleaning up old Docker resources ==="
+          docker system prune -f --filter "until=24h"
+          echo ""
+          echo "=== Disk usage after cleanup ==="
+          df -h /
+          docker system df

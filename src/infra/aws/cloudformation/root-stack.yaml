@@ -1,0 +1,206 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Description: "TED-SWS — Root stack."
+
+Parameters:
+  # Environment
+  Environment:
+    Type: String
+    Default: sandbox
+    AllowedValues:
+      - sandbox
+      - staging
+      - production
+    Description: Deployment environment (appended to resource names)
+  # Networking (pre-existing, not managed by CFN)
+  VpcId:
+    Type: AWS::EC2::VPC::Id
+    Description: VPC ID for the deployment
+  SubnetId1:
+    Type: AWS::EC2::Subnet::Id
+    Description: First private subnet
+  SubnetId2:
+    Type: AWS::EC2::Subnet::Id
+    Description: Second private subnet
+  SecurityGroupId:
+    Type: AWS::EC2::SecurityGroup::Id
+    Description: Security group for ECS tasks and EFS mount targets
+  # Image tags (repos are created by platform stack)
+  AirflowImageTag:
+    Type: String
+    Default: 2.10.5-python3.10
+    Description: Image tag for airflow
+  FusekiImageTag:
+    Type: String
+    Default: "5.3.0"
+    Description: Image tag for fuseki
+  MetabaseImageTag:
+    Type: String
+    Default: v0.53.6.6
+    Description: Image tag for metabase
+  MongoExpressImageTag:
+    Type: String
+    Default: "0.54.0"
+    Description: Image tag for mongo-express
+  DigestApiImageTag:
+    Type: String
+    Default: 2024-07-29
+    Description: Image tag for digest-api
+  SftpImageTag:
+    Type: String
+    Default: debian
+    Description: Image tag for sftp
+  BusyboxImageTag:
+    Type: String
+    Default: "1.36.1"
+    Description: Image tag for busybox
+  # Database credentials
+  AirflowDbPassword:
+    Type: String
+    NoEcho: true
+    Description: Master password for Airflow RDS PostgreSQL
+  MetabaseDbPassword:
+    Type: String
+    NoEcho: true
+    Description: Master password for Metabase RDS PostgreSQL
+  DocumentDbPassword:
+    Type: String
+    NoEcho: true
+    Description: Master password for DocumentDB
+  # Template hosting
+  TemplateBaseUrl:
+    Type: String
+    Description: S3 URL prefix where nested templates are uploaded (e.g. https://s3.eu-west-1.amazonaws.com/my-bucket/cloudformation)
+
+Resources:
+  # ---------------------------------------------------------------------------
+  # Storage — EFS filesystems and mount targets
+  # ---------------------------------------------------------------------------
+  StorageStack:
+    Type: AWS::CloudFormation::Stack
+    Properties:
+      TemplateURL: !Sub "${TemplateBaseUrl}/storage.yaml"
+      Parameters:
+        SubnetId1: !Ref SubnetId1
+        SubnetId2: !Ref SubnetId2
+        SecurityGroupId: !Ref SecurityGroupId
+        Environment: !Ref Environment
+
+  # ---------------------------------------------------------------------------
+  # Data Services — RDS, DocumentDB, ElastiCache
+  # ---------------------------------------------------------------------------
+  DataServicesStack:
+    Type: AWS::CloudFormation::Stack
+    Properties:
+      TemplateURL: !Sub "${TemplateBaseUrl}/data-services.yaml"
+      Parameters:
+        Environment: !Ref Environment
+        SubnetId1: !Ref SubnetId1
+        SubnetId2: !Ref SubnetId2
+        SecurityGroupId: !Ref SecurityGroupId
+        AirflowDbMasterPassword: !Ref AirflowDbPassword
+        MetabaseDbMasterPassword: !Ref MetabaseDbPassword
+        DocumentDbMasterPassword: !Ref DocumentDbPassword
+
+  # ---------------------------------------------------------------------------
+  # Platform — ECS cluster, Cloud Map, log groups, IAM role
+  # ---------------------------------------------------------------------------
+  PlatformStack:
+    Type: AWS::CloudFormation::Stack
+    DependsOn: StorageStack
+    Properties:
+      TemplateURL: !Sub "${TemplateBaseUrl}/platform.yaml"
+      Parameters:
+        VpcId: !Ref VpcId
+        Environment: !Ref Environment
+
+  # ---------------------------------------------------------------------------
+  # Services — Task definitions, ECS services, Cloud Map discovery
+  # ---------------------------------------------------------------------------
+  ServicesStack:
+    Type: AWS::CloudFormation::Stack
+    Properties:
+      TemplateURL: !Sub "${TemplateBaseUrl}/services.yaml"
+      Parameters:
+        # From storage
+        AirflowLogsEfsId: !GetAtt StorageStack.Outputs.AirflowLogsEfsId
+        AirflowTedSwsEfsId: !GetAtt StorageStack.Outputs.AirflowTedSwsEfsId
+        FusekiDataEfsId: !GetAtt StorageStack.Outputs.FusekiDataEfsId
+        SftpDataEfsId: !GetAtt StorageStack.Outputs.SftpDataEfsId
+        # From platform
+        ClusterName: !GetAtt PlatformStack.Outputs.ClusterName
+        ExecutionRoleArn: !GetAtt PlatformStack.Outputs.ExecutionRoleArn
+        TaskRoleArn: !GetAtt PlatformStack.Outputs.TaskRoleArn
+        CloudMapNamespaceId: !GetAtt PlatformStack.Outputs.CloudMapNamespaceId
+        EnvFileBucketName: !GetAtt PlatformStack.Outputs.EnvFileBucketName
+        # Networking
+        SubnetId1: !Ref SubnetId1
+        SubnetId2: !Ref SubnetId2
+        SecurityGroupId: !Ref SecurityGroupId
+        # Images (repo URI from platform stack + tag from parameters)
+        AirflowImageUri: !Sub
+          - "${RepoUri}:${Tag}"
+          - RepoUri: !GetAtt PlatformStack.Outputs.AirflowEcrRepoUri
+            Tag: !Ref AirflowImageTag
+        FusekiImageUri: !Sub
+          - "${RepoUri}:${Tag}"
+          - RepoUri: !GetAtt PlatformStack.Outputs.FusekiEcrRepoUri
+            Tag: !Ref FusekiImageTag
+        MetabaseImageUri: !Sub
+          - "${RepoUri}:${Tag}"
+          - RepoUri: !GetAtt PlatformStack.Outputs.MetabaseEcrRepoUri
+            Tag: !Ref MetabaseImageTag
+        MongoExpressImageUri: !Sub
+          - "${RepoUri}:${Tag}"
+          - RepoUri: !GetAtt PlatformStack.Outputs.MongoExpressEcrRepoUri
+            Tag: !Ref MongoExpressImageTag
+        DigestApiImageUri: !Sub
+          - "${RepoUri}:${Tag}"
+          - RepoUri: !GetAtt PlatformStack.Outputs.DigestApiEcrRepoUri
+            Tag: !Ref DigestApiImageTag
+        SftpImageUri: !Sub
+          - "${RepoUri}:${Tag}"
+          - RepoUri: !GetAtt PlatformStack.Outputs.SftpEcrRepoUri
+            Tag: !Ref SftpImageTag
+        BusyboxImageUri: !Sub
+          - "${RepoUri}:${Tag}"
+          - RepoUri: !GetAtt PlatformStack.Outputs.BusyboxEcrRepoUri
+            Tag: !Ref BusyboxImageTag
+        # Environment
+        Environment: !Ref Environment
+
+Outputs:
+  ClusterName:
+    Description: ECS cluster name
+    Value: !GetAtt PlatformStack.Outputs.ClusterName
+  ClusterArn:
+    Description: ECS cluster ARN
+    Value: !GetAtt PlatformStack.Outputs.ClusterArn
+  AirflowLogsEfsId:
+    Description: Airflow logs EFS filesystem ID
+    Value: !GetAtt StorageStack.Outputs.AirflowLogsEfsId
+  AirflowTedSwsEfsId:
+    Description: Airflow ted-sws EFS filesystem ID
+    Value: !GetAtt StorageStack.Outputs.AirflowTedSwsEfsId
+  FusekiDataEfsId:
+    Description: Fuseki data EFS filesystem ID
+    Value: !GetAtt StorageStack.Outputs.FusekiDataEfsId
+  SftpDataEfsId:
+    Description: SFTP data EFS filesystem ID
+    Value: !GetAtt StorageStack.Outputs.SftpDataEfsId
+  # S3
+  EnvFileBucketName:
+    Description: S3 bucket name for .env files
+    Value: !GetAtt PlatformStack.Outputs.EnvFileBucketName
+  # Data services
+  AirflowRdsEndpoint:
+    Description: Airflow RDS endpoint
+    Value: !GetAtt DataServicesStack.Outputs.AirflowRdsEndpoint
+  MetabaseRdsEndpoint:
+    Description: Metabase RDS endpoint
+    Value: !GetAtt DataServicesStack.Outputs.MetabaseRdsEndpoint
+  DocumentDbEndpoint:
+    Description: DocumentDB cluster endpoint
+    Value: !GetAtt DataServicesStack.Outputs.DocumentDbEndpoint
+  RedisEndpoint:
+    Description: Redis primary endpoint
+    Value: !GetAtt DataServicesStack.Outputs.RedisEndpoint

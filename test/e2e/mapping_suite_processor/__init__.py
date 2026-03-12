@@ -1,0 +1,1 @@
+MAPPING_PACKAGE_NAME = "package_F03"

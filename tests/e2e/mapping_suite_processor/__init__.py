@@ -1,1 +1,0 @@
-MAPPING_SUITE_PACKAGE_NAME = "package_F03"

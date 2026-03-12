@@ -1,0 +1,55 @@
+{
+  "head": {
+    "link": [],
+    "vars": [
+      "code",
+      "conceptURI"
+    ]
+  },
+  "results": {
+    "distinct": false,
+    "ordered": true,
+    "bindings": [
+      {
+        "code": {
+          "type": "literal",
+          "value": "OP_DATPRO"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://publications.europa.eu/resource/authority/winner-selection-status/OP_DATPRO"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "clos-nw"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://publications.europa.eu/resource/authority/winner-selection-status/clos-nw"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "open-nw"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://publications.europa.eu/resource/authority/winner-selection-status/open-nw"
+        }
+      },
+      {
+        "code": {
+          "type": "literal",
+          "value": "selec-w"
+        },
+        "conceptURI": {
+          "type": "uri",
+          "value": "http://publications.europa.eu/resource/authority/winner-selection-status/selec-w"
+        }
+      }
+    ]
+  }
+}

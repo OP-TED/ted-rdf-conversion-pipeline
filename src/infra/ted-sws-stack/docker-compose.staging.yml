@@ -1,0 +1,184 @@
+# =============================================================================
+# TED-SWS Stack - Staging Environment
+# Usage: docker compose -f docker-compose.yml -f docker-compose.staging.yml --env-file .env up -d
+# =============================================================================
+
+services:
+  traefik:
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ${TRAEFIK_DATA_PATH:-/opt/tedsws/traefik}/letsencrypt:/letsencrypt
+    command:
+      - "--api.dashboard=true"
+      - "--api.insecure=false"
+      - "--providers.docker=true"
+      - "--providers.docker.exposedbydefault=false"
+      - "--providers.docker.network=tedsws-proxy-net"
+      - "--entrypoints.web.address=:80"
+      - "--entrypoints.web-secured.address=:443"
+      - "--entrypoints.web.http.redirections.entrypoint.to=web-secured"
+      - "--entrypoints.web.http.redirections.entrypoint.scheme=https"
+      - "--certificatesresolvers.mytlschallenge.acme.tlschallenge=true"
+      - "--certificatesresolvers.mytlschallenge.acme.email=${ACME_EMAIL:-admin@ted-data.eu}"
+      - "--certificatesresolvers.mytlschallenge.acme.storage=/letsencrypt/acme.json"
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.dashboard.rule=Host(`monitor.${SUBDOMAIN}${DOMAIN}`)"
+      - "traefik.http.routers.dashboard.service=api@internal"
+      - "traefik.http.routers.dashboard.tls.certresolver=mytlschallenge"
+      - "traefik.http.routers.dashboard.middlewares=auth"
+      - "traefik.http.middlewares.auth.basicauth.users=${TRAEFIK_DASHBOARD_AUTH}"
+
+  minio:
+    volumes:
+      - minio-data:/data
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.minio.rule=Host(`minio.${SUBDOMAIN}${DOMAIN}`)"
+      - "traefik.http.routers.minio.tls.certresolver=mytlschallenge"
+      - "traefik.http.services.minio.loadbalancer.server.port=9001"
+
+  mongodb:
+    volumes:
+      - mongodb-data:/data/db
+
+  mongo-express:
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.mongo-express.rule=Host(`mongo.${SUBDOMAIN}${DOMAIN}`)"
+      - "traefik.http.routers.mongo-express.tls.certresolver=mytlschallenge"
+
+  fuseki:
+    volumes:
+      - fuseki-data:/fuseki-base/databases
+      - fuseki-config:/fuseki-base/configuration
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.fuseki.rule=Host(`fuseki.${SUBDOMAIN}${DOMAIN}`)"
+      - "traefik.http.routers.fuseki.tls.certresolver=mytlschallenge"
+      - "traefik.http.services.fuseki.loadbalancer.server.port=3030"
+
+  metabase-postgres:
+    image: postgres:14-alpine
+    container_name: metabase-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: metabase
+      POSTGRES_USER: metabase
+      POSTGRES_PASSWORD: ${METABASE_POSTGRES_PASSWORD}
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "metabase"]
+      interval: 5s
+      retries: 5
+    volumes:
+      - metabase-postgres-data:/var/lib/postgresql/data
+    networks:
+      - internal
+
+  metabase:
+    environment:
+      MB_DB_TYPE: postgres
+      MB_DB_DBNAME: metabase
+      MB_DB_PORT: 5432
+      MB_DB_USER: metabase
+      MB_DB_PASS: ${METABASE_POSTGRES_PASSWORD}
+      MB_DB_HOST: metabase-postgres
+    depends_on:
+      metabase-postgres:
+        condition: service_healthy
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.metabase.rule=Host(`metabase.${SUBDOMAIN}${DOMAIN}`)"
+      - "traefik.http.routers.metabase.tls.certresolver=mytlschallenge"
+      - "traefik.http.services.metabase.loadbalancer.server.port=3000"
+
+  sftp:
+    ports:
+      - "2235:22"
+    volumes:
+      - sftp-data:/home
+
+  airflow-postgres:
+    volumes:
+      - airflow-postgres-data:/var/lib/postgresql/data
+
+  airflow-init:
+    volumes:
+      - /opt/tedsws/src:/opt/airflow/src
+      - /opt/tedsws/test:/opt/airflow/test
+      - /opt/tedsws/logs:/opt/airflow/logs
+      - /opt/tedsws/plugins:/opt/airflow/plugins
+      - /opt/tedsws/libraries/.rmlmapper:/home/airflow/.rmlmapper
+      - /opt/tedsws/libraries/.saxon:/home/airflow/.saxon
+      - /opt/tedsws/libraries/.limes:/home/airflow/.limes
+    env_file:
+      - .env.common
+      - .env.staging
+
+  airflow-webserver:
+    volumes:
+      - /opt/tedsws/src:/opt/airflow/src
+      - /opt/tedsws/test:/opt/airflow/test
+      - /opt/tedsws/logs:/opt/airflow/logs
+      - /opt/tedsws/plugins:/opt/airflow/plugins
+      - /opt/tedsws/libraries/.rmlmapper:/home/airflow/.rmlmapper
+      - /opt/tedsws/libraries/.saxon:/home/airflow/.saxon
+      - /opt/tedsws/libraries/.limes:/home/airflow/.limes
+    env_file:
+      - .env.common
+      - .env.staging
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.airflow.rule=Host(`airflow.${SUBDOMAIN}${DOMAIN}`)"
+      - "traefik.http.routers.airflow.tls.certresolver=mytlschallenge"
+      - "traefik.http.services.airflow.loadbalancer.server.port=8080"
+
+  airflow-scheduler:
+    volumes:
+      - /opt/tedsws/src:/opt/airflow/src
+      - /opt/tedsws/test:/opt/airflow/test
+      - /opt/tedsws/logs:/opt/airflow/logs
+      - /opt/tedsws/plugins:/opt/airflow/plugins
+      - /opt/tedsws/libraries/.rmlmapper:/home/airflow/.rmlmapper
+      - /opt/tedsws/libraries/.saxon:/home/airflow/.saxon
+      - /opt/tedsws/libraries/.limes:/home/airflow/.limes
+    env_file:
+      - .env.common
+      - .env.staging
+
+  airflow-worker:
+    volumes:
+      - /opt/tedsws/src:/opt/airflow/src
+      - /opt/tedsws/test:/opt/airflow/test
+      - /opt/tedsws/logs:/opt/airflow/logs
+      - /opt/tedsws/plugins:/opt/airflow/plugins
+      - /opt/tedsws/libraries/.rmlmapper:/home/airflow/.rmlmapper
+      - /opt/tedsws/libraries/.saxon:/home/airflow/.saxon
+      - /opt/tedsws/libraries/.limes:/home/airflow/.limes
+    env_file:
+      - .env.common
+      - .env.staging
+
+  airflow-triggerer:
+    volumes:
+      - /opt/tedsws/src:/opt/airflow/src
+      - /opt/tedsws/test:/opt/airflow/test
+      - /opt/tedsws/logs:/opt/airflow/logs
+      - /opt/tedsws/plugins:/opt/airflow/plugins
+      - /opt/tedsws/libraries/.rmlmapper:/home/airflow/.rmlmapper
+      - /opt/tedsws/libraries/.saxon:/home/airflow/.saxon
+      - /opt/tedsws/libraries/.limes:/home/airflow/.limes
+    env_file:
+      - .env.common
+      - .env.staging
+
+volumes:
+  minio-data:
+  mongodb-data:
+  fuseki-data:
+  fuseki-config:
+  sftp-data:
+  airflow-postgres-data:
+  metabase-postgres-data:

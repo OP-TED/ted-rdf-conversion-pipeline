@@ -1,0 +1,46 @@
+from pathlib import Path
+
+import mongomock
+import pymongo
+import pytest
+from src.ted_sws.core.model.transform import MappingPackage
+from src.ted_sws.data_manager.adapters.mapping_package_repository import MappingPackageRepositoryInFileSystem
+from test import TEST_DATA_PATH
+
+
+@pytest.fixture
+def fake_not_mapping_package_id() -> str:
+    return "test_not_package"
+
+
+@pytest.fixture
+def fake_failed_mapping_package_id() -> str:
+    return "test_failed_package"
+
+
+@pytest.fixture
+def fake_fail_repository_path() -> Path:
+    return TEST_DATA_PATH / "notice_transformer" / "test_fail_packages"
+
+
+@pytest.fixture
+def fake_repository_path() -> Path:
+    return TEST_DATA_PATH / "notice_transformer" / "test_repository"
+
+
+@pytest.fixture
+def fake_mapping_package_id() -> str:
+    return "test_package"
+
+
+@pytest.fixture
+def fake_mapping_package(fake_repository_path, fake_mapping_package_id) -> MappingPackage:
+    repository_path = fake_repository_path
+    mapping_package_repository = MappingPackageRepositoryInFileSystem(repository_path=repository_path)
+    return mapping_package_repository.get(reference=fake_mapping_package_id)
+
+
+@pytest.fixture
+@mongomock.patch(servers=(('server.example.com', 27017),))
+def mongodb_client():
+    return pymongo.MongoClient('server.example.com')

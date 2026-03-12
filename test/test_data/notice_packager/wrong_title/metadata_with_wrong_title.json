@@ -1,0 +1,70 @@
+{
+  "notice": {
+    "id": "003545_2021",
+    "public_number_document": "003545",
+    "public_number_edition": "2021004"
+  },
+  "mets": {
+    "languages": [
+      "en"
+    ],
+    "revision": "0",
+    "type": "create",
+    "profile": "http://publications.europa.eu/resource/mets/op-sip-profile_002",
+    "createdate": "2023-03-09T18:28:54.804225",
+    "document_id": "",
+    "dmd_id": "dmd_2021_S_004_003545_0_001",
+    "dmd_mdtype": "OTHER",
+    "dmd_othermdtype": "INSTANCE",
+    "dmd_href": "2021_S_004_003545_0.mets.xml.dmd.rdf",
+    "tmd_id": "tmd_2021_S_004_003545_0_001",
+    "tmd_href": "2021_S_004_003545_0.tmd.rdf",
+    "tmd_mdtype": "OTHER",
+    "tmd_othermdtype": "INSTANCE",
+    "file_id": "file_2021_S_004_003545_0_001",
+    "notice_file_href": "2021_S_004_003545_0.notice.rdf",
+    "notice_file_mimetype": "application/rdf+xml",
+    "notice_file_checksum": "00e2c0570f2d9f00c71c3d8009b8bec5a530167a01ebb473e67be5e97383cdc5",
+    "notice_file_checksum_type": "SHA-256"
+  },
+  "work": {
+    "identifier": "2021_S_004_003545",
+    "oj_identifier": "JOS_2021_004_R_003545",
+    "cdm_rdf_type": "procurement_public",
+    "resource_type": "PROCUREMENT_NOTICE",
+    "uri": "http://data.europa.eu/a4g/resource/2021/003545_2021",
+    "do_not_index": "true",
+    "date_document": "2021-01-07",
+    "created_by_agent": "EURUN",
+    "dataset_published_by_agent": "EURUN",
+    "datetime_transmission": "2023-03-09T18:28:54.806241",
+    "title": {
+      "en": "Construction work & planning",
+      "ro": "Lucrari de constructie <br /> si planificare"
+    },
+    "date_creation": "2023-03-09",
+    "concept_type_dataset": "TEST_DATA",
+    "dataset_version": "20230309-0",
+    "dataset_keyword": [
+      "eProcurement",
+      "notice"
+    ],
+    "dataset_has_frequency_publication_frequency": "OTHER",
+    "procurement_public_issued_by_country": "CZ",
+    "procurement_public_url_etendering": []
+  },
+  "expression": {
+    "identifier": "2021_S_004_003545.MUL",
+    "title": {
+      "en": "            eProcurement notice 2021_S_004_003545          "
+    },
+    "uses_language": "MUL"
+  },
+  "manifestation": {
+    "identifier": "2021_S_004_003545.MUL.rdf",
+    "type": "rdf_epo",
+    "date_publication": "2021-01-07",
+    "distribution_has_status_distribution_status": "COMPLETED",
+    "distribution_has_media_type_concept_media_type": "RDF"
+  }
+}

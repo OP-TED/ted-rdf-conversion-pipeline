@@ -78,7 +78,7 @@ celerybeat.pid
 
 # Environments
 .env*
-.venv
+.venv*
 env/
 venv/
 ENV/
@@ -99,24 +99,37 @@ dmypy.json
 
 junit_report.xml
 venv_activation.sh
-infra/traefik/letsencrypt/acme.json
+src/infra/traefik/letsencrypt/acme.json
 *.log
-infra/airflow/logs/scheduler/latest
+src/infra/airflow/logs/scheduler/latest
 /.airflow/
 .rmlmapper/rmlmapper.jar
-infra/airflow/requirements.txt
+src/infra/airflow/requirements.txt
 
 .~lock*
 ~$*
-infra/airflow-cluster/requirements.txt
+src/infra/airflow-cluster/requirements.txt
 node_modules
 tests/reports/allure/report/
 tests/reports/allure/test_results/
 package-lock.json
 package.json
-/infra/digest_api/digest_service/project_requirements.txt
+src/infra/digest_api/digest_service/project_requirements.txt
+src/infra/digest_api/ted_sws/
 .limes/*
 *.ser
 .DS_Store
 .scannerwork/*
-/infra/alpine/libraries/
+src/infra/alpine/libraries/
+/libraries
+/.idea
+.idea
+test/reports/*
+src/infra/airflow/src
+src/infra/airflow/libraries
+!src/infra/ted-sws-stack/.env.local
+!src/infra/ted-sws-stack/.env.common
+
+# Airflow runtime directories (created manually on servers)
+/logs/
+/plugins/

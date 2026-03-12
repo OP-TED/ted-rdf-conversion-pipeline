@@ -1,0 +1,153 @@
+name: Tests
+
+on:
+  push:
+    branches: [feature/**, hotfix/**, release/**]
+  pull_request:
+  workflow_call:
+    inputs:
+      full_tests:
+        description: 'Run full test suite (including integration tests)'
+        type: boolean
+        default: true
+    secrets:
+      VAULT_TOKEN:
+        required: true
+      VAULT_ADDR:
+        required: true
+      SONAR_TOKEN:
+        required: false
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+env:
+  VAULT_TOKEN: ${{ secrets.VAULT_TOKEN }}
+  VAULT_ADDR: ${{ secrets.VAULT_ADDR }}
+
+jobs:
+  test:
+    name: ${{ (github.event_name == 'pull_request' || inputs.full_tests) && 'Full Tests' || 'Unit Tests' }}
+    runs-on: ${{ (github.event_name == 'pull_request' || inputs.full_tests) && 'tedsws-staging' || 'ubuntu-latest' }}
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python 3.10
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+
+      - name: Set up Java
+        if: github.event_name == 'pull_request' || inputs.full_tests
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '11'
+
+      - name: Install Vault
+        if: github.event_name == 'pull_request' || inputs.full_tests
+        run: |
+          if ! command -v vault &> /dev/null; then
+            wget -O- https://apt.releases.hashicorp.com/gpg | sudo gpg --dearmor -o /usr/share/keyrings/hashicorp-archive-keyring.gpg
+            echo "deb [signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] https://apt.releases.hashicorp.com $(lsb_release -cs) main" | sudo tee /etc/apt/sources.list.d/hashicorp.list
+            sudo apt-get update && sudo apt-get install -y vault
+          else
+            echo "Vault already installed: $(vault --version)"
+          fi
+
+      - name: Install system dependencies
+        run: |
+          if ! dpkg -s libssl-dev &> /dev/null; then
+            sudo apt-get update && sudo apt-get install -y libssl-dev libcurl4-openssl-dev
+          else
+            echo "System dependencies already installed"
+          fi
+
+      - name: Install Python dependencies
+        run: |
+          python -m pip install --upgrade setuptools pip wheel
+          make install
+          make install-dev
+
+      - name: Resolve Docker container hostnames
+        if: github.event_name == 'pull_request' || inputs.full_tests
+        run: |
+          # Add /etc/hosts entries for all containers on the unified stack network
+          for entry in $(docker network inspect tedsws-internal -f '{{range .Containers}}{{.Name}}:{{.IPv4Address}} {{end}}'); do
+            name="${entry%%:*}"
+            ip="${entry#*:}"
+            ip="${ip%/*}"
+            echo "$ip $name" | sudo tee -a /etc/hosts
+          done
+          echo "=== /etc/hosts entries ==="
+          grep -vE "^#|^$|localhost" /etc/hosts | tail -20
+          echo "=== Connectivity check (Docker services) ==="
+          FAIL=0
+          curl -sf --max-time 5 http://fuseki:3030 > /dev/null && echo "OK: fuseki:3030" || { echo "FAIL: fuseki:3030"; FAIL=1; }
+          nc -z -w5 minio 9000 && echo "OK: minio:9000" || { echo "FAIL: minio:9000"; FAIL=1; }
+          nc -z -w5 mongodb 27017 && echo "OK: mongodb:27017" || { echo "FAIL: mongodb:27017"; FAIL=1; }
+          nc -z -w5 sftp 22 && echo "OK: sftp:22" || { echo "FAIL: sftp:22"; FAIL=1; }
+          if [ "$FAIL" -eq 1 ]; then
+            echo "::error::Required Docker services are not reachable"
+            exit 1
+          fi
+
+      - name: Create env file
+        run: |
+          if [ "${{ github.event_name }}" == "pull_request" ] || [ "${{ inputs.full_tests }}" == "true" ]; then
+            # Merge app config (.env.common) + Vault secrets (.env.staging)
+            make staging-unified-dotenv
+            cat src/infra/ted-sws-stack/.env.common src/infra/ted-sws-stack/.env.staging > .env
+            # Use host-local libraries (downloaded by make init-libraries)
+            echo "RML_MAPPER_PATH=$(pwd)/libraries/.rmlmapper/rmlmapper.jar" >> .env
+            echo "XML_PROCESSOR_PATH=$(pwd)/libraries/.saxon/saxon-he-10.9.jar" >> .env
+            echo "LIMES_ALIGNMENT_PATH=$(pwd)/libraries/.limes/limes.jar" >> .env
+          else
+            echo "VAULT_TOKEN=${{ secrets.VAULT_TOKEN }}" >> .env
+            echo "VAULT_ADDR=${{ secrets.VAULT_ADDR }}" >> .env
+          fi
+
+      - name: Preflight check (external endpoints)
+        if: github.event_name == 'pull_request' || inputs.full_tests
+        run: |
+          set -a && source .env && set +a
+          FAIL=0
+          curl -so /dev/null --max-time 5 "$TED_API_URL" && echo "OK: TED API ($TED_API_URL)" || { echo "FAIL: TED API ($TED_API_URL)"; FAIL=1; }
+          curl -so /dev/null --max-time 5 "$ALLEGRO_HOST" && echo "OK: AllegroGraph ($ALLEGRO_HOST)" || { echo "FAIL: AllegroGraph ($ALLEGRO_HOST)"; FAIL=1; }
+          curl -so /dev/null --max-time 5 "http://fuseki:3030/test_limes" && echo "OK: Fuseki test_limes" || { echo "FAIL: Fuseki test_limes dataset"; FAIL=1; }
+          if [ "$FAIL" -eq 1 ]; then
+            echo "::error::Required external endpoints are not reachable"
+            exit 1
+          fi
+
+      - name: Get Java tools (Saxon, Limes, RML mapper)
+        if: github.event_name == 'pull_request' || inputs.full_tests
+        run: make init-libraries
+
+      # Using python -m tox instead of make targets to avoid conflict with
+      # outdated system tox on self-hosted runner (/home/lps/.local/bin/tox)
+      - name: Run tests
+        run: ${{ (github.event_name == 'pull_request' || inputs.full_tests) && 'python -m tox' || 'python -m tox -e unit' }}
+
+      - name: SonarCloud Scan
+        uses: SonarSource/sonarqube-scan-action@v6
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+
+      - name: Cleanup
+        if: always()
+        run: |
+          echo "=== Cleaning up test artifacts ==="
+          rm -rf .tox .pytest_cache __pycache__ .coverage coverage.xml
+          find . -type d -name "__pycache__" -exec rm -rf {} + 2>/dev/null || true
+          find . -type f -name "*.pyc" -delete 2>/dev/null || true
+          # Remove Docker container host entries added during this run
+          docker network inspect tedsws-internal -f '{{range .Containers}}{{.Name}}{{"\n"}}{{end}}' 2>/dev/null | \
+            xargs -I{} sudo sed -i '/\b{}\b/d' /etc/hosts || true
+          echo "=== Disk usage ==="
+          df -h /

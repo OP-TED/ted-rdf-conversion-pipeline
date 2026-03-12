@@ -1,0 +1,179 @@
+import pytest
+
+from src.ted_sws.core.model.manifestation import RDFManifestation, RDFValidationManifestation, SPARQLQuery, \
+    SPARQLQueryResult, SPARQLQueryRefinedResultType
+from src.ted_sws.core.model.notice import NoticeStatus
+from src.ted_sws.core.model.validation_report import ReportNotice, SPARQLValidationSummaryReport
+from src.ted_sws.data_manager.adapters.mapping_package_repository import MappingPackageRepositoryInFileSystem
+from src.ted_sws.mapping_suite_processor.adapters.mapping_package_reader import MappingPackageReader
+from src.ted_sws.notice_validator.services.sparql_test_suite_runner import SPARQLTestSuiteRunner, SPARQLReportBuilder, \
+    validate_notice_with_sparql_suite, validate_notice_by_id_with_sparql_suite, \
+    generate_sparql_validation_summary_report
+
+
+def test_sparql_query_test_suite_runner(rdf_file_content, sparql_test_suite, dummy_mapping_package, sparql_file_one,
+                                        fake_xml_manifestation_with_coverage_for_sparql_runner):
+    rdf_manifestation = RDFManifestation(object_data=rdf_file_content)
+    sparql_runner = SPARQLTestSuiteRunner(rdf_manifestation=rdf_manifestation,
+                                          xml_manifestation=fake_xml_manifestation_with_coverage_for_sparql_runner,
+                                          sparql_test_suite=sparql_test_suite,
+                                          mapping_package=dummy_mapping_package)
+
+    list_of_file_resources = sparql_test_suite.sparql_tests
+    for file in list_of_file_resources:
+        query = sparql_runner._sparql_query_from_file_resource(file_resource=file)
+        assert isinstance(query, SPARQLQuery)
+        assert isinstance(query.query, str)
+        assert query.title
+        assert query.description
+        assert query.query
+        assert "this is a description" == query.description
+
+    query_meta = ["#title", "#description", "#xpath"]
+    for meta in query_meta:
+        assert meta in sparql_file_one.file_content
+    sanitized_query = sparql_runner._sanitize_query(sparql_file_one.file_content)
+    for meta in query_meta:
+        assert meta not in sanitized_query
+
+    test_suite_executions = sparql_runner.execute_test_suite().validation_results
+    assert isinstance(test_suite_executions, list)
+    for execution in test_suite_executions:
+        assert isinstance(execution, SPARQLQueryResult)
+
+    assert test_suite_executions[2].result == SPARQLQueryRefinedResultType.VALID.value
+    assert test_suite_executions[1].result == SPARQLQueryRefinedResultType.WARNING.value
+    assert test_suite_executions[0].result == SPARQLQueryRefinedResultType.INVALID.value
+
+
+def test_sparql_query_test_suite_runner_error(sparql_test_suite_with_invalid_query, dummy_mapping_package,
+                                              rdf_file_content):
+    sparql_runner = SPARQLTestSuiteRunner(rdf_manifestation=RDFManifestation(object_data=rdf_file_content),
+                                          sparql_test_suite=sparql_test_suite_with_invalid_query,
+                                          mapping_package=dummy_mapping_package).execute_test_suite()
+
+    assert sparql_runner.validation_results[0].error
+    assert isinstance(sparql_runner.validation_results[0].error, str)
+    assert "Expected" in sparql_runner.validation_results[0].error
+
+
+def test_sparql_query_test_suite_runner_false(sparql_test_suite_with_false_query, dummy_mapping_package,
+                                              rdf_file_content, fake_xml_manifestation_with_coverage_for_sparql_runner):
+    sparql_runner = SPARQLTestSuiteRunner(rdf_manifestation=RDFManifestation(object_data=rdf_file_content),
+                                          xml_manifestation=fake_xml_manifestation_with_coverage_for_sparql_runner,
+                                          sparql_test_suite=sparql_test_suite_with_false_query,
+                                          mapping_package=dummy_mapping_package).execute_test_suite()
+
+    assert sparql_runner.validation_results[0].result == SPARQLQueryRefinedResultType.UNVERIFIABLE.value
+    assert sparql_runner.validation_results[0].query_result == 'False'
+
+
+def test_sparql_query_test_suite_runner_select(sparql_test_suite_with_false_query, dummy_mapping_package,
+                                               rdf_file_content, sparql_test_suite_with_select_query,
+                                               fake_xml_manifestation_with_coverage_for_sparql_runner):
+    sparql_runner = SPARQLTestSuiteRunner(rdf_manifestation=RDFManifestation(object_data=rdf_file_content),
+                                          xml_manifestation=fake_xml_manifestation_with_coverage_for_sparql_runner,
+                                          sparql_test_suite=sparql_test_suite_with_select_query,
+                                          mapping_package=dummy_mapping_package).execute_test_suite()
+
+    assert isinstance(sparql_runner.validation_results[0].query_result, bytes)
+
+
+def test_sparql_report_builder(rdf_file_content, sparql_test_suite, dummy_mapping_package):
+    rdf_manifestation = RDFManifestation(object_data=rdf_file_content)
+    sparql_runner = SPARQLTestSuiteRunner(rdf_manifestation=rdf_manifestation, sparql_test_suite=sparql_test_suite,
+                                          mapping_package=dummy_mapping_package)
+    report_builder = SPARQLReportBuilder(sparql_test_suite_execution=sparql_runner.execute_test_suite(), with_html=True)
+    report = report_builder.generate_report()
+
+    assert report
+    assert isinstance(report, RDFValidationManifestation)
+    assert report.object_data
+    assert "sparql_test_package" in report.object_data
+    assert report.test_suite_identifier == "sparql_test_package"
+
+
+def test_validate_notice_with_sparql_suite(notice_with_distilled_status, dummy_mapping_package, rdf_file_content):
+    notice = notice_with_distilled_status
+    assert notice.rdf_manifestation
+    assert notice.distilled_rdf_manifestation
+    validate_notice_with_sparql_suite(notice=notice, mapping_package=dummy_mapping_package)
+    rdf_validation = notice.get_rdf_validation()
+    distilled_rdf_validation = notice.get_distilled_rdf_validation()
+    assert notice.status == NoticeStatus.DISTILLED
+    assert isinstance(rdf_validation, list)
+    assert len(rdf_validation) == 1
+    assert isinstance(rdf_validation[0], RDFValidationManifestation)
+    assert rdf_validation[0].object_data
+    assert rdf_validation[0].validation_results
+    assert isinstance(distilled_rdf_validation, list)
+    assert len(distilled_rdf_validation) == 1
+    assert isinstance(distilled_rdf_validation[0], RDFValidationManifestation)
+    assert distilled_rdf_validation[0].object_data
+    assert distilled_rdf_validation[0].validation_results
+
+
+def test_validate_notice_by_id_with_sparql_suite(notice_with_distilled_status, rdf_file_content, notice_repository,
+                                                 path_to_file_system_repository):
+    notice = notice_with_distilled_status
+    mapping_package_repository = MappingPackageRepositoryInFileSystem(repository_path=path_to_file_system_repository)
+    notice_repository.add(notice)
+
+    validate_notice_by_id_with_sparql_suite(notice_id="408313-2020",
+                                            mapping_package_repository=mapping_package_repository,
+                                            notice_repository=notice_repository,
+                                            mapping_package_identifier="test_package")
+
+    assert notice.status == NoticeStatus.DISTILLED
+    assert isinstance(notice.get_rdf_validation(), list)
+    assert len(notice.get_rdf_validation()) == 1
+    assert isinstance(notice.get_rdf_validation()[0], RDFValidationManifestation)
+    assert notice.get_rdf_validation()[0].object_data
+
+    with pytest.raises(ValueError):
+        validate_notice_by_id_with_sparql_suite(notice_id="408313-202085569",
+                                               mapping_package_repository=mapping_package_repository,
+                                               notice_repository=notice_repository,
+                                               mapping_package_identifier="test_package")
+
+    with pytest.raises(ValueError):
+        validate_notice_by_id_with_sparql_suite(notice_id="408313-2020",
+                                               mapping_package_repository=mapping_package_repository,
+                                               notice_repository=notice_repository,
+                                               mapping_package_identifier="no_package_here")
+
+
+def test_get_metadata_from_freaking_sparql_queries(query_content, query_content_without_description,
+                                                   query_content_with_xpath):
+    metadata = MappingPackageReader.extract_metadata_from_sparql_query(query_content)
+    assert metadata["title"]
+    assert metadata["description"]
+    assert "SELECT" not in metadata
+
+    metadata = MappingPackageReader.extract_metadata_from_sparql_query(query_content_with_xpath)
+    assert metadata["title"]
+    assert metadata["description"]
+    assert metadata["xpath"]
+    assert "PREFIX" not in metadata
+
+    metadata = MappingPackageReader.extract_metadata_from_sparql_query(query_content_without_description)
+    assert metadata["title"]
+    assert "description" not in metadata
+
+
+def test_generate_sparql_validation_summary_report(notice_with_distilled_status, fake_validation_notice,
+                                                   dummy_mapping_package, rdf_file_content):
+    notice = notice_with_distilled_status
+    assert notice.rdf_manifestation
+    assert notice.distilled_rdf_manifestation
+    notice.rdf_manifestation.sparql_validations = fake_validation_notice.rdf_manifestation.sparql_validations
+    report_notice: ReportNotice = ReportNotice(notice=notice)
+    report: SPARQLValidationSummaryReport = generate_sparql_validation_summary_report(
+        report_notices=[report_notice],
+        mapping_package=dummy_mapping_package,
+        with_html=True
+    )
+    assert report.object_data
+    assert report.notices[0].notice_id == notice.ted_id
+    assert report.validation_results
+    assert len(report.validation_results) > 0

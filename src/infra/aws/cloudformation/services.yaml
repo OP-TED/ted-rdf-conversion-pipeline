@@ -1,0 +1,1090 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Description: "TED-SWS Services — ECS task definitions, services, and Cloud Map entries."
+
+Parameters:
+  # Storage outputs
+  AirflowLogsEfsId:
+    Type: String
+    Description: EFS filesystem ID for airflow-logs
+  AirflowTedSwsEfsId:
+    Type: String
+    Description: EFS filesystem ID for airflow-ted-sws
+  FusekiDataEfsId:
+    Type: String
+    Description: EFS filesystem ID for fuseki-data
+  SftpDataEfsId:
+    Type: String
+    Description: EFS filesystem ID for sftp-data
+  # Platform outputs
+  ClusterName:
+    Type: String
+    Description: ECS cluster name
+  ExecutionRoleArn:
+    Type: String
+    Description: ECS task execution role ARN
+  TaskRoleArn:
+    Type: String
+    Description: ECS task role ARN (for ECS Exec)
+  CloudMapNamespaceId:
+    Type: String
+    Description: Cloud Map namespace ID
+  EnvFileBucketName:
+    Type: String
+    Description: S3 bucket name containing the .env file
+  # Networking
+  SubnetId1:
+    Type: AWS::EC2::Subnet::Id
+  SubnetId2:
+    Type: AWS::EC2::Subnet::Id
+  SecurityGroupId:
+    Type: AWS::EC2::SecurityGroup::Id
+  # Image URIs
+  AirflowImageUri:
+    Type: String
+    Description: ECR image URI for airflow
+  FusekiImageUri:
+    Type: String
+    Description: ECR image URI for fuseki
+  MetabaseImageUri:
+    Type: String
+    Description: ECR image URI for metabase
+  MongoExpressImageUri:
+    Type: String
+    Description: ECR image URI for mongo-express
+  DigestApiImageUri:
+    Type: String
+    Description: ECR image URI for digest-api
+  SftpImageUri:
+    Type: String
+    Description: ECR image URI for sftp
+  BusyboxImageUri:
+    Type: String
+    Default: busybox:1.36.1
+    Description: Busybox image for permissions-init containers
+  # Environment
+  Environment:
+    Type: String
+    Default: sandbox
+    AllowedValues:
+      - sandbox
+      - staging
+      - production
+    Description: Deployment environment (appended to resource names)
+
+Resources:
+  # ===========================================================================
+  # Cloud Map Service Discovery Services
+  # ===========================================================================
+  AirflowDiscoveryService:
+    Type: AWS::ServiceDiscovery::Service
+    Properties:
+      Name: airflow
+      NamespaceId: !Ref CloudMapNamespaceId
+      DnsConfig:
+        DnsRecords:
+          - Type: A
+            TTL: 60
+      Tags:
+        - Key: Project
+          Value: ted-sws
+        - Key: Environment
+          Value: !Ref Environment
+        - Key: ManagedBy
+          Value: cloudformation
+        - Key: Owner
+          Value: Meaningfy DevOps
+
+  FusekiDiscoveryService:
+    Type: AWS::ServiceDiscovery::Service
+    Properties:
+      Name: fuseki
+      NamespaceId: !Ref CloudMapNamespaceId
+      DnsConfig:
+        DnsRecords:
+          - Type: A
+            TTL: 60
+      Tags:
+        - Key: Project
+          Value: ted-sws
+        - Key: Environment
+          Value: !Ref Environment
+        - Key: ManagedBy
+          Value: cloudformation
+        - Key: Owner
+          Value: Meaningfy DevOps
+
+  MetabaseDiscoveryService:
+    Type: AWS::ServiceDiscovery::Service
+    Properties:
+      Name: metabase
+      NamespaceId: !Ref CloudMapNamespaceId
+      DnsConfig:
+        DnsRecords:
+          - Type: A
+            TTL: 60
+      Tags:
+        - Key: Project
+          Value: ted-sws
+        - Key: Environment
+          Value: !Ref Environment
+        - Key: ManagedBy
+          Value: cloudformation
+        - Key: Owner
+          Value: Meaningfy DevOps
+
+  MongoExpressDiscoveryService:
+    Type: AWS::ServiceDiscovery::Service
+    Properties:
+      Name: mongo-express
+      NamespaceId: !Ref CloudMapNamespaceId
+      DnsConfig:
+        DnsRecords:
+          - Type: A
+            TTL: 60
+      Tags:
+        - Key: Project
+          Value: ted-sws
+        - Key: Environment
+          Value: !Ref Environment
+        - Key: ManagedBy
+          Value: cloudformation
+        - Key: Owner
+          Value: Meaningfy DevOps
+
+  DigestApiDiscoveryService:
+    Type: AWS::ServiceDiscovery::Service
+    Properties:
+      Name: digest-api
+      NamespaceId: !Ref CloudMapNamespaceId
+      DnsConfig:
+        DnsRecords:
+          - Type: A
+            TTL: 60
+      Tags:
+        - Key: Project
+          Value: ted-sws
+        - Key: Environment
+          Value: !Ref Environment
+        - Key: ManagedBy
+          Value: cloudformation
+        - Key: Owner
+          Value: Meaningfy DevOps
+
+  SftpDiscoveryService:
+    Type: AWS::ServiceDiscovery::Service
+    Properties:
+      Name: sftp
+      NamespaceId: !Ref CloudMapNamespaceId
+      DnsConfig:
+        DnsRecords:
+          - Type: A
+            TTL: 60
+      Tags:
+        - Key: Project
+          Value: ted-sws
+        - Key: Environment
+          Value: !Ref Environment
+        - Key: ManagedBy
+          Value: cloudformation
+        - Key: Owner
+          Value: Meaningfy DevOps
+
+  # ===========================================================================
+  # Task Definitions
+  # ===========================================================================
+
+  # -------------------------------------------------------------------------
+  # Airflow Task Definition — 8 containers
+  # Dependency chain (per installation manual):
+  #   permissions-init → airflow-init-lib (COMPLETE)
+  #                    → airflow-init (COMPLETE)
+  #                    → airflow-flower (COMPLETE)
+  #   airflow-init-lib → airflow-init (COMPLETE)
+  #   airflow-init     → airflow-scheduler (SUCCESS)
+  #   airflow-scheduler→ airflow-triggerer (START)
+  #                    → airflow-webserver (START)
+  # -------------------------------------------------------------------------
+  AirflowTaskDefinition:
+    Type: AWS::ECS::TaskDefinition
+    Properties:
+      Family: !Sub "airflow-task-${Environment}"
+      NetworkMode: awsvpc
+      RequiresCompatibilities:
+        - FARGATE
+      ExecutionRoleArn: !Ref ExecutionRoleArn
+      TaskRoleArn: !Ref TaskRoleArn
+      Cpu: "4096"
+      Memory: "16384"
+      Tags:
+        - Key: Project
+          Value: ted-sws
+        - Key: Environment
+          Value: !Ref Environment
+        - Key: ManagedBy
+          Value: cloudformation
+        - Key: Owner
+          Value: Meaningfy DevOps
+      Volumes:
+        - Name: airflow-tmp
+        - Name: airflow-opt
+        - Name: airflow-logs
+          EFSVolumeConfiguration:
+            FilesystemId: !Ref AirflowLogsEfsId
+            TransitEncryption: ENABLED
+        - Name: airflow-ted-sws
+          EFSVolumeConfiguration:
+            FilesystemId: !Ref AirflowTedSwsEfsId
+            TransitEncryption: ENABLED
+      ContainerDefinitions:
+        # --- permissions-init ---
+        - Name: permissions-init
+          Image: !Ref BusyboxImageUri
+          Essential: false
+          Command:
+            - sh
+            - -cx
+            - >-
+              chmod -R 0777 /airflow-tmp &&
+              chown -R 50000:50000 /airflow-tmp &&
+              chmod -R 0777 /airflow-opt &&
+              chown -R 50000:50000 /airflow-opt &&
+              echo $?
+          MountPoints:
+            - SourceVolume: airflow-tmp
+              ContainerPath: /airflow-tmp
+            - SourceVolume: airflow-opt
+              ContainerPath: /airflow-opt
+          LogConfiguration:
+            LogDriver: awslogs
+            Options:
+              awslogs-group: !Sub "/ecs/ted-sws-${Environment}/airflow"
+              awslogs-region: !Ref AWS::Region
+              awslogs-stream-prefix: permissions-init
+
+        # --- airflow-init-lib ---
+        # Copies tool JARs from image (/home/airflow/) into the airflow-opt
+        # ephemeral volume so they are available at /opt/airflow at runtime.
+        - Name: airflow-init-lib
+          Image: !Ref AirflowImageUri
+          Essential: false
+          User: "50000"
+          EntryPoint:
+            - /bin/bash
+            - -c
+          Command:
+            - cd /opt/airflow && cp -r /home/airflow/.rmlmapper /home/airflow/.limes /home/airflow/.saxon .
+          EnvironmentFiles:
+            - Value: !Sub "arn:aws:s3:::${EnvFileBucketName}/.env"
+              Type: s3
+          MountPoints:
+            - SourceVolume: airflow-opt
+              ContainerPath: /opt/airflow
+            - SourceVolume: airflow-tmp
+              ContainerPath: /tmp
+          DependsOn:
+            - ContainerName: permissions-init
+              Condition: COMPLETE
+          LogConfiguration:
+            LogDriver: awslogs
+            Options:
+              awslogs-group: !Sub "/ecs/ted-sws-${Environment}/airflow"
+              awslogs-region: !Ref AWS::Region
+              awslogs-stream-prefix: init-lib
+
+        # --- airflow-init ---
+        - Name: airflow-init
+          Image: !Ref AirflowImageUri
+          Essential: false
+          User: "50000"
+          Command:
+            - version
+          EnvironmentFiles:
+            - Value: !Sub "arn:aws:s3:::${EnvFileBucketName}/.env"
+              Type: s3
+          MountPoints:
+            - SourceVolume: airflow-opt
+              ContainerPath: /opt/airflow
+            - SourceVolume: airflow-tmp
+              ContainerPath: /tmp
+            - SourceVolume: airflow-logs
+              ContainerPath: /opt/airflow/logs
+            - SourceVolume: airflow-ted-sws
+              ContainerPath: /opt/airflow/src
+          DependsOn:
+            - ContainerName: airflow-init-lib
+              Condition: COMPLETE
+          LogConfiguration:
+            LogDriver: awslogs
+            Options:
+              awslogs-group: !Sub "/ecs/ted-sws-${Environment}/airflow"
+              awslogs-region: !Ref AWS::Region
+              awslogs-stream-prefix: init
+
+        # --- airflow-scheduler ---
+        - Name: airflow-scheduler
+          Image: !Ref AirflowImageUri
+          Essential: true
+          User: "50000"
+          ReadonlyRootFilesystem: true
+          Command:
+            - scheduler
+          EnvironmentFiles:
+            - Value: !Sub "arn:aws:s3:::${EnvFileBucketName}/.env"
+              Type: s3
+          MountPoints:
+            - SourceVolume: airflow-opt
+              ContainerPath: /opt/airflow
+            - SourceVolume: airflow-tmp
+              ContainerPath: /tmp
+            - SourceVolume: airflow-logs
+              ContainerPath: /opt/airflow/logs
+            - SourceVolume: airflow-ted-sws
+              ContainerPath: /opt/airflow/src
+          DependsOn:
+            - ContainerName: airflow-init
+              Condition: SUCCESS
+          LogConfiguration:
+            LogDriver: awslogs
+            Options:
+              awslogs-group: !Sub "/ecs/ted-sws-${Environment}/airflow"
+              awslogs-region: !Ref AWS::Region
+              awslogs-stream-prefix: scheduler
+
+        # --- airflow-triggerer ---
+        - Name: airflow-triggerer
+          Image: !Ref AirflowImageUri
+          Essential: true
+          User: "50000"
+          ReadonlyRootFilesystem: true
+          Command:
+            - triggerer
+          EnvironmentFiles:
+            - Value: !Sub "arn:aws:s3:::${EnvFileBucketName}/.env"
+              Type: s3
+          MountPoints:
+            - SourceVolume: airflow-opt
+              ContainerPath: /opt/airflow
+            - SourceVolume: airflow-tmp
+              ContainerPath: /tmp
+            - SourceVolume: airflow-logs
+              ContainerPath: /opt/airflow/logs
+            - SourceVolume: airflow-ted-sws
+              ContainerPath: /opt/airflow/src
+          DependsOn:
+            - ContainerName: airflow-scheduler
+              Condition: START
+          LogConfiguration:
+            LogDriver: awslogs
+            Options:
+              awslogs-group: !Sub "/ecs/ted-sws-${Environment}/airflow"
+              awslogs-region: !Ref AWS::Region
+              awslogs-stream-prefix: triggerer
+
+        # --- airflow-webserver ---
+        - Name: airflow-webserver
+          Image: !Ref AirflowImageUri
+          Essential: true
+          User: "50000"
+          ReadonlyRootFilesystem: true
+          Command:
+            - webserver
+          PortMappings:
+            - ContainerPort: 8080
+              Protocol: tcp
+          EnvironmentFiles:
+            - Value: !Sub "arn:aws:s3:::${EnvFileBucketName}/.env"
+              Type: s3
+          MountPoints:
+            - SourceVolume: airflow-opt
+              ContainerPath: /opt/airflow
+            - SourceVolume: airflow-tmp
+              ContainerPath: /tmp
+            - SourceVolume: airflow-logs
+              ContainerPath: /opt/airflow/logs
+            - SourceVolume: airflow-ted-sws
+              ContainerPath: /opt/airflow/src
+          DependsOn:
+            - ContainerName: airflow-scheduler
+              Condition: START
+          LogConfiguration:
+            LogDriver: awslogs
+            Options:
+              awslogs-group: !Sub "/ecs/ted-sws-${Environment}/airflow"
+              awslogs-region: !Ref AWS::Region
+              awslogs-stream-prefix: webserver
+
+        # --- airflow-flower ---
+        - Name: airflow-flower
+          Image: !Ref AirflowImageUri
+          Essential: true
+          User: "50000"
+          ReadonlyRootFilesystem: true
+          Command:
+            - celery
+            - flower
+          PortMappings:
+            - ContainerPort: 5555
+              Protocol: tcp
+          EnvironmentFiles:
+            - Value: !Sub "arn:aws:s3:::${EnvFileBucketName}/.env"
+              Type: s3
+          MountPoints:
+            - SourceVolume: airflow-opt
+              ContainerPath: /opt/airflow
+            - SourceVolume: airflow-tmp
+              ContainerPath: /tmp
+            - SourceVolume: airflow-logs
+              ContainerPath: /opt/airflow/logs
+            - SourceVolume: airflow-ted-sws
+              ContainerPath: /opt/airflow/src
+          DependsOn:
+            - ContainerName: airflow-init-lib
+              Condition: COMPLETE
+          LogConfiguration:
+            LogDriver: awslogs
+            Options:
+              awslogs-group: !Sub "/ecs/ted-sws-${Environment}/airflow"
+              awslogs-region: !Ref AWS::Region
+              awslogs-stream-prefix: flower
+
+  # -------------------------------------------------------------------------
+  # Worker Task Definition — 4 containers
+  # Dependency chain (per installation manual):
+  #   permissions-init → airflow-init-lib (COMPLETE) → airflow-worker (COMPLETE)
+  # -------------------------------------------------------------------------
+  WorkerTaskDefinition:
+    Type: AWS::ECS::TaskDefinition
+    Properties:
+      Family: !Sub "worker-task-${Environment}"
+      NetworkMode: awsvpc
+      RequiresCompatibilities:
+        - FARGATE
+      ExecutionRoleArn: !Ref ExecutionRoleArn
+      TaskRoleArn: !Ref TaskRoleArn
+      Cpu: "4096"
+      Memory: "8192"
+      Tags:
+        - Key: Project
+          Value: ted-sws
+        - Key: Environment
+          Value: !Ref Environment
+        - Key: ManagedBy
+          Value: cloudformation
+        - Key: Owner
+          Value: Meaningfy DevOps
+      Volumes:
+        - Name: airflow-tmp
+        - Name: airflow-opt
+        - Name: airflow-logs
+          EFSVolumeConfiguration:
+            FilesystemId: !Ref AirflowLogsEfsId
+            TransitEncryption: ENABLED
+        - Name: airflow-ted-sws
+          EFSVolumeConfiguration:
+            FilesystemId: !Ref AirflowTedSwsEfsId
+            TransitEncryption: ENABLED
+      ContainerDefinitions:
+        # --- permissions-init ---
+        - Name: permissions-init
+          Image: !Ref BusyboxImageUri
+          Essential: false
+          Command:
+            - sh
+            - -cx
+            - >-
+              chmod -R 0777 /airflow-tmp &&
+              chown -R 50000:50000 /airflow-tmp &&
+              chmod -R 0777 /airflow-opt &&
+              chown -R 50000:50000 /airflow-opt &&
+              echo $?
+          MountPoints:
+            - SourceVolume: airflow-tmp
+              ContainerPath: /airflow-tmp
+            - SourceVolume: airflow-opt
+              ContainerPath: /airflow-opt
+          LogConfiguration:
+            LogDriver: awslogs
+            Options:
+              awslogs-group: !Sub "/ecs/ted-sws-${Environment}/worker"
+              awslogs-region: !Ref AWS::Region
+              awslogs-stream-prefix: permissions-init
+
+        # --- airflow-init-lib ---
+        # Copies tool JARs from image (/home/airflow/) into the airflow-opt
+        # ephemeral volume so they are available at /opt/airflow at runtime.
+        - Name: airflow-init-lib
+          Image: !Ref AirflowImageUri
+          Essential: false
+          User: "50000"
+          EntryPoint:
+            - /bin/bash
+            - -c
+          Command:
+            - cd /opt/airflow && cp -r /home/airflow/.rmlmapper /home/airflow/.limes /home/airflow/.saxon .
+          EnvironmentFiles:
+            - Value: !Sub "arn:aws:s3:::${EnvFileBucketName}/.env"
+              Type: s3
+          MountPoints:
+            - SourceVolume: airflow-opt
+              ContainerPath: /opt/airflow
+            - SourceVolume: airflow-tmp
+              ContainerPath: /tmp
+          DependsOn:
+            - ContainerName: permissions-init
+              Condition: COMPLETE
+          LogConfiguration:
+            LogDriver: awslogs
+            Options:
+              awslogs-group: !Sub "/ecs/ted-sws-${Environment}/worker"
+              awslogs-region: !Ref AWS::Region
+              awslogs-stream-prefix: init-lib
+
+        # --- airflow-worker ---
+        - Name: airflow-worker
+          Image: !Ref AirflowImageUri
+          Essential: true
+          User: "50000"
+          ReadonlyRootFilesystem: true
+          Command:
+            - celery
+            - worker
+          PortMappings:
+            - ContainerPort: 8793
+              Protocol: tcp
+          EnvironmentFiles:
+            - Value: !Sub "arn:aws:s3:::${EnvFileBucketName}/.env"
+              Type: s3
+          MountPoints:
+            - SourceVolume: airflow-opt
+              ContainerPath: /opt/airflow
+            - SourceVolume: airflow-tmp
+              ContainerPath: /tmp
+            - SourceVolume: airflow-logs
+              ContainerPath: /opt/airflow/logs
+            - SourceVolume: airflow-ted-sws
+              ContainerPath: /opt/airflow/src
+          DependsOn:
+            - ContainerName: airflow-init-lib
+              Condition: COMPLETE
+          LogConfiguration:
+            LogDriver: awslogs
+            Options:
+              awslogs-group: !Sub "/ecs/ted-sws-${Environment}/worker"
+              awslogs-region: !Ref AWS::Region
+              awslogs-stream-prefix: worker
+
+  # -------------------------------------------------------------------------
+  # Fuseki Task Definition — 2 containers
+  # -------------------------------------------------------------------------
+  FusekiTaskDefinition:
+    Type: AWS::ECS::TaskDefinition
+    Properties:
+      Family: !Sub "fuseki-task-${Environment}"
+      NetworkMode: awsvpc
+      RequiresCompatibilities:
+        - FARGATE
+      ExecutionRoleArn: !Ref ExecutionRoleArn
+      TaskRoleArn: !Ref TaskRoleArn
+      Cpu: "2048"
+      Memory: "8192"
+      Tags:
+        - Key: Project
+          Value: ted-sws
+        - Key: Environment
+          Value: !Ref Environment
+        - Key: ManagedBy
+          Value: cloudformation
+        - Key: Owner
+          Value: Meaningfy DevOps
+      Volumes:
+        - Name: fuseki-tmp
+        - Name: fuseki-data
+          EFSVolumeConfiguration:
+            FilesystemId: !Ref FusekiDataEfsId
+            TransitEncryption: ENABLED
+      ContainerDefinitions:
+        # --- permissions-init ---
+        - Name: permissions-init
+          Image: !Ref BusyboxImageUri
+          Essential: false
+          Command:
+            - sh
+            - -cx
+            - >-
+              chmod -R 0777 /fuseki-tmp &&
+              chown -R 9008:9008 /fuseki-tmp &&
+              mkdir -p /fuseki-base/databases /fuseki-base/configuration /fuseki-base/logs &&
+              chmod -R 0777 /fuseki-base &&
+              chown -R 9008:9008 /fuseki-base &&
+              echo $?
+          MountPoints:
+            - SourceVolume: fuseki-tmp
+              ContainerPath: /fuseki-tmp
+            - SourceVolume: fuseki-data
+              ContainerPath: /fuseki-base
+          LogConfiguration:
+            LogDriver: awslogs
+            Options:
+              awslogs-group: !Sub "/ecs/ted-sws-${Environment}/fuseki"
+              awslogs-region: !Ref AWS::Region
+              awslogs-stream-prefix: permissions-init
+
+        # --- fuseki ---
+        - Name: fuseki
+          Image: !Ref FusekiImageUri
+          Essential: true
+          User: "9008"
+          ReadonlyRootFilesystem: true
+          PortMappings:
+            - ContainerPort: 3030
+              Protocol: tcp
+          EnvironmentFiles:
+            - Value: !Sub "arn:aws:s3:::${EnvFileBucketName}/.env"
+              Type: s3
+          MountPoints:
+            - SourceVolume: fuseki-data
+              ContainerPath: /fuseki-base
+            - SourceVolume: fuseki-tmp
+              ContainerPath: /tmp
+          DependsOn:
+            - ContainerName: permissions-init
+              Condition: COMPLETE
+          LogConfiguration:
+            LogDriver: awslogs
+            Options:
+              awslogs-group: !Sub "/ecs/ted-sws-${Environment}/fuseki"
+              awslogs-region: !Ref AWS::Region
+              awslogs-stream-prefix: fuseki
+
+  # -------------------------------------------------------------------------
+  # Metabase Task Definition — 2 containers
+  # -------------------------------------------------------------------------
+  MetabaseTaskDefinition:
+    Type: AWS::ECS::TaskDefinition
+    Properties:
+      Family: !Sub "metabase-task-${Environment}"
+      NetworkMode: awsvpc
+      RequiresCompatibilities:
+        - FARGATE
+      ExecutionRoleArn: !Ref ExecutionRoleArn
+      TaskRoleArn: !Ref TaskRoleArn
+      Cpu: "2048"
+      Memory: "8192"
+      Tags:
+        - Key: Project
+          Value: ted-sws
+        - Key: Environment
+          Value: !Ref Environment
+        - Key: ManagedBy
+          Value: cloudformation
+        - Key: Owner
+          Value: Meaningfy DevOps
+      Volumes:
+        - Name: metabase-home
+        - Name: metabase-tmp
+        - Name: metabase-plugins
+      ContainerDefinitions:
+        # --- permissions-init ---
+        - Name: permissions-init
+          Image: !Ref BusyboxImageUri
+          Essential: false
+          Command:
+            - sh
+            - -cx
+            - >-
+              chmod -R 0777 /metabase-tmp &&
+              chown -R 2000:2000 /metabase-tmp &&
+              chmod -R 0777 /metabase-home &&
+              chown -R 2000:2000 /metabase-home &&
+              chmod -R 0777 /metabase-plugins &&
+              chown -R 2000:2000 /metabase-plugins &&
+              echo $?
+          MountPoints:
+            - SourceVolume: metabase-home
+              ContainerPath: /metabase-home
+            - SourceVolume: metabase-tmp
+              ContainerPath: /metabase-tmp
+            - SourceVolume: metabase-plugins
+              ContainerPath: /metabase-plugins
+          LogConfiguration:
+            LogDriver: awslogs
+            Options:
+              awslogs-group: !Sub "/ecs/ted-sws-${Environment}/metabase"
+              awslogs-region: !Ref AWS::Region
+              awslogs-stream-prefix: permissions-init
+
+        # --- metabase ---
+        - Name: metabase
+          Image: !Ref MetabaseImageUri
+          Essential: true
+          User: "2000"
+          ReadonlyRootFilesystem: true
+          PortMappings:
+            - ContainerPort: 3000
+              Protocol: tcp
+          EnvironmentFiles:
+            - Value: !Sub "arn:aws:s3:::${EnvFileBucketName}/.env"
+              Type: s3
+          MountPoints:
+            - SourceVolume: metabase-home
+              ContainerPath: /home/metabase
+            - SourceVolume: metabase-tmp
+              ContainerPath: /tmp
+            - SourceVolume: metabase-plugins
+              ContainerPath: /plugins
+          DependsOn:
+            - ContainerName: permissions-init
+              Condition: COMPLETE
+          LogConfiguration:
+            LogDriver: awslogs
+            Options:
+              awslogs-group: !Sub "/ecs/ted-sws-${Environment}/metabase"
+              awslogs-region: !Ref AWS::Region
+              awslogs-stream-prefix: metabase
+
+  # -------------------------------------------------------------------------
+  # Mongo Express Task Definition — 1 container
+  # -------------------------------------------------------------------------
+  MongoExpressTaskDefinition:
+    Type: AWS::ECS::TaskDefinition
+    Properties:
+      Family: !Sub "mongo-express-task-${Environment}"
+      NetworkMode: awsvpc
+      RequiresCompatibilities:
+        - FARGATE
+      ExecutionRoleArn: !Ref ExecutionRoleArn
+      TaskRoleArn: !Ref TaskRoleArn
+      Cpu: "1024"
+      Memory: "2048"
+      Tags:
+        - Key: Project
+          Value: ted-sws
+        - Key: Environment
+          Value: !Ref Environment
+        - Key: ManagedBy
+          Value: cloudformation
+        - Key: Owner
+          Value: Meaningfy DevOps
+      ContainerDefinitions:
+        - Name: mongo-express
+          Image: !Ref MongoExpressImageUri
+          Essential: true
+          ReadonlyRootFilesystem: true
+          PortMappings:
+            - ContainerPort: 8081
+              Protocol: tcp
+          EnvironmentFiles:
+            - Value: !Sub "arn:aws:s3:::${EnvFileBucketName}/.env"
+              Type: s3
+          LogConfiguration:
+            LogDriver: awslogs
+            Options:
+              awslogs-group: !Sub "/ecs/ted-sws-${Environment}/mongo-express"
+              awslogs-region: !Ref AWS::Region
+              awslogs-stream-prefix: mongo-express
+
+  # -------------------------------------------------------------------------
+  # Digest API Task Definition — 1 container
+  # -------------------------------------------------------------------------
+  DigestApiTaskDefinition:
+    Type: AWS::ECS::TaskDefinition
+    Properties:
+      Family: !Sub "digest-api-task-${Environment}"
+      NetworkMode: awsvpc
+      RequiresCompatibilities:
+        - FARGATE
+      ExecutionRoleArn: !Ref ExecutionRoleArn
+      TaskRoleArn: !Ref TaskRoleArn
+      Cpu: "2048"
+      Memory: "4096"
+      Tags:
+        - Key: Project
+          Value: ted-sws
+        - Key: Environment
+          Value: !Ref Environment
+        - Key: ManagedBy
+          Value: cloudformation
+        - Key: Owner
+          Value: Meaningfy DevOps
+      ContainerDefinitions:
+        - Name: digest-api
+          Image: !Ref DigestApiImageUri
+          Essential: true
+          PortMappings:
+            - ContainerPort: 8000
+              Protocol: tcp
+          EnvironmentFiles:
+            - Value: !Sub "arn:aws:s3:::${EnvFileBucketName}/.env"
+              Type: s3
+          LogConfiguration:
+            LogDriver: awslogs
+            Options:
+              awslogs-group: !Sub "/ecs/ted-sws-${Environment}/digest-api"
+              awslogs-region: !Ref AWS::Region
+              awslogs-stream-prefix: digest-api
+
+  # -------------------------------------------------------------------------
+  # SFTP Task Definition — 1 container
+  # -------------------------------------------------------------------------
+  SftpTaskDefinition:
+    Type: AWS::ECS::TaskDefinition
+    Properties:
+      Family: !Sub "sftp-task-${Environment}"
+      NetworkMode: awsvpc
+      RequiresCompatibilities:
+        - FARGATE
+      ExecutionRoleArn: !Ref ExecutionRoleArn
+      TaskRoleArn: !Ref TaskRoleArn
+      Cpu: "512"
+      Memory: "1024"
+      Tags:
+        - Key: Project
+          Value: ted-sws
+        - Key: Environment
+          Value: !Ref Environment
+        - Key: ManagedBy
+          Value: cloudformation
+        - Key: Owner
+          Value: Meaningfy DevOps
+      Volumes:
+        - Name: sftp-data
+          EFSVolumeConfiguration:
+            FilesystemId: !Ref SftpDataEfsId
+            TransitEncryption: ENABLED
+      ContainerDefinitions:
+        - Name: sftp
+          Image: !Ref SftpImageUri
+          Essential: true
+          EntryPoint:
+            - /bin/bash
+            - -c
+          Command:
+            - /entrypoint "$SFTP_PUBLISH_USER:$SFTP_PUBLISH_PASSWORD:::upload"
+          PortMappings:
+            - ContainerPort: 22
+              Protocol: tcp
+          EnvironmentFiles:
+            - Value: !Sub "arn:aws:s3:::${EnvFileBucketName}/.env"
+              Type: s3
+          MountPoints:
+            - SourceVolume: sftp-data
+              ContainerPath: /home
+          LogConfiguration:
+            LogDriver: awslogs
+            Options:
+              awslogs-group: !Sub "/ecs/ted-sws-${Environment}/sftp"
+              awslogs-region: !Ref AWS::Region
+              awslogs-stream-prefix: sftp
+
+  # ===========================================================================
+  # ECS Services
+  # ===========================================================================
+  AirflowEcsService:
+    Type: AWS::ECS::Service
+    Properties:
+      ServiceName: !Sub "airflow-service-${Environment}"
+      Cluster: !Ref ClusterName
+      TaskDefinition: !Ref AirflowTaskDefinition
+      DesiredCount: 1
+      LaunchType: FARGATE
+      EnableExecuteCommand: true
+      PropagateTags: TASK_DEFINITION
+      Tags:
+        - Key: Project
+          Value: ted-sws
+        - Key: Environment
+          Value: !Ref Environment
+        - Key: ManagedBy
+          Value: cloudformation
+        - Key: Owner
+          Value: Meaningfy DevOps
+      NetworkConfiguration:
+        AwsvpcConfiguration:
+          Subnets:
+            - !Ref SubnetId1
+            - !Ref SubnetId2
+          SecurityGroups:
+            - !Ref SecurityGroupId
+          AssignPublicIp: DISABLED
+      ServiceRegistries:
+        - RegistryArn: !GetAtt AirflowDiscoveryService.Arn
+
+  WorkerEcsService:
+    Type: AWS::ECS::Service
+    Properties:
+      ServiceName: !Sub "worker-service-${Environment}"
+      Cluster: !Ref ClusterName
+      TaskDefinition: !Ref WorkerTaskDefinition
+      DesiredCount: 2
+      LaunchType: FARGATE
+      EnableExecuteCommand: true
+      PropagateTags: TASK_DEFINITION
+      Tags:
+        - Key: Project
+          Value: ted-sws
+        - Key: Environment
+          Value: !Ref Environment
+        - Key: ManagedBy
+          Value: cloudformation
+        - Key: Owner
+          Value: Meaningfy DevOps
+      NetworkConfiguration:
+        AwsvpcConfiguration:
+          Subnets:
+            - !Ref SubnetId1
+            - !Ref SubnetId2
+          SecurityGroups:
+            - !Ref SecurityGroupId
+          AssignPublicIp: DISABLED
+
+  FusekiEcsService:
+    Type: AWS::ECS::Service
+    Properties:
+      ServiceName: !Sub "fuseki-service-${Environment}"
+      Cluster: !Ref ClusterName
+      TaskDefinition: !Ref FusekiTaskDefinition
+      DesiredCount: 1
+      LaunchType: FARGATE
+      EnableExecuteCommand: true
+      PropagateTags: TASK_DEFINITION
+      Tags:
+        - Key: Project
+          Value: ted-sws
+        - Key: Environment
+          Value: !Ref Environment
+        - Key: ManagedBy
+          Value: cloudformation
+        - Key: Owner
+          Value: Meaningfy DevOps
+      NetworkConfiguration:
+        AwsvpcConfiguration:
+          Subnets:
+            - !Ref SubnetId1
+            - !Ref SubnetId2
+          SecurityGroups:
+            - !Ref SecurityGroupId
+          AssignPublicIp: DISABLED
+      ServiceRegistries:
+        - RegistryArn: !GetAtt FusekiDiscoveryService.Arn
+
+  MetabaseEcsService:
+    Type: AWS::ECS::Service
+    Properties:
+      ServiceName: !Sub "metabase-service-${Environment}"
+      Cluster: !Ref ClusterName
+      TaskDefinition: !Ref MetabaseTaskDefinition
+      DesiredCount: 1
+      LaunchType: FARGATE
+      EnableExecuteCommand: true
+      PropagateTags: TASK_DEFINITION
+      Tags:
+        - Key: Project
+          Value: ted-sws
+        - Key: Environment
+          Value: !Ref Environment
+        - Key: ManagedBy
+          Value: cloudformation
+        - Key: Owner
+          Value: Meaningfy DevOps
+      NetworkConfiguration:
+        AwsvpcConfiguration:
+          Subnets:
+            - !Ref SubnetId1
+            - !Ref SubnetId2
+          SecurityGroups:
+            - !Ref SecurityGroupId
+          AssignPublicIp: DISABLED
+      ServiceRegistries:
+        - RegistryArn: !GetAtt MetabaseDiscoveryService.Arn
+
+  MongoExpressEcsService:
+    Type: AWS::ECS::Service
+    Properties:
+      ServiceName: !Sub "mongo-express-service-${Environment}"
+      Cluster: !Ref ClusterName
+      TaskDefinition: !Ref MongoExpressTaskDefinition
+      DesiredCount: 1
+      LaunchType: FARGATE
+      EnableExecuteCommand: true
+      PropagateTags: TASK_DEFINITION
+      Tags:
+        - Key: Project
+          Value: ted-sws
+        - Key: Environment
+          Value: !Ref Environment
+        - Key: ManagedBy
+          Value: cloudformation
+        - Key: Owner
+          Value: Meaningfy DevOps
+      NetworkConfiguration:
+        AwsvpcConfiguration:
+          Subnets:
+            - !Ref SubnetId1
+            - !Ref SubnetId2
+          SecurityGroups:
+            - !Ref SecurityGroupId
+          AssignPublicIp: DISABLED
+      ServiceRegistries:
+        - RegistryArn: !GetAtt MongoExpressDiscoveryService.Arn
+
+  DigestApiEcsService:
+    Type: AWS::ECS::Service
+    Properties:
+      ServiceName: !Sub "digest-api-service-${Environment}"
+      Cluster: !Ref ClusterName
+      TaskDefinition: !Ref DigestApiTaskDefinition
+      DesiredCount: 1
+      LaunchType: FARGATE
+      EnableExecuteCommand: true
+      PropagateTags: TASK_DEFINITION
+      Tags:
+        - Key: Project
+          Value: ted-sws
+        - Key: Environment
+          Value: !Ref Environment
+        - Key: ManagedBy
+          Value: cloudformation
+        - Key: Owner
+          Value: Meaningfy DevOps
+      NetworkConfiguration:
+        AwsvpcConfiguration:
+          Subnets:
+            - !Ref SubnetId1
+            - !Ref SubnetId2
+          SecurityGroups:
+            - !Ref SecurityGroupId
+          AssignPublicIp: DISABLED
+      ServiceRegistries:
+        - RegistryArn: !GetAtt DigestApiDiscoveryService.Arn
+
+  SftpEcsService:
+    Type: AWS::ECS::Service
+    Properties:
+      ServiceName: !Sub "sftp-service-${Environment}"
+      Cluster: !Ref ClusterName
+      TaskDefinition: !Ref SftpTaskDefinition
+      DesiredCount: 1
+      LaunchType: FARGATE
+      EnableExecuteCommand: true
+      PropagateTags: TASK_DEFINITION
+      Tags:
+        - Key: Project
+          Value: ted-sws
+        - Key: Environment
+          Value: !Ref Environment
+        - Key: ManagedBy
+          Value: cloudformation
+        - Key: Owner
+          Value: Meaningfy DevOps
+      NetworkConfiguration:
+        AwsvpcConfiguration:
+          Subnets:
+            - !Ref SubnetId1
+            - !Ref SubnetId2
+          SecurityGroups:
+            - !Ref SecurityGroupId
+          AssignPublicIp: DISABLED
+      ServiceRegistries:
+        - RegistryArn: !GetAtt SftpDiscoveryService.Arn
+
+

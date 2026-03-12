@@ -1,0 +1,61 @@
+name: Deploy Infrastructure
+
+on:
+  workflow_call:
+    secrets:
+      VAULT_TOKEN:
+        required: true
+      VAULT_ADDR:
+        required: true
+
+env:
+  VAULT_TOKEN: ${{ secrets.VAULT_TOKEN }}
+  VAULT_ADDR: ${{ secrets.VAULT_ADDR }}
+  TRAEFIK_DATA_PATH: /opt/tedsws/traefik
+  STACK_PATH: src/infra/ted-sws-stack
+
+jobs:
+  deploy:
+    name: Deploy Infrastructure
+    runs-on: tedsws-staging
+    timeout-minutes: 30
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup environment
+        run: |
+          # Create .env.staging from Vault (passwords only, everything else hardcoded)
+          make staging-unified-dotenv
+
+          # Runtime-specific values (not in Vault)
+          echo "AIRFLOW_UID=$(id -u)" >> ${STACK_PATH}/.env.staging
+          echo "AIRFLOW_IMAGE=tedsws/airflow:staging" >> ${STACK_PATH}/.env.staging
+
+          # Setup deployment directory (source/config only — data uses named volumes)
+          sudo mkdir -p /opt/tedsws ${TRAEFIK_DATA_PATH}/letsencrypt
+          sudo chown -R $USER:$USER /opt/tedsws
+          mkdir -p /opt/tedsws/src /opt/tedsws/logs /opt/tedsws/plugins /opt/tedsws/test
+
+          # Copy source files
+          rsync -a --delete src/ /opt/tedsws/src/
+
+      - name: Download libraries
+        run: |
+          make init-libraries
+          rsync -a --delete libraries/ /opt/tedsws/libraries/
+
+      - name: Build Airflow image
+        run: |
+          cp requirements.txt ${STACK_PATH}/airflow/
+          docker build -t tedsws/airflow:staging ${STACK_PATH}/airflow/
+
+      - name: Deploy stack
+        run: |
+          docker compose \
+            -f ${STACK_PATH}/docker-compose.yml \
+            -f ${STACK_PATH}/docker-compose.staging.yml \
+            --env-file ${STACK_PATH}/.env.common \
+            --env-file ${STACK_PATH}/.env.staging \
+            up -d --force-recreate

@@ -12,11 +12,14 @@ ENV_FILE := .env
 
 PROJECT_PATH = $(shell pwd)
 AIRFLOW_INFRA_FOLDER ?= ${PROJECT_PATH}/.airflow
-RML_MAPPER_PATH = ${PROJECT_PATH}/.rmlmapper/rmlmapper.jar
-XML_PROCESSOR_PATH = ${PROJECT_PATH}/.saxon/saxon-he-10.9.jar
-LIMES_ALIGNMENT_PATH = $(PROJECT_PATH)/.limes/limes.jar
+SRC_PATH := $(PROJECT_PATH)/src
+INFRA_FOLDER_PATH := $(SRC_PATH)/infra
+LIBRARIES_PATH = ${PROJECT_PATH}/libraries
+RML_MAPPER_PATH = ${LIBRARIES_PATH}/.rmlmapper/rmlmapper.jar
+XML_PROCESSOR_PATH = ${LIBRARIES_PATH}/.saxon/saxon-he-10.9.jar
+LIMES_ALIGNMENT_PATH = $(LIBRARIES_PATH)/.limes/limes.jar
 HOSTNAME = $(shell hostname)
-CAROOT = $(shell pwd)/infra/traefik/certs
+CAROOT = $(shell pwd)/src/infra/traefik/certs
 
 #-----------------------------------------------------------------------------
 # Dev commands
@@ -24,12 +27,12 @@ CAROOT = $(shell pwd)/infra/traefik/certs
 install:
 	@ echo -e "$(BUILD_PRINT)Installing the requirements$(END_BUILD_PRINT)"
 	@ pip install --upgrade pip
-	@ pip install --no-cache-dir -r requirements.txt --constraint "https://raw.githubusercontent.com/apache/airflow/constraints-2.5.1/constraints-no-providers-3.8.txt"
+	@ pip install --no-cache-dir -r requirements.txt --constraint "https://raw.githubusercontent.com/apache/airflow/constraints-2.10.5/constraints-no-providers-3.10.txt"
 
 install-dev:
 	@ echo -e "$(BUILD_PRINT)Installing the dev requirements$(END_BUILD_PRINT)"
 	@ pip install --upgrade pip
-	@ pip install --no-cache-dir -r requirements.dev.txt --constraint "https://raw.githubusercontent.com/apache/airflow/constraints-2.5.1/constraints-no-providers-3.8.txt"
+	@ pip install --no-cache-dir -r requirements.dev.txt --constraint "https://raw.githubusercontent.com/apache/airflow/constraints-2.10.5/constraints-no-providers-3.10.txt"
 
 test: test-unit
 
@@ -64,19 +67,19 @@ build-externals:
 #-----------------------------------------------------------------------------
 start-traefik: build-externals
 	@ echo -e "$(BUILD_PRINT)Starting the Traefik services $(END_BUILD_PRINT)"
-	@ docker-compose -p common --file ./infra/traefik/docker-compose.yml --env-file ${ENV_FILE} up -d
+	@ docker-compose -p common --file $(INFRA_FOLDER_PATH)/traefik/docker-compose.yml --env-file ${ENV_FILE} up -d
 
 stop-traefik:
 	@ echo -e "$(BUILD_PRINT)Stopping the Traefik services $(END_BUILD_PRINT)"
-	@ docker-compose -p common --file ./infra/traefik/docker-compose.yml --env-file ${ENV_FILE} down
+	@ docker-compose -p common --file $(INFRA_FOLDER_PATH)/traefik/docker-compose.yml --env-file ${ENV_FILE} down
 
 start-portainer: build-externals
 	@ echo -e "$(BUILD_PRINT)Starting the Portainer services $(END_BUILD_PRINT)"
-	@ docker-compose -p common --file ./infra/portainer/docker-compose.yml --env-file ${ENV_FILE} up -d
+	@ docker-compose -p common --file $(INFRA_FOLDER_PATH)/portainer/docker-compose.yml --env-file ${ENV_FILE} up -d
 
 stop-portainer:
 	@ echo -e "$(BUILD_PRINT)Stopping the Portainer services $(END_BUILD_PRINT)"
-	@ docker-compose -p common --file ./infra/portainer/docker-compose.yml --env-file ${ENV_FILE} down
+	@ docker-compose -p common --file $(INFRA_FOLDER_PATH)/portainer/docker-compose.yml --env-file ${ENV_FILE} down
 
 start-server-services: | start-traefik start-portainer
 stop-server-services: | stop-traefik stop-portainer
@@ -89,19 +92,18 @@ create-env-airflow:
 	@ echo -e "$(BUILD_PRINT) ${AIRFLOW_INFRA_FOLDER} ${ENVIRONMENT} $(END_BUILD_PRINT)"
 	@ mkdir -p ${AIRFLOW_INFRA_FOLDER}/logs ${AIRFLOW_INFRA_FOLDER}/plugins
 	@ ln -s -f ${PROJECT_PATH}/.env ${AIRFLOW_INFRA_FOLDER}/.env
-	@ ln -s -f -n ${PROJECT_PATH}/dags ${AIRFLOW_INFRA_FOLDER}/dags
-	@ ln -s -f -n ${PROJECT_PATH}/ted_sws ${AIRFLOW_INFRA_FOLDER}/ted_sws
+	@ ln -s -f -n ${PROJECT_PATH}/src ${AIRFLOW_INFRA_FOLDER}/src
 	@ chmod 777 ${AIRFLOW_INFRA_FOLDER}/logs ${AIRFLOW_INFRA_FOLDER}/plugins ${AIRFLOW_INFRA_FOLDER}/.env
-	@ cp requirements.txt ./infra/airflow/
-	@ cp -r ted_sws ./infra/airflow/
-	@ cp -r dags ./infra/airflow/
-	@ cp -r libraries ./infra/airflow/
+	@ cp requirements.txt $(INFRA_FOLDER_PATH)/airflow/
+	@ mkdir -p $(INFRA_FOLDER_PATH)/airflow/src
+	@ cp -r src/ted_sws src/dags $(INFRA_FOLDER_PATH)/airflow/src
+	@ cp -r libraries $(INFRA_FOLDER_PATH)/airflow/
 
 
 build-airflow: guard-ENVIRONMENT create-env-airflow build-externals
 	@ echo -e "$(BUILD_PRINT) Build Airflow services $(END_BUILD_PRINT)"
-	@ docker build -t meaningfy/airflow ./infra/airflow/
-	@ docker-compose -p ${ENVIRONMENT} --file ./infra/airflow/docker-compose.yaml --env-file ${ENV_FILE} up -d --force-recreate
+	@ docker build -t meaningfy/airflow $(INFRA_FOLDER_PATH)/airflow/
+	@ docker-compose -p ${ENVIRONMENT} --file $(INFRA_FOLDER_PATH)/airflow/docker-compose.yaml --env-file ${ENV_FILE} up -d --force-recreate
 
 #--------------------------------------AIRFLOW_CLUSTER----BEGIN----TARGETS----------------------------------------------
 
@@ -110,126 +112,201 @@ create-env-airflow-cluster:
 	@ echo -e "$(BUILD_PRINT) ${AIRFLOW_INFRA_FOLDER} ${ENVIRONMENT} $(END_BUILD_PRINT)"
 	@ mkdir -p ${AIRFLOW_INFRA_FOLDER}/logs ${AIRFLOW_INFRA_FOLDER}/plugins
 	@ ln -s -f ${PROJECT_PATH}/.env ${AIRFLOW_INFRA_FOLDER}/.env
-	@ ln -s -f -n ${PROJECT_PATH}/dags ${AIRFLOW_INFRA_FOLDER}/dags
-	@ ln -s -f -n ${PROJECT_PATH}/ted_sws ${AIRFLOW_INFRA_FOLDER}/ted_sws
+	@ ln -s -f -n ${PROJECT_PATH}/src ${AIRFLOW_INFRA_FOLDER}/src
 	@ chmod 777 ${AIRFLOW_INFRA_FOLDER}/logs ${AIRFLOW_INFRA_FOLDER}/plugins ${AIRFLOW_INFRA_FOLDER}/.env
-	@ cp requirements.txt ./infra/airflow-cluster/
+	@ cp requirements.txt $(INFRA_FOLDER_PATH)/airflow-cluster/
 
 build-airflow-cluster: guard-ENVIRONMENT create-env-airflow-cluster build-externals
 	@ echo -e "$(BUILD_PRINT) Build Airflow Common Image $(END_BUILD_PRINT)"
-	@ docker build -t meaningfy/airflow ./infra/airflow-cluster/
+	@ docker build -t meaningfy/airflow $(INFRA_FOLDER_PATH)/airflow-cluster/
 
 start-airflow-master: build-externals
 	@ echo -e "$(BUILD_PRINT)Starting Airflow Master $(END_BUILD_PRINT)"
-	@ docker-compose -p ${ENVIRONMENT} --file ./infra/airflow-cluster/docker-compose.yaml --env-file ${ENV_FILE} up -d --force-recreate
+	@ docker-compose -p ${ENVIRONMENT} --file $(INFRA_FOLDER_PATH)/airflow-cluster/docker-compose.yaml --env-file ${ENV_FILE} up -d --force-recreate
 
 start-airflow-worker: build-externals
 	@ echo -e "$(BUILD_PRINT)Starting Airflow Worker $(END_BUILD_PRINT)"
-	@ docker-compose -p ${ENVIRONMENT} --file ./infra/airflow-cluster/docker-compose-worker.yaml --env-file ${ENV_FILE} up -d
+	@ docker-compose -p ${ENVIRONMENT} --file $(INFRA_FOLDER_PATH)/airflow-cluster/docker-compose-worker.yaml --env-file ${ENV_FILE} up -d
 
 stop-airflow-master:
 	@ echo -e "$(BUILD_PRINT)Stopping Airflow Master $(END_BUILD_PRINT)"
-	@ docker-compose -p ${ENVIRONMENT} --file ./infra/airflow-cluster/docker-compose.yaml --env-file ${ENV_FILE} down
+	@ docker-compose -p ${ENVIRONMENT} --file $(INFRA_FOLDER_PATH)/airflow-cluster/docker-compose.yaml --env-file ${ENV_FILE} down
 
 stop-airflow-worker:
 	@ echo -e "$(BUILD_PRINT)Stopping Airflow Worker $(END_BUILD_PRINT)"
-	@ docker-compose -p ${ENVIRONMENT} --file ./infra/airflow-cluster/docker-compose-worker.yaml --env-file ${ENV_FILE} down
+	@ docker-compose -p ${ENVIRONMENT} --file $(INFRA_FOLDER_PATH)/airflow-cluster/docker-compose-worker.yaml --env-file ${ENV_FILE} down
 
 
 #---------------------------------------AIRFLOW_CLUSTER----END----TARGETS-----------------------------------------------
 
 start-airflow: build-externals
 	@ echo -e "$(BUILD_PRINT)Starting Airflow services $(END_BUILD_PRINT)"
-	@ docker-compose -p ${ENVIRONMENT} --file ./infra/airflow/docker-compose.yaml --env-file ${ENV_FILE} up -d
+	@ docker-compose -p ${ENVIRONMENT} --file $(INFRA_FOLDER_PATH)/airflow/docker-compose.yaml --env-file ${ENV_FILE} up -d
 
 stop-airflow:
 	@ echo -e "$(BUILD_PRINT)Stopping Airflow services $(END_BUILD_PRINT)"
-	@ docker-compose -p ${ENVIRONMENT} --file ./infra/airflow/docker-compose.yaml --env-file ${ENV_FILE} down
+	@ docker-compose -p ${ENVIRONMENT} --file $(INFRA_FOLDER_PATH)/airflow/docker-compose.yaml --env-file ${ENV_FILE} down
 
 #	------------------------
 start-allegro-graph: build-externals
 	@ echo -e "$(BUILD_PRINT)Starting Allegro-Graph services $(END_BUILD_PRINT)"
-	@ docker-compose -p ${ENVIRONMENT} --file ./infra/allegro-graph/docker-compose.yml --env-file ${ENV_FILE} up -d
+	@ docker-compose -p ${ENVIRONMENT} --file $(INFRA_FOLDER_PATH)/allegro-graph/docker-compose.yml --env-file ${ENV_FILE} up -d
 
 stop-allegro-graph:
 	@ echo -e "$(BUILD_PRINT)Stopping Allegro-Graph services $(END_BUILD_PRINT)"
-	@ docker-compose -p ${ENVIRONMENT} --file ./infra/allegro-graph/docker-compose.yml --env-file ${ENV_FILE} down
+	@ docker-compose -p ${ENVIRONMENT} --file $(INFRA_FOLDER_PATH)/allegro-graph/docker-compose.yml --env-file ${ENV_FILE} down
 
 #	------------------------
 start-fuseki: build-externals
 	@ echo -e "$(BUILD_PRINT)Starting Fuseki services $(END_BUILD_PRINT)"
-	@ docker-compose -p ${ENVIRONMENT} --file ./infra/fuseki/docker-compose.yml --env-file ${ENV_FILE} up -d
+	@ docker-compose -p ${ENVIRONMENT} --file $(INFRA_FOLDER_PATH)/fuseki/docker-compose.yml --env-file ${ENV_FILE} up -d
 
 stop-fuseki:
 	@ echo -e "$(BUILD_PRINT)Stopping Fuseki services $(END_BUILD_PRINT)"
-	@ docker-compose -p ${ENVIRONMENT} --file ./infra/fuseki/docker-compose.yml --env-file ${ENV_FILE} down
+	@ docker-compose -p ${ENVIRONMENT} --file $(INFRA_FOLDER_PATH)/fuseki/docker-compose.yml --env-file ${ENV_FILE} down
 
 #	------------------------
 start-sftp: build-externals
 	@ echo -e "$(BUILD_PRINT)Starting SFTP services $(END_BUILD_PRINT)"
-	@ docker-compose -p ${ENVIRONMENT} --file ./infra/sftp/docker-compose.yml --env-file ${ENV_FILE} up -d
+	@ docker-compose -p ${ENVIRONMENT} --file $(INFRA_FOLDER_PATH)/sftp/docker-compose.yml --env-file ${ENV_FILE} up -d
 
 stop-sftp:
 	@ echo -e "$(BUILD_PRINT)Stopping SFTP services $(END_BUILD_PRINT)"
-	@ docker-compose -p ${ENVIRONMENT} --file ./infra/sftp/docker-compose.yml --env-file ${ENV_FILE} down
+	@ docker-compose -p ${ENVIRONMENT} --file $(INFRA_FOLDER_PATH)/sftp/docker-compose.yml --env-file ${ENV_FILE} down
 
 #	------------------------
 build-elasticsearch: build-externals
 	@ echo -e "$(BUILD_PRINT) Build Elasticsearch services $(END_BUILD_PRINT)"
-	@ docker-compose -p ${ENVIRONMENT} --file ./infra/elasticsearch/docker-compose.yml --env-file ${ENV_FILE} build --no-cache --force-rm
-	@ docker-compose -p ${ENVIRONMENT} --file ./infra/elasticsearch/docker-compose.yml --env-file ${ENV_FILE} up -d --force-recreate
+	@ docker-compose -p ${ENVIRONMENT} --file $(INFRA_FOLDER_PATH)/elasticsearch/docker-compose.yml --env-file ${ENV_FILE} build --no-cache --force-rm
+	@ docker-compose -p ${ENVIRONMENT} --file $(INFRA_FOLDER_PATH)/elasticsearch/docker-compose.yml --env-file ${ENV_FILE} up -d --force-recreate
 
 start-elasticsearch: build-externals
 	@ echo -e "$(BUILD_PRINT)Starting the Elasticsearch services $(END_BUILD_PRINT)"
-	@ docker-compose -p ${ENVIRONMENT} --file ./infra/elasticsearch/docker-compose.yml --env-file ${ENV_FILE} up -d
+	@ docker-compose -p ${ENVIRONMENT} --file $(INFRA_FOLDER_PATH)/elasticsearch/docker-compose.yml --env-file ${ENV_FILE} up -d
 
 stop-elasticsearch:
 	@ echo -e "$(BUILD_PRINT)Stopping the Elasticsearch services $(END_BUILD_PRINT)"
-	@ docker-compose -p ${ENVIRONMENT} --file ./infra/elasticsearch/docker-compose.yml --env-file ${ENV_FILE} down
+	@ docker-compose -p ${ENVIRONMENT} --file $(INFRA_FOLDER_PATH)/elasticsearch/docker-compose.yml --env-file ${ENV_FILE} down
 
 
 start-minio: build-externals
 	@ echo -e "$(BUILD_PRINT)Starting the Minio services $(END_BUILD_PRINT)"
-	@ docker-compose -p ${ENVIRONMENT} --file ./infra/minio/docker-compose.yml --env-file ${ENV_FILE} up -d
+	@ docker-compose -p ${ENVIRONMENT} --file $(INFRA_FOLDER_PATH)/minio/docker-compose.yml --env-file ${ENV_FILE} up -d
 
 stop-minio:
 	@ echo -e "$(BUILD_PRINT)Stopping the Minio services $(END_BUILD_PRINT)"
-	@ docker-compose -p ${ENVIRONMENT} --file ./infra/minio/docker-compose.yml --env-file ${ENV_FILE} down
+	@ docker-compose -p ${ENVIRONMENT} --file $(INFRA_FOLDER_PATH)/minio/docker-compose.yml --env-file ${ENV_FILE} down
 
 
 start-mongo: build-externals
 	@ echo -e "$(BUILD_PRINT)Starting the Mongo services $(END_BUILD_PRINT)"
-	@ docker-compose -p ${ENVIRONMENT} --file ./infra/mongo/docker-compose.yml --env-file ${ENV_FILE} up -d
+	@ docker-compose -p ${ENVIRONMENT} --file $(INFRA_FOLDER_PATH)/mongo/docker-compose.yml --env-file ${ENV_FILE} up -d
 
 stop-mongo:
 	@ echo -e "$(BUILD_PRINT)Stopping the Mongo services $(END_BUILD_PRINT)"
-	@ docker-compose -p ${ENVIRONMENT} --file ./infra/mongo/docker-compose.yml --env-file ${ENV_FILE} down
+	@ docker-compose -p ${ENVIRONMENT} --file $(INFRA_FOLDER_PATH)/mongo/docker-compose.yml --env-file ${ENV_FILE} down
 
 start-metabase: build-externals
 	@ echo -e "$(BUILD_PRINT)Starting the Metabase services $(END_BUILD_PRINT)"
-	@ docker-compose -p metabase-${ENVIRONMENT} --file ./infra/metabase/docker-compose.yml --env-file ${ENV_FILE} up -d
+	@ docker-compose -p metabase-${ENVIRONMENT} --file $(INFRA_FOLDER_PATH)/metabase/docker-compose.yml --env-file ${ENV_FILE} up -d
 
 stop-metabase:
 	@ echo -e "$(BUILD_PRINT)Stopping the Metabase services $(END_BUILD_PRINT)"
-	@ docker-compose -p metabase-${ENVIRONMENT} --file ./infra/metabase/docker-compose.yml --env-file ${ENV_FILE} down
+	@ docker-compose -p metabase-${ENVIRONMENT} --file $(INFRA_FOLDER_PATH)/metabase/docker-compose.yml --env-file ${ENV_FILE} down
 
 init-rml-mapper:
 	@ echo -e "RMLMapper folder initialisation!"
-	@ mkdir -p ./.rmlmapper
-	@ wget -c https://github.com/RMLio/rmlmapper-java/releases/download/v6.2.2/rmlmapper-6.2.2-r371-all.jar -O ./.rmlmapper/rmlmapper.jar
+	@ mkdir -p ./libraries/.rmlmapper
+	@ wget -c https://github.com/RMLio/rmlmapper-java/releases/download/v6.2.2/rmlmapper-6.2.2-r371-all.jar -O ./libraries/.rmlmapper/rmlmapper.jar
 
 init-limes:
 	@ echo -e "Limes folder initialisation!"
-	@ mkdir -p ./.limes
-	@ wget -c https://github.com/dice-group/LIMES/releases/download/1.7.9/limes.jar -P ./.limes
+	@ mkdir -p ./libraries/.limes
+	@ wget -c https://github.com/dice-group/LIMES/releases/download/1.7.9/limes.jar -P ./libraries/.limes/
 
 init-saxon:
 	@ echo -e "$(BUILD_PRINT)Saxon folder initialization $(END_BUILD_PRINT)"
-	@ wget -c https://github.com/Saxonica/Saxon-HE/releases/download/SaxonHE10-9/SaxonHE10-9J.zip -P .saxon/
-	@ cd .saxon && unzip SaxonHE10-9J.zip && rm -rf SaxonHE10-9J.zip
+	@ mkdir -p ./libraries/.saxon
+	@ wget -c https://github.com/Saxonica/Saxon-HE/releases/download/SaxonHE10-9/SaxonHE10-9J.zip -P ./libraries/.saxon/
+	@ cd ./libraries/.saxon/ && unzip SaxonHE10-9J.zip && rm -rf SaxonHE10-9J.zip
+
+init-rml-mapper-curl:
+	@echo "RMLMapper folder initialisation!"
+	@mkdir -p ./libraries/.rmlmapper
+	@curl -L -o ./libraries/.rmlmapper/rmlmapper.jar https://github.com/RMLio/rmlmapper-java/releases/download/v6.2.2/rmlmapper-6.2.2-r371-all.jar
+
+init-limes-curl:
+	@echo "Limes folder initialisation!"
+	@mkdir -p ./libraries/.limes
+	@curl -L -o ./libraries/.limes/limes.jar https://github.com/dice-group/LIMES/releases/download/1.7.9/limes.jar
+
+init-saxon-curl:
+	@echo "$(BUILD_PRINT)Saxon folder initialization $(END_BUILD_PRINT)"
+	@mkdir -p ./libraries/.saxon
+	@curl -L -o ./libraries/.saxon/SaxonHE10-9J.zip https://github.com/Saxonica/Saxon-HE/releases/download/SaxonHE10-9/SaxonHE10-9J.zip
+	@cd ./libraries/.saxon && unzip -o SaxonHE10-9J.zip && rm -f SaxonHE10-9J.zip
 
 start-project-services: | start-airflow start-mongo init-rml-mapper init-limes start-allegro-graph start-metabase
 stop-project-services: | stop-airflow stop-mongo stop-allegro-graph stop-metabase
+
+init-libraries:
+	@echo "$(BUILD_PRINT)Initializing libraries (downloads only if missing) $(END_BUILD_PRINT)"
+	@[ -f ./libraries/.rmlmapper/rmlmapper.jar ] || \
+		(mkdir -p ./libraries/.rmlmapper && \
+		 curl -L -o ./libraries/.rmlmapper/rmlmapper.jar \
+		 https://github.com/RMLio/rmlmapper-java/releases/download/v6.2.2/rmlmapper-6.2.2-r371-all.jar)
+	@[ -f ./libraries/.limes/limes.jar ] || \
+		(mkdir -p ./libraries/.limes && \
+		 curl -L -o ./libraries/.limes/limes.jar \
+		 https://github.com/dice-group/LIMES/releases/download/1.7.9/limes.jar)
+	@[ -f ./libraries/.saxon/saxon-he-10.9.jar ] || \
+		(mkdir -p ./libraries/.saxon && \
+		 curl -L -o ./libraries/.saxon/SaxonHE10-9J.zip \
+		 https://github.com/Saxonica/Saxon-HE/releases/download/SaxonHE10-9/SaxonHE10-9J.zip && \
+		 cd ./libraries/.saxon && unzip -o SaxonHE10-9J.zip && rm -f SaxonHE10-9J.zip)
+
+#-----------------------------------------------------------------------------
+# UNIFIED STACK (ted-sws-stack)
+#-----------------------------------------------------------------------------
+STACK_PATH = $(INFRA_FOLDER_PATH)/ted-sws-stack
+
+start-local-stack: init-libraries
+	@echo "$(BUILD_PRINT)Building Airflow image $(END_BUILD_PRINT)"
+	@docker build -t tedsws/airflow:local $(STACK_PATH)/airflow
+	@echo "$(BUILD_PRINT)Starting TED-SWS local stack $(END_BUILD_PRINT)"
+	@docker compose -f $(STACK_PATH)/docker-compose.yml -f $(STACK_PATH)/docker-compose.local.yml --env-file $(STACK_PATH)/.env.local up -d $(SERVICES)
+
+stop-local-stack:
+	@echo "$(BUILD_PRINT)Stopping TED-SWS local stack $(END_BUILD_PRINT)"
+	@docker compose -f $(STACK_PATH)/docker-compose.yml -f $(STACK_PATH)/docker-compose.local.yml --env-file $(STACK_PATH)/.env.local down
+
+cleanup-local-stack:
+	@echo "$(BUILD_PRINT)Cleaning up TED-SWS local stack $(END_BUILD_PRINT)"
+	@docker compose -f $(STACK_PATH)/docker-compose.yml -f $(STACK_PATH)/docker-compose.local.yml --env-file $(STACK_PATH)/.env.local down -v --rmi local --remove-orphans
+	@docker builder prune -f --filter label=com.docker.compose.project=ted-sws-stack
+	@docker rmi tedsws/airflow:local 2>/dev/null || true
+
+start-local-stack-nodata: init-libraries
+	@echo "$(BUILD_PRINT)Building Airflow image $(END_BUILD_PRINT)"
+	@docker build -t tedsws/airflow:local $(STACK_PATH)/airflow
+	@echo "$(BUILD_PRINT)Starting TED-SWS local stack (no persistent data) $(END_BUILD_PRINT)"
+	@docker compose -f $(STACK_PATH)/docker-compose.yml -f $(STACK_PATH)/docker-compose.local.yml -f $(STACK_PATH)/docker-compose.local-nodata.yml --env-file $(STACK_PATH)/.env.local up -d $(SERVICES)
+
+start-staging-stack:
+	@echo "$(BUILD_PRINT)Starting TED-SWS staging stack $(END_BUILD_PRINT)"
+	@docker compose -f $(STACK_PATH)/docker-compose.yml -f $(STACK_PATH)/docker-compose.staging.yml --env-file $(STACK_PATH)/.env.staging up -d $(SERVICES)
+
+stop-staging-stack:
+	@echo "$(BUILD_PRINT)Stopping TED-SWS staging stack $(END_BUILD_PRINT)"
+	@docker compose -f $(STACK_PATH)/docker-compose.yml -f $(STACK_PATH)/docker-compose.staging.yml --env-file $(STACK_PATH)/.env.staging down
+
+start-testing-stack:
+	@echo "$(BUILD_PRINT)Starting TED-SWS testing stack (SRV) $(END_BUILD_PRINT)"
+	@docker compose -f $(STACK_PATH)/docker-compose.yml -f $(STACK_PATH)/docker-compose.testing.yml --env-file $(STACK_PATH)/.env.testing up -d $(SERVICES)
+
+stop-testing-stack:
+	@echo "$(BUILD_PRINT)Stopping TED-SWS testing stack (SRV) $(END_BUILD_PRINT)"
+	@docker compose -f $(STACK_PATH)/docker-compose.yml -f $(STACK_PATH)/docker-compose.testing.yml --env-file $(STACK_PATH)/.env.testing down
 
 #-----------------------------------------------------------------------------
 # VAULT SERVICES
@@ -247,7 +324,49 @@ vault-installed: #; @which vault1 > /dev/null
         echo -e "$(BUILD_PRINT)Vault is not installed, refer to https://www.vaultproject.io/downloads $(END_BUILD_PRINT)"; \
         exit 1; \
 	fi
-# Get secrets in dotenv format
+
+# Get secrets in dotenv format (unified stack - passwords only from Vault)
+# Non-secret app configs come from .env.common via env_file in compose overrides
+staging-unified-dotenv: guard-VAULT_ADDR guard-VAULT_TOKEN vault-installed
+	@ echo -e "$(BUILD_PRINT)Creating unified stack .env.staging from Vault $(END_BUILD_PRINT)"
+	@ VAULT_JSON=$$(vault kv get -format="json" ted-staging/ted-sws-deployment-secrets) && \
+	  MONGO_PW=$$(echo "$$VAULT_JSON" | jq -r '.data.data.MONGO_ROOT_PASSWORD') && \
+	  MINIO_PW=$$(echo "$$VAULT_JSON" | jq -r '.data.data.MINIO_ROOT_PASSWORD') && \
+	  { \
+	    echo "$$VAULT_JSON" | jq -r ".data.data | keys[] as \$$k | \"\(\$$k)=\(.[\$$k])\""; \
+	    echo "MONGO_DB_AUTH_URL=mongodb://admin:$$MONGO_PW@mongodb:27017/"; \
+	    echo "S3_PUBLISH_PASSWORD=$$MINIO_PW"; \
+	    echo "ENVIRONMENT=staging"; \
+	    echo "SUBDOMAIN=tedsws-staging."; \
+	    echo "DOMAIN=meaningfy.ws"; \
+	    echo "AIRFLOW_INFRA_FOLDER=/opt/tedsws"; \
+	    echo "AIRFLOW__CORE__PARALLELISM=32"; \
+	    echo "AIRFLOW__CORE__MAX_ACTIVE_TASKS_PER_DAG=16"; \
+	    echo "AIRFLOW__CORE__MAX_ACTIVE_RUNS_PER_DAG=16"; \
+	    echo "AIRFLOW__CELERY__WORKER_CONCURRENCY=16"; \
+	  } > $(STACK_PATH)/.env.staging
+
+# Get secrets in dotenv format (unified stack - testing/SRV environment)
+testing-unified-dotenv: guard-VAULT_ADDR guard-VAULT_TOKEN vault-installed
+	@ echo -e "$(BUILD_PRINT)Creating unified stack .env.testing from Vault $(END_BUILD_PRINT)"
+	@ VAULT_JSON=$$(vault kv get -format="json" ted-staging/ted-sws-deployment-secrets) && \
+	  MONGO_PW=$$(echo "$$VAULT_JSON" | jq -r '.data.data.MONGO_ROOT_PASSWORD') && \
+	  MINIO_PW=$$(echo "$$VAULT_JSON" | jq -r '.data.data.MINIO_ROOT_PASSWORD') && \
+	  { \
+	    echo "$$VAULT_JSON" | jq -r ".data.data | keys[] as \$$k | \"\(\$$k)=\(.[\$$k])\""; \
+	    echo "MONGO_DB_AUTH_URL=mongodb://admin:$$MONGO_PW@mongodb:27017/"; \
+	    echo "S3_PUBLISH_PASSWORD=$$MINIO_PW"; \
+	    echo "ENVIRONMENT=testing"; \
+	    echo "SUBDOMAIN=tedsws-testing."; \
+	    echo "DOMAIN=meaningfy.ws"; \
+	    echo "AIRFLOW_INFRA_FOLDER=/home/lps/work/ted-rdf-conversion-pipeline"; \
+	    echo "AIRFLOW__CORE__PARALLELISM=32"; \
+	    echo "AIRFLOW__CORE__MAX_ACTIVE_TASKS_PER_DAG=16"; \
+	    echo "AIRFLOW__CORE__MAX_ACTIVE_RUNS_PER_DAG=16"; \
+	    echo "AIRFLOW__CELERY__WORKER_CONCURRENCY=16"; \
+	  } > $(STACK_PATH)/.env.testing
+
+# Get secrets in dotenv format (old - pulls everything from multiple Vault paths)
 staging-dotenv-file: guard-VAULT_ADDR guard-VAULT_TOKEN vault-installed
 	@ echo -e "$(BUILD_PRINT)Creating .env.staging file $(END_BUILD_PRINT)"
 	@ echo VAULT_ADDR=${VAULT_ADDR} > .env
@@ -261,33 +380,21 @@ staging-dotenv-file: guard-VAULT_ADDR guard-VAULT_TOKEN vault-installed
 	@ echo AIRFLOW_WORKER_HOSTNAME=${HOSTNAME} >> .env
 	@ vault kv get -format="json" ted-staging/airflow | jq -r ".data.data | keys[] as \$$k | \"\(\$$k)=\(.[\$$k])\"" >> .env
 	@ vault kv get -format="json" ted-staging/mongo-db | jq -r ".data.data | keys[] as \$$k | \"\(\$$k)=\(.[\$$k])\"" >> .env
+	@ echo 'MONGO_DB_AUTH_URL=mongodb://$${MONGO_INITDB_ROOT_USERNAME}:$${MONGO_INITDB_ROOT_PASSWORD}@mongodb-staging:27017/' >> .env
 	@ vault kv get -format="json" ted-staging/metabase | jq -r ".data.data | keys[] as \$$k | \"\(\$$k)=\(.[\$$k])\"" >> .env
 	@ vault kv get -format="json" ted-staging/ted-sws | jq -r ".data.data | keys[] as \$$k | \"\(\$$k)=\(.[\$$k])\"" >> .env
-	@ vault kv get -format="json" ted-staging/agraph | jq -r ".data.data | keys[] as \$$k | \"\(\$$k)=\(.[\$$k])\"" >> .env
 	@ vault kv get -format="json" ted-staging/fuseki | jq -r ".data.data | keys[] as \$$k | \"\(\$$k)=\(.[\$$k])\"" >> .env
+	@ echo 'FUSEKI_ADMIN_HOST=http://fuseki-staging:3030' >> .env
 	@ vault kv get -format="json" ted-staging/github | jq -r ".data.data | keys[] as \$$k | \"\(\$$k)=\(.[\$$k])\"" >> .env
 	@ vault kv get -format="json" ted-staging/minio | jq -r ".data.data | keys[] as \$$k | \"\(\$$k)=\(.[\$$k])\"" >> .env
+	@ echo 'S3_PUBLISH_HOST=minio:9000' >> .env
+	@ echo 'SFTP_PUBLISH_HOST=sftp' >> .env
+	@ echo "# Concurrency limits for staging (4-core, 15GB VM)" >> .env
+	@ echo AIRFLOW__CORE__PARALLELISM=8 >> .env
+	@ echo AIRFLOW__CORE__MAX_ACTIVE_TASKS_PER_DAG=4 >> .env
+	@ echo AIRFLOW__CORE__MAX_ACTIVE_RUNS_PER_DAG=4 >> .env
+	@ echo AIRFLOW__CELERY__WORKER_CONCURRENCY=4 >> .env
 
-
-dev-dotenv-file: guard-VAULT_ADDR guard-VAULT_TOKEN vault-installed
-	@ echo -e "$(BUILD_PRINT)Create .env file $(END_BUILD_PRINT)"
-	@ echo VAULT_ADDR=${VAULT_ADDR} > .env
-	@ echo VAULT_TOKEN=${VAULT_TOKEN} >> .env
-	@ echo ENVIRONMENT=dev >> .env
-	@ echo SUBDOMAIN= >> .env
-	@ echo RML_MAPPER_PATH=${RML_MAPPER_PATH} >> .env
-	@ echo LIMES_ALIGNMENT_PATH=${LIMES_ALIGNMENT_PATH} >> .env
-	@ echo XML_PROCESSOR_PATH=${XML_PROCESSOR_PATH} >> .env
-	@ echo AIRFLOW_INFRA_FOLDER=${AIRFLOW_INFRA_FOLDER} >> .env
-	@ echo AIRFLOW_WORKER_HOSTNAME=${HOSTNAME} >> .env
-	@ vault kv get -format="json" ted-dev/airflow | jq -r ".data.data | keys[] as \$$k | \"\(\$$k)=\(.[\$$k])\"" >> .env
-	@ vault kv get -format="json" ted-dev/mongo-db | jq -r ".data.data | keys[] as \$$k | \"\(\$$k)=\(.[\$$k])\"" >> .env
-	@ vault kv get -format="json" ted-dev/metabase | jq -r ".data.data | keys[] as \$$k | \"\(\$$k)=\(.[\$$k])\"" >> .env
-	@ vault kv get -format="json" ted-dev/agraph | jq -r ".data.data | keys[] as \$$k | \"\(\$$k)=\(.[\$$k])\"" >> .env
-	@ vault kv get -format="json" ted-dev/fuseki | jq -r ".data.data | keys[] as \$$k | \"\(\$$k)=\(.[\$$k])\"" >> .env
-	@ vault kv get -format="json" ted-dev/ted-sws | jq -r ".data.data | keys[] as \$$k | \"\(\$$k)=\(.[\$$k])\"" >> .env
-	@ vault kv get -format="json" ted-dev/github | jq -r ".data.data | keys[] as \$$k | \"\(\$$k)=\(.[\$$k])\"" >> .env
-	@ vault kv get -format="json" ted-dev/minio | jq -r ".data.data | keys[] as \$$k | \"\(\$$k)=\(.[\$$k])\"" >> .env
 
 
 prod-dotenv-file: guard-VAULT_ADDR guard-VAULT_TOKEN vault-installed
@@ -305,7 +412,6 @@ prod-dotenv-file: guard-VAULT_ADDR guard-VAULT_TOKEN vault-installed
 	@ vault kv get -format="json" ted-prod/airflow | jq -r ".data.data | keys[] as \$$k | \"\(\$$k)=\(.[\$$k])\"" >> .env
 	@ vault kv get -format="json" ted-prod/mongo-db | jq -r ".data.data | keys[] as \$$k | \"\(\$$k)=\(.[\$$k])\"" >> .env
 	@ vault kv get -format="json" ted-prod/metabase | jq -r ".data.data | keys[] as \$$k | \"\(\$$k)=\(.[\$$k])\"" >> .env
-	@ vault kv get -format="json" ted-prod/agraph | jq -r ".data.data | keys[] as \$$k | \"\(\$$k)=\(.[\$$k])\"" >> .env
 	@ vault kv get -format="json" ted-prod/fuseki | jq -r ".data.data | keys[] as \$$k | \"\(\$$k)=\(.[\$$k])\"" >> .env
 	@ vault kv get -format="json" ted-prod/ted-sws | jq -r ".data.data | keys[] as \$$k | \"\(\$$k)=\(.[\$$k])\"" >> .env
 	@ vault kv get -format="json" ted-prod/github | jq -r ".data.data | keys[] as \$$k | \"\(\$$k)=\(.[\$$k])\"" >> .env
@@ -361,22 +467,22 @@ start-all-apis: start-digest_service-api
 stop-all-apis: stop-digest_service-api
 
 create-env-digest-api:
-	@ cp requirements.txt ./infra/digest_api/digest_service/project_requirements.txt
-	@ cp -r ted_sws ./infra/digest_api/
+	@ cp requirements.txt $(INFRA_FOLDER_PATH)/digest_api/digest_service/project_requirements.txt
+	@ cp -r $(SRC_PATH)/ted_sws $(INFRA_FOLDER_PATH)/digest_api/
 
 build-digest_service-api: create-env-digest-api
 	@ echo -e "$(BUILD_PRINT) Build digest_service API service $(END_BUILD_PRINT)"
-	@ docker-compose -p common --file infra/digest_api/docker-compose.yml --env-file ${ENV_FILE} build --no-cache --force-rm
-	@ rm -rf ./infra/digest_api/ted_sws || true
-	@ docker-compose -p common --file infra/digest_api/docker-compose.yml --env-file ${ENV_FILE} up -d --force-recreate
+	@ docker-compose -p common --file $(INFRA_FOLDER_PATH)/digest_api/docker-compose.yml --env-file ${ENV_FILE} build --no-cache --force-rm
+	@ rm -rf $(INFRA_FOLDER_PATH)/digest_api/ted_sws || true
+	@ docker-compose -p common --file $(INFRA_FOLDER_PATH)/digest_api/docker-compose.yml --env-file ${ENV_FILE} up -d --force-recreate
 
 start-digest_service-api:
 	@ echo -e "$(BUILD_PRINT)Starting digest_service API service $(END_BUILD_PRINT)"
-	@ docker-compose -p common --file infra/digest_api/docker-compose.yml --env-file ${ENV_FILE} up -d
+	@ docker-compose -p common --file $(INFRA_FOLDER_PATH)/digest_api/docker-compose.yml --env-file ${ENV_FILE} up -d
 
 stop-digest_service-api:
 	@ echo -e "$(BUILD_PRINT)Stopping digest_service API service $(END_BUILD_PRINT)"
-	@ docker-compose -p common --file infra/digest_api/docker-compose.yml --env-file ${ENV_FILE} down
+	@ docker-compose -p common --file $(INFRA_FOLDER_PATH)/digest_api/docker-compose.yml --env-file ${ENV_FILE} down
 
 
 dump-mongodb:
@@ -398,8 +504,9 @@ restore-mongodb:
 install-allure:
 	@ echo -e "Start install Allure commandline."
 	@ sudo apt -y install npm
-	@ sudo npm install -g allure-commandline
-	@ sudo pip install allure-combine
+	@ sudo npm install allure-commandline@2.9.0
+	#TODO: to be added in pyproject
+	@ pip install allure-combine==1.0.11
 
 install-mkcert:
 	@ mkdir -p .ssl && cd .ssl && rm -rf *
@@ -410,12 +517,12 @@ install-mkcert:
 	@ sudo apt install ca-certificates
 
 traefik-certs:
-	@ cd infra/traefik && mkdir -p certs && cd certs && sudo rm -rf *
+	@ cd $(INFRA_FOLDER_PATH)/traefik && mkdir -p certs && cd certs && sudo rm -rf *
 	@ CAROOT=${CAROOT} mkcert -install
 	@ echo -e "Generating 'minio' certificates ..." && echo ${CAROOT}
 	@ sudo echo $(mkcert -CAROOT)
-	@ cd infra/traefik/certs && mkcert minio.${SUBDOMAIN}${DOMAIN}
-	@ cd infra/traefik/certs && cat minio.${SUBDOMAIN}${DOMAIN}.pem > minio.${SUBDOMAIN}${DOMAIN}-fullchain.pem
-	@ cd infra/traefik/certs && cat ${CAROOT}/rootCA.pem >> minio.${SUBDOMAIN}${DOMAIN}-fullchain.pem
+	@ cd $(INFRA_FOLDER_PATH)/traefik/certs && mkcert minio.${SUBDOMAIN}${DOMAIN}
+	@ cd $(INFRA_FOLDER_PATH)/traefik/certs && cat minio.${SUBDOMAIN}${DOMAIN}.pem > minio.${SUBDOMAIN}${DOMAIN}-fullchain.pem
+	@ cd $(INFRA_FOLDER_PATH)/traefik/certs && cat ${CAROOT}/rootCA.pem >> minio.${SUBDOMAIN}${DOMAIN}-fullchain.pem
 	@ sudo rm -rf /usr/share/ca-certificates/minio.${SUBDOMAIN}${DOMAIN}*
-	@ sudo cp infra/traefik/certs/minio.${SUBDOMAIN}${DOMAIN}* /usr/share/ca-certificates
+	@ sudo cp $(INFRA_FOLDER_PATH)/traefik/certs/minio.${SUBDOMAIN}${DOMAIN}* /usr/share/ca-certificates

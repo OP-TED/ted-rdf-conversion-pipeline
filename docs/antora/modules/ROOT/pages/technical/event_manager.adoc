@@ -46,14 +46,14 @@ There are 4 types of Event Messages (_EventMessage_), used for specific events/p
 ====
 - _TechnicalEventMessage_ (for technical events/processes)
 - _NoticeEventMessage_ (for notice related events/processes)
-- _MappingSuiteEventMessage_ (for mapping suite related events/processes)
+- _MappingPackageEventMessage_ (for mapping suite related events/processes)
 - _EventMessage_ (for generic events/processes)
 ====
 Every _EventMessage_ type is logged (if MongoDBHandler is used) in separate collection:
 ====
 - _TechnicalEventMessage_ -> *technical_events*
 - _NoticeEventMessage_ -> *notice_events*
-- _MappingSuiteEventMessage_ -> *mapping_suite_events*
+- _MappingPackageEventMessage_ -> *mapping_suite_events*
 - _EventMessage_ -> *log_events*
 ====
 
@@ -82,9 +82,9 @@ execution duration) and will inject the event_logger into dag_context KEYWORD pa
 ====
 [source]
 ----
-from ted_sws.event_manager.adapters.event_log_decorator import event_log
-from ted_sws.event_manager.model.event_message import TechnicalEventMessage, NoticeEventMessage
-from ted_sws.event_manager.services.logger_from_context import get_logger_from_dag_context, handle_event_message_metadata_dag_context
+from src.ted_sws.event_manager.adapters.event_log_decorator import event_log
+from src.ted_sws.event_manager.model.event_message import TechnicalEventMessage, NoticeEventMessage
+from src.ted_sws.event_manager.services.logger_from_context import get_logger_from_dag_context, handle_event_message_metadata_dag_context
 
 @event_log(TechnicalEventMessage(title="LOG_MESSAGE_ABOUT_HOST_FUNCTION"))
 def host_function(**dag_context)
@@ -120,9 +120,9 @@ def host_function(**dag_context)
 
 [source]
 ----
-from ted_sws.event_manager.adapters.event_handler_config import EventHandlerConfig
-from ted_sws.event_manager.adapters.event_logger import EventLogger
-from ted_sws.event_manager.adapters.log import ConfigHandlerType
+from src.ted_sws.event_manager.adapters.event_handler_config import EventHandlerConfig
+from src.ted_sws.event_manager.adapters.event_logger import EventLogger
+from src.ted_sws.event_manager.adapters.log import ConfigHandlerType
 
 # Initialize a generic event_logger to be used anywhere:
 event_logger = EventLogger(EventHandlerConfig(config_handlers=ConfigHandlerType.ConsoleHandler.value))
@@ -136,7 +136,7 @@ All configuration options are described in source code.
 '''
 ==== Useful Logging services:
 ====
-from ted_sws.event_manager.services.logger_from_context
+from src.ted_sws.event_manager.services.logger_from_context
 ====
 [source]
 ----
@@ -173,7 +173,7 @@ def get_logger_from_dag_context(dag_context: dict) -> EventLogger:
     """
 ----
 ====
-from ted_sws.event_manager.services.log
+from src.ted_sws.event_manager.services.log
 ====
 [source]
 ----
@@ -279,7 +279,7 @@ def log_notice_warning(message: str, notice_id: str = None, name: str = None):
 
 def log_mapping_suite_info(message: str, mapping_suite_id: str = None, name: str = None):
     """
-    Logs INFO MappingSuiteEventMessage, using global (DAG) logger or a custom named one
+    Logs INFO MappingPackageEventMessage, using global (DAG) logger or a custom named one
     :param message:
     :param mapping_suite_id:
     :param name: Logger name (None to use the global logger)
@@ -288,7 +288,7 @@ def log_mapping_suite_info(message: str, mapping_suite_id: str = None, name: str
 
 def log_mapping_suite_error(message: str, mapping_suite_id: str = None, name: str = None):
     """
-    Logs ERROR MappingSuiteEventMessage, using global (DAG) logger or a custom named one
+    Logs ERROR MappingPackageEventMessage, using global (DAG) logger or a custom named one
     :param message:
     :param mapping_suite_id:
     :param name: Logger name (None to use the global logger)
@@ -297,7 +297,7 @@ def log_mapping_suite_error(message: str, mapping_suite_id: str = None, name: st
 
 def log_mapping_suite_debug(message: str, mapping_suite_id: str = None, name: str = None):
     """
-    Logs DEBUG MappingSuiteEventMessage, using global (DAG) logger or a custom named one
+    Logs DEBUG MappingPackageEventMessage, using global (DAG) logger or a custom named one
     :param message:
     :param mapping_suite_id:
     :param name: Logger name (None to use the global logger)
@@ -306,7 +306,7 @@ def log_mapping_suite_debug(message: str, mapping_suite_id: str = None, name: st
 
 def log_mapping_suite_warning(message: str, mapping_suite_id: str = None, name: str = None):
     """
-    Logs WARNING MappingSuiteEventMessage, using global (DAG) logger or a custom named one
+    Logs WARNING MappingPackageEventMessage, using global (DAG) logger or a custom named one
     :param message:
     :param mapping_suite_id:
     :param name: Logger name (None to use the global logger)
@@ -349,7 +349,7 @@ def log_cli_brief_error(message: str, name: str = None):
 
 ===== Logging decorators:
 ====
-from ted_sws.event_manager.adapters.event_log_decorator
+from src.ted_sws.event_manager.adapters.event_log_decorator
 ====
 [source]
 ----

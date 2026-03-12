@@ -62,7 +62,6 @@ class NoticeFileResource(FileResource):
 
 class MetadataConstraintsStandardForm(MappingPackageComponent):
     """Metadata constraints structure for Standard forms."""
-    # TODO: MSSDK must fix SF (v1) to have str in model even if data is int
     eforms_subtype: List[str]
     start_date: Optional[List[str]] = None
     end_date: Optional[List[str]] = None
@@ -170,7 +169,6 @@ class MappingPackage(MappingPackageComponent, MappingPackageV3):
     transformation_test_data: Optional[TransformationTestData] = Field(default=None)
     previous_version: Optional[str] = Field(default=None)
 
-    # TODO fix to be forwarded to MSSDK, remove when implemented there
     # Override large/optional collection assets in MSSDK model
     test_results: Optional[TestResultCollectionAsset] = Field(
         default=None,
@@ -206,7 +204,6 @@ class MappingPackage(MappingPackageComponent, MappingPackageV3):
         setattr(self, "_sync_done", True)
 
         # If MSSDK v3 fields are missing but legacy fields exist, populate from legacy
-        # FIXME: this is a transitional solution for code where the legacy file system package parsing is done
         if self.metadata is None:
             self._populate_mssdk_from_legacy()
 

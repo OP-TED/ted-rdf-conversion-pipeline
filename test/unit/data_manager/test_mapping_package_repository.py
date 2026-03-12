@@ -79,7 +79,7 @@ def test_mapping_package_repository_in_file_system(file_system_repository_path, 
     assert len(result_mapping_packages) == 2
     mapping_package_repository.clear_repository()
 
-# FIXME: during the transition to MSSDK the models for writing will be different, so do a very minimal test on specific fields
+# during the transition to MSSDK the models for writing will be different, so do a very minimal test on specific fields
 def test_inter_transactions_mapping_package_repositories(mongodb_client, file_system_repository_path, fake_mapping_package,
                                                        fake_mapping_package_identifier,
                                                        aggregates_database_name):

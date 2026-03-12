@@ -55,7 +55,6 @@ def mapping_package_processor_load_package_in_mongo_db(
         List of notice IDs that were loaded (if load_test_data=True)
     """
     # Update digest
-    # FIXME refactor for MSSDK transformation rule set structure
     update_digest_api_address_for_mapping_package(package)
 
     # Update git hash if provided and field exists
@@ -64,7 +63,6 @@ def mapping_package_processor_load_package_in_mongo_db(
     result_notice_ids = []
 
     # Load test data if requested
-    # FIXME refactor for MSSDK's two-level test data structure
     if load_test_data:
         tests_data = package.transformation_test_data.test_data
         notice_repository = NoticeRepository(mongodb_client=mongodb_client)
@@ -75,7 +73,7 @@ def mapping_package_processor_load_package_in_mongo_db(
             notice_repository.add(notice=notice)
             result_notice_ids.append(notice_id)
     mapping_package_repository_mongo_db = MappingPackageRepositoryMongoDB(mongodb_client=mongodb_client)
-    # FIXME: will throw pymongo.errors.DuplicateKeyError if package with same id exists
+    # will throw pymongo.errors.DuplicateKeyError if package with same id exists
     mapping_package_repository_mongo_db.add(package)
     return result_notice_ids
 
@@ -153,7 +151,6 @@ def load_mapping_suite_and_packages_from_github_to_mongo_db(mongodb_client: Mong
             log_technical_info(
                 message=f"Mapping package '{mssdk_package.id}' (format '{detected_version}' -> '{converted_version}') loaded from folder with success")
             mapping_package = _convert_to_mapping_package(mssdk_package)
-            # FIXME: MSSDK validation is currently done during loading, so we have to catch exceptions from there
             if mssdk_package:
                 log_mapping_package_info(
                     message=f"Mapping package with id={mapping_package.id} is valid for loading in MongoDB!",

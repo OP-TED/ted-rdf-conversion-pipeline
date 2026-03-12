@@ -12,7 +12,8 @@ def test_load_mapping_suite_and_packages_from_github_to_mongo_db(fake_mongodb_cl
     load_mapping_suite_and_packages_from_github_to_mongo_db(
         mapping_package_name=MAPPING_PACKAGE_NAME,
         mongodb_client=fake_mongodb_client,
-        load_test_data=True
+        load_test_data=True,
+        msconfig_branch="config"
     )
     mapping_package_repository = MappingPackageRepositoryMongoDB(mongodb_client=fake_mongodb_client)
     mapping_package = mapping_package_repository.get(reference=MAPPING_PACKAGE_ID)

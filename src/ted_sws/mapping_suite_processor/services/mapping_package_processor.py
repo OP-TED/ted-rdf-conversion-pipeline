@@ -12,7 +12,7 @@ from src.ted_sws.data_manager.adapters.mapping_package_repository import Mapping
 from src.ted_sws.data_manager.adapters.mapping_suite_repository import MappingSuiteRepositoryMongoDB
 from src.ted_sws.data_manager.adapters.notice_repository import NoticeRepository
 from src.ted_sws.event_manager.services.log import log_mapping_package_info, log_mapping_package_error, \
-    log_technical_info, log_technical_warning
+    log_technical_info
 from src.ted_sws.mapping_suite_processor.adapters.github_ms_project_downloader import GitHubMappingSuiteDownloader
 from src.ted_sws.mapping_suite_processor.services import MappingPackageProcessorServiceError
 from src.ted_sws.mapping_suite_processor.services.mapping_package_digest_service import \
@@ -88,7 +88,8 @@ def load_mapping_suite_and_packages_from_github_to_mongo_db(mongodb_client: Mong
                                                             mapping_package_name: str = None,
                                                             load_test_data: bool = False,
                                                             branch_or_tag_name: str = None,
-                                                            github_repository_url: str = None
+                                                            github_repository_url: str = None,
+                                                            msconfig_branch: str = None
                                                             ) -> List[str]:
     """
     This feature is intended to download a mapping project from GitHub and process it for upload to MongoDB.
@@ -97,6 +98,8 @@ def load_mapping_suite_and_packages_from_github_to_mongo_db(mongodb_client: Mong
     :param mapping_package_name:
     :param mongodb_client:
     :param load_test_data:
+    :param msconfig_branch: Optional branch to fetch the mapping suite config from.
+                           If not specified, the config is loaded from the same branch as the packages.
     :return:
     """
     branch_or_tag_name = branch_or_tag_name if branch_or_tag_name else DEFAULT_BRANCH_NAME
@@ -118,8 +121,15 @@ def load_mapping_suite_and_packages_from_github_to_mongo_db(mongodb_client: Mong
             message=f"Downloading mapping suite from GitHub repository '{github_repository_url}' on branch/tag '{branch_or_tag_name}'")
         git_last_commit_hash = mapping_package_downloader.download(output_project_path=tmp_dir_path)
 
-        # load project config if available
+        # If msconfig_branch is specified, download config from that branch (overwriting any existing config)
+        if msconfig_branch:
+            log_technical_info(
+                message=f"Fetching mapping suite config from separate branch '{msconfig_branch}'")
+            mapping_package_downloader.download_config_from_branch(
+                output_project_path=tmp_dir_path, config_branch=msconfig_branch)
+
         mapping_suite = None
+        # load project config - mandatory
         if ms_config_file_path.is_file():
             log_technical_info(message=f"Mapping suite config found at '{ms_config_file_path}'")
             mapping_suite = load_mapping_suite_from_folder(mapping_suite_folder_path=tmp_dir_path)
@@ -130,11 +140,13 @@ def load_mapping_suite_and_packages_from_github_to_mongo_db(mongodb_client: Mong
             log_technical_info(
                 message=f"Mapping suite config '{mapping_suite.id}' saved with success")
         elif ms_config_dir_path.is_dir():
-            log_technical_warning(
-                message=f"Mapping suite config directory found at '{ms_config_dir_path}' but MISSING config file '{ms_config_file_name}'")
+            error_msg = f"Mapping suite config directory found at '{ms_config_dir_path}' but MISSING config file '{ms_config_file_name}'"
+            log_mapping_package_error(message=error_msg, mapping_package_id=MAPPING_PACKAGE_UNKNOWN_ID)
+            raise MappingPackageProcessorServiceError(error_msg)
         else:
-            log_technical_warning(
-                message=f"No mapping suite config found at '{ms_config_dir_path}'")
+            error_msg = f"Mapping suite config is mandatory but not found at '{ms_config_dir_path}'"
+            log_mapping_package_error(message=error_msg, mapping_package_id=MAPPING_PACKAGE_UNKNOWN_ID)
+            raise MappingPackageProcessorServiceError(error_msg)
 
         # continue loading mapping packages
         mapping_package_paths = [

@@ -1,4 +1,5 @@
 import abc
+import json
 import pathlib
 import shutil
 import subprocess
@@ -56,8 +57,9 @@ class GitHubMappingSuiteDownloader(MappingSuiteDownloaderABC):
 
     def download_config_from_branch(self, output_project_path: pathlib.Path, config_branch: str) -> None:
         """
-        Downloads only the config directory from a specific branch and places it at output_project_path/config.
-        :param output_project_path: The destination path where the config directory will be placed
+        Downloads the config directory and all referenced resource files from a specific branch.
+        Parses the config file to determine which resource files need to be copied.
+        :param output_project_path: The destination path where the config and resources will be placed
         :param config_branch: The branch name to fetch the config from
         :return: None
         """
@@ -70,8 +72,37 @@ class GitHubMappingSuiteDownloader(MappingSuiteDownloaderABC):
             downloaded_tmp_project_path = temp_dir_path / self.repository_name
             source_config_path = downloaded_tmp_project_path / self.config_dir_name
             dest_config_path = output_project_path / self.config_dir_name
+
+            # Copy config directory
             if source_config_path.is_dir():
                 shutil.copytree(source_config_path, dest_config_path, dirs_exist_ok=True)
+                log_technical_info(message=f"Copied config directory from branch '{config_branch}'")
+
+                # Parse config to find resource file references
+                config_file_path = source_config_path / MS_CONFIG_FILE_NAME
+                if config_file_path.is_file():
+                    try:
+                        with open(config_file_path, 'r', encoding='utf-8') as f:
+                            config_data = json.load(f)
+
+                        resource_refs = config_data.get('resource_references', {})
+                        file_paths = resource_refs.get('file_paths', [])
+
+                        for file_path in file_paths:
+                            # file_path is absolute from repo root (e.g., "/src/normalisation/file.csv")
+                            relative_path = file_path.lstrip('/')
+                            source_file = downloaded_tmp_project_path / relative_path
+                            dest_file = output_project_path / relative_path
+
+                            if source_file.is_file():
+                                dest_file.parent.mkdir(parents=True, exist_ok=True)
+                                shutil.copy2(source_file, dest_file)
+                                log_technical_info(message=f"Copied resource file '{relative_path}' from branch '{config_branch}'")
+                            else:
+                                log_technical_info(message=f"Resource file '{relative_path}' not found in branch '{config_branch}'")
+
+                    except (json.JSONDecodeError, KeyError) as e:
+                        log_technical_info(message=f"Could not parse resource references from config: {e}")
 
     def download(self, output_project_path: pathlib.Path) -> str:
         """
